@@ -1,0 +1,20 @@
+{
+    "name": "Game.ActiveSkill",
+    "rootNamespace": "Game.ActiveSkill",
+    "references": [
+        "Game.Content",
+        "Game.Character",
+        "Game.Enemy",
+        "Game.Run",
+        "Game.Movement"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

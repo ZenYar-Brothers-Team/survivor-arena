@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 557252964}
   - component: {fileID: 557252963}
   - component: {fileID: 557252962}
+  - component: {fileID: 557252968}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -480,6 +481,27 @@ MonoBehaviour:
   baseHealthRestorationMultiplier: 1
   baseHealthRegenerationPerSecond: 0
   baseDisappearingXpRecovery: 0
+--- !u!114 &557252968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1965fc5af1d3444c9e5b2bc842d5f631, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.ActiveSkill::Game.ActiveSkill.PlayerActiveSkillRuntime
+  owner: {fileID: 557252963}
+  runController: {fileID: 2071511763}
+  fixtureContentId: FIXTURE-SKILL-BOLT
+  fixtureBaseDamage: 5
+  fixtureCooldownSeconds: 0.75
+  fixtureProjectileSpeed: 10
+  fixtureProjectileLifetimeSeconds: 2
+  fixtureProjectileCollisionRadius: 0.15
+  fixtureImpactAreaRadius: 0.5
 --- !u!212 &557252964
 SpriteRenderer:
   serializedVersion: 3

@@ -2,8 +2,8 @@
 
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
-Last repository audit: 2026-09-13  
-Current next module: IP-05
+Last repository audit: 2026-09-14
+Current next module: IP-06
 
 ## Foundation and playable core
 
@@ -61,16 +61,19 @@ Documentation impact: Game Design, Content Design enemy schema, IP-04 scope/chec
 
 ### IP-05 — Active skill runtime и player damage pipeline
 
-Status: Ready
+Status: Verified
 
-Implementation evidence: —
+Implementation evidence: `Assets/Game/ActiveSkill/` — content-compatible definition, automatic cooldown/target runtime, nearest-target hook, projectile and AoE primitives; `Assets/Game/Enemy/Model/IEnemyDamageReceiver.cs` and `EnemyDamageRequest.cs` — единый контракт урона врагам; `Assets/Scenes/Gameplay.unity` — configured `FIXTURE-SKILL-BOLT` на Player.
 
-Verification evidence: —
+Verification evidence: Unity 6000.6.0f1 EditMode, 81/81 tests passed on 2026-09-14; 20 IP-05 tests покрывают definition/registry, cooldown и projectile lifetime, nearest-target hook, automatic trigger без attack input, character damage/cooldown multipliers, projectile hit/kill через enemy damage contract, AoE без повторного урона одной цели, pause/end и Gameplay scene wiring.
+
+Deviations: none recorded; scene использует только `FIXTURE-SKILL-BOLT`, SKILL-001…015 не реализовывались как production content.
+
+Documentation impact: Game Design, Content Design и IP-05 scope не изменились; execution status и readiness зависимых модулей синхронизированы.
 
 ### IP-06 — XP drops, pickup, expiry и level progression
 
-Status: Blocked  
-Blocked by: IP-05.
+Status: Ready
 
 Implementation evidence: —  
 Verification evidence: —
@@ -87,7 +90,7 @@ Verification evidence: —
 ### IP-08 — Active-skill progression и pattern framework
 
 Status: Blocked  
-Blocked by: IP-05, IP-07.
+Blocked by: IP-07.
 
 ### IP-09 — Passive modifier framework
 

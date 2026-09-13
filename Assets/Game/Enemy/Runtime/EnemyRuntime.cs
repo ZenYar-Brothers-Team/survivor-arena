@@ -10,7 +10,7 @@ namespace Game.Enemy
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(SpriteRenderer))]
-    public sealed class EnemyRuntime : MonoBehaviour
+    public sealed class EnemyRuntime : MonoBehaviour, IEnemyDamageReceiver
     {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
@@ -24,6 +24,8 @@ namespace Game.Enemy
 
         public EnemyDefinition Definition { get; private set; }
         public EnemyHealth Health { get; private set; }
+        public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
+        public Vector2 Position => transform.position;
 
         public event Action<EnemyRuntime> Died;
         public event Action<EnemyRuntime> Despawned;
@@ -111,6 +113,14 @@ namespace Game.Enemy
                 throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
 
             return Health.TakeDamage(amount);
+        }
+
+        public float ApplyDamage(EnemyDamageRequest request)
+        {
+            if (!_initialized)
+                throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
+
+            return Health.TakeDamage(request.Amount);
         }
 
         public void Despawn()
