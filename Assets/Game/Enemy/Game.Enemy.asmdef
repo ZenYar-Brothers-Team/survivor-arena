@@ -1,0 +1,19 @@
+{
+    "name": "Game.Enemy",
+    "rootNamespace": "Game.Enemy",
+    "references": [
+        "Game.Content",
+        "Game.Character",
+        "Game.Run",
+        "Game.Movement"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

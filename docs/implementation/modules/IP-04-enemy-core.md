@@ -12,7 +12,7 @@ IP-02, IP-03.
 
 ## Scope
 
-Enemy definition/runtime; HP; size/collision; speed; spawn/despawn; базовый seek-player movement; contact damage; death event; простой continuous fixture spawner.
+Enemy definition/runtime; HP; size/collision; speed; spawn/despawn; базовый seek-player movement; contact damage при входе в контакт и повторными тиками через configured interval; death event; простой continuous fixture spawner.
 
 ## Context
 
@@ -21,11 +21,11 @@ Enemy definition/runtime; HP; size/collision; speed; spawn/despawn; базовы
 
 ## Acceptance criteria
 
-Enemy создаётся из definition; двигается; contact hit повреждает игрока; enemy death корректно фиксируется; pause/end останавливает spawn/simulation.
+Enemy создаётся из definition; двигается; contact hit сразу повреждает игрока и повторяется по configured interval, поэтому долгий контакт с наносящим урон врагом может убить персонажа; enemy death корректно фиксируется; pause/end останавливает spawn/simulation/contact ticks.
 
 ## Проверки
 
-Lifecycle, contact damage, despawn, pause.
+Lifecycle, immediate/repeated contact damage, sustained-contact death, despawn, pause.
 
 ## Out of scope
 
