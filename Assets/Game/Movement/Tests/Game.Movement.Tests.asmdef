@@ -1,0 +1,26 @@
+{
+    "name": "Game.Movement.Tests",
+    "rootNamespace": "Game.Movement.Tests",
+    "references": [
+        "Game.Movement",
+        "Game.Run",
+        "Unity.InputSystem",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
