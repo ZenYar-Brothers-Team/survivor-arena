@@ -8,11 +8,13 @@ namespace Game.Content
 
         public ContentId(string value)
         {
-            if (string.IsNullOrEmpty(value))
-                throw new ArgumentException("Content id cannot be null or empty.", nameof(value));
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Content id cannot be null, empty, or whitespace.", nameof(value));
 
             _value = value;
         }
+
+        public bool IsValid => !string.IsNullOrWhiteSpace(_value);
 
         public static implicit operator ContentId(string value) => new ContentId(value);
 

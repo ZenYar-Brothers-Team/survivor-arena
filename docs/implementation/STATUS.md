@@ -9,27 +9,27 @@ Current next module: IP-03
 
 ### IP-00 — Контракт контента, стабильные ID и конфигурация
 
-Status: Implemented  
-Implementation evidence: commit `bb726e6`; `Assets/Game/Content/Model/ContentRegistry.cs` и связанные content contracts.  
-Verification evidence: `Assets/Game/Content/Tests/ContentRegistryTests.cs` существует; в рамках миграции документации Unity Test Runner не запускался.  
+Status: Verified  
+Implementation evidence: commit `bb726e6`; `Assets/Game/Content/Model/ContentRegistry.cs`, `ContentId.cs` и связанные content contracts.  
+Verification evidence: Unity 6000.6.0f1 EditMode, 29/29 tests passed on 2026-09-13; `ContentRegistryTests.cs` покрывает duplicate/missing/wrong-type/invalid IDs, invalid definitions/references, обязательный Build и загрузку configured fixture set.  
 Deviations: none recorded.  
-Documentation impact: status synchronized with repository history.
+Documentation impact: Game Design и Content Design не затронуты; verification status synchronized.
 
 ### IP-01 — Run lifecycle, таймер, pause и завершение
 
-Status: Implemented  
+Status: Verified  
 Implementation evidence: commit `bb726e6`; `Assets/Game/Run/Model/RunModel.cs` и `RunController.cs`.  
-Verification evidence: `Assets/Game/Run/Tests/RunModelTests.cs` существует; в рамках миграции документации Unity Test Runner не запускался.  
+Verification evidence: Unity 6000.6.0f1 EditMode, 29/29 tests passed on 2026-09-13; все 7 `RunModelTests.cs` passed.  
 Deviations: none recorded.  
-Documentation impact: status synchronized with repository history.
+Documentation impact: Game Design и Content Design не затронуты; verification status synchronized.
 
 ### IP-02 — Перемещение игрока и базовая геометрия поля
 
-Status: Implemented  
+Status: Verified  
 Implementation evidence: commit `9223059`; `Assets/Game/Movement/` и `Assets/Scenes/Gameplay.unity`.  
-Verification evidence: movement/collision tests существуют; в рамках миграции документации Unity Test Runner не запускался.  
+Verification evidence: Unity 6000.6.0f1 EditMode, 29/29 tests passed on 2026-09-13; movement calculation, speed changes, pause, collision и `Gameplay` scene wiring/bounds проверены.  
 Deviations: none recorded.  
-Documentation impact: status synchronized with repository history.
+Documentation impact: Game Design и Content Design не затронуты; verification status synchronized.
 
 ### IP-03 — Character stats, HP, damage, healing и regeneration
 
