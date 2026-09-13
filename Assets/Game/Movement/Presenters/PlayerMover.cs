@@ -30,7 +30,8 @@ namespace Game.Movement
 
             var spriteRenderer = GetComponent<SpriteRenderer>();
             if (spriteRenderer.sprite == null)
-                spriteRenderer.sprite = CreatePlaceholderSprite();
+                spriteRenderer.sprite = PlaceholderSprite.Shared;
+            spriteRenderer.color = Color.cyan;
         }
 
         private void OnEnable()
@@ -50,14 +51,6 @@ namespace Game.Movement
             var speed = _speedSource != null ? _speedSource.MovementSpeed : 0f;
 
             _rigidbody.linearVelocity = MovementVelocityCalculator.Calculate(rawInput, speed, isRunning);
-        }
-
-        private static Sprite CreatePlaceholderSprite()
-        {
-            var texture = new Texture2D(1, 1);
-            texture.SetPixel(0, 0, Color.white);
-            texture.Apply();
-            return Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1f);
         }
     }
 }
