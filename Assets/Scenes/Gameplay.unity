@@ -468,10 +468,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 557252961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62e7c2c862130c48a026c8940096ef3, type: 3}
+  m_Script: {fileID: 11500000, guid: f5481c8739784792a470349aad5dfccd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game.Movement::Game.Movement.FixedMovementSpeedSource
-  speed: 3
+  m_EditorClassIdentifier: Game.Character::Game.Character.PlayerCharacterRuntime
+  runController: {fileID: 2071511763}
+  baseMaxHealth: 100
+  baseMovementSpeed: 3
+  baseActiveSkillDamageMultiplier: 1
+  baseActiveSkillCooldownMultiplier: 1
+  baseIncomingDamageMultiplier: 1
+  baseHealthRestorationMultiplier: 1
+  baseHealthRegenerationPerSecond: 0
+  baseDisappearingXpRecovery: 0
 --- !u!212 &557252964
 SpriteRenderer:
   serializedVersion: 3

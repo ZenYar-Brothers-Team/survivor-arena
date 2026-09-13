@@ -1,0 +1,17 @@
+{
+    "name": "Game.Character",
+    "rootNamespace": "Game.Character",
+    "references": [
+        "Game.Run",
+        "Game.Movement"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

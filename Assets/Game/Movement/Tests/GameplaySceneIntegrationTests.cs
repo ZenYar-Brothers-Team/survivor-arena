@@ -21,7 +21,7 @@ namespace Game.Movement.Tests
         {
             var player = RequireObject("Player");
             var mover = player.GetComponent<PlayerMover>();
-            var speedSource = player.GetComponent<FixedMovementSpeedSource>();
+            var speedSource = player.GetComponent<IMovementSpeedSource>();
             var body = player.GetComponent<Rigidbody2D>();
             var collider = player.GetComponent<BoxCollider2D>();
 

@@ -3,7 +3,7 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-13  
-Current next module: IP-03
+Current next module: IP-04
 
 ## Foundation and playable core
 
@@ -37,16 +37,20 @@ Documentation impact: Game Design и IP-02 синхронизированы; Con
 
 ### IP-03 — Character stats, HP, damage, healing и regeneration
 
-Status: Ready  
-Implementation evidence: —  
-Verification evidence: —  
-Deviations: —  
-Documentation impact: —
+Status: Verified
+
+Implementation evidence: `Assets/Game/Character/` — base/modifier stat model, health model, death-to-run binding и `PlayerCharacterRuntime`; `Assets/Scenes/Gameplay.unity` — runtime подключён к Player как movement speed source.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 43/43 tests passed on 2026-09-13; 13 IP-03 tests покрывают damage, capped heal, regeneration и pause, death-to-lost, base + keyed modifiers без double counting, stat clamps/removal и Gameplay scene wiring.
+
+Deviations: none recorded; CHAR-001…010 и PASSIVE-001…010 не реализовывались как production content.
+
+Documentation impact: Game Design, Content Design и IP-03 scope не изменились; execution status и readiness зависимых модулей синхронизированы.
 
 ### IP-04 — Enemy core
 
-Status: Blocked  
-Blocked by: IP-03.  
+Status: Ready
+
 Implementation evidence: —  
 Verification evidence: —
 
