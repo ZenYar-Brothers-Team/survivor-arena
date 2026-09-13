@@ -70,6 +70,37 @@ namespace Game.Movement.Tests
             Assert.AreEqual(RunModel.DefaultDurationSeconds, duration);
         }
 
+        [Test]
+        public void Camera_FollowsPlayerAtViewportCenterAndPreservesDepth()
+        {
+            var player = RequireObject("Player");
+            var cameraObject = RequireObject("Main Camera");
+            var camera = cameraObject.GetComponent<Camera>();
+            var follower = cameraObject.GetComponent<CameraFollowTarget>();
+            var originalPlayerPosition = player.transform.position;
+            var originalCameraPosition = cameraObject.transform.position;
+
+            Assert.IsNotNull(camera);
+            Assert.IsNotNull(follower);
+            Assert.AreSame(player.transform, follower.Target);
+
+            try
+            {
+                player.transform.position = new Vector3(4.25f, -3.5f, originalPlayerPosition.z);
+                follower.CenterOnTarget();
+
+                var viewportPosition = camera.WorldToViewportPoint(player.transform.position);
+                Assert.AreEqual(0.5f, viewportPosition.x, 0.0001f);
+                Assert.AreEqual(0.5f, viewportPosition.y, 0.0001f);
+                Assert.AreEqual(originalCameraPosition.z, cameraObject.transform.position.z, 0.0001f);
+            }
+            finally
+            {
+                player.transform.position = originalPlayerPosition;
+                cameraObject.transform.position = originalCameraPosition;
+            }
+        }
+
         private static GameObject RequireObject(string name)
         {
             var gameObject = GameObject.Find(name);

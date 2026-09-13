@@ -25,11 +25,15 @@ Documentation impact: Game Design и Content Design не затронуты; ver
 
 ### IP-02 — Перемещение игрока и базовая геометрия поля
 
-Status: Verified  
-Implementation evidence: commit `9223059`; `Assets/Game/Movement/` и `Assets/Scenes/Gameplay.unity`.  
-Verification evidence: Unity 6000.6.0f1 EditMode, 29/29 tests passed on 2026-09-13; movement calculation, speed changes, pause, collision и `Gameplay` scene wiring/bounds проверены.  
-Deviations: none recorded.  
-Documentation impact: Game Design и Content Design не затронуты; verification status synchronized.
+Status: Verified
+
+Implementation evidence: commit `9223059`; `Assets/Game/Movement/Presenters/CameraFollowTarget.cs` и `Assets/Scenes/Gameplay.unity`.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 30/30 tests passed on 2026-09-13; `Camera_FollowsPlayerAtViewportCenterAndPreservesDepth` проверяет wiring, центр viewport после смещения Player и сохранение camera depth.
+
+Deviations: [DECISION-0001](../decisions/0001-player-centered-camera.md) — утверждено правило центрирования камеры.
+
+Documentation impact: Game Design и IP-02 синхронизированы; Content Design не затронут, так как изменение не содержит content entities или balance-data.
 
 ### IP-03 — Character stats, HP, damage, healing и regeneration
 

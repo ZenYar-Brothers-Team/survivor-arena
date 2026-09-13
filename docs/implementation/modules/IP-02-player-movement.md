@@ -4,7 +4,7 @@
 
 ## Цель
 
-Игрок управляет только перемещением персонажа и взаимодействует с коллизией окружения.
+Игрок управляет только перемещением персонажа, взаимодействует с коллизией окружения и при движении остаётся в центре экрана.
 
 ## Зависимости
 
@@ -12,7 +12,7 @@ IP-01.
 
 ## Scope
 
-Movement input; movement speed stat hook; spawn point; field bounds; obstacle collision; pause integration.
+Movement input; movement speed stat hook; spawn point; field bounds; obstacle collision; pause integration; camera follow без задержки и screen-space offset.
 
 ## Context
 
@@ -21,11 +21,11 @@ Movement input; movement speed stat hook; spawn point; field bounds; obstacle co
 
 ## Acceptance criteria
 
-Движение работает во всех направлениях; configured obstacles блокируют проход; speed задаётся data/stat; pause останавливает движение.
+Движение работает во всех направлениях; configured obstacles блокируют проход; speed задаётся data/stat; pause останавливает движение; камера сохраняет depth и удерживает world position персонажа в центре viewport при его перемещении.
 
 ## Проверки
 
-Input, collision, speed modifier, pause.
+Input, collision, speed modifier, pause, camera follow wiring, viewport center after player displacement.
 
 ## Out of scope
 
