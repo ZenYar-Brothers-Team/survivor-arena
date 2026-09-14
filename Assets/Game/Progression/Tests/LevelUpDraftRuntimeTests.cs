@@ -37,10 +37,14 @@ namespace Game.Progression.Tests
                 {
                     starting,
                     Passive("FIXTURE-PASSIVE-ONE"),
-                    Active("FIXTURE-ACTIVE-TWO")
+                    Active("FIXTURE-ACTIVE-TWO"),
+                    Passive("FIXTURE-PASSIVE-TWO")
                 },
                 starting,
-                offerCount: 3);
+                offerCount: 3,
+                draftRandom: new SeededDraftRandom(123),
+                initialRerolls: 2,
+                initialBanishes: 2);
         }
 
         [TearDown]
@@ -93,6 +97,95 @@ namespace Game.Progression.Tests
             Assert.IsTrue(_draftRuntime.Select(_draftRuntime.CurrentDraft.Options[0].Definition.Id));
             Assert.AreEqual(0, _draftRuntime.PendingDraftCount);
             Assert.AreEqual(RunState.Running, _runController.Model.State);
+        }
+
+        [Test]
+        public void Reroll_ReplacesOpenDraftAndStopsAtConfiguredCounter()
+        {
+            _experience.AddPickedUpExperience(5f);
+            var firstSession = _draftRuntime.CurrentDraft;
+            var firstIds = new System.Collections.Generic.HashSet<Game.Content.ContentId>();
+            foreach (var option in firstSession.Options)
+                firstIds.Add(option.Definition.Id);
+
+            Assert.IsTrue(_draftRuntime.Reroll());
+            Assert.AreNotSame(firstSession, _draftRuntime.CurrentDraft);
+            var changed = false;
+            foreach (var option in _draftRuntime.CurrentDraft.Options)
+                changed |= !firstIds.Contains(option.Definition.Id);
+            Assert.IsTrue(changed, "Reroll must change the offer set when an eligible alternative exists.");
+            Assert.AreEqual(1, _draftRuntime.RemainingRerolls);
+            Assert.IsTrue(_draftRuntime.IsDraftOpen);
+            Assert.AreEqual(RunState.Paused, _runController.Model.State);
+
+            Assert.IsTrue(_draftRuntime.Reroll());
+            Assert.IsFalse(_draftRuntime.Reroll());
+            Assert.AreEqual(0, _draftRuntime.RemainingRerolls);
+        }
+
+        [Test]
+        public void Banish_RemovesOfferedEntryWithoutClosingDraftAndPersistsForRun()
+        {
+            _experience.AddPickedUpExperience(5f);
+            var banishedId = _draftRuntime.CurrentDraft.Options[0].Definition.Id;
+
+            Assert.IsTrue(_draftRuntime.Banish(banishedId));
+            Assert.IsTrue(_draftRuntime.Controls.IsBanished(banishedId));
+            Assert.AreEqual(1, _draftRuntime.RemainingBanishes);
+            Assert.IsTrue(_draftRuntime.IsDraftOpen);
+            Assert.AreEqual(RunState.Paused, _runController.Model.State);
+            foreach (var option in _draftRuntime.CurrentDraft.Options)
+                Assert.AreNotEqual(banishedId, option.Definition.Id);
+
+            Assert.IsFalse(_draftRuntime.Banish("FIXTURE-NOT-OFFERED"));
+            Assert.AreEqual(1, _draftRuntime.RemainingBanishes);
+        }
+
+        [Test]
+        public void Controls_ResetOnlyAfterPendingDraftIsResolved()
+        {
+            _experience.AddPickedUpExperience(5f);
+            Assert.IsTrue(_draftRuntime.Reroll());
+            Assert.Throws<System.InvalidOperationException>(() => _draftRuntime.ResetControlsForNewRun());
+
+            Assert.IsTrue(_draftRuntime.Select(_draftRuntime.CurrentDraft.Options[0].Definition.Id));
+            _draftRuntime.ResetControlsForNewRun();
+
+            Assert.AreEqual(2, _draftRuntime.RemainingRerolls);
+            Assert.AreEqual(2, _draftRuntime.RemainingBanishes);
+        }
+
+        [Test]
+        public void BanishingLastEligibleEntry_ResolvesDraftWithoutPermanentPause()
+        {
+            var isolatedPlayer = new GameObject("Isolated Player");
+            try
+            {
+                var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
+                InvokeAwake(character);
+                var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
+                experience.ConfigureForTests(character, _runController, 1f);
+                var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
+                var onlyEntry = Active("FIXTURE-ONLY-ENTRY");
+                draft.Initialize(
+                    experience,
+                    _runController,
+                    new[] { onlyEntry },
+                    onlyEntry,
+                    offerCount: 3,
+                    initialBanishes: 1);
+
+                experience.AddPickedUpExperience(1f);
+                Assert.IsTrue(draft.Banish(onlyEntry.Id));
+
+                Assert.IsFalse(draft.IsDraftOpen);
+                Assert.AreEqual(0, draft.PendingDraftCount);
+                Assert.AreEqual(RunState.Running, _runController.Model.State);
+            }
+            finally
+            {
+                Object.DestroyImmediate(isolatedPlayer);
+            }
         }
 
         private static BuildEntryDefinition Active(string id)

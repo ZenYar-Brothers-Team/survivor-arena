@@ -3,9 +3,9 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-14
-Current next module: IP-10
+Current next module: IP-11
 
-Cross-cutting verification: Unity 6000.6.0f1 EditMode 121/121 and PlayMode 1/1 passed on 2026-09-14. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md).
+Cross-cutting verification: Unity 6000.6.0f1 EditMode 128/128 and PlayMode 1/1 passed on 2026-09-14. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md).
 
 ## Foundation and playable core
 
@@ -125,9 +125,15 @@ Documentation impact: Game Design, Content Design, IP-09 and direct dependant re
 
 ### IP-10 — Reroll и banish
 
-Status: Ready
+Status: Verified
 
-Exact counts and recovery rules remain CG-04 balance TBD and must stay configurable.
+Implementation evidence: `DraftRunControls.cs` owns configurable run-local counters and banished stable IDs; `DraftPool.cs` filters banished entries and guarantees a changed reroll offer set when an alternative exists; `LevelUpDraftRuntime.cs` validates actions, rebuilds the open draft and exposes fixture IMGUI controls; `GameplayCompositionRoot.cs` supplies serialized fixture counts.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 128/128 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes repeated rerolls, alternative offers, invalid and exhausted actions, persistent banish filtering, reset, last-option exhaustion, scene configuration and the live level-up flow.
+
+Deviations: exact counts and recovery remain CG-04 balance TBD; the scene values of 2 rerolls and 2 banishes are explicitly non-production fixture configuration.
+
+Documentation impact: Game Design already defined reroll/banish behavior and remains unchanged; IP-10 edge behavior and checks were clarified; Content Design is unaffected; IP-26 dependency readiness was synchronized.
 
 ### IP-11 — Set framework
 
@@ -214,7 +220,7 @@ Blocked by: IP-12, IP-16; production economy remains CG-03 gated.
 ### IP-26 — Functional UI и полный player flow
 
 Status: Blocked  
-Blocked by: IP-10, IP-16, IP-25.
+Blocked by: IP-16, IP-25.
 
 ### IP-27 — End-to-end integration
 

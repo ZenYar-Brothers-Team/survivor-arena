@@ -25,6 +25,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(root);
             Assert.IsTrue(root.IsInitialized);
             Assert.AreEqual(RunState.Running, run.Model.State);
+            Assert.AreEqual(2, draft.RemainingRerolls);
+            Assert.AreEqual(2, draft.RemainingBanishes);
 
             experience.AddPickedUpExperience(5f);
             Assert.IsTrue(draft.IsDraftOpen);
@@ -42,6 +44,18 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsFalse(draft.IsDraftOpen);
             Assert.AreEqual(RunState.Running, run.Model.State);
             Assert.AreEqual(1, Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount);
+
+            experience.AddPickedUpExperience(10f);
+            Assert.IsTrue(draft.IsDraftOpen);
+            Assert.IsTrue(draft.Reroll());
+            Assert.AreEqual(1, draft.RemainingRerolls);
+            var banishedId = draft.CurrentDraft.Options[0].Definition.Id;
+            Assert.IsTrue(draft.Banish(banishedId));
+            Assert.AreEqual(1, draft.RemainingBanishes);
+            foreach (var option in draft.CurrentDraft.Options)
+                Assert.AreNotEqual(banishedId, option.Definition.Id);
+            Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
+            Assert.AreEqual(RunState.Running, run.Model.State);
         }
     }
 }

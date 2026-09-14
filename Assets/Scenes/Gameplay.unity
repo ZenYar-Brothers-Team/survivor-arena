@@ -1230,6 +1230,8 @@ MonoBehaviour:
   startingActiveId: FIXTURE-SKILL-BOLT
   draftOfferCount: 3
   draftSeed: 12345
+  fixtureInitialRerolls: 2
+  fixtureInitialBanishes: 2
 --- !u!1 &314159260
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ IP-07.
 
 ## Scope
 
-Reroll current offers; banish entry for current run; run-local counters; eligibility integration; reset on new run.
+Reroll current offers; banish an offered entry for the current run and immediately rebuild the open draft; run-local configurable counters; eligibility integration; reset on new run. Invalid actions do not consume counters. If banish exhausts all eligible entries, the pending draft resolves without leaving the run permanently paused.
 
 ## Context
 
@@ -21,11 +21,11 @@ Reroll current offers; banish entry for current run; run-local counters; eligibi
 
 ## Acceptance criteria
 
-Reroll выдаёт новый valid draft; banished entry не возвращается в run; counters работают; новый run reset.
+Reroll выдаёт новый valid draft и меняет состав предложений, когда в eligible pool существует альтернатива; banished entry не возвращается в run; exhausted counters reject actions without changing the draft; новый run reset.
 
 ## Проверки
 
-Repeated drafts, exhausted counter, reset.
+Repeated drafts, alternative offer set, banish persistence, invalid/exhausted counter, no-options resolution, reset.
 
 ## Out of scope
 

@@ -29,6 +29,8 @@ namespace Game.Bootstrap.Tests
             Assert.IsInstanceOf<ContinuousFixtureEnemySpawner>(serialized.FindProperty("enemySpawner").objectReferenceValue);
             StringAssert.StartsWith("FIXTURE-", serialized.FindProperty("startingActiveId").stringValue);
             Assert.Greater(serialized.FindProperty("draftOfferCount").intValue, 0);
+            Assert.Greater(serialized.FindProperty("fixtureInitialRerolls").intValue, 0);
+            Assert.Greater(serialized.FindProperty("fixtureInitialBanishes").intValue, 0);
         }
     }
 }

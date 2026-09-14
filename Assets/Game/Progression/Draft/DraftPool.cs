@@ -60,10 +60,19 @@ namespace Game.Progression
 
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, IDraftRandom random)
         {
+            return CreateOptions(build, offerCount, random, null);
+        }
+
+        public IReadOnlyList<DraftOption> CreateOptions(
+            PlayerBuild build,
+            int offerCount,
+            IDraftRandom random,
+            IReadOnlyCollection<ContentId> banishedIds)
+        {
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
-            var eligible = CreateEligibleOptions(build, offerCount);
+            var eligible = CreateEligibleOptions(build, offerCount, banishedIds);
             if (eligible.Count <= offerCount)
                 return eligible;
 
@@ -75,7 +84,54 @@ namespace Game.Progression
             return eligible.GetRange(0, offerCount);
         }
 
-        private List<DraftOption> CreateEligibleOptions(PlayerBuild build, int offerCount)
+        public IReadOnlyList<DraftOption> CreateRerolledOptions(
+            PlayerBuild build,
+            int offerCount,
+            IDraftRandom random,
+            IReadOnlyCollection<ContentId> banishedIds,
+            IReadOnlyList<DraftOption> currentOptions)
+        {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
+            if (currentOptions == null)
+                throw new ArgumentNullException(nameof(currentOptions));
+
+            var eligible = CreateEligibleOptions(build, offerCount, banishedIds);
+            if (eligible.Count <= offerCount)
+                return eligible;
+
+            for (var i = 0; i < offerCount; i++)
+            {
+                var selectedIndex = i + random.NextInt(eligible.Count - i);
+                (eligible[i], eligible[selectedIndex]) = (eligible[selectedIndex], eligible[i]);
+            }
+
+            var currentIds = new HashSet<ContentId>();
+            for (var i = 0; i < currentOptions.Count; i++)
+                currentIds.Add(currentOptions[i].Definition.Id);
+
+            var sameSet = currentOptions.Count == offerCount;
+            for (var i = 0; sameSet && i < offerCount; i++)
+                sameSet = currentIds.Contains(eligible[i].Definition.Id);
+
+            if (sameSet)
+            {
+                for (var i = offerCount; i < eligible.Count; i++)
+                {
+                    if (currentIds.Contains(eligible[i].Definition.Id))
+                        continue;
+                    eligible[offerCount - 1] = eligible[i];
+                    break;
+                }
+            }
+
+            return eligible.GetRange(0, offerCount);
+        }
+
+        private List<DraftOption> CreateEligibleOptions(
+            PlayerBuild build,
+            int offerCount,
+            IReadOnlyCollection<ContentId> banishedIds = null)
         {
             if (build == null)
                 throw new ArgumentNullException(nameof(build));
@@ -85,6 +141,8 @@ namespace Game.Progression
             var eligible = new List<DraftOption>();
             foreach (var definition in _definitions)
             {
+                if (Contains(banishedIds, definition.Id))
+                    continue;
                 if (!build.IsEligible(definition))
                     continue;
 
@@ -95,6 +153,20 @@ namespace Game.Progression
                     isUpgrade ? entry.Level + 1 : 1));
             }
             return eligible;
+        }
+
+        private static bool Contains(IReadOnlyCollection<ContentId> ids, ContentId id)
+        {
+            if (ids == null)
+                return false;
+            if (ids is HashSet<ContentId> set)
+                return set.Contains(id);
+            foreach (var candidate in ids)
+            {
+                if (candidate == id)
+                    return true;
+            }
+            return false;
         }
 
         private static int PositiveModulo(int value, int divisor)

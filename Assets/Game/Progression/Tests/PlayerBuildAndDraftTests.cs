@@ -120,6 +120,48 @@ namespace Game.Progression.Tests
             }
         }
 
+        [Test]
+        public void Pool_ExcludesBanishedEntriesFromEveryDraft()
+        {
+            var starting = Active("FIXTURE-ACTIVE-0");
+            var banished = Passive("FIXTURE-PASSIVE-BANISHED");
+            var available = Passive("FIXTURE-PASSIVE-AVAILABLE");
+            var pool = new DraftPool(new[] { starting, banished, available });
+            var build = new PlayerBuild(starting);
+            var banishedIds = new HashSet<Game.Content.ContentId> { banished.Id };
+
+            var options = pool.CreateOptions(build, 3, new SeededDraftRandom(7), banishedIds);
+
+            Assert.AreEqual(2, options.Count);
+            for (var i = 0; i < options.Count; i++)
+                Assert.AreNotEqual(banished.Id, options[i].Definition.Id);
+        }
+
+        [Test]
+        public void DraftRunControls_EnforceCountersAndResetForNewRun()
+        {
+            var controls = new DraftRunControls(initialRerolls: 1, initialBanishes: 1);
+
+            Assert.IsTrue(controls.TryConsumeReroll());
+            Assert.IsFalse(controls.TryConsumeReroll());
+            Assert.IsTrue(controls.TryBanish("FIXTURE-PASSIVE-ONE"));
+            Assert.IsFalse(controls.TryBanish("FIXTURE-PASSIVE-TWO"));
+            Assert.IsTrue(controls.IsBanished("FIXTURE-PASSIVE-ONE"));
+
+            controls.Reset();
+
+            Assert.AreEqual(1, controls.RemainingRerolls);
+            Assert.AreEqual(1, controls.RemainingBanishes);
+            Assert.IsFalse(controls.IsBanished("FIXTURE-PASSIVE-ONE"));
+        }
+
+        [Test]
+        public void DraftRunControls_RejectNegativeConfiguration()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DraftRunControls(-1, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DraftRunControls(0, -1));
+        }
+
         private static BuildEntryDefinition Active(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.ActiveSkill, id);

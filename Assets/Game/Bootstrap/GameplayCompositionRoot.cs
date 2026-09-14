@@ -43,6 +43,12 @@ namespace Game.Bootstrap
         [SerializeField]
         private int draftSeed = 12345;
 
+        [SerializeField, Min(0)]
+        private int fixtureInitialRerolls = 2;
+
+        [SerializeField, Min(0)]
+        private int fixtureInitialBanishes = 2;
+
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
         public bool IsInitialized { get; private set; }
 
@@ -66,6 +72,8 @@ namespace Game.Bootstrap
             ValidateSceneReferences();
             if (draftOfferCount <= 0)
                 throw new InvalidOperationException("Draft offer count must be greater than zero.");
+            if (fixtureInitialRerolls < 0 || fixtureInitialBanishes < 0)
+                throw new InvalidOperationException("Draft control counts cannot be negative.");
 
             Catalog = FixtureRuntimeContentCatalog.Create();
             var startingActive = Catalog.Registry.Get<ActiveSkillProgressionDefinition>(new ContentId(startingActiveId));
@@ -76,7 +84,9 @@ namespace Game.Bootstrap
                 Catalog.BuildEntries,
                 startingActive,
                 draftOfferCount,
-                new SeededDraftRandom(draftSeed));
+                new SeededDraftRandom(draftSeed),
+                fixtureInitialRerolls,
+                fixtureInitialBanishes);
             activeSkillRuntime.Initialize(
                 player,
                 runController,
