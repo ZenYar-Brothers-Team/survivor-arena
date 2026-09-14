@@ -3,7 +3,7 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-14
-Current next module: IP-06
+Current next module: IP-07
 
 ## Foundation and playable core
 
@@ -73,16 +73,22 @@ Documentation impact: Game Design, Content Design и IP-05 scope не измен
 
 ### IP-06 — XP drops, pickup, expiry и level progression
 
-Status: Ready
+Status: Verified
 
-Implementation evidence: —  
-Verification evidence: —
+Implementation evidence: `Assets/Game/Progression/` — progression/bar model, configurable thresholds, pause-safe physical drop runtime, pickup/expiry/recovery pipeline and level-up event; `EnemyDefinition.ExperienceReward` and `EnemyRuntime` — XP spawn at death position; `CharacterStats` — recovery, pickup multiplier and drop-lifetime hooks; `Assets/Scenes/Gameplay.unity` — configured fixture runtime.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 90/90 tests passed on 2026-09-14; 9 `Game.Progression.Tests` tests cover death drop position/reward, pickup, expiry with base 0% recovery, recovery without double award, configurable lifetime/thresholds, XP bar state, multiple levels, level-up pause/event and pause-safe drop behavior.
+
+Deviations: none recorded; fixture thresholds and reward are non-production configuration, the final XP curve remains out of scope.
+
+Documentation impact: Game Design, Content Design and IP-06 scope did not change; execution status and direct dependant readiness synchronized.
 
 ### IP-07 — Level-up draft, 6+6 slots и base build progression
 
-Status: Blocked  
-Blocked by: IP-06.  
-Implementation evidence: —  
+Status: Ready
+
+Implementation evidence: —
+
 Verification evidence: —
 
 ## Build systems
@@ -95,7 +101,7 @@ Blocked by: IP-07.
 ### IP-09 — Passive modifier framework
 
 Status: Blocked  
-Blocked by: IP-06, IP-07.
+Blocked by: IP-07.
 
 ### IP-10 — Reroll и banish
 

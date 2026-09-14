@@ -1,6 +1,7 @@
 using System;
 using Game.Character;
 using Game.Movement;
+using Game.Progression;
 using Game.Run;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace Game.Enemy
         private RunController _runController;
         private PlayerCharacterRuntime _contactTarget;
         private ContinuousContactTimer _contactTimer;
+        private PlayerExperienceRuntime _experienceTarget;
         private bool _initialized;
         private bool _despawned;
 
@@ -38,7 +40,11 @@ namespace Game.Enemy
             _renderer.color = new Color(0.85f, 0.2f, 0.2f, 1f);
         }
 
-        public void Initialize(EnemyDefinition definition, Transform target, RunController runController)
+        public void Initialize(
+            EnemyDefinition definition,
+            Transform target,
+            RunController runController,
+            PlayerExperienceRuntime experienceTarget = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Enemy runtime is already initialized.");
@@ -46,6 +52,7 @@ namespace Game.Enemy
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             _target = target != null ? target : throw new ArgumentNullException(nameof(target));
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
+            _experienceTarget = experienceTarget;
 
             CacheComponents();
             _body.gravityScale = 0f;
@@ -148,6 +155,15 @@ namespace Game.Enemy
         {
             _body.linearVelocity = Vector2.zero;
             _collider.enabled = false;
+            if (Definition.ExperienceReward > 0f && _experienceTarget != null)
+            {
+                ExperienceDropFactory.Spawn(
+                    Definition.ExperienceReward,
+                    transform.position,
+                    _experienceTarget.DropLifetimeSeconds,
+                    _experienceTarget,
+                    _runController);
+            }
             Died?.Invoke(this);
             Despawn();
         }

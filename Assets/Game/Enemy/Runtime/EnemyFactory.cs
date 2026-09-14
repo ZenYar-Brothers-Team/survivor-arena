@@ -1,5 +1,6 @@
 using System;
 using Game.Run;
+using Game.Progression;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -28,7 +29,11 @@ namespace Game.Enemy
             enemyObject.AddComponent<SpriteRenderer>();
 
             var runtime = enemyObject.AddComponent<EnemyRuntime>();
-            runtime.Initialize(definition, target, runController);
+            runtime.Initialize(
+                definition,
+                target,
+                runController,
+                target.GetComponent<PlayerExperienceRuntime>());
             return runtime;
         }
     }

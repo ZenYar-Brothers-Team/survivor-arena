@@ -34,6 +34,12 @@ namespace Game.Character
         [SerializeField, Range(0f, 1f)]
         private float baseDisappearingXpRecovery;
 
+        [SerializeField, Min(0f)]
+        private float basePickedUpXpMultiplier = 1f;
+
+        [SerializeField, Min(0f)]
+        private float baseXpDropLifetimeBonusSeconds;
+
         private CharacterRunBinding _runBinding;
 
         public CharacterStats Stats { get; private set; }
@@ -50,7 +56,9 @@ namespace Game.Character
                 baseIncomingDamageMultiplier,
                 baseHealthRestorationMultiplier,
                 baseHealthRegenerationPerSecond,
-                baseDisappearingXpRecovery);
+                baseDisappearingXpRecovery,
+                basePickedUpXpMultiplier,
+                baseXpDropLifetimeBonusSeconds);
 
             Stats = new CharacterStats(baseStats);
             Health = new CharacterHealth(Stats);

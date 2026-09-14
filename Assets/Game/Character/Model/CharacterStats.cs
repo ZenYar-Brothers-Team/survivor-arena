@@ -20,6 +20,8 @@ namespace Game.Character
         public float HealthRestorationMultiplier { get; private set; }
         public float HealthRegenerationPerSecond { get; private set; }
         public float DisappearingXpRecovery { get; private set; }
+        public float PickedUpXpMultiplier { get; private set; }
+        public float XpDropLifetimeBonusSeconds { get; private set; }
 
         public event Action Changed;
 
@@ -61,6 +63,8 @@ namespace Game.Character
             var healthRestorationBonus = 0f;
             var healthRegenerationBonus = 0f;
             var disappearingXpRecoveryBonus = 0f;
+            var pickedUpXpMultiplierBonus = 0f;
+            var xpDropLifetimeBonusSeconds = 0f;
 
             foreach (var modifier in _modifiers.Values)
             {
@@ -72,6 +76,8 @@ namespace Game.Character
                 healthRestorationBonus += modifier.HealthRestorationMultiplierBonus;
                 healthRegenerationBonus += modifier.HealthRegenerationPerSecondBonus;
                 disappearingXpRecoveryBonus += modifier.DisappearingXpRecoveryBonus;
+                pickedUpXpMultiplierBonus += modifier.PickedUpXpMultiplierBonus;
+                xpDropLifetimeBonusSeconds += modifier.XpDropLifetimeBonusSeconds;
             }
 
             MaxHealth = Math.Max(MinimumMaxHealth, BaseStats.MaxHealth * NonNegativeFactor(maxHealthBonus));
@@ -82,6 +88,8 @@ namespace Game.Character
             HealthRestorationMultiplier = BaseStats.HealthRestorationMultiplier * NonNegativeFactor(healthRestorationBonus);
             HealthRegenerationPerSecond = Math.Max(0f, BaseStats.HealthRegenerationPerSecond + healthRegenerationBonus);
             DisappearingXpRecovery = Clamp01(BaseStats.DisappearingXpRecovery + disappearingXpRecoveryBonus);
+            PickedUpXpMultiplier = BaseStats.PickedUpXpMultiplier * NonNegativeFactor(pickedUpXpMultiplierBonus);
+            XpDropLifetimeBonusSeconds = Math.Max(0f, BaseStats.XpDropLifetimeBonusSeconds + xpDropLifetimeBonusSeconds);
 
             if (notify)
                 Changed?.Invoke();

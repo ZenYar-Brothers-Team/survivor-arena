@@ -32,6 +32,9 @@ namespace Game.Enemy
         [SerializeField, Min(0.0001f)]
         private float fixtureContactDamageInterval = 1f;
 
+        [SerializeField, Min(0f)]
+        private float fixtureExperienceReward = 1f;
+
         [SerializeField, Min(0.0001f)]
         private float spawnIntervalSeconds = 2f;
 
@@ -55,7 +58,8 @@ namespace Game.Enemy
                 fixtureCollisionSize,
                 fixtureMovementSpeed,
                 fixtureContactDamage,
-                fixtureContactDamageInterval);
+                fixtureContactDamageInterval,
+                fixtureExperienceReward);
             _spawnTimer = new ContinuousSpawnTimer(spawnIntervalSeconds);
         }
 

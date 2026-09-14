@@ -18,6 +18,8 @@ namespace Game.Character.Tests
             Assert.AreEqual(1f, stats.HealthRestorationMultiplier);
             Assert.AreEqual(0f, stats.HealthRegenerationPerSecond);
             Assert.AreEqual(0.1f, stats.DisappearingXpRecovery);
+            Assert.AreEqual(1f, stats.PickedUpXpMultiplier);
+            Assert.AreEqual(0f, stats.XpDropLifetimeBonusSeconds);
         }
 
         [Test]
@@ -51,15 +53,21 @@ namespace Game.Character.Tests
             stats.SetModifier("one", new CharacterStatModifier(
                 movementSpeedMultiplierBonus: 0.1f,
                 healthRegenerationPerSecondBonus: 1f,
-                disappearingXpRecoveryBonus: 0.2f));
+                disappearingXpRecoveryBonus: 0.2f,
+                pickedUpXpMultiplierBonus: 0.1f,
+                xpDropLifetimeBonusSeconds: 10f));
             stats.SetModifier("two", new CharacterStatModifier(
                 movementSpeedMultiplierBonus: 0.2f,
                 healthRegenerationPerSecondBonus: 2f,
-                disappearingXpRecoveryBonus: 0.3f));
+                disappearingXpRecoveryBonus: 0.3f,
+                pickedUpXpMultiplierBonus: 0.2f,
+                xpDropLifetimeBonusSeconds: 20f));
 
             Assert.AreEqual(3.9f, stats.MovementSpeed, 0.0001f);
             Assert.AreEqual(3f, stats.HealthRegenerationPerSecond, 0.0001f);
             Assert.AreEqual(0.6f, stats.DisappearingXpRecovery, 0.0001f);
+            Assert.AreEqual(1.3f, stats.PickedUpXpMultiplier, 0.0001f);
+            Assert.AreEqual(30f, stats.XpDropLifetimeBonusSeconds, 0.0001f);
         }
 
         [Test]

@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 557252963}
   - component: {fileID: 557252962}
   - component: {fileID: 557252968}
+  - component: {fileID: 557252969}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -481,6 +482,27 @@ MonoBehaviour:
   baseHealthRestorationMultiplier: 1
   baseHealthRegenerationPerSecond: 0
   baseDisappearingXpRecovery: 0
+  basePickedUpXpMultiplier: 1
+  baseXpDropLifetimeBonusSeconds: 0
+--- !u!114 &557252969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970872b44834cb09fb0ee58e4aac475, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.PlayerExperienceRuntime
+  owner: {fileID: 557252963}
+  runController: {fileID: 2071511763}
+  baseDropLifetimeSeconds: 60
+  fixtureLevelThresholds:
+  - 5
+  - 10
+  - 15
 --- !u!114 &557252968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,6 +1220,7 @@ MonoBehaviour:
   fixtureMovementSpeed: 1
   fixtureContactDamage: 1
   fixtureContactDamageInterval: 1
+  fixtureExperienceReward: 1
   spawnIntervalSeconds: 2
   spawnRadius: 8
   maxAliveEnemies: 10

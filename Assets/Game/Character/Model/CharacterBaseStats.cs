@@ -12,6 +12,8 @@ namespace Game.Character
         public float HealthRestorationMultiplier { get; }
         public float HealthRegenerationPerSecond { get; }
         public float DisappearingXpRecovery { get; }
+        public float PickedUpXpMultiplier { get; }
+        public float XpDropLifetimeBonusSeconds { get; }
 
         public CharacterBaseStats(
             float maxHealth,
@@ -21,7 +23,9 @@ namespace Game.Character
             float incomingDamageMultiplier = 1f,
             float healthRestorationMultiplier = 1f,
             float healthRegenerationPerSecond = 0f,
-            float disappearingXpRecovery = 0f)
+            float disappearingXpRecovery = 0f,
+            float pickedUpXpMultiplier = 1f,
+            float xpDropLifetimeBonusSeconds = 0f)
         {
             MaxHealth = maxHealth;
             MovementSpeed = movementSpeed;
@@ -31,6 +35,8 @@ namespace Game.Character
             HealthRestorationMultiplier = healthRestorationMultiplier;
             HealthRegenerationPerSecond = healthRegenerationPerSecond;
             DisappearingXpRecovery = disappearingXpRecovery;
+            PickedUpXpMultiplier = pickedUpXpMultiplier;
+            XpDropLifetimeBonusSeconds = xpDropLifetimeBonusSeconds;
 
             Validate();
         }
@@ -45,6 +51,8 @@ namespace Game.Character
             ValidateNonNegative(HealthRestorationMultiplier, nameof(HealthRestorationMultiplier));
             ValidateNonNegative(HealthRegenerationPerSecond, nameof(HealthRegenerationPerSecond));
             ValidateRange(DisappearingXpRecovery, 0f, 1f, nameof(DisappearingXpRecovery));
+            ValidateNonNegative(PickedUpXpMultiplier, nameof(PickedUpXpMultiplier));
+            ValidateNonNegative(XpDropLifetimeBonusSeconds, nameof(XpDropLifetimeBonusSeconds));
         }
 
         private static void ValidatePositive(float value, string parameterName)

@@ -12,6 +12,8 @@ namespace Game.Character
         public float HealthRestorationMultiplierBonus { get; }
         public float HealthRegenerationPerSecondBonus { get; }
         public float DisappearingXpRecoveryBonus { get; }
+        public float PickedUpXpMultiplierBonus { get; }
+        public float XpDropLifetimeBonusSeconds { get; }
 
         public CharacterStatModifier(
             float maxHealthMultiplierBonus = 0f,
@@ -21,7 +23,9 @@ namespace Game.Character
             float incomingDamageMultiplierBonus = 0f,
             float healthRestorationMultiplierBonus = 0f,
             float healthRegenerationPerSecondBonus = 0f,
-            float disappearingXpRecoveryBonus = 0f)
+            float disappearingXpRecoveryBonus = 0f,
+            float pickedUpXpMultiplierBonus = 0f,
+            float xpDropLifetimeBonusSeconds = 0f)
         {
             MaxHealthMultiplierBonus = maxHealthMultiplierBonus;
             MovementSpeedMultiplierBonus = movementSpeedMultiplierBonus;
@@ -31,6 +35,8 @@ namespace Game.Character
             HealthRestorationMultiplierBonus = healthRestorationMultiplierBonus;
             HealthRegenerationPerSecondBonus = healthRegenerationPerSecondBonus;
             DisappearingXpRecoveryBonus = disappearingXpRecoveryBonus;
+            PickedUpXpMultiplierBonus = pickedUpXpMultiplierBonus;
+            XpDropLifetimeBonusSeconds = xpDropLifetimeBonusSeconds;
 
             ValidateFinite(maxHealthMultiplierBonus, nameof(maxHealthMultiplierBonus));
             ValidateFinite(movementSpeedMultiplierBonus, nameof(movementSpeedMultiplierBonus));
@@ -40,6 +46,8 @@ namespace Game.Character
             ValidateFinite(healthRestorationMultiplierBonus, nameof(healthRestorationMultiplierBonus));
             ValidateFinite(healthRegenerationPerSecondBonus, nameof(healthRegenerationPerSecondBonus));
             ValidateFinite(disappearingXpRecoveryBonus, nameof(disappearingXpRecoveryBonus));
+            ValidateFinite(pickedUpXpMultiplierBonus, nameof(pickedUpXpMultiplierBonus));
+            ValidateFinite(xpDropLifetimeBonusSeconds, nameof(xpDropLifetimeBonusSeconds));
         }
 
         private static void ValidateFinite(float value, string parameterName)

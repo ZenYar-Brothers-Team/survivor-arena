@@ -33,6 +33,7 @@ namespace Game.Enemy.Tests
                 serializedSpawner.FindProperty("target").objectReferenceValue);
             Assert.IsTrue(serializedSpawner.FindProperty("fixtureContentId").stringValue.StartsWith("FIXTURE-"));
             Assert.Greater(serializedSpawner.FindProperty("fixtureContactDamageInterval").floatValue, 0f);
+            Assert.Greater(serializedSpawner.FindProperty("fixtureExperienceReward").floatValue, 0f);
             Assert.Greater(serializedSpawner.FindProperty("spawnIntervalSeconds").floatValue, 0f);
             Assert.Greater(serializedSpawner.FindProperty("maxAliveEnemies").intValue, 0);
         }

@@ -11,6 +11,7 @@ namespace Game.Enemy
         public float MovementSpeed { get; }
         public float ContactDamage { get; }
         public float ContactDamageInterval { get; }
+        public float ExperienceReward { get; }
 
         public EnemyDefinition(
             ContentId id,
@@ -18,7 +19,8 @@ namespace Game.Enemy
             float collisionSize,
             float movementSpeed,
             float contactDamage,
-            float contactDamageInterval)
+            float contactDamageInterval,
+            float experienceReward = 0f)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -28,6 +30,7 @@ namespace Game.Enemy
             ValidateNonNegative(movementSpeed, nameof(movementSpeed));
             ValidateNonNegative(contactDamage, nameof(contactDamage));
             ValidatePositive(contactDamageInterval, nameof(contactDamageInterval));
+            ValidateNonNegative(experienceReward, nameof(experienceReward));
 
             Id = id;
             MaxHealth = maxHealth;
@@ -35,6 +38,7 @@ namespace Game.Enemy
             MovementSpeed = movementSpeed;
             ContactDamage = contactDamage;
             ContactDamageInterval = contactDamageInterval;
+            ExperienceReward = experienceReward;
         }
 
         private static void ValidatePositive(float value, string parameterName)

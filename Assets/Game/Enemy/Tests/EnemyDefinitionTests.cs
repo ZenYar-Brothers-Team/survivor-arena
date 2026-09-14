@@ -9,7 +9,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void Definition_IsResolvedThroughContentRegistry()
         {
-            var definition = new EnemyDefinition("FIXTURE-ENEMY", 10f, 1f, 2f, 3f, 0.5f);
+            var definition = new EnemyDefinition("FIXTURE-ENEMY", 10f, 1f, 2f, 3f, 0.5f, 4f);
             var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { definition });
 
             var resolved = registry.Get<EnemyDefinition>("FIXTURE-ENEMY");
@@ -20,6 +20,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(2f, resolved.MovementSpeed);
             Assert.AreEqual(3f, resolved.ContactDamage);
             Assert.AreEqual(0.5f, resolved.ContactDamageInterval);
+            Assert.AreEqual(4f, resolved.ExperienceReward);
         }
 
         [Test]
@@ -35,6 +36,8 @@ namespace Game.Enemy.Tests
                 new EnemyDefinition("FIXTURE", 1f, 1f, 1f, -1f, 1f));
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 new EnemyDefinition("FIXTURE", 1f, 1f, 1f, 1f, 0f));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                new EnemyDefinition("FIXTURE", 1f, 1f, 1f, 1f, 1f, -1f));
         }
     }
 }
