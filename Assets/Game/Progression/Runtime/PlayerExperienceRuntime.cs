@@ -83,9 +83,9 @@ namespace Game.Progression
 
         private void HandleLevelUp(int newLevel)
         {
-            LevelUp?.Invoke(newLevel);
             if (runController != null && runController.Model != null)
                 runController.Model.Pause();
+            LevelUp?.Invoke(newLevel);
         }
 
         private void OnDestroy()

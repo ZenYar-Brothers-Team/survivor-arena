@@ -2,6 +2,7 @@
     "name": "Game.Progression",
     "rootNamespace": "Game.Progression",
     "references": [
+        "Game.Content",
         "Game.Character",
         "Game.Run",
         "Game.Movement"

@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 557252962}
   - component: {fileID: 557252968}
   - component: {fileID: 557252969}
+  - component: {fileID: 557252970}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -503,6 +504,30 @@ MonoBehaviour:
   - 5
   - 10
   - 15
+--- !u!114 &557252970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a49787324ed439ea544778b93e65345, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.LevelUpDraftRuntime
+  experienceRuntime: {fileID: 557252969}
+  runController: {fileID: 2071511763}
+  fixtureStartingActiveId: FIXTURE-SKILL-BOLT
+  fixtureActiveIds:
+  - FIXTURE-SKILL-BOLT
+  - FIXTURE-SKILL-ARC
+  - FIXTURE-SKILL-ORBIT
+  fixturePassiveIds:
+  - FIXTURE-PASSIVE-VITALITY
+  - FIXTURE-PASSIVE-HASTE
+  - FIXTURE-PASSIVE-MEMORY
+  fixtureOfferCount: 3
 --- !u!114 &557252968
 MonoBehaviour:
   m_ObjectHideFlags: 0

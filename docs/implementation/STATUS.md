@@ -3,7 +3,7 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-14
-Current next module: IP-07
+Current next module: IP-08
 
 ## Foundation and playable core
 
@@ -85,38 +85,41 @@ Documentation impact: Game Design, Content Design and IP-06 scope did not change
 
 ### IP-07 — Level-up draft, 6+6 slots и base build progression
 
-Status: Ready
+Status: Verified
 
-Implementation evidence: —
+Implementation evidence: `Assets/Game/Progression/Draft/` — stable-ID active/passive definitions, immutable 6+6 slot ownership, levels 1…6, unified eligibility pool and validated draft session; `LevelUpDraftRuntime.cs` — starting active slot, queued level-up drafts, minimal IMGUI chooser and resume-after-selection; `Assets/Scenes/Gameplay.unity` — configured non-production fixture pool.
 
-Verification evidence: —
+Verification evidence: Unity 6000.6.0f1 EditMode, 98/98 tests passed on 2026-09-14; 8 IP-07 tests cover starting slot, filling 6 active + 6 passive slots, 1→6 upgrades, full-slot and max-level filtering, duplicate/invalid selection rejection, unified pool, pause/resume and queued drafts for multiple level-ups; scene integration verifies chooser wiring and fixture-only IDs.
+
+Deviations: none recorded; offer count, pool entries and display labels are non-production fixture configuration, while reroll, banish, sets and weighted selection remain out of scope.
+
+Documentation impact: Game Design, Content Design and IP-07 scope did not change; execution status and dependant readiness synchronized.
 
 ## Build systems
 
 ### IP-08 — Active-skill progression и pattern framework
 
-Status: Blocked  
-Blocked by: IP-07.
+Status: Ready
 
 ### IP-09 — Passive modifier framework
 
-Status: Blocked  
-Blocked by: IP-07.
+Status: Ready
 
 ### IP-10 — Reroll и banish
 
-Status: Blocked  
-Blocked by: IP-07; exact counts remain CG-04 TBD.
+Status: Ready
+
+Exact counts and recovery rules remain CG-04 balance TBD and must stay configurable.
 
 ### IP-11 — Set framework
 
 Status: Blocked  
-Blocked by: IP-07, IP-08, IP-09.
+Blocked by: IP-08, IP-09.
 
 ### IP-12 — Character framework и weighted draft
 
 Status: Blocked  
-Blocked by: IP-07, IP-08, IP-09.
+Blocked by: IP-08, IP-09.
 
 ## Encounter systems
 
@@ -195,7 +198,7 @@ Blocked by: IP-12, IP-16; production economy remains CG-03 gated.
 ### IP-26 — Functional UI и полный player flow
 
 Status: Blocked  
-Blocked by: IP-07, IP-10, IP-16, IP-25.
+Blocked by: IP-10, IP-16, IP-25.
 
 ### IP-27 — End-to-end integration
 

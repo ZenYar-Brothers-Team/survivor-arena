@@ -95,6 +95,16 @@ namespace Game.Progression.Tests
 
             var spawner = GameObject.Find("EnemySpawner").GetComponent<ContinuousFixtureEnemySpawner>();
             Assert.Greater(new SerializedObject(spawner).FindProperty("fixtureExperienceReward").floatValue, 0f);
+
+            var draftRuntime = player.GetComponent<LevelUpDraftRuntime>();
+            Assert.IsNotNull(draftRuntime);
+            var serializedDraft = new SerializedObject(draftRuntime);
+            Assert.AreSame(runtime, serializedDraft.FindProperty("experienceRuntime").objectReferenceValue);
+            Assert.AreSame(GameObject.Find("RunController").GetComponent<RunController>(), serializedDraft.FindProperty("runController").objectReferenceValue);
+            Assert.IsTrue(serializedDraft.FindProperty("fixtureStartingActiveId").stringValue.StartsWith("FIXTURE-"));
+            Assert.Greater(serializedDraft.FindProperty("fixtureActiveIds").arraySize, 0);
+            Assert.Greater(serializedDraft.FindProperty("fixturePassiveIds").arraySize, 0);
+            Assert.Greater(serializedDraft.FindProperty("fixtureOfferCount").intValue, 0);
         }
 
         private static void InvokeAwake(MonoBehaviour behaviour)
