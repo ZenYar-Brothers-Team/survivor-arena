@@ -161,49 +161,6 @@ namespace Game.Progression
             return false;
         }
 
-        private void OnGUI()
-        {
-            if (!IsDraftOpen)
-                return;
-
-            const float width = 520f;
-            var height = 130f + CurrentDraft.Options.Count * 48f;
-            var rect = new Rect((Screen.width - width) * 0.5f, (Screen.height - height) * 0.5f, width, height);
-            GUILayout.BeginArea(rect, GUI.skin.box);
-            GUILayout.Label("LEVEL UP — выберите улучшение");
-            GUILayout.BeginHorizontal();
-            GUI.enabled = RemainingRerolls > 0;
-            if (GUILayout.Button($"Reroll ({RemainingRerolls})", GUILayout.Height(32f)))
-                Reroll();
-            GUI.enabled = true;
-            GUILayout.Label($"Banish: {RemainingBanishes}");
-            GUILayout.EndHorizontal();
-            for (var i = 0; i < CurrentDraft.Options.Count; i++)
-            {
-                var option = CurrentDraft.Options[i];
-                var typeLabel = option.Definition.Kind == BuildEntryKind.ActiveSkill ? "Активное" : "Пассивное";
-                var actionLabel = option.IsUpgrade ? $"уровень {option.ResultingLevel}" : "новое, уровень 1";
-                var draftChanged = false;
-                GUILayout.BeginHorizontal();
-                if (GUILayout.Button($"{typeLabel}: {option.Definition.DisplayName} — {actionLabel}", GUILayout.Height(40f)))
-                {
-                    Select(option.Definition.Id);
-                    draftChanged = true;
-                }
-                GUI.enabled = RemainingBanishes > 0;
-                if (GUILayout.Button("Banish", GUILayout.Width(90f), GUILayout.Height(40f)))
-                {
-                    Banish(option.Definition.Id);
-                    draftChanged = true;
-                }
-                GUI.enabled = true;
-                GUILayout.EndHorizontal();
-                if (draftChanged)
-                    break;
-            }
-            GUILayout.EndArea();
-        }
-
         private void OnDestroy()
         {
             if (_initialized && experienceRuntime != null)

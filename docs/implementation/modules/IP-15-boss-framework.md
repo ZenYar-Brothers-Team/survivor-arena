@@ -19,6 +19,10 @@ Boss entity definition; phases by HP thresholds; movement/attack pattern composi
 - Game Design: «Структура забега и условия завершения», «Враги, волны, элиты и боссы».
 - Content Design: BOSS-001…010 и MIDBOSS-001…010 как Draft compatibility targets.
 
+## UI / observability
+
+Boss encounter показывает name/HP bar и phase/telegraph state; mid-boss/final-boss fixture transitions покрываются PlayMode UI smoke.
+
 ## Acceptance criteria
 
 Fixture mid-boss optional; fixture final boss spawns by configured time; phase transition changes behavior; killing final boss does not set won; alive at 15:00 does.

@@ -19,6 +19,10 @@ Keyed additive flat/percentage modifiers; additive percentage composition betwee
 - Game Design: «Опыт и level-up», «Активные умения, пассивные предметы и слоты», «Управление, бой и выживание».
 - Content Design: PASSIVE-001…010 как Draft compatibility matrix.
 
+## UI / observability
+
+Build panel показывает все acquired passives и уровни в шести стабильных слотах; изменившиеся HP/XP-related stats проявляются в соответствующем HUD.
+
 ## Acceptance criteria
 
 Fixture passives изменяют несколько разных stat categories; level change пересчитывает результат; removing/rebuilding runtime state не double-counts effect; percentage sources stack additively; positive cooldown stays above zero without a hard minimum; incoming damage reduction is capped at 99%; max-HP changes preserve current health ratio; recovery/lifetime hooks работают.

@@ -19,6 +19,10 @@ Approved boss cards; HP/size/contact damage; phases; attack/movement patterns; r
 - Game Design: «Враги, волны, элиты и боссы», «Структура забега и условия завершения».
 - Content Design: полные карточки целевых BOSS и MIDBOSS IDs.
 
+## UI / observability
+
+Каждый Approved boss/midboss предоставляет production name, HP/phase presentation и telegraph assets/state.
+
 ## Acceptance criteria
 
 Каждый Approved boss/midboss соответствует card patterns; final boss death never causes victory; phase behavior triggers at stated thresholds.

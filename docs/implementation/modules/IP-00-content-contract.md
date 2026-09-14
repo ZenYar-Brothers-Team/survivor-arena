@@ -23,6 +23,10 @@
 
 Названия можно менять без смены ID; core gameplay не должен зависеть от display name; ещё не определённые балансные числа не становятся hard-coded rules.
 
+## UI / observability
+
+Production UI не требуется; validation errors и stable IDs должны быть доступны автоматическим тестам и однозначной диагностике bootstrap.
+
 ## Acceptance criteria
 
 Можно зарегистрировать несколько definitions разных типов; ссылаться на другую сущность по ID; невалидная ссылка обнаруживается до gameplay; fixture и production definitions используют один контракт данных.

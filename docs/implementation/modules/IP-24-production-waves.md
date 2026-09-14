@@ -19,6 +19,10 @@ IP-14, IP-20, IP-21, IP-23; Approved Wave / Encounter Content.
 - Game Design: «Структура забега и условия завершения», «Враги, волны, элиты и боссы», «Поля».
 - Content Design: «Wave / Encounter Content» и полные карточки referenced FIELD/ENEMY/BOSS/MIDBOSS IDs.
 
+## UI / observability
+
+Production wave data питает HUD phase state и development timeline inspector; отсутствующие display labels/phase mappings валидируются.
+
 ## Acceptance criteria
 
 Каждый production field имеет валидный full-run encounter config; pressure/rest rhythm читается из data; final boss appears at configured late-run time; no missing refs.

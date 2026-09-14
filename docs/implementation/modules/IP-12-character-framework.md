@@ -19,6 +19,10 @@ Character definition; starting active skill in slot; base stats; disappearing-XP
 - Game Design: «Персонажи», «Активные умения, пассивные предметы и слоты».
 - Content Design: CHAR-001…010 как Draft compatibility targets; referenced starting SKILL IDs.
 
+## UI / observability
+
+Character selection fixture показывает unlocked characters, starting skill и краткий base-stat snapshot; weighted draft остаётся диагностируемым seeded tests/debug state.
+
 ## Acceptance criteria
 
 Два fixtures дают разные stats/start skill/weights; 0 weight исключает random appearance; passive modifiers корректно накладываются на base stats.

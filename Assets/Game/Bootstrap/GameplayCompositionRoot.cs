@@ -5,6 +5,7 @@ using Game.Content;
 using Game.Enemy;
 using Game.Progression;
 using Game.Run;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Bootstrap
@@ -33,6 +34,9 @@ namespace Game.Bootstrap
 
         [SerializeField]
         private ContinuousFixtureEnemySpawner enemySpawner;
+
+        [SerializeField]
+        private GameplayUiRoot gameplayUiRoot;
 
         [SerializeField]
         private string startingActiveId = "FIXTURE-SKILL-BOLT";
@@ -96,13 +100,14 @@ namespace Game.Bootstrap
                 new SceneActiveSkillEffectExecutor(runController));
             passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
             enemySpawner.Initialize(Catalog.Enemies[0]);
+            gameplayUiRoot.Initialize(player, experienceRuntime, draftRuntime, runController);
             IsInitialized = true;
         }
 
         private void ValidateSceneReferences()
         {
             if (runController == null || player == null || experienceRuntime == null || draftRuntime == null ||
-                activeSkillRuntime == null || passiveRuntime == null || enemySpawner == null)
+                activeSkillRuntime == null || passiveRuntime == null || enemySpawner == null || gameplayUiRoot == null)
             {
                 throw new InvalidOperationException("Gameplay composition root has missing scene references.");
             }

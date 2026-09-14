@@ -19,6 +19,10 @@ Unified active/passive draft pool; eligibility; 6 active + 6 passive slots; star
 - Game Design: «Опыт и level-up», «Активные умения, пассивные предметы и слоты».
 - Content Design: schemas «Active Skills», «Passive Items»; реальные IDs не требуются до IP-17/IP-18.
 
+## UI / observability
+
+Level-up overlay показывает предложения и результат new/upgrade; выбор обновляет build panel и закрывает overlay после применения.
+
 ## Acceptance criteria
 
 Valid draft opens on level-up; selected new item occupies correct slot; upgrade increases level; full slot blocks new item of that type; max-level entry not offered; choice resumes run.

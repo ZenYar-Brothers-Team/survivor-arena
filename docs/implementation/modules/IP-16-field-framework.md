@@ -19,6 +19,10 @@ Field definition; selectable unlocked field; player-only field bounds and ordina
 - Game Design: «Поля».
 - Content Design: FIELD-001…010 как Draft compatibility targets; recommended BOSS/MIDBOSS mapping is Draft and non-binding until approved.
 
+## UI / observability
+
+Field selection fixture показывает unlocked/locked state и выбранную configuration; loading выбранного поля отражается в run ViewState.
+
 ## Acceptance criteria
 
 Два fixture fields загружают разные configuration; locked field unavailable; field-specific references validated by ID; same gameplay systems reused.

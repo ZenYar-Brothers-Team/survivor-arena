@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-14
 Current next module: IP-11
 
-Cross-cutting verification: Unity 6000.6.0f1 EditMode 128/128 and PlayMode 1/1 passed on 2026-09-14. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md).
+Cross-cutting verification: Unity 6000.6.0f1 EditMode 134/134 and PlayMode 1/1 passed on 2026-09-14. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers; gameplay UI follows a presenter/ViewState boundary. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md); vertical UI delivery follows [DECISION-0005](../decisions/0005-vertical-ui-delivery.md).
 
 ## Foundation and playable core
 
@@ -134,6 +134,18 @@ Verification evidence: Unity 6000.6.0f1 EditMode, 128/128 tests passed on 2026-0
 Deviations: exact counts and recovery remain CG-04 balance TBD; the scene values of 2 rerolls and 2 banishes are explicitly non-production fixture configuration.
 
 Documentation impact: Game Design already defined reroll/banish behavior and remains unchanged; IP-10 edge behavior and checks were clarified; Content Design is unaffected; IP-26 dependency readiness was synchronized.
+
+### IP-10A — UI Foundation and test harness
+
+Status: Verified
+
+Implementation evidence: `Assets/Game/UI/` contains immutable HUD/draft/build/run-overlay states, model/view contracts, a pure presenter, runtime adapter, stable semantic element IDs and UI Toolkit UXML/USS/runtime theme; visible HP/XP bars and 6+6 live build slots surface IP-03/IP-05/IP-06/IP-08/IP-09 state; `GameplayUiRoot.cs` owns the thin Unity lifecycle adapter; `GameplayCompositionRoot.cs` injects gameplay dependencies; gameplay-owned IMGUI was removed from `LevelUpDraftRuntime.cs`.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 134/134 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes presenter HUD/draft/build snapshots and intents, development-build gating, pause/result state, required UXML semantic elements and runtime theme import, scene wiring, non-zero resolved HP-bar geometry, 6+6 rendered build slots and live HUD/draft/build updates through two level-ups with reroll/banish.
+
+Deviations: development commands use fixed fixture amounts and are visible only in Editor/Development Build; production presentation, navigation and content screens remain IP-26 scope.
+
+Documentation impact: [DECISION-0005](../decisions/0005-vertical-ui-delivery.md) records the user-approved AI-first vertical UI pipeline; `WORKFLOW.md` and every IP specification now define a feature-owned UI/observability contract; IP-26 integrates and completes the UI rather than introducing it for the first time; Game Design and Content Design behavior are unchanged.
 
 ### IP-11 — Set framework
 

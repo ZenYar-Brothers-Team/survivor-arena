@@ -19,6 +19,10 @@ Approved SET-001…008; exact recipes/thresholds/effects; linked SKILL/PASSIVE I
 - Game Design: «Сеты», «Опыт и level-up».
 - Content Design: полные карточки целевых SET IDs и всех входящих components.
 
+## UI / observability
+
+Каждый Approved set имеет draft card, acquired-set state и читаемое recipe/effect presentation без занятия обычных build slots.
+
 ## Acceptance criteria
 
 Каждый set eligibility соответствует recipe; extra ability соответствует card; shared components and multiple sets coexist.

@@ -1,0 +1,43 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="gameplay-ui-root" class="gameplay-root" picking-mode="Ignore">
+        <ui:VisualElement class="hud-row">
+            <ui:ProgressBar name="hud-health-bar" title="HP" low-value="0" high-value="100" class="hud-bar" />
+            <ui:Label name="hud-level" text="LV 1" class="hud-label" />
+            <ui:Label name="hud-timer" text="15:00" class="hud-timer" />
+            <ui:ProgressBar name="hud-xp-bar" title="XP" low-value="0" high-value="100" class="hud-bar" />
+            <ui:Button name="hud-pause" text="Pause" class="compact-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="build-panel" class="build-panel">
+            <ui:Label text="ACTIVE SKILLS" class="build-title" />
+            <ui:VisualElement name="build-active-slots" />
+            <ui:Label text="PASSIVES" class="build-title build-passive-title" />
+            <ui:VisualElement name="build-passive-slots" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="draft-overlay" class="fullscreen-overlay">
+            <ui:VisualElement class="dialog-panel draft-panel">
+                <ui:Label text="LEVEL UP" class="dialog-title" />
+                <ui:VisualElement class="draft-controls">
+                    <ui:Button name="draft-reroll" text="Reroll" class="compact-button" />
+                    <ui:Label name="draft-banish-count" text="Banish: 0" class="hud-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="draft-options" class="draft-options" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="run-overlay" class="fullscreen-overlay">
+            <ui:VisualElement class="dialog-panel result-panel">
+                <ui:Label name="run-overlay-title" text="PAUSED" class="dialog-title" />
+                <ui:Button name="run-overlay-resume" text="Resume" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="development-panel" class="development-panel">
+            <ui:Label text="DEVELOPMENT" class="development-title" />
+            <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
+            <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
+            <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

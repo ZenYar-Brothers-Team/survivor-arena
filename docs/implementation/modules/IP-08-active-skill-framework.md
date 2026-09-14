@@ -19,6 +19,10 @@ Level-specific parameters; behavior composition/hooks; projectile count/pierce/f
 - Game Design: «Активные умения, пассивные предметы и слоты».
 - Content Design: SKILL-001…015 как Draft compatibility matrix; сами значения не production.
 
+## UI / observability
+
+Build panel показывает все acquired active skills и уровни в шести стабильных слотах; qualitative pattern проверяется fixture gameplay и tests.
+
 ## Acceptance criteria
 
 Несколько fixture skills демонстрируют разные behavior families; переходы уровней могут менять и числа, и pattern; draft/slot logic остаётся общей.

@@ -19,6 +19,10 @@ Approved CHAR-001…010; base stats; starting skill; recovery; draft weights; ap
 - Game Design: «Персонажи».
 - Content Design: полные карточки целевых CHAR IDs и referenced starting SKILL cards.
 
+## UI / observability
+
+Каждый Approved character имеет selection presentation, starting-skill/base-stat summary и locked/unlocked state.
+
 ## Acceptance criteria
 
 Каждый character starts with correct skill/stats; weights match card; 0/low-weight semantics correct; no unique passive system is added.

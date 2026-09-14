@@ -19,6 +19,10 @@ Enemy definition/runtime; HP; size/collision; speed; spawn/despawn; базовы
 - Game Design: «Враги, волны, элиты и боссы», «Управление, бой и выживание».
 - Content Design: schema «Enemies»; ENEMY-001…020 как Draft compatibility targets параметров и разных ролей.
 
+## UI / observability
+
+Отдельный production HUD не требуется; enemy lifecycle, contact damage и проход через границы наблюдаемы в fixture scene, а их результат виден через HP HUD.
+
 ## Acceptance criteria
 
 Enemy создаётся из definition; двигается и свободно пересекает границу поля и обычные препятствия; contact hit сразу повреждает игрока и повторяется по configured interval, поэтому долгий контакт с наносящим урон врагом может убить персонажа; enemy death корректно фиксируется; pause/end останавливает spawn/simulation/contact ticks.

@@ -19,6 +19,10 @@ Regression scenarios; configuration/reference validators; seeded reproducible ru
 - Game Design: весь GDD разрешено читать для финальной coverage-проверки.
 - Content Design: только Approved catalog + current Wave / Encounter Content; Draft entries не считаются missing implementation.
 
+## UI / observability
+
+End-to-end smoke проверяет все semantic UI contracts, отсутствие недоступных player actions и достаточную debug telemetry для воспроизводимого разбора run.
+
 ## Acceptance criteria
 
 Full run works selection→15:00/result; win/loss; XP expiry/recovery; six-slot builds; sets; character weights; field config; boss timer rule; persistence; no feature requires Raw Design geometry zones.

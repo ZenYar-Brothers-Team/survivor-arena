@@ -19,6 +19,10 @@ XP drop at death position; pickup; XP bar; level threshold; expiry timer; base r
 - Game Design: «Опыт и level-up», «Ключевые параметры текущей версии».
 - Content Design: PASSIVE-006, PASSIVE-007, PASSIVE-010 и CHAR-001…010 только как Draft compatibility targets для будущих XP modifiers.
 
+## UI / observability
+
+HUD постоянно показывает XP progress и level; pickup и level-up немедленно обновляют snapshot. Development build предоставляет action добавления fixture XP.
+
 ## Acceptance criteria
 
 XP появляется после death; pickup начисляет XP; expired drop удаляется; recovery=0 не начисляет его; threshold создаёт level-up; lifetime конфигурируем.
@@ -29,4 +33,4 @@ Pickup, expiry, multiple levels, pause.
 
 ## Out of scope
 
-Draft UI, конкретные passive modifiers, финальная XP curve.
+Draft presentation, конкретные passive modifiers, финальная XP curve.

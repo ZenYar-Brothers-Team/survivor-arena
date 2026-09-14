@@ -1,0 +1,186 @@
+.gameplay-root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: rgb(240, 242, 247);
+}
+
+.hud-row {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    height: 42px;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(18, 22, 30, 0.9);
+    border-radius: 6px;
+}
+
+.hud-bar {
+    width: 230px;
+    height: 24px;
+    margin-right: 14px;
+}
+
+.hud-bar > .unity-progress-bar__background {
+    background-color: rgb(45, 51, 64);
+}
+
+.hud-bar > .unity-progress-bar__progress {
+    background-color: rgb(75, 190, 102);
+}
+
+#hud-xp-bar > .unity-progress-bar__progress {
+    background-color: rgb(83, 139, 235);
+}
+
+.hud-label {
+    -unity-font-style: bold;
+    margin-right: 14px;
+}
+
+.hud-timer {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    font-size: 20px;
+    -unity-font-style: bold;
+}
+
+.compact-button {
+    min-width: 82px;
+    height: 30px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.fullscreen-overlay {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(5, 7, 12, 0.72);
+}
+
+.dialog-panel {
+    padding: 22px;
+    background-color: rgb(29, 34, 45);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(80, 91, 112);
+    border-right-color: rgb(80, 91, 112);
+    border-top-color: rgb(80, 91, 112);
+    border-bottom-color: rgb(80, 91, 112);
+    border-radius: 8px;
+}
+
+.draft-panel {
+    width: 620px;
+}
+
+.result-panel {
+    width: 360px;
+    align-items: center;
+}
+
+.dialog-title {
+    font-size: 24px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 14px;
+}
+
+.draft-controls,
+.draft-option-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.draft-controls {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.draft-option-row {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.draft-option-select {
+    flex-grow: 1;
+    height: 58px;
+    -unity-text-align: middle-left;
+}
+
+.draft-option-banish {
+    width: 92px;
+    height: 58px;
+    margin-left: 8px;
+}
+
+.primary-button {
+    width: 180px;
+    height: 38px;
+}
+
+.build-panel {
+    position: absolute;
+    top: 74px;
+    right: 16px;
+    width: 220px;
+    padding: 10px;
+    background-color: rgba(18, 22, 30, 0.86);
+    border-radius: 6px;
+}
+
+.build-title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgb(163, 190, 255);
+    margin-bottom: 4px;
+}
+
+.build-passive-title {
+    margin-top: 9px;
+}
+
+.build-slot {
+    height: 22px;
+    padding-left: 5px;
+    -unity-text-align: middle-left;
+    background-color: rgba(41, 48, 62, 0.9);
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.build-slot-empty {
+    color: rgb(104, 111, 126);
+}
+
+.development-panel {
+    display: none;
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px;
+    background-color: rgba(18, 22, 30, 0.9);
+    border-radius: 6px;
+}
+
+.development-title {
+    -unity-font-style: bold;
+    margin-left: 6px;
+    margin-right: 8px;
+}

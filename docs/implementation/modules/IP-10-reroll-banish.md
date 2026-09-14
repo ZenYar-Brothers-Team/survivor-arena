@@ -19,6 +19,10 @@ Reroll current offers; banish an offered entry for the current run and immediate
 - Game Design: «Опыт и level-up».
 - Content Design: не требуется.
 
+## UI / observability
+
+Draft overlay показывает remaining counters, предоставляет reroll/banish actions и немедленно перерисовывает valid offers.
+
 ## Acceptance criteria
 
 Reroll выдаёт новый valid draft и меняет состав предложений, когда в eligible pool существует альтернатива; banished entry не возвращается в run; exhausted counters reject actions without changing the draft; новый run reset.

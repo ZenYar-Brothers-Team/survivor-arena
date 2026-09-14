@@ -19,6 +19,10 @@ Recipes with active/passive components; minimum levels; eligibility; set draft w
 - Game Design: «Сеты» и релевантная часть «Опыт и level-up».
 - Content Design: SET-001…008 как Draft compatibility targets; связанные SKILL/PASSIVE IDs читать по ссылкам рецепта.
 
+## UI / observability
+
+При eligibility/acquisition set появляется в draft и затем в отдельном build sets state без занятия active/passive slot; recipe progress доступен fixture/debug view.
+
 ## Acceptance criteria
 
 Unmet recipe never eligible; fulfilled recipe can appear but not guaranteed; selected set does not occupy slot; duplicate acquisition blocked; multiple sets including shared components work independently.

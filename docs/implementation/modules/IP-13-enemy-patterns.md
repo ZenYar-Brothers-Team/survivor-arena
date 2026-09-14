@@ -19,6 +19,10 @@ Keep-distance, arc/orbit approach, zigzag, approach-retreat, telegraphed dash; p
 - Game Design: «Управление, бой и выживание», «Враги, волны, элиты и боссы».
 - Content Design: ENEMY-001…020 как Draft compatibility matrix; BOSS/MIDBOSS patterns можно использовать как non-binding stress cases.
 
+## UI / observability
+
+Telegraphs и projectile patterns читаемы в gameplay; development observability показывает fixture pattern/phase без production-only HUD.
+
 ## Acceptance criteria
 
 Fixture definitions покрывают melee, ranged, dash и несколько projectile patterns; новые combination definitions не требуют изменения wave/draft systems; pause/end корректны.

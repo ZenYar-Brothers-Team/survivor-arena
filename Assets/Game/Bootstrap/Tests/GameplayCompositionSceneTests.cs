@@ -1,6 +1,7 @@
 using Game.ActiveSkill;
 using Game.Enemy;
 using Game.Progression;
+using Game.UI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -16,7 +17,7 @@ namespace Game.Bootstrap.Tests
         public void GameplayScene_HasSingleCompositionRootWithAllRuntimeReferences()
         {
             EditorSceneManager.OpenScene(GameplayScenePath, OpenSceneMode.Single);
-            var root = Object.FindFirstObjectByType<GameplayCompositionRoot>();
+            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             Assert.IsNotNull(root);
 
             var serialized = new SerializedObject(root);
@@ -27,6 +28,7 @@ namespace Game.Bootstrap.Tests
             Assert.IsInstanceOf<PlayerActiveSkillSetRuntime>(serialized.FindProperty("activeSkillRuntime").objectReferenceValue);
             Assert.IsInstanceOf<PlayerPassiveSetRuntime>(serialized.FindProperty("passiveRuntime").objectReferenceValue);
             Assert.IsInstanceOf<ContinuousFixtureEnemySpawner>(serialized.FindProperty("enemySpawner").objectReferenceValue);
+            Assert.IsInstanceOf<GameplayUiRoot>(serialized.FindProperty("gameplayUiRoot").objectReferenceValue);
             StringAssert.StartsWith("FIXTURE-", serialized.FindProperty("startingActiveId").stringValue);
             Assert.Greater(serialized.FindProperty("draftOfferCount").intValue, 0);
             Assert.Greater(serialized.FindProperty("fixtureInitialRerolls").intValue, 0);

@@ -19,6 +19,10 @@ Movement input; movement speed stat hook; spawn point; player-only field bounds 
 - Game Design: «Управление, бой и выживание», «Поля».
 - Content Design: schema-раздел «Fields»; FIELD-001…010 только как Draft compatibility targets геометрии, без production-импорта.
 
+## UI / observability
+
+Отдельный production HUD не требуется; fixture и PlayMode checks должны позволять проверить ввод, положение игрока, camera centering и player-only collision.
+
 ## Acceptance criteria
 
 Движение работает во всех направлениях; field bounds и configured ordinary obstacles блокируют игрока и проходимы для остальных игровых сущностей; speed задаётся data/stat; pause останавливает движение; камера сохраняет depth и удерживает world position персонажа в центре viewport при его перемещении.

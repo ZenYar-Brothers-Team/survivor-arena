@@ -19,6 +19,10 @@ Versioned profile; meta currency; unlock state characters/fields/active skills/s
 - Game Design: «Мета-прогрессия».
 - Content Design: approved unlock fields from CHAR/FIELD/SKILL/SET cards only; unrelated combat cards не читать.
 
+## UI / observability
+
+Profile/meta slice показывает currency, unlock/purchase state, upgrade levels, reward delta и save/load outcome; intents проходят через presenter contracts.
+
 ## Acceptance criteria
 
 Win/loss can award configured currency; purchase unlock and achievement unlock work; unlocked content persists; global/per-character upgrade hooks affect runtime stats.

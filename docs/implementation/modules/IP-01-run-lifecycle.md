@@ -19,6 +19,10 @@ Start/run/pause/resume/won/lost; gameplay timer; 15:00 как default; коро�
 - Game Design: «Структура забега и условия завершения», «Управление, бой и выживание», «Ключевые параметры текущей версии».
 - Content Design: не требуется.
 
+## UI / observability
+
+HUD показывает remaining time и pause action; pause/won/lost имеют отдельные overlay states. Surface поставляется через IP-10A и остаётся контрактом run lifecycle.
+
 ## Acceptance criteria
 
 Pause останавливает gameplay time; живой игрок при 15:00 получает won; смерть раньше времени даёт lost; end state не продолжает gameplay.

@@ -19,6 +19,10 @@ Active-skill definition/runtime; auto trigger; cooldown; target/direction hook; 
 - Game Design: «Управление, бой и выживание», «Активные умения, пассивные предметы и слоты».
 - Content Design: schema «Active Skills»; SKILL-001…015 читать только для понимания разнообразия patterns, не как approved content.
 
+## UI / observability
+
+Starting active skill и его уровень видны в build panel; auto-trigger остаётся наблюдаемым в gameplay без attack input.
+
 ## Acceptance criteria
 
 Fixture skill auto-fires; не требует aim/attack input; damage проходит через единый enemy damage contract; pause/end останавливают trigger/projectiles.

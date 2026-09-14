@@ -1184,6 +1184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1351064011}
   - component: {fileID: 1351064012}
+  - component: {fileID: 1351064013}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1227,11 +1228,24 @@ MonoBehaviour:
   activeSkillRuntime: {fileID: 557252971}
   passiveRuntime: {fileID: 557252972}
   enemySpawner: {fileID: 314159261}
+  gameplayUiRoot: {fileID: 1351064013}
   startingActiveId: FIXTURE-SKILL-BOLT
   draftOfferCount: 3
   draftSeed: 12345
   fixtureInitialRerolls: 2
   fixtureInitialBanishes: 2
+--- !u!114 &1351064013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351064010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7cceda6f7b34a9bbf910579b69b090f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.UI::Game.UI.GameplayUiRoot
 --- !u!1 &314159260
 GameObject:
   m_ObjectHideFlags: 0

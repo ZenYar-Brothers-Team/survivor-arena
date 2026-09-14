@@ -22,7 +22,7 @@ namespace Game.ActiveSkill
             if (radius <= 0f)
                 return DamagedBuffer.Count;
 
-            Physics2D.OverlapCircle(center, radius, new ContactFilter2D().NoFilter(), ColliderBuffer);
+            Physics2D.OverlapCircle(center, radius, ContactFilter2D.noFilter, ColliderBuffer);
             for (var i = 0; i < ColliderBuffer.Count; i++)
             {
                 var receiver = ColliderBuffer[i].GetComponentInParent<IEnemyDamageReceiver>();

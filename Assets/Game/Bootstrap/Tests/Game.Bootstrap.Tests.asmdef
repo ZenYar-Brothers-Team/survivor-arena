@@ -7,6 +7,7 @@
         "Game.ActiveSkill",
         "Game.Progression",
         "Game.Enemy",
+        "Game.UI",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

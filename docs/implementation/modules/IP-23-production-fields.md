@@ -19,6 +19,10 @@ Approved FIELD-001…010; player-only field bounds and ordinary obstacles; geome
 - Game Design: «Поля».
 - Content Design: полные карточки целевых FIELD IDs и только referenced ENEMY/BOSS/MIDBOSS IDs.
 
+## UI / observability
+
+Каждое Approved field имеет selection presentation, lock state и краткое configuration/difficulty summary; loading state адресуется semantic ID.
+
 ## Acceptance criteria
 
 Все Approved fields selectable/loadable; geometry differences apply; invalid refs rejected; difficulty ordering metadata preserved without hard-coding field number into systems.

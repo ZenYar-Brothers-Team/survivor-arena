@@ -90,6 +90,7 @@ Draft offer count, reroll/banish counts, XP thresholds/lifetime, set probabiliti
 - [IP-08 — Active-skill progression и pattern framework](modules/IP-08-active-skill-framework.md)
 - [IP-09 — Passive modifier framework](modules/IP-09-passive-framework.md)
 - [IP-10 — Reroll и banish](modules/IP-10-reroll-banish.md)
+- [IP-10A — UI Foundation and test harness](modules/IP-10A-ui-foundation.md)
 - [IP-11 — Set framework](modules/IP-11-set-framework.md)
 - [IP-12 — Character framework и weighted draft](modules/IP-12-character-framework.md)
 - [IP-13 — Enemy movement и attack patterns](modules/IP-13-enemy-patterns.md)

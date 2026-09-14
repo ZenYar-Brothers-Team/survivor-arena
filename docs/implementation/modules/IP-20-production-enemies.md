@@ -19,6 +19,10 @@ Approved ENEMY-001…020; HP/size/speed/contact damage/movement/ranged patterns/
 - Game Design: «Враги, волны, элиты и боссы», «Управление, бой и выживание».
 - Content Design: полные карточки целевых ENEMY IDs.
 
+## UI / observability
+
+Player-facing UI добавляется только для явно телеграфируемых attacks; development fixture identifies enemy ID/pattern для per-ID smoke.
+
 ## Acceptance criteria
 
 Каждый enemy создаётся по ID и демонстрирует card behavior; XP reward корректен; field-context metadata доступно wave system.

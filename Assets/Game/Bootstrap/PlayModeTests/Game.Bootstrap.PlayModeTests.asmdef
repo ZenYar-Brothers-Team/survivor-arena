@@ -6,6 +6,7 @@
         "Game.Content",
         "Game.Progression",
         "Game.Run",
+        "Game.UI",
         "UnityEngine.TestRunner"
     ],
     "includePlatforms": [],

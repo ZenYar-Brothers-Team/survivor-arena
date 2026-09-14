@@ -19,6 +19,10 @@ IP-08; IP-13, если переиспользуются projectile/pattern primi
 - Game Design: «Активные умения, пассивные предметы и слоты», «Управление, бой и выживание».
 - Content Design: полные карточки целевых SKILL IDs и только связанные passive/set references, если они влияют на contract.
 
+## UI / observability
+
+Каждый Approved skill имеет production label/icon reference, draft presentation и build-slot state; отсутствующий presentation asset обнаруживается validator.
+
 ## Acceptance criteria
 
 Каждый Approved skill воспроизводит card behavior на L1…L6; есть automated/manual smoke coverage по каждому ID; manual attack input не вводится.
