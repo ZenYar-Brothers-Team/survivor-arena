@@ -7,8 +7,8 @@ namespace Game.Character
         public float MaxHealthMultiplierBonus { get; }
         public float MovementSpeedMultiplierBonus { get; }
         public float ActiveSkillDamageMultiplierBonus { get; }
-        public float ActiveSkillCooldownMultiplierBonus { get; }
-        public float IncomingDamageMultiplierBonus { get; }
+        public float ActiveSkillCooldownReductionBonus { get; }
+        public float IncomingDamageReductionBonus { get; }
         public float HealthRestorationMultiplierBonus { get; }
         public float HealthRegenerationPerSecondBonus { get; }
         public float DisappearingXpRecoveryBonus { get; }
@@ -19,8 +19,8 @@ namespace Game.Character
             float maxHealthMultiplierBonus = 0f,
             float movementSpeedMultiplierBonus = 0f,
             float activeSkillDamageMultiplierBonus = 0f,
-            float activeSkillCooldownMultiplierBonus = 0f,
-            float incomingDamageMultiplierBonus = 0f,
+            float activeSkillCooldownReductionBonus = 0f,
+            float incomingDamageReductionBonus = 0f,
             float healthRestorationMultiplierBonus = 0f,
             float healthRegenerationPerSecondBonus = 0f,
             float disappearingXpRecoveryBonus = 0f,
@@ -30,8 +30,8 @@ namespace Game.Character
             MaxHealthMultiplierBonus = maxHealthMultiplierBonus;
             MovementSpeedMultiplierBonus = movementSpeedMultiplierBonus;
             ActiveSkillDamageMultiplierBonus = activeSkillDamageMultiplierBonus;
-            ActiveSkillCooldownMultiplierBonus = activeSkillCooldownMultiplierBonus;
-            IncomingDamageMultiplierBonus = incomingDamageMultiplierBonus;
+            ActiveSkillCooldownReductionBonus = activeSkillCooldownReductionBonus;
+            IncomingDamageReductionBonus = incomingDamageReductionBonus;
             HealthRestorationMultiplierBonus = healthRestorationMultiplierBonus;
             HealthRegenerationPerSecondBonus = healthRegenerationPerSecondBonus;
             DisappearingXpRecoveryBonus = disappearingXpRecoveryBonus;
@@ -41,8 +41,8 @@ namespace Game.Character
             ValidateFinite(maxHealthMultiplierBonus, nameof(maxHealthMultiplierBonus));
             ValidateFinite(movementSpeedMultiplierBonus, nameof(movementSpeedMultiplierBonus));
             ValidateFinite(activeSkillDamageMultiplierBonus, nameof(activeSkillDamageMultiplierBonus));
-            ValidateFinite(activeSkillCooldownMultiplierBonus, nameof(activeSkillCooldownMultiplierBonus));
-            ValidateFinite(incomingDamageMultiplierBonus, nameof(incomingDamageMultiplierBonus));
+            ValidateNonNegativeFinite(activeSkillCooldownReductionBonus, nameof(activeSkillCooldownReductionBonus));
+            ValidateNonNegativeFinite(incomingDamageReductionBonus, nameof(incomingDamageReductionBonus));
             ValidateFinite(healthRestorationMultiplierBonus, nameof(healthRestorationMultiplierBonus));
             ValidateFinite(healthRegenerationPerSecondBonus, nameof(healthRegenerationPerSecondBonus));
             ValidateFinite(disappearingXpRecoveryBonus, nameof(disappearingXpRecoveryBonus));
@@ -54,6 +54,13 @@ namespace Game.Character
         {
             if (float.IsNaN(value) || float.IsInfinity(value))
                 throw new ArgumentOutOfRangeException(parameterName, "Value must be finite.");
+        }
+
+        private static void ValidateNonNegativeFinite(float value, string parameterName)
+        {
+            ValidateFinite(value, parameterName);
+            if (value < 0f)
+                throw new ArgumentOutOfRangeException(parameterName, "Value cannot be negative.");
         }
     }
 }

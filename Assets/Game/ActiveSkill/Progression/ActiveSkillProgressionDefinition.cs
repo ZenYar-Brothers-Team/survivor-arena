@@ -1,28 +1,22 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Progression;
 
 namespace Game.ActiveSkill
 {
-    public sealed class ActiveSkillProgressionDefinition : IContentDefinition
+    public sealed class ActiveSkillProgressionDefinition : BuildEntryDefinition
     {
-        public const int MaxLevel = 6;
-
         private readonly ActiveSkillLevelDefinition[] _levels;
 
-        public ContentId Id { get; }
-        public string DisplayName { get; }
         public IReadOnlyList<ActiveSkillLevelDefinition> Levels => _levels;
 
         public ActiveSkillProgressionDefinition(
             ContentId id,
             string displayName,
             params ActiveSkillLevelDefinition[] levels)
+            : base(id, BuildEntryKind.ActiveSkill, displayName)
         {
-            if (!id.IsValid)
-                throw new ArgumentException("Active skill progression requires a valid content id.", nameof(id));
-            if (string.IsNullOrWhiteSpace(displayName))
-                throw new ArgumentException("Display name cannot be empty.", nameof(displayName));
             if (levels == null || levels.Length != MaxLevel)
                 throw new ArgumentException($"Active skill progression requires exactly {MaxLevel} levels.", nameof(levels));
             for (var i = 0; i < levels.Length; i++)
@@ -31,8 +25,6 @@ namespace Game.ActiveSkill
                     throw new ArgumentException("Skill levels cannot contain null.", nameof(levels));
             }
 
-            Id = id;
-            DisplayName = displayName;
             _levels = (ActiveSkillLevelDefinition[])levels.Clone();
         }
 

@@ -31,18 +31,18 @@ namespace Game.Character.Tests
                 maxHealthMultiplierBonus: 0.5f,
                 movementSpeedMultiplierBonus: 0.5f,
                 activeSkillDamageMultiplierBonus: 0.2f,
-                activeSkillCooldownMultiplierBonus: -0.1f));
+                activeSkillCooldownReductionBonus: 0.1f));
             stats.SetModifier("fixture", new CharacterStatModifier(
                 maxHealthMultiplierBonus: 0.25f,
                 movementSpeedMultiplierBonus: 0.25f,
                 activeSkillDamageMultiplierBonus: 0.1f,
-                activeSkillCooldownMultiplierBonus: -0.2f));
+                activeSkillCooldownReductionBonus: 0.2f));
 
             Assert.AreEqual(1, stats.ModifierCount);
             Assert.AreEqual(125f, stats.MaxHealth, 0.0001f);
             Assert.AreEqual(3.75f, stats.MovementSpeed, 0.0001f);
             Assert.AreEqual(1.1f, stats.ActiveSkillDamageMultiplier, 0.0001f);
-            Assert.AreEqual(0.8f, stats.ActiveSkillCooldownMultiplier, 0.0001f);
+            Assert.AreEqual(1f / 1.2f, stats.ActiveSkillCooldownMultiplier, 0.0001f);
         }
 
         [Test]
@@ -90,12 +90,28 @@ namespace Game.Character.Tests
 
             stats.SetModifier("fixture", new CharacterStatModifier(
                 movementSpeedMultiplierBonus: -2f,
-                incomingDamageMultiplierBonus: -2f,
+                incomingDamageReductionBonus: 2f,
                 disappearingXpRecoveryBonus: 2f));
 
             Assert.AreEqual(0f, stats.MovementSpeed);
-            Assert.AreEqual(0f, stats.IncomingDamageMultiplier);
+            Assert.AreEqual(0.01f, stats.IncomingDamageMultiplier, 0.0001f);
             Assert.AreEqual(1f, stats.DisappearingXpRecovery);
+        }
+
+        [Test]
+        public void PercentageSources_AddAndCooldownReductionApproachesButNeverReachesZero()
+        {
+            var stats = CreateStats();
+            stats.SetModifier("one", new CharacterStatModifier(
+                maxHealthMultiplierBonus: 0.2f,
+                activeSkillCooldownReductionBonus: 10f));
+            stats.SetModifier("two", new CharacterStatModifier(
+                maxHealthMultiplierBonus: 0.3f,
+                activeSkillCooldownReductionBonus: 10f));
+
+            Assert.AreEqual(150f, stats.MaxHealth, 0.0001f);
+            Assert.AreEqual(1f / 21f, stats.ActiveSkillCooldownMultiplier, 0.0001f);
+            Assert.Greater(stats.ActiveSkillCooldownMultiplier, 0f);
         }
 
         [Test]

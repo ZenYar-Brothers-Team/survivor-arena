@@ -1,0 +1,30 @@
+using Game.ActiveSkill;
+using Game.Progression;
+using NUnit.Framework;
+
+namespace Game.Bootstrap.Tests
+{
+    public class FixtureRuntimeContentCatalogTests
+    {
+        [Test]
+        public void Create_BuildsOneValidatedRegistryForEveryRuntimeDefinition()
+        {
+            var catalog = FixtureRuntimeContentCatalog.Create();
+
+            Assert.IsTrue(catalog.Registry.IsBuilt);
+            Assert.Greater(catalog.ActiveSkills.Count, 0);
+            Assert.Greater(catalog.Passives.Count, 0);
+            Assert.Greater(catalog.Enemies.Count, 0);
+            Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count, catalog.BuildEntries.Count);
+
+            foreach (var buildEntry in catalog.BuildEntries)
+            {
+                Assert.AreSame(buildEntry, catalog.Registry.Get<BuildEntryDefinition>(buildEntry.Id));
+                if (buildEntry.Kind == BuildEntryKind.ActiveSkill)
+                    Assert.IsInstanceOf<ActiveSkillProgressionDefinition>(buildEntry);
+                else
+                    Assert.IsInstanceOf<PassiveProgressionDefinition>(buildEntry);
+            }
+        }
+    }
+}

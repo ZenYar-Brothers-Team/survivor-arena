@@ -84,7 +84,7 @@ namespace Game.Progression
         private void HandleLevelUp(int newLevel)
         {
             if (runController != null && runController.Model != null)
-                runController.Model.Pause();
+                runController.Model.RequestPause(RunPauseReasons.LevelUpDraft);
             LevelUp?.Invoke(newLevel);
         }
 

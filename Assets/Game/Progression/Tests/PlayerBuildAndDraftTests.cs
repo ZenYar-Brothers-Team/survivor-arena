@@ -98,6 +98,28 @@ namespace Game.Progression.Tests
             }));
         }
 
+        [Test]
+        public void SeededSelection_IsReproducibleAndDoesNotDuplicateOptions()
+        {
+            var starting = Active("FIXTURE-ACTIVE-0");
+            var definitions = new List<BuildEntryDefinition> { starting };
+            for (var i = 1; i < 10; i++)
+                definitions.Add(Passive($"FIXTURE-PASSIVE-{i}"));
+            var pool = new DraftPool(definitions);
+            var build = new PlayerBuild(starting);
+
+            var first = pool.CreateOptions(build, 4, new SeededDraftRandom(12345));
+            var second = pool.CreateOptions(build, 4, new SeededDraftRandom(12345));
+            var ids = new HashSet<Game.Content.ContentId>();
+
+            Assert.AreEqual(first.Count, second.Count);
+            for (var i = 0; i < first.Count; i++)
+            {
+                Assert.AreEqual(first[i].Definition.Id, second[i].Definition.Id);
+                Assert.IsTrue(ids.Add(first[i].Definition.Id));
+            }
+        }
+
         private static BuildEntryDefinition Active(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.ActiveSkill, id);

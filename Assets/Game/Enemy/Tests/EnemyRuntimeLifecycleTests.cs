@@ -31,6 +31,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void Spawn_AppliesDefinitionToRuntimeAndPhysics()
         {
+            var registryCount = EnemyRegistry.Count;
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 12f, 1.5f, 2f, 3f, 0.5f);
             var runController = _runObject.AddComponent<RunController>();
 
@@ -42,11 +43,15 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(new Vector3(2f, 3f, 0f), _enemy.transform.position);
             Assert.AreEqual(0.5f, _enemy.GetComponent<CircleCollider2D>().radius);
             Assert.AreEqual(0f, _enemy.GetComponent<Rigidbody2D>().gravityScale);
+            Assert.AreEqual(registryCount + 1, EnemyRegistry.Count);
+            Assert.IsTrue(EnemyRegistry.TryFindNearest(Vector2.zero, out var nearest));
+            Assert.AreSame(_enemy, nearest);
         }
 
         [Test]
         public void LethalDamage_EmitsDeathAndDespawnOnce()
         {
+            var registryCount = EnemyRegistry.Count;
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 10f, 1f, 1f, 1f, 0.5f);
             var runController = _runObject.AddComponent<RunController>();
             _enemy = EnemyFactory.Spawn(definition, Vector2.zero, _target.transform, runController);
@@ -60,6 +65,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(1, deaths);
             Assert.AreEqual(1, despawns);
             Assert.IsTrue(_enemy == null);
+            Assert.AreEqual(registryCount, EnemyRegistry.Count);
         }
     }
 }

@@ -1,0 +1,72 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Game.Enemy
+{
+    public static class EnemyRegistry
+    {
+        private static readonly HashSet<EnemyRuntime> Enemies = new HashSet<EnemyRuntime>();
+
+        public static int Count
+        {
+            get
+            {
+                RemoveDestroyedEntries();
+                return Enemies.Count;
+            }
+        }
+
+        public static void Register(EnemyRuntime enemy)
+        {
+            if (enemy != null)
+                Enemies.Add(enemy);
+        }
+
+        public static void Unregister(EnemyRuntime enemy)
+        {
+            if (enemy != null)
+                Enemies.Remove(enemy);
+        }
+
+        public static void CopyAliveTo(List<EnemyRuntime> destination)
+        {
+            if (destination == null)
+                throw new System.ArgumentNullException(nameof(destination));
+
+            destination.Clear();
+            foreach (var enemy in Enemies)
+            {
+                if (enemy != null && enemy.IsAlive)
+                    destination.Add(enemy);
+            }
+
+            RemoveDestroyedEntries();
+        }
+
+        public static bool TryFindNearest(Vector2 origin, out EnemyRuntime nearest)
+        {
+            nearest = null;
+            var nearestDistance = float.PositiveInfinity;
+            foreach (var enemy in Enemies)
+            {
+                if (enemy == null || !enemy.IsAlive)
+                    continue;
+
+                var distance = (enemy.Position - origin).sqrMagnitude;
+                if (distance >= nearestDistance)
+                    continue;
+
+                nearestDistance = distance;
+                nearest = enemy;
+            }
+
+            RemoveDestroyedEntries();
+            return nearest != null;
+        }
+
+        private static void RemoveDestroyedEntries()
+        {
+            Enemies.RemoveWhere(enemy => enemy == null);
+        }
+    }
+}

@@ -5,6 +5,7 @@ namespace Game.Character
     public sealed class CharacterHealth : IDisposable
     {
         private readonly CharacterStats _stats;
+        private float _lastMaxHealth;
         private bool _disposed;
 
         public float CurrentHealth { get; private set; }
@@ -18,6 +19,7 @@ namespace Game.Character
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             CurrentHealth = stats.MaxHealth;
+            _lastMaxHealth = stats.MaxHealth;
             _stats.Changed += HandleStatsChanged;
         }
 
@@ -83,12 +85,12 @@ namespace Game.Character
 
         private void HandleStatsChanged()
         {
-            if (CurrentHealth <= MaxHealth)
-                return;
-
             var previousHealth = CurrentHealth;
-            CurrentHealth = MaxHealth;
-            HealthChanged?.Invoke(previousHealth, CurrentHealth);
+            var healthRatio = _lastMaxHealth > 0f ? CurrentHealth / _lastMaxHealth : 0f;
+            _lastMaxHealth = MaxHealth;
+            CurrentHealth = Math.Min(MaxHealth, Math.Max(0f, healthRatio * MaxHealth));
+            if (Math.Abs(CurrentHealth - previousHealth) > float.Epsilon)
+                HealthChanged?.Invoke(previousHealth, CurrentHealth);
         }
 
         private static void ValidateNonNegativeFinite(float value, string parameterName)

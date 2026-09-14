@@ -36,20 +36,8 @@ namespace Game.ActiveSkill
         {
             if (_initialized)
                 return;
-            if (owner == null || runController == null || draftRuntime == null)
-            {
-                Debug.LogError("Player active-skill set runtime is not configured.", this);
-                enabled = false;
-                return;
-            }
-
-            Initialize(
-                owner,
-                runController,
-                draftRuntime,
-                FixtureActiveSkillCatalog.Create(),
-                new SceneEnemyTargetProvider(),
-                new SceneActiveSkillEffectExecutor(runController));
+            Debug.LogError("Player active-skill set runtime must be initialized by the gameplay composition root.", this);
+            enabled = false;
         }
 
         private void Update()
@@ -133,7 +121,7 @@ namespace Game.ActiveSkill
         private void SynchronizeEntry(BuildEntry entry)
         {
             if (!_catalog.TryGetValue(entry.Definition.Id, out var definition))
-                return;
+                throw new InvalidOperationException($"Active build entry '{entry.Definition.Id}' is missing from the runtime catalog.");
             if (!_instances.TryGetValue(definition.Id, out var instance))
             {
                 instance = new ActiveSkillInstance(definition);

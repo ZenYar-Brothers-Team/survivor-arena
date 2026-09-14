@@ -437,10 +437,10 @@ GameObject:
   - component: {fileID: 557252964}
   - component: {fileID: 557252963}
   - component: {fileID: 557252962}
-  - component: {fileID: 557252968}
   - component: {fileID: 557252969}
   - component: {fileID: 557252970}
   - component: {fileID: 557252971}
+  - component: {fileID: 557252972}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -519,21 +519,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Progression::Game.Progression.LevelUpDraftRuntime
   experienceRuntime: {fileID: 557252969}
   runController: {fileID: 2071511763}
-  fixtureStartingActiveId: FIXTURE-SKILL-BOLT
-  fixtureActiveIds:
-  - FIXTURE-SKILL-BOLT
-  - FIXTURE-SKILL-RING
-  - FIXTURE-SKILL-BEAM
-  - FIXTURE-SKILL-ORBIT
-  - FIXTURE-SKILL-BOOMERANG
-  - FIXTURE-SKILL-CHAIN
-  - FIXTURE-SKILL-MINE
-  - FIXTURE-SKILL-DELAYED
-  fixturePassiveIds:
-  - FIXTURE-PASSIVE-VITALITY
-  - FIXTURE-PASSIVE-HASTE
-  - FIXTURE-PASSIVE-MEMORY
-  fixtureOfferCount: 3
 --- !u!114 &557252971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,27 +534,20 @@ MonoBehaviour:
   owner: {fileID: 557252963}
   runController: {fileID: 2071511763}
   draftRuntime: {fileID: 557252970}
---- !u!114 &557252968
+--- !u!114 &557252972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557252961}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1965fc5af1d3444c9e5b2bc842d5f631, type: 3}
+  m_Script: {fileID: 11500000, guid: e760b1c4389f4a6d82c50719f3ea2b64, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Game.ActiveSkill::Game.ActiveSkill.PlayerActiveSkillRuntime
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.PlayerPassiveSetRuntime
   owner: {fileID: 557252963}
-  runController: {fileID: 2071511763}
-  fixtureContentId: FIXTURE-SKILL-BOLT
-  fixtureBaseDamage: 5
-  fixtureCooldownSeconds: 0.75
-  fixtureProjectileSpeed: 10
-  fixtureProjectileLifetimeSeconds: 2
-  fixtureProjectileCollisionRadius: 0.15
-  fixtureImpactAreaRadius: 0.5
+  draftRuntime: {fileID: 557252970}
 --- !u!212 &557252964
 SpriteRenderer:
   serializedVersion: 3
@@ -1078,7 +1056,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1205,6 +1183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1351064011}
+  - component: {fileID: 1351064012}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1229,6 +1208,28 @@ Transform:
   - {fileID: 314159262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351064012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351064010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fa2c7619de4b50a347c8e125d690fb, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Bootstrap::Game.Bootstrap.GameplayCompositionRoot
+  runController: {fileID: 2071511763}
+  player: {fileID: 557252963}
+  experienceRuntime: {fileID: 557252969}
+  draftRuntime: {fileID: 557252970}
+  activeSkillRuntime: {fileID: 557252971}
+  passiveRuntime: {fileID: 557252972}
+  enemySpawner: {fileID: 314159261}
+  startingActiveId: FIXTURE-SKILL-BOLT
+  draftOfferCount: 3
+  draftSeed: 12345
 --- !u!1 &314159260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,13 +1261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Enemy::Game.Enemy.ContinuousFixtureEnemySpawner
   runController: {fileID: 2071511763}
   target: {fileID: 557252967}
-  fixtureContentId: FIXTURE-ENEMY-SEEKER
-  fixtureMaxHealth: 10
-  fixtureCollisionSize: 1
-  fixtureMovementSpeed: 1
-  fixtureContactDamage: 1
-  fixtureContactDamageInterval: 1
-  fixtureExperienceReward: 1
   spawnIntervalSeconds: 2
   spawnRadius: 8
   maxAliveEnemies: 10

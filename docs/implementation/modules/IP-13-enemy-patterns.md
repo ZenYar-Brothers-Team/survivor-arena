@@ -12,7 +12,7 @@ IP-03, IP-04.
 
 ## Scope
 
-Keep-distance, arc/orbit approach, zigzag, approach-retreat, telegraphed dash; enemy projectile lifecycle; single/fan/burst/ring/cross/spiral patterns; large explosive projectile; configurable attack cooldown/damage.
+Keep-distance, arc/orbit approach, zigzag, approach-retreat, telegraphed dash; player-only ordinary field geometry (enemy pathfinding is not required); enemy projectile lifecycle; single/fan/burst/ring/cross/spiral patterns; large explosive projectile; configurable attack cooldown/damage.
 
 ## Context
 

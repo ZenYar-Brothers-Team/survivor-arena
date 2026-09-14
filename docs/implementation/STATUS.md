@@ -3,7 +3,9 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-14
-Current next module: IP-09
+Current next module: IP-10
+
+Cross-cutting verification: Unity 6000.6.0f1 EditMode 121/121 and PlayMode 1/1 passed on 2026-09-14. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md).
 
 ## Foundation and playable core
 
@@ -111,7 +113,15 @@ Documentation impact: Game Design, Content Design and IP-08 scope did not change
 
 ### IP-09 — Passive modifier framework
 
-Status: Ready
+Status: Verified
+
+Implementation evidence: `Assets/Game/Progression/Passive/` defines six-level passive progressions and fixture catalog; `PlayerPassiveSetRuntime.cs` applies keyed build-synchronized modifiers; `CharacterStats.cs` and `CharacterHealth.cs` implement additive source percentages, asymptotic cooldown reduction, 99% damage-reduction cap and proportional current-health rescaling.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 121/121 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes keyed replacement, six levels, multiple stat categories, additive percentages, cooldown asymptote, damage-reduction cap, proportional health and scene-level passive selection.
+
+Deviations: production PASSIVE-001…010 remain out of scope; fixture passives are non-production. Stat semantics are recorded in [DECISION-0004](../decisions/0004-character-stat-composition.md).
+
+Documentation impact: Game Design, Content Design, IP-09 and direct dependant readiness synchronized.
 
 ### IP-10 — Reroll и banish
 
@@ -121,13 +131,11 @@ Exact counts and recovery rules remain CG-04 balance TBD and must stay configura
 
 ### IP-11 — Set framework
 
-Status: Blocked  
-Blocked by: IP-09.
+Status: Ready
 
 ### IP-12 — Character framework и weighted draft
 
-Status: Blocked  
-Blocked by: IP-09.
+Status: Ready
 
 ## Encounter systems
 

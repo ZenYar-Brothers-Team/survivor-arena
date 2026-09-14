@@ -22,24 +22,7 @@ namespace Game.ActiveSkill.Tests
         {
             var player = GameObject.Find("Player");
             Assert.IsNotNull(player);
-            var runtime = player.GetComponent<PlayerActiveSkillRuntime>();
-            Assert.IsNotNull(runtime);
-
-            var serializedRuntime = new SerializedObject(runtime);
-            Assert.AreSame(
-                player.GetComponent<PlayerCharacterRuntime>(),
-                serializedRuntime.FindProperty("owner").objectReferenceValue);
-            Assert.AreSame(
-                GameObject.Find("RunController").GetComponent<RunController>(),
-                serializedRuntime.FindProperty("runController").objectReferenceValue);
-            Assert.IsTrue(serializedRuntime.FindProperty("fixtureContentId").stringValue.StartsWith("FIXTURE-"));
-            Assert.Greater(serializedRuntime.FindProperty("fixtureCooldownSeconds").floatValue, 0f);
-            Assert.Greater(serializedRuntime.FindProperty("fixtureProjectileSpeed").floatValue, 0f);
-            Assert.Greater(serializedRuntime.FindProperty("fixtureProjectileLifetimeSeconds").floatValue, 0f);
-            Assert.Greater(serializedRuntime.FindProperty("fixtureProjectileCollisionRadius").floatValue, 0f);
-            Assert.GreaterOrEqual(serializedRuntime.FindProperty("fixtureImpactAreaRadius").floatValue, 0f);
-
-            Assert.IsFalse(runtime.enabled, "The IP-05 single-skill fixture is replaced by the progression set runtime.");
+            Assert.IsNull(player.GetComponent<PlayerActiveSkillRuntime>(), "The legacy single-skill fixture must not remain in the composed scene.");
             var skillSet = player.GetComponent<PlayerActiveSkillSetRuntime>();
             Assert.IsNotNull(skillSet);
             Assert.IsTrue(skillSet.enabled);

@@ -14,6 +14,8 @@ namespace Game.ActiveSkill
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
         private readonly List<ScheduledEffect> _scheduled = new List<ScheduledEffect>();
         private readonly List<MineState> _mines = new List<MineState>();
+        private readonly List<EnemyRuntime> _enemyBuffer = new List<EnemyRuntime>();
+        private readonly HashSet<IEnemyDamageReceiver> _chainHitBuffer = new HashSet<IEnemyDamageReceiver>();
 
         public int ScheduledCount => _scheduled.Count;
         public int ActiveMineCount => _mines.Count;
@@ -172,19 +174,17 @@ namespace Game.ActiveSkill
             EnemyDamageArea.Apply(center, effect.Radius, CreateDamage(scheduled, effect.DamageMultiplier));
         }
 
-        private static void ExecuteBeamTick(ScheduledEffect scheduled, BeamEffect effect)
+        private void ExecuteBeamTick(ScheduledEffect scheduled, BeamEffect effect)
         {
             var direction = scheduled.Activation.AimDirection;
             if (effect.TracksTarget && scheduled.Activation.InitialTarget != null && scheduled.Activation.InitialTarget.IsAlive)
                 direction = (scheduled.Activation.InitialTarget.Position - scheduled.Activation.Origin).normalized;
 
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
-            var enemies = UnityEngine.Object.FindObjectsByType<EnemyRuntime>();
-            for (var i = 0; i < enemies.Length; i++)
+            EnemyRegistry.CopyAliveTo(_enemyBuffer);
+            for (var i = 0; i < _enemyBuffer.Count; i++)
             {
-                var enemy = enemies[i];
-                if (!enemy.IsAlive)
-                    continue;
+                var enemy = _enemyBuffer[i];
                 var offset = enemy.Position - scheduled.Activation.Origin;
                 var forward = Vector2.Dot(offset, direction);
                 if (forward < 0f || forward > effect.Range)
@@ -212,16 +212,16 @@ namespace Game.ActiveSkill
                 EnemyDamageArea.Apply(center + directions[i] * effect.Radius, 0.3f, damage);
         }
 
-        private static void ExecuteChain(ScheduledEffect scheduled, ChainEffect effect)
+        private void ExecuteChain(ScheduledEffect scheduled, ChainEffect effect)
         {
-            var enemies = UnityEngine.Object.FindObjectsByType<EnemyRuntime>();
-            var hit = new HashSet<IEnemyDamageReceiver>();
+            EnemyRegistry.CopyAliveTo(_enemyBuffer);
+            _chainHitBuffer.Clear();
             IEnemyDamageReceiver current = scheduled.Activation.InitialTarget;
             var damageAmount = scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effect.DamageMultiplier;
 
             for (var jump = 0; jump < effect.TargetCount; jump++)
             {
-                if (current == null || !current.IsAlive || !hit.Add(current))
+                if (current == null || !current.IsAlive || !_chainHitBuffer.Add(current))
                     break;
 
                 var currentPosition = current.Position;
@@ -230,10 +230,10 @@ namespace Game.ActiveSkill
 
                 IEnemyDamageReceiver next = null;
                 var nearestDistance = effect.JumpRange * effect.JumpRange;
-                for (var i = 0; i < enemies.Length; i++)
+                for (var i = 0; i < _enemyBuffer.Count; i++)
                 {
-                    var candidate = enemies[i];
-                    if (!candidate.IsAlive || hit.Contains(candidate))
+                    var candidate = _enemyBuffer[i];
+                    if (!candidate.IsAlive || _chainHitBuffer.Contains(candidate))
                         continue;
                     var distance = (candidate.Position - currentPosition).sqrMagnitude;
                     if (distance > nearestDistance)
@@ -276,16 +276,16 @@ namespace Game.ActiveSkill
 
         private void TickMines(float deltaTime)
         {
-            var enemies = UnityEngine.Object.FindObjectsByType<EnemyRuntime>();
+            EnemyRegistry.CopyAliveTo(_enemyBuffer);
             for (var i = _mines.Count - 1; i >= 0; i--)
             {
                 var mine = _mines[i];
                 mine.Elapsed += deltaTime;
                 var triggered = mine.Elapsed >= mine.Effect.LifetimeSeconds;
-                for (var enemyIndex = 0; !triggered && enemyIndex < enemies.Length; enemyIndex++)
+                for (var enemyIndex = 0; !triggered && enemyIndex < _enemyBuffer.Count; enemyIndex++)
                 {
-                    if (enemies[enemyIndex].IsAlive &&
-                        (enemies[enemyIndex].Position - mine.Position).sqrMagnitude <=
+                    if (_enemyBuffer[enemyIndex].IsAlive &&
+                        (_enemyBuffer[enemyIndex].Position - mine.Position).sqrMagnitude <=
                         mine.Effect.TriggerRadius * mine.Effect.TriggerRadius)
                     {
                         triggered = true;

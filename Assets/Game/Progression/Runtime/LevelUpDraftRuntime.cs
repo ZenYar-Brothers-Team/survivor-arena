@@ -15,35 +15,9 @@ namespace Game.Progression
         [SerializeField]
         private RunController runController;
 
-        [SerializeField]
-        private string fixtureStartingActiveId = "FIXTURE-SKILL-BOLT";
-
-        [SerializeField]
-        private string[] fixtureActiveIds =
-        {
-            "FIXTURE-SKILL-BOLT",
-            "FIXTURE-SKILL-RING",
-            "FIXTURE-SKILL-BEAM",
-            "FIXTURE-SKILL-ORBIT",
-            "FIXTURE-SKILL-BOOMERANG",
-            "FIXTURE-SKILL-CHAIN",
-            "FIXTURE-SKILL-MINE",
-            "FIXTURE-SKILL-DELAYED"
-        };
-
-        [SerializeField]
-        private string[] fixturePassiveIds =
-        {
-            "FIXTURE-PASSIVE-VITALITY",
-            "FIXTURE-PASSIVE-HASTE",
-            "FIXTURE-PASSIVE-MEMORY"
-        };
-
-        [SerializeField, Min(1)]
-        private int fixtureOfferCount = 3;
-
         private DraftPool _pool;
-        private int _draftOffset;
+        private IDraftRandom _draftRandom;
+        private int _offerCount;
         private int _pendingDrafts;
         private bool _initialized;
 
@@ -60,24 +34,8 @@ namespace Game.Progression
             if (_initialized)
                 return;
 
-            if (experienceRuntime == null || runController == null || runController.Model == null)
-            {
-                Debug.LogError("Level-up draft runtime is not configured.", this);
-                enabled = false;
-                return;
-            }
-
-            try
-            {
-                var definitions = CreateFixtureDefinitions();
-                var startingActive = FindDefinition(definitions, new ContentId(fixtureStartingActiveId));
-                Initialize(experienceRuntime, runController, definitions, startingActive, fixtureOfferCount);
-            }
-            catch (Exception exception)
-            {
-                Debug.LogError($"Invalid level-up draft fixture configuration: {exception.Message}", this);
-                enabled = false;
-            }
+            Debug.LogError("Level-up draft runtime must be initialized by the gameplay composition root.", this);
+            enabled = false;
         }
 
         public void Initialize(
@@ -85,7 +43,8 @@ namespace Game.Progression
             RunController controller,
             IEnumerable<BuildEntryDefinition> definitions,
             BuildEntryDefinition startingActive,
-            int offerCount)
+            int offerCount,
+            IDraftRandom draftRandom = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
@@ -95,8 +54,9 @@ namespace Game.Progression
             experienceRuntime = experience != null ? experience : throw new ArgumentNullException(nameof(experience));
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
             _pool = new DraftPool(definitions);
+            _draftRandom = draftRandom ?? new SeededDraftRandom(0);
+            _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
-            fixtureOfferCount = offerCount;
             experienceRuntime.LevelUp += HandleLevelUp;
             _initialized = true;
         }
@@ -112,7 +72,7 @@ namespace Game.Progression
             if (_pendingDrafts > 0)
                 OpenNextDraft();
             else if (runController.Model != null)
-                runController.Model.Resume();
+                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
             return true;
         }
 
@@ -125,57 +85,19 @@ namespace Game.Progression
 
         private void OpenNextDraft()
         {
-            var options = _pool.CreateOptions(Build, fixtureOfferCount, _draftOffset++);
+            var options = _pool.CreateOptions(Build, _offerCount, _draftRandom);
             if (options.Count == 0)
             {
                 _pendingDrafts--;
                 if (_pendingDrafts > 0)
                     OpenNextDraft();
                 else if (runController.Model != null)
-                    runController.Model.Resume();
+                    runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
                 return;
             }
 
             CurrentDraft = new DraftSession(Build, options);
             DraftOpened?.Invoke(options);
-        }
-
-        private List<BuildEntryDefinition> CreateFixtureDefinitions()
-        {
-            var definitions = new List<BuildEntryDefinition>();
-            var activeCount = fixtureActiveIds != null ? fixtureActiveIds.Length : 0;
-            var passiveCount = fixturePassiveIds != null ? fixturePassiveIds.Length : 0;
-            var maxCount = Math.Max(activeCount, passiveCount);
-            for (var i = 0; i < maxCount; i++)
-            {
-                if (i < activeCount)
-                    AddFixtureDefinition(definitions, fixtureActiveIds[i], BuildEntryKind.ActiveSkill);
-                if (i < passiveCount)
-                    AddFixtureDefinition(definitions, fixturePassiveIds[i], BuildEntryKind.PassiveItem);
-            }
-            return definitions;
-        }
-
-        private static void AddFixtureDefinition(
-            ICollection<BuildEntryDefinition> destination,
-            string id,
-            BuildEntryKind kind)
-        {
-            if (string.IsNullOrWhiteSpace(id) || !id.StartsWith("FIXTURE-", StringComparison.Ordinal))
-                throw new ArgumentException("Prototype draft entries must use FIXTURE-* ids.", nameof(id));
-            destination.Add(new BuildEntryDefinition(new ContentId(id), kind, id));
-        }
-
-        private static BuildEntryDefinition FindDefinition(
-            IEnumerable<BuildEntryDefinition> definitions,
-            ContentId id)
-        {
-            foreach (var definition in definitions)
-            {
-                if (definition.Id == id)
-                    return definition;
-            }
-            throw new ArgumentException("Starting active id must exist in the active fixture pool.");
         }
 
         private void OnGUI()

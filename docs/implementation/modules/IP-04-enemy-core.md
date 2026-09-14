@@ -21,7 +21,7 @@ Enemy definition/runtime; HP; size/collision; speed; spawn/despawn; базовы
 
 ## Acceptance criteria
 
-Enemy создаётся из definition; двигается и свободно пересекает границу поля; contact hit сразу повреждает игрока и повторяется по configured interval, поэтому долгий контакт с наносящим урон врагом может убить персонажа; enemy death корректно фиксируется; pause/end останавливает spawn/simulation/contact ticks.
+Enemy создаётся из definition; двигается и свободно пересекает границу поля и обычные препятствия; contact hit сразу повреждает игрока и повторяется по configured interval, поэтому долгий контакт с наносящим урон врагом может убить персонажа; enemy death корректно фиксируется; pause/end останавливает spawn/simulation/contact ticks.
 
 ## Проверки
 

@@ -3,7 +3,7 @@ using Game.Content;
 
 namespace Game.Progression
 {
-    public sealed class BuildEntryDefinition : IContentDefinition
+    public class BuildEntryDefinition : IContentDefinition
     {
         public const int MaxLevel = 6;
 

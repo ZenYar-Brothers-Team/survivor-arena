@@ -8,7 +8,7 @@ namespace Game.Character.Tests
         public void Damage_UsesIncomingDamageMultiplier()
         {
             var stats = CreateStats();
-            stats.SetModifier("armor", new CharacterStatModifier(incomingDamageMultiplierBonus: -0.25f));
+            stats.SetModifier("armor", new CharacterStatModifier(incomingDamageReductionBonus: 0.25f));
             using (var health = new CharacterHealth(stats))
             {
                 var applied = health.TakeDamage(40f);
@@ -66,6 +66,20 @@ namespace Game.Character.Tests
 
                 Assert.AreEqual(100f, health.MaxHealth, 0.0001f);
                 Assert.AreEqual(100f, health.CurrentHealth, 0.0001f);
+            }
+        }
+
+        [Test]
+        public void IncreasingMaxHealth_PreservesCurrentHealthRatio()
+        {
+            var stats = CreateStats();
+            using (var health = new CharacterHealth(stats))
+            {
+                health.TakeDamage(50f);
+                stats.SetModifier("health", new CharacterStatModifier(maxHealthMultiplierBonus: 0.5f));
+
+                Assert.AreEqual(150f, health.MaxHealth, 0.0001f);
+                Assert.AreEqual(75f, health.CurrentHealth, 0.0001f);
             }
         }
 

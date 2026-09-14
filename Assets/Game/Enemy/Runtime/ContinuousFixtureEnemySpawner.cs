@@ -14,27 +14,6 @@ namespace Game.Enemy
         [SerializeField]
         private Transform target;
 
-        [SerializeField]
-        private string fixtureContentId = "FIXTURE-ENEMY-SEEKER";
-
-        [SerializeField, Min(0.0001f)]
-        private float fixtureMaxHealth = 10f;
-
-        [SerializeField, Min(0.0001f)]
-        private float fixtureCollisionSize = 1f;
-
-        [SerializeField, Min(0f)]
-        private float fixtureMovementSpeed = 1f;
-
-        [SerializeField, Min(0f)]
-        private float fixtureContactDamage = 1f;
-
-        [SerializeField, Min(0.0001f)]
-        private float fixtureContactDamageInterval = 1f;
-
-        [SerializeField, Min(0f)]
-        private float fixtureExperienceReward = 1f;
-
         [SerializeField, Min(0.0001f)]
         private float spawnIntervalSeconds = 2f;
 
@@ -47,25 +26,34 @@ namespace Game.Enemy
         private readonly List<EnemyRuntime> _aliveEnemies = new List<EnemyRuntime>();
         private EnemyDefinition _fixtureDefinition;
         private ContinuousSpawnTimer _spawnTimer;
+        private bool _initialized;
 
         public int AliveCount => _aliveEnemies.Count;
 
         private void Awake()
         {
-            _fixtureDefinition = new EnemyDefinition(
-                new ContentId(fixtureContentId),
-                fixtureMaxHealth,
-                fixtureCollisionSize,
-                fixtureMovementSpeed,
-                fixtureContactDamage,
-                fixtureContactDamageInterval,
-                fixtureExperienceReward);
             _spawnTimer = new ContinuousSpawnTimer(spawnIntervalSeconds);
+        }
+
+        private void Start()
+        {
+            if (_initialized)
+                return;
+            Debug.LogError("Enemy spawner must be initialized by the gameplay composition root.", this);
+            enabled = false;
+        }
+
+        public void Initialize(EnemyDefinition definition)
+        {
+            if (_initialized)
+                throw new System.InvalidOperationException("Enemy spawner is already initialized.");
+            _fixtureDefinition = definition ?? throw new System.ArgumentNullException(nameof(definition));
+            _initialized = true;
         }
 
         private void Update()
         {
-            var isRunning = runController != null &&
+            var isRunning = _initialized && runController != null &&
                             runController.Model != null &&
                             runController.Model.State == RunState.Running;
             var spawnCount = _spawnTimer.Tick(Time.deltaTime, isRunning);

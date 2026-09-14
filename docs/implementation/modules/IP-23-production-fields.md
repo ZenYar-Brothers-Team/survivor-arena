@@ -12,7 +12,7 @@ IP-16; approved enemy/boss content as required; approval целевых FIELD ID
 
 ## Scope
 
-Approved FIELD-001…010; player-only field bounds; geometry/obstacles; environment refs/placeholders; enemy profile metadata; unlock metadata; boss/midboss refs only when approved.
+Approved FIELD-001…010; player-only field bounds and ordinary obstacles; geometry/obstacles; environment refs/placeholders; enemy profile metadata; unlock metadata; boss/midboss refs only when approved.
 
 ## Context
 

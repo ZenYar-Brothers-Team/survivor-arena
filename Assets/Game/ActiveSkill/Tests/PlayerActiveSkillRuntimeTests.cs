@@ -64,14 +64,14 @@ namespace Game.ActiveSkill.Tests
             var launcher = new RecordingLauncher();
             _player.SetModifier("fixture", new CharacterStatModifier(
                 activeSkillDamageMultiplierBonus: 1f,
-                activeSkillCooldownMultiplierBonus: -0.5f));
+                activeSkillCooldownReductionBonus: 0.5f));
             var runtime = CreateRuntime(target, launcher, baseDamage: 5f, cooldown: 2f);
             _runController.Model.Start();
 
             Assert.IsTrue(runtime.Tick(0f));
             Assert.AreEqual(10f, launcher.LastProjectile.Damage.Amount);
-            Assert.IsFalse(runtime.Tick(0.99f));
-            Assert.IsTrue(runtime.Tick(0.01f));
+            Assert.IsFalse(runtime.Tick(1.32f));
+            Assert.IsTrue(runtime.Tick(0.02f));
         }
 
         [Test]

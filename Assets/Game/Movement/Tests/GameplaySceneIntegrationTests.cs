@@ -59,6 +59,7 @@ namespace Game.Movement.Tests
 
             Assert.IsNotNull(obstacleCollider);
             Assert.IsFalse(obstacleCollider.isTrigger);
+            AssertPlayerOnlyCollision(obstacleCollider);
             Assert.AreEqual(new Vector3(3f, 0f, 0f), obstacle.transform.position);
         }
 
@@ -114,16 +115,21 @@ namespace Game.Movement.Tests
         {
             var wall = RequireObject(name);
             var collider = wall.GetComponent<BoxCollider2D>();
-            var playerLayer = LayerMask.NameToLayer(PlayerLayerName);
 
             Assert.IsNotNull(collider);
             Assert.IsFalse(collider.isTrigger);
-            Assert.GreaterOrEqual(playerLayer, 0);
-            Assert.AreEqual(~(1 << playerLayer), collider.excludeLayers.value);
+            AssertPlayerOnlyCollision(collider);
             Assert.AreEqual(expectedPosition.x, wall.transform.position.x, 0.0001f);
             Assert.AreEqual(expectedPosition.y, wall.transform.position.y, 0.0001f);
             Assert.AreEqual(expectedSize.x, collider.size.x, 0.0001f);
             Assert.AreEqual(expectedSize.y, collider.size.y, 0.0001f);
+        }
+
+        private static void AssertPlayerOnlyCollision(Collider2D collider)
+        {
+            var playerLayer = LayerMask.NameToLayer(PlayerLayerName);
+            Assert.GreaterOrEqual(playerLayer, 0);
+            Assert.AreEqual(~(1 << playerLayer), collider.excludeLayers.value);
         }
     }
 }

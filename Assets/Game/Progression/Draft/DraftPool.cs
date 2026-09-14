@@ -58,6 +58,45 @@ namespace Game.Progression
             return options;
         }
 
+        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, IDraftRandom random)
+        {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
+
+            var eligible = CreateEligibleOptions(build, offerCount);
+            if (eligible.Count <= offerCount)
+                return eligible;
+
+            for (var i = 0; i < offerCount; i++)
+            {
+                var selectedIndex = i + random.NextInt(eligible.Count - i);
+                (eligible[i], eligible[selectedIndex]) = (eligible[selectedIndex], eligible[i]);
+            }
+            return eligible.GetRange(0, offerCount);
+        }
+
+        private List<DraftOption> CreateEligibleOptions(PlayerBuild build, int offerCount)
+        {
+            if (build == null)
+                throw new ArgumentNullException(nameof(build));
+            if (offerCount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(offerCount));
+
+            var eligible = new List<DraftOption>();
+            foreach (var definition in _definitions)
+            {
+                if (!build.IsEligible(definition))
+                    continue;
+
+                var isUpgrade = build.TryGetEntry(definition.Id, out var entry);
+                eligible.Add(new DraftOption(
+                    definition,
+                    isUpgrade,
+                    isUpgrade ? entry.Level + 1 : 1));
+            }
+            return eligible;
+        }
+
         private static int PositiveModulo(int value, int divisor)
         {
             var result = value % divisor;

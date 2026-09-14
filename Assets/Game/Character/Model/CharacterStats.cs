@@ -6,6 +6,7 @@ namespace Game.Character
     public sealed class CharacterStats
     {
         private const float MinimumMaxHealth = 0.0001f;
+        private const float MaximumIncomingDamageReduction = 0.99f;
 
         private readonly Dictionary<string, CharacterStatModifier> _modifiers =
             new Dictionary<string, CharacterStatModifier>(StringComparer.Ordinal);
@@ -58,8 +59,8 @@ namespace Game.Character
             var maxHealthBonus = 0f;
             var movementSpeedBonus = 0f;
             var activeSkillDamageBonus = 0f;
-            var activeSkillCooldownBonus = 0f;
-            var incomingDamageBonus = 0f;
+            var activeSkillCooldownReduction = 0f;
+            var incomingDamageReduction = 0f;
             var healthRestorationBonus = 0f;
             var healthRegenerationBonus = 0f;
             var disappearingXpRecoveryBonus = 0f;
@@ -71,8 +72,8 @@ namespace Game.Character
                 maxHealthBonus += modifier.MaxHealthMultiplierBonus;
                 movementSpeedBonus += modifier.MovementSpeedMultiplierBonus;
                 activeSkillDamageBonus += modifier.ActiveSkillDamageMultiplierBonus;
-                activeSkillCooldownBonus += modifier.ActiveSkillCooldownMultiplierBonus;
-                incomingDamageBonus += modifier.IncomingDamageMultiplierBonus;
+                activeSkillCooldownReduction += modifier.ActiveSkillCooldownReductionBonus;
+                incomingDamageReduction += modifier.IncomingDamageReductionBonus;
                 healthRestorationBonus += modifier.HealthRestorationMultiplierBonus;
                 healthRegenerationBonus += modifier.HealthRegenerationPerSecondBonus;
                 disappearingXpRecoveryBonus += modifier.DisappearingXpRecoveryBonus;
@@ -83,8 +84,9 @@ namespace Game.Character
             MaxHealth = Math.Max(MinimumMaxHealth, BaseStats.MaxHealth * NonNegativeFactor(maxHealthBonus));
             MovementSpeed = BaseStats.MovementSpeed * NonNegativeFactor(movementSpeedBonus);
             ActiveSkillDamageMultiplier = BaseStats.ActiveSkillDamageMultiplier * NonNegativeFactor(activeSkillDamageBonus);
-            ActiveSkillCooldownMultiplier = BaseStats.ActiveSkillCooldownMultiplier * NonNegativeFactor(activeSkillCooldownBonus);
-            IncomingDamageMultiplier = BaseStats.IncomingDamageMultiplier * NonNegativeFactor(incomingDamageBonus);
+            ActiveSkillCooldownMultiplier = BaseStats.ActiveSkillCooldownMultiplier / (1f + activeSkillCooldownReduction);
+            IncomingDamageMultiplier = BaseStats.IncomingDamageMultiplier *
+                                       (1f - Math.Min(MaximumIncomingDamageReduction, incomingDamageReduction));
             HealthRestorationMultiplier = BaseStats.HealthRestorationMultiplier * NonNegativeFactor(healthRestorationBonus);
             HealthRegenerationPerSecond = Math.Max(0f, BaseStats.HealthRegenerationPerSecond + healthRegenerationBonus);
             DisappearingXpRecovery = Clamp01(BaseStats.DisappearingXpRecovery + disappearingXpRecoveryBonus);

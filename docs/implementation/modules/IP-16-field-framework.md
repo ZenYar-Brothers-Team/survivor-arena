@@ -12,7 +12,7 @@ IP-02, IP-14, IP-15.
 
 ## Scope
 
-Field definition; selectable unlocked field; player-only field bounds; environment reference; obstacle layout; enemy pool/wave schedule ref; final boss ref; optional mid-boss ref; one field initially available.
+Field definition; selectable unlocked field; player-only field bounds and ordinary obstacles; environment reference; obstacle layout; enemy pool/wave schedule ref; final boss ref; optional mid-boss ref; one field initially available.
 
 ## Context
 

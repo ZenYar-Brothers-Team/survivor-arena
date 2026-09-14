@@ -65,6 +65,7 @@ namespace Game.Enemy
             Health.Died += HandleDeath;
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;
+            EnemyRegistry.Register(this);
         }
 
         private void FixedUpdate()
@@ -142,6 +143,7 @@ namespace Game.Enemy
                 Health.Died -= HandleDeath;
             _contactTimer?.EndContact();
             _contactTarget = null;
+            EnemyRegistry.Unregister(this);
 
             Despawned?.Invoke(this);
 
@@ -170,6 +172,7 @@ namespace Game.Enemy
 
         private void OnDestroy()
         {
+            EnemyRegistry.Unregister(this);
             if (Health != null)
                 Health.Died -= HandleDeath;
 

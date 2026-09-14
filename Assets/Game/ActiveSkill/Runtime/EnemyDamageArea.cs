@@ -6,26 +6,30 @@ namespace Game.ActiveSkill
 {
     public static class EnemyDamageArea
     {
+        private static readonly List<Collider2D> ColliderBuffer = new List<Collider2D>();
+        private static readonly HashSet<IEnemyDamageReceiver> DamagedBuffer = new HashSet<IEnemyDamageReceiver>();
+
         public static int Apply(
             Vector2 center,
             float radius,
             EnemyDamageRequest damage,
             IEnemyDamageReceiver directTarget = null)
         {
-            var damaged = new HashSet<IEnemyDamageReceiver>();
-            ApplyOnce(directTarget, damage, damaged);
+            ColliderBuffer.Clear();
+            DamagedBuffer.Clear();
+            ApplyOnce(directTarget, damage, DamagedBuffer);
 
             if (radius <= 0f)
-                return damaged.Count;
+                return DamagedBuffer.Count;
 
-            var colliders = Physics2D.OverlapCircleAll(center, radius);
-            for (var i = 0; i < colliders.Length; i++)
+            Physics2D.OverlapCircle(center, radius, new ContactFilter2D().NoFilter(), ColliderBuffer);
+            for (var i = 0; i < ColliderBuffer.Count; i++)
             {
-                var receiver = colliders[i].GetComponentInParent<IEnemyDamageReceiver>();
-                ApplyOnce(receiver, damage, damaged);
+                var receiver = ColliderBuffer[i].GetComponentInParent<IEnemyDamageReceiver>();
+                ApplyOnce(receiver, damage, DamagedBuffer);
             }
 
-            return damaged.Count;
+            return DamagedBuffer.Count;
         }
 
         private static void ApplyOnce(

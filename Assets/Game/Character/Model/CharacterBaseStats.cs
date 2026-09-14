@@ -46,8 +46,8 @@ namespace Game.Character
             ValidatePositive(MaxHealth, nameof(MaxHealth));
             ValidateNonNegative(MovementSpeed, nameof(MovementSpeed));
             ValidateNonNegative(ActiveSkillDamageMultiplier, nameof(ActiveSkillDamageMultiplier));
-            ValidateNonNegative(ActiveSkillCooldownMultiplier, nameof(ActiveSkillCooldownMultiplier));
-            ValidateNonNegative(IncomingDamageMultiplier, nameof(IncomingDamageMultiplier));
+            ValidatePositive(ActiveSkillCooldownMultiplier, nameof(ActiveSkillCooldownMultiplier));
+            ValidatePositive(IncomingDamageMultiplier, nameof(IncomingDamageMultiplier));
             ValidateNonNegative(HealthRestorationMultiplier, nameof(HealthRestorationMultiplier));
             ValidateNonNegative(HealthRegenerationPerSecond, nameof(HealthRegenerationPerSecond));
             ValidateRange(DisappearingXpRecovery, 0f, 1f, nameof(DisappearingXpRecovery));
