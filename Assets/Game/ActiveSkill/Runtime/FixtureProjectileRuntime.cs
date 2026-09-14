@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.Enemy;
 using Game.Movement;
 using Game.Run;
@@ -20,8 +21,13 @@ namespace Game.ActiveSkill
         private ProjectileLifetime _lifetime;
         private bool _initialized;
         private bool _despawned;
+        private readonly HashSet<IEnemyDamageReceiver> _hitThisPass = new HashSet<IEnemyDamageReceiver>();
+        private Vector2 _direction;
+        private float _elapsed;
+        private int _remainingHits;
+        private bool _isReturning;
 
-        public Vector2 Direction => _projectile.Direction;
+        public Vector2 Direction => _direction;
         public Vector2 Position => _body != null ? _body.position : transform.position;
         public bool IsDespawned => _despawned;
 
@@ -52,6 +58,8 @@ namespace Game.ActiveSkill
             _collider.isTrigger = true;
             _collider.radius = projectile.CollisionRadius;
             transform.position = projectile.Origin;
+            _direction = projectile.Direction;
+            _remainingHits = 1 + projectile.PierceCount;
             _initialized = true;
         }
 
@@ -76,7 +84,27 @@ namespace Game.ActiveSkill
             if (!isRunning)
                 return;
 
-            _body.position += _projectile.Direction * (_projectile.Speed * deltaTime);
+            _elapsed += deltaTime;
+            if (_projectile.Returns && !_isReturning && _elapsed >= _projectile.ReturnAfterSeconds)
+            {
+                _isReturning = true;
+                _hitThisPass.Clear();
+            }
+
+            if (_isReturning)
+            {
+                var returnOffset = (Vector2)_projectile.ReturnTarget.position - _body.position;
+                var travelDistance = _projectile.Speed * deltaTime;
+                if (returnOffset.sqrMagnitude <= travelDistance * travelDistance)
+                {
+                    Despawn();
+                    return;
+                }
+                if (returnOffset.sqrMagnitude > Mathf.Epsilon)
+                    _direction = returnOffset.normalized;
+            }
+
+            _body.position += _direction * (_projectile.Speed * deltaTime);
             if (_lifetime.Tick(deltaTime, isRunning))
                 Despawn();
         }
@@ -94,13 +122,27 @@ namespace Game.ActiveSkill
         {
             if (!_initialized || _despawned || !IsRunRunning() || receiver == null || !receiver.IsAlive)
                 return false;
+            if (!_hitThisPass.Add(receiver))
+                return false;
 
+            var damage = _projectile.Damage;
+            if (_isReturning && _projectile.ReturnDamageMultiplier != 1f)
+            {
+                damage = new EnemyDamageRequest(
+                    damage.SourceId,
+                    damage.Amount * _projectile.ReturnDamageMultiplier);
+            }
             EnemyDamageArea.Apply(
                 impactPoint,
                 _projectile.ImpactAreaRadius,
-                _projectile.Damage,
+                damage,
                 receiver);
-            Despawn();
+            if (!_projectile.Returns)
+            {
+                _remainingHits--;
+                if (_remainingHits <= 0)
+                    Despawn();
+            }
             return true;
         }
 

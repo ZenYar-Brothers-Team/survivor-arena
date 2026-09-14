@@ -9,6 +9,7 @@ namespace Game.Movement.Tests
     public class GameplaySceneIntegrationTests
     {
         private const string GameplayScenePath = "Assets/Scenes/Gameplay.unity";
+        private const string PlayerLayerName = "Player";
 
         [OneTimeSetUp]
         public void OpenGameplayScene()
@@ -33,6 +34,7 @@ namespace Game.Movement.Tests
             Assert.IsTrue((body.constraints & RigidbodyConstraints2D.FreezeRotation) != 0);
             Assert.IsNotNull(collider);
             Assert.IsFalse(collider.isTrigger);
+            Assert.AreEqual(LayerMask.NameToLayer(PlayerLayerName), player.layer);
 
             var serializedMover = new SerializedObject(mover);
             var moveAction = serializedMover.FindProperty("moveAction").objectReferenceValue;
@@ -112,9 +114,12 @@ namespace Game.Movement.Tests
         {
             var wall = RequireObject(name);
             var collider = wall.GetComponent<BoxCollider2D>();
+            var playerLayer = LayerMask.NameToLayer(PlayerLayerName);
 
             Assert.IsNotNull(collider);
             Assert.IsFalse(collider.isTrigger);
+            Assert.GreaterOrEqual(playerLayer, 0);
+            Assert.AreEqual(~(1 << playerLayer), collider.excludeLayers.value);
             Assert.AreEqual(expectedPosition.x, wall.transform.position.x, 0.0001f);
             Assert.AreEqual(expectedPosition.y, wall.transform.position.y, 0.0001f);
             Assert.AreEqual(expectedSize.x, collider.size.x, 0.0001f);

@@ -12,7 +12,7 @@ IP-01.
 
 ## Scope
 
-Movement input; movement speed stat hook; spawn point; field bounds; obstacle collision; pause integration; camera follow без задержки и screen-space offset.
+Movement input; movement speed stat hook; spawn point; player-only field bounds; obstacle collision; pause integration; camera follow без задержки и screen-space offset.
 
 ## Context
 
@@ -21,11 +21,11 @@ Movement input; movement speed stat hook; spawn point; field bounds; obstacle co
 
 ## Acceptance criteria
 
-Движение работает во всех направлениях; configured obstacles блокируют проход; speed задаётся data/stat; pause останавливает движение; камера сохраняет depth и удерживает world position персонажа в центре viewport при его перемещении.
+Движение работает во всех направлениях; field bounds блокируют только игрока и проходимы для остальных игровых сущностей; configured obstacles блокируют проход; speed задаётся data/stat; pause останавливает движение; камера сохраняет depth и удерживает world position персонажа в центре viewport при его перемещении.
 
 ## Проверки
 
-Input, collision, speed modifier, pause, camera follow wiring, viewport center after player displacement.
+Input, player-only field-bound collision, obstacle collision, speed modifier, pause, camera follow wiring, viewport center after player displacement.
 
 ## Out of scope
 

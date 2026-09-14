@@ -3,7 +3,7 @@
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
 Last repository audit: 2026-09-14
-Current next module: IP-08
+Current next module: IP-09
 
 ## Foundation and playable core
 
@@ -99,7 +99,15 @@ Documentation impact: Game Design, Content Design and IP-07 scope did not change
 
 ### IP-08 — Active-skill progression и pattern framework
 
-Status: Ready
+Status: Verified
+
+Implementation evidence: `Assets/Game/ActiveSkill/Progression/` — six-level definitions, activation-wave composition and typed projectile/beam/orbit/boomerang/chain/area/mine effects; `PlayerActiveSkillSetRuntime.cs` — concurrent build-synchronized skills; `SceneActiveSkillEffectExecutor.cs` and `FixtureProjectileRuntime.cs` — pause-safe execution, delayed/multi-wave scheduling, pierce and return passes; `Gameplay.unity` — fixture catalog runtime replaces the legacy single-skill fixture.
+
+Verification evidence: Unity 6000.6.0f1 EditMode, 110/110 tests passed on 2026-09-14; 12 IP-08 tests cover exact levels 1→6, numeric and qualitative level changes, fan/ring/cross directions, pierce, boomerang return and per-pass hits, delayed AoE pause, chain retarget/falloff, mine lifetime/concurrent limit, rotated multi-wave execution, concurrent acquired skills, draft upgrades and scene wiring.
+
+Deviations: none recorded; all catalog entries and numeric parameters are explicitly `FIXTURE-*`, while SKILL-001…015 remain Draft compatibility targets rather than production content.
+
+Documentation impact: Game Design, Content Design and IP-08 scope did not change; IP-05 public projectile behavior remains backward compatible and dependant readiness was synchronized.
 
 ### IP-09 — Passive modifier framework
 
@@ -114,12 +122,12 @@ Exact counts and recovery rules remain CG-04 balance TBD and must stay configura
 ### IP-11 — Set framework
 
 Status: Blocked  
-Blocked by: IP-08, IP-09.
+Blocked by: IP-09.
 
 ### IP-12 — Character framework и weighted draft
 
 Status: Blocked  
-Blocked by: IP-08, IP-09.
+Blocked by: IP-09.
 
 ## Encounter systems
 
@@ -151,7 +159,7 @@ Blocked by: IP-14, IP-15.
 ### IP-17 — Production Active Skills
 
 Status: Blocked  
-Blocked by: IP-08 and CG-01 approval of target SKILL IDs.
+Blocked by: CG-01 approval of target SKILL IDs.
 
 ### IP-18 — Production Passive Items
 

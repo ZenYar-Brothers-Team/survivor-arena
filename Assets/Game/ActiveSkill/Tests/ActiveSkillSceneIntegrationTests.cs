@@ -38,6 +38,15 @@ namespace Game.ActiveSkill.Tests
             Assert.Greater(serializedRuntime.FindProperty("fixtureProjectileLifetimeSeconds").floatValue, 0f);
             Assert.Greater(serializedRuntime.FindProperty("fixtureProjectileCollisionRadius").floatValue, 0f);
             Assert.GreaterOrEqual(serializedRuntime.FindProperty("fixtureImpactAreaRadius").floatValue, 0f);
+
+            Assert.IsFalse(runtime.enabled, "The IP-05 single-skill fixture is replaced by the progression set runtime.");
+            var skillSet = player.GetComponent<PlayerActiveSkillSetRuntime>();
+            Assert.IsNotNull(skillSet);
+            Assert.IsTrue(skillSet.enabled);
+            var serializedSet = new SerializedObject(skillSet);
+            Assert.AreSame(player.GetComponent<PlayerCharacterRuntime>(), serializedSet.FindProperty("owner").objectReferenceValue);
+            Assert.AreSame(GameObject.Find("RunController").GetComponent<RunController>(), serializedSet.FindProperty("runController").objectReferenceValue);
+            Assert.AreSame(player.GetComponent<Game.Progression.LevelUpDraftRuntime>(), serializedSet.FindProperty("draftRuntime").objectReferenceValue);
         }
     }
 }

@@ -6,7 +6,8 @@
         "Game.Character",
         "Game.Enemy",
         "Game.Run",
-        "Game.Movement"
+        "Game.Movement",
+        "Game.Progression"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

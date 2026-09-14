@@ -13,6 +13,11 @@ namespace Game.ActiveSkill
         public float CollisionRadius { get; }
         public float ImpactAreaRadius { get; }
         public EnemyDamageRequest Damage { get; }
+        public int PierceCount { get; }
+        public float ReturnAfterSeconds { get; }
+        public float ReturnDamageMultiplier { get; }
+        public Transform ReturnTarget { get; }
+        public bool Returns => ReturnAfterSeconds > 0f;
 
         public ActiveSkillProjectile(
             Vector2 origin,
@@ -21,7 +26,11 @@ namespace Game.ActiveSkill
             float lifetimeSeconds,
             float collisionRadius,
             float impactAreaRadius,
-            EnemyDamageRequest damage)
+            EnemyDamageRequest damage,
+            int pierceCount = 0,
+            float returnAfterSeconds = 0f,
+            float returnDamageMultiplier = 1f,
+            Transform returnTarget = null)
         {
             if (direction.sqrMagnitude <= Mathf.Epsilon)
                 throw new ArgumentException("Projectile direction cannot be zero.", nameof(direction));
@@ -29,6 +38,12 @@ namespace Game.ActiveSkill
             ValidatePositive(lifetimeSeconds, nameof(lifetimeSeconds));
             ValidatePositive(collisionRadius, nameof(collisionRadius));
             ValidateNonNegative(impactAreaRadius, nameof(impactAreaRadius));
+            if (pierceCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(pierceCount));
+            ValidateNonNegative(returnAfterSeconds, nameof(returnAfterSeconds));
+            ValidateNonNegative(returnDamageMultiplier, nameof(returnDamageMultiplier));
+            if (returnAfterSeconds > 0f && returnTarget == null)
+                throw new ArgumentNullException(nameof(returnTarget), "Returning projectiles require a return target.");
 
             Origin = origin;
             Direction = direction.normalized;
@@ -37,6 +52,10 @@ namespace Game.ActiveSkill
             CollisionRadius = collisionRadius;
             ImpactAreaRadius = impactAreaRadius;
             Damage = damage;
+            PierceCount = pierceCount;
+            ReturnAfterSeconds = returnAfterSeconds;
+            ReturnDamageMultiplier = returnDamageMultiplier;
+            ReturnTarget = returnTarget;
         }
 
         private static void ValidatePositive(float value, string parameterName)

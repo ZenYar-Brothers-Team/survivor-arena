@@ -154,7 +154,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -440,7 +440,8 @@ GameObject:
   - component: {fileID: 557252968}
   - component: {fileID: 557252969}
   - component: {fileID: 557252970}
-  m_Layer: 0
+  - component: {fileID: 557252971}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,14 +522,19 @@ MonoBehaviour:
   fixtureStartingActiveId: FIXTURE-SKILL-BOLT
   fixtureActiveIds:
   - FIXTURE-SKILL-BOLT
-  - FIXTURE-SKILL-ARC
+  - FIXTURE-SKILL-RING
+  - FIXTURE-SKILL-BEAM
   - FIXTURE-SKILL-ORBIT
+  - FIXTURE-SKILL-BOOMERANG
+  - FIXTURE-SKILL-CHAIN
+  - FIXTURE-SKILL-MINE
+  - FIXTURE-SKILL-DELAYED
   fixturePassiveIds:
   - FIXTURE-PASSIVE-VITALITY
   - FIXTURE-PASSIVE-HASTE
   - FIXTURE-PASSIVE-MEMORY
   fixtureOfferCount: 3
---- !u!114 &557252968
+--- !u!114 &557252971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,6 +542,21 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557252961}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a924c757170748908954cb8859c92be6, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.ActiveSkill::Game.ActiveSkill.PlayerActiveSkillSetRuntime
+  owner: {fileID: 557252963}
+  runController: {fileID: 2071511763}
+  draftRuntime: {fileID: 557252970}
+--- !u!114 &557252968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1965fc5af1d3444c9e5b2bc842d5f631, type: 3}
   m_Name:
@@ -873,7 +894,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1299,7 +1320,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1452,7 +1473,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

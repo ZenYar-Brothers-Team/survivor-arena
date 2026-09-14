@@ -22,8 +22,13 @@ namespace Game.Progression
         private string[] fixtureActiveIds =
         {
             "FIXTURE-SKILL-BOLT",
-            "FIXTURE-SKILL-ARC",
-            "FIXTURE-SKILL-ORBIT"
+            "FIXTURE-SKILL-RING",
+            "FIXTURE-SKILL-BEAM",
+            "FIXTURE-SKILL-ORBIT",
+            "FIXTURE-SKILL-BOOMERANG",
+            "FIXTURE-SKILL-CHAIN",
+            "FIXTURE-SKILL-MINE",
+            "FIXTURE-SKILL-DELAYED"
         };
 
         [SerializeField]

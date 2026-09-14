@@ -89,6 +89,67 @@ namespace Game.ActiveSkill.Tests
             Assert.IsTrue(_projectile == null);
         }
 
+        [Test]
+        public void Projectile_PiercesConfiguredAdditionalTargets()
+        {
+            _runController.Model.Start();
+            var projectile = new ActiveSkillProjectile(
+                Vector2.zero,
+                Vector2.right,
+                10f,
+                2f,
+                0.15f,
+                0f,
+                new EnemyDamageRequest("FIXTURE-SKILL-PIERCE", 1f),
+                pierceCount: 1);
+            _projectile = FixtureProjectileFactory.Spawn(projectile, _runController);
+            var first = new FakeReceiver(Vector2.right);
+            var second = new FakeReceiver(Vector2.right * 2f);
+
+            Assert.IsTrue(_projectile.TryImpact(first, first.Position));
+            Assert.IsFalse(_projectile == null);
+            Assert.IsTrue(_projectile.TryImpact(second, second.Position));
+            Assert.IsTrue(_projectile == null);
+            Assert.AreEqual(1f, first.DamageReceived);
+            Assert.AreEqual(1f, second.DamageReceived);
+        }
+
+        [Test]
+        public void Boomerang_ReturnsToMovingOwnerAndCanHitOncePerPass()
+        {
+            _runController.Model.Start();
+            var owner = new GameObject("Boomerang Owner");
+            var receiver = new FakeReceiver(Vector2.right);
+            try
+            {
+                var projectile = new ActiveSkillProjectile(
+                    Vector2.zero,
+                    Vector2.right,
+                    10f,
+                    3f,
+                    0.15f,
+                    0f,
+                    new EnemyDamageRequest("FIXTURE-SKILL-BOOMERANG", 2f),
+                    returnAfterSeconds: 0.5f,
+                    returnDamageMultiplier: 1.5f,
+                    returnTarget: owner.transform);
+                _projectile = FixtureProjectileFactory.Spawn(projectile, _runController);
+
+                _projectile.Simulate(0.25f);
+                Assert.IsTrue(_projectile.TryImpact(receiver, receiver.Position));
+                Assert.IsFalse(_projectile.TryImpact(receiver, receiver.Position));
+                owner.transform.position = Vector2.left * 10f;
+                _projectile.Simulate(0.25f);
+                Assert.Less(_projectile.Direction.x, 0f);
+                Assert.IsTrue(_projectile.TryImpact(receiver, receiver.Position));
+                Assert.AreEqual(5f, receiver.DamageReceived, 0.0001f);
+            }
+            finally
+            {
+                Object.DestroyImmediate(owner);
+            }
+        }
+
         private EnemyRuntime SpawnEnemy(Vector2 position, float maxHealth = 5f)
         {
             var definition = new EnemyDefinition("FIXTURE-ENEMY", maxHealth, 1f, 0f, 0f, 1f);
@@ -105,6 +166,19 @@ namespace Game.ActiveSkill.Tests
                 0.15f,
                 0.5f,
                 new EnemyDamageRequest("FIXTURE-SKILL-BOLT", 1f));
+        }
+
+        private sealed class FakeReceiver : IEnemyDamageReceiver
+        {
+            public bool IsAlive => true;
+            public Vector2 Position { get; }
+            public float DamageReceived { get; private set; }
+            public FakeReceiver(Vector2 position) => Position = position;
+            public float ApplyDamage(EnemyDamageRequest request)
+            {
+                DamageReceived += request.Amount;
+                return request.Amount;
+            }
         }
     }
 }
