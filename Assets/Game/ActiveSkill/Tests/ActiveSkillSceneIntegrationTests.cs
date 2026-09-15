@@ -22,7 +22,6 @@ namespace Game.ActiveSkill.Tests
         {
             var player = GameObject.Find("Player");
             Assert.IsNotNull(player);
-            Assert.IsNull(player.GetComponent<PlayerActiveSkillRuntime>(), "The legacy single-skill fixture must not remain in the composed scene.");
             var skillSet = player.GetComponent<PlayerActiveSkillSetRuntime>();
             Assert.IsNotNull(skillSet);
             Assert.IsTrue(skillSet.enabled);

@@ -58,3 +58,20 @@ and a `"kind"` discriminator — follow this for any future polymorphic content)
 `Assets/Game/Character/Model/FixtureCharacterCatalog.cs`,
 `Assets/Game/Progression/Passive/FixturePassiveCatalog.cs`.
 See [DECISION-0009](decisions/0009-json-content-config.md).
+
+### One type per file, file name matches the type
+
+Every `class`, `struct`, `interface`, and `enum` — production code and tests —
+gets its own file, named exactly after the type (standard .NET convention).
+Never add a second top-level type to an existing file "because it's small" or
+"because it's related" — a family of small related types (e.g. several effect
+DTOs, several exception types) still gets one file per type, grouped by
+folder, not by file. This keeps file search, `git blame`, and IDE
+go-to-definition meaningful, and avoids the kind of near-duplicate naming
+(`PlayerActiveSkillRuntime` vs `PlayerActiveSkillSetRuntime`) that made a
+dead, superseded implementation hard to tell apart from the live one.
+
+When splitting an existing multi-type file, keep the original file (and its
+`.meta` GUID) for whichever type already matches its name, and create new
+files only for the others — don't discard and regenerate GUIDs for types that
+didn't need to move.
