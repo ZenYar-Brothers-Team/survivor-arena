@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 
 namespace Game.ActiveSkill
 {
@@ -11,12 +12,12 @@ namespace Game.ActiveSkill
 
         public ChainEffect(int targetCount, float jumpRange, float damageRetentionPerJump, float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidateCount(targetCount, nameof(targetCount));
-            ProjectileBurstEffect.ValidatePositive(jumpRange, nameof(jumpRange));
-            ProjectileBurstEffect.ValidateNonNegative(damageRetentionPerJump, nameof(damageRetentionPerJump));
+            NumericValidation.ValidateCount(targetCount, nameof(targetCount));
+            NumericValidation.ValidatePositive(jumpRange, nameof(jumpRange));
+            NumericValidation.ValidateNonNegativeFinite(damageRetentionPerJump, nameof(damageRetentionPerJump));
             if (damageRetentionPerJump > 1f)
                 throw new ArgumentOutOfRangeException(nameof(damageRetentionPerJump));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             TargetCount = targetCount;
             JumpRange = jumpRange;
             DamageRetentionPerJump = damageRetentionPerJump;

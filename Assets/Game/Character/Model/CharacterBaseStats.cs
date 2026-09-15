@@ -1,4 +1,4 @@
-using System;
+using Game.Content;
 
 namespace Game.Character
 {
@@ -46,44 +46,17 @@ namespace Game.Character
 
         internal void Validate()
         {
-            ValidatePositive(MaxHealth, nameof(MaxHealth));
-            ValidateNonNegative(MovementSpeed, nameof(MovementSpeed));
-            ValidateNonNegative(ActiveSkillDamageMultiplier, nameof(ActiveSkillDamageMultiplier));
-            ValidatePositive(ActiveSkillCooldownMultiplier, nameof(ActiveSkillCooldownMultiplier));
-            ValidatePositive(IncomingDamageMultiplier, nameof(IncomingDamageMultiplier));
-            ValidateNonNegative(HealthRestorationMultiplier, nameof(HealthRestorationMultiplier));
-            ValidateNonNegative(HealthRegenerationPerSecond, nameof(HealthRegenerationPerSecond));
-            ValidateRange(DisappearingXpRecovery, 0f, 1f, nameof(DisappearingXpRecovery));
-            ValidateNonNegative(PickedUpXpMultiplier, nameof(PickedUpXpMultiplier));
-            ValidateNonNegative(XpDropLifetimeBonusSeconds, nameof(XpDropLifetimeBonusSeconds));
-            ValidatePositive(PickupRadius, nameof(PickupRadius));
-        }
-
-        private static void ValidatePositive(float value, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value <= 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be greater than zero.");
-        }
-
-        private static void ValidateNonNegative(float value, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value cannot be negative.");
-        }
-
-        private static void ValidateRange(float value, float minimum, float maximum, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value < minimum || value > maximum)
-                throw new ArgumentOutOfRangeException(parameterName, $"Value must be between {minimum} and {maximum}.");
-        }
-
-        private static void ValidateFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value))
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite.");
+            NumericValidation.ValidatePositive(MaxHealth, nameof(MaxHealth));
+            NumericValidation.ValidateNonNegative(MovementSpeed, nameof(MovementSpeed));
+            NumericValidation.ValidateNonNegative(ActiveSkillDamageMultiplier, nameof(ActiveSkillDamageMultiplier));
+            NumericValidation.ValidatePositive(ActiveSkillCooldownMultiplier, nameof(ActiveSkillCooldownMultiplier));
+            NumericValidation.ValidatePositive(IncomingDamageMultiplier, nameof(IncomingDamageMultiplier));
+            NumericValidation.ValidateNonNegative(HealthRestorationMultiplier, nameof(HealthRestorationMultiplier));
+            NumericValidation.ValidateNonNegative(HealthRegenerationPerSecond, nameof(HealthRegenerationPerSecond));
+            NumericValidation.ValidateRange(DisappearingXpRecovery, 0f, 1f, nameof(DisappearingXpRecovery));
+            NumericValidation.ValidateNonNegative(PickedUpXpMultiplier, nameof(PickedUpXpMultiplier));
+            NumericValidation.ValidateNonNegative(XpDropLifetimeBonusSeconds, nameof(XpDropLifetimeBonusSeconds));
+            NumericValidation.ValidatePositive(PickupRadius, nameof(PickupRadius));
         }
     }
 }

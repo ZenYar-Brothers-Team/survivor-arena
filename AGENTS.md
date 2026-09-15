@@ -59,6 +59,63 @@ and a `"kind"` discriminator — follow this for any future polymorphic content)
 `Assets/Game/Progression/Passive/FixturePassiveCatalog.cs`.
 See [DECISION-0009](decisions/0009-json-content-config.md).
 
+### Shared numeric validation
+
+Constructor-argument validation for domain types (positive/non-negative/finite
+checks, count checks, ranges) belongs in
+`Game.Content.NumericValidation` — never re-implement a local
+`ValidatePositive`/`ValidateNonNegative`/`ValidateFinite`-style private
+static method on a new type. `Game.Content` has no dependencies of its own,
+so it's reachable from every gameplay module; add a reference to it in a
+module's `.asmdef` if it's missing rather than duplicating the check.
+
+Reference implementation: `Assets/Game/Content/NumericValidation.cs`, used by
+`Assets/Game/Combat/Health.cs`, `Assets/Game/Character/Model/CharacterBaseStats.cs`,
+and the `Game.ActiveSkill.Progression` effect types (`MineEffect.cs`,
+`AreaEffect.cs`, etc.).
+
+### Pool frequently spawned/destroyed GameObjects
+
+Anything created and destroyed often at runtime (per enemy death, per
+projectile, per skill effect) should use `Game.Pooling.GameObjectPool<T>`
+instead of a bare `new GameObject(...)` + `Destroy(...)` pattern. Pooling is
+always opt-in via an explicit `pool` parameter on the spawn method, defaulting
+to `null` — never a hidden static pool inside a static factory, since a
+process-wide static pool would leak reused instances across independent unit
+tests within the same test run (no domain reload between individual
+`[Test]`s). The pool's owner is whichever object's lifetime naturally matches
+the pool's — a long-lived runtime, spawner, or executor — not the factory
+itself. A type that supports being rented from a pool must also support a
+second `Initialize()` call on the same instance (tearing down its previous
+life first) instead of throwing on re-initialization.
+
+Reference implementations: `Assets/Game/Pooling/GameObjectPool.cs`,
+`Assets/Game/Progression/Runtime/ExperienceDropFactory.cs` (pool owned by
+`PlayerExperienceRuntime.DropPool`), `Assets/Game/Enemy/Runtime/EnemyFactory.cs`
+(pool owned by `ContinuousFixtureEnemySpawner`),
+`Assets/Game/ActiveSkill/Runtime/SceneActiveSkillEffectExecutor.cs` (mine
+marker pool owned by the executor itself).
+See [DECISION-0011](decisions/0011-gameobject-pooling.md).
+
+### Composition-root subsystems roll back on partial init failure
+
+Any subsystem `GameplayCompositionRoot` initializes must expose a public
+`Shutdown()` that undoes exactly what its `Initialize()` did — unsubscribe
+from other subsystems' events, `Dispose()` anything it created and owns, then
+reset its own "initialized" flag. Reuse the same cleanup the type's
+`OnDestroy()` already does rather than inventing new teardown logic; a type
+with nothing external to unwind (e.g. no cross-object event subscriptions
+made during `Initialize()`) still gets a `Shutdown()` that resets its flag,
+so the composition root can treat "never initialized" and "rolled back" the
+same way. `GameplayCompositionRoot.Initialize()` calls each subsystem's
+`Shutdown()` in reverse order if a later subsystem's `Initialize()` throws,
+so a failed composition never leaves earlier subsystems live-subscribed.
+
+Reference implementation: `Assets/Game/Bootstrap/GameplayCompositionRoot.cs`,
+and the `Shutdown()` methods on `PlayerCharacterRuntime`,
+`LevelUpDraftRuntime`, `PlayerActiveSkillSetRuntime`, `PlayerPassiveSetRuntime`.
+See [DECISION-0010](decisions/0010-composition-root-rollback.md).
+
 ### One type per file, file name matches the type
 
 Every `class`, `struct`, `interface`, and `enum` — production code and tests —

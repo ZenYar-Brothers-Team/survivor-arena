@@ -1,3 +1,4 @@
+using System.Reflection;
 using Game.Character;
 using Game.Run;
 using NUnit.Framework;
@@ -32,7 +33,13 @@ namespace Game.Movement.Tests
 
             // MovementSpeed only resolves from Stats once Initialize() has loaded
             // base config; the scene doesn't run this outside the composition root.
-            ((PlayerCharacterRuntime)speedSource).Initialize(FixtureCharacterCatalog.CreateDefault());
+            // The scene's RunController hasn't run Awake() outside Play Mode, so
+            // its Model needs invoking by hand before Initialize can bind to it.
+            var sceneRunController = RequireObject("RunController").GetComponent<RunController>();
+            InvokeAwake(sceneRunController);
+            ((PlayerCharacterRuntime)speedSource).Initialize(
+                FixtureCharacterCatalog.CreateDefault(),
+                sceneRunController);
             Assert.Greater(speedSource.MovementSpeed, 0f);
             Assert.IsNotNull(body);
             Assert.AreEqual(0f, body.gravityScale);
@@ -107,6 +114,13 @@ namespace Game.Movement.Tests
                 player.transform.position = originalPlayerPosition;
                 cameraObject.transform.position = originalCameraPosition;
             }
+        }
+
+        private static void InvokeAwake(MonoBehaviour behaviour)
+        {
+            behaviour.GetType()
+                .GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(behaviour, null);
         }
 
         private static GameObject RequireObject(string name)

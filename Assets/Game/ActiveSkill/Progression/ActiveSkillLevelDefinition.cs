@@ -33,8 +33,8 @@ namespace Game.ActiveSkill
             ContentRef<SpriteDefinition> visual,
             params ActiveSkillActivationWave[] waves)
         {
-            ProjectileBurstEffect.ValidateNonNegative(baseDamage, nameof(baseDamage));
-            ProjectileBurstEffect.ValidatePositive(cooldownSeconds, nameof(cooldownSeconds));
+            NumericValidation.ValidateNonNegativeFinite(baseDamage, nameof(baseDamage));
+            NumericValidation.ValidatePositive(cooldownSeconds, nameof(cooldownSeconds));
             if (!Enum.IsDefined(typeof(ActiveSkillTargetingMode), targetingMode))
                 throw new ArgumentOutOfRangeException(nameof(targetingMode));
             if (waves == null || waves.Length == 0)

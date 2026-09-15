@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 
 namespace Game.ActiveSkill
 {
@@ -9,7 +10,7 @@ namespace Game.ActiveSkill
 
         public void Tick(float deltaTime, bool isRunning)
         {
-            ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
+            NumericValidation.ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
             if (!isRunning || deltaTime == 0f || IsReady)
                 return;
 
@@ -18,19 +19,12 @@ namespace Game.ActiveSkill
 
         public void Consume(float baseCooldownSeconds, float cooldownMultiplier)
         {
-            if (float.IsNaN(baseCooldownSeconds) || float.IsInfinity(baseCooldownSeconds) || baseCooldownSeconds <= 0f)
-                throw new ArgumentOutOfRangeException(nameof(baseCooldownSeconds), "Base cooldown must be finite and greater than zero.");
-            ValidateNonNegativeFinite(cooldownMultiplier, nameof(cooldownMultiplier));
+            NumericValidation.ValidatePositive(baseCooldownSeconds, nameof(baseCooldownSeconds), "Base cooldown must be finite and greater than zero.");
+            NumericValidation.ValidateNonNegativeFinite(cooldownMultiplier, nameof(cooldownMultiplier));
             if (!IsReady)
                 throw new InvalidOperationException("Cooldown cannot be consumed before it is ready.");
 
             RemainingSeconds = baseCooldownSeconds * cooldownMultiplier;
-        }
-
-        private static void ValidateNonNegativeFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite and non-negative.");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Game.Movement;
 using Game.Run;
 using NUnit.Framework;
@@ -36,9 +37,20 @@ namespace Game.Character.Tests
             // Base stats are no longer scene-configured fields — the composition
             // root supplies them via Initialize() from FixtureCharacterCatalog
             // (see FixtureCharacterCatalogTests for direct coverage of that catalog).
-            runtime.Initialize(FixtureCharacterCatalog.CreateDefault());
+            // The scene's RunController hasn't run Awake() outside Play Mode, so
+            // its Model needs invoking by hand before Initialize can bind to it.
+            var sceneRunController = (RunController)configuredRunController;
+            InvokeAwake(sceneRunController);
+            runtime.Initialize(FixtureCharacterCatalog.CreateDefault(), sceneRunController);
             Assert.Greater(runtime.Stats.MaxHealth, 0f);
             Assert.Greater(runtime.Stats.MovementSpeed, 0f);
+        }
+
+        private static void InvokeAwake(MonoBehaviour behaviour)
+        {
+            behaviour.GetType()
+                .GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(behaviour, null);
         }
     }
 }

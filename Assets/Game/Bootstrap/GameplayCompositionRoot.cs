@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.ActiveSkill;
 using Game.Character;
 using Game.Content;
@@ -83,33 +84,59 @@ namespace Game.Bootstrap
             Catalog = FixtureRuntimeContentCatalog.Create();
             var startingActive = Catalog.Registry.Get<ActiveSkillProgressionDefinition>(new ContentId(startingActiveId));
 
-            player.Initialize(Catalog.DefaultCharacterBaseStats);
-            experienceRuntime.Initialize(player, runController);
-            draftRuntime.Initialize(
-                experienceRuntime,
-                runController,
-                Catalog.BuildEntries,
-                startingActive,
-                draftOfferCount,
-                new SeededDraftRandom(draftSeed),
-                fixtureInitialRerolls,
-                fixtureInitialBanishes);
-            activeSkillRuntime.Initialize(
-                player,
-                runController,
-                draftRuntime,
-                Catalog.ActiveSkills,
-                new SceneEnemyTargetProvider(),
-                new SceneActiveSkillEffectExecutor(runController));
-            passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
+            // If a subsystem's Initialize() throws partway through, every subsystem
+            // that already succeeded gets rolled back (in reverse order) via its
+            // Shutdown() before the exception propagates, so a failed composition
+            // never leaves some subsystems live-subscribed and others untouched.
+            var initializedSubsystems = new List<Action>();
+            try
+            {
+                player.Initialize(Catalog.DefaultCharacterBaseStats, runController);
+                initializedSubsystems.Add(player.Shutdown);
 
-            var fixtureEnemy = Catalog.Enemies[0];
-            var enemyVisual = fixtureEnemy.Visual.TryResolve(Catalog.Registry, out var enemySprite)
-                ? enemySprite.Sprite
-                : null;
-            enemySpawner.Initialize(fixtureEnemy, enemyVisual);
+                experienceRuntime.Initialize(player, runController);
+                initializedSubsystems.Add(experienceRuntime.Shutdown);
 
-            gameplayUiRoot.Initialize(player, experienceRuntime, draftRuntime, runController);
+                draftRuntime.Initialize(
+                    experienceRuntime,
+                    runController,
+                    Catalog.BuildEntries,
+                    startingActive,
+                    draftOfferCount,
+                    new SeededDraftRandom(draftSeed),
+                    fixtureInitialRerolls,
+                    fixtureInitialBanishes);
+                initializedSubsystems.Add(draftRuntime.Shutdown);
+
+                activeSkillRuntime.Initialize(
+                    player,
+                    runController,
+                    draftRuntime,
+                    Catalog.ActiveSkills,
+                    new SceneEnemyTargetProvider(),
+                    new SceneActiveSkillEffectExecutor(runController));
+                initializedSubsystems.Add(activeSkillRuntime.Shutdown);
+
+                passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
+                initializedSubsystems.Add(passiveRuntime.Shutdown);
+
+                var fixtureEnemy = Catalog.Enemies[0];
+                var enemyVisual = fixtureEnemy.Visual.TryResolve(Catalog.Registry, out var enemySprite)
+                    ? enemySprite.Sprite
+                    : null;
+                enemySpawner.Initialize(fixtureEnemy, enemyVisual);
+                initializedSubsystems.Add(enemySpawner.Shutdown);
+
+                gameplayUiRoot.Initialize(player, experienceRuntime, draftRuntime, runController);
+                initializedSubsystems.Add(gameplayUiRoot.Shutdown);
+            }
+            catch
+            {
+                for (var i = initializedSubsystems.Count - 1; i >= 0; i--)
+                    initializedSubsystems[i]();
+                throw;
+            }
+
             IsInitialized = true;
         }
 

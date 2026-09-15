@@ -2,6 +2,7 @@ using System;
 using Game.Character;
 using Game.Combat;
 using Game.Movement;
+using Game.Pooling;
 using Game.Progression;
 using Game.Run;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Game.Enemy
         private PlayerCharacterRuntime _contactTarget;
         private ContinuousContactTimer _contactTimer;
         private PlayerExperienceRuntime _experienceTarget;
+        private GameObjectPool<EnemyRuntime> _pool;
         private bool _initialized;
         private bool _despawned;
 
@@ -44,17 +46,26 @@ namespace Game.Enemy
             Transform target,
             RunController runController,
             PlayerExperienceRuntime experienceTarget = null,
-            Sprite visual = null)
+            Sprite visual = null,
+            GameObjectPool<EnemyRuntime> pool = null)
         {
             if (_initialized)
-                throw new InvalidOperationException("Enemy runtime is already initialized.");
+            {
+                // Reused from a pool: tear down the previous life before rebuilding,
+                // instead of the single-use "throw if already initialized" guard.
+                if (Health != null)
+                    Health.Died -= HandleDeath;
+                _despawned = false;
+            }
 
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             _target = target != null ? target : throw new ArgumentNullException(nameof(target));
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
             _experienceTarget = experienceTarget;
+            _pool = pool;
 
             CacheComponents();
+            _collider.enabled = true;
             _body.gravityScale = 0f;
             _body.constraints |= RigidbodyConstraints2D.FreezeRotation;
             _collider.radius = 0.5f;
@@ -151,6 +162,12 @@ namespace Game.Enemy
 
             Despawned?.Invoke(this);
 
+            if (_pool != null)
+            {
+                _pool.Return(this);
+                return;
+            }
+
             if (Application.isPlaying)
                 Destroy(gameObject);
             else
@@ -168,7 +185,8 @@ namespace Game.Enemy
                     transform.position,
                     _experienceTarget.DropLifetimeSeconds,
                     _experienceTarget,
-                    _runController);
+                    _runController,
+                    pool: _experienceTarget.DropPool);
             }
             Died?.Invoke(this);
             Despawn();

@@ -1,5 +1,7 @@
 using System;
 using Game.Character;
+using Game.Content;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
@@ -21,12 +23,20 @@ namespace Game.Progression
         private float[] fixtureLevelThresholds = { 5f, 10f, 15f };
 
         private bool _initialized;
+        private GameObjectPool<ExperienceDropRuntime> _dropPool;
 
         public ExperienceProgression Progression { get; private set; }
         public float DropLifetimeSeconds => baseDropLifetimeSeconds + OwnerStats.XpDropLifetimeBonusSeconds;
         public float DisappearingExperienceRecovery => OwnerStats.DisappearingXpRecovery;
         public float PickedUpExperienceMultiplier => OwnerStats.PickedUpXpMultiplier;
         public float PickupRadius => OwnerStats.BaseStats.PickupRadius;
+
+        // Owned here (rather than statically inside ExperienceDropFactory) so
+        // pooled drops live and die with this player instance instead of being
+        // shared process-wide — each test's own PlayerExperienceRuntime gets an
+        // isolated pool, and production has exactly one long-lived player.
+        public GameObjectPool<ExperienceDropRuntime> DropPool =>
+            _dropPool ??= new GameObjectPool<ExperienceDropRuntime>(ExperienceDropFactory.CreateInstance, transform);
 
         public event Action<int> LevelUp;
 
@@ -81,7 +91,7 @@ namespace Game.Progression
 
         public float AddPickedUpExperience(float baseAmount)
         {
-            ValidateNonNegativeFinite(baseAmount, nameof(baseAmount));
+            NumericValidation.ValidateNonNegativeFinite(baseAmount, nameof(baseAmount));
             var awarded = baseAmount * PickedUpExperienceMultiplier;
             Progression.AddExperience(awarded);
             return awarded;
@@ -89,10 +99,18 @@ namespace Game.Progression
 
         public float AddRecoveredExperience(float expiredAmount)
         {
-            ValidateNonNegativeFinite(expiredAmount, nameof(expiredAmount));
+            NumericValidation.ValidateNonNegativeFinite(expiredAmount, nameof(expiredAmount));
             var awarded = expiredAmount * DisappearingExperienceRecovery;
             Progression.AddExperience(awarded);
             return awarded;
+        }
+
+        // Initialize() only assigns its own fields and (optionally) rebuilds the
+        // self-owned Progression instance — it never subscribes to another
+        // object, so rolling back is just clearing the initialized flag.
+        public void Shutdown()
+        {
+            _initialized = false;
         }
 
         private void HandleLevelUp(int newLevel)
@@ -106,12 +124,6 @@ namespace Game.Progression
         {
             if (Progression != null)
                 Progression.LevelUp -= HandleLevelUp;
-        }
-
-        private static void ValidateNonNegativeFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite and non-negative.");
         }
     }
 }

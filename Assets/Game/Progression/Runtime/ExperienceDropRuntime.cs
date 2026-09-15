@@ -1,4 +1,5 @@
 using Game.Movement;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Game.Progression
         private PlayerExperienceRuntime _target;
         private RunController _runController;
         private ExperienceDropTimer _timer;
+        private GameObjectPool<ExperienceDropRuntime> _pool;
         private bool _consumed;
 
         public float Amount { get; private set; }
@@ -36,7 +38,8 @@ namespace Game.Progression
             float lifetime,
             PlayerExperienceRuntime target,
             RunController runController,
-            float pickupRadius)
+            float pickupRadius,
+            GameObjectPool<ExperienceDropRuntime> pool = null)
         {
             if (amount <= 0f || float.IsNaN(amount) || float.IsInfinity(amount))
                 throw new System.ArgumentOutOfRangeException(nameof(amount));
@@ -47,6 +50,8 @@ namespace Game.Progression
             _target = target != null ? target : throw new System.ArgumentNullException(nameof(target));
             _runController = runController != null ? runController : throw new System.ArgumentNullException(nameof(runController));
             _timer = new ExperienceDropTimer(lifetime);
+            _pool = pool;
+            _consumed = false;
             CacheComponents();
             _collider.radius = pickupRadius;
             gameObject.name = "Experience Drop";
@@ -113,6 +118,12 @@ namespace Game.Progression
 
         private void DestroySelf()
         {
+            if (_pool != null)
+            {
+                _pool.Return(this);
+                return;
+            }
+
             if (Application.isPlaying)
                 Destroy(gameObject);
             else

@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 
 namespace Game.Combat
 {
@@ -25,7 +26,7 @@ namespace Game.Combat
 
         public float TakeDamage(float amount)
         {
-            ValidateNonNegativeFinite(amount, nameof(amount));
+            NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
             if (IsDead || amount == 0f)
                 return 0f;
 
@@ -50,7 +51,7 @@ namespace Game.Combat
 
         public float Heal(float amount)
         {
-            ValidateNonNegativeFinite(amount, nameof(amount));
+            NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
             if (IsDead || amount == 0f || CurrentHealth >= MaxHealth)
                 return 0f;
 
@@ -67,7 +68,7 @@ namespace Game.Combat
 
         public float Regenerate(float deltaTime, bool isRunning)
         {
-            ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
+            NumericValidation.ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
             if (!isRunning || IsDead || deltaTime == 0f)
                 return 0f;
 
@@ -91,12 +92,6 @@ namespace Game.Combat
             CurrentHealth = Math.Min(MaxHealth, Math.Max(0f, healthRatio * MaxHealth));
             if (Math.Abs(CurrentHealth - previousHealth) > float.Epsilon)
                 HealthChanged?.Invoke(previousHealth, CurrentHealth);
-        }
-
-        private static void ValidateNonNegativeFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite and non-negative.");
         }
     }
 }

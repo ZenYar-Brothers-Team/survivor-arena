@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Character;
 using Game.Enemy;
+using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -10,15 +11,22 @@ namespace Game.ActiveSkill.Tests
 {
     public class ActiveSkillProgressionFrameworkTests
     {
+        private GameObject _runObject;
+        private RunController _runController;
         private GameObject _playerObject;
         private PlayerCharacterRuntime _player;
 
         [SetUp]
         public void SetUp()
         {
+            _runObject = new GameObject("RunController");
+            _runController = _runObject.AddComponent<RunController>();
+            TestLifecycle.InvokeAwake(_runController);
+            _runController.Model.Start();
+
             _playerObject = new GameObject("Player");
             _player = _playerObject.AddComponent<PlayerCharacterRuntime>();
-            _player.Initialize(new CharacterBaseStats(100f, 3f));
+            _player.Initialize(new CharacterBaseStats(100f, 3f), _runController);
         }
 
         [TearDown]
@@ -26,6 +34,8 @@ namespace Game.ActiveSkill.Tests
         {
             if (_playerObject != null)
                 UnityEngine.Object.DestroyImmediate(_playerObject);
+            if (_runObject != null)
+                UnityEngine.Object.DestroyImmediate(_runObject);
         }
 
         [Test]

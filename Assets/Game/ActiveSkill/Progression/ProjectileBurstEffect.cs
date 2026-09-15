@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 
 namespace Game.ActiveSkill
 {
@@ -25,17 +26,17 @@ namespace Game.ActiveSkill
             float impactAreaRadius = 0f,
             float damageMultiplier = 1f)
         {
-            ValidateCount(projectileCount, nameof(projectileCount));
+            NumericValidation.ValidateCount(projectileCount, nameof(projectileCount));
             if (!Enum.IsDefined(typeof(ProjectileLayout), layout))
                 throw new ArgumentOutOfRangeException(nameof(layout));
-            ValidateNonNegative(spreadDegrees, nameof(spreadDegrees));
+            NumericValidation.ValidateNonNegativeFinite(spreadDegrees, nameof(spreadDegrees));
             if (pierceCount < 0)
                 throw new ArgumentOutOfRangeException(nameof(pierceCount));
-            ValidatePositive(speed, nameof(speed));
-            ValidatePositive(lifetimeSeconds, nameof(lifetimeSeconds));
-            ValidatePositive(collisionRadius, nameof(collisionRadius));
-            ValidateNonNegative(impactAreaRadius, nameof(impactAreaRadius));
-            ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidatePositive(speed, nameof(speed));
+            NumericValidation.ValidatePositive(lifetimeSeconds, nameof(lifetimeSeconds));
+            NumericValidation.ValidatePositive(collisionRadius, nameof(collisionRadius));
+            NumericValidation.ValidateNonNegativeFinite(impactAreaRadius, nameof(impactAreaRadius));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
 
             ProjectileCount = projectileCount;
             Layout = layout;
@@ -46,25 +47,6 @@ namespace Game.ActiveSkill
             CollisionRadius = collisionRadius;
             ImpactAreaRadius = impactAreaRadius;
             DamageMultiplier = damageMultiplier;
-        }
-
-        internal static void ValidateCount(int value, string name)
-        {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException(name, "Count must be greater than zero.");
-        }
-
-        internal static void ValidatePositive(float value, string name)
-        {
-            ValidateNonNegative(value, name);
-            if (value <= 0f)
-                throw new ArgumentOutOfRangeException(name, "Value must be greater than zero.");
-        }
-
-        internal static void ValidateNonNegative(float value, string name)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-                throw new ArgumentOutOfRangeException(name, "Value must be finite and non-negative.");
         }
     }
 }

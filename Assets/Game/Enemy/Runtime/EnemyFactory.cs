@@ -1,4 +1,5 @@
 using System;
+using Game.Pooling;
 using Game.Run;
 using Game.Progression;
 using UnityEngine;
@@ -13,7 +14,8 @@ namespace Game.Enemy
             Transform target,
             RunController runController,
             Transform parent = null,
-            Sprite visual = null)
+            Sprite visual = null,
+            GameObjectPool<EnemyRuntime> pool = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -22,21 +24,26 @@ namespace Game.Enemy
             if (runController == null)
                 throw new ArgumentNullException(nameof(runController));
 
-            var enemyObject = new GameObject("Enemy");
-            enemyObject.transform.SetParent(parent, worldPositionStays: false);
-            enemyObject.transform.position = position;
-            enemyObject.AddComponent<Rigidbody2D>();
-            enemyObject.AddComponent<CircleCollider2D>();
-            enemyObject.AddComponent<SpriteRenderer>();
-
-            var runtime = enemyObject.AddComponent<EnemyRuntime>();
+            var runtime = pool != null ? pool.Rent() : CreateInstance();
+            runtime.transform.SetParent(parent, worldPositionStays: false);
+            runtime.transform.position = position;
             runtime.Initialize(
                 definition,
                 target,
                 runController,
                 target.GetComponent<PlayerExperienceRuntime>(),
-                visual);
+                visual,
+                pool);
             return runtime;
+        }
+
+        public static EnemyRuntime CreateInstance()
+        {
+            var enemyObject = new GameObject("Enemy");
+            enemyObject.AddComponent<Rigidbody2D>();
+            enemyObject.AddComponent<CircleCollider2D>();
+            enemyObject.AddComponent<SpriteRenderer>();
+            return enemyObject.AddComponent<EnemyRuntime>();
         }
     }
 }

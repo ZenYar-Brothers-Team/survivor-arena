@@ -130,12 +130,21 @@ namespace Game.ActiveSkill
             instance.SetLevel(entry.Level);
         }
 
-        private void OnDestroy()
+        public void Shutdown()
         {
+            if (!_initialized)
+                return;
+
             if (draftRuntime != null)
                 draftRuntime.SelectionApplied -= HandleSelectionApplied;
             if (_executor is IDisposable disposable)
                 disposable.Dispose();
+            _initialized = false;
+        }
+
+        private void OnDestroy()
+        {
+            Shutdown();
         }
     }
 }

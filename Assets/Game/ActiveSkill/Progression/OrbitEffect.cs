@@ -1,3 +1,5 @@
+using Game.Content;
+
 namespace Game.ActiveSkill
 {
     public sealed class OrbitEffect : IActiveSkillEffect
@@ -11,12 +13,12 @@ namespace Game.ActiveSkill
 
         public OrbitEffect(int bladeCount, float radius, float angularSpeedDegrees, float durationSeconds, float hitCooldownSeconds, float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidateCount(bladeCount, nameof(bladeCount));
-            ProjectileBurstEffect.ValidatePositive(radius, nameof(radius));
-            ProjectileBurstEffect.ValidatePositive(angularSpeedDegrees, nameof(angularSpeedDegrees));
-            ProjectileBurstEffect.ValidatePositive(durationSeconds, nameof(durationSeconds));
-            ProjectileBurstEffect.ValidatePositive(hitCooldownSeconds, nameof(hitCooldownSeconds));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidateCount(bladeCount, nameof(bladeCount));
+            NumericValidation.ValidatePositive(radius, nameof(radius));
+            NumericValidation.ValidatePositive(angularSpeedDegrees, nameof(angularSpeedDegrees));
+            NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
+            NumericValidation.ValidatePositive(hitCooldownSeconds, nameof(hitCooldownSeconds));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             BladeCount = bladeCount;
             Radius = radius;
             AngularSpeedDegrees = angularSpeedDegrees;

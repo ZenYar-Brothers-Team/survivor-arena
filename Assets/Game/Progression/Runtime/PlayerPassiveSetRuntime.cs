@@ -93,15 +93,25 @@ namespace Game.Progression
             _appliedLevels[definition.Id] = entry.Level;
         }
 
-        private void OnDestroy()
+        public void Shutdown()
         {
+            if (!_initialized)
+                return;
+
             if (draftRuntime != null)
                 draftRuntime.SelectionApplied -= HandleSelectionApplied;
-            if (owner == null)
-                return;
-            foreach (var id in _appliedLevels.Keys)
-                owner.RemoveModifier(ModifierSourcePrefix + id);
+            if (owner != null)
+            {
+                foreach (var id in _appliedLevels.Keys)
+                    owner.RemoveModifier(ModifierSourcePrefix + id);
+            }
             _appliedLevels.Clear();
+            _initialized = false;
+        }
+
+        private void OnDestroy()
+        {
+            Shutdown();
         }
     }
 }

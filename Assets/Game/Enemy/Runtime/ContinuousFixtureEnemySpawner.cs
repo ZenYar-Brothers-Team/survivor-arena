@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Content;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace Game.Enemy
         private EnemyDefinition _fixtureDefinition;
         private Sprite _fixtureVisual;
         private ContinuousSpawnTimer _spawnTimer;
+        private GameObjectPool<EnemyRuntime> _pool;
         private bool _initialized;
 
         public int AliveCount => _aliveEnemies.Count;
@@ -50,6 +52,7 @@ namespace Game.Enemy
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
             _fixtureDefinition = definition ?? throw new System.ArgumentNullException(nameof(definition));
             _fixtureVisual = visual;
+            _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _initialized = true;
         }
 
@@ -77,7 +80,7 @@ namespace Game.Enemy
             direction.Normalize();
 
             var spawnPosition = (Vector2)target.position + direction * spawnRadius;
-            var enemy = EnemyFactory.Spawn(_fixtureDefinition, spawnPosition, target, runController, transform, _fixtureVisual);
+            var enemy = EnemyFactory.Spawn(_fixtureDefinition, spawnPosition, target, runController, transform, _fixtureVisual, _pool);
             enemy.Despawned += HandleEnemyDespawned;
             _aliveEnemies.Add(enemy);
         }
@@ -88,8 +91,11 @@ namespace Game.Enemy
             _aliveEnemies.Remove(enemy);
         }
 
-        private void OnDestroy()
+        public void Shutdown()
         {
+            if (!_initialized)
+                return;
+
             while (_aliveEnemies.Count > 0)
             {
                 var lastIndex = _aliveEnemies.Count - 1;
@@ -101,6 +107,14 @@ namespace Game.Enemy
                 enemy.Despawned -= HandleEnemyDespawned;
                 enemy.Despawn();
             }
+            _fixtureDefinition = null;
+            _fixtureVisual = null;
+            _initialized = false;
+        }
+
+        private void OnDestroy()
+        {
+            Shutdown();
         }
     }
 }

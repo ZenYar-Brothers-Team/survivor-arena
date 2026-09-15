@@ -161,10 +161,19 @@ namespace Game.Progression
             return false;
         }
 
+        public void Shutdown()
+        {
+            if (!_initialized)
+                return;
+
+            if (experienceRuntime != null)
+                experienceRuntime.LevelUp -= HandleLevelUp;
+            _initialized = false;
+        }
+
         private void OnDestroy()
         {
-            if (_initialized && experienceRuntime != null)
-                experienceRuntime.LevelUp -= HandleLevelUp;
+            Shutdown();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using Game.Content;
 
 namespace Game.Character
 {
@@ -38,29 +38,16 @@ namespace Game.Character
             PickedUpXpMultiplierBonus = pickedUpXpMultiplierBonus;
             XpDropLifetimeBonusSeconds = xpDropLifetimeBonusSeconds;
 
-            ValidateFinite(maxHealthMultiplierBonus, nameof(maxHealthMultiplierBonus));
-            ValidateFinite(movementSpeedMultiplierBonus, nameof(movementSpeedMultiplierBonus));
-            ValidateFinite(activeSkillDamageMultiplierBonus, nameof(activeSkillDamageMultiplierBonus));
-            ValidateNonNegativeFinite(activeSkillCooldownReductionBonus, nameof(activeSkillCooldownReductionBonus));
-            ValidateNonNegativeFinite(incomingDamageReductionBonus, nameof(incomingDamageReductionBonus));
-            ValidateFinite(healthRestorationMultiplierBonus, nameof(healthRestorationMultiplierBonus));
-            ValidateFinite(healthRegenerationPerSecondBonus, nameof(healthRegenerationPerSecondBonus));
-            ValidateFinite(disappearingXpRecoveryBonus, nameof(disappearingXpRecoveryBonus));
-            ValidateFinite(pickedUpXpMultiplierBonus, nameof(pickedUpXpMultiplierBonus));
-            ValidateFinite(xpDropLifetimeBonusSeconds, nameof(xpDropLifetimeBonusSeconds));
-        }
-
-        private static void ValidateFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value))
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite.");
-        }
-
-        private static void ValidateNonNegativeFinite(float value, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value cannot be negative.");
+            NumericValidation.ValidateFinite(maxHealthMultiplierBonus, nameof(maxHealthMultiplierBonus));
+            NumericValidation.ValidateFinite(movementSpeedMultiplierBonus, nameof(movementSpeedMultiplierBonus));
+            NumericValidation.ValidateFinite(activeSkillDamageMultiplierBonus, nameof(activeSkillDamageMultiplierBonus));
+            NumericValidation.ValidateNonNegativeFinite(activeSkillCooldownReductionBonus, nameof(activeSkillCooldownReductionBonus));
+            NumericValidation.ValidateNonNegativeFinite(incomingDamageReductionBonus, nameof(incomingDamageReductionBonus));
+            NumericValidation.ValidateFinite(healthRestorationMultiplierBonus, nameof(healthRestorationMultiplierBonus));
+            NumericValidation.ValidateFinite(healthRegenerationPerSecondBonus, nameof(healthRegenerationPerSecondBonus));
+            NumericValidation.ValidateFinite(disappearingXpRecoveryBonus, nameof(disappearingXpRecoveryBonus));
+            NumericValidation.ValidateFinite(pickedUpXpMultiplierBonus, nameof(pickedUpXpMultiplierBonus));
+            NumericValidation.ValidateFinite(xpDropLifetimeBonusSeconds, nameof(xpDropLifetimeBonusSeconds));
         }
     }
 }

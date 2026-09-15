@@ -1,4 +1,5 @@
 using System;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
@@ -12,22 +13,27 @@ namespace Game.Progression
             float lifetime,
             PlayerExperienceRuntime target,
             RunController runController,
-            Transform parent = null)
+            Transform parent = null,
+            GameObjectPool<ExperienceDropRuntime> pool = null)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
             if (runController == null)
                 throw new ArgumentNullException(nameof(runController));
 
+            var runtime = pool != null ? pool.Rent() : CreateInstance();
+            runtime.transform.SetParent(parent, worldPositionStays: false);
+            runtime.transform.position = position;
+            runtime.Initialize(amount, lifetime, target, runController, target.PickupRadius, pool);
+            return runtime;
+        }
+
+        public static ExperienceDropRuntime CreateInstance()
+        {
             var dropObject = new GameObject("Experience Drop");
-            dropObject.transform.SetParent(parent, worldPositionStays: false);
-            dropObject.transform.position = position;
             dropObject.AddComponent<CircleCollider2D>();
             dropObject.AddComponent<SpriteRenderer>();
-
-            var runtime = dropObject.AddComponent<ExperienceDropRuntime>();
-            runtime.Initialize(amount, lifetime, target, runController, target.PickupRadius);
-            return runtime;
+            return dropObject.AddComponent<ExperienceDropRuntime>();
         }
     }
 }

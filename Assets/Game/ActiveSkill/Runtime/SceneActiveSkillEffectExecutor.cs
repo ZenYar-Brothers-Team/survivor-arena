@@ -4,6 +4,7 @@ using Game.Content;
 using Game.Diagnostics;
 using Game.Enemy;
 using Game.Movement;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace Game.ActiveSkill
         private readonly List<MineState> _mines = new List<MineState>();
         private readonly List<EnemyRuntime> _enemyBuffer = new List<EnemyRuntime>();
         private readonly HashSet<IEnemyDamageReceiver> _chainHitBuffer = new HashSet<IEnemyDamageReceiver>();
+        private readonly Transform _minePoolRoot;
+        private readonly GameObjectPool<SpriteRenderer> _minePool;
 
         public int ScheduledCount => _scheduled.Count;
         public int ActiveMineCount => _mines.Count;
@@ -33,6 +36,8 @@ namespace Game.ActiveSkill
                 ? runController
                 : throw new ArgumentNullException(nameof(runController));
             _projectileLauncher = projectileLauncher ?? new SceneProjectileLauncher(runController);
+            _minePoolRoot = new GameObject("Mine Pool").transform;
+            _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
         }
 
         public void Schedule(ActiveSkillActivation activation)
@@ -270,13 +275,19 @@ namespace Game.ActiveSkill
                 }
             }
 
-            var marker = new GameObject("Fixture Active Skill Mine");
+            var marker = _minePool.Rent();
+            marker.transform.SetParent(null, worldPositionStays: false);
             marker.transform.position = scheduled.Activation.Origin;
             marker.transform.localScale = Vector3.one * effect.TriggerRadius * 2f;
-            var renderer = marker.AddComponent<SpriteRenderer>();
-            renderer.sprite = PlaceholderSprite.Shared;
-            renderer.color = new Color(1f, 0.35f, 0.1f, 0.8f);
-            _mines.Add(new MineState(scheduled, effect, marker));
+            marker.sprite = PlaceholderSprite.Shared;
+            marker.color = new Color(1f, 0.35f, 0.1f, 0.8f);
+            _mines.Add(new MineState(scheduled, effect, marker.gameObject, _minePool));
+        }
+
+        private static SpriteRenderer CreateMineMarker()
+        {
+            var marker = new GameObject("Fixture Active Skill Mine");
+            return marker.AddComponent<SpriteRenderer>();
         }
 
         private void TickMines(float deltaTime)
@@ -333,6 +344,13 @@ namespace Game.ActiveSkill
                 _mines[i].Dispose();
             _mines.Clear();
             _scheduled.Clear();
+
+            if (_minePoolRoot == null)
+                return;
+            if (Application.isPlaying)
+                UnityEngine.Object.Destroy(_minePoolRoot.gameObject);
+            else
+                UnityEngine.Object.DestroyImmediate(_minePoolRoot.gameObject);
         }
 
         private sealed class ScheduledEffect
@@ -363,6 +381,8 @@ namespace Game.ActiveSkill
 
         private sealed class MineState : IDisposable
         {
+            private readonly GameObjectPool<SpriteRenderer> _pool;
+
             public ScheduledEffect Scheduled { get; }
             public MineEffect Effect { get; }
             public GameObject Marker { get; }
@@ -370,21 +390,19 @@ namespace Game.ActiveSkill
             public Vector2 Position => Marker != null ? (Vector2)Marker.transform.position : Scheduled.Activation.Origin;
             public float Elapsed { get; set; }
 
-            public MineState(ScheduledEffect scheduled, MineEffect effect, GameObject marker)
+            public MineState(ScheduledEffect scheduled, MineEffect effect, GameObject marker, GameObjectPool<SpriteRenderer> pool)
             {
                 Scheduled = scheduled;
                 Effect = effect;
                 Marker = marker;
+                _pool = pool;
             }
 
             public void Dispose()
             {
                 if (Marker == null)
                     return;
-                if (Application.isPlaying)
-                    UnityEngine.Object.Destroy(Marker);
-                else
-                    UnityEngine.Object.DestroyImmediate(Marker);
+                _pool.Return(Marker.GetComponent<SpriteRenderer>());
             }
         }
     }

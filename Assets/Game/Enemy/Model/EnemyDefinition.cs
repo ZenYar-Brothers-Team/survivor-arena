@@ -29,12 +29,12 @@ namespace Game.Enemy
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
 
-            ValidatePositive(maxHealth, nameof(maxHealth));
-            ValidatePositive(collisionSize, nameof(collisionSize));
-            ValidateNonNegative(movementSpeed, nameof(movementSpeed));
-            ValidateNonNegative(contactDamage, nameof(contactDamage));
-            ValidatePositive(contactDamageInterval, nameof(contactDamageInterval));
-            ValidateNonNegative(experienceReward, nameof(experienceReward));
+            NumericValidation.ValidatePositive(maxHealth, nameof(maxHealth));
+            NumericValidation.ValidatePositive(collisionSize, nameof(collisionSize));
+            NumericValidation.ValidateNonNegative(movementSpeed, nameof(movementSpeed));
+            NumericValidation.ValidateNonNegative(contactDamage, nameof(contactDamage));
+            NumericValidation.ValidatePositive(contactDamageInterval, nameof(contactDamageInterval));
+            NumericValidation.ValidateNonNegative(experienceReward, nameof(experienceReward));
 
             Id = id;
             MaxHealth = maxHealth;
@@ -52,26 +52,6 @@ namespace Game.Enemy
         {
             if (Visual.Id.IsValid)
                 yield return Visual.ToReference();
-        }
-
-        private static void ValidatePositive(float value, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value <= 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be greater than zero.");
-        }
-
-        private static void ValidateNonNegative(float value, string parameterName)
-        {
-            ValidateFinite(value, parameterName);
-            if (value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value cannot be negative.");
-        }
-
-        private static void ValidateFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value))
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite.");
         }
     }
 }

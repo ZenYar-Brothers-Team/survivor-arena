@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -12,7 +13,7 @@ namespace Game.ActiveSkill
             float spreadDegrees = 0f,
             float rotationDegrees = 0f)
         {
-            ProjectileBurstEffect.ValidateCount(count, nameof(count));
+            NumericValidation.ValidateCount(count, nameof(count));
             if (!Enum.IsDefined(typeof(ProjectileLayout), layout))
                 throw new ArgumentOutOfRangeException(nameof(layout));
             if (aimDirection.sqrMagnitude <= Mathf.Epsilon)

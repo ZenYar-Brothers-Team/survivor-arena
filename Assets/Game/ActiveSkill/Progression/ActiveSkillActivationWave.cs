@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Content;
 
 namespace Game.ActiveSkill
 {
@@ -16,10 +17,10 @@ namespace Game.ActiveSkill
             float damageMultiplier,
             params IActiveSkillEffect[] effects)
         {
-            ProjectileBurstEffect.ValidateNonNegative(delaySeconds, nameof(delaySeconds));
+            NumericValidation.ValidateNonNegativeFinite(delaySeconds, nameof(delaySeconds));
             if (float.IsNaN(rotationDegrees) || float.IsInfinity(rotationDegrees))
                 throw new ArgumentOutOfRangeException(nameof(rotationDegrees));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             if (effects == null || effects.Length == 0)
                 throw new ArgumentException("An activation wave requires at least one effect.", nameof(effects));
             for (var i = 0; i < effects.Length; i++)

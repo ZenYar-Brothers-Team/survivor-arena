@@ -1,7 +1,9 @@
 {
     "name": "Game.Combat",
     "rootNamespace": "Game.Combat",
-    "references": [],
+    "references": [
+        "Game.Content"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

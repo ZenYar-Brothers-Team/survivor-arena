@@ -10,7 +10,8 @@
         "Game.Progression",
         "Game.Presentation",
         "Game.Diagnostics",
-        "Game.Content.Json"
+        "Game.Content.Json",
+        "Game.Pooling"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

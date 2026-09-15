@@ -86,6 +86,28 @@ namespace Game.UI
             _presenter.RefreshHud();
         }
 
+        public void Shutdown()
+        {
+            if (!_initialized)
+                return;
+
+            _presenter?.Dispose();
+            _view?.Dispose();
+            _model?.Dispose();
+            if (_panelSettings != null)
+            {
+                if (Application.isPlaying)
+                    Destroy(_panelSettings);
+                else
+                    DestroyImmediate(_panelSettings);
+            }
+            _presenter = null;
+            _view = null;
+            _model = null;
+            _panelSettings = null;
+            _initialized = false;
+        }
+
         private void OnDestroy()
         {
             _presenter?.Dispose();

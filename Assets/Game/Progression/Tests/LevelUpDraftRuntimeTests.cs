@@ -24,7 +24,7 @@ namespace Game.Progression.Tests
 
             _player = new GameObject("Player");
             var character = _player.AddComponent<PlayerCharacterRuntime>();
-            character.Initialize(new CharacterBaseStats(100f, 3f));
+            character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
             _experience = _player.AddComponent<PlayerExperienceRuntime>();
             _experience.Initialize(character, _runController, 5f);
             _draftRuntime = _player.AddComponent<LevelUpDraftRuntime>();
@@ -162,7 +162,7 @@ namespace Game.Progression.Tests
             try
             {
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
-                character.Initialize(new CharacterBaseStats(100f, 3f));
+                character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
                 experience.Initialize(character, _runController, 1f);
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();

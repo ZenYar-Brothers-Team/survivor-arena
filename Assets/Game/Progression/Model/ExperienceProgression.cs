@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 
 namespace Game.Progression
 {
@@ -21,12 +22,12 @@ namespace Game.Progression
 
             _thresholds = (float[])thresholds.Clone();
             for (var i = 0; i < _thresholds.Length; i++)
-                ValidatePositiveFinite(_thresholds[i], nameof(thresholds));
+                NumericValidation.ValidatePositive(_thresholds[i], nameof(thresholds), "Thresholds must be greater than zero.");
         }
 
         public int AddExperience(float amount)
         {
-            ValidateNonNegativeFinite(amount, nameof(amount));
+            NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
             if (amount == 0f)
                 return 0;
 
@@ -50,19 +51,6 @@ namespace Game.Progression
         {
             var index = Math.Min(level - 1, _thresholds.Length - 1);
             return _thresholds[index];
-        }
-
-        private static void ValidatePositiveFinite(float value, string parameterName)
-        {
-            ValidateNonNegativeFinite(value, parameterName);
-            if (value <= 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Thresholds must be greater than zero.");
-        }
-
-        private static void ValidateNonNegativeFinite(float value, string parameterName)
-        {
-            if (float.IsNaN(value) || float.IsInfinity(value) || value < 0f)
-                throw new ArgumentOutOfRangeException(parameterName, "Value must be finite and non-negative.");
         }
     }
 }

@@ -1,3 +1,5 @@
+using Game.Content;
+
 namespace Game.ActiveSkill
 {
     public sealed class MineEffect : IActiveSkillEffect
@@ -19,13 +21,13 @@ namespace Game.ActiveSkill
             float secondaryDamageMultiplier = 0f,
             float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidatePositive(triggerRadius, nameof(triggerRadius));
-            ProjectileBurstEffect.ValidatePositive(blastRadius, nameof(blastRadius));
-            ProjectileBurstEffect.ValidatePositive(lifetimeSeconds, nameof(lifetimeSeconds));
-            ProjectileBurstEffect.ValidateCount(maxConcurrent, nameof(maxConcurrent));
-            ProjectileBurstEffect.ValidateNonNegative(secondaryDelaySeconds, nameof(secondaryDelaySeconds));
-            ProjectileBurstEffect.ValidateNonNegative(secondaryDamageMultiplier, nameof(secondaryDamageMultiplier));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidatePositive(triggerRadius, nameof(triggerRadius));
+            NumericValidation.ValidatePositive(blastRadius, nameof(blastRadius));
+            NumericValidation.ValidatePositive(lifetimeSeconds, nameof(lifetimeSeconds));
+            NumericValidation.ValidateCount(maxConcurrent, nameof(maxConcurrent));
+            NumericValidation.ValidateNonNegativeFinite(secondaryDelaySeconds, nameof(secondaryDelaySeconds));
+            NumericValidation.ValidateNonNegativeFinite(secondaryDamageMultiplier, nameof(secondaryDamageMultiplier));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             TriggerRadius = triggerRadius;
             BlastRadius = blastRadius;
             LifetimeSeconds = lifetimeSeconds;

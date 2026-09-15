@@ -1,3 +1,5 @@
+using Game.Content;
+
 namespace Game.ActiveSkill
 {
     public sealed class BeamEffect : IActiveSkillEffect
@@ -11,11 +13,11 @@ namespace Game.ActiveSkill
 
         public BeamEffect(float durationSeconds, float tickIntervalSeconds, float width, float range, bool tracksTarget, float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidatePositive(durationSeconds, nameof(durationSeconds));
-            ProjectileBurstEffect.ValidatePositive(tickIntervalSeconds, nameof(tickIntervalSeconds));
-            ProjectileBurstEffect.ValidatePositive(width, nameof(width));
-            ProjectileBurstEffect.ValidatePositive(range, nameof(range));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
+            NumericValidation.ValidatePositive(tickIntervalSeconds, nameof(tickIntervalSeconds));
+            NumericValidation.ValidatePositive(width, nameof(width));
+            NumericValidation.ValidatePositive(range, nameof(range));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             DurationSeconds = durationSeconds;
             TickIntervalSeconds = tickIntervalSeconds;
             Width = width;

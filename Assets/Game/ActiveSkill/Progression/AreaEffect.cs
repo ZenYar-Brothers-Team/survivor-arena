@@ -1,3 +1,5 @@
+using Game.Content;
+
 namespace Game.ActiveSkill
 {
     public sealed class AreaEffect : IActiveSkillEffect
@@ -7,8 +9,8 @@ namespace Game.ActiveSkill
 
         public AreaEffect(float radius, float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidatePositive(radius, nameof(radius));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidatePositive(radius, nameof(radius));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             Radius = radius;
             DamageMultiplier = damageMultiplier;
         }

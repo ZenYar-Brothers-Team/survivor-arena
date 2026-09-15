@@ -1,3 +1,5 @@
+using Game.Content;
+
 namespace Game.ActiveSkill
 {
     public sealed class BoomerangEffect : IActiveSkillEffect
@@ -12,13 +14,13 @@ namespace Game.ActiveSkill
 
         public BoomerangEffect(int projectileCount, float spreadDegrees, float speed, float range, float collisionRadius, float returnDamageMultiplier, float damageMultiplier = 1f)
         {
-            ProjectileBurstEffect.ValidateCount(projectileCount, nameof(projectileCount));
-            ProjectileBurstEffect.ValidateNonNegative(spreadDegrees, nameof(spreadDegrees));
-            ProjectileBurstEffect.ValidatePositive(speed, nameof(speed));
-            ProjectileBurstEffect.ValidatePositive(range, nameof(range));
-            ProjectileBurstEffect.ValidatePositive(collisionRadius, nameof(collisionRadius));
-            ProjectileBurstEffect.ValidateNonNegative(returnDamageMultiplier, nameof(returnDamageMultiplier));
-            ProjectileBurstEffect.ValidateNonNegative(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidateCount(projectileCount, nameof(projectileCount));
+            NumericValidation.ValidateNonNegativeFinite(spreadDegrees, nameof(spreadDegrees));
+            NumericValidation.ValidatePositive(speed, nameof(speed));
+            NumericValidation.ValidatePositive(range, nameof(range));
+            NumericValidation.ValidatePositive(collisionRadius, nameof(collisionRadius));
+            NumericValidation.ValidateNonNegativeFinite(returnDamageMultiplier, nameof(returnDamageMultiplier));
+            NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             ProjectileCount = projectileCount;
             SpreadDegrees = spreadDegrees;
             Speed = speed;
