@@ -25,6 +25,7 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DraftRerollButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.RunOverlay));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPanel));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.CharacterSelection));
         }
 
         [Test]

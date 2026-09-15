@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.Character;
 using Game.Progression;
 using Game.Run;
@@ -36,7 +37,8 @@ namespace Game.UI
             PlayerCharacterRuntime player,
             PlayerExperienceRuntime experience,
             LevelUpDraftRuntime draft,
-            RunController run)
+            RunController run,
+            IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -69,7 +71,8 @@ namespace Game.UI
                 experience,
                 draft,
                 run,
-                Debug.isDebugBuild || Application.isEditor);
+                Debug.isDebugBuild || Application.isEditor,
+                unlockedCharacters);
             _presenter = new GameplayUiPresenter(_model, _view);
             _presenter.Start();
             _initialized = true;

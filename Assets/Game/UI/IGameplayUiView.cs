@@ -17,6 +17,7 @@ namespace Game.UI
         void RenderDraft(DraftViewState state);
         void RenderRunOverlay(RunOverlayViewState state);
         void RenderBuild(BuildViewState state);
+        void RenderCharacterSelection(CharacterSelectionViewState state);
         void SetDevelopmentControlsVisible(bool isVisible);
     }
 }

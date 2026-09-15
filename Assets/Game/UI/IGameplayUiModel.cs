@@ -22,6 +22,8 @@ namespace Game.UI
         IReadOnlyList<DraftOption> DraftOptions { get; }
         IReadOnlyList<BuildEntry> BuildEntries { get; }
         IReadOnlyList<SetDefinition> SetDefinitions { get; }
+        CharacterDefinition SelectedCharacter { get; }
+        IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
 
         bool SelectDraftOption(ContentId id);

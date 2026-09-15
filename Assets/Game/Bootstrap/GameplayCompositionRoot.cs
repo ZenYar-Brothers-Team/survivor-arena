@@ -41,7 +41,7 @@ namespace Game.Bootstrap
         private GameplayUiRoot gameplayUiRoot;
 
         [SerializeField]
-        private string startingActiveId = "FIXTURE-SKILL-BOLT";
+        private string startingCharacterId = "FIXTURE-CHARACTER-AGILE";
 
         [SerializeField, Min(1)]
         private int draftOfferCount = 3;
@@ -82,7 +82,8 @@ namespace Game.Bootstrap
                 throw new InvalidOperationException("Draft control counts cannot be negative.");
 
             Catalog = FixtureRuntimeContentCatalog.Create();
-            var startingActive = Catalog.Registry.Get<ActiveSkillProgressionDefinition>(new ContentId(startingActiveId));
+            if (!Catalog.Characters.TrySelect(new ContentId(startingCharacterId), out var selectedCharacter))
+                throw new InvalidOperationException($"Character '{startingCharacterId}' is locked or missing.");
 
             // If a subsystem's Initialize() throws partway through, every subsystem
             // that already succeeded gets rolled back (in reverse order) via its
@@ -91,7 +92,7 @@ namespace Game.Bootstrap
             var initializedSubsystems = new List<Action>();
             try
             {
-                player.Initialize(Catalog.DefaultCharacterBaseStats, runController);
+                player.Initialize(selectedCharacter.BaseStats, runController);
                 initializedSubsystems.Add(player.Shutdown);
 
                 experienceRuntime.Initialize(player, runController);
@@ -101,7 +102,8 @@ namespace Game.Bootstrap
                     experienceRuntime,
                     runController,
                     Catalog.BuildEntries,
-                    startingActive,
+                    selectedCharacter,
+                    Catalog.Registry,
                     draftOfferCount,
                     new SeededDraftRandom(draftSeed),
                     fixtureInitialRerolls,
@@ -129,7 +131,12 @@ namespace Game.Bootstrap
                 enemySpawner.Initialize(fixtureEnemy, enemyVisual);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
-                gameplayUiRoot.Initialize(player, experienceRuntime, draftRuntime, runController);
+                gameplayUiRoot.Initialize(
+                    player,
+                    experienceRuntime,
+                    draftRuntime,
+                    runController,
+                    Catalog.Characters.UnlockedCharacters);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch

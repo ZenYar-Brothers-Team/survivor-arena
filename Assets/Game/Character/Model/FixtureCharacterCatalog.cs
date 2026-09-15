@@ -10,7 +10,7 @@ namespace Game.Character
     public static class FixtureCharacterCatalog
     {
         private const string ResourcePath = "Content/Characters/FixtureCharacters";
-        public const string DefaultCharacterId = "FIXTURE-CHARACTER-DEFAULT";
+        public const string DefaultCharacterId = "FIXTURE-CHARACTER-AGILE";
 
         public static CharacterBaseStats CreateDefault()
         {
@@ -19,23 +19,27 @@ namespace Game.Character
 
         public static CharacterBaseStats Create(string id)
         {
-            var all = JsonContentFile.Load<CharacterBaseStatsData[]>(ResourcePath);
+            var all = JsonContentFile.Load<CharacterDefinitionData[]>(ResourcePath);
             var data = all.FirstOrDefault(entry => entry.Id == id);
             if (data == null)
                 throw new InvalidOperationException($"No fixture character with id '{id}' in {ResourcePath}.json.");
 
+            if (data.BaseStats == null)
+                throw new InvalidOperationException($"Fixture character '{id}' has no base stats in {ResourcePath}.json.");
+
+            var stats = data.BaseStats;
             return new CharacterBaseStats(
-                data.MaxHealth,
-                data.MovementSpeed,
-                data.ActiveSkillDamageMultiplier,
-                data.ActiveSkillCooldownMultiplier,
-                data.IncomingDamageMultiplier,
-                data.HealthRestorationMultiplier,
-                data.HealthRegenerationPerSecond,
-                data.DisappearingXpRecovery,
-                data.PickedUpXpMultiplier,
-                data.XpDropLifetimeBonusSeconds,
-                data.PickupRadius);
+                stats.MaxHealth,
+                stats.MovementSpeed,
+                stats.ActiveSkillDamageMultiplier,
+                stats.ActiveSkillCooldownMultiplier,
+                stats.IncomingDamageMultiplier,
+                stats.HealthRestorationMultiplier,
+                stats.HealthRegenerationPerSecond,
+                stats.DisappearingXpRecovery,
+                stats.PickedUpXpMultiplier,
+                stats.XpDropLifetimeBonusSeconds,
+                stats.PickupRadius);
         }
     }
 }

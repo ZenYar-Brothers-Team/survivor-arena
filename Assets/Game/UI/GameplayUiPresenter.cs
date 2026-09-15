@@ -50,7 +50,29 @@ namespace Game.UI
             RefreshHud();
             _view.RenderDraft(BuildDraftState());
             _view.RenderBuild(BuildBuildState());
+            _view.RenderCharacterSelection(BuildCharacterSelectionState());
             _view.RenderRunOverlay(BuildRunOverlayState());
+        }
+
+        private CharacterSelectionViewState BuildCharacterSelectionState()
+        {
+            var characters = new CharacterOptionViewState[_model.UnlockedCharacters.Count];
+            for (var i = 0; i < characters.Length; i++)
+            {
+                var character = _model.UnlockedCharacters[i];
+                var stats = character.BaseStats;
+                characters[i] = new CharacterOptionViewState(
+                    character.Id,
+                    character.DisplayName,
+                    character.StartingActiveSkill.Id.ToString(),
+                    stats.MaxHealth,
+                    stats.MovementSpeed,
+                    stats.ActiveSkillDamageMultiplier,
+                    stats.ActiveSkillCooldownMultiplier,
+                    stats.DisappearingXpRecovery,
+                    _model.SelectedCharacter != null && _model.SelectedCharacter.Id == character.Id);
+            }
+            return new CharacterSelectionViewState(characters);
         }
 
         private BuildViewState BuildBuildState()

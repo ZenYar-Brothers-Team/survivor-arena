@@ -1229,7 +1229,7 @@ MonoBehaviour:
   passiveRuntime: {fileID: 557252972}
   enemySpawner: {fileID: 314159261}
   gameplayUiRoot: {fileID: 1351064013}
-  startingActiveId: FIXTURE-SKILL-BOLT
+  startingCharacterId: FIXTURE-CHARACTER-AGILE
   draftOfferCount: 3
   draftSeed: 12345
   fixtureInitialRerolls: 2

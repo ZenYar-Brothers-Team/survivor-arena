@@ -15,6 +15,7 @@ namespace Game.UI
         private readonly PlayerExperienceRuntime _experience;
         private readonly LevelUpDraftRuntime _draft;
         private readonly RunController _run;
+        private readonly IReadOnlyList<CharacterDefinition> _unlockedCharacters;
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
 
         public event Action Changed;
@@ -31,6 +32,8 @@ namespace Game.UI
         public IReadOnlyList<DraftOption> DraftOptions => _draft.IsDraftOpen ? _draft.CurrentDraft.Options : NoDraftOptions;
         public IReadOnlyList<BuildEntry> BuildEntries => _buildEntries;
         public IReadOnlyList<SetDefinition> SetDefinitions => _draft.SetDefinitions;
+        public CharacterDefinition SelectedCharacter => _draft.Character;
+        public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
         public bool DevelopmentCommandsEnabled { get; }
 
         public GameplayUiRuntimeModel(
@@ -38,12 +41,14 @@ namespace Game.UI
             PlayerExperienceRuntime experience,
             LevelUpDraftRuntime draft,
             RunController run,
-            bool developmentCommandsEnabled)
+            bool developmentCommandsEnabled,
+            IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _experience = experience ?? throw new ArgumentNullException(nameof(experience));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
             _run = run ?? throw new ArgumentNullException(nameof(run));
+            _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
             _player.Health.HealthChanged += HandleHealthChanged;

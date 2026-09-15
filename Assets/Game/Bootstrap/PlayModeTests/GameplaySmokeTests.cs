@@ -39,10 +39,13 @@ namespace Game.Bootstrap.PlayModeTests
             var passiveSlots = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.PassiveSlots);
             var sets = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.Sets);
             var setRecipeProgress = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.SetRecipeProgress);
+            var characterSelection = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.CharacterSelection);
             Assert.AreEqual(PlayerBuild.ActiveSlotCapacity, activeSlots.childCount);
             Assert.AreEqual(PlayerBuild.PassiveSlotCapacity, passiveSlots.childCount);
             Assert.AreEqual(0, sets.childCount);
             Assert.AreEqual(root.Catalog.Sets.Count, setRecipeProgress.childCount);
+            Assert.AreEqual(root.Catalog.Characters.UnlockedCharacters.Count, characterSelection.childCount);
+            Assert.AreEqual(root.Catalog.Characters.UnlockedCharacters[0].Id, draft.Character.Id);
             var draftOverlay = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.DraftOverlay);
             Assert.AreEqual(DisplayStyle.None, draftOverlay.style.display.value);
             Assert.AreEqual(RunState.Running, run.Model.State);

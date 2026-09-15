@@ -16,6 +16,8 @@ namespace Game.Bootstrap.Tests
             Assert.Greater(catalog.Passives.Count, 0);
             Assert.Greater(catalog.Sets.Count, 0);
             Assert.Greater(catalog.Enemies.Count, 0);
+            Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
+            Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)
@@ -28,6 +30,9 @@ namespace Game.Bootstrap.Tests
                 else
                     Assert.IsInstanceOf<SetDefinition>(buildEntry);
             }
+
+            foreach (var character in catalog.Characters.AllCharacters)
+                Assert.AreSame(character, catalog.Registry.Get<CharacterDefinition>(character.Id));
         }
     }
 }

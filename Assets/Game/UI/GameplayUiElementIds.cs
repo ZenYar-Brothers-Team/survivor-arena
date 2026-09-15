@@ -24,6 +24,7 @@ namespace Game.UI
         public const string AddExperienceButton = "development-add-xp";
         public const string DamageButton = "development-damage";
         public const string HealButton = "development-heal";
+        public const string CharacterSelection = "development-character-selection";
 
         public static string DraftSelectButton(int index) => $"draft-option-{index}-select";
         public static string DraftBanishButton(int index) => $"draft-option-{index}-banish";
@@ -31,5 +32,6 @@ namespace Game.UI
         public static string PassiveSlot(int index) => $"build-passive-slot-{index}";
         public static string SetEntry(int index) => $"build-set-{index}";
         public static string SetRecipeEntry(int index) => $"development-set-recipe-{index}";
+        public static string CharacterEntry(int index) => $"development-character-{index}";
     }
 }

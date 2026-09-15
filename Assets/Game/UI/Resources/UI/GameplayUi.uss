@@ -193,3 +193,12 @@
     font-size: 11px;
     color: rgb(190, 204, 232);
 }
+
+.character-selection-panel {
+    margin-left: 12px;
+}
+
+.character-entry {
+    font-size: 11px;
+    color: rgb(190, 232, 198);
+}

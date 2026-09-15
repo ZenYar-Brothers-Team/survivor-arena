@@ -29,7 +29,7 @@ namespace Game.Bootstrap.Tests
             Assert.IsInstanceOf<PlayerPassiveSetRuntime>(serialized.FindProperty("passiveRuntime").objectReferenceValue);
             Assert.IsInstanceOf<ContinuousFixtureEnemySpawner>(serialized.FindProperty("enemySpawner").objectReferenceValue);
             Assert.IsInstanceOf<GameplayUiRoot>(serialized.FindProperty("gameplayUiRoot").objectReferenceValue);
-            StringAssert.StartsWith("FIXTURE-", serialized.FindProperty("startingActiveId").stringValue);
+            StringAssert.StartsWith("FIXTURE-CHARACTER-", serialized.FindProperty("startingCharacterId").stringValue);
             Assert.Greater(serialized.FindProperty("draftOfferCount").intValue, 0);
             Assert.Greater(serialized.FindProperty("fixtureInitialRerolls").intValue, 0);
             Assert.Greater(serialized.FindProperty("fixtureInitialBanishes").intValue, 0);

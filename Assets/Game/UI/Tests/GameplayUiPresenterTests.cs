@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Character;
 using Game.Content;
 using Game.Progression;
 using Game.Run;
@@ -37,6 +38,9 @@ namespace Game.UI.Tests
                 Assert.IsTrue(view.Build.SetRecipeProgress[0].IsAcquired);
                 Assert.IsFalse(view.Overlay.IsVisible, "Draft pause must not show the generic pause overlay.");
                 Assert.IsTrue(view.DevelopmentVisible);
+                Assert.AreEqual(1, view.Characters.Characters.Count);
+                Assert.IsTrue(view.Characters.Characters[0].IsSelected);
+                Assert.AreEqual("FIXTURE-ACTIVE-UI", view.Characters.Characters[0].StartingSkillId);
             }
         }
 
@@ -110,6 +114,11 @@ namespace Game.UI.Tests
                 1f,
                 new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
             build.Apply(set);
+            var character = new CharacterDefinition(
+                "FIXTURE-CHARACTER-UI",
+                "Fixture Character",
+                new CharacterBaseStats(100f, 3f),
+                active.Id);
             return new FakeModel
             {
                 CurrentHealth = 75f,
@@ -124,6 +133,8 @@ namespace Game.UI.Tests
                 DraftOptions = new[] { new DraftOption(definition, false, 1) },
                 BuildEntries = new List<BuildEntry>(build.Entries),
                 SetDefinitions = new[] { set },
+                SelectedCharacter = character,
+                UnlockedCharacters = new[] { character },
                 DevelopmentCommandsEnabled = true
             };
         }
@@ -143,6 +154,8 @@ namespace Game.UI.Tests
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
             public IReadOnlyList<BuildEntry> BuildEntries { get; set; }
             public IReadOnlyList<SetDefinition> SetDefinitions { get; set; }
+            public CharacterDefinition SelectedCharacter { get; set; }
+            public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
             public int RerollCalls { get; private set; }
             public ContentId LastBanished { get; private set; }
@@ -175,12 +188,14 @@ namespace Game.UI.Tests
             public DraftViewState Draft { get; private set; }
             public RunOverlayViewState Overlay { get; private set; }
             public BuildViewState Build { get; private set; }
+            public CharacterSelectionViewState Characters { get; private set; }
             public bool DevelopmentVisible { get; private set; }
 
             public void RenderHud(HudViewState state) => Hud = state;
             public void RenderDraft(DraftViewState state) => Draft = state;
             public void RenderRunOverlay(RunOverlayViewState state) => Overlay = state;
             public void RenderBuild(BuildViewState state) => Build = state;
+            public void RenderCharacterSelection(CharacterSelectionViewState state) => Characters = state;
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;
             public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id);
             public void RaiseReroll() => DraftRerollRequested?.Invoke();

@@ -41,6 +41,7 @@
             <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
             <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
             <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
+            <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

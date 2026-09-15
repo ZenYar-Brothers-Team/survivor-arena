@@ -26,6 +26,7 @@ namespace Game.UI
         private readonly Button _addExperienceButton;
         private readonly Button _damageButton;
         private readonly Button _healButton;
+        private readonly VisualElement _characterSelection;
 
         public event Action<ContentId> DraftOptionSelected;
         public event Action DraftRerollRequested;
@@ -60,6 +61,7 @@ namespace Game.UI
             _addExperienceButton = Require<Button>(root, GameplayUiElementIds.AddExperienceButton);
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
+            _characterSelection = Require<VisualElement>(root, GameplayUiElementIds.CharacterSelection);
 
             _pauseButton.clicked += HandlePauseClicked;
             _runOverlayResumeButton.clicked += HandlePauseClicked;
@@ -147,6 +149,28 @@ namespace Game.UI
                 };
                 label.AddToClassList("set-recipe-progress");
                 _setRecipeProgress.Add(label);
+            }
+        }
+
+        public void RenderCharacterSelection(CharacterSelectionViewState state)
+        {
+            _characterSelection.Clear();
+            for (var i = 0; i < state.Characters.Count; i++)
+            {
+                var character = state.Characters[i];
+                var selected = character.IsSelected ? " [SELECTED]" : string.Empty;
+                var recoveryPercent = MathF.Round(character.DisappearingXpRecovery * 100f);
+                var label = new Label(
+                    $"{character.Title}{selected}\n" +
+                    $"Start: {character.StartingSkillId}\n" +
+                    $"HP {character.MaxHealth:0.#} · Move {character.MovementSpeed:0.##} · " +
+                    $"Damage x{character.ActiveSkillDamageMultiplier:0.##} · Cooldown x{character.ActiveSkillCooldownMultiplier:0.##} · " +
+                    $"XP recovery {recoveryPercent:0}%")
+                {
+                    name = GameplayUiElementIds.CharacterEntry(i)
+                };
+                label.AddToClassList("character-entry");
+                _characterSelection.Add(label);
             }
         }
 

@@ -14,6 +14,10 @@ namespace Game.Character.Tests
             Assert.AreEqual(1f, baseStats.ActiveSkillDamageMultiplier);
             Assert.AreEqual(1f, baseStats.ActiveSkillCooldownMultiplier);
             Assert.AreEqual(0f, baseStats.DisappearingXpRecovery);
+
+            var sturdy = FixtureCharacterCatalog.Create("FIXTURE-CHARACTER-STURDY");
+            Assert.AreEqual(125f, sturdy.MaxHealth);
+            Assert.AreEqual(0.15f, sturdy.DisappearingXpRecovery);
         }
 
         [Test]

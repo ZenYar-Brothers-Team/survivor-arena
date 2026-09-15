@@ -23,7 +23,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<PassiveProgressionDefinition> Passives { get; }
         public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
-        public CharacterBaseStats DefaultCharacterBaseStats { get; }
+        public CharacterRoster Characters { get; }
 
         private FixtureRuntimeContentCatalog(
             ContentRegistry registry,
@@ -32,7 +32,7 @@ namespace Game.Bootstrap
             IReadOnlyList<PassiveProgressionDefinition> passives,
             IReadOnlyList<SetDefinition> sets,
             IReadOnlyList<EnemyDefinition> enemies,
-            CharacterBaseStats defaultCharacterBaseStats)
+            CharacterRoster characters)
         {
             Registry = registry;
             BuildEntries = buildEntries;
@@ -40,7 +40,7 @@ namespace Game.Bootstrap
             Passives = passives;
             Sets = sets;
             Enemies = enemies;
-            DefaultCharacterBaseStats = defaultCharacterBaseStats;
+            Characters = characters;
         }
 
         public static FixtureRuntimeContentCatalog Create()
@@ -52,7 +52,7 @@ namespace Game.Bootstrap
             var passives = FixturePassiveCatalog.Create();
             var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
-            var defaultCharacterBaseStats = FixtureCharacterCatalog.CreateDefault();
+            var characters = FixtureCharacterDefinitionCatalog.Create();
 
             var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count + sets.Count);
             var allDefinitions = new List<IContentDefinition>(buildEntries.Capacity + enemies.Count);
@@ -73,6 +73,8 @@ namespace Game.Bootstrap
             }
             for (var i = 0; i < enemies.Count; i++)
                 allDefinitions.Add(enemies[i]);
+            for (var i = 0; i < characters.AllCharacters.Count; i++)
+                allDefinitions.Add(characters.AllCharacters[i]);
 
             // Backfill a placeholder sprite for every visual reference declared above,
             // so fixture content never has to remember to register one by hand; real
@@ -85,14 +87,21 @@ namespace Game.Bootstrap
                 .Select(reference => reference.Id);
             allDefinitions.AddRange(FixtureSpriteCatalog.CreateFor(visualIds));
 
+            var registry = ContentRegistry.BuildFrom(allDefinitions);
+            for (var i = 0; i < characters.AllCharacters.Count; i++)
+            {
+                characters.AllCharacters[i].ResolveStartingActiveSkill(registry);
+                characters.AllCharacters[i].ValidateDraftSkillReferences(registry);
+            }
+
             _cached = new FixtureRuntimeContentCatalog(
-                ContentRegistry.BuildFrom(allDefinitions),
+                registry,
                 buildEntries,
                 activeSkills,
                 passives,
                 sets,
                 enemies,
-                defaultCharacterBaseStats);
+                characters);
             return _cached;
         }
     }

@@ -22,6 +22,7 @@ namespace Game.Progression
         private bool _initialized;
 
         public PlayerBuild Build { get; private set; }
+        public CharacterDefinition Character { get; private set; }
         public DraftSession CurrentDraft { get; private set; }
         public bool IsDraftOpen => CurrentDraft != null && CurrentDraft.IsOpen;
         public int PendingDraftCount => _pendingDrafts;
@@ -62,6 +63,67 @@ namespace Game.Progression
             IEnumerable<SetDefinition> setDefinitions = null,
             ISetExtraAbilityFactory setAbilityFactory = null)
         {
+            InitializeCore(
+                experience,
+                controller,
+                definitions,
+                startingActive,
+                null,
+                offerCount,
+                draftRandom,
+                initialRerolls,
+                initialBanishes,
+                setDefinitions,
+                setAbilityFactory);
+        }
+
+        public void Initialize(
+            PlayerExperienceRuntime experience,
+            RunController controller,
+            IEnumerable<BuildEntryDefinition> definitions,
+            CharacterDefinition character,
+            ContentRegistry registry,
+            int offerCount,
+            IDraftRandom draftRandom = null,
+            int initialRerolls = 0,
+            int initialBanishes = 0,
+            IEnumerable<SetDefinition> setDefinitions = null,
+            ISetExtraAbilityFactory setAbilityFactory = null)
+        {
+            if (character == null)
+                throw new ArgumentNullException(nameof(character));
+            if (registry == null)
+                throw new ArgumentNullException(nameof(registry));
+
+            var startingActive = character.ResolveStartingActiveSkill(registry);
+
+            InitializeCore(
+                experience,
+                controller,
+                definitions,
+                startingActive,
+                character,
+                offerCount,
+                draftRandom,
+                initialRerolls,
+                initialBanishes,
+                setDefinitions,
+                setAbilityFactory);
+        }
+
+        private void InitializeCore(
+            PlayerExperienceRuntime experience,
+            RunController controller,
+            IEnumerable<BuildEntryDefinition> definitions,
+            BuildEntryDefinition startingActive,
+            CharacterDefinition character,
+            int offerCount,
+            IDraftRandom draftRandom,
+            int initialRerolls,
+            int initialBanishes,
+            IEnumerable<SetDefinition> setDefinitions,
+            ISetExtraAbilityFactory setAbilityFactory)
+        {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
             if (offerCount <= 0)
@@ -69,10 +131,11 @@ namespace Game.Progression
 
             experienceRuntime = experience != null ? experience : throw new ArgumentNullException(nameof(experience));
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
-            _pool = new DraftPool(definitions);
+            _pool = new DraftPool(definitions, character);
             _draftRandom = draftRandom ?? new SeededDraftRandom(0);
             _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
+            Character = character;
             Controls = new DraftRunControls(initialRerolls, initialBanishes);
             var setList = setDefinitions == null
                 ? new List<SetDefinition>()
@@ -198,6 +261,7 @@ namespace Game.Progression
             Sets?.Dispose();
             Sets = null;
             SetDefinitions = Array.Empty<SetDefinition>();
+            Character = null;
             _initialized = false;
         }
 

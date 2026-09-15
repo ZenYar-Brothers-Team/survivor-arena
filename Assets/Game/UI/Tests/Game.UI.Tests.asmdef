@@ -5,6 +5,7 @@
         "Game.UI",
         "Game.Content",
         "Game.Progression",
+        "Game.Character",
         "Game.Run",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"

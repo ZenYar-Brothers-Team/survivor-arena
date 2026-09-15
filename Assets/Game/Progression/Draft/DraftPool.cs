@@ -7,8 +7,9 @@ namespace Game.Progression
     public sealed class DraftPool
     {
         private readonly List<BuildEntryDefinition> _definitions;
+        private readonly CharacterDefinition _character;
 
-        public DraftPool(IEnumerable<BuildEntryDefinition> definitions)
+        public DraftPool(IEnumerable<BuildEntryDefinition> definitions, CharacterDefinition character = null)
         {
             if (definitions == null)
                 throw new ArgumentNullException(nameof(definitions));
@@ -26,6 +27,8 @@ namespace Game.Progression
 
             if (_definitions.Count == 0)
                 throw new ArgumentException("Draft pool cannot be empty.", nameof(definitions));
+
+            _character = character;
         }
 
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0)
@@ -76,11 +79,7 @@ namespace Game.Progression
             if (eligible.Count <= offerCount)
                 return eligible;
 
-            for (var i = 0; i < offerCount; i++)
-            {
-                var selectedIndex = i + random.NextInt(eligible.Count - i);
-                (eligible[i], eligible[selectedIndex]) = (eligible[selectedIndex], eligible[i]);
-            }
+            SelectWeightedWithoutReplacement(eligible, offerCount, random);
             return eligible.GetRange(0, offerCount);
         }
 
@@ -100,11 +99,7 @@ namespace Game.Progression
             if (eligible.Count <= offerCount)
                 return eligible;
 
-            for (var i = 0; i < offerCount; i++)
-            {
-                var selectedIndex = i + random.NextInt(eligible.Count - i);
-                (eligible[i], eligible[selectedIndex]) = (eligible[selectedIndex], eligible[i]);
-            }
+            SelectWeightedWithoutReplacement(eligible, offerCount, random);
 
             var currentIds = new HashSet<ContentId>();
             for (var i = 0; i < currentOptions.Count; i++)
@@ -146,6 +141,8 @@ namespace Game.Progression
                     continue;
                 if (!build.IsEligible(definition))
                     continue;
+                if (GetDraftWeight(definition) <= 0f)
+                    continue;
                 if (definition.Kind == BuildEntryKind.Set &&
                     random != null &&
                     random.NextFloat01() > definition.DraftChance)
@@ -160,6 +157,40 @@ namespace Game.Progression
                     isUpgrade ? entry.Level + 1 : 1));
             }
             return eligible;
+        }
+
+        private void SelectWeightedWithoutReplacement(
+            List<DraftOption> eligible,
+            int selectionCount,
+            IDraftRandom random)
+        {
+            for (var i = 0; i < selectionCount; i++)
+            {
+                var totalWeight = 0f;
+                for (var candidateIndex = i; candidateIndex < eligible.Count; candidateIndex++)
+                    totalWeight += GetDraftWeight(eligible[candidateIndex].Definition);
+
+                var roll = random.NextFloat01() * totalWeight;
+                var selectedIndex = eligible.Count - 1;
+                for (var candidateIndex = i; candidateIndex < eligible.Count; candidateIndex++)
+                {
+                    roll -= GetDraftWeight(eligible[candidateIndex].Definition);
+                    if (roll < 0f)
+                    {
+                        selectedIndex = candidateIndex;
+                        break;
+                    }
+                }
+
+                (eligible[i], eligible[selectedIndex]) = (eligible[selectedIndex], eligible[i]);
+            }
+        }
+
+        private float GetDraftWeight(BuildEntryDefinition definition)
+        {
+            if (_character == null || definition.Kind != BuildEntryKind.ActiveSkill)
+                return 1f;
+            return _character.GetDraftWeight(definition.Id);
         }
 
         private static bool Contains(IReadOnlyCollection<ContentId> ids, ContentId id)

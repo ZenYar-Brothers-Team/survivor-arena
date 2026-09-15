@@ -44,7 +44,7 @@ namespace Game.Character
             Validate();
         }
 
-        internal void Validate()
+        public void Validate()
         {
             NumericValidation.ValidatePositive(MaxHealth, nameof(MaxHealth));
             NumericValidation.ValidateNonNegative(MovementSpeed, nameof(MovementSpeed));
