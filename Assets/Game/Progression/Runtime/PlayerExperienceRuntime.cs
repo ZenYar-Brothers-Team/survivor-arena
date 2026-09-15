@@ -65,9 +65,12 @@ namespace Game.Progression
             // An explicit threshold override (tests, or content that wants to bypass
             // the scene-configured defaults) replaces the Progression Awake() already
             // built from the serialized field; otherwise that default stands as-is.
+            // Progression can still be null here: edit-mode tests construct this
+            // component via AddComponent without running Awake() first.
             if (thresholds != null && thresholds.Length > 0)
             {
-                Progression.LevelUp -= HandleLevelUp;
+                if (Progression != null)
+                    Progression.LevelUp -= HandleLevelUp;
                 Progression = new ExperienceProgression(thresholds);
                 Progression.LevelUp += HandleLevelUp;
             }

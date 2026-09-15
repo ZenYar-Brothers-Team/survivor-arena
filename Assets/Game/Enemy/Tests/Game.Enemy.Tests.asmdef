@@ -4,6 +4,7 @@
     "references": [
         "Game.Enemy",
         "Game.Combat",
+        "Game.Presentation",
         "Game.Content",
         "Game.Character",
         "Game.Run",
