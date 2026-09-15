@@ -57,8 +57,14 @@ namespace Game.UI
         {
             var active = new List<BuildSlotViewState>(PlayerBuild.ActiveSlotCapacity);
             var passive = new List<BuildSlotViewState>(PlayerBuild.PassiveSlotCapacity);
+            var sets = new List<SetBuildViewState>();
             foreach (var entry in _model.BuildEntries)
             {
+                if (entry.Definition.Kind == BuildEntryKind.Set)
+                {
+                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName));
+                    continue;
+                }
                 var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true);
                 if (entry.Definition.Kind == BuildEntryKind.ActiveSkill)
                     active.Add(slot);
@@ -68,7 +74,51 @@ namespace Game.UI
 
             FillEmptySlots(active, PlayerBuild.ActiveSlotCapacity);
             FillEmptySlots(passive, PlayerBuild.PassiveSlotCapacity);
-            return new BuildViewState(active, passive);
+
+            var progress = new List<SetRecipeProgressViewState>(_model.SetDefinitions.Count);
+            for (var i = 0; i < _model.SetDefinitions.Count; i++)
+            {
+                var definition = _model.SetDefinitions[i];
+                var isAcquired = false;
+                for (var entryIndex = 0; entryIndex < _model.BuildEntries.Count; entryIndex++)
+                {
+                    if (_model.BuildEntries[entryIndex].Definition.Id == definition.Id)
+                    {
+                        isAcquired = true;
+                        break;
+                    }
+                }
+                var fulfilled = CountFulfilledComponents(definition);
+                progress.Add(new SetRecipeProgressViewState(
+                    definition.DisplayName,
+                    fulfilled,
+                    definition.Recipe.Count,
+                    fulfilled == definition.Recipe.Count && !isAcquired,
+                    isAcquired));
+            }
+
+            return new BuildViewState(active, passive, sets, progress);
+        }
+
+        private int CountFulfilledComponents(SetDefinition definition)
+        {
+            var fulfilled = 0;
+            for (var i = 0; i < definition.Recipe.Count; i++)
+            {
+                var component = definition.Recipe[i];
+                for (var entryIndex = 0; entryIndex < _model.BuildEntries.Count; entryIndex++)
+                {
+                    var entry = _model.BuildEntries[entryIndex];
+                    if (entry.Definition.Id == component.Id &&
+                        entry.Definition.Kind == component.Kind &&
+                        entry.Level >= component.MinimumLevel)
+                    {
+                        fulfilled++;
+                        break;
+                    }
+                }
+            }
+            return fulfilled;
         }
 
         private static void FillEmptySlots(List<BuildSlotViewState> slots, int capacity)
@@ -87,7 +137,13 @@ namespace Game.UI
             for (var i = 0; i < source.Count; i++)
             {
                 var option = source[i];
-                var type = option.Definition.Kind == BuildEntryKind.ActiveSkill ? "Active" : "Passive";
+                var type = option.Definition.Kind switch
+                {
+                    BuildEntryKind.ActiveSkill => "Active",
+                    BuildEntryKind.PassiveItem => "Passive",
+                    BuildEntryKind.Set => "Set",
+                    _ => "Unknown"
+                };
                 var detail = option.IsUpgrade ? $"{type} · level {option.ResultingLevel}" : $"{type} · new";
                 options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail);
             }

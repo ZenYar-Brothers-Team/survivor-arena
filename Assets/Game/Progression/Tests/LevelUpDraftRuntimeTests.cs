@@ -188,6 +188,46 @@ namespace Game.Progression.Tests
             }
         }
 
+        [Test]
+        public void SelectingSet_CreatesExtraAbilityWithoutOccupyingActiveOrPassiveSlot()
+        {
+            var isolatedPlayer = new GameObject("Set Player");
+            try
+            {
+                var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
+                character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
+                var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
+                experience.Initialize(character, _runController, 1f);
+                var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
+                var active = Active("FIXTURE-SET-STARTING-ACTIVE");
+                var set = new SetDefinition(
+                    "FIXTURE-SELECTABLE-SET",
+                    "Fixture Selectable Set",
+                    1f,
+                    new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+                draft.Initialize(
+                    experience,
+                    _runController,
+                    new BuildEntryDefinition[] { active, set },
+                    active,
+                    offerCount: 3,
+                    setDefinitions: new[] { set },
+                    setAbilityFactory: new FixtureSetExtraAbilityFactory());
+
+                experience.AddPickedUpExperience(1f);
+                Assert.IsTrue(draft.Select(set.Id));
+
+                Assert.AreEqual(1, draft.Build.ActiveCount);
+                Assert.AreEqual(0, draft.Build.PassiveCount);
+                Assert.AreEqual(1, draft.Build.SetCount);
+                Assert.AreEqual(1, draft.Sets.Count);
+            }
+            finally
+            {
+                Object.DestroyImmediate(isolatedPlayer);
+            }
+        }
+
         private static BuildEntryDefinition Active(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.ActiveSkill, id);

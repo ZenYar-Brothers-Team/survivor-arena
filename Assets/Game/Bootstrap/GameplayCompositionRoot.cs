@@ -105,7 +105,9 @@ namespace Game.Bootstrap
                     draftOfferCount,
                     new SeededDraftRandom(draftSeed),
                     fixtureInitialRerolls,
-                    fixtureInitialBanishes);
+                    fixtureInitialBanishes,
+                    Catalog.Sets,
+                    new FixtureSetExtraAbilityFactory());
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 activeSkillRuntime.Initialize(

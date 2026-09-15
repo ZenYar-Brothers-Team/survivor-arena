@@ -37,8 +37,12 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.Greater(healthBar.resolvedStyle.height, 0f);
             var activeSlots = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.ActiveSlots);
             var passiveSlots = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.PassiveSlots);
+            var sets = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.Sets);
+            var setRecipeProgress = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.SetRecipeProgress);
             Assert.AreEqual(PlayerBuild.ActiveSlotCapacity, activeSlots.childCount);
             Assert.AreEqual(PlayerBuild.PassiveSlotCapacity, passiveSlots.childCount);
+            Assert.AreEqual(0, sets.childCount);
+            Assert.AreEqual(root.Catalog.Sets.Count, setRecipeProgress.childCount);
             var draftOverlay = gameplayUi.Document.rootVisualElement.Q<VisualElement>(GameplayUiElementIds.DraftOverlay);
             Assert.AreEqual(DisplayStyle.None, draftOverlay.style.display.value);
             Assert.AreEqual(RunState.Running, run.Model.State);

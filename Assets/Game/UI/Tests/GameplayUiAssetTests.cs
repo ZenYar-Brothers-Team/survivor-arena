@@ -19,6 +19,8 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.BuildPanel));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.ActiveSlots));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.PassiveSlots));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.Sets));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.SetRecipeProgress));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DraftRerollButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.RunOverlay));

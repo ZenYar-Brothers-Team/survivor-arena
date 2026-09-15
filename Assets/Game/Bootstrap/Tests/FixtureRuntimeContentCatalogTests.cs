@@ -14,16 +14,19 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(catalog.Registry.IsBuilt);
             Assert.Greater(catalog.ActiveSkills.Count, 0);
             Assert.Greater(catalog.Passives.Count, 0);
+            Assert.Greater(catalog.Sets.Count, 0);
             Assert.Greater(catalog.Enemies.Count, 0);
-            Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count, catalog.BuildEntries.Count);
+            Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)
             {
                 Assert.AreSame(buildEntry, catalog.Registry.Get<BuildEntryDefinition>(buildEntry.Id));
                 if (buildEntry.Kind == BuildEntryKind.ActiveSkill)
                     Assert.IsInstanceOf<ActiveSkillProgressionDefinition>(buildEntry);
-                else
+                else if (buildEntry.Kind == BuildEntryKind.PassiveItem)
                     Assert.IsInstanceOf<PassiveProgressionDefinition>(buildEntry);
+                else
+                    Assert.IsInstanceOf<SetDefinition>(buildEntry);
             }
         }
     }

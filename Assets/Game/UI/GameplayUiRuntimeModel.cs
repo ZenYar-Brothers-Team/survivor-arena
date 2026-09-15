@@ -30,6 +30,7 @@ namespace Game.UI
         public int RemainingBanishes => _draft.RemainingBanishes;
         public IReadOnlyList<DraftOption> DraftOptions => _draft.IsDraftOpen ? _draft.CurrentDraft.Options : NoDraftOptions;
         public IReadOnlyList<BuildEntry> BuildEntries => _buildEntries;
+        public IReadOnlyList<SetDefinition> SetDefinitions => _draft.SetDefinitions;
         public bool DevelopmentCommandsEnabled { get; }
 
         public GameplayUiRuntimeModel(

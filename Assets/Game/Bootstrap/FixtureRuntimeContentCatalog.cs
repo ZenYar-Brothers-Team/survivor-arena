@@ -21,6 +21,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<BuildEntryDefinition> BuildEntries { get; }
         public IReadOnlyList<ActiveSkillProgressionDefinition> ActiveSkills { get; }
         public IReadOnlyList<PassiveProgressionDefinition> Passives { get; }
+        public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
         public CharacterBaseStats DefaultCharacterBaseStats { get; }
 
@@ -29,6 +30,7 @@ namespace Game.Bootstrap
             IReadOnlyList<BuildEntryDefinition> buildEntries,
             IReadOnlyList<ActiveSkillProgressionDefinition> activeSkills,
             IReadOnlyList<PassiveProgressionDefinition> passives,
+            IReadOnlyList<SetDefinition> sets,
             IReadOnlyList<EnemyDefinition> enemies,
             CharacterBaseStats defaultCharacterBaseStats)
         {
@@ -36,6 +38,7 @@ namespace Game.Bootstrap
             BuildEntries = buildEntries;
             ActiveSkills = activeSkills;
             Passives = passives;
+            Sets = sets;
             Enemies = enemies;
             DefaultCharacterBaseStats = defaultCharacterBaseStats;
         }
@@ -47,10 +50,11 @@ namespace Game.Bootstrap
 
             var activeSkills = FixtureActiveSkillCatalog.Create();
             var passives = FixturePassiveCatalog.Create();
+            var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
             var defaultCharacterBaseStats = FixtureCharacterCatalog.CreateDefault();
 
-            var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count);
+            var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count + sets.Count);
             var allDefinitions = new List<IContentDefinition>(buildEntries.Capacity + enemies.Count);
             for (var i = 0; i < activeSkills.Count; i++)
             {
@@ -62,6 +66,11 @@ namespace Game.Bootstrap
                 buildEntries.Add(passives[i]);
                 allDefinitions.Add(passives[i]);
             }
+            for (var i = 0; i < sets.Count; i++)
+            {
+                buildEntries.Add(sets[i]);
+                allDefinitions.Add(sets[i]);
+            }
             for (var i = 0; i < enemies.Count; i++)
                 allDefinitions.Add(enemies[i]);
 
@@ -72,6 +81,7 @@ namespace Game.Bootstrap
             var visualIds = allDefinitions
                 .OfType<IReferencesContent>()
                 .SelectMany(definition => definition.GetReferencedContent())
+                .Where(reference => reference.ExpectedType == typeof(SpriteDefinition))
                 .Select(reference => reference.Id);
             allDefinitions.AddRange(FixtureSpriteCatalog.CreateFor(visualIds));
 
@@ -80,6 +90,7 @@ namespace Game.Bootstrap
                 buildEntries,
                 activeSkills,
                 passives,
+                sets,
                 enemies,
                 defaultCharacterBaseStats);
             return _cached;

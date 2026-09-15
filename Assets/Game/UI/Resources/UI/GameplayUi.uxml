@@ -13,6 +13,8 @@
             <ui:VisualElement name="build-active-slots" />
             <ui:Label text="PASSIVES" class="build-title build-passive-title" />
             <ui:VisualElement name="build-passive-slots" />
+            <ui:Label text="SETS" class="build-title build-passive-title" />
+            <ui:VisualElement name="build-sets" />
         </ui:VisualElement>
 
         <ui:VisualElement name="draft-overlay" class="fullscreen-overlay">
@@ -38,6 +40,7 @@
             <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
             <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
             <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
+            <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -184,3 +184,12 @@
     margin-left: 6px;
     margin-right: 8px;
 }
+
+.set-recipe-panel {
+    margin-left: 12px;
+}
+
+.set-recipe-progress {
+    font-size: 11px;
+    color: rgb(190, 204, 232);
+}

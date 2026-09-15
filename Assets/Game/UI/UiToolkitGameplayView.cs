@@ -13,6 +13,8 @@ namespace Game.UI
         private readonly Button _pauseButton;
         private readonly VisualElement _activeSlots;
         private readonly VisualElement _passiveSlots;
+        private readonly VisualElement _sets;
+        private readonly VisualElement _setRecipeProgress;
         private readonly VisualElement _draftOverlay;
         private readonly VisualElement _draftOptions;
         private readonly Button _rerollButton;
@@ -45,6 +47,8 @@ namespace Game.UI
             _pauseButton = Require<Button>(root, GameplayUiElementIds.PauseButton);
             _activeSlots = Require<VisualElement>(root, GameplayUiElementIds.ActiveSlots);
             _passiveSlots = Require<VisualElement>(root, GameplayUiElementIds.PassiveSlots);
+            _sets = Require<VisualElement>(root, GameplayUiElementIds.Sets);
+            _setRecipeProgress = Require<VisualElement>(root, GameplayUiElementIds.SetRecipeProgress);
             _draftOverlay = Require<VisualElement>(root, GameplayUiElementIds.DraftOverlay);
             _draftOptions = Require<VisualElement>(root, GameplayUiElementIds.DraftOptions);
             _rerollButton = Require<Button>(root, GameplayUiElementIds.DraftRerollButton);
@@ -121,6 +125,29 @@ namespace Game.UI
         {
             RenderSlots(_activeSlots, state.ActiveSlots, true);
             RenderSlots(_passiveSlots, state.PassiveSlots, false);
+            _sets.Clear();
+            for (var i = 0; i < state.Sets.Count; i++)
+            {
+                var label = new Label(state.Sets[i].Title)
+                {
+                    name = GameplayUiElementIds.SetEntry(i)
+                };
+                label.AddToClassList("build-slot");
+                _sets.Add(label);
+            }
+
+            _setRecipeProgress.Clear();
+            for (var i = 0; i < state.SetRecipeProgress.Count; i++)
+            {
+                var recipe = state.SetRecipeProgress[i];
+                var status = recipe.IsAcquired ? "acquired" : recipe.IsEligible ? "eligible" : "locked";
+                var label = new Label($"{recipe.Title}: {recipe.FulfilledComponents}/{recipe.RequiredComponents} ({status})")
+                {
+                    name = GameplayUiElementIds.SetRecipeEntry(i)
+                };
+                label.AddToClassList("set-recipe-progress");
+                _setRecipeProgress.Add(label);
+            }
         }
 
         private static void RenderSlots(

@@ -15,6 +15,7 @@ namespace Game.Progression
         public IEnumerable<BuildEntry> Entries => _entries.Values;
         public int ActiveCount { get; private set; }
         public int PassiveCount { get; private set; }
+        public int SetCount { get; private set; }
 
         public PlayerBuild(BuildEntryDefinition startingActiveSkill)
         {
@@ -39,9 +40,17 @@ namespace Game.Progression
             if (_entries.TryGetValue(definition.Id, out var existing))
                 return existing.Definition.Kind == definition.Kind && !existing.IsMaxLevel;
 
-            return definition.Kind == BuildEntryKind.ActiveSkill
-                ? ActiveCount < ActiveSlotCapacity
-                : PassiveCount < PassiveSlotCapacity;
+            switch (definition.Kind)
+            {
+                case BuildEntryKind.ActiveSkill:
+                    return ActiveCount < ActiveSlotCapacity;
+                case BuildEntryKind.PassiveItem:
+                    return PassiveCount < PassiveSlotCapacity;
+                case BuildEntryKind.Set:
+                    return definition is SetDefinition set && set.IsRecipeFulfilled(this);
+                default:
+                    return false;
+            }
         }
 
         public BuildSelectionResult Apply(BuildEntryDefinition definition)
@@ -64,8 +73,10 @@ namespace Game.Progression
             _entries.Add(definition.Id, entry);
             if (definition.Kind == BuildEntryKind.ActiveSkill)
                 ActiveCount++;
-            else
+            else if (definition.Kind == BuildEntryKind.PassiveItem)
                 PassiveCount++;
+            else if (definition.Kind == BuildEntryKind.Set)
+                SetCount++;
             return entry;
         }
     }

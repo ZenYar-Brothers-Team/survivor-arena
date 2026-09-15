@@ -31,6 +31,10 @@ namespace Game.UI.Tests
                 Assert.AreEqual("Fixture Active", view.Build.ActiveSlots[0].Title);
                 Assert.AreEqual(1, view.Build.ActiveSlots[0].Level);
                 Assert.IsFalse(view.Build.PassiveSlots[0].IsOccupied);
+                Assert.AreEqual(1, view.Build.Sets.Count);
+                Assert.AreEqual("Fixture Set", view.Build.Sets[0].Title);
+                Assert.AreEqual(1, view.Build.SetRecipeProgress.Count);
+                Assert.IsTrue(view.Build.SetRecipeProgress[0].IsAcquired);
                 Assert.IsFalse(view.Overlay.IsVisible, "Draft pause must not show the generic pause overlay.");
                 Assert.IsTrue(view.DevelopmentVisible);
             }
@@ -100,6 +104,12 @@ namespace Game.UI.Tests
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
             var active = new BuildEntryDefinition("FIXTURE-ACTIVE-UI", BuildEntryKind.ActiveSkill, "Fixture Active");
             var build = new PlayerBuild(active);
+            var set = new SetDefinition(
+                "FIXTURE-SET-UI",
+                "Fixture Set",
+                1f,
+                new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+            build.Apply(set);
             return new FakeModel
             {
                 CurrentHealth = 75f,
@@ -113,6 +123,7 @@ namespace Game.UI.Tests
                 RemainingBanishes = 1,
                 DraftOptions = new[] { new DraftOption(definition, false, 1) },
                 BuildEntries = new List<BuildEntry>(build.Entries),
+                SetDefinitions = new[] { set },
                 DevelopmentCommandsEnabled = true
             };
         }
@@ -131,6 +142,7 @@ namespace Game.UI.Tests
             public int RemainingBanishes { get; set; }
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
             public IReadOnlyList<BuildEntry> BuildEntries { get; set; }
+            public IReadOnlyList<SetDefinition> SetDefinitions { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
             public int RerollCalls { get; private set; }
             public ContentId LastBanished { get; private set; }

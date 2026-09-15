@@ -21,6 +21,7 @@ namespace Game.UI
         int RemainingBanishes { get; }
         IReadOnlyList<DraftOption> DraftOptions { get; }
         IReadOnlyList<BuildEntry> BuildEntries { get; }
+        IReadOnlyList<SetDefinition> SetDefinitions { get; }
         bool DevelopmentCommandsEnabled { get; }
 
         bool SelectDraftOption(ContentId id);

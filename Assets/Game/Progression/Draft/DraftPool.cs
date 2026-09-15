@@ -72,7 +72,7 @@ namespace Game.Progression
             if (random == null)
                 throw new ArgumentNullException(nameof(random));
 
-            var eligible = CreateEligibleOptions(build, offerCount, banishedIds);
+            var eligible = CreateEligibleOptions(build, offerCount, banishedIds, random);
             if (eligible.Count <= offerCount)
                 return eligible;
 
@@ -96,7 +96,7 @@ namespace Game.Progression
             if (currentOptions == null)
                 throw new ArgumentNullException(nameof(currentOptions));
 
-            var eligible = CreateEligibleOptions(build, offerCount, banishedIds);
+            var eligible = CreateEligibleOptions(build, offerCount, banishedIds, random);
             if (eligible.Count <= offerCount)
                 return eligible;
 
@@ -131,7 +131,8 @@ namespace Game.Progression
         private List<DraftOption> CreateEligibleOptions(
             PlayerBuild build,
             int offerCount,
-            IReadOnlyCollection<ContentId> banishedIds = null)
+            IReadOnlyCollection<ContentId> banishedIds = null,
+            IDraftRandom random = null)
         {
             if (build == null)
                 throw new ArgumentNullException(nameof(build));
@@ -145,6 +146,12 @@ namespace Game.Progression
                     continue;
                 if (!build.IsEligible(definition))
                     continue;
+                if (definition.Kind == BuildEntryKind.Set &&
+                    random != null &&
+                    random.NextFloat01() > definition.DraftChance)
+                {
+                    continue;
+                }
 
                 var isUpgrade = build.TryGetEntry(definition.Id, out var entry);
                 eligible.Add(new DraftOption(

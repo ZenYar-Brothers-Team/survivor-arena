@@ -6,7 +6,7 @@ namespace Game.Progression
     {
         public BuildEntryDefinition Definition { get; }
         public int Level { get; private set; } = 1;
-        public bool IsMaxLevel => Level >= BuildEntryDefinition.MaxLevel;
+        public bool IsMaxLevel => Level >= Definition.LevelCap;
 
         internal BuildEntry(BuildEntryDefinition definition)
         {

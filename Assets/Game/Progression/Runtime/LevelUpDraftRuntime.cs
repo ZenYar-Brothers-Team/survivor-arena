@@ -26,11 +26,20 @@ namespace Game.Progression
         public bool IsDraftOpen => CurrentDraft != null && CurrentDraft.IsOpen;
         public int PendingDraftCount => _pendingDrafts;
         public DraftRunControls Controls { get; private set; }
+        public IReadOnlyList<SetDefinition> SetDefinitions { get; private set; } = Array.Empty<SetDefinition>();
+        public PlayerSetRuntime Sets { get; private set; }
         public int RemainingRerolls => Controls?.RemainingRerolls ?? 0;
         public int RemainingBanishes => Controls?.RemainingBanishes ?? 0;
 
         public event Action<IReadOnlyList<DraftOption>> DraftOpened;
         public event Action<BuildSelectionResult> SelectionApplied;
+
+        private void Update()
+        {
+            if (!_initialized || Sets == null || runController.Model == null)
+                return;
+            Sets.Tick(Time.deltaTime, runController.Model.State == RunState.Running);
+        }
 
         private void Start()
         {
@@ -49,7 +58,9 @@ namespace Game.Progression
             int offerCount,
             IDraftRandom draftRandom = null,
             int initialRerolls = 0,
-            int initialBanishes = 0)
+            int initialBanishes = 0,
+            IEnumerable<SetDefinition> setDefinitions = null,
+            ISetExtraAbilityFactory setAbilityFactory = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
@@ -63,6 +74,11 @@ namespace Game.Progression
             _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
             Controls = new DraftRunControls(initialRerolls, initialBanishes);
+            var setList = setDefinitions == null
+                ? new List<SetDefinition>()
+                : new List<SetDefinition>(setDefinitions);
+            SetDefinitions = setList;
+            Sets = new PlayerSetRuntime(setList, setAbilityFactory);
             experienceRuntime.LevelUp += HandleLevelUp;
             _initialized = true;
         }
@@ -73,6 +89,7 @@ namespace Game.Progression
                 return false;
 
             _pendingDrafts--;
+            Sets.Synchronize(Build);
             SelectionApplied?.Invoke(result);
 
             if (_pendingDrafts > 0)
@@ -93,6 +110,11 @@ namespace Game.Progression
                 _draftRandom,
                 Controls.BanishedIds,
                 CurrentDraft.Options);
+            if (options.Count == 0)
+            {
+                ResolveDraftWithoutSelection();
+                return true;
+            }
             ReplaceCurrentDraft(options);
             return true;
         }
@@ -133,12 +155,7 @@ namespace Game.Progression
             var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
             if (options.Count == 0)
             {
-                CurrentDraft = null;
-                _pendingDrafts--;
-                if (_pendingDrafts > 0)
-                    OpenNextDraft();
-                else if (runController.Model != null)
-                    runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
+                ResolveDraftWithoutSelection();
                 return;
             }
 
@@ -149,6 +166,16 @@ namespace Game.Progression
         {
             CurrentDraft = new DraftSession(Build, options);
             DraftOpened?.Invoke(options);
+        }
+
+        private void ResolveDraftWithoutSelection()
+        {
+            CurrentDraft = null;
+            _pendingDrafts--;
+            if (_pendingDrafts > 0)
+                OpenNextDraft();
+            else if (runController.Model != null)
+                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
         }
 
         private bool IsCurrentOption(ContentId id)
@@ -168,6 +195,9 @@ namespace Game.Progression
 
             if (experienceRuntime != null)
                 experienceRuntime.LevelUp -= HandleLevelUp;
+            Sets?.Dispose();
+            Sets = null;
+            SetDefinitions = Array.Empty<SetDefinition>();
             _initialized = false;
         }
 

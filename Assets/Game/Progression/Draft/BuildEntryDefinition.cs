@@ -10,6 +10,8 @@ namespace Game.Progression
         public ContentId Id { get; }
         public BuildEntryKind Kind { get; }
         public string DisplayName { get; }
+        public virtual int LevelCap => MaxLevel;
+        public virtual float DraftChance => 1f;
 
         public BuildEntryDefinition(ContentId id, BuildEntryKind kind, string displayName)
         {

@@ -11,6 +11,8 @@ namespace Game.UI
         public const string BuildPanel = "build-panel";
         public const string ActiveSlots = "build-active-slots";
         public const string PassiveSlots = "build-passive-slots";
+        public const string Sets = "build-sets";
+        public const string SetRecipeProgress = "development-set-recipes";
         public const string DraftOverlay = "draft-overlay";
         public const string DraftOptions = "draft-options";
         public const string DraftRerollButton = "draft-reroll";
@@ -27,5 +29,7 @@ namespace Game.UI
         public static string DraftBanishButton(int index) => $"draft-option-{index}-banish";
         public static string ActiveSlot(int index) => $"build-active-slot-{index}";
         public static string PassiveSlot(int index) => $"build-passive-slot-{index}";
+        public static string SetEntry(int index) => $"build-set-{index}";
+        public static string SetRecipeEntry(int index) => $"development-set-recipe-{index}";
     }
 }
