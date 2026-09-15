@@ -25,7 +25,7 @@ namespace Game.Progression.Tests
             var character = player.AddComponent<PlayerCharacterRuntime>();
             InvokeAwake(character);
             var experience = player.AddComponent<PlayerExperienceRuntime>();
-            experience.ConfigureForTests(character, runController, 100f);
+            experience.Initialize(character, runController, 100f);
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 1f, 1f, 0f, 0f, 1f, 3f);
             var deathPosition = new Vector2(2f, 4f);
             ExperienceDropRuntime drop = null;
@@ -61,7 +61,7 @@ namespace Game.Progression.Tests
             var character = player.AddComponent<PlayerCharacterRuntime>();
             InvokeAwake(character);
             var experience = player.AddComponent<PlayerExperienceRuntime>();
-            experience.ConfigureForTests(character, runController, 5f);
+            experience.Initialize(character, runController, 5f);
             var emittedLevel = 0;
             experience.LevelUp += level => emittedLevel = level;
 

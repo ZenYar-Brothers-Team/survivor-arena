@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.ActiveSkill;
 using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 using Game.Progression;
 
 namespace Game.Bootstrap
@@ -41,7 +43,8 @@ namespace Game.Bootstrap
                     movementSpeed: 1f,
                     contactDamage: 1f,
                     contactDamageInterval: 1f,
-                    experienceReward: 1f)
+                    experienceReward: 1f,
+                    visual: new ContentRef<SpriteDefinition>("FIXTURE-ENEMY-SEEKER-VISUAL"))
             };
 
             var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count);
@@ -58,6 +61,16 @@ namespace Game.Bootstrap
             }
             for (var i = 0; i < enemies.Length; i++)
                 allDefinitions.Add(enemies[i]);
+
+            // Backfill a placeholder sprite for every visual reference declared above,
+            // so fixture content never has to remember to register one by hand; real
+            // content (IP-17+) registers actual art here instead and the registry's
+            // own reference validation catches anything still missing.
+            var visualIds = allDefinitions
+                .OfType<IReferencesContent>()
+                .SelectMany(definition => definition.GetReferencedContent())
+                .Select(reference => reference.Id);
+            allDefinitions.AddRange(FixtureSpriteCatalog.CreateFor(visualIds));
 
             return new FixtureRuntimeContentCatalog(
                 ContentRegistry.BuildFrom(allDefinitions),

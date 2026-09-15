@@ -3,6 +3,7 @@ using Game.ActiveSkill;
 using Game.Character;
 using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 using Game.Progression;
 using Game.Run;
 using Game.UI;
@@ -82,6 +83,7 @@ namespace Game.Bootstrap
             Catalog = FixtureRuntimeContentCatalog.Create();
             var startingActive = Catalog.Registry.Get<ActiveSkillProgressionDefinition>(new ContentId(startingActiveId));
 
+            experienceRuntime.Initialize(player, runController);
             draftRuntime.Initialize(
                 experienceRuntime,
                 runController,
@@ -99,7 +101,13 @@ namespace Game.Bootstrap
                 new SceneEnemyTargetProvider(),
                 new SceneActiveSkillEffectExecutor(runController));
             passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
-            enemySpawner.Initialize(Catalog.Enemies[0]);
+
+            var fixtureEnemy = Catalog.Enemies[0];
+            var enemyVisual = fixtureEnemy.Visual.TryResolve(Catalog.Registry, out var enemySprite)
+                ? enemySprite.Sprite
+                : null;
+            enemySpawner.Initialize(fixtureEnemy, enemyVisual);
+
             gameplayUiRoot.Initialize(player, experienceRuntime, draftRuntime, runController);
             IsInitialized = true;
         }

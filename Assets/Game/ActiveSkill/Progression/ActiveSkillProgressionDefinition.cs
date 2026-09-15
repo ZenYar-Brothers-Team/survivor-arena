@@ -5,7 +5,7 @@ using Game.Progression;
 
 namespace Game.ActiveSkill
 {
-    public sealed class ActiveSkillProgressionDefinition : BuildEntryDefinition
+    public sealed class ActiveSkillProgressionDefinition : BuildEntryDefinition, IReferencesContent
     {
         private readonly ActiveSkillLevelDefinition[] _levels;
 
@@ -33,6 +33,17 @@ namespace Game.ActiveSkill
             if (level < 1 || level > MaxLevel)
                 throw new ArgumentOutOfRangeException(nameof(level));
             return _levels[level - 1];
+        }
+
+        // Only levels that opted into a distinct Visual get validated; levels
+        // without one simply have no presentation asset to check yet.
+        public IEnumerable<ContentReference> GetReferencedContent()
+        {
+            foreach (var level in _levels)
+            {
+                if (level.Visual.Id.IsValid)
+                    yield return level.Visual.ToReference();
+            }
         }
     }
 }

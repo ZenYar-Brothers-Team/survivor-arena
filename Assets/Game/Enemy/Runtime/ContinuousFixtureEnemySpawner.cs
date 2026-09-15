@@ -25,6 +25,7 @@ namespace Game.Enemy
 
         private readonly List<EnemyRuntime> _aliveEnemies = new List<EnemyRuntime>();
         private EnemyDefinition _fixtureDefinition;
+        private Sprite _fixtureVisual;
         private ContinuousSpawnTimer _spawnTimer;
         private bool _initialized;
 
@@ -43,11 +44,12 @@ namespace Game.Enemy
             enabled = false;
         }
 
-        public void Initialize(EnemyDefinition definition)
+        public void Initialize(EnemyDefinition definition, Sprite visual = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
             _fixtureDefinition = definition ?? throw new System.ArgumentNullException(nameof(definition));
+            _fixtureVisual = visual;
             _initialized = true;
         }
 
@@ -75,7 +77,7 @@ namespace Game.Enemy
             direction.Normalize();
 
             var spawnPosition = (Vector2)target.position + direction * spawnRadius;
-            var enemy = EnemyFactory.Spawn(_fixtureDefinition, spawnPosition, target, runController, transform);
+            var enemy = EnemyFactory.Spawn(_fixtureDefinition, spawnPosition, target, runController, transform, _fixtureVisual);
             enemy.Despawned += HandleEnemyDespawned;
             _aliveEnemies.Add(enemy);
         }

@@ -36,8 +36,6 @@ namespace Game.Enemy
         private void Awake()
         {
             CacheComponents();
-            if (_renderer.sprite == null)
-                _renderer.sprite = PlaceholderSprite.Shared;
             _renderer.color = new Color(0.85f, 0.2f, 0.2f, 1f);
         }
 
@@ -45,7 +43,8 @@ namespace Game.Enemy
             EnemyDefinition definition,
             Transform target,
             RunController runController,
-            PlayerExperienceRuntime experienceTarget = null)
+            PlayerExperienceRuntime experienceTarget = null,
+            Sprite visual = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Enemy runtime is already initialized.");
@@ -61,6 +60,10 @@ namespace Game.Enemy
             _collider.radius = 0.5f;
             transform.localScale = Vector3.one * definition.CollisionSize;
             gameObject.name = $"Enemy [{definition.Id}]";
+            // definition.Visual (when set) is resolved by the caller ahead of time and
+            // handed in as a plain Sprite, so this class never needs to know about
+            // ContentRegistry/ContentRef at all.
+            _renderer.sprite = visual != null ? visual : PlaceholderSprite.Shared;
 
             Health = new Health(new FixedHealthProfile(definition.MaxHealth));
             Health.Died += HandleDeath;

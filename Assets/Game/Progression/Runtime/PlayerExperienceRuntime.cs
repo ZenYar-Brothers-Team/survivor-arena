@@ -20,6 +20,8 @@ namespace Game.Progression
         [SerializeField]
         private float[] fixtureLevelThresholds = { 5f, 10f, 15f };
 
+        private bool _initialized;
+
         public ExperienceProgression Progression { get; private set; }
         public float DropLifetimeSeconds => baseDropLifetimeSeconds + OwnerStats.XpDropLifetimeBonusSeconds;
         public float DisappearingExperienceRecovery => OwnerStats.DisappearingXpRecovery;
@@ -45,11 +47,32 @@ namespace Game.Progression
 
         private void Start()
         {
-            if (owner != null && runController != null && runController.Model != null)
+            if (_initialized)
                 return;
 
-            Debug.LogError("Player experience owner and run controller must be configured.", this);
+            Debug.LogError("Player experience runtime must be initialized by the gameplay composition root.", this);
             enabled = false;
+        }
+
+        public void Initialize(PlayerCharacterRuntime characterOwner, RunController controller, params float[] thresholds)
+        {
+            if (_initialized)
+                throw new InvalidOperationException("Player experience runtime is already initialized.");
+
+            owner = characterOwner != null ? characterOwner : throw new ArgumentNullException(nameof(characterOwner));
+            runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
+
+            // An explicit threshold override (tests, or content that wants to bypass
+            // the scene-configured defaults) replaces the Progression Awake() already
+            // built from the serialized field; otherwise that default stands as-is.
+            if (thresholds != null && thresholds.Length > 0)
+            {
+                Progression.LevelUp -= HandleLevelUp;
+                Progression = new ExperienceProgression(thresholds);
+                Progression.LevelUp += HandleLevelUp;
+            }
+
+            _initialized = true;
         }
 
         public float AddPickedUpExperience(float baseAmount)
@@ -66,19 +89,6 @@ namespace Game.Progression
             var awarded = expiredAmount * DisappearingExperienceRecovery;
             Progression.AddExperience(awarded);
             return awarded;
-        }
-
-        public void ConfigureForTests(
-            PlayerCharacterRuntime characterOwner,
-            RunController controller,
-            params float[] thresholds)
-        {
-            owner = characterOwner;
-            runController = controller;
-            if (Progression != null)
-                Progression.LevelUp -= HandleLevelUp;
-            Progression = new ExperienceProgression(thresholds);
-            Progression.LevelUp += HandleLevelUp;
         }
 
         private void HandleLevelUp(int newLevel)

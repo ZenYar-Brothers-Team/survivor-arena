@@ -7,7 +7,8 @@
         "Game.Enemy",
         "Game.Run",
         "Game.Movement",
-        "Game.Progression"
+        "Game.Progression",
+        "Game.Presentation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Game.Content;
+using Game.Presentation;
 
 namespace Game.ActiveSkill
 {
@@ -41,14 +43,19 @@ namespace Game.ActiveSkill
             {
                 var count = level >= 4 ? 8 : level >= 2 ? 6 : 4;
                 var layout = level >= 4 ? ProjectileLayout.Cross : ProjectileLayout.Ring;
+                // Each tier's look is its own content reference rather than a branch
+                // buried in the projectile math, so a validator can catch a tier that
+                // never got real art instead of silently reusing the previous sprite.
+                var visual = new ContentRef<SpriteDefinition>(
+                    level >= 4 ? "FIXTURE-SKILL-RING-VISUAL-CROSS" : "FIXTURE-SKILL-RING-VISUAL-RING");
                 var burst = new ProjectileBurstEffect(count, layout, 0f, level >= 3 ? 1 : 0, 7f, 2f, 0.12f);
                 if (level == 6)
                 {
-                    return Level(3f, 1.8f, ActiveSkillTargetingMode.Self,
+                    return Level(3f, 1.8f, ActiveSkillTargetingMode.Self, visual,
                         Wave(burst),
                         new ActiveSkillActivationWave(0.25f, 22.5f, 0.75f, burst));
                 }
-                return Level(2f + level * 0.25f, 2f, ActiveSkillTargetingMode.Self, Wave(burst));
+                return Level(2f + level * 0.25f, 2f, ActiveSkillTargetingMode.Self, visual, Wave(burst));
             });
         }
 
@@ -168,6 +175,16 @@ namespace Game.ActiveSkill
             params ActiveSkillActivationWave[] waves)
         {
             return new ActiveSkillLevelDefinition(damage, cooldown, targeting, waves);
+        }
+
+        private static ActiveSkillLevelDefinition Level(
+            float damage,
+            float cooldown,
+            ActiveSkillTargetingMode targeting,
+            ContentRef<SpriteDefinition> visual,
+            params ActiveSkillActivationWave[] waves)
+        {
+            return new ActiveSkillLevelDefinition(damage, cooldown, targeting, visual, waves);
         }
 
         private static ActiveSkillActivationWave Wave(params IActiveSkillEffect[] effects)

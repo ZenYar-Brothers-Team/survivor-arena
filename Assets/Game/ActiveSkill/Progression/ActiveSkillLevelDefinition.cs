@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Game.Content;
+using Game.Presentation;
 
 namespace Game.ActiveSkill
 {
@@ -10,10 +12,25 @@ namespace Game.ActiveSkill
         public ActiveSkillTargetingMode TargetingMode { get; }
         public IReadOnlyList<ActiveSkillActivationWave> Waves { get; }
 
+        // Optional: lets a level look distinct once real art exists (e.g. a
+        // higher-tier variant at a later level) without changing its mechanics.
+        // Unset by default, same convention as EnemyDefinition.Visual.
+        public ContentRef<SpriteDefinition> Visual { get; }
+
         public ActiveSkillLevelDefinition(
             float baseDamage,
             float cooldownSeconds,
             ActiveSkillTargetingMode targetingMode,
+            params ActiveSkillActivationWave[] waves)
+            : this(baseDamage, cooldownSeconds, targetingMode, default, waves)
+        {
+        }
+
+        public ActiveSkillLevelDefinition(
+            float baseDamage,
+            float cooldownSeconds,
+            ActiveSkillTargetingMode targetingMode,
+            ContentRef<SpriteDefinition> visual,
             params ActiveSkillActivationWave[] waves)
         {
             ProjectileBurstEffect.ValidateNonNegative(baseDamage, nameof(baseDamage));
@@ -31,6 +48,7 @@ namespace Game.ActiveSkill
             BaseDamage = baseDamage;
             CooldownSeconds = cooldownSeconds;
             TargetingMode = targetingMode;
+            Visual = visual;
             Waves = (ActiveSkillActivationWave[])waves.Clone();
         }
     }

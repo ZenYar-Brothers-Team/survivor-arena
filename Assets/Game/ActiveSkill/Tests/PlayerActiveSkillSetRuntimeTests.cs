@@ -31,7 +31,7 @@ namespace Game.ActiveSkill.Tests
             _player = _playerObject.AddComponent<PlayerCharacterRuntime>();
             TestLifecycle.InvokeAwake(_player);
             _experience = _playerObject.AddComponent<PlayerExperienceRuntime>();
-            _experience.ConfigureForTests(_player, _runController, 5f);
+            _experience.Initialize(_player, _runController, 5f);
 
             var catalog = FixtureActiveSkillCatalog.Create();
             var starting = new BuildEntryDefinition("FIXTURE-SKILL-BOLT", BuildEntryKind.ActiveSkill, "Bolt");

@@ -26,7 +26,7 @@ namespace Game.Progression.Tests
             var character = _player.AddComponent<PlayerCharacterRuntime>();
             InvokeAwake(character);
             _experience = _player.AddComponent<PlayerExperienceRuntime>();
-            _experience.ConfigureForTests(character, _runController, 5f);
+            _experience.Initialize(character, _runController, 5f);
             _draftRuntime = _player.AddComponent<LevelUpDraftRuntime>();
 
             var starting = Active("FIXTURE-ACTIVE-START");
@@ -164,7 +164,7 @@ namespace Game.Progression.Tests
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
                 InvokeAwake(character);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
-                experience.ConfigureForTests(character, _runController, 1f);
+                experience.Initialize(character, _runController, 1f);
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var onlyEntry = Active("FIXTURE-ONLY-ENTRY");
                 draft.Initialize(

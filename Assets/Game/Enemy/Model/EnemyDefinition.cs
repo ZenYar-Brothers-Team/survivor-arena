@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Game.Content;
+using Game.Presentation;
 
 namespace Game.Enemy
 {
-    public sealed class EnemyDefinition : IContentDefinition
+    public sealed class EnemyDefinition : IContentDefinition, IReferencesContent
     {
         public ContentId Id { get; }
         public float MaxHealth { get; }
@@ -12,6 +14,7 @@ namespace Game.Enemy
         public float ContactDamage { get; }
         public float ContactDamageInterval { get; }
         public float ExperienceReward { get; }
+        public ContentRef<SpriteDefinition> Visual { get; }
 
         public EnemyDefinition(
             ContentId id,
@@ -20,7 +23,8 @@ namespace Game.Enemy
             float movementSpeed,
             float contactDamage,
             float contactDamageInterval,
-            float experienceReward = 0f)
+            float experienceReward = 0f,
+            ContentRef<SpriteDefinition> visual = default)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -39,6 +43,15 @@ namespace Game.Enemy
             ContactDamage = contactDamage;
             ContactDamageInterval = contactDamageInterval;
             ExperienceReward = experienceReward;
+            Visual = visual;
+        }
+
+        // Visual is optional: content authored without art yet (e.g. fixtures) simply
+        // doesn't declare a reference, so the registry has nothing to validate for it.
+        public IEnumerable<ContentReference> GetReferencedContent()
+        {
+            if (Visual.Id.IsValid)
+                yield return Visual.ToReference();
         }
 
         private static void ValidatePositive(float value, string parameterName)

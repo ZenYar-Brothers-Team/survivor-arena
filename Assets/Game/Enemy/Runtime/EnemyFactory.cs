@@ -12,7 +12,8 @@ namespace Game.Enemy
             Vector2 position,
             Transform target,
             RunController runController,
-            Transform parent = null)
+            Transform parent = null,
+            Sprite visual = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -33,7 +34,8 @@ namespace Game.Enemy
                 definition,
                 target,
                 runController,
-                target.GetComponent<PlayerExperienceRuntime>());
+                target.GetComponent<PlayerExperienceRuntime>(),
+                visual);
             return runtime;
         }
     }

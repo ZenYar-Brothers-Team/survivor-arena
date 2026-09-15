@@ -1,15 +1,9 @@
 {
-    "name": "Game.Bootstrap",
-    "rootNamespace": "Game.Bootstrap",
+    "name": "Game.Presentation",
+    "rootNamespace": "Game.Presentation",
     "references": [
         "Game.Content",
-        "Game.Run",
-        "Game.Character",
-        "Game.Progression",
-        "Game.Enemy",
-        "Game.ActiveSkill",
-        "Game.UI",
-        "Game.Presentation"
+        "Game.Movement"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
