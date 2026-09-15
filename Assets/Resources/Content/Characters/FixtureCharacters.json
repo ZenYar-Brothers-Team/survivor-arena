@@ -1,0 +1,50 @@
+[
+  {
+    "id": "FIXTURE-CHARACTER-AGILE",
+    "displayName": "Fixture Agile",
+    "initiallyUnlocked": true,
+    "startingActiveSkillId": "FIXTURE-SKILL-BOLT",
+    "baseStats": {
+      "maxHealth": 100.0,
+      "movementSpeed": 3.0,
+      "activeSkillDamageMultiplier": 1.0,
+      "activeSkillCooldownMultiplier": 1.0,
+      "incomingDamageMultiplier": 1.0,
+      "healthRestorationMultiplier": 1.0,
+      "healthRegenerationPerSecond": 0.0,
+      "disappearingXpRecovery": 0.0,
+      "pickedUpXpMultiplier": 1.0,
+      "xpDropLifetimeBonusSeconds": 0.0,
+      "pickupRadius": 0.2
+    },
+    "draftWeights": [
+      { "skillId": "FIXTURE-SKILL-BOLT", "weight": 1.5 },
+      { "skillId": "FIXTURE-SKILL-RING", "weight": 0.0 },
+      { "skillId": "FIXTURE-SKILL-BEAM", "weight": 1.25 }
+    ]
+  },
+  {
+    "id": "FIXTURE-CHARACTER-STURDY",
+    "displayName": "Fixture Sturdy",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "FIXTURE-SKILL-RING",
+    "baseStats": {
+      "maxHealth": 125.0,
+      "movementSpeed": 2.5,
+      "activeSkillDamageMultiplier": 1.1,
+      "activeSkillCooldownMultiplier": 1.05,
+      "incomingDamageMultiplier": 0.9,
+      "healthRestorationMultiplier": 1.0,
+      "healthRegenerationPerSecond": 0.0,
+      "disappearingXpRecovery": 0.15,
+      "pickedUpXpMultiplier": 1.0,
+      "xpDropLifetimeBonusSeconds": 0.0,
+      "pickupRadius": 0.2
+    },
+    "draftWeights": [
+      { "skillId": "FIXTURE-SKILL-BOLT", "weight": 0.0 },
+      { "skillId": "FIXTURE-SKILL-RING", "weight": 1.75 },
+      { "skillId": "FIXTURE-SKILL-BEAM", "weight": 0.75 }
+    ]
+  }
+]

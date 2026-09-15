@@ -45,6 +45,31 @@ namespace Game.Run.Tests
         }
 
         [Test]
+        public void PauseReasons_ResumeOnlyAfterEveryOwnerReleasesPause()
+        {
+            var model = new RunModel(10f);
+            model.Start();
+
+            Assert.IsTrue(model.RequestPause(RunPauseReasons.LevelUpDraft));
+            Assert.IsTrue(model.RequestPause(RunPauseReasons.Manual));
+            Assert.IsTrue(model.ReleasePause(RunPauseReasons.LevelUpDraft));
+            Assert.AreEqual(RunState.Paused, model.State);
+            Assert.IsTrue(model.IsPausedBy(RunPauseReasons.Manual));
+
+            Assert.IsTrue(model.ReleasePause(RunPauseReasons.Manual));
+            Assert.AreEqual(RunState.Running, model.State);
+        }
+
+        [Test]
+        public void InvalidDurationAndDeltaTime_AreRejected()
+        {
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => new RunModel(0f));
+            var model = new RunModel();
+            model.Start();
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => model.Tick(-0.1f));
+        }
+
+        [Test]
         public void Tick_ReachingDuration_TransitionsToWonAndRaisesEventOnce()
         {
             var model = new RunModel(0.1f);

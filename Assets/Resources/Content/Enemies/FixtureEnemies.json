@@ -1,0 +1,12 @@
+[
+  {
+    "id": "FIXTURE-ENEMY-SEEKER",
+    "maxHealth": 10.0,
+    "collisionSize": 1.0,
+    "movementSpeed": 1.0,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL"
+  }
+]

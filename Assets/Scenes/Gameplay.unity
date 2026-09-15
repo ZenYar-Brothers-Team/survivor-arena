@@ -154,7 +154,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -343,6 +344,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c2a4be26d6b4a8097b81321b9e38dd9, type: 3}
+  m_Name: ''
+  m_EditorClassIdentifier: Game.Movement::Game.Movement.CameraFollowTarget
+  target: {fileID: 557252967}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -423,7 +437,11 @@ GameObject:
   - component: {fileID: 557252964}
   - component: {fileID: 557252963}
   - component: {fileID: 557252962}
-  m_Layer: 0
+  - component: {fileID: 557252969}
+  - component: {fileID: 557252970}
+  - component: {fileID: 557252971}
+  - component: {fileID: 557252972}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,10 +472,82 @@ MonoBehaviour:
   m_GameObject: {fileID: 557252961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62e7c2c862130c48a026c8940096ef3, type: 3}
+  m_Script: {fileID: 11500000, guid: f5481c8739784792a470349aad5dfccd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game.Movement::Game.Movement.FixedMovementSpeedSource
-  speed: 3
+  m_EditorClassIdentifier: Game.Character::Game.Character.PlayerCharacterRuntime
+  runController: {fileID: 2071511763}
+  baseMaxHealth: 100
+  baseMovementSpeed: 3
+  baseActiveSkillDamageMultiplier: 1
+  baseActiveSkillCooldownMultiplier: 1
+  baseIncomingDamageMultiplier: 1
+  baseHealthRestorationMultiplier: 1
+  baseHealthRegenerationPerSecond: 0
+  baseDisappearingXpRecovery: 0
+  basePickedUpXpMultiplier: 1
+  baseXpDropLifetimeBonusSeconds: 0
+--- !u!114 &557252969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0970872b44834cb09fb0ee58e4aac475, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.PlayerExperienceRuntime
+  owner: {fileID: 557252963}
+  runController: {fileID: 2071511763}
+  baseDropLifetimeSeconds: 60
+  fixtureLevelThresholds:
+  - 5
+  - 10
+  - 15
+--- !u!114 &557252970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a49787324ed439ea544778b93e65345, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.LevelUpDraftRuntime
+  experienceRuntime: {fileID: 557252969}
+  runController: {fileID: 2071511763}
+--- !u!114 &557252971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a924c757170748908954cb8859c92be6, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.ActiveSkill::Game.ActiveSkill.PlayerActiveSkillSetRuntime
+  owner: {fileID: 557252963}
+  runController: {fileID: 2071511763}
+  draftRuntime: {fileID: 557252970}
+--- !u!114 &557252972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557252961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e760b1c4389f4a6d82c50719f3ea2b64, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Progression::Game.Progression.PlayerPassiveSetRuntime
+  owner: {fileID: 557252963}
+  draftRuntime: {fileID: 557252970}
 --- !u!212 &557252964
 SpriteRenderer:
   serializedVersion: 3
@@ -782,7 +872,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -966,7 +1056,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1093,6 +1183,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1351064011}
+  - component: {fileID: 1351064012}
+  - component: {fileID: 1351064013}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1114,7 +1206,94 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2071511764}
+  - {fileID: 314159262}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351064012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351064010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fa2c7619de4b50a347c8e125d690fb, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Bootstrap::Game.Bootstrap.GameplayCompositionRoot
+  runController: {fileID: 2071511763}
+  player: {fileID: 557252963}
+  experienceRuntime: {fileID: 557252969}
+  draftRuntime: {fileID: 557252970}
+  activeSkillRuntime: {fileID: 557252971}
+  passiveRuntime: {fileID: 557252972}
+  enemySpawner: {fileID: 314159261}
+  gameplayUiRoot: {fileID: 1351064013}
+  startingCharacterId: FIXTURE-CHARACTER-AGILE
+  draftOfferCount: 3
+  draftSeed: 12345
+  fixtureInitialRerolls: 2
+  fixtureInitialBanishes: 2
+--- !u!114 &1351064013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351064010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7cceda6f7b34a9bbf910579b69b090f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.UI::Game.UI.GameplayUiRoot
+--- !u!1 &314159260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314159262}
+  - component: {fileID: 314159261}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &314159261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314159260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f90c6c5d26d45b8b6f9fb03b9196d49, type: 3}
+  m_Name: ''
+  m_EditorClassIdentifier: Game.Enemy::Game.Enemy.ContinuousFixtureEnemySpawner
+  runController: {fileID: 2071511763}
+  target: {fileID: 557252967}
+  spawnIntervalSeconds: 2
+  spawnRadius: 8
+  maxAliveEnemies: 10
+--- !u!4 &314159262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314159260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1351064011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893446705
 GameObject:
@@ -1151,7 +1330,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1304,7 +1483,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967231
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

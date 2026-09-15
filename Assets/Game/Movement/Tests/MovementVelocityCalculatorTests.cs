@@ -36,5 +36,17 @@ namespace Game.Movement.Tests
 
             Assert.AreEqual(Vector2.zero, velocity);
         }
+
+        [Test]
+        public void ChangedSpeed_ChangesVelocityMagnitudeWithoutChangingDirection()
+        {
+            var normal = MovementVelocityCalculator.Calculate(Vector2.right, 3f, isRunning: true);
+            var modified = MovementVelocityCalculator.Calculate(Vector2.right, 4.5f, isRunning: true);
+
+            Assert.AreEqual(Vector2.right, normal.normalized);
+            Assert.AreEqual(Vector2.right, modified.normalized);
+            Assert.AreEqual(3f, normal.magnitude, 0.0001f);
+            Assert.AreEqual(4.5f, modified.magnitude, 0.0001f);
+        }
     }
 }

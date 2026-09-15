@@ -1,0 +1,23 @@
+{
+    "name": "Game.Bootstrap",
+    "rootNamespace": "Game.Bootstrap",
+    "references": [
+        "Game.Content",
+        "Game.Run",
+        "Game.Character",
+        "Game.Progression",
+        "Game.Enemy",
+        "Game.ActiveSkill",
+        "Game.UI",
+        "Game.Presentation"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
