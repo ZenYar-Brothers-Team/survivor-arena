@@ -10,6 +10,7 @@
         "Game.Presentation",
         "Game.Run",
         "Game.Progression",
+        "Game.Pooling",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

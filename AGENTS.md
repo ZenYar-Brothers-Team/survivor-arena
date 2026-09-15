@@ -73,6 +73,7 @@ Reference implementation: `Assets/Game/Content/NumericValidation.cs`, used by
 `Assets/Game/Combat/Health.cs`, `Assets/Game/Character/Model/CharacterBaseStats.cs`,
 and the `Game.ActiveSkill.Progression` effect types (`MineEffect.cs`,
 `AreaEffect.cs`, etc.).
+See [DECISION-0012](decisions/0012-shared-numeric-validation.md).
 
 ### Pool frequently spawned/destroyed GameObjects
 

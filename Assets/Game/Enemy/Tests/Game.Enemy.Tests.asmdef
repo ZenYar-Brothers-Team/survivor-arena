@@ -8,6 +8,7 @@
         "Game.Content",
         "Game.Character",
         "Game.Run",
+        "Game.Pooling",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
