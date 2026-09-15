@@ -23,7 +23,7 @@ namespace Game.Progression.Tests
             var player = new GameObject("Player");
             player.AddComponent<CircleCollider2D>();
             var character = player.AddComponent<PlayerCharacterRuntime>();
-            InvokeAwake(character);
+            character.Initialize(new CharacterBaseStats(100f, 3f));
             var experience = player.AddComponent<PlayerExperienceRuntime>();
             experience.Initialize(character, runController, 100f);
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 1f, 1f, 0f, 0f, 1f, 3f);
@@ -59,7 +59,7 @@ namespace Game.Progression.Tests
             runController.Model.Start();
             var player = new GameObject("Player");
             var character = player.AddComponent<PlayerCharacterRuntime>();
-            InvokeAwake(character);
+            character.Initialize(new CharacterBaseStats(100f, 3f));
             var experience = player.AddComponent<PlayerExperienceRuntime>();
             experience.Initialize(character, runController, 5f);
             var emittedLevel = 0;

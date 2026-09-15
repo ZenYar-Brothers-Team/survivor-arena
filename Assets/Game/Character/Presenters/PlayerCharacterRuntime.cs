@@ -1,3 +1,4 @@
+using System;
 using Game.Combat;
 using Game.Movement;
 using Game.Run;
@@ -11,62 +12,21 @@ namespace Game.Character
         [SerializeField]
         private RunController runController;
 
-        [SerializeField, Min(0.0001f)]
-        private float baseMaxHealth = 100f;
-
-        [SerializeField, Min(0f)]
-        private float baseMovementSpeed = 3f;
-
-        [SerializeField, Min(0f)]
-        private float baseActiveSkillDamageMultiplier = 1f;
-
-        [SerializeField, Min(0f)]
-        private float baseActiveSkillCooldownMultiplier = 1f;
-
-        [SerializeField, Min(0f)]
-        private float baseIncomingDamageMultiplier = 1f;
-
-        [SerializeField, Min(0f)]
-        private float baseHealthRestorationMultiplier = 1f;
-
-        [SerializeField, Min(0f)]
-        private float baseHealthRegenerationPerSecond;
-
-        [SerializeField, Range(0f, 1f)]
-        private float baseDisappearingXpRecovery;
-
-        [SerializeField, Min(0f)]
-        private float basePickedUpXpMultiplier = 1f;
-
-        [SerializeField, Min(0f)]
-        private float baseXpDropLifetimeBonusSeconds;
-
+        private bool _initialized;
         private CharacterRunBinding _runBinding;
 
         public CharacterStats Stats { get; private set; }
         public Health Health { get; private set; }
-        public float MovementSpeed => Stats != null ? Stats.MovementSpeed : baseMovementSpeed;
-
-        private void Awake()
-        {
-            var baseStats = new CharacterBaseStats(
-                baseMaxHealth,
-                baseMovementSpeed,
-                baseActiveSkillDamageMultiplier,
-                baseActiveSkillCooldownMultiplier,
-                baseIncomingDamageMultiplier,
-                baseHealthRestorationMultiplier,
-                baseHealthRegenerationPerSecond,
-                baseDisappearingXpRecovery,
-                basePickedUpXpMultiplier,
-                baseXpDropLifetimeBonusSeconds);
-
-            Stats = new CharacterStats(baseStats);
-            Health = new Health(Stats);
-        }
+        public float MovementSpeed => Stats != null ? Stats.MovementSpeed : 0f;
 
         private void Start()
         {
+            if (!_initialized)
+            {
+                Debug.LogError("Player character runtime must be initialized by the gameplay composition root.", this);
+                enabled = false;
+                return;
+            }
             if (runController == null || runController.Model == null)
             {
                 Debug.LogError("Player character run controller is not configured.", this);
@@ -75,6 +35,20 @@ namespace Game.Character
             }
 
             _runBinding = new CharacterRunBinding(Health, runController.Model);
+        }
+
+        // Base stats are supplied by the caller (the gameplay composition root in
+        // production) rather than loaded here, so this runtime doesn't need to know
+        // where content comes from — see FixtureCharacterCatalog and AGENTS.md's
+        // content-config rule for how the composition root sources them.
+        public void Initialize(CharacterBaseStats baseStats)
+        {
+            if (_initialized)
+                throw new InvalidOperationException("Player character runtime is already initialized.");
+
+            Stats = new CharacterStats(baseStats);
+            Health = new Health(Stats);
+            _initialized = true;
         }
 
         private void Update()

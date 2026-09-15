@@ -26,7 +26,7 @@ namespace Game.Progression
             dropObject.AddComponent<SpriteRenderer>();
 
             var runtime = dropObject.AddComponent<ExperienceDropRuntime>();
-            runtime.Initialize(amount, lifetime, target, runController);
+            runtime.Initialize(amount, lifetime, target, runController, target.PickupRadius);
             return runtime;
         }
     }

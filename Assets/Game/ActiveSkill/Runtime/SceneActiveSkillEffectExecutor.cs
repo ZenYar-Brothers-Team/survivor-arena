@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Diagnostics;
 using Game.Enemy;
 using Game.Movement;
 using Game.Run;
@@ -10,6 +11,10 @@ namespace Game.ActiveSkill
 {
     public sealed class SceneActiveSkillEffectExecutor : IActiveSkillEffectExecutor, IDisposable
     {
+        // Scans every mine against every alive enemy; fine at current fixture
+        // scale, but warns if it starts costing real time once counts grow.
+        private const float TickMinesWarningMilliseconds = 1f;
+
         private readonly RunController _runController;
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
         private readonly List<ScheduledEffect> _scheduled = new List<ScheduledEffect>();
@@ -276,6 +281,7 @@ namespace Game.ActiveSkill
 
         private void TickMines(float deltaTime)
         {
+            using var _ = PerfGuard.Measure("SceneActiveSkillEffectExecutor.TickMines", TickMinesWarningMilliseconds);
             EnemyRegistry.CopyAliveTo(_enemyBuffer);
             for (var i = _mines.Count - 1; i >= 0; i--)
             {

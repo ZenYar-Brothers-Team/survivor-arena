@@ -29,7 +29,7 @@ namespace Game.ActiveSkill.Tests
 
             _playerObject = new GameObject("Player");
             _player = _playerObject.AddComponent<PlayerCharacterRuntime>();
-            TestLifecycle.InvokeAwake(_player);
+            _player.Initialize(new CharacterBaseStats(100f, 3f));
             _experience = _playerObject.AddComponent<PlayerExperienceRuntime>();
             _experience.Initialize(_player, _runController, 5f);
 

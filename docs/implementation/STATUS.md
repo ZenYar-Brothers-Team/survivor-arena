@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-15
 Current next module: IP-11
 
-Cross-cutting verification: Unity 6000.6.0f1 EditMode 135/135 and PlayMode 1/1 passed on 2026-09-15. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers; gameplay UI follows a presenter/ViewState boundary. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md); vertical UI delivery follows [DECISION-0005](../decisions/0005-vertical-ui-delivery.md); the shared `Game.Combat.Health` model follows [DECISION-0006](../decisions/0006-shared-health-model.md); content-referenced presentation assets follow [DECISION-0007](../decisions/0007-content-referenced-visuals.md).
+Cross-cutting verification: Unity 6000.6.0f1 EditMode 142/142 and PlayMode 1/1 passed on 2026-09-15. The gameplay scene is composed from one fixture runtime catalog; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers; gameplay UI follows a presenter/ViewState boundary. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md); vertical UI delivery follows [DECISION-0005](../decisions/0005-vertical-ui-delivery.md); the shared `Game.Combat.Health` model follows [DECISION-0006](../decisions/0006-shared-health-model.md); content-referenced presentation assets follow [DECISION-0007](../decisions/0007-content-referenced-visuals.md); scale-sensitive operations use throttled perf warnings per [DECISION-0008](../decisions/0008-perf-logging.md); entity/content values are config-driven from JSON per [DECISION-0009](../decisions/0009-json-content-config.md).
 
 ## Foundation and playable core
 
@@ -41,25 +41,25 @@ Documentation impact: Game Design и IP-02 синхронизированы; Con
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/Character/` — base/modifier stat model, death-to-run binding и `PlayerCharacterRuntime`; health model живёт в `Assets/Game/Combat/Health.cs` (см. DECISION-0006) и используется через `IHealthProfile`, который реализует `CharacterStats`; `Assets/Scenes/Gameplay.unity` — runtime подключён к Player как movement speed source.
+Implementation evidence: `Assets/Game/Character/` — base/modifier stat model, death-to-run binding и `PlayerCharacterRuntime`; health model живёт в `Assets/Game/Combat/Health.cs` (см. DECISION-0006) и используется через `IHealthProfile`, который реализует `CharacterStats`; base stats больше не `[SerializeField]`-поля — грузятся через `FixtureCharacterCatalog.CreateDefault()` из `Resources/Content/Characters/FixtureCharacters.json` (см. DECISION-0009); `Assets/Scenes/Gameplay.unity` — runtime подключён к Player как movement speed source.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 43/43 tests passed on 2026-09-13; 13 IP-03 tests покрывают damage, capped heal, regeneration и pause, death-to-lost, base + keyed modifiers без double counting, stat clamps/removal и Gameplay scene wiring. Health model refactor re-verified against the full suite (135/135, 2026-09-15, see cross-cutting verification above).
+Verification evidence: Unity 6000.6.0f1 EditMode, 43/43 tests passed on 2026-09-13; 13 IP-03 tests покрывают damage, capped heal, regeneration и pause, death-to-lost, base + keyed modifiers без double counting, stat clamps/removal и Gameplay scene wiring. Health model и JSON-конфиг base stats re-verified against the full suite (142/142, 2026-09-15, see cross-cutting verification above); scene не содержала кастомных значений в удалённых полях — потери данных нет.
 
-Deviations: [DECISION-0006](../decisions/0006-shared-health-model.md) — health model вынесен из `Game.Character` в общий `Game.Combat` для переиспользования будущими не-enemy юнитами; CHAR-001…010 и PASSIVE-001…010 не реализовывались как production content.
+Deviations: [DECISION-0006](../decisions/0006-shared-health-model.md) — health model вынесен из `Game.Character` в общий `Game.Combat` для переиспользования будущими не-enemy юнитами; [DECISION-0009](../decisions/0009-json-content-config.md) — base stats вынесены из инспектора в JSON; CHAR-001…010 и PASSIVE-001…010 не реализовывались как production content.
 
-Documentation impact: Game Design, Content Design и IP-03 scope не изменились; execution status и readiness зависимых модулей синхронизированы; evidence path для health model обновлён.
+Documentation impact: Game Design, Content Design и IP-03 scope не изменились; execution status и readiness зависимых модулей синхронизированы; evidence path для health model и base stats обновлён.
 
 ### IP-04 — Enemy core
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/Enemy/` — content-compatible definition (теперь с опциональной `Visual`-ссылкой, см. DECISION-0007), seek movement, contact damage, lifecycle/factory и continuous fixture spawner; health переиспользует `Game.Combat.Health` через `FixedHealthProfile` (см. DECISION-0006); `Assets/Scenes/Gameplay.unity` — configured `EnemySpawner`.
+Implementation evidence: `Assets/Game/Enemy/` — content-compatible definition (теперь с опциональной `Visual`-ссылкой, см. DECISION-0007), seek movement, contact damage, lifecycle/factory и continuous fixture spawner; health переиспользует `Game.Combat.Health` через `FixedHealthProfile` (см. DECISION-0006); enemy definitions грузятся через `FixtureEnemyCatalog.Create()` из `Resources/Content/Enemies/FixtureEnemies.json` вместо C#-литералов (см. DECISION-0009); `EnemyRegistry.TryFindNearest` обёрнут в `PerfGuard` (см. DECISION-0008); `Assets/Scenes/Gameplay.unity` — configured `EnemySpawner`.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 61/61 tests passed on 2026-09-13; 18 IP-04 tests покрывают definition/registry, health/death, seek/stop simulation, immediate/repeated contact damage, sustained-contact death, pause-safe contact/spawn timers, runtime spawn/despawn и Gameplay scene wiring. Health/visual refactor re-verified against the full suite (135/135, 2026-09-15, see cross-cutting verification above).
+Verification evidence: Unity 6000.6.0f1 EditMode, 61/61 tests passed on 2026-09-13; 18 IP-04 tests покрывают definition/registry, health/death, seek/stop simulation, immediate/repeated contact damage, sustained-contact death, pause-safe contact/spawn timers, runtime spawn/despawn и Gameplay scene wiring. Health/visual/JSON-config/perf-log refactors re-verified against the full suite (142/142, 2026-09-15, see cross-cutting verification above).
 
-Deviations: [DECISION-0002](../decisions/0002-repeated-contact-damage.md) — утверждены повторные тики для длительного contact damage; [DECISION-0006](../decisions/0006-shared-health-model.md) — `EnemyHealth` заменён на общий `Health`+`FixedHealthProfile`; [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `EnemyDefinition` получил опциональную ссылку на визуал, резолвится и рендерится через `EnemyRuntime`; scene использует только `FIXTURE-ENEMY-SEEKER`, ENEMY-001…020 не реализовывались как production content.
+Deviations: [DECISION-0002](../decisions/0002-repeated-contact-damage.md) — утверждены повторные тики для длительного contact damage; [DECISION-0006](../decisions/0006-shared-health-model.md) — `EnemyHealth` заменён на общий `Health`+`FixedHealthProfile`; [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `EnemyDefinition` получил опциональную ссылку на визуал, резолвится и рендерится через `EnemyRuntime`; [DECISION-0008](../decisions/0008-perf-logging.md) и [DECISION-0009](../decisions/0009-json-content-config.md) — perf-логирование и JSON-конфиг; scene использует только `FIXTURE-ENEMY-SEEKER`, ENEMY-001…020 не реализовывались как production content.
 
-Documentation impact: Game Design, Content Design enemy schema, IP-04 scope/checks и DECISION-0002/0006/0007 синхронизированы; exact production intervals остаются TBD; DECISION-0007 закладывает то, что потребует IP-20 (production enemies) для presentation asset.
+Documentation impact: Game Design, Content Design enemy schema, IP-04 scope/checks и DECISION-0002/0006/0007/0008/0009 синхронизированы; exact production intervals остаются TBD; DECISION-0007 и DECISION-0009 закладывают то, что потребует IP-20 (production enemies) для presentation asset и content config.
 
 ### IP-05 — Active skill runtime и player damage pipeline
 
@@ -79,7 +79,7 @@ Status: Verified
 
 Implementation evidence: `Assets/Game/Progression/` — progression/bar model, configurable thresholds, pause-safe physical drop runtime, pickup/expiry/recovery pipeline and level-up event; `EnemyDefinition.ExperienceReward` and `EnemyRuntime` — XP spawn at death position; `CharacterStats` — recovery, pickup multiplier and drop-lifetime hooks; `Assets/Scenes/Gameplay.unity` — configured fixture runtime.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 90/90 tests passed on 2026-09-14; 9 `Game.Progression.Tests` tests cover death drop position/reward, pickup, expiry with base 0% recovery, recovery without double award, configurable lifetime/thresholds, XP bar state, multiple levels, level-up pause/event and pause-safe drop behavior. `Initialize` rename re-verified against the full suite (135/135, 2026-09-15, see cross-cutting verification above).
+Verification evidence: Unity 6000.6.0f1 EditMode, 90/90 tests passed on 2026-09-14; 9 `Game.Progression.Tests` tests cover death drop position/reward, pickup, expiry with base 0% recovery, recovery without double award, configurable lifetime/thresholds, XP bar state, multiple levels, level-up pause/event and pause-safe drop behavior. `Initialize` rename re-verified against the full suite (142/142, 2026-09-15, see cross-cutting verification above).
 
 Deviations: none recorded; fixture thresholds and reward are non-production configuration, the final XP curve remains out of scope. `PlayerExperienceRuntime.ConfigureForTests` was renamed to `Initialize` (guarded, throws if already initialized) to match every sibling runtime's composition-root wiring convention instead of exposing a test-only entry point; `GameplayCompositionRoot` now calls it directly and the 5 existing test call sites were updated in place — no behavior change.
 
@@ -103,23 +103,23 @@ Documentation impact: Game Design, Content Design and IP-07 scope did not change
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/ActiveSkill/Progression/` — six-level definitions (`ActiveSkillLevelDefinition` теперь несёт опциональную `ContentRef<SpriteDefinition> Visual`, см. DECISION-0007), activation-wave composition and typed projectile/beam/orbit/boomerang/chain/area/mine effects; `PlayerActiveSkillSetRuntime.cs` — concurrent build-synchronized skills; `SceneActiveSkillEffectExecutor.cs` and `FixtureProjectileRuntime.cs` — pause-safe execution, delayed/multi-wave scheduling, pierce and return passes; `Gameplay.unity` — fixture catalog runtime replaces the legacy single-skill fixture.
+Implementation evidence: `Assets/Game/ActiveSkill/Progression/` — six-level definitions (`ActiveSkillLevelDefinition` теперь несёт опциональную `ContentRef<SpriteDefinition> Visual`, см. DECISION-0007), activation-wave composition and typed projectile/beam/orbit/boomerang/chain/area/mine effects; all 8 fixture skills × 6 levels now load from `Resources/Content/ActiveSkills/FixtureActiveSkills.json` via `FixtureActiveSkillCatalog.Create()`, with the 7 polymorphic effect types resolved by a `"kind"`-discriminated `ActiveSkillEffectJsonConverter` (see DECISION-0009) instead of hardcoded ternary logic; `PlayerActiveSkillSetRuntime.cs` — concurrent build-synchronized skills; `SceneActiveSkillEffectExecutor.cs` and `FixtureProjectileRuntime.cs` — pause-safe execution, delayed/multi-wave scheduling, pierce and return passes; `SceneActiveSkillEffectExecutor.TickMines` обёрнут в `PerfGuard` (see DECISION-0008); `Gameplay.unity` — fixture catalog runtime replaces the legacy single-skill fixture.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 110/110 tests passed on 2026-09-14; 12 IP-08 tests cover exact levels 1→6, numeric and qualitative level changes, fan/ring/cross directions, pierce, boomerang return and per-pass hits, delayed AoE pause, chain retarget/falloff, mine lifetime/concurrent limit, rotated multi-wave execution, concurrent acquired skills, draft upgrades and scene wiring. Visual-reference addition re-verified against the full suite (135/135, 2026-09-15, see cross-cutting verification above).
+Verification evidence: Unity 6000.6.0f1 EditMode, 110/110 tests passed on 2026-09-14; 12 IP-08 tests cover exact levels 1→6, numeric and qualitative level changes, fan/ring/cross directions, pierce, boomerang return and per-pass hits, delayed AoE pause, chain retarget/falloff, mine lifetime/concurrent limit, rotated multi-wave execution, concurrent acquired skills, draft upgrades and scene wiring. Visual-reference, perf-log and JSON-config migration (all values hand-transcribed from the prior hardcoded logic) re-verified against the full suite (142/142, 2026-09-15, see cross-cutting verification above) — the exact-level assertions above caught nothing wrong, confirming the transcription.
 
-Deviations: [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `ActiveSkillLevelDefinition`/`ActiveSkillProgressionDefinition` gained an optional per-level `Visual` reference validated by `ContentRegistry`; the fixture Ring/Cross skill now declares two distinct visual ids per tier instead of an implicit level ternary (the underlying `Cross`/`Ring` projectile-pattern bug noted in PR review is unrelated and not fixed by this). All catalog entries and numeric parameters are explicitly `FIXTURE-*`, while SKILL-001…015 remain Draft compatibility targets rather than production content.
+Deviations: [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `ActiveSkillLevelDefinition`/`ActiveSkillProgressionDefinition` gained an optional per-level `Visual` reference validated by `ContentRegistry`; the fixture Ring/Cross skill now declares two distinct visual ids per tier instead of an implicit level ternary (the underlying `Cross`/`Ring` projectile-pattern bug noted in PR review is unrelated and not fixed by this); [DECISION-0008](../decisions/0008-perf-logging.md) and [DECISION-0009](../decisions/0009-json-content-config.md) — perf-logging and JSON-driven content, including the polymorphic-effect converter pattern. All catalog entries and numeric parameters are explicitly `FIXTURE-*`, while SKILL-001…015 remain Draft compatibility targets rather than production content.
 
-Documentation impact: Game Design, Content Design and IP-08 scope did not change; IP-05 public projectile behavior remains backward compatible and dependant readiness was synchronized; DECISION-0007 gives IP-17 a ready presentation-asset extension point instead of requiring it to be designed from scratch.
+Documentation impact: Game Design, Content Design and IP-08 scope did not change; IP-05 public projectile behavior remains backward compatible and dependant readiness was synchronized; DECISION-0007 gives IP-17 a ready presentation-asset extension point, and DECISION-0009 gives it a ready JSON-config + polymorphic-effect pattern, instead of requiring either to be designed from scratch.
 
 ### IP-09 — Passive modifier framework
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/Progression/Passive/` defines six-level passive progressions and fixture catalog; `PlayerPassiveSetRuntime.cs` applies keyed build-synchronized modifiers; `CharacterStats.cs` implements additive source percentages, asymptotic cooldown reduction and 99% damage-reduction cap; proportional current-health rescaling lives in `Assets/Game/Combat/Health.cs` (see DECISION-0006) via the `IHealthProfile` `Changed` event.
+Implementation evidence: `Assets/Game/Progression/Passive/` defines six-level passive progressions, now loaded via `FixturePassiveCatalog.Create()` from `Resources/Content/Passives/FixturePassives.json` — the former `level * X` formulas are expanded into explicit per-level values in config (see DECISION-0009); `PlayerPassiveSetRuntime.cs` applies keyed build-synchronized modifiers; `CharacterStats.cs` implements additive source percentages, asymptotic cooldown reduction and 99% damage-reduction cap; proportional current-health rescaling lives in `Assets/Game/Combat/Health.cs` (see DECISION-0006) via the `IHealthProfile` `Changed` event.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 121/121 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes keyed replacement, six levels, multiple stat categories, additive percentages, cooldown asymptote, damage-reduction cap, proportional health and scene-level passive selection. Health file-path change re-verified against the full suite (135/135, 2026-09-15, see cross-cutting verification above).
+Verification evidence: Unity 6000.6.0f1 EditMode, 121/121 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes keyed replacement, six levels, multiple stat categories, additive percentages, cooldown asymptote, damage-reduction cap, proportional health and scene-level passive selection. Health file-path change and JSON-config migration re-verified against the full suite (142/142, 2026-09-15, see cross-cutting verification above).
 
-Deviations: production PASSIVE-001…010 remain out of scope; fixture passives are non-production. Stat semantics are recorded in [DECISION-0004](../decisions/0004-character-stat-composition.md); the health file path was superseded by [DECISION-0006](../decisions/0006-shared-health-model.md).
+Deviations: production PASSIVE-001…010 remain out of scope; fixture passives are non-production. Stat semantics are recorded in [DECISION-0004](../decisions/0004-character-stat-composition.md); the health file path was superseded by [DECISION-0006](../decisions/0006-shared-health-model.md); passive values moved to JSON per [DECISION-0009](../decisions/0009-json-content-config.md).
 
 Documentation impact: Game Design, Content Design, IP-09 and direct dependant readiness synchronized.
 
@@ -191,7 +191,8 @@ Groundwork: [DECISION-0007](../decisions/0007-content-referenced-visuals.md) alr
 ### IP-18 — Production Passive Items
 
 Status: Blocked  
-Blocked by: IP-09 and CG-01 approval of target PASSIVE IDs.
+Blocked by: IP-09 and CG-01 approval of target PASSIVE IDs.  
+Groundwork: [DECISION-0009](../decisions/0009-json-content-config.md) already loads fixture passives from `Resources/Content/Passives/FixturePassives.json` via `FixturePassiveCatalog`; this IP registers real `PASSIVE-*` entries in that same JSON convention instead of hardcoding them.
 
 ### IP-19 — Production Sets
 
@@ -202,7 +203,7 @@ Blocked by: IP-11, IP-17, IP-18 and CG-01 approval of target SET/component IDs.
 
 Status: Blocked  
 Blocked by: IP-13 and CG-01 approval of target ENEMY IDs.  
-Groundwork: `EnemyDefinition.Visual` and the `Game.Presentation` module ([DECISION-0007](../decisions/0007-content-referenced-visuals.md)) already resolve end-to-end into `EnemyRuntime` rendering for the fixture enemy; this IP only needs to register real `SpriteDefinition`s per production `ENEMY-*` id.
+Groundwork: `EnemyDefinition.Visual` and the `Game.Presentation` module ([DECISION-0007](../decisions/0007-content-referenced-visuals.md)) already resolve end-to-end into `EnemyRuntime` rendering for the fixture enemy; `FixtureEnemyCatalog`/JSON ([DECISION-0009](../decisions/0009-json-content-config.md)) already loads enemy definitions from config instead of code; this IP only needs to register real `SpriteDefinition`s and `ENEMY-*` entries in those same conventions.
 
 ### IP-21 — Production Bosses и Mid-bosses
 
@@ -213,7 +214,7 @@ Blocked by: IP-13, IP-15 and CG-01 approval of target BOSS/MIDBOSS IDs.
 
 Status: Blocked  
 Blocked by: IP-12, IP-17 and CG-01 approval of target CHAR/starting SKILL IDs.  
-Groundwork: [DECISION-0006](../decisions/0006-shared-health-model.md) makes `PlayerCharacterRuntime` health independent of any single stat profile (`IHealthProfile`), and [DECISION-0007](../decisions/0007-content-referenced-visuals.md) gives per-character presentation the same content-reference convention as enemies — neither is currently wired to a per-character definition, since none exists yet.
+Groundwork: [DECISION-0006](../decisions/0006-shared-health-model.md) makes `PlayerCharacterRuntime` health independent of any single stat profile (`IHealthProfile`); [DECISION-0007](../decisions/0007-content-referenced-visuals.md) gives per-character presentation the same content-reference convention as enemies; [DECISION-0009](../decisions/0009-json-content-config.md) already loads the single fixture character's base stats from `FixtureCharacterCatalog`/JSON instead of inspector fields — none of these are currently wired to a per-character definition keyed by `CHAR-*`, since that content type doesn't exist yet.
 
 ### IP-23 — Production Fields
 

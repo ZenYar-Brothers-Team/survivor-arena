@@ -21,9 +21,8 @@ namespace Game.Progression
 
         private void Awake()
         {
-            _collider = GetComponent<CircleCollider2D>();
+            CacheComponents();
             _collider.isTrigger = true;
-            _collider.radius = 0.2f;
 
             var renderer = GetComponent<SpriteRenderer>();
             if (renderer.sprite == null)
@@ -36,16 +35,27 @@ namespace Game.Progression
             float amount,
             float lifetime,
             PlayerExperienceRuntime target,
-            RunController runController)
+            RunController runController,
+            float pickupRadius)
         {
             if (amount <= 0f || float.IsNaN(amount) || float.IsInfinity(amount))
                 throw new System.ArgumentOutOfRangeException(nameof(amount));
+            if (pickupRadius <= 0f || float.IsNaN(pickupRadius) || float.IsInfinity(pickupRadius))
+                throw new System.ArgumentOutOfRangeException(nameof(pickupRadius));
 
             Amount = amount;
             _target = target != null ? target : throw new System.ArgumentNullException(nameof(target));
             _runController = runController != null ? runController : throw new System.ArgumentNullException(nameof(runController));
             _timer = new ExperienceDropTimer(lifetime);
+            CacheComponents();
+            _collider.radius = pickupRadius;
             gameObject.name = "Experience Drop";
+        }
+
+        private void CacheComponents()
+        {
+            if (_collider == null)
+                _collider = GetComponent<CircleCollider2D>();
         }
 
         private void Update()

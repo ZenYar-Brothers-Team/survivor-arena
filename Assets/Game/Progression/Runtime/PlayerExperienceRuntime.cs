@@ -26,6 +26,7 @@ namespace Game.Progression
         public float DropLifetimeSeconds => baseDropLifetimeSeconds + OwnerStats.XpDropLifetimeBonusSeconds;
         public float DisappearingExperienceRecovery => OwnerStats.DisappearingXpRecovery;
         public float PickedUpExperienceMultiplier => OwnerStats.PickedUpXpMultiplier;
+        public float PickupRadius => OwnerStats.BaseStats.PickupRadius;
 
         public event Action<int> LevelUp;
 

@@ -14,6 +14,7 @@ namespace Game.Character
         public float DisappearingXpRecovery { get; }
         public float PickedUpXpMultiplier { get; }
         public float XpDropLifetimeBonusSeconds { get; }
+        public float PickupRadius { get; }
 
         public CharacterBaseStats(
             float maxHealth,
@@ -25,7 +26,8 @@ namespace Game.Character
             float healthRegenerationPerSecond = 0f,
             float disappearingXpRecovery = 0f,
             float pickedUpXpMultiplier = 1f,
-            float xpDropLifetimeBonusSeconds = 0f)
+            float xpDropLifetimeBonusSeconds = 0f,
+            float pickupRadius = 0.2f)
         {
             MaxHealth = maxHealth;
             MovementSpeed = movementSpeed;
@@ -37,6 +39,7 @@ namespace Game.Character
             DisappearingXpRecovery = disappearingXpRecovery;
             PickedUpXpMultiplier = pickedUpXpMultiplier;
             XpDropLifetimeBonusSeconds = xpDropLifetimeBonusSeconds;
+            PickupRadius = pickupRadius;
 
             Validate();
         }
@@ -53,6 +56,7 @@ namespace Game.Character
             ValidateRange(DisappearingXpRecovery, 0f, 1f, nameof(DisappearingXpRecovery));
             ValidateNonNegative(PickedUpXpMultiplier, nameof(PickedUpXpMultiplier));
             ValidateNonNegative(XpDropLifetimeBonusSeconds, nameof(XpDropLifetimeBonusSeconds));
+            ValidatePositive(PickupRadius, nameof(PickupRadius));
         }
 
         private static void ValidatePositive(float value, string parameterName)

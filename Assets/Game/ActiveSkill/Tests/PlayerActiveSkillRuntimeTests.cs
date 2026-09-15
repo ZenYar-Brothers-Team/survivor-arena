@@ -21,7 +21,7 @@ namespace Game.ActiveSkill.Tests
         {
             _playerObject = new GameObject("Player");
             _player = _playerObject.AddComponent<PlayerCharacterRuntime>();
-            InvokeAwake(_player);
+            _player.Initialize(new CharacterBaseStats(100f, 3f));
             _runObject = new GameObject("RunController");
             _runController = _runObject.AddComponent<RunController>();
             InvokeAwake(_runController);

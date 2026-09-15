@@ -25,7 +25,7 @@ namespace Game.Progression.Tests
 
             _player = new GameObject("Player");
             _character = _player.AddComponent<PlayerCharacterRuntime>();
-            InvokeAwake(_character);
+            _character.Initialize(new CharacterBaseStats(100f, 3f));
             _experience = _player.AddComponent<PlayerExperienceRuntime>();
             _experience.Initialize(_character, _runController, 100f);
         }

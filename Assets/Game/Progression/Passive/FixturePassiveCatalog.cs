@@ -1,41 +1,48 @@
 using System.Collections.Generic;
 using Game.Character;
+using Game.Content.Json;
+using Game.Progression.Json;
 
 namespace Game.Progression
 {
+    // Non-production passive content, config-driven instead of hardcoded: see
+    // Resources/Content/Passives/FixturePassives.json and AGENTS.md's content-config rule.
     public static class FixturePassiveCatalog
     {
+        private const string ResourcePath = "Content/Passives/FixturePassives";
+
         public static IReadOnlyList<PassiveProgressionDefinition> Create()
         {
-            return new[]
-            {
-                Create("FIXTURE-PASSIVE-VITALITY", "Fixture Vitality", level =>
-                    new CharacterStatModifier(maxHealthMultiplierBonus: level * 0.1f)),
-                Create("FIXTURE-PASSIVE-HASTE", "Fixture Haste", level =>
-                    new CharacterStatModifier(
-                        movementSpeedMultiplierBonus: level * 0.05f,
-                        activeSkillDamageMultiplierBonus: level * 0.05f,
-                        activeSkillCooldownReductionBonus: level * 0.1f)),
-                Create("FIXTURE-PASSIVE-MEMORY", "Fixture Memory", level =>
-                    new CharacterStatModifier(
-                        incomingDamageReductionBonus: level * 0.05f,
-                        healthRestorationMultiplierBonus: level * 0.1f,
-                        healthRegenerationPerSecondBonus: level * 0.2f,
-                        disappearingXpRecoveryBonus: level * 0.1f,
-                        pickedUpXpMultiplierBonus: level * 0.05f,
-                        xpDropLifetimeBonusSeconds: level * 5f))
-            };
+            var data = JsonContentFile.Load<PassiveProgressionData[]>(ResourcePath);
+            var definitions = new PassiveProgressionDefinition[data.Length];
+            for (var i = 0; i < data.Length; i++)
+                definitions[i] = ToDefinition(data[i]);
+
+            return definitions;
         }
 
-        private static PassiveProgressionDefinition Create(
-            string id,
-            string displayName,
-            System.Func<int, CharacterStatModifier> levelFactory)
+        private static PassiveProgressionDefinition ToDefinition(PassiveProgressionData data)
         {
-            var levels = new CharacterStatModifier[BuildEntryDefinition.MaxLevel];
-            for (var level = 1; level <= levels.Length; level++)
-                levels[level - 1] = levelFactory(level);
-            return new PassiveProgressionDefinition(id, displayName, levels);
+            var levels = new CharacterStatModifier[data.Levels.Length];
+            for (var i = 0; i < levels.Length; i++)
+                levels[i] = ToModifier(data.Levels[i]);
+
+            return new PassiveProgressionDefinition(data.Id, data.DisplayName, levels);
+        }
+
+        private static CharacterStatModifier ToModifier(CharacterStatModifierData data)
+        {
+            return new CharacterStatModifier(
+                data.MaxHealthMultiplierBonus,
+                data.MovementSpeedMultiplierBonus,
+                data.ActiveSkillDamageMultiplierBonus,
+                data.ActiveSkillCooldownReductionBonus,
+                data.IncomingDamageReductionBonus,
+                data.HealthRestorationMultiplierBonus,
+                data.HealthRegenerationPerSecondBonus,
+                data.DisappearingXpRecoveryBonus,
+                data.PickedUpXpMultiplierBonus,
+                data.XpDropLifetimeBonusSeconds);
         }
     }
 }

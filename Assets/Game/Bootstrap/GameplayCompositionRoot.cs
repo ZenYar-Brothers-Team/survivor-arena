@@ -83,6 +83,7 @@ namespace Game.Bootstrap
             Catalog = FixtureRuntimeContentCatalog.Create();
             var startingActive = Catalog.Registry.Get<ActiveSkillProgressionDefinition>(new ContentId(startingActiveId));
 
+            player.Initialize(Catalog.DefaultCharacterBaseStats);
             experienceRuntime.Initialize(player, runController);
             draftRuntime.Initialize(
                 experienceRuntime,

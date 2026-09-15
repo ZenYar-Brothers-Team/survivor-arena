@@ -1,3 +1,4 @@
+using Game.Character;
 using Game.Run;
 using NUnit.Framework;
 using UnityEditor;
@@ -28,6 +29,10 @@ namespace Game.Movement.Tests
 
             Assert.IsNotNull(mover);
             Assert.IsNotNull(speedSource);
+
+            // MovementSpeed only resolves from Stats once Initialize() has loaded
+            // base config; the scene doesn't run this outside the composition root.
+            ((PlayerCharacterRuntime)speedSource).Initialize(FixtureCharacterCatalog.CreateDefault());
             Assert.Greater(speedSource.MovementSpeed, 0f);
             Assert.IsNotNull(body);
             Assert.AreEqual(0f, body.gravityScale);

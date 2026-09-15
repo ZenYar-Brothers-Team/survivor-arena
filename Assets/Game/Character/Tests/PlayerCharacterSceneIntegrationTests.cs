@@ -32,11 +32,13 @@ namespace Game.Character.Tests
             var serializedRuntime = new SerializedObject(runtime);
             var configuredRunController = serializedRuntime.FindProperty("runController").objectReferenceValue;
             Assert.AreSame(GameObject.Find("RunController").GetComponent<RunController>(), configuredRunController);
-            Assert.Greater(serializedRuntime.FindProperty("baseMaxHealth").floatValue, 0f);
-            Assert.Greater(serializedRuntime.FindProperty("baseMovementSpeed").floatValue, 0f);
-            Assert.AreEqual(1f, serializedRuntime.FindProperty("baseActiveSkillDamageMultiplier").floatValue);
-            Assert.AreEqual(1f, serializedRuntime.FindProperty("baseActiveSkillCooldownMultiplier").floatValue);
-            Assert.AreEqual(0f, serializedRuntime.FindProperty("baseDisappearingXpRecovery").floatValue);
+
+            // Base stats are no longer scene-configured fields — the composition
+            // root supplies them via Initialize() from FixtureCharacterCatalog
+            // (see FixtureCharacterCatalogTests for direct coverage of that catalog).
+            runtime.Initialize(FixtureCharacterCatalog.CreateDefault());
+            Assert.Greater(runtime.Stats.MaxHealth, 0f);
+            Assert.Greater(runtime.Stats.MovementSpeed, 0f);
         }
     }
 }

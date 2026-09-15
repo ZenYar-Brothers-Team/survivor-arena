@@ -1,0 +1,38 @@
+[
+  {
+    "id": "FIXTURE-PASSIVE-VITALITY",
+    "displayName": "Fixture Vitality",
+    "levels": [
+      { "maxHealthMultiplierBonus": 0.1 },
+      { "maxHealthMultiplierBonus": 0.2 },
+      { "maxHealthMultiplierBonus": 0.3 },
+      { "maxHealthMultiplierBonus": 0.4 },
+      { "maxHealthMultiplierBonus": 0.5 },
+      { "maxHealthMultiplierBonus": 0.6 }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-HASTE",
+    "displayName": "Fixture Haste",
+    "levels": [
+      { "movementSpeedMultiplierBonus": 0.05, "activeSkillDamageMultiplierBonus": 0.05, "activeSkillCooldownReductionBonus": 0.1 },
+      { "movementSpeedMultiplierBonus": 0.10, "activeSkillDamageMultiplierBonus": 0.10, "activeSkillCooldownReductionBonus": 0.2 },
+      { "movementSpeedMultiplierBonus": 0.15, "activeSkillDamageMultiplierBonus": 0.15, "activeSkillCooldownReductionBonus": 0.3 },
+      { "movementSpeedMultiplierBonus": 0.20, "activeSkillDamageMultiplierBonus": 0.20, "activeSkillCooldownReductionBonus": 0.4 },
+      { "movementSpeedMultiplierBonus": 0.25, "activeSkillDamageMultiplierBonus": 0.25, "activeSkillCooldownReductionBonus": 0.5 },
+      { "movementSpeedMultiplierBonus": 0.30, "activeSkillDamageMultiplierBonus": 0.30, "activeSkillCooldownReductionBonus": 0.6 }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-MEMORY",
+    "displayName": "Fixture Memory",
+    "levels": [
+      { "incomingDamageReductionBonus": 0.05, "healthRestorationMultiplierBonus": 0.1, "healthRegenerationPerSecondBonus": 0.2, "disappearingXpRecoveryBonus": 0.1, "pickedUpXpMultiplierBonus": 0.05, "xpDropLifetimeBonusSeconds": 5.0 },
+      { "incomingDamageReductionBonus": 0.10, "healthRestorationMultiplierBonus": 0.2, "healthRegenerationPerSecondBonus": 0.4, "disappearingXpRecoveryBonus": 0.2, "pickedUpXpMultiplierBonus": 0.10, "xpDropLifetimeBonusSeconds": 10.0 },
+      { "incomingDamageReductionBonus": 0.15, "healthRestorationMultiplierBonus": 0.3, "healthRegenerationPerSecondBonus": 0.6, "disappearingXpRecoveryBonus": 0.3, "pickedUpXpMultiplierBonus": 0.15, "xpDropLifetimeBonusSeconds": 15.0 },
+      { "incomingDamageReductionBonus": 0.20, "healthRestorationMultiplierBonus": 0.4, "healthRegenerationPerSecondBonus": 0.8, "disappearingXpRecoveryBonus": 0.4, "pickedUpXpMultiplierBonus": 0.20, "xpDropLifetimeBonusSeconds": 20.0 },
+      { "incomingDamageReductionBonus": 0.25, "healthRestorationMultiplierBonus": 0.5, "healthRegenerationPerSecondBonus": 1.0, "disappearingXpRecoveryBonus": 0.5, "pickedUpXpMultiplierBonus": 0.25, "xpDropLifetimeBonusSeconds": 25.0 },
+      { "incomingDamageReductionBonus": 0.30, "healthRestorationMultiplierBonus": 0.6, "healthRegenerationPerSecondBonus": 1.2, "disappearingXpRecoveryBonus": 0.6, "pickedUpXpMultiplierBonus": 0.30, "xpDropLifetimeBonusSeconds": 30.0 }
+    ]
+  }
+]

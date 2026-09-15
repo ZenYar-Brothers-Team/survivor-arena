@@ -8,7 +8,9 @@
         "Game.Run",
         "Game.Movement",
         "Game.Progression",
-        "Game.Presentation"
+        "Game.Presentation",
+        "Game.Diagnostics",
+        "Game.Content.Json"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -5,7 +5,8 @@
         "Game.Content",
         "Game.Character",
         "Game.Run",
-        "Game.Movement"
+        "Game.Movement",
+        "Game.Content.Json"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
