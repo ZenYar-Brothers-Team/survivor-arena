@@ -1,3 +1,4 @@
+using Game.Combat;
 using Game.Movement;
 using Game.Run;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace Game.Character
         private CharacterRunBinding _runBinding;
 
         public CharacterStats Stats { get; private set; }
-        public CharacterHealth Health { get; private set; }
+        public Health Health { get; private set; }
         public float MovementSpeed => Stats != null ? Stats.MovementSpeed : baseMovementSpeed;
 
         private void Awake()
@@ -61,7 +62,7 @@ namespace Game.Character
                 baseXpDropLifetimeBonusSeconds);
 
             Stats = new CharacterStats(baseStats);
-            Health = new CharacterHealth(Stats);
+            Health = new Health(Stats);
         }
 
         private void Start()

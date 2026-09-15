@@ -1,12 +1,12 @@
 using System;
-using Game.Character;
+using Game.Combat;
 using Game.Run;
 
 namespace Game.Enemy
 {
     public static class EnemyContactDamage
     {
-        public static float Apply(float amount, CharacterHealth target, RunState runState)
+        public static float Apply(float amount, Health target, RunState runState)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));

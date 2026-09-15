@@ -1,15 +1,16 @@
+using Game.Combat;
 using NUnit.Framework;
 
 namespace Game.Character.Tests
 {
-    public class CharacterHealthTests
+    public class CharacterHealthIntegrationTests
     {
         [Test]
         public void Damage_UsesIncomingDamageMultiplier()
         {
             var stats = CreateStats();
             stats.SetModifier("armor", new CharacterStatModifier(incomingDamageReductionBonus: 0.25f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 var applied = health.TakeDamage(40f);
 
@@ -23,7 +24,7 @@ namespace Game.Character.Tests
         {
             var stats = CreateStats();
             stats.SetModifier("restoration", new CharacterStatModifier(healthRestorationMultiplierBonus: 0.5f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 health.TakeDamage(60f);
 
@@ -41,7 +42,7 @@ namespace Game.Character.Tests
         {
             var stats = CreateStats(regenerationPerSecond: 5f);
             stats.SetModifier("restoration", new CharacterStatModifier(healthRestorationMultiplierBonus: 0.5f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 health.TakeDamage(20f);
 
@@ -59,7 +60,7 @@ namespace Game.Character.Tests
         {
             var stats = CreateStats();
             stats.SetModifier("health", new CharacterStatModifier(maxHealthMultiplierBonus: 0.5f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 health.Heal(50f);
                 stats.RemoveModifier("health");
@@ -73,7 +74,7 @@ namespace Game.Character.Tests
         public void IncreasingMaxHealth_PreservesCurrentHealthRatio()
         {
             var stats = CreateStats();
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 health.TakeDamage(50f);
                 stats.SetModifier("health", new CharacterStatModifier(maxHealthMultiplierBonus: 0.5f));
@@ -87,7 +88,7 @@ namespace Game.Character.Tests
         public void LethalDamage_EmitsDeathOnceAndPreventsHealing()
         {
             var stats = CreateStats();
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 var deaths = 0;
                 health.Died += () => deaths++;

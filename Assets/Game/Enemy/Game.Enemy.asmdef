@@ -2,6 +2,7 @@
     "name": "Game.Enemy",
     "rootNamespace": "Game.Enemy",
     "references": [
+        "Game.Combat",
         "Game.Content",
         "Game.Character",
         "Game.Run",

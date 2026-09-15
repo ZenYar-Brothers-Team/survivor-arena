@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Game.Combat;
 
 namespace Game.Character
 {
-    public sealed class CharacterStats
+    public sealed class CharacterStats : IHealthProfile
     {
         private const float MinimumMaxHealth = 0.0001f;
         private const float MaximumIncomingDamageReduction = 0.99f;

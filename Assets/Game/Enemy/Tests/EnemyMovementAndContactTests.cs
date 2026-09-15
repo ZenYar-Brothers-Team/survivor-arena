@@ -1,4 +1,5 @@
 using Game.Character;
+using Game.Combat;
 using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace Game.Enemy.Tests
         public void ContactDamage_DamagesPlayerOnlyDuringRunningRun()
         {
             var stats = new CharacterStats(new CharacterBaseStats(100f, 3f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 var pausedDamage = EnemyContactDamage.Apply(10f, health, RunState.Paused);
                 var runningDamage = EnemyContactDamage.Apply(10f, health, RunState.Running);
@@ -89,7 +90,7 @@ namespace Game.Enemy.Tests
         {
             var timer = new ContinuousContactTimer(0.5f);
             var stats = new CharacterStats(new CharacterBaseStats(5f, 3f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 ApplyHits(timer.BeginContact(isRunning: true), 1f, health);
 
@@ -101,7 +102,7 @@ namespace Game.Enemy.Tests
             }
         }
 
-        private static void ApplyHits(int hitCount, float damage, CharacterHealth health)
+        private static void ApplyHits(int hitCount, float damage, Health health)
         {
             for (var i = 0; i < hitCount; i++)
                 EnemyContactDamage.Apply(damage, health, RunState.Running);

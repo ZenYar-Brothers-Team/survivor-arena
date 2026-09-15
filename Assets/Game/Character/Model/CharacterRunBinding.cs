@@ -1,15 +1,16 @@
 using System;
+using Game.Combat;
 using Game.Run;
 
 namespace Game.Character
 {
     public sealed class CharacterRunBinding : IDisposable
     {
-        private readonly CharacterHealth _health;
+        private readonly Health _health;
         private readonly RunModel _run;
         private bool _disposed;
 
-        public CharacterRunBinding(CharacterHealth health, RunModel run)
+        public CharacterRunBinding(Health health, RunModel run)
         {
             _health = health ?? throw new ArgumentNullException(nameof(health));
             _run = run ?? throw new ArgumentNullException(nameof(run));

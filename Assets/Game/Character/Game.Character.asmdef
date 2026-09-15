@@ -2,6 +2,7 @@
     "name": "Game.Character",
     "rootNamespace": "Game.Character",
     "references": [
+        "Game.Combat",
         "Game.Run",
         "Game.Movement"
     ],

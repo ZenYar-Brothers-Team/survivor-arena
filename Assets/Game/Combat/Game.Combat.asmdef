@@ -1,13 +1,7 @@
 {
-    "name": "Game.UI",
-    "rootNamespace": "Game.UI",
-    "references": [
-        "Game.Content",
-        "Game.Run",
-        "Game.Character",
-        "Game.Combat",
-        "Game.Progression"
-    ],
+    "name": "Game.Combat",
+    "rootNamespace": "Game.Combat",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -16,5 +10,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": true
 }

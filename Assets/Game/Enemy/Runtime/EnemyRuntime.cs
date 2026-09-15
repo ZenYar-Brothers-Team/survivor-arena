@@ -1,5 +1,6 @@
 using System;
 using Game.Character;
+using Game.Combat;
 using Game.Movement;
 using Game.Progression;
 using Game.Run;
@@ -25,7 +26,7 @@ namespace Game.Enemy
         private bool _despawned;
 
         public EnemyDefinition Definition { get; private set; }
-        public EnemyHealth Health { get; private set; }
+        public Health Health { get; private set; }
         public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
         public Vector2 Position => transform.position;
 
@@ -61,7 +62,7 @@ namespace Game.Enemy
             transform.localScale = Vector3.one * definition.CollisionSize;
             gameObject.name = $"Enemy [{definition.Id}]";
 
-            Health = new EnemyHealth(definition.MaxHealth);
+            Health = new Health(new FixedHealthProfile(definition.MaxHealth));
             Health.Died += HandleDeath;
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;

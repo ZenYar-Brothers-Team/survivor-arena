@@ -1,26 +1,26 @@
 using System;
 
-namespace Game.Character
+namespace Game.Combat
 {
-    public sealed class CharacterHealth : IDisposable
+    public sealed class Health : IDisposable
     {
-        private readonly CharacterStats _stats;
+        private readonly IHealthProfile _profile;
         private float _lastMaxHealth;
         private bool _disposed;
 
         public float CurrentHealth { get; private set; }
-        public float MaxHealth => _stats.MaxHealth;
+        public float MaxHealth => _profile.MaxHealth;
         public bool IsDead { get; private set; }
 
         public event Action<float, float> HealthChanged;
         public event Action Died;
 
-        public CharacterHealth(CharacterStats stats)
+        public Health(IHealthProfile profile)
         {
-            _stats = stats ?? throw new ArgumentNullException(nameof(stats));
-            CurrentHealth = stats.MaxHealth;
-            _lastMaxHealth = stats.MaxHealth;
-            _stats.Changed += HandleStatsChanged;
+            _profile = profile ?? throw new ArgumentNullException(nameof(profile));
+            CurrentHealth = profile.MaxHealth;
+            _lastMaxHealth = profile.MaxHealth;
+            _profile.Changed += HandleProfileChanged;
         }
 
         public float TakeDamage(float amount)
@@ -30,7 +30,7 @@ namespace Game.Character
                 return 0f;
 
             var previousHealth = CurrentHealth;
-            var scaledDamage = amount * _stats.IncomingDamageMultiplier;
+            var scaledDamage = amount * _profile.IncomingDamageMultiplier;
             CurrentHealth = Math.Max(0f, CurrentHealth - scaledDamage);
             var appliedDamage = previousHealth - CurrentHealth;
 
@@ -55,7 +55,7 @@ namespace Game.Character
                 return 0f;
 
             var previousHealth = CurrentHealth;
-            var scaledHealing = amount * _stats.HealthRestorationMultiplier;
+            var scaledHealing = amount * _profile.HealthRestorationMultiplier;
             CurrentHealth = Math.Min(MaxHealth, CurrentHealth + scaledHealing);
             var appliedHealing = CurrentHealth - previousHealth;
 
@@ -71,7 +71,7 @@ namespace Game.Character
             if (!isRunning || IsDead || deltaTime == 0f)
                 return 0f;
 
-            return Heal(_stats.HealthRegenerationPerSecond * deltaTime);
+            return Heal(_profile.HealthRegenerationPerSecond * deltaTime);
         }
 
         public void Dispose()
@@ -79,11 +79,11 @@ namespace Game.Character
             if (_disposed)
                 return;
 
-            _stats.Changed -= HandleStatsChanged;
+            _profile.Changed -= HandleProfileChanged;
             _disposed = true;
         }
 
-        private void HandleStatsChanged()
+        private void HandleProfileChanged()
         {
             var previousHealth = CurrentHealth;
             var healthRatio = _lastMaxHealth > 0f ? CurrentHealth / _lastMaxHealth : 0f;

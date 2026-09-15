@@ -1,12 +1,8 @@
 {
-    "name": "Game.Enemy.Tests",
-    "rootNamespace": "Game.Enemy.Tests",
+    "name": "Game.Combat.Tests",
+    "rootNamespace": "Game.Combat.Tests",
     "references": [
-        "Game.Enemy",
         "Game.Combat",
-        "Game.Content",
-        "Game.Character",
-        "Game.Run",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

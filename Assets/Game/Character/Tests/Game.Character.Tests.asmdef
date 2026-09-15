@@ -3,6 +3,7 @@
     "rootNamespace": "Game.Character.Tests",
     "references": [
         "Game.Character",
+        "Game.Combat",
         "Game.Run",
         "Game.Movement",
         "UnityEngine.TestRunner",

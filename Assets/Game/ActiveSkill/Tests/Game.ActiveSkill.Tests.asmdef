@@ -6,6 +6,7 @@
         "Game.Content",
         "Game.Character",
         "Game.Enemy",
+        "Game.Combat",
         "Game.Run",
         "Game.Progression",
         "UnityEngine.TestRunner",

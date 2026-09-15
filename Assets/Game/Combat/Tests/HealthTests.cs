@@ -1,13 +1,13 @@
 using NUnit.Framework;
 
-namespace Game.Enemy.Tests
+namespace Game.Combat.Tests
 {
-    public class EnemyHealthTests
+    public class HealthTests
     {
         [Test]
         public void Damage_ReducesHealthAndReturnsAppliedAmount()
         {
-            var health = new EnemyHealth(10f);
+            var health = new Health(new FixedHealthProfile(10f));
 
             var applied = health.TakeDamage(4f);
 
@@ -19,7 +19,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void LethalDamage_ClampsAtZeroAndEmitsDeathOnce()
         {
-            var health = new EnemyHealth(10f);
+            var health = new Health(new FixedHealthProfile(10f));
             var deaths = 0;
             health.Died += () => deaths++;
 
@@ -36,7 +36,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void ZeroDamage_DoesNotEmitHealthChange()
         {
-            var health = new EnemyHealth(10f);
+            var health = new Health(new FixedHealthProfile(10f));
             var changes = 0;
             health.HealthChanged += (_, _) => changes++;
 
@@ -44,6 +44,20 @@ namespace Game.Enemy.Tests
 
             Assert.AreEqual(10f, health.CurrentHealth);
             Assert.AreEqual(0, changes);
+        }
+
+        [Test]
+        public void Heal_CapsAtMaxHealth()
+        {
+            var health = new Health(new FixedHealthProfile(10f));
+            health.TakeDamage(6f);
+
+            var applied = health.Heal(2f);
+            var cappedHealing = health.Heal(100f);
+
+            Assert.AreEqual(2f, applied, 0.0001f);
+            Assert.AreEqual(4f, cappedHealing, 0.0001f);
+            Assert.AreEqual(10f, health.CurrentHealth, 0.0001f);
         }
     }
 }

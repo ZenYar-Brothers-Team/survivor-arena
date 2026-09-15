@@ -1,3 +1,4 @@
+using Game.Combat;
 using NUnit.Framework;
 
 namespace Game.Character.Tests
@@ -11,7 +12,7 @@ namespace Game.Character.Tests
             run.Start();
             var stats = new CharacterStats(new CharacterBaseStats(100f, 3f));
 
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             using (new CharacterRunBinding(health, run))
             {
                 health.TakeDamage(100f);

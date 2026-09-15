@@ -1,4 +1,5 @@
 using Game.Character;
+using Game.Combat;
 using NUnit.Framework;
 
 namespace Game.Progression.Tests
@@ -10,7 +11,7 @@ namespace Game.Progression.Tests
         {
             var vitality = FixturePassiveCatalog.Create()[0];
             var stats = new CharacterStats(new CharacterBaseStats(100f, 3f));
-            using (var health = new CharacterHealth(stats))
+            using (var health = new Health(stats))
             {
                 stats.SetModifier("passive:vitality", vitality.GetLevel(1));
                 Assert.AreEqual(110f, health.MaxHealth, 0.0001f);
