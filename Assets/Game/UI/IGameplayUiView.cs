@@ -1,5 +1,6 @@
 using System;
 using Game.Content;
+using Game.Presentation;
 
 namespace Game.UI
 {
@@ -12,6 +13,8 @@ namespace Game.UI
         event Action AddExperienceRequested;
         event Action ApplyDamageRequested;
         event Action ApplyHealingRequested;
+        event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
+        event Action PresentationResetRequested;
 
         void RenderHud(HudViewState state);
         void RenderDraft(DraftViewState state);

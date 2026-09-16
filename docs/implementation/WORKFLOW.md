@@ -83,6 +83,8 @@ Draft-сущности можно использовать в framework-моду
 
 Каждый IP обязан явно описать свой `UI / observability` контракт. Если модуль вводит состояние или действие, видимое игроку, тот же IP расширяет immutable ViewState, presenter intent, UXML/USS с semantic element IDs, fixture-состояния и PlayMode smoke. Скрытый infrastructure-модуль вместо production UI предоставляет достаточную debug/test observability и явно фиксирует, что отдельный player-facing surface не нужен. UI не владеет gameplay state. IP-26 объединяет и завершает уже поставленные vertical slices, а не откладывает их первое появление.
 
+Development/debug UI скрыт в non-development build и свёрнут по умолчанию в Editor/Development Build. Расширенная поверхность ограничена по размеру, группирует команды по тематическим вкладкам и использует scroll для длинного содержимого; новые команды нельзя добавлять в неограниченную горизонтальную строку поверх gameplay viewport. Для reference resolution 1920×1080 ориентир — не более 25% ширины и 45% высоты viewport, если IP явно не обосновывает отдельный полноэкранный diagnostic view. Debug intent проходит через тот же View/presenter/model boundary, что остальной UI.
+
 ## 9. Завершение модуля
 
 Перед завершением:

@@ -4,6 +4,7 @@ using Game.Character;
 using Game.Character.Json;
 using Game.Content;
 using Game.Content.Json;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -55,6 +56,12 @@ namespace Game.Progression
                     stats.XpDropLifetimeBonusSeconds,
                     stats.PickupRadius),
                 data.StartingActiveSkillId,
+                string.IsNullOrWhiteSpace(data.VisualId)
+                    ? default
+                    : new ContentRef<SpriteDefinition>(data.VisualId),
+                string.IsNullOrWhiteSpace(data.MotionProfileId)
+                    ? default
+                    : new ContentRef<SpriteMotionProfile>(data.MotionProfileId),
                 weights);
         }
     }

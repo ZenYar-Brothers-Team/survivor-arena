@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 using Game.Run;
 
 namespace Game.UI
@@ -15,6 +16,7 @@ namespace Game.UI
         private readonly PlayerExperienceRuntime _experience;
         private readonly LevelUpDraftRuntime _draft;
         private readonly RunController _run;
+        private readonly SpritePresentationRuntime _presentation;
         private readonly IReadOnlyList<CharacterDefinition> _unlockedCharacters;
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
 
@@ -41,6 +43,7 @@ namespace Game.UI
             PlayerExperienceRuntime experience,
             LevelUpDraftRuntime draft,
             RunController run,
+            SpritePresentationRuntime presentation,
             bool developmentCommandsEnabled,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
         {
@@ -48,6 +51,7 @@ namespace Game.UI
             _experience = experience ?? throw new ArgumentNullException(nameof(experience));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
             _run = run ?? throw new ArgumentNullException(nameof(run));
+            _presentation = presentation != null ? presentation : throw new ArgumentNullException(nameof(presentation));
             _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
@@ -67,6 +71,9 @@ namespace Game.UI
         public void AddFixtureExperience() => _experience.AddPickedUpExperience(5f);
         public void ApplyFixtureDamage() => _player.TakeDamage(10f);
         public void ApplyFixtureHealing() => _player.Heal(10f);
+        public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
+            _presentation.SetPreviewMotion(previewMotion);
+        public void ResetPresentation() => _presentation.ResetPresentation();
 
         private void HandleHealthChanged(float _, float __) => Changed?.Invoke();
         private void HandleExperienceChanged(float _, float __) => Changed?.Invoke();

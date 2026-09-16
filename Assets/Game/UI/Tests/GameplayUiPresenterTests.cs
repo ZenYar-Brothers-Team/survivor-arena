@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 using Game.Run;
 using NUnit.Framework;
 
@@ -61,6 +62,8 @@ namespace Game.UI.Tests
                 view.RaiseAddExperience();
                 view.RaiseDamage();
                 view.RaiseHealing();
+                view.RaisePresentationMotion(SpritePresentationPreviewMotion.Left);
+                view.RaisePresentationReset();
 
                 Assert.AreEqual(1, model.RerollCalls);
                 Assert.AreEqual(id, model.LastBanished);
@@ -69,6 +72,8 @@ namespace Game.UI.Tests
                 Assert.AreEqual(1, model.AddExperienceCalls);
                 Assert.AreEqual(1, model.DamageCalls);
                 Assert.AreEqual(1, model.HealingCalls);
+                Assert.AreEqual(SpritePresentationPreviewMotion.Left, model.LastPreviewMotion);
+                Assert.AreEqual(1, model.PresentationResetCalls);
             }
         }
 
@@ -164,6 +169,8 @@ namespace Game.UI.Tests
             public int AddExperienceCalls { get; private set; }
             public int DamageCalls { get; private set; }
             public int HealingCalls { get; private set; }
+            public SpritePresentationPreviewMotion LastPreviewMotion { get; private set; }
+            public int PresentationResetCalls { get; private set; }
 
             public bool SelectDraftOption(ContentId id) { LastSelected = id; return true; }
             public bool RerollDraft() { RerollCalls++; return true; }
@@ -172,6 +179,9 @@ namespace Game.UI.Tests
             public void AddFixtureExperience() => AddExperienceCalls++;
             public void ApplyFixtureDamage() => DamageCalls++;
             public void ApplyFixtureHealing() => HealingCalls++;
+            public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
+                LastPreviewMotion = previewMotion;
+            public void ResetPresentation() => PresentationResetCalls++;
             public void RaiseChanged() => Changed?.Invoke();
         }
 
@@ -184,6 +194,8 @@ namespace Game.UI.Tests
             public event Action AddExperienceRequested;
             public event Action ApplyDamageRequested;
             public event Action ApplyHealingRequested;
+            public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
+            public event Action PresentationResetRequested;
             public HudViewState Hud { get; private set; }
             public DraftViewState Draft { get; private set; }
             public RunOverlayViewState Overlay { get; private set; }
@@ -204,6 +216,9 @@ namespace Game.UI.Tests
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();
             public void RaiseHealing() => ApplyHealingRequested?.Invoke();
+            public void RaisePresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
+                PresentationMotionPreviewRequested?.Invoke(previewMotion);
+            public void RaisePresentationReset() => PresentationResetRequested?.Invoke();
         }
     }
 }

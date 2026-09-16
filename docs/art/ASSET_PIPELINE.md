@@ -1,0 +1,733 @@
+# Survival Arena — Asset Pipeline
+
+Status: Approved
+Owner: IP-12A — Visual Presentation Foundation
+Depends on: [`ART_DIRECTION.md`](ART_DIRECTION.md)
+Last updated: 2026-09-16
+Approved by: user, 2026-09-16
+Related architecture: [DECISION-0013](../decisions/0013-procedural-sprite-presentation.md)
+
+## 1. Назначение
+
+Этот документ определяет воспроизводимый путь растрового ассета от генерации и пользовательского review до стабильного Unity runtime-файла. Он является source of truth для структуры каталогов, naming, версий, provenance, технической подготовки PNG, import settings и безопасной замены изображений.
+
+Art Direction отвечает на вопрос «как ассет должен выглядеть». Asset Pipeline отвечает на вопрос «как он создаётся, утверждается, хранится, импортируется и заменяется».
+
+Pipeline применяется к:
+
+- gameplay character/enemy sprites;
+- projectiles, pickups и VFX textures;
+- portraits и gameplay icons;
+- растровым элементам окружения и UI;
+- AI-generated и вручную нарисованным raster assets.
+
+SVG, шрифты, аудио, 3D-модели и кодовые UI-примитивы требуют отдельных правил и не входят в этот документ.
+
+## 2. Основные инварианты
+
+1. Preview не является production asset.
+2. В Unity попадает только пользовательски утверждённый вариант.
+3. Source/master и runtime derivative — разные файлы с разным назначением.
+4. Runtime path и filename стабильны после первой интеграции; история хранится в Git, а не в суффиксах `final-v7`.
+5. Unity `.meta` является частью ассета, коммитится и сохраняет GUID при обновлении изображения.
+6. Content ID, visual content ID, filename и resource path связаны однозначной конвенцией.
+7. Изображение не определяет collider или gameplay size.
+8. Все AI-generated assets имеют provenance record с финальным prompt и approval.
+9. Rejected previews по умолчанию не добавляются в репозиторий.
+10. Замена уже подключённого runtime asset выполняется только после явного approval замены.
+
+## 3. Структура каталогов
+
+### 3.1. Authoring/source вне Unity import
+
+```text
+Art/
+  Source/
+    Characters/
+      fixture-character-agile/
+        asset-record.json
+        selected-master.png
+        v001/
+          concept-01.png
+        v002/
+          concept-01.png
+    Enemies/
+    Skills/
+    Pickups/
+    Environment/
+    UI/
+```
+
+`Art/Source` находится вне `Assets`, поэтому Unity не импортирует большие masters, рабочие варианты и provenance metadata в Player build.
+
+Правила:
+
+- создавать entity folder только при появлении реального ассета;
+- не добавлять пустые каталоги и `.gitkeep` без необходимости;
+- хранить только выбранный master и варианты, которые имеют самостоятельную review-ценность;
+- одноразовые rejected previews оставлять во внешнем image-generation storage и не коммитить;
+- editable source (`.psd`, `.aseprite`) допустим рядом с master, если он действительно использовался;
+- generated PNG остаётся исходником даже при отсутствии PSD.
+
+### 3.2. Runtime raster assets
+
+```text
+Assets/
+  Resources/
+    Art/
+      Sprites/
+        Characters/
+          fixture-character-agile/
+            fixture-character-agile-body.png
+            fixture-character-agile-shadow.png
+            fixture-character-agile-portrait.png
+        Enemies/
+        Skills/
+        Pickups/
+        Environment/
+      UI/
+        Icons/
+        Portraits/
+      VFX/
+```
+
+Почему используется `Assets/Resources/Art`:
+
+- текущий проект уже загружает runtime content и UI через `Resources.Load`;
+- JSON/content catalog может хранить extensionless resource path без прямой зависимости domain model от Unity GUID;
+- переход на Addressables позже изолируется внутри presentation catalog и не должен менять content IDs или gameplay model.
+
+Нельзя помещать master, concept variants или provenance JSON под `Assets/Resources`.
+
+### 3.3. Код, материалы и сцены
+
+```text
+Assets/Game/Presentation/
+  Model/
+  Runtime/
+  Profiles/
+  Editor/
+  Tests/
+
+Assets/Game/Art/
+  Materials/
+  Shaders/
+  Atlases/
+
+Assets/Scenes/
+  Gameplay.unity  # includes the development-only presentation showcase
+```
+
+- `Game.Presentation` содержит код и presentation contracts.
+- Materials/shaders/atlas definitions не смешиваются с source PNG.
+- Assets, которые не должны загружаться по resource path, не помещаются в `Resources`.
+- Первый тестовый стенд встроен в development-панель `Gameplay.unity`, поэтому проверка идёт на реальном camera scale, через тот же `SpriteDefinition`, rig и runtime, что игра. Отдельная showcase-сцена создаётся только если будущим типам ассетов станет тесно в этом стенде; она не должна содержать копии runtime assets.
+
+## 4. Content ID и naming convention
+
+### 4.1. Content IDs
+
+Gameplay owner сохраняет существующий ID:
+
+```text
+FIXTURE-CHARACTER-AGILE
+CHAR-001
+ENEMY-001
+SKILL-001
+```
+
+Visual definition ID строится так:
+
+```text
+<OWNER-ID>-VISUAL-<ROLE>
+```
+
+Примеры:
+
+```text
+FIXTURE-CHARACTER-AGILE-VISUAL-BODY
+FIXTURE-CHARACTER-AGILE-VISUAL-SHADOW
+CHAR-001-VISUAL-PORTRAIT
+ENEMY-001-VISUAL-BODY
+SKILL-001-VISUAL-PROJECTILE
+```
+
+Если у gameplay definition есть ровно один legacy visual ID без role suffix, он может сохраняться ради обратной совместимости. Новые multi-asset definitions используют явную роль.
+
+### 4.2. Folder и filename
+
+- Только lowercase ASCII kebab-case.
+- Entity folder равен lowercase owner ID.
+- Runtime filename равен `<owner-id-lowercase>-<role>.<ext>`.
+- В runtime filename запрещены пробелы, кириллица, даты, initials, `new`, `final`, `approved`, `copy` и version suffix.
+- Расширение runtime raster asset — `.png`.
+
+Пример:
+
+```text
+Content ID:     FIXTURE-CHARACTER-AGILE
+Visual ID:      FIXTURE-CHARACTER-AGILE-VISUAL-BODY
+Folder:         fixture-character-agile/
+Filename:       fixture-character-agile-body.png
+Resource path:  Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body
+```
+
+`Resource path` всегда:
+
+- относительно `Assets/Resources`;
+- без расширения;
+- с `/`, независимо от ОС;
+- с точным регистром фактического пути.
+
+### 4.3. Допустимые role suffixes
+
+Базовый словарь:
+
+```text
+body
+shadow
+portrait
+icon
+weapon
+projectile
+pickup
+telegraph
+impact
+mask
+background
+tile
+prop
+```
+
+Новый role suffix добавляется только когда существующие роли семантически неверны. Не использовать близкие дубликаты вроде `avatar`, `face`, `profile-picture` вместо согласованного `portrait`.
+
+## 5. Version lifecycle
+
+### 5.1. Preview
+
+- Генерируется встроенным image-generation workflow.
+- Показывается пользователю inline.
+- Может оставаться во внешнем generated-images storage.
+- Не получает runtime path и не подключается к Unity.
+- Несколько разных ассетов генерируются отдельными запросами; варианты одного ассета получают один и тот же brief с одной целевой разницей за итерацию.
+
+### 5.2. Candidate
+
+После пользовательского выбора candidate копируется в:
+
+```text
+Art/Source/<Category>/<entity-id>/vNNN/
+```
+
+Версии имеют нулевое дополнение:
+
+```text
+v001
+v002
+v003
+```
+
+Внутри версии допустимы:
+
+```text
+concept-01.png
+concept-02.png
+edit-mask.png
+notes.md
+```
+
+### 5.3. Approved master
+
+После финального визуального approval выбранный файл сохраняется как:
+
+```text
+Art/Source/<Category>/<entity-id>/selected-master.png
+```
+
+`selected-master.png` — текущий источник runtime derivative. Предыдущая версия остаётся доступной через Git; отдельный архивный `selected-master-old.png` не создаётся.
+
+### 5.4. Runtime derivative
+
+Runtime PNG создаётся из approved master путём только задокументированных операций:
+
+- alpha cleanup;
+- edge decontamination/dilation;
+- canvas normalization;
+- crop/padding normalization;
+- color-profile normalization to sRGB;
+- high-quality downscale;
+- при явно утверждённой необходимости — разделение shadow/body или других presentation layers.
+
+Нельзя на runtime-этапе незаметно менять дизайн, выражение, пропорции, палитру или добавлять детали. Такое изменение возвращает ассет в visual review.
+
+## 6. Provenance record
+
+Каждая entity folder под `Art/Source` содержит `asset-record.json`. Для нового ассета копируется [`Art/Templates/asset-record.template.json`](../../Art/Templates/asset-record.template.json); placeholders заполняются фактическими значениями до Gate C.
+
+Минимальная форма:
+
+```json
+{
+  "schemaVersion": 1,
+  "contentId": "FIXTURE-CHARACTER-AGILE",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-16",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-16",
+  "approvedBy": "user",
+  "prompt": "<final prompt verbatim>",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready neutral pose"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png"
+  ]
+}
+```
+
+Правила:
+
+- `prompt` хранится дословно для выбранной генерации/правки;
+- `generator` описывает фактически использованный путь, неизвестная model version не выдумывается;
+- reference images перечисляются с ролью и происхождением, если использовались;
+- не сохранять API keys, account IDs, локальные абсолютные пути и персональные данные;
+- для hand-drawn asset использовать `sourceKind: "hand-authored"` и указать исходный editable file;
+- изменение только runtime compression/import settings не создаёт новую visual version;
+- содержательное изменение изображения создаёт новую `vNNN` и требует нового approval.
+
+## 7. Raster technical contract
+
+### 7.1. Формат
+
+- Runtime: PNG, RGBA8, sRGB, straight/unassociated alpha.
+- Master: PNG RGBA8 или lossless editable source плюс PNG preview.
+- JPEG запрещён для sprites, masks, icons и изображений с прозрачностью.
+- Не использовать premultiplied-alpha export как исходный runtime PNG.
+- Не хранить ICC profile, который заметно изменяет цвет вне sRGB workflow.
+
+### 7.2. Alpha и края
+
+- Фон должен быть реально прозрачным, а не белым/шахматным изображением.
+- Внешняя рамка минимум `2 px` runtime texture полностью прозрачна.
+- На полупрозрачных краях не должно быть белого, чёрного или цветного matte halo.
+- RGB transparent-edge pixels должны быть color-decontaminated/dilated от ближайшего foreground, чтобы bilinear filtering не создавал кайму.
+- Случайные полупрозрачные пиксели вне силуэта удаляются.
+- Body, shadow и glow не смешиваются в один PNG, если требуют разных transform/material behavior.
+
+### 7.3. Canvas и padding
+
+Master следует Art Direction. Runtime canvas нормализуется к power-of-two target текущей категории.
+
+Для character body `512×512`:
+
+- видимый силуэт ориентировочно `70–78%` высоты;
+- минимум `12%` canvas слева/справа;
+- около `14%` сверху;
+- `8–10%` снизу;
+- feet/ground-contact line горизонтальна;
+- визуальный центр не смещается случайным прозрачным пространством.
+
+Padding нужен для procedural stretch/rotation и не обрезается tight crop до исчезновения safety envelope.
+
+### 7.4. Категорийные размеры
+
+- Player/character body: master `1024–2048` square; runtime `512×512`; первый vertical slice остаётся uncompressed.
+- Character portrait: master `1024` square; runtime `512×512`; композиция проходит отдельный review.
+- Normal enemy body: master `1024` square; runtime `256×256` или `512×512`; `512` используется только когда этого требует силуэт.
+- Boss body: master `2048` square; runtime `512×512` или `1024×1024`; требует memory check.
+- Gameplay icon: master `512` square; runtime `256×256`; обязан читаться при фактическом размере UI slot.
+- Projectile/pickup: master `512` square; runtime `128×128` или `256×256`; сохраняется достаточный effect padding.
+- Ground shadow: master `512` square; runtime `128×128` или `256×256`; предпочтительна greyscale/alpha-friendly структура.
+- Impact/telegraph texture: master `512–1024` square; runtime `256×256` или `512×512`; material может задавать runtime tint.
+
+Power-of-two target — pipeline default, not artistic requirement. Не увеличивать малый source до большего runtime target.
+
+### 7.5. Memory reference
+
+До platform compression приблизительная GPU memory для RGBA32 без mipmaps:
+
+- `128×128`: 64 KiB;
+- `256×256`: 256 KiB;
+- `512×512`: 1 MiB;
+- `1024×1024`: 4 MiB.
+
+Disk PNG size не равен runtime memory. Решение увеличить texture принимается по видимому качеству и memory budget, а не по малому размеру PNG на диске.
+
+## 8. Unity import contract
+
+### 8.1. Gameplay world sprite default
+
+Для body/enemy/projectile/pickup/shadow:
+
+```text
+Texture Type: Sprite (2D and UI)
+Sprite Mode: Single
+Color Space: sRGB on
+Alpha Source: Input Texture Alpha
+Alpha Is Transparency: on
+Read/Write: off
+Generate Mip Maps: off
+Wrap Mode: Clamp
+Filter Mode: Bilinear
+Mesh Type: Full Rect
+Extrude Edges: 1
+Pixels Per Unit: 320
+```
+
+Почему `Full Rect`: прозрачный safety padding и стабильная geometry важнее экономии нескольких vertices; procedural transform и pivot не должны меняться от tight-mesh contour.
+
+Почему `320 PPU`: при body `512×512` и видимом силуэте около `70–78%` это даёт примерно `1.12–1.25` world units высоты, что соответствует текущему player collider `0.8×0.8` и camera orthographic size `5`, оставляя визуалу выразительную высоту без изменения gameplay geometry.
+
+PPU является presentation default. Отклонение допускается только с записью причины в provenance/asset specification. Разные физические размеры существ достигаются размером силуэта на согласованном canvas или явным presentation scale profile, а не случайным PPU.
+
+### 8.2. Pivot
+
+- Character/enemy body: custom pivot в центре stance по X и на ground-contact line по Y.
+- Pivot ставится по фактической позиции стоп, а не автоматически в `Center` или `Bottom` canvas.
+- Ground shadow: center.
+- Projectile/pickup/impact: center, если поведение не требует явно описанной точки запуска.
+- Portrait/icon: center.
+- Weapon/attachment: pivot в точке хвата/крепления и проверяется в rig.
+
+Pivot является частью runtime contract. Его изменение после интеграции требует scene/prefab visual regression check.
+
+### 8.3. Max size и compression
+
+Первый `FIXTURE-CHARACTER-AGILE` vertical slice:
+
+```text
+Max Size: 512
+Compression: None / Uncompressed
+Crunch Compression: off
+```
+
+Это позволяет оценить alpha, outline и procedural deformation без compression artifacts. Перед массовым production content вводится platform profile:
+
+- player/portrait/icon: uncompressed или high-quality platform format после visual comparison;
+- normal enemies/environment: normal/high-quality platform compression;
+- masks: формат выбирается по реально используемым channels;
+- Crunch не используется для runtime-critical frequently loaded sprites без отдельного load-time measurement.
+
+Нельзя менять compression всего каталога без before/after screenshots на target scale.
+
+### 8.4. UI sprite default
+
+```text
+Texture Type: Sprite (2D and UI)
+Sprite Mode: Single
+Mesh Type: Full Rect
+Pivot: Center
+sRGB: on
+Alpha Is Transparency: on
+Mip Maps: off
+Filter Mode: Bilinear
+Wrap Mode: Clamp
+Read/Write: off
+Max Size: exact category runtime target
+```
+
+UI layout отвечает за экранный размер; PPU не используется как способ визуально масштабировать UI.
+
+## 9. Unity `.meta` и GUID policy
+
+- Каждый runtime asset обязан иметь `.meta`, созданный Unity Editor.
+- Новый PNG добавляется, затем Unity выполняет import и создаёт `.meta`; оба файла коммитятся вместе.
+- Не писать GUID вручную.
+- При approved replacement заменяются bytes PNG по существующему path; существующий `.meta` сохраняется.
+- При перемещении/переименовании внутри Unity перемещается и `.meta`.
+- Запрещено удалить ассет и создать «тот же» заново, если на его GUID уже существуют ссылки.
+- Source assets вне `Assets` не имеют Unity `.meta`.
+
+## 10. Git и binary policy
+
+Репозиторий уже направляет `.png`, `.psd`, `.jpg`, `.tga`, `.tif` в Git LFS через `.gitattributes`.
+
+- Перед первым binary commit на машине должен быть выполнен `git lfs install`.
+- Проверить, что staged PNG представлен LFS pointer, а не большим inline blob.
+- Не добавлять generated caches, Unity `Library`, временные masks или экспортные дубликаты.
+- Не использовать Git LFS как оправдание для хранения всех rejected generations.
+- Runtime PNG, approved master и значимые editable sources являются versioned project assets.
+
+## 11. Sprite atlases и loading lifecycle
+
+Первый vertical slice не требует atlas. Atlas добавляется только после появления группы assets и measurement build/runtime cost.
+
+Правила будущей упаковки:
+
+- группировать по совместному lifecycle загрузки, а не по тому, что все файлы являются «артом»;
+- не создавать один глобальный atlas всех characters/enemies/fields;
+- common gameplay, конкретное поле, character-selection UI и VFX могут иметь разные atlases;
+- sprite resource path/content ID не должен зависеть от atlas placement;
+- atlas migration не меняет domain definition;
+- padding/extrusion atlas проверяются на отсутствие alpha bleeding.
+
+Addressables не вводятся в IP-12A. Если они понадобятся, `SpriteDefinition` catalog становится границей миграции с `Resources`, сохраняя content IDs.
+
+## 12. Review и approval workflow
+
+### Gate A — Brief ready
+
+- content ID и role определены;
+- Art Direction sections выбраны;
+- размер, перспектива, pose и запрещённые элементы перечислены;
+- известна схема layers/attachments.
+
+### Gate B — Visual candidate approved
+
+- варианты показаны пользователю inline;
+- выбран ровно один candidate или явно запрошена следующая правка;
+- правка меняет одну целевую группу свойств и повторяет invariants;
+- выбранный вариант проходит Art Direction review checklist.
+
+### Gate C — Master prepared
+
+- master сохранён в `Art/Source`;
+- alpha и края проверены;
+- provenance record заполнен;
+- runtime derivative создан без дизайнерских изменений.
+
+### Gate D — Unity import verified
+
+- PNG и `.meta` находятся по canonical path;
+- import settings соответствуют категории;
+- pivot проверен;
+- resource path разрешается catalog;
+- target-scale screenshot не показывает blur/halo/crop.
+
+### Gate E — Gameplay integration approved
+
+- sprite проверен в Showcase и Gameplay;
+- collider/root не изменены ради картинки;
+- procedural animation остаётся в safety envelope;
+- player/danger/pickup hierarchy сохраняется в плотной сцене;
+- пользователь принимает визуал и движение либо возвращает конкретную правку.
+
+Ни один gate не подразумевает автоматическое одобрение следующего.
+
+### Ручной showcase-прогон
+
+В Editor запустить `Assets/Scenes/Gameplay.unity` при reference resolution `1920×1080`, нажать компактную кнопку `DEV` в левом нижнем углу и выбрать вкладку `Presentation`. Drawer свёрнут по умолчанию, чтобы не закрывать gameplay-scale review. Вкладка предоставляет:
+
+- `Live` — движение визуала снова читается из настоящего `Rigidbody2D` игрока;
+- `Idle` — фиксированный нулевой presentation input с data-driven bob, breathing squash/stretch и лёгким sway;
+- `Left` / `Right` — фиксированная скорость профиля в нужную сторону без изменения `Rigidbody2D`, collider или gameplay position;
+- `Reset` — сброс phase/reactions/facing/spawn и возврат в `Live`.
+
+Проверка одного body sprite выполняется в таком порядке:
+
+1. `Idle`: дыхание и лёгкое тревожное покачивание заметны, но не ломают силуэт; pivot и ground contact стабильны, spawn не обрезается.
+2. `Left`, затем `Right`: flip читается корректно; асимметрия света и аксессуаров не выглядит ошибкой.
+3. `-10 HP`: видны squash/tilt и hit flash, gameplay root не сдвигается.
+4. Во время `Left` или `Right` нажать `Pause`: поза и reaction timers замирают; после Resume продолжаются.
+5. `Reset`: facing возвращается вправо, реакции очищаются, затем управление возвращается настоящему движению.
+6. `Live`: пройти по игровому полю и оценить sprite рядом с врагами, pickups, VFX и UI.
+
+Для калибровки первого fixture дополнительно проверить в `Live`:
+
+- движение по диагонали: bob/stretch сохраняют полную интенсивность, а наклон не выглядит чрезмерным;
+- при остановке locomotion без рывка уступает место idle;
+- камера не наследует bob, sway, squash/stretch или hit reaction дочернего `BodyRoot`;
+- collider и gameplay position продолжают соответствовать прежнему кубику;
+- после pause, victory или defeat visual pose не продолжает проигрываться.
+
+Автоматическая часть calibration gate для `FIXTURE-CHARACTER-AGILE` проверяет эквивалентность pose при симуляции 30 и 120 FPS, диагональное движение, допустимые пределы offset/scale/rotation/flash, неизменность gameplay root/collider и остановку presentation в `Paused`, `Won` и `Lost`. Эти проверки не заменяют ручную оценку читаемости и ощущения движения на игровом масштабе.
+
+Эти элементы доступны только в Editor/Development Build. Они не являются player-facing управлением и не меняют authoritative movement state.
+
+## 13. Replacement policy
+
+Для изменения подключённого ассета:
+
+1. Не трогать текущий runtime PNG.
+2. Создать следующую `vNNN` в `Art/Source`.
+3. Показать candidate и получить approval на замену.
+4. Обновить `selected-master.png` и `asset-record.json`.
+5. Перезаписать runtime PNG по тому же стабильному path.
+6. Сохранить существующий `.meta`/GUID.
+7. Повторить import и gameplay visual checks.
+
+Если новый дизайн несовместим с прежним pivot, bounds или layer breakdown, это migration, а не простая замена. Она требует проверки prefab/scene references и animation profile.
+
+## 14. Automated validation targets
+
+Editor validation для runtime raster tree должен уметь сообщать как минимум:
+
+- filename/folder не соответствует lowercase kebab-case;
+- отсутствует ожидаемая role suffix;
+- texture не PNG;
+- dimensions превышают category max или неожиданно не power-of-two;
+- Texture Type не Sprite;
+- Sprite Mode не Single;
+- mipmaps включены;
+- wrap mode не Clamp;
+- filter mode не Bilinear;
+- alpha transparency отключена для asset, которому она нужна;
+- Read/Write включён без явной причины;
+- PPU отличается от default без override record;
+- Mesh Type не Full Rect;
+- runtime asset находится без `.meta`;
+- content visual path не разрешается;
+- source/master случайно попал под `Assets/Resources`.
+
+Visual качества — silhouette, выражение, halo и художественная совместимость — не объявляются автоматически проверенными только потому, что technical validator прошёл.
+
+## 15. Первый asset path
+
+Для IP-12A используется следующий контракт:
+
+```text
+Owner content ID:
+  FIXTURE-CHARACTER-AGILE
+
+Body visual ID:
+  FIXTURE-CHARACTER-AGILE-VISUAL-BODY
+
+Source folder:
+  Art/Source/Characters/fixture-character-agile/
+
+Approved master:
+  Art/Source/Characters/fixture-character-agile/selected-master.png
+
+Runtime body:
+  Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png
+
+Runtime resource path:
+  Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body
+
+Runtime shadow:
+  Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-shadow.png
+```
+
+Первый body импортируется как `512×512`, `320 PPU`, `Full Rect`, custom ground-contact pivot, Bilinear, Clamp, no mipmaps, uncompressed. Shadow хранится отдельно и не включается в body generation/output.
+
+## 16. Definition of Ready для интеграции
+
+Ассет готов попасть в код только если:
+
+- Art Direction approved;
+- candidate явно утверждён пользователем;
+- `selected-master.png` и `asset-record.json` существуют;
+- runtime PNG соответствует raster contract;
+- canonical visual ID и resource path определены;
+- Unity import settings проверены;
+- pivot и target world size известны;
+- layer/attachment expectations перечислены;
+- нет неразрешённых copyright/provenance вопросов.
+
+## 17. Definition of Done для одного ассета
+
+- Runtime PNG и `.meta` находятся по canonical path.
+- Content registry валидирует visual ID.
+- Showcase и Gameplay используют один `SpriteDefinition`.
+- На target scale нет crop, halo, blur или потери ключевого силуэта.
+- Procedural motion не выходит за canvas safety envelope.
+- Replacement не требует изменения gameplay root/collider.
+- Provenance record указывает финальный prompt, выбранную source version и approval.
+- Tests и manual visual checks из owning IP выполнены и записаны в `STATUS.md`.
+
+## 18. Утверждённые базовые решения
+
+Пользователь утвердил следующие defaults 2026-09-16:
+
+1. Masters и рабочие версии хранятся в `Art/Source`, вне Unity import.
+2. Runtime raster assets хранятся в `Assets/Resources/Art` до отдельной миграции на Addressables.
+3. Visual ID следует форме `<OWNER-ID>-VISUAL-<ROLE>`.
+4. Stable runtime filenames не содержат version suffix; replacement сохраняет path и `.meta` GUID.
+5. Gameplay sprites используют `320 PPU`, Bilinear, Full Rect, no mipmaps и Clamp, если asset specification не содержит обоснованный override.
+6. Первый player body — `512×512`, uncompressed; master — минимум `1024×1024`.
+7. Rejected previews не коммитятся; выбранный master, provenance и runtime derivative коммитятся через уже настроенный Git LFS.
+
+Эти пункты являются обязательным asset contract IP-12A.
+
+## 19. Рецепт добавления нового ассета
+
+Этот порядок используется для каждого нового character, enemy, projectile, pickup, portrait или icon. Шаг нельзя объявлять пройденным только по наличию файла: применяются соответствующие approval gate и category checklist из следующего раздела.
+
+1. **Проверить content gate.** Определить, является ли owner production-сущностью или явно названным `FIXTURE-*`. Draft ID нельзя превращать в production content без approval.
+2. **Назначить идентификаторы.** Зафиксировать существующий owner content ID, visual ID `<OWNER-ID>-VISUAL-<ROLE>`, category, role, source folder, stable runtime filename и extensionless resource path.
+3. **Составить brief.** Взять generation contract из `ART_DIRECTION.md`, добавить назначение ассета, gameplay scale, camera view, silhouette requirement, разрешённые слои и category-specific ограничения. Не смешивать разные ассеты в одном generation request.
+4. **Создать preview-варианты.** Показать варианты пользователю до попадания в runtime tree. Не подключать preview и не выдавать его за approved master.
+5. **Получить approval.** Сохранить выбранный candidate в следующую `Art/Source/<Category>/<owner-id>/vNNN/`; содержательные правки создают новую version. Зафиксировать утверждённый вариант явно.
+6. **Подготовить source record.** Обновить `selected-master.png`; скопировать provenance template в `asset-record.json`; дословно записать финальный prompt, реальные references/generator, approval и ожидаемые runtime outputs.
+7. **Создать runtime derivative.** Выполнить только alpha/edge cleanup, canvas и padding normalization, sRGB normalization и качественный downscale. Любое изменение дизайна возвращает процесс к preview и approval.
+8. **Импортировать в Unity.** Поместить PNG по stable runtime path, дать Unity создать `.meta`, применить category import contract и сохранить GUID при будущей замене. Source/master не помещать под `Assets`.
+9. **Зарегистрировать presentation content.** Добавить `SpriteDefinition` в fixture или production presentation catalog; добавить typed visual reference в owner definition; убедиться, что `ContentRegistry.Build()` обнаруживает missing/wrong-type references. Gameplay-код не загружает PNG напрямую в обход catalog boundary.
+10. **Подключить runtime presentation.** Для деформируемого world body использовать дочерний `VisualRoot`/`BodyRoot`, отдельную shadow и motion profile. Projectile/pickup/UI используют только нужный им presentation adapter и не получают пустой character rig «для единообразия».
+11. **Проверить автоматически.** Проверить path/ID resolution, import contract, alpha/dimensions, scene or factory wiring, reset/pooling semantics и отсутствие изменения gameplay root/collider. Запустить релевантные EditMode/PlayMode regressions.
+12. **Проверить визуально.** Использовать Gameplay showcase или реальный owning screen на target scale. Проверить silhouette, halo/crop, pivot, facing/rotation, motion/effect padding, плотную сцену и category checklist.
+13. **Записать evidence.** Обновить owning IP в `STATUS.md`: implementation, verification, deviations и documentation impact. Только после этого asset считается завершённым.
+
+Короткая цепочка:
+
+```text
+owner content ID
+→ visual ID и role
+→ Art Direction brief
+→ preview variants
+→ user approval
+→ versioned source + selected master + provenance
+→ normalized runtime PNG
+→ Unity import + .meta
+→ SpriteDefinition + owner reference
+→ подходящий rig/adapter + optional motion profile
+→ automated checks
+→ gameplay/showcase review
+→ STATUS evidence
+```
+
+## 20. Чек-листы по типам ассетов
+
+### 20.1. Новый персонаж
+
+- Production ID и образ прошли content gate; fixture явно помечен `FIXTURE-*`.
+- Body использует нейтральную animation-ready stance, свободные конечности, чистый силуэт и горизонтальную ground-contact line.
+- Body, shadow, weapon и portrait являются отдельными roles, если требуют разных transform/material/UI lifecycle.
+- Canvas/PPU/pivot дают ожидаемый world size без изменения collider или gameplay root.
+- Горизонтальный flip не ломает свет, аксессуары, хват или смысл силуэта.
+- `CharacterDefinition` ссылается на зарегистрированные visual и motion-profile IDs.
+- `VisualRoot` изолирует idle, locomotion, hit и spawn от physics; pause/end/reset проверены.
+- Персонаж читается рядом с enemies, pickups, VFX и HUD при gameplay camera scale.
+
+### 20.2. Новый враг
+
+- Silhouette и цвет выражают gameplay threat/role, не полагаясь на мелкую детализацию.
+- Runtime size соответствует категории normal enemy или boss; повышение до `512/1024` обосновано silhouette/memory check.
+- Pivot находится на stance/ground-contact line; shadow отделена от деформируемого body.
+- Visual не меняет collider, seek/contact distance, damage timing или authoritative movement.
+- Если enemy pooled, повторный spawn полностью сбрасывает flip, tint, scale, reactions и transient effects.
+- Directional flip/rotation соответствует фактическому способу движения enemy.
+- Проверена читаемость в ожидаемой максимальной плотности толпы, а не только один объект на пустом фоне.
+
+### 20.3. Новый снаряд
+
+- Силуэт и контраст читаются при реальной скорости и минимальном экранном размере.
+- Pivot обычно `Center`; orientation/forward axis явно согласованы с runtime rotation.
+- Canvas сохраняет padding для glow/trail/rotation, но не содержит baked motion blur или длинный пустой хвост.
+- Visual size не определяет hitbox, pierce radius, damage area или скорость.
+- Projectile и impact/telegraph используют разные roles и lifecycles, если ведут себя по-разному.
+- Pool return сбрасывает rotation, scale, tint, trail/effect state и sprite override.
+- Проверено движение во всех используемых направлениях на светлом и тёмном участке поля.
+
+### 20.4. Новый pickup
+
+- Pickup отличается от врага, опасности и фонового декора формой и контрастом.
+- Pivot обычно `Center`; hover/bob применяется к visual child и не двигает trigger/collider.
+- Размер читается на gameplay scale, но не вводит ложное представление о collection radius.
+- Glow/outline имеют достаточный padding и не загрязняют alpha случайными пикселями.
+- Visual, shadow и collect impact разделены, если их transform/lifetime различаются.
+- Pool/reuse сбрасывает animation phase, scale, tint и effect state.
+- Проверены обычный фон, плотная сцена, движение камеры, pickup и expiry.
+
+### 20.5. Новый UI portrait или icon
+
+- `portrait` и `icon` не являются взаимозаменяемыми roles: portrait передаёт персонажа, icon — функцию/предмет/умение.
+- Композиция проверена в фактическом UI slot и при минимальном целевом размере, а не только на master canvas.
+- Важная форма и expression не обрезаются mask/layout; transparent padding согласован с соседними элементами.
+- Нет мелкого текста, baked frame или фона, если они принадлежат UI layout/theme.
+- Import использует UI contract; экранный размер задаёт layout, а не случайный PPU.
+- Проверены normal/hover/disabled/selected состояния, если они существуют; tint не уничтожает читаемость.
+- Visual ID зарегистрирован и разрешается через presentation/content boundary; UI не содержит случайный прямой путь к source/master.

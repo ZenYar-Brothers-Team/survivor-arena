@@ -1,5 +1,6 @@
 using System;
 using Game.Content;
+using Game.Presentation;
 using UnityEngine.UIElements;
 
 namespace Game.UI
@@ -22,11 +23,26 @@ namespace Game.UI
         private readonly VisualElement _runOverlay;
         private readonly Label _runOverlayTitle;
         private readonly Button _runOverlayResumeButton;
+        private readonly Button _developmentToggleButton;
         private readonly VisualElement _developmentPanel;
+        private readonly Button _developmentCloseButton;
+        private readonly Button _developmentRunTab;
+        private readonly Button _developmentBuildTab;
+        private readonly Button _developmentPresentationTab;
+        private readonly VisualElement _developmentRunPane;
+        private readonly VisualElement _developmentBuildPane;
+        private readonly VisualElement _developmentPresentationPane;
         private readonly Button _addExperienceButton;
         private readonly Button _damageButton;
         private readonly Button _healButton;
+        private readonly Button _presentationLiveButton;
+        private readonly Button _presentationIdleButton;
+        private readonly Button _presentationLeftButton;
+        private readonly Button _presentationRightButton;
+        private readonly Button _presentationResetButton;
         private readonly VisualElement _characterSelection;
+        private bool _developmentControlsAvailable;
+        private bool _developmentPanelExpanded;
 
         public event Action<ContentId> DraftOptionSelected;
         public event Action DraftRerollRequested;
@@ -35,6 +51,8 @@ namespace Game.UI
         public event Action AddExperienceRequested;
         public event Action ApplyDamageRequested;
         public event Action ApplyHealingRequested;
+        public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
+        public event Action PresentationResetRequested;
 
         public UiToolkitGameplayView(VisualElement root)
         {
@@ -57,10 +75,23 @@ namespace Game.UI
             _runOverlay = Require<VisualElement>(root, GameplayUiElementIds.RunOverlay);
             _runOverlayTitle = Require<Label>(root, GameplayUiElementIds.RunOverlayTitle);
             _runOverlayResumeButton = Require<Button>(root, GameplayUiElementIds.RunOverlayResumeButton);
+            _developmentToggleButton = Require<Button>(root, GameplayUiElementIds.DevelopmentToggleButton);
             _developmentPanel = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPanel);
+            _developmentCloseButton = Require<Button>(root, GameplayUiElementIds.DevelopmentCloseButton);
+            _developmentRunTab = Require<Button>(root, GameplayUiElementIds.DevelopmentRunTab);
+            _developmentBuildTab = Require<Button>(root, GameplayUiElementIds.DevelopmentBuildTab);
+            _developmentPresentationTab = Require<Button>(root, GameplayUiElementIds.DevelopmentPresentationTab);
+            _developmentRunPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentRunPane);
+            _developmentBuildPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentBuildPane);
+            _developmentPresentationPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPresentationPane);
             _addExperienceButton = Require<Button>(root, GameplayUiElementIds.AddExperienceButton);
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
+            _presentationLiveButton = Require<Button>(root, GameplayUiElementIds.PresentationLiveButton);
+            _presentationIdleButton = Require<Button>(root, GameplayUiElementIds.PresentationIdleButton);
+            _presentationLeftButton = Require<Button>(root, GameplayUiElementIds.PresentationLeftButton);
+            _presentationRightButton = Require<Button>(root, GameplayUiElementIds.PresentationRightButton);
+            _presentationResetButton = Require<Button>(root, GameplayUiElementIds.PresentationResetButton);
             _characterSelection = Require<VisualElement>(root, GameplayUiElementIds.CharacterSelection);
 
             _pauseButton.clicked += HandlePauseClicked;
@@ -69,6 +100,18 @@ namespace Game.UI
             _addExperienceButton.clicked += HandleAddExperienceClicked;
             _damageButton.clicked += HandleDamageClicked;
             _healButton.clicked += HandleHealingClicked;
+            _developmentToggleButton.clicked += HandleDevelopmentToggleClicked;
+            _developmentCloseButton.clicked += HandleDevelopmentCloseClicked;
+            _developmentRunTab.clicked += ShowDevelopmentRunTab;
+            _developmentBuildTab.clicked += ShowDevelopmentBuildTab;
+            _developmentPresentationTab.clicked += ShowDevelopmentPresentationTab;
+            _presentationLiveButton.clicked += HandlePresentationLiveClicked;
+            _presentationIdleButton.clicked += HandlePresentationIdleClicked;
+            _presentationLeftButton.clicked += HandlePresentationLeftClicked;
+            _presentationRightButton.clicked += HandlePresentationRightClicked;
+            _presentationResetButton.clicked += HandlePresentationResetClicked;
+            ShowDevelopmentRunTab();
+            UpdateDevelopmentVisibility();
         }
 
         public void RenderHud(HudViewState state)
@@ -203,7 +246,52 @@ namespace Game.UI
 
         public void SetDevelopmentControlsVisible(bool isVisible)
         {
-            SetVisible(_developmentPanel, isVisible);
+            _developmentControlsAvailable = isVisible;
+            _developmentPanelExpanded = false;
+            UpdateDevelopmentVisibility();
+        }
+
+        private void HandleDevelopmentToggleClicked()
+        {
+            _developmentPanelExpanded = !_developmentPanelExpanded;
+            UpdateDevelopmentVisibility();
+        }
+
+        private void HandleDevelopmentCloseClicked()
+        {
+            _developmentPanelExpanded = false;
+            UpdateDevelopmentVisibility();
+        }
+
+        private void ShowDevelopmentRunTab() => ShowDevelopmentTab(
+            _developmentRunPane,
+            _developmentRunTab);
+
+        private void ShowDevelopmentBuildTab() => ShowDevelopmentTab(
+            _developmentBuildPane,
+            _developmentBuildTab);
+
+        private void ShowDevelopmentPresentationTab() => ShowDevelopmentTab(
+            _developmentPresentationPane,
+            _developmentPresentationTab);
+
+        private void ShowDevelopmentTab(VisualElement activePane, Button activeTab)
+        {
+            SetVisible(_developmentRunPane, activePane == _developmentRunPane);
+            SetVisible(_developmentBuildPane, activePane == _developmentBuildPane);
+            SetVisible(_developmentPresentationPane, activePane == _developmentPresentationPane);
+            _developmentRunTab.EnableInClassList("development-tab-active", activeTab == _developmentRunTab);
+            _developmentBuildTab.EnableInClassList("development-tab-active", activeTab == _developmentBuildTab);
+            _developmentPresentationTab.EnableInClassList(
+                "development-tab-active",
+                activeTab == _developmentPresentationTab);
+        }
+
+        private void UpdateDevelopmentVisibility()
+        {
+            SetVisible(_developmentToggleButton, _developmentControlsAvailable);
+            SetVisible(_developmentPanel, _developmentControlsAvailable && _developmentPanelExpanded);
+            _developmentToggleButton.text = _developmentPanelExpanded ? "DEV ×" : "DEV";
         }
 
         private void HandlePauseClicked() => PauseRequested?.Invoke();
@@ -211,6 +299,15 @@ namespace Game.UI
         private void HandleAddExperienceClicked() => AddExperienceRequested?.Invoke();
         private void HandleDamageClicked() => ApplyDamageRequested?.Invoke();
         private void HandleHealingClicked() => ApplyHealingRequested?.Invoke();
+        private void HandlePresentationLiveClicked() =>
+            PresentationMotionPreviewRequested?.Invoke(SpritePresentationPreviewMotion.Live);
+        private void HandlePresentationIdleClicked() =>
+            PresentationMotionPreviewRequested?.Invoke(SpritePresentationPreviewMotion.Idle);
+        private void HandlePresentationLeftClicked() =>
+            PresentationMotionPreviewRequested?.Invoke(SpritePresentationPreviewMotion.Left);
+        private void HandlePresentationRightClicked() =>
+            PresentationMotionPreviewRequested?.Invoke(SpritePresentationPreviewMotion.Right);
+        private void HandlePresentationResetClicked() => PresentationResetRequested?.Invoke();
 
         private static T Require<T>(VisualElement root, string name) where T : VisualElement
         {
@@ -230,6 +327,16 @@ namespace Game.UI
             _addExperienceButton.clicked -= HandleAddExperienceClicked;
             _damageButton.clicked -= HandleDamageClicked;
             _healButton.clicked -= HandleHealingClicked;
+            _developmentToggleButton.clicked -= HandleDevelopmentToggleClicked;
+            _developmentCloseButton.clicked -= HandleDevelopmentCloseClicked;
+            _developmentRunTab.clicked -= ShowDevelopmentRunTab;
+            _developmentBuildTab.clicked -= ShowDevelopmentBuildTab;
+            _developmentPresentationTab.clicked -= ShowDevelopmentPresentationTab;
+            _presentationLiveButton.clicked -= HandlePresentationLiveClicked;
+            _presentationIdleButton.clicked -= HandlePresentationIdleClicked;
+            _presentationLeftButton.clicked -= HandlePresentationLeftClicked;
+            _presentationRightButton.clicked -= HandlePresentationRightClicked;
+            _presentationResetButton.clicked -= HandlePresentationResetClicked;
             _draftOptions.Clear();
         }
     }

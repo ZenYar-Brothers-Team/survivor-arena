@@ -7,6 +7,8 @@
         "Game.Progression",
         "Game.Run",
         "Game.UI",
+        "Game.Character",
+        "Game.Presentation",
         "UnityEngine.TestRunner"
     ],
     "includePlatforms": [],

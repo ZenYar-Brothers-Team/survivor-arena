@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 using Game.Run;
 
 namespace Game.UI
@@ -33,5 +34,7 @@ namespace Game.UI
         void AddFixtureExperience();
         void ApplyFixtureDamage();
         void ApplyFixtureHealing();
+        void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion);
+        void ResetPresentation();
     }
 }

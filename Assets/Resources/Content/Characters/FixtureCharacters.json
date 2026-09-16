@@ -4,6 +4,8 @@
     "displayName": "Fixture Agile",
     "initiallyUnlocked": true,
     "startingActiveSkillId": "FIXTURE-SKILL-BOLT",
+    "visualId": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
+    "motionProfileId": "FIXTURE-MOTION-GOBLIN-AGILE",
     "baseStats": {
       "maxHealth": 100.0,
       "movementSpeed": 3.0,

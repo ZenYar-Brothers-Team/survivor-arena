@@ -23,6 +23,9 @@ namespace Game.Bootstrap
         private PlayerCharacterRuntime player;
 
         [SerializeField]
+        private SpritePresentationRuntime playerPresentation;
+
+        [SerializeField]
         private PlayerExperienceRuntime experienceRuntime;
 
         [SerializeField]
@@ -95,6 +98,22 @@ namespace Game.Bootstrap
                 player.Initialize(selectedCharacter.BaseStats, runController);
                 initializedSubsystems.Add(player.Shutdown);
 
+                if (!selectedCharacter.Visual.Id.IsValid || !selectedCharacter.MotionProfile.Id.IsValid)
+                    throw new InvalidOperationException(
+                        $"Character '{selectedCharacter.Id}' requires visual and motion profile references.");
+                var playerVisual = selectedCharacter.Visual.Resolve(Catalog.Registry);
+                var playerMotionProfile = selectedCharacter.MotionProfile.Resolve(Catalog.Registry);
+                var playerBody = player.GetComponent<Rigidbody2D>();
+                if (playerBody == null)
+                    throw new InvalidOperationException("Player presentation requires a Rigidbody2D motion source.");
+                playerPresentation.Initialize(
+                    playerVisual,
+                    playerMotionProfile,
+                    player.Health,
+                    playerBody,
+                    runController);
+                initializedSubsystems.Add(playerPresentation.Shutdown);
+
                 experienceRuntime.Initialize(player, runController);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
@@ -136,6 +155,7 @@ namespace Game.Bootstrap
                     experienceRuntime,
                     draftRuntime,
                     runController,
+                    playerPresentation,
                     Catalog.Characters.UnlockedCharacters);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
@@ -151,7 +171,8 @@ namespace Game.Bootstrap
 
         private void ValidateSceneReferences()
         {
-            if (runController == null || player == null || experienceRuntime == null || draftRuntime == null ||
+            if (runController == null || player == null || playerPresentation == null ||
+                experienceRuntime == null || draftRuntime == null ||
                 activeSkillRuntime == null || passiveRuntime == null || enemySpawner == null || gameplayUiRoot == null)
             {
                 throw new InvalidOperationException("Gameplay composition root has missing scene references.");

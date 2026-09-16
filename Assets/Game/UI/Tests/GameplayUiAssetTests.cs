@@ -25,7 +25,20 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DraftRerollButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.RunOverlay));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPanel));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentCloseButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentRunTab));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentBuildTab));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentPresentationTab));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DevelopmentRunPane));
+            Assert.IsNotNull(root.Q<ScrollView>(GameplayUiElementIds.DevelopmentBuildPane));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPresentationPane));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.CharacterSelection));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationLiveButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationIdleButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationLeftButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationRightButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationResetButton));
         }
 
         [Test]

@@ -6,6 +6,8 @@ namespace Game.Character.Json
         public string DisplayName { get; set; }
         public bool InitiallyUnlocked { get; set; }
         public string StartingActiveSkillId { get; set; }
+        public string VisualId { get; set; }
+        public string MotionProfileId { get; set; }
         public CharacterBaseStatsData BaseStats { get; set; }
         public CharacterDraftWeightData[] DraftWeights { get; set; }
     }

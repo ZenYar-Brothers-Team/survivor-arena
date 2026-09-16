@@ -1,4 +1,5 @@
 using Game.ActiveSkill;
+using Game.Presentation;
 using Game.Progression;
 using NUnit.Framework;
 
@@ -18,6 +19,7 @@ namespace Game.Bootstrap.Tests
             Assert.Greater(catalog.Enemies.Count, 0);
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
+            Assert.AreEqual(1, catalog.SpriteMotionProfiles.Count);
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)
@@ -33,6 +35,14 @@ namespace Game.Bootstrap.Tests
 
             foreach (var character in catalog.Characters.AllCharacters)
                 Assert.AreSame(character, catalog.Registry.Get<CharacterDefinition>(character.Id));
+
+            var agile = catalog.Characters.AllCharacters[0];
+            var agileVisual = agile.Visual.Resolve(catalog.Registry);
+            Assert.IsInstanceOf<SpriteDefinition>(agileVisual);
+            Assert.AreEqual("fixture-character-agile-body", agileVisual.Sprite.name);
+            Assert.AreSame(
+                catalog.SpriteMotionProfiles[0],
+                agile.MotionProfile.Resolve(catalog.Registry));
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Game.Combat
         public bool IsDead { get; private set; }
 
         public event Action<float, float> HealthChanged;
+        public event Action<float> Damaged;
         public event Action Died;
 
         public Health(IHealthProfile profile)
@@ -39,6 +40,7 @@ namespace Game.Combat
                 return 0f;
 
             HealthChanged?.Invoke(previousHealth, CurrentHealth);
+            Damaged?.Invoke(appliedDamage);
 
             if (CurrentHealth <= 0f)
             {

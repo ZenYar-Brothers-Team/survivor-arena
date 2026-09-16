@@ -1,4 +1,6 @@
 using System.Collections;
+using Game.Character;
+using Game.Presentation;
 using Game.Progression;
 using Game.Run;
 using Game.UI;
@@ -24,11 +26,41 @@ namespace Game.Bootstrap.PlayModeTests
             var experience = Object.FindAnyObjectByType<PlayerExperienceRuntime>();
             var draft = Object.FindAnyObjectByType<LevelUpDraftRuntime>();
             var gameplayUi = Object.FindAnyObjectByType<GameplayUiRoot>();
+            var player = Object.FindAnyObjectByType<PlayerCharacterRuntime>();
+            var presentation = Object.FindAnyObjectByType<SpritePresentationRuntime>();
 
             Assert.IsNotNull(root);
             Assert.IsTrue(root.IsInitialized);
             Assert.IsNotNull(gameplayUi);
+            Assert.IsNotNull(player);
+            Assert.IsNotNull(presentation);
             Assert.IsTrue(gameplayUi.IsInitialized);
+            Assert.IsTrue(presentation.IsInitialized);
+            var developmentToggle = gameplayUi.Document.rootVisualElement.Q<Button>(
+                GameplayUiElementIds.DevelopmentToggleButton);
+            var developmentPanel = gameplayUi.Document.rootVisualElement.Q<VisualElement>(
+                GameplayUiElementIds.DevelopmentPanel);
+            Assert.AreEqual(DisplayStyle.Flex, developmentToggle.style.display.value);
+            Assert.AreEqual(DisplayStyle.None, developmentPanel.style.display.value);
+            var bodyRenderer = GameObject.Find("BodyRoot").GetComponent<SpriteRenderer>();
+            Assert.AreEqual("fixture-character-agile-body", bodyRenderer.sprite.name);
+            presentation.SetPreviewMotion(SpritePresentationPreviewMotion.Left);
+            yield return null;
+            Assert.IsTrue(bodyRenderer.flipX);
+            var pausedPosition = bodyRenderer.transform.localPosition;
+            var pausedRotation = bodyRenderer.transform.localRotation;
+            var pausedScale = bodyRenderer.transform.localScale;
+            run.TogglePause();
+            yield return new WaitForSecondsRealtime(0.1f);
+            Assert.AreEqual(pausedPosition, bodyRenderer.transform.localPosition);
+            Assert.AreEqual(pausedRotation, bodyRenderer.transform.localRotation);
+            Assert.AreEqual(pausedScale, bodyRenderer.transform.localScale);
+            run.TogglePause();
+            player.TakeDamage(1f);
+            Assert.AreNotEqual(Color.white, bodyRenderer.color);
+            presentation.ResetPresentation();
+            Assert.AreEqual(SpritePresentationPreviewMotion.Live, presentation.PreviewMotion);
+            Assert.IsFalse(bodyRenderer.flipX);
             Assert.IsNotNull(gameplayUi.Document.panelSettings.themeStyleSheet);
             var healthBar = gameplayUi.Document.rootVisualElement.Q<ProgressBar>(GameplayUiElementIds.HealthBar);
             Assert.IsNotNull(healthBar);

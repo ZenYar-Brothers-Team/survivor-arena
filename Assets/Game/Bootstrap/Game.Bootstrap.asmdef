@@ -9,7 +9,8 @@
         "Game.Enemy",
         "Game.ActiveSkill",
         "Game.UI",
-        "Game.Presentation"
+        "Game.Presentation",
+        "Game.Combat"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

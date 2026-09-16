@@ -18,6 +18,38 @@ Do not duplicate module status inside module specification files.
 
 These apply to all code changes, not only IP module work.
 
+### Visual art and procedural sprite presentation
+
+Before generating, editing, importing, replacing, or wiring raster art, read
+`docs/art/ART_DIRECTION.md` and `docs/art/ASSET_PIPELINE.md`. They are the
+approved sources of truth for visual style, prompts, source/runtime paths,
+naming, provenance, PNG preparation, Unity import settings, approval gates,
+and safe replacement. Preview images do not enter `Assets`; only a
+user-approved candidate is prepared as a runtime asset. Preserve an existing
+runtime path and `.meta` GUID when an approved image is replaced.
+
+Procedural sprite motion must live under an entity's child `VisualRoot`; never
+animate the gameplay root, `Rigidbody2D`, collider transform/geometry, or
+authoritative movement state for a visual effect. Apply body squash/stretch,
+bob, tilt, recoil, facing, and transient renderer feedback through one pose
+compositor/writer so independent channels cannot overwrite each other.
+Presentation values belong in validated config profiles, pause advances no
+presentation time, and `Shutdown()`/pool return must restore the captured
+baseline pose and renderer state. See
+[DECISION-0013](docs/decisions/0013-procedural-sprite-presentation.md).
+
+### Development UI stays compact and non-obstructive
+
+Development/debug controls must be hidden in non-development builds and
+collapsed by default behind a small launcher in Editor/Development Build.
+Expanded tooling uses a bounded drawer with thematic tabs and scrolling for
+long content; never append new controls to an unbounded horizontal strip over
+the gameplay viewport. At the 1920x1080 reference resolution, an expanded
+debug surface should stay within 25% of viewport width and 45% of viewport
+height unless a dedicated full-screen diagnostic view is explicitly required.
+Debug commands still follow the normal View -> presenter intent -> model/runtime
+boundary and must not make UI the owner of gameplay state. See DECISION-0005.
+
 ### Performance logging for scale-sensitive operations
 
 If code does work whose cost scales with runtime entity counts (an operation over

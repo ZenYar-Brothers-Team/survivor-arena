@@ -10,6 +10,7 @@
         "Game.Character",
         "Game.Run",
         "Game.Pooling",
+        "Game.Movement",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

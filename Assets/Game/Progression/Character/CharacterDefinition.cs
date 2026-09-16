@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -13,6 +14,8 @@ namespace Game.Progression
         public string DisplayName { get; }
         public CharacterBaseStats BaseStats { get; }
         public ContentRef<BuildEntryDefinition> StartingActiveSkill { get; }
+        public ContentRef<SpriteDefinition> Visual { get; }
+        public ContentRef<SpriteMotionProfile> MotionProfile { get; }
         public IReadOnlyDictionary<ContentId, float> DraftWeights => _draftWeights;
 
         public CharacterDefinition(
@@ -20,6 +23,25 @@ namespace Game.Progression
             string displayName,
             CharacterBaseStats baseStats,
             ContentId startingActiveSkillId,
+            params CharacterDraftWeight[] draftWeights)
+            : this(
+                id,
+                displayName,
+                baseStats,
+                startingActiveSkillId,
+                default,
+                default,
+                draftWeights)
+        {
+        }
+
+        public CharacterDefinition(
+            ContentId id,
+            string displayName,
+            CharacterBaseStats baseStats,
+            ContentId startingActiveSkillId,
+            ContentRef<SpriteDefinition> visual,
+            ContentRef<SpriteMotionProfile> motionProfile,
             params CharacterDraftWeight[] draftWeights)
         {
             if (!id.IsValid)
@@ -36,6 +58,8 @@ namespace Game.Progression
             DisplayName = displayName;
             BaseStats = baseStats;
             StartingActiveSkill = new ContentRef<BuildEntryDefinition>(startingActiveSkillId);
+            Visual = visual;
+            MotionProfile = motionProfile;
             _draftWeights = new Dictionary<ContentId, float>();
             for (var i = 0; i < draftWeights.Length; i++)
             {
@@ -79,6 +103,10 @@ namespace Game.Progression
         public IEnumerable<ContentReference> GetReferencedContent()
         {
             yield return StartingActiveSkill.ToReference();
+            if (Visual.Id.IsValid)
+                yield return Visual.ToReference();
+            if (MotionProfile.Id.IsValid)
+                yield return MotionProfile.ToReference();
             foreach (var id in _draftWeights.Keys)
                 yield return new ContentRef<BuildEntryDefinition>(id).ToReference();
         }

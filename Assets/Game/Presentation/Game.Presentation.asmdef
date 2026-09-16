@@ -3,6 +3,9 @@
     "rootNamespace": "Game.Presentation",
     "references": [
         "Game.Content",
+        "Game.Content.Json",
+        "Game.Combat",
+        "Game.Run",
         "Game.Movement"
     ],
     "includePlatforms": [],

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Character;
 using Game.Progression;
+using Game.Presentation;
 using Game.Run;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -38,6 +39,7 @@ namespace Game.UI
             PlayerExperienceRuntime experience,
             LevelUpDraftRuntime draft,
             RunController run,
+            SpritePresentationRuntime presentation,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
         {
             if (_initialized)
@@ -71,6 +73,7 @@ namespace Game.UI
                 experience,
                 draft,
                 run,
+                presentation,
                 Debug.isDebugBuild || Application.isEditor,
                 unlockedCharacters);
             _presenter = new GameplayUiPresenter(_model, _view);

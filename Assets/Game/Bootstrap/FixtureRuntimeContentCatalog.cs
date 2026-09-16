@@ -24,6 +24,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
         public CharacterRoster Characters { get; }
+        public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
 
         private FixtureRuntimeContentCatalog(
             ContentRegistry registry,
@@ -32,7 +33,8 @@ namespace Game.Bootstrap
             IReadOnlyList<PassiveProgressionDefinition> passives,
             IReadOnlyList<SetDefinition> sets,
             IReadOnlyList<EnemyDefinition> enemies,
-            CharacterRoster characters)
+            CharacterRoster characters,
+            IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles)
         {
             Registry = registry;
             BuildEntries = buildEntries;
@@ -41,6 +43,7 @@ namespace Game.Bootstrap
             Sets = sets;
             Enemies = enemies;
             Characters = characters;
+            SpriteMotionProfiles = spriteMotionProfiles;
         }
 
         public static FixtureRuntimeContentCatalog Create()
@@ -53,6 +56,7 @@ namespace Game.Bootstrap
             var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
             var characters = FixtureCharacterDefinitionCatalog.Create();
+            var spriteMotionProfiles = FixtureSpriteMotionProfileCatalog.Create();
 
             var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count + sets.Count);
             var allDefinitions = new List<IContentDefinition>(buildEntries.Capacity + enemies.Count);
@@ -75,6 +79,8 @@ namespace Game.Bootstrap
                 allDefinitions.Add(enemies[i]);
             for (var i = 0; i < characters.AllCharacters.Count; i++)
                 allDefinitions.Add(characters.AllCharacters[i]);
+            for (var i = 0; i < spriteMotionProfiles.Count; i++)
+                allDefinitions.Add(spriteMotionProfiles[i]);
 
             // Backfill a placeholder sprite for every visual reference declared above,
             // so fixture content never has to remember to register one by hand; real
@@ -101,7 +107,8 @@ namespace Game.Bootstrap
                 passives,
                 sets,
                 enemies,
-                characters);
+                characters,
+                spriteMotionProfiles);
             return _cached;
         }
     }

@@ -35,13 +35,42 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
+        <ui:Button name="development-toggle" text="DEV" class="development-toggle" />
         <ui:VisualElement name="development-panel" class="development-panel">
-            <ui:Label text="DEVELOPMENT" class="development-title" />
-            <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
-            <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
-            <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
-            <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
-            <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
+            <ui:VisualElement class="development-header">
+                <ui:Label text="DEVELOPMENT" class="development-title" />
+                <ui:Button name="development-close" text="×" class="development-close" />
+            </ui:VisualElement>
+            <ui:VisualElement class="development-tabs">
+                <ui:Button name="development-tab-run" text="Run" class="development-tab" />
+                <ui:Button name="development-tab-build" text="Build" class="development-tab" />
+                <ui:Button name="development-tab-presentation" text="Presentation" class="development-tab" />
+            </ui:VisualElement>
+            <ui:VisualElement name="development-pane-run" class="development-pane">
+                <ui:Label text="RUN CONTROLS" class="development-section-title" />
+                <ui:VisualElement class="development-button-row">
+                    <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
+                    <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
+                    <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
+                <ui:Label text="SET RECIPES" class="development-section-title" />
+                <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
+                <ui:Label text="CHARACTERS" class="development-section-title development-section-spaced" />
+                <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
+            </ui:ScrollView>
+            <ui:VisualElement name="development-pane-presentation" class="development-pane">
+                <ui:Label text="PRESENTATION PREVIEW" class="development-section-title" />
+                <ui:VisualElement class="development-button-row development-button-wrap">
+                    <ui:Button name="development-presentation-live" text="Live" class="compact-button showcase-button" />
+                    <ui:Button name="development-presentation-idle" text="Idle" class="compact-button showcase-button" />
+                    <ui:Button name="development-presentation-left" text="Left" class="compact-button showcase-button" />
+                    <ui:Button name="development-presentation-right" text="Right" class="compact-button showcase-button" />
+                    <ui:Button name="development-presentation-reset" text="Reset" class="compact-button showcase-button" />
+                </ui:VisualElement>
+                <ui:Label text="Use -10 HP on the Run tab for hit reaction. Pause from the HUD." class="development-help" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

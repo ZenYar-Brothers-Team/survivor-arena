@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
+using Game.Movement;
+using Game.Presentation;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Game.Progression.Tests
 {
@@ -26,6 +29,39 @@ namespace Game.Progression.Tests
             Assert.IsTrue(roster.TrySelect(agile.Id, out var selected));
             Assert.AreSame(agile, selected);
             Assert.IsFalse(roster.TrySelect(sturdy.Id, out _));
+            Assert.IsTrue(agile.Visual.Id.IsValid);
+            Assert.IsTrue(agile.MotionProfile.Id.IsValid);
+            Assert.IsFalse(sturdy.Visual.Id.IsValid);
+            Assert.IsFalse(sturdy.MotionProfile.Id.IsValid);
+        }
+
+        [Test]
+        public void CharacterVisualAndMotionReferences_AreTypeValidatedByRegistry()
+        {
+            var starting = Active("FIXTURE-ACTIVE-START");
+            var motion = Motion("FIXTURE-MOTION");
+            var character = new CharacterDefinition(
+                "FIXTURE-CHARACTER",
+                "Fixture Character",
+                new CharacterBaseStats(100f, 3f),
+                starting.Id,
+                new ContentRef<SpriteDefinition>(motion.Id),
+                new ContentRef<SpriteMotionProfile>(motion.Id));
+
+            Assert.Throws<ContentValidationException>(() =>
+                ContentRegistry.BuildFrom(new IContentDefinition[] { starting, motion, character }));
+
+            var visual = new SpriteDefinition("FIXTURE-VISUAL", PlaceholderSprite.Shared);
+            var valid = new CharacterDefinition(
+                "FIXTURE-CHARACTER-VALID",
+                "Fixture Character Valid",
+                new CharacterBaseStats(100f, 3f),
+                starting.Id,
+                new ContentRef<SpriteDefinition>(visual.Id),
+                new ContentRef<SpriteMotionProfile>(motion.Id));
+
+            Assert.DoesNotThrow(() =>
+                ContentRegistry.BuildFrom(new IContentDefinition[] { starting, visual, motion, valid }));
         }
 
         [Test]
@@ -152,6 +188,28 @@ namespace Game.Progression.Tests
         private static BuildEntryDefinition Passive(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.PassiveItem, id);
+        }
+
+        private static SpriteMotionProfile Motion(string id)
+        {
+            return new SpriteMotionProfile(
+                id,
+                3f,
+                0.025f,
+                0.675f,
+                0.035f,
+                1.4f,
+                0.05f,
+                3f,
+                0.06f,
+                6f,
+                0.14f,
+                0.1f,
+                7f,
+                0.08f,
+                Color.red,
+                0.2f,
+                0.75f);
         }
     }
 }

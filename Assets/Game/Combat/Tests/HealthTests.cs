@@ -38,12 +38,36 @@ namespace Game.Combat.Tests
         {
             var health = new Health(new FixedHealthProfile(10f));
             var changes = 0;
+            var damageEvents = 0;
             health.HealthChanged += (_, _) => changes++;
+            health.Damaged += _ => damageEvents++;
 
             health.TakeDamage(0f);
 
             Assert.AreEqual(10f, health.CurrentHealth);
             Assert.AreEqual(0, changes);
+            Assert.AreEqual(0, damageEvents);
+        }
+
+        [Test]
+        public void Damage_EmitsAppliedDamageOnly()
+        {
+            var health = new Health(new FixedHealthProfile(10f));
+            var eventCount = 0;
+            var lastAppliedDamage = 0f;
+            health.Damaged += appliedDamage =>
+            {
+                eventCount++;
+                lastAppliedDamage = appliedDamage;
+            };
+
+            health.TakeDamage(4f);
+            health.Heal(2f);
+            health.TakeDamage(100f);
+            health.TakeDamage(1f);
+
+            Assert.AreEqual(2, eventCount);
+            Assert.AreEqual(8f, lastAppliedDamage, 0.0001f);
         }
 
         [Test]

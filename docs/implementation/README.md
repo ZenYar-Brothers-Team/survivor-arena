@@ -93,6 +93,7 @@ Draft offer count, reroll/banish counts, XP thresholds/lifetime, set probabiliti
 - [IP-10A — UI Foundation and test harness](modules/IP-10A-ui-foundation.md)
 - [IP-11 — Set framework](modules/IP-11-set-framework.md)
 - [IP-12 — Character framework и weighted draft](modules/IP-12-character-framework.md)
+- [IP-12A — Visual Presentation Foundation](modules/IP-12A-visual-presentation-foundation.md)
 - [IP-13 — Enemy movement и attack patterns](modules/IP-13-enemy-patterns.md)
 - [IP-14 — Wave Director](modules/IP-14-wave-director.md)
 - [IP-15 — Boss/mid-boss framework](modules/IP-15-boss-framework.md)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Presentation;
 using Game.Progression;
 using Game.Run;
 
@@ -30,6 +31,8 @@ namespace Game.UI
             _view.AddExperienceRequested += HandleAddExperienceRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
             _view.ApplyHealingRequested += HandleApplyHealingRequested;
+            _view.PresentationMotionPreviewRequested += HandlePresentationMotionPreviewRequested;
+            _view.PresentationResetRequested += HandlePresentationResetRequested;
             _started = true;
             _view.SetDevelopmentControlsVisible(_model.DevelopmentCommandsEnabled);
             RefreshAll();
@@ -226,6 +229,18 @@ namespace Game.UI
                 _model.ApplyFixtureHealing();
         }
 
+        private void HandlePresentationMotionPreviewRequested(SpritePresentationPreviewMotion previewMotion)
+        {
+            if (_model.DevelopmentCommandsEnabled)
+                _model.PreviewPresentationMotion(previewMotion);
+        }
+
+        private void HandlePresentationResetRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled)
+                _model.ResetPresentation();
+        }
+
         public void Dispose()
         {
             if (!_started)
@@ -238,6 +253,8 @@ namespace Game.UI
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;
             _view.ApplyHealingRequested -= HandleApplyHealingRequested;
+            _view.PresentationMotionPreviewRequested -= HandlePresentationMotionPreviewRequested;
+            _view.PresentationResetRequested -= HandlePresentationResetRequested;
             _started = false;
         }
     }

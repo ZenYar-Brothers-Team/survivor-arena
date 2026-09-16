@@ -15,9 +15,12 @@ Every IP specification carries an explicit `UI / observability` section. Player-
 
 UI views do not own gameplay state. They render immutable snapshots and emit user intents through presenter contracts. Fixture/debug controls remain unavailable in non-development builds.
 
+Development tooling is collapsed by default behind a compact launcher. Its expanded surface is bounded, grouped into thematic tabs and scrolls long diagnostic content rather than growing across the gameplay viewport. At the 1920×1080 reference resolution it should remain within 25% of viewport width and 45% of viewport height unless a dedicated full-screen diagnostic view is explicitly justified. Adding a new debug action means extending the relevant tab, not rebuilding an unbounded global command row.
+
 ## Consequences
 
 - Gameplay models remain independently testable.
 - Presenters can be verified without loading a Unity scene.
 - PlayMode tests can address UI through stable semantic names.
 - UXML/USS become reviewable text assets suitable for AI-first iteration.
+- Debug tooling remains discoverable without permanently obscuring gameplay-scale visual review.

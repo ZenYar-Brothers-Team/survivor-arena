@@ -1,6 +1,7 @@
 using Game.ActiveSkill;
 using Game.Enemy;
 using Game.Progression;
+using Game.Presentation;
 using Game.UI;
 using NUnit.Framework;
 using UnityEditor;
@@ -23,6 +24,7 @@ namespace Game.Bootstrap.Tests
             var serialized = new SerializedObject(root);
             Assert.IsNotNull(serialized.FindProperty("runController").objectReferenceValue);
             Assert.IsNotNull(serialized.FindProperty("player").objectReferenceValue);
+            Assert.IsInstanceOf<SpritePresentationRuntime>(serialized.FindProperty("playerPresentation").objectReferenceValue);
             Assert.IsNotNull(serialized.FindProperty("experienceRuntime").objectReferenceValue);
             Assert.IsInstanceOf<LevelUpDraftRuntime>(serialized.FindProperty("draftRuntime").objectReferenceValue);
             Assert.IsInstanceOf<PlayerActiveSkillSetRuntime>(serialized.FindProperty("activeSkillRuntime").objectReferenceValue);
