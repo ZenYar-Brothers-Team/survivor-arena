@@ -162,6 +162,7 @@ namespace Game.UI.Tests
             public CharacterDefinition SelectedCharacter { get; set; }
             public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
+            public string EnemyDevelopmentSummary { get; set; } = "Fixture enemy";
             public int RerollCalls { get; private set; }
             public ContentId LastBanished { get; private set; }
             public ContentId LastSelected { get; private set; }
@@ -201,6 +202,7 @@ namespace Game.UI.Tests
             public RunOverlayViewState Overlay { get; private set; }
             public BuildViewState Build { get; private set; }
             public CharacterSelectionViewState Characters { get; private set; }
+            public EnemyObservabilityViewState EnemyObservation { get; private set; }
             public bool DevelopmentVisible { get; private set; }
 
             public void RenderHud(HudViewState state) => Hud = state;
@@ -208,6 +210,7 @@ namespace Game.UI.Tests
             public void RenderRunOverlay(RunOverlayViewState state) => Overlay = state;
             public void RenderBuild(BuildViewState state) => Build = state;
             public void RenderCharacterSelection(CharacterSelectionViewState state) => Characters = state;
+            public void RenderEnemyObservability(EnemyObservabilityViewState state) => EnemyObservation = state;
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;
             public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id);
             public void RaiseReroll() => DraftRerollRequested?.Invoke();

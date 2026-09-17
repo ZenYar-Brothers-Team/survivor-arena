@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Character;
+using Game.Enemy;
 using Game.Progression;
 using Game.Presentation;
 using Game.Run;
@@ -40,7 +41,8 @@ namespace Game.UI
             LevelUpDraftRuntime draft,
             RunController run,
             SpritePresentationRuntime presentation,
-            IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
+            IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
+            ContinuousFixtureEnemySpawner enemySpawner = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -75,7 +77,8 @@ namespace Game.UI
                 run,
                 presentation,
                 Debug.isDebugBuild || Application.isEditor,
-                unlockedCharacters);
+                unlockedCharacters,
+                enemySpawner);
             _presenter = new GameplayUiPresenter(_model, _view);
             _presenter.Start();
             _initialized = true;

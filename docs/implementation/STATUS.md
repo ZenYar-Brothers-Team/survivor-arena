@@ -2,11 +2,11 @@
 
 Этот файл — единственный source of truth для состояния исполнения Implementation Plan. Спецификации в `modules/` не содержат оперативных статусов.
 
-Last repository audit: 2026-09-16
+Last repository audit: 2026-09-17
 Current active module: none
-Next Ready module: IP-13
+Next Ready module: IP-14
 
-Cross-cutting verification: Unity 6000.6.0f1 EditMode 159/159 and PlayMode 1/1 passed on 2026-09-16. The gameplay scene is composed from one fixture runtime catalog; character selection is restricted to unlocked definitions and supplies base stats, starting active skill, presentation references and per-skill weighted draft values; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers; gameplay UI follows a presenter/ViewState boundary; fulfilled set recipes participate probabilistically in the same draft while acquired sets remain outside 6+6 slots. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md); vertical UI delivery follows [DECISION-0005](../decisions/0005-vertical-ui-delivery.md); the shared `Game.Combat.Health` model follows [DECISION-0006](../decisions/0006-shared-health-model.md); content-referenced presentation assets follow [DECISION-0007](../decisions/0007-content-referenced-visuals.md); scale-sensitive operations use throttled perf warnings per [DECISION-0008](../decisions/0008-perf-logging.md); entity/content values are config-driven from JSON per [DECISION-0009](../decisions/0009-json-content-config.md); `GameplayCompositionRoot` rolls back already-initialized subsystems on partial init failure per [DECISION-0010](../decisions/0010-composition-root-rollback.md); frequently spawned/destroyed GameObjects (XP drops, enemies, skill mine markers) are pooled per [DECISION-0011](../decisions/0011-gameobject-pooling.md); numeric constructor-argument validation is centralized per [DECISION-0012](../decisions/0012-shared-numeric-validation.md); procedural sprite presentation is isolated from gameplay transforms and composed by a single writer per [DECISION-0013](../decisions/0013-procedural-sprite-presentation.md). All production `.cs` files now hold exactly one type, named after the file (`AGENTS.md`'s "one type per file" rule); the pre-IP-08 single-skill prototype (`ActiveSkillDefinition`, `PlayerActiveSkillRuntime`) was dead code — never wired into `GameplayCompositionRoot` — and was deleted along with its tests, dropping the suite from 142 to 131; the also-dead `NearestEnemyTargetSelector` (superseded by `EnemyRegistry.TryFindNearest`, never used in production) was deleted along with its test, dropping the suite to 129. `PlayerCharacterRuntime.Initialize` now atomically wires `Health` to `RunController` (no window where damage could be taken before death routes to run-end).
+Cross-cutting verification: Unity 6000.6.0f1 EditMode 169/169 and PlayMode 1/1 passed on 2026-09-17. The gameplay scene is composed from one fixture runtime catalog; character selection is restricted to unlocked definitions and supplies base stats, starting active skill, presentation references and per-skill weighted draft values; draft RNG is seeded; pause ownership is reason-based; enemy targeting uses a live registry and reusable query buffers; gameplay UI follows a presenter/ViewState boundary; fulfilled set recipes participate probabilistically in the same draft while acquired sets remain outside 6+6 slots. Field bounds and ordinary obstacles follow [DECISION-0003](../decisions/0003-player-only-field-collision.md); stat composition follows [DECISION-0004](../decisions/0004-character-stat-composition.md); vertical UI delivery follows [DECISION-0005](../decisions/0005-vertical-ui-delivery.md); the shared `Game.Combat.Health` model follows [DECISION-0006](../decisions/0006-shared-health-model.md); content-referenced presentation assets follow [DECISION-0007](../decisions/0007-content-referenced-visuals.md); scale-sensitive operations use throttled perf warnings per [DECISION-0008](../decisions/0008-perf-logging.md); entity/content values are config-driven from JSON per [DECISION-0009](../decisions/0009-json-content-config.md); `GameplayCompositionRoot` rolls back already-initialized subsystems on partial init failure per [DECISION-0010](../decisions/0010-composition-root-rollback.md); frequently spawned/destroyed GameObjects (XP drops, enemies, skill mine markers and enemy projectiles) are pooled per [DECISION-0011](../decisions/0011-gameobject-pooling.md); numeric constructor-argument validation is centralized per [DECISION-0012](../decisions/0012-shared-numeric-validation.md); procedural sprite presentation is isolated from gameplay transforms and composed by a single writer per [DECISION-0013](../decisions/0013-procedural-sprite-presentation.md). All production `.cs` files now hold exactly one type, named after the file (`AGENTS.md`'s "one type per file" rule); the pre-IP-08 single-skill prototype (`ActiveSkillDefinition`, `PlayerActiveSkillRuntime`) was dead code — never wired into `GameplayCompositionRoot` — and was deleted along with its tests, dropping the suite from 142 to 131; the also-dead `NearestEnemyTargetSelector` (superseded by `EnemyRegistry.TryFindNearest`, never used in production) was deleted along with its test, dropping the suite to 129. `PlayerCharacterRuntime.Initialize` now atomically wires `Health` to `RunController` (no window where damage could be taken before death routes to run-end).
 
 Setting boundary audit: Game Design and Content Design define the player as a small goblin escaping an escalating pursuit by villagers, soldiers, knights, mages, clergy and angels. Runtime contracts remain setting-neutral and production IDs remain unimplemented; IP-12A now deliberately includes one user-approved goblin body as `FIXTURE-CHARACTER-AGILE` pipeline evidence. Enemies, skills and other fixture visuals still use placeholders, and no production `CHAR-*`, human, knight, mage or angel entity/art is implemented. Thematic production binding remains owned by IP-17…IP-24 and final presentation/player flow IP-26.
 
@@ -92,13 +92,13 @@ Documentation impact: Game Design, Content Design and IP-06 scope did not change
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/Progression/Draft/` — stable-ID active/passive definitions, immutable 6+6 slot ownership, levels 1…6, unified eligibility pool and validated draft session; `LevelUpDraftRuntime.cs` — starting active slot, queued level-up drafts, minimal IMGUI chooser and resume-after-selection; `Assets/Scenes/Gameplay.unity` — configured non-production fixture pool.
+Implementation evidence: `Assets/Game/Progression/Draft/` — stable-ID active/passive definitions, immutable 6+6 slot ownership, levels 1…6, unified eligibility pool and validated draft session; `LevelUpDraftRuntime.cs` — starting active slot, queued level-up drafts, UI-owned chooser state, resume-after-selection and iterative consumption of pending drafts when no eligible acquisition/upgrade remains; `Assets/Scenes/Gameplay.unity` — configured non-production fixture pool.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 98/98 tests passed on 2026-09-14; 8 IP-07 tests cover starting slot, filling 6 active + 6 passive slots, 1→6 upgrades, full-slot and max-level filtering, duplicate/invalid selection rejection, unified pool, pause/resume and queued drafts for multiple level-ups; scene integration verifies chooser wiring and fixture-only IDs.
+Verification evidence: Unity 6000.6.0f1 EditMode, 98/98 tests passed on 2026-09-14; 8 IP-07 tests cover starting slot, filling 6 active + 6 passive slots, 1→6 upgrades, full-slot and max-level filtering, duplicate/invalid selection rejection, unified pool, pause/resume and queued drafts for multiple level-ups; scene integration verifies chooser wiring and fixture-only IDs. Exhausted full/maxed build and repeated no-option level-ups were re-verified in the full Unity 6000.6.0f1 suite, EditMode 169/169 and PlayMode 1/1 passed on 2026-09-17.
 
 Deviations: none recorded; offer count, pool entries and display labels are non-production fixture configuration, while reroll, banish, sets and weighted selection remain out of scope.
 
-Documentation impact: Game Design, Content Design and IP-07 scope did not change; execution status and dependant readiness synchronized.
+Documentation impact: Game Design and IP-07 now explicitly record the user-approved no-options rule; Content Design is unaffected because no entity or balance data changed.
 
 ## Build systems
 
@@ -106,13 +106,13 @@ Documentation impact: Game Design, Content Design and IP-07 scope did not change
 
 Status: Verified
 
-Implementation evidence: `Assets/Game/ActiveSkill/Progression/` — six-level definitions (`ActiveSkillLevelDefinition` теперь несёт опциональную `ContentRef<SpriteDefinition> Visual`, см. DECISION-0007), activation-wave composition and typed projectile/beam/orbit/boomerang/chain/area/mine effects; all 8 fixture skills × 6 levels now load from `Resources/Content/ActiveSkills/FixtureActiveSkills.json` via `FixtureActiveSkillCatalog.Create()`, with the 7 polymorphic effect types resolved by a `"kind"`-discriminated `ActiveSkillEffectJsonConverter` (see DECISION-0009) instead of hardcoded ternary logic; `PlayerActiveSkillSetRuntime.cs` — concurrent build-synchronized skills; `SceneActiveSkillEffectExecutor.cs` and `FixtureProjectileRuntime.cs` — pause-safe execution, delayed/multi-wave scheduling, pierce and return passes; `SceneActiveSkillEffectExecutor.TickMines` обёрнут в `PerfGuard` (see DECISION-0008); `Gameplay.unity` — fixture catalog runtime replaces the legacy single-skill fixture.
+Implementation evidence: `Assets/Game/ActiveSkill/Progression/` — six-level definitions (`ActiveSkillLevelDefinition` теперь несёт опциональную `ContentRef<SpriteDefinition> Visual`, см. DECISION-0007), activation-wave composition and typed projectile/beam/orbit/boomerang/chain/area/mine effects; `ProjectileDirectionGenerator` defines `Cross` as exactly four diagonal rays, distinct from arbitrary-count `Ring`; all 8 fixture skills × 6 levels now load from `Resources/Content/ActiveSkills/FixtureActiveSkills.json` via `FixtureActiveSkillCatalog.Create()`, with the 7 polymorphic effect types resolved by a `"kind"`-discriminated `ActiveSkillEffectJsonConverter` (see DECISION-0009) instead of hardcoded ternary logic; `PlayerActiveSkillSetRuntime.cs` — concurrent build-synchronized skills; `SceneActiveSkillEffectExecutor.cs` and `FixtureProjectileRuntime.cs` — pause-safe execution, delayed/multi-wave scheduling, pierce and return passes; `SceneActiveSkillEffectExecutor.TickMines` обёрнут в `PerfGuard` (see DECISION-0008); `Gameplay.unity` — fixture catalog runtime replaces the legacy single-skill fixture.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 110/110 tests passed on 2026-09-14; 12 IP-08 tests cover exact levels 1→6, numeric and qualitative level changes, fan/ring/cross directions, pierce, boomerang return and per-pass hits, delayed AoE pause, chain retarget/falloff, mine lifetime/concurrent limit, rotated multi-wave execution, concurrent acquired skills, draft upgrades and scene wiring. Visual-reference, perf-log and JSON-config migration (all values hand-transcribed from the prior hardcoded logic) re-verified against the full suite (131/131, 2026-09-15, see cross-cutting verification above) — the exact-level assertions above caught nothing wrong, confirming the transcription.
+Verification evidence: Unity 6000.6.0f1 EditMode, 110/110 tests passed on 2026-09-14; 12 IP-08 tests cover exact levels 1→6, numeric and qualitative level changes, fan/ring/cross directions, pierce, boomerang return and per-pass hits, delayed AoE pause, chain retarget/falloff, mine lifetime/concurrent limit, rotated multi-wave execution, concurrent acquired skills, draft upgrades and scene wiring. Visual-reference, perf-log and JSON-config migration (all values hand-transcribed from the prior hardcoded logic) re-verified against the full suite (131/131, 2026-09-15). The diagonal four-ray Cross, its distinction from Ring and rejection of invalid Cross counts were verified in the full Unity suite, EditMode 169/169 and PlayMode 1/1 passed on 2026-09-17.
 
-Deviations: [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `ActiveSkillLevelDefinition`/`ActiveSkillProgressionDefinition` gained an optional per-level `Visual` reference validated by `ContentRegistry`; the fixture Ring/Cross skill now declares two distinct visual ids per tier instead of an implicit level ternary (the underlying `Cross`/`Ring` projectile-pattern bug noted in PR review is unrelated and not fixed by this); [DECISION-0008](../decisions/0008-perf-logging.md) and [DECISION-0009](../decisions/0009-json-content-config.md) — perf-logging and JSON-driven content, including the polymorphic-effect converter pattern. All catalog entries and numeric parameters are explicitly `FIXTURE-*`, while SKILL-001…015 remain Draft compatibility targets rather than production content.
+Deviations: [DECISION-0007](../decisions/0007-content-referenced-visuals.md) — `ActiveSkillLevelDefinition`/`ActiveSkillProgressionDefinition` gained an optional per-level `Visual` reference validated by `ContentRegistry`; the fixture Ring/Cross skill declares two distinct visual ids per tier. [DECISION-0008](../decisions/0008-perf-logging.md) and [DECISION-0009](../decisions/0009-json-content-config.md) cover perf-logging and JSON-driven content, including the polymorphic-effect converter pattern. All catalog entries and numeric parameters are explicitly `FIXTURE-*`, while SKILL-001…015 remain Draft compatibility targets rather than production content.
 
-Documentation impact: Game Design, Content Design and IP-08 scope did not change; IP-05 public projectile behavior remains backward compatible and dependant readiness was synchronized; DECISION-0007 gives IP-17 a ready presentation-asset extension point, and DECISION-0009 gives it a ready JSON-config + polymorphic-effect pattern, instead of requiring either to be designed from scratch.
+Documentation impact: IP-08 now defines the diagonal four-ray Cross contract; Game Design and Content Design are unchanged because this distinguishes a framework layout and fixture content without changing production entities.
 
 ### IP-09 — Passive modifier framework
 
@@ -130,13 +130,13 @@ Documentation impact: Game Design, Content Design, IP-09 and direct dependant re
 
 Status: Verified
 
-Implementation evidence: `DraftRunControls.cs` owns configurable run-local counters and banished stable IDs; `DraftPool.cs` filters banished entries and guarantees a changed reroll offer set when an alternative exists; `LevelUpDraftRuntime.cs` validates actions, rebuilds the open draft and exposes fixture IMGUI controls; `GameplayCompositionRoot.cs` supplies serialized fixture counts.
+Implementation evidence: `DraftRunControls.cs` owns configurable run-local counters and banished stable IDs; `DraftPool.cs` filters banished entries and guarantees a changed reroll offer set when an alternative exists; `LevelUpDraftRuntime.cs` validates actions, rebuilds the open draft, resolves successful reroll/banish exhaustion without constructing an empty `DraftSession`, and drains consecutive unavailable pending drafts iteratively; `GameplayCompositionRoot.cs` supplies serialized fixture counts.
 
-Verification evidence: Unity 6000.6.0f1 EditMode, 128/128 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes repeated rerolls, alternative offers, invalid and exhausted actions, persistent banish filtering, reset, last-option exhaustion, scene configuration and the live level-up flow.
+Verification evidence: Unity 6000.6.0f1 EditMode, 128/128 tests passed on 2026-09-14; PlayMode gameplay smoke, 1/1 passed. Coverage includes repeated rerolls, alternative offers, invalid and exhausted actions, persistent banish filtering, reset, last-option exhaustion, scene configuration and the live level-up flow. Reroll-to-empty, banish-last followed by another level-up, full/maxed 6+6 exhaustion and pause release were re-verified in the full Unity suite, EditMode 169/169 and PlayMode 1/1 passed on 2026-09-17.
 
 Deviations: exact counts and recovery remain CG-04 balance TBD; the scene values of 2 rerolls and 2 banishes are explicitly non-production fixture configuration.
 
-Documentation impact: Game Design already defined reroll/banish behavior and remains unchanged; IP-10 edge behavior and checks were clarified; Content Design is unaffected; IP-26 dependency readiness was synchronized.
+Documentation impact: Game Design, IP-07 and IP-10 now explicitly define no-options resolution; Content Design is unaffected; IP-26 dependency readiness remains unchanged.
 
 ### IP-10A — UI Foundation and test harness
 
@@ -190,16 +190,20 @@ Documentation impact: module scope and execution order registered; `docs/art/ART
 
 ### IP-13 — Enemy movement и attack patterns
 
-Status: Ready
+Status: Verified
 
-Implementation evidence: —
+Implementation evidence: `Assets/Game/Enemy/Model/` adds validated, composable movement and attack profiles/controllers for seek, keep-distance, orbit, zigzag, approach-retreat and telegraphed dash plus single/fan/burst/ring/cross/spiral/explosive projectile patterns; `Assets/Game/Enemy/Runtime/EnemyProjectileRuntime.cs` and `EnemyProjectileFactory.cs` provide pooled, pause-safe projectile lifecycle, player hit/explosion damage and end-of-run cleanup; `EnemyRuntime.cs` composes profiles and renders dash telegraphs. `FixtureEnemies.json` contains seven non-production combinations, and `ContinuousFixtureEnemySpawner` cycles them without wave-system changes while sharing enemy/projectile pools. The compact development Run pane exposes current fixture ID, movement phase and attack pattern through the immutable UI state/presenter boundary.
 
-Verification evidence: —
+Verification evidence: Unity 6000.6.0f1 EditMode 169/169 and PlayMode gameplay smoke 1/1 passed on 2026-09-17. Eight IP-13 EditMode checks cover movement-family behavior, dash direction lock/telegraph/pause, fan/ring/cross geometry, burst/spiral sequencing, direct hit/explosion miss/run-state damage, pause-safe projectile lifetime, end-of-run projectile cleanup and fixture coverage of melee/dash/required projectile families. Full-suite scene/content/UI checks verify catalog registration, composition-root wiring and semantic UI assets; `git diff --check` passed.
+
+Deviations: all new definitions and numeric values are explicitly `FIXTURE-*` compatibility content; Draft `ENEMY-001…020`, bosses and canonical encounter schedules remain unimplemented. No product-rule deviation recorded.
+
+Documentation impact: Game Design and Content Design remain unchanged because the module implements their existing framework contract without promoting Draft entities. Execution evidence and direct dependant readiness were synchronized.
 
 ### IP-14 — Wave Director
 
-Status: Blocked  
-Blocked by: IP-13; production schedules remain CG-02 gated.
+Status: Ready
+Production schedules remain CG-02 gated and are outside this fixture framework module.
 
 ### IP-15 — Boss/mid-boss framework
 
@@ -234,13 +238,13 @@ Groundwork: IP-11 provides JSON-configured recipes, probabilistic unified-draft 
 ### IP-20 — Production Enemies
 
 Status: Blocked  
-Blocked by: IP-13 and CG-01 approval of target ENEMY IDs.  
+Blocked by: CG-01 approval of target ENEMY IDs.
 Groundwork: `EnemyDefinition.Visual` and the `Game.Presentation` module ([DECISION-0007](../decisions/0007-content-referenced-visuals.md)) already resolve end-to-end into `EnemyRuntime` rendering for the fixture enemy; `FixtureEnemyCatalog`/JSON ([DECISION-0009](../decisions/0009-json-content-config.md)) already loads enemy definitions from config instead of code; this IP only needs to register real `SpriteDefinition`s and `ENEMY-*` entries in those same conventions.
 
 ### IP-21 — Production Bosses и Mid-bosses
 
 Status: Blocked  
-Blocked by: IP-13, IP-15 and CG-01 approval of target BOSS/MIDBOSS IDs.
+Blocked by: IP-15 and CG-01 approval of target BOSS/MIDBOSS IDs.
 
 ### IP-22 — Production Characters
 

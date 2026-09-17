@@ -143,11 +143,15 @@ namespace Game.Bootstrap
                 passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
                 initializedSubsystems.Add(passiveRuntime.Shutdown);
 
-                var fixtureEnemy = Catalog.Enemies[0];
-                var enemyVisual = fixtureEnemy.Visual.TryResolve(Catalog.Registry, out var enemySprite)
-                    ? enemySprite.Sprite
-                    : null;
-                enemySpawner.Initialize(fixtureEnemy, enemyVisual);
+                var enemyVisuals = new List<Sprite>(Catalog.Enemies.Count);
+                for (var i = 0; i < Catalog.Enemies.Count; i++)
+                {
+                    var enemy = Catalog.Enemies[i];
+                    enemyVisuals.Add(enemy.Visual.TryResolve(Catalog.Registry, out var enemySprite)
+                        ? enemySprite.Sprite
+                        : null);
+                }
+                enemySpawner.Initialize(Catalog.Enemies, enemyVisuals);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 gameplayUiRoot.Initialize(
@@ -156,7 +160,8 @@ namespace Game.Bootstrap
                     draftRuntime,
                     runController,
                     playerPresentation,
-                    Catalog.Characters.UnlockedCharacters);
+                    Catalog.Characters.UnlockedCharacters,
+                    enemySpawner);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch

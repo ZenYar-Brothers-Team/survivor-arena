@@ -35,6 +35,7 @@ namespace Game.UI
         private readonly Button _addExperienceButton;
         private readonly Button _damageButton;
         private readonly Button _healButton;
+        private readonly Label _enemyObservation;
         private readonly Button _presentationLiveButton;
         private readonly Button _presentationIdleButton;
         private readonly Button _presentationLeftButton;
@@ -87,6 +88,7 @@ namespace Game.UI
             _addExperienceButton = Require<Button>(root, GameplayUiElementIds.AddExperienceButton);
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
+            _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
             _presentationLiveButton = Require<Button>(root, GameplayUiElementIds.PresentationLiveButton);
             _presentationIdleButton = Require<Button>(root, GameplayUiElementIds.PresentationIdleButton);
             _presentationLeftButton = Require<Button>(root, GameplayUiElementIds.PresentationLeftButton);
@@ -242,6 +244,11 @@ namespace Game.UI
             SetVisible(_runOverlay, state.IsVisible);
             _runOverlayTitle.text = state.Title;
             SetVisible(_runOverlayResumeButton, state.CanResume);
+        }
+
+        public void RenderEnemyObservability(EnemyObservabilityViewState state)
+        {
+            _enemyObservation.text = state.Summary;
         }
 
         public void SetDevelopmentControlsVisible(bool isVisible)

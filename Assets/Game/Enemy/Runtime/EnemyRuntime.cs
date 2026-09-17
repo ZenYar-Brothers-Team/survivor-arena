@@ -13,17 +13,22 @@ namespace Game.Enemy
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(LineRenderer))]
     public sealed class EnemyRuntime : MonoBehaviour, IEnemyDamageReceiver
     {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
+        private LineRenderer _telegraph;
         private Transform _target;
         private RunController _runController;
         private PlayerCharacterRuntime _contactTarget;
         private ContinuousContactTimer _contactTimer;
         private PlayerExperienceRuntime _experienceTarget;
         private GameObjectPool<EnemyRuntime> _pool;
+        private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
+        private EnemyMovementController _movementController;
+        private EnemyAttackController _attackController;
         private bool _initialized;
         private bool _despawned;
 
@@ -31,6 +36,8 @@ namespace Game.Enemy
         public Health Health { get; private set; }
         public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
         public Vector2 Position => transform.position;
+        public EnemyMovementPhase MovementPhase { get; private set; }
+        public EnemyProjectilePattern? AttackPattern => Definition?.Attack?.Pattern;
 
         public event Action<EnemyRuntime> Died;
         public event Action<EnemyRuntime> Despawned;
@@ -47,7 +54,8 @@ namespace Game.Enemy
             RunController runController,
             PlayerExperienceRuntime experienceTarget = null,
             Sprite visual = null,
-            GameObjectPool<EnemyRuntime> pool = null)
+            GameObjectPool<EnemyRuntime> pool = null,
+            GameObjectPool<EnemyProjectileRuntime> projectilePool = null)
         {
             if (_initialized)
             {
@@ -63,6 +71,7 @@ namespace Game.Enemy
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
             _experienceTarget = experienceTarget;
             _pool = pool;
+            _projectilePool = projectilePool;
 
             CacheComponents();
             _collider.enabled = true;
@@ -75,6 +84,11 @@ namespace Game.Enemy
             // handed in as a plain Sprite, so this class never needs to know about
             // ContentRegistry/ContentRef at all.
             _renderer.sprite = visual != null ? visual : PlaceholderSprite.Shared;
+
+            _movementController = new EnemyMovementController(definition.Movement);
+            _attackController = definition.Attack == null ? null : new EnemyAttackController(definition.Attack);
+            MovementPhase = EnemyMovementPhase.Seeking;
+            ConfigureTelegraph();
 
             Health = new Health(new FixedHealthProfile(definition.MaxHealth));
             Health.Died += HandleDeath;
@@ -91,11 +105,33 @@ namespace Game.Enemy
             var isSimulating = _runController.Model != null &&
                                _runController.Model.State == RunState.Running &&
                                !Health.IsDead;
-            _body.linearVelocity = EnemyMovement.CalculateSeekVelocity(
+            var movement = _movementController.Tick(
                 _body.position,
                 _target.position,
                 Definition.MovementSpeed,
+                Time.fixedDeltaTime,
                 isSimulating);
+            _body.linearVelocity = movement.Velocity;
+            MovementPhase = movement.Phase;
+            RenderTelegraph(movement);
+
+            if (!isSimulating || _attackController == null)
+                return;
+            var shots = _attackController.Tick(
+                Time.fixedDeltaTime,
+                isSimulating,
+                (Vector2)_target.position - _body.position);
+            for (var i = 0; i < shots.Length; i++)
+            {
+                EnemyProjectileFactory.Spawn(
+                    Definition.Attack,
+                    _body.position,
+                    shots[i].Direction,
+                    _target.GetComponent<PlayerCharacterRuntime>(),
+                    _runController,
+                    transform.parent,
+                    _projectilePool);
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -154,6 +190,8 @@ namespace Game.Enemy
             _despawned = true;
             if (_body != null)
                 _body.linearVelocity = Vector2.zero;
+            if (_telegraph != null)
+                _telegraph.enabled = false;
             if (Health != null)
                 Health.Died -= HandleDeath;
             _contactTimer?.EndContact();
@@ -213,6 +251,32 @@ namespace Game.Enemy
                 _collider = GetComponent<CircleCollider2D>();
             if (_renderer == null)
                 _renderer = GetComponent<SpriteRenderer>();
+            if (_telegraph == null)
+                _telegraph = GetComponent<LineRenderer>();
+        }
+
+        private void ConfigureTelegraph()
+        {
+            _telegraph.enabled = false;
+            _telegraph.useWorldSpace = true;
+            _telegraph.positionCount = 2;
+            _telegraph.startWidth = 0.08f;
+            _telegraph.endWidth = 0.025f;
+            _telegraph.startColor = new Color(1f, 0.25f, 0.1f, 0.9f);
+            _telegraph.endColor = new Color(1f, 0.75f, 0.1f, 0.25f);
+            _telegraph.sortingOrder = 5;
+        }
+
+        private void RenderTelegraph(EnemyMovementFrame movement)
+        {
+            _telegraph.enabled = movement.IsTelegraphing;
+            if (!movement.IsTelegraphing)
+                return;
+            var start = (Vector3)_body.position;
+            var length = Mathf.Max(2f, Definition.MovementSpeed * Definition.Movement.DashSpeedMultiplier *
+                Definition.Movement.DashDurationSeconds);
+            _telegraph.SetPosition(0, start);
+            _telegraph.SetPosition(1, start + (Vector3)(movement.TelegraphDirection * length));
         }
 
         private bool IsRunRunning()

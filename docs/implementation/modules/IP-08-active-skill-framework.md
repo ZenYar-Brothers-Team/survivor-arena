@@ -12,7 +12,7 @@ IP-05, IP-07.
 
 ## Scope
 
-Level-specific parameters; behavior composition/hooks; projectile count/pierce/fan/ring/cross; beam/tick; orbit; boomerang/return; chain/retarget; delayed AoE; mine/lifetime/explosion; multi-wave activation — без hard-code под один skill.
+Level-specific parameters; behavior composition/hooks; projectile count/pierce/fan/ring/four-ray diagonal cross; beam/tick; orbit; boomerang/return; chain/retarget; delayed AoE; mine/lifetime/explosion; multi-wave activation — без hard-code под один skill.
 
 ## Context
 
@@ -29,7 +29,7 @@ Build panel показывает все acquired active skills и уровни �
 
 ## Проверки
 
-Representative patterns, 1→6, max level, concurrent skills.
+Representative patterns, distinct ring/diagonal-cross geometry, 1→6, max level, concurrent skills.
 
 ## Out of scope
 

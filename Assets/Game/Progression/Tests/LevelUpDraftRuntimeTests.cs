@@ -181,6 +181,106 @@ namespace Game.Progression.Tests
                 Assert.IsFalse(draft.IsDraftOpen);
                 Assert.AreEqual(0, draft.PendingDraftCount);
                 Assert.AreEqual(RunState.Running, _runController.Model.State);
+
+                experience.AddPickedUpExperience(1f);
+
+                Assert.AreEqual(3, experience.Progression.Level);
+                Assert.IsFalse(draft.IsDraftOpen);
+                Assert.AreEqual(0, draft.PendingDraftCount);
+                Assert.AreEqual(RunState.Running, _runController.Model.State);
+            }
+            finally
+            {
+                Object.DestroyImmediate(isolatedPlayer);
+            }
+        }
+
+        [Test]
+        public void RerollWithNoReplacement_ConsumesDraftWithoutThrowingOrLeavingPause()
+        {
+            var isolatedPlayer = new GameObject("Reroll Exhaustion Player");
+            try
+            {
+                var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
+                character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
+                var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
+                experience.Initialize(character, _runController, 1f);
+                var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
+                var active = Active("FIXTURE-REROLL-STARTING-ACTIVE");
+                var set = new SetDefinition(
+                    "FIXTURE-REROLL-SET",
+                    "Fixture Reroll Set",
+                    0.5f,
+                    new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+                draft.Initialize(
+                    experience,
+                    _runController,
+                    new BuildEntryDefinition[] { active, set },
+                    active,
+                    offerCount: 3,
+                    draftRandom: new SequenceDraftRandom(0f, 1f),
+                    initialRerolls: 1);
+                UpgradeToMaximum(draft.Build, active);
+
+                experience.AddPickedUpExperience(1f);
+                Assert.IsTrue(draft.IsDraftOpen);
+                Assert.AreEqual(set.Id, draft.CurrentDraft.Options[0].Definition.Id);
+
+                Assert.DoesNotThrow(() => Assert.IsTrue(draft.Reroll()));
+                Assert.AreEqual(0, draft.RemainingRerolls);
+                Assert.IsFalse(draft.IsDraftOpen);
+                Assert.AreEqual(0, draft.PendingDraftCount);
+                Assert.AreEqual(RunState.Running, _runController.Model.State);
+            }
+            finally
+            {
+                Object.DestroyImmediate(isolatedPlayer);
+            }
+        }
+
+        [Test]
+        public void LevelUpWithFullMaxedBuild_SkipsEveryUnavailableDraftButKeepsLevels()
+        {
+            var isolatedPlayer = new GameObject("Full Build Player");
+            try
+            {
+                var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
+                character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
+                var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
+                experience.Initialize(character, _runController, 1f);
+                var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
+                var definitions = new BuildEntryDefinition[]
+                {
+                    Active("FIXTURE-FULL-ACTIVE-1"),
+                    Active("FIXTURE-FULL-ACTIVE-2"),
+                    Active("FIXTURE-FULL-ACTIVE-3"),
+                    Active("FIXTURE-FULL-ACTIVE-4"),
+                    Active("FIXTURE-FULL-ACTIVE-5"),
+                    Active("FIXTURE-FULL-ACTIVE-6"),
+                    Passive("FIXTURE-FULL-PASSIVE-1"),
+                    Passive("FIXTURE-FULL-PASSIVE-2"),
+                    Passive("FIXTURE-FULL-PASSIVE-3"),
+                    Passive("FIXTURE-FULL-PASSIVE-4"),
+                    Passive("FIXTURE-FULL-PASSIVE-5"),
+                    Passive("FIXTURE-FULL-PASSIVE-6")
+                };
+                draft.Initialize(experience, _runController, definitions, definitions[0], offerCount: 3);
+                for (var i = 0; i < definitions.Length; i++)
+                {
+                    if (!draft.Build.TryGetEntry(definitions[i].Id, out _))
+                        draft.Build.Apply(definitions[i]);
+                    UpgradeToMaximum(draft.Build, definitions[i]);
+                }
+
+                Assert.AreEqual(PlayerBuild.ActiveSlotCapacity, draft.Build.ActiveCount);
+                Assert.AreEqual(PlayerBuild.PassiveSlotCapacity, draft.Build.PassiveCount);
+
+                experience.AddPickedUpExperience(2f);
+
+                Assert.AreEqual(3, experience.Progression.Level);
+                Assert.IsFalse(draft.IsDraftOpen);
+                Assert.AreEqual(0, draft.PendingDraftCount);
+                Assert.AreEqual(RunState.Running, _runController.Model.State);
             }
             finally
             {
@@ -236,6 +336,12 @@ namespace Game.Progression.Tests
         private static BuildEntryDefinition Passive(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.PassiveItem, id);
+        }
+
+        private static void UpgradeToMaximum(PlayerBuild build, BuildEntryDefinition definition)
+        {
+            while (build.TryGetEntry(definition.Id, out var entry) && !entry.IsMaxLevel)
+                build.Apply(definition);
         }
 
         private static void InvokeAwake(MonoBehaviour behaviour)

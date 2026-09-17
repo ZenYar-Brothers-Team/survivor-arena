@@ -7,6 +7,73 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL"
+    "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL",
+    "movement": { "kind": "Seek" }
+  },
+  {
+    "id": "FIXTURE-ENEMY-FAN",
+    "maxHealth": 12.0,
+    "collisionSize": 0.85,
+    "movementSpeed": 0.8,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": { "kind": "KeepDistance", "preferredDistance": 4.5, "distanceTolerance": 0.5 },
+    "attack": { "pattern": "Fan", "damage": 2.0, "cooldownSeconds": 2.5, "projectileSpeed": 3.0, "projectileLifetimeSeconds": 3.0, "projectileCount": 3, "spreadDegrees": 40.0 }
+  },
+  {
+    "id": "FIXTURE-ENEMY-BURST-ORBIT",
+    "maxHealth": 12.0,
+    "collisionSize": 0.85,
+    "movementSpeed": 0.75,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": { "kind": "Orbit", "preferredDistance": 4.0, "distanceTolerance": 0.4, "lateralStrength": 1.0 },
+    "attack": { "pattern": "Burst", "damage": 1.5, "cooldownSeconds": 3.0, "projectileSpeed": 3.5, "projectileLifetimeSeconds": 3.0, "projectileCount": 3, "burstIntervalSeconds": 0.15 }
+  },
+  {
+    "id": "FIXTURE-ENEMY-RING-ZIGZAG",
+    "maxHealth": 14.0,
+    "collisionSize": 0.9,
+    "movementSpeed": 0.9,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": { "kind": "Zigzag", "lateralStrength": 0.8, "cycleSeconds": 1.2 },
+    "attack": { "pattern": "Ring", "damage": 1.0, "cooldownSeconds": 3.5, "projectileSpeed": 2.5, "projectileLifetimeSeconds": 3.0, "projectileCount": 8 }
+  },
+  {
+    "id": "FIXTURE-ENEMY-CROSS-RETREAT",
+    "maxHealth": 14.0,
+    "collisionSize": 0.9,
+    "movementSpeed": 0.9,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": { "kind": "ApproachRetreat", "cycleSeconds": 2.4 },
+    "attack": { "pattern": "Cross", "damage": 1.5, "cooldownSeconds": 3.0, "projectileSpeed": 3.0, "projectileLifetimeSeconds": 3.0, "projectileCount": 4 }
+  },
+  {
+    "id": "FIXTURE-ENEMY-SPIRAL",
+    "maxHealth": 16.0,
+    "collisionSize": 0.95,
+    "movementSpeed": 0.65,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": { "kind": "KeepDistance", "preferredDistance": 5.0, "distanceTolerance": 0.5 },
+    "attack": { "pattern": "Spiral", "damage": 1.0, "cooldownSeconds": 3.2, "projectileSpeed": 2.3, "projectileLifetimeSeconds": 4.0, "projectileCount": 10, "rotationStepDegrees": 18.0 }
+  },
+  {
+    "id": "FIXTURE-ENEMY-DASH-EXPLOSIVE",
+    "maxHealth": 20.0,
+    "collisionSize": 1.1,
+    "movementSpeed": 0.7,
+    "contactDamage": 2.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 2.0,
+    "movement": { "kind": "TelegraphedDash", "dashTelegraphSeconds": 0.7, "dashDurationSeconds": 0.45, "dashCooldownSeconds": 3.0, "dashSpeedMultiplier": 4.0 },
+    "attack": { "pattern": "Explosive", "damage": 3.0, "cooldownSeconds": 4.0, "projectileSpeed": 1.8, "projectileLifetimeSeconds": 3.5, "projectileCount": 1, "projectileRadius": 0.22, "explosionRadius": 1.2 }
   }
 ]

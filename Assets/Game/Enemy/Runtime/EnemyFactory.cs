@@ -15,7 +15,8 @@ namespace Game.Enemy
             RunController runController,
             Transform parent = null,
             Sprite visual = null,
-            GameObjectPool<EnemyRuntime> pool = null)
+            GameObjectPool<EnemyRuntime> pool = null,
+            GameObjectPool<EnemyProjectileRuntime> projectilePool = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -33,7 +34,8 @@ namespace Game.Enemy
                 runController,
                 target.GetComponent<PlayerExperienceRuntime>(),
                 visual,
-                pool);
+                pool,
+                projectilePool);
             return runtime;
         }
 
@@ -43,6 +45,7 @@ namespace Game.Enemy
             enemyObject.AddComponent<Rigidbody2D>();
             enemyObject.AddComponent<CircleCollider2D>();
             enemyObject.AddComponent<SpriteRenderer>();
+            enemyObject.AddComponent<LineRenderer>();
             return enemyObject.AddComponent<EnemyRuntime>();
         }
     }

@@ -15,6 +15,8 @@ namespace Game.Enemy
         public float ContactDamageInterval { get; }
         public float ExperienceReward { get; }
         public ContentRef<SpriteDefinition> Visual { get; }
+        public EnemyMovementProfile Movement { get; }
+        public EnemyAttackProfile Attack { get; }
 
         public EnemyDefinition(
             ContentId id,
@@ -24,7 +26,9 @@ namespace Game.Enemy
             float contactDamage,
             float contactDamageInterval,
             float experienceReward = 0f,
-            ContentRef<SpriteDefinition> visual = default)
+            ContentRef<SpriteDefinition> visual = default,
+            EnemyMovementProfile movement = null,
+            EnemyAttackProfile attack = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -44,6 +48,8 @@ namespace Game.Enemy
             ContactDamageInterval = contactDamageInterval;
             ExperienceReward = experienceReward;
             Visual = visual;
+            Movement = movement ?? EnemyMovementProfile.Seek;
+            Attack = attack;
         }
 
         // Visual is optional: content authored without art yet (e.g. fixtures) simply

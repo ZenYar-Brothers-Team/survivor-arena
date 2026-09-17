@@ -28,13 +28,13 @@
       { "baseDamage": 2.75, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
         "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 6, "layout": "Ring", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
       { "baseDamage": 3.0, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 8, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
+        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
       { "baseDamage": 3.25, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 8, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
+        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
       { "baseDamage": 3, "cooldownSeconds": 1.8, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
         "waves": [
-          { "delaySeconds": 0, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 8, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] },
-          { "delaySeconds": 0.25, "rotationDegrees": 22.5, "damageMultiplier": 0.75, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 8, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] }
+          { "delaySeconds": 0, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] },
+          { "delaySeconds": 0.25, "rotationDegrees": 22.5, "damageMultiplier": 0.75, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] }
         ] }
     ]
   },

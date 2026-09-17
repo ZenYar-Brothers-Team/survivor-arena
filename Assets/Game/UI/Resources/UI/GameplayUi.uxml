@@ -53,6 +53,8 @@
                     <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
                     <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
                 </ui:VisualElement>
+                <ui:Label text="ENEMY FIXTURE" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-enemy-observation" text="Enemy fixtures unavailable" class="development-help" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
                 <ui:Label text="SET RECIPES" class="development-section-title" />

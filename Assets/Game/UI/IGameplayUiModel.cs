@@ -26,6 +26,7 @@ namespace Game.UI
         CharacterDefinition SelectedCharacter { get; }
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
+        string EnemyDevelopmentSummary { get; }
 
         bool SelectDraftOption(ContentId id);
         bool RerollDraft();

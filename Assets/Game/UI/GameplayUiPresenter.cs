@@ -46,6 +46,7 @@ namespace Game.UI
                 _model.ExperienceProgress01,
                 _model.Level,
                 _model.RemainingSeconds));
+            _view.RenderEnemyObservability(new EnemyObservabilityViewState(_model.EnemyDevelopmentSummary));
         }
 
         public void RefreshAll()

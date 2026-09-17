@@ -25,13 +25,32 @@ namespace Game.Enemy
         private int maxAliveEnemies = 10;
 
         private readonly List<EnemyRuntime> _aliveEnemies = new List<EnemyRuntime>();
-        private EnemyDefinition _fixtureDefinition;
-        private Sprite _fixtureVisual;
+        private IReadOnlyList<EnemyDefinition> _fixtureDefinitions;
+        private IReadOnlyList<Sprite> _fixtureVisuals;
         private ContinuousSpawnTimer _spawnTimer;
         private GameObjectPool<EnemyRuntime> _pool;
+        private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
+        private int _nextDefinitionIndex;
         private bool _initialized;
 
         public int AliveCount => _aliveEnemies.Count;
+        public string DevelopmentObservation
+        {
+            get
+            {
+                if (_aliveEnemies.Count > 0 && _aliveEnemies[0] != null)
+                {
+                    var enemy = _aliveEnemies[0];
+                    return $"{enemy.Definition.Id} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"}";
+                }
+                if (_fixtureDefinitions != null && _fixtureDefinitions.Count > 0)
+                {
+                    var definition = _fixtureDefinitions[0];
+                    return $"Next: {definition.Id} · {definition.Movement.Kind} · {definition.Attack?.Pattern.ToString() ?? "Melee"}";
+                }
+                return "Enemy fixtures unavailable";
+            }
+        }
 
         private void Awake()
         {
@@ -48,11 +67,30 @@ namespace Game.Enemy
 
         public void Initialize(EnemyDefinition definition, Sprite visual = null)
         {
+            Initialize(new[] { definition }, new[] { visual });
+        }
+
+        public void Initialize(IReadOnlyList<EnemyDefinition> definitions, IReadOnlyList<Sprite> visuals = null)
+        {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
-            _fixtureDefinition = definition ?? throw new System.ArgumentNullException(nameof(definition));
-            _fixtureVisual = visual;
+            if (definitions == null)
+                throw new System.ArgumentNullException(nameof(definitions));
+            if (definitions.Count == 0)
+                throw new System.ArgumentException("At least one enemy definition is required.", nameof(definitions));
+            for (var i = 0; i < definitions.Count; i++)
+            {
+                if (definitions[i] == null)
+                    throw new System.ArgumentException("Enemy definitions cannot contain null entries.", nameof(definitions));
+            }
+            if (visuals != null && visuals.Count != definitions.Count)
+                throw new System.ArgumentException("Visual count must match enemy definition count.", nameof(visuals));
+
+            _fixtureDefinitions = definitions;
+            _fixtureVisuals = visuals;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
+            _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
+            _nextDefinitionIndex = 0;
             _initialized = true;
         }
 
@@ -80,7 +118,18 @@ namespace Game.Enemy
             direction.Normalize();
 
             var spawnPosition = (Vector2)target.position + direction * spawnRadius;
-            var enemy = EnemyFactory.Spawn(_fixtureDefinition, spawnPosition, target, runController, transform, _fixtureVisual, _pool);
+            var definitionIndex = _nextDefinitionIndex;
+            _nextDefinitionIndex = (_nextDefinitionIndex + 1) % _fixtureDefinitions.Count;
+            var visual = _fixtureVisuals == null ? null : _fixtureVisuals[definitionIndex];
+            var enemy = EnemyFactory.Spawn(
+                _fixtureDefinitions[definitionIndex],
+                spawnPosition,
+                target,
+                runController,
+                transform,
+                visual,
+                _pool,
+                _projectilePool);
             enemy.Despawned += HandleEnemyDespawned;
             _aliveEnemies.Add(enemy);
         }
@@ -107,8 +156,9 @@ namespace Game.Enemy
                 enemy.Despawned -= HandleEnemyDespawned;
                 enemy.Despawn();
             }
-            _fixtureDefinition = null;
-            _fixtureVisual = null;
+            _fixtureDefinitions = null;
+            _fixtureVisuals = null;
+            _nextDefinitionIndex = 0;
             _initialized = false;
         }
 

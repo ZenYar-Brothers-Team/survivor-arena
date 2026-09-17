@@ -187,7 +187,7 @@ namespace Game.Progression
             if (!IsDraftOpen || !IsCurrentOption(id) || !Controls.TryBanish(id))
                 return false;
 
-            OpenDraft();
+            OpenNextDraft();
             return true;
         }
 
@@ -210,19 +210,24 @@ namespace Game.Progression
 
         private void OpenNextDraft()
         {
-            OpenDraft();
-        }
-
-        private void OpenDraft()
-        {
-            var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
-            if (options.Count == 0)
+            while (_pendingDrafts > 0)
             {
-                ResolveDraftWithoutSelection();
-                return;
+                var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
+                if (options.Count > 0)
+                {
+                    ReplaceCurrentDraft(options);
+                    return;
+                }
+
+                // The level has already been awarded. If the build has no eligible
+                // acquisition or upgrade left, consume only the pending draft and
+                // continue without opening an empty selection window.
+                CurrentDraft = null;
+                _pendingDrafts--;
             }
 
-            ReplaceCurrentDraft(options);
+            if (runController.Model != null)
+                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
         }
 
         private void ReplaceCurrentDraft(IReadOnlyList<DraftOption> options)
@@ -235,10 +240,7 @@ namespace Game.Progression
         {
             CurrentDraft = null;
             _pendingDrafts--;
-            if (_pendingDrafts > 0)
-                OpenNextDraft();
-            else if (runController.Model != null)
-                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
+            OpenNextDraft();
         }
 
         private bool IsCurrentOption(ContentId id)

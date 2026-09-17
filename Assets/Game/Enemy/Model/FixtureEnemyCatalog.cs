@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Content;
 using Game.Content.Json;
@@ -36,7 +37,47 @@ namespace Game.Enemy
                 data.ContactDamage,
                 data.ContactDamageInterval,
                 data.ExperienceReward,
-                visual);
+                visual,
+                ToMovement(data.Movement),
+                ToAttack(data.Attack));
+        }
+
+        private static EnemyMovementProfile ToMovement(EnemyMovementProfileData data)
+        {
+            if (data == null)
+                return EnemyMovementProfile.Seek;
+            if (!Enum.TryParse(data.Kind, true, out EnemyMovementKind kind))
+                throw new InvalidOperationException($"Unknown enemy movement kind '{data.Kind}'.");
+            return new EnemyMovementProfile(
+                kind,
+                data.PreferredDistance,
+                data.DistanceTolerance,
+                data.LateralStrength,
+                data.CycleSeconds,
+                data.DashTelegraphSeconds,
+                data.DashDurationSeconds,
+                data.DashCooldownSeconds,
+                data.DashSpeedMultiplier);
+        }
+
+        private static EnemyAttackProfile ToAttack(EnemyAttackProfileData data)
+        {
+            if (data == null)
+                return null;
+            if (!Enum.TryParse(data.Pattern, true, out EnemyProjectilePattern pattern))
+                throw new InvalidOperationException($"Unknown enemy projectile pattern '{data.Pattern}'.");
+            return new EnemyAttackProfile(
+                pattern,
+                data.Damage,
+                data.CooldownSeconds,
+                data.ProjectileSpeed,
+                data.ProjectileLifetimeSeconds,
+                data.ProjectileCount,
+                data.SpreadDegrees,
+                data.BurstIntervalSeconds,
+                data.ProjectileRadius,
+                data.ExplosionRadius,
+                data.RotationStepDegrees);
         }
     }
 }

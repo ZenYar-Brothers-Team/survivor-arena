@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
+using Game.Enemy;
 using Game.Progression;
 using Game.Presentation;
 using Game.Run;
@@ -18,6 +19,7 @@ namespace Game.UI
         private readonly RunController _run;
         private readonly SpritePresentationRuntime _presentation;
         private readonly IReadOnlyList<CharacterDefinition> _unlockedCharacters;
+        private readonly ContinuousFixtureEnemySpawner _enemySpawner;
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
 
         public event Action Changed;
@@ -37,6 +39,9 @@ namespace Game.UI
         public CharacterDefinition SelectedCharacter => _draft.Character;
         public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
         public bool DevelopmentCommandsEnabled { get; }
+        public string EnemyDevelopmentSummary => _enemySpawner != null
+            ? _enemySpawner.DevelopmentObservation
+            : "Enemy fixtures unavailable";
 
         public GameplayUiRuntimeModel(
             PlayerCharacterRuntime player,
@@ -45,7 +50,8 @@ namespace Game.UI
             RunController run,
             SpritePresentationRuntime presentation,
             bool developmentCommandsEnabled,
-            IReadOnlyList<CharacterDefinition> unlockedCharacters = null)
+            IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
+            ContinuousFixtureEnemySpawner enemySpawner = null)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _experience = experience ?? throw new ArgumentNullException(nameof(experience));
@@ -53,6 +59,7 @@ namespace Game.UI
             _run = run ?? throw new ArgumentNullException(nameof(run));
             _presentation = presentation != null ? presentation : throw new ArgumentNullException(nameof(presentation));
             _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
+            _enemySpawner = enemySpawner;
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
             _player.Health.HealthChanged += HandleHealthChanged;
