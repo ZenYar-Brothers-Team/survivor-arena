@@ -1,0 +1,20 @@
+[
+  {
+    "id": "FIXTURE-SET-OVERCHARGE",
+    "displayName": "Fixture Overcharge",
+    "draftChance": 0.5,
+    "recipe": [
+      { "id": "FIXTURE-SKILL-BOLT", "kind": "ActiveSkill", "minimumLevel": 2 },
+      { "id": "FIXTURE-PASSIVE-HASTE", "kind": "PassiveItem", "minimumLevel": 2 }
+    ]
+  },
+  {
+    "id": "FIXTURE-SET-RECALL",
+    "displayName": "Fixture Recall",
+    "draftChance": 0.5,
+    "recipe": [
+      { "id": "FIXTURE-SKILL-BOLT", "kind": "ActiveSkill", "minimumLevel": 2 },
+      { "id": "FIXTURE-PASSIVE-MEMORY", "kind": "PassiveItem", "minimumLevel": 2 }
+    ]
+  }
+]

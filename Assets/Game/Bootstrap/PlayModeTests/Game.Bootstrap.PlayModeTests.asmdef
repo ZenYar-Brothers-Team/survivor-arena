@@ -1,0 +1,27 @@
+{
+    "name": "Game.Bootstrap.PlayModeTests",
+    "rootNamespace": "Game.Bootstrap.PlayModeTests",
+    "references": [
+        "Game.Bootstrap",
+        "Game.Content",
+        "Game.Progression",
+        "Game.Run",
+        "Game.UI",
+        "Game.Character",
+        "Game.Presentation",
+        "UnityEngine.TestRunner"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

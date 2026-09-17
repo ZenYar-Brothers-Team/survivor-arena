@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "contentId": "<OWNER-ID>",
+  "status": "approved",
+  "artDirectionRevision": "YYYY-MM-DD",
+  "sourceKind": "ai-generated",
+  "generator": "<actual generator name>",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "YYYY-MM-DD",
+  "approvedBy": "user",
+  "referenceImages": [],
+  "prompt": "<final generation or edit prompt verbatim>",
+  "constraints": [
+    "transparent background",
+    "no baked shadow"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/<runtime path>.png"
+  ]
+}

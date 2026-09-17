@@ -1,0 +1,24 @@
+[
+  {
+    "id": "FIXTURE-MOTION-GOBLIN-AGILE",
+    "referenceSpeed": 3.0,
+    "idleBobAmplitude": 0.025,
+    "idleFrequency": 0.675,
+    "idleBreathStretch": 0.035,
+    "idleSwayDegrees": 1.4,
+    "bobAmplitude": 0.05,
+    "bobFrequency": 3.0,
+    "locomotionStretch": 0.06,
+    "maxTiltDegrees": 6.0,
+    "hitDurationSeconds": 0.14,
+    "hitSquash": 0.1,
+    "hitTiltDegrees": 7.0,
+    "hitFlashDurationSeconds": 0.08,
+    "hitFlashRed": 1.0,
+    "hitFlashGreen": 0.45,
+    "hitFlashBlue": 0.45,
+    "hitFlashAlpha": 1.0,
+    "spawnDurationSeconds": 0.2,
+    "spawnScaleFrom": 0.75
+  }
+]

@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 namespace Game.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public sealed class PlayerMover : MonoBehaviour
     {
         [SerializeField]
@@ -28,10 +27,6 @@ namespace Game.Movement
             if (spawnPoint != null)
                 transform.position = spawnPoint.position;
 
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer.sprite == null)
-                spriteRenderer.sprite = PlaceholderSprite.Shared;
-            spriteRenderer.color = Color.cyan;
         }
 
         private void OnEnable()

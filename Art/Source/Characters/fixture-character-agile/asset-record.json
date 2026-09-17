@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIXTURE-CHARACTER-AGILE",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-16",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-16",
+  "approvedBy": "user",
+  "referenceImages": [
+    {
+      "path": "v001/concept-01.png",
+      "role": "edit target for the approved expression revision"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept\nAsset type: transparent master candidate for a 2D top-down survival game character sprite, content ID FIXTURE-CHARACTER-AGILE, role BODY.\nPrimary request: one small agile goblin survivor escaping an overwhelming pursuit; sympathetic and expressive, roughly 65% appealing and 35% scruffy/odd, anxious, clever, stubbornly determined to survive.\nScene/backdrop: genuinely transparent background, isolated cutout only.\nStyle/medium: original hand-drawn 2D storybook cutout illustration; simple confident shapes; thick deep-plum outer contour; flat matte colors; restrained dry-brush/paper texture inside large color masses; simple cel shading; not pixel art and not 3D.\nComposition/framing: single full-body character centered on a square canvas, 3/4 top-down gameplay view, neutral animation-ready stance with weight centered above the feet, slight forward readiness but no action pose; entire ears, hands, feet, clothing and accessory visible; generous transparent padding on all sides; visible silhouette about 72–76% of canvas height; horizontal ground-contact line; designed to remain readable at small gameplay scale and survive horizontal flip.\nSubject invariants: compact slightly lean goblin, large readable ears, expressive alert eyes, moss/olive-green skin, rust/clay main clothing accent, small dusty-teal secondary accent, free empty hands, no permanent weapon, arms slightly separated from torso, legs visually separated, one simple improvised accessory only.\nLighting/mood: soft neutral-warm ambient from above and slightly in front; one broad shadow mass and at most one small highlight; adventurous fairy-tale comedy with real danger, no gore.\nTechnical constraints: actual alpha transparency; clean antialiased edges without matte halo; no baked ground shadow; no ground plane; no environment; no frame; no UI card; no text, letters, numbers, logo, signature or watermark; no cropped parts; no motion blur, speed lines, glow, particles or impact effects; no tiny high-frequency ornaments; no copyrighted character imitation; no extra limbs, duplicated items or ambiguous anatomy; no extreme perspective; no baby mascot proportions; no horror creature; no photorealism; no plastic 3D render.\nVariant 1 — satchel runner: slightly triangular silhouette with broad ears and narrow lower body; short patched rust tunic; one small dusty-teal cross-body satchel resting close to the hip; wary raised brows and focused eyes. Keep the satchel compact so it will not collide with the body during squash/stretch.",
+  "prompt": "Use case: identity-preserve\nAsset type: revised transparent master candidate for the 2D game character FIXTURE-CHARACTER-AGILE.\nInput image: edit target; this exact first satchel-runner goblin candidate.\nPrimary request: make this same goblin slightly cuter and just a little more frightened, so the player instinctively wants to help and protect him.\nChange only the emotional read and very subtle facial proportions: soften the brow shapes; raise the inner brows slightly; make the alert eyes only a little rounder and more open; give the mouth a small uncertain worried tension; soften the nose and cheek expression slightly. The emotion should be vulnerable but still clever, capable, and determined to run—not crying, panicking, helpless, or miserable. Preserve roughly 65% appealing / 35% scruffy and odd; do not turn him into a baby mascot.\nPreserve invariants aggressively: same character identity, full-body neutral animation-ready pose, exact body proportions, large ears, hairstyle, moss-green skin, rust patched tunic, dusty-teal cross-body satchel, wraps, hands, feet, palette, thick deep-plum contour, matte storybook cutout texture, simple cel shading, 3/4 top-down gameplay viewpoint, canvas framing, scale, padding, lighting, and all accessory placement. Keep hands empty.\nBackground/output: preserve genuine alpha transparency and clean cutout edges. No ground, no baked shadow, no scenery, no text, no logo, no watermark, no extra objects or limbs, no crop, no action pose, no motion effects, no 3D or photorealism.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready neutral pose",
+    "preserve 65% appealing / 35% scruffy balance",
+    "runtime derivative only resizes and normalizes padding"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png"
+  ]
+}

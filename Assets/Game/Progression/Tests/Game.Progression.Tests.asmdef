@@ -1,0 +1,32 @@
+{
+    "name": "Game.Progression.Tests",
+    "rootNamespace": "Game.Progression.Tests",
+    "references": [
+        "Game.Progression",
+        "Game.Enemy",
+        "Game.Combat",
+        "Game.Presentation",
+        "Game.Content",
+        "Game.Character",
+        "Game.Run",
+        "Game.Pooling",
+        "Game.Movement",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

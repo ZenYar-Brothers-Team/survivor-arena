@@ -1,0 +1,25 @@
+{
+    "name": "Game.Enemy",
+    "rootNamespace": "Game.Enemy",
+    "references": [
+        "Game.Combat",
+        "Game.Content",
+        "Game.Character",
+        "Game.Run",
+        "Game.Movement",
+        "Game.Progression",
+        "Game.Presentation",
+        "Game.Diagnostics",
+        "Game.Content.Json",
+        "Game.Pooling"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
