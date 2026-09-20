@@ -175,3 +175,17 @@ When splitting an existing multi-type file, keep the original file (and its
 `.meta` GUID) for whichever type already matches its name, and create new
 files only for the others — don't discard and regenerate GUIDs for types that
 didn't need to move.
+
+## Project skills, rules and hooks
+
+Repository-specific helpers live in `.claude/`. They are read-only unless stated, and none of them replaces `STATUS.md` or the design documents.
+
+- `/conventions-review`, `/perf-audit`, `/test-quality-review` — review code, hot paths and tests against the rules in this file and `docs/decisions/`.
+- `/smoke-check` — the safe way to run EditMode/PlayMode tests (never batch mode over an open interactive Editor).
+- `/regression-map`, `/tech-debt` — maintain `docs/regression-map.md` and `docs/tech-debt-register.md` (writes only after confirmation).
+- `/design-review`, `/consistency-check`, `/content-audit`, `/propagate-design-change`, `/balance-check` — cross-check design docs, IP modules, decisions and content JSON; never edit `docs/Game_design.md`/`docs/Content_design.md` without user approval.
+- `/asset-audit` — checks runtime art against `docs/art/ASSET_PIPELINE.md`.
+- `/architecture-decision` — guided authoring (or retrofit) of a `docs/decisions/` record, Proposed only; conflict check against existing decisions.
+- `.claude/rules/` — path-scoped rules (gameplay code, foundation code, enemy AI, UI, content JSON, Unity tests, design docs), adapted from the upstream rule set with documented differences; `.claude/hooks/validate-content-json.ps1` rejects syntactically invalid content JSON after an edit.
+
+Adapted skills carry upstream attribution in `.claude/skills/THIRD_PARTY_NOTICES.md`.
