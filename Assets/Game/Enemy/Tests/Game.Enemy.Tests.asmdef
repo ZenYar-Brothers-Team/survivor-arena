@@ -1,0 +1,30 @@
+{
+    "name": "Game.Enemy.Tests",
+    "rootNamespace": "Game.Enemy.Tests",
+    "references": [
+        "Game.Enemy",
+        "Game.Combat",
+        "Game.Presentation",
+        "Game.Content",
+        "Game.Character",
+        "Game.Run",
+        "Game.Pooling",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

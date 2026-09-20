@@ -26,10 +26,10 @@ namespace Game.Run
 
         public void TogglePause()
         {
-            if (Model.State == RunState.Running)
-                Model.Pause();
-            else if (Model.State == RunState.Paused)
-                Model.Resume();
+            if (Model.IsPausedBy(RunPauseReasons.Manual))
+                Model.ReleasePause(RunPauseReasons.Manual);
+            else
+                Model.RequestPause(RunPauseReasons.Manual);
         }
     }
 }

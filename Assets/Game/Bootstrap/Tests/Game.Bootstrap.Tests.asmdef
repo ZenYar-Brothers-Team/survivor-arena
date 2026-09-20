@@ -1,0 +1,30 @@
+{
+    "name": "Game.Bootstrap.Tests",
+    "rootNamespace": "Game.Bootstrap.Tests",
+    "references": [
+        "Game.Bootstrap",
+        "Game.Content",
+        "Game.ActiveSkill",
+        "Game.Progression",
+        "Game.Enemy",
+        "Game.Presentation",
+        "Game.UI",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,32 @@
+{
+    "name": "Game.ActiveSkill.Tests",
+    "rootNamespace": "Game.ActiveSkill.Tests",
+    "references": [
+        "Game.ActiveSkill",
+        "Game.Content",
+        "Game.Character",
+        "Game.Enemy",
+        "Game.Combat",
+        "Game.Presentation",
+        "Game.Run",
+        "Game.Progression",
+        "Game.Pooling",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
