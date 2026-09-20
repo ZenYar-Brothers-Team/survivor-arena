@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
+using Game.Enemy;
 using Game.Progression;
 using Game.Presentation;
 using Game.Run;
@@ -96,6 +97,33 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void WaveTransition_RebuildsHudWaveAndObservability()
+        {
+            var model = CreateModel();
+            var view = new FakeView();
+            using (var presenter = new GameplayUiPresenter(model, view))
+            {
+                presenter.Start();
+                Assert.AreEqual(2, view.Hud.Wave.PhaseNumber);
+                Assert.AreEqual(5, view.Hud.Wave.PhaseCount);
+                Assert.AreEqual("Pressure", view.Hud.Wave.DisplayName);
+                Assert.AreEqual(WavePhaseTag.Pressure, view.Hud.Wave.Tag);
+                Assert.AreEqual("Fixture wave", view.WaveObservation.Summary);
+
+                model.WavePhaseNumber = 3;
+                model.WavePhaseName = "Respite";
+                model.WavePhaseTag = WavePhaseTag.Rest;
+                model.WaveDevelopmentSummary = "Rest phase";
+                model.RaiseChanged();
+
+                Assert.AreEqual(3, view.Hud.Wave.PhaseNumber);
+                Assert.AreEqual("Respite", view.Hud.Wave.DisplayName);
+                Assert.AreEqual(WavePhaseTag.Rest, view.Hud.Wave.Tag);
+                Assert.AreEqual("Rest phase", view.WaveObservation.Summary);
+            }
+        }
+
+        [Test]
         public void ProductionModel_HidesDevelopmentControls()
         {
             var model = CreateModel();
@@ -163,6 +191,11 @@ namespace Game.UI.Tests
             public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
             public string EnemyDevelopmentSummary { get; set; } = "Fixture enemy";
+            public int WavePhaseNumber { get; set; } = 2;
+            public int WavePhaseCount { get; set; } = 5;
+            public string WavePhaseName { get; set; } = "Pressure";
+            public WavePhaseTag WavePhaseTag { get; set; } = WavePhaseTag.Pressure;
+            public string WaveDevelopmentSummary { get; set; } = "Fixture wave";
             public int RerollCalls { get; private set; }
             public ContentId LastBanished { get; private set; }
             public ContentId LastSelected { get; private set; }
@@ -203,6 +236,7 @@ namespace Game.UI.Tests
             public BuildViewState Build { get; private set; }
             public CharacterSelectionViewState Characters { get; private set; }
             public EnemyObservabilityViewState EnemyObservation { get; private set; }
+            public WaveObservabilityViewState WaveObservation { get; private set; }
             public bool DevelopmentVisible { get; private set; }
 
             public void RenderHud(HudViewState state) => Hud = state;
@@ -211,6 +245,7 @@ namespace Game.UI.Tests
             public void RenderBuild(BuildViewState state) => Build = state;
             public void RenderCharacterSelection(CharacterSelectionViewState state) => Characters = state;
             public void RenderEnemyObservability(EnemyObservabilityViewState state) => EnemyObservation = state;
+            public void RenderWaveObservability(WaveObservabilityViewState state) => WaveObservation = state;
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;
             public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id);
             public void RaiseReroll() => DraftRerollRequested?.Invoke();

@@ -16,6 +16,6 @@ namespace Game.Character.Json
         public float DisappearingXpRecovery { get; set; }
         public float PickedUpXpMultiplier { get; set; } = 1f;
         public float XpDropLifetimeBonusSeconds { get; set; }
-        public float PickupRadius { get; set; } = 0.2f;
+        public float PickupRadius { get; set; }
     }
 }

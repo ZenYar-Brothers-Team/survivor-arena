@@ -195,6 +195,23 @@ namespace Game.Enemy.Tests
             }, patterns);
         }
 
+        [Test]
+        public void FixtureCatalog_ReadsFormerCodeDefaultsFromConfig()
+        {
+            var definitions = FixtureEnemyCatalog.Create().ToDictionary(definition => definition.Id.ToString());
+
+            var fan = definitions["FIXTURE-ENEMY-FAN"];
+            Assert.AreEqual(0.12f, fan.Attack.ProjectileRadius);
+            Assert.AreEqual(4.5f, fan.Movement.PreferredDistance);
+            var burst = definitions["FIXTURE-ENEMY-BURST-ORBIT"].Attack;
+            Assert.AreEqual(0.15f, burst.BurstIntervalSeconds);
+            Assert.AreEqual(0.12f, burst.ProjectileRadius);
+            var dash = definitions["FIXTURE-ENEMY-DASH-EXPLOSIVE"].Movement;
+            Assert.AreEqual(0.7f, dash.DashTelegraphSeconds);
+            Assert.AreEqual(4f, dash.DashSpeedMultiplier);
+            Assert.AreEqual(0.22f, definitions["FIXTURE-ENEMY-DASH-EXPLOSIVE"].Attack.ProjectileRadius);
+        }
+
         private static EnemyAttackProfile Profile(
             EnemyProjectilePattern pattern,
             int count = 1,

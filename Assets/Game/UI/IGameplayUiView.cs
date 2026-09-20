@@ -22,6 +22,7 @@ namespace Game.UI
         void RenderBuild(BuildViewState state);
         void RenderCharacterSelection(CharacterSelectionViewState state);
         void RenderEnemyObservability(EnemyObservabilityViewState state);
+        void RenderWaveObservability(WaveObservabilityViewState state);
         void SetDevelopmentControlsVisible(bool isVisible);
     }
 }

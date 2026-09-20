@@ -3,6 +3,7 @@
         <ui:VisualElement class="hud-row">
             <ui:ProgressBar name="hud-health-bar" title="HP" low-value="0" high-value="100" class="hud-bar" />
             <ui:Label name="hud-level" text="LV 1" class="hud-label" />
+            <ui:Label name="hud-wave" text="WAVE —" class="hud-wave" />
             <ui:Label name="hud-timer" text="15:00" class="hud-timer" />
             <ui:ProgressBar name="hud-xp-bar" title="XP" low-value="0" high-value="100" class="hud-bar" />
             <ui:Button name="hud-pause" text="Pause" class="compact-button" />
@@ -55,6 +56,8 @@
                 </ui:VisualElement>
                 <ui:Label text="ENEMY FIXTURE" class="development-section-title development-section-spaced" />
                 <ui:Label name="development-enemy-observation" text="Enemy fixtures unavailable" class="development-help" />
+                <ui:Label text="WAVE DIRECTOR" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-wave-observation" text="Wave director unavailable" class="development-help" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
                 <ui:Label text="SET RECIPES" class="development-section-title" />

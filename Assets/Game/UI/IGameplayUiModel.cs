@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Enemy;
 using Game.Progression;
 using Game.Presentation;
 using Game.Run;
@@ -27,6 +28,11 @@ namespace Game.UI
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
         string EnemyDevelopmentSummary { get; }
+        int WavePhaseNumber { get; }
+        int WavePhaseCount { get; }
+        string WavePhaseName { get; }
+        WavePhaseTag WavePhaseTag { get; }
+        string WaveDevelopmentSummary { get; }
 
         bool SelectDraftOption(ContentId id);
         bool RerollDraft();

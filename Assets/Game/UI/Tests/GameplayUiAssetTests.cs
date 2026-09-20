@@ -15,6 +15,8 @@ namespace Game.UI.Tests
 
             Assert.IsNotNull(root.Q<ProgressBar>(GameplayUiElementIds.HealthBar));
             Assert.IsNotNull(root.Q<ProgressBar>(GameplayUiElementIds.ExperienceBar));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveLabel));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveObservation));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.BuildPanel));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.ActiveSlots));

@@ -83,6 +83,16 @@ layer, domain types keep all validation. This keeps entity tuning in one
 place that a future automated balance pass can read and edit directly as
 plain files, without touching code.
 
+DTOs must not carry tuning defaults either: a field is either required in the
+JSON (declare it `float?`/`int?` and have the catalog reject a missing one by
+name, or leave it non-nullable so validation fails on zero) or it has a
+*neutral* default that means "leave unchanged" (a 1x multiplier, 0 bonus) and
+that default is owned by one domain type (e.g. `WaveEnemyModifiers.Identity`),
+not repeated in the DTO. Values that only matter for some kinds/patterns are
+required per kind (see `FixtureEnemyCatalog`). Randomness seeds and spawn
+geometry are content too and live in the JSON, not in `[SerializeField]`
+fields on runtime components.
+
 Reference implementations: `Assets/Game/ActiveSkill/Progression/FixtureActiveSkillCatalog.cs`
 (includes the polymorphic-effect pattern via `ActiveSkillEffectJsonConverter`
 and a `"kind"` discriminator — follow this for any future polymorphic content),

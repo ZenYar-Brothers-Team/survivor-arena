@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using Game.Character;
 using Game.Content;
 using Game.Enemy;
@@ -20,6 +22,7 @@ namespace Game.UI
         private readonly SpritePresentationRuntime _presentation;
         private readonly IReadOnlyList<CharacterDefinition> _unlockedCharacters;
         private readonly ContinuousFixtureEnemySpawner _enemySpawner;
+        private readonly WaveDirector _waveDirector;
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
 
         public event Action Changed;
@@ -42,6 +45,13 @@ namespace Game.UI
         public string EnemyDevelopmentSummary => _enemySpawner != null
             ? _enemySpawner.DevelopmentObservation
             : "Enemy fixtures unavailable";
+        public int WavePhaseNumber => _waveDirector != null ? _waveDirector.CurrentPhaseIndex + 1 : 0;
+        public int WavePhaseCount => _waveDirector != null ? _waveDirector.PhaseCount : 0;
+        public string WavePhaseName => _waveDirector != null ? _waveDirector.CurrentPhase.DisplayName : "—";
+        public WavePhaseTag WavePhaseTag => _waveDirector != null ? _waveDirector.CurrentPhase.Tag : WavePhaseTag.Ordinary;
+        public string WaveDevelopmentSummary => _waveDirector != null
+            ? DescribeWave(_waveDirector, _enemySpawner.AliveCount)
+            : "Wave director unavailable";
 
         public GameplayUiRuntimeModel(
             PlayerCharacterRuntime player,
@@ -60,6 +70,7 @@ namespace Game.UI
             _presentation = presentation != null ? presentation : throw new ArgumentNullException(nameof(presentation));
             _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
             _enemySpawner = enemySpawner;
+            _waveDirector = enemySpawner != null ? enemySpawner.Director : null;
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
             _player.Health.HealthChanged += HandleHealthChanged;
@@ -68,6 +79,8 @@ namespace Game.UI
             _draft.DraftOpened += HandleDraftOpened;
             _draft.SelectionApplied += HandleSelectionApplied;
             _run.Model.StateChanged += HandleRunStateChanged;
+            if (_waveDirector != null)
+                _waveDirector.PhaseChanged += HandleWavePhaseChanged;
             RefreshBuildEntries();
         }
 
@@ -92,6 +105,45 @@ namespace Game.UI
             Changed?.Invoke();
         }
         private void HandleRunStateChanged(RunState _) => Changed?.Invoke();
+        private void HandleWavePhaseChanged(WavePhaseDefinition _, int __) => Changed?.Invoke();
+
+        private static string DescribeWave(WaveDirector director, int aliveEnemies)
+        {
+            var phase = director.CurrentPhase;
+            var mix = new StringBuilder();
+            for (var i = 0; i < phase.Composition.Count; i++)
+            {
+                if (i > 0)
+                    mix.Append(", ");
+                mix.Append(phase.Composition[i].Enemy.Id.ToString().Replace("FIXTURE-ENEMY-", string.Empty))
+                    .Append(" x").Append(phase.Composition[i].Weight.ToString("0.#", CultureInfo.InvariantCulture));
+            }
+
+            var modifiers = phase.Modifiers;
+            var summary = new StringBuilder()
+                .Append("T ").Append(FormatClock(director.Elapsed))
+                .Append(" · ").Append(director.CurrentPhaseIndex + 1).Append('/').Append(director.PhaseCount)
+                .Append(' ').Append(phase.DisplayName).Append(" [").Append(phase.Tag).Append("]\n")
+                .Append("Spawn every ").Append(phase.SpawnIntervalSeconds.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append("s · cap ").Append(phase.MaxAliveEnemies)
+                .Append(" · alive ").Append(aliveEnemies).Append('\n')
+                .Append("Mix: ").Append(mix).Append('\n')
+                .Append("Mods: HP x").Append(modifiers.HealthMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append(" SPD x").Append(modifiers.SpeedMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append(" TOUCH x").Append(modifiers.ContactDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append(" SHOT x").Append(modifiers.AttackDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append('\n');
+            var next = director.NextHook;
+            summary.Append("Next hook: ")
+                .Append(next != null ? $"{next.Kind} @ {FormatClock(next.TimeSeconds)}" : "none");
+            return summary.ToString();
+        }
+
+        private static string FormatClock(float seconds)
+        {
+            var whole = Math.Max(0, (int)seconds);
+            return $"{whole / 60:00}:{whole % 60:00}";
+        }
 
         private void RefreshBuildEntries()
         {
@@ -111,6 +163,8 @@ namespace Game.UI
             _draft.DraftOpened -= HandleDraftOpened;
             _draft.SelectionApplied -= HandleSelectionApplied;
             _run.Model.StateChanged -= HandleRunStateChanged;
+            if (_waveDirector != null)
+                _waveDirector.PhaseChanged -= HandleWavePhaseChanged;
         }
     }
 }

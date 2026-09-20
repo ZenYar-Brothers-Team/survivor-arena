@@ -44,6 +44,31 @@
     margin-right: 14px;
 }
 
+.hud-wave {
+    -unity-font-style: bold;
+    margin-right: 14px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: rgb(45, 51, 64);
+    color: rgb(230, 230, 235);
+}
+
+.hud-wave--ordinary {
+    background-color: rgb(45, 51, 64);
+}
+
+.hud-wave--pressure {
+    background-color: rgb(176, 112, 32);
+}
+
+.hud-wave--elite {
+    background-color: rgb(160, 40, 48);
+}
+
+.hud-wave--rest {
+    background-color: rgb(40, 118, 88);
+}
+
 .hud-timer {
     flex-grow: 1;
     -unity-text-align: middle-center;

@@ -45,8 +45,14 @@ namespace Game.UI
                 _model.MaxHealth,
                 _model.ExperienceProgress01,
                 _model.Level,
-                _model.RemainingSeconds));
+                _model.RemainingSeconds,
+                new WaveViewState(
+                    _model.WavePhaseNumber,
+                    _model.WavePhaseCount,
+                    _model.WavePhaseName,
+                    _model.WavePhaseTag)));
             _view.RenderEnemyObservability(new EnemyObservabilityViewState(_model.EnemyDevelopmentSummary));
+            _view.RenderWaveObservability(new WaveObservabilityViewState(_model.WaveDevelopmentSummary));
         }
 
         public void RefreshAll()

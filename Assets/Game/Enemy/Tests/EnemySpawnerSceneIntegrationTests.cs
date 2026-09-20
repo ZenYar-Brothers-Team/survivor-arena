@@ -31,8 +31,10 @@ namespace Game.Enemy.Tests
             Assert.AreSame(
                 GameObject.Find("Player").transform,
                 serializedSpawner.FindProperty("target").objectReferenceValue);
-            Assert.Greater(serializedSpawner.FindProperty("spawnIntervalSeconds").floatValue, 0f);
-            Assert.Greater(serializedSpawner.FindProperty("maxAliveEnemies").intValue, 0);
+            // Spawn cadence, caps and radius live in the wave timeline config, not on the component.
+            Assert.IsNull(serializedSpawner.FindProperty("spawnRadius"));
+            Assert.IsNull(serializedSpawner.FindProperty("spawnIntervalSeconds"));
+            Assert.IsNull(serializedSpawner.FindProperty("maxAliveEnemies"));
         }
     }
 }

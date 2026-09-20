@@ -23,6 +23,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<PassiveProgressionDefinition> Passives { get; }
         public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
+        public WaveTimelineDefinition WaveTimeline { get; }
         public CharacterRoster Characters { get; }
         public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
 
@@ -33,6 +34,7 @@ namespace Game.Bootstrap
             IReadOnlyList<PassiveProgressionDefinition> passives,
             IReadOnlyList<SetDefinition> sets,
             IReadOnlyList<EnemyDefinition> enemies,
+            WaveTimelineDefinition waveTimeline,
             CharacterRoster characters,
             IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles)
         {
@@ -42,6 +44,7 @@ namespace Game.Bootstrap
             Passives = passives;
             Sets = sets;
             Enemies = enemies;
+            WaveTimeline = waveTimeline;
             Characters = characters;
             SpriteMotionProfiles = spriteMotionProfiles;
         }
@@ -55,6 +58,7 @@ namespace Game.Bootstrap
             var passives = FixturePassiveCatalog.Create();
             var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
+            var waveTimeline = FixtureWaveTimelineCatalog.Create();
             var characters = FixtureCharacterDefinitionCatalog.Create();
             var spriteMotionProfiles = FixtureSpriteMotionProfileCatalog.Create();
 
@@ -77,6 +81,7 @@ namespace Game.Bootstrap
             }
             for (var i = 0; i < enemies.Count; i++)
                 allDefinitions.Add(enemies[i]);
+            allDefinitions.Add(waveTimeline);
             for (var i = 0; i < characters.AllCharacters.Count; i++)
                 allDefinitions.Add(characters.AllCharacters[i]);
             for (var i = 0; i < spriteMotionProfiles.Count; i++)
@@ -107,6 +112,7 @@ namespace Game.Bootstrap
                 passives,
                 sets,
                 enemies,
+                waveTimeline,
                 characters,
                 spriteMotionProfiles);
             return _cached;

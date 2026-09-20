@@ -1,4 +1,5 @@
 using Game.ActiveSkill;
+using Game.Enemy;
 using Game.Presentation;
 using Game.Progression;
 using NUnit.Framework;
@@ -35,6 +36,10 @@ namespace Game.Bootstrap.Tests
 
             foreach (var character in catalog.Characters.AllCharacters)
                 Assert.AreSame(character, catalog.Registry.Get<CharacterDefinition>(character.Id));
+
+            Assert.AreSame(catalog.WaveTimeline, catalog.Registry.Get<WaveTimelineDefinition>(catalog.WaveTimeline.Id));
+            foreach (var reference in catalog.WaveTimeline.GetReferencedContent())
+                Assert.IsInstanceOf<EnemyDefinition>(catalog.Registry.Get<EnemyDefinition>(reference.Id));
 
             var agile = catalog.Characters.AllCharacters[0];
             var agileVisual = agile.Visual.Resolve(catalog.Registry);

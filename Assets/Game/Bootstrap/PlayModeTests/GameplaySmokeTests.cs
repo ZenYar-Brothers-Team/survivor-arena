@@ -42,6 +42,11 @@ namespace Game.Bootstrap.PlayModeTests
                 GameplayUiElementIds.DevelopmentPanel);
             Assert.AreEqual(DisplayStyle.Flex, developmentToggle.style.display.value);
             Assert.AreEqual(DisplayStyle.None, developmentPanel.style.display.value);
+            var waveLabel = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.WaveLabel);
+            StringAssert.StartsWith("WAVE 1/", waveLabel.text);
+            StringAssert.Contains("ORDINARY", waveLabel.text);
+            var waveObservation = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.WaveObservation);
+            StringAssert.Contains("Spawn every", waveObservation.text);
             var bodyRenderer = GameObject.Find("BodyRoot").GetComponent<SpriteRenderer>();
             Assert.AreEqual("fixture-character-agile-body", bodyRenderer.sprite.name);
             presentation.SetPreviewMotion(SpritePresentationPreviewMotion.Left);

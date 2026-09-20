@@ -38,46 +38,88 @@ namespace Game.Enemy
                 data.ContactDamageInterval,
                 data.ExperienceReward,
                 visual,
-                ToMovement(data.Movement),
-                ToAttack(data.Attack));
+                ToMovement(data.Id, data.Movement),
+                ToAttack(data.Id, data.Attack));
         }
 
-        private static EnemyMovementProfile ToMovement(EnemyMovementProfileData data)
+        // Every field the kind actually reads must be explicit in config; fields it never
+        // reads fall back to the domain profile's neutral values and cannot affect behavior.
+        private static EnemyMovementProfile ToMovement(string enemyId, EnemyMovementProfileData data)
         {
             if (data == null)
                 return EnemyMovementProfile.Seek;
             if (!Enum.TryParse(data.Kind, true, out EnemyMovementKind kind))
                 throw new InvalidOperationException($"Unknown enemy movement kind '{data.Kind}'.");
+
+            var neutral = new EnemyMovementProfile(kind);
+            var usesDistance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit;
+            var usesLateral = kind == EnemyMovementKind.Orbit || kind == EnemyMovementKind.Zigzag;
+            var usesCycle = kind == EnemyMovementKind.Zigzag || kind == EnemyMovementKind.ApproachRetreat;
+            var usesDash = kind == EnemyMovementKind.TelegraphedDash;
+
+            string Owner(string field) => $"Enemy '{enemyId}' movement '{kind}' field '{field}'";
             return new EnemyMovementProfile(
                 kind,
-                data.PreferredDistance,
-                data.DistanceTolerance,
-                data.LateralStrength,
-                data.CycleSeconds,
-                data.DashTelegraphSeconds,
-                data.DashDurationSeconds,
-                data.DashCooldownSeconds,
-                data.DashSpeedMultiplier);
+                Pick(data.PreferredDistance, usesDistance, neutral.PreferredDistance, Owner(nameof(data.PreferredDistance))),
+                Pick(data.DistanceTolerance, usesDistance, neutral.DistanceTolerance, Owner(nameof(data.DistanceTolerance))),
+                Pick(data.LateralStrength, usesLateral, neutral.LateralStrength, Owner(nameof(data.LateralStrength))),
+                Pick(data.CycleSeconds, usesCycle, neutral.CycleSeconds, Owner(nameof(data.CycleSeconds))),
+                Pick(data.DashTelegraphSeconds, usesDash, neutral.DashTelegraphSeconds, Owner(nameof(data.DashTelegraphSeconds))),
+                Pick(data.DashDurationSeconds, usesDash, neutral.DashDurationSeconds, Owner(nameof(data.DashDurationSeconds))),
+                Pick(data.DashCooldownSeconds, usesDash, neutral.DashCooldownSeconds, Owner(nameof(data.DashCooldownSeconds))),
+                Pick(data.DashSpeedMultiplier, usesDash, neutral.DashSpeedMultiplier, Owner(nameof(data.DashSpeedMultiplier))));
         }
 
-        private static EnemyAttackProfile ToAttack(EnemyAttackProfileData data)
+        private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)
         {
             if (data == null)
                 return null;
             if (!Enum.TryParse(data.Pattern, true, out EnemyProjectilePattern pattern))
                 throw new InvalidOperationException($"Unknown enemy projectile pattern '{data.Pattern}'.");
+
+            string Owner(string field) => $"Enemy '{enemyId}' attack '{pattern}' field '{field}'";
+            var projectileCount = Require(data.ProjectileCount, Owner(nameof(data.ProjectileCount)));
+            var projectileRadius = Require(data.ProjectileRadius, Owner(nameof(data.ProjectileRadius)));
+
+            if (pattern != EnemyProjectilePattern.Burst)
+            {
+                return new EnemyAttackProfile(
+                    pattern,
+                    data.Damage,
+                    data.CooldownSeconds,
+                    data.ProjectileSpeed,
+                    data.ProjectileLifetimeSeconds,
+                    projectileCount,
+                    data.SpreadDegrees,
+                    projectileRadius: projectileRadius,
+                    explosionRadius: data.ExplosionRadius,
+                    rotationStepDegrees: data.RotationStepDegrees);
+            }
+
             return new EnemyAttackProfile(
                 pattern,
                 data.Damage,
                 data.CooldownSeconds,
                 data.ProjectileSpeed,
                 data.ProjectileLifetimeSeconds,
-                data.ProjectileCount,
+                projectileCount,
                 data.SpreadDegrees,
-                data.BurstIntervalSeconds,
-                data.ProjectileRadius,
+                Require(data.BurstIntervalSeconds, Owner(nameof(data.BurstIntervalSeconds))),
+                projectileRadius,
                 data.ExplosionRadius,
                 data.RotationStepDegrees);
+        }
+
+        private static float Pick(float? configured, bool required, float unusedFallback, string description)
+        {
+            return required ? Require(configured, description) : configured ?? unusedFallback;
+        }
+
+        private static T Require<T>(T? configured, string description) where T : struct
+        {
+            if (!configured.HasValue)
+                throw new InvalidOperationException($"{description} must be set in config.");
+            return configured.Value;
         }
     }
 }

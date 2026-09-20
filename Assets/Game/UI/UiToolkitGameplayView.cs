@@ -1,5 +1,6 @@
 using System;
 using Game.Content;
+using Game.Enemy;
 using Game.Presentation;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,7 @@ namespace Game.UI
         private readonly ProgressBar _experienceBar;
         private readonly Label _levelLabel;
         private readonly Label _timerLabel;
+        private readonly Label _waveLabel;
         private readonly Button _pauseButton;
         private readonly VisualElement _activeSlots;
         private readonly VisualElement _passiveSlots;
@@ -36,6 +38,7 @@ namespace Game.UI
         private readonly Button _damageButton;
         private readonly Button _healButton;
         private readonly Label _enemyObservation;
+        private readonly Label _waveObservation;
         private readonly Button _presentationLiveButton;
         private readonly Button _presentationIdleButton;
         private readonly Button _presentationLeftButton;
@@ -64,6 +67,7 @@ namespace Game.UI
             _experienceBar = Require<ProgressBar>(root, GameplayUiElementIds.ExperienceBar);
             _levelLabel = Require<Label>(root, GameplayUiElementIds.LevelLabel);
             _timerLabel = Require<Label>(root, GameplayUiElementIds.TimerLabel);
+            _waveLabel = Require<Label>(root, GameplayUiElementIds.WaveLabel);
             _pauseButton = Require<Button>(root, GameplayUiElementIds.PauseButton);
             _activeSlots = Require<VisualElement>(root, GameplayUiElementIds.ActiveSlots);
             _passiveSlots = Require<VisualElement>(root, GameplayUiElementIds.PassiveSlots);
@@ -89,6 +93,7 @@ namespace Game.UI
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
+            _waveObservation = Require<Label>(root, GameplayUiElementIds.WaveObservation);
             _presentationLiveButton = Require<Button>(root, GameplayUiElementIds.PresentationLiveButton);
             _presentationIdleButton = Require<Button>(root, GameplayUiElementIds.PresentationIdleButton);
             _presentationLeftButton = Require<Button>(root, GameplayUiElementIds.PresentationLeftButton);
@@ -126,6 +131,16 @@ namespace Game.UI
             _levelLabel.text = $"LV {state.Level}";
             var remaining = Math.Max(0, (int)Math.Ceiling(state.RemainingSeconds));
             _timerLabel.text = $"{remaining / 60:00}:{remaining % 60:00}";
+            RenderWave(state.Wave);
+        }
+
+        private void RenderWave(WaveViewState wave)
+        {
+            _waveLabel.text = wave.PhaseCount > 0
+                ? $"WAVE {wave.PhaseNumber}/{wave.PhaseCount} · {wave.DisplayName.ToUpperInvariant()}"
+                : "WAVE —";
+            foreach (WavePhaseTag tag in Enum.GetValues(typeof(WavePhaseTag)))
+                _waveLabel.EnableInClassList($"hud-wave--{tag.ToString().ToLowerInvariant()}", tag == wave.Tag);
         }
 
         public void RenderDraft(DraftViewState state)
@@ -249,6 +264,11 @@ namespace Game.UI
         public void RenderEnemyObservability(EnemyObservabilityViewState state)
         {
             _enemyObservation.text = state.Summary;
+        }
+
+        public void RenderWaveObservability(WaveObservabilityViewState state)
+        {
+            _waveObservation.text = state.Summary;
         }
 
         public void SetDevelopmentControlsVisible(bool isVisible)
