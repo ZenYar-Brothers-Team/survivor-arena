@@ -11,7 +11,7 @@
 - [Art Production](../art/Art%20Production.md) — inventory и роли ассетов.
 - [Asset Pipeline](../art/ASSET_PIPELINE.md) — технические пути, provenance, подготовка, импорт и image approval.
 - [Модули](modules/) — scope, зависимости, критерии и проверки.
-- [STATUS](STATUS.md) — единственная Execution order, текущие статусы, готовность и evidence.
+- [STATUS](STATUS.md) — единственная Execution order, текущие статусы, готовность, краткое evidence и ссылки на подробности.
 - [WORKFLOW](WORKFLOW.md) — процесс работы над выбранным IP.
 
 Repository/code показывает фактически реализованное поведение. IP и код не переопределяют дизайн автоматически. Исходные файлы с `v2` в имени — материалы импорта, а не параллельные каноны; дальнейшие изменения делаются по canonical paths выше.
@@ -22,7 +22,7 @@ Repository/code показывает фактически реализованн
 
 30 существующих IP сохранены под прежними IDs/filenames; 28 получают изменения scope, IP-00/IP-02 сохраняют behavioral contracts. Пять новых — IP-28 pickup framework, IP-29 Traveler framework, IP-30 production Travelers/Book, IP-31 локальная телеметрия и IP-32 ручной AI balance workflow. Все 35 спецификаций полные; отдельное слияние со старым текстом не требуется.
 
-Историческое Verified подтверждает только прежний scope. STATUS хранит его evidence отдельно от текущей готовности и новых проверок. Fixture, готовый production поднабор и весь каталог имеют разные критерии завершения; первый поднабор не закрывает catalog IP.
+Историческое Verified подтверждает только прежний scope. STATUS ссылается на [архив прежнего scope](evidence/pre-design-sync-R2.md) и [подробные проверки целевой ревизии](evidence/design-sync-R2-2026-09-21.md); эти записи не содержат текущих статусов. При старте IP читать его запись и Context, а evidence — только по необходимости. Fixture, готовый production поднабор и весь каталог имеют разные критерии завершения; первый поднабор не закрывает catalog IP.
 
 ## Milestones
 

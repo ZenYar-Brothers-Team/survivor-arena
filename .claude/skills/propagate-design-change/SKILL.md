@@ -18,7 +18,7 @@ Extract per changed section: the rules/IDs/numbers added, removed or altered.
 
 ## 2. Find dependents
 For each changed rule/ID/number, grep:
-- `docs/implementation/modules/*.md` (Context sections, acceptance criteria) and `docs/implementation/STATUS.md` (evidence text mentioning it);
+- `docs/implementation/modules/*.md` (Context sections, acceptance criteria) and `docs/implementation/STATUS.md` (current entry; follow the affected IP's linked evidence if needed, not the whole archive);
 - `docs/decisions/*.md` (a decision whose premise changed);
 - other design documents (Game Design ↔ Content Design ↔ UI/UX ↔ art docs);
 - code: `Assets/Game/**` (constants, comments citing the section), tests asserting the old numbers, and `Assets/Resources/Content/**/*.json`.

@@ -18,7 +18,7 @@ Records live in `docs/decisions/NNNN-short-title.md`, follow `docs/decisions/_te
 - Otherwise the argument is the title.
 
 ## 1. Load context (always first)
-Read `docs/decisions/README.md` (when a record is required), `docs/decisions/_template.md`, `AGENTS.md` (Coding conventions), and the list of existing records (`Glob docs/decisions/*.md`; read titles/Status/Context of the topically related ones, e.g. config → 0009, health → 0006, pooling → 0011, waves → 0014). Read the related IP entry in `docs/implementation/STATUS.md` and its module spec if the title names one.
+Read `docs/decisions/README.md` (when a record is required), `docs/decisions/_template.md`, `AGENTS.md` and the scoped rules it routes for the affected files, and the list of existing records (`Glob docs/decisions/*.md`; read titles/Status/Context of the topically related ones, e.g. config → 0009, health → 0006, pooling → 0011, waves → 0014). Read the related IP entry in `docs/implementation/STATUS.md` and its module spec if the title names one.
 
 Unity is 6000.6.0f1, newer than the model's training data: when the decision depends on a Unity API or package behaviour, verify it against the installed package source/`Library/PackageCache`, the compiler, or a test — do not rely on memory — and put unverified points under "Risks".
 

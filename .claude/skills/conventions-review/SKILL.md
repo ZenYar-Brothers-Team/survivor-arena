@@ -1,6 +1,6 @@
 ---
 name: conventions-review
-description: "Read-only review of Unity C# files or a directory against this repository's own rules (AGENTS.md coding conventions and docs/decisions ADRs), plus Unity lifecycle/GC pitfalls. Use before a PR or after finishing an IP module. Not a replacement for the built-in /code-review."
+description: "Read-only review of Unity C# files or a directory against this repository's own rules (AGENTS.md scoped rules and docs/decisions ADRs), plus Unity lifecycle/GC pitfalls. Use before a PR or after finishing an IP module. Not a replacement for the built-in /code-review."
 argument-hint: "[path-to-file-or-directory | 'diff']"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash
@@ -14,16 +14,16 @@ Review the target and report findings. **Do not edit any file.**
 ## 1. Scope
 - Argument is a path: read every `.cs` file under it in full (skip `*.meta`).
 - Argument is `diff` or empty: use `git diff origin/develop...HEAD --name-only` plus uncommitted changes; review the changed `.cs` files.
-- Read `AGENTS.md` (Coding conventions) and the ADRs in `docs/decisions/` that apply (see step 2).
+- Read `AGENTS.md`, `.claude/rules/csharp-code.md`, the additional rules matching the changed files, and applicable ADRs (see step 2).
 
 ## 2. ADR compliance
-Find `DECISION-NNNN` references in the files, in `docs/implementation/STATUS.md` for the touched IP, and by topic:
+Find `DECISION-NNNN` references in the files, in `docs/implementation/STATUS.md` for the touched IP (follow only its linked evidence when needed), and by topic:
 - config/JSON content → 0009; shared validation → 0012; pooling → 0011; root rollback → 0010;
   perf logging → 0008; health → 0006; visuals → 0007, 0013; waves → 0014; UI → 0005.
 
 Classify each deviation: **VIOLATION** (blocking; pattern the ADR forbids), **DRIFT** (warning), **MINOR** (info).
 
-## 3. Repository rules (each is a checkable rule from AGENTS.md)
+## 3. Repository rules (routed by AGENTS.md to .claude/rules/)
 - Gameplay values as C# literals or `[SerializeField]` defaults instead of JSON under `Assets/Resources/Content/<Category>/`; DTOs carrying tuning defaults; seeds/spawn geometry outside JSON.
 - Local `ValidatePositive/NonNegative/Finite`-style helpers instead of `Game.Content.NumericValidation`.
 - `new GameObject`/`Destroy` per spawn on frequently spawned things instead of `GameObjectPool<T>` (opt-in `pool` parameter, never a hidden static pool); a poolable type that throws on a second `Initialize()`.
