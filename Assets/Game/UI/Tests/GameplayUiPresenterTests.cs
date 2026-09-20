@@ -136,6 +136,23 @@ namespace Game.UI.Tests
             }
         }
 
+        [Test]
+        public void ProductionModel_DoesNotBuildDevelopmentObservability()
+        {
+            var model = CreateModel();
+            model.DevelopmentCommandsEnabled = false;
+            var view = new FakeView();
+            using (var presenter = new GameplayUiPresenter(model, view))
+            {
+                presenter.Start();
+                model.RaiseChanged();
+
+                Assert.IsNull(view.EnemyObservation);
+                Assert.IsNull(view.WaveObservation);
+                Assert.AreEqual(model.WavePhaseNumber, view.Hud.Wave.PhaseNumber, "The HUD wave badge is not development-only.");
+            }
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");

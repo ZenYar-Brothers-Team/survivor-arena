@@ -54,6 +54,11 @@ namespace Game.Character
 
         private void Update()
         {
+            // Health is torn down by Shutdown() (composition-root rollback); the
+            // component stays enabled, so guard instead of throwing every frame.
+            if (!_initialized)
+                return;
+
             var isRunning = runController != null &&
                             runController.Model != null &&
                             runController.Model.State == RunState.Running;

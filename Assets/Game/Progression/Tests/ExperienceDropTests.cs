@@ -27,7 +27,7 @@ namespace Game.Progression.Tests
             _character = _player.AddComponent<PlayerCharacterRuntime>();
             _character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
             _experience = _player.AddComponent<PlayerExperienceRuntime>();
-            _experience.Initialize(_character, _runController, 100f);
+            _experience.Initialize(_character, _runController, new ExperienceSettings(60f, 100f));
         }
 
         [TearDown]

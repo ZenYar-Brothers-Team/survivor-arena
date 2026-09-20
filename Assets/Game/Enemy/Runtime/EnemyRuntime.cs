@@ -23,6 +23,7 @@ namespace Game.Enemy
         private Transform _target;
         private RunController _runController;
         private PlayerCharacterRuntime _contactTarget;
+        private PlayerCharacterRuntime _projectileTarget;
         private ContinuousContactTimer _contactTimer;
         private PlayerExperienceRuntime _experienceTarget;
         private GameObjectPool<EnemyRuntime> _pool;
@@ -62,12 +63,17 @@ namespace Game.Enemy
                 // Reused from a pool: tear down the previous life before rebuilding,
                 // instead of the single-use "throw if already initialized" guard.
                 if (Health != null)
+                {
                     Health.Died -= HandleDeath;
+                    Health.Dispose();
+                }
                 _despawned = false;
             }
 
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             _target = target != null ? target : throw new ArgumentNullException(nameof(target));
+            // Resolved once per life: it is needed for every projectile this enemy fires.
+            _projectileTarget = target.GetComponent<PlayerCharacterRuntime>();
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
             _experienceTarget = experienceTarget;
             _pool = pool;
@@ -127,7 +133,7 @@ namespace Game.Enemy
                     Definition.Attack,
                     _body.position,
                     shots[i].Direction,
-                    _target.GetComponent<PlayerCharacterRuntime>(),
+                    _projectileTarget,
                     _runController,
                     transform.parent,
                     _projectilePool);
@@ -234,7 +240,10 @@ namespace Game.Enemy
         {
             EnemyRegistry.Unregister(this);
             if (Health != null)
+            {
                 Health.Died -= HandleDeath;
+                Health.Dispose();
+            }
 
             if (_despawned)
                 return;

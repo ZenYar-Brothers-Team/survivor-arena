@@ -16,17 +16,12 @@ namespace Game.Progression
         [SerializeField]
         private RunController runController;
 
-        [SerializeField, Min(0.0001f)]
-        private float baseDropLifetimeSeconds = 60f;
-
-        [SerializeField]
-        private float[] fixtureLevelThresholds = { 5f, 10f, 15f };
-
         private bool _initialized;
+        private float _baseDropLifetimeSeconds;
         private GameObjectPool<ExperienceDropRuntime> _dropPool;
 
         public ExperienceProgression Progression { get; private set; }
-        public float DropLifetimeSeconds => baseDropLifetimeSeconds + OwnerStats.XpDropLifetimeBonusSeconds;
+        public float DropLifetimeSeconds => _baseDropLifetimeSeconds + OwnerStats.XpDropLifetimeBonusSeconds;
         public float DisappearingExperienceRecovery => OwnerStats.DisappearingXpRecovery;
         public float PickedUpExperienceMultiplier => OwnerStats.PickedUpXpMultiplier;
         public float PickupRadius => OwnerStats.BaseStats.PickupRadius;
@@ -50,12 +45,6 @@ namespace Game.Progression
             }
         }
 
-        private void Awake()
-        {
-            Progression = new ExperienceProgression(fixtureLevelThresholds);
-            Progression.LevelUp += HandleLevelUp;
-        }
-
         private void Start()
         {
             if (_initialized)
@@ -65,26 +54,25 @@ namespace Game.Progression
             enabled = false;
         }
 
-        public void Initialize(PlayerCharacterRuntime characterOwner, RunController controller, params float[] thresholds)
+        // The XP curve and base drop lifetime are content (Resources/Content/Run/*.json), handed
+        // in by the caller — the composition root in production — never serialized on this component.
+        public void Initialize(PlayerCharacterRuntime characterOwner, RunController controller, ExperienceSettings settings)
         {
             if (_initialized)
                 throw new InvalidOperationException("Player experience runtime is already initialized.");
 
             owner = characterOwner != null ? characterOwner : throw new ArgumentNullException(nameof(characterOwner));
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
+            if (settings == null)
+                throw new ArgumentNullException(nameof(settings));
 
-            // An explicit threshold override (tests, or content that wants to bypass
-            // the scene-configured defaults) replaces the Progression Awake() already
-            // built from the serialized field; otherwise that default stands as-is.
-            // Progression can still be null here: edit-mode tests construct this
-            // component via AddComponent without running Awake() first.
-            if (thresholds != null && thresholds.Length > 0)
-            {
-                if (Progression != null)
-                    Progression.LevelUp -= HandleLevelUp;
-                Progression = new ExperienceProgression(thresholds);
-                Progression.LevelUp += HandleLevelUp;
-            }
+            // A previous life (Shutdown() then Initialize() again) still owns a subscribed
+            // Progression; release it before replacing it.
+            if (Progression != null)
+                Progression.LevelUp -= HandleLevelUp;
+            Progression = new ExperienceProgression(settings.CopyThresholds());
+            Progression.LevelUp += HandleLevelUp;
+            _baseDropLifetimeSeconds = settings.BaseDropLifetimeSeconds;
 
             _initialized = true;
         }
@@ -105,9 +93,9 @@ namespace Game.Progression
             return awarded;
         }
 
-        // Initialize() only assigns its own fields and (optionally) rebuilds the
-        // self-owned Progression instance — it never subscribes to another
-        // object, so rolling back is just clearing the initialized flag.
+        // Initialize() only assigns its own fields and rebuilds the self-owned
+        // Progression instance — it never subscribes to another object, so rolling
+        // back is just clearing the initialized flag.
         public void Shutdown()
         {
             _initialized = false;

@@ -1,0 +1,13 @@
+{
+  "startingCharacterId": "FIXTURE-CHARACTER-AGILE",
+  "draft": {
+    "offerCount": 3,
+    "seed": 12345,
+    "initialRerolls": 2,
+    "initialBanishes": 2
+  },
+  "experience": {
+    "levelThresholds": [5, 10, 15],
+    "baseDropLifetimeSeconds": 60
+  }
+}
