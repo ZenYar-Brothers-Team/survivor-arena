@@ -16,6 +16,10 @@ namespace Game.ActiveSkill
         // scale, but warns if it starts costing real time once counts grow.
         private const float TickMinesWarningMilliseconds = 1f;
 
+        // Whole-tick budget: scheduled effects (beams/chains/areas scan every alive enemy
+        // or run physics overlaps) plus mines. Generous for fixture-scale content.
+        private const float TickWarningMilliseconds = 2f;
+
         private readonly RunController _runController;
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
         private readonly List<ScheduledEffect> _scheduled = new List<ScheduledEffect>();
@@ -82,6 +86,7 @@ namespace Game.ActiveSkill
             if (!isRunning)
                 return;
 
+            using var _ = PerfGuard.Measure("SceneActiveSkillEffectExecutor.Tick", TickWarningMilliseconds);
             for (var i = _scheduled.Count - 1; i >= 0; i--)
             {
                 var scheduled = _scheduled[i];
@@ -292,7 +297,7 @@ namespace Game.ActiveSkill
 
         private void TickMines(float deltaTime)
         {
-            using var _ = PerfGuard.Measure("SceneActiveSkillEffectExecutor.TickMines", TickMinesWarningMilliseconds);
+            using var minesGuard = PerfGuard.Measure("SceneActiveSkillEffectExecutor.TickMines", TickMinesWarningMilliseconds);
             EnemyRegistry.CopyAliveTo(_enemyBuffer);
             for (var i = _mines.Count - 1; i >= 0; i--)
             {

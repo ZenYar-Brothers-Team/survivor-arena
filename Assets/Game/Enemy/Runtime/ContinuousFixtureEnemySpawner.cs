@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Content;
+using Game.Diagnostics;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
@@ -11,6 +12,10 @@ namespace Game.Enemy
     [DisallowMultipleComponent]
     public sealed class ContinuousFixtureEnemySpawner : MonoBehaviour
     {
+        // Spawning instantiates/rents and initializes several enemies in one tick at
+        // high phase rates; warn if that starts costing real time (DECISION-0008).
+        private const float TickWarningMilliseconds = 2f;
+
         [SerializeField]
         private RunController runController;
 
@@ -72,6 +77,7 @@ namespace Game.Enemy
             if (!_initialized)
                 return 0;
 
+            using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.Tick", TickWarningMilliseconds);
             var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count);
             for (var i = 0; i < spawnCount; i++)
                 SpawnEnemy();

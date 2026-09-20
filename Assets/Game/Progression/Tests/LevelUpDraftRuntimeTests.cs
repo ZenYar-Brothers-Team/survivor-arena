@@ -26,7 +26,7 @@ namespace Game.Progression.Tests
             var character = _player.AddComponent<PlayerCharacterRuntime>();
             character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
             _experience = _player.AddComponent<PlayerExperienceRuntime>();
-            _experience.Initialize(character, _runController, 5f);
+            _experience.Initialize(character, _runController, new ExperienceSettings(60f, 5f));
             _draftRuntime = _player.AddComponent<LevelUpDraftRuntime>();
 
             var starting = Active("FIXTURE-ACTIVE-START");
@@ -164,7 +164,7 @@ namespace Game.Progression.Tests
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
                 character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
-                experience.Initialize(character, _runController, 1f);
+                experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var onlyEntry = Active("FIXTURE-ONLY-ENTRY");
                 draft.Initialize(
@@ -204,7 +204,7 @@ namespace Game.Progression.Tests
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
                 character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
-                experience.Initialize(character, _runController, 1f);
+                experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-REROLL-STARTING-ACTIVE");
                 var set = new SetDefinition(
@@ -247,7 +247,7 @@ namespace Game.Progression.Tests
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
                 character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
-                experience.Initialize(character, _runController, 1f);
+                experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var definitions = new BuildEntryDefinition[]
                 {
@@ -297,7 +297,7 @@ namespace Game.Progression.Tests
                 var character = isolatedPlayer.AddComponent<PlayerCharacterRuntime>();
                 character.Initialize(new CharacterBaseStats(100f, 3f), _runController);
                 var experience = isolatedPlayer.AddComponent<PlayerExperienceRuntime>();
-                experience.Initialize(character, _runController, 1f);
+                experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-SET-STARTING-ACTIVE");
                 var set = new SetDefinition(
@@ -326,6 +326,37 @@ namespace Game.Progression.Tests
             {
                 Object.DestroyImmediate(isolatedPlayer);
             }
+        }
+
+        [Test]
+        public void Shutdown_ClearsOpenDraftAndPendingState_SoReinitializeStartsClean()
+        {
+            _experience.AddPickedUpExperience(5f);
+            Assert.IsTrue(_draftRuntime.IsDraftOpen);
+            Assert.AreEqual(1, _draftRuntime.PendingDraftCount);
+
+            _draftRuntime.Shutdown();
+
+            Assert.IsFalse(_draftRuntime.IsDraftOpen);
+            Assert.AreEqual(0, _draftRuntime.PendingDraftCount);
+            Assert.IsNull(_draftRuntime.Build);
+            Assert.AreEqual(0, _draftRuntime.RemainingRerolls);
+
+            var starting = Active("FIXTURE-ACTIVE-START");
+            _draftRuntime.Initialize(
+                _experience,
+                _runController,
+                new[] { starting, Passive("FIXTURE-PASSIVE-ONE") },
+                starting,
+                offerCount: 2,
+                draftRandom: new SeededDraftRandom(1),
+                initialRerolls: 1,
+                initialBanishes: 1);
+
+            Assert.IsFalse(_draftRuntime.IsDraftOpen);
+            Assert.AreEqual(0, _draftRuntime.PendingDraftCount);
+            Assert.AreEqual(1, _draftRuntime.RemainingRerolls);
+            Assert.IsNotNull(_draftRuntime.Build);
         }
 
         private static BuildEntryDefinition Active(string id)

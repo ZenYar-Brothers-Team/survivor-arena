@@ -24,6 +24,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
         public WaveTimelineDefinition WaveTimeline { get; }
+        public RunSetupConfig RunSetup { get; }
         public CharacterRoster Characters { get; }
         public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
 
@@ -35,9 +36,11 @@ namespace Game.Bootstrap
             IReadOnlyList<SetDefinition> sets,
             IReadOnlyList<EnemyDefinition> enemies,
             WaveTimelineDefinition waveTimeline,
+            RunSetupConfig runSetup,
             CharacterRoster characters,
             IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles)
         {
+            RunSetup = runSetup;
             Registry = registry;
             BuildEntries = buildEntries;
             ActiveSkills = activeSkills;
@@ -59,6 +62,7 @@ namespace Game.Bootstrap
             var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
             var waveTimeline = FixtureWaveTimelineCatalog.Create();
+            var runSetup = FixtureRunSetupCatalog.Create();
             var characters = FixtureCharacterDefinitionCatalog.Create();
             var spriteMotionProfiles = FixtureSpriteMotionProfileCatalog.Create();
 
@@ -113,6 +117,7 @@ namespace Game.Bootstrap
                 sets,
                 enemies,
                 waveTimeline,
+                runSetup,
                 characters,
                 spriteMotionProfiles);
             return _cached;

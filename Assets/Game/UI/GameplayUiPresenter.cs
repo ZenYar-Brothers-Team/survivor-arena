@@ -51,6 +51,11 @@ namespace Game.UI
                     _model.WavePhaseCount,
                     _model.WavePhaseName,
                     _model.WavePhaseTag)));
+            // The summaries allocate (string building) and only feed the development
+            // panel, which is not shown outside development builds — skip the work there.
+            if (!_model.DevelopmentCommandsEnabled)
+                return;
+
             _view.RenderEnemyObservability(new EnemyObservabilityViewState(_model.EnemyDevelopmentSummary));
             _view.RenderWaveObservability(new WaveObservabilityViewState(_model.WaveDevelopmentSummary));
         }

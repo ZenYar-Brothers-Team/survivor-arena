@@ -63,19 +63,31 @@ namespace Game.ActiveSkill
             if (definitions == null)
                 throw new ArgumentNullException(nameof(definitions));
 
-            foreach (var definition in definitions)
+            try
             {
-                if (definition == null)
-                    throw new ArgumentException("Skill catalog cannot contain null definitions.", nameof(definitions));
-                if (!_catalog.TryAdd(definition.Id, definition))
-                    throw new ArgumentException($"Duplicate active skill id '{definition.Id}'.", nameof(definitions));
-            }
-            if (_catalog.Count == 0)
-                throw new ArgumentException("Skill catalog cannot be empty.", nameof(definitions));
+                foreach (var definition in definitions)
+                {
+                    if (definition == null)
+                        throw new ArgumentException("Skill catalog cannot contain null definitions.", nameof(definitions));
+                    if (!_catalog.TryAdd(definition.Id, definition))
+                        throw new ArgumentException($"Duplicate active skill id '{definition.Id}'.", nameof(definitions));
+                }
+                if (_catalog.Count == 0)
+                    throw new ArgumentException("Skill catalog cannot be empty.", nameof(definitions));
 
-            draftRuntime.SelectionApplied += HandleSelectionApplied;
-            SynchronizeBuild();
-            _initialized = true;
+                // Subscribe only after the build synchronized: a throw above or in
+                // SynchronizeBuild() must not leave a live subscription behind, because
+                // Shutdown() is a no-op until _initialized is set.
+                SynchronizeBuild();
+                draftRuntime.SelectionApplied += HandleSelectionApplied;
+                _initialized = true;
+            }
+            catch
+            {
+                _catalog.Clear();
+                _instances.Clear();
+                throw;
+            }
         }
 
         public bool Tick(float deltaTime)

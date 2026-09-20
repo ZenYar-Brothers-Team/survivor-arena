@@ -9,6 +9,9 @@ namespace Game.Pooling
         private readonly Func<T> _factory;
         private readonly Transform _root;
         private readonly Stack<T> _inactive = new Stack<T>();
+        // Mirrors _inactive so a second Return() of an already-pooled instance is a no-op
+        // instead of queueing it twice (which would hand the same object to two renters).
+        private readonly HashSet<T> _inactiveSet = new HashSet<T>();
 
         public GameObjectPool(Func<T> factory, Transform root = null)
         {
@@ -16,11 +19,14 @@ namespace Game.Pooling
             _root = root;
         }
 
+        public int InactiveCount => _inactive.Count;
+
         public T Rent()
         {
             while (_inactive.Count > 0)
             {
                 var instance = _inactive.Pop();
+                _inactiveSet.Remove(instance);
                 if (instance == null)
                     continue;
 
@@ -33,7 +39,7 @@ namespace Game.Pooling
 
         public void Return(T instance)
         {
-            if (instance == null)
+            if (instance == null || !_inactiveSet.Add(instance))
                 return;
 
             instance.transform.SetParent(_root, worldPositionStays: false);

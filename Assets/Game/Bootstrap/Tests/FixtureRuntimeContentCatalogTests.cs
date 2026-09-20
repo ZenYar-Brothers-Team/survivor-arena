@@ -41,6 +41,10 @@ namespace Game.Bootstrap.Tests
             foreach (var reference in catalog.WaveTimeline.GetReferencedContent())
                 Assert.IsInstanceOf<EnemyDefinition>(catalog.Registry.Get<EnemyDefinition>(reference.Id));
 
+            Assert.IsTrue(
+                catalog.Characters.TrySelect(catalog.RunSetup.StartingCharacterId, out _),
+                "The configured starting character must be an unlocked roster entry.");
+
             var agile = catalog.Characters.AllCharacters[0];
             var agileVisual = agile.Visual.Resolve(catalog.Registry);
             Assert.IsInstanceOf<SpriteDefinition>(agileVisual);

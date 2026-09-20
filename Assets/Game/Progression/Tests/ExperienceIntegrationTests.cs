@@ -25,7 +25,7 @@ namespace Game.Progression.Tests
             var character = player.AddComponent<PlayerCharacterRuntime>();
             character.Initialize(new CharacterBaseStats(100f, 3f), runController);
             var experience = player.AddComponent<PlayerExperienceRuntime>();
-            experience.Initialize(character, runController, 100f);
+            experience.Initialize(character, runController, new ExperienceSettings(60f, 100f));
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 1f, 1f, 0f, 0f, 1f, 3f);
             var deathPosition = new Vector2(2f, 4f);
             ExperienceDropRuntime drop = null;
@@ -61,7 +61,7 @@ namespace Game.Progression.Tests
             var character = player.AddComponent<PlayerCharacterRuntime>();
             character.Initialize(new CharacterBaseStats(100f, 3f), runController);
             var experience = player.AddComponent<PlayerExperienceRuntime>();
-            experience.Initialize(character, runController, 5f);
+            experience.Initialize(character, runController, new ExperienceSettings(60f, 5f));
             var emittedLevel = 0;
             experience.LevelUp += level => emittedLevel = level;
 
@@ -90,8 +90,9 @@ namespace Game.Progression.Tests
             var serializedRuntime = new SerializedObject(runtime);
             Assert.AreSame(player.GetComponent<PlayerCharacterRuntime>(), serializedRuntime.FindProperty("owner").objectReferenceValue);
             Assert.AreSame(GameObject.Find("RunController").GetComponent<RunController>(), serializedRuntime.FindProperty("runController").objectReferenceValue);
-            Assert.Greater(serializedRuntime.FindProperty("baseDropLifetimeSeconds").floatValue, 0f);
-            Assert.Greater(serializedRuntime.FindProperty("fixtureLevelThresholds").arraySize, 0);
+            // The XP curve and drop lifetime are content (Resources/Content/Run), not serialized fields.
+            Assert.IsNull(serializedRuntime.FindProperty("baseDropLifetimeSeconds"));
+            Assert.IsNull(serializedRuntime.FindProperty("fixtureLevelThresholds"));
 
             var draftRuntime = player.GetComponent<LevelUpDraftRuntime>();
             Assert.IsNotNull(draftRuntime);

@@ -43,21 +43,6 @@ namespace Game.Bootstrap
         [SerializeField]
         private GameplayUiRoot gameplayUiRoot;
 
-        [SerializeField]
-        private string startingCharacterId = "FIXTURE-CHARACTER-AGILE";
-
-        [SerializeField, Min(1)]
-        private int draftOfferCount = 3;
-
-        [SerializeField]
-        private int draftSeed = 12345;
-
-        [SerializeField, Min(0)]
-        private int fixtureInitialRerolls = 2;
-
-        [SerializeField, Min(0)]
-        private int fixtureInitialBanishes = 2;
-
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
         public bool IsInitialized { get; private set; }
 
@@ -79,14 +64,13 @@ namespace Game.Bootstrap
             if (IsInitialized)
                 throw new InvalidOperationException("Gameplay composition root is already initialized.");
             ValidateSceneReferences();
-            if (draftOfferCount <= 0)
-                throw new InvalidOperationException("Draft offer count must be greater than zero.");
-            if (fixtureInitialRerolls < 0 || fixtureInitialBanishes < 0)
-                throw new InvalidOperationException("Draft control counts cannot be negative.");
 
+            // Run parameters (starting character, draft settings, XP curve) are content,
+            // validated by their domain types when the catalog loads.
             Catalog = FixtureRuntimeContentCatalog.Create();
-            if (!Catalog.Characters.TrySelect(new ContentId(startingCharacterId), out var selectedCharacter))
-                throw new InvalidOperationException($"Character '{startingCharacterId}' is locked or missing.");
+            var setup = Catalog.RunSetup;
+            if (!Catalog.Characters.TrySelect(setup.StartingCharacterId, out var selectedCharacter))
+                throw new InvalidOperationException($"Character '{setup.StartingCharacterId}' is locked or missing.");
 
             // If a subsystem's Initialize() throws partway through, every subsystem
             // that already succeeded gets rolled back (in reverse order) via its
@@ -114,7 +98,7 @@ namespace Game.Bootstrap
                     runController);
                 initializedSubsystems.Add(playerPresentation.Shutdown);
 
-                experienceRuntime.Initialize(player, runController);
+                experienceRuntime.Initialize(player, runController, setup.Experience);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
                 draftRuntime.Initialize(
@@ -123,21 +107,26 @@ namespace Game.Bootstrap
                     Catalog.BuildEntries,
                     selectedCharacter,
                     Catalog.Registry,
-                    draftOfferCount,
-                    new SeededDraftRandom(draftSeed),
-                    fixtureInitialRerolls,
-                    fixtureInitialBanishes,
+                    setup.Draft.OfferCount,
+                    new SeededDraftRandom(setup.Draft.Seed),
+                    setup.Draft.InitialRerolls,
+                    setup.Draft.InitialBanishes,
                     Catalog.Sets,
                     new FixtureSetExtraAbilityFactory());
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
+                // The executor owns a scene GameObject (mine pool root); it is registered for
+                // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
+                // idempotent, and Shutdown disposes it again on the success path).
+                var effectExecutor = new SceneActiveSkillEffectExecutor(runController);
+                initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,
                     runController,
                     draftRuntime,
                     Catalog.ActiveSkills,
                     new SceneEnemyTargetProvider(),
-                    new SceneActiveSkillEffectExecutor(runController));
+                    effectExecutor);
                 initializedSubsystems.Add(activeSkillRuntime.Shutdown);
 
                 passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);

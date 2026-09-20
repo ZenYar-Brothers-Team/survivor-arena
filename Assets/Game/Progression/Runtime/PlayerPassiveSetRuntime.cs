@@ -45,19 +45,31 @@ namespace Game.Progression
             if (definitions == null)
                 throw new ArgumentNullException(nameof(definitions));
 
-            foreach (var definition in definitions)
+            try
             {
-                if (definition == null)
-                    throw new ArgumentException("Passive catalog cannot contain null definitions.", nameof(definitions));
-                if (!_catalog.TryAdd(definition.Id, definition))
-                    throw new ArgumentException($"Duplicate passive id '{definition.Id}'.", nameof(definitions));
-            }
-            if (_catalog.Count == 0)
-                throw new ArgumentException("Passive catalog cannot be empty.", nameof(definitions));
+                foreach (var definition in definitions)
+                {
+                    if (definition == null)
+                        throw new ArgumentException("Passive catalog cannot contain null definitions.", nameof(definitions));
+                    if (!_catalog.TryAdd(definition.Id, definition))
+                        throw new ArgumentException($"Duplicate passive id '{definition.Id}'.", nameof(definitions));
+                }
+                if (_catalog.Count == 0)
+                    throw new ArgumentException("Passive catalog cannot be empty.", nameof(definitions));
 
-            draftRuntime.SelectionApplied += HandleSelectionApplied;
-            SynchronizeBuild();
-            _initialized = true;
+                // Subscribe only after the build synchronized: Shutdown() is a no-op until
+                // _initialized is set, so a throw must not leave a subscription or
+                // already-applied modifiers behind.
+                SynchronizeBuild();
+                draftRuntime.SelectionApplied += HandleSelectionApplied;
+                _initialized = true;
+            }
+            catch
+            {
+                ReleaseAppliedModifiers();
+                _catalog.Clear();
+                throw;
+            }
         }
 
         public bool TryGetAppliedLevel(ContentId id, out int level)
@@ -100,13 +112,18 @@ namespace Game.Progression
 
             if (draftRuntime != null)
                 draftRuntime.SelectionApplied -= HandleSelectionApplied;
+            ReleaseAppliedModifiers();
+            _initialized = false;
+        }
+
+        private void ReleaseAppliedModifiers()
+        {
             if (owner != null)
             {
                 foreach (var id in _appliedLevels.Keys)
                     owner.RemoveModifier(ModifierSourcePrefix + id);
             }
             _appliedLevels.Clear();
-            _initialized = false;
         }
 
         private void OnDestroy()

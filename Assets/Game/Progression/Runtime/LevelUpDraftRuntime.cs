@@ -264,6 +264,15 @@ namespace Game.Progression
             Sets = null;
             SetDefinitions = Array.Empty<SetDefinition>();
             Character = null;
+            // Drop everything Initialize() built so a later Initialize() starts clean
+            // (no stale pending drafts or open session from the previous life). Consumers
+            // already treat a null Build/Controls as "not initialized".
+            CurrentDraft = null;
+            _pendingDrafts = 0;
+            Build = null;
+            Controls = null;
+            _pool = null;
+            _draftRandom = null;
             _initialized = false;
         }
 
