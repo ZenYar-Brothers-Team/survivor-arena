@@ -17,7 +17,13 @@
       "disappearingXpRecovery": 0.0,
       "pickedUpXpMultiplier": 1.0,
       "xpDropLifetimeBonusSeconds": 0.0,
-      "pickupRadius": 0.2
+      "pickupRadius": 0.2,
+      "knockbackResistance": 0.0,
+      "outgoingKnockbackBonus": 0.0,
+      "effectSizeMultiplier": 1.0,
+      "effectRangeMultiplier": 1.0,
+      "potionDropMultiplier": 1.0,
+      "lowHealthDamageMaxBonus": 0.0
     },
     "draftWeights": [
       { "skillId": "FIXTURE-SKILL-BOLT", "weight": 1.5 },
@@ -41,7 +47,13 @@
       "disappearingXpRecovery": 0.15,
       "pickedUpXpMultiplier": 1.0,
       "xpDropLifetimeBonusSeconds": 0.0,
-      "pickupRadius": 0.2
+      "pickupRadius": 0.2,
+      "knockbackResistance": 0.0,
+      "outgoingKnockbackBonus": 0.0,
+      "effectSizeMultiplier": 1.0,
+      "effectRangeMultiplier": 1.0,
+      "potionDropMultiplier": 1.0,
+      "lowHealthDamageMaxBonus": 0.0
     },
     "draftWeights": [
       { "skillId": "FIXTURE-SKILL-BOLT", "weight": 0.0 },

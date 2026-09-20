@@ -15,12 +15,12 @@
     "id": "FIXTURE-PASSIVE-HASTE",
     "displayName": "Fixture Haste",
     "levels": [
-      { "movementSpeedMultiplierBonus": 0.05, "activeSkillDamageMultiplierBonus": 0.05, "activeSkillCooldownReductionBonus": 0.1 },
-      { "movementSpeedMultiplierBonus": 0.10, "activeSkillDamageMultiplierBonus": 0.10, "activeSkillCooldownReductionBonus": 0.2 },
-      { "movementSpeedMultiplierBonus": 0.15, "activeSkillDamageMultiplierBonus": 0.15, "activeSkillCooldownReductionBonus": 0.3 },
-      { "movementSpeedMultiplierBonus": 0.20, "activeSkillDamageMultiplierBonus": 0.20, "activeSkillCooldownReductionBonus": 0.4 },
-      { "movementSpeedMultiplierBonus": 0.25, "activeSkillDamageMultiplierBonus": 0.25, "activeSkillCooldownReductionBonus": 0.5 },
-      { "movementSpeedMultiplierBonus": 0.30, "activeSkillDamageMultiplierBonus": 0.30, "activeSkillCooldownReductionBonus": 0.6 }
+      { "movementSpeedMultiplierBonus": 0.05, "activeSkillDamageMultiplierBonus": 0.05, "actionSpeedBonus": 0.1 },
+      { "movementSpeedMultiplierBonus": 0.10, "activeSkillDamageMultiplierBonus": 0.10, "actionSpeedBonus": 0.2 },
+      { "movementSpeedMultiplierBonus": 0.15, "activeSkillDamageMultiplierBonus": 0.15, "actionSpeedBonus": 0.3 },
+      { "movementSpeedMultiplierBonus": 0.20, "activeSkillDamageMultiplierBonus": 0.20, "actionSpeedBonus": 0.4 },
+      { "movementSpeedMultiplierBonus": 0.25, "activeSkillDamageMultiplierBonus": 0.25, "actionSpeedBonus": 0.5 },
+      { "movementSpeedMultiplierBonus": 0.30, "activeSkillDamageMultiplierBonus": 0.30, "actionSpeedBonus": 0.6 }
     ]
   },
   {

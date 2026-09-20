@@ -1,36 +1,53 @@
 # IP-22 — Production Characters CHAR-001…010
 
-Оперативный статус и evidence хранятся только в [`STATUS.md`](../STATUS.md#ip-22--production-characters).
+Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).
 
-## Цель
+## Существующая база и характер изменения
 
-Подключить десять playable characters.
+Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
 
 ## Зависимости
 
-IP-12, IP-17; approval целевых CHAR IDs и required starting SKILL IDs.
+[IP-12](IP-12-character-framework.md), [IP-17](IP-17-production-skills.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
 
-## Scope
-
-Approved CHAR-001…010; base stats; starting skill; recovery; draft weights; approved unlock metadata.
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
 
 ## Context
 
-- Game Design: «Персонажи».
-- Content Design: полные карточки целевых CHAR IDs и referenced starting SKILL cards.
+Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-## UI / observability
+новые GDD characters; полные CHAR-001…010 и starting SKILL cards; UI §§4,23; Art Direction §§2,7,9; Art Production §1.
 
-Каждый Approved character имеет selection presentation, starting-skill/base-stat summary и locked/unlocked state.
+## Scope
+
+десять profiles, starting skill/stats/recovery/weights и заданное unlock metadata. Playable species/силуэты следуют новому roster, включая огра. Character Select использует body crop/variant; отдельный portrait только при недостаточной читаемости crop.
+
+## Out of Scope
+
+выдуманные цены/unlocks, обязательные десять новых портретов, relabel fixture как production без доказанного binding.
 
 ## Acceptance criteria
 
-Каждый character starts with correct skill/stats; weights match card; 0/low-weight semantics correct; no unique passive system is added.
+correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+locked silhouette/условие, выбранный character, crop и concise modifiers; не выводить полный внутренний stat table в player screen. Developer snapshot остаётся подробным.
 
 ## Проверки
 
-Per-character start loadout, seeded weighted draft, stat snapshot.
+per-character initial snapshot, modifiers и weighted draft, selected/locked states; motion/facing/hit/pause/reset, root invariance; manual body/crop review на реальном размере.
 
-## Out of scope
+## Документационные изменения
 
-Meta price tuning and unapproved unlock conditions.
+roster/card completeness, baseline UI contract, asset provenance/reuse evidence; approved concept не обозначать автоматически как runtime integrated.
+
+## Gates и недостающие решения
+
+G-14/G-15/G-17: weights/unlock metadata и связь concept/master/runtime. CHAR-006 огр и прочие approved roster choices не переутверждаются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

@@ -45,12 +45,13 @@ namespace Game.UI
                 _model.MaxHealth,
                 _model.ExperienceProgress01,
                 _model.Level,
-                _model.RemainingSeconds,
+                _model.ElapsedSeconds,
                 new WaveViewState(
                     _model.WavePhaseNumber,
                     _model.WavePhaseCount,
                     _model.WavePhaseName,
-                    _model.WavePhaseTag)));
+                    _model.WavePhaseTag),
+                _model.DevelopmentCommandsEnabled ? _model.Stats : null));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)

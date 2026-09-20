@@ -38,7 +38,7 @@ namespace Game.Progression.Tests
             var finalHaste = catalog[1].GetLevel(6);
             Assert.Greater(finalHaste.MovementSpeedMultiplierBonus, 0f);
             Assert.Greater(finalHaste.ActiveSkillDamageMultiplierBonus, 0f);
-            Assert.Greater(finalHaste.ActiveSkillCooldownReductionBonus, 0f);
+            Assert.Greater(finalHaste.ActionSpeedBonus, 0f);
 
             var finalMemory = catalog[2].GetLevel(6);
             Assert.Greater(finalMemory.IncomingDamageReductionBonus, 0f);

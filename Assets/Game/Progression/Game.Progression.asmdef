@@ -3,6 +3,7 @@
     "rootNamespace": "Game.Progression",
     "references": [
         "Game.Content",
+        "Game.Enemy",
         "Game.Character",
         "Game.Run",
         "Game.Movement",

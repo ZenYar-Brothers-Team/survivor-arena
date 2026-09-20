@@ -1,13 +1,13 @@
 # Repository instructions
 
-The canonical product documents are `docs/Game_design.md`, `docs/Content_design.md`, and `docs/implementation/`.
+The canonical product documents are `docs/Game_design.md`, `docs/Content_design.md`, `docs/UI  UX Design.md`, `docs/art/ART_DIRECTION.md`, `docs/art/Art Production.md`, `docs/art/ASSET_PIPELINE.md`, and `docs/implementation/`. The original `* v2.md` files are import sources, not parallel active canon; see DECISION-0015.
 
 When implementing an IP module:
 
 1. Follow `docs/implementation/WORKFLOW.md`.
-2. Use `docs/implementation/STATUS.md` as the only source of execution status and select the first numerically ordered `Ready` module unless the user names another module.
+2. Use `docs/implementation/STATUS.md` as the only source of execution status and select the first `Ready` module in its explicit Execution order unless the user names another module. Require dependencies for the target scope revision; historical verification does not verify new scope.
 3. Read the selected file in `docs/implementation/modules/` and only the design sections and content IDs listed in its Context section.
-4. Treat Game Design as canonical for system rules, Content Design for concrete entities, the IP module for scope, and the repository for implementation state.
+4. Treat Game Design as canonical for system rules, Content Design for concrete entities, UI/UX Design for player flows, Art Direction/Art Production and Asset Pipeline for visual delivery, the IP module for scope, and the repository for implementation state.
 5. Never implement Draft content as production content or silently invent a missing product rule.
 6. Complete the module's checks, update `STATUS.md`, and synchronize affected design documents in the same change.
 7. Record cross-layer or user-approved deviations in `docs/decisions/`; do not turn an implementation workaround into game design automatically.
@@ -66,7 +66,7 @@ content and enemy counts grow, not micro-optimizing now.
 Reference implementations: `Assets/Game/Diagnostics/PerfGuard.cs`, and its use in
 `Assets/Game/Enemy/Model/EnemyRegistry.cs` (`TryFindNearest`) and
 `Assets/Game/ActiveSkill/Runtime/SceneActiveSkillEffectExecutor.cs` (`TickMines`).
-See [DECISION-0008](decisions/0008-perf-logging.md).
+See [DECISION-0008](docs/decisions/0008-perf-logging.md).
 
 ### Entity/content values belong in config, not code
 
@@ -99,7 +99,7 @@ and a `"kind"` discriminator — follow this for any future polymorphic content)
 `Assets/Game/Enemy/Model/FixtureEnemyCatalog.cs`,
 `Assets/Game/Character/Model/FixtureCharacterCatalog.cs`,
 `Assets/Game/Progression/Passive/FixturePassiveCatalog.cs`.
-See [DECISION-0009](decisions/0009-json-content-config.md).
+See [DECISION-0009](docs/decisions/0009-json-content-config.md).
 
 ### Shared numeric validation
 
@@ -115,7 +115,7 @@ Reference implementation: `Assets/Game/Content/NumericValidation.cs`, used by
 `Assets/Game/Combat/Health.cs`, `Assets/Game/Character/Model/CharacterBaseStats.cs`,
 and the `Game.ActiveSkill.Progression` effect types (`MineEffect.cs`,
 `AreaEffect.cs`, etc.).
-See [DECISION-0012](decisions/0012-shared-numeric-validation.md).
+See [DECISION-0012](docs/decisions/0012-shared-numeric-validation.md).
 
 ### Pool frequently spawned/destroyed GameObjects
 
@@ -138,7 +138,7 @@ Reference implementations: `Assets/Game/Pooling/GameObjectPool.cs`,
 (pool owned by `ContinuousFixtureEnemySpawner`),
 `Assets/Game/ActiveSkill/Runtime/SceneActiveSkillEffectExecutor.cs` (mine
 marker pool owned by the executor itself).
-See [DECISION-0011](decisions/0011-gameobject-pooling.md).
+See [DECISION-0011](docs/decisions/0011-gameobject-pooling.md).
 
 ### Composition-root subsystems roll back on partial init failure
 
@@ -157,7 +157,7 @@ so a failed composition never leaves earlier subsystems live-subscribed.
 Reference implementation: `Assets/Game/Bootstrap/GameplayCompositionRoot.cs`,
 and the `Shutdown()` methods on `PlayerCharacterRuntime`,
 `LevelUpDraftRuntime`, `PlayerActiveSkillSetRuntime`, `PlayerPassiveSetRuntime`.
-See [DECISION-0010](decisions/0010-composition-root-rollback.md).
+See [DECISION-0010](docs/decisions/0010-composition-root-rollback.md).
 
 ### One type per file, file name matches the type
 

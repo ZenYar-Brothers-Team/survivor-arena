@@ -39,12 +39,14 @@ namespace Game.Combat
             if (appliedDamage <= 0f)
                 return 0f;
 
+            var causedDeath = CurrentHealth <= 0f;
+            if (causedDeath) IsDead = true;
+
             HealthChanged?.Invoke(previousHealth, CurrentHealth);
             Damaged?.Invoke(appliedDamage);
 
-            if (CurrentHealth <= 0f)
+            if (causedDeath)
             {
-                IsDead = true;
                 Died?.Invoke();
             }
 
@@ -88,6 +90,7 @@ namespace Game.Combat
 
         private void HandleProfileChanged()
         {
+            if (_lastMaxHealth == MaxHealth) return;
             var previousHealth = CurrentHealth;
             var healthRatio = _lastMaxHealth > 0f ? CurrentHealth / _lastMaxHealth : 0f;
             _lastMaxHealth = MaxHealth;

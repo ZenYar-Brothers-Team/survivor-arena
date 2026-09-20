@@ -23,7 +23,7 @@ Adapted from the upstream `data-files` rules. Files here are the authoring layer
 
 ## Integrity
 - **No orphaned entries**: every entry is referenced by a catalog/registry, another JSON (`enemyId`, sprite id, skill id), or a test. Cross-references must resolve — the content registry validates them; keep `FixtureRuntimeContentCatalogTests` current.
-- Ids are stable and never reused. `FIXTURE-*` ids are non-production placeholders; never use a production id (`CHAR-`, `SKILL-`, `PASSIVE-`, `ENEMY-`, `BOSS-`, `SET-`) for fixture data, and never add production content from a Draft card in `docs/Content_design.md`.
+- IDs are stable and never reused for unrelated entities. The user-approved replacements in DECISION-0015 (SKILL-001, PASSIVE-002/007, SET-001…008) are explicit semantic migrations, not permission to silently reuse other IDs. Keep content/build revisions and old-versus-new meaning distinguishable in saves, telemetry and balance evidence; do not reinterpret historical data as the new card. `FIXTURE-*` ids are non-production placeholders; never use a production id (`CHAR-`, `SKILL-`, `PASSIVE-`, `ENEMY-`, `BOSS-`, `SET-`) for fixture data, and never add production content from a Draft card in `docs/Content_design.md`.
 - Breaking schema changes (renamed/removed field or id) migrate all existing JSON, tests, and docs in the same change and get a DECISION when an id changes.
 - After editing values run the affected EditMode tests (`/smoke-check`) — tests assert configured values.
 

@@ -36,13 +36,20 @@ namespace Game.Progression
                 data.MaxHealthMultiplierBonus,
                 data.MovementSpeedMultiplierBonus,
                 data.ActiveSkillDamageMultiplierBonus,
-                data.ActiveSkillCooldownReductionBonus,
+                data.ActionSpeedBonus,
                 data.IncomingDamageReductionBonus,
                 data.HealthRestorationMultiplierBonus,
                 data.HealthRegenerationPerSecondBonus,
                 data.DisappearingXpRecoveryBonus,
                 data.PickedUpXpMultiplierBonus,
-                data.XpDropLifetimeBonusSeconds);
+                data.XpDropLifetimeBonusSeconds,
+                data.KnockbackResistanceBonus ?? default(CharacterStatModifier).KnockbackResistanceBonus,
+                data.OutgoingKnockbackBonus ?? default(CharacterStatModifier).OutgoingKnockbackBonus,
+                data.PickupRadiusMultiplierBonus ?? default(CharacterStatModifier).PickupRadiusMultiplierBonus,
+                data.EffectSizeMultiplierBonus ?? default(CharacterStatModifier).EffectSizeMultiplierBonus,
+                data.EffectRangeMultiplierBonus ?? default(CharacterStatModifier).EffectRangeMultiplierBonus,
+                data.PotionDropMultiplierBonus ?? default(CharacterStatModifier).PotionDropMultiplierBonus,
+                data.LowHealthDamageMaxBonus ?? default(CharacterStatModifier).LowHealthDamageMaxBonus);
         }
     }
 }

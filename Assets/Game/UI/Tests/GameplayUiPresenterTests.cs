@@ -25,6 +25,7 @@ namespace Game.UI.Tests
                 Assert.AreEqual(100f, view.Hud.MaxHealth);
                 Assert.AreEqual(0.4f, view.Hud.ExperienceProgress01);
                 Assert.AreEqual(3, view.Hud.Level);
+                Assert.AreEqual(125f, view.Hud.ElapsedSeconds);
                 Assert.IsTrue(view.Draft.IsVisible);
                 Assert.AreEqual(1, view.Draft.Options.Count);
                 Assert.AreEqual("Fixture Passive", view.Draft.Options[0].Title);
@@ -175,7 +176,7 @@ namespace Game.UI.Tests
                 MaxHealth = 100f,
                 ExperienceProgress01 = 0.4f,
                 Level = 3,
-                RemainingSeconds = 125f,
+                ElapsedSeconds = 125f,
                 RunState = RunState.Paused,
                 IsDraftOpen = true,
                 RemainingRerolls = 2,
@@ -196,7 +197,8 @@ namespace Game.UI.Tests
             public float MaxHealth { get; set; }
             public float ExperienceProgress01 { get; set; }
             public int Level { get; set; }
-            public float RemainingSeconds { get; set; }
+            public float ElapsedSeconds { get; set; }
+            public CharacterStatsViewState Stats { get; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
             public bool IsDraftOpen { get; set; }
             public int RemainingRerolls { get; set; }

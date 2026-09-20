@@ -1,62 +1,53 @@
-# IP-12A — Visual Presentation Foundation
+# IP-12A — Visual Presentation Foundation и asset production pipeline
 
-Оперативный статус и evidence хранятся только в [`STATUS.md`](../STATUS.md#ip-12a--visual-presentation-foundation).
+Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).
 
-## Цель
+## Существующая база и характер изменения
 
-Создать воспроизводимый pipeline от утверждённых правил генерации растрового арта до подключённого в Unity процедурно анимированного спрайта, проверив весь путь на одном fixture-персонаже.
+Сохранить approved fixture goblin/pipeline/VisualRoot/single writer. Расширить этот же модуль category profiles, generic adapters и inventory audit; выполненную player основу не писать заново.
 
 ## Зависимости
 
-IP-00, IP-02, IP-03, IP-12; [DECISION-0007](../../decisions/0007-content-referenced-visuals.md).
+[IP-00](IP-00-content-contract.md), [IP-02](IP-02-player-movement.md), [IP-03](IP-03-character-stats.md), [IP-04](IP-04-enemy-core.md), [IP-05](IP-05-active-skill-runtime.md), [IP-08](IP-08-active-skill-framework.md), [IP-12](IP-12-character-framework.md).
 
-Production content gates не требуются: вертикальный срез использует `FIXTURE-CHARACTER-AGILE` и не превращает Draft `CHAR-001…010` в production content.
-
-## Scope
-
-- Канонический Art Bible с визуальным языком, правилами читаемости, генерационными ограничениями, reference/anti-reference guidance и шаблоном промпта.
-- Asset Pipeline с каталогами, naming convention, draft/final lifecycle, форматами, alpha/padding/pivot/PPU/import requirements и правилами хранения prompt/provenance metadata.
-- Зафиксированная presentation-архитектура: gameplay root и collider не деформируются; процедурная анимация применяется только к дочернему `VisualRoot`; независимые motion channels сводятся одним pose-композитором.
-- Переиспользуемый, pause-aware procedural sprite runtime с конфигурируемым motion profile, facing, locomotion, hit reaction, spawn/reset semantics и безопасной повторной инициализацией.
-- Character visual reference, валидируемый общей content-системой и разрешаемый composition root без прямой зависимости gameplay model от Unity asset loading.
-- Test/showcase observability для просмотра idle, движения, facing, hit reaction, pause и reset на реальном игровом масштабе.
-- Генерация, пользовательское утверждение, подготовка и интеграция одного прозрачного спрайта для `FIXTURE-CHARACTER-AGILE` вместо текущего placeholder.
-- Инструкция и checklist, по которым следующий character/enemy/projectile/pickup asset проходит тот же pipeline без повторного проектирования.
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
 
 ## Context
 
-- Game Design: «Статус и область документа» — детальная визуальная спецификация определяется отдельно; «Концепт и core loop» и «Персонажи» — playable character является маленьким гоблином и должен оставаться читаемым в текущем масштабе игры.
-- Content Design: не требуется для реализации fixture vertical slice; `CHAR-001…010` остаются Draft и используются только как будущие compatibility targets.
-- [DECISION-0007](../../decisions/0007-content-referenced-visuals.md) — presentation assets представлены content-ссылками и валидируются через `ContentRegistry`.
-- [DECISION-0013](../../decisions/0013-procedural-sprite-presentation.md) — gameplay/presentation transform boundary, single-writer pose composition, authoritative motion/damage signals и pause/reset lifecycle.
-- Repository: `Game.Presentation` уже содержит `SpriteDefinition`; текущий Player в `Gameplay.unity` использует `PlaceholderColorRenderer`, а character visual reference ещё не доведён до runtime rendering.
+Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-## UI / observability
+Approved Art Direction §§2,4,6,7,9,11,12,15–19; ASSET_PIPELINE §§3–9,12–20; Art Production §§1–19; UI §§20–23; DECISION-0007/0013; importer/catalog/provenance/rig/runtime.
 
-Отдельный player-facing экран не требуется. Модуль предоставляет test/showcase surface или эквивалентный debug harness, где можно воспроизводимо включить idle, движение, смену направления, hit reaction, pause и reset. Финальный fixture-спрайт также проверяется в основной Gameplay-сцене при реальном camera scale.
+## Scope
+
+Category-aware world/UI/VFX import/validation, explicit PPU/pivot/size overrides; body-derived crops, stable visual-role refs; manifest owner/role/source/runtime/Generate-Procedural-Hybrid and evidence. Reconcile existing FIXTURE body vs approved CHAR-001 concept без false relabel. Generic child presentation/pool adapters и первый ограниченный fixture kit enemy/projectile/pickup/telegraph/shadow/impact; authoritative motion/hit signals входят через interfaces. Complete common pause/reset/death/collect/proc presentation policy; screen shake preference consumed by IP-26 service.
+
+## Out of Scope
+
+Массовый production catalog, новые gameplay mechanics ради арта, gameplay knockback как sprite recoil, Addressables/atlas migration без измерений, marketing/Steam/music/skeletal animation.
 
 ## Acceptance criteria
 
-- `ART_DIRECTION.md` и `ASSET_PIPELINE.md` являются однозначными входами для следующей генерации и интеграции ассета; `AGENTS.md` обязывает читать их перед visual work.
-- Имена, расположение, рабочие версии, production-файлы и provenance metadata соответствуют задокументированному asset contract.
-- `CharacterDefinition` может ссылаться на visual через стабильный content ID; missing/wrong-type reference обнаруживается при сборке registry.
-- Player presentation использует дочерний `VisualRoot`; procedural animation не изменяет gameplay root, collider geometry или authoritative movement state.
-- Motion parameters конфигурируемы и не размазаны по hard-coded MonoBehaviour literals; несколько одновременных reactions композиционно объединяются вместо взаимного перезаписывания transform.
-- Idle/locomotion, facing, squash/stretch, hit reaction, hit flash, spawn/reset и pause behavior воспроизводимо наблюдаемы.
-- Утверждённый пользователем прозрачный спрайт `FIXTURE-CHARACTER-AGILE` импортирован по контракту и отображается в Gameplay-сцене вместо placeholder.
-- Повторная инициализация и reset возвращают presentation в исходное состояние; реализация пригодна для будущих pooled entities.
-- Документация содержит проверенный пошаговый checklist добавления следующего ассета.
+Preview/master/provenance вне Assets; approved runtime derivative, path/GUID retained on replacement. UI icon не получает body ground pivot; profile reimport сохраняет согласованный override. По проверенному representative world/UI/VFX asset; missing role/resource rejected. Independent motion channels compose, gameplay root/collider не меняются; pause freezes, Shutdown/pool return restore baseline. Inventory stages соответствуют files/review evidence. Наличие ShadowRenderer без sprite не равно готовому shadow asset.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+Bounded DEV showcase или обоснованная diagnostic view: idle/flip/hit/pause/reset, target-scale и dense effects. Численные motion/VFX limits — validated config, не hardcoded gameplay.
 
 ## Проверки
 
-- EditMode: character visual reference success/missing/wrong-type; motion-profile validation; pose composition; pause/reset semantics; root/collider invariance; asset naming/import-contract validation там, где это надёжно автоматизируется.
-- PlayMode: Gameplay scene resolves the fixture character sprite; locomotion/facing/hit reaction affect only `VisualRoot`; pause stops presentation time; reset restores the baseline pose.
-- Manual visual check: transparent edges, pivot, scale, silhouette readability, directional flip, motion amplitudes and hit feedback at gameplay camera scale.
-- Full relevant EditMode and PlayMode regression suites.
+Import/ref/provenance/path/GUID tests; alpha/bounds где автоматизируемо; adapters/root invariance/pool/rollback; manual silhouette/edges/contrast/motion и 3–4-set density после появления effects. Pixel quality не объявлять проверенной без просмотра.
 
-## Out of scope
+## Документационные изменения
 
-- Production `CHAR-001…010`, их финальные образы, balance и unlock metadata — IP-22 после отдельного approval.
-- Production enemies, bosses, skills, fields, UI restyle, environment art, audio и покадровая character animation.
-- Изменение collider, movement, combat timing или иных gameplay rules ради визуального эффекта.
-- Массовая генерация каталога арта до утверждения вертикального среза и его pipeline.
+Полная замена Art Direction выполнена в M-01; уточнения ASSET_PIPELINE/category checklists, reconciled Art Production inventory и source mapping; presentation lifecycle DECISION при новом cross-layer policy.
+
+## Gates и недостающие решения
+
+G-17/G-18: сопоставить approved CHAR-001 concept с master и исправить always-green vs nongreen family conflict; per-image replacement/approval gates остаются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-17](IP-17-production-skills.md), [IP-18](IP-18-production-passives.md), [IP-19](IP-19-production-sets.md), [IP-20](IP-20-production-enemies.md), [IP-21](IP-21-production-bosses.md), [IP-22](IP-22-production-characters.md), [IP-23](IP-23-production-fields.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-30](IP-30-production-travelers.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

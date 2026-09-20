@@ -129,6 +129,9 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0, _spawner.AliveCount);
             Assert.AreEqual(_registryBaseline, EnemyRegistry.Count);
 
+            Assert.AreEqual(1, _spawner.Capture().Kills);
+            Assert.AreEqual(EnemyLifeReason.Killed, _spawner.LastLifeEvent.Reason);
+
             _spawner.Tick(2f, 1f, true);
             var second = LiveEnemies().Single();
             Assert.AreSame(first, second);

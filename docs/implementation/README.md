@@ -1,115 +1,101 @@
 # Implementation Plan
 
-Implementation Plan задаёт порядок, границы и критерии реализации. Он построен по двум каноническим design-артефактам и не пересказывает их полностью:
+Принятый план `design-sync-R2`, зарегистрирован 2026-09-20 по [DECISION-0015](../decisions/0015-design-sync-r2.md). Три design-документа полностью заменены утверждёнными версиями без архивных копий прежних файлов. Новые требования внесены в существующие IP до дальнейшей реализации; отдельно добавлены пять самостоятельных модулей.
 
-- [`../Game_design.md`](../Game_design.md) — системные правила игры;
-- [`../Content_design.md`](../Content_design.md) — конкретные сущности и параметры;
-- [`modules/`](modules/) — спецификации модулей реализации;
-- [`STATUS.md`](STATUS.md) — единственный источник текущих статусов и evidence;
-- [`WORKFLOW.md`](WORKFLOW.md) — обязательный процесс превращения IP в код.
+## Источники и authority
 
-Repository/code показывает фактическое состояние реализации, но не переопределяет продуктовые документы автоматически.
+- [Game Design](../Game_design.md) — общие игровые правила.
+- [Content Design](../Content_design.md) — конкретные сущности, behavior и balance data; 121 target card уже утверждена.
+- [UI / UX Design](../UI%20%20UX%20Design.md) — пользовательские экраны, состояния и взаимодействия.
+- [Art Direction](../art/ART_DIRECTION.md) — утверждённое визуальное направление.
+- [Art Production](../art/Art%20Production.md) — inventory и роли ассетов.
+- [Asset Pipeline](../art/ASSET_PIPELINE.md) — технические пути, provenance, подготовка, импорт и image approval.
+- [Модули](modules/) — scope, зависимости, критерии и проверки.
+- [STATUS](STATUS.md) — единственная Execution order, текущие статусы, готовность и evidence.
+- [WORKFLOW](WORKFLOW.md) — процесс работы над выбранным IP.
 
-## Модель исполнения
+Repository/code показывает фактически реализованное поведение. IP и код не переопределяют дизайн автоматически. Исходные файлы с `v2` в имени — материалы импорта, а не параллельные каноны; дальнейшие изменения делаются по canonical paths выше.
 
-Каждый IP-модуль является отдельной единицей scope. Coding AI читает его спецификацию, указанные в ней секции Game Design и Content Design, правила workflow, актуальный статус и только релевантную часть репозитория.
+## Исполнение и ревизии
 
-Если пользователь просит «следующую часть», выбирается первый по номеру модуль со статусом `Ready` в [`STATUS.md`](STATUS.md). Модуль, явно названный пользователем, имеет приоритет, но до реализации всё равно проверяются зависимости и content gates.
+Если пользователь не назвал модуль, выбирать **первый Ready в Execution order из STATUS**, а не первый по номеру. Зависимости должны быть Implemented/Verified для требуемого целевого scope. ID остаётся стабильным и не задаёт очередность.
 
-Приоритет источников:
+30 существующих IP сохранены под прежними IDs/filenames; 28 получают изменения scope, IP-00/IP-02 сохраняют behavioral contracts. Пять новых — IP-28 pickup framework, IP-29 Traveler framework, IP-30 production Travelers/Book, IP-31 локальная телеметрия и IP-32 ручной AI balance workflow. Все 35 спецификаций полные; отдельное слияние со старым текстом не требуется.
 
-1. Game Design определяет системные правила.
-2. Content Design определяет конкретные сущности и их параметры.
-3. IP-модуль определяет scope, зависимости и acceptance criteria текущей работы.
-4. Repository/code определяет фактическое техническое состояние.
+Историческое Verified подтверждает только прежний scope. STATUS хранит его evidence отдельно от текущей готовности и новых проверок. Fixture, готовый production поднабор и весь каталог имеют разные критерии завершения; первый поднабор не закрывает catalog IP.
 
-Если источники конфликтуют, применяется процесс из [`WORKFLOW.md`](WORKFLOW.md), а не молчаливый выбор coding AI.
+## Milestones
 
-## Техническая предпосылка
+1. Обновление core/event/draft/UI contracts и ранний ручной цикл IP-31/IP-32.
+2. Расширенные build/presentation/encounter systems, boss/field frameworks, pickups и Travelers.
+3. Мета-прогрессия и сквозной UI с рабочими Settings до массового наполнения каталогов.
+4. Production по подготовленным ID: behavior, данные, per-ID art, UI и проверки в одной поставке; затем полные расписания полей.
+5. IP-27: end-to-end, полный предусмотренный каталог, manual runs, readability/performance и прослеживаемый balance review.
 
-Проект использует Unity/C#. Core systems должны поддерживать стабильные Content Design ID и data/config-driven параметры. Display name не является идентификатором. Неопределённые балансные значения не должны превращаться в hard-coded системные правила.
+Это описание результатов, не вторая очередь. Порядок, текущие packets и readiness находятся только в STATUS.
 
-## Майлстоуны
+## Content и delivery gates
 
-### M0 — Foundation
+| Gate | Правило |
+|---|---|
+| CG-01 | Approval пяти документов и 121 существующей target-карточки получен. Старый blanket Draft blocker снят; новые непредусмотренные сущности и будущие proposals не получают approval автоматически. |
+| CG-02 | Production Wave / Encounter Content отсутствует; расписания каждого поля требуют полных согласованных данных. |
+| CG-03 | Meta prices/rewards/upgrades и часть unlock/exit rules не заполнены. Framework fixtures не утверждают production economy. |
+| CG-04 | Оставшиеся tuning/timing значения, вероятности, thresholds и конкретные duration/intervals проверяются по используемым полям. Draft offer count уже равен 3 и больше не TBD. |
+| G-01…G-18, W-01 | Конкретные конфликты/пропуски и владельцы находятся в [DESIGN_SYNC](DESIGN_SYNC.md). Принятие плана не выбирает автоматически вариант решения открытого вопроса. |
+| AG-01 | Конкретный image/replacement approval, provenance и технические gates Asset Pipeline. Approval дизайна не означает approval ещё не созданного изображения. |
+| BG-01 | Approval конкретной revision balance proposal и выбранного diff до применения; затем checks и повторный ручной прогон. |
 
-IP-00…IP-01. Загрузка определений по стабильным ID и жизненный цикл забега.
+Gate относится только к зависимому packet/ID. Не требуется заполнить весь каталог для начала независимой подготовленной работы. Book-механика утверждена; production card/ID ещё нужно заполнить в IP-30. IP-28 проверяется на fixtures, production potion PICKUP-001 принадлежит IP-20.
 
-### M1 — Playable Core
+## Общие контракты и рабочие материалы
 
-IP-02…IP-07. Fixture-персонаж на fixture-поле перемещается, получает урон, автоматически атакует, убивает врагов, собирает XP и выбирает развитие.
-
-### M2 — Build Systems
-
-IP-08…IP-12. Active/passive frameworks, reroll/banish, sets и characters.
-
-### M3 — Encounter Systems
-
-IP-13…IP-16. Enemy patterns, Wave Director, bosses/mid-bosses и fields.
-
-### M4 — Canonical Content Integration
-
-IP-17…IP-24. После approval подключается production content по стабильным ID.
-
-### M5 — Meta & Player Flow
-
-IP-25…IP-26. Сохранение, разблокировки, мета-прогресс и функциональный UI-flow.
-
-### M6 — Integration
-
-IP-27. Полный end-to-end run и meta loop проверены совместно.
-
-## Content gates
-
-### CG-01 — Approval
-
-AI-generated catalog сейчас имеет статус Draft. Это не блокирует framework IP-00…IP-16 и framework-части IP-25/IP-26, но production IP-17…IP-23 не могут превращать Draft в канон без явного approval пользователя.
-
-### CG-02 — Wave / Encounter Content
-
-Раздел Content Design пока пуст, поэтому IP-24 не может создавать production schedules самостоятельно.
-
-### CG-03 — Meta economy
-
-Permanent upgrades, цены, награды и часть unlock conditions остаются TBD. IP-25 может реализовать framework с явно помеченными fixtures/placeholders, но не финальную экономику.
-
-### CG-04 — Balance knobs
-
-Draft offer count, reroll/banish counts, XP thresholds/lifetime, set probabilities и точный final-boss spawn time остаются конфигурируемыми TBD.
+- [DESIGN_SYNC](DESIGN_SYNC.md) — историческая сверка новых требований с базой и реестр открытых вопросов.
+- [ASSET_PRODUCTION](ASSET_PRODUCTION.md) — общий runtime/JSON/UI/art контракт, ownership и стадии производства.
+- [BALANCE_WORKFLOW](BALANCE_WORKFLOW.md) — ручные прогоны → комментарии/логи → предложение AI → approval → изменения/проверки/повторный прогон.
+- [DECISION-0015](../decisions/0015-design-sync-r2.md) — принятое решение о миграции, семантических заменах ID и границах изменения.
+- [Материалы ревью](proposals/2026-09-20-design-expansion/README.md) — принятый проект до регистрации, не текущий implementation packet.
 
 ## Каталог модулей
 
+Каталог отсортирован по ID только для поиска. Execution order — в STATUS.
+
 - [IP-00 — Контракт контента, стабильные ID и конфигурация](modules/IP-00-content-contract.md)
-- [IP-01 — Run lifecycle, таймер, pause и завершение](modules/IP-01-run-lifecycle.md)
-- [IP-02 — Перемещение игрока и базовая геометрия поля](modules/IP-02-player-movement.md)
-- [IP-03 — Character stats, HP, damage, healing и regeneration](modules/IP-03-character-stats.md)
-- [IP-04 — Enemy core](modules/IP-04-enemy-core.md)
-- [IP-05 — Active skill runtime и player damage pipeline](modules/IP-05-active-skill-runtime.md)
-- [IP-06 — XP drops, pickup, expiry и level progression](modules/IP-06-xp-progression.md)
-- [IP-07 — Level-up draft, 6+6 slots и base build progression](modules/IP-07-level-up-draft.md)
-- [IP-08 — Active-skill progression и pattern framework](modules/IP-08-active-skill-framework.md)
-- [IP-09 — Passive modifier framework](modules/IP-09-passive-framework.md)
-- [IP-10 — Reroll и banish](modules/IP-10-reroll-banish.md)
-- [IP-10A — UI Foundation and test harness](modules/IP-10A-ui-foundation.md)
-- [IP-11 — Set framework](modules/IP-11-set-framework.md)
-- [IP-12 — Character framework и weighted draft](modules/IP-12-character-framework.md)
-- [IP-12A — Visual Presentation Foundation](modules/IP-12A-visual-presentation-foundation.md)
-- [IP-13 — Enemy movement и attack patterns](modules/IP-13-enemy-patterns.md)
-- [IP-14 — Wave Director](modules/IP-14-wave-director.md)
-- [IP-15 — Boss/mid-boss framework](modules/IP-15-boss-framework.md)
-- [IP-16 — Field definitions и run configuration](modules/IP-16-field-framework.md)
-- [IP-17 — Production Active Skills](modules/IP-17-production-skills.md)
-- [IP-18 — Production Passive Items](modules/IP-18-production-passives.md)
-- [IP-19 — Production Sets](modules/IP-19-production-sets.md)
-- [IP-20 — Production Enemies](modules/IP-20-production-enemies.md)
-- [IP-21 — Production Bosses и Mid-bosses](modules/IP-21-production-bosses.md)
-- [IP-22 — Production Characters](modules/IP-22-production-characters.md)
-- [IP-23 — Production Fields](modules/IP-23-production-fields.md)
-- [IP-24 — Canonical Wave / Encounter Content](modules/IP-24-production-waves.md)
-- [IP-25 — Persistent profile и meta progression](modules/IP-25-meta-progression.md)
+- [IP-01 — Run lifecycle, pause ownership и результат забега](modules/IP-01-run-lifecycle.md)
+- [IP-02 — Перемещение игрока, камера и базовая геометрия](modules/IP-02-player-movement.md)
+- [IP-03 — Character stats, Health и новые stat channels](modules/IP-03-character-stats.md)
+- [IP-04 — Enemy lifecycle, contact damage и per-life identity](modules/IP-04-enemy-core.md)
+- [IP-05 — Общий combat pipeline, control effects и target contract](modules/IP-05-active-skill-runtime.md)
+- [IP-06 — XP lifecycle, effective pickup radius и progression](modules/IP-06-xp-progression.md)
+- [IP-07 — Трёхслотовый драфт, request queue и build progression](modules/IP-07-level-up-draft.md)
+- [IP-08 — Active-skill levels, targeting и effect families](modules/IP-08-active-skill-framework.md)
+- [IP-09 — Passive modifiers и новые stat effects](modules/IP-09-passive-framework.md)
+- [IP-10 — Reroll/banish для обновлённого драфта](modules/IP-10-reroll-banish.md)
+- [IP-10A — UI Foundation, reusable cards, HUD и test harness](modules/IP-10A-ui-foundation.md)
+- [IP-11 — Set recipes, priority draft policy и effect families](modules/IP-11-set-framework.md)
+- [IP-12 — Character definitions, weighted draft и selection presentation](modules/IP-12-character-framework.md)
+- [IP-12A — Visual Presentation Foundation и asset production pipeline](modules/IP-12A-visual-presentation-foundation.md)
+- [IP-13 — Enemy movement/attack patterns и control integration](modules/IP-13-enemy-patterns.md)
+- [IP-14 — Wave Director: continuous и burst timeline](modules/IP-14-wave-director.md)
+- [IP-15 — Boss/mid-boss encounter framework](modules/IP-15-boss-framework.md)
+- [IP-16 — Field definitions, selection и run configuration](modules/IP-16-field-framework.md)
+- [IP-17 — Production Active Skills SKILL-001…016](modules/IP-17-production-skills.md)
+- [IP-18 — Production Passive Items PASSIVE-001…014](modules/IP-18-production-passives.md)
+- [IP-19 — Production Sets SET-001…020](modules/IP-19-production-sets.md)
+- [IP-20 — Production Enemies ENEMY-001…020 и зелье PICKUP-001](modules/IP-20-production-enemies.md)
+- [IP-21 — Production Final Bosses и Mid-bosses](modules/IP-21-production-bosses.md)
+- [IP-22 — Production Characters CHAR-001…010](modules/IP-22-production-characters.md)
+- [IP-23 — Production Fields FIELD-001…010](modules/IP-23-production-fields.md)
+- [IP-24 — Canonical Wave / Encounter Content и field bindings](modules/IP-24-production-waves.md)
+- [IP-25 — Persistent profile, meta currency, unlocks и permanent progression](modules/IP-25-meta-progression.md)
 - [IP-26 — Functional UI и полный player flow](modules/IP-26-functional-ui.md)
-- [IP-27 — End-to-end integration](modules/IP-27-integration.md)
+- [IP-27 — End-to-end integration, regression и content validation](modules/IP-27-integration.md)
+- [IP-28 — World pickup framework: зелье лечения и Book](modules/IP-28-world-pickups.md)
+- [IP-29 — Traveler encounter framework](modules/IP-29-traveler-framework.md)
+- [IP-30 — Production Travelers TRAVELER-001…010 и Book](modules/IP-30-production-travelers.md)
+- [IP-31 — Локальная телеметрия ручных прогонов](modules/IP-31-manual-run-telemetry.md)
+- [IP-32 — Ручные прогоны и AI-assisted balance review](modules/IP-32-manual-ai-balance.md)
 
-## Готовность плана
+## Проверка и документация
 
-План покрывает текущие системные правила и отделяет framework от production content. Изменение параметров сущности не требует переписывать IP, пока не меняются её system contract, зависимости или module ownership.
+Каждый IP содержит Context, зависимости, Scope/Out of Scope, acceptance criteria, UI/observability, проверки, документационные изменения и gates. При реализации применять repository conventions и подходящие .claude helpers; code/config и affected design/evidence синхронизируются в одном change. Миграция документации сама по себе не является проверкой нового gameplay.

@@ -39,6 +39,7 @@ namespace Game.UI
         private readonly Button _healButton;
         private readonly Label _enemyObservation;
         private readonly Label _waveObservation;
+        private readonly Label _statsObservation;
         private readonly Button _presentationLiveButton;
         private readonly Button _presentationIdleButton;
         private readonly Button _presentationLeftButton;
@@ -94,6 +95,7 @@ namespace Game.UI
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
             _waveObservation = Require<Label>(root, GameplayUiElementIds.WaveObservation);
+            _statsObservation = Require<Label>(root, GameplayUiElementIds.StatsObservation);
             _presentationLiveButton = Require<Button>(root, GameplayUiElementIds.PresentationLiveButton);
             _presentationIdleButton = Require<Button>(root, GameplayUiElementIds.PresentationIdleButton);
             _presentationLeftButton = Require<Button>(root, GameplayUiElementIds.PresentationLeftButton);
@@ -129,9 +131,17 @@ namespace Game.UI
             _experienceBar.value = state.ExperienceProgress01 * 100f;
             _experienceBar.title = $"XP {MathF.Round(state.ExperienceProgress01 * 100f)}%";
             _levelLabel.text = $"LV {state.Level}";
-            var remaining = Math.Max(0, (int)Math.Ceiling(state.RemainingSeconds));
-            _timerLabel.text = $"{remaining / 60:00}:{remaining % 60:00}";
+            var elapsed = Math.Max(0, (int)Math.Floor(state.ElapsedSeconds));
+            _timerLabel.text = $"{elapsed / 60:00}:{elapsed % 60:00}";
             RenderWave(state.Wave);
+            if (_developmentControlsAvailable && state.Stats != null)
+            {
+                var stats = state.Stats;
+                _statsObservation.text = $"Action speed +{stats.ActionSpeedBonus:P0} · XP radius {stats.PickupRadius:0.##}\n" +
+                    $"Knockback resist {stats.KnockbackResistance:P0} · outgoing x{stats.OutgoingKnockbackMultiplier:0.##}\n" +
+                    $"Size x{stats.EffectSizeMultiplier:0.##} · range x{stats.EffectRangeMultiplier:0.##}\n" +
+                    $"Potion drop x{stats.PotionDropMultiplier:0.##} · low-HP damage x{stats.LowHealthDamageMultiplier:0.##}";
+            }
         }
 
         private void RenderWave(WaveViewState wave)
@@ -224,7 +234,7 @@ namespace Game.UI
                     $"{character.Title}{selected}\n" +
                     $"Start: {character.StartingSkillId}\n" +
                     $"HP {character.MaxHealth:0.#} · Move {character.MovementSpeed:0.##} · " +
-                    $"Damage x{character.ActiveSkillDamageMultiplier:0.##} · Cooldown x{character.ActiveSkillCooldownMultiplier:0.##} · " +
+                    $"Damage x{character.ActiveSkillDamageMultiplier:0.##} · Action speed x{1f / character.ActiveSkillCooldownMultiplier:0.##} · " +
                     $"XP recovery {recoveryPercent:0}%")
                 {
                     name = GameplayUiElementIds.CharacterEntry(i)

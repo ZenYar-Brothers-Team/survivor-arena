@@ -1,0 +1,55 @@
+# IP-03 — Character stats, Health и новые stat channels
+
+Материал ревью: план принят пользователем 2026-09-20 и зарегистрирован. [Действующая спецификация](../../../modules/IP-03-character-stats.md). Этот файл не является текущим implementation packet.
+
+Ревизия согласованного проекта: `design-sync-R2`. Спецификация перенесена в действующий каталог; дальнейшие изменения выполняются там.
+
+## Существующая база и характер изменения
+
+Сохранить общий Health, keyed composition, proportional current HP и caps. Добавить stat channels в существующую модель и JSON mapping.
+
+## Зависимости
+
+[IP-01](IP-01-run-lifecycle.md), [IP-02](IP-02-player-movement.md).
+
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
+
+## Context
+
+Источники GDD/CD/Art Direction ниже — пять утверждённых новых документов из [реестра источников](../README.md), после M-01 — их canonical destinations. Читать только перечисленные секции и полные карточки используемых ID.
+
+GDD «Управление, бой и выживание», «Опыт и level-up», «Активные умения…», «Персонажи»; Content Characters/Passive Items schemas, PASSIVE-002/005/007/011…014, связанные CHAR cards только для используемых каналов; DECISION-0004/0006/0009/0012.
+
+## Scope
+
+Base/current max HP, damage/healing/regen, move speed; action-speed название с прежней denominator formula; incoming/outgoing knockback, XP pickup radius, effect size/range, potion drop multiplier, low-HP damage channels. Domain values/units и change notifications; low-HP stat пересчитывается при damage/heal/max-HP изменении. Shape applicability и hit-time consumption принадлежат IP-08/IP-05, реальный potion roll — IP-28.
+
+## Out of Scope
+
+Применение knockback/slow к цели, production passives, world drops, visual scaling коллайдера.
+
+## Acceptance criteria
+
+Percent sources складываются; cooldown=base/(1+sum actionSpeed), positive cooldown>0; damage reduction≤99%; max-HP change сохраняет долю. Resistance in [0,1]; no NaN/Infinity. Low-HP formula из PASSIVE-014 даёт 0 bonus при full HP и заданный maximum при ≤10%; смена HP не вызывает recursive Changed loop. No tuning defaults в DTO; per-kind required errors называют поле.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../03-existing-modules-and-art.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+HP HUD и актуальные stat snapshots; player text говорит action speed, не прямое сокращение duration. DEV позволяет проверить effect channels через presenter intents.
+
+## Проверки
+
+Damage/death/heal/regen, stacking/key replacement/removal, cooldown/cap/HP ratio, low-HP границы 100%/10%/<10%, heal и max-HP recompute, missing fields; paused regen. Численные примеры берутся из утверждённых formulas, fixture tuning явно отдельно.
+
+## Документационные изменения
+
+Stat dictionary с units/ranges; JSON/domain mapping; терминологическая миграция DECISION-0004; синхронизация затронутых IP-06/08/09/12.
+
+## Gates и недостающие решения
+
+G-08/G-09: IP-03 задаёт stat channels/кривую, а недостающая applicability и snapshot-vs-live semantics закрывается у IP-05/IP-08/IP-09 до зависимой реализации. Ссылки G-xx/W-01 — [матрица различий](../01-reconciliation.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-04](IP-04-enemy-core.md), [IP-05](IP-05-active-skill-runtime.md), [IP-09](IP-09-passive-framework.md), [IP-10A](IP-10A-ui-foundation.md), [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-13](IP-13-enemy-patterns.md), [IP-25](IP-25-meta-progression.md), [IP-27](IP-27-integration.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность после регистрации определяет STATUS, не расположение файлов.

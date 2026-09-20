@@ -4,12 +4,12 @@
 
 ## 1. Выбор модуля
 
-Если пользователь указал IP, выбрать его. Иначе открыть [`STATUS.md`](STATUS.md) и выбрать первый по номеру модуль со статусом `Ready`.
+Если пользователь указал IP, выбрать его и проверить зависимости/gates. Иначе открыть [`STATUS.md`](STATUS.md), прочитать Execution order и выбрать первый в этой очереди модуль со статусом `Ready`. Номер IP — стабильный ID, а не позиция очереди. Пропускать завершённые и Blocked; невыполненный prerequisite нельзя обходить ради позиции в очереди. Если Ready нет, назвать конкретные blockers и следующий reviewable packet, не возвращаться к устаревшему scope.
 
 До изменения кода проверить:
 
-- все зависимости имеют статус `Implemented` или `Verified`;
-- production-модуль не заблокирован Draft-сущностью или другим content gate;
+- все зависимости имеют статус `Implemented` или `Verified` для требуемой целевой ревизии scope; historical evidence прежнего scope не заменяет эту проверку;
+- выбранный production packet имеет approved design и полные используемые данные/ассеты; approval 121 карточки по DECISION-0015 уже получен, но реальные оставшиеся Draft/TBD и content gates не снимаются автоматически;
 - в репозитории нет более новой реализации, не отражённой в статусе;
 - scope модуля не конфликтует с явной командой пользователя.
 
@@ -23,7 +23,7 @@
 2. запись выбранного IP в [`STATUS.md`](STATUS.md);
 3. спецификацию IP в [`modules/`](modules/);
 4. только перечисленные в Context секции Game Design;
-5. только перечисленные секции или полные карточки ID Content Design;
+5. только перечисленные секции или полные карточки ID Content Design, релевантные секции UI/UX, Art Direction/Art Production и Asset Pipeline;
 6. релевантный код, тесты и локальные repository instructions.
 
 Если IP ссылается на content ID, читать полную карточку ID и только явно связанные карточки, необходимые для scope. Весь Content Design читать не требуется.
@@ -32,6 +32,7 @@
 
 - Game Design — общие игровые правила и взаимодействия систем.
 - Content Design — конкретные сущности, behavior и balance-data.
+- UI/UX Design — экраны, состояния и взаимодействия; Art Direction/Art Production — визуальное направление и inventory; Asset Pipeline — техническая подготовка/импорт/approval изображений.
 - IP specification — scope, зависимости, acceptance criteria, проверки и out of scope.
 - Repository/code — фактически реализованная архитектура и ограничения.
 - `STATUS.md` — только состояние исполнения и evidence.
@@ -50,6 +51,16 @@ IP не переопределяет дизайн. Код не превраща�
 - `Superseded` — модуль заменён другим утверждённым scope.
 
 Перед существенными изменениями перевести выбранный модуль в `In progress`. Не менять статус спецификации модуля: он хранится только в `STATUS.md`.
+
+### Scope revision и catalog packets
+
+У изменённого IP STATUS хранит Scope revision, текущий packet, оставшиеся acceptance/IDs, target implementation/verification evidence и отдельно historical evidence. Module files не содержат status. Для текущего плана ревизия — `design-sync-R2`.
+
+Без behavioral delta IP-00/IP-02 сохраняют проверенное состояние после проверки совместимости. Для изменённого scope прежнее Verified остаётся историческим; новые критерии проходят Ready/Blocked → In progress → Implemented → Verified по фактической работе.
+
+Каталог может поставляться конкретными согласованными наборами ID с полными данными. Ready означает, что текущий packet подготовлен и prerequisites/gates выполнены; после старта — In progress. Выполненный поднабор фиксируется checklist в STATUS, но весь IP не становится Implemented/Verified до закрытия всего обязательного scope. Если продолжить ни один оставшийся packet нельзя — Blocked с конкретной причиной. Новые статусы вроде Partially Verified не вводятся.
+
+При изменении dependency/API/acceptance пересчитать готовность потребителей; не переносить прежний Next Ready вручную. Execution order хранится только в STATUS. Изменение очереди требует согласованного обновления плана; изменение номера файла для этого не нужно.
 
 ## 5. Правила реализации
 

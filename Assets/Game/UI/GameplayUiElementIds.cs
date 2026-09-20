@@ -35,6 +35,7 @@ namespace Game.UI
         public const string HealButton = "development-heal";
         public const string EnemyObservation = "development-enemy-observation";
         public const string WaveObservation = "development-wave-observation";
+        public const string StatsObservation = "development-stats-observation";
         public const string PresentationLiveButton = "development-presentation-live";
         public const string PresentationIdleButton = "development-presentation-idle";
         public const string PresentationLeftButton = "development-presentation-left";

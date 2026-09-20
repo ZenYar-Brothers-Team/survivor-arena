@@ -1,5 +1,6 @@
 using System.Collections;
 using Game.Character;
+using Game.Enemy;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -35,6 +36,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(player);
             Assert.IsNotNull(presentation);
             Assert.IsTrue(gameplayUi.IsInitialized);
+            var timer = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.TimerLabel);
+            Assert.AreEqual("00:00", timer.text);
             Assert.IsTrue(presentation.IsInitialized);
             var developmentToggle = gameplayUi.Document.rootVisualElement.Q<Button>(
                 GameplayUiElementIds.DevelopmentToggleButton);
@@ -88,6 +91,16 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(RunState.Running, run.Model.State);
             Assert.AreEqual(2, draft.RemainingRerolls);
             Assert.AreEqual(2, draft.RemainingBanishes);
+            player.SetModifier("smoke-low-hp", new CharacterStatModifier(lowHealthDamageMaxBonus: 0.7f));
+            player.TakeDamage(45f);
+            yield return null;
+            var statsObservation = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.StatsObservation);
+            StringAssert.Contains("Action speed", statsObservation.text);
+            StringAssert.Contains("low-HP damage x", statsObservation.text);
+            Assert.Greater(player.Stats.LowHealthDamageMultiplier, 1f);
+            player.Heal(100f);
+            Assert.AreEqual(1f, player.Stats.LowHealthDamageMultiplier);
+            player.RemoveModifier("smoke-low-hp");
 
             experience.AddPickedUpExperience(5f);
             Assert.IsTrue(draft.IsDraftOpen);
@@ -123,6 +136,24 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreNotEqual(banishedId, option.Definition.Id);
             Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
             Assert.AreEqual(RunState.Running, run.Model.State);
+            var enemySpawner = Object.FindAnyObjectByType<ContinuousFixtureEnemySpawner>();
+            enemySpawner.Tick(run.Model.Elapsed, enemySpawner.Director.CurrentPhase.SpawnIntervalSeconds, true);
+            var spawnedEnemy = enemySpawner.GetComponentInChildren<EnemyRuntime>();
+            Assert.IsNotNull(spawnedEnemy);
+            spawnedEnemy.TakeDamage(spawnedEnemy.Definition.MaxHealth);
+            run.Model.Tick(run.Model.Duration);
+            yield return null;
+            Assert.AreEqual(RunState.Won, run.Model.State);
+            Assert.AreEqual(RunCompletionReason.Victory, run.Model.Outcome.Reason);
+            Assert.IsTrue(run.Model.Outcome.Contributions.ContainsKey("ordinary-enemy-kills"));
+            Assert.GreaterOrEqual(run.Model.Outcome.Contributions["ordinary-enemy-kills"].Kills.Value, 1);
+            Assert.IsNotNull(enemySpawner.LastLifeEvent);
+            Assert.AreNotEqual(System.Guid.Empty, enemySpawner.LastLifeEvent.LifeId);
+            Assert.AreEqual("15:00", timer.text);
+            var completedRun = run.Model.Outcome;
+            yield return null;
+            Assert.AreSame(completedRun, run.Model.Outcome);
+            Assert.AreEqual(run.Model.Duration, run.Model.Elapsed);
         }
     }
 }

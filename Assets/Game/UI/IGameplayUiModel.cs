@@ -16,7 +16,8 @@ namespace Game.UI
         float MaxHealth { get; }
         float ExperienceProgress01 { get; }
         int Level { get; }
-        float RemainingSeconds { get; }
+        float ElapsedSeconds { get; }
+        CharacterStatsViewState Stats { get; }
         RunState RunState { get; }
         bool IsDraftOpen { get; }
         int RemainingRerolls { get; }

@@ -7,7 +7,6 @@
         "Game.Character",
         "Game.Run",
         "Game.Movement",
-        "Game.Progression",
         "Game.Presentation",
         "Game.Diagnostics",
         "Game.Content.Json",

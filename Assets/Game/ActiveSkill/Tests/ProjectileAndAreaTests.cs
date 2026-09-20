@@ -90,6 +90,26 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void DamageArea_NestedDeathCallbackDoesNotCorruptOuterTargetsOrDeduplication()
+        {
+            _firstEnemy = SpawnEnemy(Vector2.zero, maxHealth: 1f);
+            _secondEnemy = SpawnEnemy(new Vector2(0.4f, 0f), maxHealth: 10f);
+            var third = SpawnEnemy(new Vector2(-0.4f, 0f), maxHealth: 10f);
+            try
+            {
+                Physics2D.SyncTransforms();
+                _firstEnemy.Died += _ => EnemyDamageArea.Apply(Vector2.zero, 1f,
+                    new EnemyDamageRequest("FIXTURE-NESTED", 2f));
+                var hits = EnemyDamageArea.Apply(Vector2.zero, 1f,
+                    new EnemyDamageRequest("FIXTURE-OUTER", 1f), _firstEnemy);
+                Assert.AreEqual(3, hits);
+                Assert.AreEqual(7f, _secondEnemy.Health.CurrentHealth);
+                Assert.AreEqual(7f, third.Health.CurrentHealth);
+            }
+            finally { if (third != null) third.Despawn(); }
+        }
+
+        [Test]
         public void Projectile_PiercesConfiguredAdditionalTargets()
         {
             _runController.Model.Start();

@@ -3,6 +3,7 @@
     "rootNamespace": "Game.Bootstrap.PlayModeTests",
     "references": [
         "Game.Bootstrap",
+        "Game.Enemy",
         "Game.Content",
         "Game.Progression",
         "Game.Run",

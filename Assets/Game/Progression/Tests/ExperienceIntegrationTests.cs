@@ -32,7 +32,8 @@ namespace Game.Progression.Tests
 
             try
             {
-                var enemy = EnemyFactory.Spawn(definition, deathPosition, player.transform, runController);
+                var enemy = EnemyFactory.Spawn(definition, deathPosition, player.transform, runController,
+                    lifecycleSink: new EnemyExperienceDropSink(experience, runController));
                 enemy.TakeDamage(1f);
                 drop = Object.FindAnyObjectByType<ExperienceDropRuntime>();
 

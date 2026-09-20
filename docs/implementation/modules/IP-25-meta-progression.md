@@ -1,36 +1,53 @@
 # IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Оперативный статус и evidence хранятся только в [`STATUS.md`](../STATUS.md#ip-25--persistent-profile-и-meta-progression).
+Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).
 
-## Цель
+## Существующая база и характер изменения
 
-Результат run сохраняется и меняет доступный контент/постоянные stats.
+Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
 
 ## Зависимости
 
-IP-01, IP-12, IP-16. Production economy частично gated by Content Design/TBD.
+[IP-01](IP-01-run-lifecycle.md), [IP-03](IP-03-character-stats.md), [IP-12](IP-12-character-framework.md), [IP-16](IP-16-field-framework.md), [IP-10A](IP-10A-ui-foundation.md).
 
-## Scope
-
-Versioned profile; meta currency; unlock state characters/fields/active skills/sets; purchase and condition hooks; win/loss rewards; global and per-character stat-upgrade framework.
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
 
 ## Context
 
-- Game Design: «Мета-прогрессия».
-- Content Design: approved unlock fields from CHAR/FIELD/SKILL/SET cards only; unrelated combat cards не читать.
+Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-## UI / observability
+новый GDD «Мета-прогрессия»; только unlock/economy поля выбранных CHAR/FIELD/SKILL/SET и meta definitions; UI §§16–17; run identity/RunOutcome contract IP-01 и producer events IP-04/IP-06/IP-07/IP-11.
 
-Profile/meta slice показывает currency, unlock/purchase state, upgrade levels, reward delta и save/load outcome; intents проходят через presenter contracts.
+## Scope
+
+versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. Failure/abort handling задаётся явно, если reward при Quit Run ещё не описан.
+
+## Out of Scope
+
+выдуманные rewards/prices/upgrades, skill tree, cloud/online profile, превращение UI в владельца currency.
 
 ## Acceptance criteria
 
-Win/loss can award configured currency; purchase unlock and achievement unlock work; unlocked content persists; global/per-character upgrade hooks affect runtime stats.
+повторное открытие Results/Retry/load не начисляет reward дважды; недостаток валюты и locked conditions корректны; purchase/achievement unlock persists; corrupted/version-mismatch profile обрабатывается документированно; upgrades не double-count и действуют в следующем run по установленному lifecycle. Не зависеть от включённого IP-31 recorder; reward application использует run identity и model outcome.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+currency, upgrade icon/name/level/effect/price/Buy, condition unlock без фиктивной цены, result reward delta и save/error state; notifications новых unlocks.
 
 ## Проверки
 
-Save/load, duplicate unlock, insufficient currency, version fallback.
+save/load/migration, duplicate result/unlock/purchase intent, insufficient currency, condition unlock, failure recovery; presenter cards и PlayMode result→purchase→next run.
 
-## Out of scope
+## Документационные изменения
 
-Придумывание final prices/rewards/upgrades/conditions. Если они не определены, используются explicit fixtures/config placeholders.
+result/reward idempotency, persistence schema и actual economic gaps, reset/testing procedure; prices и formulas через approval loop IP-32.
+
+## Gates и недостающие решения
+
+CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semantics. Framework fixtures отдельно от production economy. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

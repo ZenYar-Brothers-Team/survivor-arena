@@ -31,12 +31,12 @@ namespace Game.Character.Tests
                 maxHealthMultiplierBonus: 0.5f,
                 movementSpeedMultiplierBonus: 0.5f,
                 activeSkillDamageMultiplierBonus: 0.2f,
-                activeSkillCooldownReductionBonus: 0.1f));
+                actionSpeedBonus: 0.1f));
             stats.SetModifier("fixture", new CharacterStatModifier(
                 maxHealthMultiplierBonus: 0.25f,
                 movementSpeedMultiplierBonus: 0.25f,
                 activeSkillDamageMultiplierBonus: 0.1f,
-                activeSkillCooldownReductionBonus: 0.2f));
+                actionSpeedBonus: 0.2f));
 
             Assert.AreEqual(1, stats.ModifierCount);
             Assert.AreEqual(125f, stats.MaxHealth, 0.0001f);
@@ -104,10 +104,10 @@ namespace Game.Character.Tests
             var stats = CreateStats();
             stats.SetModifier("one", new CharacterStatModifier(
                 maxHealthMultiplierBonus: 0.2f,
-                activeSkillCooldownReductionBonus: 10f));
+                actionSpeedBonus: 10f));
             stats.SetModifier("two", new CharacterStatModifier(
                 maxHealthMultiplierBonus: 0.3f,
-                activeSkillCooldownReductionBonus: 10f));
+                actionSpeedBonus: 10f));
 
             Assert.AreEqual(150f, stats.MaxHealth, 0.0001f);
             Assert.AreEqual(1f / 21f, stats.ActiveSkillCooldownMultiplier, 0.0001f);

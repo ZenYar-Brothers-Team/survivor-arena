@@ -15,6 +15,12 @@ namespace Game.Character
         public float PickedUpXpMultiplier { get; }
         public float XpDropLifetimeBonusSeconds { get; }
         public float PickupRadius { get; }
+        public float KnockbackResistance { get; }
+        public float OutgoingKnockbackBonus { get; }
+        public float EffectSizeMultiplier { get; }
+        public float EffectRangeMultiplier { get; }
+        public float PotionDropMultiplier { get; }
+        public float LowHealthDamageMaxBonus { get; }
 
         public CharacterBaseStats(
             float maxHealth,
@@ -27,7 +33,13 @@ namespace Game.Character
             float disappearingXpRecovery = 0f,
             float pickedUpXpMultiplier = 1f,
             float xpDropLifetimeBonusSeconds = 0f,
-            float pickupRadius = 0.2f)
+            float pickupRadius = 0.2f,
+            float knockbackResistance = 0f,
+            float outgoingKnockbackBonus = 0f,
+            float effectSizeMultiplier = 1f,
+            float effectRangeMultiplier = 1f,
+            float potionDropMultiplier = 1f,
+            float lowHealthDamageMaxBonus = 0f)
         {
             MaxHealth = maxHealth;
             MovementSpeed = movementSpeed;
@@ -40,6 +52,12 @@ namespace Game.Character
             PickedUpXpMultiplier = pickedUpXpMultiplier;
             XpDropLifetimeBonusSeconds = xpDropLifetimeBonusSeconds;
             PickupRadius = pickupRadius;
+            KnockbackResistance = knockbackResistance;
+            OutgoingKnockbackBonus = outgoingKnockbackBonus;
+            EffectSizeMultiplier = effectSizeMultiplier;
+            EffectRangeMultiplier = effectRangeMultiplier;
+            PotionDropMultiplier = potionDropMultiplier;
+            LowHealthDamageMaxBonus = lowHealthDamageMaxBonus;
 
             Validate();
         }
@@ -57,6 +75,12 @@ namespace Game.Character
             NumericValidation.ValidateNonNegative(PickedUpXpMultiplier, nameof(PickedUpXpMultiplier));
             NumericValidation.ValidateNonNegative(XpDropLifetimeBonusSeconds, nameof(XpDropLifetimeBonusSeconds));
             NumericValidation.ValidatePositive(PickupRadius, nameof(PickupRadius));
+            NumericValidation.ValidateRange(KnockbackResistance, 0f, 1f, nameof(KnockbackResistance));
+            NumericValidation.ValidateNonNegative(OutgoingKnockbackBonus, nameof(OutgoingKnockbackBonus));
+            NumericValidation.ValidatePositive(EffectSizeMultiplier, nameof(EffectSizeMultiplier));
+            NumericValidation.ValidatePositive(EffectRangeMultiplier, nameof(EffectRangeMultiplier));
+            NumericValidation.ValidateNonNegative(PotionDropMultiplier, nameof(PotionDropMultiplier));
+            NumericValidation.ValidateNonNegative(LowHealthDamageMaxBonus, nameof(LowHealthDamageMaxBonus));
         }
     }
 }

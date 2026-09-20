@@ -1,9 +1,9 @@
 using System;
 using Game.Character;
 using Game.Combat;
+using Game.Content;
 using Game.Movement;
 using Game.Pooling;
-using Game.Progression;
 using Game.Run;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace Game.Enemy
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(LineRenderer))]
-    public sealed class EnemyRuntime : MonoBehaviour, IEnemyDamageReceiver
+    public sealed class EnemyRuntime : MonoBehaviour, IEnemyLifeTarget
     {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
@@ -25,7 +25,11 @@ namespace Game.Enemy
         private PlayerCharacterRuntime _contactTarget;
         private PlayerCharacterRuntime _projectileTarget;
         private ContinuousContactTimer _contactTimer;
-        private PlayerExperienceRuntime _experienceTarget;
+        private IEnemyLifecycleSink _lifecycleSink;
+        private ContentId? _damageSource;
+        private Guid? _runId;
+        private bool _deathPublished;
+        private bool _dispatchingLifecycle;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private EnemyMovementController _movementController;
@@ -34,6 +38,10 @@ namespace Game.Enemy
         private bool _despawned;
 
         public EnemyDefinition Definition { get; private set; }
+        public Guid LifeId { get; private set; }
+        public ContentId ContentId => Definition.Id;
+        public EnemyCategory Category { get; private set; }
+        public EnemyLifeEvent LastLifeEvent { get; private set; }
         public Health Health { get; private set; }
         public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
         public Vector2 Position => transform.position;
@@ -42,6 +50,7 @@ namespace Game.Enemy
 
         public event Action<EnemyRuntime> Died;
         public event Action<EnemyRuntime> Despawned;
+        public event Action<EnemyLifeEvent> LifeEvent;
 
         private void Awake()
         {
@@ -53,35 +62,48 @@ namespace Game.Enemy
             EnemyDefinition definition,
             Transform target,
             RunController runController,
-            PlayerExperienceRuntime experienceTarget = null,
+            IEnemyLifecycleSink lifecycleSink = null,
             Sprite visual = null,
             GameObjectPool<EnemyRuntime> pool = null,
-            GameObjectPool<EnemyProjectileRuntime> projectilePool = null)
+            GameObjectPool<EnemyProjectileRuntime> projectilePool = null,
+            EnemyCategory category = EnemyCategory.Ordinary)
         {
+            if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
+            if (definition == null) throw new ArgumentNullException(nameof(definition));
+            if (target == null) throw new ArgumentNullException(nameof(target));
+            if (runController == null) throw new ArgumentNullException(nameof(runController));
+            if (!Enum.IsDefined(typeof(EnemyCategory), category)) throw new ArgumentOutOfRangeException(nameof(category));
+            var reused = _initialized;
             if (_initialized)
             {
-                // Reused from a pool: tear down the previous life before rebuilding,
-                // instead of the single-use "throw if already initialized" guard.
+                if (!_despawned) EndLife(EnemyLifeReason.Reinitialized, releaseObject: false);
                 if (Health != null)
                 {
                     Health.Died -= HandleDeath;
                     Health.Dispose();
                 }
-                _despawned = false;
             }
+            _despawned = false;
+            _deathPublished = false;
+            _damageSource = null;
+            LifeId = Guid.NewGuid();
+            Category = category;
 
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             _target = target != null ? target : throw new ArgumentNullException(nameof(target));
             // Resolved once per life: it is needed for every projectile this enemy fires.
             _projectileTarget = target.GetComponent<PlayerCharacterRuntime>();
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
-            _experienceTarget = experienceTarget;
+            _runId = runController.Model?.RunId;
+            _lifecycleSink = lifecycleSink;
             _pool = pool;
             _projectilePool = projectilePool;
 
             CacheComponents();
             _collider.enabled = true;
             _body.gravityScale = 0f;
+            _body.linearVelocity = Vector2.zero;
+            _body.angularVelocity = 0f;
             _body.constraints |= RigidbodyConstraints2D.FreezeRotation;
             _collider.radius = 0.5f;
             transform.localScale = Vector3.one * definition.CollisionSize;
@@ -101,6 +123,9 @@ namespace Game.Enemy
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;
             EnemyRegistry.Register(this);
+            _dispatchingLifecycle = true;
+            try { Publish(EnemyLifeEventKind.Spawned, reused ? EnemyLifeReason.PoolReuse : EnemyLifeReason.Spawn); }
+            finally { _dispatchingLifecycle = false; }
         }
 
         private void FixedUpdate()
@@ -174,23 +199,39 @@ namespace Game.Enemy
 
         public float TakeDamage(float amount)
         {
-            if (!_initialized)
-                throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
-
-            return Health.TakeDamage(amount);
+            return ReceiveDamage(amount, null);
         }
 
         public float ApplyDamage(EnemyDamageRequest request)
         {
-            if (!_initialized)
-                throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
-
-            return Health.TakeDamage(request.Amount);
+            return ReceiveDamage(request.Amount, request.SourceId);
         }
 
-        public void Despawn()
+        private float ReceiveDamage(float amount, ContentId? source)
         {
-            if (_despawned)
+            if (!_initialized)
+                throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
+            if (!IsAlive || _dispatchingLifecycle) return 0f;
+            var previousSource = _damageSource;
+            _damageSource = source;
+            try { return Health.TakeDamage(amount); }
+            finally { _damageSource = previousSource; }
+        }
+
+        public void Despawn(EnemyLifeReason reason = EnemyLifeReason.Cleanup)
+        {
+            if (reason != EnemyLifeReason.Cleanup && reason != EnemyLifeReason.Escaped)
+                throw new ArgumentOutOfRangeException(nameof(reason), "Only cleanup or escape may be requested externally.");
+            // Death notification owns its final cleanup; callbacks cannot return/re-rent this life halfway through it.
+            if (_dispatchingLifecycle) return;
+            EndLife(reason, releaseObject: true);
+        }
+
+        public void Shutdown() => Despawn();
+
+        private void EndLife(EnemyLifeReason reason, bool releaseObject)
+        {
+            if (_despawned || !_initialized)
                 return;
 
             _despawned = true;
@@ -198,14 +239,35 @@ namespace Game.Enemy
                 _body.linearVelocity = Vector2.zero;
             if (_telegraph != null)
                 _telegraph.enabled = false;
+            if (_collider != null) _collider.enabled = false;
             if (Health != null)
+            {
                 Health.Died -= HandleDeath;
+                Health.Dispose();
+            }
             _contactTimer?.EndContact();
             _contactTarget = null;
             EnemyRegistry.Unregister(this);
 
-            Despawned?.Invoke(this);
+            _dispatchingLifecycle = true;
+            try
+            {
+                Publish(EnemyLifeEventKind.Despawned, reason);
+                Despawned?.Invoke(this);
+            }
+            finally
+            {
+                _dispatchingLifecycle = false;
+                Died = null;
+                Despawned = null;
+                LifeEvent = null;
+                _lifecycleSink = null;
+                if (releaseObject) ReleaseObject();
+            }
+        }
 
+        private void ReleaseObject()
+        {
             if (_pool != null)
             {
                 _pool.Return(this);
@@ -220,36 +282,35 @@ namespace Game.Enemy
 
         private void HandleDeath()
         {
+            if (_deathPublished || _despawned) return;
+            _deathPublished = true;
             _body.linearVelocity = Vector2.zero;
             _collider.enabled = false;
-            if (Definition.ExperienceReward > 0f && _experienceTarget != null)
+            _dispatchingLifecycle = true;
+            try
             {
-                ExperienceDropFactory.Spawn(
-                    Definition.ExperienceReward,
-                    transform.position,
-                    _experienceTarget.DropLifetimeSeconds,
-                    _experienceTarget,
-                    _runController,
-                    pool: _experienceTarget.DropPool);
+                Publish(EnemyLifeEventKind.Died, EnemyLifeReason.Killed);
+                Died?.Invoke(this);
             }
-            Died?.Invoke(this);
-            Despawn();
+            finally
+            {
+                _dispatchingLifecycle = false;
+                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+            }
         }
 
         private void OnDestroy()
         {
-            EnemyRegistry.Unregister(this);
-            if (Health != null)
-            {
-                Health.Died -= HandleDeath;
-                Health.Dispose();
-            }
+            EndLife(EnemyLifeReason.Destroyed, releaseObject: false);
+        }
 
-            if (_despawned)
-                return;
-
-            _despawned = true;
-            Despawned?.Invoke(this);
+        private void Publish(EnemyLifeEventKind kind, EnemyLifeReason reason)
+        {
+            var snapshot = new EnemyLifeEvent(LifeId, _runId,
+                Definition, Category, kind, reason, Position, _damageSource);
+            LastLifeEvent = snapshot;
+            _lifecycleSink?.OnEnemyLifeEvent(snapshot);
+            LifeEvent?.Invoke(snapshot);
         }
 
         private void CacheComponents()

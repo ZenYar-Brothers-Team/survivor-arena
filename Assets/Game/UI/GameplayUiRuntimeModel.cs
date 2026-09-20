@@ -31,7 +31,8 @@ namespace Game.UI
         public float MaxHealth => _player.Health.MaxHealth;
         public float ExperienceProgress01 => _experience.Progression.Progress01;
         public int Level => _experience.Progression.Level;
-        public float RemainingSeconds => Math.Max(0f, _run.Model.Duration - _run.Model.Elapsed);
+        public float ElapsedSeconds => _run.Model.Elapsed;
+        public CharacterStatsViewState Stats => new CharacterStatsViewState(_player.Stats);
         public RunState RunState => _run.Model.State;
         public bool IsDraftOpen => _draft.IsDraftOpen;
         public int RemainingRerolls => _draft.RemainingRerolls;

@@ -10,7 +10,7 @@ namespace Game.Enemy
     // Executes the WaveDirector's spawn decisions: owns the enemy/projectile pools and
     // the alive list, while the director owns timing, composition and phase state.
     [DisallowMultipleComponent]
-    public sealed class ContinuousFixtureEnemySpawner : MonoBehaviour
+    public sealed class ContinuousFixtureEnemySpawner : MonoBehaviour, IEnemyLifecycleSink, IRunOutcomeContributor
     {
         // Spawning instantiates/rents and initializes several enemies in one tick at
         // high phase rates; warn if that starts costing real time (DECISION-0008).
@@ -28,6 +28,12 @@ namespace Game.Enemy
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
+        private IEnemyLifecycleSink _lifecycleSink;
+        private RunModel _outcomeOwner;
+        private int _kills;
+
+        public string Key => "ordinary-enemy-kills";
+        public EnemyLifeEvent LastLifeEvent { get; private set; }
 
         public int AliveCount => _aliveEnemies.Count;
         public WaveDirector Director => _director;
@@ -38,8 +44,10 @@ namespace Game.Enemy
                 if (_aliveEnemies.Count > 0 && _aliveEnemies[0] != null)
                 {
                     var enemy = _aliveEnemies[0];
-                    return $"{enemy.Definition.Id} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"}";
+                    return $"{enemy.Definition.Id} · life {enemy.LifeId:N} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"}";
                 }
+                if (LastLifeEvent != null)
+                    return $"{LastLifeEvent.ContentId} · life {LastLifeEvent.LifeId:N} · {LastLifeEvent.Reason}";
                 return _initialized ? "No live enemies" : "Enemy fixtures unavailable";
             }
         }
@@ -52,15 +60,21 @@ namespace Game.Enemy
             enabled = false;
         }
 
-        public void Initialize(WaveDirector director, IReadOnlyDictionary<ContentId, Sprite> visuals = null)
+        public void Initialize(WaveDirector director, IReadOnlyDictionary<ContentId, Sprite> visuals = null,
+            IEnemyLifecycleSink lifecycleSink = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
 
             _director = director ?? throw new System.ArgumentNullException(nameof(director));
+            _lifecycleSink = lifecycleSink;
+            _kills = 0;
+            LastLifeEvent = null;
             _visuals = visuals;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
+            _outcomeOwner = runController != null ? runController.Model : null;
+            _outcomeOwner?.RegisterOutcomeContributor(this);
             _initialized = true;
         }
 
@@ -105,7 +119,8 @@ namespace Game.Enemy
                 transform,
                 visual,
                 _pool,
-                _projectilePool);
+                _projectilePool,
+                this);
             enemy.Despawned += HandleEnemyDespawned;
             _aliveEnemies.Add(enemy);
         }
@@ -116,10 +131,21 @@ namespace Game.Enemy
             _aliveEnemies.Remove(enemy);
         }
 
+        public void OnEnemyLifeEvent(EnemyLifeEvent snapshot)
+        {
+            LastLifeEvent = snapshot;
+            if (snapshot.Kind == EnemyLifeEventKind.Died && snapshot.Category == EnemyCategory.Ordinary) _kills++;
+            _lifecycleSink?.OnEnemyLifeEvent(snapshot);
+        }
+
+        public RunOutcomeContribution Capture() => new RunOutcomeContribution(kills: _kills);
+
         public void Shutdown()
         {
             if (!_initialized)
                 return;
+
+            using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.Shutdown", TickWarningMilliseconds);
 
             while (_aliveEnemies.Count > 0)
             {
@@ -134,6 +160,9 @@ namespace Game.Enemy
             }
             _director = null;
             _visuals = null;
+            _outcomeOwner?.UnregisterOutcomeContributor(this);
+            _outcomeOwner = null;
+            _lifecycleSink = null;
             _initialized = false;
         }
 

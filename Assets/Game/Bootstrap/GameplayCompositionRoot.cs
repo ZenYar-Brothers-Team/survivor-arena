@@ -145,7 +145,8 @@ namespace Game.Bootstrap
                     Catalog.WaveTimeline,
                     enemiesById,
                     runController.Model.Duration);
-                enemySpawner.Initialize(waveDirector, enemyVisuals);
+                enemySpawner.Initialize(waveDirector, enemyVisuals,
+                    new EnemyExperienceDropSink(experienceRuntime, runController));
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 gameplayUiRoot.Initialize(

@@ -1,36 +1,53 @@
-# IP-10 — Reroll и banish
+# IP-10 — Reroll/banish для обновлённого драфта
 
-Оперативный статус и evidence хранятся только в [`STATUS.md`](../STATUS.md#ip-10--reroll-и-banish).
+Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).
 
-## Цель
+## Существующая база и характер изменения
 
-Игрок управляет случайностью level-up draft.
+Сохранить run-local counters, invalid-action protection и reset. Распространение на Book и set offers задаётся явно.
 
 ## Зависимости
 
-IP-07.
+[IP-07](IP-07-level-up-draft.md).
 
-## Scope
-
-Reroll current offers; banish an offered entry for the current run and immediately rebuild the open draft; run-local configurable counters; eligibility integration; reset on new run. Invalid actions do not consume counters. If a successful reroll or banish leaves no eligible entries, the gained level remains, the pending draft resolves without another chooser, and the run does not remain paused.
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
 
 ## Context
 
-- Game Design: «Опыт и level-up».
-- Content Design: не требуется.
+Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-## UI / observability
+GDD «Опыт и level-up», «Сеты»; UI §7 Banish/Reroll и §12 Book; draft runtime/counters.
 
-Draft overlay показывает remaining counters, предоставляет reroll/banish actions и немедленно перерисовывает valid offers.
+## Scope
+
+Reroll/rebuild по текущему request revision; Banish mode → select card → normal chooser; origin-aware policy/counters hooks; callback provider для set reroll semantics без reverse dependency на IP-11. Counters и recovery — config, no view-owned mutation.
+
+## Out of Scope
+
+Final counts/recovery без data proposal, собственный duplicate Book runtime, set effect execution.
 
 ## Acceptance criteria
 
-Reroll выдаёт новый valid draft и меняет состав предложений, когда в eligible pool существует альтернатива; successful reroll/banish with an exhausted pool closes the chooser without exception; banished entry не возвращается в run; exhausted counters reject actions without changing the draft; новый run reset.
+Successful reroll меняет offers при наличии альтернативы; invalid/exhausted/double intent не расходует counters. Banished entry не возвращается в run. Empty result разрешает request по G-01; next queued request и other pause не теряются. Новый run сбрасывает counters/banishes; Book применение следует G-02/G-03.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+Remaining counts, explicit Banish mode/cancel/disabled reasons, updated card set, семантические intents; mechanic работает до финальных icons.
 
 ## Проверки
 
-Repeated drafts, alternative offer set, banish persistence, invalid/exhausted counter, no-options resolution, reset.
+Alternative offers, exhausted counters/pool, persistence through queued drafts, mode cancel и double click; pure presenter и PlayMode flow. Set-specific chance reroll tests в IP-11.
 
-## Out of scope
+## Документационные изменения
 
-Точные counts/recovery rules — balance TBD.
+Origin/policy table с IP-07/IP-11/IP-28; Context/criteria/evidence revised.
+
+## Gates и недостающие решения
+
+G-02/G-03: reroll заново бросает set checks или сохраняет; banish set semantics; Book counters/pool. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-10A](IP-10A-ui-foundation.md), [IP-11](IP-11-set-framework.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

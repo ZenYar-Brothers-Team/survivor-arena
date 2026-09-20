@@ -43,18 +43,7 @@ namespace Game.Progression
             return new CharacterDefinition(
                 data.Id,
                 data.DisplayName,
-                new CharacterBaseStats(
-                    stats.MaxHealth,
-                    stats.MovementSpeed,
-                    stats.ActiveSkillDamageMultiplier,
-                    stats.ActiveSkillCooldownMultiplier,
-                    stats.IncomingDamageMultiplier,
-                    stats.HealthRestorationMultiplier,
-                    stats.HealthRegenerationPerSecond,
-                    stats.DisappearingXpRecovery,
-                    stats.PickedUpXpMultiplier,
-                    stats.XpDropLifetimeBonusSeconds,
-                    stats.PickupRadius),
+                CharacterBaseStatsMapper.Map(stats),
                 data.StartingActiveSkillId,
                 string.IsNullOrWhiteSpace(data.VisualId)
                     ? default

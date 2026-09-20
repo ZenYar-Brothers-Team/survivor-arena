@@ -14,6 +14,7 @@ namespace Game.Character
 
         private bool _initialized;
         private CharacterRunBinding _runBinding;
+        private CharacterHealthStatBinding _healthStatBinding;
 
         public CharacterStats Stats { get; private set; }
         public Health Health { get; private set; }
@@ -48,6 +49,7 @@ namespace Game.Character
             runController = controller;
             Stats = new CharacterStats(baseStats);
             Health = new Health(Stats);
+            _healthStatBinding = new CharacterHealthStatBinding(Health, Stats);
             _runBinding = new CharacterRunBinding(Health, controller.Model);
             _initialized = true;
         }
@@ -74,6 +76,8 @@ namespace Game.Character
                 return;
 
             _runBinding?.Dispose();
+            _healthStatBinding?.Dispose();
+            _healthStatBinding = null;
             Health?.Dispose();
             _runBinding = null;
             Health = null;
@@ -83,8 +87,7 @@ namespace Game.Character
 
         private void OnDestroy()
         {
-            _runBinding?.Dispose();
-            Health?.Dispose();
+            Shutdown();
         }
 
         public float TakeDamage(float amount)
