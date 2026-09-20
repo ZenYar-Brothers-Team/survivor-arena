@@ -6,11 +6,12 @@ namespace Game.UI
 {
     public interface IGameplayUiView
     {
-        event Action<ContentId> DraftOptionSelected;
-        event Action DraftRerollRequested;
-        event Action<ContentId> DraftBanishRequested;
+        event Action<ContentId, Guid> DraftOptionSelected;
+        event Action<Guid> DraftRerollRequested;
+        event Action<ContentId, Guid> DraftBanishRequested;
         event Action PauseRequested;
         event Action AddExperienceRequested;
+        event Action AddBookRequested;
         event Action ApplyDamageRequested;
         event Action ApplyHealingRequested;
         event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;

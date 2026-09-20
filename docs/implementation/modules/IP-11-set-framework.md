@@ -20,7 +20,7 @@ GDD «Сеты» и draft; SET-001…020 compatibility matrix + связанны
 
 ## Scope
 
-Recipes 3–6 components/thresholds; independent checks единого global setDraftChance; successes first в 3 slots, deterministic processing order, ordinary provider заполняет остаток. Подключение к IP-07 provider, reroll/banish policy к IP-10. Slot-free level-less acquired sets. Keyed stat buffs, per-skill transforms, counters/procs, defense/economy и independent set-attacks; source propagation/non-recursion, fixed cooldown set attacks вне action speed; generic modifiers по approved applicability. Real potion event binding — IP-19/IP-28; framework использует typed fake reward event без обратной зависимости.
+Recipes 3–6 components/thresholds; independent checks единого global setDraftChance; successes first в 3 slots, deterministic processing order, ordinary provider заполняет остаток. Если ещё есть свободные позиции, доступные сеты с неудачной проверкой шанса дозаполняют их равновероятно, без повторов и повторного броска, по [DECISION-0019](../../decisions/0019-draft-set-backfill.md). Подключение к IP-07 provider, reroll/banish policy к IP-10. Slot-free level-less acquired sets. Keyed stat buffs, per-skill transforms, counters/procs, defense/economy и independent set-attacks; source propagation/non-recursion, fixed cooldown set attacks вне action speed; generic modifiers по approved applicability. Real potion event binding — IP-19/IP-28; framework использует typed fake reward event без обратной зависимости.
 
 ## Out of Scope
 
@@ -28,7 +28,7 @@ Production 20 recipes/числа/icons, invented set interactions, новая ra
 
 ## Acceptance criteria
 
-Chance 0/1 и 0/1/2/3/>3 successes дают согласованный состав; stable order не зависит от Dictionary iteration. Recipe threshold различает possession/levels, duplicate acquisition исключён; per-set probabilities не остаются вторым authority. Shared components/multiple sets compose без double modifiers. Set activation не триггерит рекурсивно other set counters; fixed vs skill cooldown tested. Shutdown снимает собственные buffs/subscriptions/timers; pool reset очищает effects. По одной настоящей fixture на каждую accepted effect family.
+Chance 0/1 и 0/1/2/3/>3 successes дают согласованный состав; chance=0 не блокирует дозаполнение, если сет доступен. Проверить 2 ordinary + 2 failed sets → один сет с вероятностью 1/2; 0 ordinary + 2 failed sets → оба сета; полный draft не меняется; banished/acquired/ineligible sets не возвращаются через дозаполнение; stable order не зависит от Dictionary iteration. Recipe threshold различает possession/levels, duplicate acquisition исключён; per-set probabilities не остаются вторым authority. Shared components/multiple sets compose без double modifiers. Set activation не триггерит рекурсивно other set counters; fixed vs skill cooldown tested. Shutdown снимает собственные buffs/subscriptions/timers; pool reset очищает effects. По одной настоящей fixture на каждую accepted effect family.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -38,7 +38,7 @@ Draft set card, per-option recipe projection и completes/progress/already-enoug
 
 ## Проверки
 
-Recipe truth tables/thresholds, global chance/order/short pool, fake Book policy, reroll/banish, shared recipes, proc source/counters/multiwave, fixed cooldown, buff expiry/remove/rollback; PlayMode several simultaneous sets and queued choices. Per-ID production correctness — IP-19.
+Recipe truth tables/thresholds, global chance/order/short pool/uniform backfill без повторов, fake Book policy, reroll/banish, shared recipes, proc source/counters/multiwave, fixed cooldown, buff expiry/remove/rollback; PlayMode several simultaneous sets and queued choices. Per-ID production correctness — IP-19.
 
 ## Документационные изменения
 
@@ -46,7 +46,7 @@ Recipe truth tables/thresholds, global chance/order/short pool, fake Book policy
 
 ## Gates и недостающие решения
 
-G-02/G-04/G-05/G-08/G-13: processing order/Book policies, disc-return и trash-explosion conflicts, modifier applicability, exact thresholds/effect values. Framework fixtures не назначают production значения. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08 закрыт DECISION-0017; дозаполнение свободных позиций утверждено DECISION-0019. G-02/G-04/G-05/G-13 остаются: processing order/reroll-banish policies (Book ordinary pool уже утверждён DECISION-0020), disc-return и trash-explosion conflicts, exact thresholds/effect values. Framework fixtures не назначают production значения. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

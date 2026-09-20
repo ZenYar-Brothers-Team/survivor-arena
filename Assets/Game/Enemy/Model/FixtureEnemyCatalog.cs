@@ -39,7 +39,9 @@ namespace Game.Enemy
                 data.ExperienceReward,
                 visual,
                 ToMovement(data.Id, data.Movement),
-                ToAttack(data.Id, data.Attack));
+                ToAttack(data.Id, data.Attack),
+                Require(data.KnockbackResistance, $"Enemy {data.Id} knockbackResistance"),
+                data.ContactControls?.ToProfile());
         }
 
         // Every field the kind actually reads must be explicit in config; fields it never
@@ -93,7 +95,8 @@ namespace Game.Enemy
                     data.SpreadDegrees,
                     projectileRadius: projectileRadius,
                     explosionRadius: data.ExplosionRadius,
-                    rotationStepDegrees: data.RotationStepDegrees);
+                    rotationStepDegrees: data.RotationStepDegrees,
+                    controls: data.Controls?.ToProfile());
             }
 
             return new EnemyAttackProfile(
@@ -107,7 +110,8 @@ namespace Game.Enemy
                 Require(data.BurstIntervalSeconds, Owner(nameof(data.BurstIntervalSeconds))),
                 projectileRadius,
                 data.ExplosionRadius,
-                data.RotationStepDegrees);
+                data.RotationStepDegrees,
+                data.Controls?.ToProfile());
         }
 
         private static float Pick(float? configured, bool required, float unusedFallback, string description)

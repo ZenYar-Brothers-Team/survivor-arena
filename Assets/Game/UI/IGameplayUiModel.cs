@@ -18,8 +18,14 @@ namespace Game.UI
         int Level { get; }
         float ElapsedSeconds { get; }
         CharacterStatsViewState Stats { get; }
+        RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }
         bool IsDraftOpen { get; }
+        Guid DraftRevision { get; }
+        DraftRequest CurrentDraftRequest { get; }
+        DraftRequest NextDraftRequest { get; }
+        int PendingDraftCount { get; }
+        long BookCurrency { get; }
         int RemainingRerolls { get; }
         int RemainingBanishes { get; }
         IReadOnlyList<DraftOption> DraftOptions { get; }
@@ -35,11 +41,12 @@ namespace Game.UI
         WavePhaseTag WavePhaseTag { get; }
         string WaveDevelopmentSummary { get; }
 
-        bool SelectDraftOption(ContentId id);
-        bool RerollDraft();
-        bool BanishDraftOption(ContentId id);
+        bool SelectDraftOption(ContentId id, Guid revision);
+        bool RerollDraft(Guid revision);
+        bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
         void AddFixtureExperience();
+        void AddFixtureBook();
         void ApplyFixtureDamage();
         void ApplyFixtureHealing();
         void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion);

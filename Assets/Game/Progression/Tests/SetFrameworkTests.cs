@@ -34,7 +34,7 @@ namespace Game.Progression.Tests
             var active = Active("FIXTURE-ACTIVE");
             var set = Set("FIXTURE-SET", 0.5f, Component(active, 1));
             var build = new PlayerBuild(active);
-            var pool = new DraftPool(new BuildEntryDefinition[] { active, set });
+            var pool = new DraftPool(new BuildEntryDefinition[] { active, Passive("FIXTURE-PASSIVE-A"), Passive("FIXTURE-PASSIVE-B"), set });
 
             var missed = pool.CreateOptions(build, 3, new FixedDraftRandom(0.75f));
             var appeared = pool.CreateOptions(build, 3, new FixedDraftRandom(0.25f));

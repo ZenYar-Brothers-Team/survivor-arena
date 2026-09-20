@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.ActiveSkill.Json;
 using Game.Content;
+using Game.Combat;
 using Game.Content.Json;
 using Game.Presentation;
 using Newtonsoft.Json;
@@ -61,7 +62,7 @@ namespace Game.ActiveSkill
             for (var i = 0; i < effects.Length; i++)
                 effects[i] = ToEffect(data.Effects[i]);
 
-            return new ActiveSkillActivationWave(data.DelaySeconds, data.RotationDegrees, data.DamageMultiplier, effects);
+            return new ActiveSkillActivationWave(data.DelaySeconds, data.RotationDegrees, data.DamageMultiplier, data.Controls?.ToProfile() ?? CombatControlProfile.None, effects);
         }
 
         private static IActiveSkillEffect ToEffect(IActiveSkillEffectData data)

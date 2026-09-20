@@ -25,19 +25,23 @@ namespace Game.Combat
             _profile.Changed += HandleProfileChanged;
         }
 
-        public float TakeDamage(float amount)
+        public float TakeDamage(float amount) => TakeDamageMeasured(amount).Actual;
+
+        public HealthChange TakeDamageMeasured(float amount)
         {
             NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
             if (IsDead || amount == 0f)
-                return 0f;
+                return new HealthChange(amount, 0f, 0f, false);
 
             var previousHealth = CurrentHealth;
             var scaledDamage = amount * _profile.IncomingDamageMultiplier;
+            NumericValidation.ValidateNonNegativeFinite(scaledDamage, nameof(scaledDamage));
             CurrentHealth = Math.Max(0f, CurrentHealth - scaledDamage);
             var appliedDamage = previousHealth - CurrentHealth;
+            var change = new HealthChange(amount, scaledDamage, appliedDamage, false);
 
             if (appliedDamage <= 0f)
-                return 0f;
+                return change;
 
             var causedDeath = CurrentHealth <= 0f;
             if (causedDeath) IsDead = true;
@@ -50,24 +54,28 @@ namespace Game.Combat
                 Died?.Invoke();
             }
 
-            return appliedDamage;
+            return change;
         }
 
-        public float Heal(float amount)
+        public float Heal(float amount) => HealMeasured(amount).Actual;
+
+        public HealthChange HealMeasured(float amount)
         {
             NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
-            if (IsDead || amount == 0f || CurrentHealth >= MaxHealth)
-                return 0f;
+            if (IsDead || amount == 0f)
+                return new HealthChange(amount, 0f, 0f, true);
 
             var previousHealth = CurrentHealth;
             var scaledHealing = amount * _profile.HealthRestorationMultiplier;
+            NumericValidation.ValidateNonNegativeFinite(scaledHealing, nameof(scaledHealing));
             CurrentHealth = Math.Min(MaxHealth, CurrentHealth + scaledHealing);
             var appliedHealing = CurrentHealth - previousHealth;
+            var change = new HealthChange(amount, scaledHealing, appliedHealing, true);
 
             if (appliedHealing > 0f)
                 HealthChanged?.Invoke(previousHealth, CurrentHealth);
 
-            return appliedHealing;
+            return change;
         }
 
         public float Regenerate(float deltaTime, bool isRunning)

@@ -10,10 +10,13 @@ namespace Game.Run
         public int? Kills { get; }
         public int? Level { get; }
         public float? Experience { get; }
+        public RunExperienceSnapshot ExperienceTotals { get; }
+        public RunDraftSnapshot DraftTotals { get; }
         public IReadOnlyList<RunBuildEntrySnapshot> Build { get; }
 
         public RunOutcomeContribution(int? kills = null, int? level = null,
-            float? experience = null, IEnumerable<RunBuildEntrySnapshot> build = null)
+            float? experience = null, IEnumerable<RunBuildEntrySnapshot> build = null,
+            RunExperienceSnapshot experienceTotals = null, RunDraftSnapshot draftTotals = null)
         {
             if (kills.HasValue) NumericValidation.ValidateNonNegative(kills.Value, nameof(kills));
             if (level.HasValue) NumericValidation.ValidateCount(level.Value, nameof(level));
@@ -21,6 +24,8 @@ namespace Game.Run
             Kills = kills;
             Level = level;
             Experience = experience;
+            ExperienceTotals = experienceTotals;
+            DraftTotals = draftTotals;
             if (build != null)
             {
                 var copy = new List<RunBuildEntrySnapshot>(build);

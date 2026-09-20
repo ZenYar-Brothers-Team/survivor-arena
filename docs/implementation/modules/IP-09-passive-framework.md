@@ -46,7 +46,7 @@ Stat applicability/default ownership table, PASSIVE-007 semantic migration note;
 
 ## Gates и недостающие решения
 
-G-08/G-09 и potion cap G-10 блокируют только зависимые mappings. Утверждённые formulas и final level values не пересогласуются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017. Potion cap G-10 остаётся gate для actual drop roll IP-28; multiplier channel не выбирает этот cap. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

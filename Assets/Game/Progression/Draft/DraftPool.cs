@@ -8,8 +8,9 @@ namespace Game.Progression
     {
         private readonly List<BuildEntryDefinition> _definitions;
         private readonly CharacterDefinition _character;
+        private readonly ISetDraftOfferProvider _sets;
 
-        public DraftPool(IEnumerable<BuildEntryDefinition> definitions, CharacterDefinition character = null)
+        public DraftPool(IEnumerable<BuildEntryDefinition> definitions, CharacterDefinition character = null, ISetDraftOfferProvider setOffers = null)
         {
             if (definitions == null)
                 throw new ArgumentNullException(nameof(definitions));
@@ -29,134 +30,101 @@ namespace Game.Progression
                 throw new ArgumentException("Draft pool cannot be empty.", nameof(definitions));
 
             _character = character;
+            _sets = setOffers ?? new FixtureSetDraftOfferProvider();
         }
 
-        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0)
+        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0) =>
+            CreateOptions(build, offerCount, new SeededDraftRandom(offset));
+
+        public bool HasEligibleOptions(PlayerBuild build, IReadOnlyCollection<ContentId> banishedIds) =>
+            Eligible(build, banishedIds).Count > 0;
+
+        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, IDraftRandom random) =>
+            CreateOptions(build, offerCount, random, null);
+
+        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount,
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds) =>
+            CreateOptionsCore(build, offerCount, random, banishedIds, out _, out _).AsReadOnly();
+
+        public IReadOnlyList<DraftOption> CreateRerolledOptions(PlayerBuild build, int offerCount,
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, IReadOnlyList<DraftOption> currentOptions)
         {
-            if (build == null)
-                throw new ArgumentNullException(nameof(build));
-            if (offerCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(offerCount));
-
-            var eligible = new List<DraftOption>();
-            foreach (var definition in _definitions)
-            {
-                if (!build.IsEligible(definition))
-                    continue;
-
-                var isUpgrade = build.TryGetEntry(definition.Id, out var entry);
-                eligible.Add(new DraftOption(
-                    definition,
-                    isUpgrade,
-                    isUpgrade ? entry.Level + 1 : 1));
-            }
-
-            if (eligible.Count <= offerCount)
-                return eligible;
-
-            var options = new List<DraftOption>(offerCount);
-            var start = PositiveModulo(offset, eligible.Count);
-            for (var i = 0; i < offerCount; i++)
-                options.Add(eligible[(start + i) % eligible.Count]);
-            return options;
-        }
-
-        public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, IDraftRandom random)
-        {
-            return CreateOptions(build, offerCount, random, null);
-        }
-
-        public IReadOnlyList<DraftOption> CreateOptions(
-            PlayerBuild build,
-            int offerCount,
-            IDraftRandom random,
-            IReadOnlyCollection<ContentId> banishedIds)
-        {
-            if (random == null)
-                throw new ArgumentNullException(nameof(random));
-
-            var eligible = CreateEligibleOptions(build, offerCount, banishedIds, random);
-            if (eligible.Count <= offerCount)
-                return eligible;
-
-            SelectWeightedWithoutReplacement(eligible, offerCount, random);
-            return eligible.GetRange(0, offerCount);
-        }
-
-        public IReadOnlyList<DraftOption> CreateRerolledOptions(
-            PlayerBuild build,
-            int offerCount,
-            IDraftRandom random,
-            IReadOnlyCollection<ContentId> banishedIds,
-            IReadOnlyList<DraftOption> currentOptions)
-        {
-            if (random == null)
-                throw new ArgumentNullException(nameof(random));
-            if (currentOptions == null)
-                throw new ArgumentNullException(nameof(currentOptions));
-
-            var eligible = CreateEligibleOptions(build, offerCount, banishedIds, random);
-            if (eligible.Count <= offerCount)
-                return eligible;
-
-            SelectWeightedWithoutReplacement(eligible, offerCount, random);
-
+            if (currentOptions == null) throw new ArgumentNullException(nameof(currentOptions));
+            var options = CreateOptionsCore(build, offerCount, random, banishedIds, out var alternatives, out var priorityCount);
             var currentIds = new HashSet<ContentId>();
-            for (var i = 0; i < currentOptions.Count; i++)
-                currentIds.Add(currentOptions[i].Definition.Id);
-
-            var sameSet = currentOptions.Count == offerCount;
-            for (var i = 0; sameSet && i < offerCount; i++)
-                sameSet = currentIds.Contains(eligible[i].Definition.Id);
-
-            if (sameSet)
+            foreach (var option in currentOptions) currentIds.Add(option.Definition.Id);
+            var same = currentOptions.Count == options.Count;
+            foreach (var option in options) same &= currentIds.Contains(option.Definition.Id);
+            if (same && options.Count > priorityCount)
             {
-                for (var i = offerCount; i < eligible.Count; i++)
+                foreach (var alternative in alternatives)
                 {
-                    if (currentIds.Contains(eligible[i].Definition.Id))
-                        continue;
-                    eligible[offerCount - 1] = eligible[i];
+                    if (currentIds.Contains(alternative.Definition.Id)) continue;
+                    options[options.Count - 1] = alternative;
                     break;
                 }
             }
-
-            return eligible.GetRange(0, offerCount);
+            return options.AsReadOnly();
         }
 
-        private List<DraftOption> CreateEligibleOptions(
-            PlayerBuild build,
-            int offerCount,
-            IReadOnlyCollection<ContentId> banishedIds = null,
-            IDraftRandom random = null)
+        private List<DraftOption> CreateOptionsCore(PlayerBuild build, int offerCount,
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds,
+            out List<DraftOption> alternatives, out int priorityCount)
         {
-            if (build == null)
-                throw new ArgumentNullException(nameof(build));
-            if (offerCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(offerCount));
+            NumericValidation.ValidateCount(offerCount, nameof(offerCount));
+            if (random == null) throw new ArgumentNullException(nameof(random));
+            var ordinary = new List<DraftOption>();
+            var sets = new List<DraftOption>();
+            foreach (var option in Eligible(build, banishedIds))
+                (option.Definition.Kind == BuildEntryKind.Set ? sets : ordinary).Add(option);
 
-            var eligible = new List<DraftOption>();
+            var preferred = _sets.SelectPriorityOffers(sets.AsReadOnly(), offerCount, random)
+                ?? throw new InvalidOperationException("Set provider returned null.");
+            var result = new List<DraftOption>(offerCount);
+            var seen = new HashSet<ContentId>();
+            foreach (var option in preferred)
+            {
+                var index = sets.FindIndex(candidate => ReferenceEquals(candidate.Definition, option.Definition));
+                if (index < 0 || result.Count == offerCount || !seen.Add(option.Definition.Id))
+                    throw new InvalidOperationException("Set provider must return distinct eligible inputs within capacity.");
+                // Use the authoritative immutable preview, never a provider-authored level.
+                result.Add(sets[index]);
+            }
+            priorityCount = result.Count;
+            var ordinaryCount = Math.Min(offerCount - result.Count, ordinary.Count);
+            if (ordinaryCount > 0 && ordinary.Count > ordinaryCount)
+                SelectWeightedWithoutReplacement(ordinary, ordinaryCount, random);
+            for (var i = 0; i < ordinaryCount; i++) result.Add(ordinary[i]);
+            alternatives = ordinary.GetRange(ordinaryCount, ordinary.Count - ordinaryCount);
+
+            if (result.Count < offerCount)
+            {
+                sets.RemoveAll(option => seen.Contains(option.Definition.Id));
+                // DECISION-0019: uniform sampling without replacement, never another chance check.
+                var count = Math.Min(offerCount - result.Count, sets.Count);
+                for (var i = 0; i < count; i++)
+                {
+                    var index = i + Math.Min(sets.Count - i - 1, (int)(random.NextFloat01() * (sets.Count - i)));
+                    (sets[i], sets[index]) = (sets[index], sets[i]);
+                    result.Add(sets[i]);
+                }
+                alternatives.AddRange(sets.GetRange(count, sets.Count - count));
+            }
+            return result;
+        }
+
+        private List<DraftOption> Eligible(PlayerBuild build, IReadOnlyCollection<ContentId> banishedIds)
+        {
+            if (build == null) throw new ArgumentNullException(nameof(build));
+            var result = new List<DraftOption>();
             foreach (var definition in _definitions)
             {
-                if (Contains(banishedIds, definition.Id))
+                if (Contains(banishedIds, definition.Id) || !build.IsEligible(definition) || GetDraftWeight(definition) <= 0f)
                     continue;
-                if (!build.IsEligible(definition))
-                    continue;
-                if (GetDraftWeight(definition) <= 0f)
-                    continue;
-                if (definition.Kind == BuildEntryKind.Set &&
-                    random != null &&
-                    random.NextFloat01() > definition.DraftChance)
-                {
-                    continue;
-                }
-
-                var isUpgrade = build.TryGetEntry(definition.Id, out var entry);
-                eligible.Add(new DraftOption(
-                    definition,
-                    isUpgrade,
-                    isUpgrade ? entry.Level + 1 : 1));
+                var upgrade = build.TryGetEntry(definition.Id, out var entry);
+                result.Add(new DraftOption(definition, upgrade, upgrade ? entry.Level + 1 : 1));
             }
-            return eligible;
+            return result;
         }
 
         private void SelectWeightedWithoutReplacement(
@@ -207,10 +175,5 @@ namespace Game.Progression
             return false;
         }
 
-        private static int PositiveModulo(int value, int divisor)
-        {
-            var result = value % divisor;
-            return result < 0 ? result + divisor : result;
-        }
     }
 }

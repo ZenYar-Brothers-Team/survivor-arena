@@ -10,12 +10,15 @@ namespace Game.Progression
         public int Seed { get; }
         public int InitialRerolls { get; }
         public int InitialBanishes { get; }
+        public int? EmptyBookCurrency { get; }
 
-        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes)
+        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes, int? emptyBookCurrency = null)
         {
-            NumericValidation.ValidateCount(offerCount, nameof(offerCount), "Draft offer count must be greater than zero.");
+            NumericValidation.ValidateRange(offerCount, 1, 3, nameof(offerCount));
             NumericValidation.ValidateNonNegative(initialRerolls, nameof(initialRerolls), "Draft control counts cannot be negative.");
             NumericValidation.ValidateNonNegative(initialBanishes, nameof(initialBanishes), "Draft control counts cannot be negative.");
+            if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
+            EmptyBookCurrency = emptyBookCurrency;
             OfferCount = offerCount;
             Seed = seed;
             InitialRerolls = initialRerolls;

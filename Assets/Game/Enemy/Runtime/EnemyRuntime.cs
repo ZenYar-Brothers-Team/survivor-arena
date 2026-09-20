@@ -43,6 +43,14 @@ namespace Game.Enemy
         public EnemyCategory Category { get; private set; }
         public EnemyLifeEvent LastLifeEvent { get; private set; }
         public Health Health { get; private set; }
+        public CombatControlState Controls { get; } = new CombatControlState();
+        public CombatIdentity Identity => new CombatIdentity(LifeId, _runId, ContentId, Category switch
+        {
+            EnemyCategory.Boss => CombatEntityCategory.Boss,
+            EnemyCategory.Traveler => CombatEntityCategory.Traveler,
+            _ => CombatEntityCategory.OrdinaryEnemy
+        });
+        public event Action<CombatResult> CombatResolved;
         public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
         public Vector2 Position => transform.position;
         public EnemyMovementPhase MovementPhase { get; private set; }
@@ -83,6 +91,7 @@ namespace Game.Enemy
                     Health.Dispose();
                 }
             }
+            Controls.Reset();
             _despawned = false;
             _deathPublished = false;
             _damageSource = null;
@@ -136,13 +145,14 @@ namespace Game.Enemy
             var isSimulating = _runController.Model != null &&
                                _runController.Model.State == RunState.Running &&
                                !Health.IsDead;
+            var control = Controls.Tick(Time.fixedDeltaTime, isSimulating);
             var movement = _movementController.Tick(
                 _body.position,
                 _target.position,
-                Definition.MovementSpeed,
+                Definition.MovementSpeed * control.MovementMultiplier,
                 Time.fixedDeltaTime,
                 isSimulating);
-            _body.linearVelocity = movement.Velocity;
+            _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
             RenderTelegraph(movement);
 
@@ -161,7 +171,8 @@ namespace Game.Enemy
                     _projectileTarget,
                     _runController,
                     transform.parent,
-                    _projectilePool);
+                    _projectilePool,
+                    new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile));
             }
         }
 
@@ -199,22 +210,32 @@ namespace Game.Enemy
 
         public float TakeDamage(float amount)
         {
-            return ReceiveDamage(amount, null);
+            return ResolveDamage(new CombatDamageRequest(default, amount)).Health.Actual;
         }
 
         public float ApplyDamage(EnemyDamageRequest request)
         {
-            return ReceiveDamage(request.Amount, request.SourceId);
+            return ResolveDamage(request.Combat).Health.Actual;
         }
 
-        private float ReceiveDamage(float amount, ContentId? source)
+        public CombatResult ResolveDamage(CombatDamageRequest request)
         {
             if (!_initialized)
                 throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
-            if (!IsAlive || _dispatchingLifecycle) return 0f;
+            var identity = Identity;
+            if (!IsAlive || _dispatchingLifecycle)
+                return new CombatResult(request.Source, identity, new HealthChange(request.Amount, 0f, 0f, false));
+            // Death may dispose this component and clear its events before TakeDamageMeasured returns.
+            var notify = CombatResolved;
             var previousSource = _damageSource;
-            _damageSource = source;
-            try { return Health.TakeDamage(amount); }
+            _damageSource = request.Source.ContentId;
+            try
+            {
+                var distance = IsRunRunning() ? Controls.Apply(request, Definition.KnockbackResistance, acceptsSlow: true) : 0f;
+                var result = new CombatResult(request.Source, identity, Health.TakeDamageMeasured(request.Amount), distance);
+                notify?.Invoke(result);
+                return result;
+            }
             finally { _damageSource = previousSource; }
         }
 
@@ -235,6 +256,7 @@ namespace Game.Enemy
                 return;
 
             _despawned = true;
+            Controls.Reset();
             if (_body != null)
                 _body.linearVelocity = Vector2.zero;
             if (_telegraph != null)
@@ -261,6 +283,7 @@ namespace Game.Enemy
                 Died = null;
                 Despawned = null;
                 LifeEvent = null;
+                CombatResolved = null;
                 _lifecycleSink = null;
                 if (releaseObject) ReleaseObject();
             }
@@ -361,10 +384,11 @@ namespace Game.Enemy
 
             for (var i = 0; i < hitCount && !_contactTarget.Health.IsDead; i++)
             {
-                EnemyContactDamage.Apply(
-                    Definition.ContactDamage,
-                    _contactTarget.Health,
-                    _runController.Model.State);
+                if (!IsRunRunning()) break;
+                var direction = (Vector2)_contactTarget.transform.position - Position;
+                _contactTarget.ApplyDamage(new CombatDamageRequest(
+                    new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyContact),
+                    Definition.ContactDamage, Definition.ContactControls, direction.x, direction.y));
             }
         }
     }

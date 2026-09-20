@@ -46,7 +46,7 @@ Component/state/semantic contracts, approved UI section links, dependency consum
 
 ## Gates и недостающие решения
 
-G-01/G-03 short/book states должны быть определены владельцем IP-07; foundation не решает их оформлением. Baseline-relative character filtering — IP-12. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-01/G-03 short/book states определены DECISION-0019/0020 и поставляются владельцем IP-07; foundation сохраняет три позиции, origin, очередь и начисленную валюту. Baseline-relative character filtering — IP-12. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

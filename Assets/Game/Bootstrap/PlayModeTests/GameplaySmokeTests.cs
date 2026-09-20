@@ -1,5 +1,6 @@
 using System.Collections;
 using Game.Character;
+using Game.Combat;
 using Game.Enemy;
 using Game.Presentation;
 using Game.Progression;
@@ -91,16 +92,45 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(RunState.Running, run.Model.State);
             Assert.AreEqual(2, draft.RemainingRerolls);
             Assert.AreEqual(2, draft.RemainingBanishes);
+            // Exercise the real PlayerMover writer and paused controls through the composed scene.
+            var beforeKnockback = player.transform.position;
+            player.ApplyDamage(new CombatDamageRequest(default, 0f, new CombatControlProfile(1f, 0.5f), 1f, 0f));
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
+            Assert.Greater(player.transform.position.x, beforeKnockback.x);
+            Assert.Greater(player.GetComponent<Rigidbody2D>().linearVelocity.x, 0f);
+            run.TogglePause();
+            var controlTime = player.Controls.KnockbackRemaining;
+            yield return new WaitForSecondsRealtime(0.05f);
+            Assert.AreEqual(controlTime, player.Controls.KnockbackRemaining);
+            run.TogglePause();
+            player.Controls.Reset();
             player.SetModifier("smoke-low-hp", new CharacterStatModifier(lowHealthDamageMaxBonus: 0.7f));
             player.TakeDamage(45f);
             yield return null;
             var statsObservation = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.StatsObservation);
             StringAssert.Contains("Action speed", statsObservation.text);
             StringAssert.Contains("low-HP damage x", statsObservation.text);
+            StringAssert.Contains("Knockback remaining", statsObservation.text);
             Assert.Greater(player.Stats.LowHealthDamageMultiplier, 1f);
             player.Heal(100f);
             Assert.AreEqual(1f, player.Stats.LowHealthDamageMultiplier);
             player.RemoveModifier("smoke-low-hp");
+
+            var pickup = ExperienceDropFactory.Spawn(0.25f,
+                (Vector2)player.transform.position + Vector2.right * experience.PickupRadius * 1.5f,
+                10f, experience, run, pool: experience.DropPool);
+            yield return null;
+            Assert.IsFalse(pickup.IsConsumed);
+            player.SetModifier("smoke-radius", new CharacterStatModifier(pickupRadiusMultiplierBonus: 1f));
+            yield return null;
+            yield return null;
+            Assert.IsTrue(pickup.IsConsumed);
+            Assert.AreEqual(0.25f, experience.CollectedBase);
+            player.RemoveModifier("smoke-radius");
+            var xpObservation = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.ExperienceObservation);
+            StringAssert.Contains("XP collected", xpObservation.text);
+            StringAssert.Contains("recovered", xpObservation.text);
 
             experience.AddPickedUpExperience(5f);
             Assert.IsTrue(draft.IsDraftOpen);
@@ -122,10 +152,24 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsFalse(draft.IsDraftOpen);
             Assert.AreEqual(DisplayStyle.None, draftOverlay.style.display.value);
             Assert.AreEqual(RunState.Running, run.Model.State);
-            Assert.AreEqual(1, Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount);
+            var xpBeforeBook = experience.Progression.CurrentExperience;
+            var levelBeforeBook = experience.Progression.Level;
+            Assert.IsTrue(draft.RequestBook(System.Guid.NewGuid(), run.Model.RunId, new Game.Content.ContentId("FIXTURE-BOOK")));
+            Assert.AreEqual("TRAVELER BOOK", gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.DraftHeading).text);
+            experience.AddInterventionExperience(10f);
+            Assert.IsNotEmpty(gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.DraftQueue).text);
+            var bookRevision = draft.Revision;
+            var bookOption = draft.CurrentDraft.Options[0].Definition.Id;
+            Assert.IsTrue(draft.Select(bookOption, bookRevision));
+            Assert.IsFalse(draft.Select(bookOption, bookRevision));
+            Assert.AreEqual(DraftOrigin.LevelUp, draft.CurrentRequest.Origin);
+            Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id, draft.Revision));
+            Assert.AreEqual(levelBeforeBook + 1, experience.Progression.Level);
+            Assert.AreEqual(xpBeforeBook, experience.Progression.CurrentExperience, 0.0001f);
+            Assert.GreaterOrEqual(Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount, 1);
             Assert.AreNotEqual("—", passiveSlots[0].Q<Label>().text);
 
-            experience.AddPickedUpExperience(10f);
+            experience.AddPickedUpExperience(15f);
             Assert.IsTrue(draft.IsDraftOpen);
             Assert.IsTrue(draft.Reroll());
             Assert.AreEqual(1, draft.RemainingRerolls);
@@ -147,6 +191,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(RunCompletionReason.Victory, run.Model.Outcome.Reason);
             Assert.IsTrue(run.Model.Outcome.Contributions.ContainsKey("ordinary-enemy-kills"));
             Assert.GreaterOrEqual(run.Model.Outcome.Contributions["ordinary-enemy-kills"].Kills.Value, 1);
+            Assert.AreEqual(experience.TotalAwarded, run.Model.Outcome.Contributions[experience.Key].ExperienceTotals.TotalAwarded);
+            Assert.GreaterOrEqual(run.Model.Outcome.Contributions["draft"].DraftTotals.Selections, 4);
             Assert.IsNotNull(enemySpawner.LastLifeEvent);
             Assert.AreNotEqual(System.Guid.Empty, enemySpawner.LastLifeEvent.LifeId);
             Assert.AreEqual("15:00", timer.text);

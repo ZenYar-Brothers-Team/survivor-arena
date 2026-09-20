@@ -28,7 +28,7 @@ Production pickup definitions/картинки, финальные drop rates, l
 
 ## Acceptance criteria
 
-Один lifecycle даёт награду максимум один раз; heal учитывает restoration multiplier и max HP, actual healing отличается от attempted; chance=0/1 проверяемы. Book не даёт XP/level и использует общий draft/queue; source drop ID сохранён. Pause/end/escape не создают случайных наград; pooled reuse возвращает baseline. Fixtures подтверждают оба reward types и принятые edge cases. Отсутствующий production Book ID не изобретается и не мешает проверке generic framework на FIXTURE-BOOK.
+Один lifecycle даёт награду максимум один раз; heal учитывает restoration multiplier и max HP, actual healing отличается от attempted; chance=0/1 проверяемы. Book не даёт XP/level и использует общий draft/queue; source drop ID/run ID сохранены; empty-at-pickup Book немедленно начисляет валюту по DECISION-0020. При duplicate collect нет второго request/начисления; pool оценивается после set backfill. Pause/end/escape не создают случайных наград; pooled reuse возвращает baseline. Fixtures подтверждают оба reward types и принятые edge cases. Отсутствующий production Book ID не изобретается и не мешает проверке generic framework на FIXTURE-BOOK.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -46,7 +46,7 @@ Pickup/reward schema, fixture rationale и принятые уточнения l
 
 ## Gates и недостающие решения
 
-G-01/G-02/G-03/G-10 только в части общих lifecycle, draft pool/consume/queue и potion/drop edge cases. Недостающие production числа и Book ID/card блокируют соответствующие production packets IP-20/IP-30, а не этот fixture framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-01/G-03 draft pool/consume/queue/empty-Book currency закрыты DECISION-0019/0020. G-02/G-10 остаются только в части set controls и potion/drop edge cases. Недостающие production числа и Book ID/card блокируют соответствующие production packets IP-20/IP-30, а не этот fixture framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

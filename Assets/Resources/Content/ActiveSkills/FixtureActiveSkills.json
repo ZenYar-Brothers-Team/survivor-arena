@@ -133,24 +133,24 @@
     "displayName": "Fixture Delayed Area",
     "levels": [
       { "baseDamage": 9, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.4 } ] } ] },
+        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.4 } ] } ] },
       { "baseDamage": 10, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
+        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
       { "baseDamage": 11, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
+        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
       { "baseDamage": 12, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
+          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
           { "delaySeconds": 0.75, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
         ] },
       { "baseDamage": 13, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
+          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
           { "delaySeconds": 0.75, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
         ] },
       { "baseDamage": 14, "cooldownSeconds": 3.2, "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
+          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "controls": { "knockbackDistance": 1.0, "knockbackSeconds": 0.15, "slowFraction": 0.2, "slowSeconds": 1.5 }, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
           { "delaySeconds": 0.7, "rotationDegrees": 0, "damageMultiplier": 0.8, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
           { "delaySeconds": 0.95, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
         ] }

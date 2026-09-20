@@ -28,7 +28,7 @@ Final counts/recovery без data proposal, собственный duplicate Boo
 
 ## Acceptance criteria
 
-Successful reroll меняет offers при наличии альтернативы; invalid/exhausted/double intent не расходует counters. Banished entry не возвращается в run. Empty result разрешает request по G-01; next queued request и other pause не теряются. Новый run сбрасывает counters/banishes; Book применение следует G-02/G-03.
+Successful reroll меняет offers при наличии альтернативы; invalid/exhausted/double intent не расходует counters. Banished entry не возвращается в run. Empty result определяется только после дозаполнения по DECISION-0019, которое также исключает banished sets; затем request разрешается по G-01; next queued request и other pause не теряются. Новый run сбрасывает counters/banishes; Book применение следует G-02/G-03.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -46,7 +46,7 @@ Origin/policy table с IP-07/IP-11/IP-28; Context/criteria/evidence revised.
 
 ## Gates и недостающие решения
 
-G-02/G-03: reroll заново бросает set checks или сохраняет; banish set semantics; Book counters/pool. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт DECISION-0020. G-02 остаётся: reroll заново бросает set checks или сохраняет; set banish semantics. Валюта не выдаётся повторно при исчерпании pool через controls. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

@@ -20,7 +20,7 @@ GDD «Управление, бой и выживание», «Опыт и level-
 
 ## Scope
 
-Base/current max HP, damage/healing/regen, move speed; action-speed название с прежней denominator formula; incoming/outgoing knockback, XP pickup radius, effect size/range, potion drop multiplier, low-HP damage channels. Domain values/units и change notifications; low-HP stat пересчитывается при damage/heal/max-HP изменении. Shape applicability и hit-time consumption принадлежат IP-08/IP-05, реальный potion roll — IP-28.
+Base/current max HP, damage/healing/regen, move speed; action-speed название с прежней denominator formula; incoming/outgoing knockback, XP pickup radius, effect size/range, potion drop multiplier, low-HP damage channels. Domain values/units и change notifications; low-HP stat пересчитывается при damage/heal/max-HP изменении. Shape applicability и activation-time consumption принадлежат IP-08/IP-05, реальный potion roll — IP-28.
 
 ## Out of Scope
 
@@ -56,13 +56,13 @@ Stat dictionary с units/ranges; JSON/domain mapping; терминологиче
 | `PotionDropMultiplier` | относительный множитель base × (1 + sum), не прибавка процентных пунктов к шансу | IP-28 |
 | `LowHealthDamageMultiplier` | 1 + sum maximum bonus × min(1, (1 − health ratio) / 0.9) | IP-05/08/09 |
 
-`CharacterHealthStatBinding` связывает HealthChanged со stats и снимает подписку при Shutdown. Изменение max HP сохраняет долю HP, а изменение только damage multiplier не пересчитывает здоровье повторно. Low-HP multiplier пока отдельный канал: его применение к конкретному hit/cast/set требует G-09. Входящие нечисловые значения и переполнение composition отклоняются до публикации нового состояния; неудачная замена источника откатывается.
+`CharacterHealthStatBinding` связывает HealthChanged со stats и снимает подписку при Shutdown. Изменение max HP сохраняет долю HP, а изменение только damage multiplier не пересчитывает здоровье повторно. Low-HP multiplier потребляется при активации атаки по DECISION-0017; IP-05 сохраняет snapshot, IP-11 задаёт set propagation. Входящие нечисловые значения и переполнение composition отклоняются до публикации нового состояния; неудачная замена источника откатывается.
 
 `CharacterBaseStatsMapper` общий для обоих character catalogs; каждое поле baseStats обязательно в JSON, включая явно записанные нейтральные значения. Отсутствующее поле названо в ошибке. Дополнительные modifier-поля могут отсутствовать: нейтральное значение берётся из domain `default(CharacterStatModifier)`. JSON/API `activeSkillCooldownReductionBonus` переименован в `actionSpeedBonus`, все существующие fixture references перенесены без изменения чисел. Новые runtime каналы доступны immutable HUD stat snapshot и в прокручиваемой вкладке DEV Run; damage/heal идут через прежние presenter intents.
 
 ## Gates и недостающие решения
 
-G-08/G-09: IP-03 задаёт stat channels/кривую, а недостающая applicability и snapshot-vs-live semantics закрывается у IP-05/IP-08/IP-09 до зависимой реализации. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017. IP-03 предоставляет текущие stat channels; IP-05 фиксирует damage при активации, IP-08 владеет applicability. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

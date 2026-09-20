@@ -4,7 +4,8 @@
     "offerCount": 3,
     "seed": 12345,
     "initialRerolls": 2,
-    "initialBanishes": 2
+    "initialBanishes": 2,
+    "emptyBookCurrency": 1
   },
   "experience": {
     "levelThresholds": [5, 10, 15],

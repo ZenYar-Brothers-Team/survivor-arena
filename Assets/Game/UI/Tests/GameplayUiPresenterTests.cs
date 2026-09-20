@@ -27,7 +27,9 @@ namespace Game.UI.Tests
                 Assert.AreEqual(3, view.Hud.Level);
                 Assert.AreEqual(125f, view.Hud.ElapsedSeconds);
                 Assert.IsTrue(view.Draft.IsVisible);
-                Assert.AreEqual(1, view.Draft.Options.Count);
+                Assert.AreEqual(3, view.Draft.Options.Count);
+                Assert.IsFalse(view.Draft.Options[1].IsEnabled);
+                Assert.IsFalse(view.Draft.Options[2].IsEnabled);
                 Assert.AreEqual("Fixture Passive", view.Draft.Options[0].Title);
                 Assert.AreEqual(2, view.Draft.RemainingRerolls);
                 Assert.AreEqual(PlayerBuild.ActiveSlotCapacity, view.Build.ActiveSlots.Count);
@@ -154,6 +156,31 @@ namespace Game.UI.Tests
             }
         }
 
+        [Test]
+        public void BookOriginQueueCurrencyAndRevision_ArePreservedByPresenter()
+        {
+            var model = CreateModel();
+            var run = Guid.NewGuid();
+            model.CurrentDraftRequest = DraftRequest.ForBook(run, Guid.NewGuid(), new ContentId("FIXTURE-BOOK"));
+            model.NextDraftRequest = DraftRequest.ForLevel(run, 4);
+            model.PendingDraftCount = 2;
+            model.BookCurrency = 7;
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            Assert.AreEqual("TRAVELER BOOK", view.Draft.Heading);
+            StringAssert.Contains("Level 4", view.Draft.QueueDetail);
+            Assert.AreEqual(model.DraftRevision, view.Draft.Revision);
+            Assert.AreEqual(7, view.Hud.BookCurrency);
+            view.RaiseSelect(model.DraftOptions[0].Definition.Id);
+            Assert.AreEqual(model.DraftRevision, model.LastRevision);
+            view.RaiseBook();
+            Assert.AreEqual(1, model.BookCalls);
+            model.DevelopmentCommandsEnabled = false;
+            view.RaiseBook();
+            Assert.AreEqual(1, model.BookCalls);
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -193,6 +220,7 @@ namespace Game.UI.Tests
         private sealed class FakeModel : IGameplayUiModel
         {
             public event Action Changed;
+            public RunExperienceSnapshot ExperienceTotals => new RunExperienceSnapshot(10f, 12f, 8f, 4f, 0f, 0f);
             public float CurrentHealth { get; set; }
             public float MaxHealth { get; set; }
             public float ExperienceProgress01 { get; set; }
@@ -201,6 +229,11 @@ namespace Game.UI.Tests
             public CharacterStatsViewState Stats { get; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
             public bool IsDraftOpen { get; set; }
+            public Guid DraftRevision { get; set; } = Guid.NewGuid();
+            public DraftRequest CurrentDraftRequest { get; set; }
+            public DraftRequest NextDraftRequest { get; set; }
+            public int PendingDraftCount { get; set; }
+            public long BookCurrency { get; set; }
             public int RemainingRerolls { get; set; }
             public int RemainingBanishes { get; set; }
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
@@ -216,6 +249,8 @@ namespace Game.UI.Tests
             public WavePhaseTag WavePhaseTag { get; set; } = WavePhaseTag.Pressure;
             public string WaveDevelopmentSummary { get; set; } = "Fixture wave";
             public int RerollCalls { get; private set; }
+            public Guid LastRevision { get; private set; }
+            public int BookCalls { get; private set; }
             public ContentId LastBanished { get; private set; }
             public ContentId LastSelected { get; private set; }
             public int PauseCalls { get; private set; }
@@ -225,10 +260,11 @@ namespace Game.UI.Tests
             public SpritePresentationPreviewMotion LastPreviewMotion { get; private set; }
             public int PresentationResetCalls { get; private set; }
 
-            public bool SelectDraftOption(ContentId id) { LastSelected = id; return true; }
-            public bool RerollDraft() { RerollCalls++; return true; }
-            public bool BanishDraftOption(ContentId id) { LastBanished = id; return true; }
+            public bool SelectDraftOption(ContentId id, Guid revision) { LastSelected = id; LastRevision = revision; return true; }
+            public bool RerollDraft(Guid revision) { RerollCalls++; return true; }
+            public bool BanishDraftOption(ContentId id, Guid revision) { LastBanished = id; return true; }
             public void TogglePause() => PauseCalls++;
+            public void AddFixtureBook() { BookCalls++; }
             public void AddFixtureExperience() => AddExperienceCalls++;
             public void ApplyFixtureDamage() => DamageCalls++;
             public void ApplyFixtureHealing() => HealingCalls++;
@@ -240,11 +276,12 @@ namespace Game.UI.Tests
 
         private sealed class FakeView : IGameplayUiView
         {
-            public event Action<ContentId> DraftOptionSelected;
-            public event Action DraftRerollRequested;
-            public event Action<ContentId> DraftBanishRequested;
+            public event Action<ContentId, Guid> DraftOptionSelected;
+            public event Action<Guid> DraftRerollRequested;
+            public event Action<ContentId, Guid> DraftBanishRequested;
             public event Action PauseRequested;
             public event Action AddExperienceRequested;
+        public event Action AddBookRequested;
             public event Action ApplyDamageRequested;
             public event Action ApplyHealingRequested;
             public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
@@ -266,10 +303,11 @@ namespace Game.UI.Tests
             public void RenderEnemyObservability(EnemyObservabilityViewState state) => EnemyObservation = state;
             public void RenderWaveObservability(WaveObservabilityViewState state) => WaveObservation = state;
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;
-            public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id);
-            public void RaiseReroll() => DraftRerollRequested?.Invoke();
-            public void RaiseBanish(ContentId id) => DraftBanishRequested?.Invoke(id);
+            public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id, Draft.Revision);
+            public void RaiseReroll() => DraftRerollRequested?.Invoke(Draft.Revision);
+            public void RaiseBanish(ContentId id) => DraftBanishRequested?.Invoke(id, Draft.Revision);
             public void RaisePause() => PauseRequested?.Invoke();
+            public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();
             public void RaiseHealing() => ApplyHealingRequested?.Invoke();

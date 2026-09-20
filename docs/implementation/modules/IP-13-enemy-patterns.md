@@ -46,7 +46,7 @@ Extend enemy JSON schema required per-kind fields, per-pattern compatibility mat
 
 ## Gates и недостающие решения
 
-G-07 knockback/dash ordering и missing attack fields G-14 для production cards; synthetic required values остаются fixture. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-07 закрыт DECISION-0017: knockback не приостанавливает dash/steering. Missing attack fields G-14 остаются для production cards; synthetic required values — только fixture. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

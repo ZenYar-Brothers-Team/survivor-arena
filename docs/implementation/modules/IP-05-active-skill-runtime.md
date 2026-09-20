@@ -46,8 +46,18 @@ Combat/control/source API и approved gap deltas; обновить callers/tests
 
 ## Gates и недостающие решения
 
-G-06/G-07/G-08/G-09: slow refresh/extension/weak-source expiry, displacement time model/overlap/dash/zero-direction, low-HP damage evaluation. Формулы утверждены, эти edge cases требуют конкретизации. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-06…G-09 закрыты [DECISION-0017](../../decisions/0017-combat-control-semantics.md). Общие edge cases утверждены; production duration/magnitude остаются required content data. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 
 [IP-06](IP-06-xp-progression.md), [IP-08](IP-08-active-skill-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-13](IP-13-enemy-patterns.md), [IP-15](IP-15-boss-framework.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Контракт реализации для потребителей
+
+`Game.Combat` — pure C# request/source/identity/result и HealthChange. `Requested` — величина до mitigation/restoration; `AfterMitigation` — вычисленное масштабированное значение, `Actual` — фактическая потеря/восстановление HP до callbacks; `Overkill` имеет смысл только для damage. Max-HP rescale не является damage/heal. `ResolvedKnockbackDistance` — дистанция рассчитанного impulse до столкновения/смерти, а не измеренный путь тела.
+
+`CombatSource` сохраняет owner life/run/content/category, effect content ID, origin (ActiveSkill/Set/SecondaryProc/EnemyContact/EnemyProjectile) и доступный skill level. Незаполненная attribution остаётся Unknown/null, не выдумывается из последнего активного объекта. `EnemyDamageRequest` — совместимый adapter общего request; `WithAmount`/`WithDirection` сохраняют attribution и controls. Runtime публикует immutable `CombatResolved` даже для lethal hit; подписки относятся к жизни объекта и снимаются при её завершении.
+
+`CombatControlProfile` принадлежит wave/contact/projectile config. Положительная distance или slow fraction требует положительного explicit duration. `CombatControlState` хранит один knockback vector/timer и таймеры slow по source; конечный неполный physics tick сохраняет указанную дистанцию. Player получает только knockback, enemy — knockback и slow. Normal/dash velocity складывается с control velocity одним writer; zero movement speed от slow не замораживает dash phase или attack cadence.
+
+`ICombatTargetQuery` задаёт nearest/copy-alive/category filters через `IEnemyDamageReceiver`; scene registry принимает `IEnemyLifeTarget`, включая adapters будущих bosses/Travelers. `EnemyTargetLife` — reference + captured life для delayed tracking и projectile deduplication. Конкретные target components будущих категорий остаются у IP-15/IP-29.

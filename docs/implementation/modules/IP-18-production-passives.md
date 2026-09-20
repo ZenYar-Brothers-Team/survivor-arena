@@ -46,7 +46,7 @@ range до 014, stat/effect mapping, numeric completeness и asset/test referenc
 
 ## Gates и недостающие решения
 
-G-08/G-09/G-10 и значения 14 passives; отсутствие конкретного runtime parameter не заполняется hidden default. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017; G-10 и полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

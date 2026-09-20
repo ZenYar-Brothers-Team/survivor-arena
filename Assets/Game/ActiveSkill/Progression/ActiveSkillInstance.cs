@@ -59,9 +59,11 @@ namespace Game.ActiveSkill
                 origin,
                 direction,
                 target,
-                levelDefinition.BaseDamage * owner.Stats.ActiveSkillDamageMultiplier,
+                levelDefinition.BaseDamage * owner.Stats.ActiveSkillDamageMultiplier * owner.Stats.LowHealthDamageMultiplier,
                 levelDefinition,
-                owner.transform));
+                owner.transform,
+                owner.Identity,
+                owner.Stats.OutgoingKnockbackMultiplier));
             _cooldown.Consume(levelDefinition.CooldownSeconds, owner.Stats.ActiveSkillCooldownMultiplier);
             TriggerCount++;
             return true;

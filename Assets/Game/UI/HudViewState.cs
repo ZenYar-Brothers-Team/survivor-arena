@@ -1,4 +1,5 @@
 using System;
+using Game.Run;
 
 namespace Game.UI
 {
@@ -11,6 +12,8 @@ namespace Game.UI
         public float ElapsedSeconds { get; }
         public WaveViewState Wave { get; }
         public CharacterStatsViewState Stats { get; }
+        public RunExperienceSnapshot ExperienceTotals { get; }
+        public long BookCurrency { get; }
 
         public HudViewState(
             float currentHealth,
@@ -19,7 +22,8 @@ namespace Game.UI
             int level,
             float elapsedSeconds,
             WaveViewState wave,
-            CharacterStatsViewState stats = null)
+            CharacterStatsViewState stats = null,
+            RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
@@ -28,6 +32,8 @@ namespace Game.UI
             ElapsedSeconds = elapsedSeconds;
             Wave = wave ?? throw new ArgumentNullException(nameof(wave));
             Stats = stats;
+            ExperienceTotals = experienceTotals;
+            BookCurrency = bookCurrency;
         }
     }
 }

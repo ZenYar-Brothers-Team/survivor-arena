@@ -16,6 +16,7 @@ namespace Game.Progression.Tests
             Assert.AreEqual(12345, setup.Draft.Seed);
             Assert.AreEqual(2, setup.Draft.InitialRerolls);
             Assert.AreEqual(2, setup.Draft.InitialBanishes);
+            Assert.AreEqual(1, setup.Draft.EmptyBookCurrency);
             CollectionAssert.AreEqual(new[] { 5f, 10f, 15f }, setup.Experience.LevelThresholds);
             Assert.AreEqual(60f, setup.Experience.BaseDropLifetimeSeconds);
         }
@@ -49,6 +50,9 @@ namespace Game.Progression.Tests
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(0, 1, 0, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(-1, 1, 0, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(4, 1, 0, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(3, 1, 0, 0, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(3, 1, 0, 0, -1));
             Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(3, 1, -1, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => new DraftSettings(3, 1, 0, -1));
         }

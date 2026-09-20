@@ -46,7 +46,7 @@ numeric/pattern per-ID cases, level transitions, capacity/concurrency, pause/poo
 
 ## Gates и недостающие решения
 
-G-08/G-09 и полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

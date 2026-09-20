@@ -1,5 +1,6 @@
 using System;
 using Game.Character;
+using Game.Combat;
 
 namespace Game.UI
 {
@@ -15,10 +16,12 @@ namespace Game.UI
         public float EffectRangeMultiplier { get; }
         public float PotionDropMultiplier { get; }
         public float LowHealthDamageMultiplier { get; }
+        public float KnockbackRemaining { get; }
 
-        public CharacterStatsViewState(CharacterStats stats)
+        public CharacterStatsViewState(CharacterStats stats, CombatControlState controls = null)
         {
             if (stats == null) throw new ArgumentNullException(nameof(stats));
+            KnockbackRemaining = controls?.KnockbackRemaining ?? 0f;
             ActionSpeedBonus = stats.ActionSpeedBonus;
             ActiveSkillCooldownMultiplier = stats.ActiveSkillCooldownMultiplier;
             PickupRadius = stats.PickupRadius;

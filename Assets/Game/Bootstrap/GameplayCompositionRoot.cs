@@ -79,7 +79,7 @@ namespace Game.Bootstrap
             var initializedSubsystems = new List<Action>();
             try
             {
-                player.Initialize(selectedCharacter.BaseStats, runController);
+                player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id);
                 initializedSubsystems.Add(player.Shutdown);
 
                 if (!selectedCharacter.Visual.Id.IsValid || !selectedCharacter.MotionProfile.Id.IsValid)
@@ -112,7 +112,8 @@ namespace Game.Bootstrap
                     setup.Draft.InitialRerolls,
                     setup.Draft.InitialBanishes,
                     Catalog.Sets,
-                    new FixtureSetExtraAbilityFactory());
+                    new FixtureSetExtraAbilityFactory(),
+                    setup.Draft.EmptyBookCurrency);
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 // The executor owns a scene GameObject (mine pool root); it is registered for

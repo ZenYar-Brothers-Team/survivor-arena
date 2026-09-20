@@ -1,5 +1,6 @@
 using System;
 using Game.Content;
+using Game.Combat;
 
 namespace Game.Enemy
 {
@@ -7,6 +8,7 @@ namespace Game.Enemy
     {
         public EnemyProjectilePattern Pattern { get; }
         public float Damage { get; }
+        public CombatControlProfile Controls { get; }
         public float CooldownSeconds { get; }
         public float ProjectileSpeed { get; }
         public float ProjectileLifetimeSeconds { get; }
@@ -28,7 +30,8 @@ namespace Game.Enemy
             float burstIntervalSeconds = 0.15f,
             float projectileRadius = 0.12f,
             float explosionRadius = 0f,
-            float rotationStepDegrees = 0f)
+            float rotationStepDegrees = 0f,
+            CombatControlProfile controls = null)
         {
             if (!Enum.IsDefined(typeof(EnemyProjectilePattern), pattern))
                 throw new ArgumentOutOfRangeException(nameof(pattern));
@@ -45,6 +48,7 @@ namespace Game.Enemy
             if (pattern == EnemyProjectilePattern.Explosive && explosionRadius <= 0f)
                 throw new ArgumentOutOfRangeException(nameof(explosionRadius), "Explosive projectiles require a positive explosion radius.");
 
+            Controls = controls ?? CombatControlProfile.None;
             Pattern = pattern;
             Damage = damage;
             CooldownSeconds = cooldownSeconds;

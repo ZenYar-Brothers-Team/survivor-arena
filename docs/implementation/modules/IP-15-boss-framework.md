@@ -46,7 +46,7 @@ boss schema, phase/telegraph ownership, missing-rule list по нужным ка
 
 ## Gates и недостающие решения
 
-G-07/G-14: используемые phase/attack/control edge cases; final timing configurable, production values не обязательны для synthetic framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-07 закрыт DECISION-0017. G-14: используемые phase/attack fields; final timing configurable, production values не обязательны для synthetic framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

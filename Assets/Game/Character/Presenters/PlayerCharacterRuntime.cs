@@ -1,5 +1,6 @@
 using System;
 using Game.Combat;
+using Game.Content;
 using Game.Movement;
 using Game.Run;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace Game.Character
 {
     [DisallowMultipleComponent]
-    public sealed class PlayerCharacterRuntime : MonoBehaviour, IMovementSpeedSource
+    public sealed class PlayerCharacterRuntime : MonoBehaviour, IMovementSpeedSource, IAdditionalMovementSource
     {
         [SerializeField]
         private RunController runController;
@@ -18,6 +19,9 @@ namespace Game.Character
 
         public CharacterStats Stats { get; private set; }
         public Health Health { get; private set; }
+        public CombatIdentity Identity { get; private set; }
+        public CombatControlState Controls { get; } = new CombatControlState();
+        public event Action<CombatResult> CombatResolved;
         public float MovementSpeed => Stats != null ? Stats.MovementSpeed : 0f;
 
         private void Start()
@@ -37,7 +41,7 @@ namespace Game.Character
         // Health and its RunController binding are created together here, atomically,
         // so a Health that can take damage and die can never exist without its death
         // already being wired to end the run.
-        public void Initialize(CharacterBaseStats baseStats, RunController controller)
+        public void Initialize(CharacterBaseStats baseStats, RunController controller, ContentId? contentId = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Player character runtime is already initialized.");
@@ -47,6 +51,8 @@ namespace Game.Character
                 throw new InvalidOperationException("Player character run controller is not configured.");
 
             runController = controller;
+            Identity = new CombatIdentity(Guid.NewGuid(), controller.Model.RunId, contentId, CombatEntityCategory.Player);
+            Controls.Reset();
             Stats = new CharacterStats(baseStats);
             Health = new Health(Stats);
             _healthStatBinding = new CharacterHealthStatBinding(Health, Stats);
@@ -64,7 +70,8 @@ namespace Game.Character
             var isRunning = runController != null &&
                             runController.Model != null &&
                             runController.Model.State == RunState.Running;
-            Health.Regenerate(Time.deltaTime, isRunning);
+            if (isRunning && !Health.IsDead && Stats.HealthRegenerationPerSecond > 0f)
+                Heal(Stats.HealthRegenerationPerSecond * Time.deltaTime);
         }
 
         // Undoes exactly what Initialize() set up, so a partially-initialized
@@ -82,6 +89,8 @@ namespace Game.Character
             _runBinding = null;
             Health = null;
             Stats = null;
+            Controls.Reset();
+            CombatResolved = null;
             _initialized = false;
         }
 
@@ -92,12 +101,38 @@ namespace Game.Character
 
         public float TakeDamage(float amount)
         {
-            return Health.TakeDamage(amount);
+            return ApplyDamage(new CombatDamageRequest(default, amount)).Health.Actual;
+        }
+
+        public CombatResult ApplyDamage(CombatDamageRequest request)
+        {
+            var identity = Identity;
+            var notify = CombatResolved;
+            var distance = !Health.IsDead && runController.Model.State == RunState.Running
+                ? Controls.Apply(request, Stats.KnockbackResistance, acceptsSlow: false) : 0f;
+            var result = new CombatResult(request.Source, identity, Health.TakeDamageMeasured(request.Amount), distance);
+            notify?.Invoke(result);
+            return result;
+        }
+
+        public Vector2 TickAdditionalMovement(float deltaTime, bool isRunning)
+        {
+            var motion = Controls.Tick(deltaTime, isRunning && _initialized && !Health.IsDead);
+            return new Vector2(motion.KnockbackX, motion.KnockbackY);
         }
 
         public float Heal(float amount)
         {
-            return Health.Heal(amount);
+            return Heal(amount, default).Health.Actual;
+        }
+
+        public CombatResult Heal(float amount, CombatSource source)
+        {
+            var identity = Identity;
+            var notify = CombatResolved;
+            var result = new CombatResult(source, identity, Health.HealMeasured(amount));
+            notify?.Invoke(result);
+            return result;
         }
 
         public void SetModifier(string sourceKey, CharacterStatModifier modifier)

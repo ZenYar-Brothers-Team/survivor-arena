@@ -20,6 +20,11 @@ namespace Game.UI
         private readonly VisualElement _setRecipeProgress;
         private readonly VisualElement _draftOverlay;
         private readonly VisualElement _draftOptions;
+        private readonly Label _draftHeading;
+        private readonly Label _draftQueue;
+        private readonly Label _bookCurrency;
+        private readonly Button _addBookButton;
+        private Guid _renderedDraftRevision;
         private readonly Button _rerollButton;
         private readonly Label _banishCount;
         private readonly VisualElement _runOverlay;
@@ -40,6 +45,7 @@ namespace Game.UI
         private readonly Label _enemyObservation;
         private readonly Label _waveObservation;
         private readonly Label _statsObservation;
+        private readonly Label _experienceObservation;
         private readonly Button _presentationLiveButton;
         private readonly Button _presentationIdleButton;
         private readonly Button _presentationLeftButton;
@@ -49,11 +55,12 @@ namespace Game.UI
         private bool _developmentControlsAvailable;
         private bool _developmentPanelExpanded;
 
-        public event Action<ContentId> DraftOptionSelected;
-        public event Action DraftRerollRequested;
-        public event Action<ContentId> DraftBanishRequested;
+        public event Action<ContentId, Guid> DraftOptionSelected;
+        public event Action<Guid> DraftRerollRequested;
+        public event Action<ContentId, Guid> DraftBanishRequested;
         public event Action PauseRequested;
         public event Action AddExperienceRequested;
+        public event Action AddBookRequested;
         public event Action ApplyDamageRequested;
         public event Action ApplyHealingRequested;
         public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
@@ -76,6 +83,10 @@ namespace Game.UI
             _setRecipeProgress = Require<VisualElement>(root, GameplayUiElementIds.SetRecipeProgress);
             _draftOverlay = Require<VisualElement>(root, GameplayUiElementIds.DraftOverlay);
             _draftOptions = Require<VisualElement>(root, GameplayUiElementIds.DraftOptions);
+            _draftHeading = Require<Label>(root, GameplayUiElementIds.DraftHeading);
+            _draftQueue = Require<Label>(root, GameplayUiElementIds.DraftQueue);
+            _bookCurrency = Require<Label>(root, GameplayUiElementIds.BookCurrency);
+            _addBookButton = Require<Button>(root, GameplayUiElementIds.AddBookButton);
             _rerollButton = Require<Button>(root, GameplayUiElementIds.DraftRerollButton);
             _banishCount = Require<Label>(root, GameplayUiElementIds.DraftBanishCount);
             _runOverlay = Require<VisualElement>(root, GameplayUiElementIds.RunOverlay);
@@ -96,6 +107,7 @@ namespace Game.UI
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
             _waveObservation = Require<Label>(root, GameplayUiElementIds.WaveObservation);
             _statsObservation = Require<Label>(root, GameplayUiElementIds.StatsObservation);
+            _experienceObservation = Require<Label>(root, GameplayUiElementIds.ExperienceObservation);
             _presentationLiveButton = Require<Button>(root, GameplayUiElementIds.PresentationLiveButton);
             _presentationIdleButton = Require<Button>(root, GameplayUiElementIds.PresentationIdleButton);
             _presentationLeftButton = Require<Button>(root, GameplayUiElementIds.PresentationLeftButton);
@@ -107,6 +119,7 @@ namespace Game.UI
             _runOverlayResumeButton.clicked += HandlePauseClicked;
             _rerollButton.clicked += HandleRerollClicked;
             _addExperienceButton.clicked += HandleAddExperienceClicked;
+            _addBookButton.clicked += HandleAddBookClicked;
             _damageButton.clicked += HandleDamageClicked;
             _healButton.clicked += HandleHealingClicked;
             _developmentToggleButton.clicked += HandleDevelopmentToggleClicked;
@@ -125,6 +138,8 @@ namespace Game.UI
 
         public void RenderHud(HudViewState state)
         {
+            _bookCurrency.text = $"Book currency: +{state.BookCurrency}";
+            SetVisible(_bookCurrency, state.BookCurrency > 0);
             var health01 = state.MaxHealth > 0f ? state.CurrentHealth / state.MaxHealth : 0f;
             _healthBar.value = health01 * 100f;
             _healthBar.title = $"HP {MathF.Ceiling(state.CurrentHealth)}/{MathF.Ceiling(state.MaxHealth)}";
@@ -134,13 +149,20 @@ namespace Game.UI
             var elapsed = Math.Max(0, (int)Math.Floor(state.ElapsedSeconds));
             _timerLabel.text = $"{elapsed / 60:00}:{elapsed % 60:00}";
             RenderWave(state.Wave);
+            if (_developmentControlsAvailable && state.ExperienceTotals != null)
+            {
+                var xp = state.ExperienceTotals;
+                _experienceObservation.text = $"XP collected {xp.CollectedBase:0.##} → {xp.CollectedAwarded:0.##} awarded\n" +
+                    $"Expired {xp.ExpiredBase:0.##} · recovered {xp.RecoveredAwarded:0.##}\n" +
+                    $"Intervention {xp.InterventionAwarded:0.##} · total awarded {xp.TotalAwarded:0.##}";
+            }
             if (_developmentControlsAvailable && state.Stats != null)
             {
                 var stats = state.Stats;
                 _statsObservation.text = $"Action speed +{stats.ActionSpeedBonus:P0} · XP radius {stats.PickupRadius:0.##}\n" +
                     $"Knockback resist {stats.KnockbackResistance:P0} · outgoing x{stats.OutgoingKnockbackMultiplier:0.##}\n" +
                     $"Size x{stats.EffectSizeMultiplier:0.##} · range x{stats.EffectRangeMultiplier:0.##}\n" +
-                    $"Potion drop x{stats.PotionDropMultiplier:0.##} · low-HP damage x{stats.LowHealthDamageMultiplier:0.##}";
+                    $"Potion drop x{stats.PotionDropMultiplier:0.##} · low-HP damage x{stats.LowHealthDamageMultiplier:0.##}\nKnockback remaining {stats.KnockbackRemaining:0.##} s";
             }
         }
 
@@ -156,15 +178,21 @@ namespace Game.UI
         public void RenderDraft(DraftViewState state)
         {
             SetVisible(_draftOverlay, state.IsVisible);
+            _draftHeading.text = state.Heading;
+            _draftQueue.text = state.QueueDetail;
+            _draftOverlay.EnableInClassList("draft-book", state.Heading == "TRAVELER BOOK");
             if (!state.IsVisible)
             {
                 _draftOptions.Clear();
+                _renderedDraftRevision = Guid.Empty;
                 return;
             }
 
             _rerollButton.text = $"Reroll ({state.RemainingRerolls})";
             _rerollButton.SetEnabled(state.RemainingRerolls > 0);
             _banishCount.text = $"Banish: {state.RemainingBanishes}";
+            if (state.Revision != Guid.Empty && _renderedDraftRevision == state.Revision) return;
+            _renderedDraftRevision = state.Revision;
             _draftOptions.Clear();
             for (var i = 0; i < state.Options.Count; i++)
             {
@@ -172,20 +200,21 @@ namespace Game.UI
                 var row = new VisualElement();
                 row.AddToClassList("draft-option-row");
 
-                var select = new Button(() => DraftOptionSelected?.Invoke(option.Id))
+                var select = new Button(() => DraftOptionSelected?.Invoke(option.Id, state.Revision))
                 {
                     name = GameplayUiElementIds.DraftSelectButton(i),
                     text = $"{option.Title}\n{option.Detail}"
                 };
                 select.AddToClassList("draft-option-select");
+                select.SetEnabled(option.IsEnabled);
 
-                var banish = new Button(() => DraftBanishRequested?.Invoke(option.Id))
+                var banish = new Button(() => DraftBanishRequested?.Invoke(option.Id, state.Revision))
                 {
                     name = GameplayUiElementIds.DraftBanishButton(i),
                     text = "Banish"
                 };
                 banish.AddToClassList("draft-option-banish");
-                banish.SetEnabled(state.RemainingBanishes > 0);
+                banish.SetEnabled(option.IsEnabled && state.RemainingBanishes > 0);
 
                 row.Add(select);
                 row.Add(banish);
@@ -332,7 +361,8 @@ namespace Game.UI
         }
 
         private void HandlePauseClicked() => PauseRequested?.Invoke();
-        private void HandleRerollClicked() => DraftRerollRequested?.Invoke();
+        private void HandleRerollClicked() => DraftRerollRequested?.Invoke(_renderedDraftRevision);
+        private void HandleAddBookClicked() => AddBookRequested?.Invoke();
         private void HandleAddExperienceClicked() => AddExperienceRequested?.Invoke();
         private void HandleDamageClicked() => ApplyDamageRequested?.Invoke();
         private void HandleHealingClicked() => ApplyHealingRequested?.Invoke();
@@ -362,6 +392,7 @@ namespace Game.UI
             _runOverlayResumeButton.clicked -= HandlePauseClicked;
             _rerollButton.clicked -= HandleRerollClicked;
             _addExperienceButton.clicked -= HandleAddExperienceClicked;
+            _addBookButton.clicked -= HandleAddBookClicked;
             _damageButton.clicked -= HandleDamageClicked;
             _healButton.clicked -= HandleHealingClicked;
             _developmentToggleButton.clicked -= HandleDevelopmentToggleClicked;

@@ -18,6 +18,8 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveLabel));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveObservation));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.StatsObservation));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.ExperienceObservation));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.StatsObservation));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.BuildPanel));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.ActiveSlots));
@@ -26,6 +28,10 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.SetRecipeProgress));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DraftRerollButton));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.DraftHeading));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.DraftQueue));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.BookCurrency));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.AddBookButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.RunOverlay));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPanel));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
@@ -42,6 +48,28 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationLeftButton));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationRightButton));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PresentationResetButton));
+        }
+
+        [Test]
+        public void ShortDraft_RendersThreePositionsWithDisabledEmptyCards()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/GameplayUi.uxml");
+            var root = asset.CloneTree();
+            using var view = new UiToolkitGameplayView(root);
+            view.SetDevelopmentControlsVisible(false);
+            view.RenderDraft(new DraftViewState(true, 1, 1, new[]
+            {
+                new DraftOptionViewState(new Game.Content.ContentId("FIXTURE-OPTION"), "Fixture", "level 1 -> 2"),
+                new DraftOptionViewState(default, "No available option", "", false),
+                new DraftOptionViewState(default, "No available option", "", false)
+            }, System.Guid.NewGuid(), "TRAVELER BOOK", "Next: Level 3"));
+            Assert.AreEqual(3, root.Q<VisualElement>(GameplayUiElementIds.DraftOptions).childCount);
+            Assert.IsTrue(root.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)).enabledSelf);
+            Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftSelectButton(1)).enabledSelf);
+            Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftBanishButton(1)).enabledSelf);
+            Assert.AreEqual("TRAVELER BOOK", root.Q<Label>(GameplayUiElementIds.DraftHeading).text);
+            Assert.AreEqual("Next: Level 3", root.Q<Label>(GameplayUiElementIds.DraftQueue).text);
+            Assert.AreEqual(DisplayStyle.None, root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPanel).style.display.value);
         }
 
         [Test]

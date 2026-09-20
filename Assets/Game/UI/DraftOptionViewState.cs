@@ -8,10 +8,12 @@ namespace Game.UI
         public ContentId Id { get; }
         public string Title { get; }
         public string Detail { get; }
+        public bool IsEnabled { get; }
 
-        public DraftOptionViewState(ContentId id, string title, string detail)
+        public DraftOptionViewState(ContentId id, string title, string detail, bool isEnabled = true)
         {
             Id = id;
+            IsEnabled = isEnabled;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Detail = detail ?? throw new ArgumentNullException(nameof(detail));
         }

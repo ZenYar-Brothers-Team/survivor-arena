@@ -51,3 +51,15 @@ XP units/base-vs-award dictionary, fixture curve rationale; IP-07/IP-09/IP-31 us
 ## Потребители
 
 [IP-07](IP-07-level-up-draft.md), [IP-09](IP-09-passive-framework.md), [IP-10A](IP-10A-ui-foundation.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Контракт XP units / producer
+
+Все количества — XP units, все радиусы — world units. `CollectedBase` — сумма номиналов физически подобранных drops; `CollectedAwarded = Σ(base × effective picked-up multiplier на pickup)`. `ExpiredBase` — сумма исчезнувших номиналов; `RecoveredAwarded = Σ(expired base × effective recovery на expiry)` без picked-up multiplier. `InterventionBase/Awarded` — DEV add-XP отдельно. `TotalAwarded = CollectedAwarded + RecoveredAwarded + InterventionAwarded`, а `Progression.CurrentExperience` — остаток внутри текущего уровня. Например, pickup 10 при x1.2 даёт 12 XP; expiry 8 при recovery0.5 даёт 4 XP; total16 независимо от потраченных на levels thresholds.
+
+`ExperienceAwardEvent` предоставляет immutable run ID, nullable drop/source identity, origin и base/award; zero-recovery expiry тоже публикуется. `ExperienceDropIdentity.LifeId` меняется при каждом rent; source life/content не читаются из переиспользованного EnemyRuntime. `EnemyExperienceDropSink` deduplicates повторную доставку одного death life.
+
+`PlayerExperienceRuntime` владеет contributor `experience` и drop pool. `Capture()` копирует level, current-level remainder и lifetime totals в `RunOutcomeContribution`. Shutdown снимает contributor/level subscriptions и убирает active/inactive drops без pickup/recovery reward. Конкретные queue decisions принадлежат IP-07, export — IP-31; DEV intent обозначен DevelopmentIntervention даже без recorder.
+
+Fixture thresholds и lifetime остаются в `Resources/Content/Run/FixtureRunSetup.json`: короткие ранние thresholds позволяют быстро проверить level-up/pause/draft в ручном smoke; это не production XP curve. Последний threshold повторяется. Полное начисление рассчитывается до публикации level-up событий, чтобы result snapshot не терял остаток или часть award.
+
+Детали cross-layer реализации: [DECISION-0018](../../decisions/0018-experience-accounting.md), Proposed для архитектурного ревью; новых product rules и production tuning не вводит.

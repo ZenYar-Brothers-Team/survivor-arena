@@ -9,6 +9,8 @@
             <ui:Button name="hud-pause" text="Pause" class="compact-button" />
         </ui:VisualElement>
 
+        <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
+
         <ui:VisualElement name="build-panel" class="build-panel">
             <ui:Label text="ACTIVE SKILLS" class="build-title" />
             <ui:VisualElement name="build-active-slots" />
@@ -20,7 +22,8 @@
 
         <ui:VisualElement name="draft-overlay" class="fullscreen-overlay">
             <ui:VisualElement class="dialog-panel draft-panel">
-                <ui:Label text="LEVEL UP" class="dialog-title" />
+                <ui:Label name="draft-heading" text="LEVEL UP" class="dialog-title" />
+                <ui:Label name="draft-queue" class="draft-queue" />
                 <ui:VisualElement class="draft-controls">
                     <ui:Button name="draft-reroll" text="Reroll" class="compact-button" />
                     <ui:Label name="draft-banish-count" text="Banish: 0" class="hud-label" />
@@ -59,9 +62,11 @@
                 <ui:Label text="WAVE DIRECTOR" class="development-section-title development-section-spaced" />
                 <ui:Label name="development-wave-observation" text="Wave director unavailable" class="development-help" />
                 <ui:Label text="CURRENT STATS" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-experience-observation" text="XP unavailable" class="development-help" />
                 <ui:Label name="development-stats-observation" text="Stats unavailable" class="development-help" />
             </ui:ScrollView>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
+                <ui:Button name="development-add-book" text="Collect fixture Book" class="compact-button" />
                 <ui:Label text="SET RECIPES" class="development-section-title" />
                 <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
                 <ui:Label text="CHARACTERS" class="development-section-title development-section-spaced" />

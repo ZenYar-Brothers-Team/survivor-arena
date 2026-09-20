@@ -1,8 +1,10 @@
 # Design sync R2: различия, пробелы и владельцы решений
 
-На входе в IP-05 подготовлено [конкретное предложение G-06…G-09](proposals/2026-09-20-combat-gap-decisions.md). Оно ожидает решения пользователя и не закрывает эти gaps автоматически.
+G-06…G-09 закрыты ответом пользователя с поправками: [DECISION-0017](../decisions/0017-combat-control-semantics.md), [итоговая таблица](proposals/2026-09-20-combat-gap-decisions.md). Knockback добавляется к движению/dash; low-HP damage фиксируется при активации. Реализация и evidence — только STATUS.
 
 Дата: 2026-09-20. План принят пользователем и зарегистрирован по DECISION-0015. Сравнение ниже фиксирует исходный аудит старой реализации относительно принятого дизайна; таблица G-01…G-18/W-01 остаётся реестром конкретных незаполненных вопросов. Оперативные статусы исполнения находятся только в STATUS.
+
+Перед IP-07 подготовлено [предложение G-01/G-03](proposals/2026-09-20-draft-gap-decisions.md). Оно ожидает ответа пользователя; short/empty/Book/queue rules ещё не закрыты.
 
 ## 1. Уточнённая исходная договорённость
 
@@ -188,15 +190,15 @@ Phase A/B/C (`Art Production.md:546–573`) задают поставку по �
 
 | Gap | Что уже решено / чего недостаёт | Владелец / проверяемое закрытие |
 |---|---|---|
-| G-01 Empty/short draft | Три слота утверждены; пропущена старая empty rule. Предложение delta: сохранить earned level и skip пустого ordinary draft без зависшей паузы; отдельно описать 1–2 eligible и Book-empty | IP-07/IP-10/IP-11; approved target amendment и тесты 0/1/2 options, only-sets failed roll |
-| G-02 Draft set selection | Independent global chance и set-first утверждены; отсутствуют stable processing order, boundary 0/1, reroll/banish eligibility, Book set pool | IP-07/IP-10/IP-11; deterministic examples и pool/origin policy, без скрытого weighted fallback |
-| G-03 Book lifecycle | Extra draft без XP/level утверждён; отсутствуют stable ID/card, pool, empty consumption, lifetime, очередь нескольких Books/level-ups и приоритет terminal event | IP-07/IP-10/IP-11/IP-28 — reason/queue/pause contract; IP-30 — production Book card/ID и полные параметры |
+| G-01 Empty/short draft | **Resolved — DECISION-0019/0020.** Uniform set backfill; 1–2 cards + inactive slots. Ordinary empty сохраняет XP/level без валюты; только пустая Книга при подборе немедленно даёт валюту | IP-07/IP-10/IP-11; 0/1/2 options только после дозаполнения, only-sets failed roll; empty reward lifecycle |
+| G-02 Draft set selection | Independent global chance и set-first утверждены; **uniform backfill утверждён DECISION-0019**, в том числе при chance=0. Book ordinary pool/shared controls утверждены DECISION-0020. Остаются stable processing order и reroll/banish checks | IP-07/IP-10/IP-11; deterministic examples, uniform backfill без повторов, pool/origin policy; обычные веса не применяются к дозаполнению |
+| G-03 Book lifecycle | Extra draft без XP/level утверждён; [предложение](proposals/2026-09-20-draft-gap-decisions.md) описывает ordinary pool/consume/FIFO/terminal contract. **Draft contract resolved — DECISION-0020:** ordinary pool/shared controls, immediate empty-at-pickup currency, FIFO/revisions/terminal cancellation; production ID/card/lifetime остаются отдельным gate | IP-07/IP-10/IP-11/IP-28 — reason/queue/pause contract; IP-30 — production Book card/ID и полные параметры |
 | G-04 SET-002 | `Content Design v2.md:393–400` усиливает return disc, но SKILL-008:166–174 не содержит return phase | IP-11/IP-08; решить только эту недостающую семантику до реализации затронутого set |
 | G-05 SET-015 / trash | SET-015:510–518 бафает explosion у SKILL-016, у которого base explosion нет. SET-008 добавляет его, но set-to-set amplification по умолчанию запрещено | IP-11; applicability без непредусмотренной proc chain |
-| G-06 Slow lifetime | Strongest-wins и movement-only утверждены; refresh vs extension, weaker-source persistence после expiry stronger, source identity не определены | IP-03/IP-05/IP-09/IP-13; временные сценарии overlap/expiry/reapply/pool reset |
-| G-07 Knockback displacement | World-unit distance/resistance формулы утверждены; duration/speed, overlapping hits, dash/steering priority, wall interaction и zero-direction fallback отсутствуют | IP-03/IP-05/IP-09/IP-13; player-only collision инвариант и pause/end tests |
-| G-08 Parameter applicability | Size vs range и action speed утверждены; нужна таблица для orbit radius/blade size, beam tick/length, target radius, deceleration range, passive source vs generic/set damage | IP-03/IP-05/IP-09/IP-13/IP-08/IP-11; named parameter map без двойного scale |
-| G-09 Low-HP damage | Linear 100%→10% HP кривая утверждена; snapshot-at-cast vs hit-time, existing attacks, set damage scope не указаны | IP-03/IP-05/IP-09/IP-13/IP-11; tests healing/damage/max-HP rescale без feedback loop |
+| G-06 Slow lifetime | **Resolved — DECISION-0017.** Source = owner life + content ID + channel; refresh заменяет magnitude/reset duration; strongest-wins, слабые таймеры сохраняются | IP-03/IP-05/IP-09/IP-13; overlap/expiry/reapply/pool reset |
+| G-07 Knockback displacement | **Resolved — DECISION-0017.** Равномерная дополнительная velocity поверх movement/dash; explicit duration, новый hit заменяет residual, zero direction не смещает, стены не копят дистанцию | IP-03/IP-05/IP-09/IP-13; player-only collision и pause/end |
+| G-08 Parameter applicability | **Resolved — DECISION-0017.** Action speed→activation cooldown; size→hit shape; range→target/travel/beam length/orbit radius. Один scale на управляющий параметр | IP-08 реализует map; IP-11 сохраняет explicit set exceptions |
+| G-09 Low-HP damage | **Resolved — DECISION-0017.** HP/stat-dependent coefficient кэшируется; итоговый damage snapshot при активации сохраняется во всех delayed hits; derived damage не усиливается повторно | IP-05/IP-08/IP-11; heal between cast/hit, owner teardown, immutable source |
 | G-10 Potion | Relative chance/restoration/no XP утверждены; нет base chance/heal, cap/override precedence, full-HP consumption, despawn/reachability policy | IP-28 — fixture lifecycle contract; IP-20 — production PICKUP-001/drop values; IP-32 — конкретное tuning proposal при необходимости |
 | G-11 Traveler timing | 0–3 и independent uniform full-run time уже утверждены; отсутствуют exact-15:00 ordering, spatial spawn, type selection/repeats, end-bound lifetime и RNG stream contract | IP-29; сохраняется полный интервал, он не урезается ради удобства |
 | G-12 Traveler support | Три роли и конкретные support profiles утверждены; shield expiry/refresh/absorption, aura stacks/caps, ordinary target definition, self/other Traveler/boss eligibility, source cleanup не заданы | IP-29; support-removal на death/expiry/rollback и overlap tests |

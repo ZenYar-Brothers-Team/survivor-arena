@@ -313,3 +313,13 @@
     color: rgb(174, 182, 199);
     white-space: normal;
 }
+
+.book-currency {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    color: rgb(246, 208, 109);
+    font-size: 16px;
+}
+.draft-book .dialog-title { color: rgb(246, 208, 109); }
+.draft-queue { color: rgb(190, 190, 190); margin-bottom: 8px; }

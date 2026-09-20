@@ -1,6 +1,7 @@
 [
   {
     "id": "FIXTURE-ENEMY-SEEKER",
+    "knockbackResistance": 0.0,
     "maxHealth": 10.0,
     "collisionSize": 1.0,
     "movementSpeed": 1.0,
@@ -12,6 +13,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-FAN",
+    "knockbackResistance": 0.0,
     "maxHealth": 12.0,
     "collisionSize": 0.85,
     "movementSpeed": 0.8,
@@ -23,6 +25,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-BURST-ORBIT",
+    "knockbackResistance": 0.0,
     "maxHealth": 12.0,
     "collisionSize": 0.85,
     "movementSpeed": 0.75,
@@ -34,6 +37,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-RING-ZIGZAG",
+    "knockbackResistance": 0.0,
     "maxHealth": 14.0,
     "collisionSize": 0.9,
     "movementSpeed": 0.9,
@@ -45,6 +49,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-CROSS-RETREAT",
+    "knockbackResistance": 0.0,
     "maxHealth": 14.0,
     "collisionSize": 0.9,
     "movementSpeed": 0.9,
@@ -56,6 +61,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-SPIRAL",
+    "knockbackResistance": 0.0,
     "maxHealth": 16.0,
     "collisionSize": 0.95,
     "movementSpeed": 0.65,
@@ -67,6 +73,7 @@
   },
   {
     "id": "FIXTURE-ENEMY-DASH-EXPLOSIVE",
+    "knockbackResistance": 0.0,
     "maxHealth": 20.0,
     "collisionSize": 1.1,
     "movementSpeed": 0.7,

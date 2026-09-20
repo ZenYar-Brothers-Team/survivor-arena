@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Game.Progression
 {
     [DisallowMultipleComponent]
-    public sealed class LevelUpDraftRuntime : MonoBehaviour
+    public sealed class LevelUpDraftRuntime : MonoBehaviour, IRunOutcomeContributor
     {
         [SerializeField]
         private PlayerExperienceRuntime experienceRuntime;
@@ -18,14 +18,34 @@ namespace Game.Progression
         private DraftPool _pool;
         private IDraftRandom _draftRandom;
         private int _offerCount;
-        private int _pendingDrafts;
+        private readonly Queue<DraftRequest> _requests = new Queue<DraftRequest>();
+        private readonly HashSet<Guid> _bookPickups = new HashSet<Guid>();
+        private RunModel _owner;
+        private int? _emptyBookCurrency;
+        private bool _pumping;
+        private bool _resolving;
+        private int _acceptedBooks, _selections, _emptyRequests, _cancelled;
+        private long _bookCurrency;
         private bool _initialized;
 
         public PlayerBuild Build { get; private set; }
         public CharacterDefinition Character { get; private set; }
         public DraftSession CurrentDraft { get; private set; }
         public bool IsDraftOpen => CurrentDraft != null && CurrentDraft.IsOpen;
-        public int PendingDraftCount => _pendingDrafts;
+        public int PendingDraftCount => _requests.Count;
+        public DraftRequest CurrentRequest => _requests.Count == 0 ? null : _requests.Peek();
+        public DraftRequest NextRequest
+        {
+            get
+            {
+                using var items = _requests.GetEnumerator();
+                return items.MoveNext() && items.MoveNext() ? items.Current : null;
+            }
+        }
+        public Guid Revision => IsDraftOpen ? CurrentDraft.Revision : Guid.Empty;
+        public long BookCurrency => _bookCurrency;
+        public string Key => "draft";
+        public RunDraftSnapshot Totals => new RunDraftSnapshot(_acceptedBooks, _selections, _emptyRequests, _cancelled, _bookCurrency);
         public DraftRunControls Controls { get; private set; }
         public IReadOnlyList<SetDefinition> SetDefinitions { get; private set; } = Array.Empty<SetDefinition>();
         public PlayerSetRuntime Sets { get; private set; }
@@ -34,6 +54,8 @@ namespace Game.Progression
 
         public event Action<IReadOnlyList<DraftOption>> DraftOpened;
         public event Action<BuildSelectionResult> SelectionApplied;
+        public event Action<DraftResolution> RequestResolved;
+        public event Action Changed;
 
         private void Update()
         {
@@ -61,7 +83,9 @@ namespace Game.Progression
             int initialRerolls = 0,
             int initialBanishes = 0,
             IEnumerable<SetDefinition> setDefinitions = null,
-            ISetExtraAbilityFactory setAbilityFactory = null)
+            ISetExtraAbilityFactory setAbilityFactory = null,
+            int? emptyBookCurrency = null,
+            ISetDraftOfferProvider setOffers = null)
         {
             InitializeCore(
                 experience,
@@ -74,7 +98,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory);
+                setAbilityFactory, emptyBookCurrency, setOffers);
         }
 
         public void Initialize(
@@ -88,7 +112,9 @@ namespace Game.Progression
             int initialRerolls = 0,
             int initialBanishes = 0,
             IEnumerable<SetDefinition> setDefinitions = null,
-            ISetExtraAbilityFactory setAbilityFactory = null)
+            ISetExtraAbilityFactory setAbilityFactory = null,
+            int? emptyBookCurrency = null,
+            ISetDraftOfferProvider setOffers = null)
         {
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
@@ -108,7 +134,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory);
+                setAbilityFactory, emptyBookCurrency, setOffers);
         }
 
         private void InitializeCore(
@@ -122,16 +148,18 @@ namespace Game.Progression
             int initialRerolls,
             int initialBanishes,
             IEnumerable<SetDefinition> setDefinitions,
-            ISetExtraAbilityFactory setAbilityFactory)
+            ISetExtraAbilityFactory setAbilityFactory, int? emptyBookCurrency, ISetDraftOfferProvider setOffers)
         {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
-            if (offerCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(offerCount));
+            NumericValidation.ValidateRange(offerCount, 1, 3, nameof(offerCount));
 
             experienceRuntime = experience != null ? experience : throw new ArgumentNullException(nameof(experience));
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
-            _pool = new DraftPool(definitions, character);
+            if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
+            _owner = controller.Model ?? throw new InvalidOperationException("Run must be initialized before draft.");
+            _pool = new DraftPool(definitions, character, setOffers);
+            _emptyBookCurrency = emptyBookCurrency;
             _draftRandom = draftRandom ?? new SeededDraftRandom(0);
             _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
@@ -140,145 +168,218 @@ namespace Game.Progression
             var setList = setDefinitions == null
                 ? new List<SetDefinition>()
                 : new List<SetDefinition>(setDefinitions);
-            SetDefinitions = setList;
+            SetDefinitions = setList.AsReadOnly();
             Sets = new PlayerSetRuntime(setList, setAbilityFactory);
-            experienceRuntime.LevelUp += HandleLevelUp;
+            try { _owner.RegisterOutcomeContributor(this); }
+            catch { Sets.Dispose(); Sets = null; throw; }
+            experienceRuntime.LevelsEarned += HandleLevelsEarned;
+            _owner.Completed += HandleCompleted;
             _initialized = true;
         }
 
-        public bool Select(ContentId id)
+        // Compatibility entry points for direct model callers. UI always supplies its captured revision.
+        public bool Select(ContentId id) => Select(id, Revision);
+        public bool Select(ContentId id, Guid revision)
         {
-            if (!IsDraftOpen || !CurrentDraft.TrySelect(id, out var result))
-                return false;
-
-            _pendingDrafts--;
-            Sets.Synchronize(Build);
-            SelectionApplied?.Invoke(result);
-
-            if (_pendingDrafts > 0)
-                OpenNextDraft();
-            else if (runController.Model != null)
-                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
-            return true;
-        }
-
-        public bool Reroll()
-        {
-            if (!IsDraftOpen || !Controls.TryConsumeReroll())
-                return false;
-
-            var options = _pool.CreateRerolledOptions(
-                Build,
-                _offerCount,
-                _draftRandom,
-                Controls.BanishedIds,
-                CurrentDraft.Options);
-            if (options.Count == 0)
+            if (!CanAct(revision) || !CurrentDraft.TrySelect(id, out var result)) return false;
+            _resolving = true;
+            var request = _requests.Dequeue();
+            CurrentDraft = null;
+            _selections++;
+            try
             {
-                ResolveDraftWithoutSelection();
-                return true;
+                Sets.Synchronize(Build);
+                SelectionApplied?.Invoke(result);
+                RequestResolved?.Invoke(new DraftResolution(request, DraftResolutionKind.Selected, id));
             }
-            ReplaceCurrentDraft(options);
+            finally
+            {
+                _resolving = false;
+                OpenNextDraft();
+            }
             return true;
         }
 
-        public bool Banish(ContentId id)
+        public bool Reroll() => Reroll(Revision);
+        public bool Reroll(Guid revision)
         {
-            if (!IsDraftOpen || !IsCurrentOption(id) || !Controls.TryBanish(id))
-                return false;
+            if (!CanAct(revision) || !Controls.TryConsumeReroll()) return false;
+            var options = _pool.CreateRerolledOptions(Build, _offerCount, _draftRandom,
+                Controls.BanishedIds, CurrentDraft.Options);
+            if (options.Count == 0) ResolveEmpty();
+            else ReplaceCurrentDraft(options);
+            return true;
+        }
 
+        public bool Banish(ContentId id) => Banish(id, Revision);
+        public bool Banish(ContentId id, Guid revision)
+        {
+            if (!CanAct(revision) || !IsCurrentOption(id) || !Controls.TryBanish(id)) return false;
+            CurrentDraft.Cancel();
+            CurrentDraft = null;
             OpenNextDraft();
+            return true;
+        }
+
+        /// <summary>
+        /// Complete an already accepted Book pickup, including callbacks during a draft pause.
+        /// World-pickup adapters must gate collection on Running. Source run/life IDs are mandatory.
+        /// DECISION-0020: empty at pickup awards currency now; later queue/banish exhaustion does not.
+        /// </summary>
+        public bool RequestBook(Guid pickupId, Guid sourceRunId, ContentId sourceContentId)
+        {
+            if (!CanProcess || sourceRunId != _owner.RunId || !_emptyBookCurrency.HasValue ||
+                pickupId == Guid.Empty || !sourceContentId.IsValid || _bookPickups.Contains(pickupId)) return false;
+            var request = DraftRequest.ForBook(sourceRunId, pickupId, sourceContentId);
+            var empty = !_pool.HasEligibleOptions(Build, Controls.BanishedIds);
+            var total = empty ? checked(_bookCurrency + _emptyBookCurrency.Value) : _bookCurrency;
+            _bookPickups.Add(pickupId);
+            _acceptedBooks++;
+            _bookCurrency = total;
+            if (empty)
+            {
+                _emptyRequests++;
+                RequestResolved?.Invoke(new DraftResolution(request, DraftResolutionKind.BookCurrency,
+                    currencyAmount: _emptyBookCurrency.Value));
+                Changed?.Invoke();
+            }
+            else
+            {
+                _requests.Enqueue(request);
+                OpenNextDraft();
+            }
             return true;
         }
 
         public void ResetControlsForNewRun()
         {
-            if (!_initialized)
-                throw new InvalidOperationException("Level-up draft runtime must be initialized before reset.");
-            if (IsDraftOpen || _pendingDrafts > 0)
-                throw new InvalidOperationException("Draft controls cannot be reset while a level-up draft is pending.");
-
+            if (!_initialized) throw new InvalidOperationException("Draft must be initialized before reset.");
+            if (PendingDraftCount > 0) throw new InvalidOperationException("A draft is pending.");
             Controls.Reset();
         }
 
-        private void HandleLevelUp(int _)
+        private bool CanProcess => _initialized && _owner != null && _owner.Outcome == null &&
+            (_owner.State == RunState.Running || _owner.State == RunState.Paused);
+        private bool CanAct(Guid revision) => CanProcess && !_resolving && IsDraftOpen &&
+            revision != Guid.Empty && revision == CurrentDraft.Revision;
+
+        private void HandleLevelsEarned(int firstLevel, int lastLevel)
         {
-            _pendingDrafts++;
-            if (!IsDraftOpen)
-                OpenNextDraft();
+            if (!CanProcess) return;
+            // Enqueue the complete XP award before any DraftOpened callback can enqueue a Book.
+            for (var level = firstLevel; ; level++)
+            {
+                _requests.Enqueue(DraftRequest.ForLevel(_owner.RunId, level));
+                if (level == lastLevel) break;
+            }
+            OpenNextDraft();
         }
 
         private void OpenNextDraft()
         {
-            while (_pendingDrafts > 0)
+            if (!CanProcess || _pumping || _resolving) return;
+            _pumping = true;
+            try
             {
-                var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
-                if (options.Count > 0)
+                if (_requests.Count > 0) _owner.RequestPause(RunPauseReasons.LevelUpDraft);
+                while (CanProcess && _requests.Count > 0 && !IsDraftOpen)
                 {
-                    ReplaceCurrentDraft(options);
-                    return;
+                    var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
+                    if (options.Count > 0) ReplaceCurrentDraft(options);
+                    else
+                    {
+                        var request = _requests.Dequeue();
+                        _emptyRequests++;
+                        RequestResolved?.Invoke(new DraftResolution(request, DraftResolutionKind.Empty));
+                    }
                 }
-
-                // The level has already been awarded. If the build has no eligible
-                // acquisition or upgrade left, consume only the pending draft and
-                // continue without opening an empty selection window.
-                CurrentDraft = null;
-                _pendingDrafts--;
+                if (CanProcess && _requests.Count == 0) _owner.ReleasePause(RunPauseReasons.LevelUpDraft);
             }
-
-            if (runController.Model != null)
-                runController.Model.ReleasePause(RunPauseReasons.LevelUpDraft);
+            finally { _pumping = false; Changed?.Invoke(); }
         }
 
         private void ReplaceCurrentDraft(IReadOnlyList<DraftOption> options)
         {
+            CurrentDraft?.Cancel();
             CurrentDraft = new DraftSession(Build, options);
-            DraftOpened?.Invoke(options);
+            DraftOpened?.Invoke(CurrentDraft.Options);
+            Changed?.Invoke();
         }
 
-        private void ResolveDraftWithoutSelection()
+        private void ResolveEmpty()
         {
+            CurrentDraft.Cancel();
             CurrentDraft = null;
-            _pendingDrafts--;
+            var request = _requests.Dequeue();
+            _emptyRequests++;
+            RequestResolved?.Invoke(new DraftResolution(request, DraftResolutionKind.Empty));
             OpenNextDraft();
         }
 
         private bool IsCurrentOption(ContentId id)
         {
-            for (var i = 0; i < CurrentDraft.Options.Count; i++)
-            {
-                if (CurrentDraft.Options[i].Definition.Id == id)
-                    return true;
-            }
+            foreach (var option in CurrentDraft.Options)
+                if (option.Definition.Id == id) return true;
             return false;
+        }
+
+        public RunOutcomeContribution Capture()
+        {
+            var entries = new List<RunBuildEntrySnapshot>();
+            foreach (var entry in Build.Entries)
+                entries.Add(new RunBuildEntrySnapshot(entry.Definition.Id.ToString(), entry.Level));
+            entries.Sort((a, b) => string.CompareOrdinal(a.ContentId, b.ContentId));
+            // Outcome capture occurs before Completed. All outstanding choices are cancelled at terminal.
+            var totals = new RunDraftSnapshot(_acceptedBooks, _selections, _emptyRequests,
+                _cancelled + _requests.Count, _bookCurrency);
+            return new RunOutcomeContribution(build: entries, draftTotals: totals);
+        }
+
+        private void HandleCompleted(RunOutcome _) => CancelRequests();
+
+        private void CancelRequests()
+        {
+            CurrentDraft?.Cancel();
+            CurrentDraft = null;
+            var cancelled = _requests.ToArray();
+            _requests.Clear();
+            _cancelled += cancelled.Length;
+            foreach (var request in cancelled)
+                RequestResolved?.Invoke(new DraftResolution(request, DraftResolutionKind.Cancelled));
+            Changed?.Invoke();
         }
 
         public void Shutdown()
         {
-            if (!_initialized)
-                return;
-
-            if (experienceRuntime != null)
-                experienceRuntime.LevelUp -= HandleLevelUp;
+            if (experienceRuntime != null) experienceRuntime.LevelsEarned -= HandleLevelsEarned;
+            if (_owner != null)
+            {
+                _owner.Completed -= HandleCompleted;
+                _owner.UnregisterOutcomeContributor(this);
+            }
+            _initialized = false;
+            CancelRequests();
+            _owner?.ReleasePause(RunPauseReasons.LevelUpDraft);
+            _owner = null;
             Sets?.Dispose();
             Sets = null;
             SetDefinitions = Array.Empty<SetDefinition>();
             Character = null;
-            // Drop everything Initialize() built so a later Initialize() starts clean
-            // (no stale pending drafts or open session from the previous life). Consumers
-            // already treat a null Build/Controls as "not initialized".
-            CurrentDraft = null;
-            _pendingDrafts = 0;
             Build = null;
             Controls = null;
             _pool = null;
             _draftRandom = null;
-            _initialized = false;
+            _bookPickups.Clear();
+            _acceptedBooks = _selections = _emptyRequests = _cancelled = 0;
+            _bookCurrency = 0;
+            _emptyBookCurrency = null;
+            _pumping = _resolving = false;
+            DraftOpened = null;
+            SelectionApplied = null;
+            RequestResolved = null;
+            Changed = null;
         }
 
-        private void OnDestroy()
-        {
-            Shutdown();
-        }
+        private void OnDestroy() => Shutdown();
     }
 }

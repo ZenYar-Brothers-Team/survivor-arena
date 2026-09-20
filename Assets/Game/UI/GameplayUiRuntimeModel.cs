@@ -31,10 +31,16 @@ namespace Game.UI
         public float MaxHealth => _player.Health.MaxHealth;
         public float ExperienceProgress01 => _experience.Progression.Progress01;
         public int Level => _experience.Progression.Level;
+        public RunExperienceSnapshot ExperienceTotals => _experience.Totals;
         public float ElapsedSeconds => _run.Model.Elapsed;
-        public CharacterStatsViewState Stats => new CharacterStatsViewState(_player.Stats);
+        public CharacterStatsViewState Stats => new CharacterStatsViewState(_player.Stats, _player.Controls);
         public RunState RunState => _run.Model.State;
         public bool IsDraftOpen => _draft.IsDraftOpen;
+        public Guid DraftRevision => _draft.Revision;
+        public DraftRequest CurrentDraftRequest => _draft.CurrentRequest;
+        public DraftRequest NextDraftRequest => _draft.NextRequest;
+        public int PendingDraftCount => _draft.PendingDraftCount;
+        public long BookCurrency => _draft.BookCurrency;
         public int RemainingRerolls => _draft.RemainingRerolls;
         public int RemainingBanishes => _draft.RemainingBanishes;
         public IReadOnlyList<DraftOption> DraftOptions => _draft.IsDraftOpen ? _draft.CurrentDraft.Options : NoDraftOptions;
@@ -77,7 +83,7 @@ namespace Game.UI
             _player.Health.HealthChanged += HandleHealthChanged;
             _experience.Progression.ExperienceChanged += HandleExperienceChanged;
             _experience.Progression.LevelUp += HandleLevelUp;
-            _draft.DraftOpened += HandleDraftOpened;
+            _draft.Changed += HandleDraftChanged;
             _draft.SelectionApplied += HandleSelectionApplied;
             _run.Model.StateChanged += HandleRunStateChanged;
             if (_waveDirector != null)
@@ -85,11 +91,16 @@ namespace Game.UI
             RefreshBuildEntries();
         }
 
-        public bool SelectDraftOption(ContentId id) => _draft.Select(id);
-        public bool RerollDraft() => _draft.Reroll();
-        public bool BanishDraftOption(ContentId id) => _draft.Banish(id);
+        public bool SelectDraftOption(ContentId id, Guid revision) => _draft.Select(id, revision);
+        public bool RerollDraft(Guid revision) => _draft.Reroll(revision);
+        public bool BanishDraftOption(ContentId id, Guid revision) => _draft.Banish(id, revision);
         public void TogglePause() => _run.TogglePause();
-        public void AddFixtureExperience() => _experience.AddPickedUpExperience(5f);
+        public void AddFixtureExperience() => _experience.AddInterventionExperience(5f);
+        public void AddFixtureBook()
+        {
+            if (DevelopmentCommandsEnabled && _run.Model.State == RunState.Running)
+                _draft.RequestBook(Guid.NewGuid(), _run.Model.RunId, new ContentId("FIXTURE-BOOK"));
+        }
         public void ApplyFixtureDamage() => _player.TakeDamage(10f);
         public void ApplyFixtureHealing() => _player.Heal(10f);
         public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
@@ -99,7 +110,7 @@ namespace Game.UI
         private void HandleHealthChanged(float _, float __) => Changed?.Invoke();
         private void HandleExperienceChanged(float _, float __) => Changed?.Invoke();
         private void HandleLevelUp(int _) => Changed?.Invoke();
-        private void HandleDraftOpened(IReadOnlyList<DraftOption> _) => Changed?.Invoke();
+        private void HandleDraftChanged() => Changed?.Invoke();
         private void HandleSelectionApplied(BuildSelectionResult _)
         {
             RefreshBuildEntries();
@@ -161,7 +172,7 @@ namespace Game.UI
             _player.Health.HealthChanged -= HandleHealthChanged;
             _experience.Progression.ExperienceChanged -= HandleExperienceChanged;
             _experience.Progression.LevelUp -= HandleLevelUp;
-            _draft.DraftOpened -= HandleDraftOpened;
+            _draft.Changed -= HandleDraftChanged;
             _draft.SelectionApplied -= HandleSelectionApplied;
             _run.Model.StateChanged -= HandleRunStateChanged;
             if (_waveDirector != null)

@@ -25,7 +25,7 @@ namespace Game.Enemy
             float deltaTime,
             bool isSimulating)
         {
-            if (!isSimulating || movementSpeed <= 0f)
+            if (!isSimulating)
                 return new EnemyMovementFrame(Vector2.zero, CurrentPausedPhase(), _dashDirection);
             if (deltaTime < 0f || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime))
                 throw new ArgumentOutOfRangeException(nameof(deltaTime));

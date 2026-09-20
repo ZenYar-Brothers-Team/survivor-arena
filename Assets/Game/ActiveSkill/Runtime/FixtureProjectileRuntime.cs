@@ -21,7 +21,7 @@ namespace Game.ActiveSkill
         private ProjectileLifetime _lifetime;
         private bool _initialized;
         private bool _despawned;
-        private readonly HashSet<IEnemyDamageReceiver> _hitThisPass = new HashSet<IEnemyDamageReceiver>();
+        private readonly HashSet<EnemyTargetLife> _hitThisPass = new HashSet<EnemyTargetLife>();
         private Vector2 _direction;
         private float _elapsed;
         private int _remainingHits;
@@ -74,7 +74,7 @@ namespace Game.ActiveSkill
                 return;
 
             var state = _runController.Model.State;
-            if (state == RunState.Won || state == RunState.Lost)
+            if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped)
             {
                 Despawn();
                 return;
@@ -122,15 +122,13 @@ namespace Game.ActiveSkill
         {
             if (!_initialized || _despawned || !IsRunRunning() || receiver == null || !receiver.IsAlive)
                 return false;
-            if (!_hitThisPass.Add(receiver))
+            if (!_hitThisPass.Add(new EnemyTargetLife(receiver)))
                 return false;
 
-            var damage = _projectile.Damage;
+            var damage = _projectile.Damage.WithDirection(_direction.x, _direction.y);
             if (_isReturning && _projectile.ReturnDamageMultiplier != 1f)
             {
-                damage = new EnemyDamageRequest(
-                    damage.SourceId,
-                    damage.Amount * _projectile.ReturnDamageMultiplier);
+                damage = damage.WithAmount(damage.Amount * _projectile.ReturnDamageMultiplier);
             }
             EnemyDamageArea.Apply(
                 impactPoint,

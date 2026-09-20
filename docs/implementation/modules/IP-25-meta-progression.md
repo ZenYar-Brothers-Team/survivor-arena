@@ -20,7 +20,7 @@
 
 ## Scope
 
-versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. Failure/abort handling задаётся явно, если reward при Quit Run ещё не описан.
+versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. `RunOutcome.Contributions["draft"].DraftTotals.BookCurrency` — уже начисленная при подборе пустых Книг валюта (DECISION-0020); перенос в профиль не создаёт повторную награду. DTO snapshot находится в Run, прямой dependency на Progression не требуется. Failure/abort handling задаётся явно, если reward при Quit Run ещё не описан.
 
 ## Out of Scope
 

@@ -35,6 +35,18 @@ namespace Game.ActiveSkill
             return _levels[level - 1];
         }
 
+        public override DraftOptionPreview CreateDraftPreview(int currentLevel, int nextLevel)
+        {
+            var current = currentLevel == 0 ? null : GetLevel(currentLevel);
+            var next = GetLevel(nextLevel);
+            return new DraftOptionPreview(currentLevel, nextLevel, new[]
+            {
+                new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage),
+                new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"),
+                new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count)
+            });
+        }
+
         // Only levels that opted into a distinct Visual get validated; levels
         // without one simply have no presentation asset to check yet.
         public IEnumerable<ContentReference> GetReferencedContent()

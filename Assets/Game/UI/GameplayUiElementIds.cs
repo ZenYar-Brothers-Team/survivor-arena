@@ -15,6 +15,10 @@ namespace Game.UI
         public const string Sets = "build-sets";
         public const string SetRecipeProgress = "development-set-recipes";
         public const string DraftOverlay = "draft-overlay";
+        public const string DraftHeading = "draft-heading";
+        public const string DraftQueue = "draft-queue";
+        public const string BookCurrency = "hud-book-currency";
+        public const string AddBookButton = "development-add-book";
         public const string DraftOptions = "draft-options";
         public const string DraftRerollButton = "draft-reroll";
         public const string DraftBanishCount = "draft-banish-count";
@@ -35,6 +39,7 @@ namespace Game.UI
         public const string HealButton = "development-heal";
         public const string EnemyObservation = "development-enemy-observation";
         public const string WaveObservation = "development-wave-observation";
+        public const string ExperienceObservation = "development-experience-observation";
         public const string StatsObservation = "development-stats-observation";
         public const string PresentationLiveButton = "development-presentation-live";
         public const string PresentationIdleButton = "development-presentation-idle";

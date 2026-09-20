@@ -68,9 +68,10 @@ namespace Game.Enemy.Tests
         [Test]
         public void Scaler_AppliesIndependentMultipliersAndKeepsIdentity()
         {
-            var attack = new EnemyAttackProfile(EnemyProjectilePattern.Fan, 4f, 2f, 3f, 3f, 3, 40f);
+            var controls = new Game.Combat.CombatControlProfile(1f, 0.15f);
+            var attack = new EnemyAttackProfile(EnemyProjectilePattern.Fan, 4f, 2f, 3f, 3f, 3, 40f, controls: controls);
             var movement = new EnemyMovementProfile(EnemyMovementKind.KeepDistance, 4f, 0.5f);
-            var source = new EnemyDefinition("FIXTURE-ENEMY-A", 10f, 1f, 2f, 3f, 1f, 1f, default, movement, attack);
+            var source = new EnemyDefinition("FIXTURE-ENEMY-A", 10f, 1f, 2f, 3f, 1f, 1f, default, movement, attack, 0.4f, controls);
 
             Assert.AreSame(source, WaveEnemyScaler.Apply(source, WaveEnemyModifiers.Identity));
 
@@ -83,6 +84,9 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(1f, scaled.Attack.Damage);
             Assert.AreEqual(EnemyProjectilePattern.Fan, scaled.Attack.Pattern);
             Assert.AreEqual(3, scaled.Attack.ProjectileCount);
+            Assert.AreEqual(0.4f, scaled.KnockbackResistance);
+            Assert.AreSame(controls, scaled.ContactControls);
+            Assert.AreSame(controls, scaled.Attack.Controls);
             Assert.AreSame(movement, scaled.Movement);
             Assert.IsNull(WaveEnemyScaler.Apply(WaveTestData.Enemy("FIXTURE-ENEMY-B"), new WaveEnemyModifiers(2f)).Attack);
         }

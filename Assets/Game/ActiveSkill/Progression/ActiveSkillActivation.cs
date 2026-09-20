@@ -1,3 +1,5 @@
+using System;
+using Game.Combat;
 using Game.Content;
 using Game.Enemy;
 using UnityEngine;
@@ -7,6 +9,9 @@ namespace Game.ActiveSkill
     public readonly struct ActiveSkillActivation
     {
         public ContentId SourceId { get; }
+        public CombatSource Source { get; }
+        public float OutgoingKnockbackMultiplier { get; }
+        public EnemyTargetLife TargetLife { get; }
         public int Level { get; }
         public Vector2 Origin { get; }
         public Vector2 AimDirection { get; }
@@ -24,9 +29,15 @@ namespace Game.ActiveSkill
             IEnemyDamageReceiver initialTarget,
             float damage,
             ActiveSkillLevelDefinition levelDefinition,
-            Transform ownerTransform)
+            Transform ownerTransform,
+            CombatIdentity owner = default,
+            float outgoingKnockbackMultiplier = 1f)
         {
             SourceId = sourceId;
+            Source = new CombatSource(owner, sourceId, CombatSourceOrigin.ActiveSkill, level);
+            NumericValidation.ValidateNonNegative(outgoingKnockbackMultiplier, nameof(outgoingKnockbackMultiplier));
+            OutgoingKnockbackMultiplier = outgoingKnockbackMultiplier;
+            TargetLife = new EnemyTargetLife(initialTarget);
             Level = level;
             Origin = origin;
             AimDirection = aimDirection.sqrMagnitude > Mathf.Epsilon ? aimDirection.normalized : Vector2.right;

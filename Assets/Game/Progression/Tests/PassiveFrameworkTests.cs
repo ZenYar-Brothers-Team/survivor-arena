@@ -7,6 +7,20 @@ namespace Game.Progression.Tests
     public class PassiveFrameworkTests
     {
         [Test]
+        public void Preview_ReportsPassiveBonusDeltaWithoutChangingLiveStats()
+        {
+            var definition = FixturePassiveCatalog.Create()[0];
+            var preview = definition.CreateDraftPreview(1, 2);
+            Assert.AreEqual(1, preview.CurrentLevel);
+            Assert.AreEqual(2, preview.NextLevel);
+            var hp = preview.Values[0];
+            Assert.AreEqual("Max HP", hp.Label);
+            Assert.AreEqual(10f, hp.Current, 0.001f);
+            Assert.AreEqual(20f, hp.Next, 0.001f);
+            Assert.AreEqual("%", hp.Unit);
+        }
+
+        [Test]
         public void PassiveUpgrade_ReplacesKeyedModifierAndPreservesHealthRatio()
         {
             var vitality = FixturePassiveCatalog.Create()[0];

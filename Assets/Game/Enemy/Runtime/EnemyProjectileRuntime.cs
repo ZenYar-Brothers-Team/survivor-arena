@@ -1,4 +1,5 @@
 using Game.Character;
+using Game.Combat;
 using Game.Movement;
 using Game.Pooling;
 using Game.Run;
@@ -25,17 +26,20 @@ namespace Game.Enemy
         private bool _despawned;
 
         public EnemyAttackProfile Profile => _profile;
+        public CombatSource Source { get; private set; }
 
         public void Initialize(
             EnemyAttackProfile profile,
             Vector2 direction,
             PlayerCharacterRuntime target,
             RunController runController,
-            GameObjectPool<EnemyProjectileRuntime> pool = null)
+            GameObjectPool<EnemyProjectileRuntime> pool = null,
+            CombatSource source = default)
         {
             _profile = profile ?? throw new System.ArgumentNullException(nameof(profile));
             _runController = runController != null ? runController : throw new System.ArgumentNullException(nameof(runController));
             _target = target;
+            Source = source;
             _pool = pool;
             _direction = direction.sqrMagnitude <= Mathf.Epsilon ? Vector2.right : direction.normalized;
             _lifetime = new EnemyProjectileLifetime(profile.ProjectileLifetimeSeconds);
@@ -62,7 +66,7 @@ namespace Game.Enemy
             if (!_initialized || _despawned || _runController.Model == null)
                 return;
             var state = _runController.Model.State;
-            if (state == RunState.Won || state == RunState.Lost)
+            if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped)
             {
                 Despawn();
                 return;
@@ -79,7 +83,7 @@ namespace Game.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!_initialized || _despawned || _target == null || other.gameObject != _target.gameObject)
+            if (!_initialized || _despawned || _runController.Model?.State != RunState.Running || _target == null || other.gameObject != _target.gameObject)
                 return;
             ApplyImpact(_body.position);
             Despawn();
@@ -89,12 +93,12 @@ namespace Game.Enemy
         {
             if (_target == null || _target.Health == null || _runController.Model == null)
                 return;
-            EnemyProjectileDamage.Apply(
-                _profile,
-                impactPosition,
-                _target.transform.position,
-                _target.Health,
-                _runController.Model.State);
+            if (_runController.Model.State != RunState.Running) return;
+            var radial = (Vector2)_target.transform.position - impactPosition;
+            if (_profile.Pattern == EnemyProjectilePattern.Explosive && radial.sqrMagnitude > _profile.ExplosionRadius * _profile.ExplosionRadius)
+                return;
+            var direction = _profile.Pattern == EnemyProjectilePattern.Explosive ? radial : _direction;
+            _target.ApplyDamage(new CombatDamageRequest(Source, _profile.Damage, _profile.Controls, direction.x, direction.y));
         }
 
         public void Despawn()

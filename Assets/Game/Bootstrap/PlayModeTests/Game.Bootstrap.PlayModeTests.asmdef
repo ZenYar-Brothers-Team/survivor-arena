@@ -10,7 +10,9 @@
         "Game.UI",
         "Game.Character",
         "Game.Presentation",
-        "UnityEngine.TestRunner"
+        "UnityEngine.TestRunner",
+        "Game.Combat",
+        "Game.Pooling"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

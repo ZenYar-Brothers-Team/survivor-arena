@@ -18,11 +18,13 @@ namespace Game.Movement
 
         private Rigidbody2D _rigidbody;
         private IMovementSpeedSource _speedSource;
+        private IAdditionalMovementSource _additionalMovement;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _speedSource = GetComponent<IMovementSpeedSource>();
+            _additionalMovement = GetComponent<IAdditionalMovementSource>();
 
             if (spawnPoint != null)
                 transform.position = spawnPoint.position;
@@ -45,7 +47,8 @@ namespace Game.Movement
             var isRunning = runController.Model.State == RunState.Running;
             var speed = _speedSource != null ? _speedSource.MovementSpeed : 0f;
 
-            _rigidbody.linearVelocity = MovementVelocityCalculator.Calculate(rawInput, speed, isRunning);
+            var additional = _additionalMovement?.TickAdditionalMovement(Time.fixedDeltaTime, isRunning) ?? Vector2.zero;
+            _rigidbody.linearVelocity = MovementVelocityCalculator.Calculate(rawInput, speed, isRunning) + additional;
         }
     }
 }

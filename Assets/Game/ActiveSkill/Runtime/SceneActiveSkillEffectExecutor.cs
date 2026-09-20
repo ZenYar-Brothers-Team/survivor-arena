@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Combat;
 using Game.Diagnostics;
 using Game.Enemy;
 using Game.Movement;
@@ -24,7 +25,8 @@ namespace Game.ActiveSkill
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
         private readonly List<ScheduledEffect> _scheduled = new List<ScheduledEffect>();
         private readonly List<MineState> _mines = new List<MineState>();
-        private readonly List<EnemyRuntime> _enemyBuffer = new List<EnemyRuntime>();
+        private readonly List<IEnemyDamageReceiver> _enemyBuffer = new List<IEnemyDamageReceiver>();
+        private readonly ICombatTargetQuery _targets;
         private readonly HashSet<IEnemyDamageReceiver> _chainHitBuffer = new HashSet<IEnemyDamageReceiver>();
         private readonly Transform _minePoolRoot;
         private readonly GameObjectPool<SpriteRenderer> _minePool;
@@ -34,12 +36,14 @@ namespace Game.ActiveSkill
 
         public SceneActiveSkillEffectExecutor(
             RunController runController,
-            IActiveSkillProjectileLauncher projectileLauncher = null)
+            IActiveSkillProjectileLauncher projectileLauncher = null,
+            ICombatTargetQuery targets = null)
         {
             _runController = runController != null
                 ? runController
                 : throw new ArgumentNullException(nameof(runController));
             _projectileLauncher = projectileLauncher ?? new SceneProjectileLauncher(runController);
+            _targets = targets ?? new SceneCombatTargetQuery();
             _minePoolRoot = new GameObject("Mine Pool").transform;
             _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
         }
@@ -192,11 +196,11 @@ namespace Game.ActiveSkill
         private void ExecuteBeamTick(ScheduledEffect scheduled, BeamEffect effect)
         {
             var direction = scheduled.Activation.AimDirection;
-            if (effect.TracksTarget && scheduled.Activation.InitialTarget != null && scheduled.Activation.InitialTarget.IsAlive)
+            if (effect.TracksTarget && scheduled.Activation.TargetLife.IsAlive)
                 direction = (scheduled.Activation.InitialTarget.Position - scheduled.Activation.Origin).normalized;
 
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
-            EnemyRegistry.CopyAliveTo(_enemyBuffer);
+            _targets.CopyAliveTo(_enemyBuffer);
             for (var i = 0; i < _enemyBuffer.Count; i++)
             {
                 var enemy = _enemyBuffer[i];
@@ -206,7 +210,7 @@ namespace Game.ActiveSkill
                     continue;
                 var perpendicular = Mathf.Abs(direction.x * offset.y - direction.y * offset.x);
                 if (perpendicular <= effect.Width * 0.5f)
-                    enemy.ApplyDamage(damage);
+                    enemy.ApplyDamage(damage.WithDirection(direction.x, direction.y));
             }
         }
 
@@ -229,9 +233,10 @@ namespace Game.ActiveSkill
 
         private void ExecuteChain(ScheduledEffect scheduled, ChainEffect effect)
         {
-            EnemyRegistry.CopyAliveTo(_enemyBuffer);
+            _targets.CopyAliveTo(_enemyBuffer);
             _chainHitBuffer.Clear();
-            IEnemyDamageReceiver current = scheduled.Activation.InitialTarget;
+            IEnemyDamageReceiver current = scheduled.Activation.TargetLife.IsAlive ? scheduled.Activation.InitialTarget : null;
+            var previousPosition = scheduled.Activation.Origin;
             var damageAmount = scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effect.DamageMultiplier;
 
             for (var jump = 0; jump < effect.TargetCount; jump++)
@@ -240,7 +245,9 @@ namespace Game.ActiveSkill
                     break;
 
                 var currentPosition = current.Position;
-                current.ApplyDamage(new EnemyDamageRequest(scheduled.Activation.SourceId, damageAmount));
+                var direction = currentPosition - previousPosition;
+                current.ApplyDamage(CreateDamage(scheduled, effect.DamageMultiplier).WithAmount(damageAmount).WithDirection(direction.x, direction.y));
+                previousPosition = currentPosition;
                 damageAmount *= effect.DamageRetentionPerJump;
 
                 IEnemyDamageReceiver next = null;
@@ -298,7 +305,7 @@ namespace Game.ActiveSkill
         private void TickMines(float deltaTime)
         {
             using var minesGuard = PerfGuard.Measure("SceneActiveSkillEffectExecutor.TickMines", TickMinesWarningMilliseconds);
-            EnemyRegistry.CopyAliveTo(_enemyBuffer);
+            _targets.CopyAliveTo(_enemyBuffer);
             for (var i = _mines.Count - 1; i >= 0; i--)
             {
                 var mine = _mines[i];
@@ -338,9 +345,11 @@ namespace Game.ActiveSkill
 
         private static EnemyDamageRequest CreateDamage(ScheduledEffect scheduled, float effectMultiplier)
         {
-            return new EnemyDamageRequest(
-                scheduled.Activation.SourceId,
-                scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effectMultiplier);
+            return new EnemyDamageRequest(new CombatDamageRequest(
+                scheduled.Activation.Source,
+                scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effectMultiplier,
+                scheduled.Wave.Controls,
+                outgoingKnockbackMultiplier: scheduled.Activation.OutgoingKnockbackMultiplier));
         }
 
         public void Dispose()

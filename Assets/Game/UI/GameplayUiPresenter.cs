@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -29,6 +31,7 @@ namespace Game.UI
             _view.DraftBanishRequested += HandleDraftBanishRequested;
             _view.PauseRequested += HandlePauseRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
+            _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
             _view.ApplyHealingRequested += HandleApplyHealingRequested;
             _view.PresentationMotionPreviewRequested += HandlePresentationMotionPreviewRequested;
@@ -51,7 +54,8 @@ namespace Game.UI
                     _model.WavePhaseCount,
                     _model.WavePhaseName,
                     _model.WavePhaseTag),
-                _model.DevelopmentCommandsEnabled ? _model.Stats : null));
+                _model.DevelopmentCommandsEnabled ? _model.Stats : null,
+                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
@@ -171,7 +175,7 @@ namespace Game.UI
                 return new DraftViewState(false, _model.RemainingRerolls, _model.RemainingBanishes, Array.Empty<DraftOptionViewState>());
 
             var source = _model.DraftOptions;
-            var options = new DraftOptionViewState[source.Count];
+            var options = new DraftOptionViewState[3];
             for (var i = 0; i < source.Count; i++)
             {
                 var option = source[i];
@@ -182,11 +186,25 @@ namespace Game.UI
                     BuildEntryKind.Set => "Set",
                     _ => "Unknown"
                 };
-                var detail = option.IsUpgrade ? $"{type} · level {option.ResultingLevel}" : $"{type} · new";
-                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail);
+                var detail = new StringBuilder(option.IsUpgrade
+                    ? $"{type} · level {option.Preview.CurrentLevel} → {option.Preview.NextLevel}"
+                    : $"{type} · new");
+                foreach (var value in option.Preview.Values)
+                    detail.Append("\n").Append(value.Label).Append(": ")
+                        .Append(value.Current.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit)
+                        .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
+                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString());
             }
 
-            return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes, options);
+            for (var i = source.Count; i < options.Length; i++)
+                options[i] = new DraftOptionViewState(default, "No available option", "", false);
+            var request = _model.CurrentDraftRequest;
+            var heading = request?.Origin == DraftOrigin.Book ? "TRAVELER BOOK" :
+                request?.EarnedLevel != null ? $"LEVEL UP · {request.EarnedLevel}" : "LEVEL UP";
+            var next = _model.NextDraftRequest;
+            var queue = next == null ? "" : $"Next: {(next.Origin == DraftOrigin.Book ? "Traveler Book" : $"Level {next.EarnedLevel}")} · {_model.PendingDraftCount - 1} queued";
+            return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes,
+                options, _model.DraftRevision, heading, queue);
         }
 
         private RunOverlayViewState BuildRunOverlayState()
@@ -200,21 +218,21 @@ namespace Game.UI
             return new RunOverlayViewState(false, string.Empty, false);
         }
 
-        private void HandleDraftOptionSelected(Game.Content.ContentId id)
+        private void HandleDraftOptionSelected(Game.Content.ContentId id, Guid revision)
         {
-            _model.SelectDraftOption(id);
+            _model.SelectDraftOption(id, revision);
             RefreshAll();
         }
 
-        private void HandleDraftRerollRequested()
+        private void HandleDraftRerollRequested(Guid revision)
         {
-            _model.RerollDraft();
+            _model.RerollDraft(revision);
             RefreshAll();
         }
 
-        private void HandleDraftBanishRequested(Game.Content.ContentId id)
+        private void HandleDraftBanishRequested(Game.Content.ContentId id, Guid revision)
         {
-            _model.BanishDraftOption(id);
+            _model.BanishDraftOption(id, revision);
             RefreshAll();
         }
 
@@ -228,6 +246,11 @@ namespace Game.UI
         {
             if (_model.DevelopmentCommandsEnabled)
                 _model.AddFixtureExperience();
+        }
+
+        private void HandleAddBookRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled) _model.AddFixtureBook();
         }
 
         private void HandleApplyDamageRequested()
@@ -264,6 +287,7 @@ namespace Game.UI
             _view.DraftBanishRequested -= HandleDraftBanishRequested;
             _view.PauseRequested -= HandlePauseRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
+            _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;
             _view.ApplyHealingRequested -= HandleApplyHealingRequested;
             _view.PresentationMotionPreviewRequested -= HandlePresentationMotionPreviewRequested;

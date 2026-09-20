@@ -13,6 +13,9 @@ namespace Game.Progression
         public virtual int LevelCap => MaxLevel;
         public virtual float DraftChance => 1f;
 
+        public virtual DraftOptionPreview CreateDraftPreview(int currentLevel, int nextLevel) =>
+            new DraftOptionPreview(currentLevel, nextLevel);
+
         public BuildEntryDefinition(ContentId id, BuildEntryKind kind, string displayName)
         {
             if (!id.IsValid)

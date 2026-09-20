@@ -46,7 +46,7 @@ Effect→parameter applicability matrix и code/test trace до 016; синхр�
 
 ## Gates и недостающие решения
 
-G-08/G-09: applicability speed/size/range/snapshot. G-04 return disc уточняется только если выбранное решение меняет SKILL-008; не выдумывать return внутри framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017: использовать утверждённый map и snapshot при активации. G-04 return disc уточняется только для затронутого SKILL-008/SET-002; не выдумывать return внутри framework. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

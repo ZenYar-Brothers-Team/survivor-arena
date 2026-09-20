@@ -1,3 +1,5 @@
+using Game.Combat;
+
 namespace Game.Enemy.Json
 {
     // No tuning defaults live here: projectile count and radius are always required, and
@@ -6,6 +8,7 @@ namespace Game.Enemy.Json
     // step, explosion radius) are only meaningful when the pattern uses them.
     public sealed class EnemyAttackProfileData
     {
+        public CombatControlData Controls { get; set; }
         public string Pattern { get; set; }
         public float Damage { get; set; }
         public float CooldownSeconds { get; set; }

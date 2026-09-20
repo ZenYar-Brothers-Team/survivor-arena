@@ -1,5 +1,6 @@
 using System;
 using Game.Character;
+using Game.Combat;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
@@ -15,7 +16,8 @@ namespace Game.Enemy
             PlayerCharacterRuntime target,
             RunController runController,
             Transform parent = null,
-            GameObjectPool<EnemyProjectileRuntime> pool = null)
+            GameObjectPool<EnemyProjectileRuntime> pool = null,
+            CombatSource source = default)
         {
             if (profile == null)
                 throw new ArgumentNullException(nameof(profile));
@@ -25,7 +27,7 @@ namespace Game.Enemy
             var runtime = pool != null ? pool.Rent() : CreateInstance();
             runtime.transform.SetParent(parent, false);
             runtime.transform.position = position;
-            runtime.Initialize(profile, direction, target, runController, pool);
+            runtime.Initialize(profile, direction, target, runController, pool, source);
             return runtime;
         }
 

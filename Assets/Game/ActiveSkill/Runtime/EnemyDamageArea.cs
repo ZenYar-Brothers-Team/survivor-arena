@@ -27,7 +27,8 @@ namespace Game.ActiveSkill
                 {
                     if (colliders[i] == null) continue;
                     var receiver = colliders[i].GetComponentInParent<IEnemyDamageReceiver>();
-                    ApplyOnce(receiver, damage, damaged);
+                    var radial = receiver != null ? receiver.Position - center : Vector2.zero;
+                    ApplyOnce(receiver, damage.WithDirection(radial.x, radial.y), damaged);
                 }
                 return damaged.Count;
             }

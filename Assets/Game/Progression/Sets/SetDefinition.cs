@@ -19,9 +19,7 @@ namespace Game.Progression
             params SetRecipeComponent[] recipe)
             : base(id, BuildEntryKind.Set, displayName)
         {
-            NumericValidation.ValidatePositive(draftChance, nameof(draftChance));
-            if (draftChance > 1f)
-                throw new ArgumentOutOfRangeException(nameof(draftChance), "Set draft chance cannot exceed one.");
+            NumericValidation.ValidateRange(draftChance, 0f, 1f, nameof(draftChance));
             if (recipe == null || recipe.Length == 0)
                 throw new ArgumentException("Set recipe requires at least one component.", nameof(recipe));
 

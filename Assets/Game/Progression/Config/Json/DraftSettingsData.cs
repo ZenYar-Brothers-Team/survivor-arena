@@ -6,5 +6,6 @@ namespace Game.Progression.Json
         public int? Seed { get; set; }
         public int? InitialRerolls { get; set; }
         public int? InitialBanishes { get; set; }
+        public int? EmptyBookCurrency { get; set; }
     }
 }
