@@ -42,6 +42,8 @@ Presenter fake model/view, UXML/USS IDs, PlayMode geometry/focus/queued drafts; 
 
 ## Документационные изменения
 
+IP-31 расширяет bounded DEV drawer вкладкой Playtest: `development-tab-playtest`, `development-pane-playtest`, `playtest-summary/note/marker/export`. Отдельные immutable PlaytestViewState/presenter intents принадлежат IP-31; foundation сохраняет collapsed/release gating и changed-state rendering.
+
 Component/state/semantic contracts, approved UI section links, dependency consumers и tests; .claude UI rules remain.
 
 ### Контракт компонентов

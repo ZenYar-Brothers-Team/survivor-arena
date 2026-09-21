@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
-Current active module: none (IP-10A completed)
-Next Ready module: IP-31 (retained user stop boundary; do not start)
+Current active module: IP-31 (implementation complete; human manual verification pending)
+Next Ready module: IP-32 (no automatic continuation)
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -13,9 +13,11 @@ M-01: зарегистрирован принятый план и выполне
 
 ## Граница текущего продолжения
 
-IP-01, IP-03…IP-10/IP-10A проверены для design-sync-R2; IP-00/IP-02 сохранены. Последняя проверка 2026-09-21: 383/383 Game.* EditMode, 3/3 PlayMode, 0 skipped (Unity 6000.6.0f1); ограничение post-results teardown — в IP-10A evidence. G-01/G-03 draft semantics закрыты DECISION-0019/0020: uniform set backfill, общая очередь, только пустая при подборе Книга немедленно начисляет валюту. Production сумма и pickup content не объявлены готовыми.
+IP-01, IP-03…IP-10/IP-10A проверены для design-sync-R2; IP-00/IP-02 сохранены. Последняя проверка 2026-09-21: 407/407 Game.* EditMode, 4/4 PlayMode, 0 skipped (Unity 6000.6.0f1); teardown defect исправлен в IP-31, см. его evidence. G-01/G-03 draft semantics закрыты DECISION-0019/0020: uniform set backfill, общая очередь, только пустая при подборе Книга немедленно начисляет валюту. Production сумма и pickup content не объявлены готовыми.
 
-IP-10A завершён: reusable cards, HUD/Pause, projection contract и fake-state harness. Следующий Ready — IP-31, но граница остановки перед ним сохраняется; автоматически не продолжать. IP-11 также Ready для framework fixtures; IP-12 требует baseline/significant-modifier metadata G-15. IP-13 находится за границей остановки.
+IP-10A завершён: reusable cards, HUD/Pause, projection contract и fake-state harness. Пользователь 2026-09-21 явно снял границу перед IP-31 и разрешил выполнить этот модуль. Разрешение не распространяется на автоматическое выполнение следующих IP. IP-11 также Ready для framework fixtures; IP-12 требует baseline/significant-modifier metadata G-15.
+
+IP-31 реализован и прошёл automated checks; для Verified нужен один реальный ручной run с report/feedback. IP-32 Ready по зависимости Implemented; synthetic packet не считается ручным наблюдением и не разрешает tuning. Следующий модуль автоматически не начинать.
 
 ## Execution order
 
@@ -221,19 +223,21 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-10a
 
 ### IP-31 — Локальная телеметрия ручных прогонов
 
-Status: Ready
+Status: Implemented
 Dependencies: IP-01, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-10, IP-10A
-Remaining gates: Нет зависимости от production approval, полного art/UI/meta или новых encounters. Capabilities явно ограничены поставленными producers; diagnostic config budgets фиксируются до implementation.
-Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-31-manual-run-telemetry.md).
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Current packet: Bounded local recorder, immutable JSON/summary/feedback export, provenance/capabilities, Playtest UI, feature-owned producers и ordered composition teardown.
+Remaining gates: Нет product gates для реализации; отсутствующие boss/Traveler/meta/set-effect/character-detail adapters явно unsupported.
+Remaining acceptance / IDs: Один реальный ручной прогон с связанными report/feedback и observed-vs-expected комментарием; synthetic smoke его не заменяет.
+Target implementation evidence: [IP-31 evidence](evidence/design-sync-R2-2026-09-21-ip31.md#ip-31), [schema/metric dictionary](PLAYTEST_REPORT.md).
+Target verification evidence: 2026-09-21, Unity 6000.6.0f1: 407/407 Game.* EditMode, 4/4 PlayMode, 0 skipped; snapshots 1920×1080/1280×720. Human manual run не выполнен, поэтому не Verified.
+Documentation impact: Schema/retention/capabilities, BALANCE_WORKFLOW, IP-01/IP-04/IP-06/IP-07/IP-10A/IP-31 contracts, regression-map и readiness. DECISION-0023 Proposed: technical ownership/teardown; GDD/CD и баланс не менялись.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-31).
 
 ### IP-32 — Ручные прогоны и AI-assisted balance review
 
-Status: Blocked
+Status: Ready
 Dependencies: IP-31
-Blocked by: IP-31 (Ready, target scope).
+Current packet: Workflow/templates и fixture review; IP-31 Implemented обеспечивает local packet. До получения human report synthetic evidence не выдаётся за ручные наблюдения.
 Remaining gates: BG-01 для применения конкретных чисел/механик; отсутствие product target отмечается, а не заполняется AI.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-32-manual-ai-balance.md).
 Target implementation evidence: Нет для новых требований.
@@ -463,7 +467,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-11 (Ready, target scope), IP-12 (Blocked, target scope), IP-12A (Blocked, target scope), IP-13 (Ready, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope), IP-31 (Ready, target scope), IP-32 (Blocked, target scope).
+Blocked by: IP-11 (Ready, target scope), IP-12 (Blocked, target scope), IP-12A (Blocked, target scope), IP-13 (Ready, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope), IP-31 (Implemented; human manual check pending), IP-32 (Ready, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

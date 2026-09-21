@@ -22,6 +22,10 @@
 
 Optional development recorder потребляет RunOutcome IP-01, per-life events IP-04, source/applied-damage contract IP-05 и XP/draft producers IP-06/IP-07/IP-10. Versioned JSON report + readable summary + tester notes; config/build provenance, aggregate counters и bounded timeline; main-thread aggregation, export sink вне hot path, no-op/disabled release recorder. IP-31 не владеет mandatory player Results и не вводит combat mechanics. Boss/wave/set/Traveler/meta producers подключаются по мере готовности их owners, capabilities честно отражают coverage; полный encounter integration проверяет IP-27. Подробный формат — [balance loop](../BALANCE_WORKFLOW.md).
 
+## Diagnostic delivery budgets
+
+До реализации зафиксированы технические лимиты v1 (не gameplay balance): 2048 timeline entries, 256 combat aggregate keys, 4096 deduplication identities, 512 символов на annotation/detail, 8 MiB на JSON export. При заполнении сохраняется начало timeline, новые события/keys отклоняются с dropped counters; deduplication не вытесняет старые IDs. Export превышающий byte budget возвращает ошибку, не Success. Config snapshots ограничены 2 MiB. Нет per-frame samples. Aggregation main-thread-only; файловый sink выполняется на worker после immutable snapshot. Output: `Application.persistentDataPath/Playtests/<reportId>/`; автоматического удаления нет, retention — ручное удаление tester-ом. Feedback при повторном export сохраняется. Release не создаёт recorder/подписок. Finalization выполняется после возврата синхронных combat callbacks, export вне hit handler.
+
 ## Out of Scope
 
 remote backend, automatic upload/LLM API, боты, полный deterministic replay, per-frame/per-hit unbounded combat log, научная значимость одной сессии, production analytics consent/UI.
@@ -41,6 +45,8 @@ remote backend, automatic upload/LLM API, боты, полный deterministic r
 synthetic known outcomes/counter totals, overkill/heal/expiry/recovery, pause/end/abort, duplicate events, pool reuse, repeated init/rollback, snapshot/hash determinism, fake filesystem failure, no-op sink, bounded load/perf. Обязательно lethal hit → synchronous death/pool return до возврата applied amount, delayed projectile после despawn источника и его skill level-up: identity/level фиксируются до мутации. Release/no-recorder всё ещё имеет корректный RunOutcome. Один реальный manual run связывает report и комментарий. Synthetic tests не доказывают balance quality.
 
 ## Документационные изменения
+
+Delivery format, dictionary, paths/retention и manual instructions: [PLAYTEST_REPORT](../PLAYTEST_REPORT.md). Межслойные producer/teardown решения: [DECISION-0023](../../decisions/0023-local-playtest-recorder.md), Proposed для architecture review; продуктовые правила не изменены.
 
 Run-report schema/metric dictionary, local output/retention, capability/version coverage и performance evidence. IP-32 анализирует report; IP-27 проверяет full integration. Feature owners не зависят от IP-31 для gameplay: они публикуют собственные факты, recorder лишь потребитель.
 

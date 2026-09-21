@@ -42,6 +42,8 @@ Pickup/expiry/recovery including >0, modifiers, radius change before/after spawn
 
 ## Документационные изменения
 
+IP-31 observability extension: `DroppedBase` увеличивается только при новой регистрации drop, `GroundBase` уменьшается при снятии зарегистрированного drop. Reset — при Initialize; cleanup не начисляет XP. Collector получает эти totals отдельно от collected/expired/recovered awards, без per-frame scan. [Metric dictionary](../PLAYTEST_REPORT.md).
+
 XP units/base-vs-award dictionary, fixture curve rationale; IP-07/IP-09/IP-31 use producer events.
 
 ## Gates и недостающие решения

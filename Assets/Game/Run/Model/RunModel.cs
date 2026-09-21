@@ -24,6 +24,8 @@ namespace Game.Run
         public event Action Lost;
         public event Action<RunState> StateChanged;
         public event Action<RunOutcome> Completed;
+        /// <summary>Accepted pause ownership transitions, including additional reasons while paused.</summary>
+        public event Action<string, bool> PauseChanged;
 
         public RunModel(float duration = DefaultDurationSeconds)
         {
@@ -58,6 +60,7 @@ namespace Game.Run
                 return false;
             if (State == RunState.Running)
                 SetState(RunState.Paused);
+            PauseChanged?.Invoke(reason, true);
             return true;
         }
 
@@ -69,6 +72,7 @@ namespace Game.Run
                 return false;
             if (State == RunState.Paused && _pauseReasons.Count == 0)
                 SetState(RunState.Running);
+            PauseChanged?.Invoke(reason, false);
             return true;
         }
 

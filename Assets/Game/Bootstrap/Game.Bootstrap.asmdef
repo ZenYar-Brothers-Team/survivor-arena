@@ -10,7 +10,10 @@
         "Game.ActiveSkill",
         "Game.UI",
         "Game.Presentation",
-        "Game.Combat"
+        "Game.Combat",
+        "Game.Telemetry",
+        "Game.Content.Json",
+        "Newtonsoft.Json"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

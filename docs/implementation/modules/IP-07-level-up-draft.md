@@ -42,6 +42,8 @@ Full 6+6, levels 1→6, 0/1/2/3 eligible, truly empty pool/only-set miss с до
 
 ## Документационные изменения
 
+IP-31 observability extension: `RequestQueued` публикует accepted queue identity; `ControlAttempted` — success/failure, request/revision и banished ID до смены offer. Outcome capture отдельно копирует acquired sets из Build. Recorder только подписчик, не participant RNG/rewards. [Metric dictionary](../PLAYTEST_REPORT.md).
+
 Уточнение empty/short/Book rules и queue ordering; bidirectional contracts с IP-10/IP-11/IP-12/IP-28; historical evidence отдельно.
 
 ## Gates и недостающие решения

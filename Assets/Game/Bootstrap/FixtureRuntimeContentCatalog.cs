@@ -6,6 +6,8 @@ using Game.Content;
 using Game.Enemy;
 using Game.Presentation;
 using Game.Progression;
+using Game.Content.Json;
+using System.Collections.ObjectModel;
 
 namespace Game.Bootstrap
 {
@@ -27,6 +29,8 @@ namespace Game.Bootstrap
         public RunSetupConfig RunSetup { get; }
         public CharacterRoster Characters { get; }
         public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
+        /// <summary>Exact resource bytes retained with the cached catalog, not re-read on later runs.</summary>
+        public IReadOnlyDictionary<string, string> SourceSnapshot { get; }
 
         private FixtureRuntimeContentCatalog(
             ContentRegistry registry,
@@ -50,6 +54,13 @@ namespace Game.Bootstrap
             WaveTimeline = waveTimeline;
             Characters = characters;
             SpriteMotionProfiles = spriteMotionProfiles;
+            var sources = new Dictionary<string, string>(System.StringComparer.Ordinal);
+            foreach (var path in new[] { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
+                "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Waves/FixtureWaveTimeline",
+                "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters",
+                "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites" })
+                sources.Add(path, JsonContentFile.ReadText(path));
+            SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
         }
 
         public static FixtureRuntimeContentCatalog Create()

@@ -4,6 +4,8 @@
 
 ## Первая поставка
 
+Формат v1, metric dictionary, output/retention и инструкция tester-у: [PLAYTEST_REPORT](PLAYTEST_REPORT.md).
+
 Достаточно локального набора из `run.json`, краткого `summary.md` и `feedback.md`. Тестировщик прикладывает их к задаче AI или указывает локальные пути. Не нужны backend, бот, online dashboard, LLM API, автоматическая загрузка, optimizer, Google Sheets или игровой чат с AI.
 
 Сначала провести такой цикл на уже работающем fixture build. Это проверяет измерения и процесс; fixture-результат не объявляется балансом утверждённого production roster. Можно собирать комментарии ещё до IP-31, явно отмечая отсутствующие метрики. IP-31 не ждёт Travelers, meta, расширенных сетов и массового арта. Сначала нужен обновлённый core/event contract IP-01/IP-04/IP-05/IP-06/IP-07/IP-08 и UI harness; очередь исполнения ставит recorder сразу после этого среза, до encounter/production работ.
@@ -78,7 +80,7 @@
 
 ## Известные ограничения текущей реализации
 
-- `EnemyDamageRequest` уже содержит SourceId, но `EnemyRuntime.ApplyDamage` теряет attribution на пути к `Health`; projectile атак врагов имеет profile без enemy ID. Source/result boundary дорабатывается в IP-05, per-life producer — в IP-04; IP-31 подключает recorder к этим событиям, а не создаёт второй combat pipeline.
+- Source/result boundary IP-05 сохраняет immutable source/level/target identity до Health callbacks; IP-31 потребляет его через player/spawner adapters. Прямые вызовы Health вне adapters остаются uninstrumented. Recorder не создаёт второй combat pipeline.
 - Draft и wave selection имеют seeded RNG, но позиции спавна используют `UnityEngine.Random.insideUnitCircle` (TD-024). В отчёте указать это; сохранение seed не гарантирует одинаковый run.
 - `EnemyRegistry` и часть skill queries привязаны к EnemyRuntime; boss/Traveler targeting needs explicit adapter coverage в IP-05/IP-08 с конкретной интеграцией IP-15/IP-29.
 - `FixtureSetExtraAbility` демонстрирует lifecycle, не новые production set effects. Метрики этих effects появляются вместе с IP-11/IP-19.

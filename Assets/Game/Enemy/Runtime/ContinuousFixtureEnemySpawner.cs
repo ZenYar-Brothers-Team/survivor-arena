@@ -33,6 +33,9 @@ namespace Game.Enemy
         private int _kills;
 
         public string Key => "ordinary-enemy-kills";
+        /// <summary>Feature-owned facts; optional observers do not participate in spawn/reward decisions.</summary>
+        public event System.Action<EnemyLifeEvent> LifeEvent;
+        public event System.Action<Game.Combat.CombatResult> CombatResolved;
         public EnemyLifeEvent LastLifeEvent { get; private set; }
 
         public int AliveCount => _aliveEnemies.Count;
@@ -122,8 +125,11 @@ namespace Game.Enemy
                 _projectilePool,
                 this);
             enemy.Despawned += HandleEnemyDespawned;
+            enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
         }
+
+        private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
 
         private void HandleEnemyDespawned(EnemyRuntime enemy)
         {
@@ -136,6 +142,7 @@ namespace Game.Enemy
             LastLifeEvent = snapshot;
             if (snapshot.Kind == EnemyLifeEventKind.Died && snapshot.Category == EnemyCategory.Ordinary) _kills++;
             _lifecycleSink?.OnEnemyLifeEvent(snapshot);
+            LifeEvent?.Invoke(snapshot);
         }
 
         public RunOutcomeContribution Capture() => new RunOutcomeContribution(kills: _kills);
@@ -156,6 +163,7 @@ namespace Game.Enemy
                     continue;
 
                 enemy.Despawned -= HandleEnemyDespawned;
+                enemy.CombatResolved -= ForwardCombat;
                 enemy.Despawn();
             }
             _director = null;
@@ -163,6 +171,8 @@ namespace Game.Enemy
             _outcomeOwner?.UnregisterOutcomeContributor(this);
             _outcomeOwner = null;
             _lifecycleSink = null;
+            LifeEvent = null;
+            CombatResolved = null;
             _initialized = false;
         }
 

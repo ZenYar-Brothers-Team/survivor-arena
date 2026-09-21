@@ -11,7 +11,8 @@
         "Game.Presentation",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Game.Combat"
+        "Game.Combat",
+        "Game.Telemetry"
     ],
     "includePlatforms": [
         "Editor"

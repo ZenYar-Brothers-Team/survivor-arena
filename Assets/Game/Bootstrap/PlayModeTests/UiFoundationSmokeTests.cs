@@ -96,6 +96,18 @@ namespace Game.Bootstrap.PlayModeTests
                         Assert.LessOrEqual(dev.width, size.x * 0.25f);
                         Assert.LessOrEqual(dev.height, size.y * 0.45f);
                     }
+                    Submit(root.Q<Button>(GameplayUiElementIds.DevelopmentPlaytestTab));
+                    using (var playtest = new UiToolkitPlaytestView(root))
+                    {
+                        playtest.Render(new PlaytestViewState(true, "Recording\nSession: fixture\nDropped: 0"));
+                        root.Q<TextField>(GameplayUiElementIds.PlaytestNote).value = "Fixture observation for layout verification";
+                        yield return null; yield return null;
+                        var export = root.Q<Button>(GameplayUiElementIds.PlaytestExport).worldBound;
+                        Assert.Greater(export.width, 0);
+                        Assert.LessOrEqual(export.xMax, dev.xMax);
+                        Assert.LessOrEqual(export.yMax, dev.yMax);
+                        Capture(target, $"ip31-playtest-{size.x}x{size.y}");
+                    }
                     view.SetDevelopmentControlsVisible(false);
                     Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.DevelopmentPanel).style.display.value);
                 }

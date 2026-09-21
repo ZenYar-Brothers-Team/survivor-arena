@@ -46,6 +46,8 @@ RunOutcome/time/terminal contract; обновлённый IP-01/evidence пос�
 
 ### Контракт реализации
 
+IP-31 observability extension: `PauseChanged(reason, added)` отражает accepted ownership transitions, включая дополнительные причины уже активной паузы. `RunOutcomeContribution.Sets` — nullable immutable acquired-set snapshots, отдельно от Build. GameplayCompositionRoot завершает run и снимает consumers в обратном порядке до очистки character/Health; diagnostic export не является prerequisite. См. [DECISION-0023](../../decisions/0023-local-playtest-recorder.md).
+
 `RunModel.RunId` уникален для экземпляра session; `Outcome` доступен в обычной сборке. При завершении модель один раз копирует immutable вклады `IRunOutcomeContributor`, затем публикует `StateChanged`, прежний `Won`/`Lost` и `Completed`. Незаполненные nullable поля и отсутствующие producer keys означают unavailable; известные ноль и пустой build отличаются от отсутствующих данных. Ошибка capture отмечается ключом в `FailedContributors` и не мешает остановить simulation. Подключение настоящих kills/XP/build producers выполняют owning IP; IP-01 проверяет границу fake producers.
 
 `Stop(Aborted/Retry/Error)` переводит session в технический `Stopped`, не вызывает Won/Lost и не определяет право на награды. Завершённый outcome больше не заменяется. `RunController.Shutdown()` останавливает session, сохраняет результат для чтения и идемпотентен; следующий `Initialize()` создаёт новый RunModel/RunId без пауз, contributors и подписок предыдущего забега. Координатор следующего забега должен сначала завершить session и снять подписки consumers, затем переинициализировать controller и заново связать consumers. Полный scene/world reset и Retry остаются IP-26.

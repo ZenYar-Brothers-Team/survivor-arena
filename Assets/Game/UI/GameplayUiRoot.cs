@@ -7,6 +7,7 @@ using Game.Presentation;
 using Game.Run;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Game.Telemetry;
 
 namespace Game.UI
 {
@@ -21,6 +22,8 @@ namespace Game.UI
         private GameplayUiRuntimeModel _model;
         private UiToolkitGameplayView _view;
         private GameplayUiPresenter _presenter;
+        private PlaytestPresenter _playtestPresenter;
+        private UiToolkitPlaytestView _playtestView;
         private float _hudRefreshRemaining;
         private bool _initialized;
 
@@ -42,7 +45,8 @@ namespace Game.UI
             RunController run,
             SpritePresentationRuntime presentation,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
-            ContinuousFixtureEnemySpawner enemySpawner = null)
+            ContinuousFixtureEnemySpawner enemySpawner = null,
+            IPlaytestSession playtest = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -81,6 +85,8 @@ namespace Game.UI
                 enemySpawner);
             _presenter = new GameplayUiPresenter(_model, _view);
             _presenter.Start();
+            _playtestView = new UiToolkitPlaytestView(_document.rootVisualElement);
+            _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);
             _initialized = true;
         }
 
@@ -93,6 +99,7 @@ namespace Game.UI
                 return;
             _hudRefreshRemaining = HudRefreshIntervalSeconds;
             _presenter.RefreshHud();
+            _playtestPresenter.Refresh();
         }
 
         public void Shutdown()
@@ -101,6 +108,8 @@ namespace Game.UI
                 return;
 
             _presenter?.Dispose();
+            _playtestPresenter?.Dispose();
+            _playtestView?.Dispose();
             _view?.Dispose();
             _model?.Dispose();
             if (_panelSettings != null)
@@ -119,6 +128,8 @@ namespace Game.UI
 
         private void OnDestroy()
         {
+            _playtestPresenter?.Dispose();
+            _playtestView?.Dispose();
             _presenter?.Dispose();
             _view?.Dispose();
             _model?.Dispose();

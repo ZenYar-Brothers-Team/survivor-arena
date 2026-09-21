@@ -42,6 +42,8 @@ Spawn/register/death/unregister/reuse, sustained contact, duplicate damage/death
 
 ## Документационные изменения
 
+IP-31 adapter extension: ordinary spawner пересылает `LifeEvent` и `CombatResolved` optional consumers. EnemyRuntime сохраняет captured result delegate до lethal callbacks, поэтому damage result приходит после pool return с прежней target identity. Формат потребителя — [PLAYTEST_REPORT](../PLAYTEST_REPORT.md); gameplay не зависит от recorder.
+
 Lifecycle/event contract и зависимости IP-05/06/13/28/31; mitigation для реально затронутого coupling, не blanket cleanup всего debt register.
 
 ### Lifecycle contract реализации

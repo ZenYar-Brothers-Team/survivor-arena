@@ -62,8 +62,18 @@ namespace Game.Progression
             }
         }
 
-        internal void RegisterDrop(ExperienceDropRuntime drop) => _activeDrops.Add(drop);
-        internal void UnregisterDrop(ExperienceDropRuntime drop) => _activeDrops.Remove(drop);
+        public double DroppedBase { get; private set; }
+        public double GroundBase { get; private set; }
+        internal void RegisterDrop(ExperienceDropRuntime drop)
+        {
+            if (!_activeDrops.Add(drop)) return;
+            DroppedBase += drop.Amount;
+            GroundBase += drop.Amount;
+        }
+        internal void UnregisterDrop(ExperienceDropRuntime drop)
+        {
+            if (_activeDrops.Remove(drop)) GroundBase = Math.Max(0, GroundBase - drop.Amount);
+        }
 
         public event Action<int> LevelUp;
         public event Action<int, int> LevelsEarned;
@@ -115,6 +125,7 @@ namespace Game.Progression
             model.RegisterOutcomeContributor(this);
             _outcomeOwner = model;
             CollectedBase = CollectedAwarded = ExpiredBase = RecoveredAwarded = InterventionBase = InterventionAwarded = 0f;
+            DroppedBase = GroundBase = 0;
             _initialized = true;
         }
 

@@ -9,6 +9,7 @@ using Game.Progression;
 using Game.Run;
 using Game.UI;
 using UnityEngine;
+using Game.Telemetry;
 
 namespace Game.Bootstrap
 {
@@ -45,6 +46,7 @@ namespace Game.Bootstrap
 
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
         public bool IsInitialized { get; private set; }
+        public IPlaytestSession Playtest { get; private set; }
 
         private void Start()
         {
@@ -150,6 +152,10 @@ namespace Game.Bootstrap
                     new EnemyExperienceDropSink(experienceRuntime, runController));
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
+                Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
+                    draftRuntime, enemySpawner, activeSkillRuntime);
+                if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
+
                 gameplayUiRoot.Initialize(
                     player,
                     experienceRuntime,
@@ -157,7 +163,8 @@ namespace Game.Bootstrap
                     runController,
                     playerPresentation,
                     Catalog.Characters.UnlockedCharacters,
-                    enemySpawner);
+                    enemySpawner,
+                    Playtest);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch
@@ -179,5 +186,28 @@ namespace Game.Bootstrap
                 throw new InvalidOperationException("Gameplay composition root has missing scene references.");
             }
         }
+
+        private void LateUpdate() { if (Playtest is PlaytestSession session) session.Tick(); }
+
+        /// <summary>Captures the run, then unwinds consumers before their producers. Idempotent.</summary>
+        public void Shutdown()
+        {
+            if (!IsInitialized) return;
+            IsInitialized = false;
+            // Capture required Results while every contributor is still alive, then diagnostics.
+            runController.Shutdown();
+            gameplayUiRoot.Shutdown();
+            if (Playtest is PlaytestSession session) session.Dispose();
+            enemySpawner.Shutdown();
+            passiveRuntime.Shutdown();
+            activeSkillRuntime.Shutdown();
+            draftRuntime.Shutdown();
+            experienceRuntime.Shutdown();
+            playerPresentation.Shutdown();
+            player.Shutdown();
+        }
+
+        private void OnDisable() => Shutdown();
+        private void OnDestroy() => Shutdown();
     }
 }

@@ -26,4 +26,6 @@
 | Цель для навыков (`SceneEnemyTargetProvider`) и запуск снарядов (`SceneProjectileLauncher`) | — | — | GAP (TD-040) |
 
 ## Багфиксы без регресс-теста
+
+IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinalCase` защищает стабильные content IDs от camel-case преобразования ключей JSON. `PlaytestSmokeTests.Gameplay_LethalHitExportsLinkedPacket_AndPlaytestUiStaysCollapsed` проверяет scene reload, export и идемпотентный teardown; до ordered composition Shutdown reload давал NullReferenceException в UI/passive consumers после очистки Health/Stats. Дополнительно `PlaytestSessionTests.Shutdown_DuringLiveExport_PublishesFinalSnapshotAfterEarlierPacket` защищает final packet от перезаписи более ранним live export.
 Нет открытых. Исправления ревью 2026-09-20 (A-3, A-4, A-6, T-1) сопровождаются регресс-тестами, перечисленными выше.

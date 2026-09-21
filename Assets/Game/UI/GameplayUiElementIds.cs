@@ -2,6 +2,12 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string DevelopmentPlaytestTab = "development-tab-playtest";
+        public const string DevelopmentPlaytestPane = "development-pane-playtest";
+        public const string PlaytestSummary = "playtest-summary";
+        public const string PlaytestNote = "playtest-note";
+        public const string PlaytestMarker = "playtest-marker";
+        public const string PlaytestExport = "playtest-export";
         public const string CardIcon = "card-icon";
         public const string CardTitle = "card-title";
         public const string CardSummary = "card-summary";

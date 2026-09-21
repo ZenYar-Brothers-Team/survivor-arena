@@ -57,6 +57,7 @@
                 <ui:Button name="development-tab-run" text="Run" class="development-tab" />
                 <ui:Button name="development-tab-build" text="Build" class="development-tab" />
                 <ui:Button name="development-tab-presentation" text="Presentation" class="development-tab" />
+                <ui:Button name="development-tab-playtest" text="Playtest" class="development-tab" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
@@ -93,6 +94,16 @@
                 </ui:VisualElement>
                 <ui:Label text="Use -10 HP on the Run tab for hit reaction. Pause from the HUD." class="development-help" />
             </ui:VisualElement>
+            <ui:ScrollView name="development-pane-playtest" class="development-pane development-scroll">
+                <ui:Label text="LOCAL PLAYTEST" class="development-section-title" />
+                <ui:Label name="playtest-summary" text="Recording disabled" class="development-help" />
+                <ui:TextField name="playtest-note" label="Note" multiline="true" />
+                <ui:VisualElement class="development-button-row">
+                    <ui:Button name="playtest-marker" text="Add marker" class="compact-button" />
+                    <ui:Button name="playtest-export" text="Export" class="compact-button" />
+                </ui:VisualElement>
+                <ui:Label text="Local files only. Export during a run is incomplete. Final export is automatic; add later notes to feedback.md." class="development-help" />
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

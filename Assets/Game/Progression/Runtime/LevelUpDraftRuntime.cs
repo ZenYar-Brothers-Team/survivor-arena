@@ -57,6 +57,8 @@ namespace Game.Progression
         public event Action<BuildSelectionResult> SelectionApplied;
         public event Action<DraftResolution> RequestResolved;
         public event Action Changed;
+        public event Action<DraftRequest> RequestQueued;
+        public event Action<DraftControlAttempt> ControlAttempted;
 
         private void Update()
         {
@@ -204,22 +206,28 @@ namespace Game.Progression
         public bool Reroll() => Reroll(Revision);
         public bool Reroll(Guid revision)
         {
-            if (!CanAct(revision) || !Controls.TryConsumeReroll()) return false;
+            var requestId = CurrentRequest?.Id ?? Guid.Empty;
+            if (!CanAct(revision) || !Controls.TryConsumeReroll())
+            { ControlAttempted?.Invoke(new DraftControlAttempt("reroll", requestId, revision, null, false)); return false; }
             _setChecks = new SetDraftCheckState();
             var options = _pool.CreateRerolledOptions(Build, _offerCount, _draftRandom,
                 Controls.BanishedIds, CurrentDraft.Options, _setChecks);
             if (options.Count == 0) ResolveEmpty();
             else ReplaceCurrentDraft(options);
+            ControlAttempted?.Invoke(new DraftControlAttempt("reroll", requestId, revision, null, true));
             return true;
         }
 
         public bool Banish(ContentId id) => Banish(id, Revision);
         public bool Banish(ContentId id, Guid revision)
         {
-            if (!CanAct(revision) || !IsCurrentOption(id) || !Controls.TryBanish(id)) return false;
+            var requestId = CurrentRequest?.Id ?? Guid.Empty;
+            if (!CanAct(revision) || !IsCurrentOption(id) || !Controls.TryBanish(id))
+            { ControlAttempted?.Invoke(new DraftControlAttempt("banish", requestId, revision, id, false)); return false; }
             var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks);
             if (options.Count == 0) ResolveEmpty();
             else ReplaceCurrentDraft(options);
+            ControlAttempted?.Invoke(new DraftControlAttempt("banish", requestId, revision, id, true));
             return true;
         }
 
@@ -248,6 +256,7 @@ namespace Game.Progression
             else
             {
                 _requests.Enqueue(request);
+                RequestQueued?.Invoke(request);
                 OpenNextDraft();
             }
             return true;
@@ -271,7 +280,9 @@ namespace Game.Progression
             // Enqueue the complete XP award before any DraftOpened callback can enqueue a Book.
             for (var level = firstLevel; ; level++)
             {
-                _requests.Enqueue(DraftRequest.ForLevel(_owner.RunId, level));
+                var request = DraftRequest.ForLevel(_owner.RunId, level);
+                _requests.Enqueue(request);
+                RequestQueued?.Invoke(request);
                 if (level == lastLevel) break;
             }
             OpenNextDraft();
@@ -329,13 +340,19 @@ namespace Game.Progression
         public RunOutcomeContribution Capture()
         {
             var entries = new List<RunBuildEntrySnapshot>();
+            var sets = new List<RunBuildEntrySnapshot>();
             foreach (var entry in Build.Entries)
+            {
                 entries.Add(new RunBuildEntrySnapshot(entry.Definition.Id.ToString(), entry.Level));
+                if (entry.Definition.Kind == BuildEntryKind.Set)
+                    sets.Add(new RunBuildEntrySnapshot(entry.Definition.Id.ToString(), entry.Level));
+            }
             entries.Sort((a, b) => string.CompareOrdinal(a.ContentId, b.ContentId));
             // Outcome capture occurs before Completed. All outstanding choices are cancelled at terminal.
             var totals = new RunDraftSnapshot(_acceptedBooks, _selections, _emptyRequests,
                 _cancelled + _requests.Count, _bookCurrency);
-            return new RunOutcomeContribution(build: entries, draftTotals: totals);
+            sets.Sort((a, b) => string.CompareOrdinal(a.ContentId, b.ContentId));
+            return new RunOutcomeContribution(build: entries, draftTotals: totals, sets: sets);
         }
 
         private void HandleCompleted(RunOutcome _) => CancelRequests();
@@ -382,6 +399,8 @@ namespace Game.Progression
             SelectionApplied = null;
             RequestResolved = null;
             Changed = null;
+            RequestQueued = null;
+            ControlAttempted = null;
         }
 
         private void OnDestroy() => Shutdown();

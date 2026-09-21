@@ -9,7 +9,8 @@
         "Game.Progression",
         "Game.Presentation",
         "Game.Enemy",
-        "Game.ActiveSkill"
+        "Game.ActiveSkill",
+        "Game.Telemetry"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

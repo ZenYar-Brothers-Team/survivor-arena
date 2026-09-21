@@ -281,6 +281,24 @@
     -unity-font-style: bold;
 }
 
+#playtest-note {
+    flex-direction: column;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#playtest-note > .unity-base-field__label {
+    min-width: 0;
+    margin-bottom: 4px;
+}
+
+#playtest-note .unity-base-text-field__input {
+    min-height: 52px;
+    background-color: rgb(18, 22, 30);
+    color: rgb(240, 243, 248);
+    white-space: normal;
+}
+
 .development-section-spaced {
     margin-top: 12px;
 }

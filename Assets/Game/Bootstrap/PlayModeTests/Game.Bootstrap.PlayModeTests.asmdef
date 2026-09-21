@@ -13,14 +13,17 @@
         "UnityEngine.TestRunner",
         "Game.Combat",
         "Game.Pooling",
-        "Game.ActiveSkill"
+        "Game.ActiveSkill",
+        "Game.Telemetry",
+        "Newtonsoft.Json"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [

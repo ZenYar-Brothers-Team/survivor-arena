@@ -10,7 +10,8 @@
         "Game.Presentation",
         "Game.UI",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Game.Telemetry"
     ],
     "includePlatforms": [
         "Editor"
