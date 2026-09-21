@@ -51,3 +51,7 @@ G-01/G-03 draft pool/consume/queue/empty-Book currency закрыты DECISION-0
 ## Потребители
 
 [IP-18](IP-18-production-passives.md), [IP-19](IP-19-production-sets.md), [IP-20](IP-20-production-enemies.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-29](IP-29-traveler-framework.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Set reward boundary
+
+IP-11 предоставляет `SetRewardEvent`/`ISetEffectHost.Rewarded`; в текущих fixtures используется typed fake reward. Здесь связать событие с фактом принятого potion pickup, сохранив source identity и exactly-once pickup semantics. Обычные heal/regeneration/level-heal не являются этим событием. Set/SecondaryProc sources не наполняют чужие counters; см. [DECISION-0025](../../decisions/0025-set-effect-source-and-ownership.md).

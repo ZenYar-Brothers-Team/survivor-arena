@@ -30,7 +30,7 @@ namespace Game.Progression
             return new PassiveProgressionDefinition(data.Id, data.DisplayName, levels);
         }
 
-        private static CharacterStatModifier ToModifier(CharacterStatModifierData data)
+        internal static CharacterStatModifier ToModifier(CharacterStatModifierData data)
         {
             return new CharacterStatModifier(
                 data.MaxHealthMultiplierBonus,

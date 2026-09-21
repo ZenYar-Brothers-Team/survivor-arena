@@ -106,7 +106,7 @@ namespace Game.UI
             {
                 if (entry.Definition.Kind == BuildEntryKind.Set)
                 {
-                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName));
+                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName, (entry.Definition as SetDefinition)?.Description));
                     continue;
                 }
                 var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
@@ -139,7 +139,7 @@ namespace Game.UI
                     fulfilled,
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
-                    isAcquired));
+                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition)));
             }
 
             return new BuildViewState(active, passive, sets, progress);
@@ -182,6 +182,80 @@ namespace Game.UI
             return fulfilled;
         }
 
+        private bool IsAcquired(SetDefinition set)
+        {
+            foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == set.Id) return true;
+            return false;
+        }
+
+        private int ComponentLevel(SetRecipeComponent component)
+        {
+            foreach (var entry in _model.BuildEntries)
+                if (entry.Definition.Id == component.Id && entry.Definition.Kind == component.Kind) return entry.Level;
+            return 0;
+        }
+
+        private bool HasPossession(SetDefinition set)
+        {
+            foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) return true;
+            return false;
+        }
+
+        private List<string> ComponentDetails(SetDefinition set, DraftOption? option)
+        {
+            var details = new List<string>();
+            foreach (var component in set.Recipe)
+            {
+                var current = ComponentLevel(component);
+                var selected = option.HasValue && option.Value.Definition.Id == component.Id;
+                var projected = selected ? option.Value.Preview.NextLevel : current;
+                var name = component.Id.ToString();
+                foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == component.Id) name = entry.Definition.DisplayName;
+                if (selected) name = option.Value.Definition.DisplayName;
+                var mark = current >= component.MinimumLevel ? "✓" : current > 0 ? "◐" : "○";
+                details.Add($"{mark} {name} Lv.{current}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
+                    $" / required Lv.{component.MinimumLevel}");
+            }
+            return details;
+        }
+
+        private IReadOnlyList<RecipeProjectionViewState> ProjectRecipes(DraftOption option)
+        {
+            var related = new List<SetDefinition>();
+            foreach (var set in _model.SetDefinitions)
+            {
+                var includes = set.Id == option.Definition.Id;
+                foreach (var component in set.Recipe) includes |= component.Id == option.Definition.Id;
+                if (includes) related.Add(set);
+            }
+            // Closest projected completion first; acquired recipes last; ordinal ID breaks ties.
+            related.Sort((a, b) =>
+            {
+                var acquired = IsAcquired(a).CompareTo(IsAcquired(b));
+                if (acquired != 0) return acquired;
+                var remaining = (a.Recipe.Count - ProjectedCount(a, option)).CompareTo(b.Recipe.Count - ProjectedCount(b, option));
+                return remaining != 0 ? remaining : string.CompareOrdinal(a.Id.ToString(), b.Id.ToString());
+            });
+            var result = new List<RecipeProjectionViewState>();
+            foreach (var set in related)
+            {
+                var current = CountFulfilledComponents(set);
+                var projected = ProjectedCount(set, option);
+                result.Add(new RecipeProjectionViewState(set.DisplayName, current, projected, set.Recipe.Count,
+                    !IsAcquired(set) && current < set.Recipe.Count && projected == set.Recipe.Count,
+                    IsAcquired(set), ComponentDetails(set, option)));
+            }
+            return result.AsReadOnly();
+        }
+
+        private int ProjectedCount(SetDefinition set, DraftOption option)
+        {
+            var count = 0;
+            foreach (var component in set.Recipe)
+                if ((component.Id == option.Definition.Id ? option.Preview.NextLevel : ComponentLevel(component)) >= component.MinimumLevel) count++;
+            return count;
+        }
+
         private static void FillEmptySlots(List<BuildSlotViewState> slots, int capacity)
         {
             while (slots.Count < capacity)
@@ -214,7 +288,9 @@ namespace Game.UI
                     detail.Append("\n").Append(value.Label).Append(": ")
                         .Append(value.Current.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit)
                         .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
-                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(), isSet: option.Definition.Kind == BuildEntryKind.Set);
+                if (option.Definition is SetDefinition set) detail.Append("\n").Append(set.Description);
+                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(),
+                    isSet: option.Definition.Kind == BuildEntryKind.Set, recipes: ProjectRecipes(option));
             }
 
             for (var i = source.Count; i < options.Length; i++)

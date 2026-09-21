@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Game.Character;
+using Game.Combat;
 using Game.Content;
 using Game.Progression;
 using Game.Run;
@@ -32,6 +33,8 @@ namespace Game.ActiveSkill
         private bool _initialized;
         private PlayerMover _mover;
 
+        public event Action<CombatSource> Activated;
+        public Func<ContentId, CharacterStatModifier> SetSkillModifier { get; set; }
         public int SkillCount => _instances.Count;
         public IEnumerable<ActiveSkillInstance> Skills => _instances.Values;
 
@@ -128,8 +131,12 @@ namespace Game.ActiveSkill
             var triggered = false;
             foreach (var instance in _instances.Values)
             {
-                if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero))
+                if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
+                    SetSkillModifier?.Invoke(instance.Definition.Id) ?? default))
+                {
+                    Activated?.Invoke(new CombatSource(owner.Identity, instance.Definition.Id, CombatSourceOrigin.ActiveSkill, instance.Level));
                     triggered = true;
+                }
             }
             _executor.Tick(0f, isRunning);
             return triggered;

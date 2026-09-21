@@ -37,7 +37,7 @@ namespace Game.UI.Tests
                 Assert.AreEqual(PlayerBuild.PassiveSlotCapacity, view.Build.PassiveSlots.Count);
                 Assert.AreEqual("Fixture Active", view.Build.ActiveSlots[0].Title);
                 Assert.AreEqual(1, view.Build.ActiveSlots[0].Level);
-                Assert.IsFalse(view.Build.PassiveSlots[0].IsOccupied);
+                Assert.IsFalse(view.Build.PassiveSlots[2].IsOccupied);
                 Assert.AreEqual(1, view.Build.Sets.Count);
                 Assert.AreEqual("Fixture Set", view.Build.Sets[0].Title);
                 Assert.AreEqual(1, view.Build.SetRecipeProgress.Count);
@@ -248,6 +248,38 @@ namespace Game.UI.Tests
             }
         }
 
+        [Test]
+        public void RecipeProjection_PartialThresholdCompletesAndAlreadyEnoughAreDistinct()
+        {
+            var active = new BuildEntryDefinition("FIXTURE-A", BuildEntryKind.ActiveSkill, "Active");
+            var p1 = new BuildEntryDefinition("FIXTURE-P1", BuildEntryKind.PassiveItem, "First");
+            var p2 = new BuildEntryDefinition("FIXTURE-P2", BuildEntryKind.PassiveItem, "Second");
+            var set = new SetDefinition("FIXTURE-SET", "Set", new SetRecipeComponent(active.Id, active.Kind, 2),
+                new SetRecipeComponent(p1.Id, p1.Kind, 1), new SetRecipeComponent(p2.Id, p2.Kind, 1));
+            var build = new PlayerBuild(active);
+            var model = CreateModel(); model.SetDefinitions = new[] { set };
+            model.BuildEntries = new List<BuildEntry>(build.Entries);
+            model.DraftOptions = new[] { new DraftOption(active, true, 2) };
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            Assert.IsTrue(view.Build.SetRecipeProgress[0].HasProgress);
+            Assert.AreEqual(0, view.Build.SetRecipeProgress[0].FulfilledComponents);
+            Assert.AreEqual(1, view.Draft.Options[0].Recipes[0].Projected);
+            Assert.IsFalse(view.Draft.Options[0].Recipes[0].CompletesRecipe);
+            StringAssert.Contains("required Lv.2", view.Draft.Options[0].Recipes[0].Detail);
+            build.Apply(p1); build.Apply(p2); model.BuildEntries = new List<BuildEntry>(build.Entries);
+            presenter.RefreshAll();
+            Assert.IsTrue(view.Draft.Options[0].Recipes[0].CompletesRecipe);
+            Assert.AreEqual(0, view.Build.Sets.Count, "Completing a recipe does not acquire the set.");
+            build.Apply(active); model.BuildEntries = new List<BuildEntry>(build.Entries);
+            model.DraftOptions = new[] { new DraftOption(active, true, 3) }; presenter.RefreshAll();
+            Assert.IsFalse(view.Draft.Options[0].Recipes[0].CompletesRecipe);
+            StringAssert.Contains("requirement unchanged", view.Draft.Options[0].Recipes[0].Summary);
+            build.Apply(set); model.BuildEntries = new List<BuildEntry>(build.Entries); presenter.RefreshAll();
+            Assert.IsTrue(view.Draft.Options[0].Recipes[0].IsAcquired);
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -256,8 +288,11 @@ namespace Game.UI.Tests
             var set = new SetDefinition(
                 "FIXTURE-SET-UI",
                 "Fixture Set",
-                1f,
-                new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+                new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1),
+                new SetRecipeComponent("FIXTURE-UI-R1", BuildEntryKind.PassiveItem, 1),
+                new SetRecipeComponent("FIXTURE-UI-R2", BuildEntryKind.PassiveItem, 1));
+            build.Apply(new BuildEntryDefinition("FIXTURE-UI-R1", BuildEntryKind.PassiveItem, "R1"));
+            build.Apply(new BuildEntryDefinition("FIXTURE-UI-R2", BuildEntryKind.PassiveItem, "R2"));
             build.Apply(set);
             var character = new CharacterDefinition(
                 "FIXTURE-CHARACTER-UI",

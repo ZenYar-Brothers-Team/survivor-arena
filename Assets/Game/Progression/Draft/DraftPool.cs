@@ -30,7 +30,9 @@ namespace Game.Progression
                 throw new ArgumentException("Draft pool cannot be empty.", nameof(definitions));
 
             _character = character;
-            _sets = setOffers ?? new FixtureSetDraftOfferProvider();
+            _sets = setOffers;
+            if (_sets == null && _definitions.Exists(definition => definition.Kind == BuildEntryKind.Set))
+                throw new ArgumentNullException(nameof(setOffers), "A set catalog requires an explicit global offer policy.");
         }
 
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0) =>
@@ -78,7 +80,9 @@ namespace Game.Progression
             foreach (var option in Eligible(build, banishedIds))
                 (option.Definition.Kind == BuildEntryKind.Set ? sets : ordinary).Add(option);
 
-            var preferred = (setChecks ?? new SetDraftCheckState()).GetPriorityOffers(sets.AsReadOnly(), _sets, random);
+            sets.Sort((a, b) => string.CompareOrdinal(a.Definition.Id.ToString(), b.Definition.Id.ToString()));
+            var preferred = sets.Count == 0 ? Array.Empty<DraftOption>() :
+                (setChecks ?? new SetDraftCheckState()).GetPriorityOffers(sets.AsReadOnly(), _sets, random);
             var result = new List<DraftOption>(offerCount);
             var seen = new HashSet<ContentId>();
             foreach (var option in preferred)

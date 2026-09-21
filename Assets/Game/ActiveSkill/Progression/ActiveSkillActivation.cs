@@ -37,7 +37,7 @@ namespace Game.ActiveSkill
             Transform ownerTransform,
             CombatIdentity owner = default,
             float outgoingKnockbackMultiplier = 1f, float sizeMultiplier = 1f, float rangeMultiplier = 1f,
-            System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f)
+            System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f, CombatSource? sourceOverride = null)
         {
             NumericValidation.ValidatePositive(sizeMultiplier, nameof(sizeMultiplier));
             NumericValidation.ValidatePositive(rangeMultiplier, nameof(rangeMultiplier));
@@ -48,7 +48,7 @@ namespace Game.ActiveSkill
             Random = random;
             HitLedger = hitLedger;
             SourceId = sourceId;
-            Source = new CombatSource(owner, sourceId, CombatSourceOrigin.ActiveSkill, level);
+            Source = sourceOverride ?? new CombatSource(owner, sourceId, CombatSourceOrigin.ActiveSkill, level);
             NumericValidation.ValidateNonNegative(outgoingKnockbackMultiplier, nameof(outgoingKnockbackMultiplier));
             OutgoingKnockbackMultiplier = outgoingKnockbackMultiplier;
             TargetLife = new EnemyTargetLife(initialTarget);

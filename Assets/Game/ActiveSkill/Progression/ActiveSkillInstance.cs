@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Diagnostics;
 using Game.Character;
+using Game.Combat;
 using Game.Enemy;
 using UnityEngine;
 
@@ -42,7 +43,8 @@ namespace Game.ActiveSkill
             PlayerCharacterRuntime owner,
             IActiveSkillTargetProvider targetProvider,
             IActiveSkillEffectExecutor executor,
-            Vector2 movementDirection = default)
+            Vector2 movementDirection = default, CharacterStatModifier skillModifier = default,
+            CombatSource? sourceOverride = null, bool forceActivation = false)
         {
             if (owner == null || owner.Stats == null)
                 throw new ArgumentNullException(nameof(owner));
@@ -54,9 +56,14 @@ namespace Game.ActiveSkill
             HitLedger.Tick(deltaTime, isRunning);
             if (isRunning && movementDirection.sqrMagnitude > Mathf.Epsilon) _lastDirection = movementDirection.normalized;
             _cooldown.Tick(deltaTime, isRunning);
-            if (!isRunning || !_cooldown.IsReady)
+            if (!isRunning || (!forceActivation && !_cooldown.IsReady))
                 return false;
 
+            var isSet = sourceOverride.HasValue && sourceOverride.Value.Origin == CombatSourceOrigin.Set;
+            var rangeMultiplier = isSet ? 1f : owner.Stats.EffectRangeMultiplier + owner.Stats.BaseStats.EffectRangeMultiplier * skillModifier.EffectRangeMultiplierBonus;
+            var sizeMultiplier = isSet ? 1f : owner.Stats.EffectSizeMultiplier + owner.Stats.BaseStats.EffectSizeMultiplier * skillModifier.EffectSizeMultiplierBonus;
+            var damageMultiplier = owner.Stats.ActiveSkillDamageMultiplier + owner.Stats.BaseStats.ActiveSkillDamageMultiplier * skillModifier.ActiveSkillDamageMultiplierBonus;
+            var knockbackMultiplier = owner.Stats.OutgoingKnockbackMultiplier + skillModifier.OutgoingKnockbackBonus;
             var levelDefinition = Definition.GetLevel(Level);
             var origin = (Vector2)owner.transform.position;
             IEnemyDamageReceiver target = null;
@@ -67,7 +74,7 @@ namespace Game.ActiveSkill
                     throw new InvalidOperationException("Random targeting requires a target-set provider and a configured seed.");
                 using var guard = PerfGuard.Measure("ActiveSkillInstance.RandomTarget", 1f);
                 setProvider.CopyAliveTo(_targets);
-                var radius = targeting.Radius * owner.Stats.EffectRangeMultiplier;
+                var radius = targeting.Radius * rangeMultiplier;
                 var eligible = 0;
                 // Reservoir sampling: uniform over all valid world targets, no viewport dependency.
                 foreach (var candidate in _targets)
@@ -80,7 +87,7 @@ namespace Game.ActiveSkill
             else if (targeting.Mode == ActiveSkillTargetingMode.NearestEnemy)
             {
                 if (!targetProvider.TryGetTarget(origin, out target) || !new EnemyTargetLife(target).IsAlive) return false;
-                var radius = targeting.Radius * owner.Stats.EffectRangeMultiplier;
+                var radius = targeting.Radius * rangeMultiplier;
                 if (radius > 0f && (target.Position - origin).sqrMagnitude > radius * radius) return false;
             }
             var direction = targeting.Mode == ActiveSkillTargetingMode.MovementDirection
@@ -93,13 +100,13 @@ namespace Game.ActiveSkill
                 origin,
                 direction,
                 target,
-                levelDefinition.BaseDamage * owner.Stats.ActiveSkillDamageMultiplier * owner.Stats.LowHealthDamageMultiplier,
+                levelDefinition.BaseDamage * damageMultiplier * owner.Stats.LowHealthDamageMultiplier,
                 levelDefinition,
                 owner.transform,
                 owner.Identity,
-                owner.Stats.OutgoingKnockbackMultiplier, owner.Stats.EffectSizeMultiplier, owner.Stats.EffectRangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees));
-            _cooldown.Consume(levelDefinition.CooldownSeconds,
-                owner.Stats.BaseStats.ActiveSkillCooldownMultiplier / (1f + owner.Stats.ActionSpeedBonus + targeting.ActionSpeedBonus));
+                knockbackMultiplier, sizeMultiplier, rangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees, sourceOverride));
+            if (!forceActivation) _cooldown.Consume(levelDefinition.CooldownSeconds,
+                owner.Stats.BaseStats.ActiveSkillCooldownMultiplier / (1f + owner.Stats.ActionSpeedBonus + targeting.ActionSpeedBonus + skillModifier.ActionSpeedBonus));
             TriggerCount++;
             return true;
         }

@@ -209,6 +209,7 @@ Phase A/B/C (`Art Production.md:546–573`) задают поставку по �
 | W-01 Burst pressure policy | Continuous/burst разрешены; поведение при cap, dropped vs deferred остаток, catch-up skipped phase и участие boss/Traveler в regular cap не определены | IP-14; явная data policy и boundary/cap tests без подмены balance решением оптимизатора |
 | G-17 Art evidence | Направление и inventory утверждены; отсутствует доказательство соответствия CHAR-001 concept конкретному master/runtime и актуальности generic statuses | IP-12A; provenance/manifest audit, согласование фактов без повторного review уже принятого изображения |
 | G-18 Player palette | Art Direction v2 §4.4 требует всегда зелёного игрока, §9.2 допускает другие palettes для future species | IP-12A; явная согласованная поправка формулировки, не повторный approval негоблинского roster |
+| G-19 Character Select baseline/highlights | **Resolved — DECISION-0026.** Отдельная явная база сравнения и authored ordered highlights; без автоматического порога значимости и выбора базы из roster | IP-12 fixture data/validation; IP-22 production values и per-character highlights. Прежняя ссылка на G-15 для presentation gap исправлена |
 
 ## 7. Репозиторий: где расширять существующую реализацию
 

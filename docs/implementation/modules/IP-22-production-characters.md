@@ -51,3 +51,7 @@ G-14/G-15/G-17: weights/unlock metadata и связь concept/master/runtime. CH
 ## Потребители
 
 [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Character Select authoring
+
+Перенести каноническую базовую точку сравнения Content Design в отдельные production baseline data и задать explicit ordered highlights каждого CHAR-ID по [DECISION-0026](../../decisions/0026-character-selection-baseline.md) и [контракту IP-12](IP-12-character-framework.md#character-select-data-contract). База отдельна от roster, порога автоматической значимости нет. Проверить соответствие числовых отличий actual stats; framework fixture values не переносятся как утверждённый production баланс. Numeric weights и unlock conditions/цены остаются собственными gates.

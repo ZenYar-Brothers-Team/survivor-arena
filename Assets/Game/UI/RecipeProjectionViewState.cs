@@ -26,6 +26,7 @@ namespace Game.UI
         }
         public string Summary => IsAcquired ? $"{Title} — ACQUIRED" : CompletesRecipe
             ? $"COMPLETES RECIPE: {Title} ({Current}/{Required} → {Projected}/{Required}) · not yet acquired"
+            : Projected == Current ? $"{Title} {Current}/{Required} · requirement unchanged"
             : $"SET PROGRESS: {Title} {Current}/{Required} → {Projected}/{Required}";
         public string Detail => Summary + "\n" + string.Join("\n", Components);
     }

@@ -22,6 +22,8 @@ namespace Game.Character
         public CombatIdentity Identity { get; private set; }
         public CombatControlState Controls { get; } = new CombatControlState();
         public event Action<CombatResult> CombatResolved;
+        // Composition can unwind consumers before Unity destroys this producer, in any object order.
+        public event Action ShuttingDown;
         public float MovementSpeed => Stats != null ? Stats.MovementSpeed : 0f;
 
         private void Start()
@@ -82,6 +84,8 @@ namespace Game.Character
             if (!_initialized)
                 return;
 
+            _initialized = false; // Prevent reentry while the composition owner unwinds consumers.
+            ShuttingDown?.Invoke();
             _runBinding?.Dispose();
             _healthStatBinding?.Dispose();
             _healthStatBinding = null;

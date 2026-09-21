@@ -35,6 +35,8 @@ namespace Game.Bootstrap
         [SerializeField]
         private PlayerActiveSkillSetRuntime activeSkillRuntime;
 
+        private SetEffectHost _setEffects;
+
         [SerializeField]
         private PlayerPassiveSetRuntime passiveRuntime;
 
@@ -103,6 +105,8 @@ namespace Game.Bootstrap
                 experienceRuntime.Initialize(player, runController, setup.Experience);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
+                _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression, Catalog.ActiveSkills);
+                initializedSubsystems.Add(_setEffects.Dispose);
                 draftRuntime.Initialize(
                     experienceRuntime,
                     runController,
@@ -114,8 +118,9 @@ namespace Game.Bootstrap
                     setup.Draft.InitialRerolls,
                     setup.Draft.InitialBanishes,
                     Catalog.Sets,
-                    new FixtureSetExtraAbilityFactory(),
-                    setup.Draft.EmptyBookCurrency);
+                    new SetEffectAbilityFactory(_setEffects),
+                    setup.Draft.EmptyBookCurrency,
+                    new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance));
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 // The executor owns a scene GameObject (mine pool root); it is registered for
@@ -175,6 +180,7 @@ namespace Game.Bootstrap
             }
 
             IsInitialized = true;
+            player.ShuttingDown += Shutdown;
         }
 
         private void ValidateSceneReferences()
@@ -194,6 +200,7 @@ namespace Game.Bootstrap
         {
             if (!IsInitialized) return;
             IsInitialized = false;
+            player.ShuttingDown -= Shutdown;
             // Capture required Results while every contributor is still alive, then diagnostics.
             runController.Shutdown();
             gameplayUiRoot.Shutdown();
@@ -202,6 +209,8 @@ namespace Game.Bootstrap
             passiveRuntime.Shutdown();
             activeSkillRuntime.Shutdown();
             draftRuntime.Shutdown();
+            _setEffects?.Dispose();
+            _setEffects = null;
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
             player.Shutdown();

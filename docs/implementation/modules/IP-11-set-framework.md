@@ -53,3 +53,38 @@ G-08 закрыт DECISION-0017; дозаполнение свободных п�
 ## Потребители
 
 [IP-19](IP-19-production-sets.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Реализованный framework contract
+
+Global setting `draft.setDraftChance` в `FixtureRunSetup.json`: [0,1], required при JSON load. Например 0.5 даёт каждому eligible set независимую вероятность 1/2; это fixture, не production balance. В SetDefinition/JSON поля per-set chance больше нет. Checks возвращают все successes в ordinal ID порядке; IP-10 request snapshot сохраняет overflow. Failed backfill использует тот же стабильный входной порядок и uniform sampling без повторов.
+
+`SetDefinition` валидирует 3–6 разных components, каждый threshold 1–6. Новый JSON effect discriminator `kind` обязателен. `StatBuff`/`SkillTransform` требуют `modifier`; атаки/procs требуют `attackTemplate` и положительный `cooldownSeconds`; `ActivationProc` требует положительный `activationCount`; `LevelHeal` требует `healFraction` в (0,1]. `buffSeconds` ≥0 задаёт optional duration proc-buff; 0 означает отсутствие временного бафа. Значения seconds используют только running time. Например fraction 0.05 при max HP 100 запрашивает 5 HP до обычного health-restoration modifier/cap.
+
+Runtime families: keyed stat buffs (включая defense/economy), additive per-skill transforms, ordinary-activation counters/procs, typed reward procs с cooldown, level healing и independent fixed-cooldown attacks. `SetEffectHost` — адаптер ActiveSkill/Character/XP; ownership/source contract записан в [DECISION-0025](../../decisions/0025-set-effect-source-and-ownership.md). Production payloads не регистрируются.
+
+UI producer передаёт immutable ordered projections, текущий/ожидаемый threshold count, component detail с выделением текущего option. Partial possession выставляет HasProgress даже при нуле выполненных thresholds. Acquired sets отдельно; acquisition notification и DEV proc/source counters используют существующие surfaces IP-10A.
+
+### Compatibility matrix SET-001…020
+
+Это сопоставление семейств, не per-ID production verification. Конкретные per-skill parameter transforms (например return phase, chain targets, projectile speed/pierce, orbit condition) и attack payloads подключаются в IP-19 по полным approved данным; базовые channels не подменяют их.
+
+| Cards | Семейство / граница |
+|---|---|
+| SET-001 | Per-skill damage/size/knockback; fixture OVERCHARGE |
+| SET-002 | Per-skill transform; return-phase payload и disc-return G-04 остаются production gate |
+| SET-003 | Per-skill transform; chain-specific targets/jump/falloff — production payload |
+| SET-004 | Component transform/control synergy; slowed-target condition — production payload |
+| SET-005 | StatBuff + LevelHeal; fixture RECALL |
+| SET-006 | Defense/sustain StatBuff; fixture GUARD; potion application — IP-28 |
+| SET-007 | Per-skill damage/size/range; fixture OVERCHARGE показывает keyed composition |
+| SET-008 | Counter/transform family; actual projectile replacement и G-05 — production payload |
+| SET-009 | Per-skill damage/range/size; pierce — production payload |
+| SET-010 | Orbit/control transform; continuous orbit condition — production payload |
+| SET-011 | Per-skill buffs; speed-specific payload — production adapter |
+| SET-012 | Defensive StatBuff + component transform; fixture GUARD/OVERCHARGE |
+| SET-013 | IndependentAttack; bounded branch payload — production data/adapter |
+| SET-014 | Multi-skill damage/action-speed/size transforms; common-key ownership/composition |
+| SET-015 | Skill transforms + RewardProc; fixture GUARD uses typed fake event, real potion — IP-28 |
+| SET-016…020 | IndependentAttack; fixture STRIKE verifies fixed timer, source, generic damage/knockback. Exact directional/telegraph/projectile/cap payloads — IP-19 |
+
+Fixture numbers относятся только к `FIXTURE-*`; G-04/G-05/G-13 и production art не закрываются этим контрактом.

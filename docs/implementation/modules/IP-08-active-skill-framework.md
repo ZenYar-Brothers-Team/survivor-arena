@@ -101,3 +101,7 @@ Movement targeting требует configured initial direction; после не�
 | SKILL-016 | Independent directions, linear decay and stop cleanup / DECELERATING | `ProjectileLifecycleTests`, `ActiveSkillPatternSmokeTests` (Bootstrap PlayMode) |
 
 Общие проверки: `SkillLevelResolutionTests` — additive levels; `PlayerActiveSkillSetRuntimeTests` — шесть навыков/pause/shutdown/reinit; `CombatAttackPipelineTests` — source/level/controls/snapshot. Build UI сохраняет шесть slots и levels, upgrade preview показывает resolved spatial deltas. Development Build tab показывает ID, level, targeting, casts, target point и ledger; он остаётся gated, collapsed и scrolling по DECISION-0005. Числа fixtures и placeholder presentation не заменяют production balancing/art IP-17.
+
+### Set adapter boundary (IP-11)
+
+`PlayerActiveSkillSetRuntime.Activated` публикует одну обычную activation после schedule packet; отдельные delayed waves не увеличивают set counters. `SetSkillModifier` поставляет additive bonuses по skill ID, не изменяет definition. `ActiveSkillActivation` сохраняет optional source override; set-created attacks проходят общий executor с Set origin и собственной cooldown policy. [IP-11](IP-11-set-framework.md#реализованный-framework-contract) владеет подписчиками, ключами и compatibility matrix; [DECISION-0025](../../decisions/0025-set-effect-source-and-ownership.md) фиксирует source/ownership.

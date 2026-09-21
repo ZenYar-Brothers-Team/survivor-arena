@@ -28,7 +28,7 @@ Production10 characters/art, финальные prices/unlocks/weights если 
 
 ## Acceptance criteria
 
-Два fixtures различаются stats/start skill/weights; zero-weight никогда не выпадает ordinary sampling. Starting skill занимает 1 из 6. Locked невозможно запустить, но UI может показать locked card. Baseline и критерий significant modifier заданы, не выводятся произвольно из первого персонажа; no full internal stat dump in selection. Reinit не удерживает previous character stats.
+Два fixtures различаются stats/start skill/weights; zero-weight никогда не выпадает ordinary sampling. Starting skill занимает 1 из 6. Locked невозможно запустить, но UI может показать locked card. Baseline задан отдельно от roster; значимость определяется explicit ordered highlights в данных персонажа по DECISION-0026, без автоматического процентного порога; no full internal stat dump in selection. Reinit не удерживает previous character stats.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -48,8 +48,14 @@ Character schema/selection contract; changed names/CHAR-006 species в Content; 
 
 ## Gates и недостающие решения
 
-G-14/G-15: numeric weights, unlock completion semantics и baseline display metadata при незаполненности; renderer не придумывает их. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-19 presentation policy закрыт [DECISION-0026](../../decisions/0026-character-selection-baseline.md): отдельный baseline и authored highlights. Для framework использовать явные synthetic baseline/highlights/weights и fake unlocked set. G-14/G-15 сохраняются для production numeric weights и unlock completion semantics (IP-22/IP-25); baseline presentation не относится к G-15. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
 [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-16](IP-16-field-framework.md), [IP-22](IP-22-production-characters.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Character Select data contract
+
+По [DECISION-0026](../../decisions/0026-character-selection-baseline.md) fixture packet содержит отдельные baseline data и explicit ordered highlights каждого fixture. Baseline не берётся из первого/selected character и не меняет gameplay stats. Renderer получает подготовленные сравнения только для указанных характеристик; пустой список остаётся пустым. Существующие baseline numbers из Content Design сохраняются; production mapping дополнительных channels и per-CHAR highlights относятся к IP-22.
+
+Дополнительные checks: перестановка roster/смена выбранного персонажа не меняет baseline; порядок highlights сохраняется; неподписанные характеристики не появляются из-за размера отклонения; пустой список не вызывает auto-fill; missing baseline и неизвестная характеристика отвергаются при валидации. Числовой текст соответствует исходным данным, а не независимой копии tuning в UI.

@@ -213,10 +213,9 @@ namespace Game.Progression.Tests
                 experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-REROLL-STARTING-ACTIVE");
-                var set = new SetDefinition(
+                var set = SetTestData.Define(
                     "FIXTURE-REROLL-SET",
                     "Fixture Reroll Set",
-                    0.5f,
                     new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
                 draft.Initialize(
                     experience,
@@ -228,6 +227,7 @@ namespace Game.Progression.Tests
                     initialRerolls: 1,
                     setDefinitions: new[] { set },
                     setAbilityFactory: new FixtureSetExtraAbilityFactory());
+                SetTestData.AddComponents(draft.Build);
                 UpgradeToMaximum(draft.Build, active);
 
                 experience.AddPickedUpExperience(1f);
@@ -319,10 +319,9 @@ namespace Game.Progression.Tests
                 experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-SET-STARTING-ACTIVE");
-                var set = new SetDefinition(
+                var set = SetTestData.Define(
                     "FIXTURE-SELECTABLE-SET",
                     "Fixture Selectable Set",
-                    1f,
                     new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
                 draft.Initialize(
                     experience,
@@ -333,11 +332,12 @@ namespace Game.Progression.Tests
                     setDefinitions: new[] { set },
                     setAbilityFactory: new FixtureSetExtraAbilityFactory());
 
+                SetTestData.AddComponents(draft.Build);
                 experience.AddPickedUpExperience(1f);
                 Assert.IsTrue(draft.Select(set.Id));
 
                 Assert.AreEqual(1, draft.Build.ActiveCount);
-                Assert.AreEqual(0, draft.Build.PassiveCount);
+                Assert.AreEqual(2, draft.Build.PassiveCount);
                 Assert.AreEqual(1, draft.Build.SetCount);
                 Assert.AreEqual(1, draft.Sets.Count);
             }

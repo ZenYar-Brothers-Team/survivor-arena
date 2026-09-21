@@ -51,7 +51,7 @@ namespace Game.UI
         public CharacterDefinition SelectedCharacter => _draft.Character;
         public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
         public bool DevelopmentCommandsEnabled { get; }
-        public string SkillDevelopmentSummary => _skills != null ? _skills.DevelopmentObservation : "Skills unavailable";
+        public string SkillDevelopmentSummary => (_skills != null ? _skills.DevelopmentObservation : "Skills unavailable") + "\n" + _draft.Sets?.DevelopmentObservation;
         public string EnemyDevelopmentSummary => _enemySpawner != null
             ? _enemySpawner.DevelopmentObservation
             : "Enemy fixtures unavailable";

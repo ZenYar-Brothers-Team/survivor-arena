@@ -55,6 +55,7 @@ namespace Game.Progression.Tests
         [Test]
         public void EmptyBook_AwardsImmediatelyOnce_OrdinaryEmptyLevelDoesNotAwardCurrency()
         {
+            SetTestData.AddComponents(_draft.Build);
             UpgradeTo(6);
             var pickup = Guid.NewGuid();
             DraftResolution resolution = null;
@@ -235,11 +236,12 @@ namespace Game.Progression.Tests
         public void Book_WithOnlyFailedSetCheck_OpensSetOfferInsteadOfCurrency()
         {
             _draft.Shutdown();
-            var set = new SetDefinition("FIXTURE-BOOK-SET", "Fixture set", 0f,
+            var set = SetTestData.Define("FIXTURE-BOOK-SET", "Fixture set",
                 new SetRecipeComponent(_active.Id, BuildEntryKind.ActiveSkill, 1));
             _draft.Initialize(_xp, _run, new BuildEntryDefinition[] { _active, set }, _active, 3,
                 new SeededDraftRandom(13), setDefinitions: new[] { set },
                 setAbilityFactory: new FixtureSetExtraAbilityFactory(), emptyBookCurrency: 7);
+            SetTestData.AddComponents(_draft.Build);
             UpgradeTo(6);
             var pickup = Guid.NewGuid();
             Assert.IsTrue(Book(pickup));
@@ -265,7 +267,7 @@ namespace Game.Progression.Tests
                 new BuildEntryDefinition("FIXTURE-P3", BuildEntryKind.PassiveItem, "P3") };
             foreach (var suffix in new[] { "D", "B", "C", "A" })
             {
-                var set = new SetDefinition("FIXTURE-SET-" + suffix, suffix, 1f,
+                var set = SetTestData.Define("FIXTURE-SET-" + suffix, suffix,
                     new SetRecipeComponent(_active.Id, BuildEntryKind.ActiveSkill, 1));
                 sets.Add(set);
                 definitions.Add(set);
@@ -273,6 +275,7 @@ namespace Game.Progression.Tests
             _draft.Initialize(_xp, _run, definitions, _active, 3, new FixedDraftRandom(0f),
                 2, 2, setDefinitions: sets, setAbilityFactory: new FixtureSetExtraAbilityFactory(),
                 setOffers: provider, emptyBookCurrency: 7);
+            SetTestData.AddComponents(_draft.Build);
             if (bookOrigin) Book();
             else _xp.AddPickedUpExperience(5f);
             Book(); // Queue another request; it must not be checked until opened.
@@ -312,6 +315,7 @@ namespace Game.Progression.Tests
                 setOffers: provider, emptyBookCurrency: 7);
             Assert.IsFalse(_draft.Controls.IsBanished(new ContentId("FIXTURE-SET-B")));
             Assert.AreEqual(2, _draft.RemainingBanishes);
+            SetTestData.AddComponents(_draft.Build);
             Book();
             Assert.AreEqual(4, provider.Calls, "Reinitialize must discard check state.");
         }
@@ -319,6 +323,7 @@ namespace Game.Progression.Tests
         [Test]
         public void InvalidSourceAndOldRun_DoNotConsumePickupIdentity()
         {
+            SetTestData.AddComponents(_draft.Build);
             UpgradeTo(6);
             var pickup = Guid.NewGuid();
             Assert.IsFalse(Book(pickup, Guid.NewGuid()));

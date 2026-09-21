@@ -29,3 +29,9 @@
 
 IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinalCase` защищает стабильные content IDs от camel-case преобразования ключей JSON. `PlaytestSmokeTests.Gameplay_LethalHitExportsLinkedPacket_AndPlaytestUiStaysCollapsed` проверяет scene reload, export и идемпотентный teardown; до ordered composition Shutdown reload давал NullReferenceException в UI/passive consumers после очистки Health/Stats. Дополнительно `PlaytestSessionTests.Shutdown_DuringLiveExport_PublishesFinalSnapshotAfterEarlierPacket` защищает final packet от перезаписи более ранним live export.
 Нет открытых. Исправления ревью 2026-09-20 (A-3, A-4, A-6, T-1) сопровождаются регресс-тестами, перечисленными выше.
+
+## IP-11 — regression guard
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Producer-first shutdown / scene reload with acquired sets | `SetFrameworkSmokeTests.SimultaneousSets_QueuedChoicesPauseProjectionAndShutdown` | PlayMode | См. IP-11 в [STATUS](implementation/STATUS.md) | Явный `player.Shutdown()` до root проверяет pre-teardown notification; без него UI/passive consumers обращаются к очищенным Health/Stats. Дополняет прежний случайный scene-reload guard IP-31. |

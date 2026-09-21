@@ -70,3 +70,7 @@ G-08/G-09 закрыты DECISION-0017. IP-03 предоставляет тек�
 ## Потребители
 
 [IP-04](IP-04-enemy-core.md), [IP-05](IP-05-active-skill-runtime.md), [IP-09](IP-09-passive-framework.md), [IP-10A](IP-10A-ui-foundation.md), [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-13](IP-13-enemy-patterns.md), [IP-25](IP-25-meta-progression.md), [IP-27](IP-27-integration.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+### Composition teardown notification
+
+`PlayerCharacterRuntime.ShuttingDown` вызывается до очистки Health/Stats; reentry guard уже установлен. Composition owner может завершить UI/passive/set/XP consumers даже при producer-first Unity destruction. Обратный вызов Shutdown безопасен; root снимает подписку при завершении. Контракт и regression guard добавлены в IP-11, см. [DECISION-0025](../../decisions/0025-set-effect-source-and-ownership.md#teardown-observation).

@@ -62,7 +62,7 @@ G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт
 | Empty после backfill | Завершить request и перейти к следующему, сохранить другие pause | То же; immediate currency только при изначально пустом pickup |
 | Новый run | Новый runtime/build/counters/banishes/snapshots | То же |
 
-`SetDraftCheckState` хранит результаты provider для одного opening/reroll. Provider получает все eligible inputs и capacity равный их числу; возвращает все успешные, включая overflow, без дублей. `DraftPool` нормализует порядок, берет первые slots, выполняет ordinary fill/backfill. Banish фильтрует banished IDs, не вызывает provider повторно. Production global chance реализует IP-11.
+`SetDraftCheckState` хранит результаты provider для одного opening/reroll. Provider получает все eligible inputs и capacity равный их числу; возвращает все успешные, включая overflow, без дублей. `DraftPool` нормализует порядок, берет первые slots, выполняет ordinary fill/backfill. Banish фильтрует banished IDs, не вызывает provider повторно. Единый global chance provider поставляет IP-11; production значение остаётся balance-data.
 
 Reroll гарантирует изменение набора, когда есть допустимая замена после применения set-first policy; при том же полном наборе приоритетных сетов первые три по ID сохраняются. Controls расходуются один раз на валидную операцию, даже когда pool не содержит альтернатив. Fixture counts/reset берутся из existing progression JSON; production recovery не назначается.
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using System.Text;
 
 namespace Game.Progression
 {
@@ -11,6 +12,17 @@ namespace Game.Progression
         private readonly ISetExtraAbilityFactory _factory;
 
         public int Count => _abilities.Count;
+        public string DevelopmentObservation
+        {
+            get
+            {
+                var text = new StringBuilder();
+                foreach (var pair in _abilities)
+                    if (pair.Value is SetEffectAbility effect)
+                        text.AppendLine($"{pair.Key}: proc {effect.ProcCount}, ordinary {effect.OrdinaryActivationCount}, rejected set sources {effect.RejectedSourceCount}");
+                return text.ToString();
+            }
+        }
 
         public PlayerSetRuntime(IEnumerable<SetDefinition> definitions, ISetExtraAbilityFactory factory)
         {
@@ -39,17 +51,24 @@ namespace Game.Progression
             if (build == null)
                 throw new ArgumentNullException(nameof(build));
 
-            foreach (var entry in build.Entries)
+            var added = new List<ContentId>();
+            try
             {
-                if (entry.Definition.Kind != BuildEntryKind.Set || _abilities.ContainsKey(entry.Definition.Id))
-                    continue;
-                if (!_catalog.TryGetValue(entry.Definition.Id, out var definition))
-                    throw new InvalidOperationException($"Acquired set '{entry.Definition.Id}' is missing from the runtime catalog.");
-
-                var ability = _factory.Create(definition);
-                if (ability == null)
-                    throw new InvalidOperationException($"Extra ability factory returned null for set '{definition.Id}'.");
-                _abilities.Add(definition.Id, ability);
+                foreach (var entry in build.Entries)
+                {
+                    if (entry.Definition.Kind != BuildEntryKind.Set || _abilities.ContainsKey(entry.Definition.Id)) continue;
+                    if (!_catalog.TryGetValue(entry.Definition.Id, out var definition))
+                        throw new InvalidOperationException($"Acquired set '{entry.Definition.Id}' is missing from the runtime catalog.");
+                    var ability = _factory.Create(definition) ??
+                        throw new InvalidOperationException($"Extra ability factory returned null for set '{definition.Id}'.");
+                    _abilities.Add(definition.Id, ability);
+                    added.Add(definition.Id);
+                }
+            }
+            catch
+            {
+                for (var i = added.Count - 1; i >= 0; i--) { _abilities[added[i]].Dispose(); _abilities.Remove(added[i]); }
+                throw;
             }
         }
 
