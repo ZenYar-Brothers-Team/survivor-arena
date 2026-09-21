@@ -35,3 +35,9 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Path | Guarding test | Kind | Last verified | Notes |
 |---|---|---|---|---|
 | Producer-first shutdown / scene reload with acquired sets | `SetFrameworkSmokeTests.SimultaneousSets_QueuedChoicesPauseProjectionAndShutdown` | PlayMode | См. IP-11 в [STATUS](implementation/STATUS.md) | Явный `player.Shutdown()` до root проверяет pre-teardown notification; без него UI/passive consumers обращаются к очищенным Health/Stats. Дополняет прежний случайный scene-reload guard IP-31. |
+
+## IP-12 — regression guard
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Character selection → loadout → Shutdown → selection | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean` | PlayMode | См. IP-12 в [STATUS](implementation/STATUS.md) | Без независимой panel/root UI Toolkit отвергает повторное открытие selection после HUD; проверяются новый run ID, сброс stats/modifiers/skill и actual character ID в telemetry. |

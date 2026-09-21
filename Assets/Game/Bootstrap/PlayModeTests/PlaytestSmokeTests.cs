@@ -21,6 +21,8 @@ namespace Game.Bootstrap.PlayModeTests
             SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            CharacterSelectionSmokeDriver.StartDefault(root);
+            yield return null;
             var session = root.Playtest as PlaytestSession;
             Assert.IsNotNull(session, "Recorder composition must succeed in Editor");
             var ui = Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement;

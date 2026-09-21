@@ -1,0 +1,22 @@
+{
+  "id": "FIXTURE-CHARACTER-BASELINE",
+  "baseStats": {
+    "maxHealth": 100.0,
+    "movementSpeed": 3.0,
+    "activeSkillDamageMultiplier": 1.0,
+    "activeSkillCooldownMultiplier": 1.0,
+    "incomingDamageMultiplier": 1.0,
+    "healthRestorationMultiplier": 1.0,
+    "healthRegenerationPerSecond": 0.0,
+    "disappearingXpRecovery": 0.0,
+    "pickedUpXpMultiplier": 1.0,
+    "xpDropLifetimeBonusSeconds": 0.0,
+    "pickupRadius": 0.2,
+    "knockbackResistance": 0.0,
+    "outgoingKnockbackBonus": 0.0,
+    "effectSizeMultiplier": 1.0,
+    "effectRangeMultiplier": 1.0,
+    "potionDropMultiplier": 1.0,
+    "lowHealthDamageMaxBonus": 0.0
+  }
+}

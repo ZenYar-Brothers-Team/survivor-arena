@@ -15,7 +15,7 @@ namespace Game.Bootstrap
 {
     [DefaultExecutionOrder(-1000)]
     [DisallowMultipleComponent]
-    public sealed class GameplayCompositionRoot : MonoBehaviour
+    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher
     {
         [SerializeField]
         private RunController runController;
@@ -36,6 +36,11 @@ namespace Game.Bootstrap
         private PlayerActiveSkillSetRuntime activeSkillRuntime;
 
         private SetEffectHost _setEffects;
+        private CharacterSelectScreen _selectionScreen;
+        private Behaviour[] _waitingComponents;
+        private bool[] _previousEnabled;
+        public CharacterSelectionSession Selection { get; private set; }
+        public UnityEngine.UIElements.UIDocument SelectionDocument => _selectionScreen?.Document;
 
         [SerializeField]
         private PlayerPassiveSetRuntime passiveRuntime;
@@ -54,7 +59,7 @@ namespace Game.Bootstrap
         {
             try
             {
-                Initialize();
+                if (!IsInitialized) OpenCharacterSelection();
             }
             catch (Exception exception)
             {
@@ -63,7 +68,47 @@ namespace Game.Bootstrap
             }
         }
 
-        public void Initialize()
+        public void OpenCharacterSelection(ICharacterAccessProvider access = null)
+        {
+            if (IsInitialized) throw new InvalidOperationException("Shut down the current run before selecting another character.");
+            ValidateSceneReferences();
+            Catalog = FixtureRuntimeContentCatalog.Create();
+            _selectionScreen?.Dispose();
+            _selectionScreen = null;
+            if (_waitingComponents == null)
+            {
+                _waitingComponents = new Behaviour[] { runController, player, playerPresentation, experienceRuntime,
+                    draftRuntime, activeSkillRuntime, passiveRuntime, enemySpawner, gameplayUiRoot };
+                _previousEnabled = new bool[_waitingComponents.Length];
+                for (var i = 0; i < _waitingComponents.Length; i++)
+                {
+                    _previousEnabled[i] = _waitingComponents[i].enabled;
+                    _waitingComponents[i].enabled = false;
+                }
+            }
+            var roster = access == null ? Catalog.Characters : new CharacterRoster(Catalog.Characters.AllCharacters, access);
+            Selection = new CharacterSelectionSession(roster, Catalog.RunSetup.StartingCharacterId, this);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry);
+        }
+
+        public bool TryStartCharacter(ContentId id)
+        {
+            if (IsInitialized || Selection == null || !Selection.Roster.TrySelect(id, out _)) return false;
+            Initialize(id, Selection.Roster);
+            _selectionScreen?.Dispose();
+            _selectionScreen = null;
+            for (var i = 0; i < _waitingComponents.Length; i++)
+                _waitingComponents[i].enabled = _previousEnabled[i];
+            _waitingComponents = null;
+            _previousEnabled = null;
+            runController.Model.Start();
+            return true;
+        }
+
+        // Explicit composition entry point retained for scene integration tests and future navigation.
+        public void Initialize() => Initialize(FixtureRuntimeContentCatalog.Create().RunSetup.StartingCharacterId);
+
+        public void Initialize(ContentId characterId, CharacterRoster roster = null)
         {
             if (IsInitialized)
                 throw new InvalidOperationException("Gameplay composition root is already initialized.");
@@ -73,13 +118,14 @@ namespace Game.Bootstrap
             // validated by their domain types when the catalog loads.
             Catalog = FixtureRuntimeContentCatalog.Create();
             var setup = Catalog.RunSetup;
-            if (!Catalog.Characters.TrySelect(setup.StartingCharacterId, out var selectedCharacter))
-                throw new InvalidOperationException($"Character '{setup.StartingCharacterId}' is locked or missing.");
+            if (!(roster ?? Catalog.Characters).TrySelect(characterId, out var selectedCharacter))
+                throw new InvalidOperationException($"Character '{characterId}' is locked or missing.");
 
             // If a subsystem's Initialize() throws partway through, every subsystem
             // that already succeeded gets rolled back (in reverse order) via its
             // Shutdown() before the exception propagates, so a failed composition
             // never leaves some subsystems live-subscribed and others untouched.
+            if (!runController.IsInitialized) runController.Initialize();
             var initializedSubsystems = new List<Action>();
             try
             {
@@ -167,7 +213,7 @@ namespace Game.Bootstrap
                     draftRuntime,
                     runController,
                     playerPresentation,
-                    Catalog.Characters.UnlockedCharacters,
+                    (roster ?? Catalog.Characters).UnlockedCharacters,
                     enemySpawner,
                     Playtest);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
@@ -198,6 +244,9 @@ namespace Game.Bootstrap
         /// <summary>Captures the run, then unwinds consumers before their producers. Idempotent.</summary>
         public void Shutdown()
         {
+            _selectionScreen?.Dispose();
+            _selectionScreen = null;
+            Selection = null;
             if (!IsInitialized) return;
             IsInitialized = false;
             player.ShuttingDown -= Shutdown;

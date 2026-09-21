@@ -2,6 +2,11 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string CharacterSelectScreen = "character-select-screen";
+        public const string CharacterSelectCards = "character-select-cards";
+        public const string CharacterSelectStart = "character-select-start";
+        public const string CharacterSelectCrop = "character-select-crop";
+        public static string CharacterSelectCard(string id) => "character-select-" + id;
         public const string DevelopmentPlaytestTab = "development-tab-playtest";
         public const string DevelopmentPlaytestPane = "development-pane-playtest";
         public const string PlaytestSummary = "playtest-summary";

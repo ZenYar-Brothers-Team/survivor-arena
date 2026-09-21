@@ -57,7 +57,7 @@ namespace Game.Bootstrap
             var sources = new Dictionary<string, string>(System.StringComparer.Ordinal);
             foreach (var path in new[] { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
                 "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Waves/FixtureWaveTimeline",
-                "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters",
+                "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters", "Content/Characters/FixtureCharacterBaseline",
                 "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites" })
                 sources.Add(path, JsonContentFile.ReadText(path));
             SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
@@ -97,6 +97,7 @@ namespace Game.Bootstrap
             for (var i = 0; i < enemies.Count; i++)
                 allDefinitions.Add(enemies[i]);
             allDefinitions.Add(waveTimeline);
+            allDefinitions.Add(FixtureCharacterDefinitionCatalog.CreateBaseline());
             for (var i = 0; i < characters.AllCharacters.Count; i++)
                 allDefinitions.Add(characters.AllCharacters[i]);
             for (var i = 0; i < spriteMotionProfiles.Count; i++)

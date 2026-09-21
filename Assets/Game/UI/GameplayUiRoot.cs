@@ -112,6 +112,11 @@ namespace Game.UI
             _playtestView?.Dispose();
             _view?.Dispose();
             _model?.Dispose();
+            if (_document != null)
+            {
+                _document.visualTreeAsset = null;
+                _document.panelSettings = null;
+            }
             if (_panelSettings != null)
             {
                 if (Application.isPlaying)

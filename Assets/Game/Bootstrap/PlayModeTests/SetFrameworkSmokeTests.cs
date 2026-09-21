@@ -21,6 +21,8 @@ namespace Game.Bootstrap.PlayModeTests
             SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            CharacterSelectionSmokeDriver.StartDefault(root);
+            yield return null;
             var draft = Object.FindAnyObjectByType<LevelUpDraftRuntime>();
             var run = Object.FindAnyObjectByType<RunController>();
             var player = Object.FindAnyObjectByType<PlayerCharacterRuntime>();

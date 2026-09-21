@@ -51,3 +51,7 @@ CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semant
 ## Потребители
 
 [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Character access boundary
+
+Profile adapter реализует `ICharacterAccessProvider.GetLockReason(ContentId)` из [IP-12 API](IP-12-character-framework.md#framework-api-и-fixture-schema): null = unlocked, непустая причина = locked. Доступность повторно проверяется при запуске; цены/условия не хранятся в UI. `FixtureCharacterAccessProvider` остаётся fake-профилем для тестов без persistence.

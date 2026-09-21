@@ -10,6 +10,7 @@ namespace Game.Progression
     {
         private readonly Dictionary<ContentId, float> _draftWeights;
 
+        public CharacterPresentation Presentation { get; }
         public ContentId Id { get; }
         public string DisplayName { get; }
         public CharacterBaseStats BaseStats { get; }
@@ -43,7 +44,16 @@ namespace Game.Progression
             ContentRef<SpriteDefinition> visual,
             ContentRef<SpriteMotionProfile> motionProfile,
             params CharacterDraftWeight[] draftWeights)
+            : this(id, displayName, baseStats, startingActiveSkillId, visual, motionProfile, null, draftWeights)
         {
+        }
+
+        public CharacterDefinition(ContentId id, string displayName, CharacterBaseStats baseStats,
+            ContentId startingActiveSkillId, ContentRef<SpriteDefinition> visual,
+            ContentRef<SpriteMotionProfile> motionProfile, CharacterPresentation presentation,
+            params CharacterDraftWeight[] draftWeights)
+        {
+            Presentation = presentation;
             if (!id.IsValid)
                 throw new ArgumentException("Character requires a valid content id.", nameof(id));
             if (string.IsNullOrWhiteSpace(displayName))
@@ -103,6 +113,12 @@ namespace Game.Progression
         public IEnumerable<ContentReference> GetReferencedContent()
         {
             yield return StartingActiveSkill.ToReference();
+            if (Presentation != null)
+            {
+                yield return Presentation.Baseline.ToReference();
+                yield return Presentation.Crop.ToReference();
+                yield return Presentation.Icon.ToReference();
+            }
             if (Visual.Id.IsValid)
                 yield return Visual.ToReference();
             if (MotionProfile.Id.IsValid)

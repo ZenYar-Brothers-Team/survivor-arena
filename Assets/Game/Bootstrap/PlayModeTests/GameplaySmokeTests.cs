@@ -25,6 +25,8 @@ namespace Game.Bootstrap.PlayModeTests
             yield return null;
 
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            CharacterSelectionSmokeDriver.StartDefault(root);
+            yield return null;
             var run = Object.FindAnyObjectByType<RunController>();
             var experience = Object.FindAnyObjectByType<PlayerExperienceRuntime>();
             var draft = Object.FindAnyObjectByType<LevelUpDraftRuntime>();
@@ -168,7 +170,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(levelBeforeBook + 1, experience.Progression.Level);
             Assert.AreEqual(xpBeforeBook, experience.Progression.CurrentExperience, 0.0001f);
             Assert.GreaterOrEqual(Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount, 1);
-            Assert.AreNotEqual("—", passiveSlots[0].Q<Label>().text);
+            Assert.AreNotEqual("вЂ”", passiveSlots[0].Q<Label>().text);
             Assert.IsNotEmpty(passiveSlots[0].Q<Label>().tooltip);
 
             experience.AddPickedUpExperience(15f);
