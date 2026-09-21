@@ -46,7 +46,7 @@ synthetic known outcomes/counter totals, overkill/heal/expiry/recovery, pause/en
 
 ## Документационные изменения
 
-Delivery format, dictionary, paths/retention и manual instructions: [PLAYTEST_REPORT](../PLAYTEST_REPORT.md). Межслойные producer/teardown решения: [DECISION-0023](../../decisions/0023-local-playtest-recorder.md), Proposed для architecture review; продуктовые правила не изменены.
+Хранение обработанных отзывов и выбранных raw packets в Git: [docs/playtests](../../playtests/README.md); runtime продолжает экспортировать локально, без auto-commit. Delivery format, dictionary, paths/retention и manual instructions: [PLAYTEST_REPORT](../PLAYTEST_REPORT.md). Межслойные producer/teardown решения: [DECISION-0023](../../decisions/0023-local-playtest-recorder.md), Proposed для architecture review; продуктовые правила не изменены.
 
 Run-report schema/metric dictionary, local output/retention, capability/version coverage и performance evidence. IP-32 анализирует report; IP-27 проверяет full integration. Feature owners не зависят от IP-31 для gameplay: они публикуют собственные факты, recorder лишь потребитель.
 

@@ -47,8 +47,20 @@ Unity **6000.6.0f1**, полный filter `^Game\.`: **407/407 EditMode**, **4/4
 
 Ручная статическая проверка по perf-audit: combat aggregation не создаёт per-hit strings, не пишет файлы, maps bounded; snapshots линейны по bounded buffers; worker не обращается к Unity. Test-quality review: assertions различают requested/applied, base/award, missing/zero, reset/retained state. Изменение pause denominator, потеря lethal result или camel-casing ID ломают соответствующие tests. Pure tests используют fake clock/sink; реальная файловая запись — только integration smoke.
 
-Synthetic scene run не является ручным прогоном и не доказывает качество баланса. Человек не выполнял ручной сценарий в рамках этого evidence; путь/комментарий такого прогона не заявляются. Нет проверки crash recovery, полного production roster или release player build. No-recorder Results проверены через отключённый adapter, release gating — source path + UI tests.
+Synthetic scene run не является ручным прогоном и не доказывает качество баланса. На этапе automated checks человек не выполнял ручной сценарий; последующая manual проверка описана ниже. Нет проверки crash recovery, полного production roster или release player build. No-recorder Results проверены через отключённый adapter, release gating — source path + UI tests.
 
 ### Documentation impact
 
 PLAYTEST_REPORT/schema/retention, BALANCE_WORKFLOW, IP-01/IP-04/IP-06/IP-07/IP-10A/IP-31 producer contracts, regression-map и STATUS/readiness. DECISION-0023 Proposed фиксирует technical cross-layer ownership; новые GDD/CD rules/балансные числа не вводились. Существующее пользовательское изменение Packages/manifest.json не редактировалось.
+
+
+### Manual run 2026-09-21
+
+Пользователь выполнил реальный прогон и попросил добавить «опыт стреляет» в feedback.md. Packet: `C:/Users/zheni/AppData/LocalLow/DefaultCompany/survivor-arena/Playtests/108ff5b3e8ed457e84704dcbfa25e0f8/`; run `aa847240c4c5405f8cdd22ab4caf4f7d`, commit `d81430340488bf6f988ec6d8e37a3c6b0d3a0dea`, dirty=true. Config hash совпадает с указанным выше synthetic fixture hash. SHA256 файла run.json: `4bcbe6f44ef9ad347a8ffa434e29d5a1704a19f88ca4b387e8e9fc521aefda50`.
+
+- Final completion `aborted` / outcome `Aborted`; 29.9932442 s simulation, 34.1921856 s pause wall, 64.3490149 s wall. Pause transitions сохраняют simulation time; observed DPS = 108 / 29.9932442 = 3.60081088.
+- Marker на 17.8085632 s: «кажется опыт становится врагом - он стреляем». В feedback добавлена точная новая формулировка пользователя и ссылка на этот marker. Expected поведение и причина не уточнены и не приписываются пользователю.
+- 10 kills (8 SEEKER, 2 FAN); XP dropped=10, ground=10, collected=0, level=1. Damage dealt=108, attempted=124, overkill=16; damage taken=34 от FIXTURE-ENEMY-FAN (EnemyProjectile). Эти данные не доказывают, что XP объект стреляет: визуальная/behavior причина отдельно не диагностирована.
+- Read-only packet assertions прошли: Report/Run/Config связаны между тремя файлами; outcome run ID совпадает; 9 snapshot SHA256 пересчитаны; JSON меньше 8 MiB; DPS denominator, damage/overkill, kill/XP totals согласованы; timeline sequence/time монотонны; dropped counters=0; failed contributors отсутствуют; incompleteReason=null; pending files отсутствуют. Unsupported coverage сохранён явно.
+- Проверка закрывает manual report/comment/export criterion, а не gameplay quality или исправление замечания. Первоначально feedback хранился в AppData. По последующему разрешению пользователя отзыв и неизменённый raw packet перенесены в [docs/playtests](../../playtests/2026-09-21_108ff5b3.md); OBS-01 остаётся открытым. Процесс хранения описан в README этой папки и синхронизирован с PLAYTEST_REPORT, BALANCE_WORKFLOW, WORKFLOW и IP-31/IP-32. Копия raw JSON сверена побайтово; исходный feedback сохранён отдельно.
+- Исполняемые файлы не менялись, поэтому успешные 407/407 EditMode и 4/4 PlayMode выше не перезапускались (WORKFLOW §9). Проверены diff whitespace и согласованность STATUS/evidence. Новый IP не запускался.

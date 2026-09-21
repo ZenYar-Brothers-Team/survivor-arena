@@ -42,7 +42,7 @@ player UI не нужен; reviewable Markdown packet и readable diff; в иг�
 
 ## Документационные изменения
 
-docs/balance workflow/templates и evidence владельца одобренного изменения. .claude balance-check остаётся read-only; optional skill edits — только по отдельному scope. Любой production IP может использовать workflow без mandatory dependency на завершение баланса всего каталога.
+[BALANCE_WORKFLOW](../BALANCE_WORKFLOW.md), [записи прогонов](../../playtests/README.md), [шаблон](../../playtests/TEMPLATE.md) и evidence владельца одобренного изменения. Один файл на reportId, отдельные OBS-NN, связи с immutable raw packet, proposal, diff/commit и повторным прогоном. Неизвестные ожидания не дописываются от имени tester-а; статус замечания не заменяет execution status IP. .claude balance-check остаётся read-only; optional skill edits — только по отдельному scope. Любой production IP может использовать workflow без mandatory dependency на завершение баланса всего каталога.
 
 ## Gates и недостающие решения
 
