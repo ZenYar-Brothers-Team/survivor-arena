@@ -12,6 +12,15 @@
 
 Обязательный player-facing `RunOutcome` из IP-01 и его feature-owned contributors (результат, время, уровень, kills, build/sets; впоследствии rewards/unlocks) работает даже без development recorder. Из него IP-26 строит компактные Results. Detailed report и export — дополнительная development возможность. Top-3 damage skills в UI остаётся optional, как указано в UI Design §16; advanced statistics и подробный combat log не входят в MVP.
 
+## Рабочие шаблоны и примеры
+
+- [Checklist сценария и review](../playtests/CHECKLIST.md).
+- [Запись прогона](../playtests/TEMPLATE.md) и [review/proposal](../playtests/REVIEW_TEMPLATE.md).
+- [Реальный fixture review OBS-01](../balance/balance-progression-2026-09-21.md): insufficient-evidence / no-change, gameplay-замечание открыто.
+- [Synthetic accept/apply/rollback](../playtests/exercises/IP32/README.md): воспроизводимая проверка в памяти, без применения к игре и без настоящего approval.
+
+Approval связывается с revision, baseline и конкретными строками. Для partial approval проверить целостность выбранного поднабора. Изменившийся baseline требует обновлённого review; rollback не должен затирать последующие изменения. Итог review no-change/insufficient-evidence не требует выдуманного diff и не закрывает исходное OBS автоматически.
+
 ## Один цикл
 
 1. **Brief.** Выбрать один вопрос, например «почему после второй pressure phase перестаёт хватать XP». Зафиксировать build/config baseline, character/field, начальный meta state, seeds, действия тестировщика и цель наблюдения. Не назначать win-rate/TTK target без продуктового основания.

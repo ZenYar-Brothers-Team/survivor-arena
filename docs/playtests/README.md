@@ -22,6 +22,10 @@
 
 Запись отзыва не разрешает tuning. Анализ, предложения, approval и повторные сравнения выполняются по [BALANCE_WORKFLOW](../implementation/BALANCE_WORKFLOW.md); формат экспорта — [PLAYTEST_REPORT](../implementation/PLAYTEST_REPORT.md).
 
+## Анализ и проверка процесса
+
+[Checklist](CHECKLIST.md) и [review/proposal template](REVIEW_TEMPLATE.md) задают путь от наблюдения до решения и повторной проверки. Пример: [review OBS-01](../balance/balance-progression-2026-09-21.md); [synthetic accept/apply/rollback](exercises/IP32/README.md). Состояние OBS и исход review различаются: insufficient-evidence завершает анализ имеющихся данных, но не исправляет замечание.
+
 ## Прогоны
 
 - [2026-09-21 — «опыт стреляет»](2026-09-21_108ff5b3.md).
