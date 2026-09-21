@@ -18,6 +18,7 @@ namespace Game.Presentation
         private Rigidbody2D _motionBody;
         private RunController _runController;
         private Vector3 _baselinePosition;
+        private Vector3 _authoredPosition;
         private Quaternion _baselineRotation;
         private Vector3 _baselineScale;
         private Color _baselineColor;
@@ -64,7 +65,8 @@ namespace Game.Presentation
                 rig = GetComponent<SpritePresentationRig>();
             rig.Validate();
 
-            _baselinePosition = rig.BodyRoot.localPosition;
+            _authoredPosition = rig.BodyRoot.localPosition;
+            _baselinePosition = _authoredPosition - Vector3.up * (sprite.Contact?.CenterY ?? 0);
             _baselineRotation = rig.BodyRoot.localRotation;
             _baselineScale = rig.BodyRoot.localScale;
             _baselineColor = rig.BodyRenderer.color;
@@ -160,7 +162,7 @@ namespace Game.Presentation
 
         private void RestoreBaseline()
         {
-            rig.BodyRoot.localPosition = _baselinePosition;
+            rig.BodyRoot.localPosition = _authoredPosition;
             rig.BodyRoot.localRotation = _baselineRotation;
             rig.BodyRoot.localScale = _baselineScale;
             rig.BodyRenderer.color = _baselineColor;

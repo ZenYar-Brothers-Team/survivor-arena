@@ -22,4 +22,17 @@ Related IP: IP-12A; consumers IP-17…23, IP-26, IP-28, IP-30
 
 ## Consequences
 
+### 2026-09-21 — Первый imported enemy body
+
+По запросу пользователя после выбора ENEMY-001 v002 выполнена интеграция арта
+в существующий FIXTURE-ENEMY-SEEKER без изменения fixture ID/баланса.
+Для body переиспользован существующий SpritePresentationRuntime/rig: он уже
+потребляет Health/Rigidbody2D/RunController и обеспечивает single pose writer.
+Generic adapter остаётся доступен для других roles и signal-based owners.
+EnemyDefinition получил optional typed motion ref; composition root разрешает
+его вместе с body, WaveEnemyScaler переносит при scaling. VisualRoot компенсирует
+collision scale; reset выполняется до disposal Health и pool return.
+Это техническая интеграция approved art, не заполнение production TBD
+и не новая gameplay rule.
+
 DECISION-0013 остаётся основой player implementation; указанное там историческое исключение death относится к прежнему scope. Новый adapter реализует только presentation fade contract текущего IP-12A, не новое gameplay правило. Record имеет Proposed как техническая запись для review; продуктовые approvals W-01/G-18 и концепт CHAR-001 находятся в Approved DECISION-0029. Проверки/остаток IP — только STATUS.

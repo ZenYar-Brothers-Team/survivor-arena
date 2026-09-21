@@ -3,6 +3,7 @@ using Game.Content;
 using Game.Diagnostics;
 using Game.Pooling;
 using Game.Run;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -25,6 +26,8 @@ namespace Game.Enemy
         private readonly List<EnemyRuntime> _aliveEnemies = new List<EnemyRuntime>();
         private WaveDirector _director;
         private IReadOnlyDictionary<ContentId, Sprite> _visuals;
+        private IReadOnlyDictionary<ContentId, SpriteMotionProfile> _motions;
+        private IReadOnlyDictionary<ContentId, SpriteContactProfile> _contacts;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
@@ -66,7 +69,9 @@ namespace Game.Enemy
         }
 
         public void Initialize(WaveDirector director, IReadOnlyDictionary<ContentId, Sprite> visuals = null,
-            IEnemyLifecycleSink lifecycleSink = null)
+            IEnemyLifecycleSink lifecycleSink = null,
+            IReadOnlyDictionary<ContentId, SpriteMotionProfile> motions = null,
+            IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
@@ -77,6 +82,8 @@ namespace Game.Enemy
             LastLifeEvent = null;
             LastSpawnOutcome = default;
             _visuals = visuals;
+            _motions = motions;
+            _contacts = contacts;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _outcomeOwner = runController != null ? runController.Model : null;
@@ -126,6 +133,8 @@ namespace Game.Enemy
 
             var definition = _director.SelectEnemy();
             var visual = _visuals != null && _visuals.TryGetValue(definition.Id, out var sprite) ? sprite : null;
+            var motion = _motions != null && _motions.TryGetValue(definition.Id, out var profile) ? profile : null;
+            var contact = _contacts != null && _contacts.TryGetValue(definition.Id, out var fitted) ? fitted : null;
             var spawnPosition = (Vector2)target.position + direction * _director.Timeline.SpawnRadius;
             var enemy = EnemyFactory.Spawn(
                 definition,
@@ -136,7 +145,9 @@ namespace Game.Enemy
                 visual,
                 _pool,
                 _projectilePool,
-                this);
+                this,
+                motionProfile: motion,
+                contact: contact);
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
@@ -183,6 +194,8 @@ namespace Game.Enemy
             }
             _director = null;
             _visuals = null;
+            _motions = null;
+            _contacts = null;
             _outcomeOwner?.UnregisterOutcomeContributor(this);
             _outcomeOwner = null;
             _lifecycleSink = null;

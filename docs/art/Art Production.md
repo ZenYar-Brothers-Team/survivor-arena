@@ -134,7 +134,7 @@ IN GAME
 
 | ID | Enemy | Asset | Method | Status |  
 |---|---|---|---|---|  
-| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT | NOT STARTED |  
+| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT + procedural motion | APPROVED — v002; runtime 256×256 импортирован и IN GAME у FIXTURE-ENEMY-SEEKER. [Provenance](../../Art/Source/Enemies/enemy-001/asset-record.json); production ENEMY-001 binding и пользовательский gameplay review отдельно |
 | ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-003 | Дровосек | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-004 | Пращник | Body sprite | Generate via GPT | NOT STARTED |  
@@ -610,3 +610,7 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 ## Проверяемый fixture inventory — 2026-09-21
 
 [Manifest](../../Art/asset-manifest.json) фиксирует owner+role, method, source/runtime, stage и evidence. CHAR-001 concept identity подтверждена пользователем: это master fixture goblin v002; runtime остаётся FIXTURE-CHARACTER-AGILE, production binding отдельно IP-22. UI body reuse в диагностическом слоте принят пользователем 2026-09-21; production Character Select binding проверяется отдельно. Шесть новых procedural diagnostic roles (body/projectile/pickup/telegraph/shadow/impact) приняты пользователем в Presentation Fixture Review («всё хорошо», 2026-09-21); они не заменяют production строки выше. Player ShadowRenderer пока не имеет отдельного shadow asset. Полное исполнение IP учитывается только в STATUS.
+
+## Body contact authoring
+
+Для новых и заменяемых character/enemy body с круговым контактом после runtime import выполнить [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body): максимальный вписанный круг по заполненному внешнему обводу, сохранение профиля, wiring, проверки и review. Принятый эталон — текущие goblin/villager; внутренние дырки не уменьшают круг. Production content gates сохраняются.

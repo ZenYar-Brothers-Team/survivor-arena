@@ -27,7 +27,7 @@ namespace Game.Movement.Tests
             var mover = player.GetComponent<PlayerMover>();
             var speedSource = player.GetComponent<IMovementSpeedSource>();
             var body = player.GetComponent<Rigidbody2D>();
-            var collider = player.GetComponent<BoxCollider2D>();
+            var collider = player.GetComponent<CircleCollider2D>();
 
             Assert.IsNotNull(mover);
             Assert.IsNotNull(speedSource);

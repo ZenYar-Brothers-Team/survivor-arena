@@ -27,7 +27,7 @@ namespace Game.Enemy
                 definition.Movement,
                 ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier),
                 definition.KnockbackResistance,
-                definition.ContactControls, definition.DashContactControls);
+                definition.ContactControls, definition.DashContactControls, definition.MotionProfile);
         }
 
         private static EnemyAttackProfile ScaleAttack(EnemyAttackProfile attack, float damageMultiplier)

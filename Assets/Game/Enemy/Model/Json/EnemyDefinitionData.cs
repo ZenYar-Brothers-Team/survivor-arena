@@ -17,6 +17,7 @@ namespace Game.Enemy.Json
         public float ContactDamageInterval { get; set; }
         public float ExperienceReward { get; set; }
         public string VisualId { get; set; }
+        public string MotionProfileId { get; set; }
         public EnemyMovementProfileData Movement { get; set; }
         public EnemyAttackProfileData Attack { get; set; }
     }

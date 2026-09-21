@@ -112,7 +112,7 @@ Survival Arena — это инвертированная сказочная по
 - оставить `8–10%` снизу, не включая отдельную ground shadow;
 - ни один значимый элемент не касается края.
 
-Размер gameplay sprite не определяет collider. Визуальный масштаб калибруется относительно уже заданной gameplay geometry.
+Для character/enemy body кругового контакта после выбора визуального масштаба выполняется отдельный authoring-этап: максимальный круг внутри заполненного внешнего обвода по [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body), утверждённый [DECISION-0039](../decisions/0039-conservative-body-contact-circles.md). Визуальное пересечение до контакта допустимо. Процедурная анимация и обычный reimport не изменяют этот круг.
 
 ## 7. Язык формы playable-персонажей
 
@@ -334,7 +334,7 @@ Survival Arena сознательно не наследует:
 - canvas имеет достаточный padding;
 - отсутствуют фон, baked shadow, текст, watermark и случайные предметы;
 - цвета не конфликтуют с player/danger/pickup hierarchy;
-- sprite не требует изменения collider ради совпадения с рисунком;
+- character/enemy body прошёл отдельную подгонку круга по ASSET_PIPELINE §22; остальные роли сохраняют свою gameplay geometry;
 - asset не копирует узнаваемый дизайн из референсной игры.
 
 ## 17. Первый vertical slice: FIXTURE-CHARACTER-AGILE

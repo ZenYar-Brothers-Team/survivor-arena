@@ -51,7 +51,11 @@ namespace Game.Presentation
                 if (sprite == null)
                     throw new InvalidOperationException(
                         $"Fixture sprite '{id}' is missing at Resources/{entry.ResourcePath}.");
-                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite, entry.Role.Value)))
+                if (entry.ContactRadius.HasValue != entry.ContactCenterY.HasValue)
+                    throw new InvalidOperationException($"Sprite '{id}' requires both contactRadius and contactCenterY.");
+                var contact = entry.ContactRadius.HasValue
+                    ? new SpriteContactProfile(entry.ContactRadius.Value, entry.ContactCenterY.Value) : null;
+                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite, entry.Role.Value, contact)))
                     throw new InvalidOperationException($"Duplicate fixture sprite id '{id}'.");
             }
 

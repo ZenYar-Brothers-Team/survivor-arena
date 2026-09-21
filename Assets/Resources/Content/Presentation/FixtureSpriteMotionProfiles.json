@@ -20,5 +20,27 @@
     "hitFlashAlpha": 1.0,
     "spawnDurationSeconds": 0.2,
     "spawnScaleFrom": 0.75
+  },
+  {
+    "id": "FIXTURE-MOTION-VILLAGER",
+    "referenceSpeed": 1.0,
+    "idleBobAmplitude": 0.012,
+    "idleFrequency": 0.6,
+    "idleBreathStretch": 0.015,
+    "idleSwayDegrees": 0.6,
+    "bobAmplitude": 0.028,
+    "bobFrequency": 2.0,
+    "locomotionStretch": 0.03,
+    "maxTiltDegrees": 3.0,
+    "hitDurationSeconds": 0.14,
+    "hitSquash": 0.08,
+    "hitTiltDegrees": 5.0,
+    "hitFlashDurationSeconds": 0.08,
+    "hitFlashRed": 1.0,
+    "hitFlashGreen": 0.65,
+    "hitFlashBlue": 0.65,
+    "hitFlashAlpha": 1.0,
+    "spawnDurationSeconds": 0.2,
+    "spawnScaleFrom": 0.85
   }
 ]

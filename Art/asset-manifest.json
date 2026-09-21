@@ -2,6 +2,40 @@
   "schemaVersion": 1,
   "entries": [
     {
+      "owner": "ENEMY-001",
+      "role": "body",
+      "visualId": "ENEMY-001-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-001/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-001/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
+      "stage": "Imported",
+      "evidence": [
+        "User accepted the older, rougher v002 villager on 2026-09-21: «Хорошо, давай использовать этого.»",
+        "1254x1254 PNG with alpha; master and selected candidate SHA256 match; see asset-record.json."
+      ],
+      "missing": "Production ENEMY-001 owner binding and user gameplay review. Used by FIXTURE-ENEMY-SEEKER for the authorized art integration; contact interval remains TBD for production."
+    },
+    {
+      "owner": "FIXTURE-ENEMY-SEEKER",
+      "role": "body",
+      "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Enemies/enemy-001/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-001/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User requested the next step after approving ENEMY-001 v002; existing fixture keeps its ID/stats.",
+        "EnemyBodyPresentationTests, EnemySpriteImportTests and EnemyBodySmokeTests; docs/implementation/evidence/2026-09-21-enemy001-art.md."
+      ],
+      "missing": "User gameplay/motion approval and dense effects review; production ENEMY-001 data remains separate."
+    },
+    {
       "owner": "FIXTURE-CHARACTER-AGILE",
       "role": "body",
       "visualId": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",

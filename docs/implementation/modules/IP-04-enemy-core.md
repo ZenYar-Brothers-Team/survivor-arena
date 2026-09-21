@@ -6,6 +6,8 @@
 
 Сохранить seek/contact/death/pooling/registry. Расширить authoritative lifecycle events без переноса drop/economy/export логики в EnemyRuntime.
 
+Разрешённый опыт [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) задаёт меньший круг для текущего seeker с артом селянина через authored profile IP-12A. Contact callbacks/timer сохраняются, root — центр круга; pool reuse повторно применяет fit или исходную геометрию plain fixture. [Evidence](../evidence/2026-09-22-body-contact-circles.md).
+
 ## Зависимости
 
 [IP-02](IP-02-player-movement.md), [IP-03](IP-03-character-stats.md).

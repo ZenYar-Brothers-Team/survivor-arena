@@ -9,6 +9,7 @@
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
     "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL",
+    "motionProfileId": "FIXTURE-MOTION-VILLAGER",
     "movement": {
       "kind": "Seek"
     },

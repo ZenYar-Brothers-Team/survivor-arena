@@ -2,6 +2,7 @@ using Game.Combat;
 using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 
 namespace Game.Character.Tests
 {
@@ -11,6 +12,8 @@ namespace Game.Character.Tests
         public void Knockback_UsesCollisionVelocity_AndBlockedDistanceDoesNotAccumulate()
         {
             var previous = Physics2D.simulationMode;
+            var previousScenes = EditorSceneManager.GetSceneManagerSetup();
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var root = new GameObject("player-control-physics");
             try
             {
@@ -53,6 +56,7 @@ namespace Game.Character.Tests
             {
                 Object.DestroyImmediate(root);
                 Physics2D.simulationMode = previous;
+                EditorSceneManager.RestoreSceneManagerSetup(previousScenes);
             }
         }
     }

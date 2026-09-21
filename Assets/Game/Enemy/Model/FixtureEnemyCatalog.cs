@@ -46,7 +46,9 @@ namespace Game.Enemy
                 Require(data.KnockbackResistance, $"Enemy {data.Id} knockbackResistance"),
                 RequireControls(data.ContactControls, $"Enemy {data.Id} contactControls"),
                 movement.Kind == EnemyMovementKind.TelegraphedDash
-                    ? RequireControls(data.DashContactControls, $"Enemy {data.Id} dashContactControls") : null);
+                    ? RequireControls(data.DashContactControls, $"Enemy {data.Id} dashContactControls") : null,
+                string.IsNullOrEmpty(data.MotionProfileId) ? default :
+                    new ContentRef<SpriteMotionProfile>(data.MotionProfileId));
         }
 
         // Every field the kind actually reads must be explicit in config; fields it never

@@ -1,5 +1,13 @@
 [
   {
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.53,
+    "pivotY": 0.1,
+    "reason": "256px enemy derivative; 160 PPU preserves a 1.6-unit canvas relative to the 512px/320PPU player. Pivot follows the center between boots and ground contact after padding normalization; VisualRoot cancels collision scale."
+  },
+  {
     "key": "portrait",
     "pixelsPerUnit": 320,
     "maxSize": 512,

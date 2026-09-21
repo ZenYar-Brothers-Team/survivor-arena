@@ -34,6 +34,14 @@ final schedules, Travelers как переименованные обычные 
 
 ## UI / observability
 
+Body presentation contract: optional motionProfileId в EnemyDefinitionData задаёт
+typed SpriteMotionProfile ref и требует visualId. Registry проверяет ссылку;
+composition root проверяет Body role, разрешает sprite/profile и передаёт spawner.
+Wave scaling сохраняет motion ref. При заданном profile EnemyRuntime использует
+дочерний rig с визуальным размером независимо от collision scale; death/reuse
+сбрасывают writer/subscriptions до освобождения Health.
+Art-only fixture reuse не регистрирует production enemy и не заполняет его TBD.
+
 читаемая attack preparation и отличия role/silhouette; DEV показывает ID/pattern/effects; без ненужного отдельного HUD на каждого обычного врага.
 
 ## Проверки

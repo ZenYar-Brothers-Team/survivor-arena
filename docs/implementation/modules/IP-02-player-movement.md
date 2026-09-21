@@ -6,6 +6,8 @@
 
 Сохранить текущие movement/camera/player-only collision contracts. Новые механики не требуют повторно проектировать движение.
 
+Разрешённый опыт [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) заменяет player box кругом внутри текущего goblin body. Root остаётся authoritative центром движения/физики; IP-12A смещает visual относительно него. Проверки и границы: [evidence](../evidence/2026-09-22-body-contact-circles.md).
+
 ## Зависимости
 
 [IP-01](IP-01-run-lifecycle.md).

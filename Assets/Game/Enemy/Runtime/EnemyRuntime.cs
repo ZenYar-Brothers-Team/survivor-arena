@@ -6,6 +6,7 @@ using Game.Diagnostics;
 using Game.Movement;
 using Game.Pooling;
 using Game.Run;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -20,6 +21,8 @@ namespace Game.Enemy
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
+        private SpritePresentationRuntime _presentation;
+        private SpritePresentationRig _presentationRig;
         private LineRenderer _telegraph;
         private Transform _target;
         private RunController _runController;
@@ -89,13 +92,21 @@ namespace Game.Enemy
             Sprite visual = null,
             GameObjectPool<EnemyRuntime> pool = null,
             GameObjectPool<EnemyProjectileRuntime> projectilePool = null,
-            EnemyCategory category = EnemyCategory.Ordinary)
+            EnemyCategory category = EnemyCategory.Ordinary,
+            SpriteMotionProfile motionProfile = null,
+            SpriteContactProfile contact = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
             if (target == null) throw new ArgumentNullException(nameof(target));
             if (runController == null) throw new ArgumentNullException(nameof(runController));
             if (!Enum.IsDefined(typeof(EnemyCategory), category)) throw new ArgumentOutOfRangeException(nameof(category));
+            if (motionProfile != null && (visual == null || runController.Model == null))
+                throw new ArgumentException("Enemy body motion requires a sprite and initialized run.");
+            if (contact != null && motionProfile == null)
+                throw new ArgumentException("Fitted contact requires the matching animated body.");
+            _presentation?.Shutdown();
+            if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             var reused = _initialized;
             if (_initialized)
             {
@@ -134,12 +145,17 @@ namespace Game.Enemy
             _body.angularVelocity = 0f;
             _body.constraints |= RigidbodyConstraints2D.FreezeRotation;
             _collider.radius = 0.5f;
+            _collider.offset = Vector2.zero;
+            contact?.Apply(_collider, definition.CollisionSize);
             transform.localScale = Vector3.one * definition.CollisionSize;
             gameObject.name = $"Enemy [{definition.Id}]";
             // definition.Visual (when set) is resolved by the caller ahead of time and
             // handed in as a plain Sprite, so this class never needs to know about
             // ContentRegistry/ContentRef at all.
             _renderer.sprite = visual != null ? visual : PlaceholderSprite.Shared;
+            _renderer.enabled = true;
+            _renderer.flipX = false;
+            _renderer.color = visual != null ? Color.white : new Color(0.85f, 0.2f, 0.2f, 1f);
 
             _movementController = new EnemyMovementController(definition.Movement);
             _attackController = definition.Attack == null ? null : new EnemyAttackController(definition.Attack);
@@ -148,6 +164,8 @@ namespace Game.Enemy
 
             Health = new Health(new FixedHealthProfile(definition.MaxHealth));
             Health.Died += HandleDeath;
+            if (motionProfile != null)
+                InitializePresentation(visual, motionProfile, contact);
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;
             EnemyRegistry.Register(this);
@@ -294,6 +312,8 @@ namespace Game.Enemy
                 return;
 
             _despawned = true;
+            _presentation?.Shutdown();
+            if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             Controls.Reset();
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
@@ -366,6 +386,11 @@ namespace Game.Enemy
             EndLife(EnemyLifeReason.Destroyed, releaseObject: false);
         }
 
+        private void OnDisable()
+        {
+            _presentation?.Shutdown();
+        }
+
         private void Publish(EnemyLifeEventKind kind, EnemyLifeReason reason)
         {
             var snapshot = new EnemyLifeEvent(LifeId, _runId,
@@ -385,6 +410,31 @@ namespace Game.Enemy
                 _renderer = GetComponent<SpriteRenderer>();
             if (_telegraph == null)
                 _telegraph = GetComponent<LineRenderer>();
+        }
+
+        // Art is independent of collision-size scaling; only the child pose is animated.
+        // ASSET_PIPELINE body/pooling contract; the existing player pose writer is reused.
+        private void InitializePresentation(Sprite sprite, SpriteMotionProfile profile, SpriteContactProfile contact)
+        {
+            if (_presentation == null)
+            {
+                var visual = new GameObject("VisualRoot");
+                visual.transform.SetParent(transform, false);
+                var body = new GameObject("BodyRoot");
+                body.transform.SetParent(visual.transform, false);
+                var renderer = body.AddComponent<SpriteRenderer>();
+                renderer.sharedMaterial = _renderer.sharedMaterial;
+                renderer.sortingLayerID = _renderer.sortingLayerID;
+                renderer.sortingOrder = _renderer.sortingOrder;
+                _presentationRig = visual.AddComponent<SpritePresentationRig>();
+                _presentationRig.Configure(body.transform, renderer);
+                _presentation = visual.AddComponent<SpritePresentationRuntime>();
+            }
+            _presentationRig.transform.localScale = Vector3.one / Definition.CollisionSize;
+            _presentationRig.gameObject.SetActive(true);
+            _presentation.Initialize(new SpriteDefinition(Definition.Visual.Id, sprite, SpriteRole.Body, contact),
+                profile, Health, _body, _runController);
+            _renderer.enabled = false;
         }
 
         private void ConfigureTelegraph()

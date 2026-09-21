@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-001",
+  "status": "approved",
+  "artDirectionRevision": "Approved revision read 2026-09-21",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-21",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the older, rougher second variant: «Хорошо, давай использовать этого.»",
+  "referenceImages": [
+    {
+      "path": "../../Characters/fixture-character-agile/selected-master.png",
+      "role": "Approved style reference for initial generation; not an edit target"
+    },
+    {
+      "path": "v001/concept-01.png",
+      "role": "Initial younger villager; edit target for age and facial ruggedness revision"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept.\nAsset type: ENEMY-001 body sprite preview for Survival Arena, a 2D survival game.\nInput image: the approved goblin is a STYLE REFERENCE ONLY. Create a NEW HUMAN ENEMY, not a goblin variation; do not include the goblin.\nPrimary request: one ordinary human villager with a pitchfork, a member of a fairy-tale village pursuit. A sturdy adult farm worker, upright and purposeful, serious with a hint of wary determination; neither evil caricature nor heroic knight. His instantly readable signature is one simple wooden pitchfork with three thick dull iron tines.\nStyle: match the reference's hand-drawn stylized 2D storybook cutout, thick deep-plum outer contour (#241B2B), thinner internal lines, broad flat matte color masses, one simple cel-shaded shadow mass, restrained paper/dry-brush texture. Reduce tiny texture and seams so he reads clearly in a crowd at roughly 80–120 pixels on screen. Use 3–5 dominant shapes. Not pixel art, not 3D.\nDesign: clearly human rounded ears, warm natural human skin, simple brown hair, a broad readable nose and brow, adult proportions stylized to about 3.5 heads tall, more upright and orderly than the reference goblin. Plain muted linen shirt with rolled sleeves, muted dusty blue sleeveless waistcoat, dark earth-brown trousers and substantial simple brown work boots. No dominant green, no armor, no elaborate ornaments, no hat or extra props. The shirt, vest and trousers form large simple masses.\nPose and view: 3/4 top-down GAMEPLAY view, face, chest and upper shoulder planes visible, facing screen-right and slightly toward the viewer. Full body in a neutral animation-ready standing pose, center of gravity over feet, both boots aligned to a stable ground-contact baseline, legs separated slightly. One hand grips the pitchfork beside the body with shaft near vertical, slightly angled outward, fork head alongside and a little above the shoulder/head, never crossing the face or cutting across the whole torso. Other hand relaxed. Natural unambiguous grip, all fingers simplified. No stabbing, walking frame or extreme action pose. One integrated body sprite, no separate parts sheet.\nFraming: one character only, centered square 1024x1024 canvas; entire combined body and pitchfork silhouette fits within 76% canvas height, about 14% clear space above and 10% below; at least 12% clear space at both sides. Weapon tips, hands and boots fully inside canvas.\nLighting: soft neutral-warm ambient from above/front, no strong side lighting, horizontal flip must look natural.\nOutput: genuinely transparent alpha background, isolated clean antialiased cutout. No baked ground shadow, ground plane, scenery, colored backdrop or checkerboard drawing. No text, labels, logo, watermark, border or UI. No glow, motion blur, dust, speed lines or effects. No extra limbs, weapons, duplicate objects or copyrighted character imitation.",
+  "prompt": "Use case: identity-preserve.\nAsset: ENEMY-001 villager with pitchfork, revised BODY sprite preview for Survival Arena.\nInput image is the exact EDIT TARGET. Edit this same character, do not redesign the asset.\nUser request: make him visibly older and rougher.\nChange only age and facial ruggedness: a weathered rural man about 50–60 years old, receding slightly untidy brown hair with substantial gray at temples, heavier coarse brows, smaller less round eyes with hooded lids, broad rugged nose, squarer heavier jaw, short coarse salt-and-pepper stubble, a few strong simple forehead and cheek creases. Stern, gruff, stubborn expression of a seasoned farm worker joining a pursuit. Not a villainous caricature, not a monster, not frail. His age and toughness should read through big shapes rather than many tiny wrinkles. Preserve the warm ironic fairy-tale tone.\nPreserve aggressively: exact overall body proportions, neutral animation-ready standing pose, body and weapon silhouette, hand grip, single three-tined pitchfork, clothes and clothing colors (linen shirt, dusty blue waistcoat, brown trousers and boots), camera angle facing screen-right in 3/4 top-down gameplay view, full-body framing, canvas, placement, all transparent padding, thick deep-plum outline, flat matte colors, simple cel shading, restrained paper texture, soft front/top lighting suitable for horizontal flip. Keep all boots and weapon tips visible.\nOutput is one isolated sprite on genuinely transparent alpha background. No scenery, ground, baked shadow, text, labels, watermarks, frames, particles, glow or motion effects. No additional accessories or weapons. No photorealism, no 3D, no pixel art.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "neutral animation-ready pose",
+    "preserve clothes, pitchfork, pose and storybook cutout style while changing age and facial ruggedness"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png"
+  ],
+  "plannedRuntimeOutput": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+  "preparation": {
+    "sourceDimensions": [
+      1254,
+      1254
+    ],
+    "sourceSha256": "3F4B953B3CB89DCCA3AF65D91BDCE3CE4106BC8155BD892EB1FE1F8C16C9753E",
+    "operations": [
+      "Master unchanged and byte-identical to v002/concept-01.png.",
+      "Runtime only: alpha bounds x57/y51/w1137/h1157 mapped without distortion (integer rounding only) into x32/y36/w191/h194 on a transparent 256x256 RGBA canvas; System.Drawing HighQualityBicubic/SourceCopy/TileFlipXY. No artistic changes.",
+      "Unity import: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256; 160 PPU gives the same world canvas height as the 512px/320PPU player. Pivot (0.53,0.10) centered between boots at ground contact."
+    ],
+    "remaining": [
+      "Final user gameplay/motion approval and dense 3–4-set review; image approval does not imply Gate E.",
+      "Production ENEMY-001 gameplay definition/binding remains IP-20; this integration uses unchanged FIXTURE-ENEMY-SEEKER gameplay identity and values."
+    ]
+  }
+}

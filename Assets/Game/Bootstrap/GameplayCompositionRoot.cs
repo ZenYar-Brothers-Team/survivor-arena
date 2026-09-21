@@ -311,6 +311,10 @@ namespace Game.Bootstrap
                     throw new InvalidOperationException(
                         $"Character '{selectedCharacter.Id}' requires visual and motion profile references.");
                 var playerVisual = selectedCharacter.Visual.Resolve(Catalog.Registry);
+                var playerCollider = player.GetComponent<CircleCollider2D>();
+                if (playerCollider == null)
+                    throw new InvalidOperationException("Fixture player requires a circular collider.");
+                playerVisual.Contact?.Apply(playerCollider);
                 var playerMotionProfile = selectedCharacter.MotionProfile.Resolve(Catalog.Registry);
                 var playerBody = player.GetComponent<Rigidbody2D>();
                 if (playerBody == null)
@@ -370,19 +374,28 @@ namespace Game.Bootstrap
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
                 var enemyVisuals = new Dictionary<ContentId, Sprite>(configuration.Enemies.Count);
+                var enemyMotions = new Dictionary<ContentId, SpriteMotionProfile>(configuration.Enemies.Count);
+                var enemyContacts = new Dictionary<ContentId, SpriteContactProfile>(configuration.Enemies.Count);
                 for (var i = 0; i < configuration.Enemies.Count; i++)
                 {
                     var enemy = configuration.Enemies[i];
                     enemiesById.Add(enemy.Id, enemy);
                     if (enemy.Visual.TryResolve(Catalog.Registry, out var enemySprite))
+                    {
+                        if (enemy.MotionProfile.Id.IsValid) enemySprite.RequireRole(SpriteRole.Body);
                         enemyVisuals.Add(enemy.Id, enemySprite.Sprite);
+                        if (enemySprite.Contact != null) enemyContacts.Add(enemy.Id, enemySprite.Contact);
+                    }
+                    if (enemy.MotionProfile.TryResolve(Catalog.Registry, out var enemyMotion))
+                        enemyMotions.Add(enemy.Id, enemyMotion);
                 }
                 var waveDirector = new WaveDirector(
                     configuration.Timeline,
                     enemiesById,
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
-                    new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups));
+                    new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
+                    enemyMotions, enemyContacts);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
