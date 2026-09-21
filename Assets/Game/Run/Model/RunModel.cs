@@ -14,6 +14,15 @@ namespace Game.Run
         public int PauseReasonCount => _pauseReasons.Count;
         public Guid RunId { get; } = Guid.NewGuid();
         public RunOutcome Outcome { get; private set; }
+        public RunSelectionSnapshot Selection { get; private set; }
+
+        /// <summary>Composition binds selection once, before any gameplay starts.</summary>
+        public void ConfigureSelection(RunSelectionSnapshot selection)
+        {
+            if (State != RunState.NotStarted || Selection != null)
+                throw new InvalidOperationException("Run selection is already bound or the run has started.");
+            Selection = selection ?? throw new ArgumentNullException(nameof(selection));
+        }
 
         private readonly HashSet<string> _pauseReasons = new HashSet<string>(StringComparer.Ordinal);
         private readonly Dictionary<string, IRunOutcomeContributor> _contributors =
@@ -147,7 +156,7 @@ namespace Game.Run
                 }
                 catch (Exception) { failures.Add(pair.Key); }
             }
-            Outcome = new RunOutcome(RunId, reason, Elapsed, Duration, contributions, failures);
+            Outcome = new RunOutcome(RunId, reason, Elapsed, Duration, contributions, failures, Selection);
             _contributors.Clear();
             _pauseReasons.Clear();
             // Preserve legacy ordering: StateChanged precedes Won/Lost; snapshot is already available.

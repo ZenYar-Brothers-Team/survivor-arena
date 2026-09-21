@@ -4,6 +4,7 @@
     "references": [
         "Game.UI",
         "Game.Content",
+        "Game.Field",
         "Game.Enemy",
         "Game.Progression",
         "Game.Character",

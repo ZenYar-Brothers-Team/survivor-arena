@@ -5,6 +5,7 @@
         "Game.Bootstrap",
         "Game.Enemy",
         "Game.Content",
+        "Game.Field",
         "Game.Progression",
         "Game.Run",
         "Game.UI",

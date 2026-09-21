@@ -14,6 +14,17 @@ namespace Game.Bootstrap.PlayModeTests
             using var submit = NavigationSubmitEvent.GetPooled();
             submit.target = button;
             button.SendEvent(submit);
+            Assert.IsFalse(root.IsInitialized);
+            StartField(root);
+        }
+        public static void StartField(GameplayCompositionRoot root)
+        {
+            var button = root.FieldSelectionDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectStart);
+            Assert.IsNotNull(button);
+            Assert.IsTrue(button.enabledSelf);
+            using var submit = NavigationSubmitEvent.GetPooled();
+            submit.target = button;
+            button.SendEvent(submit);
             Assert.IsTrue(root.IsInitialized);
         }
     }

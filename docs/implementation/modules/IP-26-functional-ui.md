@@ -56,6 +56,13 @@ G-15/G-16: Quit/reward/failure ordering, real audio/shake/settings contract. Ret
 
 Переиспользовать `CharacterSelectionSession`, `CharacterSelectPresenter` и `ContentCard` из [IP-12 API](IP-12-character-framework.md#framework-api-и-fixture-schema). Composition создаёт выбранный loadout до запуска run clock; profile access поставляет IP-25. Selection panel имеет отдельный жизненный цикл. Новый navigation flow не должен возвращать автоматический запуск startingCharacterId или вычислять baseline из roster.
 
+Field Select использует `FieldSelectionSession`, `FieldSelectPresenter`, `FieldSelect.uxml`
+и semantic IDs [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
+Character confirm открывает Field Select, Start Run повторно проверяет оба доступа;
+Back сохраняет допустимые selections. Retry должен использовать `RunOutcome.Selection`
+с теми же character/field, без открытия selection и без зависимости от telemetry.
+G-20 scale conflict решается до production field UI; fixture 1–5 не является mapping 1–10.
+
 
 ## Presentation preference boundary
 

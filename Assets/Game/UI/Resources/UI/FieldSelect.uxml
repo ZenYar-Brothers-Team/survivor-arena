@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="field-select-content">
+        <ui:Label text="Choose your field" class="character-select-title" />
+        <ui:Label text="Fixture fields · thumbnail previews pending" class="character-select-subtitle" />
+        <ui:ScrollView class="character-select-scroll">
+            <ui:VisualElement name="field-select-cards" class="character-select-cards" />
+        </ui:ScrollView>
+        <ui:Button name="field-select-start" text="Start Run" class="character-select-start" />
+        <ui:Button name="field-select-back" text="Back" class="character-select-start" />
+    </ui:VisualElement>
+</ui:UXML>

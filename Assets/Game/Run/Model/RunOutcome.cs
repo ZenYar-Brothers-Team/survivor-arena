@@ -11,16 +11,19 @@ namespace Game.Run
         public RunCompletionReason Reason { get; }
         public float ElapsedSeconds { get; }
         public float DurationSeconds { get; }
+        public RunSelectionSnapshot Selection { get; }
         public IReadOnlyDictionary<string, RunOutcomeContribution> Contributions { get; }
         public IReadOnlyList<string> FailedContributors { get; }
 
         internal RunOutcome(Guid runId, RunCompletionReason reason, float elapsed, float duration,
-            IDictionary<string, RunOutcomeContribution> contributions, IList<string> failedContributors)
+            IDictionary<string, RunOutcomeContribution> contributions, IList<string> failedContributors,
+            RunSelectionSnapshot selection = null)
         {
             RunId = runId;
             Reason = reason;
             ElapsedSeconds = elapsed;
             DurationSeconds = duration;
+            Selection = selection;
             Contributions = new ReadOnlyDictionary<string, RunOutcomeContribution>(
                 new Dictionary<string, RunOutcomeContribution>(contributions, StringComparer.Ordinal));
             FailedContributors = new List<string>(failedContributors).AsReadOnly();

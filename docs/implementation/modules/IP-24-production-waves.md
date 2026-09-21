@@ -18,6 +18,11 @@
 
 новые GDD run/waves/fields/Travelers; Content Wave / Encounter Content и selected FIELD/ENEMY/BOSS/MIDBOSS/TRAVELER cards; IP-14 burst и IP-29 Traveler contracts; DECISION-0014.
 
+Использовать [IP-16 field configuration](IP-16-field-framework.md#framework-api-и-fixture-schema):
+timeline enemy refs входят в field pool, final/mid hooks совпадают с definitions.
+Смена поля создаёт fresh director/encounter state; global default timeline не подменяет
+выбранный field. Optional Traveler token требует consumer IP-29 и полного schedule packet.
+
 ## Scope
 
 15-minute field schedules: continuous/burst composition, pressure/rest phases, rates/counts/caps, final/midboss timings и Traveler schedule/scaling. Regular-wave и Traveler policies остаются раздельно видимыми. Балансировочное предложение создаёт IP-32; в production попадает его конкретно принятый вариант.

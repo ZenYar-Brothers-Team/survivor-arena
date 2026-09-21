@@ -13,3 +13,5 @@
 .character-select-card .content-card-summary { font-size: 20px; white-space: normal; }
 .character-select-crop { width: 240px; height: 240px; align-self: center; margin-bottom: 16px; }
 .character-select-start { width: 320px; height: 64px; font-size: 26px; margin-top: 24px; }
+.field-select-content { flex-grow: 1; width: 100%; align-items: center; }
+.field-thumbnail-placeholder { height: 170px; background-color: rgb(48, 45, 58); -unity-text-align: middle-center; font-size: 22px; white-space: normal; margin-bottom: 20px; }

@@ -210,6 +210,7 @@ Phase A/B/C (`Art Production.md:546–573`) задают поставку по �
 | G-17 Art evidence | Пользователь 2026-09-21 подтвердил CHAR-001 concept = fixture satchel goblin v002; связь записана в asset-record, master hash совпадает с v002 | IP-12A: актуализировать inventory/manifest по фактам; production binding/crop review отдельно IP-22 |
 | G-18 Player palette | **Resolved — DECISION-0029.** Зелёная skin-family текущих гоблинов, читаемый силуэт для всех playable species | IP-12A; §4.4 Art Direction согласован с §9.2 |
 | G-19 Character Select baseline/highlights | **Resolved — DECISION-0026.** Отдельная явная база сравнения и authored ordered highlights; без автоматического порога значимости и выбора базы из roster | IP-12 fixture data/validation; IP-22 production values и per-character highlights. Прежняя ссылка на G-15 для presentation gap исправлена |
+| G-20 Field difficulty scale | UI §5/IP-16/IP-23 задают 1–5, approved FIELD-001…010 — 1–10. Запрошено решение; без approval не преобразовывать значения | IP-16 fixture metadata сохраняет 1–5; production IP-23/IP-26 требуют общей шкалы/явных данных, без вычисления по ID |
 
 ## 7. Репозиторий: где расширять существующую реализацию
 

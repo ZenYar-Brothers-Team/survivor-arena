@@ -18,6 +18,11 @@
 
 утверждённый GDD «Путники»; Content Travelers schema и TRAVELER-001…010 для покрытия утверждённых behavior families; production числа не переносятся автоматически в synthetic fixtures; UI §§11–12; field/wave definitions; pool/registry/Health; Art Production §5.
 
+[IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema) предоставляет optional
+typed `FieldTravelerScheduleDefinition` reference и resolved field configuration.
+IP-29 добавляет payload/consumer и его lifecycle; без consumer composition отвергает
+non-null token. Отсутствие token у fixture fields не задаёт production Traveler schedule.
+
 ## Scope
 
 отдельная temporary encounter category, count draw 0…3 один раз на run, индивидуальные random run-time spawn instants и presence lifetime; field/time scaling; offensive, nonaggressive wandering/avoidance и support roles; source-owned shields/auras только по явно утверждённым contracts; kill→Book, timeout→escape без Book; live list для нескольких Travelers и off-screen indicators. Собственный RNG stream не переставляет ordinary draft/wave outcomes. Дополнительные unresolved details: normalized probabilities/type selection, spawn geometry; endpoint 15:00 vs timer victory; simultaneous encounters; scaling formula/ranges, support targets/stack/expiry/death cleanup, contact=0 meanings, death at timeout precedence. Uniform spawn time не означает гарантированный полный lifetime до конца run. Подключить все player pattern families IP-08 к target registry; поддержка не является общей collision/pathfinding системой.

@@ -4,7 +4,8 @@
 
 ## Существующая база и характер изменения
 
-Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+Framework использует существующую Gameplay scene и независимый модуль `Game.Field`.
+Production field geometry и assets поставляет IP-23; их готовность не следует из fixture packet.
 
 ## Зависимости
 
@@ -48,6 +49,11 @@ field/run-start contract и metadata units, поле для будущего Tra
 
 G-14/G-15: конкретные geometry/difficulty/unlock values; fixture metadata отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
+Дополнительно G-20: UI §5/IP-16/IP-23 задают шкалу 1–5, тогда как approved
+FIELD-001…010 содержат 1/10…10/10. Fixture metadata следует 1–5; никакое
+преобразование production values не выводится из номера ID. Выбор единой шкалы
+требует отдельного решения; вопрос пользователю задан, approval не получен.
+
 ## Потребители
 
 [IP-23](IP-23-production-fields.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-29](IP-29-traveler-framework.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
@@ -60,3 +66,52 @@ Field configuration выбирает timeline и encounter definitions согл�
 BossEncounterRuntime получает fresh WaveDirector/RunModel перед началом run.
 Смена field не переносит consumed hooks, phase или boss life предыдущего run.
 Fixture boss schema не закрывает production G-14 schedules/rewards.
+
+## Framework API и fixture schema
+
+`FieldDefinition` — `IContentDefinition/IReferencesContent`, independent `Game.Field`
+assembly. `Resolve(registry)` до инициализации gameplay проверяет типы/наличие
+environment, enemy pool, timeline, final/midboss и optional Traveler references.
+Все враги timeline должны входить в field pool. Final hook/definition обязательны;
+mid hook и definition присутствуют либо оба, либо ни одного. Перепутанные boss roles
+отвергаются даже при совпадающем CLR type.
+
+`Assets/Resources/Content/Fields/FixtureFields.json` содержит:
+
+| Поле | Контракт |
+|---|---|
+| `defaultFieldId`, `availableFieldIds` | Явный fixture profile; default обязан существовать и быть доступным |
+| `displayName`, `description`, `thumbnailPlaceholder`, `unlockDescription` | Обязательные непустые строки; текстовая заглушка preview, без сгенерированного арта |
+| `difficulty` | Обязательное целое 1–5, без единиц; fixture-only UI metadata, не множитель combat stats |
+| `environmentId`, `timelineId`, `finalBossId`, `enemyIds` | Обязательные typed refs; enemy pool непустой, без повторов |
+| `midBossId`, `travelerScheduleId` | Optional typed refs; отсутствие явно означает отсутствие binding |
+| environment `sceneName`, `spawnPointName`, `obstacleNames` | Binding существующей scene; имена уникальны, collider active/non-trigger/player-only |
+
+Два synthetic поля: `FIXTURE-FIELD-OPEN` (difficulty 2) использует прежние семь
+wave enemy types, timeline и mid/final encounters; `FIXTURE-FIELD-FOCUSED`
+(difficulty 1) — seeker-only timeline с seed 13579, radius 7 world units,
+continuous interval 3 s/cap 5 и единственным final hook 840 s. Эти числа нужны
+для различимого тестового запуска и не являются production balance.
+Оба поля ссылаются на существующий `FIXTURE-ENVIRONMENT-ARENA` в Gameplay scene;
+данный packet не добавляет новую геометрию и не меняет collision masks/art.
+
+`IFieldAccessProvider.GetLockReason(id)`: null = available, непустая причина = locked.
+`FieldRoster` проверяет доступ заново при выборе и старте. Session не выбирает
+другое поле автоматически при отзыве доступа. `FieldSelectionSession`/presenter
+владеют navigation intent, а composition root — запуском. Back пересоздаёт character
+session с прежним character ID; field ID сохраняется при следующем переходе вперёд.
+Новый отдельный вызов `OpenCharacterSelection` начинает selection с defaults профиля.
+
+Run start сохраняет `RunSelectionSnapshot` (character/field/environment/timeline)
+в `RunModel`, а terminal capture — в `RunOutcome.Selection`; optional telemetry
+использует те же resolved field/timeline и actual timeline seed. Snapshot immutable,
+привязывается ровно один раз до Start; core tests без composition могут иметь null.
+Каждый новый run получает fresh model/director/encounter hooks и возвращает игрока
+на bound spawn point. Failure после начала composition разматывает subsystems;
+cancel selection оставляет uninitialized adapters выключенными до нового запуска.
+
+`FieldTravelerScheduleDefinition` пока только typed extension token. Fixture fields
+его не задают; supplied token валидируется resolver и проверен synthetic registry test.
+Composition явно отвергает non-null token без runtime consumer IP-29, не игнорирует его.
+Production timing/scaling и actual consumer остаются IP-29/IP-30/IP-24; обратной
+зависимости этих assembly нет. Техническая запись: [DECISION-0032](../../decisions/0032-field-run-configuration.md).

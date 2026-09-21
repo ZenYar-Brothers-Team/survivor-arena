@@ -2,6 +2,12 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string FieldSelectScreen = "field-select-screen";
+        public const string FieldSelectCards = "field-select-cards";
+        public const string FieldSelectStart = "field-select-start";
+        public const string FieldSelectBack = "field-select-back";
+        public const string FieldSelectThumbnail = "field-select-thumbnail";
+        public static string FieldSelectCard(string id) => "field-select-" + id;
         public const string BossBar = "hud-boss-bar";
         public const string CharacterSelectScreen = "character-select-screen";
         public const string CharacterSelectCards = "character-select-cards";

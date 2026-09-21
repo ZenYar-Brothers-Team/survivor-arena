@@ -18,6 +18,11 @@
 
 новые GDD/CD fields, полные выбранные FIELD-001…010 и referenced entities; UI §5; Art Production §§11–13; DECISION-0003.
 
+Field/run configuration API — [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
+Production environment adapter заменяет fixture scene-name binding; metadata/refs
+проходят тот же pre-run validation. G-20: до переноса сложности решить расхождение
+шкалы UI/IP 1–5 и CD 1–10; автоматического mapping по ID нет.
+
 ## Scope
 
 десять geometry/environment definitions, approved enemy/boss/midboss mapping и unlock/difficulty metadata; ground treatment, нужный decor/obstacle pack и derived thumbnail. Число obstacles определяется gameplay geometry; декоративные props не получают collider автоматически.

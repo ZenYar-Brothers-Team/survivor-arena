@@ -33,9 +33,10 @@ namespace Game.Bootstrap
                     entries.Add(new { id = entry.Definition.Id.ToString(), level = entry.Level, kind = entry.Definition.Kind.ToString() });
                 var provenance = TelemetryProvenance.Capture(catalog.SourceSnapshot, new
                 {
-                    character = draft.Character.Id.ToString(), field = "unsupported",
-                    timeline = catalog.WaveTimeline.Id.ToString(), durationSeconds = run.Duration,
-                    seeds = new { draft = catalog.RunSetup.Draft.Seed, wave = catalog.WaveTimeline.Seed },
+                    character = draft.Character.Id.ToString(), field = run.Selection?.FieldId.ToString(),
+                    environment = run.Selection?.EnvironmentId.ToString(),
+                    timeline = spawner.Director.Timeline.Id.ToString(), durationSeconds = run.Duration,
+                    seeds = new { draft = catalog.RunSetup.Draft.Seed, wave = spawner.Director.Timeline.Seed },
                     initialStats = player.Stats, initialBuild = entries, runSetup = catalog.RunSetup,
                     overrides = new { durationSeconds = run.Duration, source = "RunController scene configuration" }
                 }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");

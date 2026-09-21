@@ -4,6 +4,7 @@ using Game.ActiveSkill;
 using Game.Character;
 using Game.Content;
 using Game.Enemy;
+using Game.Field;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -15,7 +16,7 @@ namespace Game.Bootstrap
 {
     [DefaultExecutionOrder(-1000)]
     [DisallowMultipleComponent]
-    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher
+    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher, IFieldRunLauncher
     {
         [SerializeField]
         private RunController runController;
@@ -37,6 +38,12 @@ namespace Game.Bootstrap
 
         private SetEffectHost _setEffects;
         private CharacterSelectScreen _selectionScreen;
+        private FieldSelectScreen _fieldScreen;
+        private FieldRoster _fieldRoster;
+        private ContentId _pendingCharacterId;
+        public FieldSelectionSession FieldSelection { get; private set; }
+        public ResolvedFieldConfiguration FieldConfiguration { get; private set; }
+        public UnityEngine.UIElements.UIDocument FieldSelectionDocument => _fieldScreen?.Document;
         private Behaviour[] _waitingComponents;
         private bool[] _previousEnabled;
         public CharacterSelectionSession Selection { get; private set; }
@@ -69,11 +76,15 @@ namespace Game.Bootstrap
             }
         }
 
-        public void OpenCharacterSelection(ICharacterAccessProvider access = null)
+        public void OpenCharacterSelection(ICharacterAccessProvider access = null, IFieldAccessProvider fieldAccess = null)
         {
             if (IsInitialized) throw new InvalidOperationException("Shut down the current run before selecting another character.");
             ValidateSceneReferences();
             Catalog = FixtureRuntimeContentCatalog.Create();
+            _fieldScreen?.Dispose();
+            _fieldScreen = null;
+            FieldSelection = null;
+            _fieldRoster = fieldAccess == null ? Catalog.Fields.Roster : new FieldRoster(Catalog.Fields.Roster.AllFields, fieldAccess);
             _selectionScreen?.Dispose();
             _selectionScreen = null;
             if (_waitingComponents == null)
@@ -94,22 +105,50 @@ namespace Game.Bootstrap
 
         public bool TryStartCharacter(ContentId id)
         {
-            if (IsInitialized || Selection == null || !Selection.Roster.TrySelect(id, out _)) return false;
-            Initialize(id, Selection.Roster);
+            if (IsInitialized || _selectionScreen == null || Selection == null || !Selection.Roster.TrySelect(id, out _)) return false;
+            _pendingCharacterId = id;
+            var previousField = FieldSelection?.SelectedId ?? Catalog.Fields.DefaultFieldId;
+            FieldSelection = new FieldSelectionSession(_fieldRoster, previousField, this);
+            _fieldScreen = new FieldSelectScreen(transform, FieldSelection);
             _selectionScreen?.Dispose();
             _selectionScreen = null;
-            for (var i = 0; i < _waitingComponents.Length; i++)
-                _waitingComponents[i].enabled = _previousEnabled[i];
-            _waitingComponents = null;
-            _previousEnabled = null;
+            return true;
+        }
+
+        public void BackToCharacters()
+        {
+            if (IsInitialized || _fieldScreen == null) return;
+            _fieldScreen.Dispose();
+            _fieldScreen = null;
+            Selection = new CharacterSelectionSession(Selection.Roster, _pendingCharacterId, this);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry);
+        }
+
+        public bool TryStartField(ContentId id)
+        {
+            if (IsInitialized || _fieldScreen == null || FieldSelection == null ||
+                !FieldSelection.Roster.TrySelect(id, out _) || !Selection.Roster.TrySelect(_pendingCharacterId, out _)) return false;
+            Initialize(_pendingCharacterId, Selection.Roster, id, FieldSelection.Roster);
+            _fieldScreen.Dispose();
+            _fieldScreen = null;
+            RestoreWaitingComponents();
             runController.Model.Start();
             return true;
+        }
+
+        private void RestoreWaitingComponents()
+        {
+            if (_waitingComponents == null) return;
+            for (var i = 0; i < _waitingComponents.Length; i++)
+                if (_waitingComponents[i] != null) _waitingComponents[i].enabled = _previousEnabled[i];
+            _waitingComponents = null;
+            _previousEnabled = null;
         }
 
         // Explicit composition entry point retained for scene integration tests and future navigation.
         public void Initialize() => Initialize(FixtureRuntimeContentCatalog.Create().RunSetup.StartingCharacterId);
 
-        public void Initialize(ContentId characterId, CharacterRoster roster = null)
+        public void Initialize(ContentId characterId, CharacterRoster roster = null, ContentId? fieldId = null, FieldRoster fields = null)
         {
             if (IsInitialized)
                 throw new InvalidOperationException("Gameplay composition root is already initialized.");
@@ -121,6 +160,12 @@ namespace Game.Bootstrap
             var setup = Catalog.RunSetup;
             if (!(roster ?? Catalog.Characters).TrySelect(characterId, out var selectedCharacter))
                 throw new InvalidOperationException($"Character '{characterId}' is locked or missing.");
+            if (!(fields ?? Catalog.Fields.Roster).TrySelect(fieldId ?? Catalog.Fields.DefaultFieldId, out var selectedField))
+                throw new InvalidOperationException("Field is locked or missing.");
+            var configuration = selectedField.Resolve(Catalog.Registry);
+            if (configuration.Travelers != null)
+                throw new InvalidOperationException("Traveler schedule requires an IP-29 runtime consumer.");
+            var spawn = FieldEnvironmentBinding.Validate(configuration.Environment, gameObject.scene);
 
             // If a subsystem's Initialize() throws partway through, every subsystem
             // that already succeeded gets rolled back (in reverse order) via its
@@ -130,6 +175,14 @@ namespace Game.Bootstrap
             var initializedSubsystems = new List<Action>();
             try
             {
+                runController.Model.ConfigureSelection(new RunSelectionSnapshot(characterId, selectedField.Id,
+                    configuration.Environment.Id, configuration.Timeline.Id));
+                initializedSubsystems.Add(runController.Shutdown);
+                var previousPosition = player.transform.position;
+                var body = player.GetComponent<Rigidbody2D>();
+                player.transform.position = spawn.position;
+                if (body != null) { body.position = spawn.position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
+                initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
                 player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id);
                 initializedSubsystems.Add(player.Shutdown);
 
@@ -187,17 +240,17 @@ namespace Game.Bootstrap
                 passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
                 initializedSubsystems.Add(passiveRuntime.Shutdown);
 
-                var enemiesById = new Dictionary<ContentId, EnemyDefinition>(Catalog.Enemies.Count);
-                var enemyVisuals = new Dictionary<ContentId, Sprite>(Catalog.Enemies.Count);
-                for (var i = 0; i < Catalog.Enemies.Count; i++)
+                var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
+                var enemyVisuals = new Dictionary<ContentId, Sprite>(configuration.Enemies.Count);
+                for (var i = 0; i < configuration.Enemies.Count; i++)
                 {
-                    var enemy = Catalog.Enemies[i];
+                    var enemy = configuration.Enemies[i];
                     enemiesById.Add(enemy.Id, enemy);
                     if (enemy.Visual.TryResolve(Catalog.Registry, out var enemySprite))
                         enemyVisuals.Add(enemy.Id, enemySprite.Sprite);
                 }
                 var waveDirector = new WaveDirector(
-                    Catalog.WaveTimeline,
+                    configuration.Timeline,
                     enemiesById,
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
@@ -205,7 +258,7 @@ namespace Game.Bootstrap
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
-                BossEncounters.Initialize(waveDirector, runController, player.transform, Catalog.Bosses,
+                BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
                     new EnemyExperienceDropSink(experienceRuntime, runController));
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
@@ -233,6 +286,7 @@ namespace Game.Bootstrap
             }
 
             IsInitialized = true;
+            FieldConfiguration = configuration;
             player.ShuttingDown += Shutdown;
         }
 
@@ -253,8 +307,13 @@ namespace Game.Bootstrap
         {
             _selectionScreen?.Dispose();
             _selectionScreen = null;
+            _fieldScreen?.Dispose();
+            _fieldScreen = null;
             Selection = null;
-            if (!IsInitialized) return;
+            FieldSelection = null;
+            // A cancelled selection must not enable components whose Start expects a composed run.
+            // Keep the original enabled-state snapshot for the next selection/launch attempt.
+            if (!IsInitialized) { runController?.Shutdown(); return; }
             IsInitialized = false;
             player.ShuttingDown -= Shutdown;
             // Capture required Results while every contributor is still alive, then diagnostics.
@@ -271,6 +330,7 @@ namespace Game.Bootstrap
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
             player.Shutdown();
+            FieldConfiguration = null;
         }
 
         private void OnDisable() => Shutdown();

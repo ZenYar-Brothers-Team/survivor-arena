@@ -44,6 +44,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(new ContentId("FIXTURE-CHARACTER-STURDY"), root.Selection.SelectedId);
                 var start = root.SelectionDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.CharacterSelectStart);
                 Submit(start);
+                CharacterSelectionSmokeDriver.StartField(root);
                 yield return null;
                 Assert.AreEqual(RunState.Running, run.Model.State);
                 Assert.IsNull(root.SelectionDocument);

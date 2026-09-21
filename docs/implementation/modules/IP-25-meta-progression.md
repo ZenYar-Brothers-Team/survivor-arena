@@ -55,3 +55,7 @@ CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semant
 ## Character access boundary
 
 Profile adapter реализует `ICharacterAccessProvider.GetLockReason(ContentId)` из [IP-12 API](IP-12-character-framework.md#framework-api-и-fixture-schema): null = unlocked, непустая причина = locked. Доступность повторно проверяется при запуске; цены/условия не хранятся в UI. `FixtureCharacterAccessProvider` остаётся fake-профилем для тестов без persistence.
+
+Аналогичный `IFieldAccessProvider`/`FieldRoster` поставляет [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
+`RunOutcome.Selection.FieldId` даёт release-safe identity поля для unlock/reward processing;
+сама трактовка «завершить FIELD» остаётся G-15. Fixture unlock list не становится profile economy.

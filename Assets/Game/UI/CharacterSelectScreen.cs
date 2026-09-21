@@ -47,7 +47,7 @@ namespace Game.UI
             _cards.AddToClassList("character-select-cards");
             scroll.Add(_cards);
             root.Add(scroll);
-            _start = new Button(() => StartRequested?.Invoke()) { text = "Start run", name = GameplayUiElementIds.CharacterSelectStart };
+            _start = new Button(() => StartRequested?.Invoke()) { text = "Choose field", name = GameplayUiElementIds.CharacterSelectStart };
             _start.AddToClassList("character-select-start");
             root.Add(_start);
             _presenter = new CharacterSelectPresenter(session, registry, this);

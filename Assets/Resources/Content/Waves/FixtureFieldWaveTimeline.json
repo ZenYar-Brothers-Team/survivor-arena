@@ -1,0 +1,18 @@
+{
+  "id": "FIXTURE-WAVE-FOCUSED",
+  "seed": 13579,
+  "spawnRadius": 7,
+  "phases": [
+    {
+      "id": "FIXTURE-WAVE-FOCUSED-ORDINARY",
+      "displayName": "Focused pursuit",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 900,
+      "spawnIntervalSeconds": 3,
+      "maxAliveEnemies": 5,
+      "composition": [{ "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1 }]
+    }
+  ],
+  "hooks": [{ "kind": "FinalBoss", "timeSeconds": 840 }]
+}
