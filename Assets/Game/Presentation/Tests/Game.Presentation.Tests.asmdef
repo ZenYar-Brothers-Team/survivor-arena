@@ -8,7 +8,9 @@
         "Game.Run",
         "Game.Movement",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Game.Presentation.Editor",
+        "Game.Pooling"
     ],
     "includePlatforms": [
         "Editor"

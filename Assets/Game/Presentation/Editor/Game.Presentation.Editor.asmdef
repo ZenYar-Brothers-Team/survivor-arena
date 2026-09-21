@@ -2,7 +2,10 @@
     "name": "Game.Presentation.Editor",
     "rootNamespace": "Game.Presentation.Editor",
     "references": [
-        "Game.Presentation"
+        "Game.Presentation",
+        "Game.Content",
+        "Game.Content.Json",
+        "Newtonsoft.Json"
     ],
     "includePlatforms": [
         "Editor"

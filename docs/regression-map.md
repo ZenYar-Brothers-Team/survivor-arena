@@ -20,6 +20,7 @@
 | Общий валидатор чисел | `NumericValidationTests` | EditMode | OK (добавлено в ревью) |
 | Загрузка контента: реестр, ссылки, каталоги | `ContentRegistryTests`, `FixtureRuntimeContentCatalogTests`, `FixtureCharacterCatalogTests` | EditMode | OK |
 | Презентация спрайтов (композитор позы) | `Game.Presentation.Tests` (`ProceduralSpriteAnimatorTests` и др.) | EditMode | OK |
+| Category imports, role/crop validation, generic presentation pause/fade/pool/disable и shake preference | `CategoryImportTests`, `GenericPresentationTests`, `ScreenShakeRequestGateTests`, `PresentationAdapterSmokeTests` | EditMode / PlayMode | OK; manual art/dense gameplay review отдельно |
 | Composition root: сборка, откат при сбое | `GameplayCompositionSceneTests`, `GameplaySmokeTests` | EditMode / PlayMode | GAP: откат при частичном сбое покрыт только косвенно (runtime-тесты выше), прямого теста `GameplayCompositionRoot.Initialize` с искусственным сбоем нет |
 | UI: presenter ↔ ViewState, HUD-волна, dev-панель | `GameplayUiPresenterTests`, `GameplayUiAssetTests`, `GameplaySmokeTests` | EditMode / PlayMode | GAP: `GameplayUiRuntimeModel` и `UiToolkitGameplayView` без прямых тестов (TD-040) |
 | JSON-загрузка (`JsonContentFile`: нет файла, битый JSON, неизвестное поле) | — | — | GAP (TD-040) |

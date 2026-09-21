@@ -25,5 +25,14 @@
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png"
+  ],
+  "conceptBindings": [
+    {
+      "contentId": "CHAR-001",
+      "role": "body",
+      "confirmedAt": "2026-09-21",
+      "confirmedBy": "user",
+      "evidence": "User confirmed the current satchel goblin is the approved CHAR-001 concept. Runtime remains FIXTURE-CHARACTER-AGILE; production binding belongs to IP-22."
+    }
   ]
 }

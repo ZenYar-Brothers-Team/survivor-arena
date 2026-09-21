@@ -46,8 +46,12 @@ Import/ref/provenance/path/GUID tests; alpha/bounds где автоматизи�
 
 ## Gates и недостающие решения
 
-G-17/G-18: сопоставить approved CHAR-001 concept с master и исправить always-green vs nongreen family conflict; per-image replacement/approval gates остаются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-17 concept mapping подтверждён пользователем в DECISION-0029 и asset-record; per-image replacement/approval gates остаются. G-18 согласован [DECISION-0029](../../decisions/0029-burst-pressure-and-player-palette.md): зелёная skin-family относится к текущим гоблинам, другие виды сохраняют свою палитру при читаемом player silhouette. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
 [IP-17](IP-17-production-skills.md), [IP-18](IP-18-production-passives.md), [IP-19](IP-19-production-sets.md), [IP-20](IP-20-production-enemies.md), [IP-21](IP-21-production-bosses.md), [IP-22](IP-22-production-characters.md), [IP-23](IP-23-production-fields.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-30](IP-30-production-travelers.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Контракт технического пакета
+
+Category/import overrides, role validation, crop ownership и generic adapter API описаны в [ASSET_PIPELINE §21](../../art/ASSET_PIPELINE.md#21-category-profiles-и-reusable-adapters-ip-12a), [DECISION-0030](../../decisions/0030-generic-presentation-adapters.md) и [asset manifest](../../../Art/asset-manifest.json). Existing player animator не заменяется. Fixture kit и Editor diagnostic не подменяют production binding и manual dense-gameplay review. Gameplay consumers передают motion/signals через IPresentationSource; визуальный fade не задерживает их authoritative teardown. IP-26 потребляет preference/request boundary для screen shake, сохраняя ownership Settings/camera.

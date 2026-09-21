@@ -6,14 +6,15 @@ namespace Game.Presentation.Editor
 {
     public sealed class SpriteAssetImportPostprocessor : AssetPostprocessor
     {
-        private const string RuntimeSpriteRoot = "Assets/Resources/Art/Sprites/";
-
         private void OnPreprocessTexture()
         {
-            if (!assetPath.StartsWith(RuntimeSpriteRoot, StringComparison.Ordinal))
-                return;
+            if (!assetPath.StartsWith(SpriteImportProfileCatalog.Root, StringComparison.Ordinal)) return;
+            Apply((TextureImporter)assetImporter, SpriteImportProfileCatalog.Resolve(assetPath));
+        }
 
-            var importer = (TextureImporter)assetImporter;
+        public static void Apply(TextureImporter importer, SpriteImportProfile profile)
+        {
+            profile.Validate();
             importer.textureType = TextureImporterType.Sprite;
             importer.spriteImportMode = SpriteImportMode.Single;
             importer.sRGBTexture = true;
@@ -23,18 +24,16 @@ namespace Game.Presentation.Editor
             importer.mipmapEnabled = false;
             importer.wrapMode = TextureWrapMode.Clamp;
             importer.filterMode = FilterMode.Bilinear;
-            importer.spritePixelsPerUnit = 320f;
-            importer.maxTextureSize = 512;
+            importer.spritePixelsPerUnit = profile.PixelsPerUnit.Value;
+            importer.maxTextureSize = profile.MaxSize.Value;
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.crunchedCompression = false;
-
             var settings = new TextureImporterSettings();
             importer.ReadTextureSettings(settings);
             settings.spriteMeshType = SpriteMeshType.FullRect;
+            settings.spriteExtrude = 1;
             settings.spriteAlignment = (int)SpriteAlignment.Custom;
-            settings.spritePivot = assetPath.EndsWith("-body.png", StringComparison.Ordinal)
-                ? new Vector2(0.5f, 0.09f)
-                : new Vector2(0.5f, 0.5f);
+            settings.spritePivot = new Vector2(profile.PivotX.Value, profile.PivotY.Value);
             importer.SetTextureSettings(settings);
         }
     }

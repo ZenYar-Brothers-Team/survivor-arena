@@ -1,6 +1,7 @@
 [
   {
     "id": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
-    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body"
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Body"
   }
 ]

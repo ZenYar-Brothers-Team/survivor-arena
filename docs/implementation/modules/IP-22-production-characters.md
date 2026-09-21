@@ -46,7 +46,7 @@ roster/card completeness, baseline UI contract, asset provenance/reuse evidence;
 
 ## Gates и недостающие решения
 
-G-14/G-15/G-17: weights/unlock metadata и связь concept/master/runtime. CHAR-006 огр и прочие approved roster choices не переутверждаются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-14/G-15: weights/unlock metadata. CHAR-001 concept = fixture goblin v002 подтверждён DECISION-0029; production runtime binding и per-image review остаются здесь. CHAR-006 огр и прочие approved roster choices не переутверждаются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

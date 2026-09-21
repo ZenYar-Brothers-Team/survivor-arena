@@ -28,7 +28,7 @@ Production schedules, adaptive difficulty, Traveler RNG/type selection, profiler
 
 ## Acceptance criteria
 
-Burst исполняется один раз в agreed window и cap policy; no backlog storm after pause/skip. Continuous behavior retained. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline.
+Burst исполняется один раз в заданном окне независимо от regular enemy cap: заполненный лимит не обрезает группу и не откладывает её появление. Боссы и Путники не занимают regular cap. Пауза замораживает время окна; завершившиеся окна и невышедший остаток не воспроизводятся после skip; terminal state прекращает спавн. Continuous behavior retained. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -46,7 +46,7 @@ Update DECISION-0014 через явное дополнение, wave schema и 
 
 ## Gates и недостающие решения
 
-G-11/G-14 только в части shared event boundary/data; отдельный W-01: burst cap/drop-vs-defer, catch-up и whether bosses/Travelers count toward cap. Эти pressure rules до реализации не выбираются молча. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+W-01 утверждён [DECISION-0029](../../decisions/0029-burst-pressure-and-player-palette.md). G-11/G-14 остаются только в части shared event boundary/data; production schedules и Traveler-specific timing этим решением не определяются. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

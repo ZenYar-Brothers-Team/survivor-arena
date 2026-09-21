@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "owner": "FIXTURE-CHARACTER-AGILE",
+      "role": "body",
+      "visualId": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Characters/fixture-character-agile/selected-master.png",
+      "provenance": "Art/Source/Characters/fixture-character-agile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png",
+      "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+      "stage": "Integrated",
+      "evidence": [
+        "Image approval 2026-09-16; asset-record.json",
+        "GameplayPresentationSceneTests; SpriteAssetImportTests"
+      ],
+      "missing": "Current target-scope visual review is separate from historical acceptance."
+    },
+    {
+      "owner": "CHAR-001",
+      "role": "body",
+      "visualId": null,
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/fixture-character-agile/selected-master.png",
+      "provenance": "Art/Source/Characters/fixture-character-agile/asset-record.json",
+      "runtime": null,
+      "resourcePath": null,
+      "stage": "Image approved",
+      "evidence": [
+        "User confirmed concept identity 2026-09-21; conceptBindings in asset-record.json"
+      ],
+      "missing": "Production CHAR-001 catalog/runtime binding; fixture content is not renamed."
+    },
+    {
+      "owner": "FIXTURE-CHARACTER-AGILE",
+      "role": "portrait",
+      "visualId": "FIXTURE-CHARACTER-AGILE-VISUAL-PORTRAIT",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Characters/fixture-character-agile/selected-master.png",
+      "provenance": "Art/Source/Characters/fixture-character-agile/asset-record.json",
+      "runtime": "Assets/Game/Presentation/SpritePortraitCrop.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "Body reuse; centered in-memory Sprite crop; Presentation Fixture Review window",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Production Character Select binding/review belongs to IP-22; diagnostic UI body reuse is accepted."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "body",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-BODY",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "projectile",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-PROJECTILE",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "pickup",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-PICKUP",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "telegraph",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-TELEGRAPH",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "shadow",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-SHADOW",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIXTURE-PRESENTATION",
+      "role": "impact",
+      "visualId": "FIXTURE-PRESENTATION-VISUAL-IMPACT",
+      "method": "Procedural",
+      "owningIp": "IP-12A",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/Presentation/PresentationFixtureActor.cs",
+      "resourcePath": null,
+      "stage": "Integrated",
+      "evidence": [
+        "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
+        "GenericPresentationTests; PresentationAdapterSmokeTests",
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+      ],
+      "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    }
+  ]
+}

@@ -6,7 +6,9 @@
         "Game.Content.Json",
         "Game.Combat",
         "Game.Run",
-        "Game.Movement"
+        "Game.Movement",
+        "Game.Pooling",
+        "Game.Diagnostics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

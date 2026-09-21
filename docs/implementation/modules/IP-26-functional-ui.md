@@ -55,3 +55,8 @@ G-15/G-16: Quit/reward/failure ordering, real audio/shake/settings contract. Ret
 ## Character selection integration
 
 Переиспользовать `CharacterSelectionSession`, `CharacterSelectPresenter` и `ContentCard` из [IP-12 API](IP-12-character-framework.md#framework-api-и-fixture-schema). Composition создаёт выбранный loadout до запуска run clock; profile access поставляет IP-25. Selection panel имеет отдельный жизненный цикл. Новый navigation flow не должен возвращать автоматический запуск startingCharacterId или вычислять baseline из roster.
+
+
+## Presentation preference boundary
+
+IP-12A предоставляет `IScreenShakePreference` и `ScreenShakeRequestGate`: preference читается на каждом request, выключенное значение и не-running state не выпускают запрос. IP-26 реализует persistent setting и camera consumer/сброс активного offset при выключении; наличие request boundary не закрывает G-16 и не означает готовность audio/settings service. См. [IP-12A contract](IP-12A-visual-presentation-foundation.md#контракт-технического-пакета).

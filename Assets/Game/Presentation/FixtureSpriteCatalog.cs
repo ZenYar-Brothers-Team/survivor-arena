@@ -22,6 +22,9 @@ namespace Game.Presentation
                 if (!id.IsValid || !seen.Add(id))
                     continue;
 
+                if (!configured.ContainsKey(id) && !id.ToString().StartsWith("FIXTURE-", StringComparison.Ordinal))
+                    throw new InvalidOperationException($"Production visual '{id}' cannot use fixture fallback.");
+
                 definitions.Add(configured.TryGetValue(id, out var sprite)
                     ? sprite
                     : new SpriteDefinition(id, PlaceholderSprite.Shared));
@@ -40,13 +43,15 @@ namespace Game.Presentation
                     "Fixture sprite data cannot contain null entries.");
                 if (string.IsNullOrWhiteSpace(entry.ResourcePath))
                     throw new InvalidOperationException($"Fixture sprite '{entry.Id}' requires a resource path.");
+                if (!entry.Role.HasValue || entry.Role == SpriteRole.Unspecified)
+                    throw new InvalidOperationException($"Fixture sprite '{entry.Id}' requires an explicit role.");
 
                 ContentId id = entry.Id;
                 var sprite = Resources.Load<Sprite>(entry.ResourcePath);
                 if (sprite == null)
                     throw new InvalidOperationException(
                         $"Fixture sprite '{id}' is missing at Resources/{entry.ResourcePath}.");
-                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite)))
+                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite, entry.Role.Value)))
                     throw new InvalidOperationException($"Duplicate fixture sprite id '{id}'.");
             }
 

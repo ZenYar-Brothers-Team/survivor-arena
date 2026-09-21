@@ -125,6 +125,6 @@ Scope меняется у 28 существующих packets; IP-00/IP-02 со�
 
 Existing UI/presentation подтверждаются STATUS и Game.UI/Game.Presentation; они не доказывают готовность target UI/catalog. DraftOptionViewState пока содержит Id/Title/Detail; recipe progress находится в DEV; importer обслуживает Art/Sprites единым body profile; enemy/projectile/XP renderers требуют подходящих adapters. Это конкретные дельты IP-07/IP-10A/IP-11/IP-12A, а не причина полностью переписывать foundations.
 
-В runtime tree найден fixture body, source/master/provenance существуют. Concept approval CHAR-001 сохраняется, но доказательство совпадения с конкретным файлом и production binding остаётся G-17. Asset lifecycle живёт в inventory, execution status модулей — только STATUS.
+В runtime tree найден fixture body, source/master/provenance существуют. Связь approved CHAR-001 concept с fixture master v002 подтверждена пользователем в DECISION-0029 и provenance; production binding остаётся IP-22. Текущий проверяемый asset inventory — Art/asset-manifest.json. Asset lifecycle живёт в inventory, execution status модулей — только STATUS.
 
 Применяются .claude gameplay/content/UI/foundation/Unity-test rules и helpers design-review, consistency-check, content-audit, asset-audit, perf-audit, test-quality-review, smoke-check. Hook проверяет только JSON syntax в своём клиенте, не domain/ref validity. Регистрация плана изменила документацию и разрешённые repository rules; runtime/config/assets остались без изменений.
