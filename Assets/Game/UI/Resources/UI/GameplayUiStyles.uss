@@ -378,3 +378,5 @@
 .boss-bar { position: absolute; top: 60px; left: 25%; right: 25%; height: 30px; display: none; }
 .boss-bar .unity-progress-bar__progress { background-color: rgb(177, 58, 42); }
 #hud-timer { position: absolute; top: 16px; left: 40%; right: 40%; height: 32px; }
+
+.pickup-feedback { position: absolute; left: 35%; right: 35%; top: 18%; -unity-text-align: middle-center; font-size: 22px; color: rgb(195, 240, 165); display: none; }

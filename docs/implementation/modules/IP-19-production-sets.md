@@ -57,3 +57,12 @@ G-02 закрыт DECISION-0022. G-04/G-05/G-08/G-13: recipes/effects approved, 
 Использовать `SetDefinition.Effects`, keyed `SetEffectAbility`/`ISetEffectHost` и единый `draft.setDraftChance`; per-set probability не возвращать. JSON schema/compatibility matrix — [IP-11](IP-11-set-framework.md#реализованный-framework-contract). Source/ownership — [DECISION-0025](../../decisions/0025-set-effect-source-and-ownership.md).
 
 Fixtures доказывают семейства, а не точные двадцать production payloads. При переносе каждого ID подключить его специальные параметры/условия к reusable effect executor, проверить no recursion, modifier applicability, single-entity caps и реальный масштаб; не считать generic damage/size bonus реализацией chain targets, return phase, slowed-target aura или projectile replacement. Real potion event связывается с IP-28 после принятого pickup, не с любым heal callback.
+
+## World pickup integration boundary
+
+Использовать [единый контракт IP-28](IP-28-world-pickups.md#framework-api-и-fixture-schema):
+WorldPickupRuntime.Spawn с source identity, Health/RequestBook/SetRewardEvent через
+PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemetry.
+Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
+XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
+encounter semantics остаются в scope соответствующих владельцев.

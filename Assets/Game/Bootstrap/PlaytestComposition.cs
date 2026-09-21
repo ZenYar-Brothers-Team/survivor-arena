@@ -6,6 +6,7 @@ using Game.ActiveSkill;
 using Game.Character;
 using Game.Enemy;
 using Game.Progression;
+using Game.Pickup;
 using Game.Run;
 using Game.Telemetry;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Game.Bootstrap
     {
         public static IPlaytestSession Create(FixtureRuntimeContentCatalog catalog, RunModel run,
             PlayerCharacterRuntime player, PlayerExperienceRuntime xp, LevelUpDraftRuntime draft,
-            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills)
+            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null)
         {
             if (!Application.isEditor && !UnityEngine.Debug.isDebugBuild) return new DisabledPlaytestSession();
             try
@@ -42,7 +43,7 @@ namespace Game.Bootstrap
                 }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");
                 return new PlaytestSession(run, player, xp, draft, spawner, skills, provenance,
                     new LocalPlaytestExportSink(Path.Combine(Application.persistentDataPath, "Playtests")),
-                    () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow);
+                    () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow, pickups: pickups);
             }
             catch (Exception error)
             {

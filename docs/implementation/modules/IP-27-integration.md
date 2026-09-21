@@ -51,3 +51,12 @@ coverage matrix и manual checklist, evidence по новым требовани
 ## Потребители
 
 Прямых модульных потребителей нет; результаты завершают план. Статус и evidence остаются в STATUS.
+
+## World pickup integration boundary
+
+Использовать [единый контракт IP-28](IP-28-world-pickups.md#framework-api-и-fixture-schema):
+WorldPickupRuntime.Spawn с source identity, Health/RequestBook/SetRewardEvent через
+PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemetry.
+Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
+XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
+encounter semantics остаются в scope соответствующих владельцев.

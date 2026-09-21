@@ -7,6 +7,7 @@ using Game.Character;
 using Game.Combat;
 using Game.Enemy;
 using Game.Progression;
+using Game.Pickup;
 using Game.Run;
 using Newtonsoft.Json.Linq;
 
@@ -22,6 +23,7 @@ namespace Game.Telemetry
         private readonly ContinuousFixtureEnemySpawner _spawner;
         private readonly PlayerActiveSkillSetRuntime _skills;
         private readonly IPlaytestExportSink _sink;
+        private readonly IPickupRuntime _pickups;
         private Task<string> _export;
         private bool _disposed, _finalExportQueued;
         private bool _exportRequested;
@@ -34,7 +36,7 @@ namespace Game.Telemetry
 
         public PlaytestSession(RunModel run, PlayerCharacterRuntime player, PlayerExperienceRuntime xp,
             LevelUpDraftRuntime draft, ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills,
-            JObject provenance, IPlaytestExportSink sink, Func<double> clock, DateTime createdUtc, TelemetryLimits limits = null)
+            JObject provenance, IPlaytestExportSink sink, Func<double> clock, DateTime createdUtc, TelemetryLimits limits = null, IPickupRuntime pickups = null)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
             if (player != null && player.Health == null) throw new ArgumentException("Player must be initialized.", nameof(player));
@@ -43,6 +45,8 @@ namespace Game.Telemetry
             _player = player; _xp = xp; _draft = draft; _spawner = spawner; _skills = skills;
             _sink = sink ?? throw new ArgumentNullException(nameof(sink));
             Recorder = new RunTelemetryRecorder(run, limits ?? new TelemetryLimits(), provenance, clock, createdUtc);
+            _pickups = pickups;
+            if (_pickups != null) _pickups.Resolved += OnPickup;
             // All failure-prone construction precedes subscriptions, so rollback cannot leak listeners.
             _run.StateChanged += Recorder.StateChanged;
             _run.PauseChanged += OnPause;
@@ -64,6 +68,12 @@ namespace Game.Telemetry
                     _spawner.Director.HookTriggered += OnHook;
                 }
             }
+        }
+        private void OnPickup(PickupEvent snapshot)
+        {
+            if (snapshot.Identity.RunId != _run.RunId || !Recorder.Claim(snapshot.Identity.DropId)) return;
+            Recorder.Count("pickup." + snapshot.Kind + "." + snapshot.State);
+            Recorder.Event("pickup", $"{snapshot.Identity.DropId:N} {snapshot.ContentId} {snapshot.State} run {snapshot.Identity.RunId:N} source {snapshot.Identity.SourceLifeId} {snapshot.Identity.SourceContentId} requested {snapshot.Healing.Requested} actual {snapshot.Healing.Actual}");
         }
         private void OnPause(string reason, bool added) => Recorder.Event(added ? "pause-acquired" : "pause-released", reason);
         private void OnLevel(int level) => Recorder.Event("level", level.ToString());
@@ -151,8 +161,9 @@ namespace Game.Telemetry
                     level = _xp.Progression.Level, remainingExperience = _xp.Progression.CurrentExperience, progress01 = _xp.Progression.Progress01 },
                 draft = _draft != null && _draft.Build != null ? _draft.Capture() : null,
                 ordinaryKills = _spawner != null ? _spawner.Capture() : null,
+                pickups = _pickups != null ? (PickupSnapshot?)_pickups.Snapshot : null,
                 activeSkillActivations = _skills != null ? activations : null,
-                capabilities = new { playerCombat = _player != null, xp = _xp != null, draft = _draft != null,
+                capabilities = new { playerCombat = _player != null, xp = _xp != null, draft = _draft != null, worldPickups = _pickups != null,
                     ordinaryEnemyCombat = _spawner != null, legacyContinuousWave = _spawner != null && _spawner.Director != null,
                     activeSkillActivations = _skills != null, setDetails = "unsupported", characterDetails = "unsupported" }
             };
@@ -163,6 +174,7 @@ namespace Game.Telemetry
             // Owner must stop/capture the run first. Queued I/O owns only immutable strings.
             Tick();
             _run.StateChanged -= Recorder.StateChanged; _run.PauseChanged -= OnPause;
+            if (_pickups != null) _pickups.Resolved -= OnPickup;
             if (_player != null) _player.CombatResolved -= Recorder.Combat;
             if (_xp != null) { _xp.ExperienceResolved -= OnExperience; _xp.LevelUp -= OnLevel; }
             if (_draft != null)

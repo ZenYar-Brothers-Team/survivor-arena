@@ -12,6 +12,7 @@
         <ui:ProgressBar name="hud-boss-bar" title="" low-value="0" high-value="100" class="boss-bar" picking-mode="Ignore" />
         <ui:Label name="hud-notification" class="hud-notification" picking-mode="Ignore" />
         <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
+        <ui:Label name="hud-pickup-feedback" class="pickup-feedback" picking-mode="Ignore" />
 
         <ui:VisualElement name="build-panel" class="build-panel">
             <ui:Label text="ACTIVE SKILLS" class="build-title" />
@@ -76,6 +77,9 @@
                 <ui:Label name="development-stats-observation" text="Stats unavailable" class="development-help" />
             </ui:ScrollView>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
+                <ui:Label name="development-pickup-observation" class="observation-label" />
+                <ui:Button name="development-drop-potion" text="Drop fixture potion" class="compact-button" />
+                <ui:Button name="development-drop-book" text="Drop fixture Book" class="compact-button" />
                 <ui:Button name="development-add-book" text="Collect fixture Book" class="compact-button" />
                 <ui:Label text="SET RECIPES" class="development-section-title" />
                 <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />

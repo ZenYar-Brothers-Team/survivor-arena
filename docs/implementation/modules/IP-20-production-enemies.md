@@ -46,7 +46,7 @@ numeric card completeness, body/projectile family reuse mapping, telemetry origi
 
 ## Gates и недостающие решения
 
-G-10/G-14: contact intervals, недостающие attack/drop/healing values и pickup lifecycle; AG-01 для конкретных картинок. Approved design не означает complete JSON. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-10 pickup semantics утверждены DECISION-0033, lifecycle реализует IP-28. G-14 и production data: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -55,3 +55,12 @@ G-10/G-14: contact intervals, недостающие attack/drop/healing values 
 ## Enemy pattern integration
 
 Использовать [IP-13 schema/runtime contract](IP-13-enemy-patterns.md#schema-и-runtime-contract): explicit per-attack controls/wind-up, отдельный dash contact, immutable source/life snapshots и reset-safe projectile pool. Encounter owner задаёт category; новые комбинации profiles не меняют draft/wave models. Phase ordering/support/escape mechanics остаются scope этого owning packet, а fixture numbers не являются production balance.
+
+## World pickup integration boundary
+
+Использовать [единый контракт IP-28](IP-28-world-pickups.md#framework-api-и-fixture-schema):
+WorldPickupRuntime.Spawn с source identity, Health/RequestBook/SetRewardEvent через
+PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemetry.
+Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
+XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
+encounter semantics остаются в scope соответствующих владельцев.

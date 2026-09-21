@@ -8,6 +8,7 @@ using Game.Run;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Game.Telemetry;
+using Game.Pickup;
 
 namespace Game.UI
 {
@@ -24,6 +25,8 @@ namespace Game.UI
         private GameplayUiPresenter _presenter;
         private PlaytestPresenter _playtestPresenter;
         private UiToolkitPlaytestView _playtestView;
+        private PickupPresenter _pickupPresenter;
+        private UiToolkitPickupView _pickupView;
         private float _hudRefreshRemaining;
         private bool _initialized;
 
@@ -46,7 +49,7 @@ namespace Game.UI
             SpritePresentationRuntime presentation,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
-            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null)
+            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -87,6 +90,8 @@ namespace Game.UI
             _presenter.Start();
             _playtestView = new UiToolkitPlaytestView(_document.rootVisualElement);
             _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);
+            _pickupView = new UiToolkitPickupView(_document.rootVisualElement);
+            _pickupPresenter = new PickupPresenter(pickups, _pickupView, Debug.isDebugBuild || Application.isEditor);
             _initialized = true;
         }
 
@@ -108,6 +113,8 @@ namespace Game.UI
                 return;
 
             _presenter?.Dispose();
+            _pickupPresenter?.Dispose();
+            _pickupView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
             _view?.Dispose();

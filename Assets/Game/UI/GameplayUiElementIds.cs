@@ -2,6 +2,10 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string PickupFeedback = "hud-pickup-feedback";
+        public const string PickupObservation = "development-pickup-observation";
+        public const string DropPotion = "development-drop-potion";
+        public const string DropBook = "development-drop-book";
         public const string FieldSelectScreen = "field-select-screen";
         public const string FieldSelectCards = "field-select-cards";
         public const string FieldSelectStart = "field-select-start";

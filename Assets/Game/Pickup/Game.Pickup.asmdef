@@ -1,0 +1,6 @@
+{
+  "name": "Game.Pickup",
+  "rootNamespace": "Game.Pickup",
+  "references": ["Game.Content", "Game.Content.Json", "Game.Run", "Game.Character", "Game.Combat", "Game.Progression", "Game.Enemy", "Game.Field", "Game.Pooling", "Game.Diagnostics", "Newtonsoft.Json"],
+  "autoReferenced": true
+}

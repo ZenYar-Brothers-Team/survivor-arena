@@ -67,3 +67,12 @@ G-20 scale conflict решается до production field UI; fixture 1–5 н�
 ## Presentation preference boundary
 
 IP-12A предоставляет `IScreenShakePreference` и `ScreenShakeRequestGate`: preference читается на каждом request, выключенное значение и не-running state не выпускают запрос. IP-26 реализует persistent setting и camera consumer/сброс активного offset при выключении; наличие request boundary не закрывает G-16 и не означает готовность audio/settings service. См. [IP-12A contract](IP-12A-visual-presentation-foundation.md#контракт-технического-пакета).
+
+## World pickup integration boundary
+
+Использовать [единый контракт IP-28](IP-28-world-pickups.md#framework-api-и-fixture-schema):
+WorldPickupRuntime.Spawn с source identity, Health/RequestBook/SetRewardEvent через
+PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemetry.
+Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
+XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
+encounter semantics остаются в scope соответствующих владельцев.

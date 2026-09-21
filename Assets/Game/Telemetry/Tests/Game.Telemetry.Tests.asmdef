@@ -5,6 +5,7 @@
     "Game.Telemetry",
     "Game.Run",
     "Game.Content",
+        "Game.Pickup",
     "Game.Combat",
     "Game.Character",
     "Game.Enemy",

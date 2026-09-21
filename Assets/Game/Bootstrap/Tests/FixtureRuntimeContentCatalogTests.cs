@@ -14,6 +14,9 @@ namespace Game.Bootstrap.Tests
             var catalog = FixtureRuntimeContentCatalog.Create();
 
             Assert.IsTrue(catalog.Registry.IsBuilt);
+            Assert.AreEqual(2, catalog.Pickups.Definitions.Count);
+            Assert.AreSame(catalog.Pickups.Potion, catalog.Registry.Get<Game.Pickup.PickupDefinition>(catalog.Pickups.Potion.Id));
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Pickups/FixturePickups"));
             Assert.Greater(catalog.ActiveSkills.Count, 0);
             Assert.Greater(catalog.Passives.Count, 0);
             Assert.Greater(catalog.Sets.Count, 0);

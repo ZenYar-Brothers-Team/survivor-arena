@@ -46,7 +46,7 @@ range до 014, stat/effect mapping, numeric completeness и asset/test referenc
 
 ## Gates и недостающие решения
 
-G-08/G-09 закрыты DECISION-0017; G-10 и полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-08/G-09 закрыты DECISION-0017; G-10 semantics — DECISION-0033, implementation consumer — IP-28. Полные значения 14 passives остаются gate; отсутствие конкретного runtime parameter не заполняется hidden default. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -55,3 +55,12 @@ G-08/G-09 закрыты DECISION-0017; G-10 и полные значения 14
 ## Контракт framework для production mappings
 
 Использовать [таблицу IP-09](IP-09-passive-framework.md#stat-applicability-и-владельцы-defaults). PASSIVE-007 задаёт только `pickupRadiusMultiplierBonus`; generic lifetime остаётся технической возможностью, без production item. PASSIVE-002 одновременно задаёт regeneration и относительный potion multiplier; cap/roll проверяет IP-28. Все L1…L6 — итоговые значения, заменяющие keyed modifier. Feature preview и slot descriptions уже читают эти каналы; production icons/definitions и per-ID verification поставляются здесь.
+
+## World pickup integration boundary
+
+Использовать [единый контракт IP-28](IP-28-world-pickups.md#framework-api-и-fixture-schema):
+WorldPickupRuntime.Spawn с source identity, Health/RequestBook/SetRewardEvent через
+PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemetry.
+Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
+XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
+encounter semantics остаются в scope соответствующих владельцев.

@@ -49,7 +49,7 @@ Stat applicability/default ownership table, PASSIVE-007 semantic migration note;
 
 ## Gates и недостающие решения
 
-G-08/G-09 закрыты DECISION-0017. Potion cap G-10 остаётся gate для actual drop roll IP-28; multiplier channel не выбирает этот cap. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
+G-08/G-09 закрыты DECISION-0017. Potion cap G-10 утверждён DECISION-0033: actual drop roll IP-28 применяет multiplier к выбранной базе и ограничивает итог 100%; multiplier channel не выполняет roll. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 
@@ -78,7 +78,7 @@ JSON уровня хранит **итоговый bonus**, не сумму ур�
 
 Все fixture ID имеют префикс `FIXTURE-PASSIVE-`; девять definitions покрывают все каналы, а не регистрируют четырнадцать production items. MEMORY сохраняет generic `xpDropLifetimeBonusSeconds` для совместимости старого fixture; это **не** mapping нового PASSIVE-007. Его единственный production mapping — pickup radius; исторические lifetime данные не переинтерпретируются как новый предмет. Production definitions/icons принадлежат IP-18.
 
-Проценты задаются долями (0.6 = +60%), regeneration — HP/s, lifetime — секунды. Pickup radius = base radius × (1 + сумма bonus): база 2 и +60% дают 3.2 world units. Potion chance consumer получает multiplier: 0.05 × 1.6 = 0.08; actual roll/cap остаются IP-28/G-10. Low-HP multiplier = 1 + max bonus × min(1, (1 − HP/maxHP) / 0.9): max bonus 0.7 при 55% HP даёт 1.35, при 10% и ниже — 1.7.
+Проценты задаются долями (0.6 = +60%), regeneration — HP/s, lifetime — секунды. Pickup radius = base radius × (1 + сумма bonus): база 2 и +60% дают 3.2 world units. Potion chance consumer получает multiplier: 0.05 × 1.6 = 0.08; actual roll/cap поставляет IP-28 по DECISION-0033. Low-HP multiplier = 1 + max bonus × min(1, (1 − HP/maxHP) / 0.9): max bonus 0.7 при 55% HP даёт 1.35, при 10% и ниже — 1.7.
 
 `PlayerPassiveSetRuntime.Initialize` освобождает предыдущие modifiers/subscription/catalog перед повторной сборкой. Shutdown и rollback удаляют только собственные ключи; build slots остаются неизменны. Удаление технического modifier не разрешает игроку освобождать слот.
 

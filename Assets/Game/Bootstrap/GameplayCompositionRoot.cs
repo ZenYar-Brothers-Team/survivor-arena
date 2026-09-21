@@ -5,6 +5,7 @@ using Game.Character;
 using Game.Content;
 using Game.Enemy;
 using Game.Field;
+using Game.Pickup;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -62,6 +63,7 @@ namespace Game.Bootstrap
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
         public BossEncounterRuntime BossEncounters { get; private set; }
+        public WorldPickupRuntime Pickups { get; private set; }
 
         private void Start()
         {
@@ -240,6 +242,13 @@ namespace Game.Bootstrap
                 passiveRuntime.Initialize(player, draftRuntime, Catalog.Passives);
                 initializedSubsystems.Add(passiveRuntime.Shutdown);
 
+                if (Pickups == null) Pickups = gameObject.AddComponent<WorldPickupRuntime>();
+                var placement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
+                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin);
+                Pickups.Initialize(Catalog.Pickups, runController.Model, player,
+                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement, selectedField.Id);
+                initializedSubsystems.Add(Pickups.Shutdown);
+
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
                 var enemyVisuals = new Dictionary<ContentId, Sprite>(configuration.Enemies.Count);
                 for (var i = 0; i < configuration.Enemies.Count; i++)
@@ -254,7 +263,7 @@ namespace Game.Bootstrap
                     enemiesById,
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
-                    new EnemyExperienceDropSink(experienceRuntime, runController));
+                    new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups));
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
@@ -263,7 +272,7 @@ namespace Game.Bootstrap
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
-                    draftRuntime, enemySpawner, activeSkillRuntime);
+                    draftRuntime, enemySpawner, activeSkillRuntime, Pickups);
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 
                 gameplayUiRoot.Initialize(
@@ -275,7 +284,7 @@ namespace Game.Bootstrap
                     (roster ?? Catalog.Characters).UnlockedCharacters,
                     enemySpawner,
                     Playtest,
-                    BossEncounters);
+                    BossEncounters, Pickups);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch
@@ -322,6 +331,7 @@ namespace Game.Bootstrap
             if (Playtest is PlaytestSession session) session.Dispose();
             BossEncounters?.Shutdown();
             enemySpawner.Shutdown();
+            Pickups?.Shutdown();
             passiveRuntime.Shutdown();
             activeSkillRuntime.Shutdown();
             draftRuntime.Shutdown();
