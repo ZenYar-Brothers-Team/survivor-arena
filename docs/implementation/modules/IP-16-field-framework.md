@@ -51,3 +51,12 @@ G-14/G-15: конкретные geometry/difficulty/unlock values; fixture metad
 ## Потребители
 
 [IP-23](IP-23-production-fields.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-29](IP-29-traveler-framework.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Boss encounter binding
+
+Field configuration выбирает timeline и encounter definitions согласованно с
+[IP-15](IP-15-boss-framework.md#fixture-schema-и-phase-contract): final definition/hook
+обязательны, midboss hook optional; каждый используемый hook имеет definition.
+BossEncounterRuntime получает fresh WaveDirector/RunModel перед началом run.
+Смена field не переносит consumed hooks, phase или boss life предыдущего run.
+Fixture boss schema не закрывает production G-14 schedules/rewards.

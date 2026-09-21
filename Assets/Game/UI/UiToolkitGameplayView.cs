@@ -19,6 +19,8 @@ namespace Game.UI
         private BuildViewState? _renderedBuild;
         private CharacterSelectionViewState _renderedCharacters;
         private readonly ProgressBar _healthBar;
+        private readonly ProgressBar _bossBar;
+        private Guid _bossLife;
         private readonly ProgressBar _experienceBar;
         private readonly Label _levelLabel;
         private readonly Label _timerLabel;
@@ -92,6 +94,8 @@ namespace Game.UI
             _pauseBuild = Require<VisualElement>(root, GameplayUiElementIds.PauseBuild);
             _notification = new UiNotification(Require<Label>(root, GameplayUiElementIds.Notification));
             _healthBar = Require<ProgressBar>(root, GameplayUiElementIds.HealthBar);
+            _bossBar = Require<ProgressBar>(root, GameplayUiElementIds.BossBar);
+            SetVisible(_bossBar, false);
             _experienceBar = Require<ProgressBar>(root, GameplayUiElementIds.ExperienceBar);
             _levelLabel = Require<Label>(root, GameplayUiElementIds.LevelLabel);
             _timerLabel = Require<Label>(root, GameplayUiElementIds.TimerLabel);
@@ -169,6 +173,14 @@ namespace Game.UI
             _previousElapsed = state.ElapsedSeconds;
             if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("LEVEL UP");
             _previousLevel = state.Level;
+            SetVisible(_bossBar, state.Boss.Visible);
+            if (state.Boss.Visible)
+            {
+                if (_bossLife != state.Boss.LifeId) _notification.Show("BOSS INCOMING");
+                _bossBar.value = 100f * state.Boss.CurrentHealth / state.Boss.MaxHealth;
+                _bossBar.title = $"{state.Boss.Name} · {MathF.Ceiling(state.Boss.CurrentHealth)}/{MathF.Ceiling(state.Boss.MaxHealth)}";
+            }
+            _bossLife = state.Boss.Visible ? state.Boss.LifeId : Guid.Empty;
             _bookCurrency.text = $"Book currency: +{state.BookCurrency}";
             SetVisible(_bookCurrency, state.BookCurrency > 0);
             var health01 = state.MaxHealth > 0f ? state.CurrentHealth / state.MaxHealth : 0f;

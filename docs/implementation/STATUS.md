@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
-Current active module: none (IP-14 завершён; IP-12A gameplay density review остаётся открытым)
-Next Ready module: IP-15 (без автоматического перехода)
+Current active module: none (IP-15 завершён; IP-12A gameplay density review остаётся открытым)
+Next Ready module: IP-16 (без автоматического перехода)
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -35,6 +35,11 @@ IP-13 завершён по последнему разрешению: 467/467 E
 496/496 Game.* EditMode, 9/9 PlayMode, 0 skipped. Утверждённый пользователем spawn-only
 load bound (100 врагов, 10 циклов, cold ≤250 ms / pooled ≤50 ms) пройден. Следующий Ready
 — IP-15; автоматически не начинать. Gameplay density review IP-12A остаётся открытым.
+
+Запрос «делаем следующий пункт» разрешил IP-15. Framework завершён: **516/516 Game.*
+EditMode, 10/10 PlayMode, 0 skipped** (2026-09-21, Unity 6000.6.0f1). Boss phases/hooks,
+HP/name, pause physics и cleanup проверены; production G-14 остаётся у IP-21.
+Следующий Ready — IP-16; автоматически не начинать.
 
 ## Execution order
 
@@ -324,19 +329,20 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-14)
 
 ### IP-15 — Boss/mid-boss encounter framework
 
-Status: Ready
+Status: Verified
 Dependencies: IP-01, IP-05, IP-08, IP-13, IP-14, IP-10A
-Remaining gates: G-07 закрыт DECISION-0017. G-14: используемые phase/attack fields; final timing configurable, production values не обязательны для synthetic framework.
-Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-15-boss-framework.md).
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Current packet: Synthetic final/mid encounters, ordered attack sequences и HP thresholds, one-shot uncapped hooks, lifecycle/source events и final HUD через producer Changed.
+Remaining gates: Нет для synthetic framework. G-07 закрыт DECISION-0017; G-14 production attack payload/rewards/timings/assets остаются IP-21/IP-24.
+Remaining acceptance / IDs: none for fixture framework; BOSS-/MIDBOSS- production IDs не поставлялись.
+Target implementation evidence: [IP-15 evidence](evidence/design-sync-R2-2026-09-21-ip15.md#ip-15), [schema/runtime](modules/IP-15-boss-framework.md#fixture-schema-и-phase-contract).
+Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **516/516 Game.* EditMode, 10/10 PlayMode, 0 skipped**. Все 13 fixture skills повреждают boss; real scene bar/telegraph/pause/terminal cleanup. [Conditions/results](evidence/design-sync-R2-2026-09-21-ip15.md#checks).
+Documentation impact: IP-15 schema/ownership/missing-rule list, IP-16/IP-21 bindings, DECISION-0031 Proposed technical record, regression guards и readiness. GDD/CD/art без изменений; IP-12A density review отдельно.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-15).
 
 ### IP-16 — Field definitions, selection и run configuration
 
-Status: Blocked
+Status: Ready
 Dependencies: IP-02, IP-12, IP-14, IP-15, IP-10A
-Blocked by: IP-15 (Ready, target scope).
 Remaining gates: G-14/G-15: конкретные geometry/difficulty/unlock values; fixture metadata отдельно.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-16-field-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -358,7 +364,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-28)
 
 Status: Blocked
 Dependencies: IP-08, IP-13, IP-15, IP-16, IP-28
-Blocked by: IP-15 (Ready, target scope), IP-16 (Blocked, target scope), IP-28 (Blocked, target scope).
+Blocked by: IP-16 (Ready, target scope), IP-28 (Blocked, target scope).
 Remaining gates: G-11/G-12/G-14: temporal/spatial/type/scaling/support semantics и required values.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-29-traveler-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -369,7 +375,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 Status: Blocked
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
-Blocked by: IP-16 (Blocked, target scope).
+Blocked by: IP-16 (Ready, target scope).
 Remaining gates: CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semantics. Framework fixtures отдельно от production economy.
 Remaining acceptance / IDs: Persistent profile/flow и production economy, rewards/prices/upgrades/unlocks; CG-03. Fixture framework не закрывает весь production scope.
 Target implementation evidence: Нет для новых требований.
@@ -380,7 +386,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25)
 
 Status: Blocked
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Blocked by: IP-15 (Ready, target scope), IP-16 (Blocked, target scope), IP-25 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope).
+Blocked by: IP-16 (Ready, target scope), IP-25 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope).
 Remaining gates: G-15/G-16: Quit/reward/failure ordering, real audio/shake/settings contract. Retry same character/field immediate уже утверждён.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-26-functional-ui.md).
 Target implementation evidence: Нет для новых требований.
@@ -435,7 +441,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20)
 
 Status: Blocked
 Dependencies: IP-15, IP-12A
-Blocked by: IP-15 (Ready, target scope).
+Blocked by: G-14 production attack payload/rewards/timings и per-ID asset packet readiness.
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
 Remaining acceptance / IDs: BOSS-001…010 и MIDBOSS-001…010, phase/attack data и art.
 Target implementation evidence: Нет для новых требований.
@@ -457,7 +463,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22)
 
 Status: Blocked
 Dependencies: IP-16, IP-20, IP-21, IP-12A
-Blocked by: IP-16 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
+Blocked by: IP-16 (Ready, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14/G-15: geometry/enemy pools/difficulty и unlock conditions. Весь approved mapping переносится, numeric schedules отдельно.
 Remaining acceptance / IDs: FIELD-001…010, geometry/metadata/kits/thumbnails.
 Target implementation evidence: Нет для новых требований.
@@ -490,7 +496,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-15 (Ready, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope).
+Blocked by: IP-16 (Ready, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

@@ -14,6 +14,7 @@ namespace Game.UI
         public CharacterStatsViewState Stats { get; }
         public RunExperienceSnapshot ExperienceTotals { get; }
         public long BookCurrency { get; }
+        public BossViewState Boss { get; }
 
         public HudViewState(
             float currentHealth,
@@ -23,7 +24,7 @@ namespace Game.UI
             float elapsedSeconds,
             WaveViewState wave,
             CharacterStatsViewState stats = null,
-            RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0)
+            RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
@@ -34,6 +35,7 @@ namespace Game.UI
             Stats = stats;
             ExperienceTotals = experienceTotals;
             BookCurrency = bookCurrency;
+            Boss = boss;
         }
     }
 }

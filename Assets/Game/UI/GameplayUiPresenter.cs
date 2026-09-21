@@ -56,7 +56,7 @@ namespace Game.UI
                     _model.WavePhaseName,
                     _model.WavePhaseTag),
                 _model.Stats,
-                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency));
+                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)

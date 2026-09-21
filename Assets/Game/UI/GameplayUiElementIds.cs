@@ -2,6 +2,7 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string BossBar = "hud-boss-bar";
         public const string CharacterSelectScreen = "character-select-screen";
         public const string CharacterSelectCards = "character-select-cards";
         public const string CharacterSelectStart = "character-select-start";

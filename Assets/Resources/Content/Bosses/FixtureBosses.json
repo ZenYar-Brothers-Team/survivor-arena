@@ -1,0 +1,50 @@
+[
+  {
+    "id": "FIXTURE-BOSS-FINAL",
+    "displayName": "Fixture Commander",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "body": {
+      "id": "FIXTURE-BOSS-FINAL",
+      "maxHealth": 500,
+      "collisionSize": 2.4,
+      "movementSpeed": 0.6,
+      "contactDamage": 3,
+      "contactDamageInterval": 1,
+      "experienceReward": 0,
+      "knockbackResistance": 0.6,
+      "contactControls": { "knockbackDistance": 0.4, "knockbackSeconds": 0.2 },
+      "movement": { "kind": "Seek" }
+    },
+    "phases": [
+      { "id": "FIXTURE-BOSS-FINAL-OPENING", "healthThreshold": 1, "attackEnemyIds": ["FIXTURE-ENEMY-FAN", "FIXTURE-ENEMY-RING-ZIGZAG"] },
+      { "id": "FIXTURE-BOSS-FINAL-PRESSURE", "healthThreshold": 0.6, "attackEnemyIds": ["FIXTURE-ENEMY-CROSS-RETREAT", "FIXTURE-ENEMY-BURST-ORBIT"] },
+      { "id": "FIXTURE-BOSS-FINAL-LAST", "healthThreshold": 0.3, "attackEnemyIds": ["FIXTURE-ENEMY-RING-ZIGZAG", "FIXTURE-ENEMY-RING-ZIGZAG", "FIXTURE-ENEMY-FAN"] }
+    ]
+  },
+  {
+    "id": "FIXTURE-BOSS-MID",
+    "displayName": "Fixture Pursuer",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "body": {
+      "id": "FIXTURE-BOSS-MID",
+      "maxHealth": 160,
+      "collisionSize": 1.6,
+      "movementSpeed": 0.8,
+      "contactDamage": 2,
+      "contactDamageInterval": 1,
+      "experienceReward": 0,
+      "knockbackResistance": 0.3,
+      "contactControls": { "knockbackDistance": 0.2, "knockbackSeconds": 0.1 },
+      "dashContactControls": { "knockbackDistance": 0.4, "knockbackSeconds": 0.15 },
+      "movement": { "kind": "TelegraphedDash", "dashTelegraphSeconds": 0.6, "dashDurationSeconds": 0.3, "dashCooldownSeconds": 3, "dashSpeedMultiplier": 3 }
+    },
+    "phases": [
+      { "id": "FIXTURE-BOSS-MID-OPENING", "healthThreshold": 1, "attackEnemyIds": ["FIXTURE-ENEMY-SINGLE"] },
+      { "id": "FIXTURE-BOSS-MID-PRESSURE", "healthThreshold": 0.5, "attackEnemyIds": ["FIXTURE-ENEMY-FAN", "FIXTURE-ENEMY-SINGLE"] }
+    ]
+  }
+]

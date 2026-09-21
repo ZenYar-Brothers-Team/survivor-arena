@@ -55,3 +55,9 @@ G-14: точные attack timings/phase payload, rewards и required fields ка
 ## Enemy pattern integration
 
 Использовать [IP-13 schema/runtime contract](IP-13-enemy-patterns.md#schema-и-runtime-contract): explicit per-attack controls/wind-up, отдельный dash contact, immutable source/life snapshots и reset-safe projectile pool. Encounter owner задаёт category; новые комбинации profiles не меняют draft/wave models. Phase ordering/support/escape mechanics остаются scope этого owning packet, а fixture numbers не являются production balance.
+
+IP-15 предоставляет [boss phase/UI/lifecycle contract](IP-15-boss-framework.md#fixture-schema-и-phase-contract)
+и [missing-rule list](IP-15-boss-framework.md#missing-rule-list-для-production).
+Полный цикл repeated attack нельзя выдавать за delayed repeat или post-dash payload
+карточки. Для каждого production ID заполнить отдельные attack refs, нужную
+sequence semantics, rewards и asset bindings; не переименовывать fixture ID.

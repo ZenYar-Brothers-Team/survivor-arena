@@ -14,6 +14,24 @@ namespace Game.UI.Tests
     public sealed class GameplayUiPresenterTests
     {
         [Test]
+        public void Boss_ProductionHud_ProjectsHealthAndClearsWithoutDevelopmentCommands()
+        {
+            var model = CreateModel();
+            model.DevelopmentCommandsEnabled = false;
+            model.Boss = new BossViewState(Guid.NewGuid(), "Commander", 150, 500);
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            Assert.IsTrue(view.Hud.Boss.Visible);
+            Assert.AreEqual(150, view.Hud.Boss.CurrentHealth);
+            Assert.AreEqual("Commander", view.Hud.Boss.Name);
+            model.Boss = default;
+            presenter.RefreshHud();
+            Assert.IsFalse(view.Hud.Boss.Visible);
+            Assert.AreEqual(125, view.Hud.ElapsedSeconds);
+        }
+
+        [Test]
         public void Start_RendersImmutableSnapshotsAndDevelopmentVisibility()
         {
             var model = CreateModel();
@@ -324,6 +342,7 @@ namespace Game.UI.Tests
             public event Action Changed;
             public RunExperienceSnapshot ExperienceTotals => new RunExperienceSnapshot(10f, 12f, 8f, 4f, 0f, 0f);
             public float CurrentHealth { get; set; }
+            public BossViewState Boss { get; set; }
             public float MaxHealth { get; set; }
             public float ExperienceProgress01 { get; set; }
             public int Level { get; set; }

@@ -35,6 +35,8 @@ namespace Game.Enemy
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private EnemyMovementController _movementController;
         private EnemyAttackController _attackController;
+        public BossCombatController BossCombat { get; private set; }
+        private EnemyAttackProfile CurrentAttack => BossCombat?.AttackDefinition.Attack ?? Definition?.Attack;
         private bool _initialized;
         private bool _despawned;
 
@@ -61,7 +63,7 @@ namespace Game.Enemy
         public CombatSource LastProjectileSource { get; private set; }
         public CombatControlProfile CurrentContactControls => MovementPhase == EnemyMovementPhase.Dashing
             ? Definition.DashContactControls : Definition.ContactControls;
-        public EnemyProjectilePattern? AttackPattern => Definition?.Attack?.Pattern;
+        public EnemyProjectilePattern? AttackPattern => CurrentAttack?.Pattern;
 
         public event Action<EnemyRuntime> Died;
         public event Action<EnemyRuntime> Despawned;
@@ -99,6 +101,7 @@ namespace Game.Enemy
                 }
             }
             Controls.Reset();
+            BossCombat = null;
             LastProjectileSource = default;
             _despawned = false;
             _deathPublished = false;
@@ -119,6 +122,7 @@ namespace Game.Enemy
             CacheComponents();
             _collider.enabled = true;
             _body.gravityScale = 0f;
+            _body.simulated = true;
             _body.linearVelocity = Vector2.zero;
             _body.angularVelocity = 0f;
             _body.constraints |= RigidbodyConstraints2D.FreezeRotation;
@@ -168,16 +172,17 @@ namespace Game.Enemy
                 RenderTelegraph(movement);
                 return;
             }
-            var shots = _attackController.Tick(
-                Time.fixedDeltaTime,
-                isSimulating,
-                (Vector2)_target.position - _body.position);
+            var aim = (Vector2)_target.position - _body.position;
+            var shots = BossCombat != null
+                ? BossCombat.Tick(Time.fixedDeltaTime, isSimulating, Health.CurrentHealth / Health.MaxHealth, aim)
+                : _attackController.Tick(Time.fixedDeltaTime, isSimulating, aim);
+            if (BossCombat != null) _attackController = BossCombat.Attack;
             RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
-                LastProjectileSource = new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile);
+                LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
                 EnemyProjectileFactory.Spawn(
-                    Definition.Attack,
+                    CurrentAttack,
                     _body.position,
                     shots[i].Direction,
                     _projectileTarget,
@@ -186,6 +191,14 @@ namespace Game.Enemy
                     _projectilePool,
                     LastProjectileSource);
             }
+        }
+
+        public void ConfigureBoss(BossEncounterDefinition encounter)
+        {
+            if (!IsAlive || Category != EnemyCategory.Boss || encounter == null || encounter.Id != Definition.Id)
+                throw new InvalidOperationException("Boss combat requires the matching active boss life.");
+            BossCombat = new BossCombatController(encounter);
+            _attackController = BossCombat.Attack;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -382,7 +395,7 @@ namespace Game.Enemy
             var length = Mathf.Max(2f, Definition.MovementSpeed * Definition.Movement.DashSpeedMultiplier *
                 Definition.Movement.DashDurationSeconds);
             var direction = movement.IsTelegraphing ? movement.TelegraphDirection : _attackController.AimDirection;
-            if (!movement.IsTelegraphing) length = Definition.Attack.ProjectileSpeed * Definition.Attack.TelegraphSeconds;
+            if (!movement.IsTelegraphing) length = CurrentAttack.ProjectileSpeed * CurrentAttack.TelegraphSeconds;
             _telegraph.SetPosition(0, start);
             _telegraph.SetPosition(1, start + (Vector3)(direction * length));
         }

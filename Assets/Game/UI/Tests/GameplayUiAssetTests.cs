@@ -14,6 +14,7 @@ namespace Game.UI.Tests
             var root = asset.CloneTree();
 
             Assert.IsNotNull(root.Q<ProgressBar>(GameplayUiElementIds.HealthBar));
+            Assert.IsNotNull(root.Q<ProgressBar>(GameplayUiElementIds.BossBar));
             Assert.IsNotNull(root.Q<ProgressBar>(GameplayUiElementIds.ExperienceBar));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveLabel));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.WaveObservation));

@@ -54,6 +54,7 @@ namespace Game.Bootstrap
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
+        public BossEncounterRuntime BossEncounters { get; private set; }
 
         private void Start()
         {
@@ -203,6 +204,11 @@ namespace Game.Bootstrap
                     new EnemyExperienceDropSink(experienceRuntime, runController));
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
+                if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
+                BossEncounters.Initialize(waveDirector, runController, player.transform, Catalog.Bosses,
+                    new EnemyExperienceDropSink(experienceRuntime, runController));
+                initializedSubsystems.Add(BossEncounters.Shutdown);
+
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime);
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
@@ -215,7 +221,8 @@ namespace Game.Bootstrap
                     playerPresentation,
                     (roster ?? Catalog.Characters).UnlockedCharacters,
                     enemySpawner,
-                    Playtest);
+                    Playtest,
+                    BossEncounters);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch
@@ -254,6 +261,7 @@ namespace Game.Bootstrap
             runController.Shutdown();
             gameplayUiRoot.Shutdown();
             if (Playtest is PlaytestSession session) session.Dispose();
+            BossEncounters?.Shutdown();
             enemySpawner.Shutdown();
             passiveRuntime.Shutdown();
             activeSkillRuntime.Shutdown();

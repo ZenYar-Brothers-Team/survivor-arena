@@ -57,3 +57,12 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 |---|---|---|---|---|
 | Actual spawn count при отсутствии target | `WaveSpawnerTests.Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Tick возвращает число созданных объектов; неисполненная группа отмечается unavailable и не повторяется. |
 | Continuous timer при перескоке между фазами | `WaveBurstTests.Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Время старой фазы не начисляется новой; suppressed заявки не накапливаются для последующего спавна. |
+
+## IP-15 — regression guards
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Boss HUD между периодическими refresh | `BossEncounterSmokeTests.Gameplay_BossBarTelegraphPauseAndTerminalCleanup` | PlayMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Spawn/HP/despawn идут через producer Changed; bar/name появляются без ожидания HUD timer. |
+| Burst длиннее своего cooldown | `BossCombatTests.Sequence_BurstLongerThanCooldown_CompletesTailThenMovesToNextAttack` | EditMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Single-cycle controller завершает хвост, не начинает лишний burst перед переключением. |
+| Spiral sequence wrap | `BossCombatTests.Sequence_SpiralRepeatedCycle_PreservesPatternRotation` | EditMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Полный новый wind-up сохраняет накопленную rotation конкретного sequence slot. |
+| Physics displacement босса на паузе | `BossEncounterTests.Pause_SuspendsBossPhysicsAndResumeRestoresItIncludingPoolReuse`, `BossEncounterSmokeTests.Gameplay_BossBarTelegraphPauseAndTerminalCleanup` | EditMode + PlayMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Owner приостанавливает physics simulation, а не только velocity; resume/reuse восстанавливают body. |

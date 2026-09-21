@@ -4,7 +4,7 @@
 
 ## Существующая база и характер изменения
 
-Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+Каркас использует общий EnemyRuntime/target registry, movement/projectile families IP-13 и hooks IP-14. BossEncounterRuntime владеет отдельными encounter lives/pools; BossCombatController — последовательностью атак и HP phases. Production definitions остаются IP-21.
 
 ## Зависимости
 
@@ -61,3 +61,88 @@ Boss owner подписывается/отписывается со своим l
 Victory по timer сохраняется независимо от исполнения hook и состояния босса.
 
 Использовать [IP-13 schema/runtime contract](IP-13-enemy-patterns.md#schema-и-runtime-contract): explicit per-attack controls/wind-up, отдельный dash contact, immutable source/life snapshots и reset-safe projectile pool. Encounter owner задаёт category; новые комбинации profiles не меняют draft/wave models. Phase ordering/support/escape mechanics остаются scope этого owning packet, а fixture numbers не являются production balance.
+
+## Fixture schema и phase contract
+
+`Assets/Resources/Content/Bosses/FixtureBosses.json` → `BossEncounterData`/`BossPhaseData`
+→ `FixtureBossCatalog` → immutable `BossEncounterDefinition`. Два synthetic ID:
+`FIXTURE-BOSS-FINAL` и `FIXTURE-BOSS-MID`; они не поставляют BOSS-/MIDBOSS- карточки.
+
+| Поле | Контракт / единицы |
+|---|---|
+| id / displayName / hook | Stable encounter identity, непустое имя; FinalBoss обязателен, MidBoss optional; один definition на hook kind |
+| body | EnemyDefinitionData IP-13; id совпадает с encounter. HP >0, collision >0 world units, speed ≥0 units/s; contact interval >0 s, damage/reward ≥0; resistance 0…1 |
+| spawnOffsetX/Y | Оба обязательны; finite world units относительно позиции игрока в момент hook; не используют ordinary cap или RNG потока волн |
+| phases | Непустой ordered list; unique phase ID; первый healthThreshold=1, последующие строго убывают в (0,1) |
+| attackEnemyIds | Непустая ordered sequence ссылок на EnemyDefinition с ranged Attack и telegraphSeconds >0; используются только attack profiles. Повтор ID означает следующий полный цикл той же атаки |
+
+Доля HP `h = currentHealth / maxHealth`, обе величины в HP; `h ∈ [0,1]`.
+При `h <= threshold` достигается фаза. Например, у fixture final 500 HP, пороги
+0.6/0.3 соответствуют 300/150 HP; удар с 500 до 100 HP переводит сразу в последнюю
+фазу одним событием, без промежуточных атак. Healing не возвращает фазу назад.
+При HP=0 смерть имеет приоритет: phase/attack tick не выполняется.
+
+Переход выполняется на следующем running combat tick, отменяет незавершённый
+wind-up/остаток burst/cooldown предыдущей фазы и начинает первую атаку новой
+с полным telegraph. Уже созданные projectiles сохраняют старые immutable profiles
+и source/life ID. Movement profile и contact/dash controls принадлежат body и не
+пересоздаются на HP transition. Последовательность атак повторяется; следующий
+элемент начинается только после полного burst и cooldown текущего элемента.
+Cooldown отсчитывается от первого shot по IP-13; если burst длиннее cooldown,
+его хвост завершается до перехода к следующему элементу. Single-cycle режим
+контроллера не запускает лишний burst. Каждый sequence slot сохраняет собственную
+накопленную spiral rotation при повторном входе; HP phase change сбрасывает sequence.
+Один tick не воспроизводит
+пропущенные циклы/фазы задним числом; новая подготовка всегда остаётся читаемой.
+
+Pause сохраняет phase, attack timers/aim, движение и telegraph. Encounter owner
+выключает Rigidbody2D simulation боссов на паузе, чтобы overlap resolution соседних
+коллайдеров не смещал их при нулевой velocity; Running и pool Initialize восстанавливают
+simulation. HP-переходы
+откладываются до running tick. Терминальное состояние синхронно despawn-ит обоих
+боссов; смерть, cleanup и terminal не меняют timer victory. Shutdown снимает
+подписки на конкретный director/run, освобождает active projectiles и готов к
+повторной Initialize; fresh director требуется для нового расписания.
+
+Fixture rationale: final 500 HP / mid 160 HP позволяют упражнять несколько фаз;
+размеры 2.4/1.6 и offsets ±8 позволяют отличить отдельные encounter lives.
+Награда 0 явно исключает присвоение production reward TBD. Пороги 1/.6/.3 и
+1/.5 упражняют одиночный/множественный crossing. Fan/ring/cross/burst/single
+переиспользуют synthetic IP-13 profiles. Final timing берётся только из existing
+wave hook, новые production времена здесь не назначаются.
+
+## UI, lifecycle и downstream contracts
+
+`IBossEncounterRuntime` предоставляет final life/definition; UI runtime model
+снимает immutable `BossViewState`, presenter передаёт его в HudViewState.
+Событие `Changed` при spawn/HP/despawn обновляет HUD сразу, независимо от
+периодического refresh; Dispose UI model снимает эту подписку.
+`hud-boss-bar` показывает имя/HP только живого final boss; timer расположен выше,
+обычный HUD снизу сохраняется. Один existing notification slot показывает
+`BOSS INCOMING`; его expiry использует elapsed run time. Midboss не получает
+global HP bar. DEV Run tab содержит phase/attack/life IDs через существующий
+bounded drawer, без нового управления gameplay.
+
+`LifeEvent` сохраняет IP-04 Died/Despawned reason contract; `CombatResolved`
+передаёт target/source attribution; `PhaseChanged` публикует immutable
+`BossPhaseEvent` (identity, previous/current phase IDs, выбранный attack ID).
+Projectile owner — конкретная boss life, source content — attack profile ID.
+IP-31 может подписываться как optional observer; UI/cleanup от recorder не зависят.
+Catalog registry валидирует attack refs, source snapshot включает boss JSON.
+IP-16 выбирает encounter definitions и timeline вместе; обязательный final hook
+проверяется до подписок и spawn. IP-21 заменяет synthetic content после закрытия
+per-card fields; [DECISION-0031](../../decisions/0031-boss-encounter-framework.md)
+фиксирует техническую границу.
+
+## Missing-rule list для production
+
+Compatibility references: полностью рассмотрены BOSS-001 (fan/ring), BOSS-010
+(несколько HP thresholds) и MIDBOSS-001/002 (dash/post-dash families). Их production
+реализация не входит в fixture packet. G-14 сохраняет: exact speed/timings,
+XP/rewards, угловые смещения и phase payload; post-dash coupling и серии рывков
+требуют отдельной конфигурации/проверок IP-21. Повтор ranged pattern в текущей
+sequence — полный цикл с cooldown, а не обещание delayed 0.4 s повторов BOSS-010.
+Shield/support/escape механики не используются этим packet; при их потребности
+IP-21/IP-29 сначала фиксируют missing rule, без ad-hoc поведения в EnemyRuntime.
+Новые raster assets/анимации не поставляются: body placeholder и line telegraph
+переиспользуют IP-13, без модификации gameplay transform ради visual motion.

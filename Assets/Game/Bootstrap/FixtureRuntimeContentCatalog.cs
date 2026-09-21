@@ -25,6 +25,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<PassiveProgressionDefinition> Passives { get; }
         public IReadOnlyList<SetDefinition> Sets { get; }
         public IReadOnlyList<EnemyDefinition> Enemies { get; }
+        public IReadOnlyList<BossEncounterDefinition> Bosses { get; }
         public WaveTimelineDefinition WaveTimeline { get; }
         public RunSetupConfig RunSetup { get; }
         public CharacterRoster Characters { get; }
@@ -42,7 +43,8 @@ namespace Game.Bootstrap
             WaveTimelineDefinition waveTimeline,
             RunSetupConfig runSetup,
             CharacterRoster characters,
-            IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles)
+            IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles,
+            IReadOnlyList<BossEncounterDefinition> bosses)
         {
             RunSetup = runSetup;
             Registry = registry;
@@ -51,12 +53,13 @@ namespace Game.Bootstrap
             Passives = passives;
             Sets = sets;
             Enemies = enemies;
+            Bosses = bosses;
             WaveTimeline = waveTimeline;
             Characters = characters;
             SpriteMotionProfiles = spriteMotionProfiles;
             var sources = new Dictionary<string, string>(System.StringComparer.Ordinal);
             foreach (var path in new[] { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
-                "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Waves/FixtureWaveTimeline",
+                "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Bosses/FixtureBosses", "Content/Waves/FixtureWaveTimeline",
                 "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters", "Content/Characters/FixtureCharacterBaseline",
                 "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites" })
                 sources.Add(path, JsonContentFile.ReadText(path));
@@ -72,6 +75,7 @@ namespace Game.Bootstrap
             var passives = FixturePassiveCatalog.Create();
             var sets = FixtureSetCatalog.Create();
             var enemies = FixtureEnemyCatalog.Create();
+            var bosses = FixtureBossCatalog.Create(enemies);
             var waveTimeline = FixtureWaveTimelineCatalog.Create();
             var runSetup = FixtureRunSetupCatalog.Create();
             var characters = FixtureCharacterDefinitionCatalog.Create();
@@ -97,6 +101,7 @@ namespace Game.Bootstrap
             for (var i = 0; i < enemies.Count; i++)
                 allDefinitions.Add(enemies[i]);
             allDefinitions.Add(waveTimeline);
+            allDefinitions.AddRange(bosses);
             allDefinitions.Add(FixtureCharacterDefinitionCatalog.CreateBaseline());
             for (var i = 0; i < characters.AllCharacters.Count; i++)
                 allDefinitions.Add(characters.AllCharacters[i]);
@@ -131,7 +136,8 @@ namespace Game.Bootstrap
                 waveTimeline,
                 runSetup,
                 characters,
-                spriteMotionProfiles);
+                spriteMotionProfiles,
+                bosses);
             return _cached;
         }
     }

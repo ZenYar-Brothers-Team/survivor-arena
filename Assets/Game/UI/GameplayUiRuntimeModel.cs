@@ -25,6 +25,16 @@ namespace Game.UI
         private readonly IReadOnlyList<CharacterDefinition> _unlockedCharacters;
         private readonly ContinuousFixtureEnemySpawner _enemySpawner;
         private readonly WaveDirector _waveDirector;
+        private readonly IBossEncounterRuntime _bosses;
+        public BossViewState Boss
+        {
+            get
+            {
+                var boss = _bosses?.FinalBoss;
+                return boss == null ? default : new BossViewState(boss.LifeId, _bosses.FinalDefinition.DisplayName,
+                    boss.Health.CurrentHealth, boss.Health.MaxHealth);
+            }
+        }
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
 
         public event Action Changed;
@@ -53,7 +63,7 @@ namespace Game.UI
         public bool DevelopmentCommandsEnabled { get; }
         public string SkillDevelopmentSummary => (_skills != null ? _skills.DevelopmentObservation : "Skills unavailable") + "\n" + _draft.Sets?.DevelopmentObservation;
         public string EnemyDevelopmentSummary => _enemySpawner != null
-            ? _enemySpawner.DevelopmentObservation
+            ? _enemySpawner.DevelopmentObservation + "\n" + _bosses?.DevelopmentObservation
             : "Enemy fixtures unavailable";
         public int WavePhaseNumber => _waveDirector != null ? _waveDirector.CurrentPhaseIndex + 1 : 0;
         public int WavePhaseCount => _waveDirector != null ? _waveDirector.PhaseCount : 0;
@@ -71,7 +81,7 @@ namespace Game.UI
             SpritePresentationRuntime presentation,
             bool developmentCommandsEnabled,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
-            ContinuousFixtureEnemySpawner enemySpawner = null)
+            ContinuousFixtureEnemySpawner enemySpawner = null, IBossEncounterRuntime bosses = null)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _skills = player.GetComponent<PlayerActiveSkillSetRuntime>();
@@ -81,6 +91,8 @@ namespace Game.UI
             _presentation = presentation != null ? presentation : throw new ArgumentNullException(nameof(presentation));
             _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
             _enemySpawner = enemySpawner;
+            _bosses = bosses;
+            if (_bosses != null) _bosses.Changed += HandleBossChanged;
             _waveDirector = enemySpawner != null ? enemySpawner.Director : null;
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
@@ -116,6 +128,7 @@ namespace Game.UI
 
         private void HandleStatsChanged() => Changed?.Invoke();
         private void HandleHealthChanged(float _, float __) => Changed?.Invoke();
+        private void HandleBossChanged() => Changed?.Invoke();
         private void HandleExperienceChanged(float _, float __) => Changed?.Invoke();
         private void HandleLevelUp(int _) => Changed?.Invoke();
         private void HandleDraftChanged() => Changed?.Invoke();
@@ -186,6 +199,7 @@ namespace Game.UI
 
         public void Dispose()
         {
+            if (_bosses != null) _bosses.Changed -= HandleBossChanged;
             _player.Health.HealthChanged -= HandleHealthChanged;
             _player.Stats.Changed -= HandleStatsChanged;
             _experience.Progression.ExperienceChanged -= HandleExperienceChanged;

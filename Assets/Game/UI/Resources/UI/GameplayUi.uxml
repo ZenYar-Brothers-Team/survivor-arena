@@ -9,6 +9,7 @@
             <ui:Button name="hud-pause" text="Pause" class="compact-button" />
         </ui:VisualElement>
 
+        <ui:ProgressBar name="hud-boss-bar" title="" low-value="0" high-value="100" class="boss-bar" picking-mode="Ignore" />
         <ui:Label name="hud-notification" class="hud-notification" picking-mode="Ignore" />
         <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
 

@@ -18,6 +18,10 @@ namespace Game.Bootstrap.Tests
             Assert.Greater(catalog.Passives.Count, 0);
             Assert.Greater(catalog.Sets.Count, 0);
             Assert.Greater(catalog.Enemies.Count, 0);
+            Assert.AreEqual(2, catalog.Bosses.Count);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Bosses/FixtureBosses"));
+            foreach (var boss in catalog.Bosses)
+                Assert.AreSame(boss, catalog.Registry.Get<BossEncounterDefinition>(boss.Id));
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
             Assert.AreEqual(1, catalog.SpriteMotionProfiles.Count);
