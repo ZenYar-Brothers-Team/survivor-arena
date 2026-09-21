@@ -1,3 +1,4 @@
+using Game.Traveler;
 using System;
 using System.Collections.Generic;
 using Game.Character;
@@ -26,6 +27,8 @@ namespace Game.UI
         private PlaytestPresenter _playtestPresenter;
         private UiToolkitPlaytestView _playtestView;
         private PickupPresenter _pickupPresenter;
+        private TravelerPresenter _travelerPresenter;
+        private UiToolkitTravelerView _travelerView;
         private UiToolkitPickupView _pickupView;
         private float _hudRefreshRemaining;
         private bool _initialized;
@@ -49,7 +52,7 @@ namespace Game.UI
             SpritePresentationRuntime presentation,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
-            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null)
+            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -92,6 +95,10 @@ namespace Game.UI
             _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);
             _pickupView = new UiToolkitPickupView(_document.rootVisualElement);
             _pickupPresenter = new PickupPresenter(pickups, _pickupView, Debug.isDebugBuild || Application.isEditor);
+            _travelerView = new UiToolkitTravelerView(_document.rootVisualElement);
+            var camera = Camera.main;
+            _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
+                position => camera != null ? camera.WorldToViewportPoint(position) : Vector3.zero, Debug.isDebugBuild || Application.isEditor);
             _initialized = true;
         }
 
@@ -99,6 +106,7 @@ namespace Game.UI
         {
             if (!_initialized)
                 return;
+            _travelerPresenter.Refresh();
             _hudRefreshRemaining -= Time.unscaledDeltaTime;
             if (_hudRefreshRemaining > 0f)
                 return;
@@ -113,6 +121,8 @@ namespace Game.UI
                 return;
 
             _presenter?.Dispose();
+            _travelerPresenter?.Dispose();
+            _travelerView?.Dispose();
             _pickupPresenter?.Dispose();
             _pickupView?.Dispose();
             _playtestPresenter?.Dispose();
@@ -140,6 +150,7 @@ namespace Game.UI
 
         private void OnDestroy()
         {
+            _travelerPresenter?.Dispose(); _travelerView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
             _presenter?.Dispose();

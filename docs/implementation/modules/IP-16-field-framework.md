@@ -15,6 +15,11 @@ Production field geometry и assets поставляет IP-23; их готов�
 
 ## Context
 
+Текущая fixture geometry дополнена [DECISION-0035](../../decisions/0035-traveler-encounter-rules.md):
+FixtureArenaGeometry.json задаёт внутреннюю сторону 20 полных высот reference
+viewport (200 world units), reference height 10 и толщину стен 0.5. Editor baker
+сохраняет positions/colliders в Gameplay scene; это не production geometry mapping.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новые GDD/CD «Поля», schema FIELD-001…010; UI §§4–5,23; player-only geometry DECISION-0003; ContentRef contract.
@@ -110,8 +115,12 @@ Run start сохраняет `RunSelectionSnapshot` (character/field/environment
 на bound spawn point. Failure после начала composition разматывает subsystems;
 cancel selection оставляет uninitialized adapters выключенными до нового запуска.
 
-`FieldTravelerScheduleDefinition` пока только typed extension token. Fixture fields
-его не задают; supplied token валидируется resolver и проверен synthetic registry test.
-Composition явно отвергает non-null token без runtime consumer IP-29, не игнорирует его.
-Production timing/scaling и actual consumer остаются IP-29/IP-30/IP-24; обратной
-зависимости этих assembly нет. Техническая запись: [DECISION-0032](../../decisions/0032-field-run-configuration.md).
+Field-owned token и его конкретный consumer описаны ниже. Исходная техническая запись: [DECISION-0032](../../decisions/0032-field-run-configuration.md).
+
+## Traveler payload consumer
+
+FieldTravelerScheduleDefinition — базовый typed token; TravelerScheduleDefinition
+из Game.Traveler добавляет validated policy/pool. Оба текущих fixture fields имеют
+конкретный schedule, composition root передаёт его TravelerEncounterRuntime.
+Bare token без payload по-прежнему отвергается. Field не зависит от Traveler;
+production field pools/rank/schedules поставляют IP-24/IP-30.

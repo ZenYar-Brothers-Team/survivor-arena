@@ -3,7 +3,7 @@
     "rootNamespace": "Game.Bootstrap",
     "references": [
         "Game.Content",
-        "Game.Pickup",
+        "Game.Pickup", "Game.Traveler",
         "Game.Field",
         "Game.Run",
         "Game.Character",

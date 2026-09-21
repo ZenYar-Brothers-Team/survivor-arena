@@ -66,3 +66,11 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Burst длиннее своего cooldown | `BossCombatTests.Sequence_BurstLongerThanCooldown_CompletesTailThenMovesToNextAttack` | EditMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Single-cycle controller завершает хвост, не начинает лишний burst перед переключением. |
 | Spiral sequence wrap | `BossCombatTests.Sequence_SpiralRepeatedCycle_PreservesPatternRotation` | EditMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Полный новый wind-up сохраняет накопленную rotation конкретного sequence slot. |
 | Physics displacement босса на паузе | `BossEncounterTests.Pause_SuspendsBossPhysicsAndResumeRestoresItIncludingPoolReuse`, `BossEncounterSmokeTests.Gameplay_BossBarTelegraphPauseAndTerminalCleanup` | EditMode + PlayMode | См. IP-15 в [STATUS](implementation/STATUS.md) | Owner приостанавливает physics simulation, а не только velocity; resume/reuse восстанавливают body. |
+
+## IP-29 — regression guards
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Deadline before damage/contact | `TravelerRuntimeTests.PeacefulContact_DoesNotDispatchPlayerCombat_ExpiredAttackerCannotHit`, `Spawn_TwoScreenHeights_KillDropsOneBook_TimeoutNone` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Guard не позволяет порядку FixedUpdate/Update продлить встречу или выдать Book после deadline. |
+| Support lifetime independent of source Update | `EnemyProtectionTests.Aura_DeadlineExpiresBeforeDamage_WithoutWaitingForSourceUpdate` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Deadline источника проверяется до damage/control, без лишнего кадра aura. |
+| Traveler telemetry position export | `TravelerTelemetryTests.Export_IncludesScheduleLifeAndPlainPosition_AndDisposeUnsubscribes` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Plain x/y предотвращают recursive Unity Vector2 serialization; dispose снимает events. |

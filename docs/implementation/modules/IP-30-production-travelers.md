@@ -46,7 +46,7 @@ per-ID role/support/reward matrix, early/late field scaling boundaries, совм
 
 ## Gates и недостающие решения
 
-G-03 Book draft semantics и G-10 contact/lifetime/reachability/pause rules утверждены DECISION-0020/0033; generic lifecycle реализует IP-28. Production Book card/ID/параметры, G-11/G-12/G-14/G-17 complete Traveler/scaling/support data и конкретные images остаются gates. Designs TRAVELER-001…010 уже approved. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-03 Book draft semantics и G-10 contact/lifetime/reachability/pause rules утверждены DECISION-0020/0033; generic lifecycle реализует IP-28. Production Book card/ID/параметры, G-11/G-12 semantics закрыты DECISION-0035; G-14/G-17 complete Traveler/support data и конкретные images остаются gates. Designs TRAVELER-001…010 уже approved. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -60,3 +60,10 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+## Traveler policy update
+
+[DECISION-0035](../../decisions/0035-traveler-encounter-rules.md) заменяет полный
+spawn interval на [0,T−120], определяет выбор без повторов, две высоты экрана от
+игрока и HP/damage-only scaling. Простые support interactions заданы тем же решением.
+Production presence/XP/support/attack numbers, field pools и per-ID art остаются
+content gates; эти данные не подменяются synthetic framework fixtures.

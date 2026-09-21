@@ -1,3 +1,5 @@
+using Game.Traveler;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +26,7 @@ namespace Game.Telemetry
         private readonly PlayerActiveSkillSetRuntime _skills;
         private readonly IPlaytestExportSink _sink;
         private readonly IPickupRuntime _pickups;
+        private readonly ITravelerRuntime _travelers;
         private Task<string> _export;
         private bool _disposed, _finalExportQueued;
         private bool _exportRequested;
@@ -36,7 +39,7 @@ namespace Game.Telemetry
 
         public PlaytestSession(RunModel run, PlayerCharacterRuntime player, PlayerExperienceRuntime xp,
             LevelUpDraftRuntime draft, ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills,
-            JObject provenance, IPlaytestExportSink sink, Func<double> clock, DateTime createdUtc, TelemetryLimits limits = null, IPickupRuntime pickups = null)
+            JObject provenance, IPlaytestExportSink sink, Func<double> clock, DateTime createdUtc, TelemetryLimits limits = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
             if (player != null && player.Health == null) throw new ArgumentException("Player must be initialized.", nameof(player));
@@ -45,6 +48,8 @@ namespace Game.Telemetry
             _player = player; _xp = xp; _draft = draft; _spawner = spawner; _skills = skills;
             _sink = sink ?? throw new ArgumentNullException(nameof(sink));
             Recorder = new RunTelemetryRecorder(run, limits ?? new TelemetryLimits(), provenance, clock, createdUtc);
+            _travelers = travelers;
+            if (_travelers != null) { _travelers.LifeEvent += OnTraveler; _travelers.CombatResolved += Recorder.Combat; }
             _pickups = pickups;
             if (_pickups != null) _pickups.Resolved += OnPickup;
             // All failure-prone construction precedes subscriptions, so rollback cannot leak listeners.
@@ -68,6 +73,12 @@ namespace Game.Telemetry
                     _spawner.Director.HookTriggered += OnHook;
                 }
             }
+        }
+        private void OnTraveler(TravelerEvent item)
+        {
+            if (item.Traveler.RunId != _run.RunId) return;
+            Recorder.Count("traveler." + item.Outcome);
+            Recorder.Event("traveler", $"{item.Traveler.LifeId:N} {item.Traveler.Id} {item.Outcome} role {item.Traveler.Role} spawn {item.Traveler.SpawnTime} until {item.Traveler.Deadline} scale {item.Traveler.Scale}");
         }
         private void OnPickup(PickupEvent snapshot)
         {
@@ -162,8 +173,11 @@ namespace Game.Telemetry
                 draft = _draft != null && _draft.Build != null ? _draft.Capture() : null,
                 ordinaryKills = _spawner != null ? _spawner.Capture() : null,
                 pickups = _pickups != null ? (PickupSnapshot?)_pickups.Snapshot : null,
+                travelers = _travelers?.Snapshot.Select(item => new { item.LifeId, item.RunId, id = item.Id.ToString(), item.Role,
+                    x = item.Position.x, y = item.Position.y, item.Health, item.MaxHealth, item.SpawnTime, item.Deadline, item.Scale }).ToArray(),
+                travelerSchedule = _travelers?.Schedule.Select(item => new { id = item.Id.ToString(), item.Time, item.Sequence, item.Scale }).ToArray(),
                 activeSkillActivations = _skills != null ? activations : null,
-                capabilities = new { playerCombat = _player != null, xp = _xp != null, draft = _draft != null, worldPickups = _pickups != null,
+                capabilities = new { playerCombat = _player != null, xp = _xp != null, draft = _draft != null, worldPickups = _pickups != null, travelers = _travelers != null,
                     ordinaryEnemyCombat = _spawner != null, legacyContinuousWave = _spawner != null && _spawner.Director != null,
                     activeSkillActivations = _skills != null, setDetails = "unsupported", characterDetails = "unsupported" }
             };
@@ -174,6 +188,7 @@ namespace Game.Telemetry
             // Owner must stop/capture the run first. Queued I/O owns only immutable strings.
             Tick();
             _run.StateChanged -= Recorder.StateChanged; _run.PauseChanged -= OnPause;
+            if (_travelers != null) { _travelers.LifeEvent -= OnTraveler; _travelers.CombatResolved -= Recorder.Combat; }
             if (_pickups != null) _pickups.Resolved -= OnPickup;
             if (_player != null) _player.CombatResolved -= Recorder.Combat;
             if (_xp != null) { _xp.ExperienceResolved -= OnExperience; _xp.LevelUp -= OnLevel; }

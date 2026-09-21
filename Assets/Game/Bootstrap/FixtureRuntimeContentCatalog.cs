@@ -1,3 +1,4 @@
+using Game.Traveler;
 using System.Collections.Generic;
 using System.Linq;
 using Game.ActiveSkill;
@@ -33,6 +34,7 @@ namespace Game.Bootstrap
         public CharacterRoster Characters { get; }
         public FixtureFieldCatalog Fields { get; }
         public FixturePickupCatalog Pickups { get; }
+        public FixtureTravelerCatalog Travelers { get; }
         public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
         /// <summary>Exact resource bytes retained with the cached catalog, not re-read on later runs.</summary>
         public IReadOnlyDictionary<string, string> SourceSnapshot { get; }
@@ -48,7 +50,7 @@ namespace Game.Bootstrap
             RunSetupConfig runSetup,
             CharacterRoster characters,
             IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles,
-            IReadOnlyList<BossEncounterDefinition> bosses, FixtureFieldCatalog fields, FixturePickupCatalog pickups)
+            IReadOnlyList<BossEncounterDefinition> bosses, FixtureFieldCatalog fields, FixturePickupCatalog pickups, FixtureTravelerCatalog travelers)
         {
             RunSetup = runSetup;
             Registry = registry;
@@ -61,14 +63,14 @@ namespace Game.Bootstrap
             WaveTimeline = waveTimeline;
             Characters = characters;
             Fields = fields;
-            Pickups = pickups;
+            Pickups = pickups; Travelers = travelers;
             SpriteMotionProfiles = spriteMotionProfiles;
             var sources = new Dictionary<string, string>(System.StringComparer.Ordinal);
             foreach (var path in new[] { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
                 "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Bosses/FixtureBosses", "Content/Waves/FixtureWaveTimeline",
                 "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters", "Content/Characters/FixtureCharacterBaseline",
                 "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites",
-                "Content/Fields/FixtureFields", "Content/Waves/FixtureFieldWaveTimeline", "Content/Pickups/FixturePickups" })
+                "Content/Fields/FixtureFields", "Content/Waves/FixtureFieldWaveTimeline", "Content/Pickups/FixturePickups", "Content/Travelers/FixtureTravelers", "Content/Fields/FixtureArenaGeometry" })
                 sources.Add(path, JsonContentFile.ReadText(path));
             SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
         }
@@ -88,6 +90,7 @@ namespace Game.Bootstrap
             var characters = FixtureCharacterDefinitionCatalog.Create();
             var fields = FixtureFieldCatalog.Create();
             var pickups = FixturePickupCatalog.Create();
+            var travelers = FixtureTravelerCatalog.Create();
             var fieldTimeline = FixtureWaveTimelineCatalog.FromJson(JsonContentFile.ReadText("Content/Waves/FixtureFieldWaveTimeline"));
             var spriteMotionProfiles = FixtureSpriteMotionProfileCatalog.Create();
 
@@ -113,6 +116,8 @@ namespace Game.Bootstrap
             allDefinitions.Add(waveTimeline);
             allDefinitions.Add(fieldTimeline);
             allDefinitions.AddRange(fields.Environments);
+            allDefinitions.AddRange(travelers.Definitions.Values);
+            allDefinitions.AddRange(travelers.Schedules);
             allDefinitions.AddRange(fields.Roster.AllFields);
             allDefinitions.Add(pickups);
             allDefinitions.AddRange(pickups.Definitions);
@@ -153,7 +158,7 @@ namespace Game.Bootstrap
                 runSetup,
                 characters,
                 spriteMotionProfiles,
-                bosses, fields, pickups);
+                bosses, fields, pickups, travelers);
             return _cached;
         }
     }

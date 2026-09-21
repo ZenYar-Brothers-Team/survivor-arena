@@ -3,8 +3,8 @@ using Game.Content;
 
 namespace Game.Field
 {
-    /// <summary>Optional field-owned extension point. IP-29 supplies a consumer; no encounter/timing semantics are invented here.</summary>
-    public sealed class FieldTravelerScheduleDefinition : IContentDefinition
+    /// <summary>Field-owned extension point; Game.Traveler supplies the validated payload without a reverse assembly dependency.</summary>
+    public class FieldTravelerScheduleDefinition : IContentDefinition
     {
         public ContentId Id { get; }
         public FieldTravelerScheduleDefinition(ContentId id)

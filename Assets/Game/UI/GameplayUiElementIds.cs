@@ -2,6 +2,9 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string TravelerOverlay = "traveler-overlay";
+        public const string TravelerObservation = "development-traveler-observation";
+        public const string SpawnTraveler = "development-spawn-traveler";
         public const string PickupFeedback = "hud-pickup-feedback";
         public const string PickupObservation = "development-pickup-observation";
         public const string DropPotion = "development-drop-potion";

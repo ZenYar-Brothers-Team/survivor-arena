@@ -60,3 +60,9 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+## Traveler integration contract
+
+IP-29 покрывает общий enemy target contract всеми active skill families, три роли,
+source-owned protection, count/schedule/time boundaries, pause/reset, scene pointers
+и kill → Book → draft. Production completeness и per-ID art остаются обязательными
+отдельными проверками IP-30/IP-27; synthetic fixtures их не заменяют.

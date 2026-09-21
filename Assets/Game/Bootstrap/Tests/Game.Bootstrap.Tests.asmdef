@@ -4,7 +4,7 @@
     "references": [
         "Game.Bootstrap",
         "Game.Content",
-        "Game.Pickup",
+        "Game.Pickup", "Game.Traveler",
         "Game.Field",
         "Game.ActiveSkill",
         "Game.Progression",

@@ -20,16 +20,17 @@
 
 [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema) предоставляет optional
 typed `FieldTravelerScheduleDefinition` reference и resolved field configuration.
-IP-29 добавляет payload/consumer и его lifecycle; без consumer composition отвергает
-non-null token. Отсутствие token у fixture fields не задаёт production Traveler schedule.
+`TravelerScheduleDefinition` добавляет payload/consumer и его lifecycle; composition
+отвергает bare token без payload. Оба текущих fixture fields имеют свои schedule
+bindings; они не задают production Traveler schedules.
 
 ## Scope
 
-отдельная temporary encounter category, count draw 0…3 один раз на run, индивидуальные random run-time spawn instants и presence lifetime; field/time scaling; offensive, nonaggressive wandering/avoidance и support roles; source-owned shields/auras только по явно утверждённым contracts; kill→Book, timeout→escape без Book; live list для нескольких Travelers и off-screen indicators. Собственный RNG stream не переставляет ordinary draft/wave outcomes. Дополнительные unresolved details: normalized probabilities/type selection, spawn geometry; endpoint 15:00 vs timer victory; simultaneous encounters; scaling formula/ranges, support targets/stack/expiry/death cleanup, contact=0 meanings, death at timeout precedence. Uniform spawn time не означает гарантированный полный lifetime до конца run. Подключить все player pattern families IP-08 к target registry; поддержка не является общей collision/pathfinding системой.
+отдельная temporary encounter category, count draw 0…3 один раз на run, индивидуальные random run-time spawn instants и presence lifetime; field/time scaling; offensive, nonaggressive wandering/avoidance и support roles; source-owned shields/auras только по явно утверждённым contracts; kill→Book, timeout→escape без Book; live list для нескольких Travelers и off-screen indicators. Собственный RNG stream не переставляет ordinary draft/wave outcomes. DECISION-0035 задаёт normalized probabilities, uniform type selection без повторов, расстояние двух высот экрана, окно [0,T−120], HP/damage scaling и простые support/cleanup/timeout rules. Uniform spawn time не означает гарантированный полный lifetime до конца run. Подключить все player pattern families IP-08 к target registry; поддержка не является общей collision/pathfinding системой.
 
 ## Out of Scope
 
-production Travelers/баланс/scaling coefficients, mandatory mid-boss semantics, advanced AI/pathfinding и точный timer UX без отдельного решения.
+production Traveler definitions/окна присутствия/XP/art, production field pools, mandatory mid-boss semantics, advanced AI/pathfinding и точный timer UX без отдельного решения. Начальные scaling coefficients задаёт DECISION-0035; дальнейший tuning отдельно.
 
 ## Acceptance criteria
 
@@ -51,7 +52,7 @@ GDD Travelers/Content schema, encounter lifecycle и support cleanup decision, o
 
 ## Gates и недостающие решения
 
-G-11/G-12/G-14: temporal/spatial/type/scaling/support semantics и required values. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-11/G-12 и framework scaling semantics закрыты [DECISION-0035](../../decisions/0035-traveler-encounter-rules.md). Для fixture framework использовать explicit synthetic presence/XP/support/attack values и пул минимум трёх разных типов. G-14 production required values остаются у IP-24/IP-30. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -69,3 +70,40 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+
+## Framework API и schema
+
+`Game.Traveler/Json` и `Content/Travelers/FixtureTravelers.json` задают восемь
+FIXTURE-* definitions и два schedules. Definition: id/name/marker/RGBA color, role,
+validated Enemy body с тем же ID, presenceSeconds, wanderSeconds/restSeconds,
+avoidRadius/avoidSeconds, guardOffset, support kind/radius, reduction/resistance,
+shieldHp/shieldSeconds/supportCooldown/supportTargets. Времена — running seconds,
+расстояния — world units, HP/damage — health points, fractions ∈ [0,1] (reduction <1).
+Обязательные поля, включая явные нули неиспользуемых каналов, не получают hidden defaults.
+Peaceful body не может иметь attack или ненулевой contact damage.
+
+Schedule наследует `FieldTravelerScheduleDefinition`: unique travelerIds (≥3), четыре
+normalized countProbabilities, seed, fieldRank 1…10, placementAttempts >0,
+endBufferSeconds=120, spawnScreenHeights=2, fieldGrowth=0.10, timeGrowth=0.50.
+Units/formula и пример — DECISION-0035. Definitions/schedules регистрируются через
+ContentRegistry; typed refs не используют production IDs. RNG расписания отделён
+от пространственного/behavior stream и от wave/draft RNG.
+
+`TravelerEncounterRuntime.Initialize/Shutdown` — run owner; `Tick` обрабатывает
+scheduled arrivals и presence deadlines, `Spawn` создаёт life для одного определения.
+Available actor → Killed/Book либо Escaped/no reward; terminal/rollback → Cancelled.
+`EnemyRuntime.ConfigureEncounter` принимает движение и guard активности; поэтому
+удар на deadline не выигрывает гонку с escape. Scene placement учитывает body radius
+и player reachability. Длительный скачок run time не воскрешает уже истёкшее окно.
+
+`EnemyProtection` выполняет общий approved shield/aura contract, а Traveler owner
+отбирает только Ordinary targets текущего run и снимает effects по source life ID.
+Шаги паузы не изменяют physics, schedule, presence и support cooldowns. Pool reuse
+сбрасывает protection/controls/guard и получает новый life ID.
+
+`ITravelerRuntime` предоставляет schedule, immutable snapshots, life/combat events и
+development spawn intent. `TravelerPresenter`/`UiToolkitTravelerView` показывают HP
+всех ролей, цветовые fixture markers, off-screen arrows и dev observation/команду.
+Точный escape countdown остаётся только dev-данными. PlaytestSession сохраняет
+schedule/seed provenance, scale, identity, outcome, applied damage и связь Book с life.
+Ownership: [DECISION-0036](../../decisions/0036-traveler-runtime-ownership.md).

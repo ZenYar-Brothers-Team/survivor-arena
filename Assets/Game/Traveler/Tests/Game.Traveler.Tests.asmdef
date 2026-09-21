@@ -1,0 +1,6 @@
+{
+  "name": "Game.Traveler.Tests",
+  "references": ["Game.Traveler", "Game.Field", "Game.Pickup", "Game.Content", "Game.Content.Json", "Game.Enemy", "Game.Combat", "Game.Character", "Game.Run", "Game.Presentation", "Game.Pooling", "Newtonsoft.Json", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+  "includePlatforms": ["Editor"], "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll", "Newtonsoft.Json.dll"], "defineConstraints": ["UNITY_INCLUDE_TESTS"], "autoReferenced": true
+}

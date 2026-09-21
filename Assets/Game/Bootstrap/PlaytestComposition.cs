@@ -1,3 +1,4 @@
+using Game.Traveler;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace Game.Bootstrap
     {
         public static IPlaytestSession Create(FixtureRuntimeContentCatalog catalog, RunModel run,
             PlayerCharacterRuntime player, PlayerExperienceRuntime xp, LevelUpDraftRuntime draft,
-            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null)
+            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
         {
             if (!Application.isEditor && !UnityEngine.Debug.isDebugBuild) return new DisabledPlaytestSession();
             try
@@ -43,7 +44,7 @@ namespace Game.Bootstrap
                 }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");
                 return new PlaytestSession(run, player, xp, draft, spawner, skills, provenance,
                     new LocalPlaytestExportSink(Path.Combine(Application.persistentDataPath, "Playtests")),
-                    () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow, pickups: pickups);
+                    () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow, pickups: pickups, travelers: travelers);
             }
             catch (Exception error)
             {

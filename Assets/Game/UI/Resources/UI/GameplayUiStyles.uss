@@ -380,3 +380,8 @@
 #hud-timer { position: absolute; top: 16px; left: 40%; right: 40%; height: 32px; }
 
 .pickup-feedback { position: absolute; left: 35%; right: 35%; top: 18%; -unity-text-align: middle-center; font-size: 22px; color: rgb(195, 240, 165); display: none; }
+
+.traveler-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.traveler-item { position: absolute; width: 120px; height: 46px; margin-left: -60px; margin-top: -23px; color: rgb(250, 211, 90); -unity-text-align: middle-center; font-size: 15px; }
+.traveler-item ProgressBar { height: 12px; }
+.traveler-pointer { background-color: rgba(20, 20, 25, 0.8); }

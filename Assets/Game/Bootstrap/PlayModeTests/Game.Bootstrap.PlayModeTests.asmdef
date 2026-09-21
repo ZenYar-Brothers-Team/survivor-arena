@@ -5,7 +5,7 @@
         "Game.Bootstrap",
         "Game.Enemy",
         "Game.Content",
-        "Game.Pickup",
+        "Game.Pickup", "Game.Traveler",
         "Game.Field",
         "Game.Progression",
         "Game.Run",

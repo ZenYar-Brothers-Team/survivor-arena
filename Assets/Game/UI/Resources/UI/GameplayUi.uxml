@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement name="gameplay-ui-root" class="gameplay-root" picking-mode="Ignore">
+        <ui:VisualElement name="traveler-overlay" class="traveler-overlay" picking-mode="Ignore" />
         <ui:Label name="hud-timer" text="00:00" class="hud-timer" />
         <ui:VisualElement class="hud-row">
             <ui:ProgressBar name="hud-health-bar" title="HP" low-value="0" high-value="100" class="hud-bar" />
@@ -77,6 +78,8 @@
                 <ui:Label name="development-stats-observation" text="Stats unavailable" class="development-help" />
             </ui:ScrollView>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
+                <ui:Label name="development-traveler-observation" class="observation-label" />
+                <ui:Button name="development-spawn-traveler" text="Spawn fixture Traveler" class="compact-button" />
                 <ui:Label name="development-pickup-observation" class="observation-label" />
                 <ui:Button name="development-drop-potion" text="Drop fixture potion" class="compact-button" />
                 <ui:Button name="development-drop-book" text="Drop fixture Book" class="compact-button" />

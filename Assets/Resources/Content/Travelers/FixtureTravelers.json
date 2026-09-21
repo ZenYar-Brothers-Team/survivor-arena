@@ -1,0 +1,426 @@
+{
+  "travelers": [
+    {
+      "id": "FIXTURE-TRAVELER-BRUISER",
+      "name": "Fixture BRUISER",
+      "marker": "BRUISER",
+      "role": "Offensive",
+      "body": {
+        "id": "FIXTURE-TRAVELER-BRUISER",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 1.0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0.2,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-DASH",
+      "name": "Fixture DASH",
+      "marker": "DASH",
+      "role": "Offensive",
+      "body": {
+        "id": "FIXTURE-TRAVELER-DASH",
+        "knockbackResistance": 0.25,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 2.0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "TelegraphedDash",
+          "dashTelegraphSeconds": 0.7,
+          "dashDurationSeconds": 0.45,
+          "dashCooldownSeconds": 3.0,
+          "dashSpeedMultiplier": 4.0
+        },
+        "attack": null,
+        "contactControls": {
+          "knockbackDistance": 0.2,
+          "knockbackSeconds": 0.1
+        },
+        "dashContactControls": {
+          "knockbackDistance": 0.4,
+          "knockbackSeconds": 0.15
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-CROSS",
+      "name": "Fixture CROSS",
+      "marker": "CROSS",
+      "role": "Offensive",
+      "body": {
+        "id": "FIXTURE-TRAVELER-CROSS",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 1.0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "ApproachRetreat",
+          "cycleSeconds": 2.4
+        },
+        "attack": {
+          "pattern": "Cross",
+          "damage": 1.5,
+          "cooldownSeconds": 3.0,
+          "projectileSpeed": 3.0,
+          "projectileLifetimeSeconds": 3.0,
+          "projectileCount": 4,
+          "projectileRadius": 0.12,
+          "telegraphSeconds": 0.25,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.1
+          }
+        },
+        "contactControls": {
+          "knockbackDistance": 0.2,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-WANDER",
+      "name": "Fixture WANDER",
+      "marker": "WANDER",
+      "role": "Wanderer",
+      "body": {
+        "id": "FIXTURE-TRAVELER-WANDER",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-REST",
+      "name": "Fixture REST",
+      "marker": "REST",
+      "role": "Wanderer",
+      "body": {
+        "id": "FIXTURE-TRAVELER-REST",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 1.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-GUARD",
+      "name": "Fixture GUARD",
+      "marker": "GUARD",
+      "role": "Protector",
+      "body": {
+        "id": "FIXTURE-TRAVELER-GUARD",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "Aura",
+      "supportRadius": 5,
+      "reduction": 0.2,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-AURA",
+      "name": "Fixture AURA",
+      "marker": "AURA",
+      "role": "Protector",
+      "body": {
+        "id": "FIXTURE-TRAVELER-AURA",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "Aura",
+      "supportRadius": 5,
+      "reduction": 0.15,
+      "resistance": 0.25,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "FIXTURE-TRAVELER-SHIELD",
+      "name": "Fixture SHIELD",
+      "marker": "SHIELD",
+      "role": "Protector",
+      "body": {
+        "id": "FIXTURE-TRAVELER-SHIELD",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "Shield",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 25,
+      "shieldSeconds": 4,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    }
+  ],
+  "schedules": [
+    {
+      "id": "FIXTURE-TRAVELER-SCHEDULE-1",
+      "travelerIds": [
+        "FIXTURE-TRAVELER-BRUISER",
+        "FIXTURE-TRAVELER-DASH",
+        "FIXTURE-TRAVELER-CROSS",
+        "FIXTURE-TRAVELER-WANDER",
+        "FIXTURE-TRAVELER-REST",
+        "FIXTURE-TRAVELER-GUARD",
+        "FIXTURE-TRAVELER-AURA",
+        "FIXTURE-TRAVELER-SHIELD"
+      ],
+      "countProbabilities": [
+        0.1,
+        0.25,
+        0.35,
+        0.3
+      ],
+      "seed": 4189,
+      "fieldRank": 1,
+      "placementAttempts": 256,
+      "endBufferSeconds": 120,
+      "spawnScreenHeights": 2,
+      "fieldGrowth": 0.1,
+      "timeGrowth": 0.5
+    },
+    {
+      "id": "FIXTURE-TRAVELER-SCHEDULE-2",
+      "travelerIds": [
+        "FIXTURE-TRAVELER-BRUISER",
+        "FIXTURE-TRAVELER-DASH",
+        "FIXTURE-TRAVELER-CROSS",
+        "FIXTURE-TRAVELER-WANDER",
+        "FIXTURE-TRAVELER-REST",
+        "FIXTURE-TRAVELER-GUARD",
+        "FIXTURE-TRAVELER-AURA",
+        "FIXTURE-TRAVELER-SHIELD"
+      ],
+      "countProbabilities": [
+        0.1,
+        0.25,
+        0.35,
+        0.3
+      ],
+      "seed": 4189,
+      "fieldRank": 2,
+      "placementAttempts": 256,
+      "endBufferSeconds": 120,
+      "spawnScreenHeights": 2,
+      "fieldGrowth": 0.1,
+      "timeGrowth": 0.5
+    }
+  ]
+}

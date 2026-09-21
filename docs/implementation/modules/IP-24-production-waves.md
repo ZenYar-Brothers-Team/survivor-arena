@@ -61,3 +61,11 @@ CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wav
 ## Потребители
 
 [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Traveler policy update
+
+[DECISION-0035](../../decisions/0035-traveler-encounter-rules.md) заменяет полный
+spawn interval на [0,T−120], определяет выбор без повторов, две высоты экрана от
+игрока и HP/damage-only scaling. Простые support interactions заданы тем же решением.
+Production presence/XP/support/attack numbers, field pools и per-ID art остаются
+content gates; эти данные не подменяются synthetic framework fixtures.

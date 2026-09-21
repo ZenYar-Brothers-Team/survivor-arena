@@ -31,8 +31,9 @@ namespace Game.Bootstrap.PlayModeTests
             var ui = Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement;
             try
             {
-                var outside = root.Pickups.Spawn(root.Catalog.Pickups.Potion, new Vector2(100, 0));
-                Assert.Less(outside.transform.position.x, 10);
+                var rightEdge = GameObject.Find("Wall_Right").GetComponent<BoxCollider2D>().bounds.min.x;
+                var outside = root.Pickups.Spawn(root.Catalog.Pickups.Potion, new Vector2(rightEdge + 100, 0));
+                Assert.Less(outside.transform.position.x, rightEdge);
                 var inside = root.Pickups.Spawn(root.Catalog.Pickups.Book, new Vector2(3, 0));
                 Assert.Greater(Vector2.Distance(inside.transform.position, new Vector2(3, 0)), .5f);
                 Assert.AreNotEqual(outside.GetComponentInChildren<TextMesh>().text, inside.GetComponentInChildren<TextMesh>().text);

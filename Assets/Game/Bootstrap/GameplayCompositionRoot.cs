@@ -1,3 +1,5 @@
+using System.Linq;
+using Game.Traveler;
 using System;
 using System.Collections.Generic;
 using Game.ActiveSkill;
@@ -64,6 +66,7 @@ namespace Game.Bootstrap
         public IPlaytestSession Playtest { get; private set; }
         public BossEncounterRuntime BossEncounters { get; private set; }
         public WorldPickupRuntime Pickups { get; private set; }
+        public TravelerEncounterRuntime Travelers { get; private set; }
 
         private void Start()
         {
@@ -165,8 +168,8 @@ namespace Game.Bootstrap
             if (!(fields ?? Catalog.Fields.Roster).TrySelect(fieldId ?? Catalog.Fields.DefaultFieldId, out var selectedField))
                 throw new InvalidOperationException("Field is locked or missing.");
             var configuration = selectedField.Resolve(Catalog.Registry);
-            if (configuration.Travelers != null)
-                throw new InvalidOperationException("Traveler schedule requires an IP-29 runtime consumer.");
+            if (configuration.Travelers != null && configuration.Travelers is not TravelerScheduleDefinition)
+                throw new InvalidOperationException("Traveler schedule requires a concrete encounter payload.");
             var spawn = FieldEnvironmentBinding.Validate(configuration.Environment, gameObject.scene);
 
             // If a subsystem's Initialize() throws partway through, every subsystem
@@ -271,8 +274,19 @@ namespace Game.Bootstrap
                     new EnemyExperienceDropSink(experienceRuntime, runController));
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
+                if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
+                {
+                    if (Travelers == null) Travelers = gameObject.AddComponent<TravelerEncounterRuntime>();
+                    initializedSubsystems.Add(Travelers.Shutdown);
+                    var travelerPlacement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
+                        player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
+                        Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f));
+                    Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
+                        Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
+                        new EnemyExperienceDropSink(experienceRuntime, runController));
+                }
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
-                    draftRuntime, enemySpawner, activeSkillRuntime, Pickups);
+                    draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 
                 gameplayUiRoot.Initialize(
@@ -284,7 +298,7 @@ namespace Game.Bootstrap
                     (roster ?? Catalog.Characters).UnlockedCharacters,
                     enemySpawner,
                     Playtest,
-                    BossEncounters, Pickups);
+                    BossEncounters, Pickups, Travelers);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
             }
             catch
@@ -331,6 +345,7 @@ namespace Game.Bootstrap
             if (Playtest is PlaytestSession session) session.Dispose();
             BossEncounters?.Shutdown();
             enemySpawner.Shutdown();
+            Travelers?.Shutdown();
             Pickups?.Shutdown();
             passiveRuntime.Shutdown();
             activeSkillRuntime.Shutdown();

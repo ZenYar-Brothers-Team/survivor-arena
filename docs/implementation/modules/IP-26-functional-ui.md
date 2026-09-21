@@ -76,3 +76,8 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+## Traveler vertical slice
+
+IP-29 поставляет ITravelerRuntime snapshots/events, TravelerPresenter и
+UiToolkitTravelerView: HP всех ролей, off-screen pointer lanes и gated dev spawn
+в Build tab. IP-26 интегрирует готовый slice; отдельного gameplay state в UI нет.

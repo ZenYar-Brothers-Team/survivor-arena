@@ -19,6 +19,7 @@
       "unlockDescription": "Available in the fixture profile.",
       "environmentId": "FIXTURE-ENVIRONMENT-ARENA",
       "timelineId": "FIXTURE-WAVE-TIMELINE",
+      "travelerScheduleId": "FIXTURE-TRAVELER-SCHEDULE-1",
       "finalBossId": "FIXTURE-BOSS-FINAL",
       "midBossId": "FIXTURE-BOSS-MID",
       "enemyIds": ["FIXTURE-ENEMY-SEEKER", "FIXTURE-ENEMY-FAN", "FIXTURE-ENEMY-RING-ZIGZAG", "FIXTURE-ENEMY-BURST-ORBIT", "FIXTURE-ENEMY-DASH-EXPLOSIVE", "FIXTURE-ENEMY-SPIRAL", "FIXTURE-ENEMY-CROSS-RETREAT"]
@@ -32,6 +33,7 @@
       "unlockDescription": "Requires the alternate fixture profile; production unlock rules pending.",
       "environmentId": "FIXTURE-ENVIRONMENT-ARENA",
       "timelineId": "FIXTURE-WAVE-FOCUSED",
+      "travelerScheduleId": "FIXTURE-TRAVELER-SCHEDULE-2",
       "finalBossId": "FIXTURE-BOSS-FINAL",
       "enemyIds": ["FIXTURE-ENEMY-SEEKER"]
     }

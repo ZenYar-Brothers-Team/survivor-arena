@@ -39,6 +39,12 @@ namespace Game.Enemy
         private EnemyAttackProfile CurrentAttack => BossCombat?.AttackDefinition.Attack ?? Definition?.Attack;
         private bool _initialized;
         private bool _despawned;
+        private IEnemyMovementDriver _movementDriver;
+        private Func<bool> _damageAllowed;
+        public EnemyProtection Protection { get; } = new EnemyProtection();
+
+        public void ConfigureEncounter(IEnemyMovementDriver movement, Func<bool> damageAllowed)
+        { _movementDriver = movement; _damageAllowed = damageAllowed; }
 
         public EnemyDefinition Definition { get; private set; }
         public Guid LifeId { get; private set; }
@@ -101,6 +107,7 @@ namespace Game.Enemy
                 }
             }
             Controls.Reset();
+            Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             BossCombat = null;
             LastProjectileSource = default;
             _despawned = false;
@@ -154,12 +161,16 @@ namespace Game.Enemy
             if (!_initialized || _despawned)
                 return;
 
+            if (_damageAllowed != null && !_damageAllowed()) return;
+
             using var guard = PerfGuard.Measure("EnemyRuntime.Tick", 2f);
             var isSimulating = _runController.Model != null &&
                                _runController.Model.State == RunState.Running &&
                                !Health.IsDead;
             var control = Controls.Tick(Time.fixedDeltaTime, isSimulating);
-            var movement = _movementController.Tick(
+            Protection.Tick(_runController.Model?.Elapsed ?? 0f);
+            var movement = _movementDriver != null ? _movementDriver.Tick(_body.position, _target.position,
+                Definition.MovementSpeed * control.MovementMultiplier, Time.fixedDeltaTime, isSimulating) : _movementController.Tick(
                 _body.position,
                 _target.position,
                 Definition.MovementSpeed * control.MovementMultiplier,
@@ -248,7 +259,7 @@ namespace Game.Enemy
             if (!_initialized)
                 throw new InvalidOperationException("Enemy runtime must be initialized before receiving damage.");
             var identity = Identity;
-            if (!IsAlive || _dispatchingLifecycle)
+            if (!IsAlive || _dispatchingLifecycle || (_damageAllowed != null && !_damageAllowed()))
                 return new CombatResult(request.Source, identity, new HealthChange(request.Amount, 0f, 0f, false));
             // Death may dispose this component and clear its events before TakeDamageMeasured returns.
             var notify = CombatResolved;
@@ -256,8 +267,10 @@ namespace Game.Enemy
             _damageSource = request.Source.ContentId;
             try
             {
-                var distance = IsRunRunning() ? Controls.Apply(request, Definition.KnockbackResistance, acceptsSlow: true) : 0f;
-                var result = new CombatResult(request.Source, identity, Health.TakeDamageMeasured(request.Amount), distance);
+                Protection.Tick(_runController.Model?.Elapsed ?? 0f);
+                var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
+                var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount, _runController.Model?.Elapsed ?? 0f));
+                var result = new CombatResult(request.Source, identity, new HealthChange(request.Amount, measured.AfterMitigation, measured.Actual, false), distance);
                 notify?.Invoke(result);
                 return result;
             }
@@ -282,6 +295,7 @@ namespace Game.Enemy
 
             _despawned = true;
             Controls.Reset();
+            Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
                 _body.linearVelocity = Vector2.zero;
             if (_telegraph != null)
@@ -407,8 +421,9 @@ namespace Game.Enemy
 
         private void ApplyContactHits(int hitCount)
         {
-            if (_contactTarget == null || _contactTarget.Health == null || _runController.Model == null)
+            if (_contactTarget == null || _contactTarget.Health == null || _runController.Model == null || Definition.ContactDamage <= 0)
                 return;
+            if (_damageAllowed != null && !_damageAllowed()) return;
 
             for (var i = 0; i < hitCount && !_contactTarget.Health.IsDead; i++)
             {

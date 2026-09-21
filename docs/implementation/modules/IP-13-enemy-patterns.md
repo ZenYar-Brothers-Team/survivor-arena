@@ -94,3 +94,11 @@ DEV остаётся в существующем gated/collapsed drawer: present
 | Future Travelers | Те же controllers и CombatEntityCategory.Traveler | Role/support/escape и Book reward — IP-29/IP-30 |
 
 IP-14/15/20/21/29 получают controllers/profiles без зависимости Enemy → draft или новых wave scheduling правил. WaveEnemyScaler сохраняет controls/telegraph при изменении damage/speed. Межслойная техническая запись: [DECISION-0028](../../decisions/0028-enemy-pattern-lifecycle.md). Текущий status и фактическое evidence — только STATUS.
+
+## Traveler combat extension
+
+IP-29 использует EnemyRuntime category Traveler и общий target registry.
+IEnemyMovementDriver задаёт peaceful/support steering; encounter guard проверяется
+до outgoing/incoming hit и FixedUpdate. EnemyProtection хранит source-owned aura/
+shield, применяется в общем damage pipeline и сбрасывается при pool reuse.
+Порядок reduction → shield → Health и cleanup описаны в DECISION-0035/0036.

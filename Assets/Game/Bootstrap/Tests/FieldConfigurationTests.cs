@@ -34,7 +34,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(2, first.Bosses.Count);
             Assert.AreEqual(1, second.Bosses.Count);
             Assert.AreEqual(WaveHookKind.FinalBoss, second.Bosses[0].Hook);
-            Assert.IsNull(second.Travelers);
+            Assert.IsInstanceOf<Game.Traveler.TravelerScheduleDefinition>(second.Travelers);
+            Assert.AreNotEqual(first.Travelers.Id, second.Travelers.Id);
             Assert.IsTrue(Catalog.Fields.Roster.TrySelect(Catalog.Fields.DefaultFieldId, out _));
             Assert.IsFalse(Catalog.Fields.Roster.TrySelect(fields[1].Id, out _));
             Assert.IsTrue(Catalog.SourceSnapshot.ContainsKey("Content/Fields/FixtureFields"));
