@@ -125,3 +125,14 @@ IP-26 consumer использует IScreenShakePreference/ScreenShakeRequestGat
 - explicit 1…5 production difficulty, отсутствие связи с rank/scaling;
 - полный player flow, full Game.* EditMode/PlayMode и обязательный ручной
   1920×1080/video/audio/shake review из IP-26. Исторические tests этого не доказывают.
+
+## Пользовательская приёмка — 2026-09-21
+
+После ручного отзыва «проверил, всё в порядке», исправления замечания о кнопках
+после поражения и отчёта об automated regression пользователь явно поручил:
+«ставь верифайд и комить». Это явная приёмка functional packet и разрешение закрыть
+оставшиеся manual acceptance gates без отдельного подтверждения разрешения
+1920×1080 и нового ручного повтора поражения. Новые измерения или прогоны этим
+решением не утверждаются. Основание — существующие 637/637 EditMode, 22/22 PlayMode,
+пользовательский отзыв и исправление с failing-before/passing-after regression.
+Production content/art и IP-12A gameplay density review этим решением не закрываются.

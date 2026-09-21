@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
-Current active module: IP-26 (IP-12A gameplay density review остаётся открытым)
-Next Ready module: none — IP-26 ожидает завершения обязательного manual review; следующие IP автоматически не начинать
+Current active module: none (IP-12A gameplay density review остаётся открытым)
+Next Ready module: none — оставшиеся production packets удерживают собственные content/art gates; следующие IP автоматически не начинать
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -446,14 +446,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25)
 
 ### IP-26 — Functional UI и полный player flow
 
-Status: Implemented
+Status: Verified
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
 Current packet: Functional fixture shell, required Results/notifications и app settings по DECISION-0038; production content/art остаются у catalog IP.
-Remaining gates: Design gates отсутствуют. До Verified нужны обязательные manual 1920×1080/video/audio/shake checks; gameplay density review IP-12A остаётся отдельным.
-Remaining acceptance / IDs: Ручной checklist в [evidence](evidence/design-sync-R2-2026-09-21-ip26.md#interactive-observations-and-remaining-review); automated functional scope пройден.
+Remaining gates: Нет для текущего functional packet: пользователь принял завершение 2026-09-21. Gameplay density review IP-12A и production content/art остаются отдельными.
+Remaining acceptance / IDs: none для functional packet; [пользовательская приёмка](evidence/design-sync-R2-2026-09-21-ip26.md#user-acceptance).
 Target implementation evidence: Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: DECISION-0038, GDD/CD/UI settings/difficulty, IP-12A/16/23/26 contracts, DESIGN_SYNC, regression map и consumer readiness.
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. Повторный пользовательский прогон исправления и точное 1920×1080 не подтверждены.
+Target verification evidence: 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-26).
 
 ### IP-17 — Production Active Skills SKILL-001…016
@@ -559,7 +559,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-26 (Implemented, manual review не завершён), IP-30 (Blocked, target scope).
+Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

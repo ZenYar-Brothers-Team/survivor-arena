@@ -90,3 +90,13 @@ Full rerun: **637/637 EditMode, 22/22 PlayMode**, 0 failed/skipped.
 Previous tests submitted directly to a button, bypassing cross-panel input order;
 that limitation is now explicitly covered. User review did not specify exact resolution
 or provide a raw report; no telemetry run identity is inferred.
+
+### User acceptance
+
+2026-09-21: after the recorded manual feedback, defeat fix and automated regression
+results, the user explicitly instructed: «ставь верифайд и комить». This accepts the
+functional packet and closes the remaining manual acceptance gates by user decision.
+It does not establish a newly observed 1920×1080 measurement or a new manual replay
+of defeat. Existing automated evidence remains 637/637 EditMode and 22/22 PlayMode;
+no runtime changes or new test runs accompany this documentation-only acceptance.
+Production content/art and IP-12A density review are outside this acceptance.
