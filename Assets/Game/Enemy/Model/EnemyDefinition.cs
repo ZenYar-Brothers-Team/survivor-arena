@@ -19,6 +19,7 @@ namespace Game.Enemy
         public EnemyMovementProfile Movement { get; }
         public EnemyAttackProfile Attack { get; }
         public float KnockbackResistance { get; }
+        public CombatControlProfile DashContactControls { get; }
         public CombatControlProfile ContactControls { get; }
 
         public EnemyDefinition(
@@ -33,7 +34,8 @@ namespace Game.Enemy
             EnemyMovementProfile movement = null,
             EnemyAttackProfile attack = null,
             float knockbackResistance = 0f,
-            CombatControlProfile contactControls = null)
+            CombatControlProfile contactControls = null,
+            CombatControlProfile dashContactControls = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -58,6 +60,7 @@ namespace Game.Enemy
             NumericValidation.ValidateRange(knockbackResistance, 0f, 1f, nameof(knockbackResistance));
             KnockbackResistance = knockbackResistance;
             ContactControls = contactControls ?? CombatControlProfile.None;
+            DashContactControls = dashContactControls ?? CombatControlProfile.None;
         }
 
         // Visual is optional: content authored without art yet (e.g. fixtures) simply

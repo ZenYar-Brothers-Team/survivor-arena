@@ -9,7 +9,13 @@
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
     "visualId": "FIXTURE-ENEMY-SEEKER-VISUAL",
-    "movement": { "kind": "Seek" }
+    "movement": {
+      "kind": "Seek"
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-FAN",
@@ -20,8 +26,30 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "movement": { "kind": "KeepDistance", "preferredDistance": 4.5, "distanceTolerance": 0.5 },
-    "attack": { "pattern": "Fan", "damage": 2.0, "cooldownSeconds": 2.5, "projectileSpeed": 3.0, "projectileLifetimeSeconds": 3.0, "projectileCount": 3, "spreadDegrees": 40.0, "projectileRadius": 0.12 }
+    "movement": {
+      "kind": "KeepDistance",
+      "preferredDistance": 4.5,
+      "distanceTolerance": 0.5
+    },
+    "attack": {
+      "pattern": "Fan",
+      "damage": 2.0,
+      "cooldownSeconds": 2.5,
+      "projectileSpeed": 3.0,
+      "projectileLifetimeSeconds": 3.0,
+      "projectileCount": 3,
+      "spreadDegrees": 40.0,
+      "projectileRadius": 0.12,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-BURST-ORBIT",
@@ -32,8 +60,31 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "movement": { "kind": "Orbit", "preferredDistance": 4.0, "distanceTolerance": 0.4, "lateralStrength": 1.0 },
-    "attack": { "pattern": "Burst", "damage": 1.5, "cooldownSeconds": 3.0, "projectileSpeed": 3.5, "projectileLifetimeSeconds": 3.0, "projectileCount": 3, "burstIntervalSeconds": 0.15, "projectileRadius": 0.12 }
+    "movement": {
+      "kind": "Orbit",
+      "preferredDistance": 4.0,
+      "distanceTolerance": 0.4,
+      "lateralStrength": 1.0
+    },
+    "attack": {
+      "pattern": "Burst",
+      "damage": 1.5,
+      "cooldownSeconds": 3.0,
+      "projectileSpeed": 3.5,
+      "projectileLifetimeSeconds": 3.0,
+      "projectileCount": 3,
+      "burstIntervalSeconds": 0.15,
+      "projectileRadius": 0.12,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-RING-ZIGZAG",
@@ -44,8 +95,29 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "movement": { "kind": "Zigzag", "lateralStrength": 0.8, "cycleSeconds": 1.2 },
-    "attack": { "pattern": "Ring", "damage": 1.0, "cooldownSeconds": 3.5, "projectileSpeed": 2.5, "projectileLifetimeSeconds": 3.0, "projectileCount": 8, "projectileRadius": 0.12 }
+    "movement": {
+      "kind": "Zigzag",
+      "lateralStrength": 0.8,
+      "cycleSeconds": 1.2
+    },
+    "attack": {
+      "pattern": "Ring",
+      "damage": 1.0,
+      "cooldownSeconds": 3.5,
+      "projectileSpeed": 2.5,
+      "projectileLifetimeSeconds": 3.0,
+      "projectileCount": 8,
+      "projectileRadius": 0.12,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-CROSS-RETREAT",
@@ -56,8 +128,28 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "movement": { "kind": "ApproachRetreat", "cycleSeconds": 2.4 },
-    "attack": { "pattern": "Cross", "damage": 1.5, "cooldownSeconds": 3.0, "projectileSpeed": 3.0, "projectileLifetimeSeconds": 3.0, "projectileCount": 4, "projectileRadius": 0.12 }
+    "movement": {
+      "kind": "ApproachRetreat",
+      "cycleSeconds": 2.4
+    },
+    "attack": {
+      "pattern": "Cross",
+      "damage": 1.5,
+      "cooldownSeconds": 3.0,
+      "projectileSpeed": 3.0,
+      "projectileLifetimeSeconds": 3.0,
+      "projectileCount": 4,
+      "projectileRadius": 0.12,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-SPIRAL",
@@ -68,19 +160,102 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
-    "movement": { "kind": "KeepDistance", "preferredDistance": 5.0, "distanceTolerance": 0.5 },
-    "attack": { "pattern": "Spiral", "damage": 1.0, "cooldownSeconds": 3.2, "projectileSpeed": 2.3, "projectileLifetimeSeconds": 4.0, "projectileCount": 10, "projectileRadius": 0.12, "rotationStepDegrees": 18.0 }
+    "movement": {
+      "kind": "KeepDistance",
+      "preferredDistance": 5.0,
+      "distanceTolerance": 0.5
+    },
+    "attack": {
+      "pattern": "Spiral",
+      "damage": 1.0,
+      "cooldownSeconds": 3.2,
+      "projectileSpeed": 2.3,
+      "projectileLifetimeSeconds": 4.0,
+      "projectileCount": 10,
+      "projectileRadius": 0.12,
+      "rotationStepDegrees": 18.0,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   },
   {
     "id": "FIXTURE-ENEMY-DASH-EXPLOSIVE",
-    "knockbackResistance": 0.0,
+    "knockbackResistance": 0.25,
     "maxHealth": 20.0,
     "collisionSize": 1.1,
     "movementSpeed": 0.7,
     "contactDamage": 2.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 2.0,
-    "movement": { "kind": "TelegraphedDash", "dashTelegraphSeconds": 0.7, "dashDurationSeconds": 0.45, "dashCooldownSeconds": 3.0, "dashSpeedMultiplier": 4.0 },
-    "attack": { "pattern": "Explosive", "damage": 3.0, "cooldownSeconds": 4.0, "projectileSpeed": 1.8, "projectileLifetimeSeconds": 3.5, "projectileCount": 1, "projectileRadius": 0.22, "explosionRadius": 1.2 }
+    "movement": {
+      "kind": "TelegraphedDash",
+      "dashTelegraphSeconds": 0.7,
+      "dashDurationSeconds": 0.45,
+      "dashCooldownSeconds": 3.0,
+      "dashSpeedMultiplier": 4.0
+    },
+    "attack": {
+      "pattern": "Explosive",
+      "damage": 3.0,
+      "cooldownSeconds": 4.0,
+      "projectileSpeed": 1.8,
+      "projectileLifetimeSeconds": 3.5,
+      "projectileCount": 1,
+      "projectileRadius": 0.22,
+      "explosionRadius": 1.2,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    },
+    "dashContactControls": {
+      "knockbackDistance": 0.4,
+      "knockbackSeconds": 0.15
+    }
+  },
+  {
+    "id": "FIXTURE-ENEMY-SINGLE",
+    "knockbackResistance": 0.0,
+    "maxHealth": 12.0,
+    "collisionSize": 0.85,
+    "movementSpeed": 0.8,
+    "contactDamage": 1.0,
+    "contactDamageInterval": 1.0,
+    "experienceReward": 1.0,
+    "movement": {
+      "kind": "KeepDistance",
+      "preferredDistance": 4.5,
+      "distanceTolerance": 0.5
+    },
+    "attack": {
+      "pattern": "Single",
+      "damage": 2.0,
+      "cooldownSeconds": 2.5,
+      "projectileSpeed": 3.0,
+      "projectileLifetimeSeconds": 3.0,
+      "projectileCount": 1,
+      "projectileRadius": 0.12,
+      "telegraphSeconds": 0.25,
+      "controls": {
+        "knockbackDistance": 0.2,
+        "knockbackSeconds": 0.1
+      }
+    },
+    "contactControls": {
+      "knockbackDistance": 0.2,
+      "knockbackSeconds": 0.1
+    }
   }
 ]

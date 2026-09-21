@@ -41,3 +41,11 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Path | Guarding test | Kind | Last verified | Notes |
 |---|---|---|---|---|
 | Character selection → loadout → Shutdown → selection | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean` | PlayMode | См. IP-12 в [STATUS](implementation/STATUS.md) | Без независимой panel/root UI Toolkit отвергает повторное открытие selection после HUD; проверяются новый run ID, сброс stats/modifiers/skill и actual character ID в telemetry. |
+
+## IP-13 — regression guards
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Pool return inside impact callback | `EnemyPatternIntegrationTests.ImpactCallback_CanRentSameProjectileWithoutOldHitDespawningNewLife` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Snapshot и return перед callback защищают новую аренду от старого попадания. |
+| Old run callback after projectile reinit | `EnemyPatternIntegrationTests.OldRunTerminalCallback_DoesNotDespawnReinitializedProjectile` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Старый multicast StateChanged не возвращает новую running life. |
+| Pause phase / projectile cleanup | `EnemyPatternIntegrationTests.Pause_PreservesObservableMovementPhase`, `Projectile_PauseFreezesAndTerminalReturnsImmediatelyWithoutPhysicsTick`, `PoolReuse_ResetsSourceLifetimeVelocityRendererTrailAndOldRunSubscription` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Сохранение phase, reset source/trail и немедленный terminal cleanup. |

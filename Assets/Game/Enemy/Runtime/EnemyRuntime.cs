@@ -2,6 +2,7 @@ using System;
 using Game.Character;
 using Game.Combat;
 using Game.Content;
+using Game.Diagnostics;
 using Game.Movement;
 using Game.Pooling;
 using Game.Run;
@@ -54,6 +55,12 @@ namespace Game.Enemy
         public bool IsAlive => _initialized && !_despawned && Health != null && !Health.IsDead;
         public Vector2 Position => transform.position;
         public EnemyMovementPhase MovementPhase { get; private set; }
+        public EnemyAttackPhase? AttackPhase => _attackController?.Phase;
+        public float AttackPhaseRemaining => _attackController?.PhaseRemaining ?? 0f;
+        public int BurstShotsRemaining => _attackController?.BurstShotsRemaining ?? 0;
+        public CombatSource LastProjectileSource { get; private set; }
+        public CombatControlProfile CurrentContactControls => MovementPhase == EnemyMovementPhase.Dashing
+            ? Definition.DashContactControls : Definition.ContactControls;
         public EnemyProjectilePattern? AttackPattern => Definition?.Attack?.Pattern;
 
         public event Action<EnemyRuntime> Died;
@@ -92,6 +99,7 @@ namespace Game.Enemy
                 }
             }
             Controls.Reset();
+            LastProjectileSource = default;
             _despawned = false;
             _deathPublished = false;
             _damageSource = null;
@@ -142,6 +150,7 @@ namespace Game.Enemy
             if (!_initialized || _despawned)
                 return;
 
+            using var guard = PerfGuard.Measure("EnemyRuntime.Tick", 2f);
             var isSimulating = _runController.Model != null &&
                                _runController.Model.State == RunState.Running &&
                                !Health.IsDead;
@@ -154,16 +163,19 @@ namespace Game.Enemy
                 isSimulating);
             _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
-            RenderTelegraph(movement);
-
             if (!isSimulating || _attackController == null)
+            {
+                RenderTelegraph(movement);
                 return;
+            }
             var shots = _attackController.Tick(
                 Time.fixedDeltaTime,
                 isSimulating,
                 (Vector2)_target.position - _body.position);
+            RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
+                LastProjectileSource = new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile);
                 EnemyProjectileFactory.Spawn(
                     Definition.Attack,
                     _body.position,
@@ -172,7 +184,7 @@ namespace Game.Enemy
                     _runController,
                     transform.parent,
                     _projectilePool,
-                    new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile));
+                    LastProjectileSource);
             }
         }
 
@@ -351,6 +363,7 @@ namespace Game.Enemy
         private void ConfigureTelegraph()
         {
             _telegraph.enabled = false;
+            _telegraph.sharedMaterial = _renderer.sharedMaterial;
             _telegraph.useWorldSpace = true;
             _telegraph.positionCount = 2;
             _telegraph.startWidth = 0.08f;
@@ -362,14 +375,16 @@ namespace Game.Enemy
 
         private void RenderTelegraph(EnemyMovementFrame movement)
         {
-            _telegraph.enabled = movement.IsTelegraphing;
-            if (!movement.IsTelegraphing)
-                return;
+            var attackTelegraph = _attackController?.Phase == EnemyAttackPhase.Telegraphing;
+            _telegraph.enabled = movement.IsTelegraphing || attackTelegraph;
+            if (!_telegraph.enabled) return;
             var start = (Vector3)_body.position;
             var length = Mathf.Max(2f, Definition.MovementSpeed * Definition.Movement.DashSpeedMultiplier *
                 Definition.Movement.DashDurationSeconds);
+            var direction = movement.IsTelegraphing ? movement.TelegraphDirection : _attackController.AimDirection;
+            if (!movement.IsTelegraphing) length = Definition.Attack.ProjectileSpeed * Definition.Attack.TelegraphSeconds;
             _telegraph.SetPosition(0, start);
-            _telegraph.SetPosition(1, start + (Vector3)(movement.TelegraphDirection * length));
+            _telegraph.SetPosition(1, start + (Vector3)(direction * length));
         }
 
         private bool IsRunRunning()
@@ -388,7 +403,7 @@ namespace Game.Enemy
                 var direction = (Vector2)_contactTarget.transform.position - Position;
                 _contactTarget.ApplyDamage(new CombatDamageRequest(
                     new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyContact),
-                    Definition.ContactDamage, Definition.ContactControls, direction.x, direction.y));
+                    Definition.ContactDamage, CurrentContactControls, direction.x, direction.y));
             }
         }
     }

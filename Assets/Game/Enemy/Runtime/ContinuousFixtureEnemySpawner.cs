@@ -47,7 +47,7 @@ namespace Game.Enemy
                 if (_aliveEnemies.Count > 0 && _aliveEnemies[0] != null)
                 {
                     var enemy = _aliveEnemies[0];
-                    return $"{enemy.Definition.Id} · life {enemy.LifeId:N} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"} · movement x{enemy.Controls.MovementMultiplier:0.##} · knockback {enemy.Controls.KnockbackRemaining:0.##} s";
+                    return $"{enemy.Definition.Id} · life {enemy.LifeId:N} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"} · {enemy.AttackPhase?.ToString() ?? "No attack"} {enemy.AttackPhaseRemaining:0.##} s · burst left {enemy.BurstShotsRemaining} · shot {enemy.LastProjectileSource.ContentId?.ToString() ?? "none"}/{enemy.LastProjectileSource.Owner.LifeId:N} · slow sources {enemy.Controls.SlowSourceCount} · movement x{enemy.Controls.MovementMultiplier:0.##} · knockback {enemy.Controls.KnockbackRemaining:0.##} s";
                 }
                 if (LastLifeEvent != null)
                     return $"{LastLifeEvent.ContentId} · life {LastLifeEvent.LifeId:N} · {LastLifeEvent.Reason}";

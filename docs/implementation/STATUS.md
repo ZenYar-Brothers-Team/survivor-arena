@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
-Current active module: none (IP-12 verification complete)
-Next Ready module: IP-13 (no automatic continuation)
+Current active module: none (IP-13 verification complete)
+Next Ready module: none (IP-12A: G-17/G-18; IP-14: W-01; downstream dependencies remain blocked)
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -24,6 +24,10 @@ IP-11 завершён: global draft policy, recipes, реальные fixture e
 Пользователь разрешил IP-12 запросом «закомить и делай следующий». Предыдущий пакет сохранён коммитом `ee9945d`; разрешение на продолжение ограничено IP-12.
 
 IP-12 завершён по этому разрешению: выбор до начала забега, отдельный baseline/ordered highlights, profile access boundary и повторный запуск. Проверки: 439/439 EditMode, 6/6 PlayMode, 0 skipped. Следующий Ready — IP-13; IP-12A удерживают G-17/G-18. На IP-13 автоматически не переходить.
+
+Последующий запрос пользователя разрешил IP-13. Прежняя граница перед ним снята только для этого модуля; дальнейшие IP автоматически не начинать.
+
+IP-13 завершён по последнему разрешению: 467/467 EditMode, 7/7 PlayMode, 0 skipped. Пересчёт очереди: Ready нет. IP-12A удерживают G-17/G-18, IP-14 — W-01; остальные незавершённые IP имеют их прямые/косвенные зависимости и собственные gates. Следующий конкретный planning packet — согласование W-01 для IP-14 либо закрытие art gates IP-12A; реализация не начинается автоматически.
 
 ## Execution order
 
@@ -288,20 +292,21 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-12a
 
 ### IP-13 — Enemy movement/attack patterns и control integration
 
-Status: Ready
+Status: Verified
 Dependencies: IP-03, IP-04, IP-05
-Current packet: Fixture pattern/control integration; prerequisites и G-07 готовы. Модуль расположен после IP-31 и не входит в текущий разрешённый пользователем отрезок исполнения.
-Remaining gates: G-07 resolved by DECISION-0017; missing attack fields G-14 для production cards; synthetic required values остаются fixture.
-Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-13-enemy-patterns.md).
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Current packet: Fixture movement/attack/control integration, explicit per-kind JSON и category-neutral projectile lifecycle.
+Remaining gates: Нет для fixture framework. G-07 закрыт DECISION-0017. G-14 остаётся для production cards; новые wind-up/control values — synthetic fixtures.
+Remaining acceptance / IDs: none for the fixture framework packet.
+Target implementation evidence: [IP-13 evidence](evidence/design-sync-R2-2026-09-21-ip13.md#ip-13), [schema/compatibility matrix](modules/IP-13-enemy-patterns.md#schema-и-runtime-contract).
+Target verification evidence: 2026-09-21 — Unity 6000.6.0f1, **467/467 Game.* EditMode, 7/7 PlayMode, 0 skipped**. Все семь attack families, dash+slow+knockback, source после смерти/reuse стрелка, pool/terminal cleanup и representative physics smoke; [details](evidence/design-sync-R2-2026-09-21-ip13.md#coverage-and-verification).
+Documentation impact: IP-13/IP-15/IP-20/IP-21/IP-29 contracts, DECISION-0028 (Proposed technical record), regression guards и consumer readiness. GDD/CD production values не изменены.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13).
 
 ### IP-14 — Wave Director: continuous и burst timeline
 
 Status: Blocked
 Dependencies: IP-04, IP-13
-Blocked by: IP-13 (Ready, target scope).
+Blocked by: W-01 (burst cap, drop/defer, catch-up and cap participation policy).
 Remaining gates: G-11/G-14 только в части shared event boundary/data; отдельный W-01: burst cap/drop-vs-defer, catch-up и whether bosses/Travelers count toward cap. Эти pressure rules до реализации не выбираются молча.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-14-wave-director.md).
 Target implementation evidence: Нет для новых требований.
@@ -312,7 +317,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-14)
 
 Status: Blocked
 Dependencies: IP-01, IP-05, IP-08, IP-13, IP-14, IP-10A
-Blocked by: IP-13 (Ready, target scope), IP-14 (Blocked, target scope).
+Blocked by: IP-14 (Blocked, target scope).
 Remaining gates: G-07 закрыт DECISION-0017. G-14: используемые phase/attack fields; final timing configurable, production values не обязательны для synthetic framework.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-15-boss-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -345,7 +350,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-28)
 
 Status: Blocked
 Dependencies: IP-08, IP-13, IP-15, IP-16, IP-28
-Blocked by: IP-13 (Ready, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-28 (Blocked, target scope).
+Blocked by: IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-28 (Blocked, target scope).
 Remaining gates: G-11/G-12/G-14: temporal/spatial/type/scaling/support semantics и required values.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-29-traveler-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -411,7 +416,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-19)
 
 Status: Blocked
 Dependencies: IP-04, IP-13, IP-28, IP-12A
-Blocked by: IP-13 (Ready, target scope), IP-28 (Blocked, target scope), IP-12A (Blocked, target scope).
+Blocked by: IP-28 (Blocked, target scope), IP-12A (Blocked, target scope).
 Remaining gates: G-10/G-14: contact intervals, недостающие attack/drop/healing values и pickup lifecycle; AG-01 для конкретных картинок. Approved design не означает complete JSON.
 Remaining acceptance / IDs: ENEMY-001…020, PICKUP-001, drop data и production art.
 Target implementation evidence: Нет для новых требований.
@@ -477,7 +482,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-12A (Blocked, target scope), IP-13 (Ready, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope).
+Blocked by: IP-12A (Blocked, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

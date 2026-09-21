@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Game.Content;
 
 namespace Game.Enemy
 {
@@ -10,6 +11,7 @@ namespace Game.Enemy
         private float _dashCooldownRemaining;
         private float _dashPhaseRemaining;
         private Vector2 _dashDirection = Vector2.right;
+        public EnemyMovementPhase Phase { get; private set; } = EnemyMovementPhase.Seeking;
         private EnemyMovementPhase _dashPhase = EnemyMovementPhase.Seeking;
 
         public EnemyMovementController(EnemyMovementProfile profile)
@@ -25,10 +27,10 @@ namespace Game.Enemy
             float deltaTime,
             bool isSimulating)
         {
+            NumericValidation.ValidateNonNegative(deltaTime, nameof(deltaTime));
+            NumericValidation.ValidateNonNegative(movementSpeed, nameof(movementSpeed));
             if (!isSimulating)
-                return new EnemyMovementFrame(Vector2.zero, CurrentPausedPhase(), _dashDirection);
-            if (deltaTime < 0f || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime))
-                throw new ArgumentOutOfRangeException(nameof(deltaTime));
+                return new EnemyMovementFrame(Vector2.zero, Phase, _dashDirection);
 
             _elapsed += deltaTime;
             var offset = targetPosition - currentPosition;
@@ -124,12 +126,10 @@ namespace Game.Enemy
             return Frame(toward * movementSpeed, EnemyMovementPhase.Seeking);
         }
 
-        private EnemyMovementPhase CurrentPausedPhase() =>
-            _dashPhase == EnemyMovementPhase.TelegraphingDash || _dashPhase == EnemyMovementPhase.Dashing
-                ? _dashPhase
-                : EnemyMovementPhase.Seeking;
-
-        private EnemyMovementFrame Frame(Vector2 velocity, EnemyMovementPhase phase, Vector2 telegraph = default) =>
-            new EnemyMovementFrame(velocity, phase, telegraph);
+        private EnemyMovementFrame Frame(Vector2 velocity, EnemyMovementPhase phase, Vector2 telegraph = default)
+        {
+            Phase = phase;
+            return new EnemyMovementFrame(velocity, phase, telegraph);
+        }
     }
 }

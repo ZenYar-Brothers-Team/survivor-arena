@@ -27,7 +27,7 @@ namespace Game.Enemy
                 definition.Movement,
                 ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier),
                 definition.KnockbackResistance,
-                definition.ContactControls);
+                definition.ContactControls, definition.DashContactControls);
         }
 
         private static EnemyAttackProfile ScaleAttack(EnemyAttackProfile attack, float damageMultiplier)
@@ -47,7 +47,7 @@ namespace Game.Enemy
                 attack.ProjectileRadius,
                 attack.ExplosionRadius,
                 attack.RotationStepDegrees,
-                attack.Controls);
+                attack.Controls, attack.TelegraphSeconds);
         }
     }
 }

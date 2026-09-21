@@ -161,9 +161,6 @@ namespace Game.Enemy.Tests
                     null,
                     runController);
 
-                typeof(EnemyProjectileRuntime).GetMethod("FixedUpdate", BindingFlags.Instance | BindingFlags.NonPublic)
-                    ?.Invoke(projectile, null);
-
                 Assert.IsTrue(projectile == null);
             }
             finally

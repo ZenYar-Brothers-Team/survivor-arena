@@ -7,6 +7,7 @@ namespace Game.Enemy.Json
     public sealed class EnemyDefinitionData
     {
         public float? KnockbackResistance { get; set; }
+        public CombatControlData DashContactControls { get; set; }
         public CombatControlData ContactControls { get; set; }
         public string Id { get; set; }
         public float MaxHealth { get; set; }

@@ -1,4 +1,5 @@
 using System;
+using Game.Combat;
 using System.Collections.Generic;
 using Game.Content;
 using Game.Content.Json;
@@ -23,8 +24,10 @@ namespace Game.Enemy
             return definitions;
         }
 
-        private static EnemyDefinition ToDefinition(EnemyDefinitionData data)
+        public static EnemyDefinition ToDefinition(EnemyDefinitionData data)
         {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            var movement = ToMovement(data.Id, data.Movement);
             var visual = string.IsNullOrEmpty(data.VisualId)
                 ? default
                 : new ContentRef<SpriteDefinition>(data.VisualId);
@@ -38,10 +41,12 @@ namespace Game.Enemy
                 data.ContactDamageInterval,
                 data.ExperienceReward,
                 visual,
-                ToMovement(data.Id, data.Movement),
+                movement,
                 ToAttack(data.Id, data.Attack),
                 Require(data.KnockbackResistance, $"Enemy {data.Id} knockbackResistance"),
-                data.ContactControls?.ToProfile());
+                RequireControls(data.ContactControls, $"Enemy {data.Id} contactControls"),
+                movement.Kind == EnemyMovementKind.TelegraphedDash
+                    ? RequireControls(data.DashContactControls, $"Enemy {data.Id} dashContactControls") : null);
         }
 
         // Every field the kind actually reads must be explicit in config; fields it never
@@ -83,35 +88,22 @@ namespace Game.Enemy
             var projectileCount = Require(data.ProjectileCount, Owner(nameof(data.ProjectileCount)));
             var projectileRadius = Require(data.ProjectileRadius, Owner(nameof(data.ProjectileRadius)));
 
-            if (pattern != EnemyProjectilePattern.Burst)
-            {
-                return new EnemyAttackProfile(
-                    pattern,
-                    data.Damage,
-                    data.CooldownSeconds,
-                    data.ProjectileSpeed,
-                    data.ProjectileLifetimeSeconds,
-                    projectileCount,
-                    data.SpreadDegrees,
-                    projectileRadius: projectileRadius,
-                    explosionRadius: data.ExplosionRadius,
-                    rotationStepDegrees: data.RotationStepDegrees,
-                    controls: data.Controls?.ToProfile());
-            }
-
             return new EnemyAttackProfile(
-                pattern,
-                data.Damage,
-                data.CooldownSeconds,
-                data.ProjectileSpeed,
-                data.ProjectileLifetimeSeconds,
+                pattern, data.Damage, data.CooldownSeconds, data.ProjectileSpeed, data.ProjectileLifetimeSeconds,
                 projectileCount,
-                data.SpreadDegrees,
-                Require(data.BurstIntervalSeconds, Owner(nameof(data.BurstIntervalSeconds))),
+                Pick(data.SpreadDegrees, pattern == EnemyProjectilePattern.Fan, 0f, Owner(nameof(data.SpreadDegrees))),
+                pattern == EnemyProjectilePattern.Burst ? Require(data.BurstIntervalSeconds, Owner(nameof(data.BurstIntervalSeconds))) : 1f,
                 projectileRadius,
-                data.ExplosionRadius,
-                data.RotationStepDegrees,
-                data.Controls?.ToProfile());
+                Pick(data.ExplosionRadius, pattern == EnemyProjectilePattern.Explosive, 0f, Owner(nameof(data.ExplosionRadius))),
+                Pick(data.RotationStepDegrees, pattern == EnemyProjectilePattern.Spiral, 0f, Owner(nameof(data.RotationStepDegrees))),
+                RequireControls(data.Controls, Owner(nameof(data.Controls))),
+                Require(data.TelegraphSeconds, Owner(nameof(data.TelegraphSeconds))));
+        }
+
+        private static CombatControlProfile RequireControls(CombatControlData data, string owner)
+        {
+            if (data?.KnockbackDistance == null) throw new InvalidOperationException($"{owner}.knockbackDistance must be explicit, including zero.");
+            return data.ToProfile();
         }
 
         private static float Pick(float? configured, bool required, float unusedFallback, string description)

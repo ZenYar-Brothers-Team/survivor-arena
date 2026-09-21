@@ -51,3 +51,46 @@ G-07 закрыт DECISION-0017: knockback не приостанавливает
 ## Потребители
 
 [IP-14](IP-14-wave-director.md), [IP-15](IP-15-boss-framework.md), [IP-20](IP-20-production-enemies.md), [IP-27](IP-27-integration.md), [IP-29](IP-29-traveler-framework.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Schema и runtime contract
+
+`EnemyDefinitionData` требует явные `knockbackResistance` и `contactControls.knockbackDistance`, включая ноль. Для `TelegraphedDash` отдельно требуется `dashContactControls.knockbackDistance`; runtime выбирает его только в фазе Dashing. Ненулевой knockback требует positive `knockbackSeconds` через общий CombatControlProfile. Nullable поля DTO не скрывают missing production values.
+
+Каждая ranged attack требует `projectileCount`, `projectileRadius`, `telegraphSeconds` и `controls.knockbackDistance`; остальные числовые базовые поля валидирует EnemyAttackProfile. Fixture packet задаёт wind-up 0.25 s. `telegraphSeconds` допускает явный zero для low-level immediate profiles; все ranged JSON fixtures имеют ненулевое предупреждение. Значения fixture не утверждают timings production-карточек.
+
+| Attack family | Required per-kind fields / semantics | Fixture |
+|---|---|---|
+| Single | count=1, направление на цель | FIXTURE-ENEMY-SINGLE |
+| Fan | count≥1, explicit spreadDegrees 0…360; равномерный сектор вокруг aim | FIXTURE-ENEMY-FAN |
+| Burst | count≥1, positive burstIntervalSeconds; count — число последовательных одиночных выстрелов | FIXTURE-ENEMY-BURST-ORBIT |
+| Ring | count≥1; равномерный полный круг | FIXTURE-ENEMY-RING-ZIGZAG |
+| Cross | count=4; одна ось креста направлена на цель | FIXTURE-ENEMY-CROSS-RETREAT |
+| Spiral | count≥1, explicit finite rotationStepDegrees; смещение каждого следующего залпа | FIXTURE-ENEMY-SPIRAL |
+| Explosive | count=1, positive explosionRadius; radial damage/control при contact или expiry внутри radius | FIXTURE-ENEMY-DASH-EXPLOSIVE |
+
+EnemyAttackController публикует Cooldown / Telegraphing / Bursting, оставшееся время фазы, aim и число оставшихся burst shots. После начала telegraph полный configured wind-up проходит без damage; aim продолжает следовать за целью. Cooldown отсчитывается от выпуска первого выстрела, включая время burst; после его завершения и истечения cooldown начинается следующий wind-up. Контракт fixture scheduler не определяет wave burst/cap/catch-up policy W-01. Slow и knockback не подменяют attack time. Pause не меняет aim, phase или timers.
+
+EnemyMovementController сохраняет Seek, KeepDistance, Orbit, Zigzag, ApproachRetreat и TelegraphedDash. Dash direction фиксируется при входе в telegraph; pause сохраняет видимую фазу любых movement kinds. Runtime складывает `base speed × wave speed multiplier × slow multiplier × dash multiplier` с независимой knockback velocity. Например, base=0.7, wave=2, slow=0.5, dash=4 дают 2.8 wu/s по locked направлению; impulse 2 wu с resistance=25% за 2 s добавляет 0.75 wu/s по своему направлению. Dash/steering timers продолжаются по DECISION-0017.
+
+Projectile хранит value CombatSource со source ID, owner LifeId/RunId/category и immutable profile. Shooter death/reuse не меняет этот snapshot. Hit/expiry возвращает снаряд до damage callbacks; сообщение в боевой pipeline использует сохранённые locals. Это позволяет callbacks повторно арендовать тот же component без его повторного despawn старым попаданием. Pause обнуляет velocity и замораживает lifetime; Won/Lost/Stopped немедленно освобождают снаряд без ожидания следующего physics tick. Reinit/return снимают run subscription, очищают source/profile/target/lifetime/velocity/renderer/trail. Callback старого run не действует на новый running life.
+
+DEV остаётся в существующем gated/collapsed drawer: presenter получает movement/attack phase, phase timer, burst remainder, slow count/multiplier, knockback timer и last-shot source/life. Telegraph line использует тот же Sprite material; permanent ordinary-enemy HUD не добавляется. Проверки геометрии и lifecycle не означают художественное approval production VFX.
+
+## Compatibility matrix
+
+| Canonical targets | Framework mapping | Что остаётся owning packet |
+|---|---|---|
+| ENEMY-001/002/003/009/020 | Seek + contact/resistance | Production contact intervals, assets |
+| ENEMY-004/005/012 | KeepDistance/Orbit + Single | Per-card targeting/hold behaviour, projectile geometry/data |
+| ENEMY-006/019 | KeepDistance/Seek + Fan | Production parameters/art |
+| ENEMY-007/016 | TelegraphedDash + separate dash contact controls | Production timings/duration |
+| ENEMY-008 | Orbit + contact | Production steering data |
+| ENEMY-010 | KeepDistance + Burst | Production ranges/art |
+| ENEMY-011 | KeepDistance + Ring | Production ranges/art |
+| ENEMY-013/017 | ApproachRetreat / Zigzag + contact | Production cycles/amplitudes |
+| ENEMY-014 | Ranged + Explosive | Production speed/lifetime; explosion assets |
+| ENEMY-015/018 | Cross / Spiral | Production spacing/rotation and other missing fields |
+| BOSS-001/002/003/004; MIDBOSS-004/005/006/007 | Те же family profiles и category-neutral source/control pipeline | HP phases, ordering, post-dash triggers и encounter schedules — IP-15/IP-21 |
+| Future Travelers | Те же controllers и CombatEntityCategory.Traveler | Role/support/escape и Book reward — IP-29/IP-30 |
+
+IP-14/15/20/21/29 получают controllers/profiles без зависимости Enemy → draft или новых wave scheduling правил. WaveEnemyScaler сохраняет controls/telegraph при изменении damage/speed. Межслойная техническая запись: [DECISION-0028](../../decisions/0028-enemy-pattern-lifecycle.md). Текущий status и фактическое evidence — только STATUS.
