@@ -1,4 +1,5 @@
 using Game.Run;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ namespace Game.Movement
 
         [SerializeField]
         private Transform spawnPoint;
+
+        public string MovementBindings => moveAction != null ? string.Join(", ", moveAction.action.bindings.Where(b => !b.isComposite).Select(b => InputControlPath.ToHumanReadableString(b.effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice)).Distinct()) : "Unavailable";
 
         public Vector2 MovementDirection { get; private set; }
 

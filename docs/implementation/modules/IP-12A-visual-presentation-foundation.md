@@ -55,3 +55,11 @@ G-17 concept mapping подтверждён пользователем в DECISI
 ## Контракт технического пакета
 
 Category/import overrides, role validation, crop ownership и generic adapter API описаны в [ASSET_PIPELINE §21](../../art/ASSET_PIPELINE.md#21-category-profiles-и-reusable-adapters-ip-12a), [DECISION-0030](../../decisions/0030-generic-presentation-adapters.md) и [asset manifest](../../../Art/asset-manifest.json). Existing player animator не заменяется. Fixture kit и Editor diagnostic не подменяют production binding и manual dense-gameplay review. Gameplay consumers передают motion/signals через IPresentationSource; визуальный fade не задерживает их authoritative teardown. IP-26 потребляет preference/request boundary для screen shake, сохраняя ownership Settings/camera.
+
+## Settings consumer policy
+
+[DECISION-0038](../../decisions/0038-settings-and-field-difficulty.md) задаёт G-16:
+IP-26 владеет persistent preference и bounded camera offset consumer. IP-12A
+предоставляет прежний IScreenShakePreference/ScreenShakeRequestGate; actual-damage
+trigger, pause/off/terminal reset и независимость gameplay camera queries проверяет
+IP-26. Gameplay density review этого модуля остаётся отдельным acceptance.

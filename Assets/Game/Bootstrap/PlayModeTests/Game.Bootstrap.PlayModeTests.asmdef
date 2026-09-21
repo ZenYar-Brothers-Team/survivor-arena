@@ -19,7 +19,8 @@
     "Game.ActiveSkill",
     "Game.Telemetry",
     "Newtonsoft.Json",
-    "Game.Meta"
+    "Game.Meta",
+    "Game.Settings"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

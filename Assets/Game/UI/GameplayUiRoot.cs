@@ -76,6 +76,8 @@ namespace Game.UI
                 _document = gameObject.AddComponent<UIDocument>();
             _document.panelSettings = _panelSettings;
             _document.sortingOrder = 100;
+            // Separate panels require their own render and input order (IP-26).
+            _panelSettings.sortingOrder = _document.sortingOrder;
             _document.visualTreeAsset = visualTree;
             _document.rootVisualElement.styleSheets.Add(styleSheet);
 

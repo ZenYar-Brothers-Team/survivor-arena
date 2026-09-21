@@ -17,7 +17,10 @@
     "Game.Telemetry",
     "Game.Content.Json",
     "Newtonsoft.Json",
-    "Game.Meta"
+    "Game.Meta",
+    "Game.Settings",
+    "Game.Movement",
+    "Unity.InputSystem"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

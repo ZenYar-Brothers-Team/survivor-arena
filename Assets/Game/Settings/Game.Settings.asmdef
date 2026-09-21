@@ -1,0 +1,10 @@
+{
+  "name": "Game.Settings",
+  "references": [
+    "Game.Content",
+    "Game.Content.Json",
+    "Game.Presentation",
+    "Game.Run",
+    "Newtonsoft.Json"
+  ]
+}

@@ -52,12 +52,11 @@ field/run-start contract и metadata units, поле для будущего Tra
 
 ## Gates и недостающие решения
 
-G-14/G-15: конкретные geometry/difficulty/unlock values; fixture metadata отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-14: конкретные geometry/encounter values; G-15 resolved по DECISION-0037, G-20 resolved по DECISION-0038. Fixture metadata отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
-Дополнительно G-20: UI §5/IP-16/IP-23 задают шкалу 1–5, тогда как approved
-FIELD-001…010 содержат 1/10…10/10. Fixture metadata следует 1–5; никакое
-преобразование production values не выводится из номера ID. Выбор единой шкалы
-требует отдельного решения; вопрос пользователю задан, approval не получен.
+G-20 resolved: [DECISION-0038](../../decisions/0038-settings-and-field-difficulty.md)
+задаёт единую шкалу 1–5 и explicit production mapping в CD. Fixture difficulty
+сохраняется; runtime не вычисляет значение из номера ID. Traveler rank отдельно.
 
 ## Потребители
 

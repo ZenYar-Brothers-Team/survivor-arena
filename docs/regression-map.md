@@ -82,3 +82,15 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Повтор reward/Book после load/Retry и сбоя записи | `MetaProfileTests.Apply_ResultDuplicateAndReload_PayExactlyOnce`, `SaveFailure_PendingResultBlocksProgressAndRetriesWithoutDuplicate` | EditMode | IP-25 в STATUS |
 | View уничтожен до владельца при смене сцены | `MetaProgressionSmokeTests.ProfileAndSelectionViewDestroyedFirst_ShutdownIsSafe`, `FieldViewDestroyedFirst_ShutdownIsSafe` | PlayMode | IP-25 в STATUS |
 | Купленный бонус не применяется / применяется дважды | `MetaProgressionSmokeTests.Result_Purchase_Retry_AppliesUpgradeAndKeepsOneReward` | PlayMode | IP-25 в STATUS |
+
+## IP-26 — regression guards
+
+| Риск | Тесты | Вид | Evidence |
+|---|---|---|---|
+| Первый Main Menu завершает ещё не начатый run | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean`, `FieldSelectionSmokeTests.Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration` | PlayMode | IP-26 в STATUS |
+| Settings снимает чужую паузу или пропускает input в нижний экран | `AppShellPresenterTests.Settings_Back_ReturnsToOwningScreenAndBlocksBackgroundActions`, `AppShellSmokeTests.Menu_Settings_RunPause_Settings_Quit_Results_Retry` | EditMode/PlayMode | IP-26 в STATUS |
+| Последняя revision теряется / invalid original перезаписывается | `SettingsServiceTests.Save_OverlappingWrite_PersistsNewestRevisionAndRetriesFailure`, `Load_InvalidDocument_PreservesBeforeReplacing` | EditMode | IP-26 в STATUS |
+| Неподтверждённое видео сохраняется при выходе/таймауте | `SettingsServiceTests.Close_DuringVideoApply_WaitsThenRevertsAndSavesAudio`, `Preview_Timeout_RevertsWithoutPersistingCandidate`, `Load_UnsupportedSavedMode_UsesAndPersistsSafeWindow` | EditMode | IP-26 в STATUS |
+| Shake продолжает работать после disable/pause/off/end или сдвигает gameplay anchor | `SettingsPresentationSmokeTests.Shake_Damage_PreservesCameraAnchorAndResetsOnPauseOffAndEnd` | PlayMode | IP-26 в STATUS |
+| Master применяется дважды / каналы смешаны | `SettingsPresentationSmokeTests.Audio_Settings_RouteMasterOnceWithIndependentChannels` | PlayMode | IP-26 в STATUS |
+| HUD terminal overlay перекрывает Results несмотря на enabled кнопки | `DefeatResultsSmokeTests.Defeat_SavedResult_IsAboveHudAndRetryStartsFreshRun` | PlayMode | [OBS-01](playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег), IP-26 в STATUS |

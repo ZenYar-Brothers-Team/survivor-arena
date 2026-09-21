@@ -14,7 +14,8 @@
     "Game.Enemy",
     "Game.ActiveSkill",
     "Game.Telemetry",
-    "Game.Meta"
+    "Game.Meta",
+    "Game.Settings"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

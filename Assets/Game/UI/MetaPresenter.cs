@@ -25,6 +25,7 @@ namespace Game.UI
         }
         public void ShowResult(RunOutcome outcome) { _result = outcome; _shop = false; Refresh(); }
         public void ClearResult() { _result = null; _shop = false; Refresh(); }
+        public void OpenShop() => Shop();
         private void Shop() { if (_profile.CanStart) { _shop = true; Refresh(); } }
         private void Close() { _shop = false; if (_result == null && _profile.CanStart) _navigation.ReturnToProfileSelection(); Refresh(); }
         private void Retry() { if (_profile.CanStart && _result != null) _navigation.RetryProfileRun(); }
@@ -67,8 +68,10 @@ namespace Game.UI
                 _result.Contributions.TryGetValue("experience", out var xp);
                 _result.Contributions.TryGetValue("ordinary-enemy-kills", out var enemies);
                 var receipt = _profile.LastReceipt;
-                summary = _result.Reason + " · " + TimeSpan.FromSeconds(_result.ElapsedSeconds).ToString(@"mm\:ss") +
-                    " · Level " + (xp?.Level?.ToString() ?? "unavailable") + " � Kills " + (enemies?.Kills?.ToString() ?? "unavailable") + "\n" + summary;
+                summary = (_result.Reason == RunCompletionReason.Victory ? "Victory" : _result.Reason == RunCompletionReason.Defeat ? "Defeat" : _result.Reason == RunCompletionReason.Error ? "Run stopped" : "Run interrupted") + " · " + TimeSpan.FromSeconds(_result.ElapsedSeconds).ToString(@"mm\:ss") +
+                    " · Level " + (xp?.Level?.ToString() ?? "unavailable") + " · Kills " + _result.Contributions.Values.Sum(c => c.Kills ?? 0).ToString() + "\n" + summary;
+                var sets = _result.Contributions.Values.Where(c => c.Sets != null).SelectMany(c => c.Sets).Select(e => e.ContentId).ToArray();
+                summary += "\nSets: " + (sets.Length == 0 ? "None" : string.Join(", ", sets));
                 if (receipt != null && receipt.RunId == _result.RunId.ToString())
                     summary += "\nLevel reward: " + receipt.LevelReward + " · Books: " + receipt.BookReward + " · Total: " + receipt.Total +
                         (receipt.NewUnlocks.Count > 0 ? "\nNew unlocks: " + string.Join(", ", receipt.NewUnlocks) : "");

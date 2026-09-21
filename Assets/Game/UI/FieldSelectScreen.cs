@@ -28,6 +28,8 @@ namespace Game.UI
             Document = _owner.AddComponent<UIDocument>();
             Document.panelSettings = _panel;
             Document.sortingOrder = 200;
+            // Separate panels require their own render and input order (IP-26).
+            _panel.sortingOrder = Document.sortingOrder;
             var root = Document.rootVisualElement;
             root.name = GameplayUiElementIds.FieldSelectScreen;
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/GameplayUiStyles"));

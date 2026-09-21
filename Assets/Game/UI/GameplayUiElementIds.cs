@@ -2,6 +2,34 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string ShellNotification = "ShellNotification";
+        public const string ShellMenu = "ShellMenu";
+        public const string ShellPlay = "ShellPlay";
+        public const string ShellMeta = "ShellMeta";
+        public const string ShellSettings = "ShellSettings";
+        public const string ShellExit = "ShellExit";
+        public const string ShellBack = "ShellBack";
+        public const string ShellPause = "ShellPause";
+        public const string ShellPauseSettings = "ShellPauseSettings";
+        public const string ShellQuit = "ShellQuit";
+        public const string SettingsBody = "SettingsBody";
+        public const string SettingsMaster = "SettingsMaster";
+        public const string SettingsMusic = "SettingsMusic";
+        public const string SettingsSfx = "SettingsSfx";
+        public const string SettingsShake = "SettingsShake";
+        public const string SettingsWindow = "SettingsWindow";
+        public const string SettingsResolution = "SettingsResolution";
+        public const string SettingsApply = "SettingsApply";
+        public const string SettingsKeep = "SettingsKeep";
+        public const string SettingsRevert = "SettingsRevert";
+        public const string SettingsSave = "SettingsSave";
+        public const string SettingsBack = "SettingsBack";
+        public const string SettingsMusicPreview = "SettingsMusicPreview";
+        public const string SettingsSfxPreview = "SettingsSfxPreview";
+        public const string SettingsMessage = "SettingsMessage";
+        public const string SettingsBindings = "SettingsBindings";
+        public const string SettingsVideoStatus = "SettingsVideoStatus";
+
         public const string MetaBody = "meta-body";
         public const string MetaCards = "meta-cards";
         public const string MetaCharacter = "meta-character";

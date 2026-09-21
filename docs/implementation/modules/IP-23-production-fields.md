@@ -20,8 +20,8 @@
 
 Field/run configuration API — [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
 Production environment adapter заменяет fixture scene-name binding; metadata/refs
-проходят тот же pre-run validation. G-20: до переноса сложности решить расхождение
-шкалы UI/IP 1–5 и CD 1–10; автоматического mapping по ID нет.
+проходят тот же pre-run validation. G-20 resolved по DECISION-0038: переносить
+explicit difficulty 1–5 из CD; автоматического mapping по ID нет.
 
 ## Scope
 
@@ -51,7 +51,7 @@ field→kit→roles mapping, geometry constraints, metadata completeness, bindin
 
 ## Gates и недостающие решения
 
-G-14: geometry/enemy pools; G-20: difficulty. G-15 resolved по DECISION-0037; unlock conditions берутся из CD. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-14: geometry/enemy pools; G-20 resolved по DECISION-0038 (difficulty 1–5). G-15 resolved по DECISION-0037; unlock conditions берутся из CD. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

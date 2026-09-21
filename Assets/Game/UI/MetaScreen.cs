@@ -25,6 +25,8 @@ namespace Game.UI
             _panel.scaleMode = PanelScaleMode.ScaleWithScreenSize; _panel.referenceResolution = new Vector2Int(1920, 1080);
             _panel.themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
             Document = _owner.AddComponent<UIDocument>(); Document.panelSettings = _panel; Document.sortingOrder = 300;
+            // Separate panels require their own render and input order (IP-26).
+            _panel.sortingOrder = Document.sortingOrder;
             var root = Document.rootVisualElement; root.pickingMode = PickingMode.Ignore;
             Resources.Load<VisualTreeAsset>("UI/MetaScreen").CloneTree(root);
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/MetaScreenStyles"));
@@ -47,8 +49,8 @@ namespace Game.UI
             root.Q<Label>(GameplayUiElementIds.MetaTitle).text = state.Title;
             root.Q<Label>(GameplayUiElementIds.MetaSummary).text = state.Summary;
             root.Q<Label>(GameplayUiElementIds.MetaMessage).text = state.Message;
-            Button(GameplayUiElementIds.MetaOpen, !state.CanQuit, state.CanShop);
-            Button(GameplayUiElementIds.MetaQuit, state.CanQuit);
+            Button(GameplayUiElementIds.MetaOpen, false);
+            Button(GameplayUiElementIds.MetaQuit, false);
             Button(GameplayUiElementIds.MetaClose, state.Cards.Count > 0, state.CanContinue);
             Button(GameplayUiElementIds.MetaRetry, state.IsResults, state.CanContinue);
             Button(GameplayUiElementIds.MetaSelection, state.IsResults, state.CanContinue);

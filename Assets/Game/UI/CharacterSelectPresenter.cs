@@ -9,8 +9,10 @@ namespace Game.UI
         private readonly CharacterSelectionSession _session;
         private readonly ContentRegistry _registry;
         private readonly ICharacterSelectView _view;
-        public CharacterSelectPresenter(CharacterSelectionSession session, ContentRegistry registry, ICharacterSelectView view)
+        private readonly Func<ContentId, string> _permanentSummary;
+        public CharacterSelectPresenter(CharacterSelectionSession session, ContentRegistry registry, ICharacterSelectView view, Func<ContentId, string> permanentSummary = null)
         {
+            _permanentSummary = permanentSummary;
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
             _view = view ?? throw new ArgumentNullException(nameof(view));
@@ -29,6 +31,7 @@ namespace Game.UI
                 var summary = presentation.Role + "\nStarts with " + character.ResolveStartingActiveSkill(_registry).DisplayName;
                 foreach (var field in presentation.Highlights)
                     summary += "\n" + CharacterHighlightFormatter.Format(character.BaseStats, baseline.Stats, field);
+                if (_permanentSummary != null) summary += "\n" + _permanentSummary(character.Id);
                 if (reason != null) summary += "\n" + reason;
                 cards.Add(new CharacterSelectCardViewState(character.Id, new ContentCardViewState(
                     character.DisplayName, summary, summary, presentation.Icon.Resolve(_registry).Sprite,

@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:VisualElement name="ShellMenu" class="shell-page"><ui:VisualElement class="shell-panel">
+    <ui:Label text="SURVIVOR ARENA" class="shell-title" />
+    <ui:Button name="ShellPlay" text="Play" /><ui:Button name="ShellMeta" text="Meta progression" /><ui:Button name="ShellSettings" text="Settings" /><ui:Button name="ShellExit" text="Exit" />
+  </ui:VisualElement></ui:VisualElement>
+  <ui:Button name="ShellBack" text="Main Menu" class="shell-back" />
+  <ui:VisualElement name="ShellPause" class="shell-pause"><ui:Button name="ShellPauseSettings" text="Settings" /><ui:Button name="ShellQuit" text="Quit Run" /></ui:VisualElement>
+  <ui:VisualElement name="SettingsBody" class="shell-page"><ui:ScrollView class="shell-panel settings-panel">
+    <ui:Label text="Settings" class="shell-title" />
+    <ui:Slider name="SettingsMaster" label="Master" low-value="0" high-value="100" show-input-field="true" />
+    <ui:Slider name="SettingsMusic" label="Music" low-value="0" high-value="100" show-input-field="true" />
+    <ui:Slider name="SettingsSfx" label="SFX" low-value="0" high-value="100" show-input-field="true" />
+    <ui:VisualElement class="shell-row"><ui:Button name="SettingsMusicPreview" text="Test Music" /><ui:Button name="SettingsSfxPreview" text="Test SFX" /></ui:VisualElement>
+    <ui:Toggle name="SettingsShake" label="Screen Shake" />
+    <ui:Label name="SettingsBindings" />
+    <ui:Toggle name="SettingsWindow" label="Windowed (off: borderless desktop)" />
+    <ui:DropdownField name="SettingsResolution" label="Resolution" />
+    <ui:Label name="SettingsVideoStatus" />
+    <ui:VisualElement class="shell-row"><ui:Button name="SettingsApply" text="Apply Video" /><ui:Button name="SettingsKeep" text="Keep" /><ui:Button name="SettingsRevert" text="Revert" /></ui:VisualElement>
+    <ui:Label name="SettingsMessage" class="shell-message" />
+    <ui:VisualElement class="shell-row"><ui:Button name="SettingsSave" text="Retry Save" /><ui:Button name="SettingsBack" text="Back" /></ui:VisualElement>
+  </ui:ScrollView></ui:VisualElement>
+<ui:Label name="ShellNotification" class="shell-notification" picking-mode="Ignore" />
+</ui:UXML>

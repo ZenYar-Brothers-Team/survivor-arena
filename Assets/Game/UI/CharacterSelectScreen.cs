@@ -17,7 +17,7 @@ namespace Game.UI
         public UIDocument Document { get; }
         public event Action<ContentId> Selected;
         public event Action StartRequested;
-        public CharacterSelectScreen(Transform parent, CharacterSelectionSession session, ContentRegistry registry)
+        public CharacterSelectScreen(Transform parent, CharacterSelectionSession session, ContentRegistry registry, Func<ContentId, string> permanentSummary = null)
         {
             _owner = new GameObject("Character Selection UI");
             // A nested UIDocument must inherit its parent's panel. Keep this independently
@@ -30,6 +30,8 @@ namespace Game.UI
             Document = _owner.AddComponent<UIDocument>();
             Document.panelSettings = _panel;
             Document.sortingOrder = 200;
+            // Separate panels require their own render and input order (IP-26).
+            _panel.sortingOrder = Document.sortingOrder;
             var root = Document.rootVisualElement;
             root.name = GameplayUiElementIds.CharacterSelectScreen;
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/GameplayUiStyles"));
@@ -50,7 +52,7 @@ namespace Game.UI
             _start = new Button(() => StartRequested?.Invoke()) { text = "Choose field", name = GameplayUiElementIds.CharacterSelectStart };
             _start.AddToClassList("character-select-start");
             root.Add(_start);
-            _presenter = new CharacterSelectPresenter(session, registry, this);
+            _presenter = new CharacterSelectPresenter(session, registry, this, permanentSummary);
         }
         public void Render(IReadOnlyList<CharacterSelectCardViewState> cards, bool canStart)
         {

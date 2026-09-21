@@ -1,4 +1,7 @@
 using Game.Meta;
+using Game.Settings;
+using Game.Movement;
+using UnityEngine.InputSystem;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
@@ -22,7 +25,7 @@ namespace Game.Bootstrap
 {
     [DefaultExecutionOrder(-1000)]
     [DisallowMultipleComponent]
-    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher, IFieldRunLauncher, IProfileNavigation
+    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher, IFieldRunLauncher, IProfileNavigation, IAppNavigation
     {
         [SerializeField]
         private RunController runController;
@@ -79,6 +82,73 @@ namespace Game.Bootstrap
         public UnityEngine.UIElements.UIDocument ProfileDocument => _metaScreen?.Document;
         public Task<bool> ProfileSaveTask => _profileBinding?.SaveTask ?? Task.FromResult(true);
 
+        public event Action NavigationChanged;
+        public bool AtMainMenu { get; private set; }
+        public bool AtCharacterSelection => _selectionScreen != null;
+        public bool AtManualPause => IsInitialized && runController.Model.IsPausedBy(RunPauseReasons.Manual);
+        public bool CanPlay => Profile != null && Profile.CanStart;
+        public string MovementBindings => player != null ? player.GetComponent<PlayerMover>()?.MovementBindings ?? "Unavailable" : "Unavailable";
+        public ISettingsService Settings { get; private set; }
+        public UnityEngine.UIElements.UIDocument ShellDocument => _shellScreen?.Document;
+        private AppShellScreen _shellScreen;
+        private AppShellPresenter _shellPresenter;
+        private SettingsAudioRuntime _audio;
+        private SettingsConfig _settingsConfig;
+        private CameraShakeRuntime _shake;
+        private NotificationQueue _notifications;
+        private RunNotificationBinding _notificationsBinding;
+        private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
+        public string Notification => _notifications?.Current ?? "";
+        public void ConfigureSettings(ISettingsService settings)
+        {
+            if (Settings != null) throw new InvalidOperationException("Settings already configured.");
+            Settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        }
+        private async Task InitializeShellAsync()
+        {
+            _settingsConfig = SettingsConfig.Load();
+            if (Settings == null) Settings = new SettingsService(_settingsConfig,
+                new FileSettingsStore(Path.Combine(Application.persistentDataPath, "settings-v1.json")), new UnityVideoDevice(_settingsConfig));
+            await Settings.LoadAsync();
+            if (this == null || !isActiveAndEnabled) return;
+            _notifications = new NotificationQueue(_settingsConfig.NotificationSeconds);
+            _notifications.Changed += NotifyNavigation;
+            foreach (var rule in Profile.Catalog.Unlocks.Values) if (Profile.IsUnlocked(rule.Id)) _knownUnlocks.Add(rule.Id);
+            _audio = new SettingsAudioRuntime(transform, Settings, _settingsConfig);
+            _shellScreen = new AppShellScreen(transform);
+            _shellPresenter = new AppShellPresenter(this, Settings, _audio, _shellScreen);
+            Profile.Changed += ProfileChanged;
+        }
+        private string PermanentSummary(ContentId character)
+        {
+            var modifier = Profile.Modifier(character.ToString());
+            return $"Permanent bonuses: HP +{modifier.MaxHealthMultiplierBonus:P0}, damage +{modifier.ActiveSkillDamageMultiplierBonus:P0}";
+        }
+        private void ProfileChanged()
+        {
+            foreach (var rule in Profile.Catalog.Unlocks.Values)
+                if (Profile.IsUnlocked(rule.Id) && _knownUnlocks.Add(rule.Id))
+                    _notifications?.Push((rule.Kind == "character" ? "NEW CHARACTER UNLOCKED — " : rule.Kind == "field" ? "NEW FIELD UNLOCKED — " : "NEW CONTENT UNLOCKED — ") + rule.Name);
+            NotifyNavigation();
+        }
+        private void NotifyNavigation() => NavigationChanged?.Invoke();
+        public void Play() { if (CanPlay && AtMainMenu) OpenCharacterSelection(); }
+        public void MainMenu()
+        {
+            if (!CanPlay) return;
+            if (IsInitialized) Shutdown();
+            else
+            {
+                _selectionScreen?.Dispose(); _selectionScreen = null;
+                _fieldScreen?.Dispose(); _fieldScreen = null;
+                Selection = null; FieldSelection = null;
+            }
+            _metaPresenter.ClearResult(); AtMainMenu = true; NotifyNavigation();
+        }
+        public void Meta() { if (!AtMainMenu || !CanPlay) return; AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation(); }
+        public void QuitRun() => QuitProfileRun();
+        public void Exit() => Application.Quit();
+
         public void ConfigureProfile(IProfileService profile)
         {
             if (Profile != null || IsInitialized) throw new InvalidOperationException("Profile already configured.");
@@ -118,7 +188,8 @@ namespace Game.Bootstrap
                 Application.wantsToQuit += WantsToQuit;
                 await Profile.LoadAsync();
                 if (this == null || !isActiveAndEnabled) return;
-                if (Profile.CanStart) OpenCharacterSelection();
+                await InitializeShellAsync();
+                if (this != null && Profile.CanStart) MainMenu();
             }
             catch (Exception exception)
             {
@@ -133,6 +204,7 @@ namespace Game.Bootstrap
             ValidateSceneReferences();
             EnsureProfileScreen();
             if (!Profile.CanStart) throw new InvalidOperationException("Profile must be saved before selection.");
+            AtMainMenu = false;
             _metaPresenter.ClearResult();
             Catalog = FixtureRuntimeContentCatalog.Create();
             _fieldScreen?.Dispose();
@@ -144,7 +216,8 @@ namespace Game.Bootstrap
             SuspendForSelection();
             var roster = new CharacterRoster(Catalog.Characters.AllCharacters, access ?? new ProfileAccessProvider(Profile));
             Selection = new CharacterSelectionSession(roster, Catalog.RunSetup.StartingCharacterId, this);
-            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary);
+            NotifyNavigation();
         }
 
         public bool TryStartCharacter(ContentId id)
@@ -156,6 +229,7 @@ namespace Game.Bootstrap
             _fieldScreen = new FieldSelectScreen(transform, FieldSelection);
             _selectionScreen?.Dispose();
             _selectionScreen = null;
+            NotifyNavigation();
             return true;
         }
 
@@ -165,7 +239,8 @@ namespace Game.Bootstrap
             _fieldScreen.Dispose();
             _fieldScreen = null;
             Selection = new CharacterSelectionSession(Selection.Roster, _pendingCharacterId, this);
-            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary);
+            NotifyNavigation();
         }
 
         public bool TryStartField(ContentId id)
@@ -343,6 +418,10 @@ namespace Game.Bootstrap
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
                 _profileBinding = new ProfileRunBinding(runController.Model, Profile);
                 initializedSubsystems.Add(_profileBinding.Dispose);
+                _notifications?.Clear();
+                _notificationsBinding = new RunNotificationBinding(runController.Model, experienceRuntime, draftRuntime,
+                    BossEncounters, Travelers, Catalog.Sets, _notifications);
+                initializedSubsystems.Add(_notificationsBinding.Dispose);
                 runController.Model.Completed += ShowProfileResult;
             }
             catch
@@ -355,6 +434,16 @@ namespace Game.Bootstrap
             IsInitialized = true;
             FieldConfiguration = configuration;
             player.ShuttingDown += Shutdown;
+            AtMainMenu = false;
+            runController.Model.StateChanged += ShellRunStateChanged;
+            runController.Model.PauseChanged += ShellPauseChanged;
+            _audio?.Bind(runController.Model);
+            if (Settings != null)
+            {
+                _shake = gameObject.AddComponent<CameraShakeRuntime>();
+                _shake.Initialize(Camera.main, player.Health, runController.Model, Settings, _settingsConfig);
+            }
+            NotifyNavigation();
         }
 
         private void ValidateSceneReferences()
@@ -367,7 +456,22 @@ namespace Game.Bootstrap
             }
         }
 
-        private void LateUpdate() { if (Playtest is PlaytestSession session) session.Tick(); }
+        private void ShellRunStateChanged(RunState state) => NotifyNavigation();
+        private void ShellPauseChanged(string reason, bool paused) => NotifyNavigation();
+        private void LateUpdate()
+        {
+            if (Playtest is PlaytestSession session) session.Tick();
+            Settings?.Tick(Time.realtimeSinceStartupAsDouble);
+            _notifications?.Tick(Time.unscaledDeltaTime, IsInitialized && runController.Model.State == RunState.Paused);
+            if (Keyboard.current?.escapeKey.wasPressedThisFrame != true) return;
+            if (_shellPresenter?.SettingsOpen == true) { _shellPresenter.Back(); return; }
+            if (AtCharacterSelection) { MainMenu(); return; }
+            if (IsInitialized)
+            {
+                if (AtManualPause) runController.Model.Resume();
+                else if (runController.Model.State == RunState.Running) runController.Model.Pause();
+            }
+        }
 
         /// <summary>Captures the run, then unwinds consumers before their producers. Idempotent.</summary>
         public void Shutdown()
@@ -383,10 +487,15 @@ namespace Game.Bootstrap
             if (!IsInitialized) { runController?.Shutdown(); return; }
             IsInitialized = false;
             player.ShuttingDown -= Shutdown;
+            runController.Model.StateChanged -= ShellRunStateChanged;
+            runController.Model.PauseChanged -= ShellPauseChanged;
+            _audio?.Bind(null);
+            if (_shake != null) { _shake.Shutdown(); Destroy(_shake); _shake = null; }
             // Capture required Results while every contributor is still alive, then diagnostics.
             runController.Shutdown();
             runController.Model.Completed -= ShowProfileResult;
             _profileBinding?.Dispose();
+            _notificationsBinding?.Dispose(); _notificationsBinding = null;
             gameplayUiRoot.Shutdown();
             if (Playtest is PlaytestSession session) session.Dispose();
             BossEncounters?.Shutdown();
@@ -404,7 +513,7 @@ namespace Game.Bootstrap
             FieldConfiguration = null;
         }
 
-        private void ShowProfileResult(RunOutcome result) => _metaPresenter?.ShowResult(result);
+        private void ShowProfileResult(RunOutcome result) { _metaPresenter?.ShowResult(result); NotifyNavigation(); }
         public void QuitProfileRun() { if (IsInitialized) runController.Model.Stop(); }
         public void RetryProfileRun()
         {
@@ -419,12 +528,12 @@ namespace Game.Bootstrap
         public void ReturnToProfileSelection()
         {
             if (!Profile.CanStart) return;
-            Shutdown(); _metaPresenter.ClearResult(); OpenCharacterSelection();
+            MainMenu();
         }
         private bool _quitRequested;
         private bool WantsToQuit()
         {
-            if (_allowQuit || Profile == null || !Profile.RunActive && Profile.State != ProfileState.Saving) return true;
+            if (_allowQuit || Profile == null) return true;
             if (!_quitRequested)
             {
                 _quitRequested = true;
@@ -435,6 +544,7 @@ namespace Game.Bootstrap
         }
         private async void FinishQuitAsync()
         {
+            if (Settings != null) await Settings.CloseAsync();
             if (Profile.State == ProfileState.Saving)
             {
                 var completed = new TaskCompletionSource<bool>();
@@ -451,7 +561,11 @@ namespace Game.Bootstrap
         private void OnDestroy()
         {
             Application.wantsToQuit -= WantsToQuit;
-            Shutdown(); _metaPresenter?.Dispose(); _metaScreen?.Dispose();
+            Shutdown();
+            if (Profile != null) Profile.Changed -= ProfileChanged;
+            if (_notifications != null) _notifications.Changed -= NotifyNavigation;
+            _shellPresenter?.Dispose(); _shellScreen?.Dispose(); _audio?.Dispose();
+            _metaPresenter?.Dispose(); _metaScreen?.Dispose();
         }
     }
 }

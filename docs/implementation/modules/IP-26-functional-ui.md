@@ -4,7 +4,7 @@
 
 ## Существующая база и характер изменения
 
-Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+Functional shell объединяет существующие feature-owned экраны и результаты IP-25. Production content/art остаются у catalog IP; fixture flow использует те же runtime boundaries.
 
 ## Зависимости
 
@@ -46,7 +46,7 @@ complete UI flow и semantic IDs; явно разграничить IP-10A/IP-26
 
 ## Gates и недостающие решения
 
-G-15 resolved по DECISION-0037: Quit→Results, reward/save/error ordering. G-16: real audio/shake/settings contract. Retry same character/field immediate уже утверждён. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-15 resolved по DECISION-0037: Quit→Results, reward/save/error ordering. G-16/G-20 resolved по [DECISION-0038](../../decisions/0038-settings-and-field-difficulty.md): defaults, persistence/failure, audio routing, video rollback, camera offset и difficulty 1–5. Retry same character/field immediate уже утверждён. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -61,12 +61,12 @@ Field Select использует `FieldSelectionSession`, `FieldSelectPresenter
 Character confirm открывает Field Select, Start Run повторно проверяет оба доступа;
 Back сохраняет допустимые selections. Retry должен использовать `RunOutcome.Selection`
 с теми же character/field, без открытия selection и без зависимости от telemetry.
-G-20 scale conflict решается до production field UI; fixture 1–5 не является mapping 1–10.
+G-20 resolved по DECISION-0038: production difficulty берётся явно из CD (1–5); fixture metadata не является production mapping.
 
 
 ## Presentation preference boundary
 
-IP-12A предоставляет `IScreenShakePreference` и `ScreenShakeRequestGate`: preference читается на каждом request, выключенное значение и не-running state не выпускают запрос. IP-26 реализует persistent setting и camera consumer/сброс активного offset при выключении; наличие request boundary не закрывает G-16 и не означает готовность audio/settings service. См. [IP-12A contract](IP-12A-visual-presentation-foundation.md#контракт-технического-пакета).
+IP-12A предоставляет `IScreenShakePreference` и `ScreenShakeRequestGate`: preference читается на каждом request, выключенное значение и не-running state не выпускают запрос. IP-26 реализует persistent setting и camera consumer/сброс активного offset при выключении; G-16 policy определена DECISION-0038; request boundary сам по себе не реализует audio/settings service. См. [IP-12A contract](IP-12A-visual-presentation-foundation.md#контракт-технического-пакета).
 
 ## World pickup integration boundary
 
@@ -89,3 +89,50 @@ MetaPresenter/MetaScreen. Переиспользовать commit-state и pendi
 связаны с composition. IP-26 объединяет готовые поверхности с Main Menu/Settings,
 дополняет presentation/art и production difficulty после закрытия их gates.
 Profile IO исполняется вне игрового потока; Reset повреждённого профиля — явный intent.
+
+## Settings implementation contract
+
+Читать DECISION-0038 полностью вместе с UI §18. App-scoped service владеет settings,
+UI только intents/snapshots. Основные acceptance cases решения входят в checks этого
+IP: отдельный файл/defaults/preserve-invalid/retry, Master×channel routing, preview,
+confirmed video с real-time rollback, bounded visual shake от actual player damage.
+Production soundtrack, remap, localization, exclusive fullscreen и дополнительные
+graphics options вне текущего scope. Существующая camera centering логика остаётся
+baseline; spatial gameplay queries не должны читать shake offset.
+
+## Runtime / UI contract
+
+`Game.Settings` — app-scoped `ISettingsService`/`SettingsService`, immutable snapshots,
+validated `SettingsConfig` из `Content/Settings/SettingsDefaults.json`. Файл
+`Application.persistentDataPath/settings-v1.json` имеет version 1; профиль не меняется.
+`FileSettingsStore` выполняет IO вне main thread, сохраняет invalid original отдельно,
+затем атомарно заменяет файл. Save-loop сериализует revisions; candidate video не
+попадает в persisted snapshot до Keep. `IVideoDevice` отделяет реальные Screen API
+от fake-mode проверок; UI показывает фактически применённый режим.
+
+`IAppNavigation` → `AppShellPresenter` → `IAppShellView`/`AppShellScreen`:
+Main Menu → Play → Character → Field → Run; Meta → Back → Main Menu.
+Manual Pause → Settings → Back сохраняет все pause owners. Quit → Results,
+Retry переиспользует selection snapshot; Main Menu завершает consumers прошлого run.
+Escape закрывает Settings (при pending video сначала Revert), возвращает из
+Character Select либо переключает только manual pause в запущенном run.
+Semantic IDs — `GameplayUiElementIds.Shell*`/`Settings*`, assets —
+`UI/AppShell.uxml` и `UI/AppShellStyles.uss`. Результаты используют IP-25 Meta IDs;
+`MetaSelection` теперь означает Main Menu, standalone launchers скрыты.
+
+`SettingsAudioRuntime` владеет Music/gameplay SFX и двумя preview sources;
+короткие synthetic clips — только проверка routing, не production soundtrack.
+Каждый источник получает Master×channel×sourceGain один раз. Gameplay SFX
+не запускается вне Running; pause сохраняет playback position, terminal останавливает.
+
+`CameraShakeRuntime` принимает actual player damage через IP-12A request gate.
+Offset ограничен JSON envelope; camera transform смещается только между URP
+begin/end-camera-render callbacks и немедленно восстанавливается. Gameplay Update,
+spawn/visibility и camera follow читают baseline. Disable/pause/off/end очищают effect.
+
+`NotificationQueue` показывает одно неблокирующее сообщение вне центра; остальные
+ждут в ограниченной очереди. UI-time при pause не идёт. `RunNotificationBinding`
+переводит level/set/Traveler/boss events, profile observer — новые unlocks.
+Этот binding также поставляет required special-kill contribution вне telemetry;
+Results суммирует ordinary/special kills и показывает acquired sets.
+Controls читает реальные InputAction bindings; remap не добавлен.

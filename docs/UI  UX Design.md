@@ -606,6 +606,16 @@ Achievement-based unlocks показывают условие вместо price
 \#\#\# Other  
 \- Language — только когда реально появляется localization.
 
+Уточнённый контракт — [DECISION-0038](decisions/0038-settings-and-field-difficulty.md):
+
+- Defaults: Master 80%, Music 60%, SFX 80%, Screen Shake On; borderless fullscreen в desktop resolution.
+- Громкость/Shake применяются сразу; Back сохраняет настройки отдельным файлом. При ошибке — сообщение и Retry Save, игра не блокируется. Повреждённый/неизвестный settings file сохраняется для диагностики, включаются defaults; прогресс не сбрасывается.
+- Windowed предлагает поддерживаемые разрешения; в borderless показано desktop resolution. Video Apply → Keep/Revert, автоматический Revert через 10 секунд real time. Неподтверждённый режим не сохраняется; safe fallback — окно до 1280×720 в пределах рабочего экрана.
+- Test Music / Test SFX проверяют соответствующий канал с учётом Master. Preview работает на паузе и останавливается при закрытии Settings. Production аудиобиблиотека не обязательна для этого этапа.
+- Shake слабый и короткий, только от полученного игроком урона; Off/Pause/end немедленно сбрасывают его. Полные timing/bounds определены решением.
+- Settings из Pause сохраняет паузу и возвращает в Pause; Main Menu возвращает в Main Menu. Controls отображает actual bindings, без remap.
+- Field Select показывает явную сложность 1–5 из карточки; пары полей имеют оценки 1,1,2,2,3,3,4,4,5,5.
+
 Settings доступны:  
 \- из Main Menu;  
 \- из Pause.
