@@ -159,7 +159,7 @@ namespace Game.Progression
 
             experienceRuntime = experience != null ? experience : throw new ArgumentNullException(nameof(experience));
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
-            if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
+            if (emptyBookCurrency.HasValue) NumericValidation.ValidateNonNegative(emptyBookCurrency.Value, nameof(emptyBookCurrency));
             _owner = controller.Model ?? throw new InvalidOperationException("Run must be initialized before draft.");
             _pool = new DraftPool(definitions, character, setOffers ??
                 new FixtureSetDraftOfferProvider(FixtureRunSetupCatalog.Create().Draft.SetDraftChance));

@@ -54,3 +54,10 @@ G-08/G-09 закрыты DECISION-0017; нужны полные параметр
 ## Потребители
 
 [IP-19](IP-19-production-sets.md), [IP-22](IP-22-production-characters.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Мета-доступ
+
+IP-25 владеет persistent access по [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md)
+и разделу «Мета-экономика» CD. SKILL-016/SET-020 требуют прохождения FIELD-001;
+остальные active skills/sets исходно открыты. Production definitions сохраняют этот
+mapping; runtime проверяет access дополнительно к прочим требованиям draft/recipe.

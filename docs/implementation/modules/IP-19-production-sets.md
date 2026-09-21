@@ -66,3 +66,10 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+
+## Мета-доступ
+
+IP-25 владеет persistent access по [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md)
+и разделу «Мета-экономика» CD. SKILL-016/SET-020 требуют прохождения FIELD-001;
+остальные active skills/sets исходно открыты. Production definitions сохраняют этот
+mapping; runtime проверяет access дополнительно к прочим требованиям draft/recipe.

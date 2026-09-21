@@ -1,36 +1,38 @@
 {
-    "name": "Game.Bootstrap.PlayModeTests",
-    "rootNamespace": "Game.Bootstrap.PlayModeTests",
-    "references": [
-        "Game.Bootstrap",
-        "Game.Enemy",
-        "Game.Content",
-        "Game.Pickup", "Game.Traveler",
-        "Game.Field",
-        "Game.Progression",
-        "Game.Run",
-        "Game.UI",
-        "Game.Character",
-        "Game.Presentation",
-        "UnityEngine.TestRunner",
-        "Game.Combat",
-        "Game.Pooling",
-        "Game.ActiveSkill",
-        "Game.Telemetry",
-        "Newtonsoft.Json"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "nunit.framework.dll",
-        "Newtonsoft.Json.dll"
-    ],
-    "autoReferenced": true,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Bootstrap.PlayModeTests",
+  "rootNamespace": "Game.Bootstrap.PlayModeTests",
+  "references": [
+    "Game.Bootstrap",
+    "Game.Enemy",
+    "Game.Content",
+    "Game.Pickup",
+    "Game.Traveler",
+    "Game.Field",
+    "Game.Progression",
+    "Game.Run",
+    "Game.UI",
+    "Game.Character",
+    "Game.Presentation",
+    "UnityEngine.TestRunner",
+    "Game.Combat",
+    "Game.Pooling",
+    "Game.ActiveSkill",
+    "Game.Telemetry",
+    "Newtonsoft.Json",
+    "Game.Meta"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

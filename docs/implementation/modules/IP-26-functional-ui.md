@@ -28,7 +28,7 @@ Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-
 
 ## Acceptance criteria
 
-полный цикл без DEV; locked choices недоступны, relevant baseline modifiers и difficulty понятны. Retry без дополнительного confirmation/selection создаёт новый run и очищает старые subscriptions/entities/UI while preserving профиль/settings. Draft completion не снимает чужие pause reasons; settings возвращает в исходный экран; результаты и награды совпадают с model. Quit reward/confirmation policy и краткий victory→results transition получают конкретный контракт, если ещё не заданы. Каждый enabled setting реально применяется и сохраняется; invalid/corrupt preferences дают документированный safe fallback, unsupported video mode не запирает пользователя; Back/Resume сохраняют pause reasons и selection. Shake off отключает только visual effect, baseline camera follow сохраняется согласно решению G-16. Обязательные Results работают в release без IP-31; optional top 3 только при доступной attribution.
+полный цикл без DEV; locked choices недоступны, relevant baseline modifiers и difficulty понятны. Retry без дополнительного confirmation/selection создаёт новый run и очищает старые subscriptions/entities/UI while preserving профиль/settings. Draft completion не снимает чужие pause reasons; settings возвращает в исходный экран; результаты и награды совпадают с model. Quit без дополнительного confirmation ведёт в Results; victory/defeat открывают Results сразу. Ошибка записи оставляет pending result с Retry Save и блокирует новый run/покупки (DECISION-0037). Каждый enabled setting реально применяется и сохраняется; invalid/corrupt preferences дают документированный safe fallback, unsupported video mode не запирает пользователя; Back/Resume сохраняют pause reasons и selection. Shake off отключает только visual effect, baseline camera follow сохраняется согласно решению G-16. Обязательные Results работают в release без IP-31; optional top 3 только при доступной attribution.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -46,7 +46,7 @@ complete UI flow и semantic IDs; явно разграничить IP-10A/IP-26
 
 ## Gates и недостающие решения
 
-G-15/G-16: Quit/reward/failure ordering, real audio/shake/settings contract. Retry same character/field immediate уже утверждён. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-15 resolved по DECISION-0037: Quit→Results, reward/save/error ordering. G-16: real audio/shake/settings contract. Retry same character/field immediate уже утверждён. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -81,3 +81,11 @@ encounter semantics остаются в scope соответствующих в�
 IP-29 поставляет ITravelerRuntime snapshots/events, TravelerPresenter и
 UiToolkitTravelerView: HP всех ролей, off-screen pointer lanes и gated dev spawn
 в Build tab. IP-26 интегрирует готовый slice; отдельного gameplay state в UI нет.
+## Profile / result integration
+
+IP-25 предоставляет IProfileService, ProfileRunBinding, ProfileAccessProvider и
+MetaPresenter/MetaScreen. Переиспользовать commit-state и pending-result retry;
+не начислять rewards в navigation/view. Quit→Results и Retry same selection уже
+связаны с composition. IP-26 объединяет готовые поверхности с Main Menu/Settings,
+дополняет presentation/art и production difficulty после закрытия их gates.
+Profile IO исполняется вне игрового потока; Reset повреждённого профиля — явный intent.

@@ -43,7 +43,7 @@ namespace Game.Character
         // Health and its RunController binding are created together here, atomically,
         // so a Health that can take damage and die can never exist without its death
         // already being wired to end the run.
-        public void Initialize(CharacterBaseStats baseStats, RunController controller, ContentId? contentId = null)
+        public void Initialize(CharacterBaseStats baseStats, RunController controller, ContentId? contentId = null, CharacterStatModifier? permanentModifier = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Player character runtime is already initialized.");
@@ -56,6 +56,7 @@ namespace Game.Character
             Identity = new CombatIdentity(Guid.NewGuid(), controller.Model.RunId, contentId, CombatEntityCategory.Player);
             Controls.Reset();
             Stats = new CharacterStats(baseStats);
+            if (permanentModifier.HasValue && !permanentModifier.Value.Equals(default(CharacterStatModifier))) Stats.SetModifier("meta-profile", permanentModifier.Value);
             Health = new Health(Stats);
             _healthStatBinding = new CharacterHealthStatBinding(Health, Stats);
             _runBinding = new CharacterRunBinding(Health, controller.Model);

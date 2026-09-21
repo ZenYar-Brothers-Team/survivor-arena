@@ -70,7 +70,7 @@ namespace Game.Bootstrap
                 "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Bosses/FixtureBosses", "Content/Waves/FixtureWaveTimeline",
                 "Content/Run/FixtureRunSetup", "Content/Characters/FixtureCharacters", "Content/Characters/FixtureCharacterBaseline",
                 "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites",
-                "Content/Fields/FixtureFields", "Content/Waves/FixtureFieldWaveTimeline", "Content/Pickups/FixturePickups", "Content/Travelers/FixtureTravelers", "Content/Fields/FixtureArenaGeometry" })
+                "Content/Fields/FixtureFields", "Content/Waves/FixtureFieldWaveTimeline", "Content/Pickups/FixturePickups", "Content/Travelers/FixtureTravelers", "Content/Fields/FixtureArenaGeometry", "Content/Meta/FixtureMetaEconomy" })
                 sources.Add(path, JsonContentFile.ReadText(path));
             SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
         }

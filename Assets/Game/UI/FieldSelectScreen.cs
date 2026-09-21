@@ -59,7 +59,7 @@ namespace Game.UI
         public void Dispose()
         {
             _presenter.Dispose(); Selected = null; StartRequested = null; BackRequested = null;
-            Document.rootVisualElement.Clear(); Document.enabled = false;
+            if (Document != null) { Document.rootVisualElement?.Clear(); Document.enabled = false; }
             if (Application.isPlaying) { UnityEngine.Object.Destroy(_owner); UnityEngine.Object.Destroy(_panel); }
             else { UnityEngine.Object.DestroyImmediate(_owner); UnityEngine.Object.DestroyImmediate(_panel); }
         }

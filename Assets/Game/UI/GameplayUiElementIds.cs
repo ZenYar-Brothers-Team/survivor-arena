@@ -2,6 +2,21 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string MetaBody = "meta-body";
+        public const string MetaCards = "meta-cards";
+        public const string MetaCharacter = "meta-character";
+        public const string MetaOpen = "meta-open";
+        public const string MetaClose = "meta-close";
+        public const string MetaRetry = "meta-retry";
+        public const string MetaSelection = "meta-selection";
+        public const string MetaQuit = "meta-quit";
+        public const string MetaSave = "meta-save";
+        public const string MetaReset = "meta-reset";
+        public const string MetaTitle = "meta-title";
+        public const string MetaSummary = "meta-summary";
+        public const string MetaMessage = "meta-message";
+        public static string MetaCard(string id) => "meta-card-" + id;
+        public static string MetaBuy(string id) => "meta-buy-" + id;
         public const string TravelerOverlay = "traveler-overlay";
         public const string TravelerObservation = "development-traveler-observation";
         public const string SpawnTraveler = "development-spawn-traveler";

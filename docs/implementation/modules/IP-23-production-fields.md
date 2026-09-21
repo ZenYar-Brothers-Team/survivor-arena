@@ -51,7 +51,7 @@ field→kit→roles mapping, geometry constraints, metadata completeness, bindin
 
 ## Gates и недостающие решения
 
-G-14/G-15: geometry/enemy pools/difficulty и unlock conditions. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-14: geometry/enemy pools; G-20: difficulty. G-15 resolved по DECISION-0037; unlock conditions берутся из CD. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

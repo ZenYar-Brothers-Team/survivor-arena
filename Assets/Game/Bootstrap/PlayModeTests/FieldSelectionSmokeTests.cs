@@ -20,7 +20,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Selection_CancelBeforeLaunch_DoesNotEnableUninitializedGameplay()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             var run = Object.FindAnyObjectByType<RunController>();
@@ -44,7 +44,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             var run = Object.FindAnyObjectByType<RunController>();

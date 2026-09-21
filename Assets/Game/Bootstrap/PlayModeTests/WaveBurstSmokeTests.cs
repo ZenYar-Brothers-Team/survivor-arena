@@ -15,7 +15,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Gameplay_BurstPauseHudTerminalAndRestart_UseRealTimeline()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null;
             yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();

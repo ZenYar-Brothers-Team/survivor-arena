@@ -6,7 +6,7 @@
     "seed": 12345,
     "initialRerolls": 2,
     "initialBanishes": 2,
-    "emptyBookCurrency": 1
+    "emptyBookCurrency": 50
   },
   "experience": {
     "levelThresholds": [5, 10, 15],

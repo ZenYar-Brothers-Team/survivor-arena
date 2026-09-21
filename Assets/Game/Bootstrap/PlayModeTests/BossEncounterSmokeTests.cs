@@ -16,7 +16,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Gameplay_BossBarTelegraphPauseAndTerminalCleanup()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null;
             yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();

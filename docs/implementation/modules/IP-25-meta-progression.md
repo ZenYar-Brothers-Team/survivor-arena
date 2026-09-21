@@ -4,7 +4,7 @@
 
 ## Существующая база и характер изменения
 
-Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+Контракт реализуется отдельным Game.Meta и feature-owned UI; состав текущего packet и evidence определяет STATUS. Старый scope не является отдельным этапом.
 
 ## Зависимости
 
@@ -20,7 +20,7 @@
 
 ## Scope
 
-versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. `RunOutcome.Contributions["draft"].DraftTotals.BookCurrency` — уже начисленная при подборе пустых Книг валюта (DECISION-0020); перенос в профиль не создаёт повторную награду. DTO snapshot находится в Run, прямой dependency на Progression не требуется. Failure/abort handling задаётся явно, если reward при Quit Run ещё не описан.
+versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. `RunOutcome.Contributions["draft"].DraftTotals.BookCurrency` — уже начисленная при подборе пустых Книг валюта (DECISION-0020); перенос в профиль не создаёт повторную награду. DTO snapshot находится в Run, прямой dependency на Progression не требуется. Failure/abort handling, награды и сохранение — DECISION-0037; суммы/каталог — раздел «Мета-экономика» Content Design.
 
 ## Out of Scope
 
@@ -46,7 +46,7 @@ result/reward idempotency, persistence schema и actual economic gaps, reset/tes
 
 ## Gates и недостающие решения
 
-CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semantics. Framework fixtures отдельно от production economy. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+CG-03/G-15 resolved по [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md). IP-25 поставляет реальные economy definitions; игровые production definitions/art поставляют их catalog IP. Framework fixtures отдельно от production content. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
@@ -58,4 +58,47 @@ Profile adapter реализует `ICharacterAccessProvider.GetLockReason(Conte
 
 Аналогичный `IFieldAccessProvider`/`FieldRoster` поставляет [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
 `RunOutcome.Selection.FieldId` даёт release-safe identity поля для unlock/reward processing;
-сама трактовка «завершить FIELD» остаётся G-15. Fixture unlock list не становится profile economy.
+«завершить FIELD» = выжить 900 running seconds (DECISION-0037). Fixture unlock list не становится production economy.
+
+## Конкретный economy / persistence packet
+
+Читать [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md) полностью и
+раздел «Мета-экономика» CD. Scope включает JSON reward 5×L, Book 50, четыре META
+upgrades, character purchase prices и полный unlock mapping. Production gameplay
+не требуется запускать до его catalog IP: integration использует synthetic IDs,
+а ссылки economy проверяются против approved content manifest.
+
+Проверить L1→Quit=5; L20+2 Books=200 без второго начисления Book; startup failure=0;
+первый terminal wins; field clear только при 900s живым, пауза исключена. Сохранение
+RunId/reward/unlocks атомарно; retries/duplicate purchase intents идемпотентны.
+Покрыть caps, additive global+personal bonuses, применение до Health init следующего
+run, corrupted/backup/future-version/known-migration cases и pending save failure UI.
+Hard-crash checkpoint/recovery и gameplay resume вне scope по условию пользователя.
+
+## Runtime API / schema / reset
+
+`Game.Meta.IProfileService` — профиль, баланс, access, levels, покупки и применение
+terminal outcome; `ProfileService` владеет состояниями NotLoaded/Loading/Ready/Saving/
+PendingResult/LoadError. `ProfileRunBinding` наблюдает только RunModel, без recorder.
+`ProfileAccessProvider` реализует character/field access; build entries фильтруются
+по IsUnlocked до создания draft. `Modifier(characterId)` даёт один source-owned
+вклад global+personal stats; composition применяет его до Health init.
+
+`ProfileCodec` schemaVersion=1: currency, firstRun, upgrades (stable keys META-ID
+или META-ID:CharacterId), unlocked, clearedFields, runs (RunId→receipt). Регистр ID
+сохраняется. IProfileMigration — явный шаг версии; неизвестная версия блокируется.
+`MetaCatalogData`, `MetaUpgradeData`, `MetaUnlockData` задают JSON schema required
+fields; unknown properties запрещены. Production/fixture catalogs разделены.
+
+`FileProfileStore` выполняет IO вне main thread. Fixture application save:
+`Application.persistentDataPath/fixture-profile-v1.json`, backup `.bak`, временный
+`.tmp`. Production application должна использовать отдельный профиль со своим
+production catalog, не переинтерпретировать FIXTURE IDs. Для tests инжектировать
+MemoryProfileStore через ConfigureProfile до Start (см. ProfileSmokeScene).
+
+Reset из load-error UI сохраняет повреждённые файлы с `.preserved-<guid>`;
+не применяется к неизвестным версиям. Для полного ручного сброса fixture testing
+при закрытом приложении переместить main и backup в отдельную папку; следующий
+старт создаёт новый профиль. Настоящий gameplay run не восстанавливается после
+жёсткого сбоя. UI semantic IDs — `GameplayUiElementIds.Meta*`, ресурс
+`UI/MetaScreen`; HP/DMG text placeholders без новых raster assets.

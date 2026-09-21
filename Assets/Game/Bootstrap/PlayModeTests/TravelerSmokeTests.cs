@@ -19,7 +19,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Traveler_FindKillCollectBook_PausePointersAndReset()
         {
-            SceneManager.LoadScene("Gameplay",LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root=Object.FindAnyObjectByType<GameplayCompositionRoot>();
             CharacterSelectionSmokeDriver.StartDefault(root);

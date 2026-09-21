@@ -1,0 +1,12 @@
+{
+  "name": "Game.Meta",
+  "references": [
+    "Game.Content",
+    "Game.Content.Json",
+    "Game.Character",
+    "Game.Progression",
+    "Game.Field",
+    "Game.Run",
+    "Newtonsoft.Json"
+  ]
+}

@@ -40,7 +40,7 @@ Repository/code показывает фактически реализованн
 |---|---|
 | CG-01 | Approval пяти документов и 121 существующей target-карточки получен. Старый blanket Draft blocker снят; новые непредусмотренные сущности и будущие proposals не получают approval автоматически. |
 | CG-02 | Production Wave / Encounter Content отсутствует; расписания каждого поля требуют полных согласованных данных. |
-| CG-03 | Meta prices/rewards/upgrades и часть unlock/exit rules не заполнены. Framework fixtures не утверждают production economy. |
+| CG-03 | Resolved — DECISION-0037: rewards/prices/upgrades/unlocks/exit policy определены; поставка JSON и profile runtime — IP-25. Прочие production data/art gates сохраняются. |
 | CG-04 | Оставшиеся tuning/timing значения, вероятности, thresholds и конкретные duration/intervals проверяются по используемым полям. Draft offer count уже равен 3 и больше не TBD. |
 | G-01…G-18, W-01 | Конкретные конфликты/пропуски и владельцы находятся в [DESIGN_SYNC](DESIGN_SYNC.md). Принятие плана не выбирает автоматически вариант решения открытого вопроса. |
 | AG-01 | Конкретный image/replacement approval, provenance и технические gates Asset Pipeline. Approval дизайна не означает approval ещё не созданного изображения. |

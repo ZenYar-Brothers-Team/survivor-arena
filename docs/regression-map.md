@@ -74,3 +74,11 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Deadline before damage/contact | `TravelerRuntimeTests.PeacefulContact_DoesNotDispatchPlayerCombat_ExpiredAttackerCannotHit`, `Spawn_TwoScreenHeights_KillDropsOneBook_TimeoutNone` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Guard не позволяет порядку FixedUpdate/Update продлить встречу или выдать Book после deadline. |
 | Support lifetime independent of source Update | `EnemyProtectionTests.Aura_DeadlineExpiresBeforeDamage_WithoutWaitingForSourceUpdate` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Deadline источника проверяется до damage/control, без лишнего кадра aura. |
 | Traveler telemetry position export | `TravelerTelemetryTests.Export_IncludesScheduleLifeAndPlainPosition_AndDisposeUnsubscribes` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Plain x/y предотвращают recursive Unity Vector2 serialization; dispose снимает events. |
+## IP-25 — regression guards
+
+| Риск | Тесты | Вид | Evidence |
+|---|---|---|---|
+| Stable keys изменены JSON naming strategy / повторные покупки | `MetaProfileTests.Purchase_InsufficientLockedDuplicateAndCap_DoNotOverspend`, `Modifiers_GlobalAndPersonal_AddWithoutMutatingPreviousRun` | EditMode | IP-25 в STATUS |
+| Повтор reward/Book после load/Retry и сбоя записи | `MetaProfileTests.Apply_ResultDuplicateAndReload_PayExactlyOnce`, `SaveFailure_PendingResultBlocksProgressAndRetriesWithoutDuplicate` | EditMode | IP-25 в STATUS |
+| View уничтожен до владельца при смене сцены | `MetaProgressionSmokeTests.ProfileAndSelectionViewDestroyedFirst_ShutdownIsSafe`, `FieldViewDestroyedFirst_ShutdownIsSafe` | PlayMode | IP-25 в STATUS |
+| Купленный бонус не применяется / применяется дважды | `MetaProgressionSmokeTests.Result_Purchase_Retry_AppliesUpgradeAndKeepsOneReward` | PlayMode | IP-25 в STATUS |

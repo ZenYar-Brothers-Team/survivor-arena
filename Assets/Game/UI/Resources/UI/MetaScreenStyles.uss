@@ -1,0 +1,12 @@
+.meta-launcher { position: absolute; right: 20px; top: 20px; flex-direction: row; }
+.meta-launcher Button { min-width: 150px; min-height: 38px; }
+.meta-body { position: absolute; left: 12%; right: 12%; top: 8%; bottom: 8%; background-color: rgb(25, 29, 36); color: rgb(237, 232, 212); padding: 28px; border-radius: 12px; }
+.meta-title { font-size: 32px; -unity-font-style: bold; margin-bottom: 12px; }
+.meta-summary { font-size: 22px; white-space: normal; }
+.meta-message { font-size: 18px; color: rgb(245, 195, 103); white-space: normal; margin-top: 12px; }
+.meta-cards { flex-grow: 1; margin-top: 16px; }
+.meta-card { margin-bottom: 12px; padding: 12px; background-color: rgb(40, 45, 52); }
+.meta-card Label { font-size: 19px; white-space: normal; }
+.meta-card Button { width: 170px; min-height: 32px; margin-top: 8px; }
+.meta-actions { flex-direction: row; flex-wrap: wrap; margin-top: 12px; }
+.meta-actions Button { min-width: 160px; min-height: 40px; margin-right: 12px; }

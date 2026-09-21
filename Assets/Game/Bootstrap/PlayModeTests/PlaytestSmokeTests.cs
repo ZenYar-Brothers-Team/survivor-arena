@@ -18,7 +18,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Gameplay_LethalHitExportsLinkedPacket_AndPlaytestUiStaysCollapsed()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             CharacterSelectionSmokeDriver.StartDefault(root);

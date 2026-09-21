@@ -18,7 +18,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             var run = Object.FindAnyObjectByType<RunController>();

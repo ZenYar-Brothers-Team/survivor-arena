@@ -20,7 +20,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator GameplayScene_ComposesLevelsUpAndResumes()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null;
             yield return null;
 

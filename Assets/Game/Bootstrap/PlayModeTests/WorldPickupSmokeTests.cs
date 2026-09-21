@@ -20,7 +20,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator WorldPickups_ContactHealingBookPauseHudTelemetryAndReinit()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             CharacterSelectionSmokeDriver.StartDefault(root); yield return null;
@@ -77,7 +77,7 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator WorldBook_SetBackfillThenEmptyCurrency_AndFullHpPotionProcsGuard()
         {
-            SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+            ProfileSmokeScene.Load();
             yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             CharacterSelectionSmokeDriver.StartDefault(root); yield return null;

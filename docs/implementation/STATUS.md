@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
 Current active module: none (IP-12A gameplay density review остаётся открытым)
-Next Ready module: none — IP-25 удерживают CG-03/G-15; production packets имеют собственные gates
+Next Ready module: none — IP-26 удерживает G-16; production packets имеют собственные gates
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -69,6 +69,24 @@ production packets имеют собственные data/art gates. Следу�
 нет: IP-25 удерживают CG-03/G-15, остальные незавершённые packets — свои dependencies
 и production/settings/art gates. Следующий planning packet — economy/reward/unlock
 правила IP-25; реализация следующих IP автоматически не начинается.
+Пользователь определил reward=5×level, Book=50, начисление при досрочном выходе,
+field clear=15 минут выживания и поручил самостоятельно выбрать остальные простые
+правила. DECISION-0037 Approved; GDD/CD/UI/IP и gates синхронизированы. IP-25 Ready:
+IP-01/IP-03/IP-12/IP-16/IP-10A Verified целевой ревизии, CG-03/G-15 resolved.
+Read-only проверка кода не нашла готового profile/checkpoint pipeline; hard-crash
+recovery не включён по условию «если это ничего не стоит». Это подготовка дизайна,
+не implementation evidence и не разрешение автоматически начинать реализацию.
+
+Запрос «продолжай» разрешил реализацию IP-25 по DECISION-0037. Разрешение ограничено этим модулем.
+
+IP-25 завершён по запросу «продолжай»: **624/624 Game.* EditMode, 18/18 PlayMode,
+0 skipped**, Unity 6000.6.0f1, 2026-09-21. Production economy JSON, persistent profile,
+reward/save idempotency и UI result→purchase→next run проверены. Runtime integration
+использует отдельный fixture catalog/profile; production gameplay/art не объявлены
+готовыми. Следующего Ready нет: IP-26 удерживает G-16 (settings/audio/shake);
+G-20 остаётся для production field UI. Следующий planning packet — правила настроек
+IP-26. Автоматически следующие IP не начинать.
+
 ## Execution order
 
 Выбирать первый Ready в этой таблице, если пользователь не назвал IP. Проверять prerequisites целевой ревизии и текущий packet. Таблица задаёт очередь; текущие статусы — в записях ниже.
@@ -312,7 +330,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-11)
 Status: Verified
 Dependencies: IP-07, IP-08, IP-09, IP-10A
 Current packet: Fixture character framework с отдельным baseline, ordered highlights и pre-run selection по approved DECISION-0026.
-Remaining gates: Нет для framework packet. Production G-14/G-15 остаются IP-22/IP-25; G-17/G-18 и image approval — IP-12A/IP-22. Fixture numbers/placeholders не являются production balance/art.
+Remaining gates: Нет для framework packet. Production G-14 остаётся IP-22; G-15 resolved по DECISION-0037, profile поставляет IP-25; G-17/G-18 и image approval — IP-12A/IP-22. Fixture numbers/placeholders не являются production balance/art.
 Remaining acceptance / IDs: none for the fixture framework packet.
 Target implementation evidence: [IP-12 evidence](evidence/design-sync-R2-2026-09-21-ip12.md#ip-12), [schema/API](modules/IP-12-character-framework.md#framework-api-и-fixture-schema).
 Target verification evidence: 2026-09-21 — Unity 6000.6.0f1, **439/439 Game.* EditMode, 6/6 PlayMode, 0 skipped**. Реальный selection→Sturdy loadout→Shutdown→Agile, locked rejection, baseline independence/highlights, weights и telemetry; [details](evidence/design-sync-R2-2026-09-21-ip12.md#coverage-and-verification).
@@ -372,7 +390,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-15)
 Status: Verified
 Dependencies: IP-02, IP-12, IP-14, IP-15, IP-10A
 Current packet: Два synthetic поля, typed refs/validation, profile access, Character→Field→Run/Back, immutable run identity и telemetry, fresh director/encounters/spawn reset.
-Remaining gates: Нет для fixture framework. G-14/G-15 production geometry/schedules/unlock interpretation и G-20 difficulty scale относятся к IP-23/IP-25/IP-26; placeholder thumbnail без image approval.
+Remaining gates: Нет для fixture framework. G-14 production geometry/schedules и G-20 difficulty scale относятся к IP-23/IP-26; G-15 resolved по DECISION-0037, profile поставляет IP-25; placeholder thumbnail без image approval.
 Remaining acceptance / IDs: none for fixture framework; FIELD-001…010 не поставлялись.
 Target implementation evidence: [IP-16 evidence](evidence/design-sync-R2-2026-09-21-ip16.md#ip-16), [schema/API](modules/IP-16-field-framework.md#framework-api-и-fixture-schema).
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1 — **538/538 Game.* EditMode, 12/12 PlayMode, 0 skipped**. Selection/locked/Back, typed refs/hooks, two-field reinit, release-safe snapshot, actual telemetry, player-only geometry и cancellation; [checks](evidence/design-sync-R2-2026-09-21-ip16.md#checks).
@@ -405,21 +423,22 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 ### IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Status: Blocked
+Status: Verified
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
-Blocked by: CG-03/G-15 — отсутствующие economy/reward/unlock semantics и production values.
-Remaining gates: CG-03/G-15: prices/rewards/upgrades/achievement conditions и Quit reward semantics. Framework fixtures отдельно от production economy.
-Remaining acceptance / IDs: Persistent profile/flow и production economy, rewards/prices/upgrades/unlocks; CG-03. Fixture framework не закрывает весь production scope.
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Current packet: Profile/economy по DECISION-0037; production JSON META-001…004 и 70 unlock definitions, отдельная fixture runtime integration и Meta UI.
+Remaining gates: Нет для этого packet; production gameplay/art принадлежат catalog IP. Hard-crash checkpoints исключены DECISION-0037.
+Remaining acceptance / IDs: none для profile/economy packet.
+Target implementation evidence: [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
+Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
+Documentation impact: IP-25 API/schema/save/reset и IP-26 consumers, regression map; GDD/CD правила DECISION-0037 сохранены. Fixture Book=50, новые raster assets не создавались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25).
 
 ### IP-26 — Functional UI и полный player flow
 
 Status: Blocked
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Blocked by: IP-25 (Blocked, target scope).
-Remaining gates: G-15/G-16: Quit/reward/failure ordering, real audio/shake/settings contract. Retry same character/field immediate уже утверждён.
+Blocked by: G-16 — settings persistence/apply/failure, audio routing и screen shake contract. Prerequisite IP-25 выполнен.
+Remaining gates: G-16: real audio/shake/settings contract; G-15 resolved по DECISION-0037. Retry same character/field immediate уже утверждён.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-26-functional-ui.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
@@ -485,7 +504,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21)
 Status: Blocked
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
-Remaining gates: G-14/G-15: weights/unlock metadata; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
+Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
 Remaining acceptance / IDs: CHAR-001…010, complete stats/loadouts/weights и body/selection art.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
@@ -496,7 +515,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22)
 Status: Blocked
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
-Remaining gates: G-14/G-15: geometry/enemy pools/difficulty и unlock conditions. Весь approved mapping переносится, numeric schedules отдельно.
+Remaining gates: G-14: geometry/enemy pools; G-20 difficulty; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
 Remaining acceptance / IDs: FIELD-001…010, geometry/metadata/kits/thumbnails.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
@@ -528,7 +547,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-30 (Blocked, target scope).
+Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-26 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

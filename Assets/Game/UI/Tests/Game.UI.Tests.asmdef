@@ -1,34 +1,36 @@
 {
-    "name": "Game.UI.Tests",
-    "rootNamespace": "Game.UI.Tests",
-    "references": [
-        "Game.UI",
-        "Game.Content",
-        "Game.Pickup", "Game.Traveler",
-        "Game.Field",
-        "Game.Enemy",
-        "Game.Progression",
-        "Game.Character",
-        "Game.Run",
-        "Game.Presentation",
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "Game.Combat",
-        "Game.Telemetry"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "nunit.framework.dll"
-    ],
-    "autoReferenced": true,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.UI.Tests",
+  "rootNamespace": "Game.UI.Tests",
+  "references": [
+    "Game.UI",
+    "Game.Content",
+    "Game.Pickup",
+    "Game.Traveler",
+    "Game.Field",
+    "Game.Enemy",
+    "Game.Progression",
+    "Game.Character",
+    "Game.Run",
+    "Game.Presentation",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "Game.Combat",
+    "Game.Telemetry",
+    "Game.Meta"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

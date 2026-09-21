@@ -1,3 +1,6 @@
+using Game.Meta;
+using System.Threading.Tasks;
+using System.IO;
 using System.Linq;
 using Game.Traveler;
 using System;
@@ -19,7 +22,7 @@ namespace Game.Bootstrap
 {
     [DefaultExecutionOrder(-1000)]
     [DisallowMultipleComponent]
-    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher, IFieldRunLauncher
+    public sealed class GameplayCompositionRoot : MonoBehaviour, ICharacterRunLauncher, IFieldRunLauncher, IProfileNavigation
     {
         [SerializeField]
         private RunController runController;
@@ -68,11 +71,54 @@ namespace Game.Bootstrap
         public WorldPickupRuntime Pickups { get; private set; }
         public TravelerEncounterRuntime Travelers { get; private set; }
 
-        private void Start()
+        public IProfileService Profile { get; private set; }
+        private ProfileRunBinding _profileBinding;
+        private MetaScreen _metaScreen;
+        private MetaPresenter _metaPresenter;
+        private bool _allowQuit;
+        public UnityEngine.UIElements.UIDocument ProfileDocument => _metaScreen?.Document;
+        public Task<bool> ProfileSaveTask => _profileBinding?.SaveTask ?? Task.FromResult(true);
+
+        public void ConfigureProfile(IProfileService profile)
+        {
+            if (Profile != null || IsInitialized) throw new InvalidOperationException("Profile already configured.");
+            Profile = profile ?? throw new ArgumentNullException(nameof(profile));
+        }
+        private void EnsureProfileScreen()
+        {
+            if (Profile == null)
+            {
+                Profile = new ProfileService(MetaCatalog.Load(true), new MemoryProfileStore());
+                // Explicit test/composition entry points use isolated memory, never a user's save.
+                Profile.LoadAsync().GetAwaiter().GetResult();
+            }
+            if (_metaScreen != null) return;
+            _metaScreen = new MetaScreen(transform);
+            _metaPresenter = new MetaPresenter(Profile, _metaScreen, this);
+        }
+        private void SuspendForSelection()
+        {
+            if (_waitingComponents != null) return;
+            _waitingComponents = new Behaviour[] { runController, player, playerPresentation, experienceRuntime,
+                draftRuntime, activeSkillRuntime, passiveRuntime, enemySpawner, gameplayUiRoot };
+            _previousEnabled = new bool[_waitingComponents.Length];
+            for (var i = 0; i < _waitingComponents.Length; i++)
+            { _previousEnabled[i] = _waitingComponents[i].enabled; _waitingComponents[i].enabled = false; }
+        }
+        private async void Start()
         {
             try
             {
-                if (!IsInitialized) OpenCharacterSelection();
+                if (IsInitialized) return;
+                ValidateSceneReferences();
+                SuspendForSelection();
+                if (Profile == null) Profile = new ProfileService(MetaCatalog.Load(true),
+                    new FileProfileStore(Path.Combine(Application.persistentDataPath, "fixture-profile-v1.json")));
+                EnsureProfileScreen();
+                Application.wantsToQuit += WantsToQuit;
+                await Profile.LoadAsync();
+                if (this == null || !isActiveAndEnabled) return;
+                if (Profile.CanStart) OpenCharacterSelection();
             }
             catch (Exception exception)
             {
@@ -85,25 +131,18 @@ namespace Game.Bootstrap
         {
             if (IsInitialized) throw new InvalidOperationException("Shut down the current run before selecting another character.");
             ValidateSceneReferences();
+            EnsureProfileScreen();
+            if (!Profile.CanStart) throw new InvalidOperationException("Profile must be saved before selection.");
+            _metaPresenter.ClearResult();
             Catalog = FixtureRuntimeContentCatalog.Create();
             _fieldScreen?.Dispose();
             _fieldScreen = null;
             FieldSelection = null;
-            _fieldRoster = fieldAccess == null ? Catalog.Fields.Roster : new FieldRoster(Catalog.Fields.Roster.AllFields, fieldAccess);
+            _fieldRoster = new FieldRoster(Catalog.Fields.Roster.AllFields, fieldAccess ?? new ProfileAccessProvider(Profile));
             _selectionScreen?.Dispose();
             _selectionScreen = null;
-            if (_waitingComponents == null)
-            {
-                _waitingComponents = new Behaviour[] { runController, player, playerPresentation, experienceRuntime,
-                    draftRuntime, activeSkillRuntime, passiveRuntime, enemySpawner, gameplayUiRoot };
-                _previousEnabled = new bool[_waitingComponents.Length];
-                for (var i = 0; i < _waitingComponents.Length; i++)
-                {
-                    _previousEnabled[i] = _waitingComponents[i].enabled;
-                    _waitingComponents[i].enabled = false;
-                }
-            }
-            var roster = access == null ? Catalog.Characters : new CharacterRoster(Catalog.Characters.AllCharacters, access);
+            SuspendForSelection();
+            var roster = new CharacterRoster(Catalog.Characters.AllCharacters, access ?? new ProfileAccessProvider(Profile));
             Selection = new CharacterSelectionSession(roster, Catalog.RunSetup.StartingCharacterId, this);
             _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry);
         }
@@ -158,14 +197,16 @@ namespace Game.Bootstrap
             if (IsInitialized)
                 throw new InvalidOperationException("Gameplay composition root is already initialized.");
             ValidateSceneReferences();
+            EnsureProfileScreen();
+            if (!Profile.CanStart) throw new InvalidOperationException("Profile must be saved before starting a run.");
 
             // Run parameters (starting character, draft settings, XP curve) are content,
             // validated by their domain types when the catalog loads.
             Catalog = FixtureRuntimeContentCatalog.Create();
             var setup = Catalog.RunSetup;
-            if (!(roster ?? Catalog.Characters).TrySelect(characterId, out var selectedCharacter))
+            if (!(roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).TrySelect(characterId, out var selectedCharacter))
                 throw new InvalidOperationException($"Character '{characterId}' is locked or missing.");
-            if (!(fields ?? Catalog.Fields.Roster).TrySelect(fieldId ?? Catalog.Fields.DefaultFieldId, out var selectedField))
+            if (!(fields ?? new FieldRoster(Catalog.Fields.Roster.AllFields, new ProfileAccessProvider(Profile))).TrySelect(fieldId ?? Catalog.Fields.DefaultFieldId, out var selectedField))
                 throw new InvalidOperationException("Field is locked or missing.");
             var configuration = selectedField.Resolve(Catalog.Registry);
             if (configuration.Travelers != null && configuration.Travelers is not TravelerScheduleDefinition)
@@ -188,7 +229,7 @@ namespace Game.Bootstrap
                 player.transform.position = spawn.position;
                 if (body != null) { body.position = spawn.position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
                 initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
-                player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id);
+                player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id, Profile.Modifier(selectedCharacter.Id.ToString()));
                 initializedSubsystems.Add(player.Shutdown);
 
                 if (!selectedCharacter.Visual.Id.IsValid || !selectedCharacter.MotionProfile.Id.IsValid)
@@ -215,7 +256,7 @@ namespace Game.Bootstrap
                 draftRuntime.Initialize(
                     experienceRuntime,
                     runController,
-                    Catalog.BuildEntries,
+                    Catalog.BuildEntries.Where(entry => Profile.IsUnlocked(entry.Id.ToString())),
                     selectedCharacter,
                     Catalog.Registry,
                     setup.Draft.OfferCount,
@@ -224,7 +265,7 @@ namespace Game.Bootstrap
                     setup.Draft.InitialBanishes,
                     Catalog.Sets,
                     new SetEffectAbilityFactory(_setEffects),
-                    setup.Draft.EmptyBookCurrency,
+                    checked((int)Profile.Catalog.EmptyBookReward),
                     new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance));
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
@@ -300,6 +341,9 @@ namespace Game.Bootstrap
                     Playtest,
                     BossEncounters, Pickups, Travelers);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
+                _profileBinding = new ProfileRunBinding(runController.Model, Profile);
+                initializedSubsystems.Add(_profileBinding.Dispose);
+                runController.Model.Completed += ShowProfileResult;
             }
             catch
             {
@@ -341,6 +385,8 @@ namespace Game.Bootstrap
             player.ShuttingDown -= Shutdown;
             // Capture required Results while every contributor is still alive, then diagnostics.
             runController.Shutdown();
+            runController.Model.Completed -= ShowProfileResult;
+            _profileBinding?.Dispose();
             gameplayUiRoot.Shutdown();
             if (Playtest is PlaytestSession session) session.Dispose();
             BossEncounters?.Shutdown();
@@ -358,7 +404,54 @@ namespace Game.Bootstrap
             FieldConfiguration = null;
         }
 
+        private void ShowProfileResult(RunOutcome result) => _metaPresenter?.ShowResult(result);
+        public void QuitProfileRun() { if (IsInitialized) runController.Model.Stop(); }
+        public void RetryProfileRun()
+        {
+            if (!Profile.CanStart || runController.Model.Outcome?.Selection == null) return;
+            var selection = runController.Model.Outcome.Selection;
+            Shutdown();
+            _metaPresenter.ClearResult();
+            Initialize(selection.CharacterId, null, selection.FieldId);
+            RestoreWaitingComponents();
+            runController.Model.Start();
+        }
+        public void ReturnToProfileSelection()
+        {
+            if (!Profile.CanStart) return;
+            Shutdown(); _metaPresenter.ClearResult(); OpenCharacterSelection();
+        }
+        private bool _quitRequested;
+        private bool WantsToQuit()
+        {
+            if (_allowQuit || Profile == null || !Profile.RunActive && Profile.State != ProfileState.Saving) return true;
+            if (!_quitRequested)
+            {
+                _quitRequested = true;
+                if (Profile.RunActive) runController.Model.Stop();
+                FinishQuitAsync();
+            }
+            return false;
+        }
+        private async void FinishQuitAsync()
+        {
+            if (Profile.State == ProfileState.Saving)
+            {
+                var completed = new TaskCompletionSource<bool>();
+                void Changed() { if (Profile.State != ProfileState.Saving) completed.TrySetResult(true); }
+                Profile.Changed += Changed;
+                try { Changed(); await completed.Task; }
+                finally { Profile.Changed -= Changed; }
+            }
+            // Closing is still allowed after a failed best-effort save (DECISION-0037).
+            _allowQuit = true;
+            Application.Quit();
+        }
         private void OnDisable() => Shutdown();
-        private void OnDestroy() => Shutdown();
+        private void OnDestroy()
+        {
+            Application.wantsToQuit -= WantsToQuit;
+            Shutdown(); _metaPresenter?.Dispose(); _metaScreen?.Dispose();
+        }
     }
 }
