@@ -77,6 +77,24 @@ namespace Game.Progression.Tests
             Assert.AreEqual(1, _passives.PassiveCount);
         }
 
+        [Test]
+        public void Initialize_RepeatedAndAfterShutdown_ReplacesCatalogWithoutStacking()
+        {
+            var catalog = FixturePassiveCatalog.Create();
+            _draft.Build.Apply(catalog[0]);
+            _passives.Initialize(_player, _draft, catalog);
+            _passives.Initialize(_player, _draft, catalog);
+            Assert.AreEqual(110f, _player.Stats.MaxHealth, 0.001f);
+            Assert.AreEqual(1, _player.Stats.ModifierCount);
+            _passives.Shutdown();
+            _passives.Shutdown();
+            Assert.AreEqual(100f, _player.Stats.MaxHealth);
+            _draft.Build.Apply(catalog[0]);
+            _passives.Initialize(_player, _draft, catalog);
+            Assert.AreEqual(120f, _player.Stats.MaxHealth, 0.001f);
+            Assert.AreEqual(1, _player.Stats.ModifierCount);
+        }
+
         private static BuildEntryDefinition Passive(string id) =>
             new BuildEntryDefinition(id, BuildEntryKind.PassiveItem, id);
 

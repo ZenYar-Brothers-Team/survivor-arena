@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Game.Character;
 using Game.Combat;
 using Game.Enemy;
@@ -168,6 +169,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(xpBeforeBook, experience.Progression.CurrentExperience, 0.0001f);
             Assert.GreaterOrEqual(Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount, 1);
             Assert.AreNotEqual("—", passiveSlots[0].Q<Label>().text);
+            Assert.IsNotEmpty(passiveSlots[0].Q<Label>().tooltip);
 
             experience.AddPickedUpExperience(15f);
             Assert.IsTrue(draft.IsDraftOpen);
@@ -180,6 +182,22 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreNotEqual(banishedId, option.Definition.Id);
             Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
             Assert.AreEqual(RunState.Running, run.Model.State);
+            // IP-09 fixture state: acquire a dynamic passive through the existing build/runtime,
+            // then let an ordinary selection publish the updated build to the real UI.
+            var lowHealth = root.Catalog.Passives.Single(x => x.Id.ToString() == "FIXTURE-PASSIVE-LOW-HEALTH");
+            draft.Build.Apply(lowHealth);
+            Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().Initialize(player, draft, root.Catalog.Passives);
+            Assert.IsTrue(draft.RequestBook(System.Guid.NewGuid(), run.Model.RunId, new Game.Content.ContentId("FIXTURE-BOOK")));
+            Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
+            player.Heal(player.Health.MaxHealth);
+            var fullHealthDetail = passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip;
+            StringAssert.Contains("Current low-HP damage: x1", fullHealthDetail);
+            player.TakeDamage(player.Health.MaxHealth * 0.9f / player.Stats.IncomingDamageMultiplier);
+            var lowHealthDetail = passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip;
+            Assert.AreNotEqual(fullHealthDetail, lowHealthDetail);
+            player.Heal(player.Health.MaxHealth);
+            Assert.AreEqual(fullHealthDetail, passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip);
+
             var enemySpawner = Object.FindAnyObjectByType<ContinuousFixtureEnemySpawner>();
             enemySpawner.Tick(run.Model.Elapsed, enemySpawner.Director.CurrentPhase.SpawnIntervalSeconds, true);
             var spawnedEnemy = enemySpawner.GetComponentInChildren<EnemyRuntime>();

@@ -108,7 +108,8 @@ namespace Game.UI
                     sets.Add(new SetBuildViewState(entry.Definition.DisplayName));
                     continue;
                 }
-                var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true);
+                var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
+                    BuildPassiveDetail(entry));
                 if (entry.Definition.Kind == BuildEntryKind.ActiveSkill)
                     active.Add(slot);
                 else
@@ -141,6 +142,22 @@ namespace Game.UI
             }
 
             return new BuildViewState(active, passive, sets, progress);
+        }
+
+        private string BuildPassiveDetail(BuildEntry entry)
+        {
+            if (!(entry.Definition is PassiveProgressionDefinition definition)) return string.Empty;
+            var detail = new StringBuilder();
+            foreach (var value in definition.CreateDraftPreview(0, entry.Level).Values)
+            {
+                if (detail.Length > 0) detail.Append("\n");
+                detail.Append(value.Label).Append(": ")
+                    .Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
+            }
+            if (definition.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0f && _model.Stats != null)
+                detail.Append("\nCurrent low-HP damage: x")
+                    .Append(_model.Stats.LowHealthDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture));
+            return detail.ToString();
         }
 
         private int CountFulfilledComponents(SetDefinition definition)

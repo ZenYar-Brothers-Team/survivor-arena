@@ -286,7 +286,8 @@ namespace Game.UI
                 var slot = slots[i];
                 var label = new Label(slot.IsOccupied ? $"{slot.Title}  Lv.{slot.Level}" : "—")
                 {
-                    name = active ? GameplayUiElementIds.ActiveSlot(i) : GameplayUiElementIds.PassiveSlot(i)
+                    name = active ? GameplayUiElementIds.ActiveSlot(i) : GameplayUiElementIds.PassiveSlot(i),
+                    tooltip = slot.Detail
                 };
                 label.AddToClassList("build-slot");
                 if (!slot.IsOccupied)

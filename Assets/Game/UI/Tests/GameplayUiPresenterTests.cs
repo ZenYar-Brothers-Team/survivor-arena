@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Character;
 using Game.Content;
 using Game.Enemy;
@@ -182,6 +183,34 @@ namespace Game.UI.Tests
             Assert.AreEqual(1, model.BookCalls);
         }
 
+        [Test]
+        public void PassiveDetails_InReleaseModeRefreshLowHealthWithoutMutatingOldSnapshot()
+        {
+            var model = CreateModel();
+            model.DevelopmentCommandsEnabled = false;
+            var definition = FixturePassiveCatalog.Create().Single(x => x.Id.ToString() == "FIXTURE-PASSIVE-LOW-HEALTH");
+            var build = new PlayerBuild(new BuildEntryDefinition("FIXTURE-SKILL-UI", BuildEntryKind.ActiveSkill, "Skill"));
+            build.Apply(definition);
+            model.BuildEntries = new List<BuildEntry>(build.Entries);
+            var stats = new CharacterStats(new CharacterBaseStats(100f, 3f));
+            stats.SetModifier("passive", definition.GetLevel(1));
+            model.Stats = new CharacterStatsViewState(stats);
+            var view = new FakeView();
+            using (var presenter = new GameplayUiPresenter(model, view))
+            {
+                presenter.Start();
+                var previous = view.Build.PassiveSlots[0];
+                StringAssert.Contains("Max low-HP damage: 15%", previous.Detail);
+                StringAssert.Contains("Current low-HP damage: x1", previous.Detail);
+                stats.UpdateHealthRatio(0.1f);
+                model.Stats = new CharacterStatsViewState(stats);
+                presenter.RefreshAll();
+                StringAssert.Contains("Current low-HP damage: x1.15", view.Build.PassiveSlots[0].Detail);
+                Assert.AreNotEqual(previous.Detail, view.Build.PassiveSlots[0].Detail);
+                Assert.AreEqual(6, view.Build.PassiveSlots.Count);
+            }
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -227,7 +256,7 @@ namespace Game.UI.Tests
             public float ExperienceProgress01 { get; set; }
             public int Level { get; set; }
             public float ElapsedSeconds { get; set; }
-            public CharacterStatsViewState Stats { get; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
+            public CharacterStatsViewState Stats { get; set; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
             public bool IsDraftOpen { get; set; }
             public Guid DraftRevision { get; set; } = Guid.NewGuid();

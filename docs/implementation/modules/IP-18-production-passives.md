@@ -51,3 +51,7 @@ G-08/G-09 закрыты DECISION-0017; G-10 и полные значения 14
 ## Потребители
 
 [IP-19](IP-19-production-sets.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Контракт framework для production mappings
+
+Использовать [таблицу IP-09](IP-09-passive-framework.md#stat-applicability-и-владельцы-defaults). PASSIVE-007 задаёт только `pickupRadiusMultiplierBonus`; generic lifetime остаётся технической возможностью, без production item. PASSIVE-002 одновременно задаёт regeneration и относительный potion multiplier; cap/roll проверяет IP-28. Все L1…L6 — итоговые значения, заменяющие keyed modifier. Feature preview и slot descriptions уже читают эти каналы; production icons/definitions и per-ID verification поставляются здесь.

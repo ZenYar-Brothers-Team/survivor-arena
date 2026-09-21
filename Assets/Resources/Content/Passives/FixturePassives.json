@@ -3,36 +3,270 @@
     "id": "FIXTURE-PASSIVE-VITALITY",
     "displayName": "Fixture Vitality",
     "levels": [
-      { "maxHealthMultiplierBonus": 0.1 },
-      { "maxHealthMultiplierBonus": 0.2 },
-      { "maxHealthMultiplierBonus": 0.3 },
-      { "maxHealthMultiplierBonus": 0.4 },
-      { "maxHealthMultiplierBonus": 0.5 },
-      { "maxHealthMultiplierBonus": 0.6 }
+      {
+        "maxHealthMultiplierBonus": 0.1
+      },
+      {
+        "maxHealthMultiplierBonus": 0.2
+      },
+      {
+        "maxHealthMultiplierBonus": 0.3
+      },
+      {
+        "maxHealthMultiplierBonus": 0.4
+      },
+      {
+        "maxHealthMultiplierBonus": 0.5
+      },
+      {
+        "maxHealthMultiplierBonus": 0.6
+      }
     ]
   },
   {
     "id": "FIXTURE-PASSIVE-HASTE",
     "displayName": "Fixture Haste",
     "levels": [
-      { "movementSpeedMultiplierBonus": 0.05, "activeSkillDamageMultiplierBonus": 0.05, "actionSpeedBonus": 0.1 },
-      { "movementSpeedMultiplierBonus": 0.10, "activeSkillDamageMultiplierBonus": 0.10, "actionSpeedBonus": 0.2 },
-      { "movementSpeedMultiplierBonus": 0.15, "activeSkillDamageMultiplierBonus": 0.15, "actionSpeedBonus": 0.3 },
-      { "movementSpeedMultiplierBonus": 0.20, "activeSkillDamageMultiplierBonus": 0.20, "actionSpeedBonus": 0.4 },
-      { "movementSpeedMultiplierBonus": 0.25, "activeSkillDamageMultiplierBonus": 0.25, "actionSpeedBonus": 0.5 },
-      { "movementSpeedMultiplierBonus": 0.30, "activeSkillDamageMultiplierBonus": 0.30, "actionSpeedBonus": 0.6 }
+      {
+        "movementSpeedMultiplierBonus": 0.05,
+        "activeSkillDamageMultiplierBonus": 0.05,
+        "actionSpeedBonus": 0.1
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.1,
+        "activeSkillDamageMultiplierBonus": 0.1,
+        "actionSpeedBonus": 0.2
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.15,
+        "activeSkillDamageMultiplierBonus": 0.15,
+        "actionSpeedBonus": 0.3
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.2,
+        "activeSkillDamageMultiplierBonus": 0.2,
+        "actionSpeedBonus": 0.4
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.25,
+        "activeSkillDamageMultiplierBonus": 0.25,
+        "actionSpeedBonus": 0.5
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.3,
+        "activeSkillDamageMultiplierBonus": 0.3,
+        "actionSpeedBonus": 0.6
+      }
     ]
   },
   {
     "id": "FIXTURE-PASSIVE-MEMORY",
     "displayName": "Fixture Memory",
     "levels": [
-      { "incomingDamageReductionBonus": 0.05, "healthRestorationMultiplierBonus": 0.1, "healthRegenerationPerSecondBonus": 0.2, "disappearingXpRecoveryBonus": 0.1, "pickedUpXpMultiplierBonus": 0.05, "xpDropLifetimeBonusSeconds": 5.0 },
-      { "incomingDamageReductionBonus": 0.10, "healthRestorationMultiplierBonus": 0.2, "healthRegenerationPerSecondBonus": 0.4, "disappearingXpRecoveryBonus": 0.2, "pickedUpXpMultiplierBonus": 0.10, "xpDropLifetimeBonusSeconds": 10.0 },
-      { "incomingDamageReductionBonus": 0.15, "healthRestorationMultiplierBonus": 0.3, "healthRegenerationPerSecondBonus": 0.6, "disappearingXpRecoveryBonus": 0.3, "pickedUpXpMultiplierBonus": 0.15, "xpDropLifetimeBonusSeconds": 15.0 },
-      { "incomingDamageReductionBonus": 0.20, "healthRestorationMultiplierBonus": 0.4, "healthRegenerationPerSecondBonus": 0.8, "disappearingXpRecoveryBonus": 0.4, "pickedUpXpMultiplierBonus": 0.20, "xpDropLifetimeBonusSeconds": 20.0 },
-      { "incomingDamageReductionBonus": 0.25, "healthRestorationMultiplierBonus": 0.5, "healthRegenerationPerSecondBonus": 1.0, "disappearingXpRecoveryBonus": 0.5, "pickedUpXpMultiplierBonus": 0.25, "xpDropLifetimeBonusSeconds": 25.0 },
-      { "incomingDamageReductionBonus": 0.30, "healthRestorationMultiplierBonus": 0.6, "healthRegenerationPerSecondBonus": 1.2, "disappearingXpRecoveryBonus": 0.6, "pickedUpXpMultiplierBonus": 0.30, "xpDropLifetimeBonusSeconds": 30.0 }
+      {
+        "incomingDamageReductionBonus": 0.05,
+        "healthRestorationMultiplierBonus": 0.1,
+        "healthRegenerationPerSecondBonus": 0.2,
+        "disappearingXpRecoveryBonus": 0.1,
+        "pickedUpXpMultiplierBonus": 0.05,
+        "xpDropLifetimeBonusSeconds": 5.0
+      },
+      {
+        "incomingDamageReductionBonus": 0.1,
+        "healthRestorationMultiplierBonus": 0.2,
+        "healthRegenerationPerSecondBonus": 0.4,
+        "disappearingXpRecoveryBonus": 0.2,
+        "pickedUpXpMultiplierBonus": 0.1,
+        "xpDropLifetimeBonusSeconds": 10.0
+      },
+      {
+        "incomingDamageReductionBonus": 0.15,
+        "healthRestorationMultiplierBonus": 0.3,
+        "healthRegenerationPerSecondBonus": 0.6,
+        "disappearingXpRecoveryBonus": 0.3,
+        "pickedUpXpMultiplierBonus": 0.15,
+        "xpDropLifetimeBonusSeconds": 15.0
+      },
+      {
+        "incomingDamageReductionBonus": 0.2,
+        "healthRestorationMultiplierBonus": 0.4,
+        "healthRegenerationPerSecondBonus": 0.8,
+        "disappearingXpRecoveryBonus": 0.4,
+        "pickedUpXpMultiplierBonus": 0.2,
+        "xpDropLifetimeBonusSeconds": 20.0
+      },
+      {
+        "incomingDamageReductionBonus": 0.25,
+        "healthRestorationMultiplierBonus": 0.5,
+        "healthRegenerationPerSecondBonus": 1.0,
+        "disappearingXpRecoveryBonus": 0.5,
+        "pickedUpXpMultiplierBonus": 0.25,
+        "xpDropLifetimeBonusSeconds": 25.0
+      },
+      {
+        "incomingDamageReductionBonus": 0.3,
+        "healthRestorationMultiplierBonus": 0.6,
+        "healthRegenerationPerSecondBonus": 1.2,
+        "disappearingXpRecoveryBonus": 0.6,
+        "pickedUpXpMultiplierBonus": 0.3,
+        "xpDropLifetimeBonusSeconds": 30.0
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-COLLECTOR",
+    "displayName": "Fixture Collector",
+    "levels": [
+      {
+        "healthRegenerationPerSecondBonus": 0.2,
+        "potionDropMultiplierBonus": 0.1
+      },
+      {
+        "healthRegenerationPerSecondBonus": 0.4,
+        "potionDropMultiplierBonus": 0.2
+      },
+      {
+        "healthRegenerationPerSecondBonus": 0.7,
+        "potionDropMultiplierBonus": 0.3
+      },
+      {
+        "healthRegenerationPerSecondBonus": 1,
+        "potionDropMultiplierBonus": 0.4
+      },
+      {
+        "healthRegenerationPerSecondBonus": 1.4,
+        "potionDropMultiplierBonus": 0.5
+      },
+      {
+        "healthRegenerationPerSecondBonus": 2,
+        "potionDropMultiplierBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-PICKUP-RADIUS",
+    "displayName": "Fixture Pickup Radius",
+    "levels": [
+      {
+        "pickupRadiusMultiplierBonus": 0.1
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.2
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.3
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.4
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.5
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-KNOCKBACK",
+    "displayName": "Fixture Knockback",
+    "levels": [
+      {
+        "knockbackResistanceBonus": 0.1,
+        "outgoingKnockbackBonus": 0.1
+      },
+      {
+        "knockbackResistanceBonus": 0.2,
+        "outgoingKnockbackBonus": 0.2
+      },
+      {
+        "knockbackResistanceBonus": 0.3,
+        "outgoingKnockbackBonus": 0.3
+      },
+      {
+        "knockbackResistanceBonus": 0.4,
+        "outgoingKnockbackBonus": 0.4
+      },
+      {
+        "knockbackResistanceBonus": 0.5,
+        "outgoingKnockbackBonus": 0.5
+      },
+      {
+        "knockbackResistanceBonus": 0.6,
+        "outgoingKnockbackBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-SIZE",
+    "displayName": "Fixture Size",
+    "levels": [
+      {
+        "effectSizeMultiplierBonus": 0.05
+      },
+      {
+        "effectSizeMultiplierBonus": 0.1
+      },
+      {
+        "effectSizeMultiplierBonus": 0.15
+      },
+      {
+        "effectSizeMultiplierBonus": 0.2
+      },
+      {
+        "effectSizeMultiplierBonus": 0.25
+      },
+      {
+        "effectSizeMultiplierBonus": 0.3
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-RANGE",
+    "displayName": "Fixture Range",
+    "levels": [
+      {
+        "effectRangeMultiplierBonus": 0.08
+      },
+      {
+        "effectRangeMultiplierBonus": 0.16
+      },
+      {
+        "effectRangeMultiplierBonus": 0.24
+      },
+      {
+        "effectRangeMultiplierBonus": 0.32
+      },
+      {
+        "effectRangeMultiplierBonus": 0.4
+      },
+      {
+        "effectRangeMultiplierBonus": 0.5
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-PASSIVE-LOW-HEALTH",
+    "displayName": "Fixture Low Health",
+    "levels": [
+      {
+        "lowHealthDamageMaxBonus": 0.15
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.25
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.35
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.45
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.55
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.7
+      }
     ]
   }
 ]

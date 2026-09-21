@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-21
 Plan revision: design-sync-R2
-Current active module: none (paused after IP-08 by user request)
-Next Ready module: IP-09 (paused; do not start until user resumes)
+Current active module: none (IP-09 completed)
+Next Ready module: IP-13 (outside retained stop boundary before IP-31; no Ready in permitted segment)
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -13,9 +13,9 @@ M-01: зарегистрирован принятый план и выполне
 
 ## Граница текущего продолжения
 
-IP-01, IP-03…IP-08 проверены для design-sync-R2; IP-00/IP-02 сохранены. Последняя проверка 2026-09-21: 364/364 Game.* EditMode, 2/2 PlayMode, 0 skipped (Unity 6000.6.0f1). G-01/G-03 draft semantics закрыты DECISION-0019/0020: uniform set backfill, общая очередь, только пустая при подборе Книга немедленно начисляет валюту. Production сумма и pickup content не объявлены готовыми.
+IP-01, IP-03…IP-09 проверены для design-sync-R2; IP-00/IP-02 сохранены. Последняя проверка 2026-09-21: 369/369 Game.* EditMode, 2/2 PlayMode, 0 skipped (Unity 6000.6.0f1). G-01/G-03 draft semantics закрыты DECISION-0019/0020: uniform set backfill, общая очередь, только пустая при подборе Книга немедленно начисляет валюту. Production сумма и pickup content не объявлены готовыми.
 
-IP-08 завершён и проверен. По последнему указанию пользователя работа поставлена на паузу после этого пункта. IP-09 и последующие модули не начинать до возобновления пользователем; прежняя граница перед IP-31 сохраняется для будущего продолжения.
+IP-09 завершён и проверен по запросу пользователя реализовать следующий пункт. Scope этого продолжения завершён; IP-10 остаётся Blocked по G-02. В разрешённом отрезке Ready нет. IP-13 — следующий Ready по таблице, но находится за сохранённой пользовательской границей перед IP-31.
 
 ## Execution order
 
@@ -186,13 +186,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-08)
 
 ### IP-09 — Passive modifiers и новые stat effects
 
-Status: Ready
+Status: Verified
 Dependencies: IP-03, IP-06, IP-07, IP-08
-Current packet: Все framework prerequisites проверены; готов к реализации после снятия пользовательской паузы.
-Remaining gates: G-08/G-09 resolved by DECISION-0017; potion cap G-10 относится к actual roll IP-28. Утверждённые formulas и final level values не пересогласуются.
-Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-09-passive-framework.md).
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Current packet: Framework compatibility matrix PASSIVE-001…014; 9 non-production fixture definitions L1…L6, keyed lifecycle и slot descriptions.
+Remaining gates: Нет для framework; actual potion roll/cap G-10 — IP-28, production definitions/icons — IP-18.
+Remaining acceptance / IDs: Нет для обязательного framework scope; production PASSIVE-001…014 не зарегистрированы.
+Target implementation evidence: Channels/migration/default ownership, reinitialize cleanup и dynamic UI — [IP-09 evidence](evidence/design-sync-R2-2026-09-21-ip09.md#ip-09).
+Target verification evidence: 2026-09-21, Unity 6000.6.0f1: Game.* EditMode 369/369, PlayMode 2/2 passed, 0 skipped. Условия и coverage — по ссылке выше.
+Documentation impact: IP-09 mapping/defaults и PASSIVE-007 migration, IP-18 consumer contract, regression map и готовность потребителей синхронизированы. GDD/CD и production balance не изменены.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-09).
 
 ### IP-10 — Reroll/banish для обновлённого драфта
@@ -242,7 +243,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-32)
 
 Status: Blocked
 Dependencies: IP-07, IP-08, IP-09, IP-10, IP-10A
-Blocked by: IP-09 (Ready, target scope), IP-10 (Blocked, target scope), IP-10A (Blocked, target scope).
+Blocked by: IP-10 (Blocked, target scope), IP-10A (Blocked, target scope).
 Remaining gates: G-08 закрыт DECISION-0017. G-02/G-04/G-05/G-13: processing order/reroll-banish policies (Book pool уже определён DECISION-0020), disc-return и trash-explosion conflicts, modifier applicability, exact thresholds/effect values. Framework fixtures не назначают production значения.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-11-set-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -253,7 +254,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-11)
 
 Status: Blocked
 Dependencies: IP-07, IP-08, IP-09, IP-10A
-Blocked by: IP-09 (Ready, target scope), IP-10A (Blocked, target scope).
+Blocked by: IP-10A (Blocked, target scope).
 Remaining gates: G-14/G-15: numeric weights, unlock completion semantics и baseline display metadata при незаполненности; renderer не придумывает их.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-12-character-framework.md).
 Target implementation evidence: Нет для новых требований.
@@ -319,7 +320,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-16)
 
 Status: Blocked
 Dependencies: IP-05, IP-06, IP-07, IP-09, IP-10, IP-11, IP-12A
-Blocked by: IP-09 (Ready, target scope), IP-10 (Blocked, target scope), IP-11 (Blocked, target scope), IP-12A (Blocked, target scope).
+Blocked by: IP-10 (Blocked, target scope), IP-11 (Blocked, target scope), IP-12A (Blocked, target scope).
 Remaining gates: G-01/G-03 draft pool/consume/queue/empty-Book currency закрыты DECISION-0019/0020. G-02/G-10 — set controls и potion/drop edge cases. Недостающие production числа и Book ID/card блокируют соответствующие production packets IP-20/IP-30, а не этот fixture framework.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-28-world-pickups.md).
 Target implementation evidence: Нет для новых требований.
@@ -374,7 +375,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17)
 
 Status: Blocked
 Dependencies: IP-09, IP-10A, IP-12A, IP-28
-Blocked by: IP-09 (Ready, target scope), IP-10A (Blocked, target scope), IP-12A (Blocked, target scope), IP-28 (Blocked, target scope).
+Blocked by: IP-10A (Blocked, target scope), IP-12A (Blocked, target scope), IP-28 (Blocked, target scope).
 Remaining gates: G-08/G-09 закрыты DECISION-0017; G-10 и полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default.
 Remaining acceptance / IDs: PASSIVE-001…014, production data/icons и связанные integration checks.
 Target implementation evidence: Нет для новых требований.
@@ -462,7 +463,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 
 Status: Blocked
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-09 (Ready, target scope), IP-10 (Blocked, target scope), IP-10A (Blocked, target scope), IP-11 (Blocked, target scope), IP-12 (Blocked, target scope), IP-12A (Blocked, target scope), IP-13 (Ready, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope), IP-31 (Blocked, target scope), IP-32 (Blocked, target scope).
+Blocked by: IP-10 (Blocked, target scope), IP-10A (Blocked, target scope), IP-11 (Blocked, target scope), IP-12 (Blocked, target scope), IP-12A (Blocked, target scope), IP-13 (Ready, target scope), IP-14 (Blocked, target scope), IP-15 (Blocked, target scope), IP-16 (Blocked, target scope), IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, target scope), IP-26 (Blocked, target scope), IP-28 (Blocked, target scope), IP-29 (Blocked, target scope), IP-30 (Blocked, target scope), IP-31 (Blocked, target scope), IP-32 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

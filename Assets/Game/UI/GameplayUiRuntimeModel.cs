@@ -85,6 +85,7 @@ namespace Game.UI
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
 
             _player.Health.HealthChanged += HandleHealthChanged;
+            _player.Stats.Changed += HandleStatsChanged;
             _experience.Progression.ExperienceChanged += HandleExperienceChanged;
             _experience.Progression.LevelUp += HandleLevelUp;
             _draft.Changed += HandleDraftChanged;
@@ -111,6 +112,7 @@ namespace Game.UI
             _presentation.SetPreviewMotion(previewMotion);
         public void ResetPresentation() => _presentation.ResetPresentation();
 
+        private void HandleStatsChanged() => Changed?.Invoke();
         private void HandleHealthChanged(float _, float __) => Changed?.Invoke();
         private void HandleExperienceChanged(float _, float __) => Changed?.Invoke();
         private void HandleLevelUp(int _) => Changed?.Invoke();
@@ -174,6 +176,7 @@ namespace Game.UI
         public void Dispose()
         {
             _player.Health.HealthChanged -= HandleHealthChanged;
+            _player.Stats.Changed -= HandleStatsChanged;
             _experience.Progression.ExperienceChanged -= HandleExperienceChanged;
             _experience.Progression.LevelUp -= HandleLevelUp;
             _draft.Changed -= HandleDraftChanged;
