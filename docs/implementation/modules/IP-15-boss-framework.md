@@ -54,4 +54,10 @@ G-07 закрыт DECISION-0017. G-14: используемые phase/attack fie
 
 ## Enemy pattern integration
 
+IP-14 предоставляет `HookTriggered` (same-time MidBoss → FinalBoss, one-shot catch-up
+только при Running) и [wave runtime contract](IP-14-wave-director.md#runtime-и-fixture-schema).
+Boss owner подписывается/отписывается со своим lifecycle, создаёт `EnemyCategory.Boss`
+вне ordinary list wave spawner; заполненный regular cap не задерживает boss hook.
+Victory по timer сохраняется независимо от исполнения hook и состояния босса.
+
 Использовать [IP-13 schema/runtime contract](IP-13-enemy-patterns.md#schema-и-runtime-contract): explicit per-attack controls/wind-up, отдельный dash contact, immutable source/life snapshots и reset-safe projectile pool. Encounter owner задаёт category; новые комбинации profiles не меняют draft/wave models. Phase ordering/support/escape mechanics остаются scope этого owning packet, а fixture numbers не являются production balance.

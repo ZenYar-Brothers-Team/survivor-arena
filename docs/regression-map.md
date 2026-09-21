@@ -50,3 +50,10 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Pool return inside impact callback | `EnemyPatternIntegrationTests.ImpactCallback_CanRentSameProjectileWithoutOldHitDespawningNewLife` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Snapshot и return перед callback защищают новую аренду от старого попадания. |
 | Old run callback after projectile reinit | `EnemyPatternIntegrationTests.OldRunTerminalCallback_DoesNotDespawnReinitializedProjectile` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Старый multicast StateChanged не возвращает новую running life. |
 | Pause phase / projectile cleanup | `EnemyPatternIntegrationTests.Pause_PreservesObservableMovementPhase`, `Projectile_PauseFreezesAndTerminalReturnsImmediatelyWithoutPhysicsTick`, `PoolReuse_ResetsSourceLifetimeVelocityRendererTrailAndOldRunSubscription` | EditMode | См. IP-13 в [STATUS](implementation/STATUS.md) | Сохранение phase, reset source/trail и немедленный terminal cleanup. |
+
+## IP-14 — regression guards
+
+| Path | Guarding test | Kind | Last verified | Notes |
+|---|---|---|---|---|
+| Actual spawn count при отсутствии target | `WaveSpawnerTests.Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Tick возвращает число созданных объектов; неисполненная группа отмечается unavailable и не повторяется. |
+| Continuous timer при перескоке между фазами | `WaveBurstTests.Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Время старой фазы не начисляется новой; suppressed заявки не накапливаются для последующего спавна. |

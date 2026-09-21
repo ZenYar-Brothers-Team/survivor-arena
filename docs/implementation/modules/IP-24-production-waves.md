@@ -42,6 +42,11 @@ accelerated boundary timeline, same-time events/caps/catch-up, reference/number 
 
 ## Документационные изменения
 
+Использовать [IP-14 runtime/schema](IP-14-wave-director.md#runtime-и-fixture-schema):
+явные seed/mode, count и полуоткрытое burst window; expired/suppressed не превращаются
+в deferred очередь. Producer `SpawnResolved` отражает actual и причины пропусков.
+Fixture groups 18/26/34 и spawn-only load bound не задают production числа/FPS budget.
+
 versioned encounter data и rationale принятого баланса, field bindings, run evidence; отделить proposal чисел от утверждённого config.
 
 ## Gates и недостающие решения

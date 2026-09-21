@@ -16,6 +16,10 @@ namespace Game.Enemy
         private readonly Random _random;
         private ContinuousSpawnTimer _spawnTimer;
         private int _nextHookIndex;
+        private bool _burstConsumed;
+        private readonly Random _geometryRandom;
+        public WaveSpawnDecision LastDecision { get; private set; }
+        public bool BurstConsumed => _burstConsumed;
 
         public WaveTimelineDefinition Timeline => _timeline;
         public int PhaseCount => _timeline.Phases.Count;
@@ -67,6 +71,7 @@ namespace Game.Enemy
             }
 
             _random = new Random(timeline.Seed);
+            _geometryRandom = new Random(timeline.Seed);
             _spawnTimer = new ContinuousSpawnTimer(CurrentPhase.SpawnIntervalSeconds);
         }
 
@@ -78,14 +83,21 @@ namespace Game.Enemy
             NumericValidation.ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
             if (aliveEnemies < 0)
                 throw new ArgumentOutOfRangeException(nameof(aliveEnemies));
+            LastDecision = default;
             if (!isRunning)
                 return 0;
+            if (elapsedSeconds < Elapsed)
+                throw new ArgumentOutOfRangeException(nameof(elapsedSeconds), "Restart requires a new director.");
 
             Elapsed = elapsedSeconds;
             var changed = false;
+            var expired = 0;
             while (CurrentPhaseIndex < PhaseCount - 1 && Elapsed >= _phaseStarts[CurrentPhaseIndex + 1])
             {
+                if (CurrentPhase.Burst != null && !_burstConsumed)
+                    expired = checked(expired + CurrentPhase.Burst.Count);
                 CurrentPhaseIndex++;
+                _burstConsumed = false;
                 changed = true;
             }
             if (changed)
@@ -101,10 +113,37 @@ namespace Game.Enemy
                 HookTriggered?.Invoke(hook);
             }
 
-            var due = _spawnTimer.Tick(deltaTime, true);
+            // W-01: a burst is one whole group, never capped or retried. Last-phase
+            // hold does not extend its window. Skipped windows expire without replay.
+            if (CurrentPhase.SpawnMode == WaveSpawnMode.Burst)
+            {
+                var burst = CurrentPhase.Burst;
+                var local = Elapsed - _phaseStarts[CurrentPhaseIndex];
+                var count = 0;
+                if (!_burstConsumed && local >= burst.OffsetSeconds)
+                {
+                    _burstConsumed = true;
+                    if (local < burst.OffsetSeconds + burst.WindowSeconds)
+                        count = burst.Count;
+                    else
+                        expired = checked(expired + burst.Count);
+                }
+                LastDecision = new WaveSpawnDecision(count, count, expired);
+                return count;
+            }
+
+            // A skip must not charge time spent in old phases to the new cadence.
+            var phaseDelta = changed ? Math.Min(deltaTime, Elapsed - _phaseStarts[CurrentPhaseIndex]) : deltaTime;
+            var due = _spawnTimer.Tick(phaseDelta, true);
             var capacity = Math.Max(0, CurrentPhase.MaxAliveEnemies - aliveEnemies);
-            return Math.Min(due, capacity);
+            var allowed = Math.Min(due, capacity);
+            LastDecision = new WaveSpawnDecision(due, allowed, expired);
+            return allowed;
         }
+
+        /// <summary>Uniform circle angle in radians; seeded independently of composition.
+        /// This reproduces spawn decisions, not the subsequent physics simulation.</summary>
+        public double SelectSpawnAngle() => _geometryRandom.NextDouble() * Math.PI * 2d;
 
         public EnemyDefinition SelectEnemy()
         {

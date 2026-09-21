@@ -51,3 +51,48 @@ W-01 утверждён [DECISION-0029](../../decisions/0029-burst-pressure-and-
 ## Потребители
 
 [IP-15](IP-15-boss-framework.md), [IP-16](IP-16-field-framework.md), [IP-24](IP-24-production-waves.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Runtime и fixture schema
+
+`WaveTimelineData.seed` и `WavePhaseData.spawnMode` обязательны. Mode — `Continuous`
+или `Burst`, независимо от rhythm tag. Continuous сохраняет interval/cap; burst требует
+объект `burst` с `count` (целое ≥0), `offsetSeconds` (≥0) и `windowSeconds` (>0).
+Окно `[offset, offset + window)` находится внутри duration фазы. Например, count=18,
+offset=0, window=1 в фазе с началом 45 s: первый running tick в `[45,46)` запрашивает
+все 18 врагов; tick ровно в 46 s отменяет группу. Один burst — одна группа, без
+растягивания выдачи и без повторных попыток. Интервал и regular cap остаются явными
+положительными полями фаз; burst их не применяет.
+
+Director использует elapsed run time для окна и transitions, delta для continuous timer.
+При смене фазы continuous delta ограничен временем, проведённым в новой фазе;
+пропущенные фазы не накапливают заявки. Last hold не продлевает burst window.
+Время не может идти назад; новый забег создаёт новый director. `isRunning=false`
+не меняет timeline/hook/consumption state. При одинаковом времени hooks упорядочены
+MidBoss → FinalBoss, исполняются по одному разу перед spawn decision. Пропущенные
+hooks догоняются; пропущенные burst windows отменяются. Terminal state не догоняет hooks.
+
+Spawner владеет только ordinary enemies, включая spawned burst: они учитываются
+при последующем continuous cap. Boss/Traveler owners используют отдельный lifecycle
+и не входят в этот счётчик. Seeded independent RNG streams выбирают composition и
+равномерный угол на окружности `spawnRadius` (world units) вокруг текущей позиции игрока.
+Это воспроизводимость решений, а не физики/движения игрока.
+
+`WaveDirector.LastDecision` — requested/allowed/suppressed/expired/deferred;
+`ContinuousFixtureEnemySpawner.LastSpawnOutcome` и `SpawnResolved` — immutable producer
+facts с phase/time/mode, actual, unavailable, regular alive/cap. `Tick` возвращает actual.
+Suppressed = requested − allowed; unavailable = allowed − actual; deferred всегда 0.
+Expired — сумма численностей пропущенных групп за этот tick, не часть requested.
+При unavailable группа считается выданной и не повторяется. UI показывает последний
+ненулевой outcome в существующей gated/collapsed Run drawer; phase HUD сохраняется.
+IP-31 может подписаться на producer независимо от gameplay; запись в exporter не обязательна.
+
+Fixture сохраняет ordinary/elite/rest cadence и меняет три pressure-фазы на группы
+18/26/34 с окном 1 s от начала фазы: synthetic проверка uncapped pressure и faster/frailer
+modifiers, не утверждённый баланс поля. Production schedules принадлежат IP-24.
+
+## Нагрузочная проверка
+
+Пользователь 2026-09-21 утвердил spawn-only bound на текущем ПК: 100 врагов,
+10 циклов, холодное создание ≤250 ms, повторное создание из пула ≤50 ms за группу,
+без роста числа объектов и registry residue после shutdown. Тест записывает CPU/RAM,
+Unity version и фактические времена. Это не FPS target и не gameplay density review IP-12A.

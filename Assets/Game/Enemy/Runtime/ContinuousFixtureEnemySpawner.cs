@@ -36,6 +36,8 @@ namespace Game.Enemy
         /// <summary>Feature-owned facts; optional observers do not participate in spawn/reward decisions.</summary>
         public event System.Action<EnemyLifeEvent> LifeEvent;
         public event System.Action<Game.Combat.CombatResult> CombatResolved;
+        public event System.Action<WaveSpawnOutcome> SpawnResolved;
+        public WaveSpawnOutcome LastSpawnOutcome { get; private set; }
         public EnemyLifeEvent LastLifeEvent { get; private set; }
 
         public int AliveCount => _aliveEnemies.Count;
@@ -73,6 +75,7 @@ namespace Game.Enemy
             _lifecycleSink = lifecycleSink;
             _kills = 0;
             LastLifeEvent = null;
+            LastSpawnOutcome = default;
             _visuals = visuals;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
@@ -95,21 +98,31 @@ namespace Game.Enemy
                 return 0;
 
             using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.Tick", TickWarningMilliseconds);
+            var wasRunning = runController != null && runController.Model != null && runController.Model.State == RunState.Running;
             var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count);
+            var actual = 0;
             for (var i = 0; i < spawnCount; i++)
-                SpawnEnemy();
-            return spawnCount;
+            {
+                if (wasRunning && runController.Model.State != RunState.Running) break;
+                if (SpawnEnemy()) actual++;
+            }
+            var decision = _director.LastDecision;
+            if (decision.Requested > 0 || decision.Expired > 0)
+            {
+                LastSpawnOutcome = new WaveSpawnOutcome(_director.CurrentPhase.Id, _director.Elapsed,
+                    _director.CurrentPhase.SpawnMode, decision, actual, AliveCount, _director.CurrentPhase.MaxAliveEnemies);
+                SpawnResolved?.Invoke(LastSpawnOutcome);
+            }
+            return actual;
         }
 
-        private void SpawnEnemy()
+        private bool SpawnEnemy()
         {
             if (target == null || runController == null)
-                return;
+                return false;
 
-            var direction = Random.insideUnitCircle;
-            if (direction.sqrMagnitude <= Mathf.Epsilon)
-                direction = Vector2.right;
-            direction.Normalize();
+            var angle = _director.SelectSpawnAngle();
+            var direction = new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle));
 
             var definition = _director.SelectEnemy();
             var visual = _visuals != null && _visuals.TryGetValue(definition.Id, out var sprite) ? sprite : null;
@@ -127,6 +140,7 @@ namespace Game.Enemy
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
+            return true;
         }
 
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
@@ -134,6 +148,7 @@ namespace Game.Enemy
         private void HandleEnemyDespawned(EnemyRuntime enemy)
         {
             enemy.Despawned -= HandleEnemyDespawned;
+            enemy.CombatResolved -= ForwardCombat;
             _aliveEnemies.Remove(enemy);
         }
 
@@ -173,6 +188,8 @@ namespace Game.Enemy
             _lifecycleSink = null;
             LifeEvent = null;
             CombatResolved = null;
+            SpawnResolved = null;
+            LastSpawnOutcome = default;
             _initialized = false;
         }
 

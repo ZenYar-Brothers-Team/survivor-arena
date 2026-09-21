@@ -60,7 +60,7 @@ namespace Game.UI
         public string WavePhaseName => _waveDirector != null ? _waveDirector.CurrentPhase.DisplayName : "—";
         public WavePhaseTag WavePhaseTag => _waveDirector != null ? _waveDirector.CurrentPhase.Tag : WavePhaseTag.Ordinary;
         public string WaveDevelopmentSummary => _waveDirector != null
-            ? DescribeWave(_waveDirector, _enemySpawner.AliveCount)
+            ? DescribeWave(_waveDirector, _enemySpawner.AliveCount, _enemySpawner.LastSpawnOutcome)
             : "Wave director unavailable";
 
         public GameplayUiRuntimeModel(
@@ -93,6 +93,8 @@ namespace Game.UI
             _run.Model.StateChanged += HandleRunStateChanged;
             if (_waveDirector != null)
                 _waveDirector.PhaseChanged += HandleWavePhaseChanged;
+            if (_enemySpawner != null)
+                _enemySpawner.SpawnResolved += HandleSpawnResolved;
             RefreshBuildEntries();
         }
 
@@ -124,8 +126,9 @@ namespace Game.UI
         }
         private void HandleRunStateChanged(RunState _) => Changed?.Invoke();
         private void HandleWavePhaseChanged(WavePhaseDefinition _, int __) => Changed?.Invoke();
+        private void HandleSpawnResolved(WaveSpawnOutcome _) => Changed?.Invoke();
 
-        private static string DescribeWave(WaveDirector director, int aliveEnemies)
+        private static string DescribeWave(WaveDirector director, int aliveEnemies, WaveSpawnOutcome outcome)
         {
             var phase = director.CurrentPhase;
             var mix = new StringBuilder();
@@ -142,8 +145,8 @@ namespace Game.UI
                 .Append("T ").Append(FormatClock(director.Elapsed))
                 .Append(" · ").Append(director.CurrentPhaseIndex + 1).Append('/').Append(director.PhaseCount)
                 .Append(' ').Append(phase.DisplayName).Append(" [").Append(phase.Tag).Append("]\n")
-                .Append("Spawn every ").Append(phase.SpawnIntervalSeconds.ToString("0.##", CultureInfo.InvariantCulture))
-                .Append("s · cap ").Append(phase.MaxAliveEnemies)
+                .Append(phase.SpawnMode).Append(" · interval ").Append(phase.SpawnIntervalSeconds.ToString("0.##", CultureInfo.InvariantCulture))
+                .Append("s · regular cap ").Append(phase.MaxAliveEnemies)
                 .Append(" · alive ").Append(aliveEnemies).Append('\n')
                 .Append("Mix: ").Append(mix).Append('\n')
                 .Append("Mods: HP x").Append(modifiers.HealthMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
@@ -152,6 +155,14 @@ namespace Game.UI
                 .Append(" SHOT x").Append(modifiers.AttackDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
                 .Append('\n');
             var next = director.NextHook;
+            if (phase.Burst != null)
+                summary.Append("Burst ").Append(phase.Burst.Count).Append(" · window [")
+                    .Append(phase.Burst.OffsetSeconds).Append(", ").Append(phase.Burst.OffsetSeconds + phase.Burst.WindowSeconds)
+                    .Append(")s · consumed ").Append(director.BurstConsumed).Append(" · ignores cap\n");
+            summary.Append("Last spawn @ ").Append(outcome.Elapsed).Append("s · ").Append(outcome.PhaseId)
+                .Append(" · requested ").Append(outcome.Decision.Requested).Append(" actual ").Append(outcome.Actual)
+                .Append(" suppressed ").Append(outcome.Decision.Suppressed).Append(" deferred ").Append(outcome.Decision.Deferred)
+                .Append(" expired ").Append(outcome.Decision.Expired).Append(" unavailable ").Append(outcome.Unavailable).Append('\n');
             summary.Append("Next hook: ")
                 .Append(next != null ? $"{next.Kind} @ {FormatClock(next.TimeSeconds)}" : "none");
             return summary.ToString();
@@ -184,6 +195,8 @@ namespace Game.UI
             _run.Model.StateChanged -= HandleRunStateChanged;
             if (_waveDirector != null)
                 _waveDirector.PhaseChanged -= HandleWavePhaseChanged;
+            if (_enemySpawner != null)
+                _enemySpawner.SpawnResolved -= HandleSpawnResolved;
         }
     }
 }
