@@ -68,10 +68,29 @@ namespace Game.UI.Tests
             Assert.AreEqual(3, root.Q<VisualElement>(GameplayUiElementIds.DraftOptions).childCount);
             Assert.IsTrue(root.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)).enabledSelf);
             Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftSelectButton(1)).enabledSelf);
-            Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftBanishButton(1)).enabledSelf);
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton));
+            Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.DraftControlHint));
             Assert.AreEqual("TRAVELER BOOK", root.Q<Label>(GameplayUiElementIds.DraftHeading).text);
             Assert.AreEqual("Next: Level 3", root.Q<Label>(GameplayUiElementIds.DraftQueue).text);
             Assert.AreEqual(DisplayStyle.None, root.Q<VisualElement>(GameplayUiElementIds.DevelopmentPanel).style.display.value);
+        }
+
+        [Test]
+        public void BanishMode_SameRevisionRerendersCardsAndControlState()
+        {
+            var root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/GameplayUi.uxml").CloneTree();
+            using var view = new UiToolkitGameplayView(root);
+            var revision = System.Guid.NewGuid();
+            var options = new[] { new DraftOptionViewState(new Game.Content.ContentId("FIXTURE-A"), "A", "") };
+            view.RenderDraft(new DraftViewState(true, 1, 1, options, revision));
+            view.RenderDraft(new DraftViewState(true, 1, 1, options, revision, isBanishMode: true));
+            Assert.IsTrue(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));
+            Assert.AreEqual("Cancel banish", root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).text);
+            Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftRerollButton).enabledSelf);
+            StringAssert.Contains("Choose a card to banish", root.Q<Label>(GameplayUiElementIds.DraftControlHint).text);
+            view.RenderDraft(new DraftViewState(true, 0, 0, options, revision));
+            Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).enabledSelf);
+            Assert.IsFalse(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));
         }
 
         [Test]
@@ -80,6 +99,15 @@ namespace Game.UI.Tests
             var theme = AssetDatabase.LoadAssetAtPath<ThemeStyleSheet>(
                 "Assets/Game/UI/Resources/UI/GameplayTheme.tss");
             Assert.IsNotNull(theme);
+        }
+
+        [Test]
+        public void RuntimeStyles_LoadStandaloneSheetWithoutUxmlSubassetCollision()
+        {
+            var sheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
+                "Assets/Game/UI/Resources/UI/GameplayUiStyles.uss");
+            Assert.IsNotNull(sheet);
+            Assert.AreSame(sheet, UnityEngine.Resources.Load<StyleSheet>("UI/GameplayUiStyles"));
         }
     }
 }

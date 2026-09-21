@@ -6,13 +6,16 @@ namespace Game.UI
         public string Detail { get; }
         public int Level { get; }
         public bool IsOccupied { get; }
+        public UnityEngine.Sprite Icon { get; }
 
-        public BuildSlotViewState(string title, int level, bool isOccupied, string detail = null)
+        public BuildSlotViewState(string title, int level, bool isOccupied, string detail = null,
+            UnityEngine.Sprite icon = null)
         {
             Title = title ?? string.Empty;
             Detail = detail ?? string.Empty;
             Level = level;
             IsOccupied = isOccupied;
+            Icon = icon;
         }
     }
 }

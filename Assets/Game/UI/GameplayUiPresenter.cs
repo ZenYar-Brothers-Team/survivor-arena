@@ -13,6 +13,7 @@ namespace Game.UI
         private readonly IGameplayUiModel _model;
         private readonly IGameplayUiView _view;
         private bool _started;
+        private Guid _banishRevision;
 
         public GameplayUiPresenter(IGameplayUiModel model, IGameplayUiView view)
         {
@@ -28,7 +29,7 @@ namespace Game.UI
             _model.Changed += RefreshAll;
             _view.DraftOptionSelected += HandleDraftOptionSelected;
             _view.DraftRerollRequested += HandleDraftRerollRequested;
-            _view.DraftBanishRequested += HandleDraftBanishRequested;
+            _view.DraftBanishModeRequested += HandleDraftBanishModeRequested;
             _view.PauseRequested += HandlePauseRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
             _view.AddBookRequested += HandleAddBookRequested;
@@ -54,7 +55,7 @@ namespace Game.UI
                     _model.WavePhaseCount,
                     _model.WavePhaseName,
                     _model.WavePhaseTag),
-                _model.DevelopmentCommandsEnabled ? _model.Stats : null,
+                _model.Stats,
                 _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
@@ -146,7 +147,7 @@ namespace Game.UI
 
         private string BuildPassiveDetail(BuildEntry entry)
         {
-            if (!(entry.Definition is PassiveProgressionDefinition definition)) return string.Empty;
+            var definition = entry.Definition;
             var detail = new StringBuilder();
             foreach (var value in definition.CreateDraftPreview(0, entry.Level).Values)
             {
@@ -154,7 +155,7 @@ namespace Game.UI
                 detail.Append(value.Label).Append(": ")
                     .Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
             }
-            if (definition.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0f && _model.Stats != null)
+            if (definition is PassiveProgressionDefinition passive && passive.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0f && _model.Stats != null)
                 detail.Append("\nCurrent low-HP damage: x")
                     .Append(_model.Stats.LowHealthDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture));
             return detail.ToString();
@@ -189,6 +190,8 @@ namespace Game.UI
 
         private DraftViewState BuildDraftState()
         {
+            if (!_model.IsDraftOpen || _model.DraftRevision != _banishRevision || _model.RemainingBanishes == 0)
+                _banishRevision = Guid.Empty;
             if (!_model.IsDraftOpen)
                 return new DraftViewState(false, _model.RemainingRerolls, _model.RemainingBanishes, Array.Empty<DraftOptionViewState>());
 
@@ -211,7 +214,7 @@ namespace Game.UI
                     detail.Append("\n").Append(value.Label).Append(": ")
                         .Append(value.Current.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit)
                         .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
-                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString());
+                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(), isSet: option.Definition.Kind == BuildEntryKind.Set);
             }
 
             for (var i = source.Count; i < options.Length; i++)
@@ -222,7 +225,7 @@ namespace Game.UI
             var next = _model.NextDraftRequest;
             var queue = next == null ? "" : $"Next: {(next.Origin == DraftOrigin.Book ? "Traveler Book" : $"Level {next.EarnedLevel}")} · {_model.PendingDraftCount - 1} queued";
             return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes,
-                options, _model.DraftRevision, heading, queue);
+                options, _model.DraftRevision, heading, queue, _banishRevision != Guid.Empty);
         }
 
         private RunOverlayViewState BuildRunOverlayState()
@@ -238,19 +241,26 @@ namespace Game.UI
 
         private void HandleDraftOptionSelected(Game.Content.ContentId id, Guid revision)
         {
-            _model.SelectDraftOption(id, revision);
+            if (!_model.IsDraftOpen || revision != _model.DraftRevision) return;
+            if (_banishRevision == revision)
+            {
+                if (_model.BanishDraftOption(id, revision)) _banishRevision = Guid.Empty;
+            }
+            else _model.SelectDraftOption(id, revision);
             RefreshAll();
         }
 
         private void HandleDraftRerollRequested(Guid revision)
         {
+            if (_banishRevision != Guid.Empty || !_model.IsDraftOpen || revision != _model.DraftRevision) return;
             _model.RerollDraft(revision);
             RefreshAll();
         }
 
-        private void HandleDraftBanishRequested(Game.Content.ContentId id, Guid revision)
+        private void HandleDraftBanishModeRequested(Guid revision)
         {
-            _model.BanishDraftOption(id, revision);
+            if (!_model.IsDraftOpen || revision == Guid.Empty || revision != _model.DraftRevision || _model.RemainingBanishes <= 0) return;
+            _banishRevision = _banishRevision == revision ? Guid.Empty : revision;
             RefreshAll();
         }
 
@@ -302,7 +312,7 @@ namespace Game.UI
             _model.Changed -= RefreshAll;
             _view.DraftOptionSelected -= HandleDraftOptionSelected;
             _view.DraftRerollRequested -= HandleDraftRerollRequested;
-            _view.DraftBanishRequested -= HandleDraftBanishRequested;
+            _view.DraftBanishModeRequested -= HandleDraftBanishModeRequested;
             _view.PauseRequested -= HandlePauseRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
             _view.AddBookRequested -= HandleAddBookRequested;

@@ -46,7 +46,7 @@ range до 020, уточнение «extra abilities» до полного appro
 
 ## Gates и недостающие решения
 
-G-02/G-04/G-05/G-08/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-02 закрыт DECISION-0022. G-04/G-05/G-08/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

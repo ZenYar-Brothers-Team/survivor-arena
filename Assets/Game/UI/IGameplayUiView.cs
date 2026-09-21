@@ -8,7 +8,7 @@ namespace Game.UI
     {
         event Action<ContentId, Guid> DraftOptionSelected;
         event Action<Guid> DraftRerollRequested;
-        event Action<ContentId, Guid> DraftBanishRequested;
+        event Action<Guid> DraftBanishModeRequested;
         event Action PauseRequested;
         event Action AddExperienceRequested;
         event Action AddBookRequested;

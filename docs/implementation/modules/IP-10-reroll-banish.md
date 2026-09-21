@@ -46,8 +46,24 @@ Origin/policy table с IP-07/IP-11/IP-28; Context/criteria/evidence revised.
 
 ## Gates и недостающие решения
 
-G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт DECISION-0020. G-02 остаётся: reroll заново бросает set checks или сохраняет; set banish semantics. Валюта не выдаётся повторно при исчерпании pool через controls. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт DECISION-0020. G-02 закрыт DECISION-0022: ordinal content ID, reroll повторяет все checks, banish сохраняет результаты остальных сетов, включая не показанные успешные. Валюта не выдаётся повторно при исчерпании pool через controls. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 
 [IP-10A](IP-10A-ui-foundation.md), [IP-11](IP-11-set-framework.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Origin / policy contract (DECISION-0022)
+
+| Операция | Level-up | Book |
+|---|---|---|
+| Открытие | Новый snapshot всех eligible set checks, ordinal ID | То же; XP/level неизменны |
+| Reroll | Новый snapshot, общий run counter | То же |
+| Banish | Run-local ID exclusion; тот же snapshot остальных checks | То же; без повторной currency |
+| Empty после backfill | Завершить request и перейти к следующему, сохранить другие pause | То же; immediate currency только при изначально пустом pickup |
+| Новый run | Новый runtime/build/counters/banishes/snapshots | То же |
+
+`SetDraftCheckState` хранит результаты provider для одного opening/reroll. Provider получает все eligible inputs и capacity равный их числу; возвращает все успешные, включая overflow, без дублей. `DraftPool` нормализует порядок, берет первые slots, выполняет ordinary fill/backfill. Banish фильтрует banished IDs, не вызывает provider повторно. Production global chance реализует IP-11.
+
+Reroll гарантирует изменение набора, когда есть допустимая замена после применения set-first policy; при том же полном наборе приоритетных сетов первые три по ID сохраняются. Controls расходуются один раз на валидную операцию, даже когда pool не содержит альтернатив. Fixture counts/reset берутся из existing progression JSON; production recovery не назначается.
+
+UI использует immutable `DraftViewState`, presenter-owned banish revision, semantic IDs `draft-banish-mode` и `draft-control-hint`. Click card в Banish вызывает banish intent, Cancel не изменяет gameplay. Отдельный экран/изображения не нужны.

@@ -44,9 +44,20 @@ Presenter fake model/view, UXML/USS IDs, PlayMode geometry/focus/queued drafts; 
 
 Component/state/semantic contracts, approved UI section links, dependency consumers и tests; .claude UI rules remain.
 
+### Контракт компонентов
+
+- `ContentCardViewState` / `ContentCard`: title, summary, details, optional resolved Sprite, enabled/selected/locked. Без icon используется shape placeholder; production icons поставляют owning content IP.
+- `DraftOptionViewState` / `DraftCard`: effect/current→next text, set marker/free slot и immutable ordered `RecipeProjectionViewState`. Producer задаёт current/projected/required, completes/acquired и готовые component/threshold строки с выделением текущего option. Renderer показывает первые два рецепта, `+N more` и полный список в details; сортировка и gameplay projection принадлежат IP-11.
+- `BuildSlotViewState` / `SetBuildViewState`: compact HUD references и подробности Pause/Build. `SetRecipeProgressViewState.HasProgress` позволяет показывать owned component ниже threshold даже при `FulfilledComponents == 0`; IP-11 supplies semantics. Acquired list отделён от progressed unacquired recipes.
+- `UiNotification`: один nonblocking slot с заменой сообщения и expiry по pause-aware delta. Event selection — producer; foundation связывает level-up/set acquisition и проверяет остальные тексты fake events.
+- Build/character snapshots сохраняют элементы при неизменных данных. Draft revision остаётся authority для пересборки карточек; Banish mode обновляет их в рамках той же revision.
+- HUD slots не focusable. Детали draft находятся под тремя позициями в отдельной scroll area; Pause/Build — grid 6+6 внутри scroll с отдельной Resume.
+- Новые semantic IDs: `card-icon/title/summary/status/more`, `card-recipe-{index}` (локальны внутри card), `draft-details`, `pause-build`, `pause-character`, `hud-notification`. Прежние draft/slot/control IDs сохранены. USS resource — `UI/GameplayUiStyles`, чтобы не выбирать встроенный StyleSheet subasset `GameplayUi.uxml`.
+- `UiFoundationTests` и `UiFoundationSmokeTests` — fake-state harness для 0/1/2/3, empty/max/long labels, Book/set/projection/locked/selected. Проверка layout выполняется при 1920×1080 и 1280×720; последний — lower test viewport, не новый product minimum.
+
 ## Gates и недостающие решения
 
-G-01/G-03 short/book states определены DECISION-0019/0020 и поставляются владельцем IP-07; foundation сохраняет три позиции, origin, очередь и начисленную валюту. Baseline-relative character filtering — IP-12. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-01/G-03 short/book states определены DECISION-0019/0020 и поставляются владельцем IP-07; foundation сохраняет три позиции, origin, очередь и начисленную валюту. IP-10 поставляет banish mode/cancel, control hints и revision reset (DECISION-0022); reusable cards сохраняют эти presenter intents. Baseline-relative character filtering — IP-12. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

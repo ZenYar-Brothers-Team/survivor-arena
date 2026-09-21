@@ -252,6 +252,70 @@ namespace Game.Progression.Tests
             Assert.AreEqual(0, _draft.BookCurrency);
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void Controls_PreserveAllChecksOnBanish_RerollAndNextRequestCheckAgain(bool bookOrigin)
+        {
+            _draft.Shutdown();
+            var provider = new RecordingSetOfferProvider { RejectAfterFirstCall = true };
+            var sets = new List<SetDefinition>();
+            var definitions = new List<BuildEntryDefinition> { _active,
+                new BuildEntryDefinition("FIXTURE-P1", BuildEntryKind.PassiveItem, "P1"),
+                new BuildEntryDefinition("FIXTURE-P2", BuildEntryKind.PassiveItem, "P2"),
+                new BuildEntryDefinition("FIXTURE-P3", BuildEntryKind.PassiveItem, "P3") };
+            foreach (var suffix in new[] { "D", "B", "C", "A" })
+            {
+                var set = new SetDefinition("FIXTURE-SET-" + suffix, suffix, 1f,
+                    new SetRecipeComponent(_active.Id, BuildEntryKind.ActiveSkill, 1));
+                sets.Add(set);
+                definitions.Add(set);
+            }
+            _draft.Initialize(_xp, _run, definitions, _active, 3, new FixedDraftRandom(0f),
+                2, 2, setDefinitions: sets, setAbilityFactory: new FixtureSetExtraAbilityFactory(),
+                setOffers: provider, emptyBookCurrency: 7);
+            if (bookOrigin) Book();
+            else _xp.AddPickedUpExperience(5f);
+            Book(); // Queue another request; it must not be checked until opened.
+            _run.Model.Pause();
+            Assert.AreEqual(1, provider.Calls);
+            CollectionAssert.AreEqual(new[] { "FIXTURE-SET-A", "FIXTURE-SET-B", "FIXTURE-SET-C", "FIXTURE-SET-D" }, provider.LastOrder);
+            var request = _draft.CurrentRequest;
+            var old = _draft.CurrentDraft;
+            Assert.IsTrue(_draft.Banish(new ContentId("FIXTURE-SET-B"), old.Revision));
+            Assert.AreSame(request, _draft.CurrentRequest);
+            Assert.AreEqual(1, provider.Calls, "Banish cannot recheck any set.");
+            Assert.AreEqual(new ContentId("FIXTURE-SET-D"), _draft.CurrentDraft.Options[2].Definition.Id,
+                "The successful overflow set must survive the initial three-slot limit.");
+            Assert.IsFalse(_draft.Banish(new ContentId("FIXTURE-SET-A"), old.Revision));
+            Assert.IsFalse(_draft.Reroll(old.Revision));
+            Assert.IsFalse(old.TrySelect(new ContentId("FIXTURE-SET-A"), out _));
+            Assert.AreEqual(1, _draft.RemainingBanishes);
+            var revision = _draft.Revision;
+            Assert.IsTrue(_draft.Reroll(revision));
+            Assert.IsFalse(_draft.Reroll(revision));
+            Assert.AreEqual(2, provider.Calls);
+            Assert.AreEqual(1, _draft.RemainingRerolls);
+            foreach (var option in _draft.CurrentDraft.Options)
+                Assert.AreNotEqual(BuildEntryKind.Set, option.Definition.Kind);
+            Assert.IsTrue(_draft.Select(_draft.CurrentDraft.Options[0].Definition.Id));
+            Assert.AreEqual(3, provider.Calls, "Next queued request gets fresh checks.");
+            Assert.IsTrue(_draft.Controls.IsBanished(new ContentId("FIXTURE-SET-B")));
+            Assert.AreEqual(1, _draft.RemainingRerolls);
+            Assert.IsTrue(_draft.Select(_draft.CurrentDraft.Options[0].Definition.Id));
+            Assert.AreEqual(0, _draft.BookCurrency);
+            Assert.AreEqual(0, _draft.PendingDraftCount);
+            Assert.IsTrue(_run.Model.IsPausedBy(RunPauseReasons.Manual));
+            Assert.IsFalse(_run.Model.IsPausedBy(RunPauseReasons.LevelUpDraft));
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, definitions, _active, 3, new FixedDraftRandom(0f),
+                2, 2, setDefinitions: sets, setAbilityFactory: new FixtureSetExtraAbilityFactory(),
+                setOffers: provider, emptyBookCurrency: 7);
+            Assert.IsFalse(_draft.Controls.IsBanished(new ContentId("FIXTURE-SET-B")));
+            Assert.AreEqual(2, _draft.RemainingBanishes);
+            Book();
+            Assert.AreEqual(4, provider.Calls, "Reinitialize must discard check state.");
+        }
+
         [Test]
         public void InvalidSourceAndOldRun_DoNotConsumePickupIdentity()
         {

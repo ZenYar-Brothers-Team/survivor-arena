@@ -9,7 +9,7 @@
 
 .hud-row {
     position: absolute;
-    top: 16px;
+    bottom: 16px;
     left: 16px;
     right: 16px;
     height: 42px;
@@ -110,11 +110,15 @@
 }
 
 .draft-panel {
-    width: 620px;
+    width: 92%;
+    max-width: 1100px;
+    max-height: 94%;
 }
 
 .result-panel {
-    width: 360px;
+    width: 80%;
+    max-width: 1000px;
+    max-height: 92%;
     align-items: center;
 }
 
@@ -143,14 +147,18 @@
 
 .draft-option-select {
     flex-grow: 1;
-    height: 58px;
+    min-height: 180px;
+    height: 260px;
     -unity-text-align: middle-left;
 }
 
-.draft-option-banish {
-    width: 92px;
-    height: 58px;
-    margin-left: 8px;
+.draft-banish-mode .draft-option-select {
+    border-color: rgb(235, 146, 109);
+}
+
+.draft-control-hint {
+    white-space: normal;
+    margin-bottom: 6px;
 }
 
 .primary-button {
@@ -162,7 +170,7 @@
     position: absolute;
     top: 74px;
     right: 16px;
-    width: 220px;
+    width: 320px;
     padding: 10px;
     background-color: rgba(18, 22, 30, 0.86);
     border-radius: 6px;
@@ -180,7 +188,9 @@
 }
 
 .build-slot {
-    height: 22px;
+    height: 42px;
+    width: 42px;
+    flex-shrink: 0;
     padding-left: 5px;
     -unity-text-align: middle-left;
     background-color: rgba(41, 48, 62, 0.9);
@@ -196,7 +206,7 @@
     display: none;
     position: absolute;
     left: 16px;
-    bottom: 16px;
+    bottom: 72px;
     width: 58px;
     height: 32px;
     -unity-font-style: bold;
@@ -206,7 +216,7 @@
     display: none;
     position: absolute;
     left: 16px;
-    bottom: 56px;
+    bottom: 112px;
     width: 400px;
     max-height: 430px;
     flex-direction: column;
@@ -317,9 +327,34 @@
 .book-currency {
     position: absolute;
     top: 70px;
-    right: 20px;
+    left: 16px;
+    max-width: 260px;
     color: rgb(246, 208, 109);
     font-size: 16px;
 }
 .draft-book .dialog-title { color: rgb(246, 208, 109); }
 .draft-queue { color: rgb(190, 190, 190); margin-bottom: 8px; }
+
+/* IP-10A: shared cards remain readable before final icon assets exist. */
+.content-card { padding: 10px; margin: 4px; min-width: 0; white-space: normal; background-color: rgb(41, 48, 62); border-width: 2px; border-color: rgb(80, 91, 112); }
+.content-card:hover { background-color: rgb(54, 66, 86); border-color: rgb(163, 190, 255); }
+.content-card:active { background-color: rgb(35, 43, 59); }
+.content-card:disabled { opacity: 0.45; }
+.content-card-selected { border-color: rgb(110, 220, 145); }
+.content-card-locked { background-color: rgb(31, 33, 39); }
+.content-card-icon { width: 32px; height: 32px; background-color: rgb(65, 75, 92); flex-shrink: 0; }
+.content-card-title { -unity-font-style: bold; font-size: 16px; white-space: normal; }
+.content-card-summary { white-space: normal; overflow: hidden; flex-shrink: 1; -unity-text-align: upper-left; }
+.content-card-status, .card-recipe { white-space: normal; font-size: 12px; color: rgb(190, 204, 232); }
+.draft-card-set { border-color: rgb(246, 208, 109); }
+.draft-card-completing { border-color: rgb(110, 220, 145); }
+.draft-options { flex-direction: row; flex-shrink: 0; }
+.draft-options > .content-card { width: 31%; flex-grow: 1; }
+.draft-details-scroll { height: 120px; min-height: 50px; flex-shrink: 1; }
+.draft-details { white-space: normal; }
+.pause-build { width: 100%; height: 550px; flex-shrink: 1; }
+.pause-build-grid { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; }
+.pause-build-grid > .content-card { width: 31%; min-height: 120px; }
+#build-active-slots, #build-passive-slots, #build-sets { flex-direction: row; flex-wrap: wrap; }
+.hud-notification { position: absolute; top: 72px; left: 25%; right: 25%; -unity-text-align: middle-center; color: rgb(246, 208, 109); }
+#hud-timer { position: absolute; top: 16px; left: 40%; right: 40%; height: 32px; }

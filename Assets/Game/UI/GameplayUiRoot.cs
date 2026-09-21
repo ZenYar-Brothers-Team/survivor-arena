@@ -48,7 +48,7 @@ namespace Game.UI
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
 
             var visualTree = Resources.Load<VisualTreeAsset>("UI/GameplayUi");
-            var styleSheet = Resources.Load<StyleSheet>("UI/GameplayUi");
+            var styleSheet = Resources.Load<StyleSheet>("UI/GameplayUiStyles");
             var themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
             if (visualTree == null || styleSheet == null || themeStyleSheet == null)
                 throw new InvalidOperationException("Gameplay UI UXML/USS/theme resources are missing.");

@@ -2,6 +2,16 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string CardIcon = "card-icon";
+        public const string CardTitle = "card-title";
+        public const string CardSummary = "card-summary";
+        public const string CardStatus = "card-status";
+        public const string CardMore = "card-more";
+        public static string CardRecipe(int index) => $"card-recipe-{index}";
+        public const string DraftDetails = "draft-details";
+        public const string PauseBuild = "pause-build";
+        public const string PauseCharacter = "pause-character";
+        public const string Notification = "hud-notification";
         public const string Root = "gameplay-ui-root";
         public const string HealthBar = "hud-health-bar";
         public const string ExperienceBar = "hud-xp-bar";
@@ -50,7 +60,8 @@ namespace Game.UI
         public const string CharacterSelection = "development-character-selection";
 
         public static string DraftSelectButton(int index) => $"draft-option-{index}-select";
-        public static string DraftBanishButton(int index) => $"draft-option-{index}-banish";
+        public const string DraftBanishModeButton = "draft-banish-mode";
+        public const string DraftControlHint = "draft-control-hint";
         public static string ActiveSlot(int index) => $"build-active-slot-{index}";
         public static string PassiveSlot(int index) => $"build-passive-slot-{index}";
         public static string SetEntry(int index) => $"build-set-{index}";

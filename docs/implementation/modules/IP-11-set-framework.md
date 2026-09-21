@@ -36,6 +36,8 @@ Chance 0/1 и 0/1/2/3/>3 successes дают согласованный сост�
 
 Draft set card, per-option recipe projection и completes/progress/already-enough states; Pause только progressed unacquired recipes, acquired list отдельно. Краткий acquisition feedback, world VFX вторичны; DEV proc/source counters.
 
+Rendering API IP-10A: `DraftOptionViewState.Recipes` принимает ordered `RecipeProjectionViewState` с ready component/threshold strings; `SetRecipeProgressViewState.HasProgress` отделяет partial possession от fulfilled count. Producer IP-11 вычисляет и сортирует эти данные, renderer не выводит eligibility из текста.
+
 ## Проверки
 
 Recipe truth tables/thresholds, global chance/order/short pool/uniform backfill без повторов, fake Book policy, reroll/banish, shared recipes, proc source/counters/multiwave, fixed cooldown, buff expiry/remove/rollback; PlayMode several simultaneous sets and queued choices. Per-ID production correctness — IP-19.
@@ -46,7 +48,7 @@ Recipe truth tables/thresholds, global chance/order/short pool/uniform backfill 
 
 ## Gates и недостающие решения
 
-G-08 закрыт DECISION-0017; дозаполнение свободных позиций утверждено DECISION-0019. G-02/G-04/G-05/G-13 остаются: processing order/reroll-banish policies (Book ordinary pool уже утверждён DECISION-0020), disc-return и trash-explosion conflicts, exact thresholds/effect values. Framework fixtures не назначают production значения. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
+G-08 закрыт DECISION-0017; дозаполнение свободных позиций утверждено DECISION-0019. G-02 закрыт DECISION-0022; provider возвращает все успешные checks, IP-10 сохраняет snapshot для banish и пересоздаёт при reroll. G-04/G-05/G-13 остаются: disc-return и trash-explosion conflicts, exact thresholds/effect values. Framework fixtures не назначают production значения. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md).
 
 ## Потребители
 

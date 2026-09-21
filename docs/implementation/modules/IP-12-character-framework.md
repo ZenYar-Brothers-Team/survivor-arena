@@ -36,6 +36,8 @@ Production10 characters/art, финальные prices/unlocks/weights если 
 
 Player-facing selection fixture со starting skill/role/crop/modifiers и lock condition, без ожидания full navigation IP-26.
 
+Переиспользовать `ContentCardViewState` / `ContentCard` IP-10A: resolved icon, concise summary/details, locked/selected/enabled. Baseline-relative modifier summary и lock condition поставляет IP-12; renderer не выбирает baseline.
+
 ## Проверки
 
 Loadout/weights deterministic, locked selection, stat overlay/removal, new-field validation; presenter locked/unlocked/baseline summary и PlayMode selection→correct initial loadout.

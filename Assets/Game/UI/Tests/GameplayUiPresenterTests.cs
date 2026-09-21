@@ -83,6 +83,43 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void BanishMode_CancelIsFree_AndNewRevisionAndClosedDraftResetMode()
+        {
+            var model = CreateModel();
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            view.RaiseBanishMode();
+            Assert.IsTrue(view.Draft.IsBanishMode);
+            Assert.IsFalse(view.Draft.CanReroll);
+            view.RaiseReroll();
+            Assert.AreEqual(0, model.RerollCalls);
+            view.RaiseBanishMode();
+            Assert.IsFalse(view.Draft.IsBanishMode);
+            Assert.IsFalse(model.LastBanished.IsValid);
+            Assert.AreEqual(1, model.RemainingBanishes);
+            view.RaiseBanishMode();
+            var old = view.Draft.Revision;
+            model.DraftRevision = Guid.NewGuid();
+            model.RaiseChanged();
+            Assert.IsFalse(view.Draft.IsBanishMode);
+            view.RaiseBanishMode(old);
+            Assert.IsFalse(view.Draft.IsBanishMode);
+            view.RaiseBanishMode();
+            model.IsDraftOpen = false;
+            model.RaiseChanged();
+            Assert.IsFalse(view.Draft.IsBanishMode);
+            model.IsDraftOpen = true;
+            model.RemainingBanishes = 0;
+            model.RemainingRerolls = 0;
+            model.RaiseChanged();
+            view.RaiseBanishMode();
+            Assert.IsFalse(view.Draft.IsBanishMode);
+            Assert.IsFalse(view.Draft.CanBanish);
+            StringAssert.Contains("No rerolls or banishes", view.Draft.ControlHint);
+        }
+
+        [Test]
         public void ModelChange_RebuildsRunResultOverlay()
         {
             var model = CreateModel();
@@ -309,7 +346,7 @@ namespace Game.UI.Tests
         {
             public event Action<ContentId, Guid> DraftOptionSelected;
             public event Action<Guid> DraftRerollRequested;
-            public event Action<ContentId, Guid> DraftBanishRequested;
+            public event Action<Guid> DraftBanishModeRequested;
             public event Action PauseRequested;
             public event Action AddExperienceRequested;
         public event Action AddBookRequested;
@@ -338,7 +375,8 @@ namespace Game.UI.Tests
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;
             public void RaiseSelect(ContentId id) => DraftOptionSelected?.Invoke(id, Draft.Revision);
             public void RaiseReroll() => DraftRerollRequested?.Invoke(Draft.Revision);
-            public void RaiseBanish(ContentId id) => DraftBanishRequested?.Invoke(id, Draft.Revision);
+            public void RaiseBanishMode(Guid? revision = null) => DraftBanishModeRequested?.Invoke(revision ?? Draft.Revision);
+            public void RaiseBanish(ContentId id) { RaiseBanishMode(); RaiseSelect(id); }
             public void RaisePause() => PauseRequested?.Invoke();
             public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();

@@ -16,6 +16,7 @@ namespace Game.Progression
         private RunController runController;
 
         private DraftPool _pool;
+        private SetDraftCheckState _setChecks;
         private IDraftRandom _draftRandom;
         private int _offerCount;
         private readonly Queue<DraftRequest> _requests = new Queue<DraftRequest>();
@@ -204,8 +205,9 @@ namespace Game.Progression
         public bool Reroll(Guid revision)
         {
             if (!CanAct(revision) || !Controls.TryConsumeReroll()) return false;
+            _setChecks = new SetDraftCheckState();
             var options = _pool.CreateRerolledOptions(Build, _offerCount, _draftRandom,
-                Controls.BanishedIds, CurrentDraft.Options);
+                Controls.BanishedIds, CurrentDraft.Options, _setChecks);
             if (options.Count == 0) ResolveEmpty();
             else ReplaceCurrentDraft(options);
             return true;
@@ -215,9 +217,9 @@ namespace Game.Progression
         public bool Banish(ContentId id, Guid revision)
         {
             if (!CanAct(revision) || !IsCurrentOption(id) || !Controls.TryBanish(id)) return false;
-            CurrentDraft.Cancel();
-            CurrentDraft = null;
-            OpenNextDraft();
+            var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks);
+            if (options.Count == 0) ResolveEmpty();
+            else ReplaceCurrentDraft(options);
             return true;
         }
 
@@ -284,7 +286,8 @@ namespace Game.Progression
                 if (_requests.Count > 0) _owner.RequestPause(RunPauseReasons.LevelUpDraft);
                 while (CanProcess && _requests.Count > 0 && !IsDraftOpen)
                 {
-                    var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds);
+                    _setChecks = new SetDraftCheckState();
+                    var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks);
                     if (options.Count > 0) ReplaceCurrentDraft(options);
                     else
                     {
@@ -368,6 +371,7 @@ namespace Game.Progression
             Build = null;
             Controls = null;
             _pool = null;
+            _setChecks = null;
             _draftRandom = null;
             _bookPickups.Clear();
             _acceptedBooks = _selections = _emptyRequests = _cancelled = 0;

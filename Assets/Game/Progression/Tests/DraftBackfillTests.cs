@@ -53,6 +53,29 @@ namespace Game.Progression.Tests
             foreach (var option in options) Assert.AreNotEqual(BuildEntryKind.Set, option.Definition.Kind);
         }
 
+        [Test]
+        public void Banish_PreservesFailedCheck_WhileRerollRechecksIt()
+        {
+            var active = new BuildEntryDefinition("FIXTURE-ACTIVE", BuildEntryKind.ActiveSkill, "Skill");
+            var a = new SetDefinition("FIXTURE-SET-A", "A", 0.5f,
+                new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+            var b = new SetDefinition("FIXTURE-SET-B", "B", 0.5f,
+                new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
+            var pool = new DraftPool(new BuildEntryDefinition[] { active, b, a,
+                new BuildEntryDefinition("FIXTURE-P1", BuildEntryKind.PassiveItem, "P1"),
+                new BuildEntryDefinition("FIXTURE-P2", BuildEntryKind.PassiveItem, "P2") });
+            var checks = new SetDraftCheckState();
+            var build = new PlayerBuild(active);
+            var opened = pool.CreateOptions(build, 3, new SequenceDraftRandom(0.1f, 0.9f, 0f), null, checks);
+            Assert.AreEqual(a.Id, opened[0].Definition.Id, "Ordinal order must associate the first roll with A.");
+            var banished = new HashSet<ContentId> { a.Id };
+            var rebuilt = pool.CreateOptions(build, 3, new FixedDraftRandom(0f), banished, checks);
+            foreach (var option in rebuilt) Assert.AreNotEqual(BuildEntryKind.Set, option.Definition.Kind);
+            var rerolled = pool.CreateRerolledOptions(build, 3, new FixedDraftRandom(0f), banished, rebuilt,
+                new SetDraftCheckState());
+            Assert.AreEqual(b.Id, rerolled[0].Definition.Id);
+        }
+
         private static SetDefinition Set(string id, BuildEntryDefinition active) => new SetDefinition(
             id, id, 0f, new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
     }

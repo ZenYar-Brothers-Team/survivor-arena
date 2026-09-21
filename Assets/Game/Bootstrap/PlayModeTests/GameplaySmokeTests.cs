@@ -173,10 +173,20 @@ namespace Game.Bootstrap.PlayModeTests
 
             experience.AddPickedUpExperience(15f);
             Assert.IsTrue(draft.IsDraftOpen);
-            Assert.IsTrue(draft.Reroll());
+            var uiTree = gameplayUi.Document.rootVisualElement;
+            Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftRerollButton));
             Assert.AreEqual(1, draft.RemainingRerolls);
             var banishedId = draft.CurrentDraft.Options[0].Definition.Id;
-            Assert.IsTrue(draft.Banish(banishedId));
+            var banishButton = uiTree.Q<Button>(GameplayUiElementIds.DraftBanishModeButton);
+            Submit(banishButton);
+            Assert.AreEqual("Cancel banish", banishButton.text);
+            Assert.IsFalse(uiTree.Q<Button>(GameplayUiElementIds.DraftRerollButton).enabledSelf);
+            Submit(banishButton); // Cancel does not spend or banish.
+            Assert.AreEqual(2, draft.RemainingBanishes);
+            Assert.IsFalse(draft.Controls.IsBanished(banishedId));
+            Submit(banishButton);
+            Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)));
+            Assert.AreEqual("Banish", banishButton.text);
             Assert.AreEqual(1, draft.RemainingBanishes);
             foreach (var option in draft.CurrentDraft.Options)
                 Assert.AreNotEqual(banishedId, option.Definition.Id);
@@ -190,13 +200,13 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsTrue(draft.RequestBook(System.Guid.NewGuid(), run.Model.RunId, new Game.Content.ContentId("FIXTURE-BOOK")));
             Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
             player.Heal(player.Health.MaxHealth);
-            var fullHealthDetail = passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip;
+            var fullHealthDetail = BuildDetail(gameplayUi.Document.rootVisualElement, lowHealth.DisplayName);
             StringAssert.Contains("Current low-HP damage: x1", fullHealthDetail);
             player.TakeDamage(player.Health.MaxHealth * 0.9f / player.Stats.IncomingDamageMultiplier);
-            var lowHealthDetail = passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip;
+            var lowHealthDetail = BuildDetail(gameplayUi.Document.rootVisualElement, lowHealth.DisplayName);
             Assert.AreNotEqual(fullHealthDetail, lowHealthDetail);
             player.Heal(player.Health.MaxHealth);
-            Assert.AreEqual(fullHealthDetail, passiveSlots.Children().OfType<Label>().Single(x => x.text.StartsWith(lowHealth.DisplayName)).tooltip);
+            Assert.AreEqual(fullHealthDetail, BuildDetail(gameplayUi.Document.rootVisualElement, lowHealth.DisplayName));
 
             var enemySpawner = Object.FindAnyObjectByType<ContinuousFixtureEnemySpawner>();
             enemySpawner.Tick(run.Model.Elapsed, enemySpawner.Director.CurrentPhase.SpawnIntervalSeconds, true);
@@ -218,6 +228,17 @@ namespace Game.Bootstrap.PlayModeTests
             yield return null;
             Assert.AreSame(completedRun, run.Model.Outcome);
             Assert.AreEqual(run.Model.Duration, run.Model.Elapsed);
+        }
+        private static string BuildDetail(VisualElement root, string title) =>
+            root.Q(GameplayUiElementIds.PauseBuild).Query<ContentCard>().ToList()
+                .Single(card => card.Q<Label>(GameplayUiElementIds.CardTitle).text == title)
+                .Q<Label>(GameplayUiElementIds.CardSummary).text;
+
+        private static void Submit(Button button)
+        {
+            using var submit = NavigationSubmitEvent.GetPooled();
+            submit.target = button;
+            button.SendEvent(submit);
         }
     }
 }

@@ -8,6 +8,16 @@ namespace Game.UI
 {
     public sealed class UiToolkitGameplayView : IGameplayUiView, IDisposable
     {
+        private readonly Label _draftDetails;
+        private readonly Label _pauseCharacter;
+        private readonly VisualElement _pauseBuild;
+        private readonly UiNotification _notification;
+        private string _characterName = "";
+        private string _characterStats = "";
+        private float _previousElapsed;
+        private int _previousLevel;
+        private BuildViewState? _renderedBuild;
+        private CharacterSelectionViewState _renderedCharacters;
         private readonly ProgressBar _healthBar;
         private readonly ProgressBar _experienceBar;
         private readonly Label _levelLabel;
@@ -25,6 +35,9 @@ namespace Game.UI
         private readonly Label _bookCurrency;
         private readonly Button _addBookButton;
         private Guid _renderedDraftRevision;
+        private bool _renderedBanishMode;
+        private readonly Button _banishModeButton;
+        private readonly Label _draftControlHint;
         private readonly Button _rerollButton;
         private readonly Label _banishCount;
         private readonly VisualElement _runOverlay;
@@ -58,7 +71,7 @@ namespace Game.UI
 
         public event Action<ContentId, Guid> DraftOptionSelected;
         public event Action<Guid> DraftRerollRequested;
-        public event Action<ContentId, Guid> DraftBanishRequested;
+        public event Action<Guid> DraftBanishModeRequested;
         public event Action PauseRequested;
         public event Action AddExperienceRequested;
         public event Action AddBookRequested;
@@ -72,6 +85,10 @@ namespace Game.UI
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
+            _draftDetails = Require<Label>(root, GameplayUiElementIds.DraftDetails);
+            _pauseCharacter = Require<Label>(root, GameplayUiElementIds.PauseCharacter);
+            _pauseBuild = Require<VisualElement>(root, GameplayUiElementIds.PauseBuild);
+            _notification = new UiNotification(Require<Label>(root, GameplayUiElementIds.Notification));
             _healthBar = Require<ProgressBar>(root, GameplayUiElementIds.HealthBar);
             _experienceBar = Require<ProgressBar>(root, GameplayUiElementIds.ExperienceBar);
             _levelLabel = Require<Label>(root, GameplayUiElementIds.LevelLabel);
@@ -90,6 +107,8 @@ namespace Game.UI
             _addBookButton = Require<Button>(root, GameplayUiElementIds.AddBookButton);
             _rerollButton = Require<Button>(root, GameplayUiElementIds.DraftRerollButton);
             _banishCount = Require<Label>(root, GameplayUiElementIds.DraftBanishCount);
+            _banishModeButton = Require<Button>(root, GameplayUiElementIds.DraftBanishModeButton);
+            _draftControlHint = Require<Label>(root, GameplayUiElementIds.DraftControlHint);
             _runOverlay = Require<VisualElement>(root, GameplayUiElementIds.RunOverlay);
             _runOverlayTitle = Require<Label>(root, GameplayUiElementIds.RunOverlayTitle);
             _runOverlayResumeButton = Require<Button>(root, GameplayUiElementIds.RunOverlayResumeButton);
@@ -120,6 +139,7 @@ namespace Game.UI
             _pauseButton.clicked += HandlePauseClicked;
             _runOverlayResumeButton.clicked += HandlePauseClicked;
             _rerollButton.clicked += HandleRerollClicked;
+            _banishModeButton.clicked += HandleBanishModeClicked;
             _addExperienceButton.clicked += HandleAddExperienceClicked;
             _addBookButton.clicked += HandleAddBookClicked;
             _damageButton.clicked += HandleDamageClicked;
@@ -140,6 +160,10 @@ namespace Game.UI
 
         public void RenderHud(HudViewState state)
         {
+            _notification.Tick(Math.Max(0f, state.ElapsedSeconds - _previousElapsed));
+            _previousElapsed = state.ElapsedSeconds;
+            if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("LEVEL UP");
+            _previousLevel = state.Level;
             _bookCurrency.text = $"Book currency: +{state.BookCurrency}";
             SetVisible(_bookCurrency, state.BookCurrency > 0);
             var health01 = state.MaxHealth > 0f ? state.CurrentHealth / state.MaxHealth : 0f;
@@ -151,6 +175,8 @@ namespace Game.UI
             var elapsed = Math.Max(0, (int)Math.Floor(state.ElapsedSeconds));
             _timerLabel.text = $"{elapsed / 60:00}:{elapsed % 60:00}";
             RenderWave(state.Wave);
+            if (state.Stats != null)
+                _characterStats = $"Action speed +{state.Stats.ActionSpeedBonus:P0} · Pickup radius {state.Stats.PickupRadius:0.##}";
             if (_developmentControlsAvailable && state.ExperienceTotals != null)
             {
                 var xp = state.ExperienceTotals;
@@ -191,51 +217,52 @@ namespace Game.UI
             }
 
             _rerollButton.text = $"Reroll ({state.RemainingRerolls})";
-            _rerollButton.SetEnabled(state.RemainingRerolls > 0);
+            _rerollButton.SetEnabled(state.CanReroll);
+            _banishModeButton.text = state.IsBanishMode ? "Cancel banish" : "Banish";
+            _banishModeButton.SetEnabled(state.CanBanish);
+            _draftControlHint.text = state.ControlHint;
+            _draftOverlay.EnableInClassList("draft-banish-mode", state.IsBanishMode);
             _banishCount.text = $"Banish: {state.RemainingBanishes}";
-            if (state.Revision != Guid.Empty && _renderedDraftRevision == state.Revision) return;
+            if (state.Revision != Guid.Empty && _renderedDraftRevision == state.Revision && _renderedBanishMode == state.IsBanishMode) return;
             _renderedDraftRevision = state.Revision;
+            _renderedBanishMode = state.IsBanishMode;
             _draftOptions.Clear();
-            for (var i = 0; i < state.Options.Count; i++)
+            _draftDetails.text = "Hover or focus a card for details. Select a card to continue.";
+            for (var i = 0; i < 3; i++)
             {
-                var option = state.Options[i];
-                var row = new VisualElement();
-                row.AddToClassList("draft-option-row");
-
-                var select = new Button(() => DraftOptionSelected?.Invoke(option.Id, state.Revision))
+                var option = i < state.Options.Count ? state.Options[i] :
+                    new DraftOptionViewState(default, "No available option", "", false);
+                var select = new DraftCard(option, () => DraftOptionSelected?.Invoke(option.Id, state.Revision))
                 {
-                    name = GameplayUiElementIds.DraftSelectButton(i),
-                    text = $"{option.Title}\n{option.Detail}"
+                    name = GameplayUiElementIds.DraftSelectButton(i)
                 };
-                select.AddToClassList("draft-option-select");
-                select.SetEnabled(option.IsEnabled);
-
-                var banish = new Button(() => DraftBanishRequested?.Invoke(option.Id, state.Revision))
-                {
-                    name = GameplayUiElementIds.DraftBanishButton(i),
-                    text = "Banish"
-                };
-                banish.AddToClassList("draft-option-banish");
-                banish.SetEnabled(option.IsEnabled && state.RemainingBanishes > 0);
-
-                row.Add(select);
-                row.Add(banish);
-                _draftOptions.Add(row);
+                select.RegisterCallback<MouseEnterEvent>(_ => _draftDetails.text = select.Details);
+                select.RegisterCallback<FocusInEvent>(_ => _draftDetails.text = select.Details);
+                _draftOptions.Add(select);
             }
         }
 
         public void RenderBuild(BuildViewState state)
         {
+            if (_renderedBuild.HasValue && SameBuild(_renderedBuild.Value, state)) return;
+            var previousSetCount = _renderedBuild?.Sets.Count ?? state.Sets.Count;
+            _renderedBuild = state;
+            if (state.Sets.Count > previousSetCount) _notification.Show("SET ACQUIRED");
+            RenderPauseBuild(state);
             RenderSlots(_activeSlots, state.ActiveSlots, true);
             RenderSlots(_passiveSlots, state.PassiveSlots, false);
             _sets.Clear();
             for (var i = 0; i < state.Sets.Count; i++)
             {
-                var label = new Label(state.Sets[i].Title)
+                var label = new Label("S")
                 {
-                    name = GameplayUiElementIds.SetEntry(i)
+                    name = GameplayUiElementIds.SetEntry(i),
+                    tooltip = state.Sets[i].Title,
+                    focusable = false
                 };
                 label.AddToClassList("build-slot");
+                if (state.Sets[i].Icon != null)
+                    label.style.backgroundImage = new StyleBackground(state.Sets[i].Icon);
                 _sets.Add(label);
             }
 
@@ -255,18 +282,20 @@ namespace Game.UI
 
         public void RenderCharacterSelection(CharacterSelectionViewState state)
         {
+            if (_renderedCharacters != null && Same(_renderedCharacters.Characters, state.Characters)) return;
+            _renderedCharacters = state;
             _characterSelection.Clear();
             for (var i = 0; i < state.Characters.Count; i++)
             {
                 var character = state.Characters[i];
-                var selected = character.IsSelected ? " [SELECTED]" : string.Empty;
+                if (character.IsSelected) _characterName = character.Title;
                 var recoveryPercent = MathF.Round(character.DisappearingXpRecovery * 100f);
-                var label = new Label(
-                    $"{character.Title}{selected}\n" +
+                var label = new ContentCard(new ContentCardViewState(
+                    character.Title,
                     $"Start: {character.StartingSkillId}\n" +
                     $"HP {character.MaxHealth:0.#} · Move {character.MovementSpeed:0.##} · " +
                     $"Damage x{character.ActiveSkillDamageMultiplier:0.##} · Action speed x{1f / character.ActiveSkillCooldownMultiplier:0.##} · " +
-                    $"XP recovery {recoveryPercent:0}%")
+                    $"XP recovery {recoveryPercent:0}%", isSelected: character.IsSelected))
                 {
                     name = GameplayUiElementIds.CharacterEntry(i)
                 };
@@ -284,16 +313,60 @@ namespace Game.UI
             for (var i = 0; i < slots.Count; i++)
             {
                 var slot = slots[i];
-                var label = new Label(slot.IsOccupied ? $"{slot.Title}  Lv.{slot.Level}" : "—")
+                var label = new Label(slot.IsOccupied ? $"{slot.Title.Substring(0, Math.Min(2, slot.Title.Length))}\n{slot.Level}" : "—")
                 {
                     name = active ? GameplayUiElementIds.ActiveSlot(i) : GameplayUiElementIds.PassiveSlot(i),
-                    tooltip = slot.Detail
+                    tooltip = slot.IsOccupied ? $"{slot.Title} · Lv.{slot.Level}" : "Empty",
+                    focusable = false
                 };
                 label.AddToClassList("build-slot");
+                if (slot.Icon != null) label.style.backgroundImage = new StyleBackground(slot.Icon);
                 if (!slot.IsOccupied)
                     label.AddToClassList("build-slot-empty");
                 container.Add(label);
             }
+        }
+
+        private static bool Same<T>(System.Collections.Generic.IReadOnlyList<T> left,
+            System.Collections.Generic.IReadOnlyList<T> right)
+        {
+            if (left.Count != right.Count) return false;
+            var comparer = System.Collections.Generic.EqualityComparer<T>.Default;
+            for (var i = 0; i < left.Count; i++)
+                if (!comparer.Equals(left[i], right[i])) return false;
+            return true;
+        }
+
+        private static bool SameBuild(BuildViewState a, BuildViewState b) =>
+            Same(a.ActiveSlots, b.ActiveSlots) && Same(a.PassiveSlots, b.PassiveSlots) &&
+            Same(a.Sets, b.Sets) && Same(a.SetRecipeProgress, b.SetRecipeProgress);
+
+        private void RenderPauseBuild(BuildViewState state)
+        {
+            _pauseBuild.Clear();
+            _pauseBuild.Add(new Label("ACTIVE SKILLS"));
+            AddBuildDetails(state.ActiveSlots);
+            _pauseBuild.Add(new Label("PASSIVES"));
+            AddBuildDetails(state.PassiveSlots);
+            _pauseBuild.Add(new Label("ACQUIRED SETS"));
+            foreach (var set in state.Sets) _pauseBuild.Add(new ContentCard(new ContentCardViewState(set.Title, set.Detail, icon: set.Icon)));
+            _pauseBuild.Add(new Label("SET PROGRESS"));
+            foreach (var recipe in state.SetRecipeProgress)
+            {
+                if (recipe.IsAcquired || !recipe.HasProgress) continue;
+                _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
+                    $"{recipe.FulfilledComponents}/{recipe.RequiredComponents} · {(recipe.IsEligible ? "Recipe fulfilled · not acquired" : "In progress")}", recipe.Detail)));
+            }
+        }
+
+        private void AddBuildDetails(System.Collections.Generic.IReadOnlyList<BuildSlotViewState> slots)
+        {
+            var grid = new VisualElement();
+            grid.AddToClassList("pause-build-grid");
+            _pauseBuild.Add(grid);
+            foreach (var slot in slots)
+                grid.Add(new ContentCard(new ContentCardViewState(slot.Title,
+                    slot.IsOccupied ? $"Lv.{slot.Level}\n{slot.Detail}" : "Empty", icon: slot.Icon, isEnabled: slot.IsOccupied)));
         }
 
         public void RenderRunOverlay(RunOverlayViewState state)
@@ -301,6 +374,11 @@ namespace Game.UI
             SetVisible(_runOverlay, state.IsVisible);
             _runOverlayTitle.text = state.Title;
             SetVisible(_runOverlayResumeButton, state.CanResume);
+            SetVisible(_pauseBuild, state.CanResume);
+            SetVisible(_pauseCharacter, state.CanResume);
+            if (state.CanResume)
+                _pauseCharacter.text = _characterName + " · " + _healthBar.title + " · " + _levelLabel.text + "\n" + _characterStats;
+
         }
 
         public void RenderSkillObservability(SkillObservabilityViewState state) => _skillObservation.text = state.Summary;
@@ -366,6 +444,8 @@ namespace Game.UI
         }
 
         private void HandlePauseClicked() => PauseRequested?.Invoke();
+        private void HandleBanishModeClicked() => DraftBanishModeRequested?.Invoke(_renderedDraftRevision);
+
         private void HandleRerollClicked() => DraftRerollRequested?.Invoke(_renderedDraftRevision);
         private void HandleAddBookClicked() => AddBookRequested?.Invoke();
         private void HandleAddExperienceClicked() => AddExperienceRequested?.Invoke();
@@ -396,6 +476,7 @@ namespace Game.UI
             _pauseButton.clicked -= HandlePauseClicked;
             _runOverlayResumeButton.clicked -= HandlePauseClicked;
             _rerollButton.clicked -= HandleRerollClicked;
+            _banishModeButton.clicked -= HandleBanishModeClicked;
             _addExperienceButton.clicked -= HandleAddExperienceClicked;
             _addBookButton.clicked -= HandleAddBookClicked;
             _damageButton.clicked -= HandleDamageClicked;

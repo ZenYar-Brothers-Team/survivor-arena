@@ -46,7 +46,7 @@ Full 6+6, levels 1→6, 0/1/2/3 eligible, truly empty pool/only-set miss с до
 
 ## Gates и недостающие решения
 
-G-01/G-03 для fixture draft contract закрыты DECISION-0019/0020. Production сумма/ID/lifetime Книги остаются отдельными данными; set chance/order/reroll policy G-02 принадлежит IP-10/IP-11. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-01/G-03 для fixture draft contract закрыты DECISION-0019/0020. Production сумма/ID/lifetime Книги остаются отдельными данными; G-02 закрыт DECISION-0022; IP-10 владеет snapshot checks и controls, production global chance реализует IP-11. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

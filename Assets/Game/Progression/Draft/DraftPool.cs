@@ -43,14 +43,14 @@ namespace Game.Progression
             CreateOptions(build, offerCount, random, null);
 
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount,
-            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds) =>
-            CreateOptionsCore(build, offerCount, random, banishedIds, out _, out _).AsReadOnly();
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, SetDraftCheckState setChecks = null) =>
+            CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, out _, out _).AsReadOnly();
 
         public IReadOnlyList<DraftOption> CreateRerolledOptions(PlayerBuild build, int offerCount,
-            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, IReadOnlyList<DraftOption> currentOptions)
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, IReadOnlyList<DraftOption> currentOptions, SetDraftCheckState setChecks = null)
         {
             if (currentOptions == null) throw new ArgumentNullException(nameof(currentOptions));
-            var options = CreateOptionsCore(build, offerCount, random, banishedIds, out var alternatives, out var priorityCount);
+            var options = CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, out var alternatives, out var priorityCount);
             var currentIds = new HashSet<ContentId>();
             foreach (var option in currentOptions) currentIds.Add(option.Definition.Id);
             var same = currentOptions.Count == options.Count;
@@ -69,7 +69,7 @@ namespace Game.Progression
 
         private List<DraftOption> CreateOptionsCore(PlayerBuild build, int offerCount,
             IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds,
-            out List<DraftOption> alternatives, out int priorityCount)
+            SetDraftCheckState setChecks, out List<DraftOption> alternatives, out int priorityCount)
         {
             NumericValidation.ValidateCount(offerCount, nameof(offerCount));
             if (random == null) throw new ArgumentNullException(nameof(random));
@@ -78,12 +78,12 @@ namespace Game.Progression
             foreach (var option in Eligible(build, banishedIds))
                 (option.Definition.Kind == BuildEntryKind.Set ? sets : ordinary).Add(option);
 
-            var preferred = _sets.SelectPriorityOffers(sets.AsReadOnly(), offerCount, random)
-                ?? throw new InvalidOperationException("Set provider returned null.");
+            var preferred = (setChecks ?? new SetDraftCheckState()).GetPriorityOffers(sets.AsReadOnly(), _sets, random);
             var result = new List<DraftOption>(offerCount);
             var seen = new HashSet<ContentId>();
             foreach (var option in preferred)
             {
+                if (result.Count == offerCount) break;
                 var index = sets.FindIndex(candidate => ReferenceEquals(candidate.Definition, option.Definition));
                 if (index < 0 || result.Count == offerCount || !seen.Add(option.Definition.Id))
                     throw new InvalidOperationException("Set provider must return distinct eligible inputs within capacity.");
