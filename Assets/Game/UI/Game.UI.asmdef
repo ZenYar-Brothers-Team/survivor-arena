@@ -8,7 +8,8 @@
         "Game.Combat",
         "Game.Progression",
         "Game.Presentation",
-        "Game.Enemy"
+        "Game.Enemy",
+        "Game.ActiveSkill"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

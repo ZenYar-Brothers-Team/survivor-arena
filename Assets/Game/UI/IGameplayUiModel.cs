@@ -34,6 +34,7 @@ namespace Game.UI
         CharacterDefinition SelectedCharacter { get; }
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
+        string SkillDevelopmentSummary { get; }
         string EnemyDevelopmentSummary { get; }
         int WavePhaseNumber { get; }
         int WavePhaseCount { get; }

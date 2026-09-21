@@ -16,6 +16,8 @@ namespace Game.Movement
         [SerializeField]
         private Transform spawnPoint;
 
+        public Vector2 MovementDirection { get; private set; }
+
         private Rigidbody2D _rigidbody;
         private IMovementSpeedSource _speedSource;
         private IAdditionalMovementSource _additionalMovement;
@@ -45,6 +47,7 @@ namespace Game.Movement
         {
             var rawInput = moveAction.action.ReadValue<Vector2>();
             var isRunning = runController.Model.State == RunState.Running;
+            MovementDirection = isRunning ? rawInput.normalized : Vector2.zero;
             var speed = _speedSource != null ? _speedSource.MovementSpeed : 0f;
 
             var additional = _additionalMovement?.TickAdditionalMovement(Time.fixedDeltaTime, isRunning) ?? Vector2.zero;

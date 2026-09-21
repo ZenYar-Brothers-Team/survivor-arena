@@ -23,6 +23,12 @@ namespace Game.ActiveSkill
             {
                 if (levels[i] == null)
                     throw new ArgumentException("Skill levels cannot contain null.", nameof(levels));
+                if (levels[i].Targeting.RandomSeed != levels[0].Targeting.RandomSeed)
+                    throw new ArgumentException("A skill uses one explicit random seed across all levels.", nameof(levels));
+                foreach (var wave in levels[i].Waves)
+                    foreach (var effect in wave.Effects)
+                        if (effect is ProjectileBurstEffect projectile && projectile.Layout == ProjectileLayout.IndependentRandom && !levels[i].Targeting.RandomSeed.HasValue)
+                            throw new ArgumentException("Independent random directions require a configured skill seed.", nameof(levels));
             }
 
             _levels = (ActiveSkillLevelDefinition[])levels.Clone();
@@ -39,12 +45,22 @@ namespace Game.ActiveSkill
         {
             var current = currentLevel == 0 ? null : GetLevel(currentLevel);
             var next = GetLevel(nextLevel);
-            return new DraftOptionPreview(currentLevel, nextLevel, new[]
+            var values = new List<DraftValueChange>
             {
                 new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage),
                 new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"),
                 new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count)
-            });
+            };
+            if (current != null)
+            {
+                var before = SkillParameterPreview.Capture(current);
+                foreach (var pair in SkillParameterPreview.Capture(next))
+                {
+                    before.TryGetValue(pair.Key, out var previous);
+                    if (previous != pair.Value) values.Add(new DraftValueChange(pair.Key, previous, pair.Value));
+                }
+            }
+            return new DraftOptionPreview(currentLevel, nextLevel, values);
         }
 
         // Only levels that opted into a distinct Visual get validated; levels

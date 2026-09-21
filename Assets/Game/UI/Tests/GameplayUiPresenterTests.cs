@@ -112,6 +112,7 @@ namespace Game.UI.Tests
                 Assert.AreEqual("Pressure", view.Hud.Wave.DisplayName);
                 Assert.AreEqual(WavePhaseTag.Pressure, view.Hud.Wave.Tag);
                 Assert.AreEqual("Fixture wave", view.WaveObservation.Summary);
+                Assert.AreEqual("Fixture skills", view.SkillObservation.Summary);
 
                 model.WavePhaseNumber = 3;
                 model.WavePhaseName = "Respite";
@@ -242,6 +243,7 @@ namespace Game.UI.Tests
             public CharacterDefinition SelectedCharacter { get; set; }
             public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
+            public string SkillDevelopmentSummary { get; set; } = "Fixture skills";
             public string EnemyDevelopmentSummary { get; set; } = "Fixture enemy";
             public int WavePhaseNumber { get; set; } = 2;
             public int WavePhaseCount { get; set; } = 5;
@@ -293,6 +295,7 @@ namespace Game.UI.Tests
             public CharacterSelectionViewState Characters { get; private set; }
             public EnemyObservabilityViewState EnemyObservation { get; private set; }
             public WaveObservabilityViewState WaveObservation { get; private set; }
+            public SkillObservabilityViewState SkillObservation { get; private set; }
             public bool DevelopmentVisible { get; private set; }
 
             public void RenderHud(HudViewState state) => Hud = state;
@@ -300,6 +303,7 @@ namespace Game.UI.Tests
             public void RenderRunOverlay(RunOverlayViewState state) => Overlay = state;
             public void RenderBuild(BuildViewState state) => Build = state;
             public void RenderCharacterSelection(CharacterSelectionViewState state) => Characters = state;
+            public void RenderSkillObservability(SkillObservabilityViewState state) => SkillObservation = state;
             public void RenderEnemyObservability(EnemyObservabilityViewState state) => EnemyObservation = state;
             public void RenderWaveObservability(WaveObservabilityViewState state) => WaveObservation = state;
             public void SetDevelopmentControlsVisible(bool isVisible) => DevelopmentVisible = isVisible;

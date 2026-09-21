@@ -40,6 +40,9 @@ Six passive slots и effective stat descriptions; feature-owned current/next-lev
 
 Representative fixture каждого channel, 1→6, replacement/removal/rollback, cooldown/HP ratio/recovery/pickup/size/range interaction, low-HP threshold и neutral defaults; actual potion integration — IP-18/IP-28.
 
+
+Контракт потребления skill stats и JSON L1…L6: [IP-08 parameter mapping](IP-08-active-skill-framework.md#контракт-параметров-для-потребителей), [DECISION-0021](../../decisions/0021-additive-skill-level-bonuses.md). Size/range применяются один раз executor-ом из activation snapshot; passive definitions не переписывают skill level data. Повторные проценты skill upgrades складываются к базе.
+
 ## Документационные изменения
 
 Stat applicability/default ownership table, PASSIVE-007 semantic migration note; extend Content JSON/catalog tests; IP-18.

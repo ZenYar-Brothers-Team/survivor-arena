@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Game.Character;
+using Game.ActiveSkill;
 using Game.Content;
 using Game.Enemy;
 using Game.Progression;
@@ -16,6 +17,7 @@ namespace Game.UI
         private static readonly IReadOnlyList<DraftOption> NoDraftOptions = Array.Empty<DraftOption>();
 
         private readonly PlayerCharacterRuntime _player;
+        private readonly PlayerActiveSkillSetRuntime _skills;
         private readonly PlayerExperienceRuntime _experience;
         private readonly LevelUpDraftRuntime _draft;
         private readonly RunController _run;
@@ -49,6 +51,7 @@ namespace Game.UI
         public CharacterDefinition SelectedCharacter => _draft.Character;
         public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
         public bool DevelopmentCommandsEnabled { get; }
+        public string SkillDevelopmentSummary => _skills != null ? _skills.DevelopmentObservation : "Skills unavailable";
         public string EnemyDevelopmentSummary => _enemySpawner != null
             ? _enemySpawner.DevelopmentObservation
             : "Enemy fixtures unavailable";
@@ -71,6 +74,7 @@ namespace Game.UI
             ContinuousFixtureEnemySpawner enemySpawner = null)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
+            _skills = player.GetComponent<PlayerActiveSkillSetRuntime>();
             _experience = experience ?? throw new ArgumentNullException(nameof(experience));
             _draft = draft ?? throw new ArgumentNullException(nameof(draft));
             _run = run ?? throw new ArgumentNullException(nameof(run));

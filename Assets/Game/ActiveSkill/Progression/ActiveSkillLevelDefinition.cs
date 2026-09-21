@@ -7,6 +7,7 @@ namespace Game.ActiveSkill
 {
     public sealed class ActiveSkillLevelDefinition
     {
+        public ActiveSkillTargetingProfile Targeting { get; }
         public float BaseDamage { get; }
         public float CooldownSeconds { get; }
         public ActiveSkillTargetingMode TargetingMode { get; }
@@ -16,6 +17,14 @@ namespace Game.ActiveSkill
         // higher-tier variant at a later level) without changing its mechanics.
         // Unset by default, same convention as EnemyDefinition.Visual.
         public ContentRef<SpriteDefinition> Visual { get; }
+
+        public ActiveSkillLevelDefinition(float baseDamage, float cooldownSeconds, ActiveSkillTargetingProfile targeting,
+            ContentRef<SpriteDefinition> visual, params ActiveSkillActivationWave[] waves)
+            : this(baseDamage, cooldownSeconds, ActiveSkillTargetingMode.Self, visual, waves)
+        {
+            Targeting = targeting ?? throw new ArgumentNullException(nameof(targeting));
+            TargetingMode = targeting.Mode;
+        }
 
         public ActiveSkillLevelDefinition(
             float baseDamage,
@@ -45,6 +54,7 @@ namespace Game.ActiveSkill
                     throw new ArgumentException("Activation waves cannot contain null.", nameof(waves));
             }
 
+            Targeting = new ActiveSkillTargetingProfile(targetingMode);
             BaseDamage = baseDamage;
             CooldownSeconds = cooldownSeconds;
             TargetingMode = targetingMode;

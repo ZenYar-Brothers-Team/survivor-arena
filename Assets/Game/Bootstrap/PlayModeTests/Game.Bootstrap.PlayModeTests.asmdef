@@ -12,7 +12,8 @@
         "Game.Presentation",
         "UnityEngine.TestRunner",
         "Game.Combat",
-        "Game.Pooling"
+        "Game.Pooling",
+        "Game.ActiveSkill"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

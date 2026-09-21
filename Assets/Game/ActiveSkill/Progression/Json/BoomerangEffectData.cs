@@ -3,6 +3,9 @@ namespace Game.ActiveSkill.Json
     public sealed class BoomerangEffectData : IActiveSkillEffectData
     {
         public ActiveSkillEffectKind Kind => ActiveSkillEffectKind.Boomerang;
+        public float? HitCooldownSeconds { get; set; }
+        public float? LifetimeSeconds { get; set; }
+        public float? ReturnKnockbackMultiplier { get; set; }
         public int ProjectileCount { get; set; }
         public float SpreadDegrees { get; set; }
         public float Speed { get; set; }

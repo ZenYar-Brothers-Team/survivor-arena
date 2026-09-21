@@ -4,6 +4,7 @@ namespace Game.ActiveSkill
 {
     public sealed class OrbitEffect : IActiveSkillEffect
     {
+        public float BladeHitboxRadius { get; }
         public int BladeCount { get; }
         public float Radius { get; }
         public float AngularSpeedDegrees { get; }
@@ -11,7 +12,7 @@ namespace Game.ActiveSkill
         public float HitCooldownSeconds { get; }
         public float DamageMultiplier { get; }
 
-        public OrbitEffect(int bladeCount, float radius, float angularSpeedDegrees, float durationSeconds, float hitCooldownSeconds, float damageMultiplier = 1f)
+        public OrbitEffect(int bladeCount, float radius, float angularSpeedDegrees, float durationSeconds, float hitCooldownSeconds, float damageMultiplier = 1f, float bladeHitboxRadius = 0f)
         {
             NumericValidation.ValidateCount(bladeCount, nameof(bladeCount));
             NumericValidation.ValidatePositive(radius, nameof(radius));
@@ -19,6 +20,8 @@ namespace Game.ActiveSkill
             NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
             NumericValidation.ValidatePositive(hitCooldownSeconds, nameof(hitCooldownSeconds));
             NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
+            NumericValidation.ValidatePositive(bladeHitboxRadius, nameof(bladeHitboxRadius));
+            BladeHitboxRadius = bladeHitboxRadius;
             BladeCount = bladeCount;
             Radius = radius;
             AngularSpeedDegrees = angularSpeedDegrees;

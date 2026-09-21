@@ -58,7 +58,7 @@ namespace Game.ActiveSkill.Tests
                 "projectile" => new ProjectileBurstEffect(1, ProjectileLayout.Fan, 0f, 0, 10f, 2f, 0.1f),
                 "boomerang" => new BoomerangEffect(1, 0f, 10f, 5f, 0.1f, 0.5f),
                 "beam" => new BeamEffect(0.1f, 0.1f, 0.5f, 3f, true),
-                "orbit" => new OrbitEffect(1, 1f, 90f, 0.1f, 0.1f),
+                "orbit" => new OrbitEffect(1, 1f, 90f, 0.1f, 0.1f, bladeHitboxRadius: 0.3f),
                 "chain" => new ChainEffect(1, 2f, 1f),
                 "area" => new AreaEffect(2f),
                 _ => new MineEffect(2f, 2f, 1f, 1)

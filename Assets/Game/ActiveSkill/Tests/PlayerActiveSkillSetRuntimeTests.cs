@@ -60,6 +60,29 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void SixSkills_CoexistFreezeAndSurviveShutdownReinitializeWithoutStaleInstances()
+        {
+            var catalog = FixtureActiveSkillCatalog.Create();
+            foreach (var id in new[] { "FIXTURE-SKILL-RING", "FIXTURE-SKILL-BEAM", "FIXTURE-SKILL-ORBIT", "FIXTURE-SKILL-BOOMERANG", "FIXTURE-SKILL-CHAIN" })
+                foreach (var definition in catalog)
+                    if (definition.Id.ToString() == id) _draft.Build.Apply(definition);
+            Assert.IsTrue(_skillSet.Tick(0f));
+            Assert.AreEqual(6, _skillSet.SkillCount);
+            Assert.AreEqual(6, _executor.Activations.Count);
+            _runController.Model.Pause();
+            Assert.IsFalse(_skillSet.Tick(20f));
+            Assert.AreEqual(6, _executor.Activations.Count);
+            _skillSet.Shutdown();
+            Assert.AreEqual(0, _skillSet.SkillCount);
+            _skillSet.Initialize(_player, _runController, _draft, catalog,
+                new FixedTargetProvider(new FakeReceiver(Vector2.right)), _executor);
+            _runController.Model.Resume();
+            Assert.IsTrue(_skillSet.Tick(0f));
+            Assert.AreEqual(6, _skillSet.SkillCount);
+            Assert.AreEqual(12, _executor.Activations.Count);
+        }
+
+        [Test]
         public void DraftAcquisitionAndUpgrade_SynchronizeConcurrentSkillInstances()
         {
             Assert.AreEqual(1, _skillSet.SkillCount);

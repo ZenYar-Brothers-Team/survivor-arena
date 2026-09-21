@@ -61,6 +61,7 @@ namespace Game.UI
             if (!_model.DevelopmentCommandsEnabled)
                 return;
 
+            _view.RenderSkillObservability(new SkillObservabilityViewState(_model.SkillDevelopmentSummary));
             _view.RenderEnemyObservability(new EnemyObservabilityViewState(_model.EnemyDevelopmentSummary));
             _view.RenderWaveObservability(new WaveObservabilityViewState(_model.WaveDevelopmentSummary));
         }

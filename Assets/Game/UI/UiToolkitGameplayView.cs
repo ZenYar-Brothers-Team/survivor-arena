@@ -44,6 +44,7 @@ namespace Game.UI
         private readonly Button _healButton;
         private readonly Label _enemyObservation;
         private readonly Label _waveObservation;
+        private readonly Label _skillObservation;
         private readonly Label _statsObservation;
         private readonly Label _experienceObservation;
         private readonly Button _presentationLiveButton;
@@ -105,6 +106,7 @@ namespace Game.UI
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
+            _skillObservation = Require<Label>(root, GameplayUiElementIds.SkillObservation);
             _waveObservation = Require<Label>(root, GameplayUiElementIds.WaveObservation);
             _statsObservation = Require<Label>(root, GameplayUiElementIds.StatsObservation);
             _experienceObservation = Require<Label>(root, GameplayUiElementIds.ExperienceObservation);
@@ -299,6 +301,8 @@ namespace Game.UI
             _runOverlayTitle.text = state.Title;
             SetVisible(_runOverlayResumeButton, state.CanResume);
         }
+
+        public void RenderSkillObservability(SkillObservabilityViewState state) => _skillObservation.text = state.Summary;
 
         public void RenderEnemyObservability(EnemyObservabilityViewState state)
         {

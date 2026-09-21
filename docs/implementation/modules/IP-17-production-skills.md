@@ -40,6 +40,9 @@ HUD/build icon+level, reusable draft card, current→new delta и set-related de
 
 numeric/pattern per-ID cases, level transitions, capacity/concurrency, pause/pool/reset; PlayMode representative mechanics + manual actual-speed projectile/telegraph readability.
 
+
+Контракт потребления skill stats и JSON L1…L6: [IP-08 parameter mapping](IP-08-active-skill-framework.md#контракт-параметров-для-потребителей), [DECISION-0021](../../decisions/0021-additive-skill-level-bonuses.md). Size/range применяются один раз executor-ом из activation snapshot; passive definitions не переписывают skill level data. Повторные проценты skill upgrades складываются к базе.
+
 ## Документационные изменения
 
 расширение title/range до 016, card→runtime/test/asset matrix и полный numeric payload. Балансные изменения только через IP-32 approval loop.

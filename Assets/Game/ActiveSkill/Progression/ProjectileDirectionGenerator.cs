@@ -11,13 +11,14 @@ namespace Game.ActiveSkill
             int count,
             Vector2 aimDirection,
             float spreadDegrees = 0f,
-            float rotationDegrees = 0f)
+            float rotationDegrees = 0f,
+            System.Random random = null)
         {
             NumericValidation.ValidateCount(count, nameof(count));
             if (!Enum.IsDefined(typeof(ProjectileLayout), layout))
                 throw new ArgumentOutOfRangeException(nameof(layout));
-            if (layout == ProjectileLayout.Cross && count != 4)
-                throw new ArgumentOutOfRangeException(nameof(count), "Cross layout requires exactly four projectiles.");
+            if (layout == ProjectileLayout.Cross && count != 4 && count != 8)
+                throw new ArgumentOutOfRangeException(nameof(count), "Cross layout requires four or eight projectiles.");
             if (aimDirection.sqrMagnitude <= Mathf.Epsilon)
                 aimDirection = Vector2.right;
 
@@ -40,7 +41,11 @@ namespace Game.ActiveSkill
                         angle = baseAngle + 360f * i / count;
                         break;
                     case ProjectileLayout.Cross:
-                        angle = baseAngle + 45f + 90f * i;
+                        angle = rotationDegrees + 360f * i / count;
+                        break;
+                    case ProjectileLayout.IndependentRandom:
+                        if (random == null) throw new ArgumentNullException(nameof(random));
+                        angle = (float)(random.NextDouble() * 360d);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(layout));

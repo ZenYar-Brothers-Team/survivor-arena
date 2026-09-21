@@ -37,6 +37,7 @@ namespace Game.UI
         public const string AddExperienceButton = "development-add-xp";
         public const string DamageButton = "development-damage";
         public const string HealButton = "development-heal";
+        public const string SkillObservation = "development-skill-observation";
         public const string EnemyObservation = "development-enemy-observation";
         public const string WaveObservation = "development-wave-observation";
         public const string ExperienceObservation = "development-experience-observation";

@@ -69,6 +69,8 @@
                 <ui:Button name="development-add-book" text="Collect fixture Book" class="compact-button" />
                 <ui:Label text="SET RECIPES" class="development-section-title" />
                 <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
+                <ui:Label text="ACTIVE SKILLS" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-skill-observation" class="development-help" />
                 <ui:Label text="CHARACTERS" class="development-section-title development-section-spaced" />
                 <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
             </ui:ScrollView>

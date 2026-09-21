@@ -40,6 +40,9 @@ HP HUD и актуальные stat snapshots; player text говорит action
 
 Damage/death/heal/regen, stacking/key replacement/removal, cooldown/cap/HP ratio, low-HP границы 100%/10%/<10%, heal и max-HP recompute, missing fields; paused regen. Численные примеры берутся из утверждённых formulas, fixture tuning явно отдельно.
 
+
+Контракт потребления skill stats и JSON L1…L6: [IP-08 parameter mapping](IP-08-active-skill-framework.md#контракт-параметров-для-потребителей), [DECISION-0021](../../decisions/0021-additive-skill-level-bonuses.md). Size/range применяются один раз executor-ом из activation snapshot; passive definitions не переписывают skill level data. Повторные проценты skill upgrades складываются к базе.
+
 ## Документационные изменения
 
 Stat dictionary с units/ranges; JSON/domain mapping; терминологическая миграция DECISION-0004; синхронизация затронутых IP-06/08/09/12.

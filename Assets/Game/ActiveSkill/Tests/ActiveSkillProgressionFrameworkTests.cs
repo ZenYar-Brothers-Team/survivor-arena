@@ -106,7 +106,7 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
-        public void DirectionGenerator_CreatesFanRingAndDiagonalCross()
+        public void DirectionGenerator_CreatesFanRingAndFixedAxisCross()
         {
             var fan = ProjectileDirectionGenerator.Create(ProjectileLayout.Fan, 3, Vector2.right, 60f);
             var ring = ProjectileDirectionGenerator.Create(ProjectileLayout.Ring, 4, Vector2.right);
@@ -115,11 +115,12 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(-30f, Vector2.SignedAngle(Vector2.right, fan[0]), 0.01f);
             Assert.AreEqual(30f, Vector2.SignedAngle(Vector2.right, fan[2]), 0.01f);
             Assert.AreEqual(90f, Vector2.Angle(ring[0], ring[1]), 0.01f);
-            Assert.AreEqual(45f, Vector2.SignedAngle(Vector2.right, cross[0]), 0.01f);
+            Assert.AreEqual(0f, Vector2.SignedAngle(Vector2.right, cross[0]), 0.01f);
             Assert.AreEqual(90f, Vector2.Angle(cross[0], cross[1]), 0.01f);
-            Assert.AreNotEqual(ring[0], cross[0]);
+            Assert.AreEqual(Vector2.right, ProjectileDirectionGenerator.Create(ProjectileLayout.Cross, 4, Vector2.up)[0]);
+            Assert.AreEqual(8, ProjectileDirectionGenerator.Create(ProjectileLayout.Cross, 8, Vector2.left).Length);
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                ProjectileDirectionGenerator.Create(ProjectileLayout.Cross, 8, Vector2.right));
+                ProjectileDirectionGenerator.Create(ProjectileLayout.Cross, 5, Vector2.right));
         }
 
         private static ActiveSkillLevelDefinition CreateLevel(float damage, float cooldown, IActiveSkillEffect effect)
