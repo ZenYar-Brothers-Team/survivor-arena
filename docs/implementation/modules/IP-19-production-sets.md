@@ -14,6 +14,11 @@
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+пять recipes/thresholds/effects, conditional slow и SET-017 scaling.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новый GDD «Сеты»/draft; полные выбранные SET-001…020 и компоненты рецептов; UI §§8–10; Art Direction §12.1, Art Production §8.

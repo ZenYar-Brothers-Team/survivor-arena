@@ -14,6 +14,11 @@ Functional shell объединяет существующие feature-owned э�
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+draft/recipe числа, highlights и отображение proposed PICKUP-002 после принятия.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 UI §§1–5,11–23 полностью; новые GDD core loop/run/XP/build/sets/fields/characters/meta/Travelers; только отображаемые production cards и profile metadata; DECISION-0005. IP-10A owns reusable cards/HUD/build, IP-26 owns settings, feature modules own boss/Traveler/Book state.

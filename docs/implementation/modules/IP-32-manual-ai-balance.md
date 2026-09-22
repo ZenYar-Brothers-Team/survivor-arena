@@ -14,6 +14,11 @@
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+zero-meta критерии, seeds, tuning bounds и измеримые performance targets.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 [BALANCE_WORKFLOW](../BALANCE_WORKFLOW.md); canonical Game/Content sections и JSON только выбранного balance domain; `.claude/skills/balance-check`, consistency/content audit, smoke-check, design rules.

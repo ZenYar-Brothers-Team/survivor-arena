@@ -2,6 +2,13 @@
 
 > Стартовый набор, unlocks и Путники FIELD-001 утверждены пользователем 2026-09-22: [DECISION-0050](decisions/0050-starting-content-and-unlocks.md). Численные TBD и production data/art gates сохраняются.
 
+> Конкретный начальный баланс FIELD-001 подготовлен для review:
+> [baseline v1](balance/field001-baseline-v1.md), [таблицы L1–6 и encounters](balance/field001-baseline-v1.json).
+> Это Proposed-конкретизация численных TBD выбранного набора и предложенный ребаланс
+> параметров шести ordinary enemies по разрешению пользователя, не утверждение новых
+> runtime values. Цель «сложная первая карта, проходимая без постоянных upgrades»
+> утверждена отдельно: [DECISION-0053](decisions/0053-field001-difficulty-and-baseline.md).
+
 ## Статус и назначение
 
 Статус: Approved.
@@ -750,6 +757,12 @@ CHAR-002 «Бугор»: покупка за 100 после прохождени
   Fixture-профиль остаётся отдельным и не импортируется как production progress.
 
 ### World Pickups
+
+Предложенный production ID Книги — **PICKUP-002**. Механика Книги уже утверждена
+в GDD; регистрация этого ID, contact radius 0.4 и повторное использование имеющегося
+Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md).
+До approval это proposed binding, не новая Approved production-карточка.
+
 #### PICKUP-001 — Зелье лечения
 Статус: Approved design / numbers TBD.
 Источник: может выпадать после смерти обычного противника; базовый drop chance является настраиваемым balance parameter и при необходимости может переопределяться для отдельных типов врагов/полей.

@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-22 (documentation and metadata diff audit; no new runtime verification)
+Last repository audit: 2026-09-23 (F1-00 proposal data/docs/schema audit; no new runtime verification)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active module: none (IP-12A gameplay density review остаётся открытым)
-Next Ready packet: F1-00 — подготовка полных стартовых данных; production Ready modules: none. Пользователь разрешил составить план; исполнение пакетов автоматически не начинать.
+Current active packet: F1-00 — initial balance/data baseline; IP-12A gameplay density review остаётся открытым
+Next Ready packet: none while F1-00 is in progress; production Ready modules: none. Разрешён только F1-00, следующие пакеты автоматически не начинать.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -31,10 +31,29 @@ mapping; F1-03 исправит его и проверит миграцию. IP-
 
 Документационные проверки и read-only audit: [evidence](evidence/field-001-start-R1-2026-09-22-plan.md).
 
-Команда пользователя — подготовка плана, не выполнение F1-00 или дальнейшего
-кода/арта. План готов; следующая команда на исполнение выбирает F1-00. После
-завершения этапа автоматически к позднему backlog не переходить. Старые stop
-boundaries ниже являются историей; текущая граница задана этим абзацем.
+Первоначальная команда ограничивалась подготовкой плана. Последующее разрешение
+на F1-00 и текущая граница зафиксированы ниже. После завершения этапа автоматически
+к позднему backlog не переходить; более ранние stop boundaries остаются историей.
+
+## Продолжение F1-00 — 2026-09-23
+
+Пользователь разрешил выполнить первый шаг и самостоятельно предложить начальный
+баланс для сложной первой карты. Уточнение: пройти без постоянной прокачки реально;
+основной путь к первой победе — обучение и сборка билда, upgrades только помогают.
+Разрешена подготовка конкретного baseline; runtime/F1-01 автоматически не начинать.
+Эта команда снимает прежнюю planning-only границу только для F1-00.
+Дополнительно пользователь разрешил корректировать существующие параметры врагов;
+предложенная delta для шести ordinary IDs включена в baseline v1.
+
+Подготовлены [baseline v1](../balance/field001-baseline-v1.md) и
+[численные таблицы](../balance/field001-baseline-v1.json),
+[DECISION-0053](../decisions/0053-field001-difficulty-and-baseline.md).
+F1-00 остаётся In progress до approval конкретной v1: 60 skill levels,
+60 passive levels, 5 set recipes/effects, 6 ordinary, bosses/Travelers/pickups,
+24 фазы, geometry и performance targets. API/art gaps явно закреплены за
+реализующими packet owners; production IDs ещё не реализованы. Статическая проверка
+и границы evidence — [F1-00 evidence](evidence/field001-baseline-v1-2026-09-23.md).
+Runtime/F1-01 не начаты; zero-meta победа и фактическая сложность ещё не проверялись.
 
 ## Граница текущего продолжения
 
@@ -136,12 +155,12 @@ settings implementation/новые runtime checks ещё не выполняли
 
 Все packets относятся к `field-001-start-R1`. Status ниже относится к packet,
 а не к полному каталожному IP. У всех ещё не начатых packets completed IDs: none,
-implementation/verification evidence: none. F1-00 Ready только для подготовки
+implementation/verification evidence: none. F1-00 разрешён только для подготовки
 данных; incomplete production ID по нему реализовывать нельзя.
 
 | Приоритет | Packet / владельцы | Status | Prerequisites / конкретный gate |
 |---:|---|---|---|
-| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Ready | DECISION-0050/0051 approved; read-only schemas и предложения чисел, новые assets не требуются |
+| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | In progress | baseline-v1 подготовлен; ожидает approval чисел и явных timing semantics по DECISION-0053; [evidence](evidence/field001-baseline-v1-2026-09-23.md) |
 | 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Blocked | F1-00; per-ID required level parameters и world presentation gates |
 | 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Blocked | F1-00/01; production mapping и numeric validation |
 | 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Blocked | F1-00/01/02; numeric weights, body/crop binding и initial mapping verification |

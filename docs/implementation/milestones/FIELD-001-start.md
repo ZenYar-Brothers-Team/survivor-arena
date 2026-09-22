@@ -71,6 +71,13 @@ harness с явными fixtures, но нельзя объявлять его г
 <a id="f1-00"></a>
 ## F1-00 — Полный стартовый data packet и критерии баланса
 
+Review packet: [baseline v1](../../balance/field001-baseline-v1.md) и
+[численные таблицы](../../balance/field001-baseline-v1.json), основание
+[DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md).
+Baseline содержит per-ID матрицу required fields/API gaps/owner/acceptance,
+art inventory и критерии сложности без постоянных upgrades. Его approval не
+заменяет gameplay- и visual-приёмку зависимых пакетов.
+
 Владельцы: IP-17…24/25/26/30/32. Dependencies: утверждённые DECISION-0050/0051;
 чтение фактических schemas/validators/framework APIs, без требования готовых новых assets.
 
@@ -105,6 +112,12 @@ harness с явными fixtures, но нельзя объявлять его г
 F1-00 все стартовые data gates закрыты и baseline принят; ссылки/IDs/units и пять
 рецептов проверены. Изменения канона вносятся в его документы вместе с решениями.
 Не писать gameplay-код и не производить арт внутри этого подготовительного packet.
+
+Вход для F1-01…09 — принятая версия этого baseline. Обнаруженные API gaps
+(continuous orbit, expanding wave, deferred targeting/telegraph, conditional sets,
+archer reposition, boss timing/double dash, production Traveler body) закрываются
+у соответствующих владельцев, перечисленных в его матрице. Эти уточнения не
+добавляют поздний контент и не меняют dependencies/Execution order.
 
 <a id="f1-01"></a>
 ## F1-01 — Десять production active skills

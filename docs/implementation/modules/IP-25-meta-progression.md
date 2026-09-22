@@ -14,6 +14,11 @@
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+нулевую meta для проверки баланса и неизменный unlock mapping DECISION-0050.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новый GDD «Мета-прогрессия»; только unlock/economy поля выбранных CHAR/FIELD/SKILL/SET и meta definitions; UI §§16–17; run identity/RunOutcome contract IP-01 и producer events IP-04/IP-06/IP-07/IP-11.

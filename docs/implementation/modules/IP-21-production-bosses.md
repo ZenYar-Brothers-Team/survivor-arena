@@ -16,6 +16,11 @@ Boss body использует общую смерть [DECISION-0040](../../dec
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+boss timing/phase/double dash и rewards.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новые GDD boss/run sections; полные выбранные BOSS-001…010/MIDBOSS-001…010; UI §13; Art Production §§3–4.

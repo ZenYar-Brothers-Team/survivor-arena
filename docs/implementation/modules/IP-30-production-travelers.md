@@ -16,6 +16,11 @@ Traveler body использует общую смерть [DECISION-0040](../..
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+три Traveler profiles, probabilities/presence/support и proposed PICKUP-002.
+Это Proposed packet по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+использовать как production data только после approval, затем выполнить проверки этого IP.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 только полные одобренные TRAVELER-001…010 и связанные pickup/FIELD cards; принятые GDD Traveler rules; UI §§11–12; Art Production §§5,9; asset contracts.
