@@ -39,6 +39,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("FIXTURE-ENVIRONMENT-ARENA", fieldPresentation.EnvironmentId.ToString());
             Assert.AreEqual(SpriteRole.Tile, fieldPresentation.Ground.Resolve(catalog.Registry).Role);
             Assert.AreEqual(SpriteRole.Prop, fieldPresentation.Obstacle.Resolve(catalog.Registry).Role);
+            Assert.AreEqual(64, fieldPresentation.InteriorObstacleCount);
+            Assert.AreEqual(16, fieldPresentation.NearObstacleCount);
             Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureFieldEnvironmentPresentation"));
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 

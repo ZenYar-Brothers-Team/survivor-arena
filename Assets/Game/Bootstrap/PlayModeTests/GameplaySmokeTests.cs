@@ -47,6 +47,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(fieldArt);
             Assert.IsNotNull(fieldArt.transform.Find("Ground")?.GetComponent<SpriteRenderer>());
             Assert.IsNotNull(fieldArt.transform.Find("Stump")?.GetComponent<SpriteRenderer>());
+            Assert.AreEqual(64, fieldArt.GetComponentsInChildren<Collider2D>().Length);
             var developmentToggle = gameplayUi.Document.rootVisualElement.Q<Button>(
                 GameplayUiElementIds.DevelopmentToggleButton);
             var developmentPanel = gameplayUi.Document.rootVisualElement.Q<VisualElement>(

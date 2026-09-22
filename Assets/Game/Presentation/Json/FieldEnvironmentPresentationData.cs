@@ -23,5 +23,15 @@ namespace Game.Presentation.Json
         public float? BushScaleMin { get; set; }
         public float? BushScaleMax { get; set; }
         public int? Seed { get; set; }
+        public int? ObstacleSeed { get; set; }
+        public int? InteriorObstacleCount { get; set; }
+        public int? NearObstacleCount { get; set; }
+        public int? ObstaclePlacementAttempts { get; set; }
+        public float? NearObstacleRadius { get; set; }
+        public float? FenceChance { get; set; }
+        public float? ObstacleSeparation { get; set; }
+        public float? FenceColliderWidth { get; set; }
+        public float? FenceColliderHeight { get; set; }
+        public float? StumpColliderRadius { get; set; }
     }
 }

@@ -28,6 +28,16 @@ namespace Game.Presentation
         public float BushScaleMin { get; }
         public float BushScaleMax { get; }
         public int Seed { get; }
+        public int ObstacleSeed { get; }
+        public int InteriorObstacleCount { get; }
+        public int NearObstacleCount { get; }
+        public int ObstaclePlacementAttempts { get; }
+        public float NearObstacleRadius { get; }
+        public float FenceChance { get; }
+        public float ObstacleSeparation { get; }
+        public float FenceColliderWidth { get; }
+        public float FenceColliderHeight { get; }
+        public float StumpColliderRadius { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -53,6 +63,16 @@ namespace Game.Presentation
             BushScaleMin = Required(data.BushScaleMin, nameof(data.BushScaleMin));
             BushScaleMax = Required(data.BushScaleMax, nameof(data.BushScaleMax));
             Seed = data.Seed ?? throw new ArgumentException("seed is required.");
+            ObstacleSeed = data.ObstacleSeed ?? throw new ArgumentException("obstacleSeed is required.");
+            InteriorObstacleCount = data.InteriorObstacleCount ?? throw new ArgumentException("interiorObstacleCount is required.");
+            NearObstacleCount = data.NearObstacleCount ?? throw new ArgumentException("nearObstacleCount is required.");
+            ObstaclePlacementAttempts = data.ObstaclePlacementAttempts ?? throw new ArgumentException("obstaclePlacementAttempts is required.");
+            NearObstacleRadius = Required(data.NearObstacleRadius, nameof(data.NearObstacleRadius));
+            FenceChance = Required(data.FenceChance, nameof(data.FenceChance));
+            ObstacleSeparation = Required(data.ObstacleSeparation, nameof(data.ObstacleSeparation));
+            FenceColliderWidth = Required(data.FenceColliderWidth, nameof(data.FenceColliderWidth));
+            FenceColliderHeight = Required(data.FenceColliderHeight, nameof(data.FenceColliderHeight));
+            StumpColliderRadius = Required(data.StumpColliderRadius, nameof(data.StumpColliderRadius));
 
             if (!Id.IsValid || !EnvironmentId.IsValid || !Ground.Id.IsValid || !Fence.Id.IsValid ||
                 !Obstacle.Id.IsValid || !Bush.Id.IsValid || !Grass.Id.IsValid || string.IsNullOrWhiteSpace(ObstacleName))
@@ -69,6 +89,17 @@ namespace Game.Presentation
             ValidateScaleRange(BushScaleMin, BushScaleMax, "bush");
             if (DecorationJitter * 2 >= DecorationSpacing)
                 throw new ArgumentException("Decoration jitter must stay inside its placement cell.");
+            NumericValidation.ValidateCount(InteriorObstacleCount, nameof(InteriorObstacleCount));
+            NumericValidation.ValidateCount(ObstaclePlacementAttempts, nameof(ObstaclePlacementAttempts));
+            NumericValidation.ValidateNonNegative(NearObstacleCount, nameof(NearObstacleCount));
+            if (NearObstacleCount > InteriorObstacleCount)
+                throw new ArgumentException("Near obstacle count cannot exceed the total obstacle count.");
+            NumericValidation.ValidatePositive(NearObstacleRadius, nameof(NearObstacleRadius));
+            NumericValidation.ValidateRange(FenceChance, 0, 1, nameof(FenceChance));
+            NumericValidation.ValidatePositive(ObstacleSeparation, nameof(ObstacleSeparation));
+            NumericValidation.ValidatePositive(FenceColliderWidth, nameof(FenceColliderWidth));
+            NumericValidation.ValidatePositive(FenceColliderHeight, nameof(FenceColliderHeight));
+            NumericValidation.ValidatePositive(StumpColliderRadius, nameof(StumpColliderRadius));
         }
 
         public IEnumerable<ContentReference> GetReferencedContent()

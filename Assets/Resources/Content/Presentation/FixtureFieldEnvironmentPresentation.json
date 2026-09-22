@@ -10,9 +10,9 @@
     "obstacleName": "Obstacle_Fixture",
     "fenceHeight": 1.35,
     "obstacleScale": 1.05,
-    "decorationSpacing": 10.0,
-    "decorationJitter": 3.5,
-    "decorationChance": 0.45,
+    "decorationSpacing": 6.0,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
     "bushChance": 0.22,
     "decorationMargin": 4.0,
     "safeRadius": 2.5,
@@ -20,6 +20,16 @@
     "grassScaleMax": 0.48,
     "bushScaleMin": 0.5,
     "bushScaleMax": 0.68,
-    "seed": 1001
+    "seed": 1001,
+    "obstacleSeed": 1002,
+    "interiorObstacleCount": 64,
+    "nearObstacleCount": 16,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22.0,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3.0,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68
   }
 ]

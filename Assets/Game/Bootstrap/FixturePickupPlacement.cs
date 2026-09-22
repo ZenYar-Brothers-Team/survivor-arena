@@ -10,7 +10,8 @@ namespace Game.Bootstrap
     /// <summary>Adapter for the IP-16 axis-aligned fixture arena; production geometry supplies its own IPickupPlacement.</summary>
     public static class FixturePickupPlacement
     {
-        public static IPickupPlacement Create(FieldEnvironmentDefinition environment, Scene scene, Collider2D player, float skin, float minimumHalfSize = 0)
+        public static IPickupPlacement Create(FieldEnvironmentDefinition environment, Scene scene, Collider2D player,
+            float skin, float minimumHalfSize = 0, IEnumerable<Collider2D> additionalObstacles = null)
         {
             var spawn = FieldEnvironmentBinding.Validate(environment, scene);
             Physics2D.SyncTransforms();
@@ -28,7 +29,17 @@ namespace Game.Bootstrap
                 boxes["Wall_Right"].min.x, boxes["Wall_Top"].min.y);
             var boundaryNames = new[] { "Wall_Left", "Wall_Right", "Wall_Top", "Wall_Bottom" };
             var obstacles = boxes.Where(pair => !boundaryNames.Contains(pair.Key)).Select(pair =>
-                Rect.MinMaxRect(pair.Value.min.x, pair.Value.min.y, pair.Value.max.x, pair.Value.max.y));
+                Rect.MinMaxRect(pair.Value.min.x, pair.Value.min.y, pair.Value.max.x, pair.Value.max.y)).ToList();
+            if (additionalObstacles != null)
+            {
+                foreach (var collider in additionalObstacles)
+                {
+                    if (collider == null || !collider.enabled || !collider.gameObject.activeInHierarchy)
+                        throw new InvalidOperationException("Additional fixture obstacles must be active colliders.");
+                    var bounds = collider.bounds;
+                    obstacles.Add(Rect.MinMaxRect(bounds.min.x, bounds.min.y, bounds.max.x, bounds.max.y));
+                }
+            }
             return new BoxPickupPlacement(arena, obstacles, Vector2.Max(player.bounds.extents, Vector2.one * minimumHalfSize), spawn.position, skin);
         }
     }

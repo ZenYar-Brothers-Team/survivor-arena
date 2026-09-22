@@ -16,9 +16,11 @@ namespace Game.Bootstrap
     public sealed class FieldEnvironmentArtRuntime : IDisposable
     {
         private readonly List<PlaceholderState> _placeholders = new List<PlaceholderState>();
+        private readonly List<Collider2D> _obstacleColliders = new List<Collider2D>();
         private GameObject _root;
 
         public Transform Root => _root != null ? _root.transform : null;
+        public IReadOnlyList<Collider2D> ObstacleColliders => _obstacleColliders;
 
         public void Initialize(FieldEnvironmentPresentationDefinition definition, ContentRegistry registry,
             FieldEnvironmentDefinition environment, Scene scene, float sideLength)
@@ -46,7 +48,9 @@ namespace Game.Bootstrap
                 CreateGround(ground, sideLength);
                 CreateBoundary(fence, sideLength, definition.FenceHeight);
                 CreateSprite("Stump", obstacle, obstacleTransform.position, definition.ObstacleScale, 0, -2, _root.transform);
-                CreateDecor(definition, bush, grass, spawn.position, obstacleTransform.position, sideLength);
+                var interiorObstacles = CreateInteriorObstacles(definition, fence, obstacle, spawn.position,
+                    obstacleTransform.position, sideLength);
+                CreateDecor(definition, bush, grass, spawn.position, obstacleTransform.position, interiorObstacles, sideLength);
             }
             catch
             {
@@ -59,6 +63,7 @@ namespace Game.Bootstrap
         {
             for (var i = 0; i < _placeholders.Count; i++) _placeholders[i].Restore();
             _placeholders.Clear();
+            _obstacleColliders.Clear();
             if (_root == null) return;
             _root.SetActive(false);
             if (Application.isPlaying) Object.Destroy(_root); else Object.DestroyImmediate(_root);
@@ -92,7 +97,7 @@ namespace Game.Bootstrap
         }
 
         private void CreateDecor(FieldEnvironmentPresentationDefinition definition, Sprite bush, Sprite grass,
-            Vector2 spawn, Vector2 obstacle, float sideLength)
+            Vector2 spawn, Vector2 obstacle, IReadOnlyList<Vector2> interiorObstacles, float sideLength)
         {
             var random = new Random(definition.Seed);
             var half = sideLength * .5f - definition.DecorationMargin;
@@ -104,7 +109,8 @@ namespace Game.Bootstrap
                     y + Range(random, -definition.DecorationJitter, definition.DecorationJitter));
                 if (random.NextDouble() > definition.DecorationChance ||
                     Vector2.Distance(position, spawn) < definition.SafeRadius ||
-                    Vector2.Distance(position, obstacle) < definition.SafeRadius)
+                    Vector2.Distance(position, obstacle) < definition.SafeRadius ||
+                    interiorObstacles.Any(item => Vector2.Distance(position, item) < 1.5f))
                     continue;
                 var useBush = random.NextDouble() < definition.BushChance;
                 var scale = useBush
@@ -114,6 +120,69 @@ namespace Game.Bootstrap
                     scale, Range(random, -12, 12), useBush ? -8 : -12, _root.transform);
                 renderer.flipX = random.Next(0, 2) == 0;
             }
+        }
+
+        private IReadOnlyList<Vector2> CreateInteriorObstacles(FieldEnvironmentPresentationDefinition definition,
+            Sprite fence, Sprite stump, Vector2 spawn, Vector2 fixtureObstacle, float sideLength)
+        {
+            var random = new Random(definition.ObstacleSeed);
+            var positions = new List<Vector2>(definition.InteriorObstacleCount);
+            var half = sideLength * .5f - definition.DecorationMargin;
+            var playerLayer = LayerMask.NameToLayer("Player");
+            if (playerLayer < 0) throw new InvalidOperationException("Player layer is missing.");
+
+            for (var index = 0; index < definition.InteriorObstacleCount; index++)
+            {
+                var accepted = false;
+                for (var attempt = 0; attempt < definition.ObstaclePlacementAttempts; attempt++)
+                {
+                    Vector2 position;
+                    if (index < definition.NearObstacleCount)
+                    {
+                        var angle = Range(random, 0, Mathf.PI * 2);
+                        var radius = Mathf.Lerp(definition.SafeRadius + definition.ObstacleSeparation,
+                            definition.NearObstacleRadius, Mathf.Sqrt((float)random.NextDouble()));
+                        position = spawn + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                    }
+                    else
+                    {
+                        position = new Vector2(Range(random, -half, half), Range(random, -half, half));
+                    }
+
+                    if (Vector2.Distance(position, spawn) < definition.SafeRadius ||
+                        Vector2.Distance(position, fixtureObstacle) < definition.ObstacleSeparation ||
+                        positions.Any(item => Vector2.Distance(position, item) < definition.ObstacleSeparation))
+                        continue;
+
+                    var useFence = random.NextDouble() < definition.FenceChance;
+                    var rotation = useFence && random.Next(0, 2) == 0 ? 90f : 0f;
+                    var renderer = CreateSprite(useFence ? "FenceObstacle" : "StumpObstacle",
+                        useFence ? fence : stump, position, useFence ? .75f : definition.ObstacleScale,
+                        rotation, -2, _root.transform);
+                    Collider2D collider;
+                    if (useFence)
+                    {
+                        var box = renderer.gameObject.AddComponent<BoxCollider2D>();
+                        box.size = new Vector2(definition.FenceColliderWidth / renderer.transform.localScale.x,
+                            definition.FenceColliderHeight / renderer.transform.localScale.y);
+                        collider = box;
+                    }
+                    else
+                    {
+                        var circle = renderer.gameObject.AddComponent<CircleCollider2D>();
+                        circle.radius = definition.StumpColliderRadius / renderer.transform.localScale.x;
+                        collider = circle;
+                    }
+                    collider.excludeLayers = ~(1 << playerLayer);
+                    _obstacleColliders.Add(collider);
+                    positions.Add(position);
+                    accepted = true;
+                    break;
+                }
+                if (!accepted)
+                    throw new InvalidOperationException($"Could not place interior field obstacle {index + 1}.");
+            }
+            return positions;
         }
 
         private void HidePlaceholder(Transform target)

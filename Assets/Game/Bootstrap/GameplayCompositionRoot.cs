@@ -384,7 +384,8 @@ namespace Game.Bootstrap
 
                 if (Pickups == null) Pickups = gameObject.AddComponent<WorldPickupRuntime>();
                 var placement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
-                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin);
+                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
+                    additionalObstacles: _fieldEnvironmentArt.ObstacleColliders);
                 var pickupVisuals = Catalog.Pickups.Definitions.ToDictionary(definition => definition.Id,
                     definition => definition.Visual.Resolve(Catalog.Registry));
                 Pickups.Initialize(Catalog.Pickups, runController.Model, player,
@@ -431,7 +432,8 @@ namespace Game.Bootstrap
                     initializedSubsystems.Add(Travelers.Shutdown);
                     var travelerPlacement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
                         player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
-                        Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f));
+                        Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f),
+                        _fieldEnvironmentArt.ObstacleColliders);
                     Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
                         Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
                         new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,

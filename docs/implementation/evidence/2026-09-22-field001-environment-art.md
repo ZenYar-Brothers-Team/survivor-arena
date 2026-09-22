@@ -19,12 +19,21 @@
 
 Основание: [DECISION-0044](../../decisions/0044-field-environment-art-is-presentation-only.md).
 
+## Density revision after gameplay review
+
+Первый проход оказался практически пустым: decoration spacing 10 / chance 0.45 давали меньше одного заметного prop на обычный экран; плетень находился только на границе ±100 world units; новым пнём был лишь visual существующего `Obstacle_Fixture`.
+
+По прямому поручению пользователя spacing уменьшен до 6, chance увеличен до 0.75. Добавлены 64 внутренних gameplay obstacles, 16 из них — в радиусе 22 world units от старта. Плетни имеют axis-aligned box collider, пни — circle collider; `excludeLayers` оставляет столкновение только с Player. Pickup и Traveler placement получают их bounds. Основание: [DECISION-0045](../../decisions/0045-field-density-and-200-enemy-cap.md).
+
+Одновременно Final Rush regular cap увеличен `24 → 200`. Burst, bosses и Travelers сохраняют отдельные правила; 200 не является общим лимитом всех runtime объектов.
+
 ## Verification
 
 - `python scripts/validate-art-manifest.py`: PASS, 25 owner/role records.
 - Targeted content/import EditMode: **1/1**.
 - Full EditMode: **651/651**, 0 skipped.
 - Full PlayMode: **25/25**, 0 skipped.
+- 200-enemy spawn/pool benchmark, 10 cycles: cold **20.182 ms**, warm max **2.717 ms**, 200 unique pooled instances.
 - Unity `6000.6.0f1`, 2026-09-22.
 
-Gameplay smoke подтверждает создание `FieldEnvironmentArt`, ground и stump renderers через реальную composition. Existing movement/collision, content registry, restart, enemy, pickup, draft и UI regressions проходят. Обязательный пользовательский review: контраст фона, заметность повторения tile, масштаб пня, читаемость границы и плотность декора.
+Gameplay smoke подтверждает создание `FieldEnvironmentArt`, ground/stump renderers и 64 внутренних obstacle colliders через реальную composition. Existing movement/collision, content registry, restart, enemy, pickup, draft и UI regressions проходят. Обязательный пользовательский review: контраст фона, заметность повторения tile, масштаб пня, читаемость границы, плотность декора и удобство проходов между препятствиями.
