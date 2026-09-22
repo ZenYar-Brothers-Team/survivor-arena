@@ -345,7 +345,7 @@ Generic rule: set effects должны быть вторичным визуал�
 | VFX | Method | Status | Notes |  
 |---|---|---|---|  
 | Basic hit flash | Procedural in Unity | IN GAME (fixture player) | Existing player Health.Damaged → animator; generic adapter tested separately, not all production owners |
-| Basic impact spark | Hybrid | NOT STARTED | Можно генерировать одну базовую вспышку |  
+| Basic impact spark | Procedural in Unity | IN GAME (fixture projectiles) | Общий короткий flash + material-colored particles; отдельный raster пока не нужен |
 | Slash impact | Hybrid | NOT STARTED | Для blade-type attacks |  
 | Generic explosion | Hybrid | NOT STARTED | Mine/sphere/set reuse |  
 | Lightning impact | Hybrid / Procedural | NOT STARTED | |  
@@ -353,7 +353,7 @@ Generic rule: set effects должны быть вторичным визуал�
 | Heal effect | Hybrid | NOT STARTED | |  
 | Level-up effect | Hybrid | NOT STARTED | |  
 | Set activation effect | Hybrid | NOT STARTED | Общий accent |  
-| Enemy death effect | Hybrid / Procedural | NOT STARTED | Переиспользуемый |  
+| Enemy death effect | Procedural in Unity | IN GAME | Общий squash/fade + земляная пыль для ordinary/boss/Traveler |
 | Slow feedback | Procedural / Hybrid | NOT STARTED | Tint \+ optional overlay |  
 | Projectile trail | Procedural / Hybrid | NOT STARTED | Trail Renderer \+ optional texture |  
 | Beam base | Hybrid | NOT STARTED | Texture/style \+ Unity stretch |  

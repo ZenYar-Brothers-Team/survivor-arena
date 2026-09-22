@@ -18,7 +18,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -40,7 +40,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -62,7 +62,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -84,7 +84,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -106,7 +106,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -128,7 +128,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]

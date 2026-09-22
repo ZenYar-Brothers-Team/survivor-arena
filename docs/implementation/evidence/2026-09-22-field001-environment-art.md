@@ -25,6 +25,8 @@
 
 По прямому поручению пользователя spacing уменьшен до 6, chance увеличен до 0.75. Добавлены 64 внутренних gameplay obstacles, 16 из них — в радиусе 22 world units от старта. Плетни имеют axis-aligned box collider, пни — circle collider; `excludeLayers` оставляет столкновение только с Player. Pickup и Traveler placement получают их bounds. Основание: [DECISION-0045](../../decisions/0045-field-density-and-200-enemy-cap.md).
 
+Следующая визуальная корректировка оставила все внутренние плетни горизонтальными (`rotation = 0°`); PlayMode smoke проверяет ориентацию каждого созданного `FenceObstacle`. Основание: [DECISION-0046](../../decisions/0046-stone-range-and-horizontal-fences.md).
+
 Одновременно Final Rush regular cap увеличен `24 → 200`. Burst, bosses и Travelers сохраняют отдельные правила; 200 не является общим лимитом всех runtime объектов.
 
 ## Verification
@@ -34,6 +36,7 @@
 - Full EditMode: **651/651**, 0 skipped.
 - Full PlayMode: **25/25**, 0 skipped.
 - 200-enemy spawn/pool benchmark, 10 cycles: cold **20.182 ms**, warm max **2.717 ms**, 200 unique pooled instances.
+- Horizontal-fence revision: **652/652 EditMode**, **25/25 PlayMode**, 0 skipped.
 - Unity `6000.6.0f1`, 2026-09-22.
 
 Gameplay smoke подтверждает создание `FieldEnvironmentArt`, ground/stump renderers и 64 внутренних obstacle colliders через реальную composition. Existing movement/collision, content registry, restart, enemy, pickup, draft и UI regressions проходят. Обязательный пользовательский review: контраст фона, заметность повторения tile, масштаб пня, читаемость границы, плотность декора и удобство проходов между препятствиями.

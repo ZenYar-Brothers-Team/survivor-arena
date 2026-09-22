@@ -10,11 +10,14 @@ The approved courier projectile is a compact cream dispatch letter tied with dar
 
 Both sprites use a `SpriteRole.Projectile` presentation profile. The child renderer aligns its authored right-facing direction with travel while the circle collider stays on an unrotated physics root. The stone turns at 140 degrees per second; the letter keeps a stable heading. A shared per-projectile particle emitter creates one brief flash and three material-colored flecks. It allocates no object per hit, survives a terminal hit just long enough to show the tail, pauses with the run, and is cleared on pool reuse.
 
+Gameplay review revision: the fixture stone keeps speed 10 but its lifetime is 0.5 seconds at every level, limiting straight travel to 5 world units, half of the 10-unit reference screen height. This changes only `FIXTURE-SKILL-BOLT`; other projectile families retain their authored ranges.
+
 ## Verification
 
 - User image approval is recorded in both asset records.
 - `python scripts/validate-art-manifest.py`: 17 owner/role records pass source/version identity and path validation.
 - Unity 6000.6.0f1 safe batch smoke: **647/647 Game.* EditMode and 25/25 PlayMode, zero skipped**. The added lifecycle check covers visual-only spin, unchanged circle radius, immediate collider shutdown, pause-frozen impact tail and delayed pool return.
+- Range revision smoke: **652/652 Game.* EditMode and 25/25 PlayMode, zero skipped**. The content regression verifies 5 world units at every fixture-bolt level.
 
 The first full run passed 647/647 EditMode but exposed two PlayMode regressions: older ring/cross fixture references resolve to intentional `Unspecified` placeholders. The resolver now keeps those placeholders on the legacy fallback and requires `SpriteRole.Projectile` only for configured art; the complete rerun passed.
 

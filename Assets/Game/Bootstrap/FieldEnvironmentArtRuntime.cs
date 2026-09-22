@@ -155,10 +155,9 @@ namespace Game.Bootstrap
                         continue;
 
                     var useFence = random.NextDouble() < definition.FenceChance;
-                    var rotation = useFence && random.Next(0, 2) == 0 ? 90f : 0f;
                     var renderer = CreateSprite(useFence ? "FenceObstacle" : "StumpObstacle",
                         useFence ? fence : stump, position, useFence ? .75f : definition.ObstacleScale,
-                        rotation, -2, _root.transform);
+                        0f, -2, _root.transform);
                     Collider2D collider;
                     if (useFence)
                     {
