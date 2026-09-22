@@ -350,8 +350,8 @@ Generic rule: set effects должны быть вторичным визуал�
 | Generic explosion | Hybrid | NOT STARTED | Mine/sphere/set reuse |  
 | Lightning impact | Hybrid / Procedural | NOT STARTED | |  
 | Ice impact | Hybrid | NOT STARTED | |  
-| Heal effect | Hybrid | NOT STARTED | |  
-| Level-up effect | Hybrid | NOT STARTED | |  
+| Heal effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
+| Level-up effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
 | Set activation effect | Hybrid | NOT STARTED | Общий accent |  
 | Enemy death effect | Procedural in Unity | IN GAME | Общий squash/fade + земляная пыль для ordinary/boss/Traveler |
 | Slow feedback | Procedural / Hybrid | NOT STARTED | Tint \+ optional overlay |  
@@ -553,7 +553,7 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 3\. World assets только для реализованных skills.  
 4\. XP pickup \+ potion \+ Traveler Book, если соответствующие systems уже работают.  
 5\. Один field kit для текущего field.  
-6\. Минимальные generic VFX: hit, death, heal, level-up.  
+6\. Минимальные generic VFX: hit и death; heal и level-up остаются под вопросом и не производятся без отдельного gameplay review.
 7\. Минимальные icons для реально доступного в build контента.
 
 \#\# Phase B — расширение текущего implementation scope  
