@@ -43,6 +43,10 @@ namespace Game.Bootstrap.PlayModeTests
             var timer = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.TimerLabel);
             Assert.AreEqual("00:00", timer.text);
             Assert.IsTrue(presentation.IsInitialized);
+            var fieldArt = GameObject.Find("FieldEnvironmentArt");
+            Assert.IsNotNull(fieldArt);
+            Assert.IsNotNull(fieldArt.transform.Find("Ground")?.GetComponent<SpriteRenderer>());
+            Assert.IsNotNull(fieldArt.transform.Find("Stump")?.GetComponent<SpriteRenderer>());
             var developmentToggle = gameplayUi.Document.rootVisualElement.Q<Button>(
                 GameplayUiElementIds.DevelopmentToggleButton);
             var developmentPanel = gameplayUi.Document.rootVisualElement.Q<VisualElement>(

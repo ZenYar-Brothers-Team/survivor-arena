@@ -96,6 +96,7 @@ namespace Game.Bootstrap
         private SettingsConfig _settingsConfig;
         private CameraShakeRuntime _shake;
         private GroundShadowRuntime _playerGroundShadow;
+        private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -300,6 +301,12 @@ namespace Game.Bootstrap
                 runController.Model.ConfigureSelection(new RunSelectionSnapshot(characterId, selectedField.Id,
                     configuration.Environment.Id, configuration.Timeline.Id));
                 initializedSubsystems.Add(runController.Shutdown);
+                if (!Catalog.FieldEnvironmentPresentations.TryGetValue(configuration.Environment.Id, out var fieldPresentation))
+                    throw new InvalidOperationException($"Environment '{configuration.Environment.Id}' requires presentation content.");
+                _fieldEnvironmentArt = new FieldEnvironmentArtRuntime();
+                _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
+                    gameObject.scene, FixtureArenaGeometryCatalog.Create().SideLength);
+                initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();
                 player.transform.position = spawn.position;
@@ -539,6 +546,8 @@ namespace Game.Bootstrap
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
             _playerGroundShadow?.Shutdown();
+            _fieldEnvironmentArt?.Dispose();
+            _fieldEnvironmentArt = null;
             player.Shutdown();
             FieldConfiguration = null;
         }

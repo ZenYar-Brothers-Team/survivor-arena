@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-001",
+  "visualId": "FIELD-001-VISUAL-GROUND",
+  "role": "tile",
+  "status": "review",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": null,
+  "approvedBy": null,
+  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. Gameplay-scale approval remains pending.",
+  "referenceImages": [],
+  "generationPrompt": "Use case: stylized-concept. Asset type: seamless top-down ground texture for a 2D Unity survivor-like game, FIELD-001 village outskirts. A square repeatable patch of worn meadow ground blending muted olive grass with warm compacted earth. Hand-painted storybook cutout game art with soft painterly texture and restrained dark plum-brown accents. Orthographic top-down, evenly distributed low-frequency texture, seamless edges, no focal point. Soft neutral daylight and low contrast. Desaturated olive, dusty ochre and muted brown; sparse grass, subtle soil mottling and tiny integrated pebbles. No objects, fence, flowers, text, watermark, strong shadows, bright highlights or border.",
+  "constraints": ["repeatable ground", "low contrast", "no focal object"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png"],
+  "preparation": {
+    "sourceDimensions": [1254, 1254],
+    "sourceSha256": "2260E14A9A45456333855CC582B57A4F0A45D04C82D4855295C6A36E2CEC7DC6",
+    "runtimeSha256": "2827511D6804C26BC4CE4F0BF05DA7D8114CF516FAC5E02759D66DCF226AF746",
+    "operations": ["Source copied unchanged into selected-master and v001.", "Runtime downscaled to 256x256 and mirrored into a seamless-edge 512x512 tile.", "Unity import: Tile, FullRect, Bilinear, Clamp, 64 PPU, max size 512, no mipmaps."],
+    "remaining": ["User gameplay-scale review of contrast and repetition."]
+  }
+}

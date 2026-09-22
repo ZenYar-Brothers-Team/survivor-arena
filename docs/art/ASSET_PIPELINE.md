@@ -845,3 +845,13 @@ XP, Зелье и Traveler Book используют отдельные 256×256
 Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book проходят обычный reachable-point adapter. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md).
 
 Acceptance: три sprites зарегистрированы как Pickup и имеют source/provenance/runtime records; визуальная анимация замораживается на pause и не влияет на collider; последовательные drops из одной source point получают разные позиции внутри radius; pool reuse не сохраняет фазу/scale/tint; финальный gameplay-scale review остаётся пользовательским gate.
+
+## 27. Минимальный environment kit и visual-only fixture binding
+
+Первый FIELD-001 art pass состоит из одного ground tile, одного boundary prop, одного obstacle prop и двух лёгких decor props. Полный tileset, здания и landmarks не производятся до подтверждения базовой палитры и масштаба. Каждый raster имеет отдельные source/master/provenance/runtime records и роль `Tile` либо `Prop`.
+
+Fixture integration не меняет geometry. Один tiled renderer покрывает арену ground texture; плетень обозначает существующие четыре boundary colliders; пень накрывает существующий `Obstacle_Fixture`. Куст и трава не получают collider. Их редкая расстановка использует отдельный seed, фиксированную сетку, jitter и ограниченные scale/flip/rotation variations, оставляя свободные зоны у spawn и gameplay obstacle.
+
+Ground derivative может использовать зеркальную сборку краёв для дешёвого бесшовного повторения. Tile PPU выбирается из целевого world repeat, а не из character default. Prop PPU и presentation scale фиксируются отдельно; они не выводят размер collider из пикселей. В одном environment создаётся один visual root, который полностью удаляется при shutdown/restart, а скрытые scene placeholders восстанавливаются.
+
+Acceptance: typed references разрешаются через общий registry; import profiles соответствуют Tile/Prop; визуальная граница совпадает с существующей physics boundary; obstacle art не меняет collider; decor не имеет physics components; одинаковый seed даёт одинаковую раскладку; cleanup не оставляет второй ground или decor root. Основание — [DECISION-0044](../decisions/0044-field-environment-art-is-presentation-only.md).

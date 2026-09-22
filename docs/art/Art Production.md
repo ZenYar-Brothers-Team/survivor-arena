@@ -376,7 +376,7 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID | Field | Needed art | Method | Status |  
 |---|---|---|---|---|  
-| FIELD-001 | Деревенская окраина | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | NOT STARTED |  
+| FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + куст/трава; production geometry и thumbnail остаются | Generate via GPT / Hybrid | REVIEW |
 | FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-003 | Пограничные руины | Ground/background \+ ruins/walls/bridge-style props | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  

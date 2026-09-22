@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-001",
+  "visualId": "FIELD-001-VISUAL-STUMP",
+  "role": "prop",
+  "status": "review",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": null,
+  "approvedBy": null,
+  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. Gameplay-scale approval remains pending.",
+  "referenceImages": [],
+  "generationPrompt": "Use case: stylized-concept. Transparent 2D Unity obstacle prop for FIELD-001 village outskirts: one broad low tree stump with chopped top, thick compact roots and a small old axe mark. Hand-painted storybook cutout game art, bold dark plum-brown contour and soft cel-painted shading. Isolated three-quarter/top-down gameplay view with generous transparent padding and a compact circular footprint. Warm bark, muted tan cut wood and restrained olive moss. No ground, loose axe, grass, characters, text, watermark or cast shadow; clean alpha edges.",
+  "constraints": ["transparent background", "compact footprint", "no baked shadow"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Fields/field-001/field-001-stump-prop.png"],
+  "preparation": {
+    "sourceDimensions": [1312, 1199],
+    "sourceSha256": "59A039B5BC7520C2CD3D9931E7D4ACCDA9E0F7F72F51CD44FCE65916EE2C467E",
+    "runtimeSha256": "9CD54E8087F710F75580969B742F326A4C67E0E8BBE8C7656AA674ED4059869F",
+    "operations": ["Source copied unchanged into selected-master and v001.", "Visible alpha bounds fitted without distortion inside a transparent 256x256 canvas.", "Unity import: Prop, FullRect, Bilinear, Clamp, 160 PPU, max size 256, no mipmaps."],
+    "remaining": ["User gameplay-scale review against the existing one-unit obstacle collider."]
+  }
+}

@@ -34,6 +34,12 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(.86f, catalog.GroundShadowPresentation.FallbackWidth, .0001f);
             Assert.AreEqual(1.2f, catalog.GroundShadowPresentation.ContactWidthScale, .0001f);
             Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureGroundShadowPresentation"));
+            Assert.AreEqual(1, catalog.FieldEnvironmentPresentations.Count);
+            var fieldPresentation = catalog.FieldEnvironmentPresentations.Single().Value;
+            Assert.AreEqual("FIXTURE-ENVIRONMENT-ARENA", fieldPresentation.EnvironmentId.ToString());
+            Assert.AreEqual(SpriteRole.Tile, fieldPresentation.Ground.Resolve(catalog.Registry).Role);
+            Assert.AreEqual(SpriteRole.Prop, fieldPresentation.Obstacle.Resolve(catalog.Registry).Role);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureFieldEnvironmentPresentation"));
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)

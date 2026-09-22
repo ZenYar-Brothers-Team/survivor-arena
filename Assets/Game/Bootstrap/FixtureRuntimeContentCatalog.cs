@@ -38,6 +38,7 @@ namespace Game.Bootstrap
         public IReadOnlyList<SpriteMotionProfile> SpriteMotionProfiles { get; }
         public EnemyDeathPresentationProfile EnemyDeathPresentation { get; }
         public GroundShadowPresentationProfile GroundShadowPresentation { get; }
+        public IReadOnlyDictionary<ContentId, FieldEnvironmentPresentationDefinition> FieldEnvironmentPresentations { get; }
         /// <summary>Exact resource bytes retained with the cached catalog, not re-read on later runs.</summary>
         public IReadOnlyDictionary<string, string> SourceSnapshot { get; }
 
@@ -54,7 +55,9 @@ namespace Game.Bootstrap
             IReadOnlyList<SpriteMotionProfile> spriteMotionProfiles,
             EnemyDeathPresentationProfile enemyDeathPresentation,
             GroundShadowPresentationProfile groundShadowPresentation,
-            IReadOnlyList<BossEncounterDefinition> bosses, FixtureFieldCatalog fields, FixturePickupCatalog pickups, FixtureTravelerCatalog travelers)
+            IReadOnlyList<BossEncounterDefinition> bosses, FixtureFieldCatalog fields, FixturePickupCatalog pickups,
+            FixtureTravelerCatalog travelers,
+            IReadOnlyDictionary<ContentId, FieldEnvironmentPresentationDefinition> fieldEnvironmentPresentations)
         {
             RunSetup = runSetup;
             Registry = registry;
@@ -71,6 +74,7 @@ namespace Game.Bootstrap
             SpriteMotionProfiles = spriteMotionProfiles;
             EnemyDeathPresentation = enemyDeathPresentation;
             GroundShadowPresentation = groundShadowPresentation;
+            FieldEnvironmentPresentations = fieldEnvironmentPresentations;
             var sources = new Dictionary<string, string>(System.StringComparer.Ordinal);
             foreach (var path in new[] { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
                 "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Bosses/FixtureBosses", "Content/Waves/FixtureWaveTimeline",
@@ -78,6 +82,7 @@ namespace Game.Bootstrap
                 "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites",
                 "Content/Presentation/FixtureEnemyDeathPresentation",
                 "Content/Presentation/FixtureGroundShadowPresentation",
+                "Content/Presentation/FixtureFieldEnvironmentPresentation",
                 "Content/Fields/FixtureFields", "Content/Waves/FixtureFieldWaveTimeline", "Content/Pickups/FixturePickups", "Content/Travelers/FixtureTravelers", "Content/Fields/FixtureArenaGeometry", "Content/Meta/FixtureMetaEconomy" })
                 sources.Add(path, JsonContentFile.ReadText(path));
             SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
@@ -103,6 +108,7 @@ namespace Game.Bootstrap
             var spriteMotionProfiles = FixtureSpriteMotionProfileCatalog.Create();
             var enemyDeathPresentation = FixtureEnemyDeathPresentationCatalog.Create();
             var groundShadowPresentation = FixtureGroundShadowPresentationCatalog.Create();
+            var fieldEnvironmentPresentations = FixtureFieldEnvironmentPresentationCatalog.Create();
 
             var buildEntries = new List<BuildEntryDefinition>(activeSkills.Count + passives.Count + sets.Count);
             var allDefinitions = new List<IContentDefinition>(buildEntries.Capacity + enemies.Count);
@@ -137,6 +143,7 @@ namespace Game.Bootstrap
                 allDefinitions.Add(characters.AllCharacters[i]);
             for (var i = 0; i < spriteMotionProfiles.Count; i++)
                 allDefinitions.Add(spriteMotionProfiles[i]);
+            allDefinitions.AddRange(fieldEnvironmentPresentations.Values);
 
             // Backfill a placeholder sprite for every visual reference declared above,
             // so fixture content never has to remember to register one by hand; real
@@ -170,7 +177,7 @@ namespace Game.Bootstrap
                 spriteMotionProfiles,
                 enemyDeathPresentation,
                 groundShadowPresentation,
-                bosses, fields, pickups, travelers);
+                bosses, fields, pickups, travelers, fieldEnvironmentPresentations);
             return _cached;
         }
     }

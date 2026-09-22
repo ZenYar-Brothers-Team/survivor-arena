@@ -345,6 +345,91 @@
         "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "tile",
+      "visualId": "FIELD-001-VISUAL-GROUND",
+      "method": "Hybrid",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-ground-tile",
+      "stage": "Review",
+      "evidence": [
+        "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+      ],
+      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "boundary-prop",
+      "visualId": "FIELD-001-VISUAL-FENCE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/fence/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/fence/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-fence-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-fence-prop",
+      "stage": "Review",
+      "evidence": [
+        "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+      ],
+      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "obstacle-prop",
+      "visualId": "FIELD-001-VISUAL-STUMP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/stump/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/stump/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-stump-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-stump-prop",
+      "stage": "Review",
+      "evidence": [
+        "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+      ],
+      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "decor-bush",
+      "visualId": "FIELD-001-VISUAL-BUSH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/bush/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/bush/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-bush-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-bush-prop",
+      "stage": "Review",
+      "evidence": [
+        "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+      ],
+      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "decor-grass",
+      "visualId": "FIELD-001-VISUAL-GRASS",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/grass/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/grass/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-grass-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-grass-prop",
+      "stage": "Review",
+      "evidence": [
+        "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+      ],
+      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
     }
   ]
 }
