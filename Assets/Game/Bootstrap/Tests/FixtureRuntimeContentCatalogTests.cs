@@ -14,13 +14,20 @@ namespace Game.Bootstrap.Tests
             var catalog = FixtureRuntimeContentCatalog.Create();
 
             Assert.IsTrue(catalog.Registry.IsBuilt);
+            Assert.AreEqual(2, catalog.Pickups.Definitions.Count);
+            Assert.AreSame(catalog.Pickups.Potion, catalog.Registry.Get<Game.Pickup.PickupDefinition>(catalog.Pickups.Potion.Id));
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Pickups/FixturePickups"));
             Assert.Greater(catalog.ActiveSkills.Count, 0);
             Assert.Greater(catalog.Passives.Count, 0);
             Assert.Greater(catalog.Sets.Count, 0);
             Assert.Greater(catalog.Enemies.Count, 0);
+            Assert.AreEqual(2, catalog.Bosses.Count);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Bosses/FixtureBosses"));
+            foreach (var boss in catalog.Bosses)
+                Assert.AreSame(boss, catalog.Registry.Get<BossEncounterDefinition>(boss.Id));
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
-            Assert.AreEqual(1, catalog.SpriteMotionProfiles.Count);
+            Assert.AreEqual(2, catalog.SpriteMotionProfiles.Count);
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)

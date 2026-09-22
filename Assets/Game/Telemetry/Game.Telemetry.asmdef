@@ -1,0 +1,7 @@
+{
+  "name": "Game.Telemetry",
+  "rootNamespace": "Game.Telemetry",
+  "references": ["Game.Content",
+        "Game.Pickup", "Game.Traveler", "Game.Diagnostics", "Game.Run", "Game.Combat", "Game.Character", "Game.Enemy", "Game.Progression", "Game.ActiveSkill", "Newtonsoft.Json"],
+  "autoReferenced": true
+}

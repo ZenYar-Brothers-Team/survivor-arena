@@ -6,16 +6,22 @@ namespace Game.Progression
     // Content, not code: loaded from Resources/Content/Run/*.json.
     public sealed class DraftSettings
     {
+        public float SetDraftChance { get; }
         public int OfferCount { get; }
         public int Seed { get; }
         public int InitialRerolls { get; }
         public int InitialBanishes { get; }
+        public int? EmptyBookCurrency { get; }
 
-        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes)
+        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes, int? emptyBookCurrency = null, float setDraftChance = 0f)
         {
-            NumericValidation.ValidateCount(offerCount, nameof(offerCount), "Draft offer count must be greater than zero.");
+            NumericValidation.ValidateRange(offerCount, 1, 3, nameof(offerCount));
             NumericValidation.ValidateNonNegative(initialRerolls, nameof(initialRerolls), "Draft control counts cannot be negative.");
             NumericValidation.ValidateNonNegative(initialBanishes, nameof(initialBanishes), "Draft control counts cannot be negative.");
+            if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
+            NumericValidation.ValidateRange(setDraftChance, 0f, 1f, nameof(setDraftChance));
+            SetDraftChance = setDraftChance;
+            EmptyBookCurrency = emptyBookCurrency;
             OfferCount = offerCount;
             Seed = seed;
             InitialRerolls = initialRerolls;

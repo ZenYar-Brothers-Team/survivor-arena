@@ -1,0 +1,19 @@
+{
+  "master": 0.8,
+  "music": 0.6,
+  "sfx": 0.8,
+  "shake": true,
+  "safeWidth": 1280,
+  "safeHeight": 720,
+  "confirmSeconds": 10,
+  "applyWaitSeconds": 1,
+  "shakeFraction": 0.005,
+  "shakeSeconds": 0.12,
+  "shakeFrequency": 25,
+  "previewSeconds": 0.3,
+  "previewSampleRate": 22050,
+  "musicPreviewHz": 330,
+  "sfxPreviewHz": 660,
+  "previewGain": 0.2,
+  "notificationSeconds": 3
+}

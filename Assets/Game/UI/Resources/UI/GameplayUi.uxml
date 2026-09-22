@@ -1,13 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement name="gameplay-ui-root" class="gameplay-root" picking-mode="Ignore">
+        <ui:VisualElement name="traveler-overlay" class="traveler-overlay" picking-mode="Ignore" />
+        <ui:Label name="hud-timer" text="00:00" class="hud-timer" />
         <ui:VisualElement class="hud-row">
             <ui:ProgressBar name="hud-health-bar" title="HP" low-value="0" high-value="100" class="hud-bar" />
             <ui:Label name="hud-level" text="LV 1" class="hud-label" />
             <ui:Label name="hud-wave" text="WAVE —" class="hud-wave" />
-            <ui:Label name="hud-timer" text="15:00" class="hud-timer" />
             <ui:ProgressBar name="hud-xp-bar" title="XP" low-value="0" high-value="100" class="hud-bar" />
             <ui:Button name="hud-pause" text="Pause" class="compact-button" />
         </ui:VisualElement>
+
+        <ui:ProgressBar name="hud-boss-bar" title="" low-value="0" high-value="100" class="boss-bar" picking-mode="Ignore" />
+        <ui:Label name="hud-notification" class="hud-notification" picking-mode="Ignore" />
+        <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
+        <ui:Label name="hud-pickup-feedback" class="pickup-feedback" picking-mode="Ignore" />
 
         <ui:VisualElement name="build-panel" class="build-panel">
             <ui:Label text="ACTIVE SKILLS" class="build-title" />
@@ -20,18 +26,26 @@
 
         <ui:VisualElement name="draft-overlay" class="fullscreen-overlay">
             <ui:VisualElement class="dialog-panel draft-panel">
-                <ui:Label text="LEVEL UP" class="dialog-title" />
+                <ui:Label name="draft-heading" text="LEVEL UP" class="dialog-title" />
+                <ui:Label name="draft-queue" class="draft-queue" />
                 <ui:VisualElement class="draft-controls">
                     <ui:Button name="draft-reroll" text="Reroll" class="compact-button" />
+                    <ui:Button name="draft-banish-mode" text="Banish" class="compact-button" />
                     <ui:Label name="draft-banish-count" text="Banish: 0" class="hud-label" />
                 </ui:VisualElement>
+                <ui:Label name="draft-control-hint" class="draft-control-hint" />
                 <ui:VisualElement name="draft-options" class="draft-options" />
+                <ui:ScrollView class="draft-details-scroll">
+                    <ui:Label name="draft-details" class="draft-details" picking-mode="Ignore" />
+                </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement name="run-overlay" class="fullscreen-overlay">
             <ui:VisualElement class="dialog-panel result-panel">
                 <ui:Label name="run-overlay-title" text="PAUSED" class="dialog-title" />
+                <ui:Label name="pause-character" />
+                <ui:ScrollView name="pause-build" class="pause-build" />
                 <ui:Button name="run-overlay-resume" text="Resume" class="primary-button" />
             </ui:VisualElement>
         </ui:VisualElement>
@@ -46,8 +60,9 @@
                 <ui:Button name="development-tab-run" text="Run" class="development-tab" />
                 <ui:Button name="development-tab-build" text="Build" class="development-tab" />
                 <ui:Button name="development-tab-presentation" text="Presentation" class="development-tab" />
+                <ui:Button name="development-tab-playtest" text="Playtest" class="development-tab" />
             </ui:VisualElement>
-            <ui:VisualElement name="development-pane-run" class="development-pane">
+            <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
                 <ui:VisualElement class="development-button-row">
                     <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
@@ -58,10 +73,21 @@
                 <ui:Label name="development-enemy-observation" text="Enemy fixtures unavailable" class="development-help" />
                 <ui:Label text="WAVE DIRECTOR" class="development-section-title development-section-spaced" />
                 <ui:Label name="development-wave-observation" text="Wave director unavailable" class="development-help" />
-            </ui:VisualElement>
+                <ui:Label text="CURRENT STATS" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-experience-observation" text="XP unavailable" class="development-help" />
+                <ui:Label name="development-stats-observation" text="Stats unavailable" class="development-help" />
+            </ui:ScrollView>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
+                <ui:Label name="development-traveler-observation" class="observation-label" />
+                <ui:Button name="development-spawn-traveler" text="Spawn fixture Traveler" class="compact-button" />
+                <ui:Label name="development-pickup-observation" class="observation-label" />
+                <ui:Button name="development-drop-potion" text="Drop fixture potion" class="compact-button" />
+                <ui:Button name="development-drop-book" text="Drop fixture Book" class="compact-button" />
+                <ui:Button name="development-add-book" text="Collect fixture Book" class="compact-button" />
                 <ui:Label text="SET RECIPES" class="development-section-title" />
                 <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
+                <ui:Label text="ACTIVE SKILLS" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-skill-observation" class="development-help" />
                 <ui:Label text="CHARACTERS" class="development-section-title development-section-spaced" />
                 <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
             </ui:ScrollView>
@@ -76,6 +102,16 @@
                 </ui:VisualElement>
                 <ui:Label text="Use -10 HP on the Run tab for hit reaction. Pause from the HUD." class="development-help" />
             </ui:VisualElement>
+            <ui:ScrollView name="development-pane-playtest" class="development-pane development-scroll">
+                <ui:Label text="LOCAL PLAYTEST" class="development-section-title" />
+                <ui:Label name="playtest-summary" text="Recording disabled" class="development-help" />
+                <ui:TextField name="playtest-note" label="Note" multiline="true" />
+                <ui:VisualElement class="development-button-row">
+                    <ui:Button name="playtest-marker" text="Add marker" class="compact-button" />
+                    <ui:Button name="playtest-export" text="Export" class="compact-button" />
+                </ui:VisualElement>
+                <ui:Label text="Local files only. Export during a run is incomplete. Final export is automatic; add later notes to feedback.md." class="development-help" />
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

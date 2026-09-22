@@ -657,7 +657,8 @@ Runtime shadow:
 8. **Импортировать в Unity.** Поместить PNG по stable runtime path, дать Unity создать `.meta`, применить category import contract и сохранить GUID при будущей замене. Source/master не помещать под `Assets`.
 9. **Зарегистрировать presentation content.** Добавить `SpriteDefinition` в fixture или production presentation catalog; добавить typed visual reference в owner definition; убедиться, что `ContentRegistry.Build()` обнаруживает missing/wrong-type references. Gameplay-код не загружает PNG напрямую в обход catalog boundary.
 10. **Подключить runtime presentation.** Для деформируемого world body использовать дочерний `VisualRoot`/`BodyRoot`, отдельную shadow и motion profile. Projectile/pickup/UI используют только нужный им presentation adapter и не получают пустой character rig «для единообразия».
-11. **Проверить автоматически.** Проверить path/ID resolution, import contract, alpha/dimensions, scene or factory wiring, reset/pooling semantics и отсутствие изменения gameplay root/collider. Запустить релевантные EditMode/PlayMode regressions.
+10a. **Подогнать круг контакта для character/enemy body.** Выполнить §22 после фиксации PNG, PPU и pivot; сохранить contact profile и применить его через scene/factory. Для остальных категорий этот шаг не применяется.
+11. **Проверить автоматически.** Проверить path/ID resolution, import contract, alpha/dimensions, scene or factory wiring, reset/pooling semantics и отсутствие изменения gameplay root/collider от анимации. Для body проверить authored круг по §22. Запустить релевантные EditMode/PlayMode regressions.
 12. **Проверить визуально.** Использовать Gameplay showcase или реальный owning screen на target scale. Проверить silhouette, halo/crop, pivot, facing/rotation, motion/effect padding, плотную сцену и category checklist.
 13. **Записать evidence.** Обновить owning IP в `STATUS.md`: implementation, verification, deviations и documentation impact. Только после этого asset считается завершённым.
 
@@ -674,6 +675,7 @@ owner content ID
 → Unity import + .meta
 → SpriteDefinition + owner reference
 → подходящий rig/adapter + optional motion profile
+→ для character/enemy body: максимальный вписанный круг (§22)
 → automated checks
 → gameplay/showcase review
 → STATUS evidence
@@ -686,7 +688,7 @@ owner content ID
 - Production ID и образ прошли content gate; fixture явно помечен `FIXTURE-*`.
 - Body использует нейтральную animation-ready stance, свободные конечности, чистый силуэт и горизонтальную ground-contact line.
 - Body, shadow, weapon и portrait являются отдельными roles, если требуют разных transform/material/UI lifecycle.
-- Canvas/PPU/pivot дают ожидаемый world size без изменения collider или gameplay root.
+- Canvas/PPU/pivot дают ожидаемый world size; статический body contact profile подготовлен по §22.
 - Горизонтальный flip не ломает свет, аксессуары, хват или смысл силуэта.
 - `CharacterDefinition` ссылается на зарегистрированные visual и motion-profile IDs.
 - `VisualRoot` изолирует idle, locomotion, hit и spawn от physics; pause/end/reset проверены.
@@ -697,7 +699,7 @@ owner content ID
 - Silhouette и цвет выражают gameplay threat/role, не полагаясь на мелкую детализацию.
 - Runtime size соответствует категории normal enemy или boss; повышение до `512/1024` обосновано silhouette/memory check.
 - Pivot находится на stance/ground-contact line; shadow отделена от деформируемого body.
-- Visual не меняет collider, seek/contact distance, damage timing или authoritative movement.
+- Contact profile подготовлен по §22. Анимация visual не меняет collider, seek/contact distance, damage timing или authoritative movement.
 - Если enemy pooled, повторный spawn полностью сбрасывает flip, tint, scale, reactions и transient effects.
 - Directional flip/rotation соответствует фактическому способу движения enemy.
 - Проверена читаемость в ожидаемой максимальной плотности толпы, а не только один объект на пустом фоне.
@@ -731,3 +733,69 @@ owner content ID
 - Import использует UI contract; экранный размер задаёт layout, а не случайный PPU.
 - Проверены normal/hover/disabled/selected состояния, если они существуют; tint не уничтожает читаемость.
 - Visual ID зарегистрирован и разрешается через presentation/content boundary; UI не содержит случайный прямой путь к source/master.
+
+## 21. Category profiles и reusable adapters (IP-12A)
+
+### Контактная геометрия body
+
+Для character/enemy body применяется отдельный authoring-этап [§22](#22-подгонка-круга-контакта-для-world-body), утверждённый в DECISION-0039. Он задаёт статическую физическую геометрию после подготовки рисунка; анимация и обычный reimport её не меняют.
+
+### Первый enemy body: approved art в существующем fixture
+
+ENEMY-001 v002 имеет отдельный master/provenance и runtime derivative 256×256.
+FIXTURE-ENEMY-SEEKER-VISUAL ссылается на этот PNG; gameplay owner остаётся
+FIXTURE-ENEMY-SEEKER, его баланс и collision geometry не изменяются.
+Production ENEMY-001-VISUAL-BODY зарезервирован в manifest, но не выдаётся за
+зарегистрированную production definition.
+
+Optional EnemyDefinition.MotionProfile / JSON motionProfileId — typed ref на
+SpriteMotionProfile, проверяемый registry и сохраняемый WaveEnemyScaler.
+Composition root разрешает body role и profile; spawner/factory передают resolved
+sprite/profile в runtime. Тела с motion используют existing SpritePresentationRuntime
+на дочерних VisualRoot/BodyRoot; VisualRoot компенсирует collision-size scale,
+поэтому PPU определяет визуальный размер независимо от коллайдера.
+Health.Damaged даёт hit reaction; pause/terminal замораживают pose; death,
+reinitialize и pool return сбрасывают renderer/pose/subscription.
+Смерть сразу возвращает gameplay object в pool: отдельный death VFX и тень
+не добавляются этим art packet. Новая art integration не закрывает пользовательский gate E.
+
+`Art/ImportProfiles.json` — editor-side technical settings. Category defaults: UI icon 256, portrait 512; projectile/pickup/shadow 256; impact/telegraph 512. Center pivot используется для UI/VFX. World body требует записи с полным asset path и фактической ground-contact точкой: неизвестный body не получает произвольный pivot. Exact-path record задаёт PPU, maxSize, pivot и причину override; повторный import применяет тот же record. После изменения профиля выполнить Reimport затронутых ассетов. Общие Sprite/Single/sRGB/alpha/FullRect/Bilinear/Clamp/no mipmaps/no ReadWrite и uncompressed contract сохраняются. PPU > 0; pivot в [0,1]; maxSize — power-of-two 32…8192, увеличение сверх category target требует прежней memory/readability проверки.
+
+`SpriteDefinition.Role` и `RequireRole` отделяют Body/Portrait/Icon/Projectile/Pickup/Telegraph/Impact/Shadow. Legacy fixtures могут иметь Unspecified, но новый role adapter этого не принимает. Catalog не подставляет placeholder для production ID. `SpritePortraitCrop` переиспользует texture approved body, задаёт нормализованный прямоугольник внутри [0,1] с положительными сторонами и center pivot; владелец освобождает только созданный Sprite через Dispose. Это UI reuse без копирования master в Assets; crop всё равно проходит slot review.
+
+`SpritePresentationAdapter` принимает `IPresentationSource` (running, velocity, semantic hit/proc/death/collect events), рисует только child без physics в subtree и возвращает captured baseline при Shutdown/reinitialize. `FixturePresentationFeedback.json`: fadeSeconds и procSeconds > 0 секунд; procScale в [0,0.1], относительный акцент масштаба. Значения synthetic; scale результата ограничивается safety envelope. Death/collect запускают одноразовый fade, но не задерживают gameplay despawn; owner вправе вернуть объект сразу. При необходимости пережить despawn owner предоставляет отдельный pooled visual, не удерживает gameplay entity ради анимации. Пауза/terminal останавливают часы и новые реакции; proc не накапливается, повтор обновляет envelope. Settings/camera consumer IP-26 получает `IScreenShakePreference` и `ScreenShakeRequestGate`; camera service/persistence здесь не реализуются.
+
+Инвентарь небольшого проверяемого пакета: [Art/asset-manifest.json](../../Art/asset-manifest.json); read-only audit: `python scripts/validate-art-manifest.py`. Production remainder остаётся в Art Production. Generated, procedural и hybrid роли имеют отдельные evidence; пустой ShadowRenderer игрока не объявлен готовым shadow image.
+
+Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**. Это отдельное opt-in окно с scroll, не overlay поверх игры и не часть Player build. Idle/Left/Right, Hit/Proc/Death/Collect, Pause/Resume, Reset и 4 copies управляют synthetic source через adapter. Шесть процедурных геометрических ролей — технические fixtures; они не выдаются за production enemy/projectile/XP art. Четыре копии проверяют совместную работу adapters, но не заменяют реальный gameplay run с 3–4 сетами. Capture Presentation Fixture Review сохраняет технический снимок в TestResults; визуальная приёмка и плотный gameplay review остаются отдельными gate E.
+
+## 22. Подгонка круга контакта для world body
+
+Утверждено пользователем 2026-09-22 после проверки гоблина и селянина; основание — [DECISION-0039](../decisions/0039-conservative-body-contact-circles.md). Этап выполняется для новых и изменённых character/enemy body с круговым контактом после подготовки runtime PNG и фиксации import settings. Projectile, pickup, UI и VFX сохраняют собственную геометрию.
+
+### Правило
+
+Один CircleCollider2D задаёт и физический упор, и contact damage. Вписываем максимально большой круг в заполненный внешний обвод персонажа, игнорируя внутренние дырки и промежутки между рукой и телом или ногами. Практическое определение обвода — выпуклая оболочка пикселей с alpha >=230/255; оружие и выступы участвуют в обводе, но не получают отдельных коллайдеров. Прозрачный padding и полупрозрачная тень не определяют размер. Визуальное пересечение до физического контакта допустимо; совпадение с каждым пикселем во время анимации не требуется.
+
+Центр по X находится на вертикали sprite pivot: один и тот же круг помещается в исходный и зеркальный силуэты. Одновременно оптимизируются радиус и центр по Y. Для каждой грани оболочки выполняется `n·c + r <= -b`, где n — внешняя единичная нормаль, b — смещение грани, c — центр круга, r — радиус в пикселях; выбирается максимальный r. Например при грани x<=200 и center.x=140 допустимый радиус не больше 60 px. В JSON радиус и высота центра над foot pivot делятся на PPU и хранятся в world units. Дополнительного shrink factor нет; радиус округляется вниз до 0.000001 world units.
+
+### Порядок работы
+
+1. Убедиться, что runtime PNG утверждён и импортирован, PPU и ground pivot записаны в `Art/ImportProfiles.json`. Масштаб рисунка сначала проверяется рядом с уже готовыми персонажами.
+2. Зарегистрировать Body в presentation catalog. Текущий authoring tool читает `FixtureSprites.json`: запись должна иметь парные `contactRadius` >0 и `contactCenterY` >=0, оба finite. Для новой записи допустимы временные стартовые значения, которые fit заменит до runtime integration. Production catalog требует соответствующего адаптера, fixture tool не вводит production ID автоматически.
+3. Из корня репозитория выполнить `python scripts/fit-body-contacts.py --fit-outer` для предложения, затем `python scripts/fit-body-contacts.py --fit-outer --write` для сохранения. Требуются Pillow, NumPy, SciPy. Команда обрабатывает все записи с contact profile: просмотреть JSON diff и убедиться в нужном scope. Без аргументов скрипт только проверяет сохранённые круги. `--radius-scale` предназначен для отдельно согласованных экспериментов и не входит в стандартный fit.
+4. Применить профиль через Unity API: для текущего Player — `Game.Presentation.Editor.FixtureContactBaker.BakePlayer`; enemy factory читает профиль при spawn/reuse. Сцену не править вручную в YAML. Gameplay root остаётся центром круга; body visual смещается вниз на contactCenterY. Root scaling компенсируется при задании radius. Анимация, flip, pause и pool reset не пересчитывают геометрию.
+5. Сделать capture с наложенными кругами: отдельно проверить оба направления спрайта и касание пар с восьми сторон. Текущая команда — `Game.Presentation.Editor.PresentationReviewCapture.CaptureContacts`; результат — `TestResults/body-contact-review.png`. Для новых body расширить выборку capture. Осмотреть также реальное движение, hit pose и читаемость толпы: выпуклая оболочка около длинного оружия может включать заметную пустую область.
+6. Проверить сохранённый круг внутри оболочки и касание её границы с допуском до одного пикселя для дискретизации, отсутствие урона до физического контакта, урон после контакта, pause/end и смешанный pool reuse. Запускать релевантные Unity tests по smoke-check safety procedure. Если для нового силуэта выпуклый обвод даёт нежелательный результат, зафиксировать отклонение и отдельный review, не подменять правило скрытым коэффициентом.
+7. Записать параметры, capture и проверки в evidence, обновить owning scope в STATUS и получить визуальную оценку. Замена PNG, PPU или pivot требует повторного fit и review; обычный reimport не перезаписывает contact profile.
+
+### Runtime стоимость и текущий эталон
+
+Оболочка и оптимизация рассчитываются только при подготовке ассета. В игре нет чтения alpha, поиска контура или дополнительных коллайдеров на конечностях: один фиксированный круг на актёра.
+
+| Body | Radius | CenterY над foot pivot |
+|---|---:|---:|
+| Goblin | 0.401431 | 0.530976 |
+| Villager | 0.330282 | 0.469539 |
+
+Текущая пара принята пользователем как образец пайплайна; полный gameplay/density gate остаётся отдельным. Проверки: [contact evidence](../implementation/evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles).

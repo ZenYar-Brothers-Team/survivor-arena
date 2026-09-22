@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Game.Character;
+using Game.Combat;
 using Game.Content;
 using Game.Progression;
 using Game.Run;
+using Game.Movement;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -28,9 +31,30 @@ namespace Game.ActiveSkill
         private IActiveSkillTargetProvider _targetProvider;
         private IActiveSkillEffectExecutor _executor;
         private bool _initialized;
+        private PlayerMover _mover;
 
+        public event Action<CombatSource> Activated;
+        public Func<ContentId, CharacterStatModifier> SetSkillModifier { get; set; }
         public int SkillCount => _instances.Count;
         public IEnumerable<ActiveSkillInstance> Skills => _instances.Values;
+
+        public string DevelopmentObservation
+        {
+            get
+            {
+                var text = new StringBuilder();
+                foreach (var skill in _instances.Values)
+                {
+                    var level = skill.Definition.GetLevel(skill.Level);
+                    if (text.Length > 0) text.AppendLine();
+                    text.Append(skill.Definition.Id).Append(" L").Append(skill.Level)
+                        .Append(" / ").Append(level.TargetingMode).Append(" / casts ").Append(skill.TriggerCount)
+                        .Append(" / target ").Append(skill.LastAimPoint.ToString("F1"))
+                        .Append(" / ledger ").Append(skill.HitLedger.Count);
+                }
+                return text.ToString();
+            }
+        }
 
         private void Start()
         {
@@ -56,6 +80,7 @@ namespace Game.ActiveSkill
             if (_initialized)
                 throw new InvalidOperationException("Player active-skill set runtime is already initialized.");
             owner = skillOwner != null ? skillOwner : throw new ArgumentNullException(nameof(skillOwner));
+            _mover = owner.GetComponent<PlayerMover>();
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
             draftRuntime = drafts != null ? drafts : throw new ArgumentNullException(nameof(drafts));
             _targetProvider = targetProvider ?? throw new ArgumentNullException(nameof(targetProvider));
@@ -98,11 +123,20 @@ namespace Game.ActiveSkill
             SynchronizeBuild();
             var isRunning = runController.Model.State == RunState.Running;
             _executor.Tick(deltaTime, isRunning);
+            if (runController.Model.State == RunState.Won || runController.Model.State == RunState.Lost || runController.Model.State == RunState.Stopped)
+            {
+                foreach (var instance in _instances.Values) instance.HitLedger.Clear();
+                return false;
+            }
             var triggered = false;
             foreach (var instance in _instances.Values)
             {
-                if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor))
+                if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
+                    SetSkillModifier?.Invoke(instance.Definition.Id) ?? default))
+                {
+                    Activated?.Invoke(new CombatSource(owner.Identity, instance.Definition.Id, CombatSourceOrigin.ActiveSkill, instance.Level));
                     triggered = true;
+                }
             }
             _executor.Tick(0f, isRunning);
             return triggered;
@@ -151,6 +185,10 @@ namespace Game.ActiveSkill
                 draftRuntime.SelectionApplied -= HandleSelectionApplied;
             if (_executor is IDisposable disposable)
                 disposable.Dispose();
+            foreach (var instance in _instances.Values) instance.HitLedger.Clear();
+            _instances.Clear();
+            _catalog.Clear();
+            _mover = null;
             _initialized = false;
         }
 

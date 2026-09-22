@@ -32,7 +32,9 @@ namespace Game.Progression.Tests
 
             try
             {
-                var enemy = EnemyFactory.Spawn(definition, deathPosition, player.transform, runController);
+                var enemy = EnemyFactory.Spawn(definition, deathPosition, player.transform, runController,
+                    lifecycleSink: new EnemyExperienceDropSink(experience, runController));
+                var sourceLife = enemy.LifeId;
                 enemy.TakeDamage(1f);
                 drop = Object.FindAnyObjectByType<ExperienceDropRuntime>();
 
@@ -40,6 +42,9 @@ namespace Game.Progression.Tests
                 Assert.AreEqual(deathPosition, (Vector2)drop.transform.position);
                 Assert.AreEqual(3f, drop.Amount);
                 Assert.AreEqual(60f, drop.Lifetime);
+                Assert.AreEqual(sourceLife, drop.Identity.SourceLifeId);
+                Assert.AreEqual(definition.Id, drop.Identity.SourceContentId);
+                Assert.AreEqual(runController.Model.RunId, drop.Identity.RunId);
             }
             finally
             {

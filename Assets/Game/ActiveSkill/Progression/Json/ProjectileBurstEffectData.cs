@@ -3,6 +3,7 @@ namespace Game.ActiveSkill.Json
     public sealed class ProjectileBurstEffectData : IActiveSkillEffectData
     {
         public ActiveSkillEffectKind Kind => ActiveSkillEffectKind.ProjectileBurst;
+        public ProjectileBehaviorData Behavior { get; set; }
         public int ProjectileCount { get; set; }
         public ProjectileLayout Layout { get; set; }
         public float SpreadDegrees { get; set; }

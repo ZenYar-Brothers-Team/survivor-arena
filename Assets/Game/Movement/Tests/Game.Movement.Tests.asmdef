@@ -7,7 +7,9 @@
         "Game.Run",
         "Unity.InputSystem",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Game.Content",
+        "Game.Field"
     ],
     "includePlatforms": [
         "Editor"

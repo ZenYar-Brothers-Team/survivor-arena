@@ -158,6 +158,8 @@ namespace Game.Progression.Tests
         [Test]
         public void BanishingLastEligibleEntry_ResolvesDraftWithoutPermanentPause()
         {
+            _draftRuntime.Shutdown();
+            _experience.Shutdown();
             var isolatedPlayer = new GameObject("Isolated Player");
             try
             {
@@ -191,13 +193,17 @@ namespace Game.Progression.Tests
             }
             finally
             {
+                isolatedPlayer.GetComponent<LevelUpDraftRuntime>()?.Shutdown();
+                isolatedPlayer.GetComponent<PlayerExperienceRuntime>()?.Shutdown();
                 Object.DestroyImmediate(isolatedPlayer);
             }
         }
 
         [Test]
-        public void RerollWithNoReplacement_ConsumesDraftWithoutThrowingOrLeavingPause()
+        public void RerollWithOnlySetMiss_BackfillsSetAndKeepsDraftUntilChoice()
         {
+            _draftRuntime.Shutdown();
+            _experience.Shutdown();
             var isolatedPlayer = new GameObject("Reroll Exhaustion Player");
             try
             {
@@ -207,10 +213,9 @@ namespace Game.Progression.Tests
                 experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-REROLL-STARTING-ACTIVE");
-                var set = new SetDefinition(
+                var set = SetTestData.Define(
                     "FIXTURE-REROLL-SET",
                     "Fixture Reroll Set",
-                    0.5f,
                     new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
                 draft.Initialize(
                     experience,
@@ -219,7 +224,10 @@ namespace Game.Progression.Tests
                     active,
                     offerCount: 3,
                     draftRandom: new SequenceDraftRandom(0f, 1f),
-                    initialRerolls: 1);
+                    initialRerolls: 1,
+                    setDefinitions: new[] { set },
+                    setAbilityFactory: new FixtureSetExtraAbilityFactory());
+                SetTestData.AddComponents(draft.Build);
                 UpgradeToMaximum(draft.Build, active);
 
                 experience.AddPickedUpExperience(1f);
@@ -228,12 +236,17 @@ namespace Game.Progression.Tests
 
                 Assert.DoesNotThrow(() => Assert.IsTrue(draft.Reroll()));
                 Assert.AreEqual(0, draft.RemainingRerolls);
-                Assert.IsFalse(draft.IsDraftOpen);
-                Assert.AreEqual(0, draft.PendingDraftCount);
+                Assert.IsTrue(draft.IsDraftOpen);
+                Assert.AreEqual(1, draft.PendingDraftCount);
+                Assert.AreEqual(set.Id, draft.CurrentDraft.Options[0].Definition.Id);
+                Assert.AreEqual(RunState.Paused, _runController.Model.State);
+                Assert.IsTrue(draft.Select(set.Id));
                 Assert.AreEqual(RunState.Running, _runController.Model.State);
             }
             finally
             {
+                isolatedPlayer.GetComponent<LevelUpDraftRuntime>()?.Shutdown();
+                isolatedPlayer.GetComponent<PlayerExperienceRuntime>()?.Shutdown();
                 Object.DestroyImmediate(isolatedPlayer);
             }
         }
@@ -241,6 +254,8 @@ namespace Game.Progression.Tests
         [Test]
         public void LevelUpWithFullMaxedBuild_SkipsEveryUnavailableDraftButKeepsLevels()
         {
+            _draftRuntime.Shutdown();
+            _experience.Shutdown();
             var isolatedPlayer = new GameObject("Full Build Player");
             try
             {
@@ -284,6 +299,8 @@ namespace Game.Progression.Tests
             }
             finally
             {
+                isolatedPlayer.GetComponent<LevelUpDraftRuntime>()?.Shutdown();
+                isolatedPlayer.GetComponent<PlayerExperienceRuntime>()?.Shutdown();
                 Object.DestroyImmediate(isolatedPlayer);
             }
         }
@@ -291,6 +308,8 @@ namespace Game.Progression.Tests
         [Test]
         public void SelectingSet_CreatesExtraAbilityWithoutOccupyingActiveOrPassiveSlot()
         {
+            _draftRuntime.Shutdown();
+            _experience.Shutdown();
             var isolatedPlayer = new GameObject("Set Player");
             try
             {
@@ -300,10 +319,9 @@ namespace Game.Progression.Tests
                 experience.Initialize(character, _runController, new ExperienceSettings(60f, 1f));
                 var draft = isolatedPlayer.AddComponent<LevelUpDraftRuntime>();
                 var active = Active("FIXTURE-SET-STARTING-ACTIVE");
-                var set = new SetDefinition(
+                var set = SetTestData.Define(
                     "FIXTURE-SELECTABLE-SET",
                     "Fixture Selectable Set",
-                    1f,
                     new SetRecipeComponent(active.Id, BuildEntryKind.ActiveSkill, 1));
                 draft.Initialize(
                     experience,
@@ -314,16 +332,19 @@ namespace Game.Progression.Tests
                     setDefinitions: new[] { set },
                     setAbilityFactory: new FixtureSetExtraAbilityFactory());
 
+                SetTestData.AddComponents(draft.Build);
                 experience.AddPickedUpExperience(1f);
                 Assert.IsTrue(draft.Select(set.Id));
 
                 Assert.AreEqual(1, draft.Build.ActiveCount);
-                Assert.AreEqual(0, draft.Build.PassiveCount);
+                Assert.AreEqual(2, draft.Build.PassiveCount);
                 Assert.AreEqual(1, draft.Build.SetCount);
                 Assert.AreEqual(1, draft.Sets.Count);
             }
             finally
             {
+                isolatedPlayer.GetComponent<LevelUpDraftRuntime>()?.Shutdown();
+                isolatedPlayer.GetComponent<PlayerExperienceRuntime>()?.Shutdown();
                 Object.DestroyImmediate(isolatedPlayer);
             }
         }

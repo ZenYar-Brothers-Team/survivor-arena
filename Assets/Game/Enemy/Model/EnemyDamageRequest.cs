@@ -1,22 +1,26 @@
 using System;
+using Game.Combat;
 using Game.Content;
 
 namespace Game.Enemy
 {
     public readonly struct EnemyDamageRequest
     {
-        public ContentId SourceId { get; }
-        public float Amount { get; }
+        public CombatDamageRequest Combat { get; }
+        public ContentId SourceId => Combat.Source.ContentId ?? default;
+        public float Amount => Combat.Amount;
 
         public EnemyDamageRequest(ContentId sourceId, float amount)
         {
             if (!sourceId.IsValid)
                 throw new ArgumentException("Enemy damage requires a valid source content id.", nameof(sourceId));
-            if (float.IsNaN(amount) || float.IsInfinity(amount) || amount < 0f)
-                throw new ArgumentOutOfRangeException(nameof(amount), "Damage must be finite and non-negative.");
+            NumericValidation.ValidateNonNegative(amount, nameof(amount));
 
-            SourceId = sourceId;
-            Amount = amount;
+            Combat = new CombatDamageRequest(new CombatSource(default, sourceId, CombatSourceOrigin.Unknown), amount);
         }
+
+        public EnemyDamageRequest(CombatDamageRequest combat) { Combat = combat; }
+        public EnemyDamageRequest WithAmount(float amount) => new EnemyDamageRequest(Combat.WithAmount(amount));
+        public EnemyDamageRequest WithDirection(float x, float y) => new EnemyDamageRequest(Combat.WithDirection(x, y));
     }
 }

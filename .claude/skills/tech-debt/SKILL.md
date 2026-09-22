@@ -23,7 +23,7 @@ Categories: **Architecture** (wrong abstraction, coupling, root init/teardown), 
 ## scan
 Read-only search, then propose entries (do not write until confirmed). Indicators:
 - `TODO`, `FIXME`, `HACK`, `WORKAROUND`, `[Obsolete]`, `#pragma warning disable` in `Assets/Game/**`.
-- Repository-rule violations listed in `AGENTS.md`: tuning literals or `[SerializeField]` defaults, local `Validate*` helpers, `new GameObject`/`Destroy` on hot paths, missing `Shutdown()`, multi-type files, missing `PerfGuard`.
+- Repository-rule violations routed by `AGENTS.md` to `.claude/rules/csharp-code.md` and the matching area rules: tuning literals or `[SerializeField]` defaults, local `Validate*` helpers, `new GameObject`/`Destroy` on hot paths, missing `Shutdown()`, multi-type files, missing `PerfGuard`.
 - Very large files/methods; classes with many responsibilities.
 - Skipped/ignored tests; production classes with no test file.
 - Accepted-but-deferred decisions recorded in `docs/decisions/` or PR notes (for example "double `_executor.Tick()` accepted").

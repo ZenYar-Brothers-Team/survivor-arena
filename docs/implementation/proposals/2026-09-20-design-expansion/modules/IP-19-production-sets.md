@@ -1,0 +1,55 @@
+# IP-19 — Production Sets SET-001…020
+
+Материал ревью: план принят пользователем 2026-09-20 и зарегистрирован. [Действующая спецификация](../../../modules/IP-19-production-sets.md). Этот файл не является текущим implementation packet.
+
+Ревизия согласованного проекта: `design-sync-R2`. Спецификация перенесена в действующий каталог; дальнейшие изменения выполняются там.
+
+## Существующая база и характер изменения
+
+Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+
+## Зависимости
+
+[IP-11](IP-11-set-framework.md), [IP-17](IP-17-production-skills.md), [IP-18](IP-18-production-passives.md), [IP-28](IP-28-world-pickups.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
+
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
+
+## Context
+
+Источники GDD/CD/Art Direction ниже — пять утверждённых новых документов из [реестра источников](../README.md), после M-01 — их canonical destinations. Читать только перечисленные секции и полные карточки используемых ID.
+
+новый GDD «Сеты»/draft; полные выбранные SET-001…020 и компоненты рецептов; UI §§8–10; Art Direction v2 §12.1, Art Production §8.
+
+## Scope
+
+двадцать точных recipes/thresholds, effects и source/proc rules, icons и только необходимые дополнительные visual roles. Skill transformations, buffs и отдельные set-attacks подключаются к соответствующим IP-11 contracts, а не все трактуются как независимый projectile.
+
+## Out of Scope
+
+новые рецепты/эффекты вне утверждённых документов, отдельный set progression/rarity, постоянный VFX spam ради отличия.
+
+## Acceptance criteria
+
+recipe fulfilled ≠ acquired; общий setDraftChance/priority принадлежат IP-07/IP-10/IP-11 и не дублируются per-card weight. Set не занимает active/passive slot и не получает уровень; shared components и несколько sets работают вместе. Non-recursion/source inheritance соблюдаются. Неполный proc payload или внутреннее противоречие выбранной карточки блокирует её конкретный effect, а не весь каталог.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../03-existing-modules-and-art.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+progress/threshold detail, completes-recipe projection, distinct set card, acquired effect summary; source/proc counters только DEV/telemetry. Внешний вид set effect остаётся вторичным по отношению к active skills.
+
+## Проверки
+
+per-recipe truth table, acquisition/duplicate, per-effect smoke, same components/multiple sets, proc boundaries и no recursion; manual сочетание 3–4 sets на реальном масштабе.
+
+## Документационные изменения
+
+range до 020, уточнение «extra abilities» до полного approved набора effects, resolved card gaps и effect/asset/test mapping.
+
+## Gates и недостающие решения
+
+G-02/G-04/G-05/G-08/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия. Ссылки G-xx/W-01 — [матрица различий](../01-reconciliation.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-27](IP-27-integration.md). Полный порядок и готовность после регистрации определяет STATUS, не расположение файлов.

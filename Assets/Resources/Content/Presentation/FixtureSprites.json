@@ -1,6 +1,16 @@
 [
   {
+    "id": "FIXTURE-ENEMY-SEEKER-VISUAL",
+    "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
+    "role": "Body",
+    "contactRadius": 0.330282,
+    "contactCenterY": 0.469539
+  },
+  {
     "id": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
-    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body"
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Body",
+    "contactRadius": 0.401431,
+    "contactCenterY": 0.530976
   }
 ]

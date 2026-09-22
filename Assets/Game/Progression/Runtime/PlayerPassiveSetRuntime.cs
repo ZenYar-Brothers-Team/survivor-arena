@@ -39,7 +39,7 @@ namespace Game.Progression
             IEnumerable<PassiveProgressionDefinition> definitions)
         {
             if (_initialized)
-                throw new InvalidOperationException("Player passive-set runtime is already initialized.");
+                Shutdown();
             owner = characterOwner != null ? characterOwner : throw new ArgumentNullException(nameof(characterOwner));
             draftRuntime = drafts != null ? drafts : throw new ArgumentNullException(nameof(drafts));
             if (definitions == null)
@@ -113,6 +113,7 @@ namespace Game.Progression
             if (draftRuntime != null)
                 draftRuntime.SelectionApplied -= HandleSelectionApplied;
             ReleaseAppliedModifiers();
+            _catalog.Clear();
             _initialized = false;
         }
 

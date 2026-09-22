@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="meta-launcher" class="meta-launcher" picking-mode="Ignore">
+        <ui:Button name="meta-open" text="Meta progression" />
+        <ui:Button name="meta-quit" text="Quit Run" />
+    </ui:VisualElement>
+    <ui:VisualElement name="meta-body" class="meta-body">
+        <ui:Label name="meta-title" class="meta-title" />
+        <ui:Label name="meta-summary" class="meta-summary" />
+        <ui:Label name="meta-message" class="meta-message" />
+        <ui:DropdownField name="meta-character" label="Character" />
+        <ui:ScrollView name="meta-cards" class="meta-cards" />
+        <ui:VisualElement class="meta-actions">
+            <ui:Button name="meta-save" text="Retry Save / Load" />
+            <ui:Button name="meta-reset" text="Reset damaged profile (preserve files)" />
+            <ui:Button name="meta-close" text="Back" />
+            <ui:Button name="meta-retry" text="Retry Run" />
+            <ui:Button name="meta-selection" text="Main Menu" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

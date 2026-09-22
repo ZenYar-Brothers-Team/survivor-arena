@@ -25,7 +25,9 @@ namespace Game.Enemy
                 definition.ExperienceReward,
                 definition.Visual,
                 definition.Movement,
-                ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier));
+                ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier),
+                definition.KnockbackResistance,
+                definition.ContactControls, definition.DashContactControls, definition.MotionProfile);
         }
 
         private static EnemyAttackProfile ScaleAttack(EnemyAttackProfile attack, float damageMultiplier)
@@ -44,7 +46,8 @@ namespace Game.Enemy
                 attack.BurstIntervalSeconds,
                 attack.ProjectileRadius,
                 attack.ExplosionRadius,
-                attack.RotationStepDegrees);
+                attack.RotationStepDegrees,
+                attack.Controls, attack.TelegraphSeconds);
         }
     }
 }

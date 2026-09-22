@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
@@ -14,7 +15,9 @@ namespace Game.Progression
             PlayerExperienceRuntime target,
             RunController runController,
             Transform parent = null,
-            GameObjectPool<ExperienceDropRuntime> pool = null)
+            GameObjectPool<ExperienceDropRuntime> pool = null,
+            Guid? sourceLifeId = null,
+            ContentId? sourceContentId = null)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
@@ -24,7 +27,7 @@ namespace Game.Progression
             var runtime = pool != null ? pool.Rent() : CreateInstance();
             runtime.transform.SetParent(parent, worldPositionStays: false);
             runtime.transform.position = position;
-            runtime.Initialize(amount, lifetime, target, runController, target.PickupRadius, pool);
+            runtime.Initialize(amount, lifetime, target, runController, target.PickupRadius, pool, sourceLifeId, sourceContentId);
             return runtime;
         }
 

@@ -56,7 +56,11 @@ namespace Game.Enemy
                     }
                     hookCopy.Add(hook);
                 }
-                hookCopy.Sort((left, right) => left.TimeSeconds.CompareTo(right.TimeSeconds));
+                hookCopy.Sort((left, right) =>
+                {
+                    var time = left.TimeSeconds.CompareTo(right.TimeSeconds);
+                    return time != 0 ? time : left.Kind.CompareTo(right.Kind);
+                });
             }
 
             Id = id;

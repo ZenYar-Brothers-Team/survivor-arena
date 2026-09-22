@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Combat;
 using Game.Presentation;
 
 namespace Game.Enemy
@@ -15,8 +16,12 @@ namespace Game.Enemy
         public float ContactDamageInterval { get; }
         public float ExperienceReward { get; }
         public ContentRef<SpriteDefinition> Visual { get; }
+        public ContentRef<SpriteMotionProfile> MotionProfile { get; }
         public EnemyMovementProfile Movement { get; }
         public EnemyAttackProfile Attack { get; }
+        public float KnockbackResistance { get; }
+        public CombatControlProfile DashContactControls { get; }
+        public CombatControlProfile ContactControls { get; }
 
         public EnemyDefinition(
             ContentId id,
@@ -28,7 +33,11 @@ namespace Game.Enemy
             float experienceReward = 0f,
             ContentRef<SpriteDefinition> visual = default,
             EnemyMovementProfile movement = null,
-            EnemyAttackProfile attack = null)
+            EnemyAttackProfile attack = null,
+            float knockbackResistance = 0f,
+            CombatControlProfile contactControls = null,
+            CombatControlProfile dashContactControls = null,
+            ContentRef<SpriteMotionProfile> motionProfile = default)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -48,8 +57,15 @@ namespace Game.Enemy
             ContactDamageInterval = contactDamageInterval;
             ExperienceReward = experienceReward;
             Visual = visual;
+            if (motionProfile.Id.IsValid && !visual.Id.IsValid)
+                throw new ArgumentException("Enemy motion requires a body visual.", nameof(motionProfile));
+            MotionProfile = motionProfile;
             Movement = movement ?? EnemyMovementProfile.Seek;
             Attack = attack;
+            NumericValidation.ValidateRange(knockbackResistance, 0f, 1f, nameof(knockbackResistance));
+            KnockbackResistance = knockbackResistance;
+            ContactControls = contactControls ?? CombatControlProfile.None;
+            DashContactControls = dashContactControls ?? CombatControlProfile.None;
         }
 
         // Visual is optional: content authored without art yet (e.g. fixtures) simply
@@ -58,6 +74,8 @@ namespace Game.Enemy
         {
             if (Visual.Id.IsValid)
                 yield return Visual.ToReference();
+            if (MotionProfile.Id.IsValid)
+                yield return MotionProfile.ToReference();
         }
     }
 }

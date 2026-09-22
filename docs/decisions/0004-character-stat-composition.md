@@ -29,3 +29,9 @@ Related content IDs: PASSIVE-001…010 и CHAR-001…010 как Draft compatibil
 ## Approval
 
 Пользователь явно утвердил правила 2026-09-14: проценты между источниками складываются, здоровье при росте максимума меняется пропорционально, cooldown уменьшается множителем без достижения нуля, damage reduction ограничен 99%.
+
+## Дополнение 2026-09-20
+
+Каноническая терминология теперь action speed; формула сохраняется. Draft compatibility targets этой исторической записи не являются текущим статусом новых утверждённых карточек. См. [DECISION-0015](0015-design-sync-r2.md); прежние decision/approval сохранены.
+
+API/fixture JSON используют `ActionSpeedBonus` / `actionSpeedBonus`; output `ActiveSkillCooldownMultiplier` по-прежнему означает множитель длительности. Словарь новых каналов, low-HP curve и их consumers записан в [IP-03](../implementation/modules/IP-03-character-stats.md). G-08/G-09 остаются открытыми до решения applicability/hit-time policy; наличие канала само по себе не применяет его ко всем effect families.

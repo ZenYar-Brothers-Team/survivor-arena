@@ -12,7 +12,7 @@ allowed-tools: Read, Glob, Grep, Bash
 Read-only. Passing and existing tests can still leave behaviour uncovered — this skill judges the tests, it does not run them (running is `/smoke-check`).
 
 ## 1. Scope
-`Assets/Game/<Module>/Tests/*.cs` (EditMode) and `Assets/Game/**/PlayModeTests/*.cs`; for `IP-NN` take the module's acceptance criteria from `docs/implementation/modules/` and the evidence text in `docs/implementation/STATUS.md`.
+`Assets/Game/<Module>/Tests/*.cs` (EditMode) and `Assets/Game/**/PlayModeTests/*.cs`; for `IP-NN` take the module's acceptance criteria from `docs/implementation/modules/` and the current entry in `docs/implementation/STATUS.md`; read only that IP's linked evidence when coverage details are needed, not the whole archive.
 
 ## 2. Map criteria to tests
 For every acceptance criterion / claimed evidence item, find the test(s) that exercise it. Flag **uncovered criteria** and **evidence text that names a test that does not exist or does not assert what is claimed** (STATUS statements like "25 new checks cover ..." must be traceable).

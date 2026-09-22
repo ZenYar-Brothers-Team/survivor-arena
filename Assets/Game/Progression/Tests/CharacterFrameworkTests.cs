@@ -31,8 +31,8 @@ namespace Game.Progression.Tests
             Assert.IsFalse(roster.TrySelect(sturdy.Id, out _));
             Assert.IsTrue(agile.Visual.Id.IsValid);
             Assert.IsTrue(agile.MotionProfile.Id.IsValid);
-            Assert.IsFalse(sturdy.Visual.Id.IsValid);
-            Assert.IsFalse(sturdy.MotionProfile.Id.IsValid);
+            Assert.IsTrue(sturdy.Visual.Id.IsValid);
+            Assert.IsTrue(sturdy.MotionProfile.Id.IsValid);
         }
 
         [Test]

@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Game.Combat;
+using Game.Content;
+using Game.Diagnostics;
 using Game.Enemy;
 using Game.Movement;
+using Game.Pooling;
 using Game.Run;
 using UnityEngine;
 
 namespace Game.ActiveSkill
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(CircleCollider2D))]
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(SpriteRenderer))]
     public sealed class FixtureProjectileRuntime : MonoBehaviour
     {
         private Rigidbody2D _body;
@@ -18,161 +20,201 @@ namespace Game.ActiveSkill
         private SpriteRenderer _renderer;
         private RunController _runController;
         private ActiveSkillProjectile _projectile;
-        private ProjectileLifetime _lifetime;
-        private bool _initialized;
-        private bool _despawned;
-        private readonly HashSet<IEnemyDamageReceiver> _hitThisPass = new HashSet<IEnemyDamageReceiver>();
+        private GameObjectPool<FixtureProjectileRuntime> _pool;
+        private readonly HashSet<EnemyTargetLife> _hitThisPass = new HashSet<EnemyTargetLife>();
+        private readonly List<IEnemyDamageReceiver> _targets = new List<IEnemyDamageReceiver>();
+        private readonly ICombatTargetQuery _query = new SceneCombatTargetQuery();
         private Vector2 _direction;
         private float _elapsed;
         private int _remainingHits;
+        private int _ricochets;
+        private float _retention;
         private bool _isReturning;
-
+        private bool _initialized;
+        private bool _despawned;
+        private int _generation;
+        public event Action<FixtureProjectileRuntime> Returned;
+        public ContentId SourceId => _projectile.Damage.SourceId;
         public Vector2 Direction => _direction;
-        public Vector2 Position => _body != null ? _body.position : transform.position;
+        public Vector2 Position => _body != null ? _body.position : (Vector2)transform.position;
         public bool IsDespawned => _despawned;
 
-        private void Awake()
+        private void Awake() => CacheComponents();
+        public void Initialize(ActiveSkillProjectile projectile, RunController runController, GameObjectPool<FixtureProjectileRuntime> pool = null)
         {
-            CacheComponents();
-            if (_renderer.sprite == null)
-                _renderer.sprite = PlaceholderSprite.Shared;
-            _renderer.color = new Color(1f, 0.85f, 0.15f, 1f);
-        }
-
-        public void Initialize(ActiveSkillProjectile projectile, RunController runController)
-        {
-            if (_initialized)
-                throw new InvalidOperationException("Projectile runtime is already initialized.");
-
+            Shutdown();
+            _generation++;
+            _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
             _projectile = projectile;
-            _runController = runController != null
-                ? runController
-                : throw new ArgumentNullException(nameof(runController));
-            _lifetime = new ProjectileLifetime(projectile.LifetimeSeconds);
-
+            _pool = pool;
             CacheComponents();
             _body.bodyType = RigidbodyType2D.Kinematic;
             _body.gravityScale = 0f;
             _body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             _body.constraints |= RigidbodyConstraints2D.FreezeRotation;
+            _body.linearVelocity = Vector2.zero;
             _collider.isTrigger = true;
             _collider.radius = projectile.CollisionRadius;
+            _collider.enabled = true;
+            _renderer.enabled = true;
+            _body.position = projectile.Origin;
             transform.position = projectile.Origin;
             _direction = projectile.Direction;
             _remainingHits = 1 + projectile.PierceCount;
+            _ricochets = projectile.Behavior.RicochetCount;
+            _retention = 1f;
+            _despawned = false;
             _initialized = true;
         }
-
-        private void FixedUpdate()
-        {
-            Simulate(Time.fixedDeltaTime);
-        }
-
+        private void FixedUpdate() => Simulate(Time.fixedDeltaTime);
         public void Simulate(float deltaTime)
         {
-            if (!_initialized || _despawned || _runController.Model == null)
-                return;
-
+            NumericValidation.ValidateNonNegative(deltaTime, nameof(deltaTime));
+            if (!_initialized || _despawned || _runController.Model == null) return;
             var state = _runController.Model.State;
-            if (state == RunState.Won || state == RunState.Lost)
+            if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped) { Despawn(); return; }
+            if (state != RunState.Running) return;
+            var stop = _projectile.Behavior.StopAfterSeconds * _projectile.RangeMultiplier;
+            var end = stop > 0f ? Mathf.Min(stop, _projectile.LifetimeSeconds) : _projectile.LifetimeSeconds;
+            var dt = Mathf.Min(deltaTime, Mathf.Max(0f, end - _elapsed));
+            if (_projectile.Returns && _projectile.ReturnTarget == null) { Despawn(); return; }
+            if (_projectile.Returns && !_isReturning)
             {
-                Despawn();
-                return;
+                var outbound = Mathf.Min(dt, Mathf.Max(0f, _projectile.ReturnAfterSeconds - _elapsed));
+                _body.position += _direction * (_projectile.Speed * outbound);
+                _elapsed += outbound;
+                dt -= outbound;
+                if (_elapsed >= _projectile.ReturnAfterSeconds)
+                {
+                    _isReturning = true;
+                    if (_projectile.HitCooldownSeconds == 0f) _hitThisPass.Clear();
+                }
             }
-
-            var isRunning = state == RunState.Running;
-            if (!isRunning)
-                return;
-
-            _elapsed += deltaTime;
-            if (_projectile.Returns && !_isReturning && _elapsed >= _projectile.ReturnAfterSeconds)
-            {
-                _isReturning = true;
-                _hitThisPass.Clear();
-            }
-
             if (_isReturning)
             {
-                var returnOffset = (Vector2)_projectile.ReturnTarget.position - _body.position;
-                var travelDistance = _projectile.Speed * deltaTime;
-                if (returnOffset.sqrMagnitude <= travelDistance * travelDistance)
-                {
-                    Despawn();
-                    return;
-                }
-                if (returnOffset.sqrMagnitude > Mathf.Epsilon)
-                    _direction = returnOffset.normalized;
+                var offset = (Vector2)_projectile.ReturnTarget.position - _body.position;
+                var distance = _projectile.Speed * dt;
+                if (offset.sqrMagnitude <= distance * distance) { Despawn(); return; }
+                if (offset.sqrMagnitude > Mathf.Epsilon) _direction = offset.normalized;
             }
-
-            _body.position += _direction * (_projectile.Speed * deltaTime);
-            if (_lifetime.Tick(deltaTime, isRunning))
-                Despawn();
+            var next = _elapsed + dt;
+            // Exact integral of linear speed decay: independent of frame subdivision, never accelerates again.
+            var travel = stop > 0f ? _projectile.Speed * (dt - (next * next - _elapsed * _elapsed) / (2f * stop)) : _projectile.Speed * dt;
+            _body.position += _direction * travel;
+            _elapsed = next;
+            if (_elapsed >= end)
+            {
+                var generation = _generation;
+                if (_projectile.Behavior.ExplodeOnExpiry) Explode(Position);
+                if (!_despawned && generation == _generation) Despawn();
+            }
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other) => TryImpact(other.GetComponentInParent<IEnemyDamageReceiver>(), other.ClosestPoint(Position));
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (!_initialized || _despawned || !IsRunRunning())
-                return;
-
-            var receiver = other.GetComponentInParent<IEnemyDamageReceiver>();
-            TryImpact(receiver, other.ClosestPoint(_body.position));
+            if (_projectile.HitCooldownSeconds > 0f) TryImpact(other.GetComponentInParent<IEnemyDamageReceiver>(), other.ClosestPoint(Position));
         }
-
         public bool TryImpact(IEnemyDamageReceiver receiver, Vector2 impactPoint)
         {
-            if (!_initialized || _despawned || !IsRunRunning() || receiver == null || !receiver.IsAlive)
-                return false;
-            if (!_hitThisPass.Add(receiver))
-                return false;
-
-            var damage = _projectile.Damage;
-            if (_isReturning && _projectile.ReturnDamageMultiplier != 1f)
+            if (!_initialized || _despawned || _runController.Model?.State != RunState.Running) return false;
+            if (_projectile.Returns && _projectile.ReturnTarget == null) { Despawn(); return false; }
+            var life = new EnemyTargetLife(receiver);
+            if (!life.IsAlive) return false;
+            if (_projectile.HitCooldownSeconds > 0f)
             {
-                damage = new EnemyDamageRequest(
-                    damage.SourceId,
-                    damage.Amount * _projectile.ReturnDamageMultiplier);
+                if (!_projectile.HitLedger.TryHit(life, _projectile.HitCooldownSeconds)) return false;
             }
-            EnemyDamageArea.Apply(
-                impactPoint,
-                _projectile.ImpactAreaRadius,
-                damage,
-                receiver);
-            if (!_projectile.Returns)
+            else if (!_hitThisPass.Add(life)) return false;
+            var generation = _generation;
+            var direction = _projectile.Returns ? receiver.Position - (Vector2)_projectile.ReturnTarget.position : _direction;
+            var multiplier = _retention * (_isReturning ? _projectile.ReturnDamageMultiplier : 1f);
+            var knockback = _retention * (_isReturning ? _projectile.ReturnKnockbackMultiplier : 1f);
+            var damage = WithMultipliers(_projectile.Damage, multiplier, knockback).WithDirection(direction.x, direction.y);
+            if (_projectile.Behavior.ExplosionDamageMultiplier > 0f) receiver.ApplyDamage(damage);
+            else EnemyDamageArea.Apply(impactPoint, _projectile.ImpactAreaRadius, damage, receiver);
+            if (_despawned || generation != _generation) return true;
+            if (_projectile.Returns || _projectile.Behavior.UnlimitedPierce) return true;
+            if (_ricochets > 0 && TryRicochet(receiver, impactPoint)) return true;
+            if (--_remainingHits <= 0)
             {
-                _remainingHits--;
-                if (_remainingHits <= 0)
-                    Despawn();
+                if (_projectile.Behavior.ExplosionDamageMultiplier > 0f) Explode(impactPoint);
+                if (!_despawned && generation == _generation) Despawn();
             }
             return true;
         }
-
+        private bool TryRicochet(IEnemyDamageReceiver previous, Vector2 position)
+        {
+            using var guard = PerfGuard.Measure("FixtureProjectileRuntime.Ricochet", 1f);
+            _query.CopyAliveTo(_targets);
+            IEnemyDamageReceiver nearest = FindNext(previous, position, false);
+            if (nearest == null && _projectile.Behavior.RepeatRicochetTargets) nearest = FindNext(previous, position, true);
+            if (nearest == null) return false;
+            _ricochets--;
+            _retention *= _projectile.Behavior.RicochetRetention;
+            _direction = (nearest.Position - position).normalized;
+            if (_direction.sqrMagnitude <= Mathf.Epsilon) _direction = _projectile.Direction;
+            _hitThisPass.Remove(new EnemyTargetLife(nearest));
+            return true;
+        }
+        private IEnemyDamageReceiver FindNext(IEnemyDamageReceiver previous, Vector2 position, bool allowRepeat)
+        {
+            IEnemyDamageReceiver nearest = null;
+            var radius = _projectile.Behavior.RicochetRange * _projectile.RangeMultiplier;
+            var best = radius * radius;
+            foreach (var candidate in _targets)
+            {
+                var life = new EnemyTargetLife(candidate);
+                if (!life.IsAlive || ReferenceEquals(candidate, previous) || (!allowRepeat && _hitThisPass.Contains(life))) continue;
+                var distance = (candidate.Position - position).sqrMagnitude;
+                if (distance > best) continue;
+                nearest = candidate;
+                best = distance;
+            }
+            return nearest;
+        }
+        private void Explode(Vector2 position)
+        {
+            var behavior = _projectile.Behavior;
+            EnemyDamageArea.Apply(position, _projectile.ImpactAreaRadius,
+                WithMultipliers(_projectile.Damage, behavior.ExplosionDamageMultiplier, behavior.ExplosionKnockbackMultiplier));
+        }
+        private static EnemyDamageRequest WithMultipliers(EnemyDamageRequest request, float damage, float knockback)
+        {
+            var c = request.Combat;
+            return new EnemyDamageRequest(new CombatDamageRequest(c.Source, c.Amount * damage, c.Controls,
+                c.DirectionX, c.DirectionY, c.OutgoingKnockbackMultiplier * knockback));
+        }
+        public void Shutdown()
+        {
+            _initialized = false;
+            _elapsed = 0f;
+            _isReturning = false;
+            _hitThisPass.Clear();
+            _targets.Clear();
+            _projectile = default;
+            _runController = null;
+            _direction = Vector2.zero;
+            if (_collider != null) _collider.enabled = false;
+            if (_body != null) _body.linearVelocity = Vector2.zero;
+        }
         public void Despawn()
         {
-            if (_despawned)
-                return;
-
+            if (_despawned) return;
             _despawned = true;
-            if (Application.isPlaying)
-                Destroy(gameObject);
-            else
-                DestroyImmediate(gameObject);
+            Shutdown();
+            Returned?.Invoke(this);
+            if (_pool != null) _pool.Return(this);
+            else if (Application.isPlaying) Destroy(gameObject);
+            else DestroyImmediate(gameObject);
         }
-
-        private bool IsRunRunning()
-        {
-            return _runController != null &&
-                   _runController.Model != null &&
-                   _runController.Model.State == RunState.Running;
-        }
-
+        private void OnDestroy() { Shutdown(); Returned?.Invoke(this); Returned = null; }
         private void CacheComponents()
         {
-            if (_body == null)
-                _body = GetComponent<Rigidbody2D>();
-            if (_collider == null)
-                _collider = GetComponent<CircleCollider2D>();
-            if (_renderer == null)
-                _renderer = GetComponent<SpriteRenderer>();
+            if (_body == null) _body = GetComponent<Rigidbody2D>();
+            if (_collider == null) _collider = GetComponent<CircleCollider2D>();
+            if (_renderer == null) _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer.sprite == null) _renderer.sprite = PlaceholderSprite.Shared;
+            _renderer.color = new Color(1f, 0.85f, 0.15f, 1f);
         }
     }
 }

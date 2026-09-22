@@ -1,0 +1,21 @@
+.shell-page { position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgb(12, 17, 26); color: rgb(233, 237, 244); }
+.shell-panel { width: 620px; max-height: 94%; padding: 28px; background-color: rgb(26, 34, 48); border-radius: 12px; }
+.settings-panel { width: 900px; }
+.shell-title { font-size: 34px; -unity-font-style: bold; margin-bottom: 24px; }
+.shell-panel Button { min-height: 46px; margin-top: 8px; font-size: 20px; }
+.shell-panel Label { white-space: normal; }
+.shell-panel Slider, .shell-panel Toggle, .shell-panel DropdownField { margin-top: 16px; font-size: 18px; }
+.shell-row { flex-direction: row; margin-top: 12px; }
+.shell-row Button { flex-grow: 1; }
+.shell-back { position: absolute; left: 30px; top: 25px; width: 180px; height: 44px; }
+.shell-pause { position: absolute; bottom: 35px; align-self: center; flex-direction: row; }
+.shell-pause Button { width: 180px; height: 44px; }
+.shell-message { color: rgb(255, 210, 130); margin-top: 16px; }
+
+.shell-panel Button, .shell-back, .shell-pause Button { background-color: rgb(45, 61, 83); color: rgb(242, 246, 251); border-color: rgb(91, 120, 153); border-width: 1px; border-radius: 5px; }
+.shell-panel Button:hover, .shell-back:hover, .shell-pause Button:hover { background-color: rgb(64, 86, 117); }
+.shell-panel Button:active, .shell-back:active, .shell-pause Button:active { background-color: rgb(31, 45, 64); }
+.shell-panel Button:disabled { background-color: rgb(37, 43, 54); color: rgb(135, 145, 158); }
+.settings-panel .unity-base-text-field__input { color: rgb(20, 25, 32); background-color: rgb(230, 235, 241); min-width: 65px; }
+.settings-panel .unity-base-popup-field__input { color: rgb(20, 25, 32); background-color: rgb(230, 235, 241); }
+.shell-notification { position: absolute; top: 20px; right: 25px; max-width: 600px; padding: 12px; background-color: rgb(26, 34, 48); color: rgb(244, 224, 160); font-size: 20px; white-space: normal; }

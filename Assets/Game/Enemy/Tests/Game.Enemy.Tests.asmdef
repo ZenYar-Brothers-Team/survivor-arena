@@ -6,6 +6,7 @@
         "Game.Combat",
         "Game.Presentation",
         "Game.Content",
+        "Game.Content.Json",
         "Game.Character",
         "Game.Run",
         "Game.Pooling",
@@ -19,7 +20,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [

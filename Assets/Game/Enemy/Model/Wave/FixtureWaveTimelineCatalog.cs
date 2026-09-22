@@ -13,7 +13,14 @@ namespace Game.Enemy
 
         public static WaveTimelineDefinition Create()
         {
-            var data = JsonContentFile.Load<WaveTimelineData>(ResourcePath);
+            return FromJson(JsonContentFile.ReadText(ResourcePath));
+        }
+
+        public static WaveTimelineDefinition FromJson(string json)
+        {
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<WaveTimelineData>(json, JsonContentFile.Settings)
+                ?? throw new InvalidOperationException("Wave timeline is required.");
+            if (data.Phases == null) throw new InvalidOperationException("Wave timeline requires phases.");
             var phases = new WavePhaseDefinition[data.Phases.Length];
             for (var i = 0; i < phases.Length; i++)
                 phases[i] = ToPhase(data.Phases[i]);
@@ -22,11 +29,17 @@ namespace Game.Enemy
             for (var i = 0; i < hooks.Length; i++)
                 hooks[i] = new WaveHookDefinition(data.Hooks[i].Kind, data.Hooks[i].TimeSeconds);
 
-            return new WaveTimelineDefinition(data.Id, data.Seed, data.SpawnRadius, phases, hooks);
+            return new WaveTimelineDefinition(data.Id,
+                data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius, phases, hooks);
         }
 
         private static WavePhaseDefinition ToPhase(WavePhaseData data)
         {
+            var mode = data.SpawnMode ?? throw new InvalidOperationException("Wave phase requires spawnMode.");
+            var burst = data.Burst == null ? null : new WaveBurstDefinition(
+                data.Burst.Count ?? throw new InvalidOperationException("Burst requires count."),
+                data.Burst.OffsetSeconds ?? throw new InvalidOperationException("Burst requires offsetSeconds."),
+                data.Burst.WindowSeconds ?? throw new InvalidOperationException("Burst requires windowSeconds."));
             var composition = new WaveCompositionEntry[data.Composition.Length];
             for (var i = 0; i < composition.Length; i++)
                 composition[i] = new WaveCompositionEntry(data.Composition[i].EnemyId, data.Composition[i].Weight);
@@ -48,7 +61,7 @@ namespace Game.Enemy
                 data.SpawnIntervalSeconds,
                 data.MaxAliveEnemies,
                 composition,
-                modifiers);
+                modifiers, mode, burst);
         }
     }
 }

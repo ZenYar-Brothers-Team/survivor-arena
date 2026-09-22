@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using Game.Content;
+
+namespace Game.Run
+{
+    /// <summary>Null means unavailable, including collections; an empty collection is a known empty build.</summary>
+    public sealed class RunOutcomeContribution
+    {
+        public int? Kills { get; }
+        public int? Level { get; }
+        public float? Experience { get; }
+        public RunExperienceSnapshot ExperienceTotals { get; }
+        public RunDraftSnapshot DraftTotals { get; }
+        public IReadOnlyList<RunBuildEntrySnapshot> Build { get; }
+        public IReadOnlyList<RunBuildEntrySnapshot> Sets { get; }
+
+        public RunOutcomeContribution(int? kills = null, int? level = null,
+            float? experience = null, IEnumerable<RunBuildEntrySnapshot> build = null,
+            RunExperienceSnapshot experienceTotals = null, RunDraftSnapshot draftTotals = null,
+            IEnumerable<RunBuildEntrySnapshot> sets = null)
+        {
+            if (kills.HasValue) NumericValidation.ValidateNonNegative(kills.Value, nameof(kills));
+            if (level.HasValue) NumericValidation.ValidateCount(level.Value, nameof(level));
+            if (experience.HasValue) NumericValidation.ValidateNonNegative(experience.Value, nameof(experience));
+            Kills = kills;
+            Level = level;
+            Experience = experience;
+            ExperienceTotals = experienceTotals;
+            DraftTotals = draftTotals;
+            if (sets != null)
+            {
+                var copy = new List<RunBuildEntrySnapshot>(sets);
+                if (copy.Contains(null)) throw new ArgumentException("Sets cannot contain null.", nameof(sets));
+                Sets = copy.AsReadOnly();
+            }
+            if (build != null)
+            {
+                var copy = new List<RunBuildEntrySnapshot>(build);
+                if (copy.Contains(null)) throw new ArgumentException("Build entries cannot be null.", nameof(build));
+                Build = copy.AsReadOnly();
+            }
+        }
+    }
+}

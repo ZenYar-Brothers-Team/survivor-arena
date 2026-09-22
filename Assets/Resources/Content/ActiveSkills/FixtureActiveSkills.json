@@ -3,157 +3,1418 @@
     "id": "FIXTURE-SKILL-BOLT",
     "displayName": "Fixture Bolt",
     "levels": [
-      { "baseDamage": 4, "cooldownSeconds": 0.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 1, "layout": "Single", "spreadDegrees": 24, "pierceCount": 0, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] },
-      { "baseDamage": 5, "cooldownSeconds": 0.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 1, "layout": "Single", "spreadDegrees": 24, "pierceCount": 0, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] },
-      { "baseDamage": 6, "cooldownSeconds": 0.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 2, "layout": "Fan", "spreadDegrees": 24, "pierceCount": 0, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] },
-      { "baseDamage": 7, "cooldownSeconds": 0.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 2, "layout": "Fan", "spreadDegrees": 24, "pierceCount": 1, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] },
-      { "baseDamage": 8, "cooldownSeconds": 0.65, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 3, "layout": "Fan", "spreadDegrees": 24, "pierceCount": 1, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] },
-      { "baseDamage": 9, "cooldownSeconds": 0.65, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 3, "layout": "Fan", "spreadDegrees": 24, "pierceCount": 1, "speed": 10, "lifetimeSeconds": 2, "collisionRadius": 0.15 } ] } ] }
+      {
+        "baseDamage": 4,
+        "cooldownSeconds": 0.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 24,
+                "pierceCount": 0,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 5,
+        "cooldownSeconds": 0.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 24,
+                "pierceCount": 0,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 6,
+        "cooldownSeconds": 0.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 2,
+                "layout": "Fan",
+                "spreadDegrees": 24,
+                "pierceCount": 0,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 7,
+        "cooldownSeconds": 0.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 2,
+                "layout": "Fan",
+                "spreadDegrees": 24,
+                "pierceCount": 1,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 8,
+        "cooldownSeconds": 0.65,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 3,
+                "layout": "Fan",
+                "spreadDegrees": 24,
+                "pierceCount": 1,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 9,
+        "cooldownSeconds": 0.65,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 3,
+                "layout": "Fan",
+                "spreadDegrees": 24,
+                "pierceCount": 1,
+                "speed": 10,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.15
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-RING",
     "displayName": "Fixture Ring/Cross",
     "levels": [
-      { "baseDamage": 2.25, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Ring", "spreadDegrees": 0, "pierceCount": 0, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
-      { "baseDamage": 2.5, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 6, "layout": "Ring", "spreadDegrees": 0, "pierceCount": 0, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
-      { "baseDamage": 2.75, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 6, "layout": "Ring", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
-      { "baseDamage": 3.0, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
-      { "baseDamage": 3.25, "cooldownSeconds": 2, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
-        "waves": [ { "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] } ] },
-      { "baseDamage": 3, "cooldownSeconds": 1.8, "targetingMode": "Self", "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
+      {
+        "baseDamage": 2.25,
+        "cooldownSeconds": 2,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
         "waves": [
-          { "delaySeconds": 0, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] },
-          { "delaySeconds": 0.25, "rotationDegrees": 22.5, "damageMultiplier": 0.75, "effects": [ { "kind": "ProjectileBurst", "projectileCount": 4, "layout": "Cross", "spreadDegrees": 0, "pierceCount": 1, "speed": 7, "lifetimeSeconds": 2, "collisionRadius": 0.12 } ] }
-        ] }
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 4,
+                "layout": "Ring",
+                "spreadDegrees": 0,
+                "pierceCount": 0,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      },
+      {
+        "baseDamage": 2.5,
+        "cooldownSeconds": 2,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 6,
+                "layout": "Ring",
+                "spreadDegrees": 0,
+                "pierceCount": 0,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      },
+      {
+        "baseDamage": 2.75,
+        "cooldownSeconds": 2,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-RING",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 6,
+                "layout": "Ring",
+                "spreadDegrees": 0,
+                "pierceCount": 1,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      },
+      {
+        "baseDamage": 3.0,
+        "cooldownSeconds": 2,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 4,
+                "layout": "Cross",
+                "spreadDegrees": 0,
+                "pierceCount": 1,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      },
+      {
+        "baseDamage": 3.25,
+        "cooldownSeconds": 2,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 4,
+                "layout": "Cross",
+                "spreadDegrees": 0,
+                "pierceCount": 1,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      },
+      {
+        "baseDamage": 3,
+        "cooldownSeconds": 1.8,
+        "targetingMode": "Self",
+        "visualId": "FIXTURE-SKILL-RING-VISUAL-CROSS",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 4,
+                "layout": "Cross",
+                "spreadDegrees": 0,
+                "pierceCount": 1,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          },
+          {
+            "delaySeconds": 0.25,
+            "rotationDegrees": 22.5,
+            "damageMultiplier": 0.75,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 4,
+                "layout": "Cross",
+                "spreadDegrees": 0,
+                "pierceCount": 1,
+                "speed": 7,
+                "lifetimeSeconds": 2,
+                "collisionRadius": 0.12
+              }
+            ]
+          }
+        ],
+        "rotationPerActivationDegrees": 15
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-BEAM",
     "displayName": "Fixture Beam",
     "levels": [
-      { "baseDamage": 1.75, "cooldownSeconds": 2.6, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 0.6, "tickIntervalSeconds": 0.2, "width": 0.5, "range": 8, "tracksTarget": false } ] } ] },
-      { "baseDamage": 2.0, "cooldownSeconds": 2.6, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 0.8, "tickIntervalSeconds": 0.2, "width": 0.5, "range": 8, "tracksTarget": false } ] } ] },
-      { "baseDamage": 2.25, "cooldownSeconds": 2.6, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 0.8, "tickIntervalSeconds": 0.2, "width": 0.5, "range": 8, "tracksTarget": false } ] } ] },
-      { "baseDamage": 2.5, "cooldownSeconds": 2.6, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 0.8, "tickIntervalSeconds": 0.2, "width": 0.8, "range": 8, "tracksTarget": false } ] } ] },
-      { "baseDamage": 2.75, "cooldownSeconds": 2.0, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 0.8, "tickIntervalSeconds": 0.2, "width": 0.8, "range": 8, "tracksTarget": false } ] } ] },
-      { "baseDamage": 3.0, "cooldownSeconds": 2.0, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Beam", "durationSeconds": 1.2, "tickIntervalSeconds": 0.2, "width": 0.8, "range": 8, "tracksTarget": true } ] } ] }
+      {
+        "baseDamage": 1.75,
+        "cooldownSeconds": 2.6,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 0.6,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.5,
+                "range": 8,
+                "tracksTarget": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.0,
+        "cooldownSeconds": 2.6,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 0.8,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.5,
+                "range": 8,
+                "tracksTarget": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.25,
+        "cooldownSeconds": 2.6,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 0.8,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.5,
+                "range": 8,
+                "tracksTarget": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.5,
+        "cooldownSeconds": 2.6,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 0.8,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.8,
+                "range": 8,
+                "tracksTarget": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.75,
+        "cooldownSeconds": 2.0,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 0.8,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.8,
+                "range": 8,
+                "tracksTarget": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 3.0,
+        "cooldownSeconds": 2.0,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Beam",
+                "durationSeconds": 1.2,
+                "tickIntervalSeconds": 0.2,
+                "width": 0.8,
+                "range": 8,
+                "tracksTarget": true
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-ORBIT",
     "displayName": "Fixture Orbit",
     "levels": [
-      { "baseDamage": 2.3, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 2, "radius": 1.7, "angularSpeedDegrees": 120, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] },
-      { "baseDamage": 2.6, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 2, "radius": 1.7, "angularSpeedDegrees": 120, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] },
-      { "baseDamage": 2.9, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 3, "radius": 1.7, "angularSpeedDegrees": 120, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] },
-      { "baseDamage": 3.2, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 3, "radius": 2.2, "angularSpeedDegrees": 120, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] },
-      { "baseDamage": 3.5, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 3, "radius": 2.2, "angularSpeedDegrees": 180, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] },
-      { "baseDamage": 3.8, "cooldownSeconds": 3, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Orbit", "bladeCount": 4, "radius": 2.2, "angularSpeedDegrees": 180, "durationSeconds": 2.5, "hitCooldownSeconds": 0.35 } ] } ] }
+      {
+        "baseDamage": 2.3,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 2,
+                "radius": 1.7,
+                "angularSpeedDegrees": 120,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.6,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 2,
+                "radius": 1.7,
+                "angularSpeedDegrees": 120,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 2.9,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 3,
+                "radius": 1.7,
+                "angularSpeedDegrees": 120,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 3.2,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 3,
+                "radius": 2.2,
+                "angularSpeedDegrees": 120,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 3.5,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 3,
+                "radius": 2.2,
+                "angularSpeedDegrees": 180,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 3.8,
+        "cooldownSeconds": 3,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Orbit",
+                "bladeCount": 4,
+                "radius": 2.2,
+                "angularSpeedDegrees": 180,
+                "durationSeconds": 2.5,
+                "hitCooldownSeconds": 0.35,
+                "bladeHitboxRadius": 0.3
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-BOOMERANG",
     "displayName": "Fixture Boomerang",
     "levels": [
-      { "baseDamage": 4.5, "cooldownSeconds": 2.2, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 1, "spreadDegrees": 0, "speed": 7, "range": 4, "collisionRadius": 0.18, "returnDamageMultiplier": 1 } ] } ] },
-      { "baseDamage": 5.0, "cooldownSeconds": 2.2, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 1, "spreadDegrees": 0, "speed": 7, "range": 4, "collisionRadius": 0.18, "returnDamageMultiplier": 1 } ] } ] },
-      { "baseDamage": 5.5, "cooldownSeconds": 2.2, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 1, "spreadDegrees": 0, "speed": 7, "range": 5, "collisionRadius": 0.18, "returnDamageMultiplier": 1 } ] } ] },
-      { "baseDamage": 6.0, "cooldownSeconds": 2.2, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 2, "spreadDegrees": 18, "speed": 7, "range": 5, "collisionRadius": 0.18, "returnDamageMultiplier": 1 } ] } ] },
-      { "baseDamage": 6.5, "cooldownSeconds": 1.7, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 2, "spreadDegrees": 18, "speed": 7, "range": 5, "collisionRadius": 0.18, "returnDamageMultiplier": 1 } ] } ] },
-      { "baseDamage": 7.0, "cooldownSeconds": 1.7, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Boomerang", "projectileCount": 2, "spreadDegrees": 18, "speed": 7, "range": 5, "collisionRadius": 0.18, "returnDamageMultiplier": 1.75 } ] } ] }
+      {
+        "baseDamage": 4.5,
+        "cooldownSeconds": 2.2,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 1,
+                "spreadDegrees": 0,
+                "speed": 7,
+                "range": 4,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.0,
+                "lifetimeSeconds": 2.142857142857143
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 5.0,
+        "cooldownSeconds": 2.2,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 1,
+                "spreadDegrees": 0,
+                "speed": 7,
+                "range": 4,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.5,
+                "lifetimeSeconds": 2.142857142857143
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 5.5,
+        "cooldownSeconds": 2.2,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 1,
+                "spreadDegrees": 0,
+                "speed": 7,
+                "range": 5,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.5,
+                "lifetimeSeconds": 2.428571428571429
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 6.0,
+        "cooldownSeconds": 2.2,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 2,
+                "spreadDegrees": 18,
+                "speed": 7,
+                "range": 5,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.5,
+                "lifetimeSeconds": 2.428571428571429
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 6.5,
+        "cooldownSeconds": 1.7,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 2,
+                "spreadDegrees": 18,
+                "speed": 7,
+                "range": 5,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.5,
+                "lifetimeSeconds": 2.428571428571429
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 7.0,
+        "cooldownSeconds": 1.7,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Boomerang",
+                "projectileCount": 2,
+                "spreadDegrees": 18,
+                "speed": 7,
+                "range": 5,
+                "collisionRadius": 0.18,
+                "returnDamageMultiplier": 1.75,
+                "hitCooldownSeconds": 1.0,
+                "returnKnockbackMultiplier": 1.5,
+                "lifetimeSeconds": 2.428571428571429
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-CHAIN",
     "displayName": "Fixture Chain",
     "levels": [
-      { "baseDamage": 3.5, "cooldownSeconds": 1.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 3, "jumpRange": 4, "damageRetentionPerJump": 0.85 } ] } ] },
-      { "baseDamage": 4.0, "cooldownSeconds": 1.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 4, "jumpRange": 4, "damageRetentionPerJump": 0.85 } ] } ] },
-      { "baseDamage": 4.5, "cooldownSeconds": 1.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 4, "jumpRange": 4, "damageRetentionPerJump": 0.85 } ] } ] },
-      { "baseDamage": 5.0, "cooldownSeconds": 1.9, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 6, "jumpRange": 4, "damageRetentionPerJump": 0.85 } ] } ] },
-      { "baseDamage": 5.5, "cooldownSeconds": 1.4, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 6, "jumpRange": 4, "damageRetentionPerJump": 0.85 } ] } ] },
-      { "baseDamage": 6.0, "cooldownSeconds": 1.4, "targetingMode": "NearestEnemy",
-        "waves": [ { "effects": [ { "kind": "Chain", "targetCount": 8, "jumpRange": 4, "damageRetentionPerJump": 0.95 } ] } ] }
+      {
+        "baseDamage": 3.5,
+        "cooldownSeconds": 1.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 3,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.85
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 4.0,
+        "cooldownSeconds": 1.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 4,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.85
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 4.5,
+        "cooldownSeconds": 1.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 4,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.85
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 5.0,
+        "cooldownSeconds": 1.9,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.85
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 5.5,
+        "cooldownSeconds": 1.4,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.85
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 6.0,
+        "cooldownSeconds": 1.4,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 8,
+                "jumpRange": 4,
+                "damageRetentionPerJump": 0.95
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-MINE",
     "displayName": "Fixture Mine",
     "levels": [
-      { "baseDamage": 7, "cooldownSeconds": 2.7, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.4, "lifetimeSeconds": 4, "maxConcurrent": 4, "secondaryDelaySeconds": 0, "secondaryDamageMultiplier": 0 } ] } ] },
-      { "baseDamage": 8, "cooldownSeconds": 2.7, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.8, "lifetimeSeconds": 4, "maxConcurrent": 4, "secondaryDelaySeconds": 0, "secondaryDamageMultiplier": 0 } ] } ] },
-      { "baseDamage": 9, "cooldownSeconds": 2.7, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.8, "lifetimeSeconds": 4, "maxConcurrent": 4, "secondaryDelaySeconds": 0, "secondaryDamageMultiplier": 0 } ] } ] },
-      { "baseDamage": 10, "cooldownSeconds": 2.7, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.8, "lifetimeSeconds": 4, "maxConcurrent": 6, "secondaryDelaySeconds": 0, "secondaryDamageMultiplier": 0 } ] } ] },
-      { "baseDamage": 11, "cooldownSeconds": 2.0, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.8, "lifetimeSeconds": 4, "maxConcurrent": 6, "secondaryDelaySeconds": 0, "secondaryDamageMultiplier": 0 } ] } ] },
-      { "baseDamage": 12, "cooldownSeconds": 2.0, "targetingMode": "Self",
-        "waves": [ { "effects": [ { "kind": "Mine", "triggerRadius": 0.8, "blastRadius": 1.8, "lifetimeSeconds": 4, "maxConcurrent": 6, "secondaryDelaySeconds": 0.35, "secondaryDamageMultiplier": 0.6 } ] } ] }
+      {
+        "baseDamage": 7,
+        "cooldownSeconds": 2.7,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.4,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 4,
+                "secondaryDelaySeconds": 0,
+                "secondaryDamageMultiplier": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 8,
+        "cooldownSeconds": 2.7,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.8,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 4,
+                "secondaryDelaySeconds": 0,
+                "secondaryDamageMultiplier": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 9,
+        "cooldownSeconds": 2.7,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.8,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 4,
+                "secondaryDelaySeconds": 0,
+                "secondaryDamageMultiplier": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 10,
+        "cooldownSeconds": 2.7,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.8,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 6,
+                "secondaryDelaySeconds": 0,
+                "secondaryDamageMultiplier": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 11,
+        "cooldownSeconds": 2.0,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.8,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 6,
+                "secondaryDelaySeconds": 0,
+                "secondaryDamageMultiplier": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 12,
+        "cooldownSeconds": 2.0,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "effects": [
+              {
+                "kind": "Mine",
+                "triggerRadius": 0.8,
+                "blastRadius": 1.8,
+                "lifetimeSeconds": 4,
+                "maxConcurrent": 6,
+                "secondaryDelaySeconds": 0.35,
+                "secondaryDamageMultiplier": 0.6,
+                "secondaryRadiusMultiplier": 0.75,
+                "secondaryKnockbackMultiplier": 0.7
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "id": "FIXTURE-SKILL-DELAYED",
     "displayName": "Fixture Delayed Area",
     "levels": [
-      { "baseDamage": 9, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.4 } ] } ] },
-      { "baseDamage": 10, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
-      { "baseDamage": 11, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
-        "waves": [ { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] } ] },
-      { "baseDamage": 12, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
+      {
+        "baseDamage": 9,
+        "cooldownSeconds": 3.5,
+        "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
-          { "delaySeconds": 0.75, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
-        ] },
-      { "baseDamage": 13, "cooldownSeconds": 3.5, "targetingMode": "NearestEnemy",
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 10,
+        "cooldownSeconds": 3.5,
+        "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
-          { "delaySeconds": 0.75, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
-        ] },
-      { "baseDamage": 14, "cooldownSeconds": 3.2, "targetingMode": "NearestEnemy",
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 11,
+        "cooldownSeconds": 3.5,
+        "targetingMode": "NearestEnemy",
         "waves": [
-          { "delaySeconds": 0.45, "rotationDegrees": 0, "damageMultiplier": 1, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
-          { "delaySeconds": 0.7, "rotationDegrees": 0, "damageMultiplier": 0.8, "effects": [ { "kind": "Area", "radius": 1.8 } ] },
-          { "delaySeconds": 0.95, "rotationDegrees": 0, "damageMultiplier": 0.65, "effects": [ { "kind": "Area", "radius": 1.8 } ] }
-        ] }
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 12,
+        "cooldownSeconds": 3.5,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          },
+          {
+            "delaySeconds": 0.75,
+            "rotationDegrees": 0,
+            "damageMultiplier": 0.65,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 13,
+        "cooldownSeconds": 3.5,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          },
+          {
+            "delaySeconds": 0.75,
+            "rotationDegrees": 0,
+            "damageMultiplier": 0.65,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "baseDamage": 14,
+        "cooldownSeconds": 3.2,
+        "targetingMode": "NearestEnemy",
+        "waves": [
+          {
+            "delaySeconds": 0.45,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "controls": {
+              "knockbackDistance": 1.0,
+              "knockbackSeconds": 0.15,
+              "slowFraction": 0.2,
+              "slowSeconds": 1.5
+            },
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          },
+          {
+            "delaySeconds": 0.7,
+            "rotationDegrees": 0,
+            "damageMultiplier": 0.8,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          },
+          {
+            "delaySeconds": 0.95,
+            "rotationDegrees": 0,
+            "damageMultiplier": 0.65,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 1.8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-SKILL-MOVEMENT",
+    "displayName": "Fixture movement",
+    "baseLevel": {
+      "baseDamage": 20,
+      "cooldownSeconds": 2,
+      "actionSpeedBonus": 0,
+      "targetingMode": "MovementDirection",
+      "waves": [
+        {
+          "delaySeconds": 0,
+          "rotationDegrees": 0,
+          "damageMultiplier": 1,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.15
+          },
+          "effects": [
+            {
+              "kind": "ProjectileBurst",
+              "projectileCount": 1,
+              "layout": "Single",
+              "spreadDegrees": 0,
+              "pierceCount": 2,
+              "speed": 8,
+              "lifetimeSeconds": 2,
+              "collisionRadius": 0.15
+            }
+          ]
+        }
+      ],
+      "initialDirectionDegrees": 90
+    },
+    "levelChanges": [
+      {},
+      {
+        "bonuses": {
+          "baseDamage": 0.3,
+          "waves[0].controls.knockbackDistance": 0.2
+        }
+      },
+      {
+        "bonuses": {
+          "waves[0].effects[0].lifetimeSeconds": 0.2
+        }
+      },
+      {
+        "bonuses": {
+          "waves[0].effects[0].collisionRadius": 0.35
+        }
+      },
+      {
+        "bonuses": {
+          "actionSpeedBonus": 0.25,
+          "waves[0].effects[0].speed": 0.2
+        }
+      },
+      {
+        "bonuses": {
+          "baseDamage": 0.25,
+          "waves[0].effects[0].collisionRadius": 0.2
+        },
+        "overrides": {
+          "waves[0].effects[0].pierceCount": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-SKILL-WORLD-TARGET",
+    "displayName": "Fixture world-target",
+    "baseLevel": {
+      "baseDamage": 20,
+      "cooldownSeconds": 2,
+      "actionSpeedBonus": 0,
+      "targetingMode": "RandomEnemy",
+      "waves": [
+        {
+          "delaySeconds": 0.5,
+          "rotationDegrees": 0,
+          "damageMultiplier": 1,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.15
+          },
+          "effects": [
+            {
+              "kind": "Area",
+              "radius": 1.5
+            }
+          ]
+        }
+      ],
+      "targetingRadius": 50,
+      "randomSeed": 171
+    },
+    "levelChanges": [
+      {},
+      {},
+      {},
+      {
+        "overrides": {
+          "waves": [
+            {
+              "delaySeconds": 0.5,
+              "rotationDegrees": 0,
+              "damageMultiplier": 1,
+              "controls": {
+                "knockbackDistance": 0.2,
+                "knockbackSeconds": 0.15
+              },
+              "effects": [
+                {
+                  "kind": "Area",
+                  "radius": 1.5
+                }
+              ]
+            },
+            {
+              "delaySeconds": 0.75,
+              "rotationDegrees": 0,
+              "damageMultiplier": 1,
+              "controls": {
+                "knockbackDistance": 0.2,
+                "knockbackSeconds": 0.15
+              },
+              "effects": [
+                {
+                  "kind": "Area",
+                  "radius": 1.5
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {},
+      {}
+    ]
+  },
+  {
+    "id": "FIXTURE-SKILL-DECELERATING",
+    "displayName": "Fixture decelerating",
+    "baseLevel": {
+      "baseDamage": 20,
+      "cooldownSeconds": 2,
+      "actionSpeedBonus": 0,
+      "targetingMode": "Self",
+      "waves": [
+        {
+          "delaySeconds": 0,
+          "rotationDegrees": 0,
+          "damageMultiplier": 1,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.15
+          },
+          "effects": [
+            {
+              "kind": "ProjectileBurst",
+              "projectileCount": 1,
+              "layout": "IndependentRandom",
+              "spreadDegrees": 0,
+              "pierceCount": 0,
+              "speed": 8,
+              "lifetimeSeconds": 10,
+              "collisionRadius": 0.15,
+              "behavior": {
+                "stopAfterSeconds": 1.4
+              }
+            }
+          ]
+        }
+      ],
+      "randomSeed": 172
+    },
+    "levelChanges": [
+      {},
+      {
+        "bonuses": {
+          "waves[0].effects[0].behavior.stopAfterSeconds": 0.2,
+          "waves[0].effects[0].collisionRadius": 0.2
+        }
+      },
+      {
+        "overrides": {
+          "waves[0].effects[0].projectileCount": 2
+        }
+      },
+      {},
+      {},
+      {}
+    ]
+  },
+  {
+    "id": "FIXTURE-SKILL-RICOCHET",
+    "displayName": "Fixture ricochet",
+    "baseLevel": {
+      "baseDamage": 20,
+      "cooldownSeconds": 2,
+      "actionSpeedBonus": 0,
+      "targetingMode": "NearestEnemy",
+      "waves": [
+        {
+          "delaySeconds": 0,
+          "rotationDegrees": 0,
+          "damageMultiplier": 1,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.15
+          },
+          "effects": [
+            {
+              "kind": "ProjectileBurst",
+              "projectileCount": 1,
+              "layout": "Single",
+              "spreadDegrees": 0,
+              "pierceCount": 0,
+              "speed": 8,
+              "lifetimeSeconds": 2,
+              "collisionRadius": 0.15,
+              "behavior": {
+                "ricochetCount": 2,
+                "ricochetRange": 10,
+                "ricochetRetention": 0.8,
+                "repeatRicochetTargets": true,
+                "distinctNearestTargets": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "levelChanges": [
+      {},
+      {},
+      {
+        "overrides": {
+          "waves[0].effects[0].projectileCount": 2
+        }
+      },
+      {},
+      {},
+      {}
+    ]
+  },
+  {
+    "id": "FIXTURE-SKILL-SPHERES",
+    "displayName": "Fixture spheres",
+    "baseLevel": {
+      "baseDamage": 20,
+      "cooldownSeconds": 2,
+      "actionSpeedBonus": 0,
+      "targetingMode": "Self",
+      "waves": [
+        {
+          "delaySeconds": 0,
+          "rotationDegrees": 0,
+          "damageMultiplier": 1,
+          "controls": {
+            "knockbackDistance": 0.2,
+            "knockbackSeconds": 0.15
+          },
+          "effects": [
+            {
+              "kind": "ProjectileBurst",
+              "projectileCount": 1,
+              "layout": "IndependentRandom",
+              "spreadDegrees": 0,
+              "pierceCount": 0,
+              "speed": 8,
+              "lifetimeSeconds": 2,
+              "collisionRadius": 0.15,
+              "impactAreaRadius": 1.3,
+              "behavior": {
+                "explosionDamageMultiplier": 2,
+                "explodeOnExpiry": true,
+                "explosionKnockbackMultiplier": 3
+              }
+            }
+          ]
+        }
+      ],
+      "randomSeed": 173
+    },
+    "levelChanges": [
+      {},
+      {},
+      {},
+      {
+        "overrides": {
+          "waves[0].effects[0].projectileCount": 2
+        }
+      },
+      {},
+      {
+        "overrides": {
+          "waves[0].effects[0].pierceCount": 1
+        }
+      }
     ]
   }
 ]

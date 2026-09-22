@@ -1,6 +1,9 @@
 param(
     [string]$UnityPath,
-    [string]$ProjectPath = (Split-Path $PSScriptRoot -Parent)
+    [string]$ProjectPath = (Split-Path $PSScriptRoot -Parent),
+    [string]$TestFilter = '^Game\.',
+    [ValidateSet('EditMode', 'PlayMode')]
+    [string[]]$Platforms = @('EditMode', 'PlayMode')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -27,6 +30,7 @@ New-Item -ItemType Directory -Force -Path $resultsDirectory | Out-Null
 function Invoke-UnityTests([string]$Platform) {
     $resultPath = Join-Path $resultsDirectory "$Platform.xml"
     $logPath = Join-Path $resultsDirectory "$Platform.log"
+    if (Test-Path -LiteralPath $resultPath) { Remove-Item -LiteralPath $resultPath }
     $arguments = @(
         '-batchmode', '-nographics',
         '-projectPath', $ProjectPath,
@@ -34,8 +38,11 @@ function Invoke-UnityTests([string]$Platform) {
         '-testResults', $resultPath,
         '-logFile', $logPath
     )
+    if (-not [string]::IsNullOrWhiteSpace($TestFilter)) {
+        $arguments += @('-testFilter', $TestFilter)
+    }
 
-    $process = Start-Process -FilePath $UnityPath -ArgumentList $arguments -Wait -PassThru
+    $process = Start-Process -FilePath $UnityPath -ArgumentList $arguments -WindowStyle Hidden -Wait -PassThru
     if (-not (Test-Path -LiteralPath $resultPath)) {
         throw "$Platform tests did not produce a result file. See $logPath."
     }
@@ -43,10 +50,9 @@ function Invoke-UnityTests([string]$Platform) {
     [xml]$results = Get-Content -LiteralPath $resultPath
     $run = $results.'test-run'
     Write-Host "${Platform}: $($run.passed)/$($run.total) passed"
-    if ($process.ExitCode -ne 0 -or [int]$run.failed -ne 0) {
+    if ($process.ExitCode -ne 0 -or [int]$run.failed -ne 0 -or [int]$run.total -eq 0) {
         throw "$Platform tests failed. See $resultPath and $logPath."
     }
 }
 
-Invoke-UnityTests 'EditMode'
-Invoke-UnityTests 'PlayMode'
+foreach ($platform in $Platforms) { Invoke-UnityTests $platform }

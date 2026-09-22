@@ -12,10 +12,10 @@ namespace Game.Progression.Tests
         {
             var active = Active("FIXTURE-ACTIVE");
             var passive = Passive("FIXTURE-PASSIVE");
-            var set = Set("FIXTURE-SET", 1f,
+            var set = Set("FIXTURE-SET",
                 Component(active, 2),
                 Component(passive, 3));
-            var build = new PlayerBuild(active);
+            var build = SetTestData.Build(active);
 
             Assert.IsFalse(build.IsEligible(set));
             build.Apply(active);
@@ -32,9 +32,9 @@ namespace Game.Progression.Tests
         public void FulfilledSet_UsesDraftProbabilityHook()
         {
             var active = Active("FIXTURE-ACTIVE");
-            var set = Set("FIXTURE-SET", 0.5f, Component(active, 1));
-            var build = new PlayerBuild(active);
-            var pool = new DraftPool(new BuildEntryDefinition[] { active, set });
+            var set = Set("FIXTURE-SET", Component(active, 1));
+            var build = SetTestData.Build(active);
+            var pool = new DraftPool(new BuildEntryDefinition[] { active, Passive("FIXTURE-PASSIVE-A"), Passive("FIXTURE-PASSIVE-B"), set }, setOffers: new FixtureSetDraftOfferProvider(0.5f));
 
             var missed = pool.CreateOptions(build, 3, new FixedDraftRandom(0.75f));
             var appeared = pool.CreateOptions(build, 3, new FixedDraftRandom(0.25f));
@@ -47,8 +47,8 @@ namespace Game.Progression.Tests
         public void AcquiredSet_HasNoLevelsOrSlotCost_AndCannotBeDuplicated()
         {
             var active = Active("FIXTURE-ACTIVE");
-            var set = Set("FIXTURE-SET", 1f, Component(active, 1));
-            var build = new PlayerBuild(active);
+            var set = Set("FIXTURE-SET", Component(active, 1));
+            var build = SetTestData.Build(active);
             var activeCount = build.ActiveCount;
             var passiveCount = build.PassiveCount;
 
@@ -68,9 +68,9 @@ namespace Game.Progression.Tests
         public void SharedRecipeComponent_UnlocksIndependentUnlimitedSets()
         {
             var active = Active("FIXTURE-SHARED-ACTIVE");
-            var first = Set("FIXTURE-SET-FIRST", 1f, Component(active, 1));
-            var second = Set("FIXTURE-SET-SECOND", 1f, Component(active, 1));
-            var build = new PlayerBuild(active);
+            var first = Set("FIXTURE-SET-FIRST", Component(active, 1));
+            var second = Set("FIXTURE-SET-SECOND", Component(active, 1));
+            var build = SetTestData.Build(active);
 
             build.Apply(first);
 
@@ -78,16 +78,16 @@ namespace Game.Progression.Tests
             build.Apply(second);
             Assert.AreEqual(2, build.SetCount);
             Assert.AreEqual(1, build.ActiveCount);
-            Assert.AreEqual(0, build.PassiveCount);
+            Assert.AreEqual(2, build.PassiveCount);
         }
 
         [Test]
         public void Runtime_CreatesTicksAndDisposesOneIndependentAbilityPerSet()
         {
             var active = Active("FIXTURE-ACTIVE");
-            var first = Set("FIXTURE-SET-FIRST", 1f, Component(active, 1));
-            var second = Set("FIXTURE-SET-SECOND", 1f, Component(active, 1));
-            var build = new PlayerBuild(active);
+            var first = Set("FIXTURE-SET-FIRST", Component(active, 1));
+            var second = Set("FIXTURE-SET-SECOND", Component(active, 1));
+            var build = SetTestData.Build(active);
             build.Apply(first);
             build.Apply(second);
             var runtime = new PlayerSetRuntime(
@@ -117,13 +117,14 @@ namespace Game.Progression.Tests
         public void ContentRegistry_ValidatesSetRecipeReferences()
         {
             var active = Active("FIXTURE-ACTIVE");
-            var valid = Set("FIXTURE-SET-VALID", 1f, Component(active, 1));
+            var valid = Set("FIXTURE-SET-VALID", Component(active, 1));
             var missing = Set(
                 "FIXTURE-SET-MISSING",
-                1f,
                 new SetRecipeComponent("FIXTURE-NOT-REGISTERED", BuildEntryKind.ActiveSkill, 1));
 
-            Assert.DoesNotThrow(() => ContentRegistry.BuildFrom(new IContentDefinition[] { active, valid }));
+            Assert.DoesNotThrow(() => ContentRegistry.BuildFrom(new IContentDefinition[] { active, valid,
+                new BuildEntryDefinition("FIXTURE-RECIPE-0", BuildEntryKind.PassiveItem, "R0"),
+                new BuildEntryDefinition("FIXTURE-RECIPE-1", BuildEntryKind.PassiveItem, "R1") }));
             Assert.Throws<ContentValidationException>(() =>
                 ContentRegistry.BuildFrom(new IContentDefinition[] { active, missing }));
         }
@@ -153,9 +154,9 @@ namespace Game.Progression.Tests
             return new SetRecipeComponent(definition.Id, definition.Kind, minimumLevel);
         }
 
-        private static SetDefinition Set(string id, float chance, params SetRecipeComponent[] recipe)
+        private static SetDefinition Set(string id, params SetRecipeComponent[] recipe)
         {
-            return new SetDefinition(id, id, chance, recipe);
+            return SetTestData.Define(id, id, recipe);
         }
     }
 }

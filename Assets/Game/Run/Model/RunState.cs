@@ -6,6 +6,7 @@ namespace Game.Run
         Running,
         Paused,
         Won,
-        Lost
+        Lost,
+        Stopped
     }
 }

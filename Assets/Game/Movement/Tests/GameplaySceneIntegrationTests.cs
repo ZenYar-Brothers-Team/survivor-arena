@@ -1,5 +1,6 @@
 using System.Reflection;
 using Game.Character;
+using Game.Field;
 using Game.Run;
 using NUnit.Framework;
 using UnityEditor;
@@ -26,7 +27,7 @@ namespace Game.Movement.Tests
             var mover = player.GetComponent<PlayerMover>();
             var speedSource = player.GetComponent<IMovementSpeedSource>();
             var body = player.GetComponent<Rigidbody2D>();
-            var collider = player.GetComponent<BoxCollider2D>();
+            var collider = player.GetComponent<CircleCollider2D>();
 
             Assert.IsNotNull(mover);
             Assert.IsNotNull(speedSource);
@@ -61,10 +62,15 @@ namespace Game.Movement.Tests
         [Test]
         public void Field_HasClosedBoundsAndFixtureObstacle()
         {
-            AssertWall("Wall_Top", new Vector2(0f, 10.25f), new Vector2(20.5f, 0.5f));
-            AssertWall("Wall_Bottom", new Vector2(0f, -10.25f), new Vector2(20.5f, 0.5f));
-            AssertWall("Wall_Left", new Vector2(-10.25f, 0f), new Vector2(0.5f, 20.5f));
-            AssertWall("Wall_Right", new Vector2(10.25f, 0f), new Vector2(0.5f, 20.5f));
+            var geometry = FixtureArenaGeometryCatalog.Create();
+            var center = (geometry.SideLength + geometry.WallThickness) * .5f;
+            var span = geometry.SideLength + geometry.WallThickness;
+            Assert.AreEqual(20, geometry.SideScreenHeights);
+            Assert.AreEqual(RequireObject("Main Camera").GetComponent<Camera>().orthographicSize * 2, geometry.ReferenceScreenHeight);
+            AssertWall("Wall_Top", new Vector2(0, center), new Vector2(span, geometry.WallThickness));
+            AssertWall("Wall_Bottom", new Vector2(0, -center), new Vector2(span, geometry.WallThickness));
+            AssertWall("Wall_Left", new Vector2(-center, 0), new Vector2(geometry.WallThickness, span));
+            AssertWall("Wall_Right", new Vector2(center, 0), new Vector2(geometry.WallThickness, span));
 
             var obstacle = RequireObject("Obstacle_Fixture");
             var obstacleCollider = obstacle.GetComponent<BoxCollider2D>();

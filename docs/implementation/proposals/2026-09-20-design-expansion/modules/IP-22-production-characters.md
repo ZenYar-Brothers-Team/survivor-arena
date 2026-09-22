@@ -1,0 +1,55 @@
+# IP-22 — Production Characters CHAR-001…010
+
+Материал ревью: план принят пользователем 2026-09-20 и зарегистрирован. [Действующая спецификация](../../../modules/IP-22-production-characters.md). Этот файл не является текущим implementation packet.
+
+Ревизия согласованного проекта: `design-sync-R2`. Спецификация перенесена в действующий каталог; дальнейшие изменения выполняются там.
+
+## Существующая база и характер изменения
+
+Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
+
+## Зависимости
+
+[IP-12](IP-12-character-framework.md), [IP-17](IP-17-production-skills.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
+
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
+
+## Context
+
+Источники GDD/CD/Art Direction ниже — пять утверждённых новых документов из [реестра источников](../README.md), после M-01 — их canonical destinations. Читать только перечисленные секции и полные карточки используемых ID.
+
+новые GDD characters; полные CHAR-001…010 и starting SKILL cards; UI §§4,23; Art Direction v2 §§2,7,9; Art Production §1.
+
+## Scope
+
+десять profiles, starting skill/stats/recovery/weights и заданное unlock metadata. Playable species/силуэты следуют новому roster, включая огра. Character Select использует body crop/variant; отдельный portrait только при недостаточной читаемости crop.
+
+## Out of Scope
+
+выдуманные цены/unlocks, обязательные десять новых портретов, relabel fixture как production без доказанного binding.
+
+## Acceptance criteria
+
+correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../03-existing-modules-and-art.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+locked silhouette/условие, выбранный character, crop и concise modifiers; не выводить полный внутренний stat table в player screen. Developer snapshot остаётся подробным.
+
+## Проверки
+
+per-character initial snapshot, modifiers и weighted draft, selected/locked states; motion/facing/hit/pause/reset, root invariance; manual body/crop review на реальном размере.
+
+## Документационные изменения
+
+roster/card completeness, baseline UI contract, asset provenance/reuse evidence; approved concept не обозначать автоматически как runtime integrated.
+
+## Gates и недостающие решения
+
+G-14/G-15/G-17: weights/unlock metadata и связь concept/master/runtime. CHAR-006 огр и прочие approved roster choices не переутверждаются. Ссылки G-xx/W-01 — [матрица различий](../01-reconciliation.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-27](IP-27-integration.md). Полный порядок и готовность после регистрации определяет STATUS, не расположение файлов.

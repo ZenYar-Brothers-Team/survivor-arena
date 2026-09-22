@@ -1,0 +1,114 @@
+[
+  {
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.53,
+    "pivotY": 0.1,
+    "reason": "256px enemy derivative; 160 PPU preserves a 1.6-unit canvas relative to the 512px/320PPU player. Pivot follows the center between boots and ground contact after padding normalization; VisualRoot cancels collision scale."
+  },
+  {
+    "key": "portrait",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "icon",
+    "pixelsPerUnit": 320,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "shadow",
+    "pixelsPerUnit": 320,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "projectile",
+    "pixelsPerUnit": 320,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "pickup",
+    "pixelsPerUnit": 320,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "telegraph",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "impact",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "mask",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "weapon",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "background",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "tile",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "prop",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "ASSET_PIPELINE category default; no compression change."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png",
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.09,
+    "reason": "Approved fixture body ground-contact line; preserve existing pivot and world size."
+  }
+]

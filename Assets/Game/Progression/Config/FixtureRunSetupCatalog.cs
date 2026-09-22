@@ -28,7 +28,9 @@ namespace Game.Progression
                     Require(draft.OfferCount, "draft.offerCount"),
                     Require(draft.Seed, "draft.seed"),
                     Require(draft.InitialRerolls, "draft.initialRerolls"),
-                    Require(draft.InitialBanishes, "draft.initialBanishes")),
+                    Require(draft.InitialBanishes, "draft.initialBanishes"),
+                    Require(draft.EmptyBookCurrency, "draft.emptyBookCurrency"),
+                    Require(draft.SetDraftChance, "draft.setDraftChance")),
                 new ExperienceSettings(
                     Require(experience.BaseDropLifetimeSeconds, "experience.baseDropLifetimeSeconds"),
                     Require(experience.LevelThresholds, "experience.levelThresholds")));

@@ -1,10 +1,13 @@
 # Implementation Plan
 
-Implementation Plan перенесён в каталог [`implementation`](implementation/README.md).
+Действующий план `design-sync-R2` зарегистрирован по [DECISION-0015](decisions/0015-design-sync-r2.md).
 
-- [Обзор, майлстоуны и content gates](implementation/README.md)
+- [Источники, milestones, gates и каталог](implementation/README.md)
 - [Правила Implementation Plan → Code](implementation/WORKFLOW.md)
-- [Текущий статус и следующий Ready-модуль](implementation/STATUS.md)
-- [Отдельные IP-модули](implementation/modules/)
+- [Execution order, текущий статус и следующий Ready](implementation/STATUS.md)
+- [Спецификации IP](implementation/modules/)
+- [Открытые вопросы дизайна](implementation/DESIGN_SYNC.md)
+- [Asset production и общие контракты](implementation/ASSET_PRODUCTION.md)
+- [Ручной цикл AI-assisted балансировки](implementation/BALANCE_WORKFLOW.md)
 
-Этот файл оставлен как стабильная точка входа для старых ссылок. Канонические спецификации модулей и их статусы находятся по ссылкам выше.
+Это стабильная точка входа. Очередь и execution status находятся только в STATUS; числовая сортировка ID не задаёт порядок работы.

@@ -5,6 +5,7 @@ namespace Game.ActiveSkill
         Single,
         Fan,
         Ring,
-        Cross
+        Cross,
+        IndependentRandom
     }
 }

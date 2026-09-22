@@ -28,18 +28,7 @@ namespace Game.Character
                 throw new InvalidOperationException($"Fixture character '{id}' has no base stats in {ResourcePath}.json.");
 
             var stats = data.BaseStats;
-            return new CharacterBaseStats(
-                stats.MaxHealth,
-                stats.MovementSpeed,
-                stats.ActiveSkillDamageMultiplier,
-                stats.ActiveSkillCooldownMultiplier,
-                stats.IncomingDamageMultiplier,
-                stats.HealthRestorationMultiplier,
-                stats.HealthRegenerationPerSecond,
-                stats.DisappearingXpRecovery,
-                stats.PickedUpXpMultiplier,
-                stats.XpDropLifetimeBonusSeconds,
-                stats.PickupRadius);
+            return CharacterBaseStatsMapper.Map(stats);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Game.Progression
 
         public event Action<float, float> ExperienceChanged;
         public event Action<int> LevelUp;
+        public event Action<int, int> LevelsEarned;
 
         public ExperienceProgression(params float[] thresholds)
         {
@@ -25,26 +26,48 @@ namespace Game.Progression
                 NumericValidation.ValidatePositive(_thresholds[i], nameof(thresholds), "Thresholds must be greater than zero.");
         }
 
-        public int AddExperience(float amount)
+        public int AddExperience(float amount) => ApplyAward(CalculateAward(amount));
+
+        internal ExperienceAdvance CalculateAward(float amount)
         {
-            NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
-            if (amount == 0f)
-                return 0;
-
-            var previousExperience = CurrentExperience;
-            CurrentExperience += amount;
-            var levelsGained = 0;
-
-            while (CurrentExperience >= RequiredExperience)
+            NumericValidation.ValidateNonNegative(amount, nameof(amount));
+            double remainder = (double)CurrentExperience + amount;
+            var level = Level;
+            while (level < _thresholds.Length && remainder >= GetThreshold(level))
             {
-                CurrentExperience -= RequiredExperience;
-                Level++;
-                levelsGained++;
-                LevelUp?.Invoke(Level);
+                remainder -= GetThreshold(level);
+                level++;
             }
+            // The final configured threshold repeats. Division avoids a subtraction loop
+            // which can stop making progress for very large floating-point awards.
+            var threshold = GetThreshold(level);
+            var repeated = Math.Floor(remainder / threshold);
+            if (repeated > int.MaxValue - level) throw new ArgumentOutOfRangeException(nameof(amount), "XP award exceeds the supported level range.");
+            remainder -= repeated * threshold;
+            level += (int)repeated;
+            var experience = (float)remainder;
+            if (experience >= threshold)
+            {
+                if (level == int.MaxValue) throw new ArgumentOutOfRangeException(nameof(amount));
+                experience = 0f;
+                level++;
+            }
+            return new ExperienceAdvance(Level, level, CurrentExperience, experience, amount > 0f);
+        }
 
-            ExperienceChanged?.Invoke(previousExperience, CurrentExperience);
-            return levelsGained;
+        internal int ApplyAward(ExperienceAdvance advance)
+        {
+            if (!advance.HasAward) return 0;
+            if (advance.PreviousLevel != Level || advance.PreviousExperience != CurrentExperience)
+                throw new InvalidOperationException("XP advance no longer matches progression state.");
+            // Commit the entire award before callbacks can pause or finish the run.
+            Level = advance.Level;
+            CurrentExperience = advance.Experience;
+            var gained = advance.Level - advance.PreviousLevel;
+            if (gained > 0) LevelsEarned?.Invoke(advance.PreviousLevel + 1, advance.Level);
+            for (var i = 0; i < gained; i++) LevelUp?.Invoke(advance.PreviousLevel + i + 1);
+            ExperienceChanged?.Invoke(advance.PreviousExperience, advance.Experience);
+            return gained;
         }
 
         private float GetThreshold(int level)

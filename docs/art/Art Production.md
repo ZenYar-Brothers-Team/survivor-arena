@@ -104,7 +104,7 @@ IN GAME
 
 | ID | Character | Asset | Method | Status | Notes |  
 |---|---|---|---|---|---|  
-| CHAR-001 | Клёпка | Body sprite | Generate via GPT | APPROVED | Базовый визуальный концепт уже существует; integration status проверить отдельно |  
+| CHAR-001 | Клёпка | Body sprite | Generate via GPT | APPROVED | Концепт = fixture goblin v002: связь подтверждена пользователем 2026-09-21 в asset-record. Runtime интегрирован как FIXTURE-CHARACTER-AGILE; production binding CHAR-001 относится к IP-22 |
 | CHAR-001 | Клёпка | Character Select image | Reuse body sprite first | NOT STARTED | Crop/variant existing body; отдельный portrait только если понадобится |  
 | CHAR-002 | Бугор | Body sprite | Generate via GPT | NOT STARTED | |  
 | CHAR-003 | Шепотка | Body sprite | Generate via GPT | NOT STARTED | |  
@@ -134,7 +134,7 @@ IN GAME
 
 | ID | Enemy | Asset | Method | Status |  
 |---|---|---|---|---|  
-| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT | NOT STARTED |  
+| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT + procedural motion | APPROVED — v002; runtime 256×256 импортирован и IN GAME у FIXTURE-ENEMY-SEEKER. [Provenance](../../Art/Source/Enemies/enemy-001/asset-record.json); production ENEMY-001 binding и пользовательский gameplay review отдельно |
 | ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-003 | Дровосек | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-004 | Пращник | Body sprite | Generate via GPT | NOT STARTED |  
@@ -344,7 +344,7 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | VFX | Method | Status | Notes |  
 |---|---|---|---|  
-| Basic hit flash | Procedural in Unity | NOT STARTED | Material/color flash |  
+| Basic hit flash | Procedural in Unity | IN GAME (fixture player) | Existing player Health.Damaged → animator; generic adapter tested separately, not all production owners |
 | Basic impact spark | Hybrid | NOT STARTED | Можно генерировать одну базовую вспышку |  
 | Slash impact | Hybrid | NOT STARTED | Для blade-type attacks |  
 | Generic explosion | Hybrid | NOT STARTED | Mine/sphere/set reuse |  
@@ -525,7 +525,7 @@ Method: \`Generate via GPT\`.
 \- set proc emphasis;  
 \- screen shake.
 
-Все: \`Procedural in Unity\`, initial status \`NOT STARTED\`.
+Default для ещё не подключённых owners: \`Procedural in Unity\`, \`NOT STARTED\`. Existing fixture player уже использует idle/bob/lean/squash/flip/hit/spawn; это не означает готовность всех production owners. Gameplay knockback/travel/orbit остаются authoritative motion, не sprite-анимацией.
 
 \---
 
@@ -605,3 +605,12 @@ Method: \`Generate via GPT\`.
 не создавать дополнительную картинку только ради того, чтобы «ассет был».
 
 Цель — минимальное число production assets, которое даёт читаемую и цельную игру.  
+
+
+## Проверяемый fixture inventory — 2026-09-21
+
+[Manifest](../../Art/asset-manifest.json) фиксирует owner+role, method, source/runtime, stage и evidence. CHAR-001 concept identity подтверждена пользователем: это master fixture goblin v002; runtime остаётся FIXTURE-CHARACTER-AGILE, production binding отдельно IP-22. UI body reuse в диагностическом слоте принят пользователем 2026-09-21; production Character Select binding проверяется отдельно. Шесть новых procedural diagnostic roles (body/projectile/pickup/telegraph/shadow/impact) приняты пользователем в Presentation Fixture Review («всё хорошо», 2026-09-21); они не заменяют production строки выше. Player ShadowRenderer пока не имеет отдельного shadow asset. Полное исполнение IP учитывается только в STATUS.
+
+## Body contact authoring
+
+Для новых и заменяемых character/enemy body с круговым контактом после runtime import выполнить [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body): максимальный вписанный круг по заполненному внешнему обводу, сохранение профиля, wiring, проверки и review. Принятый эталон — текущие goblin/villager; внутренние дырки не уменьшают круг. Production content gates сохраняются.

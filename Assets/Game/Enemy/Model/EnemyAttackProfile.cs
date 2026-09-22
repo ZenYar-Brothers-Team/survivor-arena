@@ -1,12 +1,15 @@
 using System;
 using Game.Content;
+using Game.Combat;
 
 namespace Game.Enemy
 {
     public sealed class EnemyAttackProfile
     {
         public EnemyProjectilePattern Pattern { get; }
+        public float TelegraphSeconds { get; }
         public float Damage { get; }
+        public CombatControlProfile Controls { get; }
         public float CooldownSeconds { get; }
         public float ProjectileSpeed { get; }
         public float ProjectileLifetimeSeconds { get; }
@@ -28,7 +31,9 @@ namespace Game.Enemy
             float burstIntervalSeconds = 0.15f,
             float projectileRadius = 0.12f,
             float explosionRadius = 0f,
-            float rotationStepDegrees = 0f)
+            float rotationStepDegrees = 0f,
+            CombatControlProfile controls = null,
+            float telegraphSeconds = 0f)
         {
             if (!Enum.IsDefined(typeof(EnemyProjectilePattern), pattern))
                 throw new ArgumentOutOfRangeException(nameof(pattern));
@@ -37,7 +42,7 @@ namespace Game.Enemy
             NumericValidation.ValidatePositive(projectileSpeed, nameof(projectileSpeed));
             NumericValidation.ValidatePositive(projectileLifetimeSeconds, nameof(projectileLifetimeSeconds));
             NumericValidation.ValidateCount(projectileCount, nameof(projectileCount));
-            NumericValidation.ValidateNonNegative(spreadDegrees, nameof(spreadDegrees));
+            NumericValidation.ValidateRange(spreadDegrees, 0f, 360f, nameof(spreadDegrees));
             NumericValidation.ValidatePositive(burstIntervalSeconds, nameof(burstIntervalSeconds));
             NumericValidation.ValidatePositive(projectileRadius, nameof(projectileRadius));
             NumericValidation.ValidateNonNegative(explosionRadius, nameof(explosionRadius));
@@ -45,6 +50,13 @@ namespace Game.Enemy
             if (pattern == EnemyProjectilePattern.Explosive && explosionRadius <= 0f)
                 throw new ArgumentOutOfRangeException(nameof(explosionRadius), "Explosive projectiles require a positive explosion radius.");
 
+            NumericValidation.ValidateNonNegative(telegraphSeconds, nameof(telegraphSeconds));
+            TelegraphSeconds = telegraphSeconds;
+            if ((pattern == EnemyProjectilePattern.Single || pattern == EnemyProjectilePattern.Explosive) && projectileCount != 1)
+                throw new ArgumentException("Single/explosive patterns require one projectile.", nameof(projectileCount));
+            if (pattern == EnemyProjectilePattern.Cross && projectileCount != 4)
+                throw new ArgumentException("Cross requires four projectiles.", nameof(projectileCount));
+            Controls = controls ?? CombatControlProfile.None;
             Pattern = pattern;
             Damage = damage;
             CooldownSeconds = cooldownSeconds;

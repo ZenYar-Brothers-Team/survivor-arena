@@ -4,6 +4,11 @@ namespace Game.Content
 {
     public static class NumericValidation
     {
+        public static void ValidateNonNegative(long value, string parameterName, string message = "Value cannot be negative.")
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException(parameterName, message);
+        }
+
         public static void ValidateFinite(float value, string parameterName, string message = "Value must be finite.")
         {
             if (float.IsNaN(value) || float.IsInfinity(value))

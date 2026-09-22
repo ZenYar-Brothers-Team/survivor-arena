@@ -4,5 +4,8 @@ namespace Game.Presentation.Json
     {
         public string Id { get; set; }
         public string ResourcePath { get; set; }
+        public SpriteRole? Role { get; set; }
+        public float? ContactRadius { get; set; }
+        public float? ContactCenterY { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 {
     "name": "Game.Run",
     "rootNamespace": "Game.Run",
-    "references": [],
+    "references": ["Game.Content"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

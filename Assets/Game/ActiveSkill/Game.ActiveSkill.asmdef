@@ -3,6 +3,7 @@
     "rootNamespace": "Game.ActiveSkill",
     "references": [
         "Game.Content",
+        "Game.Combat",
         "Game.Character",
         "Game.Enemy",
         "Game.Run",

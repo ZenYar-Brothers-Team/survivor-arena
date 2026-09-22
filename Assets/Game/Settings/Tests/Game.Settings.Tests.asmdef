@@ -1,0 +1,30 @@
+{
+  "name": "Game.Settings.Tests",
+  "rootNamespace": "Game.Settings.Tests",
+  "references": [
+    "Game.Settings",
+    "Game.Content",
+    "Game.Content.Json",
+    "Game.Presentation",
+    "Game.Run",
+    "Newtonsoft.Json",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

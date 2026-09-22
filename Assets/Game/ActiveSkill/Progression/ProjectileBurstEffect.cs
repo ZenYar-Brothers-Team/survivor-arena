@@ -5,6 +5,7 @@ namespace Game.ActiveSkill
 {
     public sealed class ProjectileBurstEffect : IActiveSkillEffect
     {
+        public ProjectileBehavior Behavior { get; }
         public int ProjectileCount { get; }
         public ProjectileLayout Layout { get; }
         public float SpreadDegrees { get; }
@@ -24,7 +25,7 @@ namespace Game.ActiveSkill
             float lifetimeSeconds,
             float collisionRadius,
             float impactAreaRadius = 0f,
-            float damageMultiplier = 1f)
+            float damageMultiplier = 1f, ProjectileBehavior behavior = null)
         {
             NumericValidation.ValidateCount(projectileCount, nameof(projectileCount));
             if (!Enum.IsDefined(typeof(ProjectileLayout), layout))
@@ -38,6 +39,7 @@ namespace Game.ActiveSkill
             NumericValidation.ValidateNonNegativeFinite(impactAreaRadius, nameof(impactAreaRadius));
             NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
 
+            Behavior = behavior ?? ProjectileBehavior.None;
             ProjectileCount = projectileCount;
             Layout = layout;
             SpreadDegrees = spreadDegrees;

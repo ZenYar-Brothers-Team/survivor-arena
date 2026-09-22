@@ -1,0 +1,55 @@
+# IP-05 — Общий combat pipeline, control effects и target contract
+
+Материал ревью: план принят пользователем 2026-09-20 и зарегистрирован. [Действующая спецификация](../../../modules/IP-05-active-skill-runtime.md). Этот файл не является текущим implementation packet.
+
+Ревизия согласованного проекта: `design-sync-R2`. Спецификация перенесена в действующий каталог; дальнейшие изменения выполняются там.
+
+## Существующая база и характер изменения
+
+Переиспользовать живой IP-08 runtime/executor и общий Health. Удалённый single-skill prototype не восстанавливать. IP-05 остаётся владельцем общего damage/control boundary.
+
+## Зависимости
+
+[IP-03](IP-03-character-stats.md), [IP-04](IP-04-enemy-core.md).
+
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
+
+## Context
+
+Источники GDD/CD/Art Direction ниже — пять утверждённых новых документов из [реестра источников](../README.md), после M-01 — их canonical destinations. Читать только перечисленные секции и полные карточки используемых ID.
+
+GDD «Управление, бой и выживание»; Content Active Skills/Enemies/Bosses/Travelers schemas, SKILL-004/013 и PASSIVE-011/014 для effect semantics; DECISION-0003/0006/0011/0012/0013; damage request/result, target provider, Health.
+
+## Scope
+
+Unified source/target/content/life/skill-level result и actual HP loss/heal; snapshot identity до lethal callbacks. Generic target-query adapter без concrete-enemy-only limitation. Authoritative knockback distance/direction/bonus/resistance и enemy movement-only slow state/lifetime; interfaces control application/expiry and category filters. No UI/export dependency. Source origin различает ordinary skill, set и secondary proc; правила set propagation реализует IP-11.
+
+## Out of Scope
+
+Возврат dead prototype, production effect numbers, burn/stun/freeze, wave spawn, telemetry storage/AI.
+
+## Acceptance criteria
+
+100 requested damage в 10 HP без mitigation записывает 10 actual; overkill только при измеренном post-mitigation request. При 2 wu base, +25% outgoing и 40% resistance итог 1.5 wu, immunity 100%→0. Slow 20%→80% movement, attack cadence unchanged. Pause/end, reapply/overlap/expiry следуют решённой таблице; pool reset очищает effects. Player knockback respects player-only bounds, enemy не получает новых стен. Query adapter пригоден для future categories через fakes; полную boss/Traveler integration проверяют IP-15/IP-29.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../03-existing-modules-and-art.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+Authoritative effect state доступен fixtures/DEV; visual recoil/flash только VisualRoot, forced movement — gameplay. Semantic source IDs предоставляются будущей IP-31 без обязательного recorder.
+
+## Проверки
+
+Actual vs requested damage/heal/max-HP rescale; zero-damage control; simultaneous slow/knockback, resistance boundaries, dash priority, zero-direction, collision/pause/end; lethal hit→death→pool return; delayed projectile source snapshots. Query tests fake ordinary/boss/Traveler targets, no missing pattern path.
+
+## Документационные изменения
+
+Combat/control/source API и approved gap deltas; обновить callers/tests в одном change, cross-layer DECISION. IP-08/11/13/15/28/29/31 потребляют один contract.
+
+## Gates и недостающие решения
+
+G-06/G-07/G-08/G-09: slow refresh/extension/weak-source expiry, displacement time model/overlap/dash/zero-direction, low-HP damage evaluation. Формулы утверждены, эти edge cases требуют конкретизации. Ссылки G-xx/W-01 — [матрица различий](../01-reconciliation.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-06](IP-06-xp-progression.md), [IP-08](IP-08-active-skill-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-13](IP-13-enemy-patterns.md), [IP-15](IP-15-boss-framework.md), [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность после регистрации определяет STATUS, не расположение файлов.

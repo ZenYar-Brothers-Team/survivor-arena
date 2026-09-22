@@ -1,0 +1,16 @@
+{
+  "potionId": "FIXTURE-POTION",
+  "bookId": "FIXTURE-BOOK",
+  "baseChance": 0.08,
+  "seed": 48211,
+  "placementSkin": 0.01,
+  "feedbackSeconds": 1.5,
+  "enemyChances": {},
+  "fieldChances": {},
+  "pickups": [
+    { "id": "FIXTURE-POTION", "kind": "Potion", "healing": 20, "contactRadius": 0.22,
+      "lifetimeSeconds": null, "marker": "+", "color": [0.4, 1, 0.45, 1], "markerSize": 0.14 },
+    { "id": "FIXTURE-BOOK", "kind": "Book", "healing": 0, "contactRadius": 0.22,
+      "lifetimeSeconds": null, "marker": "BOOK", "color": [0.95, 0.8, 0.35, 1], "markerSize": 0.08 }
+  ]
+}

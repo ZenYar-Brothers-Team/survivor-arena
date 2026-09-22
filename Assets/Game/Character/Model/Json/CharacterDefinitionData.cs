@@ -4,6 +4,8 @@ namespace Game.Character.Json
     {
         public string Id { get; set; }
         public string DisplayName { get; set; }
+        public string LockReason { get; set; }
+        public CharacterPresentationData Presentation { get; set; }
         public bool InitiallyUnlocked { get; set; }
         public string StartingActiveSkillId { get; set; }
         public string VisualId { get; set; }

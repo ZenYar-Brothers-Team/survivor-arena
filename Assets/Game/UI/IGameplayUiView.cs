@@ -6,11 +6,12 @@ namespace Game.UI
 {
     public interface IGameplayUiView
     {
-        event Action<ContentId> DraftOptionSelected;
-        event Action DraftRerollRequested;
-        event Action<ContentId> DraftBanishRequested;
+        event Action<ContentId, Guid> DraftOptionSelected;
+        event Action<Guid> DraftRerollRequested;
+        event Action<Guid> DraftBanishModeRequested;
         event Action PauseRequested;
         event Action AddExperienceRequested;
+        event Action AddBookRequested;
         event Action ApplyDamageRequested;
         event Action ApplyHealingRequested;
         event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
@@ -21,6 +22,7 @@ namespace Game.UI
         void RenderRunOverlay(RunOverlayViewState state);
         void RenderBuild(BuildViewState state);
         void RenderCharacterSelection(CharacterSelectionViewState state);
+        void RenderSkillObservability(SkillObservabilityViewState state);
         void RenderEnemyObservability(EnemyObservabilityViewState state);
         void RenderWaveObservability(WaveObservabilityViewState state);
         void SetDevelopmentControlsVisible(bool isVisible);

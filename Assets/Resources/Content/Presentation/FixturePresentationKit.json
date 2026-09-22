@@ -1,0 +1,92 @@
+[
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-BODY",
+    "role": "Body",
+    "x": -2.5,
+    "y": 1,
+    "width": 0.5,
+    "height": 0.8,
+    "color": [
+      0.7,
+      0.25,
+      0.2,
+      1
+    ],
+    "bodyMotion": true
+  },
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-PROJECTILE",
+    "role": "Projectile",
+    "x": -1.5,
+    "y": 1,
+    "width": 0.35,
+    "height": 0.1,
+    "color": [
+      1,
+      0.55,
+      0.15,
+      1
+    ],
+    "bodyMotion": false
+  },
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-PICKUP",
+    "role": "Pickup",
+    "x": -0.5,
+    "y": 1,
+    "width": 0.18,
+    "height": 0.25,
+    "color": [
+      0.1,
+      0.75,
+      1,
+      1
+    ],
+    "bodyMotion": false
+  },
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-TELEGRAPH",
+    "role": "Telegraph",
+    "x": 0.5,
+    "y": 1,
+    "width": 0.7,
+    "height": 0.08,
+    "color": [
+      1,
+      0.25,
+      0.3,
+      0.6
+    ],
+    "bodyMotion": false
+  },
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-SHADOW",
+    "role": "Shadow",
+    "x": 1.5,
+    "y": 1,
+    "width": 0.6,
+    "height": 0.12,
+    "color": [
+      0.15,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "bodyMotion": false
+  },
+  {
+    "id": "FIXTURE-PRESENTATION-VISUAL-IMPACT",
+    "role": "Impact",
+    "x": 2.5,
+    "y": 1,
+    "width": 0.3,
+    "height": 0.3,
+    "color": [
+      1,
+      0.8,
+      0.3,
+      0.8
+    ],
+    "bodyMotion": false
+  }
+]

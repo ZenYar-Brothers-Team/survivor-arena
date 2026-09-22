@@ -1,0 +1,5 @@
+{
+  "name": "Game.Traveler",
+  "references": ["Game.Content", "Game.Content.Json", "Game.Enemy", "Game.Combat", "Game.Run", "Game.Field", "Game.Pickup", "Game.Presentation", "Game.Pooling", "Game.Diagnostics", "Newtonsoft.Json"],
+  "autoReferenced": true
+}

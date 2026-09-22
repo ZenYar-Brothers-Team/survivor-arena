@@ -1,7 +1,7 @@
 using System;
 using Game.Pooling;
 using Game.Run;
-using Game.Progression;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -16,7 +16,11 @@ namespace Game.Enemy
             Transform parent = null,
             Sprite visual = null,
             GameObjectPool<EnemyRuntime> pool = null,
-            GameObjectPool<EnemyProjectileRuntime> projectilePool = null)
+            GameObjectPool<EnemyProjectileRuntime> projectilePool = null,
+            IEnemyLifecycleSink lifecycleSink = null,
+            EnemyCategory category = EnemyCategory.Ordinary,
+            SpriteMotionProfile motionProfile = null,
+            SpriteContactProfile contact = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -32,10 +36,13 @@ namespace Game.Enemy
                 definition,
                 target,
                 runController,
-                target.GetComponent<PlayerExperienceRuntime>(),
+                lifecycleSink,
                 visual,
                 pool,
-                projectilePool);
+                projectilePool,
+                category,
+                motionProfile,
+                contact);
             return runtime;
         }
 

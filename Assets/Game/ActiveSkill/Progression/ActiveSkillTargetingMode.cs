@@ -3,6 +3,9 @@ namespace Game.ActiveSkill
     public enum ActiveSkillTargetingMode
     {
         Self,
-        NearestEnemy
+        NearestEnemy,
+        MovementDirection,
+        RandomEnemy,
+        FixedAxes
     }
 }

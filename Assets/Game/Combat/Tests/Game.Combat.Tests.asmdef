@@ -4,7 +4,8 @@
     "references": [
         "Game.Combat",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Game.Content"
     ],
     "includePlatforms": [
         "Editor"

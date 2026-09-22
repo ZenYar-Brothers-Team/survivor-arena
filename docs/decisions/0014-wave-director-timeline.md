@@ -31,3 +31,28 @@ IP-14 требует, чтобы continuous spawn управлялся посл�
 ## Approval
 
 Пользователь явно поручил реализовать IP-14 2026-09-20 («да, бери IP-14»); фреймворк реализуется по спецификации модуля, продуктовые правила не изобретались.
+
+## Дополнение 2026-09-20
+
+Целевой IP-14 расширен continuous/burst; эта запись и её evidence описывают реализованную continuous основу. Policy W-01 и burst checks ещё не выполнены. См. [DECISION-0015](0015-design-sync-r2.md); прежние decision/approval сохранены.
+
+## Дополнение 2026-09-21 — W-01
+
+Политика утверждена [DECISION-0029](0029-burst-pressure-and-player-palette.md): burst игнорирует лимит обычных врагов и не ждёт свободных мест; завершившиеся окна не накапливают спавн; pause-aware время сохранено. Боссы и Путники не занимают regular cap. Реализация и результаты проверок учитываются отдельно в STATUS.
+
+## Дополнение 2026-09-21 — runtime contract design-sync-R2
+
+По запросу пользователя «делай следующий пункт» IP-14 расширяет существующий director:
+явный per-phase mode, однократная группа в полуоткрытом окне внутри фазы, independent
+seeded geometry/composition streams, actual outcome после исполнения. Перескок не
+переносит время старой фазы в continuous timer новой; same-time hooks упорядочены
+MidBoss → FinalBoss. Boss/Traveler остаются вне owned ordinary list спавнера.
+
+Межслойный контракт: producer `WaveSpawnOutcome` доступен UI/IP-31; gameplay не зависит
+от recorder. DEV показывает requested/actual/suppressed/deferred/expired/unavailable,
+но не управляет director state. Формулы, границы и synthetic fixture rationale описаны
+в [IP-14](../implementation/modules/IP-14-wave-director.md#runtime-и-fixture-schema).
+Это техническое дополнение к утверждённой политике, не production encounter schedule.
+
+Пользователь отдельно утвердил load bound: 100 врагов, 10 циклов, cold ≤250 ms и
+pooled ≤50 ms на текущем ПК, без роста объектов. Результаты и условия — в STATUS/evidence.

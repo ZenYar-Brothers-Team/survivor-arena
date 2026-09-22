@@ -7,23 +7,23 @@ namespace Game.Progression
     public sealed class SetDefinition : BuildEntryDefinition, IReferencesContent
     {
         private readonly SetRecipeComponent[] _recipe;
+        public string Description { get; }
+        public IReadOnlyList<SetEffectDefinition> Effects { get; }
 
         public IReadOnlyList<SetRecipeComponent> Recipe => _recipe;
         public override int LevelCap => 1;
-        public override float DraftChance { get; }
 
         public SetDefinition(
             ContentId id,
             string displayName,
-            float draftChance,
             params SetRecipeComponent[] recipe)
-            : base(id, BuildEntryKind.Set, displayName)
+            : this(id, displayName, "", Array.Empty<SetEffectDefinition>(), recipe) { }
+
+        public SetDefinition(ContentId id, string displayName, string description, IEnumerable<SetEffectDefinition> effects,
+            params SetRecipeComponent[] recipe) : base(id, BuildEntryKind.Set, displayName)
         {
-            NumericValidation.ValidatePositive(draftChance, nameof(draftChance));
-            if (draftChance > 1f)
-                throw new ArgumentOutOfRangeException(nameof(draftChance), "Set draft chance cannot exceed one.");
-            if (recipe == null || recipe.Length == 0)
-                throw new ArgumentException("Set recipe requires at least one component.", nameof(recipe));
+            if (recipe == null || recipe.Length < 3 || recipe.Length > 6)
+                throw new ArgumentException("Set recipe requires 3-6 components.", nameof(recipe));
 
             var ids = new HashSet<ContentId>();
             for (var i = 0; i < recipe.Length; i++)
@@ -34,8 +34,11 @@ namespace Game.Progression
                     throw new ArgumentException($"Set recipe contains duplicate component '{recipe[i].Id}'.", nameof(recipe));
             }
 
-            DraftChance = draftChance;
             _recipe = (SetRecipeComponent[])recipe.Clone();
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            var list = new List<SetEffectDefinition>(effects ?? throw new ArgumentNullException(nameof(effects)));
+            if (list.Exists(effect => effect == null)) throw new ArgumentException("Null set effect.", nameof(effects));
+            Effects = list.AsReadOnly();
         }
 
         public bool IsRecipeFulfilled(PlayerBuild build)
@@ -59,6 +62,11 @@ namespace Game.Progression
 
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            foreach (var effect in Effects)
+            {
+                if (effect.Skill.HasValue) yield return new ContentReference(effect.Skill.Value, typeof(BuildEntryDefinition));
+                if (effect.AttackTemplate.HasValue) yield return new ContentReference(effect.AttackTemplate.Value, typeof(BuildEntryDefinition));
+            }
             for (var i = 0; i < _recipe.Length; i++)
                 yield return new ContentReference(_recipe[i].Id, typeof(BuildEntryDefinition));
         }

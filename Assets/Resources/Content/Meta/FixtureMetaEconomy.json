@@ -1,0 +1,256 @@
+{
+  "rewardPerLevel": 5,
+  "emptyBookReward": 50,
+  "fieldClearSeconds": 900,
+  "upgrades": [
+    {
+      "id": "META-001",
+      "name": "Общее здоровье",
+      "personal": false,
+      "stat": "health",
+      "cap": 5,
+      "priceCoefficient": 100,
+      "bonus": 0.05
+    },
+    {
+      "id": "META-002",
+      "name": "Общий урон",
+      "personal": false,
+      "stat": "damage",
+      "cap": 5,
+      "priceCoefficient": 100,
+      "bonus": 0.03
+    },
+    {
+      "id": "META-003",
+      "name": "Здоровье персонажа",
+      "personal": true,
+      "stat": "health",
+      "cap": 5,
+      "priceCoefficient": 50,
+      "bonus": 0.05
+    },
+    {
+      "id": "META-004",
+      "name": "Урон персонажа",
+      "personal": true,
+      "stat": "damage",
+      "cap": 5,
+      "priceCoefficient": 50,
+      "bonus": 0.03
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "FIXTURE-CHARACTER-AGILE",
+      "name": "Fixture Agile",
+      "kind": "character",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-CHARACTER-STURDY",
+      "name": "Fixture Sturdy",
+      "kind": "character",
+      "condition": "firstRun",
+      "price": 100
+    },
+    {
+      "id": "FIXTURE-FIELD-OPEN",
+      "name": "Open Arena В· Fixture",
+      "kind": "field",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-FIELD-FOCUSED",
+      "name": "Focused Pursuit В· Fixture",
+      "kind": "field",
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIXTURE-FIELD-OPEN"
+    },
+    {
+      "id": "FIXTURE-SKILL-BOLT",
+      "name": "Fixture Bolt",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-RING",
+      "name": "Fixture Ring/Cross",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-BEAM",
+      "name": "Fixture Beam",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-ORBIT",
+      "name": "Fixture Orbit",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-BOOMERANG",
+      "name": "Fixture Boomerang",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-CHAIN",
+      "name": "Fixture Chain",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-MINE",
+      "name": "Fixture Mine",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-DELAYED",
+      "name": "Fixture Delayed Area",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-MOVEMENT",
+      "name": "Fixture movement",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-WORLD-TARGET",
+      "name": "Fixture world-target",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-DECELERATING",
+      "name": "Fixture decelerating",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-RICOCHET",
+      "name": "Fixture ricochet",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SKILL-SPHERES",
+      "name": "Fixture spheres",
+      "kind": "skill",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-VITALITY",
+      "name": "Fixture Vitality",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-HASTE",
+      "name": "Fixture Haste",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-MEMORY",
+      "name": "Fixture Memory",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-COLLECTOR",
+      "name": "Fixture Collector",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-PICKUP-RADIUS",
+      "name": "Fixture Pickup Radius",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-KNOCKBACK",
+      "name": "Fixture Knockback",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-SIZE",
+      "name": "Fixture Size",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-RANGE",
+      "name": "Fixture Range",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-PASSIVE-LOW-HEALTH",
+      "name": "Fixture Low Health",
+      "kind": "passive",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SET-OVERCHARGE",
+      "name": "Fixture Overcharge",
+      "kind": "set",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SET-RECALL",
+      "name": "Fixture Recall",
+      "kind": "set",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SET-GUARD",
+      "name": "Fixture Guard",
+      "kind": "set",
+      "condition": "initial",
+      "price": 0
+    },
+    {
+      "id": "FIXTURE-SET-STRIKE",
+      "name": "Fixture Strike",
+      "kind": "set",
+      "condition": "initial",
+      "price": 0
+    }
+  ]
+}

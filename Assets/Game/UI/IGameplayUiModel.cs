@@ -13,12 +13,20 @@ namespace Game.UI
         event Action Changed;
 
         float CurrentHealth { get; }
+        BossViewState Boss { get; }
         float MaxHealth { get; }
         float ExperienceProgress01 { get; }
         int Level { get; }
-        float RemainingSeconds { get; }
+        float ElapsedSeconds { get; }
+        CharacterStatsViewState Stats { get; }
+        RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }
         bool IsDraftOpen { get; }
+        Guid DraftRevision { get; }
+        DraftRequest CurrentDraftRequest { get; }
+        DraftRequest NextDraftRequest { get; }
+        int PendingDraftCount { get; }
+        long BookCurrency { get; }
         int RemainingRerolls { get; }
         int RemainingBanishes { get; }
         IReadOnlyList<DraftOption> DraftOptions { get; }
@@ -27,6 +35,7 @@ namespace Game.UI
         CharacterDefinition SelectedCharacter { get; }
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
+        string SkillDevelopmentSummary { get; }
         string EnemyDevelopmentSummary { get; }
         int WavePhaseNumber { get; }
         int WavePhaseCount { get; }
@@ -34,11 +43,12 @@ namespace Game.UI
         WavePhaseTag WavePhaseTag { get; }
         string WaveDevelopmentSummary { get; }
 
-        bool SelectDraftOption(ContentId id);
-        bool RerollDraft();
-        bool BanishDraftOption(ContentId id);
+        bool SelectDraftOption(ContentId id, Guid revision);
+        bool RerollDraft(Guid revision);
+        bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
         void AddFixtureExperience();
+        void AddFixtureBook();
         void ApplyFixtureDamage();
         void ApplyFixtureHealing();
         void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion);

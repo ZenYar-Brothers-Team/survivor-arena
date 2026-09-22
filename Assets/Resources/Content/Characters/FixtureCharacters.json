@@ -17,13 +17,35 @@
       "disappearingXpRecovery": 0.0,
       "pickedUpXpMultiplier": 1.0,
       "xpDropLifetimeBonusSeconds": 0.0,
-      "pickupRadius": 0.2
+      "pickupRadius": 0.2,
+      "knockbackResistance": 0.0,
+      "outgoingKnockbackBonus": 0.0,
+      "effectSizeMultiplier": 1.0,
+      "effectRangeMultiplier": 1.0,
+      "potionDropMultiplier": 1.0,
+      "lowHealthDamageMaxBonus": 0.0
     },
     "draftWeights": [
-      { "skillId": "FIXTURE-SKILL-BOLT", "weight": 1.5 },
-      { "skillId": "FIXTURE-SKILL-RING", "weight": 0.0 },
-      { "skillId": "FIXTURE-SKILL-BEAM", "weight": 1.25 }
-    ]
+      {
+        "skillId": "FIXTURE-SKILL-BOLT",
+        "weight": 1.5
+      },
+      {
+        "skillId": "FIXTURE-SKILL-RING",
+        "weight": 0.0
+      },
+      {
+        "skillId": "FIXTURE-SKILL-BEAM",
+        "weight": 1.25
+      }
+    ],
+    "presentation": {
+      "role": "Mobile ranged fighter",
+      "baselineId": "FIXTURE-CHARACTER-BASELINE",
+      "cropId": "FIXTURE-CHARACTER-AGILE-VISUAL-PORTRAIT",
+      "iconId": "FIXTURE-CHARACTER-AGILE-VISUAL-ICON",
+      "highlights": []
+    }
   },
   {
     "id": "FIXTURE-CHARACTER-STURDY",
@@ -41,12 +63,41 @@
       "disappearingXpRecovery": 0.15,
       "pickedUpXpMultiplier": 1.0,
       "xpDropLifetimeBonusSeconds": 0.0,
-      "pickupRadius": 0.2
+      "pickupRadius": 0.2,
+      "knockbackResistance": 0.0,
+      "outgoingKnockbackBonus": 0.0,
+      "effectSizeMultiplier": 1.0,
+      "effectRangeMultiplier": 1.0,
+      "potionDropMultiplier": 1.0,
+      "lowHealthDamageMaxBonus": 0.0
     },
     "draftWeights": [
-      { "skillId": "FIXTURE-SKILL-BOLT", "weight": 0.0 },
-      { "skillId": "FIXTURE-SKILL-RING", "weight": 1.75 },
-      { "skillId": "FIXTURE-SKILL-BEAM", "weight": 0.75 }
-    ]
+      {
+        "skillId": "FIXTURE-SKILL-BOLT",
+        "weight": 0.0
+      },
+      {
+        "skillId": "FIXTURE-SKILL-RING",
+        "weight": 1.75
+      },
+      {
+        "skillId": "FIXTURE-SKILL-BEAM",
+        "weight": 0.75
+      }
+    ],
+    "presentation": {
+      "role": "Durable close-range fighter",
+      "baselineId": "FIXTURE-CHARACTER-BASELINE",
+      "cropId": "FIXTURE-CHARACTER-STURDY-VISUAL-PORTRAIT",
+      "iconId": "FIXTURE-CHARACTER-STURDY-VISUAL-ICON",
+      "highlights": [
+        "maxHealth",
+        "movementSpeed",
+        "disappearingXpRecovery"
+      ]
+    },
+    "lockReason": "Locked in the fixture profile. Production unlock conditions arrive with profile progression.",
+    "visualId": "FIXTURE-CHARACTER-STURDY-VISUAL-BODY",
+    "motionProfileId": "FIXTURE-MOTION-GOBLIN-AGILE"
   }
 ]

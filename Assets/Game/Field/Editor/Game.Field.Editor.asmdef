@@ -1,0 +1,6 @@
+{
+  "name": "Game.Field.Editor",
+  "references": ["Game.Field"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

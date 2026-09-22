@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "recorderVersion": "IP-31/1",
+  "reportId": "108ff5b3e8ed457e84704dcbfa25e0f8",
+  "runId": "aa847240c4c5405f8cdd22ab4caf4f7d",
+  "createdUtc": "2026-09-21T09:57:24.7058218Z",
+  "completionReason": "aborted",
+  "outcome": {
+    "runId": "aa847240-c4c5-405f-8cdd-22ab4caf4f7d",
+    "reason": "Aborted",
+    "elapsedSeconds": 29.9932442,
+    "durationSeconds": 900.0,
+    "contributions": {
+      "experience": {
+        "kills": null,
+        "level": 1,
+        "experience": 0.0,
+        "experienceTotals": {
+          "collectedBase": 0.0,
+          "collectedAwarded": 0.0,
+          "expiredBase": 0.0,
+          "recoveredAwarded": 0.0,
+          "interventionBase": 0.0,
+          "interventionAwarded": 0.0,
+          "totalAwarded": 0.0
+        },
+        "draftTotals": null,
+        "build": null,
+        "sets": null
+      },
+      "draft": {
+        "kills": null,
+        "level": null,
+        "experience": null,
+        "experienceTotals": null,
+        "draftTotals": {
+          "acceptedBooks": 0,
+          "selections": 0,
+          "emptyRequests": 0,
+          "cancelledRequests": 0,
+          "bookCurrency": 0
+        },
+        "build": [
+          {
+            "contentId": "FIXTURE-SKILL-BOLT",
+            "level": 1
+          }
+        ],
+        "sets": []
+      },
+      "ordinary-enemy-kills": {
+        "kills": 10,
+        "level": null,
+        "experience": null,
+        "experienceTotals": null,
+        "draftTotals": null,
+        "build": null,
+        "sets": null
+      }
+    },
+    "failedContributors": []
+  },
+  "provenance": {
+    "commit": "d81430340488bf6f988ec6d8e37a3c6b0d3a0dea",
+    "dirty": true,
+    "platform": "WindowsEditor",
+    "buildType": "Editor",
+    "contentKind": "fixture",
+    "files": [
+      {
+        "resource": "Content/ActiveSkills/FixtureActiveSkills",
+        "sha256": "ee3a7c3790e3a44920195736588a57d813f7756436935f387cf94c832d6361b0",
+        "snapshot": "[\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-BOLT\",\r\n    \"displayName\": \"Fixture Bolt\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 4,\r\n        \"cooldownSeconds\": 0.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 1,\r\n                \"layout\": \"Single\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 0,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 5,\r\n        \"cooldownSeconds\": 0.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 1,\r\n                \"layout\": \"Single\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 0,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 6,\r\n        \"cooldownSeconds\": 0.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 2,\r\n                \"layout\": \"Fan\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 0,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 7,\r\n        \"cooldownSeconds\": 0.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 2,\r\n                \"layout\": \"Fan\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 8,\r\n        \"cooldownSeconds\": 0.65,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 3,\r\n                \"layout\": \"Fan\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 9,\r\n        \"cooldownSeconds\": 0.65,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 3,\r\n                \"layout\": \"Fan\",\r\n                \"spreadDegrees\": 24,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 10,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.15\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-RING\",\r\n    \"displayName\": \"Fixture Ring/Cross\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 2.25,\r\n        \"cooldownSeconds\": 2,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-RING\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 4,\r\n                \"layout\": \"Ring\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 0,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      },\r\n      {\r\n        \"baseDamage\": 2.5,\r\n        \"cooldownSeconds\": 2,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-RING\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 6,\r\n                \"layout\": \"Ring\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 0,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      },\r\n      {\r\n        \"baseDamage\": 2.75,\r\n        \"cooldownSeconds\": 2,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-RING\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 6,\r\n                \"layout\": \"Ring\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      },\r\n      {\r\n        \"baseDamage\": 3.0,\r\n        \"cooldownSeconds\": 2,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-CROSS\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 4,\r\n                \"layout\": \"Cross\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      },\r\n      {\r\n        \"baseDamage\": 3.25,\r\n        \"cooldownSeconds\": 2,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-CROSS\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 4,\r\n                \"layout\": \"Cross\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      },\r\n      {\r\n        \"baseDamage\": 3,\r\n        \"cooldownSeconds\": 1.8,\r\n        \"targetingMode\": \"Self\",\r\n        \"visualId\": \"FIXTURE-SKILL-RING-VISUAL-CROSS\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 4,\r\n                \"layout\": \"Cross\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          },\r\n          {\r\n            \"delaySeconds\": 0.25,\r\n            \"rotationDegrees\": 22.5,\r\n            \"damageMultiplier\": 0.75,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"ProjectileBurst\",\r\n                \"projectileCount\": 4,\r\n                \"layout\": \"Cross\",\r\n                \"spreadDegrees\": 0,\r\n                \"pierceCount\": 1,\r\n                \"speed\": 7,\r\n                \"lifetimeSeconds\": 2,\r\n                \"collisionRadius\": 0.12\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"rotationPerActivationDegrees\": 15\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-BEAM\",\r\n    \"displayName\": \"Fixture Beam\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 1.75,\r\n        \"cooldownSeconds\": 2.6,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 0.6,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.5,\r\n                \"range\": 8,\r\n                \"tracksTarget\": false\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.0,\r\n        \"cooldownSeconds\": 2.6,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 0.8,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.5,\r\n                \"range\": 8,\r\n                \"tracksTarget\": false\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.25,\r\n        \"cooldownSeconds\": 2.6,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 0.8,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.5,\r\n                \"range\": 8,\r\n                \"tracksTarget\": false\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.5,\r\n        \"cooldownSeconds\": 2.6,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 0.8,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.8,\r\n                \"range\": 8,\r\n                \"tracksTarget\": false\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.75,\r\n        \"cooldownSeconds\": 2.0,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 0.8,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.8,\r\n                \"range\": 8,\r\n                \"tracksTarget\": false\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 3.0,\r\n        \"cooldownSeconds\": 2.0,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Beam\",\r\n                \"durationSeconds\": 1.2,\r\n                \"tickIntervalSeconds\": 0.2,\r\n                \"width\": 0.8,\r\n                \"range\": 8,\r\n                \"tracksTarget\": true\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-ORBIT\",\r\n    \"displayName\": \"Fixture Orbit\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 2.3,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 2,\r\n                \"radius\": 1.7,\r\n                \"angularSpeedDegrees\": 120,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.6,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 2,\r\n                \"radius\": 1.7,\r\n                \"angularSpeedDegrees\": 120,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 2.9,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 3,\r\n                \"radius\": 1.7,\r\n                \"angularSpeedDegrees\": 120,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 3.2,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 3,\r\n                \"radius\": 2.2,\r\n                \"angularSpeedDegrees\": 120,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 3.5,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 3,\r\n                \"radius\": 2.2,\r\n                \"angularSpeedDegrees\": 180,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 3.8,\r\n        \"cooldownSeconds\": 3,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Orbit\",\r\n                \"bladeCount\": 4,\r\n                \"radius\": 2.2,\r\n                \"angularSpeedDegrees\": 180,\r\n                \"durationSeconds\": 2.5,\r\n                \"hitCooldownSeconds\": 0.35,\r\n                \"bladeHitboxRadius\": 0.3\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-BOOMERANG\",\r\n    \"displayName\": \"Fixture Boomerang\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 4.5,\r\n        \"cooldownSeconds\": 2.2,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 1,\r\n                \"spreadDegrees\": 0,\r\n                \"speed\": 7,\r\n                \"range\": 4,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.0,\r\n                \"lifetimeSeconds\": 2.142857142857143\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 5.0,\r\n        \"cooldownSeconds\": 2.2,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 1,\r\n                \"spreadDegrees\": 0,\r\n                \"speed\": 7,\r\n                \"range\": 4,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.5,\r\n                \"lifetimeSeconds\": 2.142857142857143\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 5.5,\r\n        \"cooldownSeconds\": 2.2,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 1,\r\n                \"spreadDegrees\": 0,\r\n                \"speed\": 7,\r\n                \"range\": 5,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.5,\r\n                \"lifetimeSeconds\": 2.428571428571429\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 6.0,\r\n        \"cooldownSeconds\": 2.2,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 2,\r\n                \"spreadDegrees\": 18,\r\n                \"speed\": 7,\r\n                \"range\": 5,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.5,\r\n                \"lifetimeSeconds\": 2.428571428571429\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 6.5,\r\n        \"cooldownSeconds\": 1.7,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 2,\r\n                \"spreadDegrees\": 18,\r\n                \"speed\": 7,\r\n                \"range\": 5,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.5,\r\n                \"lifetimeSeconds\": 2.428571428571429\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 7.0,\r\n        \"cooldownSeconds\": 1.7,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Boomerang\",\r\n                \"projectileCount\": 2,\r\n                \"spreadDegrees\": 18,\r\n                \"speed\": 7,\r\n                \"range\": 5,\r\n                \"collisionRadius\": 0.18,\r\n                \"returnDamageMultiplier\": 1.75,\r\n                \"hitCooldownSeconds\": 1.0,\r\n                \"returnKnockbackMultiplier\": 1.5,\r\n                \"lifetimeSeconds\": 2.428571428571429\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-CHAIN\",\r\n    \"displayName\": \"Fixture Chain\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 3.5,\r\n        \"cooldownSeconds\": 1.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 3,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.85\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 4.0,\r\n        \"cooldownSeconds\": 1.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 4,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.85\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 4.5,\r\n        \"cooldownSeconds\": 1.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 4,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.85\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 5.0,\r\n        \"cooldownSeconds\": 1.9,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 6,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.85\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 5.5,\r\n        \"cooldownSeconds\": 1.4,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 6,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.85\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 6.0,\r\n        \"cooldownSeconds\": 1.4,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Chain\",\r\n                \"targetCount\": 8,\r\n                \"jumpRange\": 4,\r\n                \"damageRetentionPerJump\": 0.95\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-MINE\",\r\n    \"displayName\": \"Fixture Mine\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 7,\r\n        \"cooldownSeconds\": 2.7,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.4,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 4,\r\n                \"secondaryDelaySeconds\": 0,\r\n                \"secondaryDamageMultiplier\": 0\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 8,\r\n        \"cooldownSeconds\": 2.7,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.8,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 4,\r\n                \"secondaryDelaySeconds\": 0,\r\n                \"secondaryDamageMultiplier\": 0\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 9,\r\n        \"cooldownSeconds\": 2.7,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.8,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 4,\r\n                \"secondaryDelaySeconds\": 0,\r\n                \"secondaryDamageMultiplier\": 0\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 10,\r\n        \"cooldownSeconds\": 2.7,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.8,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 6,\r\n                \"secondaryDelaySeconds\": 0,\r\n                \"secondaryDamageMultiplier\": 0\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 11,\r\n        \"cooldownSeconds\": 2.0,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.8,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 6,\r\n                \"secondaryDelaySeconds\": 0,\r\n                \"secondaryDamageMultiplier\": 0\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 12,\r\n        \"cooldownSeconds\": 2.0,\r\n        \"targetingMode\": \"Self\",\r\n        \"waves\": [\r\n          {\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Mine\",\r\n                \"triggerRadius\": 0.8,\r\n                \"blastRadius\": 1.8,\r\n                \"lifetimeSeconds\": 4,\r\n                \"maxConcurrent\": 6,\r\n                \"secondaryDelaySeconds\": 0.35,\r\n                \"secondaryDamageMultiplier\": 0.6,\r\n                \"secondaryRadiusMultiplier\": 0.75,\r\n                \"secondaryKnockbackMultiplier\": 0.7\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-DELAYED\",\r\n    \"displayName\": \"Fixture Delayed Area\",\r\n    \"levels\": [\r\n      {\r\n        \"baseDamage\": 9,\r\n        \"cooldownSeconds\": 3.5,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.4\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 10,\r\n        \"cooldownSeconds\": 3.5,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 11,\r\n        \"cooldownSeconds\": 3.5,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 12,\r\n        \"cooldownSeconds\": 3.5,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          },\r\n          {\r\n            \"delaySeconds\": 0.75,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 0.65,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 13,\r\n        \"cooldownSeconds\": 3.5,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          },\r\n          {\r\n            \"delaySeconds\": 0.75,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 0.65,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"baseDamage\": 14,\r\n        \"cooldownSeconds\": 3.2,\r\n        \"targetingMode\": \"NearestEnemy\",\r\n        \"waves\": [\r\n          {\r\n            \"delaySeconds\": 0.45,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 1,\r\n            \"controls\": {\r\n              \"knockbackDistance\": 1.0,\r\n              \"knockbackSeconds\": 0.15,\r\n              \"slowFraction\": 0.2,\r\n              \"slowSeconds\": 1.5\r\n            },\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          },\r\n          {\r\n            \"delaySeconds\": 0.7,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 0.8,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          },\r\n          {\r\n            \"delaySeconds\": 0.95,\r\n            \"rotationDegrees\": 0,\r\n            \"damageMultiplier\": 0.65,\r\n            \"effects\": [\r\n              {\r\n                \"kind\": \"Area\",\r\n                \"radius\": 1.8\r\n              }\r\n            ]\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-MOVEMENT\",\r\n    \"displayName\": \"Fixture movement\",\r\n    \"baseLevel\": {\r\n      \"baseDamage\": 20,\r\n      \"cooldownSeconds\": 2,\r\n      \"actionSpeedBonus\": 0,\r\n      \"targetingMode\": \"MovementDirection\",\r\n      \"waves\": [\r\n        {\r\n          \"delaySeconds\": 0,\r\n          \"rotationDegrees\": 0,\r\n          \"damageMultiplier\": 1,\r\n          \"controls\": {\r\n            \"knockbackDistance\": 0.2,\r\n            \"knockbackSeconds\": 0.15\r\n          },\r\n          \"effects\": [\r\n            {\r\n              \"kind\": \"ProjectileBurst\",\r\n              \"projectileCount\": 1,\r\n              \"layout\": \"Single\",\r\n              \"spreadDegrees\": 0,\r\n              \"pierceCount\": 2,\r\n              \"speed\": 8,\r\n              \"lifetimeSeconds\": 2,\r\n              \"collisionRadius\": 0.15\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"initialDirectionDegrees\": 90\r\n    },\r\n    \"levelChanges\": [\r\n      {},\r\n      {\r\n        \"bonuses\": {\r\n          \"baseDamage\": 0.3,\r\n          \"waves[0].controls.knockbackDistance\": 0.2\r\n        }\r\n      },\r\n      {\r\n        \"bonuses\": {\r\n          \"waves[0].effects[0].lifetimeSeconds\": 0.2\r\n        }\r\n      },\r\n      {\r\n        \"bonuses\": {\r\n          \"waves[0].effects[0].collisionRadius\": 0.35\r\n        }\r\n      },\r\n      {\r\n        \"bonuses\": {\r\n          \"actionSpeedBonus\": 0.25,\r\n          \"waves[0].effects[0].speed\": 0.2\r\n        }\r\n      },\r\n      {\r\n        \"bonuses\": {\r\n          \"baseDamage\": 0.25,\r\n          \"waves[0].effects[0].collisionRadius\": 0.2\r\n        },\r\n        \"overrides\": {\r\n          \"waves[0].effects[0].pierceCount\": 20\r\n        }\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-WORLD-TARGET\",\r\n    \"displayName\": \"Fixture world-target\",\r\n    \"baseLevel\": {\r\n      \"baseDamage\": 20,\r\n      \"cooldownSeconds\": 2,\r\n      \"actionSpeedBonus\": 0,\r\n      \"targetingMode\": \"RandomEnemy\",\r\n      \"waves\": [\r\n        {\r\n          \"delaySeconds\": 0.5,\r\n          \"rotationDegrees\": 0,\r\n          \"damageMultiplier\": 1,\r\n          \"controls\": {\r\n            \"knockbackDistance\": 0.2,\r\n            \"knockbackSeconds\": 0.15\r\n          },\r\n          \"effects\": [\r\n            {\r\n              \"kind\": \"Area\",\r\n              \"radius\": 1.5\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"targetingRadius\": 50,\r\n      \"randomSeed\": 171\r\n    },\r\n    \"levelChanges\": [\r\n      {},\r\n      {},\r\n      {},\r\n      {\r\n        \"overrides\": {\r\n          \"waves\": [\r\n            {\r\n              \"delaySeconds\": 0.5,\r\n              \"rotationDegrees\": 0,\r\n              \"damageMultiplier\": 1,\r\n              \"controls\": {\r\n                \"knockbackDistance\": 0.2,\r\n                \"knockbackSeconds\": 0.15\r\n              },\r\n              \"effects\": [\r\n                {\r\n                  \"kind\": \"Area\",\r\n                  \"radius\": 1.5\r\n                }\r\n              ]\r\n            },\r\n            {\r\n              \"delaySeconds\": 0.75,\r\n              \"rotationDegrees\": 0,\r\n              \"damageMultiplier\": 1,\r\n              \"controls\": {\r\n                \"knockbackDistance\": 0.2,\r\n                \"knockbackSeconds\": 0.15\r\n              },\r\n              \"effects\": [\r\n                {\r\n                  \"kind\": \"Area\",\r\n                  \"radius\": 1.5\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      {},\r\n      {}\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-DECELERATING\",\r\n    \"displayName\": \"Fixture decelerating\",\r\n    \"baseLevel\": {\r\n      \"baseDamage\": 20,\r\n      \"cooldownSeconds\": 2,\r\n      \"actionSpeedBonus\": 0,\r\n      \"targetingMode\": \"Self\",\r\n      \"waves\": [\r\n        {\r\n          \"delaySeconds\": 0,\r\n          \"rotationDegrees\": 0,\r\n          \"damageMultiplier\": 1,\r\n          \"controls\": {\r\n            \"knockbackDistance\": 0.2,\r\n            \"knockbackSeconds\": 0.15\r\n          },\r\n          \"effects\": [\r\n            {\r\n              \"kind\": \"ProjectileBurst\",\r\n              \"projectileCount\": 1,\r\n              \"layout\": \"IndependentRandom\",\r\n              \"spreadDegrees\": 0,\r\n              \"pierceCount\": 0,\r\n              \"speed\": 8,\r\n              \"lifetimeSeconds\": 10,\r\n              \"collisionRadius\": 0.15,\r\n              \"behavior\": {\r\n                \"stopAfterSeconds\": 1.4\r\n              }\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"randomSeed\": 172\r\n    },\r\n    \"levelChanges\": [\r\n      {},\r\n      {\r\n        \"bonuses\": {\r\n          \"waves[0].effects[0].behavior.stopAfterSeconds\": 0.2,\r\n          \"waves[0].effects[0].collisionRadius\": 0.2\r\n        }\r\n      },\r\n      {\r\n        \"overrides\": {\r\n          \"waves[0].effects[0].projectileCount\": 2\r\n        }\r\n      },\r\n      {},\r\n      {},\r\n      {}\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-RICOCHET\",\r\n    \"displayName\": \"Fixture ricochet\",\r\n    \"baseLevel\": {\r\n      \"baseDamage\": 20,\r\n      \"cooldownSeconds\": 2,\r\n      \"actionSpeedBonus\": 0,\r\n      \"targetingMode\": \"NearestEnemy\",\r\n      \"waves\": [\r\n        {\r\n          \"delaySeconds\": 0,\r\n          \"rotationDegrees\": 0,\r\n          \"damageMultiplier\": 1,\r\n          \"controls\": {\r\n            \"knockbackDistance\": 0.2,\r\n            \"knockbackSeconds\": 0.15\r\n          },\r\n          \"effects\": [\r\n            {\r\n              \"kind\": \"ProjectileBurst\",\r\n              \"projectileCount\": 1,\r\n              \"layout\": \"Single\",\r\n              \"spreadDegrees\": 0,\r\n              \"pierceCount\": 0,\r\n              \"speed\": 8,\r\n              \"lifetimeSeconds\": 2,\r\n              \"collisionRadius\": 0.15,\r\n              \"behavior\": {\r\n                \"ricochetCount\": 2,\r\n                \"ricochetRange\": 10,\r\n                \"ricochetRetention\": 0.8,\r\n                \"repeatRicochetTargets\": true,\r\n                \"distinctNearestTargets\": true\r\n              }\r\n            }\r\n          ]\r\n        }\r\n      ]\r\n    },\r\n    \"levelChanges\": [\r\n      {},\r\n      {},\r\n      {\r\n        \"overrides\": {\r\n          \"waves[0].effects[0].projectileCount\": 2\r\n        }\r\n      },\r\n      {},\r\n      {},\r\n      {}\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-SKILL-SPHERES\",\r\n    \"displayName\": \"Fixture spheres\",\r\n    \"baseLevel\": {\r\n      \"baseDamage\": 20,\r\n      \"cooldownSeconds\": 2,\r\n      \"actionSpeedBonus\": 0,\r\n      \"targetingMode\": \"Self\",\r\n      \"waves\": [\r\n        {\r\n          \"delaySeconds\": 0,\r\n          \"rotationDegrees\": 0,\r\n          \"damageMultiplier\": 1,\r\n          \"controls\": {\r\n            \"knockbackDistance\": 0.2,\r\n            \"knockbackSeconds\": 0.15\r\n          },\r\n          \"effects\": [\r\n            {\r\n              \"kind\": \"ProjectileBurst\",\r\n              \"projectileCount\": 1,\r\n              \"layout\": \"IndependentRandom\",\r\n              \"spreadDegrees\": 0,\r\n              \"pierceCount\": 0,\r\n              \"speed\": 8,\r\n              \"lifetimeSeconds\": 2,\r\n              \"collisionRadius\": 0.15,\r\n              \"impactAreaRadius\": 1.3,\r\n              \"behavior\": {\r\n                \"explosionDamageMultiplier\": 2,\r\n                \"explodeOnExpiry\": true,\r\n                \"explosionKnockbackMultiplier\": 3\r\n              }\r\n            }\r\n          ]\r\n        }\r\n      ],\r\n      \"randomSeed\": 173\r\n    },\r\n    \"levelChanges\": [\r\n      {},\r\n      {},\r\n      {},\r\n      {\r\n        \"overrides\": {\r\n          \"waves[0].effects[0].projectileCount\": 2\r\n        }\r\n      },\r\n      {},\r\n      {\r\n        \"overrides\": {\r\n          \"waves[0].effects[0].pierceCount\": 1\r\n        }\r\n      }\r\n    ]\r\n  }\r\n]\r\n"
+      },
+      {
+        "resource": "Content/Characters/FixtureCharacters",
+        "sha256": "8ba3f0c065806557f3e2c7d3861d166b6e4af5559b85cb8daa2756611ac0e5ce",
+        "snapshot": "[\n  {\n    \"id\": \"FIXTURE-CHARACTER-AGILE\",\n    \"displayName\": \"Fixture Agile\",\n    \"initiallyUnlocked\": true,\n    \"startingActiveSkillId\": \"FIXTURE-SKILL-BOLT\",\n    \"visualId\": \"FIXTURE-CHARACTER-AGILE-VISUAL-BODY\",\n    \"motionProfileId\": \"FIXTURE-MOTION-GOBLIN-AGILE\",\n    \"baseStats\": {\n      \"maxHealth\": 100.0,\n      \"movementSpeed\": 3.0,\n      \"activeSkillDamageMultiplier\": 1.0,\n      \"activeSkillCooldownMultiplier\": 1.0,\n      \"incomingDamageMultiplier\": 1.0,\n      \"healthRestorationMultiplier\": 1.0,\n      \"healthRegenerationPerSecond\": 0.0,\n      \"disappearingXpRecovery\": 0.0,\n      \"pickedUpXpMultiplier\": 1.0,\n      \"xpDropLifetimeBonusSeconds\": 0.0,\n      \"pickupRadius\": 0.2,\r\n      \"knockbackResistance\": 0.0,\r\n      \"outgoingKnockbackBonus\": 0.0,\r\n      \"effectSizeMultiplier\": 1.0,\r\n      \"effectRangeMultiplier\": 1.0,\r\n      \"potionDropMultiplier\": 1.0,\r\n      \"lowHealthDamageMaxBonus\": 0.0\n    },\n    \"draftWeights\": [\n      { \"skillId\": \"FIXTURE-SKILL-BOLT\", \"weight\": 1.5 },\n      { \"skillId\": \"FIXTURE-SKILL-RING\", \"weight\": 0.0 },\n      { \"skillId\": \"FIXTURE-SKILL-BEAM\", \"weight\": 1.25 }\n    ]\n  },\n  {\n    \"id\": \"FIXTURE-CHARACTER-STURDY\",\n    \"displayName\": \"Fixture Sturdy\",\n    \"initiallyUnlocked\": false,\n    \"startingActiveSkillId\": \"FIXTURE-SKILL-RING\",\n    \"baseStats\": {\n      \"maxHealth\": 125.0,\n      \"movementSpeed\": 2.5,\n      \"activeSkillDamageMultiplier\": 1.1,\n      \"activeSkillCooldownMultiplier\": 1.05,\n      \"incomingDamageMultiplier\": 0.9,\n      \"healthRestorationMultiplier\": 1.0,\n      \"healthRegenerationPerSecond\": 0.0,\n      \"disappearingXpRecovery\": 0.15,\n      \"pickedUpXpMultiplier\": 1.0,\n      \"xpDropLifetimeBonusSeconds\": 0.0,\n      \"pickupRadius\": 0.2,\r\n      \"knockbackResistance\": 0.0,\r\n      \"outgoingKnockbackBonus\": 0.0,\r\n      \"effectSizeMultiplier\": 1.0,\r\n      \"effectRangeMultiplier\": 1.0,\r\n      \"potionDropMultiplier\": 1.0,\r\n      \"lowHealthDamageMaxBonus\": 0.0\n    },\n    \"draftWeights\": [\n      { \"skillId\": \"FIXTURE-SKILL-BOLT\", \"weight\": 0.0 },\n      { \"skillId\": \"FIXTURE-SKILL-RING\", \"weight\": 1.75 },\n      { \"skillId\": \"FIXTURE-SKILL-BEAM\", \"weight\": 0.75 }\n    ]\n  }\n]\n"
+      },
+      {
+        "resource": "Content/Enemies/FixtureEnemies",
+        "sha256": "9dddd92539deb8da79b5c2541a124385e04758cc37aa815fbf0c0ae34fe21e7b",
+        "snapshot": "[\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-SEEKER\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 10.0,\r\n    \"collisionSize\": 1.0,\r\n    \"movementSpeed\": 1.0,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"visualId\": \"FIXTURE-ENEMY-SEEKER-VISUAL\",\r\n    \"movement\": { \"kind\": \"Seek\" }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-FAN\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 12.0,\r\n    \"collisionSize\": 0.85,\r\n    \"movementSpeed\": 0.8,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"movement\": { \"kind\": \"KeepDistance\", \"preferredDistance\": 4.5, \"distanceTolerance\": 0.5 },\r\n    \"attack\": { \"pattern\": \"Fan\", \"damage\": 2.0, \"cooldownSeconds\": 2.5, \"projectileSpeed\": 3.0, \"projectileLifetimeSeconds\": 3.0, \"projectileCount\": 3, \"spreadDegrees\": 40.0, \"projectileRadius\": 0.12 }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-BURST-ORBIT\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 12.0,\r\n    \"collisionSize\": 0.85,\r\n    \"movementSpeed\": 0.75,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"movement\": { \"kind\": \"Orbit\", \"preferredDistance\": 4.0, \"distanceTolerance\": 0.4, \"lateralStrength\": 1.0 },\r\n    \"attack\": { \"pattern\": \"Burst\", \"damage\": 1.5, \"cooldownSeconds\": 3.0, \"projectileSpeed\": 3.5, \"projectileLifetimeSeconds\": 3.0, \"projectileCount\": 3, \"burstIntervalSeconds\": 0.15, \"projectileRadius\": 0.12 }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-RING-ZIGZAG\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 14.0,\r\n    \"collisionSize\": 0.9,\r\n    \"movementSpeed\": 0.9,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"movement\": { \"kind\": \"Zigzag\", \"lateralStrength\": 0.8, \"cycleSeconds\": 1.2 },\r\n    \"attack\": { \"pattern\": \"Ring\", \"damage\": 1.0, \"cooldownSeconds\": 3.5, \"projectileSpeed\": 2.5, \"projectileLifetimeSeconds\": 3.0, \"projectileCount\": 8, \"projectileRadius\": 0.12 }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-CROSS-RETREAT\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 14.0,\r\n    \"collisionSize\": 0.9,\r\n    \"movementSpeed\": 0.9,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"movement\": { \"kind\": \"ApproachRetreat\", \"cycleSeconds\": 2.4 },\r\n    \"attack\": { \"pattern\": \"Cross\", \"damage\": 1.5, \"cooldownSeconds\": 3.0, \"projectileSpeed\": 3.0, \"projectileLifetimeSeconds\": 3.0, \"projectileCount\": 4, \"projectileRadius\": 0.12 }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-SPIRAL\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 16.0,\r\n    \"collisionSize\": 0.95,\r\n    \"movementSpeed\": 0.65,\r\n    \"contactDamage\": 1.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 1.0,\r\n    \"movement\": { \"kind\": \"KeepDistance\", \"preferredDistance\": 5.0, \"distanceTolerance\": 0.5 },\r\n    \"attack\": { \"pattern\": \"Spiral\", \"damage\": 1.0, \"cooldownSeconds\": 3.2, \"projectileSpeed\": 2.3, \"projectileLifetimeSeconds\": 4.0, \"projectileCount\": 10, \"projectileRadius\": 0.12, \"rotationStepDegrees\": 18.0 }\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-ENEMY-DASH-EXPLOSIVE\",\r\n    \"knockbackResistance\": 0.0,\r\n    \"maxHealth\": 20.0,\r\n    \"collisionSize\": 1.1,\r\n    \"movementSpeed\": 0.7,\r\n    \"contactDamage\": 2.0,\r\n    \"contactDamageInterval\": 1.0,\r\n    \"experienceReward\": 2.0,\r\n    \"movement\": { \"kind\": \"TelegraphedDash\", \"dashTelegraphSeconds\": 0.7, \"dashDurationSeconds\": 0.45, \"dashCooldownSeconds\": 3.0, \"dashSpeedMultiplier\": 4.0 },\r\n    \"attack\": { \"pattern\": \"Explosive\", \"damage\": 3.0, \"cooldownSeconds\": 4.0, \"projectileSpeed\": 1.8, \"projectileLifetimeSeconds\": 3.5, \"projectileCount\": 1, \"projectileRadius\": 0.22, \"explosionRadius\": 1.2 }\r\n  }\r\n]\r\n"
+      },
+      {
+        "resource": "Content/Passives/FixturePassives",
+        "sha256": "4787e71a807995ec7a28f0158c790ccc8e935ede4a3c96a1f27c600322f07913",
+        "snapshot": "[\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-VITALITY\",\r\n    \"displayName\": \"Fixture Vitality\",\r\n    \"levels\": [\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.1\r\n      },\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.2\r\n      },\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.3\r\n      },\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.4\r\n      },\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.5\r\n      },\r\n      {\r\n        \"maxHealthMultiplierBonus\": 0.6\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-HASTE\",\r\n    \"displayName\": \"Fixture Haste\",\r\n    \"levels\": [\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.05,\r\n        \"activeSkillDamageMultiplierBonus\": 0.05,\r\n        \"actionSpeedBonus\": 0.1\r\n      },\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.1,\r\n        \"activeSkillDamageMultiplierBonus\": 0.1,\r\n        \"actionSpeedBonus\": 0.2\r\n      },\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.15,\r\n        \"activeSkillDamageMultiplierBonus\": 0.15,\r\n        \"actionSpeedBonus\": 0.3\r\n      },\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.2,\r\n        \"activeSkillDamageMultiplierBonus\": 0.2,\r\n        \"actionSpeedBonus\": 0.4\r\n      },\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.25,\r\n        \"activeSkillDamageMultiplierBonus\": 0.25,\r\n        \"actionSpeedBonus\": 0.5\r\n      },\r\n      {\r\n        \"movementSpeedMultiplierBonus\": 0.3,\r\n        \"activeSkillDamageMultiplierBonus\": 0.3,\r\n        \"actionSpeedBonus\": 0.6\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-MEMORY\",\r\n    \"displayName\": \"Fixture Memory\",\r\n    \"levels\": [\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.05,\r\n        \"healthRestorationMultiplierBonus\": 0.1,\r\n        \"healthRegenerationPerSecondBonus\": 0.2,\r\n        \"disappearingXpRecoveryBonus\": 0.1,\r\n        \"pickedUpXpMultiplierBonus\": 0.05,\r\n        \"xpDropLifetimeBonusSeconds\": 5.0\r\n      },\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.1,\r\n        \"healthRestorationMultiplierBonus\": 0.2,\r\n        \"healthRegenerationPerSecondBonus\": 0.4,\r\n        \"disappearingXpRecoveryBonus\": 0.2,\r\n        \"pickedUpXpMultiplierBonus\": 0.1,\r\n        \"xpDropLifetimeBonusSeconds\": 10.0\r\n      },\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.15,\r\n        \"healthRestorationMultiplierBonus\": 0.3,\r\n        \"healthRegenerationPerSecondBonus\": 0.6,\r\n        \"disappearingXpRecoveryBonus\": 0.3,\r\n        \"pickedUpXpMultiplierBonus\": 0.15,\r\n        \"xpDropLifetimeBonusSeconds\": 15.0\r\n      },\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.2,\r\n        \"healthRestorationMultiplierBonus\": 0.4,\r\n        \"healthRegenerationPerSecondBonus\": 0.8,\r\n        \"disappearingXpRecoveryBonus\": 0.4,\r\n        \"pickedUpXpMultiplierBonus\": 0.2,\r\n        \"xpDropLifetimeBonusSeconds\": 20.0\r\n      },\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.25,\r\n        \"healthRestorationMultiplierBonus\": 0.5,\r\n        \"healthRegenerationPerSecondBonus\": 1.0,\r\n        \"disappearingXpRecoveryBonus\": 0.5,\r\n        \"pickedUpXpMultiplierBonus\": 0.25,\r\n        \"xpDropLifetimeBonusSeconds\": 25.0\r\n      },\r\n      {\r\n        \"incomingDamageReductionBonus\": 0.3,\r\n        \"healthRestorationMultiplierBonus\": 0.6,\r\n        \"healthRegenerationPerSecondBonus\": 1.2,\r\n        \"disappearingXpRecoveryBonus\": 0.6,\r\n        \"pickedUpXpMultiplierBonus\": 0.3,\r\n        \"xpDropLifetimeBonusSeconds\": 30.0\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-COLLECTOR\",\r\n    \"displayName\": \"Fixture Collector\",\r\n    \"levels\": [\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 0.2,\r\n        \"potionDropMultiplierBonus\": 0.1\r\n      },\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 0.4,\r\n        \"potionDropMultiplierBonus\": 0.2\r\n      },\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 0.7,\r\n        \"potionDropMultiplierBonus\": 0.3\r\n      },\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 1,\r\n        \"potionDropMultiplierBonus\": 0.4\r\n      },\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 1.4,\r\n        \"potionDropMultiplierBonus\": 0.5\r\n      },\r\n      {\r\n        \"healthRegenerationPerSecondBonus\": 2,\r\n        \"potionDropMultiplierBonus\": 0.6\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-PICKUP-RADIUS\",\r\n    \"displayName\": \"Fixture Pickup Radius\",\r\n    \"levels\": [\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.1\r\n      },\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.2\r\n      },\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.3\r\n      },\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.4\r\n      },\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.5\r\n      },\r\n      {\r\n        \"pickupRadiusMultiplierBonus\": 0.6\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-KNOCKBACK\",\r\n    \"displayName\": \"Fixture Knockback\",\r\n    \"levels\": [\r\n      {\r\n        \"knockbackResistanceBonus\": 0.1,\r\n        \"outgoingKnockbackBonus\": 0.1\r\n      },\r\n      {\r\n        \"knockbackResistanceBonus\": 0.2,\r\n        \"outgoingKnockbackBonus\": 0.2\r\n      },\r\n      {\r\n        \"knockbackResistanceBonus\": 0.3,\r\n        \"outgoingKnockbackBonus\": 0.3\r\n      },\r\n      {\r\n        \"knockbackResistanceBonus\": 0.4,\r\n        \"outgoingKnockbackBonus\": 0.4\r\n      },\r\n      {\r\n        \"knockbackResistanceBonus\": 0.5,\r\n        \"outgoingKnockbackBonus\": 0.5\r\n      },\r\n      {\r\n        \"knockbackResistanceBonus\": 0.6,\r\n        \"outgoingKnockbackBonus\": 0.6\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-SIZE\",\r\n    \"displayName\": \"Fixture Size\",\r\n    \"levels\": [\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.05\r\n      },\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.1\r\n      },\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.15\r\n      },\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.2\r\n      },\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.25\r\n      },\r\n      {\r\n        \"effectSizeMultiplierBonus\": 0.3\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-RANGE\",\r\n    \"displayName\": \"Fixture Range\",\r\n    \"levels\": [\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.08\r\n      },\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.16\r\n      },\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.24\r\n      },\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.32\r\n      },\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.4\r\n      },\r\n      {\r\n        \"effectRangeMultiplierBonus\": 0.5\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": \"FIXTURE-PASSIVE-LOW-HEALTH\",\r\n    \"displayName\": \"Fixture Low Health\",\r\n    \"levels\": [\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.15\r\n      },\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.25\r\n      },\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.35\r\n      },\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.45\r\n      },\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.55\r\n      },\r\n      {\r\n        \"lowHealthDamageMaxBonus\": 0.7\r\n      }\r\n    ]\r\n  }\r\n]\r\n"
+      },
+      {
+        "resource": "Content/Presentation/FixtureSpriteMotionProfiles",
+        "sha256": "85faf74403caec64478d852ea9eef6e18d22b30bba39279ea6083203b3e99b31",
+        "snapshot": "[\n  {\n    \"id\": \"FIXTURE-MOTION-GOBLIN-AGILE\",\n    \"referenceSpeed\": 3.0,\n    \"idleBobAmplitude\": 0.025,\n    \"idleFrequency\": 0.675,\n    \"idleBreathStretch\": 0.035,\n    \"idleSwayDegrees\": 1.4,\n    \"bobAmplitude\": 0.05,\n    \"bobFrequency\": 3.0,\n    \"locomotionStretch\": 0.06,\n    \"maxTiltDegrees\": 6.0,\n    \"hitDurationSeconds\": 0.14,\n    \"hitSquash\": 0.1,\n    \"hitTiltDegrees\": 7.0,\n    \"hitFlashDurationSeconds\": 0.08,\n    \"hitFlashRed\": 1.0,\n    \"hitFlashGreen\": 0.45,\n    \"hitFlashBlue\": 0.45,\n    \"hitFlashAlpha\": 1.0,\n    \"spawnDurationSeconds\": 0.2,\n    \"spawnScaleFrom\": 0.75\n  }\n]\n"
+      },
+      {
+        "resource": "Content/Presentation/FixtureSprites",
+        "sha256": "862e8c3cfa2f978873cf1cc56cc9f9643ce003a81dee5f7202e3f9ffabbfdac6",
+        "snapshot": "[\n  {\n    \"id\": \"FIXTURE-CHARACTER-AGILE-VISUAL-BODY\",\n    \"resourcePath\": \"Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body\"\n  }\n]\n"
+      },
+      {
+        "resource": "Content/Run/FixtureRunSetup",
+        "sha256": "18350edf2a00bc7afcd74f637e7b42ee0dd033fe8c1b4e5f95146c6afdaea444",
+        "snapshot": "{\r\n  \"startingCharacterId\": \"FIXTURE-CHARACTER-AGILE\",\r\n  \"draft\": {\r\n    \"offerCount\": 3,\r\n    \"seed\": 12345,\r\n    \"initialRerolls\": 2,\r\n    \"initialBanishes\": 2,\r\n    \"emptyBookCurrency\": 1\r\n  },\r\n  \"experience\": {\r\n    \"levelThresholds\": [5, 10, 15],\r\n    \"baseDropLifetimeSeconds\": 60\r\n  }\r\n}\r\n"
+      },
+      {
+        "resource": "Content/Sets/FixtureSets",
+        "sha256": "8271e98d548f0e1114b1aac8e452c77ce589db736bad7c07eb66867c23dbb862",
+        "snapshot": "[\n  {\n    \"id\": \"FIXTURE-SET-OVERCHARGE\",\n    \"displayName\": \"Fixture Overcharge\",\n    \"draftChance\": 0.5,\n    \"recipe\": [\n      { \"id\": \"FIXTURE-SKILL-BOLT\", \"kind\": \"ActiveSkill\", \"minimumLevel\": 2 },\n      { \"id\": \"FIXTURE-PASSIVE-HASTE\", \"kind\": \"PassiveItem\", \"minimumLevel\": 2 }\n    ]\n  },\n  {\n    \"id\": \"FIXTURE-SET-RECALL\",\n    \"displayName\": \"Fixture Recall\",\n    \"draftChance\": 0.5,\n    \"recipe\": [\n      { \"id\": \"FIXTURE-SKILL-BOLT\", \"kind\": \"ActiveSkill\", \"minimumLevel\": 2 },\n      { \"id\": \"FIXTURE-PASSIVE-MEMORY\", \"kind\": \"PassiveItem\", \"minimumLevel\": 2 }\n    ]\n  }\n]\n"
+      },
+      {
+        "resource": "Content/Waves/FixtureWaveTimeline",
+        "sha256": "d481a197197d8cbf003915cb469f093c6a068d5539e3ff6a0610e7ab7e69433b",
+        "snapshot": "{\r\n  \"id\": \"FIXTURE-WAVE-TIMELINE\",\r\n  \"seed\": 24680,\r\n  \"spawnRadius\": 8.0,\r\n  \"phases\": [\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ORDINARY-1\", \"displayName\": \"Ordinary\", \"tag\": \"Ordinary\",\r\n      \"durationSeconds\": 45.0, \"spawnIntervalSeconds\": 2.0, \"maxAliveEnemies\": 8,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 3.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 1.0 }\r\n      ]\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-PRESSURE-1\", \"displayName\": \"Pressure\", \"tag\": \"Pressure\",\r\n      \"durationSeconds\": 30.0, \"spawnIntervalSeconds\": 0.9, \"maxAliveEnemies\": 14,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 3.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-RING-ZIGZAG\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-BURST-ORBIT\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"speedMultiplier\": 1.25, \"healthMultiplier\": 0.8 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ELITE-1\", \"displayName\": \"Elite\", \"tag\": \"Elite\",\r\n      \"durationSeconds\": 45.0, \"spawnIntervalSeconds\": 1.4, \"maxAliveEnemies\": 12,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-DASH-EXPLOSIVE\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SPIRAL\", \"weight\": 1.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-CROSS-RETREAT\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 1.5, \"contactDamageMultiplier\": 1.5, \"attackDamageMultiplier\": 1.25, \"speedMultiplier\": 0.9 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-REST-1\", \"displayName\": \"Respite\", \"tag\": \"Rest\",\r\n      \"durationSeconds\": 20.0, \"spawnIntervalSeconds\": 4.0, \"maxAliveEnemies\": 4,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 0.7, \"speedMultiplier\": 0.8 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ORDINARY-2\", \"displayName\": \"Ordinary\", \"tag\": \"Ordinary\",\r\n      \"durationSeconds\": 60.0, \"spawnIntervalSeconds\": 1.6, \"maxAliveEnemies\": 12,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-CROSS-RETREAT\", \"weight\": 1.0 }\r\n      ]\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-PRESSURE-2\", \"displayName\": \"Pressure\", \"tag\": \"Pressure\",\r\n      \"durationSeconds\": 45.0, \"spawnIntervalSeconds\": 0.7, \"maxAliveEnemies\": 18,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-BURST-ORBIT\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-RING-ZIGZAG\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 2.0 }\r\n      ],\r\n      \"modifiers\": { \"speedMultiplier\": 1.4, \"healthMultiplier\": 0.6, \"contactDamageMultiplier\": 0.7 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ELITE-2\", \"displayName\": \"Elite\", \"tag\": \"Elite\",\r\n      \"durationSeconds\": 60.0, \"spawnIntervalSeconds\": 1.1, \"maxAliveEnemies\": 16,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-DASH-EXPLOSIVE\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SPIRAL\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 1.8, \"contactDamageMultiplier\": 1.5, \"attackDamageMultiplier\": 1.5 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-REST-2\", \"displayName\": \"Respite\", \"tag\": \"Rest\",\r\n      \"durationSeconds\": 25.0, \"spawnIntervalSeconds\": 3.5, \"maxAliveEnemies\": 6,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 0.8, \"speedMultiplier\": 0.85 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ORDINARY-3\", \"displayName\": \"Ordinary\", \"tag\": \"Ordinary\",\r\n      \"durationSeconds\": 90.0, \"spawnIntervalSeconds\": 1.3, \"maxAliveEnemies\": 16,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-CROSS-RETREAT\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-BURST-ORBIT\", \"weight\": 1.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 2.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 1.2 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-PRESSURE-3\", \"displayName\": \"Pressure\", \"tag\": \"Pressure\",\r\n      \"durationSeconds\": 60.0, \"spawnIntervalSeconds\": 0.55, \"maxAliveEnemies\": 22,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-RING-ZIGZAG\", \"weight\": 3.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-BURST-ORBIT\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SPIRAL\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"speedMultiplier\": 1.5, \"healthMultiplier\": 0.7, \"attackDamageMultiplier\": 0.8 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-ELITE-3\", \"displayName\": \"Elite\", \"tag\": \"Elite\",\r\n      \"durationSeconds\": 90.0, \"spawnIntervalSeconds\": 0.9, \"maxAliveEnemies\": 20,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-DASH-EXPLOSIVE\", \"weight\": 3.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SPIRAL\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-CROSS-RETREAT\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 2.2, \"contactDamageMultiplier\": 1.8, \"attackDamageMultiplier\": 1.75, \"speedMultiplier\": 1.1 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-REST-3\", \"displayName\": \"Respite\", \"tag\": \"Rest\",\r\n      \"durationSeconds\": 30.0, \"spawnIntervalSeconds\": 3.0, \"maxAliveEnemies\": 8,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SEEKER\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 0.9, \"speedMultiplier\": 0.9 }\r\n    },\r\n    {\r\n      \"id\": \"FIXTURE-WAVE-FINAL-RUSH\", \"displayName\": \"Final Rush\", \"tag\": \"Elite\",\r\n      \"durationSeconds\": 300.0, \"spawnIntervalSeconds\": 0.7, \"maxAliveEnemies\": 24,\r\n      \"composition\": [\r\n        { \"enemyId\": \"FIXTURE-ENEMY-DASH-EXPLOSIVE\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-SPIRAL\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-RING-ZIGZAG\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-BURST-ORBIT\", \"weight\": 2.0 },\r\n        { \"enemyId\": \"FIXTURE-ENEMY-FAN\", \"weight\": 1.0 }\r\n      ],\r\n      \"modifiers\": { \"healthMultiplier\": 2.5, \"contactDamageMultiplier\": 2.0, \"attackDamageMultiplier\": 2.0, \"speedMultiplier\": 1.2 }\r\n    }\r\n  ],\r\n  \"hooks\": [\r\n    { \"kind\": \"MidBoss\", \"timeSeconds\": 420.0 },\r\n    { \"kind\": \"FinalBoss\", \"timeSeconds\": 840.0 }\r\n  ]\r\n}\r\n"
+      }
+    ],
+    "resolved": {
+      "character": "FIXTURE-CHARACTER-AGILE",
+      "field": "unsupported",
+      "timeline": "FIXTURE-WAVE-TIMELINE",
+      "durationSeconds": 900.0,
+      "seeds": {
+        "draft": 12345,
+        "wave": 24680
+      },
+      "initialStats": {
+        "baseStats": {
+          "maxHealth": 100.0,
+          "movementSpeed": 3.0,
+          "activeSkillDamageMultiplier": 1.0,
+          "activeSkillCooldownMultiplier": 1.0,
+          "incomingDamageMultiplier": 1.0,
+          "healthRestorationMultiplier": 1.0,
+          "healthRegenerationPerSecond": 0.0,
+          "disappearingXpRecovery": 0.0,
+          "pickedUpXpMultiplier": 1.0,
+          "xpDropLifetimeBonusSeconds": 0.0,
+          "pickupRadius": 0.2,
+          "knockbackResistance": 0.0,
+          "outgoingKnockbackBonus": 0.0,
+          "effectSizeMultiplier": 1.0,
+          "effectRangeMultiplier": 1.0,
+          "potionDropMultiplier": 1.0,
+          "lowHealthDamageMaxBonus": 0.0
+        },
+        "modifierCount": 0,
+        "maxHealth": 100.0,
+        "movementSpeed": 3.0,
+        "activeSkillDamageMultiplier": 1.0,
+        "activeSkillCooldownMultiplier": 1.0,
+        "incomingDamageMultiplier": 1.0,
+        "healthRestorationMultiplier": 1.0,
+        "healthRegenerationPerSecond": 0.0,
+        "disappearingXpRecovery": 0.0,
+        "pickedUpXpMultiplier": 1.0,
+        "xpDropLifetimeBonusSeconds": 0.0,
+        "actionSpeedBonus": 0.0,
+        "pickupRadius": 0.2,
+        "knockbackResistance": 0.0,
+        "outgoingKnockbackMultiplier": 1.0,
+        "effectSizeMultiplier": 1.0,
+        "effectRangeMultiplier": 1.0,
+        "potionDropMultiplier": 1.0,
+        "lowHealthDamageMultiplier": 1.0
+      },
+      "initialBuild": [
+        {
+          "id": "FIXTURE-SKILL-BOLT",
+          "level": 1,
+          "kind": "ActiveSkill"
+        }
+      ],
+      "runSetup": {
+        "startingCharacterId": {
+          "isValid": true
+        },
+        "draft": {
+          "offerCount": 3,
+          "seed": 12345,
+          "initialRerolls": 2,
+          "initialBanishes": 2,
+          "emptyBookCurrency": 1
+        },
+        "experience": {
+          "levelThresholds": [
+            5.0,
+            10.0,
+            15.0
+          ],
+          "baseDropLifetimeSeconds": 60.0
+        }
+      },
+      "overrides": {
+        "durationSeconds": 900.0,
+        "source": "RunController scene configuration"
+      }
+    },
+    "configHash": "f11cbc70dae46145df990c79bc897acff02f0316efa92cf223dd4f92a8b1154e",
+    "rngUncovered": [
+      "UnityEngine.Random spawn positions; no deterministic replay"
+    ],
+    "persistentProfile": "unsupported"
+  },
+  "runningSeconds": 29.9932442,
+  "elapsedSimulationSeconds": 29.9932442,
+  "wallSeconds": 64.349014899999986,
+  "pauseWallSeconds": 34.192185599999995,
+  "combat": [
+    {
+      "source": "FIXTURE-SKILL-BOLT",
+      "level": 1,
+      "origin": "ActiveSkill",
+      "targetCategory": "OrdinaryEnemy",
+      "healing": false,
+      "results": 31,
+      "attempted": 124.0,
+      "applied": 108.0,
+      "overkill": 16.0,
+      "equippedRunningSeconds": 29.993244171142578,
+      "observedEquippedDps": 3.6008108820689069
+    },
+    {
+      "source": "FIXTURE-ENEMY-FAN",
+      "level": null,
+      "origin": "EnemyProjectile",
+      "targetCategory": "Player",
+      "healing": false,
+      "results": 17,
+      "attempted": 34.0,
+      "applied": 34.0,
+      "overkill": 0.0,
+      "equippedRunningSeconds": null,
+      "observedEquippedDps": null
+    }
+  ],
+  "appliedDamageDealt": 108.0,
+  "appliedDamageTaken": 34.0,
+  "actualHealing": 0.0,
+  "observedRunDps": 3.6008108820689069,
+  "counters": {
+    "kills.FIXTURE-ENEMY-FAN": 2.0,
+    "kills.FIXTURE-ENEMY-SEEKER": 8.0
+  },
+  "timeline": [
+    {
+      "sequence": 1,
+      "seconds": 0.0,
+      "kind": "recording-start",
+      "detail": "NotStarted"
+    },
+    {
+      "sequence": 2,
+      "seconds": 0.0,
+      "kind": "run-state",
+      "detail": "Running"
+    },
+    {
+      "sequence": 3,
+      "seconds": 13.2582712,
+      "kind": "run-state",
+      "detail": "Paused"
+    },
+    {
+      "sequence": 4,
+      "seconds": 13.2582712,
+      "kind": "pause-acquired",
+      "detail": "manual"
+    },
+    {
+      "sequence": 5,
+      "seconds": 13.2582712,
+      "kind": "run-state",
+      "detail": "Running"
+    },
+    {
+      "sequence": 6,
+      "seconds": 13.2582712,
+      "kind": "pause-released",
+      "detail": "manual"
+    },
+    {
+      "sequence": 7,
+      "seconds": 15.551116,
+      "kind": "marker",
+      "detail": "1: "
+    },
+    {
+      "sequence": 8,
+      "seconds": 17.8085632,
+      "kind": "run-state",
+      "detail": "Paused"
+    },
+    {
+      "sequence": 9,
+      "seconds": 17.8085632,
+      "kind": "pause-acquired",
+      "detail": "manual"
+    },
+    {
+      "sequence": 10,
+      "seconds": 17.8085632,
+      "kind": "marker",
+      "detail": "2: кажется опыт становится врагом - он стреляем"
+    },
+    {
+      "sequence": 11,
+      "seconds": 17.8085632,
+      "kind": "run-state",
+      "detail": "Running"
+    },
+    {
+      "sequence": 12,
+      "seconds": 17.8085632,
+      "kind": "pause-released",
+      "detail": "manual"
+    },
+    {
+      "sequence": 13,
+      "seconds": 29.9932442,
+      "kind": "run-state",
+      "detail": "Paused"
+    },
+    {
+      "sequence": 14,
+      "seconds": 29.9932442,
+      "kind": "pause-acquired",
+      "detail": "manual"
+    },
+    {
+      "sequence": 15,
+      "seconds": 29.9932442,
+      "kind": "run-state",
+      "detail": "Stopped"
+    }
+  ],
+  "producers": {
+    "xp": {
+      "totals": {
+        "collectedBase": 0.0,
+        "collectedAwarded": 0.0,
+        "expiredBase": 0.0,
+        "recoveredAwarded": 0.0,
+        "interventionBase": 0.0,
+        "interventionAwarded": 0.0,
+        "totalAwarded": 0.0
+      },
+      "droppedBase": 10.0,
+      "groundBase": 10.0,
+      "level": 1,
+      "remainingExperience": 0.0,
+      "progress01": 0.0
+    },
+    "draft": {
+      "kills": null,
+      "level": null,
+      "experience": null,
+      "experienceTotals": null,
+      "draftTotals": {
+        "acceptedBooks": 0,
+        "selections": 0,
+        "emptyRequests": 0,
+        "cancelledRequests": 0,
+        "bookCurrency": 0
+      },
+      "build": [
+        {
+          "contentId": "FIXTURE-SKILL-BOLT",
+          "level": 1
+        }
+      ],
+      "sets": []
+    },
+    "ordinaryKills": {
+      "kills": 10,
+      "level": null,
+      "experience": null,
+      "experienceTotals": null,
+      "draftTotals": null,
+      "build": null,
+      "sets": null
+    },
+    "activeSkillActivations": {
+      "FIXTURE-SKILL-BOLT": 32
+    },
+    "capabilities": {
+      "playerCombat": true,
+      "xp": true,
+      "draft": true,
+      "ordinaryEnemyCombat": true,
+      "legacyContinuousWave": true,
+      "activeSkillActivations": true,
+      "setDetails": "unsupported",
+      "characterDetails": "unsupported"
+    }
+  },
+  "quality": {
+    "droppedTimelineEvents": 0,
+    "droppedAggregateUpdates": 0,
+    "droppedIdentities": 0,
+    "limits": {
+      "timeline": 2048,
+      "aggregates": 256,
+      "identities": 4096,
+      "text": 512,
+      "exportBytes": 8388608
+    },
+    "unsupported": [
+      "boss",
+      "traveler",
+      "meta",
+      "character baseline-relative details",
+      "set effect attribution",
+      "wave cap decisions",
+      "phase combat attribution",
+      "per-projectile counts",
+      "FPS/p95"
+    ],
+    "incompleteReason": null,
+    "combatCoverage": "Player adapters and ordinary spawner enemies; direct Health mutations are uninstrumented",
+    "exportErrors": "Reported by Playtest UI; I/O may prevent any file from being written"
+  }
+}

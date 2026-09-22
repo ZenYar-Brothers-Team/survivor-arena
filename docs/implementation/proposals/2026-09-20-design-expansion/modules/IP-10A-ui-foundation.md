@@ -1,0 +1,55 @@
+# IP-10A — UI Foundation, reusable cards, HUD и test harness
+
+Материал ревью: план принят пользователем 2026-09-20 и зарегистрирован. [Действующая спецификация](../../../modules/IP-10A-ui-foundation.md). Этот файл не является текущим implementation packet.
+
+Ревизия согласованного проекта: `design-sync-R2`. Спецификация перенесена в действующий каталог; дальнейшие изменения выполняются там.
+
+## Существующая база и характер изменения
+
+Расширить existing UI Toolkit/ViewState/presenter, не создать вторую foundation. Recipe/character semantic data поставляют IP-11/IP-12; foundation проверяется их fake snapshots.
+
+## Зависимости
+
+[IP-01](IP-01-run-lifecycle.md), [IP-03](IP-03-character-stats.md), [IP-06](IP-06-xp-progression.md), [IP-07](IP-07-level-up-draft.md), [IP-10](IP-10-reroll-banish.md).
+
+Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
+
+## Context
+
+Источники GDD/CD/Art Direction ниже — пять утверждённых новых документов из [реестра источников](../README.md), после M-01 — их canonical destinations. Читать только перечисленные секции и полные карточки используемых ID.
+
+UI §§1,6–10,14,19–23; GDD только отображаемые run/HP/XP/build/draft rules; DECISION-0005; GameplayUiPresenter/ViewState/UXML/USS, semantic ID tests.
+
+## Scope
+
+Reusable DraftCard/ContentCard/details, icon references, current→next-level/effect text, recipe projection rendering contract, normal/hover/pressed/disabled/selected/locked states. Elapsed HUD 00:00→15:00, compact 6+6 icons/acquired sets, Pause/Build layout, nonblocking notifications. Fixture states including Book/sets/locked do not require full feature implementation. Preserve bounded collapsed DEV and lightweight changed-state rebuild.
+
+## Out of Scope
+
+Gameplay rule ownership, final image generation, settings services/full navigation, compendium/advanced stats/complex transitions.
+
+## Acceptance criteria
+
+View не вычисляет gameplay eligibility/recipes. Renderer корректен для 0/1/2/3 cards, empty/max/long-text states; projected≠current и fulfilled≠acquired различаются. Click не выдаёт два intent. HUD tooltip не перехватывает movement input; в Draft/Build действует обычная pause policy. Детали не скрывают обязательный выбор. Semantic IDs стабильны или мигрированы вместе с assets/tests. DEV gated и bounds≤25%×45% reference viewport.
+
+Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../03-existing-modules-and-art.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
+
+## UI / observability
+
+Сам production HUD/draft/pause layout плюс fake-state gallery/harness. IP-11 реально наполняет recipe projection, IP-12 — selection, IP-15/16/25/29 — свой vertical UI; IP-26 связывает экраны.
+
+## Проверки
+
+Presenter fake model/view, UXML/USS IDs, PlayMode geometry/focus/queued drafts; manual 1920×1080 и минимальный поддерживаемый resolution/long labels. Projections не меняют build.
+
+## Документационные изменения
+
+Component/state/semantic contracts, approved UI section links, dependency consumers и tests; .claude UI rules remain.
+
+## Gates и недостающие решения
+
+G-01/G-03 short/book states должны быть определены владельцем IP-07; foundation не решает их оформлением. Baseline-relative character filtering — IP-12. Ссылки G-xx/W-01 — [матрица различий](../01-reconciliation.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+
+## Потребители
+
+[IP-11](IP-11-set-framework.md), [IP-12](IP-12-character-framework.md), [IP-15](IP-15-boss-framework.md), [IP-16](IP-16-field-framework.md), [IP-17](IP-17-production-skills.md), [IP-18](IP-18-production-passives.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность после регистрации определяет STATUS, не расположение файлов.

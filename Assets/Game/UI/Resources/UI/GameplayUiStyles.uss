@@ -1,0 +1,387 @@
+.gameplay-root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: rgb(240, 242, 247);
+}
+
+.hud-row {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    height: 42px;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(18, 22, 30, 0.9);
+    border-radius: 6px;
+}
+
+.hud-bar {
+    width: 230px;
+    height: 24px;
+    margin-right: 14px;
+}
+
+.hud-bar > .unity-progress-bar__background {
+    background-color: rgb(45, 51, 64);
+}
+
+.hud-bar > .unity-progress-bar__progress {
+    background-color: rgb(75, 190, 102);
+}
+
+#hud-xp-bar > .unity-progress-bar__progress {
+    background-color: rgb(83, 139, 235);
+}
+
+.hud-label {
+    -unity-font-style: bold;
+    margin-right: 14px;
+}
+
+.hud-wave {
+    -unity-font-style: bold;
+    margin-right: 14px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: rgb(45, 51, 64);
+    color: rgb(230, 230, 235);
+}
+
+.hud-wave--ordinary {
+    background-color: rgb(45, 51, 64);
+}
+
+.hud-wave--pressure {
+    background-color: rgb(176, 112, 32);
+}
+
+.hud-wave--elite {
+    background-color: rgb(160, 40, 48);
+}
+
+.hud-wave--rest {
+    background-color: rgb(40, 118, 88);
+}
+
+.hud-timer {
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    font-size: 20px;
+    -unity-font-style: bold;
+}
+
+.compact-button {
+    min-width: 82px;
+    height: 30px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.fullscreen-overlay {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(5, 7, 12, 0.72);
+}
+
+.dialog-panel {
+    padding: 22px;
+    background-color: rgb(29, 34, 45);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgb(80, 91, 112);
+    border-right-color: rgb(80, 91, 112);
+    border-top-color: rgb(80, 91, 112);
+    border-bottom-color: rgb(80, 91, 112);
+    border-radius: 8px;
+}
+
+.draft-panel {
+    width: 92%;
+    max-width: 1100px;
+    max-height: 94%;
+}
+
+.result-panel {
+    width: 80%;
+    max-width: 1000px;
+    max-height: 92%;
+    align-items: center;
+}
+
+.dialog-title {
+    font-size: 24px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 14px;
+}
+
+.draft-controls,
+.draft-option-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.draft-controls {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.draft-option-row {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.draft-option-select {
+    flex-grow: 1;
+    min-height: 180px;
+    height: 260px;
+    -unity-text-align: middle-left;
+}
+
+.draft-banish-mode .draft-option-select {
+    border-color: rgb(235, 146, 109);
+}
+
+.draft-control-hint {
+    white-space: normal;
+    margin-bottom: 6px;
+}
+
+.primary-button {
+    width: 180px;
+    height: 38px;
+}
+
+.build-panel {
+    position: absolute;
+    top: 74px;
+    right: 16px;
+    width: 320px;
+    padding: 10px;
+    background-color: rgba(18, 22, 30, 0.86);
+    border-radius: 6px;
+}
+
+.build-title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgb(163, 190, 255);
+    margin-bottom: 4px;
+}
+
+.build-passive-title {
+    margin-top: 9px;
+}
+
+.build-slot {
+    height: 42px;
+    width: 42px;
+    flex-shrink: 0;
+    padding-left: 5px;
+    -unity-text-align: middle-left;
+    background-color: rgba(41, 48, 62, 0.9);
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.build-slot-empty {
+    color: rgb(104, 111, 126);
+}
+
+.development-toggle {
+    display: none;
+    position: absolute;
+    left: 16px;
+    bottom: 72px;
+    width: 58px;
+    height: 32px;
+    -unity-font-style: bold;
+}
+
+.development-panel {
+    display: none;
+    position: absolute;
+    left: 16px;
+    bottom: 112px;
+    width: 400px;
+    max-height: 430px;
+    flex-direction: column;
+    padding: 10px;
+    background-color: rgba(18, 22, 30, 0.9);
+    border-radius: 6px;
+}
+
+.development-header,
+.development-tabs,
+.development-button-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.development-header {
+    height: 30px;
+}
+
+.development-title {
+    flex-grow: 1;
+    -unity-font-style: bold;
+}
+
+.development-close {
+    width: 30px;
+    height: 26px;
+    font-size: 18px;
+}
+
+.development-tabs {
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+.development-tab {
+    flex-grow: 1;
+    height: 30px;
+    margin-right: 3px;
+}
+
+.development-tab-active {
+    background-color: rgb(69, 91, 130);
+    -unity-font-style: bold;
+}
+
+.development-pane {
+    display: none;
+    max-height: 330px;
+    padding: 8px;
+    background-color: rgba(41, 48, 62, 0.82);
+    border-radius: 4px;
+}
+
+.development-scroll {
+    height: 300px;
+}
+
+.development-section-title {
+    margin-bottom: 7px;
+    color: rgb(163, 190, 255);
+    -unity-font-style: bold;
+}
+
+#playtest-note {
+    flex-direction: column;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#playtest-note > .unity-base-field__label {
+    min-width: 0;
+    margin-bottom: 4px;
+}
+
+#playtest-note .unity-base-text-field__input {
+    min-height: 52px;
+    background-color: rgb(18, 22, 30);
+    color: rgb(240, 243, 248);
+    white-space: normal;
+}
+
+.development-section-spaced {
+    margin-top: 12px;
+}
+
+.development-button-row {
+    flex-wrap: wrap;
+}
+
+.development-button-wrap {
+    max-width: 360px;
+}
+
+.showcase-button {
+    min-width: 62px;
+    margin-bottom: 6px;
+}
+
+.set-recipe-panel {
+    flex-shrink: 0;
+}
+
+.set-recipe-progress {
+    font-size: 11px;
+    color: rgb(190, 204, 232);
+}
+
+.character-selection-panel {
+    flex-shrink: 0;
+}
+
+.character-entry {
+    font-size: 11px;
+    color: rgb(190, 232, 198);
+    white-space: normal;
+}
+
+.development-help {
+    margin-top: 8px;
+    font-size: 11px;
+    color: rgb(174, 182, 199);
+    white-space: normal;
+}
+
+.book-currency {
+    position: absolute;
+    top: 70px;
+    left: 16px;
+    max-width: 260px;
+    color: rgb(246, 208, 109);
+    font-size: 16px;
+}
+.draft-book .dialog-title { color: rgb(246, 208, 109); }
+.draft-queue { color: rgb(190, 190, 190); margin-bottom: 8px; }
+
+/* IP-10A: shared cards remain readable before final icon assets exist. */
+.content-card { padding: 10px; margin: 4px; min-width: 0; white-space: normal; background-color: rgb(41, 48, 62); border-width: 2px; border-color: rgb(80, 91, 112); }
+.content-card:hover { background-color: rgb(54, 66, 86); border-color: rgb(163, 190, 255); }
+.content-card:active { background-color: rgb(35, 43, 59); }
+.content-card:disabled { opacity: 0.45; }
+.content-card-selected { border-color: rgb(110, 220, 145); }
+.content-card-locked { background-color: rgb(31, 33, 39); }
+.content-card-icon { width: 32px; height: 32px; background-color: rgb(65, 75, 92); flex-shrink: 0; }
+.content-card-title { -unity-font-style: bold; font-size: 16px; white-space: normal; }
+.content-card-summary { white-space: normal; overflow: hidden; flex-shrink: 1; -unity-text-align: upper-left; }
+.content-card-status, .card-recipe { white-space: normal; font-size: 12px; color: rgb(190, 204, 232); }
+.draft-card-set { border-color: rgb(246, 208, 109); }
+.draft-card-completing { border-color: rgb(110, 220, 145); }
+.draft-options { flex-direction: row; flex-shrink: 0; }
+.draft-options > .content-card { width: 31%; flex-grow: 1; }
+.draft-details-scroll { height: 120px; min-height: 50px; flex-shrink: 1; }
+.draft-details { white-space: normal; }
+.pause-build { width: 100%; height: 550px; flex-shrink: 1; }
+.pause-build-grid { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; }
+.pause-build-grid > .content-card { width: 31%; min-height: 120px; }
+#build-active-slots, #build-passive-slots, #build-sets { flex-direction: row; flex-wrap: wrap; }
+.hud-notification { position: absolute; top: 112px; left: 25%; right: 25%; -unity-text-align: middle-center; color: rgb(246, 208, 109); }
+.boss-bar { position: absolute; top: 60px; left: 25%; right: 25%; height: 30px; display: none; }
+.boss-bar .unity-progress-bar__progress { background-color: rgb(177, 58, 42); }
+#hud-timer { position: absolute; top: 16px; left: 40%; right: 40%; height: 32px; }
+
+.pickup-feedback { position: absolute; left: 35%; right: 35%; top: 18%; -unity-text-align: middle-center; font-size: 22px; color: rgb(195, 240, 165); display: none; }
+
+.traveler-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.traveler-item { position: absolute; width: 120px; height: 46px; margin-left: -60px; margin-top: -23px; color: rgb(250, 211, 90); -unity-text-align: middle-center; font-size: 15px; }
+.traveler-item ProgressBar { height: 12px; }
+.traveler-pointer { background-color: rgba(20, 20, 25, 0.8); }

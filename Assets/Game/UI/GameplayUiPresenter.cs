@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -11,6 +13,7 @@ namespace Game.UI
         private readonly IGameplayUiModel _model;
         private readonly IGameplayUiView _view;
         private bool _started;
+        private Guid _banishRevision;
 
         public GameplayUiPresenter(IGameplayUiModel model, IGameplayUiView view)
         {
@@ -26,9 +29,10 @@ namespace Game.UI
             _model.Changed += RefreshAll;
             _view.DraftOptionSelected += HandleDraftOptionSelected;
             _view.DraftRerollRequested += HandleDraftRerollRequested;
-            _view.DraftBanishRequested += HandleDraftBanishRequested;
+            _view.DraftBanishModeRequested += HandleDraftBanishModeRequested;
             _view.PauseRequested += HandlePauseRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
+            _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
             _view.ApplyHealingRequested += HandleApplyHealingRequested;
             _view.PresentationMotionPreviewRequested += HandlePresentationMotionPreviewRequested;
@@ -45,17 +49,20 @@ namespace Game.UI
                 _model.MaxHealth,
                 _model.ExperienceProgress01,
                 _model.Level,
-                _model.RemainingSeconds,
+                _model.ElapsedSeconds,
                 new WaveViewState(
                     _model.WavePhaseNumber,
                     _model.WavePhaseCount,
                     _model.WavePhaseName,
-                    _model.WavePhaseTag)));
+                    _model.WavePhaseTag),
+                _model.Stats,
+                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
                 return;
 
+            _view.RenderSkillObservability(new SkillObservabilityViewState(_model.SkillDevelopmentSummary));
             _view.RenderEnemyObservability(new EnemyObservabilityViewState(_model.EnemyDevelopmentSummary));
             _view.RenderWaveObservability(new WaveObservabilityViewState(_model.WaveDevelopmentSummary));
         }
@@ -99,10 +106,11 @@ namespace Game.UI
             {
                 if (entry.Definition.Kind == BuildEntryKind.Set)
                 {
-                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName));
+                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName, (entry.Definition as SetDefinition)?.Description));
                     continue;
                 }
-                var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true);
+                var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
+                    BuildPassiveDetail(entry));
                 if (entry.Definition.Kind == BuildEntryKind.ActiveSkill)
                     active.Add(slot);
                 else
@@ -131,10 +139,26 @@ namespace Game.UI
                     fulfilled,
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
-                    isAcquired));
+                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition)));
             }
 
             return new BuildViewState(active, passive, sets, progress);
+        }
+
+        private string BuildPassiveDetail(BuildEntry entry)
+        {
+            var definition = entry.Definition;
+            var detail = new StringBuilder();
+            foreach (var value in definition.CreateDraftPreview(0, entry.Level).Values)
+            {
+                if (detail.Length > 0) detail.Append("\n");
+                detail.Append(value.Label).Append(": ")
+                    .Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
+            }
+            if (definition is PassiveProgressionDefinition passive && passive.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0f && _model.Stats != null)
+                detail.Append("\nCurrent low-HP damage: x")
+                    .Append(_model.Stats.LowHealthDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture));
+            return detail.ToString();
         }
 
         private int CountFulfilledComponents(SetDefinition definition)
@@ -158,6 +182,80 @@ namespace Game.UI
             return fulfilled;
         }
 
+        private bool IsAcquired(SetDefinition set)
+        {
+            foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == set.Id) return true;
+            return false;
+        }
+
+        private int ComponentLevel(SetRecipeComponent component)
+        {
+            foreach (var entry in _model.BuildEntries)
+                if (entry.Definition.Id == component.Id && entry.Definition.Kind == component.Kind) return entry.Level;
+            return 0;
+        }
+
+        private bool HasPossession(SetDefinition set)
+        {
+            foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) return true;
+            return false;
+        }
+
+        private List<string> ComponentDetails(SetDefinition set, DraftOption? option)
+        {
+            var details = new List<string>();
+            foreach (var component in set.Recipe)
+            {
+                var current = ComponentLevel(component);
+                var selected = option.HasValue && option.Value.Definition.Id == component.Id;
+                var projected = selected ? option.Value.Preview.NextLevel : current;
+                var name = component.Id.ToString();
+                foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == component.Id) name = entry.Definition.DisplayName;
+                if (selected) name = option.Value.Definition.DisplayName;
+                var mark = current >= component.MinimumLevel ? "✓" : current > 0 ? "◐" : "○";
+                details.Add($"{mark} {name} Lv.{current}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
+                    $" / required Lv.{component.MinimumLevel}");
+            }
+            return details;
+        }
+
+        private IReadOnlyList<RecipeProjectionViewState> ProjectRecipes(DraftOption option)
+        {
+            var related = new List<SetDefinition>();
+            foreach (var set in _model.SetDefinitions)
+            {
+                var includes = set.Id == option.Definition.Id;
+                foreach (var component in set.Recipe) includes |= component.Id == option.Definition.Id;
+                if (includes) related.Add(set);
+            }
+            // Closest projected completion first; acquired recipes last; ordinal ID breaks ties.
+            related.Sort((a, b) =>
+            {
+                var acquired = IsAcquired(a).CompareTo(IsAcquired(b));
+                if (acquired != 0) return acquired;
+                var remaining = (a.Recipe.Count - ProjectedCount(a, option)).CompareTo(b.Recipe.Count - ProjectedCount(b, option));
+                return remaining != 0 ? remaining : string.CompareOrdinal(a.Id.ToString(), b.Id.ToString());
+            });
+            var result = new List<RecipeProjectionViewState>();
+            foreach (var set in related)
+            {
+                var current = CountFulfilledComponents(set);
+                var projected = ProjectedCount(set, option);
+                result.Add(new RecipeProjectionViewState(set.DisplayName, current, projected, set.Recipe.Count,
+                    !IsAcquired(set) && current < set.Recipe.Count && projected == set.Recipe.Count,
+                    IsAcquired(set), ComponentDetails(set, option)));
+            }
+            return result.AsReadOnly();
+        }
+
+        private int ProjectedCount(SetDefinition set, DraftOption option)
+        {
+            var count = 0;
+            foreach (var component in set.Recipe)
+                if ((component.Id == option.Definition.Id ? option.Preview.NextLevel : ComponentLevel(component)) >= component.MinimumLevel) count++;
+            return count;
+        }
+
         private static void FillEmptySlots(List<BuildSlotViewState> slots, int capacity)
         {
             while (slots.Count < capacity)
@@ -166,11 +264,13 @@ namespace Game.UI
 
         private DraftViewState BuildDraftState()
         {
+            if (!_model.IsDraftOpen || _model.DraftRevision != _banishRevision || _model.RemainingBanishes == 0)
+                _banishRevision = Guid.Empty;
             if (!_model.IsDraftOpen)
                 return new DraftViewState(false, _model.RemainingRerolls, _model.RemainingBanishes, Array.Empty<DraftOptionViewState>());
 
             var source = _model.DraftOptions;
-            var options = new DraftOptionViewState[source.Count];
+            var options = new DraftOptionViewState[3];
             for (var i = 0; i < source.Count; i++)
             {
                 var option = source[i];
@@ -181,11 +281,27 @@ namespace Game.UI
                     BuildEntryKind.Set => "Set",
                     _ => "Unknown"
                 };
-                var detail = option.IsUpgrade ? $"{type} · level {option.ResultingLevel}" : $"{type} · new";
-                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail);
+                var detail = new StringBuilder(option.IsUpgrade
+                    ? $"{type} · level {option.Preview.CurrentLevel} → {option.Preview.NextLevel}"
+                    : $"{type} · new");
+                foreach (var value in option.Preview.Values)
+                    detail.Append("\n").Append(value.Label).Append(": ")
+                        .Append(value.Current.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit)
+                        .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
+                if (option.Definition is SetDefinition set) detail.Append("\n").Append(set.Description);
+                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(),
+                    isSet: option.Definition.Kind == BuildEntryKind.Set, recipes: ProjectRecipes(option));
             }
 
-            return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes, options);
+            for (var i = source.Count; i < options.Length; i++)
+                options[i] = new DraftOptionViewState(default, "No available option", "", false);
+            var request = _model.CurrentDraftRequest;
+            var heading = request?.Origin == DraftOrigin.Book ? "TRAVELER BOOK" :
+                request?.EarnedLevel != null ? $"LEVEL UP · {request.EarnedLevel}" : "LEVEL UP";
+            var next = _model.NextDraftRequest;
+            var queue = next == null ? "" : $"Next: {(next.Origin == DraftOrigin.Book ? "Traveler Book" : $"Level {next.EarnedLevel}")} · {_model.PendingDraftCount - 1} queued";
+            return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes,
+                options, _model.DraftRevision, heading, queue, _banishRevision != Guid.Empty);
         }
 
         private RunOverlayViewState BuildRunOverlayState()
@@ -199,21 +315,28 @@ namespace Game.UI
             return new RunOverlayViewState(false, string.Empty, false);
         }
 
-        private void HandleDraftOptionSelected(Game.Content.ContentId id)
+        private void HandleDraftOptionSelected(Game.Content.ContentId id, Guid revision)
         {
-            _model.SelectDraftOption(id);
+            if (!_model.IsDraftOpen || revision != _model.DraftRevision) return;
+            if (_banishRevision == revision)
+            {
+                if (_model.BanishDraftOption(id, revision)) _banishRevision = Guid.Empty;
+            }
+            else _model.SelectDraftOption(id, revision);
             RefreshAll();
         }
 
-        private void HandleDraftRerollRequested()
+        private void HandleDraftRerollRequested(Guid revision)
         {
-            _model.RerollDraft();
+            if (_banishRevision != Guid.Empty || !_model.IsDraftOpen || revision != _model.DraftRevision) return;
+            _model.RerollDraft(revision);
             RefreshAll();
         }
 
-        private void HandleDraftBanishRequested(Game.Content.ContentId id)
+        private void HandleDraftBanishModeRequested(Guid revision)
         {
-            _model.BanishDraftOption(id);
+            if (!_model.IsDraftOpen || revision == Guid.Empty || revision != _model.DraftRevision || _model.RemainingBanishes <= 0) return;
+            _banishRevision = _banishRevision == revision ? Guid.Empty : revision;
             RefreshAll();
         }
 
@@ -227,6 +350,11 @@ namespace Game.UI
         {
             if (_model.DevelopmentCommandsEnabled)
                 _model.AddFixtureExperience();
+        }
+
+        private void HandleAddBookRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled) _model.AddFixtureBook();
         }
 
         private void HandleApplyDamageRequested()
@@ -260,9 +388,10 @@ namespace Game.UI
             _model.Changed -= RefreshAll;
             _view.DraftOptionSelected -= HandleDraftOptionSelected;
             _view.DraftRerollRequested -= HandleDraftRerollRequested;
-            _view.DraftBanishRequested -= HandleDraftBanishRequested;
+            _view.DraftBanishModeRequested -= HandleDraftBanishModeRequested;
             _view.PauseRequested -= HandlePauseRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
+            _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;
             _view.ApplyHealingRequested -= HandleApplyHealingRequested;
             _view.PresentationMotionPreviewRequested -= HandlePresentationMotionPreviewRequested;

@@ -1,0 +1,34 @@
+{
+  "name": "Game.Telemetry.Tests",
+  "rootNamespace": "Game.Telemetry.Tests",
+  "references": [
+    "Game.Telemetry",
+    "Game.Run",
+    "Game.Content",
+        "Game.Pickup", "Game.Traveler",
+    "Game.Combat",
+    "Game.Character",
+    "Game.Enemy",
+    "Game.Progression",
+    "Game.ActiveSkill",
+    "Game.Pooling",
+    "Game.Bootstrap",
+    "Game.Presentation",
+    "Game.UI",
+    "Newtonsoft.Json",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "Newtonsoft.Json.dll"
+  ],
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "autoReferenced": true
+}

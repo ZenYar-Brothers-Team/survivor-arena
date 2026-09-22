@@ -1,0 +1,9 @@
+{
+  "name": "Game.Pickup.Tests",
+  "references": ["Game.Pickup", "Game.Content", "Game.Content.Json", "Game.Run", "Game.Character", "Game.Combat", "Game.Progression", "Game.Enemy", "Game.Pooling", "Game.Presentation", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+  "includePlatforms": ["Editor"],
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "autoReferenced": true
+}

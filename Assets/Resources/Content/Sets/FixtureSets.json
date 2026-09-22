@@ -2,19 +2,147 @@
   {
     "id": "FIXTURE-SET-OVERCHARGE",
     "displayName": "Fixture Overcharge",
-    "draftChance": 0.5,
     "recipe": [
-      { "id": "FIXTURE-SKILL-BOLT", "kind": "ActiveSkill", "minimumLevel": 2 },
-      { "id": "FIXTURE-PASSIVE-HASTE", "kind": "PassiveItem", "minimumLevel": 2 }
+      {
+        "id": "FIXTURE-SKILL-BOLT",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-HASTE",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-VITALITY",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "description": "Fixture: bolt damage, size and speed bonuses; every third bolt triggers a set burst.",
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "FIXTURE-SKILL-BOLT",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.5,
+          "actionSpeedBonus": 0.2,
+          "effectSizeMultiplierBonus": 0.25
+        }
+      },
+      {
+        "kind": "ActivationProc",
+        "skill": "FIXTURE-SKILL-BOLT",
+        "attackTemplate": "FIXTURE-SKILL-RING",
+        "activationCount": 3,
+        "cooldownSeconds": 4,
+        "buffSeconds": 1,
+        "modifier": {
+          "incomingDamageReductionBonus": 0.1
+        }
+      }
     ]
   },
   {
     "id": "FIXTURE-SET-RECALL",
     "displayName": "Fixture Recall",
-    "draftChance": 0.5,
     "recipe": [
-      { "id": "FIXTURE-SKILL-BOLT", "kind": "ActiveSkill", "minimumLevel": 2 },
-      { "id": "FIXTURE-PASSIVE-MEMORY", "kind": "PassiveItem", "minimumLevel": 2 }
+      {
+        "id": "FIXTURE-SKILL-BOLT",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-MEMORY",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-VITALITY",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "description": "Fixture: XP recovery and pickup radius; level-ups restore 5% max HP.",
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "disappearingXpRecoveryBonus": 0.1,
+          "pickupRadiusMultiplierBonus": 0.25,
+          "pickedUpXpMultiplierBonus": 0.2
+        }
+      },
+      {
+        "kind": "LevelHeal",
+        "healFraction": 0.05
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-SET-GUARD",
+    "displayName": "Fixture Guard",
+    "description": "Fixture: defense, healing and one reward-triggered burst (fake reward adapter).",
+    "recipe": [
+      {
+        "id": "FIXTURE-SKILL-BOLT",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-HASTE",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-VITALITY",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "maxHealthMultiplierBonus": 0.2,
+          "incomingDamageReductionBonus": 0.1,
+          "healthRestorationMultiplierBonus": 0.2
+        }
+      },
+      {
+        "kind": "RewardProc",
+        "attackTemplate": "FIXTURE-SKILL-RING",
+        "cooldownSeconds": 5
+      }
+    ]
+  },
+  {
+    "id": "FIXTURE-SET-STRIKE",
+    "displayName": "Fixture Strike",
+    "description": "Fixture: independent bolt every 6 seconds; unaffected by action speed.",
+    "recipe": [
+      {
+        "id": "FIXTURE-SKILL-BOLT",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-HASTE",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "FIXTURE-PASSIVE-VITALITY",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "FIXTURE-SKILL-BOLT",
+        "cooldownSeconds": 6
+      }
     ]
   }
 ]

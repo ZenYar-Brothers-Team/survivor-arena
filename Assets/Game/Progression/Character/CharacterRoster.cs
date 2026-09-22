@@ -7,20 +7,31 @@ namespace Game.Progression
     public sealed class CharacterRoster
     {
         private readonly Dictionary<ContentId, CharacterDefinition> _definitions;
-        private readonly List<CharacterDefinition> _unlocked;
-        private readonly HashSet<ContentId> _unlockedIds;
+        private readonly ICharacterAccessProvider _access;
 
         public IReadOnlyList<CharacterDefinition> AllCharacters { get; }
-        public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlocked;
-
-        public CharacterRoster(
-            IReadOnlyList<CharacterDefinition> definitions,
-            IEnumerable<ContentId> unlockedIds)
+        public IReadOnlyList<CharacterDefinition> UnlockedCharacters
         {
-            if (definitions == null)
-                throw new ArgumentNullException(nameof(definitions));
-            if (unlockedIds == null)
-                throw new ArgumentNullException(nameof(unlockedIds));
+            get
+            {
+                var unlocked = new List<CharacterDefinition>();
+                foreach (var character in AllCharacters)
+                    if (GetLockReason(character.Id) == null) unlocked.Add(character);
+                return unlocked.AsReadOnly();
+            }
+        }
+
+        public CharacterRoster(IReadOnlyList<CharacterDefinition> definitions, IEnumerable<ContentId> unlockedIds)
+            : this(definitions, new FixtureCharacterAccessProvider(unlockedIds))
+        {
+            foreach (var id in unlockedIds)
+                if (!_definitions.ContainsKey(id)) throw new ArgumentException($"Unknown unlocked character '{id}'.", nameof(unlockedIds));
+        }
+
+        public CharacterRoster(IReadOnlyList<CharacterDefinition> definitions, ICharacterAccessProvider access)
+        {
+            if (definitions == null) throw new ArgumentNullException(nameof(definitions));
+            _access = access ?? throw new ArgumentNullException(nameof(access));
             if (definitions.Count == 0)
                 throw new ArgumentException("Character roster cannot be empty.", nameof(definitions));
 
@@ -35,24 +46,22 @@ namespace Game.Progression
                 all[i] = definition;
             }
 
-            _unlockedIds = new HashSet<ContentId>();
-            _unlocked = new List<CharacterDefinition>();
-            foreach (var id in unlockedIds)
-            {
-                if (!_definitions.TryGetValue(id, out var definition))
-                    throw new ArgumentException($"Unlocked character id '{id}' is not in the roster.", nameof(unlockedIds));
-                if (_unlockedIds.Add(id))
-                    _unlocked.Add(definition);
-            }
-            if (_unlocked.Count == 0)
-                throw new ArgumentException("Character roster requires at least one unlocked character.", nameof(unlockedIds));
+            AllCharacters = Array.AsReadOnly(all);
+            foreach (var character in AllCharacters) GetLockReason(character.Id);
+        }
 
-            AllCharacters = all;
+        public string GetLockReason(ContentId id)
+        {
+            if (!_definitions.ContainsKey(id)) throw new ArgumentException($"Unknown character '{id}'.", nameof(id));
+            var reason = _access.GetLockReason(id);
+            if (reason != null && string.IsNullOrWhiteSpace(reason))
+                throw new InvalidOperationException($"Locked character '{id}' requires a reason.");
+            return reason;
         }
 
         public bool TrySelect(ContentId id, out CharacterDefinition character)
         {
-            if (_unlockedIds.Contains(id) && _definitions.TryGetValue(id, out character))
+            if (_definitions.TryGetValue(id, out character) && GetLockReason(id) == null)
                 return true;
 
             character = null;

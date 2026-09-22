@@ -3,6 +3,7 @@ paths:
   - "docs/Game_design.md"
   - "docs/Content_design.md"
   - "docs/UI  UX Design.md"
+  - "docs/art/**/*.md"
   - "docs/implementation/modules/**/*.md"
   - "docs/decisions/**/*.md"
 ---
@@ -12,9 +13,9 @@ paths:
 Adapted from the upstream `design-docs` rules. Repository rules in `AGENTS.md` and `docs/implementation/WORKFLOW.md` win on conflict.
 
 ## Ownership (from AGENTS.md)
-- Game Design = general rules; Content Design = concrete entities/behaviour/balance data; IP module = scope, dependencies, acceptance criteria, out of scope; DECISION = approved deviations. `STATUS.md` is the only execution status.
+- Game Design = general rules; Content Design = concrete entities/behaviour/balance data; UI/UX = player screens/states/interactions; Art Direction/Art Production = visual intent/inventory; Asset Pipeline = preparation/import/approval; IP module = scope, dependencies, acceptance criteria, out of scope; DECISION = approved deviations. `STATUS.md` is the only execution status.
 - **Do not edit `docs/Game_design.md` or `docs/Content_design.md` without explicit user approval.** Never silently invent a missing product rule; ask or record a Proposed DECISION.
-- Draft content is never implemented as production content. Do not treat the `* v2.md` variants as canonical unless the user says so.
+- Draft content is never implemented as production content. The five documents and 121 target cards were approved by the user; three replacements were registered in the canonical paths in DECISION-0015. Original `* v2.md` files are import sources, not competing canon. Missing values, unresolved conflicts and future proposals still require explicit decisions.
 
 ## Quality bar for new or changed specifications
 - **Formulas** define every variable, its unit and expected range, and include a worked example.

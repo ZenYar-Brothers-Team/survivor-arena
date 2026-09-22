@@ -14,6 +14,8 @@ namespace Game.Enemy
         public int MaxAliveEnemies { get; }
         public IReadOnlyList<WaveCompositionEntry> Composition { get; }
         public WaveEnemyModifiers Modifiers { get; }
+        public WaveSpawnMode SpawnMode { get; }
+        public WaveBurstDefinition Burst { get; }
 
         public WavePhaseDefinition(
             ContentId id,
@@ -23,7 +25,9 @@ namespace Game.Enemy
             float spawnIntervalSeconds,
             int maxAliveEnemies,
             IReadOnlyList<WaveCompositionEntry> composition,
-            WaveEnemyModifiers modifiers = null)
+            WaveEnemyModifiers modifiers = null,
+            WaveSpawnMode spawnMode = WaveSpawnMode.Continuous,
+            WaveBurstDefinition burst = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Wave phase requires a valid id.", nameof(id));
@@ -34,6 +38,12 @@ namespace Game.Enemy
             NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
             NumericValidation.ValidatePositive(spawnIntervalSeconds, nameof(spawnIntervalSeconds));
             NumericValidation.ValidateCount(maxAliveEnemies, nameof(maxAliveEnemies));
+            if (!Enum.IsDefined(typeof(WaveSpawnMode), spawnMode))
+                throw new ArgumentOutOfRangeException(nameof(spawnMode));
+            if ((spawnMode == WaveSpawnMode.Burst) != (burst != null))
+                throw new ArgumentException("Only burst phases require a burst definition.", nameof(burst));
+            if (burst != null && (double)burst.OffsetSeconds + burst.WindowSeconds > durationSeconds)
+                throw new ArgumentException("Burst window must fit inside its phase.", nameof(burst));
             if (composition == null || composition.Count == 0)
                 throw new ArgumentException("Wave phase requires at least one composition entry.", nameof(composition));
 
@@ -58,6 +68,8 @@ namespace Game.Enemy
             MaxAliveEnemies = maxAliveEnemies;
             Composition = copy;
             Modifiers = modifiers ?? WaveEnemyModifiers.Identity;
+            SpawnMode = spawnMode;
+            Burst = burst;
         }
     }
 }

@@ -4,7 +4,7 @@
   "spawnRadius": 8.0,
   "phases": [
     {
-      "id": "FIXTURE-WAVE-ORDINARY-1", "displayName": "Ordinary", "tag": "Ordinary",
+      "id": "FIXTURE-WAVE-ORDINARY-1", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",
       "durationSeconds": 45.0, "spawnIntervalSeconds": 2.0, "maxAliveEnemies": 8,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 3.0 },
@@ -12,7 +12,8 @@
       ]
     },
     {
-      "id": "FIXTURE-WAVE-PRESSURE-1", "displayName": "Pressure", "tag": "Pressure",
+      "id": "FIXTURE-WAVE-PRESSURE-1", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
+      "burst": { "count": 18, "offsetSeconds": 0.0, "windowSeconds": 1.0 },
       "durationSeconds": 30.0, "spawnIntervalSeconds": 0.9, "maxAliveEnemies": 14,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 3.0 },
@@ -22,7 +23,7 @@
       "modifiers": { "speedMultiplier": 1.25, "healthMultiplier": 0.8 }
     },
     {
-      "id": "FIXTURE-WAVE-ELITE-1", "displayName": "Elite", "tag": "Elite",
+      "id": "FIXTURE-WAVE-ELITE-1", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
       "durationSeconds": 45.0, "spawnIntervalSeconds": 1.4, "maxAliveEnemies": 12,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-DASH-EXPLOSIVE", "weight": 2.0 },
@@ -32,7 +33,7 @@
       "modifiers": { "healthMultiplier": 1.5, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.25, "speedMultiplier": 0.9 }
     },
     {
-      "id": "FIXTURE-WAVE-REST-1", "displayName": "Respite", "tag": "Rest",
+      "id": "FIXTURE-WAVE-REST-1", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
       "durationSeconds": 20.0, "spawnIntervalSeconds": 4.0, "maxAliveEnemies": 4,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1.0 }
@@ -40,7 +41,7 @@
       "modifiers": { "healthMultiplier": 0.7, "speedMultiplier": 0.8 }
     },
     {
-      "id": "FIXTURE-WAVE-ORDINARY-2", "displayName": "Ordinary", "tag": "Ordinary",
+      "id": "FIXTURE-WAVE-ORDINARY-2", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",
       "durationSeconds": 60.0, "spawnIntervalSeconds": 1.6, "maxAliveEnemies": 12,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 },
@@ -49,7 +50,8 @@
       ]
     },
     {
-      "id": "FIXTURE-WAVE-PRESSURE-2", "displayName": "Pressure", "tag": "Pressure",
+      "id": "FIXTURE-WAVE-PRESSURE-2", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
+      "burst": { "count": 26, "offsetSeconds": 0.0, "windowSeconds": 1.0 },
       "durationSeconds": 45.0, "spawnIntervalSeconds": 0.7, "maxAliveEnemies": 18,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-BURST-ORBIT", "weight": 2.0 },
@@ -59,7 +61,7 @@
       "modifiers": { "speedMultiplier": 1.4, "healthMultiplier": 0.6, "contactDamageMultiplier": 0.7 }
     },
     {
-      "id": "FIXTURE-WAVE-ELITE-2", "displayName": "Elite", "tag": "Elite",
+      "id": "FIXTURE-WAVE-ELITE-2", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
       "durationSeconds": 60.0, "spawnIntervalSeconds": 1.1, "maxAliveEnemies": 16,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-DASH-EXPLOSIVE", "weight": 2.0 },
@@ -69,7 +71,7 @@
       "modifiers": { "healthMultiplier": 1.8, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.5 }
     },
     {
-      "id": "FIXTURE-WAVE-REST-2", "displayName": "Respite", "tag": "Rest",
+      "id": "FIXTURE-WAVE-REST-2", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
       "durationSeconds": 25.0, "spawnIntervalSeconds": 3.5, "maxAliveEnemies": 6,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1.0 }
@@ -77,7 +79,7 @@
       "modifiers": { "healthMultiplier": 0.8, "speedMultiplier": 0.85 }
     },
     {
-      "id": "FIXTURE-WAVE-ORDINARY-3", "displayName": "Ordinary", "tag": "Ordinary",
+      "id": "FIXTURE-WAVE-ORDINARY-3", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",
       "durationSeconds": 90.0, "spawnIntervalSeconds": 1.3, "maxAliveEnemies": 16,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 2.0 },
@@ -88,7 +90,8 @@
       "modifiers": { "healthMultiplier": 1.2 }
     },
     {
-      "id": "FIXTURE-WAVE-PRESSURE-3", "displayName": "Pressure", "tag": "Pressure",
+      "id": "FIXTURE-WAVE-PRESSURE-3", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
+      "burst": { "count": 34, "offsetSeconds": 0.0, "windowSeconds": 1.0 },
       "durationSeconds": 60.0, "spawnIntervalSeconds": 0.55, "maxAliveEnemies": 22,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-RING-ZIGZAG", "weight": 3.0 },
@@ -98,7 +101,7 @@
       "modifiers": { "speedMultiplier": 1.5, "healthMultiplier": 0.7, "attackDamageMultiplier": 0.8 }
     },
     {
-      "id": "FIXTURE-WAVE-ELITE-3", "displayName": "Elite", "tag": "Elite",
+      "id": "FIXTURE-WAVE-ELITE-3", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
       "durationSeconds": 90.0, "spawnIntervalSeconds": 0.9, "maxAliveEnemies": 20,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-DASH-EXPLOSIVE", "weight": 3.0 },
@@ -108,7 +111,7 @@
       "modifiers": { "healthMultiplier": 2.2, "contactDamageMultiplier": 1.8, "attackDamageMultiplier": 1.75, "speedMultiplier": 1.1 }
     },
     {
-      "id": "FIXTURE-WAVE-REST-3", "displayName": "Respite", "tag": "Rest",
+      "id": "FIXTURE-WAVE-REST-3", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
       "durationSeconds": 30.0, "spawnIntervalSeconds": 3.0, "maxAliveEnemies": 8,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 },
@@ -117,7 +120,7 @@
       "modifiers": { "healthMultiplier": 0.9, "speedMultiplier": 0.9 }
     },
     {
-      "id": "FIXTURE-WAVE-FINAL-RUSH", "displayName": "Final Rush", "tag": "Elite",
+      "id": "FIXTURE-WAVE-FINAL-RUSH", "displayName": "Final Rush", "tag": "Elite", "spawnMode": "Continuous",
       "durationSeconds": 300.0, "spawnIntervalSeconds": 0.7, "maxAliveEnemies": 24,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-DASH-EXPLOSIVE", "weight": 2.0 },
