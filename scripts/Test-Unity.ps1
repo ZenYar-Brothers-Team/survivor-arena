@@ -42,15 +42,22 @@ function Invoke-UnityTests([string]$Platform) {
         $arguments += @('-testFilter', $TestFilter)
     }
 
-    $process = Start-Process -FilePath $UnityPath -ArgumentList $arguments -WindowStyle Hidden -Wait -PassThru
+    # Start-Process -Wait may wait for the entire descendant tree on Windows.
+    # Unity can leave UPM/licensing helpers alive after the Editor has exited,
+    # which turns a fast test failure into a several-minute apparent hang.
+    $timer = [System.Diagnostics.Stopwatch]::StartNew()
+    $process = Start-Process -FilePath $UnityPath -ArgumentList $arguments -WindowStyle Hidden -PassThru
+    $process.WaitForExit()
+    $timer.Stop()
+    $exitCode = $process.ExitCode
     if (-not (Test-Path -LiteralPath $resultPath)) {
-        throw "$Platform tests did not produce a result file. See $logPath."
+        throw "$Platform tests did not produce a result file after $([math]::Round($timer.Elapsed.TotalSeconds, 1)) s. See $logPath."
     }
 
     [xml]$results = Get-Content -LiteralPath $resultPath
     $run = $results.'test-run'
-    Write-Host "${Platform}: $($run.passed)/$($run.total) passed"
-    if ($process.ExitCode -ne 0 -or [int]$run.failed -ne 0 -or [int]$run.total -eq 0) {
+    Write-Host "${Platform}: $($run.passed)/$($run.total) passed; Unity process $([math]::Round($timer.Elapsed.TotalSeconds, 1)) s"
+    if ($exitCode -ne 0 -or [int]$run.failed -ne 0 -or [int]$run.total -eq 0) {
         throw "$Platform tests failed. See $resultPath and $logPath."
     }
 }
