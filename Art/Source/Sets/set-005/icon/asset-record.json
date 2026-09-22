@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-005",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the complete presented set of 14 passive and 20 set icon candidates: «Утверждаю, всё».",
+  "generationPrompt": "Square 1:1 master for a rare build-set icon in a whimsical fantasy survival game. Stylized 2D storybook cutout, hand-painted but clean, thick deep-plum outer contour, flat matte colors, simple cel shading, bold readable silhouette, low detail, unmistakable at 48 pixels. A centered compact fused emblem made from only two or three large motifs, more powerful and symmetrical than a normal skill or passive icon, fills about 74% of the canvas with generous transparent padding. Use a restrained luminous accent and small gold binding details, but no enclosing frame or badge. Genuine transparent background. No card, no panel, no scene, no ground plane, no baked shadow, no text, no letters, no numbers, no logo, no watermark, no characters or hands, no photorealism, no 3D render, no pixel art. An open book fused with a magnet pulling in cyan experience crystals.",
+  "constraints": [
+    "transparent background",
+    "no baked frame or text",
+    "centered functional emblem",
+    "readable at 48 px",
+    "deep-plum outline",
+    "master preserved losslessly"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Sets/set-005-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "6ef09739b6f8df62942cd2a14d843f4132a35ad283d14b8ad926c6bfd11fb69f",
+    "runtimeSha256": "6ef09739b6f8df62942cd2a14d843f4132a35ad283d14b8ad926c6bfd11fb69f",
+    "operations": [
+      "Copied generated candidate byte-identically into the versioned source folder.",
+      "Promoted the approved candidate byte-identically to selected-master.png.",
+      "Copied the approved master byte-identically to the runtime path; Unity icon import profile downsizes the imported texture to maxSize 256 with center pivot, FullRect mesh, bilinear filtering, clamp wrap, sRGB, no mipmaps, and uncompressed texture format."
+    ],
+    "remainingReview": "Verify final readability in the actual draft/build slots; production SET definition binding remains gated by IP-19."
+  }
+}

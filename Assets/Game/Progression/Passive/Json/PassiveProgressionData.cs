@@ -7,6 +7,7 @@ namespace Game.Progression.Json
     {
         public string Id { get; set; }
         public string DisplayName { get; set; }
+        public string IconVisualId { get; set; }
         public CharacterStatModifierData[] Levels { get; set; }
     }
 }

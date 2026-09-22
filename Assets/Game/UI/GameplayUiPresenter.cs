@@ -111,7 +111,8 @@ namespace Game.UI
             {
                 if (entry.Definition.Kind == BuildEntryKind.Set)
                 {
-                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName, (entry.Definition as SetDefinition)?.Description));
+                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName,
+                        (entry.Definition as SetDefinition)?.Description, ResolveIcon(entry.Definition)));
                     continue;
                 }
                 var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
@@ -269,9 +270,17 @@ namespace Game.UI
 
         private Sprite ResolveIcon(BuildEntryDefinition definition)
         {
-            if (_registry == null || definition is not ActiveSkillProgressionDefinition activeSkill ||
-                !activeSkill.Icon.Id.IsValid || !activeSkill.Icon.TryResolve(_registry, out var icon))
+            if (_registry == null)
                 return null;
+
+            var reference = definition switch
+            {
+                ActiveSkillProgressionDefinition activeSkill => activeSkill.Icon,
+                PassiveProgressionDefinition passive => passive.Icon,
+                SetDefinition set => set.Icon,
+                _ => default
+            };
+            if (!reference.Id.IsValid || !reference.TryResolve(_registry, out var icon)) return null;
 
             icon.RequireRole(SpriteRole.Icon);
             return icon.Sprite;

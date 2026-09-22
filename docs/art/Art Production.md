@@ -267,20 +267,20 @@ World sprite для passive item по умолчанию не нужен.
 
 | ID | Passive | Asset | Method | Status |  
 |---|---|---|---|---|  
-| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-002 | Собиратель | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-005 | Метроном | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-014 | Упрямство | Icon | Generate via GPT | NOT STARTED |
+| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-002 | Собиратель | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-005 | Метроном | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-014 | Упрямство | Icon | Generate via GPT | IMAGE APPROVED — v001 |
 
 Постоянные world-aura для пассивок не создавать без отдельной gameplay/readability причины.
 
@@ -294,7 +294,7 @@ World sprite для passive item по умолчанию не нужен.
 \`SET-001 ... SET-020\`
 
 Method: \`Generate via GPT\`    
-Status: \`NOT STARTED\`
+Status: \`IMAGE APPROVED — v001; 20 masters and runtime imports prepared; 4 mapped to matching fixture sets for acquired-set review; production binding remains IP-19\`
 
 \#\# Set world effects
 
@@ -443,8 +443,8 @@ Method: \`Generate via GPT\`.
 | UI asset | Method | Status | Notes |  
 |---|---|---|---|  
 | 16 skill icons | Generate via GPT | IMAGE APPROVED — v001 | 16 masters/runtime imports; 13 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-17 binding remain |
-| 14 passive icons | Generate via GPT | NOT STARTED | Обязательны для draft и Pause / Build |  
-| 20 set icons | Generate via GPT | NOT STARTED | Обязательны для draft, acquired sets и set progress |  
+| 14 passive icons | Generate via GPT | IMAGE APPROVED — v001 | 14 masters/runtime imports; 9 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-18 binding remain |
+| 20 set icons | Generate via GPT | IMAGE APPROVED — v001 | 20 masters/runtime imports; 4 matching fixture mappings show for acquired sets; set-progress UI review and production IP-19 binding remain |
 | Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  
 | Field thumbnails | Generate / derive from field art | NOT STARTED | По одному на FIELD-001…010 для Field Select; отдельная уникальная картинка не нужна, если подходит crop/композиция existing field art |  
 | Meta-upgrade icons | Generate via GPT as content is defined | NOT STARTED | Только для реально реализованных permanent upgrades |  

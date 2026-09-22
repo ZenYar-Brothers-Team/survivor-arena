@@ -702,6 +702,584 @@
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
       ],
       "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "PASSIVE-001",
+      "role": "icon",
+      "visualId": "PASSIVE-001-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-001/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-001/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-001-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-001-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-002",
+      "role": "icon",
+      "visualId": "PASSIVE-002-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-002/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-002/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-002-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-002-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-003",
+      "role": "icon",
+      "visualId": "PASSIVE-003-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-003/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-003/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-003-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-003-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production PASSIVE definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-004",
+      "role": "icon",
+      "visualId": "PASSIVE-004-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-004/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-004/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-004-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-004-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production PASSIVE definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-005",
+      "role": "icon",
+      "visualId": "PASSIVE-005-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-005/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-005/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-005-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-005-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-006",
+      "role": "icon",
+      "visualId": "PASSIVE-006-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-006/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-006/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-006-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-006-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-007",
+      "role": "icon",
+      "visualId": "PASSIVE-007-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-007/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-007/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-007-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-007-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-008",
+      "role": "icon",
+      "visualId": "PASSIVE-008-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-008/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-008/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-008-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-008-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production PASSIVE definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-009",
+      "role": "icon",
+      "visualId": "PASSIVE-009-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-009/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-009/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-009-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-009-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production PASSIVE definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-010",
+      "role": "icon",
+      "visualId": "PASSIVE-010-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-010/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-010/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-010-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-010-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production PASSIVE definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-011",
+      "role": "icon",
+      "visualId": "PASSIVE-011-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-011/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-011/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-011-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-011-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-012",
+      "role": "icon",
+      "visualId": "PASSIVE-012-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-012/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-012/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-012-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-012-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-013",
+      "role": "icon",
+      "visualId": "PASSIVE-013-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-013/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-013/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-013-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-013-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-014",
+      "role": "icon",
+      "visualId": "PASSIVE-014-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-18",
+      "source": "Art/Source/Passives/passive-014/icon/selected-master.png",
+      "provenance": "Art/Source/Passives/passive-014/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-014-icon.png",
+      "resourcePath": "Art/UI/Icons/Passives/passive-014-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "SET-001",
+      "role": "icon",
+      "visualId": "SET-001-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-001/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-001/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-001-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-001-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-002",
+      "role": "icon",
+      "visualId": "SET-002-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-002/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-002/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-002-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-002-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-003",
+      "role": "icon",
+      "visualId": "SET-003-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-003/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-003/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-003-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-003-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-004",
+      "role": "icon",
+      "visualId": "SET-004-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-004/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-004/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-004-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-004-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-005",
+      "role": "icon",
+      "visualId": "SET-005-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-005/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-005/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-005-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-005-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-006",
+      "role": "icon",
+      "visualId": "SET-006-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-006/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-006/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-006-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-006-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-007",
+      "role": "icon",
+      "visualId": "SET-007-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-007/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-007/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-007-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-007-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-008",
+      "role": "icon",
+      "visualId": "SET-008-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-008/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-008/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-008-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-008-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-009",
+      "role": "icon",
+      "visualId": "SET-009-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-009/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-009/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-009-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-009-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-010",
+      "role": "icon",
+      "visualId": "SET-010-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-010/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-010/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-010-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-010-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-011",
+      "role": "icon",
+      "visualId": "SET-011-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-011/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-011/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-011-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-011-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-012",
+      "role": "icon",
+      "visualId": "SET-012-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-012/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-012/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-012-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-012-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-013",
+      "role": "icon",
+      "visualId": "SET-013-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-013/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-013/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-013-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-013-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-014",
+      "role": "icon",
+      "visualId": "SET-014-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-014/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-014/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-014-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-014-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-015",
+      "role": "icon",
+      "visualId": "SET-015-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-015/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-015/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-015-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-015-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-016",
+      "role": "icon",
+      "visualId": "SET-016-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-016/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-016/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-016-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-016-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-017",
+      "role": "icon",
+      "visualId": "SET-017-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-017/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-017/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-017-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-017-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-018",
+      "role": "icon",
+      "visualId": "SET-018-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-018/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-018/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-018-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-018-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-019",
+      "role": "icon",
+      "visualId": "SET-019-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-019/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-019/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-019-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-019-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-020",
+      "role": "icon",
+      "visualId": "SET-020-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-020/icon/selected-master.png",
+      "provenance": "Art/Source/Sets/set-020/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-020-icon.png",
+      "resourcePath": "Art/UI/Icons/Sets/set-020-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production SET definition before gameplay use."
+      ],
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
     }
   ]
 }

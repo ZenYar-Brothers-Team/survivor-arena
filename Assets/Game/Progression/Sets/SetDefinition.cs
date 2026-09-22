@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Content;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -9,6 +10,7 @@ namespace Game.Progression
         private readonly SetRecipeComponent[] _recipe;
         public string Description { get; }
         public IReadOnlyList<SetEffectDefinition> Effects { get; }
+        public ContentRef<SpriteDefinition> Icon { get; }
 
         public IReadOnlyList<SetRecipeComponent> Recipe => _recipe;
         public override int LevelCap => 1;
@@ -17,10 +19,14 @@ namespace Game.Progression
             ContentId id,
             string displayName,
             params SetRecipeComponent[] recipe)
-            : this(id, displayName, "", Array.Empty<SetEffectDefinition>(), recipe) { }
+            : this(id, displayName, "", Array.Empty<SetEffectDefinition>(), default, recipe) { }
 
         public SetDefinition(ContentId id, string displayName, string description, IEnumerable<SetEffectDefinition> effects,
-            params SetRecipeComponent[] recipe) : base(id, BuildEntryKind.Set, displayName)
+            params SetRecipeComponent[] recipe)
+            : this(id, displayName, description, effects, default, recipe) { }
+
+        public SetDefinition(ContentId id, string displayName, string description, IEnumerable<SetEffectDefinition> effects,
+            ContentRef<SpriteDefinition> icon, params SetRecipeComponent[] recipe) : base(id, BuildEntryKind.Set, displayName)
         {
             if (recipe == null || recipe.Length < 3 || recipe.Length > 6)
                 throw new ArgumentException("Set recipe requires 3-6 components.", nameof(recipe));
@@ -39,6 +45,7 @@ namespace Game.Progression
             var list = new List<SetEffectDefinition>(effects ?? throw new ArgumentNullException(nameof(effects)));
             if (list.Exists(effect => effect == null)) throw new ArgumentException("Null set effect.", nameof(effects));
             Effects = list.AsReadOnly();
+            Icon = icon;
         }
 
         public bool IsRecipeFulfilled(PlayerBuild build)
@@ -62,6 +69,9 @@ namespace Game.Progression
 
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            if (Icon.Id.IsValid)
+                yield return Icon.ToReference();
+
             foreach (var effect in Effects)
             {
                 if (effect.Skill.HasValue) yield return new ContentReference(effect.Skill.Value, typeof(BuildEntryDefinition));

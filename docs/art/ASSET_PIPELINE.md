@@ -863,3 +863,11 @@ Skill icon производится отдельной ролью `icon`, даж
 Runtime-файл имеет стабильное имя `Assets/Resources/Art/UI/Icons/Skills/skill-XXX-icon.png`, visual ID `SKILL-XXX-VISUAL-ICON` и `SpriteRole.Icon`. Shared import profile ограничивает импорт до 256, ставит center pivot и не добавляет baked frame. Master остаётся lossless и неизменным; уменьшение выполняет Unity importer. Проверка проводится в реальном draft card и occupied build slot при минимальном размере UI.
 
 До появления production definitions разрешено временно назначить production icon существующему fixture skill только при ясном механическом соответствии. Такое назначение фиксируется decision/evidence, не переименовывает fixture ID и не считается реализацией production content. Иконку без соответствующего fixture skill следует импортировать и зарегистрировать без ложного mapping. Текущий пакет и mapping: [DECISION-0047](../decisions/0047-skill-icon-fixture-mapping.md), [evidence](../implementation/evidence/2026-09-22-skill-icons.md).
+
+## 29. Пакеты UI-иконок пассивок и сетов
+
+Пассивки и сеты используют тот же immutable icon packet, import profile и approval gate, что навыки. Исходники хранятся в `Art/Source/Passives/passive-XXX/icon/` и `Art/Source/Sets/set-XXX/icon/`; runtime-файлы — в `Assets/Resources/Art/UI/Icons/Passives/` и `Assets/Resources/Art/UI/Icons/Sets/`. Стабильные visual ID имеют вид `PASSIVE-XXX-VISUAL-ICON` и `SET-XXX-VISUAL-ICON`, роль всегда `SpriteRole.Icon`.
+
+Fixture mapping допустим только при ясном механическом соответствии. Отсутствие такого соответствия не блокирует импорт и регистрацию утверждённой иконки: она ожидает production definition IP-18 или IP-19. Presenter разрешает typed icon reference через общий registry; пассивка использует иконку в draft/build slot, приобретённый сет — в set row. Null reference остаётся допустимым для изолированных тестовых definitions.
+
+Текущий approved пакет включает 14 пассивок и 20 сетов. Девять fixture-пассивок и четыре fixture-сета получили соответствующие ссылки; остальные зарегистрированы без ложной gameplay-привязки. Основание и проверка: [DECISION-0048](../decisions/0048-passive-and-set-icon-fixture-mapping.md), [evidence](../implementation/evidence/2026-09-22-passive-and-set-icons.md).

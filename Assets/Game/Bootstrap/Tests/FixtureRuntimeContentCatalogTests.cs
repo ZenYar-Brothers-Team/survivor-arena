@@ -88,6 +88,23 @@ namespace Game.Bootstrap.Tests
                 Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{skill.Id} icon role");
                 Assert.IsNotNull(icon.Sprite, $"{skill.Id} icon sprite");
             }
+            Assert.IsTrue(catalog.Passives.All(passive => passive.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.Passives.Count,
+                catalog.Passives.Select(passive => passive.Icon.Id).Distinct().Count());
+            foreach (var passive in catalog.Passives)
+            {
+                var icon = passive.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{passive.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{passive.Id} icon sprite");
+            }
+            Assert.IsTrue(catalog.Sets.All(set => set.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.Sets.Count, catalog.Sets.Select(set => set.Icon.Id).Distinct().Count());
+            foreach (var set in catalog.Sets)
+            {
+                var icon = set.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{set.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{set.Id} icon sprite");
+            }
             var fan = catalog.Enemies.Single(enemy => enemy.Id == "FIXTURE-ENEMY-FAN");
             Assert.AreEqual("FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE", fan.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(SpriteRole.Pickup, catalog.Pickups.ExperienceVisual.Resolve(catalog.Registry).Role);

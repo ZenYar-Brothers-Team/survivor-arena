@@ -183,5 +183,175 @@
     "id": "SKILL-016-VISUAL-ICON",
     "resourcePath": "Art/UI/Icons/Skills/skill-016-icon",
     "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-015-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-015-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-016-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-016-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-017-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-017-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-018-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-018-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-019-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-019-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-020-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-020-icon",
+    "role": "Icon"
   }
 ]

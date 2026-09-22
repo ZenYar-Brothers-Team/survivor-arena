@@ -2,6 +2,7 @@
   {
     "id": "FIXTURE-SET-OVERCHARGE",
     "displayName": "Fixture Overcharge",
+    "iconVisualId": "SET-001-VISUAL-ICON",
     "recipe": [
       {
         "id": "FIXTURE-SKILL-BOLT",
@@ -46,6 +47,7 @@
   {
     "id": "FIXTURE-SET-RECALL",
     "displayName": "Fixture Recall",
+    "iconVisualId": "SET-005-VISUAL-ICON",
     "recipe": [
       {
         "id": "FIXTURE-SKILL-BOLT",
@@ -82,6 +84,7 @@
   {
     "id": "FIXTURE-SET-GUARD",
     "displayName": "Fixture Guard",
+    "iconVisualId": "SET-012-VISUAL-ICON",
     "description": "Fixture: defense, healing and one reward-triggered burst (fake reward adapter).",
     "recipe": [
       {
@@ -119,6 +122,7 @@
   {
     "id": "FIXTURE-SET-STRIKE",
     "displayName": "Fixture Strike",
+    "iconVisualId": "SET-016-VISUAL-ICON",
     "description": "Fixture: independent bolt every 6 seconds; unaffected by action speed.",
     "recipe": [
       {

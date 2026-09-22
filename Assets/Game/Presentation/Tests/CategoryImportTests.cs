@@ -11,13 +11,14 @@ namespace Game.Presentation.Tests
     public sealed class CategoryImportTests
     {
         private const string Body = "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png";
-        private const string SkillIcons = "Assets/Resources/Art/UI/Icons/Skills";
-
-        [Test]
-        public void ApprovedSkillIcons_AllUseTheIconImportProfile()
+        [TestCase("Skills", 16)]
+        [TestCase("Passives", 14)]
+        [TestCase("Sets", 20)]
+        public void ApprovedGameplayIcons_AllUseTheIconImportProfile(string category, int expectedCount)
         {
-            var paths = Directory.GetFiles(SkillIcons, "*.png").OrderBy(path => path).ToArray();
-            Assert.AreEqual(16, paths.Length);
+            var directory = $"Assets/Resources/Art/UI/Icons/{category}";
+            var paths = Directory.GetFiles(directory, "*.png").OrderBy(path => path).ToArray();
+            Assert.AreEqual(expectedCount, paths.Length);
             foreach (var path in paths)
             {
                 var assetPath = path.Replace('\\', '/');

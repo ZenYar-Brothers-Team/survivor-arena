@@ -4,6 +4,7 @@ using Game.Content.Json;
 using Game.Content;
 using Game.Character;
 using Game.Progression.Json;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -52,7 +53,10 @@ namespace Game.Progression
                     e.AttackTemplate == null ? (ContentId?)null : new ContentId(e.AttackTemplate),
                     e.CooldownSeconds ?? 0, e.ActivationCount ?? 0, e.HealFraction ?? 0, e.BuffSeconds ?? 0);
             }
-            return new SetDefinition(data.Id, data.DisplayName, data.Description, effects, recipe);
+            var icon = string.IsNullOrEmpty(data.IconVisualId)
+                ? default
+                : new ContentRef<SpriteDefinition>(data.IconVisualId);
+            return new SetDefinition(data.Id, data.DisplayName, data.Description, effects, icon, recipe);
         }
     }
 }
