@@ -49,6 +49,7 @@ namespace Game.Enemy
         private bool _despawned;
         private IEnemyMovementDriver _movementDriver;
         private Func<bool> _damageAllowed;
+        private ContentRegistry _contentRegistry;
         public EnemyProtection Protection { get; } = new EnemyProtection();
 
         public void ConfigureEncounter(IEnemyMovementDriver movement, Func<bool> damageAllowed)
@@ -101,7 +102,8 @@ namespace Game.Enemy
             SpriteMotionProfile motionProfile = null,
             SpriteContactProfile contact = null,
             EnemyDeathPresentationProfile deathPresentation = null,
-            GroundShadowPresentationProfile groundShadowPresentation = null)
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
@@ -147,6 +149,7 @@ namespace Game.Enemy
             _lifecycleSink = lifecycleSink;
             _pool = pool;
             _projectilePool = projectilePool;
+            _contentRegistry = contentRegistry;
 
             CacheComponents();
             _collider.enabled = true;
@@ -230,8 +233,17 @@ namespace Game.Enemy
                     _runController,
                     transform.parent,
                     _projectilePool,
-                    LastProjectileSource);
+                    LastProjectileSource,
+                    ResolveProjectileVisual(CurrentAttack));
             }
+        }
+
+        private SpriteDefinition ResolveProjectileVisual(EnemyAttackProfile attack)
+        {
+            if (_contentRegistry == null || attack == null || !attack.ProjectileVisual.Id.IsValid) return null;
+            var visual = attack.ProjectileVisual.Resolve(_contentRegistry);
+            visual.RequireRole(SpriteRole.Projectile);
+            return visual;
         }
 
         private void Update()

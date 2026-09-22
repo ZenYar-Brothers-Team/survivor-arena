@@ -233,7 +233,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 
 | ID | Skill | World visual assets | Method | Status |  
 |---|---|---|---|---|  
-| SKILL-001 | Бросок камня | Stone projectile; optional impact | Generate via GPT \+ Hybrid | NOT STARTED |  
+| SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | APPROVED — projectile v001; runtime 256×256 IN GAME у FIXTURE-SKILL-BOLT, лёгкое вращение 140°/s и общий flash + 3 земляные частицы. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json); production SKILL-001 binding остаётся IP-17 |
 | SKILL-002 | Веер игл | Needle projectile | Generate via GPT \+ Unity fan pattern | NOT STARTED |  
 | SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | NOT STARTED |  
 | SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | NOT STARTED |  
@@ -622,3 +622,7 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 ## Gameplay ground shadow
 
 Гоблин, обычные враги, боссы и Travelers используют одну мягкую процедурную ellipse shadow без отдельных PNG. Маска создаётся один раз и переиспользуется всеми renderer; размер, цвет и смещение задаёт общий JSON-профиль. Правила и проверки описаны в [ASSET_PIPELINE §24](ASSET_PIPELINE.md#24-единая-процедурная-ground-shadow).
+
+## Gameplay projectile presentation
+
+У текущего `FIXTURE-ENEMY-FAN` используется утверждённый компактный снаряд-письмо: cream parchment, тёмный шнур и burgundy seal. Это fixture-only ranged presentation и не меняет approved melee card ENEMY-002. Письмо ориентируется по направлению полёта без spin; попадание использует тот же дешёвый impact algorithm с parchment-colored particles. [Provenance](../../Art/Source/Enemies/fixture-enemy-fan-projectile/asset-record.json). Камень SKILL-001 временно подключён к `FIXTURE-SKILL-BOLT`; его production binding остаётся IP-17. Общие правила описаны в [ASSET_PIPELINE §25](ASSET_PIPELINE.md#25-projectile-sprite-вращение-и-дешёвый-impact).

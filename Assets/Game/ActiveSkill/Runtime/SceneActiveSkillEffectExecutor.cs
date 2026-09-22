@@ -7,6 +7,7 @@ using Game.Enemy;
 using Game.Movement;
 using Game.Pooling;
 using Game.Run;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -31,6 +32,7 @@ namespace Game.ActiveSkill
         private readonly List<EnemyTargetLife> _chainCandidates = new List<EnemyTargetLife>();
         private readonly Transform _minePoolRoot;
         private readonly GameObjectPool<SpriteRenderer> _minePool;
+        private readonly ContentRegistry _contentRegistry;
 
         public int ScheduledCount => _scheduled.Count;
         public int ActiveMineCount => _mines.Count;
@@ -38,13 +40,15 @@ namespace Game.ActiveSkill
         public SceneActiveSkillEffectExecutor(
             RunController runController,
             IActiveSkillProjectileLauncher projectileLauncher = null,
-            ICombatTargetQuery targets = null)
+            ICombatTargetQuery targets = null,
+            ContentRegistry contentRegistry = null)
         {
             _runController = runController != null
                 ? runController
                 : throw new ArgumentNullException(nameof(runController));
             _projectileLauncher = projectileLauncher ?? new SceneProjectileLauncher(runController);
             _targets = targets ?? new SceneCombatTargetQuery();
+            _contentRegistry = contentRegistry;
             _minePoolRoot = new GameObject("Mine Pool").transform;
             _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
         }
@@ -194,7 +198,8 @@ namespace Game.ActiveSkill
                     effect.CollisionRadius * scheduled.Activation.SizeMultiplier,
                     effect.ImpactAreaRadius * scheduled.Activation.SizeMultiplier,
                     damage, effect.PierceCount, behavior: effect.Behavior,
-                    rangeMultiplier: scheduled.Activation.RangeMultiplier));
+                    rangeMultiplier: scheduled.Activation.RangeMultiplier,
+                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
             }
         }
 
@@ -223,8 +228,18 @@ namespace Game.ActiveSkill
                     returnTarget: scheduled.Activation.OwnerTransform,
                     hitLedger: scheduled.Activation.HitLedger,
                     hitCooldownSeconds: effect.HitCooldownSeconds,
-                    returnKnockbackMultiplier: effect.ReturnKnockbackMultiplier));
+                    returnKnockbackMultiplier: effect.ReturnKnockbackMultiplier,
+                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
             }
+        }
+
+        private SpriteDefinition ResolveProjectileVisual(ActiveSkillLevelDefinition level)
+        {
+            if (_contentRegistry == null || !level.Visual.Id.IsValid) return null;
+            var visual = level.Visual.Resolve(_contentRegistry);
+            if (visual.Role == SpriteRole.Unspecified) return null;
+            visual.RequireRole(SpriteRole.Projectile);
+            return visual;
         }
 
         private static void ExecuteArea(ScheduledSkillEffect scheduled, AreaEffect effect)

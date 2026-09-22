@@ -18,5 +18,6 @@ namespace Game.Enemy.Json
         public float? ProjectileRadius { get; set; }
         public float? ExplosionRadius { get; set; }
         public float? RotationStepDegrees { get; set; }
+        public string ProjectileVisualId { get; set; }
     }
 }

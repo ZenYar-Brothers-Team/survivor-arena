@@ -2,6 +2,57 @@
   "schemaVersion": 1,
   "entries": [
     {
+      "owner": "SKILL-001",
+      "role": "projectile",
+      "visualId": "SKILL-001-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-001/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-001/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-001/skill-001-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-001/skill-001-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the presented stone candidate and requested slight rotation during attack on 2026-09-22.",
+        "Runtime derivative is exercised through FIXTURE-SKILL-BOLT with a data-driven projectile profile."
+      ],
+      "missing": "Production SKILL-001 definition/binding and gameplay-scale review remain IP-17 work."
+    },
+    {
+      "owner": "FIXTURE-SKILL-BOLT",
+      "role": "projectile",
+      "visualId": "SKILL-001-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Skills/skill-001/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-001/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-001/skill-001-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-001/skill-001-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "All six fixture levels reference the approved stone sprite.",
+        "Visual-only 140 degree/second spin and shared procedural impact preserve the circle collider."
+      ],
+      "missing": "User gameplay-scale review."
+    },
+    {
+      "owner": "FIXTURE-ENEMY-FAN",
+      "role": "projectile",
+      "visualId": "FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Enemies/fixture-enemy-fan-projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/fixture-enemy-fan-projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/fixture-enemy-fan/fixture-enemy-fan-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/fixture-enemy-fan/fixture-enemy-fan-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User approved the presented rolled-letter projectile on 2026-09-22.",
+        "Fixture-only fan attack uses stable flight orientation and shared parchment-colored impact particles."
+      ],
+      "missing": "User gameplay-scale review; canonical ENEMY-002 remains melee and has no production projectile binding."
+    },
+    {
       "owner": "ENEMY-002",
       "role": "body",
       "visualId": "ENEMY-002-VISUAL-BODY",

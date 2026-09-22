@@ -1,6 +1,7 @@
 using System;
 using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -24,6 +25,7 @@ namespace Game.ActiveSkill
         public float ReturnDamageMultiplier { get; }
         public Transform ReturnTarget { get; }
         public bool Returns => ReturnAfterSeconds > 0f;
+        public SpriteDefinition Visual { get; }
 
         public ActiveSkillProjectile(
             Vector2 origin,
@@ -37,7 +39,8 @@ namespace Game.ActiveSkill
             float returnAfterSeconds = 0f,
             float returnDamageMultiplier = 1f,
             Transform returnTarget = null, ProjectileBehavior behavior = null,
-            SkillHitLedger hitLedger = null, float hitCooldownSeconds = 0f, float returnKnockbackMultiplier = 1f, float rangeMultiplier = 1f)
+            SkillHitLedger hitLedger = null, float hitCooldownSeconds = 0f, float returnKnockbackMultiplier = 1f,
+            float rangeMultiplier = 1f, SpriteDefinition visual = null)
         {
             if (direction.sqrMagnitude <= Mathf.Epsilon)
                 throw new ArgumentException("Projectile direction cannot be zero.", nameof(direction));
@@ -72,6 +75,8 @@ namespace Game.ActiveSkill
             ReturnAfterSeconds = returnAfterSeconds;
             ReturnDamageMultiplier = returnDamageMultiplier;
             ReturnTarget = returnTarget;
+            if (visual != null) visual.RequireRole(SpriteRole.Projectile);
+            Visual = visual;
         }
     }
 }

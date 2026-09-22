@@ -47,7 +47,7 @@ namespace Game.Enemy
                 attack.ProjectileRadius,
                 attack.ExplosionRadius,
                 attack.RotationStepDegrees,
-                attack.Controls, attack.TelegraphSeconds);
+                attack.Controls, attack.TelegraphSeconds, attack.ProjectileVisual);
         }
     }
 }

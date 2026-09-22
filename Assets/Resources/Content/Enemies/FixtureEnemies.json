@@ -43,6 +43,7 @@
       "projectileCount": 3,
       "spreadDegrees": 40.0,
       "projectileRadius": 0.12,
+      "projectileVisualId": "FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE",
       "telegraphSeconds": 0.25,
       "controls": {
         "knockbackDistance": 0.2,

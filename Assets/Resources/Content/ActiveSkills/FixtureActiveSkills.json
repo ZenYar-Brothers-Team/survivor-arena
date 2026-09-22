@@ -7,6 +7,7 @@
         "baseDamage": 4,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -28,6 +29,7 @@
         "baseDamage": 5,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -49,6 +51,7 @@
         "baseDamage": 6,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -70,6 +73,7 @@
         "baseDamage": 7,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -91,6 +95,7 @@
         "baseDamage": 8,
         "cooldownSeconds": 0.65,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -112,6 +117,7 @@
         "baseDamage": 9,
         "cooldownSeconds": 0.65,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [

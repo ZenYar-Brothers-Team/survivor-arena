@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-001",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved both presented projectile candidates and asked to continue integration; stone should rotate slightly during flight.",
+  "referenceImages": [
+    {
+      "path": "../../Characters/fixture-character-agile/selected-master.png",
+      "role": "Approved player style reference; not an edit target"
+    },
+    {
+      "path": "../../Enemies/enemy-001/selected-master.png",
+      "role": "Approved enemy style reference; not an edit target"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept. Asset type: small top-down gameplay projectile sprite for SKILL-001 «Бросок камня». The supplied character images are style references only, not edit targets. Create exactly one compact irregular hand-sized throwing stone, isolated on a genuinely transparent square canvas. View: 3/4 top-down, projectile oriented horizontally with its forward direction toward screen-right. Shape: chunky rounded asymmetrical river stone with 3–5 large readable facets, compact silhouette, no long spikes, readable at 24–40 screen pixels. Style: the same hand-painted 2D storybook cutout language as the references, thick deep plum-brown outer contour, simple matte cel shading, restrained paper-like texture, warm upper-front light. Palette: neutral grey-brown stone, slightly warm, clearly distinct from red danger effects and blue XP. Generous even transparent padding for rotation. No character, hand, sling, background, floor, baked shadow, glow, trail, speed lines, impact particles, text, UI, watermark, extra stones, or cropped edges.",
+  "constraints": [
+    "transparent background",
+    "compact silhouette",
+    "no baked shadow",
+    "readable at 24–40 screen pixels"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-001/skill-001-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": [
+      1254,
+      1254
+    ],
+    "sourceSha256": "F9C404D14363C799A6CDB7A169DF964C3CB6581821B2EC0A411ACE0E9D819955",
+    "runtimeSha256": "C63802C60BF6F740ADE5A6F1ADC69CCF5B2C1495E3D3CC45833867CD84E55BB7",
+    "operations": [
+      "Approved generated PNG copied byte-identically to selected-master.png and v001/concept-01.png.",
+      "Runtime only: visible bounds at alpha >=10, x399/y448/w489/h359, fitted without distortion inside 192x192 on a transparent 256x256 RGBA canvas.",
+        "Unity import: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 320 PPU, centered pivot."
+    ],
+    "remaining": [
+      "User gameplay-scale review after runtime integration."
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+using System.Linq;
 using Game.ActiveSkill;
 using Game.Enemy;
 using Game.Presentation;
@@ -64,6 +65,14 @@ namespace Game.Bootstrap.Tests
             Assert.AreSame(
                 catalog.SpriteMotionProfiles[0],
                 agile.MotionProfile.Resolve(catalog.Registry));
+
+            var stone = catalog.Registry.Get<SpriteDefinition>("SKILL-001-VISUAL-PROJECTILE");
+            Assert.AreEqual(SpriteRole.Projectile, stone.Role);
+            Assert.AreEqual(140f, stone.ProjectilePresentation.SpinDegreesPerSecond);
+            var bolt = catalog.ActiveSkills.Single(skill => skill.Id == "FIXTURE-SKILL-BOLT");
+            Assert.IsTrue(bolt.Levels.All(level => level.Visual.Id == stone.Id));
+            var fan = catalog.Enemies.Single(enemy => enemy.Id == "FIXTURE-ENEMY-FAN");
+            Assert.AreEqual("FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE", fan.Attack.ProjectileVisual.Id.ToString());
         }
     }
 }

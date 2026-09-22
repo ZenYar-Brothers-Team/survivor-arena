@@ -99,7 +99,9 @@ namespace Game.Enemy
                 Pick(data.ExplosionRadius, pattern == EnemyProjectilePattern.Explosive, 0f, Owner(nameof(data.ExplosionRadius))),
                 Pick(data.RotationStepDegrees, pattern == EnemyProjectilePattern.Spiral, 0f, Owner(nameof(data.RotationStepDegrees))),
                 RequireControls(data.Controls, Owner(nameof(data.Controls))),
-                Require(data.TelegraphSeconds, Owner(nameof(data.TelegraphSeconds))));
+                Require(data.TelegraphSeconds, Owner(nameof(data.TelegraphSeconds))),
+                string.IsNullOrWhiteSpace(data.ProjectileVisualId)
+                    ? default : new ContentRef<Game.Presentation.SpriteDefinition>(data.ProjectileVisualId));
         }
 
         private static CombatControlProfile RequireControls(CombatControlData data, string owner)

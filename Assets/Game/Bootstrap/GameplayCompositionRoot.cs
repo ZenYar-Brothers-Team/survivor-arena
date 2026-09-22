@@ -357,7 +357,7 @@ namespace Game.Bootstrap
                 // The executor owns a scene GameObject (mine pool root); it is registered for
                 // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
                 // idempotent, and Shutdown disposes it again on the success path).
-                var effectExecutor = new SceneActiveSkillEffectExecutor(runController);
+                var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry);
                 initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,
@@ -401,7 +401,8 @@ namespace Game.Bootstrap
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
-                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation);
+                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation,
+                    Catalog.Registry);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();

@@ -2,6 +2,7 @@ using System;
 using Game.Pooling;
 using Game.Run;
 using Game.Presentation;
+using Game.Content;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -22,7 +23,8 @@ namespace Game.Enemy
             SpriteMotionProfile motionProfile = null,
             SpriteContactProfile contact = null,
             EnemyDeathPresentationProfile deathPresentation = null,
-            GroundShadowPresentationProfile groundShadowPresentation = null)
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -46,7 +48,8 @@ namespace Game.Enemy
                 motionProfile,
                 contact,
                 deathPresentation,
-                groundShadowPresentation);
+                groundShadowPresentation,
+                contentRegistry);
             return runtime;
         }
 

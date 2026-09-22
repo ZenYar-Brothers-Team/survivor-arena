@@ -30,6 +30,7 @@ namespace Game.Enemy
         private IReadOnlyDictionary<ContentId, SpriteContactProfile> _contacts;
         private EnemyDeathPresentationProfile _deathPresentation;
         private GroundShadowPresentationProfile _groundShadowPresentation;
+        private ContentRegistry _contentRegistry;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
@@ -75,7 +76,8 @@ namespace Game.Enemy
             IReadOnlyDictionary<ContentId, SpriteMotionProfile> motions = null,
             IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null,
             EnemyDeathPresentationProfile deathPresentation = null,
-            GroundShadowPresentationProfile groundShadowPresentation = null)
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
@@ -90,6 +92,7 @@ namespace Game.Enemy
             _contacts = contacts;
             _deathPresentation = deathPresentation;
             _groundShadowPresentation = groundShadowPresentation;
+            _contentRegistry = contentRegistry;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _outcomeOwner = runController != null ? runController.Model : null;
@@ -155,7 +158,8 @@ namespace Game.Enemy
                 motionProfile: motion,
                 contact: contact,
                 deathPresentation: _deathPresentation,
-                groundShadowPresentation: _groundShadowPresentation);
+                groundShadowPresentation: _groundShadowPresentation,
+                contentRegistry: _contentRegistry);
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
@@ -205,6 +209,7 @@ namespace Game.Enemy
             _motions = null;
             _contacts = null;
             _deathPresentation = null;
+            _contentRegistry = null;
             _outcomeOwner?.UnregisterOutcomeContributor(this);
             _outcomeOwner = null;
             _lifecycleSink = null;

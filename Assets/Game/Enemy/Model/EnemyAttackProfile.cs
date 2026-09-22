@@ -1,6 +1,7 @@
 using System;
 using Game.Content;
 using Game.Combat;
+using Game.Presentation;
 
 namespace Game.Enemy
 {
@@ -19,6 +20,7 @@ namespace Game.Enemy
         public float ProjectileRadius { get; }
         public float ExplosionRadius { get; }
         public float RotationStepDegrees { get; }
+        public ContentRef<SpriteDefinition> ProjectileVisual { get; }
 
         public EnemyAttackProfile(
             EnemyProjectilePattern pattern,
@@ -33,7 +35,8 @@ namespace Game.Enemy
             float explosionRadius = 0f,
             float rotationStepDegrees = 0f,
             CombatControlProfile controls = null,
-            float telegraphSeconds = 0f)
+            float telegraphSeconds = 0f,
+            ContentRef<SpriteDefinition> projectileVisual = default)
         {
             if (!Enum.IsDefined(typeof(EnemyProjectilePattern), pattern))
                 throw new ArgumentOutOfRangeException(nameof(pattern));
@@ -68,6 +71,7 @@ namespace Game.Enemy
             ProjectileRadius = projectileRadius;
             ExplosionRadius = explosionRadius;
             RotationStepDegrees = rotationStepDegrees;
+            ProjectileVisual = projectileVisual;
         }
     }
 }

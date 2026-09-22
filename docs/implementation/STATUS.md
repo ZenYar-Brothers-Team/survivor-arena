@@ -98,6 +98,8 @@ settings implementation/новые runtime checks ещё не выполняли
 
 Запрос «продолжай» разрешил реализацию IP-26 по DECISION-0038. Дальнейшие IP автоматически не начинать.
 
+Отдельный пользовательский art packet 2026-09-22 добавил утверждённые projectile images: камень SKILL-001 подключён к `FIXTURE-SKILL-BOLT`, письмо — только к ranged `FIXTURE-ENEMY-FAN`. Общий data-driven presentation сохраняет круглый collider, вращает только visual child камня и даёт короткий pooled flash + material particles. Проверки: **647/647 Game.* EditMode, 25/25 PlayMode, 0 skipped**, Unity 6000.6.0f1. Это не регистрирует production SKILL-001 и не меняет approved melee card ENEMY-002; статусы IP-17/IP-20 сохраняются. [Evidence](evidence/2026-09-22-projectile-art.md).
+
 ## Execution order
 
 Выбирать первый Ready в этой таблице, если пользователь не назвал IP. Проверять prerequisites целевой ревизии и текущий packet. Таблица задаёт очередь; текущие статусы — в записях ниже.

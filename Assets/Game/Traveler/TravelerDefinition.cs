@@ -65,7 +65,8 @@ namespace Game.Traveler
             var a = Body.Attack;
             var attack = a == null ? null : new EnemyAttackProfile(a.Pattern, a.Damage * multiplier, a.CooldownSeconds,
                 a.ProjectileSpeed, a.ProjectileLifetimeSeconds, a.ProjectileCount, a.SpreadDegrees, a.BurstIntervalSeconds,
-                a.ProjectileRadius, a.ExplosionRadius, a.RotationStepDegrees, a.Controls, a.TelegraphSeconds);
+                a.ProjectileRadius, a.ExplosionRadius, a.RotationStepDegrees, a.Controls, a.TelegraphSeconds,
+                a.ProjectileVisual);
             return new EnemyDefinition(Id, Body.MaxHealth * multiplier, Body.CollisionSize, Body.MovementSpeed,
                 Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, movement: Body.Movement,
                 attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls);
