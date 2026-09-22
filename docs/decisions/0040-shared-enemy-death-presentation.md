@@ -22,7 +22,7 @@ Related IP: IP-04, IP-12A, IP-20, IP-21, IP-30
 
 После этого один общий presentation profile выполняет squash, shrink, darken/fade и небольшой процедурный dust burst. По завершении объект публикует `Despawned` и возвращается в pool. Pause замораживает visual tail; terminal cleanup отменяет его и освобождает объект сразу. Алгоритм и профиль общие для ordinary enemies, bosses и Travelers. Он копирует фактический активный sprite в отдельный `DeathVisual`, поэтому не зависит от конкретного body rig и не содержит проверок content ID.
 
-Текущий fixture timing: squash 0.10 s + fade 0.20 s = 0.30 s. Значения масштаба, цвета и пяти dust particles находятся в `FixtureEnemyDeathPresentation.json`; runtime не содержит entity-specific tuning. Отдельная покадровая анимация и новый raster asset не нужны.
+Текущий fixture timing: squash 0.10 s + fade 0.20 s = 0.30 s. Значения масштаба, цвета и пяти dust particles находятся в `FixtureEnemyDeathPresentation.json`; после gameplay-просмотра размер пылинки установлен в 0.08 world units, цвет — приглушённый земляной без красной/blood-семантики. Runtime не содержит entity-specific tuning. Отдельная покадровая анимация и новый raster asset не нужны.
 
 ## Границы
 

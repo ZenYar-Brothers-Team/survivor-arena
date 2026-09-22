@@ -11,9 +11,9 @@
   "dustCount": 5,
   "dustLifetimeSeconds": 0.22,
   "dustSpeed": 0.65,
-  "dustSize": 0.06,
-  "dustRed": 0.48,
-  "dustGreen": 0.38,
-  "dustBlue": 0.27,
-  "dustAlpha": 0.75
+  "dustSize": 0.08,
+  "dustRed": 0.34,
+  "dustGreen": 0.29,
+  "dustBlue": 0.2,
+  "dustAlpha": 0.8
 }

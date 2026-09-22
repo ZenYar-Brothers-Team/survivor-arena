@@ -25,6 +25,8 @@ namespace Game.Enemy
         private SpritePresentationRig _presentationRig;
         private EnemyDeathPresentationRuntime _deathPresentation;
         private EnemyDeathPresentationProfile _deathProfile;
+        private GroundShadowRuntime _groundShadow;
+        private GroundShadowPresentationProfile _groundShadowProfile;
         private LineRenderer _telegraph;
         private Transform _target;
         private RunController _runController;
@@ -98,7 +100,8 @@ namespace Game.Enemy
             EnemyCategory category = EnemyCategory.Ordinary,
             SpriteMotionProfile motionProfile = null,
             SpriteContactProfile contact = null,
-            EnemyDeathPresentationProfile deathPresentation = null)
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
@@ -130,6 +133,7 @@ namespace Game.Enemy
             _deathPublished = false;
             _dying = false;
             _deathProfile = deathPresentation;
+            _groundShadowProfile = groundShadowPresentation;
             _damageSource = null;
             LifeId = Guid.NewGuid();
             Category = category;
@@ -173,6 +177,7 @@ namespace Game.Enemy
             Health.Died += HandleDeath;
             if (motionProfile != null)
                 InitializePresentation(visual, motionProfile, contact);
+            InitializeGroundShadow(contact);
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;
             EnemyRegistry.Register(this);
@@ -331,6 +336,7 @@ namespace Game.Enemy
             _deathPresentation?.ResetPresentation();
             _presentation?.Shutdown();
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
+            _groundShadow?.Shutdown();
             Controls.Reset();
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
@@ -476,6 +482,20 @@ namespace Game.Enemy
             _presentation.Initialize(new SpriteDefinition(Definition.Visual.Id, sprite, SpriteRole.Body, contact),
                 profile, Health, _body, _runController);
             _renderer.enabled = false;
+        }
+
+        private void InitializeGroundShadow(SpriteContactProfile contact)
+        {
+            if (_groundShadowProfile == null)
+            {
+                _groundShadow?.Shutdown();
+                return;
+            }
+            if (_groundShadow == null) _groundShadow = gameObject.AddComponent<GroundShadowRuntime>();
+            var usesScaleCompensatedBody = _presentationRig != null && _presentationRig.gameObject.activeSelf;
+            var bodyRenderer = usesScaleCompensatedBody ? _presentationRig.BodyRenderer : _renderer;
+            _groundShadow.Initialize(_groundShadowProfile, contact,
+                usesScaleCompensatedBody ? Definition.CollisionSize : 1f, bodyRenderer);
         }
 
         private void ConfigureTelegraph()

@@ -28,7 +28,7 @@ final schedules, Travelers как переименованные обычные 
 
 ## Acceptance criteria
 
-каждый ID создаётся по данным и демонстрирует карточку; death фиксируется один раз, despawn не выдаётся за kill/drop; enemy field pass-through сохраняется; pooled reuse очищает status, registry, visual state. Body motion не деформирует root/collider. PICKUP-001 загружается по stable ID, выдаёт указанное лечение, использует согласованные drop tables и approved runtime art. Production значения не подменяются fixture tuning; где в карточке нет чисел, packet остаётся с явно указанным gap.
+каждый ID создаётся по данным и демонстрирует карточку; death фиксируется один раз, despawn не выдаётся за kill/drop; enemy field pass-through сохраняется; pooled reuse очищает status, registry, visual state. Body motion не деформирует root/collider. Enemy body отличается от ближайшего playable reference по silhouette/proportions, posture/expression и costume/palette mass; общий rendering style не делает его вариантом героя. Основная масса совместима с одним вписанным кругом: без крайнего вытяжения и чрезмерно длинных выступов, но без требования круглой формы. PICKUP-001 загружается по stable ID, выдаёт указанное лечение, использует согласованные drop tables и approved runtime art. Production значения не подменяются fixture tuning; где в карточке нет чисел, packet остаётся с явно указанным gap.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -42,7 +42,7 @@ Wave scaling сохраняет motion ref. При заданном profile Enem
 сбрасывают writer/subscriptions до освобождения Health.
 Art-only fixture reuse не регистрирует production enemy и не заполняет его TBD.
 
-читаемая attack preparation и отличия role/silhouette; DEV показывает ID/pattern/effects; без ненужного отдельного HUD на каждого обычного врага.
+читаемая attack preparation и отличия role/silhouette; side-by-side review с ближайшим playable reference проверяет также proportions, posture/expression и costume/palette mass. DEV показывает ID/pattern/effects; без ненужного отдельного HUD на каждого обычного врага.
 
 ## Проверки
 

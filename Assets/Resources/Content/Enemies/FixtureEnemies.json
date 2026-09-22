@@ -27,6 +27,8 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
+    "visualId": "FIXTURE-ENEMY-FAN-VISUAL",
+    "motionProfileId": "FIXTURE-MOTION-COURIER",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 4.5,

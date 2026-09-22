@@ -28,7 +28,7 @@
 
 ## Acceptance criteria
 
-correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке.
+correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке. Основная масса body совместима с одним вписанным кругом: без крайнего вытяжения и чрезмерно длинных выступов, но без требования круглой формы.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 

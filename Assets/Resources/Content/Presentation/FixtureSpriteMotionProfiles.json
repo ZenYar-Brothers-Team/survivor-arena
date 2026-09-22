@@ -42,5 +42,27 @@
     "hitFlashAlpha": 1.0,
     "spawnDurationSeconds": 0.2,
     "spawnScaleFrom": 0.85
+  },
+  {
+    "id": "FIXTURE-MOTION-COURIER",
+    "referenceSpeed": 1.55,
+    "idleBobAmplitude": 0.018,
+    "idleFrequency": 0.8,
+    "idleBreathStretch": 0.02,
+    "idleSwayDegrees": 1.0,
+    "bobAmplitude": 0.045,
+    "bobFrequency": 3.2,
+    "locomotionStretch": 0.055,
+    "maxTiltDegrees": 5.5,
+    "hitDurationSeconds": 0.12,
+    "hitSquash": 0.09,
+    "hitTiltDegrees": 6.0,
+    "hitFlashDurationSeconds": 0.07,
+    "hitFlashRed": 1.0,
+    "hitFlashGreen": 0.6,
+    "hitFlashBlue": 0.6,
+    "hitFlashAlpha": 1.0,
+    "spawnDurationSeconds": 0.16,
+    "spawnScaleFrom": 0.8
   }
 ]

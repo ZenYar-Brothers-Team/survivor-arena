@@ -95,6 +95,7 @@ namespace Game.Bootstrap
         private SettingsAudioRuntime _audio;
         private SettingsConfig _settingsConfig;
         private CameraShakeRuntime _shake;
+        private GroundShadowRuntime _playerGroundShadow;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -326,6 +327,11 @@ namespace Game.Bootstrap
                     playerBody,
                     runController);
                 initializedSubsystems.Add(playerPresentation.Shutdown);
+                if (_playerGroundShadow == null) _playerGroundShadow = player.gameObject.AddComponent<GroundShadowRuntime>();
+                var playerRig = playerPresentation.GetComponent<SpritePresentationRig>();
+                _playerGroundShadow.Initialize(Catalog.GroundShadowPresentation, playerVisual.Contact, 1f,
+                    playerRig.BodyRenderer, playerRig.ShadowRenderer);
+                initializedSubsystems.Add(_playerGroundShadow.Shutdown);
 
                 experienceRuntime.Initialize(player, runController, setup.Experience);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
@@ -395,12 +401,13 @@ namespace Game.Bootstrap
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
-                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation);
+                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
                 BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
-                    new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation);
+                    new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
+                    Catalog.GroundShadowPresentation);
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
@@ -412,7 +419,8 @@ namespace Game.Bootstrap
                         Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f));
                     Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
                         Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
-                        new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation);
+                        new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
+                        Catalog.GroundShadowPresentation);
                 }
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);
@@ -522,6 +530,7 @@ namespace Game.Bootstrap
             _setEffects = null;
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
+            _playerGroundShadow?.Shutdown();
             player.Shutdown();
             FieldConfiguration = null;
         }

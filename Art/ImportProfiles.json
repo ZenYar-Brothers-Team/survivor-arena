@@ -8,6 +8,14 @@
     "reason": "256px enemy derivative; 160 PPU preserves a 1.6-unit canvas relative to the 512px/320PPU player. Pivot follows the center between boots and ground contact after padding normalization; VisualRoot cancels collision scale."
   },
   {
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "256px courier derivative; 160 PPU preserves the shared 1.6-unit body canvas. Pivot is centered between the boots at ground contact; VisualRoot cancels fixture collision scale."
+  },
+  {
     "key": "portrait",
     "pixelsPerUnit": 320,
     "maxSize": 512,

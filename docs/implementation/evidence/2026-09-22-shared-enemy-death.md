@@ -8,6 +8,8 @@ One config-driven death presentation is passed by the composition root to ordina
 
 Config: `Assets/Resources/Content/Presentation/FixtureEnemyDeathPresentation.json`. Runtime: `EnemyDeathPresentationRuntime` plus the existing `EnemyRuntime` lifecycle. No raster was generated or modified.
 
+Gameplay tuning follow-up: the user found the initial dust too small, then requested the enlarged trial be reduced by 1.5 and recolored away from pink/red. Final configured particle size is `0.08` world units; RGB is `0.34/0.29/0.20` with alpha `0.8`, producing muted earth dust rather than blood.
+
 ## Verification
 
 `EnemyDeathPresentationSmokeTests` covers immediate Died versus delayed Despawned, registry removal, collider/physics shutdown, no displacement, pause freeze and eventual release. Existing enemy lifecycle, rewards, pool reuse, boss/Traveler and presentation suites remain regression coverage. Final counts are recorded after the full smoke check.

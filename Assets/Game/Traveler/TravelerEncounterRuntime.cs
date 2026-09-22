@@ -30,6 +30,7 @@ namespace Game.Traveler
         private TravelerPlacement _placement;
         private System.Random _random;
         private Game.Presentation.EnemyDeathPresentationProfile _deathPresentation;
+        private Game.Presentation.GroundShadowPresentationProfile _groundShadowPresentation;
         private int _next, _sequence, _devIndex;
         public bool IsInitialized => _model != null;
         public IReadOnlyList<TravelerScheduleEntry> Schedule { get; private set; } = Array.Empty<TravelerScheduleEntry>();
@@ -39,7 +40,8 @@ namespace Game.Traveler
         public event Action<Game.Combat.CombatResult> CombatResolved;
         public void Initialize(TravelerScheduleDefinition schedule, FixtureTravelerCatalog catalog, RunController run,
             Transform player, Camera camera, TravelerPlacement placement, WorldPickupRuntime pickups, PickupDefinition book,
-            IEnemyLifecycleSink xp, Game.Presentation.EnemyDeathPresentationProfile deathPresentation = null)
+            IEnemyLifecycleSink xp, Game.Presentation.EnemyDeathPresentationProfile deathPresentation = null,
+            Game.Presentation.GroundShadowPresentationProfile groundShadowPresentation = null)
         {
             if (schedule == null || catalog == null || run?.Model == null || player == null || camera == null || !camera.orthographic || placement == null || pickups == null || book?.Kind != PickupRewardKind.Book)
                 throw new ArgumentException("Traveler dependencies required.");
@@ -49,6 +51,7 @@ namespace Game.Traveler
             _schedule = schedule; _definitions = catalog.Definitions; _run = run; _model = run.Model;
             _player = player; _camera = camera; _placement = placement; _pickups = pickups; _book = book; _xp = xp;
             _deathPresentation = deathPresentation;
+            _groundShadowPresentation = groundShadowPresentation;
             Schedule = planned; _random = new System.Random(unchecked(schedule.Seed ^ 0x54726176));
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectiles ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
@@ -83,7 +86,7 @@ namespace Game.Traveler
                 _schedule.PlacementAttempts, _random, out var position)) throw new InvalidOperationException("Traveler spawn circle has no sampled reachable point; field geometry/config invalid.");
             var actor = EnemyFactory.Spawn(definition.Scale(scale), position, _player, _run, transform,
                 pool: _pool, projectilePool: _projectiles, category: EnemyCategory.Traveler,
-                deathPresentation: _deathPresentation);
+                deathPresentation: _deathPresentation, groundShadowPresentation: _groundShadowPresentation);
             var life = new TravelerLife(actor, definition, spawnTime, scale, _sequence++);
             actor.GetComponent<SpriteRenderer>().color = definition.Color;
             _lives.Add(life);

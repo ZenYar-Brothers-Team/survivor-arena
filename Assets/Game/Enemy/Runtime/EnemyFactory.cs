@@ -21,7 +21,8 @@ namespace Game.Enemy
             EnemyCategory category = EnemyCategory.Ordinary,
             SpriteMotionProfile motionProfile = null,
             SpriteContactProfile contact = null,
-            EnemyDeathPresentationProfile deathPresentation = null)
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -44,7 +45,8 @@ namespace Game.Enemy
                 category,
                 motionProfile,
                 contact,
-                deathPresentation);
+                deathPresentation,
+                groundShadowPresentation);
             return runtime;
         }
 

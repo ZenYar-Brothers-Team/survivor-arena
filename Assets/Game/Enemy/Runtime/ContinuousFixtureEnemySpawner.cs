@@ -29,6 +29,7 @@ namespace Game.Enemy
         private IReadOnlyDictionary<ContentId, SpriteMotionProfile> _motions;
         private IReadOnlyDictionary<ContentId, SpriteContactProfile> _contacts;
         private EnemyDeathPresentationProfile _deathPresentation;
+        private GroundShadowPresentationProfile _groundShadowPresentation;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
@@ -73,7 +74,8 @@ namespace Game.Enemy
             IEnemyLifecycleSink lifecycleSink = null,
             IReadOnlyDictionary<ContentId, SpriteMotionProfile> motions = null,
             IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null,
-            EnemyDeathPresentationProfile deathPresentation = null)
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
@@ -87,6 +89,7 @@ namespace Game.Enemy
             _motions = motions;
             _contacts = contacts;
             _deathPresentation = deathPresentation;
+            _groundShadowPresentation = groundShadowPresentation;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _outcomeOwner = runController != null ? runController.Model : null;
@@ -151,7 +154,8 @@ namespace Game.Enemy
                 this,
                 motionProfile: motion,
                 contact: contact,
-                deathPresentation: _deathPresentation);
+                deathPresentation: _deathPresentation,
+                groundShadowPresentation: _groundShadowPresentation);
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);

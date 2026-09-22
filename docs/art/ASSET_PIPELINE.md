@@ -756,8 +756,8 @@ sprite/profile в runtime. Тела с motion используют existing Spri
 поэтому PPU определяет визуальный размер независимо от коллайдера.
 Health.Damaged даёт hit reaction; pause/terminal замораживают pose; death,
 reinitialize и pool return сбрасывают renderer/pose/subscription.
-Смерть сразу возвращает gameplay object в pool: отдельный death VFX и тень
-не добавляются этим art packet. Новая art integration не закрывает пользовательский gate E.
+Общий death tail и ground shadow подключаются через единые presentation profiles;
+они не содержат веток по конкретному enemy ID. Новая art integration не закрывает пользовательский gate E.
 
 `Art/ImportProfiles.json` — editor-side technical settings. Category defaults: UI icon 256, portrait 512; projectile/pickup/shadow 256; impact/telegraph 512. Center pivot используется для UI/VFX. World body требует записи с полным asset path и фактической ground-contact точкой: неизвестный body не получает произвольный pivot. Exact-path record задаёт PPU, maxSize, pivot и причину override; повторный import применяет тот же record. После изменения профиля выполнить Reimport затронутых ассетов. Общие Sprite/Single/sRGB/alpha/FullRect/Bilinear/Clamp/no mipmaps/no ReadWrite и uncompressed contract сохраняются. PPU > 0; pivot в [0,1]; maxSize — power-of-two 32…8192, увеличение сверх category target требует прежней memory/readability проверки.
 
@@ -777,15 +777,17 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 
 Один CircleCollider2D задаёт и физический упор, и contact damage. Вписываем максимально большой круг в заполненный внешний обвод персонажа, игнорируя внутренние дырки и промежутки между рукой и телом или ногами. Практическое определение обвода — выпуклая оболочка пикселей с alpha >=230/255; оружие и выступы участвуют в обводе, но не получают отдельных коллайдеров. Прозрачный padding и полупрозрачная тень не определяют размер. Визуальное пересечение до физического контакта допустимо; совпадение с каждым пикселем во время анимации не требуется.
 
+Круг является ограничением authoring, но не шаблоном внешности. Персонажей не требуется рисовать круглыми. Основная масса body может быть высокой, широкой и асимметричной, однако крайне вытянутые узкие силуэты и очень длинные далеко торчащие конечности, оружие или аксессуары не проходят стандартный body review: с одним кругом они дают слишком большую область видимого тела вне контакта. Такой candidate сначала перерабатывается на уровне силуэта; fit не компенсируется несколькими коллайдерами, скрытым увеличением круга или индивидуальной подгонкой gameplay geometry.
+
 Центр по X находится на вертикали sprite pivot: один и тот же круг помещается в исходный и зеркальный силуэты. Одновременно оптимизируются радиус и центр по Y. Для каждой грани оболочки выполняется `n·c + r <= -b`, где n — внешняя единичная нормаль, b — смещение грани, c — центр круга, r — радиус в пикселях; выбирается максимальный r. Например при грани x<=200 и center.x=140 допустимый радиус не больше 60 px. В JSON радиус и высота центра над foot pivot делятся на PPU и хранятся в world units. Дополнительного shrink factor нет; радиус округляется вниз до 0.000001 world units.
 
 ### Порядок работы
 
-1. Убедиться, что runtime PNG утверждён и импортирован, PPU и ground pivot записаны в `Art/ImportProfiles.json`. Масштаб рисунка сначала проверяется рядом с уже готовыми персонажами.
+1. До runtime preparation проверить source candidate на target scale: основная масса не выглядит крайне вытянутой, а выступающие части не создают чрезмерную дистанцию от корпуса до визуального края. Круг не должен делать всех персонажей круглыми; review отклоняет только крайности, несовместимые с одним contact circle. Затем убедиться, что runtime PNG утверждён и импортирован, PPU и ground pivot записаны в `Art/ImportProfiles.json`. Масштаб рисунка проверяется рядом с уже готовыми персонажами.
 2. Зарегистрировать Body в presentation catalog. Текущий authoring tool читает `FixtureSprites.json`: запись должна иметь парные `contactRadius` >0 и `contactCenterY` >=0, оба finite. Для новой записи допустимы временные стартовые значения, которые fit заменит до runtime integration. Production catalog требует соответствующего адаптера, fixture tool не вводит production ID автоматически.
 3. Из корня репозитория выполнить `python scripts/fit-body-contacts.py --fit-outer` для предложения, затем `python scripts/fit-body-contacts.py --fit-outer --write` для сохранения. Требуются Pillow, NumPy, SciPy. Команда обрабатывает все записи с contact profile: просмотреть JSON diff и убедиться в нужном scope. Без аргументов скрипт только проверяет сохранённые круги. `--radius-scale` предназначен для отдельно согласованных экспериментов и не входит в стандартный fit.
 4. Применить профиль через Unity API: для текущего Player — `Game.Presentation.Editor.FixtureContactBaker.BakePlayer`; enemy factory читает профиль при spawn/reuse. Сцену не править вручную в YAML. Gameplay root остаётся центром круга; body visual смещается вниз на contactCenterY. Root scaling компенсируется при задании radius. Анимация, flip, pause и pool reset не пересчитывают геометрию.
-5. Сделать capture с наложенными кругами: отдельно проверить оба направления спрайта и касание пар с восьми сторон. Текущая команда — `Game.Presentation.Editor.PresentationReviewCapture.CaptureContacts`; результат — `TestResults/body-contact-review.png`. Для новых body расширить выборку capture. Осмотреть также реальное движение, hit pose и читаемость толпы: выпуклая оболочка около длинного оружия может включать заметную пустую область.
+5. Сделать capture с наложенными кругами: отдельно проверить оба направления спрайта и касание пар с восьми сторон. Текущая команда — `Game.Presentation.Editor.PresentationReviewCapture.CaptureContacts`; результат — `TestResults/body-contact-review.png`. Для новых body расширить выборку capture. Осмотреть также реальное движение, hit pose и читаемость толпы: если круг покрывает лишь малую центральную часть фигуры или длинный выступ создаёт чрезмерное визуальное пересечение до контакта, вернуть body на silhouette revision.
 6. Проверить сохранённый круг внутри оболочки и касание её границы с допуском до одного пикселя для дискретизации, отсутствие урона до физического контакта, урон после контакта, pause/end и смешанный pool reuse. Запускать релевантные Unity tests по smoke-check safety procedure. Если для нового силуэта выпуклый обвод даёт нежелательный результат, зафиксировать отклонение и отдельный review, не подменять правило скрытым коэффициентом.
 7. Записать параметры, capture и проверки в evidence, обновить owning scope в STATUS и получить визуальную оценку. Замена PNG, PPU или pivot требует повторного fit и review; обычный reimport не перезаписывает contact profile.
 
@@ -797,6 +799,7 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 |---|---:|---:|
 | Goblin | 0.401431 | 0.530976 |
 | Villager | 0.330282 | 0.469539 |
+| Courier v002 | 0.360855 | 0.453097 |
 
 Текущая пара принята пользователем как образец пайплайна; полный gameplay/density gate остаётся отдельным. Проверки: [contact evidence](../implementation/evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles).
 
@@ -809,6 +812,16 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 3. За authored squash interval тело расширяется по X и сжимается по Y. Затем уменьшается, темнеет и растворяется за fade interval. Одновременно один переиспользуемый ParticleSystem выпускает небольшой dust burst. Покадровые death sprites не генерируются.
 4. Только после visual tail публикуется `Despawned` и объект возвращается в pool. Pause не продвигает эффект; run terminal/cleanup отменяет tail и освобождает объект сразу. Reinitialize очищает clone, particles, color, flip и scale.
 
-Все параметры хранятся одним validated profile в `Content/Presentation/FixtureEnemyDeathPresentation.json`: durations >0; squash width 1…2; height/end scale 0.01…1 в пределах domain constraints; цвета RGBA 0…1; dust count 1…12; lifetime/speed/size >0. Текущий fixture: 0.10 s squash + 0.20 s fade, scale 1.12×0.72 → 0.15, пять dust particles. Это один общий профиль, а не значения в individual enemy cards.
+Все параметры хранятся одним validated profile в `Content/Presentation/FixtureEnemyDeathPresentation.json`: durations >0; squash width 1…2; height/end scale 0.01…1 в пределах domain constraints; цвета RGBA 0…1; dust count 1…12; lifetime/speed/size >0. Текущий fixture: 0.10 s squash + 0.20 s fade, scale 1.12×0.72 → 0.15, пять dust particles размером 0.08 world units, приглушённого земляного цвета. Это один общий профиль, а не значения в individual enemy cards.
 
 Acceptance: Died и reward происходят немедленно; collider/physics/target registry выключены в тот же кадр; root position до и после tail совпадает; пауза замораживает позу и delayed despawn; terminal cleanup не ждёт tail; Despawned/pool return происходят один раз; ordinary/boss/Traveler получают один profile; mixed pool reuse не сохраняет старую позу или частицы. Проверки и текущие результаты: [evidence](../implementation/evidence/2026-09-22-shared-enemy-death.md).
+
+## 24. Единая процедурная ground shadow
+
+Для playable body, ordinary enemy, boss и Traveler используется одна мягкая эллиптическая тень. Отдельный raster asset не производится: `GroundShadowSprite` один раз создаёт общую radial alpha mask 32×32, а каждый актёр имеет только `SpriteRenderer`, который растягивает эту маску до ellipse. Маска не создаётся на каждого врага и не участвует в physics.
+
+Высота, цвет, прозрачность, вертикальное смещение, fallback-width/ground point и `contactWidthScale` задаются в `Content/Presentation/FixtureGroundShadowPresentation.json`. Для body с contact profile world-width тени равен `2 × contactRadius × contactWidthScale`; вычисление выполняется один раз при initialize/reuse и не читает sprite pixels. Тень находится у ground point body: `-contactCenterY + offsetY`; при отсутствии contact profile применяются общие fallback-значения. Для scaled enemy root local position и scale делятся на `collisionSize`, поэтому тень и body, чей `VisualRoot` компенсирует collision scale, остаются в одной визуальной системе координат. Sorting order равен body order минус один. Тень не наследует bob/tilt/squash дочернего `BodyRoot`.
+
+Один профиль передаётся composition root игроку, ordinary spawner, boss encounter и Traveler encounter. Pool reuse повторно включает и перенастраивает тот же renderer; cleanup отключает его. Во время короткого death tail тень остаётся на исходной позиции до `Despawned`, затем выключается вместе с объектом.
+
+Acceptance: player и все enemy categories получают один profile; два актора используют тот же `Sprite`; тень не добавляет collider; contact radius определяет ширину, contact center — ground alignment; collision-size compensation не меняет её world size; pool reuse не создаёт дополнительные renderers; raster manifest не содержит отдельного shadow PNG. Проверки и текущие результаты: [evidence](../implementation/evidence/2026-09-22-courier-and-ground-shadows.md).

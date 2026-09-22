@@ -7,6 +7,13 @@
     "contactCenterY": 0.469539
   },
   {
+    "id": "FIXTURE-ENEMY-FAN-VISUAL",
+    "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
+    "role": "Body",
+    "contactRadius": 0.360855,
+    "contactCenterY": 0.453097
+  },
+  {
     "id": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
     "role": "Body",

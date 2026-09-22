@@ -16,6 +16,7 @@ namespace Game.Enemy.Tests
         private SpriteDefinition _sprite;
         private SpriteMotionProfile _motion;
         private GameObjectPool<EnemyRuntime> _pool;
+        private GroundShadowPresentationProfile _shadow;
         private int _baseline;
 
         [SetUp]
@@ -30,6 +31,7 @@ namespace Game.Enemy.Tests
             _sprite = FixtureSpriteCatalog.CreateFor(new[] { _definition.Visual.Id }).Single();
             _motion = FixtureSpriteMotionProfileCatalog.Create().Single(p => p.Id == _definition.MotionProfile.Id);
             _pool = new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, _root.transform);
+            _shadow = FixtureGroundShadowPresentationCatalog.Create();
         }
 
         [TearDown]
@@ -41,7 +43,7 @@ namespace Game.Enemy.Tests
 
         private EnemyRuntime Spawn() => EnemyFactory.Spawn(_definition, new Vector2(2, 3),
             _root.transform, _run, _root.transform, _sprite.Sprite, _pool, motionProfile: _motion,
-            contact: _sprite.Contact);
+            contact: _sprite.Contact, groundShadowPresentation: _shadow);
 
         [Test]
         public void Body_MovesAndFlashesOnlyChild_AndFreezesOnPause()
@@ -53,6 +55,7 @@ namespace Game.Enemy.Tests
             var rootScale = enemy.transform.localScale;
             var colliderRadius = enemy.GetComponent<CircleCollider2D>().radius;
             Assert.IsFalse(enemy.GetComponent<SpriteRenderer>().enabled);
+            Assert.IsTrue(enemy.GetComponent<GroundShadowRuntime>().Renderer.enabled);
             Assert.AreEqual(Color.white, rig.BodyRenderer.color);
             Assert.IsEmpty(rig.GetComponentsInChildren<Collider2D>());
             enemy.GetComponent<Rigidbody2D>().linearVelocity = Vector2.left;
@@ -90,11 +93,13 @@ namespace Game.Enemy.Tests
             Assert.IsFalse(rig.BodyRenderer.flipX);
             var plain = FixtureEnemyCatalog.Create()[1];
             var plainEnemy = EnemyFactory.Spawn(plain, Vector2.zero, _root.transform, _run,
-                _root.transform, pool: _pool);
+                _root.transform, pool: _pool, groundShadowPresentation: _shadow);
             Assert.AreSame(enemy, plainEnemy);
             Assert.IsTrue(enemy.GetComponent<SpriteRenderer>().enabled);
             Assert.IsFalse(rig.gameObject.activeSelf);
             Assert.AreEqual(.5f, enemy.GetComponent<CircleCollider2D>().radius);
+            Assert.AreEqual(_shadow.FallbackWidth,
+                enemy.GetComponent<GroundShadowRuntime>().Renderer.transform.localScale.x, .0001f);
             plainEnemy.Despawn();
             var reused = Spawn();
             Assert.AreSame(enemy, reused);
@@ -104,6 +109,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(Color.white, rig.BodyRenderer.color);
             Assert.AreEqual(_definition.MaxHealth, reused.Health.CurrentHealth);
             Assert.AreEqual(_sprite.Contact.Radius, reused.GetComponent<CircleCollider2D>().radius);
+            Assert.IsTrue(reused.GetComponent<GroundShadowRuntime>().Renderer.enabled);
         }
 
         [Test]
