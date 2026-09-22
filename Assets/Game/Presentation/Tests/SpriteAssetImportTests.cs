@@ -44,5 +44,30 @@ namespace Game.Presentation.Tests
             Assert.IsTrue(File.Exists(
                 "Art/Source/Characters/fixture-character-agile/asset-record.json"));
         }
+
+        [TestCase("Assets/Resources/Art/Sprites/Pickups/xp-pickup/xp-pickup.png")]
+        [TestCase("Assets/Resources/Art/Sprites/Pickups/pickup-001/pickup-001-pickup.png")]
+        [TestCase("Assets/Resources/Art/Sprites/Pickups/traveler-book/traveler-book-pickup.png")]
+        public void Pickup_FollowsRuntimeSpriteImportContract(string path)
+        {
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            Assert.IsNotNull(sprite);
+            Assert.IsNotNull(importer);
+            var settings = new TextureImporterSettings();
+            importer.ReadTextureSettings(settings);
+            Assert.AreEqual(256f, sprite.rect.width);
+            Assert.AreEqual(256f, sprite.rect.height);
+            Assert.AreEqual(TextureImporterType.Sprite, importer.textureType);
+            Assert.AreEqual(SpriteImportMode.Single, importer.spriteImportMode);
+            Assert.IsFalse(importer.mipmapEnabled);
+            Assert.AreEqual(FilterMode.Bilinear, importer.filterMode);
+            Assert.AreEqual(TextureWrapMode.Clamp, importer.wrapMode);
+            Assert.AreEqual(SpriteMeshType.FullRect, settings.spriteMeshType);
+            Assert.AreEqual(320f, importer.spritePixelsPerUnit);
+            Assert.AreEqual(new Vector2(.5f, .5f), settings.spritePivot);
+            Assert.AreEqual(256, importer.maxTextureSize);
+            Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);
+        }
     }
 }

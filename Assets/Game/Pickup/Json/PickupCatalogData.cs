@@ -10,6 +10,10 @@ namespace Game.Pickup.Json
         public int? Seed { get; set; }
         public float? PlacementSkin { get; set; }
         public float? FeedbackSeconds { get; set; }
+        public string ExperienceVisualId { get; set; }
+        public float? ExperienceVisualScale { get; set; }
+        public float? DropScatterRadius { get; set; }
+        public int? DropScatterSeed { get; set; }
         public Dictionary<string, float> EnemyChances { get; set; }
         public Dictionary<string, float> FieldChances { get; set; }
     }

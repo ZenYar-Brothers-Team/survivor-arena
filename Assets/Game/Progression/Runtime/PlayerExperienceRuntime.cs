@@ -6,6 +6,7 @@ using Game.Content;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -19,6 +20,10 @@ namespace Game.Progression
         private RunController runController;
 
         private bool _initialized;
+        private SpriteDefinition _dropVisual;
+        private float _dropVisualScale = 1f;
+        private float _dropScatterRadius;
+        private System.Random _dropScatterRandom;
         private float _baseDropLifetimeSeconds;
         private GameObjectPool<ExperienceDropRuntime> _dropPool;
         private Transform _dropPoolRoot;
@@ -42,6 +47,8 @@ namespace Game.Progression
         public float DisappearingExperienceRecovery => OwnerStats.DisappearingXpRecovery;
         public float PickedUpExperienceMultiplier => OwnerStats.PickedUpXpMultiplier;
         public float PickupRadius => OwnerStats.PickupRadius;
+        internal SpriteDefinition DropVisual => _dropVisual;
+        internal float DropVisualScale => _dropVisualScale;
 
         // Owned here (rather than statically inside ExperienceDropFactory) so
         // pooled drops live and die with this player instance instead of being
@@ -99,7 +106,8 @@ namespace Game.Progression
 
         // The XP curve and base drop lifetime are content (Resources/Content/Run/*.json), handed
         // in by the caller — the composition root in production — never serialized on this component.
-        public void Initialize(PlayerCharacterRuntime characterOwner, RunController controller, ExperienceSettings settings)
+        public void Initialize(PlayerCharacterRuntime characterOwner, RunController controller, ExperienceSettings settings,
+            SpriteDefinition dropVisual = null, float dropVisualScale = 1f, float dropScatterRadius = 0f, int dropScatterSeed = 0)
         {
             if (_initialized)
                 throw new InvalidOperationException("Player experience runtime is already initialized.");
@@ -108,6 +116,9 @@ namespace Game.Progression
             runController = controller != null ? controller : throw new ArgumentNullException(nameof(controller));
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
+            NumericValidation.ValidatePositive(dropVisualScale, nameof(dropVisualScale));
+            NumericValidation.ValidateNonNegative(dropScatterRadius, nameof(dropScatterRadius));
+            dropVisual?.RequireRole(SpriteRole.Pickup);
 
             // A previous life (Shutdown() then Initialize() again) still owns a subscribed
             // Progression; release it before replacing it.
@@ -120,6 +131,10 @@ namespace Game.Progression
             Progression.LevelUp += HandleLevelUp;
             Progression.LevelsEarned += HandleLevelsEarned;
             _baseDropLifetimeSeconds = settings.BaseDropLifetimeSeconds;
+            _dropVisual = dropVisual;
+            _dropVisualScale = dropVisualScale;
+            _dropScatterRadius = dropScatterRadius;
+            _dropScatterRandom = new System.Random(dropScatterSeed);
 
             var model = controller.Model ?? throw new InvalidOperationException("Run must be initialized before XP.");
             model.RegisterOutcomeContributor(this);
@@ -198,6 +213,10 @@ namespace Game.Progression
             }
             _dropPoolRoot = null;
             _dropPool = null;
+            _dropVisual = null;
+            _dropVisualScale = 1f;
+            _dropScatterRadius = 0f;
+            _dropScatterRandom = null;
             ExperienceResolved = null;
             LevelUp = null;
             LevelsEarned = null;
@@ -219,6 +238,14 @@ namespace Game.Progression
         private void OnDestroy()
         {
             Shutdown();
+        }
+
+        internal Vector2 ScatterDropPosition(Vector2 origin)
+        {
+            if (_dropScatterRadius <= 0f) return origin;
+            var angle = _dropScatterRandom.NextDouble() * Math.PI * 2d;
+            var distance = Math.Sqrt(_dropScatterRandom.NextDouble()) * _dropScatterRadius;
+            return origin + new Vector2((float)(Math.Cos(angle) * distance), (float)(Math.Sin(angle) * distance));
         }
     }
 }

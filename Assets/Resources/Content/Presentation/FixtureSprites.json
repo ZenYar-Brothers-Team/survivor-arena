@@ -63,5 +63,20 @@
       "particleBlue": 0.43,
       "particleAlpha": 0.8
     }
+  },
+  {
+    "id": "FIXTURE-XP-DROP-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/xp-pickup/xp-pickup",
+    "role": "Pickup"
+  },
+  {
+    "id": "PICKUP-001-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/pickup-001/pickup-001-pickup",
+    "role": "Pickup"
+  },
+  {
+    "id": "FIXTURE-TRAVELER-BOOK-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/traveler-book/traveler-book-pickup",
+    "role": "Pickup"
   }
 ]

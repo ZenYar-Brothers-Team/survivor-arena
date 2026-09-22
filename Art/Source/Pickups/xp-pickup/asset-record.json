@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIXTURE-XP-DROP",
+  "status": "review",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": null,
+  "approvedBy": null,
+  "approvalEvidence": "User requested immediate generation and integration of XP, potion and Traveler Book pickups. Final gameplay-scale approval remains pending.",
+  "referenceImages": [
+    { "path": "../../Characters/fixture-character-agile/selected-master.png", "role": "Approved player style reference; not an edit target" },
+    { "path": "../../Skills/skill-001/selected-master.png", "role": "Approved small world-sprite style reference; not an edit target" }
+  ],
+  "generationPrompt": "Use case: stylized-concept. Asset type: small top-down 2D gameplay pickup sprite for Survival Arena. Create one experience pickup as a compact faceted magical crystal shard. Match the references' hand-painted dark plum outline, simplified shapes, warm textured shading, and readable game-sprite finish. Genuinely transparent background. A single squat cyan-blue crystal shard with a pale inner glow, broad stable silhouette, no base and no cast shadow. 3/4 top-down gameplay view, centered on a square canvas, object fills about 68%, generous clean transparent padding. One object only; readable around 32 pixels; continuous clean outline; no text, UI frame, particles or watermark. Avoid tall needle-like shape, excessive glow haze, thin protrusions, photorealism and baked shadow.",
+  "constraints": ["transparent background", "compact silhouette", "no baked shadow", "readable at 32 pixels"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Pickups/xp-pickup/xp-pickup.png"],
+  "preparation": {
+    "sourceDimensions": [1254, 1254],
+    "sourceSha256": "47273DDABBBE802A7F09CE1E83F902B9EEE66F9421E1F1BEF6F4D3D6CED1E1F7",
+    "runtimeSha256": "64E716C967D5CAE6DE8E6310528D180E19C866F8FC293E525DE9F9A5C8736A96",
+    "operations": [
+      "Generated PNG copied byte-identically to selected-master.png and v001/concept-01.png.",
+      "Runtime only: visible bounds at alpha >=10, x237/y294/w799/h685, fitted without distortion inside 192x192 on a transparent 256x256 RGBA canvas.",
+      "Unity import target: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 320 PPU, centered pivot."
+    ],
+    "remaining": ["User gameplay-scale review."]
+  }
+}

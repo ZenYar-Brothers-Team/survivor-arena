@@ -333,7 +333,11 @@ namespace Game.Bootstrap
                     playerRig.BodyRenderer, playerRig.ShadowRenderer);
                 initializedSubsystems.Add(_playerGroundShadow.Shutdown);
 
-                experienceRuntime.Initialize(player, runController, setup.Experience);
+                var experienceVisual = Catalog.Pickups.ExperienceVisual.Resolve(Catalog.Registry);
+                experienceVisual.RequireRole(SpriteRole.Pickup);
+                experienceRuntime.Initialize(player, runController, setup.Experience, experienceVisual,
+                    Catalog.Pickups.ExperienceVisualScale, Catalog.Pickups.DropScatterRadius,
+                    Catalog.Pickups.DropScatterSeed);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
                 _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression, Catalog.ActiveSkills);
@@ -374,8 +378,11 @@ namespace Game.Bootstrap
                 if (Pickups == null) Pickups = gameObject.AddComponent<WorldPickupRuntime>();
                 var placement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
                     player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin);
+                var pickupVisuals = Catalog.Pickups.Definitions.ToDictionary(definition => definition.Id,
+                    definition => definition.Visual.Resolve(Catalog.Registry));
                 Pickups.Initialize(Catalog.Pickups, runController.Model, player,
-                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement, selectedField.Id);
+                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement,
+                    selectedField.Id, pickupVisuals);
                 initializedSubsystems.Add(Pickups.Shutdown);
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);

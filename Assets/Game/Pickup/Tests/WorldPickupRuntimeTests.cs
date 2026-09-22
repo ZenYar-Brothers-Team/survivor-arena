@@ -68,8 +68,22 @@ namespace Game.Pickup.Tests
         {
             var drop = _pickups.Spawn(_catalog.Potion, Vector2.right * 2); _pickups.Tick(0);
             Assert.AreEqual(1, _pickups.Snapshot.Active); Assert.AreEqual(0, _rewards);
-            _player.transform.position = Vector2.right * 1.4f; Physics2D.SyncTransforms(); _pickups.Tick(0);
+            _player.transform.position = drop.transform.position - Vector3.right * .6f; Physics2D.SyncTransforms(); _pickups.Tick(0);
             Assert.AreEqual(0, _pickups.Snapshot.Active); Assert.AreEqual(1, _rewards);
+        }
+        [Test]
+        public void Spawn_AppliesSmallSeededScatterWithinConfiguredRadius()
+        {
+            var origin = new Vector2(5f, 5f);
+            var first = _pickups.Spawn(_catalog.Potion, origin);
+            var second = _pickups.Spawn(_catalog.Book, origin);
+            var firstOffset = (Vector2)first.transform.position - origin;
+            var secondOffset = (Vector2)second.transform.position - origin;
+            Assert.Greater(firstOffset.sqrMagnitude, 0f);
+            Assert.Greater(secondOffset.sqrMagnitude, 0f);
+            Assert.LessOrEqual(firstOffset.magnitude, _catalog.DropScatterRadius);
+            Assert.LessOrEqual(secondOffset.magnitude, _catalog.DropScatterRadius);
+            Assert.AreNotEqual(first.transform.position, second.transform.position);
         }
         [Test]
         public void BookPause_DefersFollowingPotionUntilChoice_WithoutXpOrLevel()

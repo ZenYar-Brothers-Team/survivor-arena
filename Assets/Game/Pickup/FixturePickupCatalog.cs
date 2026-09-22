@@ -7,6 +7,7 @@ using Game.Content.Json;
 using Game.Enemy;
 using Game.Field;
 using Game.Pickup.Json;
+using Game.Presentation;
 using Newtonsoft.Json;
 using UnityEngine;
 namespace Game.Pickup
@@ -21,6 +22,10 @@ namespace Game.Pickup
         public int Seed { get; }
         public float PlacementSkin { get; }
         public float FeedbackSeconds { get; }
+        public ContentRef<SpriteDefinition> ExperienceVisual { get; }
+        public float ExperienceVisualScale { get; }
+        public float DropScatterRadius { get; }
+        public int DropScatterSeed { get; }
         public IReadOnlyDictionary<ContentId, float> EnemyChances { get; }
         public IReadOnlyDictionary<ContentId, float> FieldChances { get; }
         private FixturePickupCatalog(PickupCatalogData data)
@@ -29,9 +34,16 @@ namespace Game.Pickup
             Seed = data.Seed ?? throw new ArgumentException("seed is required.");
             PlacementSkin = data.PlacementSkin ?? throw new ArgumentException("placementSkin is required.");
             FeedbackSeconds = data.FeedbackSeconds ?? throw new ArgumentException("feedbackSeconds is required.");
+            ExperienceVisual = new ContentRef<SpriteDefinition>(data.ExperienceVisualId);
+            ExperienceVisualScale = data.ExperienceVisualScale ?? throw new ArgumentException("experienceVisualScale is required.");
+            DropScatterRadius = data.DropScatterRadius ?? throw new ArgumentException("dropScatterRadius is required.");
+            DropScatterSeed = data.DropScatterSeed ?? throw new ArgumentException("dropScatterSeed is required.");
             NumericValidation.ValidateRange(BaseChance, 0, 1, nameof(BaseChance));
             NumericValidation.ValidatePositive(PlacementSkin, nameof(PlacementSkin));
             NumericValidation.ValidatePositive(FeedbackSeconds, nameof(FeedbackSeconds));
+            if (!ExperienceVisual.Id.IsValid) throw new ArgumentException("experienceVisualId is required.");
+            NumericValidation.ValidatePositive(ExperienceVisualScale, nameof(ExperienceVisualScale));
+            NumericValidation.ValidateNonNegative(DropScatterRadius, nameof(DropScatterRadius));
             Definitions = (data.Pickups ?? throw new ArgumentException("pickups are required.")).Select(ToDefinition).ToList().AsReadOnly();
             var byId = Definitions.ToDictionary(definition => definition.Id);
             if (!byId.TryGetValue(new ContentId(data.PotionId), out var potion) || potion.Kind != PickupRewardKind.Potion ||
@@ -50,11 +62,14 @@ namespace Game.Pickup
         private static PickupDefinition ToDefinition(PickupData data)
         {
             if (data == null || data.Color == null || data.Color.Length != 4) throw new ArgumentException("Pickup RGBA requires four values.");
+            if (string.IsNullOrWhiteSpace(data.VisualId)) throw new ArgumentException("Pickup visualId is required.");
             return new PickupDefinition(data.Id, data.Kind ?? throw new ArgumentException("kind is required."),
                 data.Healing ?? throw new ArgumentException("healing is required, including Book zero."),
                 data.ContactRadius ?? throw new ArgumentException("contactRadius is required."), data.LifetimeSeconds,
                 data.Marker, new Color(data.Color[0], data.Color[1], data.Color[2], data.Color[3]),
-                data.MarkerSize ?? throw new ArgumentException("markerSize is required."));
+                data.MarkerSize ?? throw new ArgumentException("markerSize is required."),
+                new ContentRef<SpriteDefinition>(data.VisualId),
+                data.VisualScale ?? throw new ArgumentException("visualScale is required."));
         }
         public float Chance(ContentId enemy, ContentId field, float multiplier) => PotionDropPolicy.Chance(BaseChance,
             FieldChances.TryGetValue(field, out var f) ? f : (float?)null,
@@ -62,6 +77,9 @@ namespace Game.Pickup
         public IEnumerable<ContentReference> GetReferencedContent()
         {
             foreach (var definition in Definitions) yield return new ContentRef<PickupDefinition>(definition.Id).ToReference();
+            yield return ExperienceVisual.ToReference();
+            foreach (var definition in Definitions)
+                foreach (var reference in definition.GetReferencedContent()) yield return reference;
             foreach (var id in EnemyChances.Keys) yield return new ContentRef<EnemyDefinition>(id).ToReference();
             foreach (var id in FieldChances.Keys) yield return new ContentRef<FieldDefinition>(id).ToReference();
         }

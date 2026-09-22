@@ -835,3 +835,13 @@ Physics root не вращается. Направленный sprite живёт
 Impact не требует отдельного raster. Один переиспользуемый `ParticleSystem` на pooled projectile выпускает один мягкий flash particle и 2–4 material-colored particles в world space. Для terminal hit collider и sprite выключаются сразу, damage уже применён, а возврат в pool задерживается только на короткую жизнь частиц; pause замораживает tail, terminal run state очищает его немедленно. Для pierce тот же emitter оставляет частицы в world space, пока projectile продолжает путь. Цвета различают материал и не кодируют кровь: камень даёт земляно-серую пыль, письмо — тёплые parchment flecks.
 
 Acceptance: custom visual имеет роль Projectile и полный profile; круглый collider сохраняет authored radius; child совпадает с направлением; spin не вращает physics root; placeholder остаётся fallback для fixtures без visual; hit damage не ждёт tail; pause/terminal cleanup/pool reuse не оставляют старый sprite или particles; source, runtime и approval зафиксированы в manifest. Текущая реализация: [evidence](../implementation/evidence/2026-09-22-projectile-art.md).
+
+## 26. Pickup sprites, bob/pulse и разброс drops
+
+XP, Зелье и Traveler Book используют отдельные 256×256 runtime derivatives с ролью `SpriteRole.Pickup`, centered pivot и category import profile. Их цвет и крупная форма различимы на gameplay scale: XP — cyan crystal, лечение — зелёная круглая бутылка, Book — охристо-бордовый закрытый том. Collider/collection radius остаются authoritative и не выводятся из пикселей.
+
+Один `PickupSpritePresentation` создаёт дочерний `VisualRoot` и применяет небольшой bob/pulse только в running-time. Root, trigger и authoritative position не двигаются и не масштабируются. Shutdown/pool return выключает renderer, очищает sprite/tint и возвращает transform baseline; отдельные raster frames, shadow и particle emitter не требуются.
+
+Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book проходят обычный reachable-point adapter. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md).
+
+Acceptance: три sprites зарегистрированы как Pickup и имеют source/provenance/runtime records; визуальная анимация замораживается на pause и не влияет на collider; последовательные drops из одной source point получают разные позиции внутри radius; pool reuse не сохраняет фазу/scale/tint; финальный gameplay-scale review остаётся пользовательским gate.

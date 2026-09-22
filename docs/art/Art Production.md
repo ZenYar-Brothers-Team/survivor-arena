@@ -331,9 +331,9 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID / Entity | Asset | Method | Status | Notes |  
 |---|---|---|---|---|  
-| XP pickup | World sprite | Generate via GPT | NOT STARTED | Можно иметь 1–3 visual variants if useful |  
-| PICKUP-001 Healing Potion | World sprite | Generate via GPT | NOT STARTED | |  
-| Traveler Book | World sprite | Generate via GPT | NOT STARTED | Открывает extra draft |  
+| XP pickup | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Один cyan crystal; gameplay-scale review открыт |
+| PICKUP-001 Healing Potion | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Зелёное зелье; production binding и gameplay-scale review открыты |
+| Traveler Book | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Закрытая охристо-бордовая книга; открывает extra draft |
 | Meta currency | UI icon / optional world art | Generate via GPT | NOT STARTED | Точный presentation зависит от meta UI |
 
 \---

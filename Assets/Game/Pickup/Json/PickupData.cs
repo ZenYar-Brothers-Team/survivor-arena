@@ -10,5 +10,7 @@ namespace Game.Pickup.Json
         public string Marker { get; set; }
         public float[] Color { get; set; }
         public float? MarkerSize { get; set; }
+        public string VisualId { get; set; }
+        public float? VisualScale { get; set; }
     }
 }

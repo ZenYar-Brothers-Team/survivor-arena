@@ -36,8 +36,10 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.Less(outside.transform.position.x, rightEdge);
                 var inside = root.Pickups.Spawn(root.Catalog.Pickups.Book, new Vector2(3, 0));
                 Assert.Greater(Vector2.Distance(inside.transform.position, new Vector2(3, 0)), .5f);
-                Assert.AreNotEqual(outside.GetComponentInChildren<TextMesh>().text, inside.GetComponentInChildren<TextMesh>().text);
-                Assert.AreEqual("VisualRoot", outside.GetComponentInChildren<TextMesh>().gameObject.name);
+                var potionSprite = outside.transform.Find("VisualRoot").GetComponent<SpriteRenderer>();
+                var bookSprite = inside.transform.Find("VisualRoot").GetComponent<SpriteRenderer>();
+                Assert.IsTrue(potionSprite.enabled); Assert.IsTrue(bookSprite.enabled);
+                Assert.AreNotSame(potionSprite.sprite, bookSprite.sprite);
                 Assert.IsNull(outside.GetComponent<Collider2D>());
                 player.Health.TakeDamage(30);
                 var before = player.Health.CurrentHealth;

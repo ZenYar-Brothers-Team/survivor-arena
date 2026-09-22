@@ -2,6 +2,57 @@
   "schemaVersion": 1,
   "entries": [
     {
+      "owner": "FIXTURE-XP-DROP",
+      "role": "pickup",
+      "visualId": "FIXTURE-XP-DROP-VISUAL",
+      "method": "Hybrid",
+      "owningIp": "IP-06",
+      "source": "Art/Source/Pickups/xp-pickup/selected-master.png",
+      "provenance": "Art/Source/Pickups/xp-pickup/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/xp-pickup/xp-pickup.png",
+      "resourcePath": "Art/Sprites/Pickups/xp-pickup/xp-pickup",
+      "stage": "Review",
+      "evidence": [
+        "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
+        "Fixture runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+      ],
+      "missing": "User gameplay-scale approval."
+    },
+    {
+      "owner": "PICKUP-001",
+      "role": "pickup",
+      "visualId": "PICKUP-001-VISUAL",
+      "method": "Hybrid",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Pickups/pickup-001/selected-master.png",
+      "provenance": "Art/Source/Pickups/pickup-001/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/pickup-001/pickup-001-pickup.png",
+      "resourcePath": "Art/Sprites/Pickups/pickup-001/pickup-001-pickup",
+      "stage": "Review",
+      "evidence": [
+        "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
+        "Fixture potion runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+      ],
+      "missing": "User gameplay-scale approval and production PICKUP-001 binding."
+    },
+    {
+      "owner": "FIXTURE-TRAVELER-BOOK",
+      "role": "pickup",
+      "visualId": "FIXTURE-TRAVELER-BOOK-VISUAL",
+      "method": "Hybrid",
+      "owningIp": "IP-29",
+      "source": "Art/Source/Pickups/traveler-book/selected-master.png",
+      "provenance": "Art/Source/Pickups/traveler-book/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/traveler-book/traveler-book-pickup.png",
+      "resourcePath": "Art/Sprites/Pickups/traveler-book/traveler-book-pickup",
+      "stage": "Review",
+      "evidence": [
+        "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
+        "Traveler reward runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+      ],
+      "missing": "User gameplay-scale approval."
+    },
+    {
       "owner": "SKILL-001",
       "role": "projectile",
       "visualId": "SKILL-001-VISUAL-PROJECTILE",

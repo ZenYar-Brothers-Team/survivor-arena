@@ -14,7 +14,7 @@ namespace Game.Progression.Tests
         private const string GameplayScenePath = "Assets/Scenes/Gameplay.unity";
 
         [Test]
-        public void EnemyDeath_SpawnsPhysicalExperienceAtDeathPosition()
+        public void EnemyDeath_SpawnsPhysicalExperienceInsideConfiguredScatterRadius()
         {
             var runObject = new GameObject("RunController");
             var runController = runObject.AddComponent<RunController>();
@@ -25,7 +25,9 @@ namespace Game.Progression.Tests
             var character = player.AddComponent<PlayerCharacterRuntime>();
             character.Initialize(new CharacterBaseStats(100f, 3f), runController);
             var experience = player.AddComponent<PlayerExperienceRuntime>();
-            experience.Initialize(character, runController, new ExperienceSettings(60f, 100f));
+            const float scatterRadius = 0.3f;
+            experience.Initialize(character, runController, new ExperienceSettings(60f, 100f),
+                dropScatterRadius: scatterRadius, dropScatterSeed: 917);
             var definition = new EnemyDefinition("FIXTURE-ENEMY", 1f, 1f, 0f, 0f, 1f, 3f);
             var deathPosition = new Vector2(2f, 4f);
             ExperienceDropRuntime drop = null;
@@ -39,7 +41,9 @@ namespace Game.Progression.Tests
                 drop = Object.FindAnyObjectByType<ExperienceDropRuntime>();
 
                 Assert.IsNotNull(drop);
-                Assert.AreEqual(deathPosition, (Vector2)drop.transform.position);
+                var offset = (Vector2)drop.transform.position - deathPosition;
+                Assert.Greater(offset.sqrMagnitude, 0f);
+                Assert.LessOrEqual(offset.magnitude, scatterRadius);
                 Assert.AreEqual(3f, drop.Amount);
                 Assert.AreEqual(60f, drop.Lifetime);
                 Assert.AreEqual(sourceLife, drop.Identity.SourceLifeId);

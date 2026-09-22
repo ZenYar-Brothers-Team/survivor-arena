@@ -73,6 +73,9 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(bolt.Levels.All(level => level.Visual.Id == stone.Id));
             var fan = catalog.Enemies.Single(enemy => enemy.Id == "FIXTURE-ENEMY-FAN");
             Assert.AreEqual("FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE", fan.Attack.ProjectileVisual.Id.ToString());
+            Assert.AreEqual(SpriteRole.Pickup, catalog.Pickups.ExperienceVisual.Resolve(catalog.Registry).Role);
+            Assert.IsTrue(catalog.Pickups.Definitions.All(definition =>
+                definition.Visual.Resolve(catalog.Registry).Role == SpriteRole.Pickup));
         }
     }
 }
