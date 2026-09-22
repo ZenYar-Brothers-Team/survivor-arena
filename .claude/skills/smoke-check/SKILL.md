@@ -12,10 +12,13 @@ allowed-tools: Read, Bash, PowerShell, Glob, Grep
 Goal: produce **real** test evidence. Never report a pass you did not observe; a skipped run is "NOT RUN", not PASS.
 
 ## 1. Choose the runner (in this order)
-1. **Interactive Unity Editor open on this project** (check for a `Unity.exe` process whose command line contains the project path and does **not** contain `-batchMode`, e.g. `Get-CimInstance Win32_Process -Filter "Name='Unity.exe'"`). **Do not run `scripts/Test-Unity.ps1`** — batch mode over a live Editor has crashed it and corrupts state. Instead:
-   - If the UnitySkills server answers `GET http://localhost:8090/health` (project name must be `survivor-arena`): use `POST /skill/test_run` with `{"testMode":"EditMode"}` then poll `test_get_result` with the returned `jobId`. PlayMode via REST needs the user to enable Bypass mode (`MODE_FORBIDDEN` otherwise) — ask the user; do not work around it.
-   - Otherwise ask the user to close the Editor or to run the Test Runner and paste the result. Report **NOT RUN**.
-2. **No interactive Editor**: run `scripts/Test-Unity.ps1` (EditMode then PlayMode, `-batchmode -nographics`, results in `TestResults/*.xml`). Check its exit code and read the XML counts; a script that "exits 0" without result files is a failure to investigate, not a pass.
+Use `python scripts/check_project.py --scope full` for full smoke, `--scope art` for art import/catalog checks, or `--scope code --platforms EditMode --filter '^Game\.Combat\.'` for a known affected subset. Read [runner usage](../../../scripts/README.md) for custom paths and scopes. IP acceptance determines which scope is required.
+
+The runner performs a fresh process/lock preflight before every launch. Open interactive Editor → UnitySkills REST on the matching project; closed Editor → installed Unity batch. Never run raw batch over an interactive Editor. `Test-Unity.ps1` now delegates to this same safe runner. Inability to inspect processes is **NOT RUN**, not evidence of a closed Editor.
+
+PlayMode through REST still requires user-enabled Bypass. A mode/grant refusal must be surfaced; never fall back to another control channel to bypass it. Unavailable REST requires the user to close the Editor or run Test Runner manually. The runner never closes an interactive Editor.
+
+Results and compact summaries are saved under `TestResults/checks/<timestamp>/`. Zero tests, failed/skipped/inconclusive tests or absent result files cannot pass. An explicit `--reuse` may return **REUSED PASS** with the original verification date when runtime/config/assets/tool hashes and evidence hashes match; never call it a new run. Visual-preview/static scopes do not verify a module.
 
 ## 2. Interpret results
 - Count only `Game.*` tests as project evidence; tests from third-party packages in the same run are reported separately.

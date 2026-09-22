@@ -18,6 +18,10 @@
 - Complete required checks; synchronize STATUS and affected documents in the same change.
   Record cross-layer or user-approved deviations in `docs/decisions/`; technical workarounds
   do not become design. Never duplicate current IP status in specifications or evidence files.
+- For art tasks, the AI follows `scripts/README.md`, prepares the art packet, runs
+  `scripts/art_pipeline.py` and `scripts/check_project.py` itself, and reports the result.
+  The user provides creative direction and any required visual approval; the user does not
+  need to run these commands.
 
 ## Scoped rules (mandatory when applicable)
 

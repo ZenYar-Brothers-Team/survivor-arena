@@ -16,6 +16,7 @@
 *.log
 /TestResults/
 /TestResults-*.xml
+/scripts/**/__pycache__/
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1

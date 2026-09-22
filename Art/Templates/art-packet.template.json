@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "YYYY-MM-DD",
+  "approvalEvidence": "<actual user approval quote or document reference>",
+  "assets": [
+    {
+      "owner": "<OWNER-ID>",
+      "role": "icon",
+      "visualId": "<OWNER-ID>-VISUAL-ICON",
+      "owningIp": "<IP-ID>",
+      "input": "<path to the approved RGBA PNG; absolute paths are allowed only here>",
+      "sha256": "<SHA-256 of the exact approved PNG>",
+      "sourceDirectory": "Art/Source/<Category>/<owner-id>/icon",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/UI/Icons/<Category>/<owner-id>-icon.png",
+      "prompt": "<verbatim generation or editing prompt>",
+      "generator": "<actual generator>",
+      "artDirectionRevision": "<approved revision used>",
+      "constraints": ["transparent background", "no text or baked frame"],
+      "preparation": {"mode": "fit", "size": 256, "padding": 16, "cropAlpha": false},
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

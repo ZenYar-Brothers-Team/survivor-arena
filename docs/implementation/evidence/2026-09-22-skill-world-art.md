@@ -24,9 +24,9 @@ Orbit presentation rents one visual-only renderer per authored blade, parents it
 - `python scripts/validate-art-manifest.py`: **83/83** owner/role records pass provenance/path validation.
 - Unity completed the asset refresh and wrote full `TextureImporter` settings for the new PNGs.
 - The first interactive compile exposed ambiguous `Object` references in the new explosion lifecycle test; both cleanup calls now explicitly use `UnityEngine.Object`. The regression suite then compiled and passed: **658/658 Game.* EditMode, 0 skipped**, Unity 6000.6.0f1 (`TestResults/EditMode.xml`).
-- PlayMode smoke: **NOT RUN** for this follow-up; no PlayMode PASS is claimed.
+- Original follow-up did not run PlayMode. Subsequent safe tooling smoke on the same runtime changes, 2026-09-22: **25/25 Game.* PlayMode, 0 skipped**; **658/658 EditMode**. [Command, version and results](2026-09-22-workflow-tools.md#verification).
 - User in-game visual acceptance: current UI, all four world sprites and sphere explosion accepted on 2026-09-22 ([original feedback](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят)).
 
 ## Remaining review
 
-Run the remaining automated PlayMode smoke for lifecycle/cleanup coverage. The current gameplay-scale visual review is accepted by the user. Production definitions and final bindings remain IP-17 work.
+The subsequent automated smoke evidence is recorded above. The current gameplay-scale visual review is accepted by the user. Production definitions and final bindings remain IP-17 work.
