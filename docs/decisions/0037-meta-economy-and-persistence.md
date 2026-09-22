@@ -95,3 +95,10 @@ profile pipeline; production skills/sets/characters/fields, их прочие д
 недостаток валюты, все unlock mappings, caps, next-run modifiers, atomic save failure,
 backup recovery/version rejection/migration и UI result→purchase→next run.
 Изменение только документов; Unity checks не являются evidence этой подготовки.
+
+## Уточнение стартового mapping — 2026-09-22
+
+[DECISION-0050](0050-starting-content-and-unlocks.md) заменяет исходные unlocks,
+условие CHAR-002 и сроки skills/passives/sets. Соответствующие строки выше
+описывают прежнюю редакцию; актуальные значения находятся в Content Design.
+Остальные reward/persistence/upgrade rules этого решения сохраняются.

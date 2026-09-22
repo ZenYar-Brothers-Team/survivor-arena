@@ -67,3 +67,11 @@ IP-26 владеет persistent preference и bounded camera offset consumer. IP
 предоставляет прежний IScreenShakePreference/ScreenShakeRequestGate; actual-damage
 trigger, pause/off/terminal reset и независимость gameplay camera queries проверяет
 IP-26. Gameplay density review этого модуля остаётся отдельным acceptance.
+
+
+## Потребитель — стартовый FIELD-001
+
+Существующие presentation adapters и approved asset evidence переиспользуются пакетами первой карты. Оставшийся gameplay density review проверяется на production FIELD-001 в F1-09, без повторного approval неизменённых изображений.
+
+Scope — [field-001-start-R1](../milestones/FIELD-001-start.md);
+порядок, packet readiness и evidence — только [STATUS](../STATUS.md#field001-execution).

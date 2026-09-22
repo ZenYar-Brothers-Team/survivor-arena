@@ -61,3 +61,19 @@ IP-25 владеет persistent access по [DECISION-0037](../../decisions/0037
 и разделу «Мета-экономика» CD. SKILL-016/SET-020 требуют прохождения FIELD-001;
 остальные active skills/sets исходно открыты. Production definitions сохраняют этот
 mapping; runtime проверяет access дополнительно к прочим требованиям draft/recipe.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-01](../milestones/FIELD-001-start.md#f1-01):
+SKILL-001…007/010/013/014. Packet prerequisites: F1-00; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).

@@ -2,14 +2,39 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-21
-Plan revision: design-sync-R2
+Last repository audit: 2026-09-22 (documentation and metadata diff audit; no new runtime verification)
+Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active module: none (IP-12A gameplay density review остаётся открытым)
-Next Ready module: none — оставшиеся production packets удерживают собственные content/art gates; следующие IP автоматически не начинать
+Next Ready packet: F1-00 — подготовка полных стартовых данных; production Ready modules: none. Пользователь разрешил составить план; исполнение пакетов автоматически не начинать.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
 Подробности регистрации: [M-01 evidence](evidence/design-sync-R2-2026-09-21.md#m-01).
+
+## Утверждённый стартовый этап — 2026-09-22
+
+Пользователь утвердил [DECISION-0050](../decisions/0050-starting-content-and-unlocks.md)
+и поручил составить план только исходно открытого контента. [DECISION-0051](../decisions/0051-field001-initial-slice.md)
+и [FIELD-001 scope](milestones/FIELD-001-start.md) фиксируют 10 skills / 10 passives /
+5 sets, CHAR-001, ENEMY-001…005 и ENEMY-007, BOSS-001/MIDBOSS-001, TRAVELER-001/002/005,
+PICKUP-001/Book и поле с production schedule. Остальной контент сохраняется в IP.
+Поздние глобальные unlocks утверждены, но gameplay ими не входит в этот этап.
+Поправка пользователя: [DECISION-0052](../decisions/0052-field001-six-ordinary-enemies.md)
+расширяет ordinary pool до шести за счёт ENEMY-005/007; F1-00/04/08/09 и art scope
+синхронизированы. Новых runtime checks нет; очередь и зависимости сохраняются.
+
+Изменён только дизайн/план. Runtime MetaEconomy.json всё ещё содержит прежний
+mapping; F1-03 исправит его и проверит миграцию. IP-25/26 переоткрыты для новой delta;
+их прежнее evidence сохранено как база. Остальные framework scope без изменения
+поведения сохраняют своё состояние; production catalogs имеют прежние data/art
+и новые packet dependencies. Approved art не означает production bindings.
+
+Документационные проверки и read-only audit: [evidence](evidence/field-001-start-R1-2026-09-22-plan.md).
+
+Команда пользователя — подготовка плана, не выполнение F1-00 или дальнейшего
+кода/арта. План готов; следующая команда на исполнение выбирает F1-00. После
+завершения этапа автоматически к позднему backlog не переходить. Старые stop
+boundaries ниже являются историей; текущая граница задана этим абзацем.
 
 ## Граница текущего продолжения
 
@@ -102,7 +127,40 @@ settings implementation/новые runtime checks ещё не выполняли
 
 ## Execution order
 
-Выбирать первый Ready в этой таблице, если пользователь не назвал IP. Проверять prerequisites целевой ревизии и текущий packet. Таблица задаёт очередь; текущие статусы — в записях ниже.
+При разрешении на исполнение выбирать первый Ready packet активного этапа ниже,
+если пользователь не назвал другой scope. Пока этап активен, поздний backlog
+автоматически не выбирать. Порядок IP после этапа сохранён во второй таблице.
+
+<a id="field001-execution"></a>
+### FIELD-001 initial slice — приоритетная очередь
+
+Все packets относятся к `field-001-start-R1`. Status ниже относится к packet,
+а не к полному каталожному IP. У всех ещё не начатых packets completed IDs: none,
+implementation/verification evidence: none. F1-00 Ready только для подготовки
+данных; incomplete production ID по нему реализовывать нельзя.
+
+| Приоритет | Packet / владельцы | Status | Prerequisites / конкретный gate |
+|---:|---|---|---|
+| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Ready | DECISION-0050/0051 approved; read-only schemas и предложения чисел, новые assets не требуются |
+| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Blocked | F1-00; per-ID required level parameters и world presentation gates |
+| 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Blocked | F1-00/01; production mapping и numeric validation |
+| 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Blocked | F1-00/01/02; numeric weights, body/crop binding и initial mapping verification |
+| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Blocked | F1-00; combat/drop/heal data, missing body assets и production bindings |
+| 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Blocked | F1-00/01/02/04; thresholds/effect payload, SET-017 presentation |
+| 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Blocked | F1-00/01/04; timings/attack/reward data и art |
+| 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Blocked | F1-00/01/02/04/05; Book ID/card, Traveler presence/XP/support values и art |
+| 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Blocked | F1-00…07; geometry/timeline/bindings и actual-content UI |
+| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08; real-run matrix, performance bounds, closure of gameplay OBS |
+
+При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
+пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
+оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —
+зависимости по именам в спецификации packet и записям ниже, не повторные работы.
+
+### Общий IP backlog после этапа
+
+Порядок сохраняется для оставшегося scope. Возобновлять после команды пользователя;
+текущие IP statuses и revision exceptions — в записях ниже.
 
 | Приоритет | Модуль |
 |---:|---|
@@ -439,31 +497,43 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 ### IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Status: Verified
+Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
-Current packet: Profile/economy по DECISION-0037; production JSON META-001…004 и 70 unlock definitions, отдельная fixture runtime integration и Meta UI.
-Remaining gates: Нет для этого packet; production gameplay/art принадлежат catalog IP. Hard-crash checkpoints исключены DECISION-0037.
-Remaining acceptance / IDs: none для profile/economy packet.
-Target implementation evidence: [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
+Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
+Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
+Remaining acceptance / IDs: новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08; complete delta verification для этого packet.
+Prior implementation evidence (design-sync-R2): [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
+Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
 Documentation impact: IP-25 API/schema/save/reset и IP-26 consumers, regression map; GDD/CD правила DECISION-0037 сохранены. Fixture Book=50, новые raster assets не создавались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25).
 
+Target implementation evidence: none для field-001-start-R1 delta.
+Target verification evidence: none для field-001-start-R1 delta; прежние smoke не переносятся автоматически.
+
 ### IP-26 — Functional UI и полный player flow
 
-Status: Verified
+Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Current packet: Functional fixture shell, required Results/notifications и app settings по DECISION-0038; production content/art остаются у catalog IP.
-Remaining gates: Нет для текущего functional packet: пользователь принял завершение 2026-09-21. Gameplay density review IP-12A и production content/art остаются отдельными.
-Remaining acceptance / IDs: none для functional packet; [пользовательская приёмка](evidence/design-sync-R2-2026-09-21-ip26.md#user-acceptance).
-Target implementation evidence: Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
+Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
+Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
+Remaining acceptance / IDs: startup/locks/recipe UI; Results и actual-content integration в F1-08; complete delta verification для этого packet.
+Prior implementation evidence (design-sync-R2): Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: DECISION-0038, GDD/CD/UI settings/difficulty, IP-12A/16/23/26 contracts, DESIGN_SYNC, regression map и consumer readiness.
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
+Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-26).
+
+Target implementation evidence: none для field-001-start-R1 delta.
+Target verification evidence: none для field-001-start-R1 delta; прежние smoke не переносятся автоматически.
 
 ### IP-17 — Production Active Skills SKILL-001…016
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-01 — SKILL-001…007/010/013/014. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-08, IP-10A, IP-12A
 Blocked by: complete per-level parameters SKILL-001…016 и per-ID image gates.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates.
@@ -475,6 +545,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17)
 ### IP-18 — Production Passive Items PASSIVE-001…014
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-02 — PASSIVE-001…005/007…009/011/012. Required packets: F1-00/01; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-09, IP-10A, IP-12A, IP-28
 Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; G-10 закрыт DECISION-0033/IP-28; полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default.
@@ -486,6 +558,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-18)
 ### IP-19 — Production Sets SET-001…020
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-05 — SET-001/004/006/010/017. Required packets: F1-00/01/02/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-11, IP-17, IP-18, IP-28, IP-12A
 Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope).
 Remaining gates: G-08 закрыт DECISION-0017. G-02 закрыт DECISION-0022. G-04/G-05/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия.
@@ -497,6 +571,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-19)
 ### IP-20 — Production Enemies ENEMY-001…020 и зелье PICKUP-001
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-04, IP-13, IP-28, IP-12A
 Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
 Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
@@ -508,6 +584,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20)
 ### IP-21 — Production Final Bosses и Mid-bosses
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
 Blocked by: G-14 production attack payload/rewards/timings и per-ID asset packet readiness.
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
@@ -519,6 +597,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21)
 ### IP-22 — Production Characters CHAR-001…010
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — CHAR-001; поздние character IDs только unlock metadata. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
 Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
@@ -530,6 +610,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22)
 ### IP-23 — Production Fields FIELD-001…010
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-08 — FIELD-001 geometry/environment/metadata/thumbnail. Required packets: F1-00…07; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
@@ -541,6 +623,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-23)
 ### IP-30 — Production Travelers TRAVELER-001…010 и Book
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-07 — TRAVELER-001/002/005 и production Book. Required packets: F1-00/01/02/04/05; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-29, IP-12A
 Blocked by: production Book card/ID/параметры, required Traveler/support/XP/presence data и per-ID art gates; prerequisite IP-29 выполнен.
 Remaining gates: G-03/G-10 semantics закрыты DECISION-0020/0033 и IP-28; G-11/G-12/scaling semantics — DECISION-0035. G-14/G-17, production Book card/ID/параметры, complete Traveler/support data и конкретные images. Designs TRAVELER-001…010 уже approved.
@@ -552,6 +636,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-30)
 ### IP-24 — Canonical Wave / Encounter Content и field bindings
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-08 — FIELD-001 900-second schedule и startup bindings. Required packets: F1-00…07; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-14, IP-20, IP-21, IP-23, IP-29, IP-30
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-23 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон.
@@ -563,8 +649,10 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 ### IP-27 — End-to-end integration, regression и content validation
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-09 — полный стартовый run и приёмка FIELD-001 только initial content. Required packets: F1-00…08; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-30 (Blocked, target scope).
+Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, field-001-start-R1 delta), IP-26 (Blocked, field-001-start-R1 delta), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.

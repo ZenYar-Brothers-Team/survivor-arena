@@ -626,3 +626,28 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 ## Gameplay projectile presentation
 
 У текущего `FIXTURE-ENEMY-FAN` используется утверждённый компактный снаряд-письмо: cream parchment, тёмный шнур и burgundy seal. Это fixture-only ranged presentation и не меняет approved melee card ENEMY-002. Письмо ориентируется по направлению полёта без spin; попадание использует тот же дешёвый impact algorithm с parchment-colored particles. [Provenance](../../Art/Source/Enemies/fixture-enemy-fan-projectile/asset-record.json). Камень SKILL-001 временно подключён к `FIXTURE-SKILL-BOLT`; его production binding остаётся IP-17. Общие правила описаны в [ASSET_PIPELINE §25](ASSET_PIPELINE.md#25-projectile-sprite-вращение-и-дешёвый-impact).
+
+## Стартовый состав — DECISION-0050
+
+Утверждено 2026-09-22: [состав и условия](../Content_design.md#starting-content-0050),
+[основание](../decisions/0050-starting-content-and-unlocks.md).
+Стартовый playable — CHAR-001; Путники FIELD-001 — TRAVELER-001 (боевой),
+TRAVELER-002 (неагрессивный), TRAVELER-005 (защитник). Использовать существующие
+ID и роли inventory; не создавать три новых ID или отдельные версии для каждого
+поля. Остальные семь Путников и полный roster остаются для дальнейшего контента.
+Начальные skills/passives/sets определены таблицей CD; поздние открытия доступны
+и на FIELD-001. Уже одобренные изображения полного каталога сохраняются.
+Этот выбор не утверждает ещё отсутствующие Traveler assets. Scope стартового
+этапа — [FIELD-001 initial slice](../implementation/milestones/FIELD-001-start.md);
+порядок производства и готовность — только в STATUS.
+Art Direction, Asset Pipeline и принятые visual gates сохраняются.
+
+### Ordinary enemies стартового поля — DECISION-0052
+
+По [DECISION-0052](../decisions/0052-field001-six-ordinary-enemies.md) стартовый
+art scope включает шесть обычных врагов: ENEMY-001…005 и ENEMY-007.
+К существующему набору добавлены body Королевского лучника и Охотничьей гончей,
+нужный projectile/impact Лучника и читаемая подача рывка Гончей. Переиспользовать
+подходящие общие роли; отдельный raster для каждого эффекта не обязателен.
+Существующие inventory IDs и per-image gates сохраняются; новые изображения
+этим решением не объявляются созданными или approved.

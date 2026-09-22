@@ -102,3 +102,21 @@ Reset из load-error UI сохраняет повреждённые файлы 
 старт создаёт новый профиль. Настоящий gameplay run не восстанавливается после
 жёсткого сбоя. UI semantic IDs — `GameplayUiElementIds.Meta*`, ресурс
 `UI/MetaScreen`; HP/DMG text placeholders без новых raster assets.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-03](../milestones/FIELD-001-start.md#f1-03):
+новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08. Packet prerequisites: F1-00/01/02; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).
+
+DECISION-0050 заменяет только unlock mapping/CHAR-002 gate предыдущего DECISION-0037. Новые условия применяются без боевой реализации поздних IDs; старое Verified не покрывает эту delta.

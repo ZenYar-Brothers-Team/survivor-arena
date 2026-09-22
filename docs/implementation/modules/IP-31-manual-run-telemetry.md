@@ -57,3 +57,11 @@ Run-report schema/metric dictionary, local output/retention, capability/version 
 ## Потребители
 
 [IP-27](IP-27-integration.md), [IP-32](IP-32-manual-ai-balance.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+
+## Потребитель — стартовый FIELD-001
+
+F1-09 использует существующие run reports и provenance. Измерения по ещё неподдержанным adapters отмечать unsupported/unknown; нужные для конкретной гипотезы adapters добавлять только у их владельца с проверкой, без обещания полного telemetry coverage заранее.
+
+Scope — [field-001-start-R1](../milestones/FIELD-001-start.md);
+порядок, packet readiness и evidence — только [STATUS](../STATUS.md#field001-execution).

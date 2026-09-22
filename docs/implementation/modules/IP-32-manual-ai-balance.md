@@ -53,3 +53,11 @@ BG-01 для применения конкретных чисел/механик
 ## Потребители
 
 [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+
+## Потребитель — стартовый FIELD-001
+
+F1-00 использует процесс подготовки baseline, F1-09 — цикл observation/proposal/approval/check/retest для стартовых IDs. Эта привязка не даёт blanket approval любым будущим числам.
+
+Scope — [field-001-start-R1](../milestones/FIELD-001-start.md);
+порядок, packet readiness и evidence — только [STATUS](../STATUS.md#field001-execution).
