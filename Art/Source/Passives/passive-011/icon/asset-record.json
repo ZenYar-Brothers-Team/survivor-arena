@@ -9,7 +9,7 @@
   "selectedVersion": "v001/concept-01.png",
   "approvedAt": "2026-09-22",
   "approvedBy": "user",
-  "approvalEvidence": "User approved the complete presented set of 14 passive and 20 set icon candidates: «Утверждаю, всё».",
+  "approvalEvidence": "User approved the complete presented set of 14 passive and 20 set icon candidates: «Утверждаю, всё». User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
   "generationPrompt": "Square 1:1 master for a small passive-item icon in a whimsical fantasy survival game. Stylized 2D storybook cutout, hand-painted but clean, thick deep-plum outer contour, flat matte colors, simple cel shading, bold readable silhouette, low detail, unmistakable at 48 pixels. One centered everyday or magical item fills about 72% of the canvas with generous transparent padding. Genuine transparent background. No frame, no card, no panel, no scene, no ground plane, no baked shadow, no text, no letters, no numbers, no logo, no watermark, no characters or hands, no photorealism, no 3D render, no pixel art. A broad heavy leather belt with a weighty metal buckle.",
   "constraints": [
     "transparent background",
@@ -31,6 +31,6 @@
       "Promoted the approved candidate byte-identically to selected-master.png.",
       "Copied the approved master byte-identically to the runtime path; Unity icon import profile downsizes the imported texture to maxSize 256 with center pivot, FullRect mesh, bilinear filtering, clamp wrap, sRGB, no mipmaps, and uncompressed texture format."
     ],
-    "remainingReview": "Verify final readability in the actual draft/build slots; production PASSIVE definition binding remains gated by IP-18."
+    "remainingReview": "Current in-game presentation accepted by user; production definition/binding remains with the owning IP."
   }
 }

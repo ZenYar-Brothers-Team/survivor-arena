@@ -23,4 +23,4 @@ Passive and set definitions now carry typed icon references and expose them to c
 
 ## Remaining review
 
-The images are approved. Readability at actual draft/build/set-row size remains a gameplay UI review. Production definitions and final binding of all icons remain IP-18/IP-19 work.
+The user accepted the current in-game UI and icon sizes on 2026-09-22; actual draft/build/set-row readability of the nine mapped passives and four mapped sets is accepted ([original feedback](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят)). Production definitions, final bindings and actual slot review of currently unmapped icons remain IP-18/IP-19 work.

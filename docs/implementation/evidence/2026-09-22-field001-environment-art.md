@@ -9,7 +9,7 @@
 - пень для существующего центрального препятствия;
 - куст и пучок травы для декоративного слоя.
 
-Пять generated masters сохранены неизменными в `Art/Source/Fields/field-001/<role>/selected-master.png` и `v001/concept-01.png`. Runtime derivatives находятся в `Assets/Resources/Art/Sprites/Fields/field-001/`; provenance, prompts, SHA-256 и preparation записаны в отдельных asset records и manifest. Изображения имеют статус Review до gameplay-scale оценки.
+Пять generated masters сохранены неизменными в `Art/Source/Fields/field-001/<role>/selected-master.png` и `v001/concept-01.png`. Runtime derivatives находятся в `Assets/Resources/Art/Sprites/Fields/field-001/`; provenance, prompts, SHA-256 и preparation записаны в отдельных asset records и manifest. Пользователь принял текущее окружение в составе общего gameplay-scale review 2026-09-22.
 
 ## Runtime presentation
 
@@ -39,4 +39,4 @@
 - Horizontal-fence revision: **652/652 EditMode**, **25/25 PlayMode**, 0 skipped.
 - Unity `6000.6.0f1`, 2026-09-22.
 
-Gameplay smoke подтверждает создание `FieldEnvironmentArt`, ground/stump renderers и 64 внутренних obstacle colliders через реальную composition. Existing movement/collision, content registry, restart, enemy, pickup, draft и UI regressions проходят. Обязательный пользовательский review: контраст фона, заметность повторения tile, масштаб пня, читаемость границы, плотность декора и удобство проходов между препятствиями.
+Gameplay smoke подтверждает создание `FieldEnvironmentArt`, ground/stump renderers и 64 внутренних obstacle colliders через реальную composition. Existing movement/collision, content registry, restart, enemy, pickup, draft и UI regressions проходят. Пользовательский review текущего окружения принят 2026-09-22: [исходный отзыв](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят).

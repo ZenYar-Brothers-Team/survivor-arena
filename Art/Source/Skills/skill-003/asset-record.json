@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-003",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the four presented world-art candidates with «утверждаю». User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [
+    {
+      "path": "icon/selected-master.png",
+      "role": "Approved SKILL-003 icon used only as a material and shape-language reference"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept game asset, transparent world sprite preview. Image 1 role: style and material reference only; do not edit or copy its multi-blade icon composition. Content ID / role: SKILL-003, one individual orbital blade projectile/world object. Intended use: a single blade duplicated by Unity and continuously orbited around the player; it must read at roughly 28–40 screen pixels while moving. View/composition: square master, isolated object, 3/4 top-down gameplay view, centered pivot, blade points horizontally to the right, compact slightly crescent silhouette, visible object fills about 68% of canvas, generous even transparent padding for rotation. Style: stylized 2D storybook cutout, hand-drawn, chunky and highly readable; thick slightly irregular deep-plum outer contour near #241B2B; flat matte silver steel, muted bronze/amber hub, simple cel-shading with one broad neutral-warm highlight; subtle dry-brush texture only inside large color masses. Design: one short broad curved blade with a compact reinforced bronze root and round amber rivet; clearly a single orbiting weapon, not a ring and not a thrown disk. Strong silhouette with no fragile needle-thin tip. Output: genuinely transparent background, clean RGBA alpha, no halo, no baked shadow. Avoid: multiple blades, circular sweep, trail, glow, speed lines, sparks, impact particles, ground plane, scene, frame, text, letters, numbers, logo, watermark, character, hands, photorealism, 3D render, pixel art, tiny ornament, cropped edges.",
+  "constraints": [
+    "transparent background",
+    "single blade only",
+    "centered rotation-safe padding",
+    "readable at 28–40 screen pixels"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-003/skill-003-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "B44B714FDCFECE6449691895334ED540149A566B18CAD2027F284EE63A9540D3",
+    "runtimeSha256": "D4B67AF333D5A5A2D54DFDCCD540C1709F4D549A7764667E31B2D5EF3E5E47E8",
+    "operations": [
+      "Copied the approved candidate byte-identically to v001/concept-01.png and selected-master.png.",
+      "Runtime only: alpha-visible bounds x73/y338/x1188/y946 fitted without distortion inside 192x192 on a transparent 256x256 canvas.",
+      "Unity import uses the shared projectile profile: centered pivot, 320 PPU, FullRect, bilinear, clamp, no mipmaps, uncompressed."
+    ],
+    "remainingReview": "Current in-game presentation accepted by user; production definition/binding remains with the owning IP."
+  }
+}

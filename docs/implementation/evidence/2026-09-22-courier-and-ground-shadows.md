@@ -24,4 +24,4 @@ The first two sandboxed Unity attempts did not start tests because Unity Package
 
 ## Remaining review
 
-The generated courier and the common shadow size/opacity still require the user's visual gameplay review. Their manifest stages remain `Review` for ENEMY-002 and `Integrated` for the fixture/shadow. Production ENEMY-002 binding, balance and field composition remain IP-20 work.
+The user accepted the current courier v002 and common ground-shadow presentation in game on 2026-09-22 ([original feedback](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят)); image approval is recorded in provenance and manifest. Production ENEMY-002 binding, balance and field composition remain IP-20 work.

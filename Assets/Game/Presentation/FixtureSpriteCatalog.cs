@@ -75,6 +75,16 @@ namespace Game.Presentation
                 data.ImpactDurationSeconds, data.FlashSize,
                 new Color(data.FlashRed, data.FlashGreen, data.FlashBlue, data.FlashAlpha),
                 data.ParticleCount, data.ParticleSize, data.ParticleSpeed,
+                new Color(data.ParticleRed, data.ParticleGreen, data.ParticleBlue, data.ParticleAlpha),
+                ToExplosion(data.Explosion));
+        }
+
+        private static ExplosionPresentationProfile ToExplosion(ExplosionPresentationProfileData data)
+        {
+            if (data == null) return null;
+            return new ExplosionPresentationProfile(data.DurationSeconds, data.FlashSizeMultiplier,
+                new Color(data.FlashRed, data.FlashGreen, data.FlashBlue, data.FlashAlpha),
+                data.ParticleCount, data.ParticleSizeMultiplier, data.ParticleSpeedMultiplier,
                 new Color(data.ParticleRed, data.ParticleGreen, data.ParticleBlue, data.ParticleAlpha));
         }
     }

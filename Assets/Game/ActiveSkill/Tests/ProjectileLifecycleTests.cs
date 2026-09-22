@@ -57,6 +57,47 @@ namespace Game.ActiveSkill.Tests
             }
         }
 
+        [Test]
+        public void ExplosionPresentation_ExpiryUsesReusableBurstAndWaitsForPauseAwareTail()
+        {
+            using var context = new SkillFrameworkTestContext();
+            var root = new GameObject("Explosion presentation pool");
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1),
+                new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var explosion = new ExplosionPresentationProfile(.2f, 1.1f, Color.yellow,
+                    6, .1f, 1f, new Color(1f, .3f, .05f, 1f));
+                var profile = new ProjectilePresentationProfile(1f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray, explosion);
+                var visual = new SpriteDefinition("FIXTURE-EXPLOSIVE-SPHERE-VISUAL", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var pool = new GameObjectPool<FixtureProjectileRuntime>(FixtureProjectileFactory.Create,
+                    root.transform);
+                var shot = new ActiveSkillProjectile(Vector2.zero, Vector2.right, 1f, .5f, .1f, .5f,
+                    new EnemyDamageRequest("FIXTURE-EXPLOSIVE-SPHERE", 1f), visual: visual,
+                    behavior: new ProjectileBehavior(explosionDamageMultiplier: 2f, explodeOnExpiry: true));
+                var projectile = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+
+                projectile.Simulate(.5f);
+                Assert.IsTrue(projectile.IsDespawned);
+                Assert.IsFalse(projectile.GetComponent<CircleCollider2D>().enabled);
+                Assert.IsTrue(projectile.GetComponent<ExplosionBurstRuntime>().IsPlaying);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Pause();
+                projectile.Simulate(1f);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Resume();
+                projectile.Simulate(.2f);
+                Assert.AreEqual(1, pool.InactiveCount);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(sprite);
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void ExplosionCallback_CannotDespawnReinitializedProjectile(bool expiry)

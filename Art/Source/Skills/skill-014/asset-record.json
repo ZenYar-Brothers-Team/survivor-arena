@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-014",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the four presented world-art candidates with «утверждаю». User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [
+    {
+      "path": "icon/selected-master.png",
+      "role": "Approved SKILL-014 icon used only as a material and color reference"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept game asset, transparent world sprite preview. Image 1 role: style and exact material/color identity reference only; create one sphere, not two. Content ID / role: SKILL-014, explosive sphere projectile/world object. Intended use: one slow large projectile launched by Unity and detonated on collision or lifetime; must read at roughly 34–50 screen pixels. View/composition: square master, isolated object, 3/4 top-down gameplay view, centered pivot, one compact near-round sphere fills about 62% of canvas, generous even transparent padding for spin and scale pulse. Style: stylized 2D storybook cutout, hand-drawn, chunky; thick slightly irregular deep-plum outer contour near #241B2B; flat matte dark-violet stone shell in a few large plates, bold orange cracks, warm amber core visible through one central opening; simple cel shading with a broad neutral-warm highlight; very restrained internal glow only inside cracks. Design: one stable readable orb with 5–7 large shell plates; visibly magical and explosive but still a solid projectile. Keep the silhouette round and uncluttered. Output: genuinely transparent background, clean RGBA alpha, no halo, no baked shadow. Avoid: second sphere, detached debris, explosion, fire cloud, smoke, trail, sparks, external particles, ground plane, scene, frame, text, letters, numbers, logo, watermark, character, hands, photorealism, 3D render, pixel art, tiny cracks/noisy detail, cropped edges.",
+  "constraints": [
+    "transparent background",
+    "one sphere only",
+    "centered rotation-safe padding",
+    "readable at 34–50 screen pixels"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-014/skill-014-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "14029C07E0BA085AD3D9F74ADD4AC9275555ABAB0842F15D26F0A2DFC4A0D5CC",
+    "runtimeSha256": "11A4A85D46066E03211C7ABF45B656FF6F3D83B8B3B85955FA0C69E42341DEC9",
+    "operations": [
+      "Copied the approved candidate byte-identically to v001/concept-01.png and selected-master.png.",
+      "Runtime only: alpha-visible bounds x163/y181/x1091/y1096 fitted without distortion inside 192x192 on a transparent 256x256 canvas.",
+      "Unity import uses the shared projectile profile: centered pivot, 320 PPU, FullRect, bilinear, clamp, no mipmaps, uncompressed.",
+      "Explosion uses a reusable procedural particle burst; no separate explosion raster was generated."
+    ],
+    "remainingReview": "Current in-game presentation accepted by user; production definition/binding remains with the owning IP."
+  }
+}

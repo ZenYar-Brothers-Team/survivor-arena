@@ -34,7 +34,7 @@ Critical paths present in the successful suites: content registry and imports, e
 
 ## Open review
 
-Пользовательский gameplay-scale gate остаётся открытым: проверить относительный размер трёх предметов, читаемость в толпе, амплитуду bob/pulse и достаточность scatter radius `0.30`.
+Пользователь принял текущее представление трёх предметов в игре 2026-09-22: [исходный отзыв](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят). Новые измерения или конкретный состав толпы не заявляются.
 
 ## Pickup-radius tuning
 

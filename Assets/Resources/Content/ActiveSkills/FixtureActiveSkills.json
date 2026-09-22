@@ -428,6 +428,7 @@
     "id": "FIXTURE-SKILL-ORBIT",
     "displayName": "Fixture Orbit",
     "iconVisualId": "SKILL-003-VISUAL-ICON",
+    "visualId": "SKILL-003-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 2.3,
@@ -555,6 +556,7 @@
     "id": "FIXTURE-SKILL-BOOMERANG",
     "displayName": "Fixture Boomerang",
     "iconVisualId": "SKILL-006-VISUAL-ICON",
+    "visualId": "SKILL-006-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 4.5,
@@ -1330,6 +1332,7 @@
     "id": "FIXTURE-SKILL-RICOCHET",
     "displayName": "Fixture ricochet",
     "iconVisualId": "SKILL-008-VISUAL-ICON",
+    "visualId": "SKILL-008-VISUAL-PROJECTILE",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,
@@ -1383,6 +1386,7 @@
     "id": "FIXTURE-SKILL-SPHERES",
     "displayName": "Fixture spheres",
     "iconVisualId": "SKILL-014-VISUAL-ICON",
+    "visualId": "SKILL-014-VISUAL-PROJECTILE",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,

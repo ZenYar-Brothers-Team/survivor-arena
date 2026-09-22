@@ -23,4 +23,4 @@ The first full run passed 647/647 EditMode but exposed two PlayMode regressions:
 
 ## Remaining review
 
-Gameplay-scale size, spin speed and impact readability need the user's visual review. Production SKILL-001 registration remains IP-17 work; production ENEMY-002 behavior remains IP-20 work.
+The user accepted the current in-game projectile presentation on 2026-09-22 ([original feedback](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят)). Production SKILL-001 registration remains IP-17 work; production ENEMY-002 behavior remains IP-20 work.

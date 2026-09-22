@@ -26,16 +26,28 @@ namespace Game.ActiveSkill
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
         private readonly List<ScheduledSkillEffect> _scheduled = new List<ScheduledSkillEffect>();
         private readonly List<SkillMineState> _mines = new List<SkillMineState>();
+        private readonly List<SkillOrbitVisualState> _orbitVisuals = new List<SkillOrbitVisualState>();
         private readonly List<IEnemyDamageReceiver> _enemyBuffer = new List<IEnemyDamageReceiver>();
         private readonly ICombatTargetQuery _targets;
         private readonly HashSet<EnemyTargetLife> _chainHitBuffer = new HashSet<EnemyTargetLife>();
         private readonly List<EnemyTargetLife> _chainCandidates = new List<EnemyTargetLife>();
         private readonly Transform _minePoolRoot;
         private readonly GameObjectPool<SpriteRenderer> _minePool;
+        private readonly Transform _orbitPoolRoot;
+        private readonly GameObjectPool<SpriteRenderer> _orbitBladePool;
         private readonly ContentRegistry _contentRegistry;
 
         public int ScheduledCount => _scheduled.Count;
         public int ActiveMineCount => _mines.Count;
+        public int ActiveOrbitBladeCount
+        {
+            get
+            {
+                var count = 0;
+                for (var i = 0; i < _orbitVisuals.Count; i++) count += _orbitVisuals[i].BladeCount;
+                return count;
+            }
+        }
 
         public SceneActiveSkillEffectExecutor(
             RunController runController,
@@ -51,6 +63,8 @@ namespace Game.ActiveSkill
             _contentRegistry = contentRegistry;
             _minePoolRoot = new GameObject("Mine Pool").transform;
             _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
+            _orbitPoolRoot = new GameObject("Orbit Blade Pool").transform;
+            _orbitBladePool = new GameObjectPool<SpriteRenderer>(CreateOrbitBlade, _orbitPoolRoot);
         }
 
         public void Schedule(ActiveSkillActivation activation)
@@ -121,6 +135,7 @@ namespace Game.ActiveSkill
             }
 
             using var _ = PerfGuard.Measure("SceneActiveSkillEffectExecutor.Tick", TickWarningMilliseconds);
+            TickOrbitVisuals(deltaTime);
             foreach (var scheduled in _scheduled) scheduled.RemainingDelay -= deltaTime;
             _scheduled.Sort((left, right) => left.RemainingDelay.CompareTo(right.RemainingDelay));
             while (_scheduled.Count > 0 && _scheduled[0].RemainingDelay <= 0f)
@@ -272,7 +287,7 @@ namespace Game.ActiveSkill
             }
         }
 
-        private static void ExecuteOrbitTick(ScheduledSkillEffect scheduled, OrbitEffect effect)
+        private void ExecuteOrbitTick(ScheduledSkillEffect scheduled, OrbitEffect effect)
         {
             var center = scheduled.Activation.OwnerTransform != null
                 ? (Vector2)scheduled.Activation.OwnerTransform.position
@@ -287,6 +302,24 @@ namespace Game.ActiveSkill
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
             for (var i = 0; i < directions.Length; i++)
                 EnemyDamageArea.Apply(center + directions[i] * effect.Radius * scheduled.Activation.RangeMultiplier, effect.BladeHitboxRadius * scheduled.Activation.SizeMultiplier, damage);
+            if (scheduled.TickIndex == 0 && scheduled.Activation.OwnerTransform != null)
+            {
+                var visual = ResolveProjectileVisual(scheduled.Activation.LevelDefinition);
+                if (visual != null)
+                    _orbitVisuals.Add(new SkillOrbitVisualState(scheduled.Activation.OwnerTransform, visual, effect,
+                        scheduled.Activation.RangeMultiplier, scheduled.Activation.SizeMultiplier,
+                        scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees, _orbitBladePool));
+            }
+        }
+
+        private void TickOrbitVisuals(float deltaTime)
+        {
+            for (var i = _orbitVisuals.Count - 1; i >= 0; i--)
+            {
+                if (!_orbitVisuals[i].Tick(deltaTime, true)) continue;
+                _orbitVisuals[i].Dispose();
+                _orbitVisuals.RemoveAt(i);
+            }
         }
 
         private void ExecuteChain(ScheduledSkillEffect scheduled, ChainEffect effect)
@@ -364,6 +397,12 @@ namespace Game.ActiveSkill
             return marker.AddComponent<SpriteRenderer>();
         }
 
+        private static SpriteRenderer CreateOrbitBlade()
+        {
+            var blade = new GameObject("OrbitBladeVisual");
+            return blade.AddComponent<SpriteRenderer>();
+        }
+
         private void TickMines(float deltaTime)
         {
             using var minesGuard = PerfGuard.Measure("SceneActiveSkillEffectExecutor.TickMines", TickMinesWarningMilliseconds);
@@ -416,6 +455,8 @@ namespace Game.ActiveSkill
 
         public void Clear()
         {
+            for (var i = 0; i < _orbitVisuals.Count; i++) _orbitVisuals[i].Dispose();
+            _orbitVisuals.Clear();
             for (var i = 0; i < _mines.Count; i++) _mines[i].Dispose();
             _mines.Clear();
             _scheduled.Clear();
@@ -437,6 +478,12 @@ namespace Game.ActiveSkill
                 UnityEngine.Object.Destroy(_minePoolRoot.gameObject);
             else
                 UnityEngine.Object.DestroyImmediate(_minePoolRoot.gameObject);
+            if (_orbitPoolRoot == null)
+                return;
+            if (Application.isPlaying)
+                UnityEngine.Object.Destroy(_orbitPoolRoot.gameObject);
+            else
+                UnityEngine.Object.DestroyImmediate(_orbitPoolRoot.gameObject);
         }
 
 

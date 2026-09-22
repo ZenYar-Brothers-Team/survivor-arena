@@ -8,7 +8,7 @@
   "selectedVersion": "v001/concept-01.png",
   "approvedAt": "2026-09-22",
   "approvedBy": "user",
-  "approvalEvidence": "User approved both presented projectile candidates and asked to continue integration; stone should rotate slightly during flight.",
+  "approvalEvidence": "User approved both presented projectile candidates and asked to continue integration; stone should rotate slightly during flight. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
   "referenceImages": [
     {
       "path": "../../Characters/fixture-character-agile/selected-master.png",
@@ -41,8 +41,6 @@
       "Runtime only: visible bounds at alpha >=10, x313/y436/w683/h426, fitted without distortion inside 192x192 on a transparent 256x256 RGBA canvas.",
         "Unity import: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 320 PPU, centered pivot."
     ],
-    "remaining": [
-      "User gameplay-scale review after runtime integration."
-    ]
+    "remaining": []
   }
 }

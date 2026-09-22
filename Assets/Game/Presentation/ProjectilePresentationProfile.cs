@@ -16,11 +16,13 @@ namespace Game.Presentation
         public float ParticleSize { get; }
         public float ParticleSpeed { get; }
         public Color ParticleColor { get; }
+        public ExplosionPresentationProfile Explosion { get; }
 
         /// <summary>Creates validated visual scale, spin and material-impact settings.</summary>
         public ProjectilePresentationProfile(float visualScale, float spinDegreesPerSecond,
             float impactDurationSeconds, float flashSize, Color flashColor, int particleCount,
-            float particleSize, float particleSpeed, Color particleColor)
+            float particleSize, float particleSpeed, Color particleColor,
+            ExplosionPresentationProfile explosion = null)
         {
             NumericValidation.ValidatePositive(visualScale, nameof(visualScale));
             NumericValidation.ValidateFinite(spinDegreesPerSecond, nameof(spinDegreesPerSecond));
@@ -40,6 +42,7 @@ namespace Game.Presentation
             ParticleSize = particleSize;
             ParticleSpeed = particleSpeed;
             ParticleColor = particleColor;
+            Explosion = explosion;
         }
 
         private static void ValidateColor(Color color, string name)

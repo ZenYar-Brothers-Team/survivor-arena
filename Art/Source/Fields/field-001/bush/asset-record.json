@@ -3,14 +3,14 @@
   "contentId": "FIELD-001",
   "visualId": "FIELD-001-VISUAL-BUSH",
   "role": "prop",
-  "status": "review",
+  "status": "approved",
   "artDirectionRevision": "Approved art direction read 2026-09-22",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
   "selectedVersion": "v001/concept-01.png",
-  "approvedAt": null,
-  "approvedBy": null,
-  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. Gameplay-scale approval remains pending.",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
   "referenceImages": [],
   "generationPrompt": "Use case: stylized-concept. Transparent 2D Unity decorative prop for FIELD-001 village outskirts: one compact leafy countryside bush with a rounded irregular silhouette, visually subordinate to characters. Hand-painted storybook cutout game art, clean dark plum-brown outline and soft cel-painted shading. Isolated three-quarter/top-down gameplay view with transparent padding. Desaturated olive and sage leaves with a few ochre tips. No ground, flowers, characters, text, watermark or cast shadow; clean alpha edges.",
   "constraints": ["transparent background", "subordinate contrast", "no baked shadow"],
@@ -20,6 +20,6 @@
     "sourceSha256": "FF402B87AF955E3FE028EBDD7A2745DFAEC7E303795B77009059DC2647318E85",
     "runtimeSha256": "3336D9C679C7F54E2E1F72B01A9F5985D46E6F36B813DCC1046B6238EC58DDCA",
     "operations": ["Source copied unchanged into selected-master and v001.", "Visible alpha bounds fitted without distortion inside a transparent 256x256 canvas.", "Unity import: Prop, FullRect, Bilinear, Clamp, 160 PPU, max size 256, no mipmaps."],
-    "remaining": ["User gameplay-scale review of decoration density and pass-through readability."]
+    "remaining": ["Production FIELD-001 geometry and metadata remain IP-23 work."]
   }
 }

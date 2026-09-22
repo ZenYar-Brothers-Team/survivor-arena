@@ -9,7 +9,7 @@
   "selectedVersion": "v001/concept-01.png",
   "approvedAt": "2026-09-22",
   "approvedBy": "user",
-  "approvalEvidence": "User approved the full set of 16 presented skill icon candidates: «Аррпувлю».",
+  "approvalEvidence": "User approved the full set of 16 presented skill icon candidates: «Аррпувлю». User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
   "generationPrompt": "Square 1:1 master for a small gameplay ability icon in a whimsical fantasy survival game. Stylized 2D storybook cutout, hand-painted but clean, thick deep-plum outer contour, flat matte colors, simple cel shading, bold readable silhouette, low detail, designed to remain unmistakable at 48 pixels. One centered emblem fills about 72% of the canvas with generous transparent padding. Genuine transparent background. No frame, no card, no panel, no scene, no ground plane, no baked shadow, no text, no letters, no numbers, no logo, no watermark, no characters or hands, no photorealism, no 3D render, no pixel art. Six chunky violet crystal shards forming a clockwise spiral around an amber center.",
   "constraints": [
     "transparent background",
@@ -31,6 +31,6 @@
       "Promoted the approved candidate byte-identically to selected-master.png.",
       "Copied the approved master byte-identically to the runtime path; Unity icon import profile downsizes the imported texture to maxSize 256 with center pivot, FullRect mesh, bilinear filtering, clamp wrap, sRGB, no mipmaps, and uncompressed texture format."
     ],
-    "remainingReview": "Verify final readability in the actual draft and build slots; production SKILL definition binding remains gated by IP-17."
+    "remainingReview": "Current in-game presentation accepted by user; production definition/binding remains with the owning IP."
   }
 }

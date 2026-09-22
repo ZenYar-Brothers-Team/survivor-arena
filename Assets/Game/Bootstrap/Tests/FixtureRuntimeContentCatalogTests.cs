@@ -79,6 +79,23 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(140f, stone.ProjectilePresentation.SpinDegreesPerSecond);
             var bolt = catalog.ActiveSkills.Single(skill => skill.Id == "FIXTURE-SKILL-BOLT");
             Assert.IsTrue(bolt.Levels.All(level => level.Visual.Id == stone.Id));
+            foreach (var mapping in new[]
+                     {
+                         (Skill: "FIXTURE-SKILL-ORBIT", Visual: "SKILL-003-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-BOOMERANG", Visual: "SKILL-006-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-RICOCHET", Visual: "SKILL-008-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-SPHERES", Visual: "SKILL-014-VISUAL-PROJECTILE")
+                     })
+            {
+                var skill = catalog.ActiveSkills.Single(candidate => candidate.Id == mapping.Skill);
+                Assert.IsTrue(skill.Levels.All(level => level.Visual.Id == mapping.Visual), mapping.Skill);
+                var worldVisual = catalog.Registry.Get<SpriteDefinition>(mapping.Visual);
+                Assert.AreEqual(SpriteRole.Projectile, worldVisual.Role, mapping.Visual);
+                Assert.IsNotNull(worldVisual.ProjectilePresentation, mapping.Visual);
+            }
+            var sphere = catalog.Registry.Get<SpriteDefinition>("SKILL-014-VISUAL-PROJECTILE");
+            Assert.IsNotNull(sphere.ProjectilePresentation.Explosion);
+            Assert.AreEqual(8, sphere.ProjectilePresentation.Explosion.ParticleCount);
             Assert.IsTrue(catalog.ActiveSkills.All(skill => skill.Icon.Id.IsValid));
             Assert.AreEqual(catalog.ActiveSkills.Count,
                 catalog.ActiveSkills.Select(skill => skill.Icon.Id).Distinct().Count());

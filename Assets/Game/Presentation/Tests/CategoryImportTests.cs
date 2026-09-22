@@ -34,6 +34,28 @@ namespace Game.Presentation.Tests
             }
         }
 
+        [Test]
+        public void ApprovedSkillProjectiles_AllUseTheWorldProjectileImportProfile()
+        {
+            var paths = Directory.GetFiles("Assets/Resources/Art/Sprites/Skills", "*.png",
+                SearchOption.AllDirectories).OrderBy(path => path).ToArray();
+            Assert.AreEqual(5, paths.Length);
+            foreach (var path in paths)
+            {
+                var assetPath = path.Replace('\\', '/');
+                var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+                Assert.IsNotNull(importer, assetPath);
+                var settings = new TextureImporterSettings();
+                importer.ReadTextureSettings(settings);
+                Assert.AreEqual(TextureImporterType.Sprite, importer.textureType, assetPath);
+                Assert.AreEqual(256, importer.maxTextureSize, assetPath);
+                Assert.AreEqual(320f, importer.spritePixelsPerUnit, assetPath);
+                Assert.AreEqual(new Vector2(.5f, .5f), settings.spritePivot, assetPath);
+                Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression, assetPath);
+                Assert.IsNotNull(AssetDatabase.LoadAssetAtPath<Sprite>(assetPath), assetPath);
+            }
+        }
+
         [TestCase("UI", "fixture-import-check-icon.png", 256)]
         [TestCase("VFX", "fixture-import-check-impact.png", 512)]
         public void RepresentativeImport_UIAndVfx_ReimportUsesCategoryAndPreservesGuid(string folder, string filename, int size)

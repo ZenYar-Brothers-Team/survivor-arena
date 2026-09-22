@@ -647,6 +647,8 @@ Runtime shadow:
 
 Этот порядок используется для каждого нового character, enemy, projectile, pickup, portrait или icon. Шаг нельзя объявлять пройденным только по наличию файла: применяются соответствующие approval gate и category checklist из следующего раздела.
 
+Повторяемые технические шаги 5–9 выполняются через `python scripts/art_pipeline.py <packet.json>` (plan) и `--apply` после уже полученного approval. Формат пакета и ограничения: [scripts/README](../../scripts/README.md#1-подготовка-утверждённого-арта). Команда не генерирует и не утверждает изображения, не создаёт `.meta`, не выводит body contacts из пикселей и не закрывает gates D/E. Новые записи имеют этап `Prepared`; проверки выполняет `scripts/check_project.py --scope art`. Для настройки существующих эффектов доступен ограниченный [visual-preview](../../scripts/README.md#2-быстрая-визуальная-итерация) без тестового прогона после каждого изменения числа; финальная проверка сохраняется.
+
 1. **Проверить content gate.** Определить, является ли owner production-сущностью или явно названным `FIXTURE-*`. Draft ID нельзя превращать в production content без approval.
 2. **Назначить идентификаторы.** Зафиксировать существующий owner content ID, visual ID `<OWNER-ID>-VISUAL-<ROLE>`, category, role, source folder, stable runtime filename и extensionless resource path.
 3. **Составить brief.** Взять generation contract из `ART_DIRECTION.md`, добавить назначение ассета, gameplay scale, camera view, silhouette requirement, разрешённые слои и category-specific ограничения. Не смешивать разные ассеты в одном generation request.
@@ -871,3 +873,15 @@ Runtime-файл имеет стабильное имя `Assets/Resources/Art/UI
 Fixture mapping допустим только при ясном механическом соответствии. Отсутствие такого соответствия не блокирует импорт и регистрацию утверждённой иконки: она ожидает production definition IP-18 или IP-19. Presenter разрешает typed icon reference через общий registry; пассивка использует иконку в draft/build slot, приобретённый сет — в set row. Null reference остаётся допустимым для изолированных тестовых definitions.
 
 Текущий approved пакет включает 14 пассивок и 20 сетов. Девять fixture-пассивок и четыре fixture-сета получили соответствующие ссылки; остальные зарегистрированы без ложной gameplay-привязки. Основание и проверка: [DECISION-0048](../decisions/0048-passive-and-set-icon-fixture-mapping.md), [evidence](../implementation/evidence/2026-09-22-passive-and-set-icons.md).
+
+## 30. World-art для орбитального клинка, бумеранга, рикошетного диска и взрывной сферы
+
+`SKILL-003`, `SKILL-006`, `SKILL-008` и `SKILL-014` имеют по одному утверждённому прозрачному projectile master и 256×256 runtime derivative. UI icon остаётся отдельной ролью и provenance-записью. Все четыре world-sprite используют `SpriteRole.Projectile`, centered pivot и общий projectile import profile; gameplay radius, орбита, return, ricochet и blast radius не выводятся из пикселей.
+
+Один progression-level `visualId` наследуется всеми уровнями навыка, пока конкретный level не задаёт осознанный override. Fixture mapping используется только для визуального review механически соответствующего framework-паттерна и не регистрирует production definition.
+
+Орбитальный клинок не создаёт projectile physics root. На первой damage-выборке активации создаётся один pooled `SpriteRenderer` на каждый клинок, каждый остаётся visual-only child владельца. Позиция и касательная ориентация вычисляются из уже утверждённых `bladeCount`, `radius`, `angularSpeedDegrees` и duration; pause не двигает визуал, terminal/clear возвращает renderers в pool. Damage sampling и `bladeHitboxRadius` не меняются.
+
+Бумеранг, рикошетный диск и сфера используют существующий `ProjectileVisual`: collider и physics root не вращаются, child spin настраивается в profile и сбрасывается при reuse. Сфера дополнительно содержит optional explosion profile. Общий `ExplosionBurstRuntime` создаёт один мягкий core flash и небольшой радиальный particle burst в world space, масштабируя только presentation от authoritative blast radius. Damage выполняется до visual tail; pause замораживает burst, terminal cleanup очищает его немедленно, pool return не сохраняет частицы. Этот runtime не зависит от ID сферы и может быть повторно использован миной и set-effects через явный profile без нового raster.
+
+Acceptance: четыре references разрешаются registry и имеют Projectile role/profile; все уровни соответствующих fixtures наследуют один world visual; orbit создаёт точное число visual-only blades и очищает их; projectile spin не вращает collider root; sphere impact/expiry запускают общий burst без задержки damage; pause/terminal/pool reset не оставляют sprite или particles; masters, prompts, approval, runtime files и manifest records синхронизированы. Текущий пакет: [evidence](../implementation/evidence/2026-09-22-skill-world-art.md).

@@ -42,7 +42,7 @@ namespace Game.ActiveSkill
             var sourceLevels = data.Levels ?? ActiveSkillLevelResolver.Resolve(data.BaseLevel, data.LevelChanges, Settings);
             var levels = new ActiveSkillLevelDefinition[sourceLevels.Length];
             for (var i = 0; i < levels.Length; i++)
-                levels[i] = ToLevel(sourceLevels[i]);
+                levels[i] = ToLevel(sourceLevels[i], data.VisualId);
 
             var icon = string.IsNullOrEmpty(data.IconVisualId)
                 ? default
@@ -50,15 +50,16 @@ namespace Game.ActiveSkill
             return new ActiveSkillProgressionDefinition(data.Id, data.DisplayName, icon, levels);
         }
 
-        private static ActiveSkillLevelDefinition ToLevel(ActiveSkillLevelData data)
+        private static ActiveSkillLevelDefinition ToLevel(ActiveSkillLevelData data, string progressionVisualId)
         {
             var waves = new ActiveSkillActivationWave[data.Waves.Length];
             for (var i = 0; i < waves.Length; i++)
                 waves[i] = ToWave(data.Waves[i]);
 
-            var visual = string.IsNullOrEmpty(data.VisualId)
+            var visualId = string.IsNullOrEmpty(data.VisualId) ? progressionVisualId : data.VisualId;
+            var visual = string.IsNullOrEmpty(visualId)
                 ? default
-                : new ContentRef<SpriteDefinition>(data.VisualId);
+                : new ContentRef<SpriteDefinition>(visualId);
 
             if (data.TargetingMode == ActiveSkillTargetingMode.RandomEnemy && !data.TargetingRadius.HasValue)
                 throw new ArgumentException("Random targeting requires TargetingRadius.");

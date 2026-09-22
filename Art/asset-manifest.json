@@ -11,12 +11,13 @@
       "provenance": "Art/Source/Pickups/xp-pickup/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Pickups/xp-pickup/xp-pickup.png",
       "resourcePath": "Art/Sprites/Pickups/xp-pickup/xp-pickup",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
-        "Fixture runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+        "Fixture runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval."
+      "missing": ""
     },
     {
       "owner": "PICKUP-001",
@@ -28,12 +29,13 @@
       "provenance": "Art/Source/Pickups/pickup-001/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Pickups/pickup-001/pickup-001-pickup.png",
       "resourcePath": "Art/Sprites/Pickups/pickup-001/pickup-001-pickup",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
-        "Fixture potion runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+        "Fixture potion runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval and production PICKUP-001 binding."
+      "missing": "Production PICKUP-001 binding."
     },
     {
       "owner": "FIXTURE-TRAVELER-BOOK",
@@ -45,12 +47,13 @@
       "provenance": "Art/Source/Pickups/traveler-book/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Pickups/traveler-book/traveler-book-pickup.png",
       "resourcePath": "Art/Sprites/Pickups/traveler-book/traveler-book-pickup",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
-        "Traveler reward runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter."
+        "Traveler reward runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval."
+      "missing": ""
     },
     {
       "owner": "SKILL-001",
@@ -65,9 +68,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the presented stone candidate and requested slight rotation during attack on 2026-09-22.",
-        "Runtime derivative is exercised through FIXTURE-SKILL-BOLT with a data-driven projectile profile."
+        "Runtime derivative is exercised through FIXTURE-SKILL-BOLT with a data-driven projectile profile.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Production SKILL-001 definition/binding and gameplay-scale review remain IP-17 work."
+      "missing": "Production SKILL-001 definition/binding remain IP-17 work."
     },
     {
       "owner": "FIXTURE-SKILL-BOLT",
@@ -82,9 +86,154 @@
       "stage": "Integrated",
       "evidence": [
         "All six fixture levels reference the approved stone sprite.",
-        "Visual-only 140 degree/second spin and shared procedural impact preserve the circle collider."
+        "Visual-only 140 degree/second spin and shared procedural impact preserve the circle collider.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale review."
+      "missing": ""
+    },
+    {
+      "owner": "SKILL-003",
+      "role": "projectile",
+      "visualId": "SKILL-003-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-003/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-003/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-003/skill-003-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-003/skill-003-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the presented orbital-blade candidate on 2026-09-22.",
+        "The fixture orbit uses pooled visual-only blades under the owner transform.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": "Production SKILL-003 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "FIXTURE-SKILL-ORBIT",
+      "role": "projectile",
+      "visualId": "SKILL-003-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Skills/skill-003/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-003/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-003/skill-003-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-003/skill-003-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "All six fixture levels inherit the approved blade sprite.",
+        "Orbit position and tangent orientation affect only pooled SpriteRenderer children; gameplay damage geometry is unchanged.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": ""
+    },
+    {
+      "owner": "SKILL-006",
+      "role": "projectile",
+      "visualId": "SKILL-006-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-006/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-006/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-006/skill-006-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-006/skill-006-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the presented boomerang candidate on 2026-09-22.",
+        "The fixture boomerang uses the shared projectile child and impact presentation.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": "Production SKILL-006 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "FIXTURE-SKILL-BOOMERANG",
+      "role": "projectile",
+      "visualId": "SKILL-006-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Skills/skill-006/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-006/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-006/skill-006-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-006/skill-006-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "All six fixture levels inherit the approved boomerang sprite.",
+        "Visual-only spin preserves the circle collider and shared per-target cooldown.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": ""
+    },
+    {
+      "owner": "SKILL-008",
+      "role": "projectile",
+      "visualId": "SKILL-008-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-008/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-008/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the presented ricochet-disk candidate on 2026-09-22.",
+        "The fixture ricochet uses the shared projectile child and impact presentation.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": "Production SKILL-008 definition/binding and G-04 return policy remain IP-17 work."
+    },
+    {
+      "owner": "FIXTURE-SKILL-RICOCHET",
+      "role": "projectile",
+      "visualId": "SKILL-008-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Skills/skill-008/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-008/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "All six fixture levels inherit the approved ricochet disk sprite.",
+        "Visual-only spin and redirects preserve existing nearest-target and hit-ledger behavior.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": ""
+    },
+    {
+      "owner": "SKILL-014",
+      "role": "projectile",
+      "visualId": "SKILL-014-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-014/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-014/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-014/skill-014-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-014/skill-014-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the presented explosive-sphere candidate on 2026-09-22.",
+        "A reusable particle-only explosion burst is configured without a second raster.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": "Production SKILL-014 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "FIXTURE-SKILL-SPHERES",
+      "role": "projectile",
+      "visualId": "SKILL-014-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Skills/skill-014/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-014/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-014/skill-014-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-014/skill-014-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "All six fixture levels inherit the approved sphere sprite.",
+        "Impact and expiry use the same pause-aware pooled explosion burst while damage timing remains immediate.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+      ],
+      "missing": ""
     },
     {
       "owner": "FIXTURE-ENEMY-FAN",
@@ -99,9 +248,10 @@
       "stage": "Integrated",
       "evidence": [
         "User approved the presented rolled-letter projectile on 2026-09-22.",
-        "Fixture-only fan attack uses stable flight orientation and shared parchment-colored impact particles."
+        "Fixture-only fan attack uses stable flight orientation and shared parchment-colored impact particles.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale review; canonical ENEMY-002 remains melee and has no production projectile binding."
+      "missing": "Canonical ENEMY-002 remains melee and has no production projectile binding."
     },
     {
       "owner": "ENEMY-002",
@@ -113,12 +263,13 @@
       "provenance": "Art/Source/Enemies/enemy-002/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "V001 was rejected as frightened and too close to the playable goblin; v002 redesign is a confident adult human pursuer with distinct proportions, posture and burgundy uniform.",
-        "Runtime derivative imported and exercised through FIXTURE-ENEMY-FAN; 646/646 EditMode and 25/25 PlayMode."
+        "Runtime derivative imported and exercised through FIXTURE-ENEMY-FAN; 646/646 EditMode and 25/25 PlayMode.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User visual/gameplay approval and production ENEMY-002 binding; fixture stats and behavior are unchanged."
+      "missing": "Production ENEMY-002 binding; fixture stats and behavior are unchanged."
     },
     {
       "owner": "FIXTURE-ENEMY-FAN",
@@ -133,9 +284,10 @@
       "stage": "Integrated",
       "evidence": [
         "User authorized immediate generation and integration of priorities 1–3 on 2026-09-22.",
-        "Courier motion/contact/import coverage and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md."
+        "Courier motion/contact/import coverage and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay/motion review; production ENEMY-002 data remains separate."
+      "missing": "Production ENEMY-002 data remains separate."
     },
     {
       "owner": "FIXTURE-GAMEPLAY-ACTORS",
@@ -150,9 +302,10 @@
       "stage": "Integrated",
       "evidence": [
         "One shared 32x32 radial mask and one config profile serve the player, ordinary enemies, bosses and Travelers.",
-        "GroundShadowRuntimeTests and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md."
+        "GroundShadowRuntimeTests and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay density review."
+      "missing": "Documented 3–4-set density verification."
     },
     {
       "owner": "ENEMY-001",
@@ -167,9 +320,10 @@
       "stage": "Imported",
       "evidence": [
         "User accepted the older, rougher v002 villager on 2026-09-21: «Хорошо, давай использовать этого.»",
-        "1254x1254 PNG with alpha; master and selected candidate SHA256 match; see asset-record.json."
+        "1254x1254 PNG with alpha; master and selected candidate SHA256 match; see asset-record.json.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Production ENEMY-001 owner binding and user gameplay review. Used by FIXTURE-ENEMY-SEEKER for the authorized art integration; contact interval remains TBD for production."
+      "missing": "Production ENEMY-001 owner binding; contact interval remains TBD for production. Documented 3–4-set density verification remains."
     },
     {
       "owner": "FIXTURE-ENEMY-SEEKER",
@@ -184,9 +338,10 @@
       "stage": "Integrated",
       "evidence": [
         "User requested the next step after approving ENEMY-001 v002; existing fixture keeps its ID/stats.",
-        "EnemyBodyPresentationTests, EnemySpriteImportTests and EnemyBodySmokeTests; docs/implementation/evidence/2026-09-21-enemy001-art.md."
+        "EnemyBodyPresentationTests, EnemySpriteImportTests and EnemyBodySmokeTests; docs/implementation/evidence/2026-09-21-enemy001-art.md.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay/motion approval and dense effects review; production ENEMY-001 data remains separate."
+      "missing": "Documented 3–4-set density verification; production ENEMY-001 data remains separate."
     },
     {
       "owner": "FIXTURE-CHARACTER-AGILE",
@@ -201,9 +356,10 @@
       "stage": "Integrated",
       "evidence": [
         "Image approval 2026-09-16; asset-record.json",
-        "GameplayPresentationSceneTests; SpriteAssetImportTests"
+        "GameplayPresentationSceneTests; SpriteAssetImportTests",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Current target-scope visual review is separate from historical acceptance."
+      "missing": "Documented 3–4-set density verification."
     },
     {
       "owner": "CHAR-001",
@@ -217,7 +373,8 @@
       "resourcePath": null,
       "stage": "Image approved",
       "evidence": [
-        "User confirmed concept identity 2026-09-21; conceptBindings in asset-record.json"
+        "User confirmed concept identity 2026-09-21; conceptBindings in asset-record.json",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
       "missing": "Production CHAR-001 catalog/runtime binding; fixture content is not renamed."
     },
@@ -234,9 +391,10 @@
       "stage": "Integrated",
       "evidence": [
         "Body reuse; centered in-memory Sprite crop; Presentation Fixture Review window",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Production Character Select binding/review belongs to IP-22; diagnostic UI body reuse is accepted."
+      "missing": "Production Character Select binding/review belongs to IP-22."
     },
     {
       "owner": "FIXTURE-PRESENTATION",
@@ -356,12 +514,13 @@
       "provenance": "Art/Source/Fields/field-001/ground/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-ground-tile",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
-        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
     {
       "owner": "FIELD-001",
@@ -373,12 +532,13 @@
       "provenance": "Art/Source/Fields/field-001/fence/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-fence-prop.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-fence-prop",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
-        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
     {
       "owner": "FIELD-001",
@@ -390,12 +550,13 @@
       "provenance": "Art/Source/Fields/field-001/stump/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-stump-prop.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-stump-prop",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
-        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
     {
       "owner": "FIELD-001",
@@ -407,12 +568,13 @@
       "provenance": "Art/Source/Fields/field-001/bush/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-bush-prop.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-bush-prop",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
-        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
     {
       "owner": "FIELD-001",
@@ -424,12 +586,13 @@
       "provenance": "Art/Source/Fields/field-001/grass/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-grass-prop.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-grass-prop",
-      "stage": "Review",
+      "stage": "Image approved",
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
-        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
+        "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
     {
       "owner": "SKILL-001",
@@ -444,9 +607,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-002",
@@ -478,9 +642,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-004",
@@ -495,9 +660,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-005",
@@ -512,9 +678,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-006",
@@ -529,9 +696,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-007",
@@ -546,9 +714,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-008",
@@ -563,9 +732,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-009",
@@ -580,9 +750,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-010",
@@ -597,9 +768,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-011",
@@ -614,9 +786,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-012",
@@ -631,9 +804,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-013",
@@ -665,9 +839,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "SKILL-015",
@@ -699,9 +874,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+      "missing": "Production SKILL definition binding remains."
     },
     {
       "owner": "PASSIVE-001",
@@ -716,9 +892,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-002",
@@ -733,9 +910,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-003",
@@ -784,9 +962,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-006",
@@ -801,9 +980,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-007",
@@ -818,9 +998,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-008",
@@ -886,9 +1067,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-012",
@@ -903,9 +1085,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-013",
@@ -920,9 +1103,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "PASSIVE-014",
@@ -937,9 +1121,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+      "missing": "Production PASSIVE definition binding remains."
     },
     {
       "owner": "SET-001",
@@ -954,9 +1139,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production SET definition binding remain."
+      "missing": "Production SET definition binding remains."
     },
     {
       "owner": "SET-002",
@@ -1022,9 +1208,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production SET definition binding remain."
+      "missing": "Production SET definition binding remains."
     },
     {
       "owner": "SET-006",
@@ -1141,9 +1328,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production SET definition binding remain."
+      "missing": "Production SET definition binding remains."
     },
     {
       "owner": "SET-013",
@@ -1209,9 +1397,10 @@
       "stage": "Image approved",
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
-        "Mapped to the mechanically equivalent current fixture content for draft/build UI review."
+        "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
       ],
-      "missing": "Actual UI slot readability review and production SET definition binding remain."
+      "missing": "Production SET definition binding remains."
     },
     {
       "owner": "SET-017",

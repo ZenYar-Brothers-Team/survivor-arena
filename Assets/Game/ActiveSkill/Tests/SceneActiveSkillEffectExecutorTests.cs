@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
@@ -94,6 +96,43 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(2, _executor.ActiveMineCount);
             _executor.Tick(1f, true);
             Assert.AreEqual(0, _executor.ActiveMineCount);
+        }
+
+        [Test]
+        public void OrbitVisual_FollowsAuthoredBladeCountFreezesOnPauseAndReturnsToPool()
+        {
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f),
+                new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var profile = new ProjectilePresentationProfile(1f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray);
+                var visual = new SpriteDefinition("FIXTURE-ORBIT-VISUAL", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { visual });
+                _executor = new SceneActiveSkillEffectExecutor(
+                    _runController, new RecordingLauncher(), contentRegistry: registry);
+                var orbit = new OrbitEffect(2, 1f, 90f, .5f, .25f, bladeHitboxRadius: .2f);
+                var level = new ActiveSkillLevelDefinition(1f, 1f, ActiveSkillTargetingMode.Self,
+                    new ContentRef<SpriteDefinition>(visual.Id),
+                    new ActiveSkillActivationWave(0f, 0f, 1f, orbit));
+                _executor.Schedule(Activation(level, null, 1f));
+
+                _executor.Tick(0f, true);
+                Assert.AreEqual(2, _executor.ActiveOrbitBladeCount);
+                var blade = _owner.GetComponentsInChildren<SpriteRenderer>()[0];
+                var initialPosition = blade.transform.localPosition;
+                _executor.Tick(10f, false);
+                Assert.AreEqual(initialPosition, blade.transform.localPosition);
+                _executor.Tick(.25f, true);
+                Assert.AreNotEqual(initialPosition, blade.transform.localPosition);
+                _executor.Tick(.25f, true);
+                Assert.AreEqual(0, _executor.ActiveOrbitBladeCount);
+            }
+            finally
+            {
+                Object.DestroyImmediate(sprite);
+            }
         }
 
         [Test]

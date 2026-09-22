@@ -23,4 +23,4 @@ The active-skill definition now carries a typed icon reference. `GameplayUiPrese
 
 ## Remaining review
 
-The images are approved. Readability at actual draft/build size remains a gameplay UI review. Production skill definitions and the final binding of all 16 icons remain IP-17 work.
+The user accepted the current in-game UI and icon sizes on 2026-09-22; actual draft/build readability of the thirteen mapped icons is accepted ([original feedback](../../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят)). Production skill definitions, final bindings and actual slot review of the three unmapped icons remain IP-17 work.

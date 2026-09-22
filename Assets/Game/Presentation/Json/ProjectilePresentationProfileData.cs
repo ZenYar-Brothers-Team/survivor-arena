@@ -18,5 +18,6 @@ namespace Game.Presentation.Json
         public float ParticleGreen { get; set; }
         public float ParticleBlue { get; set; }
         public float ParticleAlpha { get; set; }
+        public ExplosionPresentationProfileData Explosion { get; set; }
     }
 }
