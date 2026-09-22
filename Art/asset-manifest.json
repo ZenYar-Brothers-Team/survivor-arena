@@ -430,6 +430,278 @@
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry."
       ],
       "missing": "User gameplay-scale approval; production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "SKILL-001",
+      "role": "icon",
+      "visualId": "SKILL-001-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-001/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-001/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-001-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-001-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-002",
+      "role": "icon",
+      "visualId": "SKILL-002-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-002/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-002/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-002-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-002-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production skill definition before gameplay use."
+      ],
+      "missing": "Production SKILL definition binding and actual slot readability review remain."
+    },
+    {
+      "owner": "SKILL-003",
+      "role": "icon",
+      "visualId": "SKILL-003-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-003/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-003/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-003-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-003-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-004",
+      "role": "icon",
+      "visualId": "SKILL-004-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-004/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-004/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-004-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-004-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-005",
+      "role": "icon",
+      "visualId": "SKILL-005-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-005/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-005/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-005-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-005-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-006",
+      "role": "icon",
+      "visualId": "SKILL-006-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-006/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-006/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-006-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-006-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-007",
+      "role": "icon",
+      "visualId": "SKILL-007-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-007/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-007/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-007-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-007-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-008",
+      "role": "icon",
+      "visualId": "SKILL-008-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-008/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-008/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-008-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-008-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-009",
+      "role": "icon",
+      "visualId": "SKILL-009-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-009/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-009/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-009-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-009-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-010",
+      "role": "icon",
+      "visualId": "SKILL-010-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-010/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-010/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-010-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-010-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-011",
+      "role": "icon",
+      "visualId": "SKILL-011-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-011/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-011/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-011-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-011-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-012",
+      "role": "icon",
+      "visualId": "SKILL-012-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-012/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-012/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-012-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-012-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-013",
+      "role": "icon",
+      "visualId": "SKILL-013-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-013/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-013/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-013-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-013-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production skill definition before gameplay use."
+      ],
+      "missing": "Production SKILL definition binding and actual slot readability review remain."
+    },
+    {
+      "owner": "SKILL-014",
+      "role": "icon",
+      "visualId": "SKILL-014-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-014/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-014/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-014-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-014-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
+    },
+    {
+      "owner": "SKILL-015",
+      "role": "icon",
+      "visualId": "SKILL-015-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-015/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-015/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-015-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-015-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Imported and registered; awaits its production skill definition before gameplay use."
+      ],
+      "missing": "Production SKILL definition binding and actual slot readability review remain."
+    },
+    {
+      "owner": "SKILL-016",
+      "role": "icon",
+      "visualId": "SKILL-016-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-016/icon/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-016/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-016-icon.png",
+      "resourcePath": "Art/UI/Icons/Skills/skill-016-icon",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
+        "Mapped to the mechanically equivalent current fixture skill for draft/build UI review."
+      ],
+      "missing": "Actual draft/build slot readability review and production SKILL binding remain."
     }
   ]
 }

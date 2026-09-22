@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-001",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the full set of 16 presented skill icon candidates: «Аррпувлю».",
+  "generationPrompt": "Square 1:1 master for a small gameplay ability icon in a whimsical fantasy survival game. Stylized 2D storybook cutout, hand-painted but clean, thick deep-plum outer contour, flat matte colors, simple cel shading, bold readable silhouette, low detail, designed to remain unmistakable at 48 pixels. One centered emblem fills about 72% of the canvas with generous transparent padding. Genuine transparent background. No frame, no card, no panel, no scene, no ground plane, no baked shadow, no text, no letters, no numbers, no logo, no watermark, no characters or hands, no photorealism, no 3D render, no pixel art. One compact irregular grey-brown faceted throwing stone, sturdy and weighty, with two subtle ochre motion notches.",
+  "constraints": [
+    "transparent background",
+    "no baked frame or text",
+    "centered functional emblem",
+    "readable at 48 px",
+    "deep-plum outline",
+    "master preserved losslessly"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Skills/skill-001-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "78d904ad9bc4b46642f6a73ae769b7b99fc20ccd2b97ad3beaa7dc0ffbfb3ae2",
+    "runtimeSha256": "78d904ad9bc4b46642f6a73ae769b7b99fc20ccd2b97ad3beaa7dc0ffbfb3ae2",
+    "operations": [
+      "Copied generated candidate byte-identically into the versioned source folder.",
+      "Promoted the approved candidate byte-identically to selected-master.png.",
+      "Copied the approved master byte-identically to the runtime path; Unity icon import profile downsizes the imported texture to maxSize 256 with center pivot, FullRect mesh, bilinear filtering, clamp wrap, sRGB, no mipmaps, and uncompressed texture format."
+    ],
+    "remainingReview": "Verify final readability in the actual draft and build slots; production SKILL definition binding remains gated by IP-17."
+  }
+}

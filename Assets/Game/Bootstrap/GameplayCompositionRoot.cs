@@ -449,6 +449,7 @@ namespace Game.Bootstrap
                     draftRuntime,
                     runController,
                     playerPresentation,
+                    Catalog.Registry,
                     (roster ?? Catalog.Characters).UnlockedCharacters,
                     enemySpawner,
                     Playtest,

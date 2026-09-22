@@ -255,7 +255,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 \`SKILL-001 ... SKILL-016\`
 
 Method: \`Generate via GPT\`    
-Status: \`NOT STARTED\`
+Status: \`IMAGE APPROVED — v001; 16 masters and runtime imports prepared; 13 mapped to matching fixture skills for draft/build review; production binding remains IP-17\`
 
 \---
 
@@ -442,7 +442,7 @@ Method: \`Generate via GPT\`.
 
 | UI asset | Method | Status | Notes |  
 |---|---|---|---|  
-| 16 skill icons | Generate via GPT | NOT STARTED | Обязательны для HUD, draft и Pause / Build |  
+| 16 skill icons | Generate via GPT | IMAGE APPROVED — v001 | 16 masters/runtime imports; 13 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-17 binding remain |
 | 14 passive icons | Generate via GPT | NOT STARTED | Обязательны для draft и Pause / Build |  
 | 20 set icons | Generate via GPT | NOT STARTED | Обязательны для draft, acquired sets и set progress |  
 | Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  

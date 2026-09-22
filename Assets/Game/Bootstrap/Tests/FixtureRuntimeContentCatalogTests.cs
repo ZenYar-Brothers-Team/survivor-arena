@@ -79,6 +79,15 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(140f, stone.ProjectilePresentation.SpinDegreesPerSecond);
             var bolt = catalog.ActiveSkills.Single(skill => skill.Id == "FIXTURE-SKILL-BOLT");
             Assert.IsTrue(bolt.Levels.All(level => level.Visual.Id == stone.Id));
+            Assert.IsTrue(catalog.ActiveSkills.All(skill => skill.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.ActiveSkills.Count,
+                catalog.ActiveSkills.Select(skill => skill.Icon.Id).Distinct().Count());
+            foreach (var skill in catalog.ActiveSkills)
+            {
+                var icon = skill.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{skill.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{skill.Id} icon sprite");
+            }
             var fan = catalog.Enemies.Single(enemy => enemy.Id == "FIXTURE-ENEMY-FAN");
             Assert.AreEqual("FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE", fan.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(SpriteRole.Pickup, catalog.Pickups.ExperienceVisual.Resolve(catalog.Registry).Role);

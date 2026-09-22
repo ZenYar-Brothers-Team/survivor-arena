@@ -8,6 +8,7 @@ namespace Game.ActiveSkill.Json
         public ActiveSkillLevelChangeData[] LevelChanges { get; set; }
         public string Id { get; set; }
         public string DisplayName { get; set; }
+        public string IconVisualId { get; set; }
         public ActiveSkillLevelData[] Levels { get; set; }
     }
 }

@@ -44,7 +44,10 @@ namespace Game.ActiveSkill
             for (var i = 0; i < levels.Length; i++)
                 levels[i] = ToLevel(sourceLevels[i]);
 
-            return new ActiveSkillProgressionDefinition(data.Id, data.DisplayName, levels);
+            var icon = string.IsNullOrEmpty(data.IconVisualId)
+                ? default
+                : new ContentRef<SpriteDefinition>(data.IconVisualId);
+            return new ActiveSkillProgressionDefinition(data.Id, data.DisplayName, icon, levels);
         }
 
         private static ActiveSkillLevelDefinition ToLevel(ActiveSkillLevelData data)

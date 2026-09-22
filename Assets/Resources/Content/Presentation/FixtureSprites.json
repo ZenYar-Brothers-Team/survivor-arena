@@ -103,5 +103,85 @@
     "id": "FIELD-001-VISUAL-GRASS",
     "resourcePath": "Art/Sprites/Fields/field-001/field-001-grass-prop",
     "role": "Prop"
+  },
+  {
+    "id": "SKILL-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-015-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-015-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-016-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-016-icon",
+    "role": "Icon"
   }
 ]

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 
 namespace Game.ActiveSkill
 {
@@ -10,10 +11,20 @@ namespace Game.ActiveSkill
         private readonly ActiveSkillLevelDefinition[] _levels;
 
         public IReadOnlyList<ActiveSkillLevelDefinition> Levels => _levels;
+        public ContentRef<SpriteDefinition> Icon { get; }
 
         public ActiveSkillProgressionDefinition(
             ContentId id,
             string displayName,
+            params ActiveSkillLevelDefinition[] levels)
+            : this(id, displayName, default, levels)
+        {
+        }
+
+        public ActiveSkillProgressionDefinition(
+            ContentId id,
+            string displayName,
+            ContentRef<SpriteDefinition> icon,
             params ActiveSkillLevelDefinition[] levels)
             : base(id, BuildEntryKind.ActiveSkill, displayName)
         {
@@ -32,6 +43,7 @@ namespace Game.ActiveSkill
             }
 
             _levels = (ActiveSkillLevelDefinition[])levels.Clone();
+            Icon = icon;
         }
 
         public ActiveSkillLevelDefinition GetLevel(int level)
@@ -67,6 +79,9 @@ namespace Game.ActiveSkill
         // without one simply have no presentation asset to check yet.
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            if (Icon.Id.IsValid)
+                yield return Icon.ToReference();
+
             foreach (var level in _levels)
             {
                 if (level.Visual.Id.IsValid)
