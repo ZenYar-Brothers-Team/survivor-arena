@@ -35,3 +35,9 @@ Critical paths present in the successful suites: content registry and imports, e
 ## Open review
 
 Пользовательский gameplay-scale gate остаётся открытым: проверить относительный размер трёх предметов, читаемость в толпе, амплитуду bob/pulse и достаточность scatter radius `0.30`.
+
+## Pickup-radius tuning
+
+После первого gameplay-просмотра пользователь сообщил, что XP и Зелье подбирать слишком трудно. Базовый XP pickup radius текущих fixture characters увеличен с `0.20` до `0.50` world units. Contact radius Зелья и Книги увеличен с `0.22` до `0.40`; Книга сохраняет общий world-pickup contract. Размеры sprites, scatter radius и passive multiplier formula не менялись.
+
+После tuning: JSON parse PASS; целевой `FixtureRuntimeContentCatalogTests.Create_BuildsOneValidatedRegistryForEveryRuntimeDefinition` — **1/1 EditMode**. Полный smoke не повторялся, поскольку runtime-код и schema не менялись.
