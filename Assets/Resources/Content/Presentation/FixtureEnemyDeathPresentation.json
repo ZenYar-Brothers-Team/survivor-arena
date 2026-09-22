@@ -1,0 +1,19 @@
+{
+  "squashDurationSeconds": 0.1,
+  "fadeDurationSeconds": 0.2,
+  "squashWidthScale": 1.12,
+  "squashHeightScale": 0.72,
+  "endScale": 0.15,
+  "endRed": 0.28,
+  "endGreen": 0.22,
+  "endBlue": 0.18,
+  "endAlpha": 0.0,
+  "dustCount": 5,
+  "dustLifetimeSeconds": 0.22,
+  "dustSpeed": 0.65,
+  "dustSize": 0.06,
+  "dustRed": 0.48,
+  "dustGreen": 0.38,
+  "dustBlue": 0.27,
+  "dustAlpha": 0.75
+}

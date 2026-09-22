@@ -799,3 +799,16 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 | Villager | 0.330282 | 0.469539 |
 
 Текущая пара принята пользователем как образец пайплайна; полный gameplay/density gate остаётся отдельным. Проверки: [contact evidence](../implementation/evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles).
+
+## 23. Единая процедурная смерть врагов
+
+По [DECISION-0040](../decisions/0040-shared-enemy-death-presentation.md) ordinary enemy, boss и Traveler используют один presentation algorithm без content-ID веток и без отдельного death raster:
+
+1. На `Died` gameplay немедленно отключает movement/attack/contact, collider, rigidbody simulation и telegraph, удаляет жизнь из target registry и выдаёт награду. Root остаётся в той же мировой позиции; impulse или направленный death push запрещены.
+2. Presentation копирует текущий активный sprite, material, sorting, flip и transform в дочерний `DeathVisual`. Исходный renderer скрывается. Это одинаково работает для plain placeholder и `VisualRoot/BodyRoot`.
+3. За authored squash interval тело расширяется по X и сжимается по Y. Затем уменьшается, темнеет и растворяется за fade interval. Одновременно один переиспользуемый ParticleSystem выпускает небольшой dust burst. Покадровые death sprites не генерируются.
+4. Только после visual tail публикуется `Despawned` и объект возвращается в pool. Pause не продвигает эффект; run terminal/cleanup отменяет tail и освобождает объект сразу. Reinitialize очищает clone, particles, color, flip и scale.
+
+Все параметры хранятся одним validated profile в `Content/Presentation/FixtureEnemyDeathPresentation.json`: durations >0; squash width 1…2; height/end scale 0.01…1 в пределах domain constraints; цвета RGBA 0…1; dust count 1…12; lifetime/speed/size >0. Текущий fixture: 0.10 s squash + 0.20 s fade, scale 1.12×0.72 → 0.15, пять dust particles. Это один общий профиль, а не значения в individual enemy cards.
+
+Acceptance: Died и reward происходят немедленно; collider/physics/target registry выключены в тот же кадр; root position до и после tail совпадает; пауза замораживает позу и delayed despawn; terminal cleanup не ждёт tail; Despawned/pool return происходят один раз; ordinary/boss/Traveler получают один profile; mixed pool reuse не сохраняет старую позу или частицы. Проверки и текущие результаты: [evidence](../implementation/evidence/2026-09-22-shared-enemy-death.md).

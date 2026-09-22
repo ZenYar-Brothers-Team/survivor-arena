@@ -24,6 +24,7 @@ namespace Game.Presentation
         private Color _baselineColor;
         private bool _baselineFlipX;
         private Sprite _baselineSprite;
+        private bool _baselineEnabled;
         private SpritePresentationPreviewMotion _previewMotion;
         private bool _initialized;
 
@@ -72,8 +73,10 @@ namespace Game.Presentation
             _baselineColor = rig.BodyRenderer.color;
             _baselineFlipX = rig.BodyRenderer.flipX;
             _baselineSprite = rig.BodyRenderer.sprite;
+            _baselineEnabled = rig.BodyRenderer.enabled;
 
             rig.BodyRenderer.sprite = sprite.Sprite;
+            rig.BodyRenderer.enabled = true;
             _animator = new ProceduralSpriteAnimator(profile);
             _previewMotion = SpritePresentationPreviewMotion.Live;
             _health.Damaged += HandleDamaged;
@@ -168,6 +171,7 @@ namespace Game.Presentation
             rig.BodyRenderer.color = _baselineColor;
             rig.BodyRenderer.flipX = _baselineFlipX;
             rig.BodyRenderer.sprite = _baselineSprite;
+            rig.BodyRenderer.enabled = _baselineEnabled;
         }
     }
 }

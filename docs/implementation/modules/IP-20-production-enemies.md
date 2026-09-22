@@ -72,3 +72,7 @@ PlayerPickupRewardTarget, immutable pickup snapshots/events для UI и telemet
 Не дублировать collection/draft lifecycle. Chance/restoration читают текущие stats;
 XP radius не влияет на contact pickup. Production definitions/data/art и Traveler
 encounter semantics остаются в scope соответствующих владельцев.
+
+## Shared death presentation
+
+Production enemies по умолчанию используют [DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md) и ASSET_PIPELINE §23: один procedural squash/shrink/fade/dust без отдельного death sprite и без толчка. Уникальная смерть конкретного enemy потребует отдельного будущего approval.

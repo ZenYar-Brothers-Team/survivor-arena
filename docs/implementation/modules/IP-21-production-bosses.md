@@ -6,6 +6,8 @@
 
 Модуль ещё не реализован. Эта спецификация полностью заменяет прежний packet перед началом работы; сначала реализовывать старый scope и затем догонять target не предлагается.
 
+Boss body использует общую смерть [DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md): gameplay death мгновенна, procedural visual tail не добавляет толчок и задерживает только pool return. Уникальная boss death sequence остаётся вне текущего общего алгоритма без отдельного approval.
+
 ## Зависимости
 
 [IP-15](IP-15-boss-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md).

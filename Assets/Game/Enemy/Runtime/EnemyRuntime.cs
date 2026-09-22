@@ -23,6 +23,8 @@ namespace Game.Enemy
         private SpriteRenderer _renderer;
         private SpritePresentationRuntime _presentation;
         private SpritePresentationRig _presentationRig;
+        private EnemyDeathPresentationRuntime _deathPresentation;
+        private EnemyDeathPresentationProfile _deathProfile;
         private LineRenderer _telegraph;
         private Transform _target;
         private RunController _runController;
@@ -33,6 +35,7 @@ namespace Game.Enemy
         private ContentId? _damageSource;
         private Guid? _runId;
         private bool _deathPublished;
+        private bool _dying;
         private bool _dispatchingLifecycle;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
@@ -94,7 +97,8 @@ namespace Game.Enemy
             GameObjectPool<EnemyProjectileRuntime> projectilePool = null,
             EnemyCategory category = EnemyCategory.Ordinary,
             SpriteMotionProfile motionProfile = null,
-            SpriteContactProfile contact = null)
+            SpriteContactProfile contact = null,
+            EnemyDeathPresentationProfile deathPresentation = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
@@ -106,6 +110,7 @@ namespace Game.Enemy
             if (contact != null && motionProfile == null)
                 throw new ArgumentException("Fitted contact requires the matching animated body.");
             _presentation?.Shutdown();
+            _deathPresentation?.ResetPresentation();
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             var reused = _initialized;
             if (_initialized)
@@ -123,6 +128,8 @@ namespace Game.Enemy
             LastProjectileSource = default;
             _despawned = false;
             _deathPublished = false;
+            _dying = false;
+            _deathProfile = deathPresentation;
             _damageSource = null;
             LifeId = Guid.NewGuid();
             Category = category;
@@ -222,6 +229,14 @@ namespace Game.Enemy
             }
         }
 
+        private void Update()
+        {
+            if (!_dying || _deathPresentation == null || _runController?.Model?.State != RunState.Running)
+                return;
+            if (_deathPresentation.Tick(Time.deltaTime))
+                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+        }
+
         public void ConfigureBoss(BossEncounterDefinition encounter)
         {
             if (!IsAlive || Category != EnemyCategory.Boss || encounter == null || encounter.Id != Definition.Id)
@@ -312,6 +327,8 @@ namespace Game.Enemy
                 return;
 
             _despawned = true;
+            _dying = false;
+            _deathPresentation?.ResetPresentation();
             _presentation?.Shutdown();
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             Controls.Reset();
@@ -366,8 +383,15 @@ namespace Game.Enemy
         {
             if (_deathPublished || _despawned) return;
             _deathPublished = true;
+            _dying = true;
             _body.linearVelocity = Vector2.zero;
+            _body.angularVelocity = 0f;
+            _body.simulated = false;
             _collider.enabled = false;
+            _telegraph.enabled = false;
+            _contactTimer?.EndContact();
+            _contactTarget = null;
+            EnemyRegistry.Unregister(this);
             _dispatchingLifecycle = true;
             try
             {
@@ -377,8 +401,25 @@ namespace Game.Enemy
             finally
             {
                 _dispatchingLifecycle = false;
-                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+                BeginDeathPresentationOrRelease();
             }
+        }
+
+        private void BeginDeathPresentationOrRelease()
+        {
+            if (_deathProfile == null)
+            {
+                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+                return;
+            }
+            var sourceRenderer = _presentationRig != null && _presentationRig.gameObject.activeSelf
+                ? _presentationRig.BodyRenderer : _renderer;
+            var sourceTransform = sourceRenderer.transform;
+            if (_deathPresentation == null)
+                _deathPresentation = gameObject.AddComponent<EnemyDeathPresentationRuntime>();
+            _deathPresentation.Begin(_deathProfile, sourceTransform, sourceRenderer);
+            _presentation?.Shutdown();
+            if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
         }
 
         private void OnDestroy()

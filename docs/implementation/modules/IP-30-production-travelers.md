@@ -6,6 +6,8 @@
 
 Новая самостоятельная возможность; в действующем плане нет отдельного владельца этого lifecycle/process. Использовать существующие подсистемы через перечисленные dependencies.
 
+Traveler body использует общую смерть [DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md): reward/Book event остаются на мгновенном `Died`, procedural visual tail без толчка задерживает только `Despawned`/pool return.
+
 ## Зависимости
 
 [IP-29](IP-29-traveler-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md).

@@ -28,6 +28,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
             Assert.AreEqual(2, catalog.SpriteMotionProfiles.Count);
+            Assert.AreEqual(.3f, catalog.EnemyDeathPresentation.TotalDurationSeconds, .0001f);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureEnemyDeathPresentation"));
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)

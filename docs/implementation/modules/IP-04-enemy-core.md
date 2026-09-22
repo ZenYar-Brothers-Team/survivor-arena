@@ -6,7 +6,9 @@
 
 Сохранить seek/contact/death/pooling/registry. Расширить authoritative lifecycle events без переноса drop/economy/export логики в EnemyRuntime.
 
-Разрешённый опыт [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) задаёт меньший круг для текущего seeker с артом селянина через authored profile IP-12A. Contact callbacks/timer сохраняются, root — центр круга; pool reuse повторно применяет fit или исходную геометрию plain fixture. [Evidence](../evidence/2026-09-22-body-contact-circles.md).
+Разрешённый опыт [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) задаёт максимально вписанный круг для текущего seeker с артом селянина через authored profile IP-12A. Contact callbacks/timer сохраняются, root — центр круга; pool reuse повторно применяет fit или исходную геометрию plain fixture. [Evidence](../evidence/2026-09-22-body-contact-circles.md).
+
+[DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md) сохраняет `Died` мгновенным authoritative событием, но отделяет `Despawned`/pool return до конца общего 0.30 s visual tail. Мёртвый враг сразу удаляется из registry, отключает физику/contact и остаётся без смещения; cleanup завершает tail немедленно. [Evidence](../evidence/2026-09-22-shared-enemy-death.md).
 
 ## Зависимости
 

@@ -85,6 +85,8 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 
 ## Enemy body art integration (IP-12A/IP-20)
 
+Shared enemy death presentation: `EnemyDeathPresentationSmokeTests.Death_StopsInPlace_PausesPresentation_AndDespawnsAfterSharedEffect` guards immediate gameplay removal, no death push, pause freeze and delayed despawn; `EnemyBodySmokeTests.GameplaySpawner_UsesApprovedVillager_AndResetsPooledBody` guards copying the animated sprite before baseline reset and restoring renderer visibility after pool reuse. [Death visibility OBS-01/02](playtests/2026-09-22_enemy-death-visibility.md).
+
 Contact follow-up: `SpriteContactProfileTests` guards the filled outer silhouette, tangency without unused radial margin and profile validation; `BodyContactSmokeTests` checks eight contact directions; `EnemyBodyPresentationTests` checks radius after mixed pool reuse. [DECISION-0039 / evidence](implementation/evidence/2026-09-22-body-contact-circles.md), [OBS-01](playtests/2026-09-22_contact-gap.md).
 
 EnemyBodyPresentationTests защищает child-only motion, hit/pause, mixed-pool reuse

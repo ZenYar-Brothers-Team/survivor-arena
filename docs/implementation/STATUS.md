@@ -575,3 +575,9 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-27)
 ### Contact review follow-up — 2026-09-22
 
 Пользователь принял максимальные вписанные круги goblin/villager и поручил закрепить метод как этап пайплайна. Radius 0.401431 / 0.330282, centerY 0.530976 / 0.469539; [ASSET_PIPELINE §22](../art/ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body), [DECISION-0039](../decisions/0039-conservative-body-contact-circles.md), [evidence](evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles). Финальная runtime ревизия: 644/644 EditMode, 24/24 PlayMode, zero skipped. Последующее закрепление пайплайна меняет только документы. Общий gameplay/density gate IP-12A открыт; порядок IP не изменён.
+
+### Enemy death presentation follow-up — 2026-09-22
+
+По явному поручению пользователя мгновенное исчезновение заменено единым procedural tail для ordinary/boss/Traveler: squash, shrink/fade и dust; без специальных веток и без death push. Gameplay death/reward/untargeting остаются мгновенными, pool return задержан на 0.30 s и замораживается pause. Финальная проверка: 644/644 EditMode, 25/25 PlayMode, zero skipped. [DECISION-0040](../decisions/0040-shared-enemy-death-presentation.md), [pipeline](../art/ASSET_PIPELINE.md#23-единая-процедурная-смерть-врагов), [evidence](evidence/2026-09-22-shared-enemy-death.md). Порядок IP не изменён.
+
+Последующий пользовательский плейтест выявил невидимый death clone/pooled animated body. Порядок snapshot и восстановление renderer исправлены, regression обновлён. Пользователь повторно проверил Gameplay и принял результат 2026-09-22: «Сейчас выглядит хорошо», разрешил коммит и подтвердил запись полной процедуры. Финальный post-fix smoke: 644/644 EditMode, 25/25 PlayMode, zero skipped; подробности в evidence.

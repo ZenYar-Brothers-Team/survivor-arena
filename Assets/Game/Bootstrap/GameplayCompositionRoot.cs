@@ -395,12 +395,12 @@ namespace Game.Bootstrap
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
-                    enemyMotions, enemyContacts);
+                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
                 BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
-                    new EnemyExperienceDropSink(experienceRuntime, runController));
+                    new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation);
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
@@ -412,7 +412,7 @@ namespace Game.Bootstrap
                         Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f));
                     Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
                         Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
-                        new EnemyExperienceDropSink(experienceRuntime, runController));
+                        new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation);
                 }
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);

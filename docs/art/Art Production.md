@@ -614,3 +614,7 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 ## Body contact authoring
 
 Для новых и заменяемых character/enemy body с круговым контактом после runtime import выполнить [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body): максимальный вписанный круг по заполненному внешнему обводу, сохранение профиля, wiring, проверки и review. Принятый эталон — текущие goblin/villager; внутренние дырки не уменьшают круг. Production content gates сохраняются.
+
+## Enemy death presentation
+
+Единый death algorithm выполняется процедурно в Unity для всех врагов: squash, shrink, darken/fade и небольшой dust burst. Специальные варианты по enemy ID и отдельные death sprites сейчас не производятся. Death не добавляет толчок. Параметры и обязательные проверки описаны в [ASSET_PIPELINE §23](ASSET_PIPELINE.md#23-единая-процедурная-смерть-врагов).
