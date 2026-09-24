@@ -72,6 +72,19 @@ namespace Game.ActiveSkill
         public int PendingStrikeCount => _pendingStrikes.Count;
         public int ActiveWorldEffectShapeCount => _worldEffects.ActiveShapeCount;
 
+        /// <summary>Current world radius (authored radius × activation range) of a live persistent orbit.</summary>
+        public bool TryGetPersistentOrbitRadius(ContentId sourceId, out float radius)
+        {
+            for (var i = 0; i < _persistentOrbits.Count; i++)
+            {
+                if (_persistentOrbits[i].SourceId != sourceId) continue;
+                radius = _persistentOrbits[i].Effect.Radius * _persistentOrbits[i].RangeMultiplier;
+                return true;
+            }
+            radius = 0f;
+            return false;
+        }
+
         /// <summary>Current persistent orbit blade count/phase for tests and debug observability.</summary>
         public bool TryGetPersistentOrbit(ContentId sourceId, out int bladeCount, out float phaseDegrees)
         {
@@ -536,7 +549,9 @@ namespace Game.ActiveSkill
             }
             var damage = new EnemyDamageRequest(new CombatDamageRequest(activation.Source,
                 activation.Damage * wave.DamageMultiplier * effect.DamageMultiplier, wave.Controls,
-                outgoingKnockbackMultiplier: activation.OutgoingKnockbackMultiplier));
+                outgoingKnockbackMultiplier: activation.OutgoingKnockbackMultiplier,
+                slowedTargetDamageFactor: activation.SlowedTargetDamageFactor,
+                slowedTargetKnockbackBonus: activation.SlowedTargetBonus.KnockbackBonus));
             var lease = Mathf.Max(PersistentOrbitMinimumLeaseSeconds, activation.LevelDefinition.CooldownSeconds * 4f);
             state.Refresh(effect, damage, activation.RangeMultiplier, activation.SizeMultiplier, lease,
                 ResolveProjectileVisual(activation.LevelDefinition));
@@ -643,7 +658,9 @@ namespace Game.ActiveSkill
                 scheduled.Activation.Source,
                 scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effectMultiplier,
                 scheduled.Wave.Controls,
-                outgoingKnockbackMultiplier: scheduled.Activation.OutgoingKnockbackMultiplier * scheduled.KnockbackMultiplier));
+                outgoingKnockbackMultiplier: scheduled.Activation.OutgoingKnockbackMultiplier * scheduled.KnockbackMultiplier,
+                slowedTargetDamageFactor: scheduled.Activation.SlowedTargetDamageFactor,
+                slowedTargetKnockbackBonus: scheduled.Activation.SlowedTargetBonus.KnockbackBonus));
         }
 
         public void Clear()

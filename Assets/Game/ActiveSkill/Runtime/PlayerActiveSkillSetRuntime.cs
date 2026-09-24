@@ -35,6 +35,8 @@ namespace Game.ActiveSkill
 
         public event Action<CombatSource> Activated;
         public Func<ContentId, CharacterStatModifier> SetSkillModifier { get; set; }
+        /// <summary>Set-provided bonuses against already slowed targets for a skill (SET-004/SET-010).</summary>
+        public Func<ContentId, SlowedTargetBonus> SetSlowedTargetBonus { get; set; }
         public int SkillCount => _instances.Count;
         public IEnumerable<ActiveSkillInstance> Skills => _instances.Values;
 
@@ -132,7 +134,8 @@ namespace Game.ActiveSkill
             foreach (var instance in _instances.Values)
             {
                 if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
-                    SetSkillModifier?.Invoke(instance.Definition.Id) ?? default))
+                    SetSkillModifier?.Invoke(instance.Definition.Id) ?? default,
+                    slowedTargetBonus: SetSlowedTargetBonus?.Invoke(instance.Definition.Id) ?? default))
                 {
                     Activated?.Invoke(new CombatSource(owner.Identity, instance.Definition.Id, CombatSourceOrigin.ActiveSkill, instance.Level));
                     triggered = true;
@@ -140,6 +143,13 @@ namespace Game.ActiveSkill
             }
             _executor.Tick(0f, isRunning);
             return triggered;
+        }
+
+        /// <summary>Current world radius of a live persistent orbit of <paramref name="skill"/>, if any.</summary>
+        public bool TryGetPersistentOrbitRadius(ContentId skill, out float radius)
+        {
+            radius = 0f;
+            return _executor is SceneActiveSkillEffectExecutor scene && scene.TryGetPersistentOrbitRadius(skill, out radius);
         }
 
         public bool TryGetSkill(ContentId id, out ActiveSkillInstance instance)

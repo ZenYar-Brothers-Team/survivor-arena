@@ -321,6 +321,79 @@ def pickups(baseline):
     }
 
 
+SET_ATTACK_TEMPLATES = {"SET-017": "SET-017-ATTACK"}
+
+
+def card_field(card_id, field):
+    """'Эффект: ...' style line from a Content Design card."""
+    import re
+    text = (ROOT / "docs/Content_design.md").read_text(encoding="utf-8")
+    block = re.search(rf"^#+ {card_id} — .+?(?=^#+ )", text, re.M | re.S).group(0)
+    return re.search(rf"^{field}: (.+)$", block, re.M).group(1).strip()
+
+
+def sets(baseline):
+    names = content_design_names("SET")
+    result = []
+    for entry in baseline["sets"]:
+        recipe = [{"id": item, "kind": "ActiveSkill" if item.startswith("SKILL-") else "PassiveItem", "minimumLevel": level}
+                  for item, level in entry["requirements"].items()]
+        effects = []
+        for effect in entry["effects"]:
+            kind = effect["kind"]
+            if kind == "SkillTransform":
+                effects.append({"kind": "SkillTransform", "skill": effect["skill"], "modifier": {
+                    PASSIVE_CHANNELS[k]: v for k, v in effect.items() if k not in ("kind", "skill")}})
+            elif kind == "StatBuff":
+                effects.append({"kind": "StatBuff", "modifier": {PASSIVE_CHANNELS[k]: v for k, v in effect.items() if k != "kind"}})
+            elif kind in ("ConditionalPlayerKnockback", "ConditionalSkillDamage"):
+                if effect["condition"] != "target-already-slowed":
+                    raise SystemExit(f"{entry['id']}: unsupported condition")
+                data = {"kind": "SlowedTargetBonus", "modifier": {
+                    PASSIVE_CHANNELS[k]: v for k, v in effect.items() if k in ("activeDamageBonus", "outgoingKnockbackBonus")}}
+                if "skill" in effect:
+                    data["skill"] = effect["skill"]
+                effects.append(data)
+            elif kind == "ExistingOrbitSlow":
+                if effect["radius"] != "current-orbit-radius":
+                    raise SystemExit(f"{entry['id']}: unsupported aura radius")
+                effects.append({"kind": "OrbitSlowAura", "skill": effect["skill"], "slowFraction": effect["slowFraction"],
+                                "slowSeconds": effect["slowSeconds"], "refreshSeconds": effect["refreshSeconds"]})
+            elif kind == "IndependentAttack":
+                if effect["initialDelaySeconds"] != effect["cooldownSeconds"] or effect["actionSpeedScaling"] \
+                        or effect["countsAsSkillActivation"] or not effect["genericDamageAndKnockbackScaling"]:
+                    raise SystemExit(f"{entry['id']}: independent attack policy not expressible")
+                effects.append({"kind": "IndependentAttack", "attackTemplate": SET_ATTACK_TEMPLATES[entry["id"]],
+                                "cooldownSeconds": effect["cooldownSeconds"],
+                                "scalesWithSizeAndRange": effect["effectSizeAndRangeScaling"]})
+            else:
+                raise SystemExit(f"{entry['id']}: no runtime mapping for {kind}")
+        result.append({"id": entry["id"], "displayName": names[entry["id"]], "iconVisualId": f"{entry['id']}-VISUAL-ICON",
+                       "description": card_field(entry["id"], "Эффект"), "recipe": recipe, "effects": effects})
+    return result
+
+
+def set_attacks(baseline):
+    """Attack templates used only by set effects; never offered in draft."""
+    result = []
+    seed_base = baseline["randomness"]["referenceSeeds"]["setRandom"]
+    kb_seconds = baseline["controls"]["nonzeroKnockbackSeconds"]
+    for entry in baseline["sets"]:
+        for effect in entry["effects"]:
+            if effect["kind"] != "IndependentAttack":
+                continue
+            if effect["targeting"] != "RandomEnemy":
+                raise SystemExit(f"{entry['id']}: unsupported set attack targeting")
+            level = {"baseDamage": effect["damage"], "cooldownSeconds": effect["cooldownSeconds"], "actionSpeedBonus": 0,
+                     "rotationPerActivationDegrees": 0, "targetingMode": "RandomEnemy",
+                     "targetingRadius": effect["targetingRadius"], "randomSeed": seed_base + int(entry["id"].split("-")[1]),
+                     "waves": [wave([{"kind": "Strike", "radius": effect["radius"], "telegraphSeconds": effect["telegraphSeconds"]}],
+                                    controls(effect["knockback"], effect["knockbackSeconds"] or kb_seconds))]}
+            result.append({"id": SET_ATTACK_TEMPLATES[entry["id"]], "displayName": content_design_names("SET")[entry["id"]],
+                           "iconVisualId": f"{entry['id']}-VISUAL-ICON", "levels": [level] * 6})
+    return result
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
@@ -328,6 +401,8 @@ TARGETS = {
     "Assets/Resources/Content/Characters/ProductionCharacterBaseline.json": character_baseline,
     "Assets/Resources/Content/Enemies/ProductionEnemies.json": enemies,
     "Assets/Resources/Content/Pickups/ProductionPickups.json": pickups,
+    "Assets/Resources/Content/Sets/ProductionSets.json": sets,
+    "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }
 
 

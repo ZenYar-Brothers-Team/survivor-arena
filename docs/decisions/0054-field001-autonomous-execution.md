@@ -124,6 +124,26 @@ git blob через явный список путей в конце `.gitattrib
 - **Пикапы.** Геймплейные значения PICKUP-001/002 — из baseline; масштабы спрайтов
   (0.68/0.7, XP 0.62) — уже принятые в игре 2026-09-22, а не нейтральные 1.0 review-формата.
 
+### 7. Конкретизации F1-05
+
+- **«Уже замедленная цель».** `CombatDamageRequest` несёт условные бонусы
+  (фактор урона, аддитивный бонус outgoing knockback); `EnemyRuntime` применяет их
+  один раз, только если цель была замедлена до текущего удара, до применения его
+  собственного slow и до resistance. Бонус урона складывается в канал damage
+  multiplier активации (фактор = (M+bonus)/M), knockback — в outgoing multiplier.
+- **Новые семейства set-эффектов.** `SlowedTargetBonus` (skill-specific либо для
+  всех умений игрока и set-атак — SET-004) и `OrbitSlowAura` (SET-010: каждые 0.1 s
+  slow 15%/0.25 s по врагам в текущем радиусе живой persistent-орбиты, собственный
+  source, без урона и hit feedback; без орбиты не действует).
+- **SET-017.** Шаблон атаки `SET-017-ATTACK` (Strike 150/2.2/0.65, RandomEnemy 8)
+  в отдельном `ProductionSetAttacks.json`, в draft не попадает; `scalesWithSizeAndRange`
+  включает generic size/range только для этой set-атаки; первая попытка через
+  полные 7.5 s, без цели интервал всё равно расходуется, action speed не влияет,
+  активацией умения не считается.
+- **Fixture-контракт.** Новые семейства добавлены в существующий FIXTURE-SET-GUARD
+  (тест требует fixture для каждого семейства); аура там неактивна, т.к. fixture-орбита
+  не persistent, поэтому fixture-поведение практически не меняется.
+
 ## Consequences
 
 Код: `OrbitEffect.Persistent`, `AreaEffect.ExpansionSeconds`, `StrikeEffect`,

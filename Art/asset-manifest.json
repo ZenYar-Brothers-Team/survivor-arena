@@ -1606,6 +1606,23 @@
         "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-017",
+      "role": "telegraph",
+      "visualId": null,
+      "method": "Procedural",
+      "owningIp": "IP-19",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/ActiveSkill/Runtime/SkillWorldEffectPresenter.cs",
+      "resourcePath": null,
+      "stage": "Prepared",
+      "evidence": [
+        "One set-accent gold telegraph disc and a bright impact flash for SET-017-ATTACK (SkillWorldEffects.json); no projectile spam (Art Direction §12.1).",
+        "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
+      ],
+      "missing": "Actual-scale readability review with the production run (F1-08/F1-09)."
     }
   ]
 }

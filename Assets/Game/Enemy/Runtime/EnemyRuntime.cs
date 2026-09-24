@@ -16,7 +16,7 @@ namespace Game.Enemy
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(LineRenderer))]
-    public sealed class EnemyRuntime : MonoBehaviour, IEnemyLifeTarget
+    public sealed class EnemyRuntime : MonoBehaviour, IEnemyLifeTarget, IEnemyControlReceiver
     {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
@@ -304,6 +304,13 @@ namespace Game.Enemy
             return ResolveDamage(request.Combat).Health.Actual;
         }
 
+        /// <summary>Applies only the request's movement controls (e.g. SET-010 orbit slow); no damage, no hit event.</summary>
+        public void ApplyControl(CombatDamageRequest request)
+        {
+            if (!_initialized || !IsAlive || _dispatchingLifecycle || !IsRunRunning()) return;
+            Controls.Apply(request.WithAmount(0f).WithDirection(0f, 0f), Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true);
+        }
+
         public CombatResult ResolveDamage(CombatDamageRequest request)
         {
             if (!_initialized)
@@ -318,6 +325,8 @@ namespace Game.Enemy
             try
             {
                 Protection.Tick(_runController.Model?.Elapsed ?? 0f);
+                // "Already slowed" is decided before this hit applies its own slow (DECISION-0053).
+                if (Controls.MovementMultiplier < 1f) request = request.ResolveForSlowedTarget();
                 var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
                 var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount, _runController.Model?.Elapsed ?? 0f));
                 var result = new CombatResult(request.Source, identity, new HealthChange(request.Amount, measured.AfterMitigation, measured.Actual, false), distance);

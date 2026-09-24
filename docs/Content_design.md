@@ -433,7 +433,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: Бросок камня получает большой bonus к damage, projectile size и outgoing knockback.
 Роль: простой ранний сет, который превращает базовый projectile в тяжёлую ударную атаку.
 Визуал: существующие камни становятся крупнее и получают характерный тяжёлый impact/trail; новых projectiles нет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-001 L3, PASSIVE-004 L2, PASSIVE-011 L2; только Броску камня +60% damage, +25% size, +35% outgoing knockback.
 
 #### SET-002 — Возвратный ритм
 Статус: Approved.
@@ -463,7 +463,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет.
 Роль: собирает slow + knockback в понятный control-build.
 Визуал: короткий ледяной flash на slowed target при сильном отбрасывании; новых projectiles нет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-004 L3, SKILL-013 L3, PASSIVE-011 L2; +50% outgoing knockback игрока по цели, уже замедленной до текущего hit; Импульсной волне ещё +25% radius и +35% knockback.
 
 #### SET-005 — Жадность к знаниям
 Статус: Approved.
@@ -483,7 +483,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: дополнительно усиливает max HP, regeneration, health restoration и шанс выпадения Зелий лечения. Зелья восстанавливают больше здоровья.
 Роль: простой и предсказуемый defensive/sustain set.
 Визуал: только более заметный heal pulse при лечении; объектов на поле не добавляет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги PASSIVE-001 L3, PASSIVE-002 L3, PASSIVE-009 L2; +20% max HP, +0.6 HP/s regen, +20% health restoration, +25% относительного шанса Зелья.
 
 #### SET-007 — Векторный шторм
 Статус: Approved.
@@ -523,7 +523,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: враги внутри текущего orbit radius Орбитальных клинков получают слабый slow; Орбитальные клинки наносят повышенный damage slowed enemies.
 Роль: превращает уже существующую орбиту в зону контроля.
 Визуал: ледяной tint на самой существующей орбите; отдельная aura-entity не создаётся.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-003 L4, SKILL-013 L3, PASSIVE-003 L2, PASSIVE-008 L2; внутри текущего orbit radius slow 15% с обновлением каждые 0.1 s и duration 0.25 s; орбите +40% damage по уже замедленным целям.
 
 #### SET-011 — Кинетический арсенал
 Статус: Approved.
@@ -593,7 +593,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: с редким фиксированным cooldown выбирается случайный враг в допустимом радиусе от персонажа; после заметного telegraph в его позицию падает один очень мощный удар большой области.
 Роль: редкий burst-AoE, не требующий новой target/debuff системы.
 Визуал: один telegraph и один яркий impact; projectile spam отсутствует.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-010 L4, PASSIVE-005 L3, PASSIVE-012 L2; 150 damage, radius 2.2, targeting radius 8, knockback 1, telegraph 0.65 s, отдельный cooldown 7.5 s (первая попытка через 7.5 s после получения); generic damage/knockback и size/range применяются один раз, action speed не влияет.
 
 #### SET-018 — Сфера разрушения
 Статус: Approved.

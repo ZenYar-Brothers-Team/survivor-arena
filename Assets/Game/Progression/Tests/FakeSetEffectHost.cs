@@ -24,8 +24,18 @@ namespace Game.Progression.Tests
             SkillModifiers[key] = modifier;
         }
         public void RemoveSkillModifier(string key) => SkillModifiers.Remove(key);
-        public void Attack(string key, ContentId set, ContentId template)
+        public Dictionary<string, (ContentId? skill, SlowedTargetBonus bonus)> SlowedBonuses { get; } = new Dictionary<string, (ContentId?, SlowedTargetBonus)>();
+        public Dictionary<string, (ContentId set, ContentId skill, float fraction, float seconds, float refresh)> Auras { get; } =
+            new Dictionary<string, (ContentId, ContentId, float, float, float)>();
+        public bool LastAttackScalesWithSizeAndRange { get; private set; }
+        public void SetSlowedTargetBonus(string key, ContentId? skill, SlowedTargetBonus bonus) => SlowedBonuses[key] = (skill, bonus);
+        public void RemoveSlowedTargetBonus(string key) => SlowedBonuses.Remove(key);
+        public void SetOrbitSlowAura(string key, ContentId set, ContentId orbitSkill, float slowFraction, float slowSeconds, float refreshSeconds) =>
+            Auras[key] = (set, orbitSkill, slowFraction, slowSeconds, refreshSeconds);
+        public void RemoveOrbitSlowAura(string key) => Auras.Remove(key);
+        public void Attack(string key, ContentId set, ContentId template, bool scalesWithSizeAndRange = false)
         {
+            LastAttackScalesWithSizeAndRange = scalesWithSizeAndRange;
             Attacks++;
             ActiveSkillActivated?.Invoke(new CombatSource(default, set, CombatSourceOrigin.Set));
         }
