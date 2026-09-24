@@ -1623,6 +1623,182 @@
         "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
       ],
       "missing": "Actual-scale readability review with the production run (F1-08/F1-09)."
+    },
+    {
+      "owner": "ENEMY-003",
+      "role": "body",
+      "visualId": "ENEMY-003-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-003/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-003/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-003/enemy-003-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-003/enemy-003-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-004",
+      "role": "body",
+      "visualId": "ENEMY-004-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-004/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-004/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-005",
+      "role": "body",
+      "visualId": "ENEMY-005-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-005/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-005/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "MIDBOSS-001",
+      "role": "body",
+      "visualId": "MIDBOSS-001-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-001/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-001/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-001/midboss-001-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-001/midboss-001-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "BOSS-001",
+      "role": "body",
+      "visualId": "BOSS-001-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-001/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-001/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-001",
+      "role": "body",
+      "visualId": "TRAVELER-001-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-001/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-001/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-001/traveler-001-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-001/traveler-001-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-002",
+      "role": "body",
+      "visualId": "TRAVELER-002-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-002/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-002/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-002/traveler-002-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-002/traveler-002-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-005",
+      "role": "body",
+      "visualId": "TRAVELER-005-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-005/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-005/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-007",
+      "role": "body",
+      "visualId": "ENEMY-007-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-007/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-007/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "BOSS-001",
+      "role": "projectile",
+      "visualId": "BOSS-001-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-001/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-001/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "background",
+      "visualId": "FIELD-001-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-background",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

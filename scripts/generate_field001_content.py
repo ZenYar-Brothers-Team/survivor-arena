@@ -238,9 +238,13 @@ def character_baseline(baseline):
     return {"id": CHARACTER_BASELINE_ID, "baseStats": baseline["character"]["stats"]}
 
 
-ENEMY_VISUALS = {  # approved/imported bodies; other startup bodies remain an explicit art gate (DECISION-0054)
+ENEMY_VISUALS = {  # Imported FIELD-001 body references; motion profiles remain shared by movement family.
     "ENEMY-001": ("ENEMY-001-VISUAL-BODY", "ENEMY-001-MOTION"),
     "ENEMY-002": ("ENEMY-002-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-003": ("ENEMY-003-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-004": ("ENEMY-004-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-005": ("ENEMY-005-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-007": ("ENEMY-007-VISUAL-BODY", "ENEMY-002-MOTION"),
 }
 ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE"}
 CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}
@@ -399,7 +403,8 @@ def boss_attack(attack, cooldown, cadence):
             "projectileSpeed": attack["projectileSpeed"], "projectileLifetimeSeconds": attack["projectileLifetimeSeconds"],
             "projectileCount": attack["projectileCount"], "projectileRadius": attack["projectileRadius"],
             "telegraphSeconds": attack["telegraphSeconds"], "cadence": cadence,
-            "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]}}
+            "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]},
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"}
     if attack["id"] == "fan":
         data["spreadDegrees"] = attack["spreadDegrees"]
     else:
@@ -418,6 +423,7 @@ def bosses(baseline):
 
     def body(entry, movement, extra=None):
         data = {"id": entry["id"], "maxHealth": entry["maxHealth"], "collisionSize": entry["collisionSize"],
+                "visualId": f"{entry['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
                 "movementSpeed": entry["movementSpeed"], "contactDamage": entry["contactDamage"],
                 "contactDamageInterval": entry["contactDamageIntervalSeconds"], "experienceReward": entry["experienceReward"],
                 "knockbackResistance": entry["knockbackResistance"],
@@ -472,6 +478,7 @@ def travelers(baseline):
         result.append({
             "id": t["id"], "name": t["name"], "marker": t["marker"], "role": t["role"],
             "body": {"id": t["id"], "knockbackResistance": t["knockbackResistance"], "maxHealth": t["maxHealth"],
+                     "visualId": f"{t['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
                      "collisionSize": t["collisionSize"], "movementSpeed": t["movementSpeed"],
                      "contactDamage": t["contactDamage"], "contactDamageInterval": t["contactDamageIntervalSeconds"],
                      "experienceReward": t["experienceReward"], "movement": {"kind": "Seek"},
@@ -503,6 +510,7 @@ def fields(baseline):
                           "obstacleNames": ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
+                    "thumbnailVisualId": field["thumbnailVisualId"],
                     "unlockDescription": field["unlockDescription"], "environmentId": field["environmentId"],
                     "timelineId": field["timelineId"], "travelerScheduleId": field["travelerScheduleId"],
                     "finalBossId": field["finalBossId"], "midBossId": field["midBossId"],

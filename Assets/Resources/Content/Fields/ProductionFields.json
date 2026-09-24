@@ -23,6 +23,7 @@
       "description": "Переживите деревенскую облаву и продержитесь 15 минут.",
       "thumbnailPlaceholder": "Деревенская окраина",
       "difficulty": 1,
+      "thumbnailVisualId": "FIELD-001-VISUAL-BACKGROUND",
       "unlockDescription": "Доступно с начала игры",
       "environmentId": "FIELD-001-ENVIRONMENT",
       "timelineId": "FIELD-001-TIMELINE",

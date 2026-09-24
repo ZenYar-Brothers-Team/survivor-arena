@@ -1,13 +1,16 @@
 # FIELD-001 — открытые art gates стартового этапа
 
-Рабочий бриф для генерации изображений, которые нельзя было получить в среде без
-генератора ([DECISION-0054 §3](../decisions/0054-field001-autonomous-execution.md#3-арт-без-генератора)).
+Исходный рабочий бриф для генерации изображений, которые нельзя было получить в
+среде без генератора ([DECISION-0054 §3](../decisions/0054-field001-autonomous-execution.md#3-арт-без-генератора)).
+Перечисленные ниже роли импортированы и подключены 2026-09-24; provenance,
+результаты автоматических проверок и открытый gameplay-scale review —
+[evidence](../implementation/evidence/field001-art-integration-2026-09-24.md).
 Inventory и статусы изображений — [Art Production](Art%20Production.md); порядок
 source → runtime → manifest → approval — [ASSET_PIPELINE](ASSET_PIPELINE.md) и
 `scripts/README.md`. Execution status — только [STATUS](../implementation/STATUS.md#field001-execution).
 
-Пока изображения нет, runtime показывает явный placeholder (без подмены fixture-картинкой);
-gameplay и данные от этого не зависят.
+Для будущих отсутствующих изображений runtime показывает явный placeholder без
+подмены fixture-картинкой; gameplay и данные от этого не зависят.
 
 ## Как подключить готовое изображение
 

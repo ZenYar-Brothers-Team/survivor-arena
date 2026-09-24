@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-001",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; FIELD-001 visual packet 2026-09-24",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+  "prompt": "Use case: stylized-concept. Asset type: one transparent 2D hostile projectile sprite for BOSS-001 in Survival Arena, reused by both the boss's fan and ring attacks. Supplied image 1 is the existing enemy sling-stone projectile and is a style/contrast reference only; supplied image 2 is the boss body and is a theme reference only. Create ONE compact, nearly circular stylized iron-and-brass mace-head projectile with a broad readable dark core and a clear warm coral-red danger rim. It should read instantly at 20–32 pixels on screen and remain visually distinct from the small brown sling stone. Hand-painted storybook cutout style, dark plum-brown outer contour, simple cel-shaded masses, restrained texture, no photorealistic metal or 3D render. Center on a square genuinely transparent RGBA canvas with even safety padding; clean silhouette suitable for rotation, no directional lighting that breaks rotation. No background, floor, text, UI, speed lines, particles, long trail, extra objects or cropped parts.",
+  "constraints": [
+    "approved image or user-requested missing asset",
+    "source original preserved",
+    "transparent background"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "f130d5bbf06ba99fb09ccc3a629573df8ef190a0d660b84b918f39d958f5cb24",
+    "runtimeSha256": "37af17c6278303b71e4f911692a5576784fc4f7dae8fe6a23137bf42116a31fd",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 24,
+      "cropAlpha": true
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "f130d5bbf06ba99fb09ccc3a629573df8ef190a0d660b84b918f39d958f5cb24",
+  "promptProvenance": "Exact prompt issued in this task; stored in prompt."
+}

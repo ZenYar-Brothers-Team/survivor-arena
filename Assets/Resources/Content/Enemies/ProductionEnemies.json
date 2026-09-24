@@ -50,6 +50,8 @@
       "knockbackDistance": 0.55,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-003-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "Seek"
     }
@@ -67,6 +69,8 @@
       "knockbackDistance": 0.15,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-004-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5,
@@ -102,6 +106,8 @@
       "knockbackDistance": 0.15,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-005-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "DistanceReposition",
       "preferredDistance": 6,
@@ -140,6 +146,8 @@
       "knockbackDistance": 0.4,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-007-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
     "dashContactControls": {
       "knockbackDistance": 0.65,
       "knockbackSeconds": 0.12

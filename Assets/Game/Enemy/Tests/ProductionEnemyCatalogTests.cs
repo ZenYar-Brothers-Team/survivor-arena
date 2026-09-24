@@ -67,12 +67,10 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void Visuals_BindOnlyAvailableArt_MissingBodiesStayExplicit()
+        public void Visuals_BindProductionBodySprites()
         {
-            Assert.AreEqual("ENEMY-001-VISUAL-BODY", Enemy("ENEMY-001").Visual.Id.ToString());
-            Assert.AreEqual("ENEMY-002-VISUAL-BODY", Enemy("ENEMY-002").Visual.Id.ToString());
-            foreach (var id in new[] { "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" })
-                Assert.IsFalse(Enemy(id).Visual.Id.IsValid, $"{id} body is an open art gate, not a fixture image.");
+            foreach (var id in new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" })
+                Assert.AreEqual($"{id}-VISUAL-BODY", Enemy(id).Visual.Id.ToString());
         }
 
         [Test]

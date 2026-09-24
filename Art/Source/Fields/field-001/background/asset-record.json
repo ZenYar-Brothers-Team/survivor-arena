@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-001",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; FIELD-001 visual packet 2026-09-24",
+  "sourceKind": "ai-generated",
+  "generator": "ChatGPT image generation, shared by user",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+  "prompt": "Generation prompt unavailable in the user-shared ChatGPT image post; the original user corrections are recorded in the source conversation.",
+  "constraints": [
+    "approved image or user-requested missing asset",
+    "source original preserved",
+    "field thumbnail"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-001/field-001-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "512x341",
+    "sourceSha256": "8fe1c3bbd45d829befb7c2a4817f79958b5916d10c82b9902f18eb894563aa52",
+    "runtimeSha256": "8fe1c3bbd45d829befb7c2a4817f79958b5916d10c82b9902f18eb894563aa52",
+    "recipe": {
+      "mode": "copy"
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "d3c2d32aa8f31faeac4ec9cb742c199730fcd59a3e504f6f1bc401d316e05193",
+  "promptProvenance": "The shared ChatGPT image post did not expose the internal generation prompt; prompt field records this limitation.",
+  "sourceSharePost": "https://chatgpt.com/s/m_6ab55b75922c8191a1ab8dd2575012c9"
+}

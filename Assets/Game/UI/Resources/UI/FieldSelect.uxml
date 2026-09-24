@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement class="field-select-content">
         <ui:Label text="Choose your field" class="character-select-title" />
-        <ui:Label text="Fixture fields · thumbnail previews pending" class="character-select-subtitle" />
+        <ui:Label text="Choose where your run begins" class="character-select-subtitle" />
         <ui:ScrollView class="character-select-scroll">
             <ui:VisualElement name="field-select-cards" class="character-select-cards" />
         </ui:ScrollView>

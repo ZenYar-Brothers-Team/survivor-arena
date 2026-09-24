@@ -21,7 +21,8 @@ namespace Game.Field
                 field.UnlockDescription, field.EnvironmentId, field.TimelineId, field.FinalBossId,
                 (field.EnemyIds ?? throw new InvalidOperationException("Field requires enemyIds.")).Select(id => new ContentId(id)),
                 field.MidBossId == null ? (ContentId?)null : new ContentId(field.MidBossId),
-                field.TravelerScheduleId == null ? (ContentId?)null : new ContentId(field.TravelerScheduleId))).ToList();
+                field.TravelerScheduleId == null ? (ContentId?)null : new ContentId(field.TravelerScheduleId),
+                field.ThumbnailVisualId == null ? (ContentId?)null : new ContentId(field.ThumbnailVisualId))).ToList();
             Roster = new FieldRoster(fields, new FixtureFieldAccessProvider(fields, data.AvailableFieldIds.Select(id => new ContentId(id))));
             DefaultFieldId = data.DefaultFieldId;
             if (!Roster.TrySelect(DefaultFieldId, out _)) throw new InvalidOperationException("Default field must be available.");

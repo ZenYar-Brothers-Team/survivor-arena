@@ -1923,6 +1923,7 @@
   },
   "field": {
     "id": "FIELD-001",
+    "thumbnailVisualId": "FIELD-001-VISUAL-BACKGROUND",
     "difficulty": 1,
     "durationSeconds": 900,
     "arenaSideScreenHeights": 20,

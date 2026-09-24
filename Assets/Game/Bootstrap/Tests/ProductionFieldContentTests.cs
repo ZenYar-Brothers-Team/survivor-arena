@@ -44,6 +44,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("BOSS-001", field.FinalBoss.Id.ToString());
             Assert.AreEqual("MIDBOSS-001", field.MidBoss.Value.Id.ToString());
             Assert.AreEqual("FIELD-001-TRAVELERS", field.Travelers.Value.Id.ToString());
+            Assert.AreEqual("FIELD-001-VISUAL-BACKGROUND", field.Thumbnail.Value.Id.ToString());
             Assert.AreEqual(6, field.Enemies.Count);
             Assert.AreEqual("SpawnPoint", catalog.Environments.Single().SpawnPointName);
         }
@@ -73,6 +74,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("CHAR-001", catalog.RunSetup.StartingCharacterId.ToString());
             Assert.AreEqual(0.5f, catalog.RunSetup.Draft.SetDraftChance);
             var configuration = catalog.Fields.Roster.AllFields.Single().Resolve(catalog.Registry);
+            Assert.AreEqual(SpriteRole.Background,
+                configuration.Field.Thumbnail.Value.Resolve(catalog.Registry).Role);
             Assert.AreEqual("FIELD-001-TIMELINE", configuration.Timeline.Id.ToString());
             Assert.IsTrue(catalog.FieldEnvironmentPresentations.ContainsKey(configuration.Environment.Id));
         }

@@ -6,6 +6,7 @@ namespace Game.Field.Json
         public string DisplayName { get; set; }
         public string Description { get; set; }
         public string ThumbnailPlaceholder { get; set; }
+        public string ThumbnailVisualId { get; set; }
         public int? Difficulty { get; set; }
         public string UnlockDescription { get; set; }
         public string EnvironmentId { get; set; }
