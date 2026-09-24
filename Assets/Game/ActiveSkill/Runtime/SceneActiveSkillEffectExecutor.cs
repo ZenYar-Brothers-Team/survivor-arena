@@ -582,7 +582,11 @@ namespace Game.ActiveSkill
                 state.VisualHandle = _worldEffects.BeginRing(profile, center, 0f);
             }
             _expandingAreas.Add(state);
-            state.Tick(0f);
+            // The wave began when its delay elapsed inside this tick; advance the front by that overshoot so
+            // front timing does not depend on frame length (expanding areas were already ticked this frame).
+            state.Tick(Mathf.Max(0f, -scheduled.RemainingDelay));
+            if (state.VisualHandle != null)
+                _worldEffects.UpdateRing(state.VisualHandle, state.CurrentRadius, state.VisualProfile.Thickness);
         }
 
         private void TickExpandingAreas(float deltaTime)
