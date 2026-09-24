@@ -10,5 +10,6 @@ namespace Game.ActiveSkill.Json
         public float DurationSeconds { get; set; }
         public float HitCooldownSeconds { get; set; }
         public float DamageMultiplier { get; set; } = 1f;
+        public bool Persistent { get; set; }
     }
 }

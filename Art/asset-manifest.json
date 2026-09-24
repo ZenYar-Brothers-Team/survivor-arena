@@ -1469,6 +1469,108 @@
         "Imported and registered; awaits its production SET definition before gameplay use."
       ],
       "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SKILL-002",
+      "role": "projectile",
+      "visualId": "SKILL-002-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-002/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-002/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-002/skill-002-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-002/skill-002-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SKILL-005",
+      "role": "projectile",
+      "visualId": "SKILL-005-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-005/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-005/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-005/skill-005-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-005/skill-005-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SKILL-013",
+      "role": "projectile",
+      "visualId": "SKILL-013-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-013/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-013/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-013/skill-013-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-013/skill-013-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SKILL-004",
+      "role": "impact",
+      "visualId": null,
+      "method": "Procedural",
+      "owningIp": "IP-17",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/ActiveSkill/Runtime/SkillWorldEffectPresenter.cs",
+      "resourcePath": null,
+      "stage": "Prepared",
+      "evidence": [
+        "Expanding pulse ring drawn from ProceduralShapeSprites.Ring; radius follows the gameplay front.",
+        "Colors/fade in Assets/Resources/Content/Presentation/SkillWorldEffects.json (Art Production: Procedural in Unity / Hybrid).",
+        "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
+      ],
+      "missing": "Actual-scale readability review in the production run (F1-08/F1-09)."
+    },
+    {
+      "owner": "SKILL-007",
+      "role": "impact",
+      "visualId": null,
+      "method": "Procedural",
+      "owningIp": "IP-17",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/ActiveSkill/Runtime/SkillWorldEffectPresenter.cs",
+      "resourcePath": null,
+      "stage": "Prepared",
+      "evidence": [
+        "Lightning chain segments between consecutive hit points (stretched shared quad).",
+        "Colors/fade in Assets/Resources/Content/Presentation/SkillWorldEffects.json (Art Production: Procedural in Unity / Hybrid).",
+        "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
+      ],
+      "missing": "Actual-scale readability review in the production run (F1-08/F1-09)."
+    },
+    {
+      "owner": "SKILL-010",
+      "role": "telegraph",
+      "visualId": null,
+      "method": "Procedural",
+      "owningIp": "IP-17",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/ActiveSkill/Runtime/SkillWorldEffectPresenter.cs",
+      "resourcePath": null,
+      "stage": "Prepared",
+      "evidence": [
+        "Filled strike telegraph disc at the snapshotted point plus impact flash; radius = gameplay strike radius.",
+        "Colors/fade in Assets/Resources/Content/Presentation/SkillWorldEffects.json (Art Production: Procedural in Unity / Hybrid).",
+        "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
+      ],
+      "missing": "Actual-scale readability review in the production run (F1-08/F1-09)."
     }
   ]
 }

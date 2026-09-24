@@ -2,9 +2,9 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-24 (F1-00 approved; F1-01 started)
+Last repository audit: 2026-09-24 (F1-00 Verified; F1-01 Implemented, Unity NOT RUN)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-01 — ten production active skills; IP-12A gameplay density review остаётся открытым
+Current active packet: F1-02 — ten production passives; IP-12A gameplay density review остаётся открытым
 Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
@@ -184,8 +184,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | Приоритет | Packet / владельцы | Status | Prerequisites / конкретный gate |
 |---:|---|---|---|
 | 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Verified | 2026-09-24: baseline v1 Approved (DECISION-0053), canon синхронизирован; static validator PASS; [evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24) |
-| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | In progress | F1-00 Verified; world presentation gates закрываются внутри пакета |
-| 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Blocked | F1-00/01; production mapping и numeric validation |
+| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Implemented | 2026-09-24: completed IDs SKILL-001…007/010/013/014 (L1–6, art/VFX bound in data); .NET harness PASS, Unity NOT RUN → Verified после `check_project.py --scope full`; [evidence](evidence/field001-f1-01-2026-09-24.md), [DECISION-0054](../decisions/0054-field001-autonomous-execution.md) |
+| 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | In progress | F1-00 Verified, F1-01 Implemented |
 | 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Blocked | F1-00/01/02; numeric weights, body/crop binding и initial mapping verification |
 | 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Ready | F1-00 Verified; body assets/production bindings — внутри пакета; выполняется после F1-01…03 по порядку |
 | 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Blocked | F1-00/01/02/04; thresholds/effect payload, SET-017 presentation |
@@ -579,8 +579,9 @@ Startup packet: F1-01 — SKILL-001…007/010/013/014. Required packets: F1-00; 
 Dependencies: IP-08, IP-10A, IP-12A
 Blocked by: complete per-level parameters SKILL-001…016 и per-ID image gates.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates.
-Remaining acceptance / IDs: SKILL-001…016, полные уровни и per-ID assets/checks.
-Target implementation evidence: Нет для новых требований.
+Remaining acceptance / IDs: SKILL-008/009/011/012/015/016 и Unity verification стартового поднабора.
+Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
+Target implementation evidence: F1-01 subset only.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).
 

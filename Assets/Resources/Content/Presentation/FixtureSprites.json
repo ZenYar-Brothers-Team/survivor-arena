@@ -456,5 +456,71 @@
     "id": "SET-020-VISUAL-ICON",
     "resourcePath": "Art/UI/Icons/Sets/set-020-icon",
     "role": "Icon"
+  },
+  {
+    "projectile": {
+      "visualScale": 4.3,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.86,
+      "flashGreen": 0.86,
+      "flashBlue": 0.9,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.55,
+      "particleGreen": 0.55,
+      "particleBlue": 0.62,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-002-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-002/skill-002-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 5.0,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.72,
+      "flashGreen": 0.95,
+      "flashBlue": 0.96,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.36,
+      "particleGreen": 0.74,
+      "particleBlue": 0.78,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-005-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-005/skill-005-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 2.7,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.8,
+      "flashGreen": 0.92,
+      "flashBlue": 1.0,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.45,
+      "particleGreen": 0.66,
+      "particleBlue": 0.95,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-013-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-013/skill-013-projectile",
+    "role": "Projectile"
   }
 ]

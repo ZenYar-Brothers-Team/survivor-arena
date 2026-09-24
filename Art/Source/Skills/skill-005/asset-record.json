@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-005",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-24",
+  "sourceKind": "derived-from-approved-icon",
+  "generator": "scripts-free PIL derivation in session 2026-09-24 (crop/connected-component mask/rotate) of the user-approved icon master",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054.",
+  "prompt": "No generation prompt: single spear derived from the approved SKILL-005 icon master (Art/Source/Skills/skill-005/icon/selected-master.png) by cropping one element, masking neighbours, and rotating it to face +X. No pixels were painted.",
+  "constraints": [
+    "transparent background",
+    "single projectile",
+    "points to +X for runtime rotation",
+    "derived from approved icon; no new style"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-005/skill-005-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1437x1064",
+    "sourceSha256": "e69db92404fd1b1d0799cf8139ac5c8443c7f67733eb4cf91d609621537809ec",
+    "runtimeSha256": "639461c8e4ac6f19142cfce10b0f308d2bab9906d54fa1d350c788301f53497f",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": true
+    }
+  }
+}

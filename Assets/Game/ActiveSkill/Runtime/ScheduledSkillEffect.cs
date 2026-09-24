@@ -20,6 +20,8 @@ namespace Game.ActiveSkill
         public int TickIndex { get; }
         public Vector2? CenterOverride { get; }
         public float RemainingDelay { get; set; }
+        /// <summary>Shared distinct-target set for deferred RandomEnemy strike waves; null for the first wave.</summary>
+        public StrikeTargetSet StrikeTargets { get; set; }
 
         public ScheduledSkillEffect(
             ActiveSkillActivation activation,

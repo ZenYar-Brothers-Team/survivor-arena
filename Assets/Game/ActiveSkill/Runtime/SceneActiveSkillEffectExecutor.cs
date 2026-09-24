@@ -36,6 +36,24 @@ namespace Game.ActiveSkill
         private readonly Transform _orbitPoolRoot;
         private readonly GameObjectPool<SpriteRenderer> _orbitBladePool;
         private readonly ContentRegistry _contentRegistry;
+        private readonly List<PersistentOrbitState> _persistentOrbits = new List<PersistentOrbitState>();
+        private readonly List<ExpandingAreaState> _expandingAreas = new List<ExpandingAreaState>();
+        private readonly List<PendingStrike> _pendingStrikes = new List<PendingStrike>();
+        private readonly List<Vector2> _chainPoints = new List<Vector2>();
+        private readonly SkillWorldEffectPresenter _worldEffects;
+
+        /// <summary>Minimum running time a persistent orbit survives without a refresh from its skill.</summary>
+        public const float PersistentOrbitMinimumLeaseSeconds = 1f;
+
+        private sealed class PendingStrike
+        {
+            public ScheduledSkillEffect Scheduled;
+            public StrikeEffect Effect;
+            public Vector2 Point;
+            public float Remaining;
+            public object Telegraph;
+            public SkillWorldEffectProfile Profile;
+        }
 
         public int ScheduledCount => _scheduled.Count;
         public int ActiveMineCount => _mines.Count;
@@ -45,15 +63,36 @@ namespace Game.ActiveSkill
             {
                 var count = 0;
                 for (var i = 0; i < _orbitVisuals.Count; i++) count += _orbitVisuals[i].BladeCount;
+                for (var i = 0; i < _persistentOrbits.Count; i++) count += _persistentOrbits[i].VisualBladeCount;
                 return count;
             }
+        }
+        public int PersistentOrbitCount => _persistentOrbits.Count;
+        public int ExpandingAreaCount => _expandingAreas.Count;
+        public int PendingStrikeCount => _pendingStrikes.Count;
+        public int ActiveWorldEffectShapeCount => _worldEffects.ActiveShapeCount;
+
+        /// <summary>Current persistent orbit blade count/phase for tests and debug observability.</summary>
+        public bool TryGetPersistentOrbit(ContentId sourceId, out int bladeCount, out float phaseDegrees)
+        {
+            for (var i = 0; i < _persistentOrbits.Count; i++)
+            {
+                if (_persistentOrbits[i].SourceId != sourceId) continue;
+                bladeCount = _persistentOrbits[i].BladeCount;
+                phaseDegrees = _persistentOrbits[i].PhaseDegrees;
+                return true;
+            }
+            bladeCount = 0;
+            phaseDegrees = 0f;
+            return false;
         }
 
         public SceneActiveSkillEffectExecutor(
             RunController runController,
             IActiveSkillProjectileLauncher projectileLauncher = null,
             ICombatTargetQuery targets = null,
-            ContentRegistry contentRegistry = null)
+            ContentRegistry contentRegistry = null,
+            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffectProfiles = null)
         {
             _runController = runController != null
                 ? runController
@@ -65,6 +104,7 @@ namespace Game.ActiveSkill
             _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
             _orbitPoolRoot = new GameObject("Orbit Blade Pool").transform;
             _orbitBladePool = new GameObjectPool<SpriteRenderer>(CreateOrbitBlade, _orbitPoolRoot);
+            _worldEffects = new SkillWorldEffectPresenter(worldEffectProfiles);
         }
 
         public void Schedule(ActiveSkillActivation activation)
@@ -74,10 +114,20 @@ namespace Game.ActiveSkill
             var randomTargets = activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.RandomEnemy;
             var usedTargets = randomTargets ? new HashSet<EnemyTargetLife>() : null;
             if (randomTargets) usedTargets.Add(activation.TargetLife);
+            StrikeTargetSet deferred = null;
             for (var waveIndex = 0; waveIndex < waves.Count; waveIndex++)
             {
                 Vector2? centerOverride = null;
-                if (randomTargets && waveIndex > 0)
+                if (randomTargets && waveIndex > 0 && ContainsStrike(waves[waveIndex]))
+                {
+                    // Strike waves snapshot their own target when their telegraph starts.
+                    if (deferred == null)
+                    {
+                        deferred = new StrikeTargetSet();
+                        deferred.Used.Add(activation.TargetLife);
+                    }
+                }
+                else if (randomTargets && waveIndex > 0)
                 {
                     _targets.CopyAliveTo(_enemyBuffer);
                     var radius = activation.LevelDefinition.Targeting.Radius * activation.RangeMultiplier;
@@ -104,6 +154,11 @@ namespace Game.ActiveSkill
                         repeatCount = Math.Max(1, Mathf.CeilToInt(beam.DurationSeconds / beam.TickIntervalSeconds));
                         repeatInterval = beam.TickIntervalSeconds;
                     }
+                    else if (effect is OrbitEffect persistent && persistent.Persistent)
+                    {
+                        RefreshPersistentOrbit(activation, wave, persistent);
+                        continue;
+                    }
                     else if (effect is OrbitEffect orbit)
                     {
                         repeatCount = Math.Max(1, Mathf.CeilToInt(orbit.DurationSeconds / orbit.HitCooldownSeconds));
@@ -117,7 +172,7 @@ namespace Game.ActiveSkill
                             wave,
                             effect,
                             wave.DelaySeconds + repeatInterval * tickIndex,
-                            tickIndex, centerOverride));
+                            tickIndex, centerOverride) { StrikeTargets = waveIndex > 0 ? deferred : null });
                     }
                 }
             }
@@ -136,6 +191,10 @@ namespace Game.ActiveSkill
 
             using var _ = PerfGuard.Measure("SceneActiveSkillEffectExecutor.Tick", TickWarningMilliseconds);
             TickOrbitVisuals(deltaTime);
+            TickPersistentOrbits(deltaTime);
+            TickExpandingAreas(deltaTime);
+            TickPendingStrikes(deltaTime);
+            _worldEffects.Tick(deltaTime);
             foreach (var scheduled in _scheduled) scheduled.RemainingDelay -= deltaTime;
             _scheduled.Sort((left, right) => left.RemainingDelay.CompareTo(right.RemainingDelay));
             while (_scheduled.Count > 0 && _scheduled[0].RemainingDelay <= 0f)
@@ -167,8 +226,14 @@ namespace Game.ActiveSkill
                 case ChainEffect chain:
                     ExecuteChain(scheduled, chain);
                     break;
+                case AreaEffect area when area.ExpansionSeconds > 0f:
+                    BeginExpandingArea(scheduled, area);
+                    break;
                 case AreaEffect area:
                     ExecuteArea(scheduled, area);
+                    break;
+                case StrikeEffect strike:
+                    BeginStrike(scheduled, strike);
                     break;
                 case MineEffect mine:
                     PlaceMine(scheduled, mine);
@@ -330,6 +395,8 @@ namespace Game.ActiveSkill
             foreach (var candidate in _enemyBuffer) _chainCandidates.Add(new EnemyTargetLife(candidate));
             IEnemyDamageReceiver current = scheduled.Activation.TargetLife.IsAlive ? scheduled.Activation.InitialTarget : null;
             var previousPosition = scheduled.Activation.Origin;
+            _chainPoints.Clear();
+            _chainPoints.Add(previousPosition);
             var damageAmount = scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effect.DamageMultiplier;
 
             for (var jump = 0; jump < effect.TargetCount; jump++)
@@ -341,6 +408,7 @@ namespace Game.ActiveSkill
                 var direction = currentPosition - previousPosition;
                 current.ApplyDamage(CreateDamage(scheduled, effect.DamageMultiplier).WithAmount(damageAmount).WithDirection(direction.x, direction.y));
                 previousPosition = currentPosition;
+                _chainPoints.Add(currentPosition);
                 damageAmount *= effect.DamageRetentionPerJump;
 
                 IEnemyDamageReceiver next = null;
@@ -360,6 +428,8 @@ namespace Game.ActiveSkill
                 }
                 current = next;
             }
+            if (_chainPoints.Count > 1 && _worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.ChainArc, out var profile))
+                for (var i = 1; i < _chainPoints.Count; i++) _worldEffects.Segment(profile, _chainPoints[i - 1], _chainPoints[i]);
         }
 
         private void PlaceMine(ScheduledSkillEffect scheduled, MineEffect effect)
@@ -444,6 +514,129 @@ namespace Game.ActiveSkill
             }
         }
 
+        private static bool ContainsStrike(ActiveSkillActivationWave wave)
+        {
+            for (var i = 0; i < wave.Effects.Count; i++)
+                if (wave.Effects[i] is StrikeEffect) return true;
+            return false;
+        }
+
+        private void RefreshPersistentOrbit(ActiveSkillActivation activation, ActiveSkillActivationWave wave, OrbitEffect effect)
+        {
+            if (activation.OwnerTransform == null) return;
+            PersistentOrbitState state = null;
+            for (var i = 0; i < _persistentOrbits.Count; i++)
+                if (_persistentOrbits[i].SourceId == activation.SourceId && _persistentOrbits[i].Owner == activation.OwnerTransform)
+                    state = _persistentOrbits[i];
+            if (state == null)
+            {
+                state = new PersistentOrbitState(activation.SourceId, activation.OwnerTransform, _orbitBladePool,
+                    wave.RotationDegrees + activation.RotationDegrees);
+                _persistentOrbits.Add(state);
+            }
+            var damage = new EnemyDamageRequest(new CombatDamageRequest(activation.Source,
+                activation.Damage * wave.DamageMultiplier * effect.DamageMultiplier, wave.Controls,
+                outgoingKnockbackMultiplier: activation.OutgoingKnockbackMultiplier));
+            var lease = Mathf.Max(PersistentOrbitMinimumLeaseSeconds, activation.LevelDefinition.CooldownSeconds * 4f);
+            state.Refresh(effect, damage, activation.RangeMultiplier, activation.SizeMultiplier, lease,
+                ResolveProjectileVisual(activation.LevelDefinition));
+        }
+
+        private void TickPersistentOrbits(float deltaTime)
+        {
+            for (var i = _persistentOrbits.Count - 1; i >= 0; i--)
+            {
+                if (i >= _persistentOrbits.Count) continue;
+                if (_persistentOrbits[i].Tick(deltaTime)) continue;
+                _persistentOrbits[i].Dispose();
+                _persistentOrbits.RemoveAt(i);
+            }
+        }
+
+        private void BeginExpandingArea(ScheduledSkillEffect scheduled, AreaEffect effect)
+        {
+            var center = scheduled.CenterOverride ??
+                         (scheduled.Activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.Self
+                             ? (scheduled.Activation.OwnerTransform != null ? (Vector2)scheduled.Activation.OwnerTransform.position : scheduled.Activation.Origin)
+                             : scheduled.Activation.AimPoint);
+            var state = new ExpandingAreaState(center, effect.Radius * scheduled.Activation.SizeMultiplier,
+                effect.ExpansionSeconds, CreateDamage(scheduled, effect.DamageMultiplier));
+            if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.ExpandingRing, out var profile))
+            {
+                state.VisualProfile = profile;
+                state.VisualHandle = _worldEffects.BeginRing(profile, center, 0f);
+            }
+            _expandingAreas.Add(state);
+            state.Tick(0f);
+        }
+
+        private void TickExpandingAreas(float deltaTime)
+        {
+            for (var i = _expandingAreas.Count - 1; i >= 0; i--)
+            {
+                if (i >= _expandingAreas.Count) continue;
+                var state = _expandingAreas[i];
+                var complete = state.Tick(deltaTime);
+                if (state.VisualHandle != null)
+                    _worldEffects.UpdateRing(state.VisualHandle, state.CurrentRadius, state.VisualProfile.Thickness);
+                if (!complete) continue;
+                if (state.VisualHandle != null) _worldEffects.Release(state.VisualHandle, state.VisualProfile.FadeSeconds);
+                _expandingAreas.RemoveAt(i);
+            }
+        }
+
+        private void BeginStrike(ScheduledSkillEffect scheduled, StrikeEffect effect)
+        {
+            Vector2 point;
+            if (scheduled.StrikeTargets == null)
+            {
+                point = scheduled.CenterOverride ?? scheduled.Activation.AimPoint;
+            }
+            else
+            {
+                // Later strike: new distinct random valid target at its own telegraph start; none -> skipped.
+                _targets.CopyAliveTo(_enemyBuffer);
+                var radius = scheduled.Activation.LevelDefinition.Targeting.Radius * scheduled.Activation.RangeMultiplier;
+                var origin = scheduled.Activation.OwnerTransform != null ? (Vector2)scheduled.Activation.OwnerTransform.position : scheduled.Activation.Origin;
+                IEnemyDamageReceiver selected = null;
+                var count = 0;
+                foreach (var candidate in _enemyBuffer)
+                {
+                    var life = new EnemyTargetLife(candidate);
+                    if (!life.IsAlive || scheduled.StrikeTargets.Used.Contains(life) || (candidate.Position - origin).sqrMagnitude > radius * radius) continue;
+                    var roll = scheduled.Activation.Random != null ? scheduled.Activation.Random.Next(++count) : ++count - 1;
+                    if (roll == 0) selected = candidate;
+                }
+                if (selected == null) return;
+                scheduled.StrikeTargets.Used.Add(new EnemyTargetLife(selected));
+                point = selected.Position;
+            }
+            var pending = new PendingStrike { Scheduled = scheduled, Effect = effect, Point = point, Remaining = effect.TelegraphSeconds };
+            if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.StrikeTelegraph, out var profile))
+            {
+                pending.Profile = profile;
+                pending.Telegraph = _worldEffects.BeginTelegraph(profile, point, effect.Radius * scheduled.Activation.SizeMultiplier);
+            }
+            _pendingStrikes.Add(pending);
+            if (effect.TelegraphSeconds <= 0f) TickPendingStrikes(0f);
+        }
+
+        private void TickPendingStrikes(float deltaTime)
+        {
+            for (var i = 0; i < _pendingStrikes.Count; i++) _pendingStrikes[i].Remaining -= deltaTime;
+            for (var i = _pendingStrikes.Count - 1; i >= 0; i--)
+            {
+                if (i >= _pendingStrikes.Count) continue;
+                var pending = _pendingStrikes[i];
+                if (pending.Remaining > 0f) continue;
+                _pendingStrikes.RemoveAt(i);
+                var radius = pending.Effect.Radius * pending.Scheduled.Activation.SizeMultiplier;
+                if (pending.Telegraph != null) _worldEffects.Release(pending.Telegraph, 0.0001f);
+                EnemyDamageArea.Apply(pending.Point, radius, CreateDamage(pending.Scheduled, pending.Effect.DamageMultiplier));
+                if (pending.Profile != null) _worldEffects.Flash(pending.Profile, pending.Point, radius);
+            }
+        }
+
         private static EnemyDamageRequest CreateDamage(ScheduledSkillEffect scheduled, float effectMultiplier)
         {
             return new EnemyDamageRequest(new CombatDamageRequest(
@@ -455,6 +648,11 @@ namespace Game.ActiveSkill
 
         public void Clear()
         {
+            for (var i = 0; i < _persistentOrbits.Count; i++) _persistentOrbits[i].Dispose();
+            _persistentOrbits.Clear();
+            _expandingAreas.Clear();
+            _pendingStrikes.Clear();
+            _worldEffects.Clear();
             for (var i = 0; i < _orbitVisuals.Count; i++) _orbitVisuals[i].Dispose();
             _orbitVisuals.Clear();
             for (var i = 0; i < _mines.Count; i++) _mines[i].Dispose();
@@ -466,6 +664,7 @@ namespace Game.ActiveSkill
         public void Dispose()
         {
             Clear();
+            _worldEffects.Dispose();
             if (_projectileLauncher is SceneProjectileLauncher launcher) launcher.Dispose();
             for (var i = 0; i < _mines.Count; i++)
                 _mines[i].Dispose();

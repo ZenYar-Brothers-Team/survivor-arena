@@ -368,7 +368,8 @@ namespace Game.Bootstrap
                 // The executor owns a scene GameObject (mine pool root); it is registered for
                 // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
                 // idempotent, and Shutdown disposes it again on the success path).
-                var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry);
+                var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry,
+                    worldEffectProfiles: SkillWorldEffectCatalog.Create());
                 initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,

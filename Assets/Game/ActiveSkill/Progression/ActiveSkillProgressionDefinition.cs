@@ -59,10 +59,12 @@ namespace Game.ActiveSkill
             var next = GetLevel(nextLevel);
             var values = new List<DraftValueChange>
             {
-                new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage),
-                new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"),
-                new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count)
+                new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage)
             };
+            // A persistent orbit's cooldown is only its technical refresh interval, not a player-facing value.
+            if (!IsPersistentOrbit(next))
+                values.Add(new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"));
+            values.Add(new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count));
             if (current != null)
             {
                 var before = SkillParameterPreview.Capture(current);
@@ -73,6 +75,14 @@ namespace Game.ActiveSkill
                 }
             }
             return new DraftOptionPreview(currentLevel, nextLevel, values);
+        }
+
+        private static bool IsPersistentOrbit(ActiveSkillLevelDefinition level)
+        {
+            foreach (var wave in level.Waves)
+                foreach (var effect in wave.Effects)
+                    if (!(effect is OrbitEffect orbit) || !orbit.Persistent) return false;
+            return true;
         }
 
         // Only levels that opted into a distinct Visual get validated; levels

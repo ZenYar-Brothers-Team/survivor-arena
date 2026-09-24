@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-002",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-24",
+  "sourceKind": "derived-from-approved-icon",
+  "generator": "scripts-free PIL derivation in session 2026-09-24 (crop/connected-component mask/rotate) of the user-approved icon master",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054.",
+  "prompt": "No generation prompt: single needle derived from the approved SKILL-002 icon master (Art/Source/Skills/skill-002/icon/selected-master.png) by cropping one element, masking neighbours, and rotating it to face +X. The binding-covered needle tip was completed with a two-tone steel wedge and the icon's outline color.",
+  "constraints": [
+    "transparent background",
+    "single projectile",
+    "points to +X for runtime rotation",
+    "derived from approved icon; no new style"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-002/skill-002-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "763x177",
+    "sourceSha256": "2c3c95135976fa4e325eef430ce2a195e318a7f995c044b89f73148831962efd",
+    "runtimeSha256": "8a77a57b591a5e97f6714f31b77c0d5249d9d5931b52092150082e20f3314d6a",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": true
+    }
+  }
+}
