@@ -4,8 +4,8 @@
 
 Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…08 Implemented, Unity NOT RUN)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-09 — доведение/приёмка (требует Unity-прогонов и игровой оценки пользователя); IP-12A gameplay density review остаётся открытым
-Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
+Current active packet: нет исполнимого без Unity — F1-09 ждёт Unity-проверки и прогонов пользователя; IP-12A gameplay density review остаётся открытым
+Next Ready packet: нет. F1-00…F1-08 пройдены 2026-09-24 по разрешению пользователя; F1-09 Blocked до Unity-прогона (см. [очередь](#field001-execution)); к общему backlog не переходить.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -192,7 +192,7 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Implemented | 2026-09-24: BOSS-001/MIDBOSS-001 (атаки, фазы, двойной рывок); .NET harness PASS, Unity NOT RUN; **art gate:** тела и снаряды боссов; [evidence](evidence/field001-f1-06-2026-09-24.md) |
 | 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Implemented | 2026-09-24: TRAVELER-001/002/005 + FIELD-001 schedule, PICKUP-002; .NET harness PASS, Unity NOT RUN; **art gate:** тела Путников; [evidence](evidence/field001-f1-07-2026-09-24.md) |
 | 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Implemented | 2026-09-24: FIELD-001 (поле, 900-s timeline, 64 authored player-only obstacles), production composition без fixture fallback, production профиль `profile-v1.json`; .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-08-2026-09-24.md), [DECISION-0054 §9](../decisions/0054-field001-autonomous-execution.md#9-конкретизации-f1-08) |
-| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08; real-run matrix, performance bounds, closure of gameplay OBS |
+| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08 Implemented. **Нужно от пользователя:** Unity `check_project.py --scope full` (F1-01…08 → Verified), реальные прогоны по матрице, performance bounds, приёмка ощущения карты; art gates — [бриф](../art/field001-open-art-requests.md). [Подготовка/матрица NOT RUN](evidence/field001-f1-09-2026-09-24.md) |
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
