@@ -14,9 +14,12 @@ namespace Game.Enemy
     {
         private const string ResourcePath = "Content/Enemies/FixtureEnemies";
 
-        public static IReadOnlyList<EnemyDefinition> Create()
+        public static IReadOnlyList<EnemyDefinition> Create() => Load(ResourcePath);
+
+        /// <summary>Loads any enemy JSON (fixture or production) with the shared DTO validation.</summary>
+        public static IReadOnlyList<EnemyDefinition> Load(string resourcePath)
         {
-            var data = JsonContentFile.Load<EnemyDefinitionData[]>(ResourcePath);
+            var data = JsonContentFile.Load<EnemyDefinitionData[]>(resourcePath);
             var definitions = new EnemyDefinition[data.Length];
             for (var i = 0; i < data.Length; i++)
                 definitions[i] = ToDefinition(data[i]);
@@ -60,10 +63,12 @@ namespace Game.Enemy
             if (!Enum.TryParse(data.Kind, true, out EnemyMovementKind kind))
                 throw new InvalidOperationException($"Unknown enemy movement kind '{data.Kind}'.");
 
-            var neutral = new EnemyMovementProfile(kind);
-            var usesDistance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit;
-            var usesLateral = kind == EnemyMovementKind.Orbit || kind == EnemyMovementKind.Zigzag;
-            var usesCycle = kind == EnemyMovementKind.Zigzag || kind == EnemyMovementKind.ApproachRetreat;
+            // Neutral fallbacks for fields this kind never reads (Seek carries every domain default).
+            var neutral = EnemyMovementProfile.Seek;
+            var reposition = kind == EnemyMovementKind.DistanceReposition;
+            var usesDistance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit || reposition;
+            var usesLateral = kind == EnemyMovementKind.Orbit || kind == EnemyMovementKind.Zigzag || reposition;
+            var usesCycle = kind == EnemyMovementKind.Zigzag || kind == EnemyMovementKind.ApproachRetreat || reposition;
             var usesDash = kind == EnemyMovementKind.TelegraphedDash;
 
             string Owner(string field) => $"Enemy '{enemyId}' movement '{kind}' field '{field}'";
@@ -76,7 +81,8 @@ namespace Game.Enemy
                 Pick(data.DashTelegraphSeconds, usesDash, neutral.DashTelegraphSeconds, Owner(nameof(data.DashTelegraphSeconds))),
                 Pick(data.DashDurationSeconds, usesDash, neutral.DashDurationSeconds, Owner(nameof(data.DashDurationSeconds))),
                 Pick(data.DashCooldownSeconds, usesDash, neutral.DashCooldownSeconds, Owner(nameof(data.DashCooldownSeconds))),
-                Pick(data.DashSpeedMultiplier, usesDash, neutral.DashSpeedMultiplier, Owner(nameof(data.DashSpeedMultiplier))));
+                Pick(data.DashSpeedMultiplier, usesDash, neutral.DashSpeedMultiplier, Owner(nameof(data.DashSpeedMultiplier))),
+                Pick(data.RepositionSeconds, reposition, neutral.RepositionSeconds, Owner(nameof(data.RepositionSeconds))));
         }
 
         private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)
@@ -101,7 +107,16 @@ namespace Game.Enemy
                 RequireControls(data.Controls, Owner(nameof(data.Controls))),
                 Require(data.TelegraphSeconds, Owner(nameof(data.TelegraphSeconds))),
                 string.IsNullOrWhiteSpace(data.ProjectileVisualId)
-                    ? default : new ContentRef<Game.Presentation.SpriteDefinition>(data.ProjectileVisualId));
+                    ? default : new ContentRef<Game.Presentation.SpriteDefinition>(data.ProjectileVisualId),
+                ParseCadence(data.Cadence, Owner(nameof(data.Cadence))));
+        }
+
+        private static EnemyAttackCadence ParseCadence(string cadence, string owner)
+        {
+            if (string.IsNullOrWhiteSpace(cadence)) return EnemyAttackCadence.CooldownAfterShot;
+            if (!Enum.TryParse(cadence, false, out EnemyAttackCadence parsed) || !Enum.IsDefined(typeof(EnemyAttackCadence), parsed))
+                throw new InvalidOperationException($"{owner} '{cadence}' is not a known cadence.");
+            return parsed;
         }
 
         private static CombatControlProfile RequireControls(CombatControlData data, string owner)

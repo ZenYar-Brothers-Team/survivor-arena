@@ -46,3 +46,9 @@ Assets/Resources/Art/Sprites/Skills/skill-005/skill-005-projectile.png -filter -
 Art/Source/Skills/skill-013/selected-master.png -filter -diff -merge binary
 Art/Source/Skills/skill-013/v001/concept-01.png -filter -diff -merge binary
 Assets/Resources/Art/Sprites/Skills/skill-013/skill-013-projectile.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-004/selected-master.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-004/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-projectile.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-005/selected-master.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-005/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png -filter -diff -merge binary

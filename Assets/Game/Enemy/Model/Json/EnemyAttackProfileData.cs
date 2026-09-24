@@ -19,5 +19,7 @@ namespace Game.Enemy.Json
         public float? ExplosionRadius { get; set; }
         public float? RotationStepDegrees { get; set; }
         public string ProjectileVisualId { get; set; }
+        /// <summary>Optional; absent = CooldownAfterShot (fixture behavior).</summary>
+        public string Cadence { get; set; }
     }
 }

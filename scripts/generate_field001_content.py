@@ -238,11 +238,96 @@ def character_baseline(baseline):
     return {"id": CHARACTER_BASELINE_ID, "baseStats": baseline["character"]["stats"]}
 
 
+ENEMY_VISUALS = {  # approved/imported bodies; other startup bodies remain an explicit art gate (DECISION-0054)
+    "ENEMY-001": ("ENEMY-001-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-002": ("ENEMY-002-VISUAL-BODY", "ENEMY-002-MOTION"),
+}
+ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE"}
+CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}
+
+
+def enemies(baseline):
+    result = []
+    for enemy in baseline["enemies"]:
+        kb_seconds = enemy["knockbackSeconds"]
+        movement = dict(enemy["movement"])
+        entry = {
+            "id": enemy["id"], "knockbackResistance": enemy["knockbackResistance"], "maxHealth": enemy["maxHealth"],
+            "collisionSize": enemy["collisionSize"], "movementSpeed": enemy["movementSpeed"],
+            "contactDamage": enemy["contactDamage"], "contactDamageInterval": enemy["contactDamageIntervalSeconds"],
+            "experienceReward": enemy["experienceReward"],
+            "contactControls": {"knockbackDistance": enemy["contactKnockback"], "knockbackSeconds": kb_seconds},
+        }
+        if enemy["id"] in ENEMY_VISUALS:
+            entry["visualId"], entry["motionProfileId"] = ENEMY_VISUALS[enemy["id"]]
+        kind = movement["kind"]
+        runtime_movement = {"kind": kind}
+        if kind in ("KeepDistance", "DistanceReposition"):
+            runtime_movement.update(preferredDistance=movement["preferredDistance"], distanceTolerance=movement["distanceTolerance"])
+        if kind == "DistanceReposition":
+            if movement["cycleSeconds"] != movement["holdingSeconds"] + movement["repositionSeconds"] or not movement["alternateLateralDirection"]:
+                raise SystemExit(f"{enemy['id']}: unsupported reposition cycle")
+            runtime_movement.update(lateralStrength=movement["lateralStrength"], cycleSeconds=movement["cycleSeconds"],
+                                    repositionSeconds=movement["repositionSeconds"])
+        if kind == "TelegraphedDash":
+            if movement["direction"] != "snapshot-at-telegraph-start":
+                raise SystemExit(f"{enemy['id']}: unsupported dash direction policy")
+            runtime_movement.update(dashTelegraphSeconds=movement["dashTelegraphSeconds"],
+                                    dashDurationSeconds=movement["dashDurationSeconds"],
+                                    dashCooldownSeconds=movement["dashCooldownSeconds"],
+                                    dashSpeedMultiplier=movement["dashSpeedMultiplier"])
+            entry["dashContactControls"] = {"knockbackDistance": movement["dashKnockback"], "knockbackSeconds": kb_seconds}
+        entry["movement"] = runtime_movement
+        attack = enemy["attack"]
+        if attack:
+            if attack["initialDelaySeconds"] != attack["cooldownSeconds"] or attack["aimSnapshot"] != "windup-start":
+                raise SystemExit(f"{enemy['id']}: attack timing not expressible by the runtime cadence")
+            entry["attack"] = {
+                "pattern": attack["pattern"], "damage": attack["damage"], "cooldownSeconds": attack["cooldownSeconds"],
+                "projectileSpeed": attack["projectileSpeed"], "projectileLifetimeSeconds": attack["projectileLifetimeSeconds"],
+                "projectileCount": attack["projectileCount"], "projectileRadius": attack["projectileRadius"],
+                "telegraphSeconds": attack["telegraphSeconds"], "cadence": CADENCES[attack["cadence"]],
+                "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]},
+                "projectileVisualId": ENEMY_PROJECTILE_VISUALS[enemy["id"]],
+            }
+        result.append(entry)
+    return result
+
+
+# In-game accepted presentation scales (docs/playtests/2026-09-22_visual-acceptance.md) win over the review
+# format's neutral 1.0; gameplay values below come from the baseline unchanged (DECISION-0054 section 6).
+ACCEPTED_PICKUP_VISUAL_SCALES = {"Potion": 0.68, "Book": 0.7, "experience": 0.62}
+
+
+def pickups(baseline):
+    data = baseline["pickups"]
+    if data["enemyChanceOverrides"] or data["fieldChanceOverrides"] or data["eligiblePotionSources"] != "ordinary-only":
+        raise SystemExit("pickup overrides/eligibility need a runtime mapping review")
+    seeds = baseline["randomness"]["referenceSeeds"]
+    definitions = data["definitions"]
+    by_kind = {d["kind"]: d for d in definitions}
+    return {
+        "potionId": by_kind["Potion"]["id"], "bookId": by_kind["Book"]["id"],
+        "baseChance": data["basePotionChance"], "seed": seeds["potion"],
+        "placementSkin": data["placementSkin"], "feedbackSeconds": data["feedbackSeconds"],
+        "experienceVisualId": data["experienceVisualId"],
+        "experienceVisualScale": ACCEPTED_PICKUP_VISUAL_SCALES["experience"],
+        "dropScatterRadius": data["dropScatterRadius"], "dropScatterSeed": seeds["dropScatter"],
+        "enemyChances": {}, "fieldChances": {},
+        "pickups": [{"id": d["id"], "kind": d["kind"], "healing": d["healing"], "contactRadius": d["contactRadius"],
+                     "lifetimeSeconds": d["lifetimeSeconds"], "marker": d["marker"], "color": d["color"],
+                     "markerSize": d["markerSize"], "visualId": d["visualId"],
+                     "visualScale": ACCEPTED_PICKUP_VISUAL_SCALES[d["kind"]]} for d in definitions],
+    }
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
     "Assets/Resources/Content/Characters/ProductionCharacters.json": characters,
     "Assets/Resources/Content/Characters/ProductionCharacterBaseline.json": character_baseline,
+    "Assets/Resources/Content/Enemies/ProductionEnemies.json": enemies,
+    "Assets/Resources/Content/Pickups/ProductionPickups.json": pickups,
 }
 
 

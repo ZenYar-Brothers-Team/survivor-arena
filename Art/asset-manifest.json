@@ -267,9 +267,10 @@
       "evidence": [
         "V001 was rejected as frightened and too close to the playable goblin; v002 redesign is a confident adult human pursuer with distinct proportions, posture and burgundy uniform.",
         "Runtime derivative imported and exercised through FIXTURE-ENEMY-FAN; 646/646 EditMode and 25/25 PlayMode.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 §6)."
       ],
-      "missing": "Production ENEMY-002 binding; fixture stats and behavior are unchanged."
+      "missing": "Gameplay composition switch to production enemies (F1-08) and crowd-density review (F1-09)."
     },
     {
       "owner": "FIXTURE-ENEMY-FAN",
@@ -321,9 +322,10 @@
       "evidence": [
         "User accepted the older, rougher v002 villager on 2026-09-21: «Хорошо, давай использовать этого.»",
         "1254x1254 PNG with alpha; master and selected candidate SHA256 match; see asset-record.json.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 §6)."
       ],
-      "missing": "Production ENEMY-001 owner binding; contact interval remains TBD for production. Documented 3–4-set density verification remains."
+      "missing": "Gameplay composition switch to production enemies (F1-08) and crowd-density review (F1-09)."
     },
     {
       "owner": "FIXTURE-ENEMY-SEEKER",
@@ -1572,6 +1574,38 @@
         "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
       ],
       "missing": "Actual-scale readability review in the production run (F1-08/F1-09)."
+    },
+    {
+      "owner": "ENEMY-004",
+      "role": "projectile",
+      "visualId": "ENEMY-004-VISUAL-PROJECTILE",
+      "method": "Hybrid",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-004/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-004/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-005",
+      "role": "projectile",
+      "visualId": "ENEMY-005-VISUAL-PROJECTILE",
+      "method": "Procedural",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-005/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-005/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

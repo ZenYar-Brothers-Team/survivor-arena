@@ -16,6 +16,8 @@ namespace Game.Enemy
         public float DashDurationSeconds { get; }
         public float DashCooldownSeconds { get; }
         public float DashSpeedMultiplier { get; }
+        /// <summary>DistanceReposition: seconds at the end of each cycle spent moving sideways (the rest holds distance).</summary>
+        public float RepositionSeconds { get; }
 
         public EnemyMovementProfile(
             EnemyMovementKind kind,
@@ -26,7 +28,8 @@ namespace Game.Enemy
             float dashTelegraphSeconds = 0.5f,
             float dashDurationSeconds = 0.4f,
             float dashCooldownSeconds = 3f,
-            float dashSpeedMultiplier = 3f)
+            float dashSpeedMultiplier = 3f,
+            float repositionSeconds = 0f)
         {
             if (!Enum.IsDefined(typeof(EnemyMovementKind), kind))
                 throw new ArgumentOutOfRangeException(nameof(kind));
@@ -38,6 +41,9 @@ namespace Game.Enemy
             NumericValidation.ValidatePositive(dashDurationSeconds, nameof(dashDurationSeconds));
             NumericValidation.ValidatePositive(dashCooldownSeconds, nameof(dashCooldownSeconds));
             NumericValidation.ValidatePositive(dashSpeedMultiplier, nameof(dashSpeedMultiplier));
+            NumericValidation.ValidateNonNegative(repositionSeconds, nameof(repositionSeconds));
+            if (kind == EnemyMovementKind.DistanceReposition && (repositionSeconds <= 0f || repositionSeconds >= cycleSeconds))
+                throw new ArgumentOutOfRangeException(nameof(repositionSeconds), "Reposition time must be positive and shorter than the cycle.");
 
             Kind = kind;
             PreferredDistance = preferredDistance;
@@ -48,6 +54,7 @@ namespace Game.Enemy
             DashDurationSeconds = dashDurationSeconds;
             DashCooldownSeconds = dashCooldownSeconds;
             DashSpeedMultiplier = dashSpeedMultiplier;
+            RepositionSeconds = repositionSeconds;
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Game.Enemy.Json
         public float? DashDurationSeconds { get; set; }
         public float? DashCooldownSeconds { get; set; }
         public float? DashSpeedMultiplier { get; set; }
+        public float? RepositionSeconds { get; set; }
     }
 }

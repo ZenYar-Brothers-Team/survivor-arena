@@ -539,5 +539,63 @@
     "id": "CHAR-001-VISUAL-ICON",
     "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
     "role": "Icon"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.9,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.45,
+      "flashBlue": 0.38,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.4,
+      "particleGreen": 0.34,
+      "particleBlue": 0.28,
+      "particleAlpha": 0.8
+    },
+    "id": "ENEMY-004-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 4.6,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8
+    },
+    "id": "ENEMY-005-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
+    "role": "Projectile"
+  },
+  {
+    "id": "ENEMY-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
+    "role": "Body",
+    "contactRadius": 0.330282,
+    "contactCenterY": 0.469539
+  },
+  {
+    "id": "ENEMY-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
+    "role": "Body",
+    "contactRadius": 0.360855,
+    "contactCenterY": 0.453097
   }
 ]

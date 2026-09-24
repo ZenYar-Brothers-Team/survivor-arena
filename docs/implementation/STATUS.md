@@ -2,9 +2,9 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…03 Implemented, Unity NOT RUN)
+Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…04 Implemented, Unity NOT RUN)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-04 — шесть обычных врагов и зелье; IP-12A gameplay density review остаётся открытым
+Current active packet: F1-05 — пять production sets; IP-12A gameplay density review остаётся открытым
 Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
@@ -187,8 +187,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Implemented | 2026-09-24: completed IDs SKILL-001…007/010/013/014 (L1–6, art/VFX bound in data); .NET harness PASS, Unity NOT RUN → Verified после `check_project.py --scope full`; [evidence](evidence/field001-f1-01-2026-09-24.md), [DECISION-0054](../decisions/0054-field001-autonomous-execution.md) |
 | 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Implemented | 2026-09-24: completed IDs PASSIVE-001…005/007…009/011/012 (L1–6, icons); .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-02-2026-09-24.md) |
 | 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Implemented | 2026-09-24: CHAR-001 production definition/visual binding, MetaEconomy по DECISION-0050, миграция при загрузке; .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-03-2026-09-24.md) |
-| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | In progress | F1-00 Verified |
-| 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Blocked | F1-00/01/02/04; thresholds/effect payload, SET-017 presentation |
+| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Implemented | 2026-09-24: ENEMY-001…005/007 + PICKUP-001 (данные/поведение/снаряды), .NET harness PASS, Unity NOT RUN; **art gate:** тела ENEMY-003/004/005/007; [evidence](evidence/field001-f1-04-2026-09-24.md) |
+| 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | In progress | F1-00 Verified, F1-01/02/04 Implemented |
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Blocked | F1-00/01/04; timings/attack/reward data и art |
 | 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Blocked | F1-00/01/02/04/05; Book ID/card, Traveler presence/XP/support values и art |
 | 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Blocked | F1-00…07; geometry/timeline/bindings и actual-content UI |
@@ -620,7 +620,8 @@ Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required pac
 Dependencies: IP-04, IP-13, IP-28, IP-12A
 Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
 Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
-Remaining acceptance / IDs: ENEMY-001…020, PICKUP-001, drop data и production art.
+Remaining acceptance / IDs: ENEMY-006, ENEMY-008…020; тела ENEMY-003/004/005/007 (art gate); Unity verification стартового поднабора.
+Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1: 641/641 Game.* EditMode и 23/23 PlayMode, 0 skipped. Import/reimport GUID, registry refs, child-only motion, hit/pause, death/mixed-pool reuse и Gameplay spawner. [Условия и ограничения](evidence/2026-09-21-enemy001-art.md#verification).
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20).

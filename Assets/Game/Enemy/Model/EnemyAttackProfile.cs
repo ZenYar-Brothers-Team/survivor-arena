@@ -21,6 +21,7 @@ namespace Game.Enemy
         public float ExplosionRadius { get; }
         public float RotationStepDegrees { get; }
         public ContentRef<SpriteDefinition> ProjectileVisual { get; }
+        public EnemyAttackCadence Cadence { get; }
 
         public EnemyAttackProfile(
             EnemyProjectilePattern pattern,
@@ -36,8 +37,11 @@ namespace Game.Enemy
             float rotationStepDegrees = 0f,
             CombatControlProfile controls = null,
             float telegraphSeconds = 0f,
-            ContentRef<SpriteDefinition> projectileVisual = default)
+            ContentRef<SpriteDefinition> projectileVisual = default,
+            EnemyAttackCadence cadence = EnemyAttackCadence.CooldownAfterShot)
         {
+            if (!Enum.IsDefined(typeof(EnemyAttackCadence), cadence))
+                throw new ArgumentOutOfRangeException(nameof(cadence));
             if (!Enum.IsDefined(typeof(EnemyProjectilePattern), pattern))
                 throw new ArgumentOutOfRangeException(nameof(pattern));
             NumericValidation.ValidateNonNegative(damage, nameof(damage));
@@ -72,6 +76,7 @@ namespace Game.Enemy
             ExplosionRadius = explosionRadius;
             RotationStepDegrees = rotationStepDegrees;
             ProjectileVisual = projectileVisual;
+            Cadence = cadence;
         }
     }
 }
