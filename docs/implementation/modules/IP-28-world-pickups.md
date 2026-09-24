@@ -27,7 +27,7 @@ Typed pickup definitions/rewards, death-drop hook для обычных враг
 [DECISION-0033](../../decisions/0033-world-pickup-rules.md): full-HP зелье расходуется
 с actual heal 0 и pickup effects; contact pickup независим от XP radius; по умолчанию
 нет timed expiry, configured lifetime идёт только в running-time; недоступный drop
-переносится в ближайшую доступную игроку точку. Chance выбирается enemy → field →
+после небольшого seeded-разброса переносится в ближайшую доступную игроку точку. Chance выбирается enemy → field →
 global, затем relative multiplier и cap 100%. Одновременные pickup intents имеют
 стабильный порядок; Book pause откладывает оставшиеся, terminal не даёт новых наград.
 Реализация документирует технический ключ порядка и reachable-point adapter.
@@ -78,10 +78,10 @@ Available, expiry и cleanup завершают жизнь без reward. Иск
 `IPickupRewardTarget` отделяет lifecycle от Health/draft/set consumers.
 
 `Content/Pickups/FixturePickups.json` содержит bindings `potionId`/`bookId`, required
-`baseChance`, `seed`, `placementSkin`, `feedbackSeconds`, explicit `enemyChances` и
+`baseChance`, отдельные chance/scatter seeds, `dropScatterRadius`, `placementSkin`, `feedbackSeconds`, XP visual binding, explicit `enemyChances` и
 `fieldChances` maps, массив definitions. Definition: `id`, `kind`, `healing` (HP,
 Potion > 0, Book = 0), `contactRadius` (> 0 world units), optional `lifetimeSeconds`
-(null — без expiry, иначе > 0 running seconds), `marker`, RGBA `color`, `markerSize`.
+(null — без expiry, иначе > 0 running seconds), fallback marker/color и required pickup visual/scale.
 Chance ∈ [0,1], relative multiplier ≥ 0: enemy override → field override → global;
 итог min(1, chance × multiplier). Пример: 0.08 × 1.5 = 0.12; explicit 0 остаётся 0.
 Overrides валидируют typed Enemy/Field references. Healing затем использует существующий
@@ -103,5 +103,4 @@ footprint + skin и выбирает ближайшую точку в связн
 `PickupPresenter`/`UiToolkitPickupView` показывают краткий HUD feedback, а fixture
 кнопки/counters находятся в существующей development Build tab. Telemetry записывает
 resolved state, drop/run/source identity и requested/actual heal, snapshot counters и
-JSON provenance. `+`/`BOOK` — различимые text-only placeholders; production art не
-создан. Межслойная схема: [DECISION-0034](../../decisions/0034-world-pickup-ownership.md).
+JSON provenance. XP, Зелье и Книга используют отдельные `SpriteRole.Pickup` visuals; text marker остаётся только fallback тестовых definitions. Bob/pulse работает на visual child, не двигает physics root и сбрасывается при reuse. Разброс равномерен по площади диска и использует отдельный RNG, поэтому не переставляет chance rolls. Межслойная схема: [DECISION-0034](../../decisions/0034-world-pickup-ownership.md), размещение и presentation: [DECISION-0043](../../decisions/0043-seeded-drop-scatter.md).

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIXTURE-TRAVELER-BOOK",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User requested immediate generation and integration of XP, potion and Traveler Book pickups. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [
+    { "path": "../../Characters/fixture-character-agile/selected-master.png", "role": "Approved player style reference; not an edit target" },
+    { "path": "../../Skills/skill-001/selected-master.png", "role": "Approved small world-sprite style reference; not an edit target" }
+  ],
+  "generationPrompt": "Use case: stylized-concept. Asset type: small top-down 2D gameplay pickup sprite for Survival Arena. Create one Traveler Book pickup that communicates an extra choice or knowledge reward. Match the references' hand-painted dark plum outline, simplified shapes, warm textured shading, and readable game-sprite finish. Genuinely transparent background. A single closed thick travel-worn book viewed in 3/4 top-down, warm ochre leather cover, burgundy spine and strap, and a small simple golden starburst emblem without letters. Centered on a square canvas, object fills about 70%, broad compact silhouette, generous clean transparent padding. One object only; readable around 32 pixels; continuous clean outline; no readable text, UI frame, loose pages, particles, cast shadow or watermark. Avoid open or floating book, long bookmark ribbon, thin protrusions and photorealism.",
+  "constraints": ["transparent background", "compact silhouette", "no baked shadow", "readable at 32 pixels"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Pickups/traveler-book/traveler-book-pickup.png"],
+  "preparation": {
+    "sourceDimensions": [1254, 1254],
+    "sourceSha256": "9BAC6FC26C008E8EE3D9C293DC4126D50E3DD17501EA70262F6560B095CB0B22",
+    "runtimeSha256": "1B5BA8E46E8AEA2654405E816365571E13B606618C65A5A16B4EB2765EC9270F",
+    "operations": [
+      "Generated PNG copied byte-identically to selected-master.png and v001/concept-01.png.",
+      "Runtime only: visible bounds at alpha >=10, x194/y164/w887/h921, fitted without distortion inside 192x192 on a transparent 256x256 RGBA canvas.",
+      "Unity import target: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 320 PPU, centered pivot."
+    ],
+    "remaining": []
+  }
+}

@@ -1,6 +1,7 @@
 using System;
 using Game.Content;
 using Game.Combat;
+using Game.Presentation;
 
 namespace Game.Enemy
 {
@@ -19,6 +20,10 @@ namespace Game.Enemy
         public float ProjectileRadius { get; }
         public float ExplosionRadius { get; }
         public float RotationStepDegrees { get; }
+        public ContentRef<SpriteDefinition> ProjectileVisual { get; }
+        public EnemyAttackCadence Cadence { get; }
+        /// <summary>Pattern starts at 0° (world +X) instead of the aim direction, e.g. BOSS-001 ring.</summary>
+        public bool FixedOrientation { get; }
 
         public EnemyAttackProfile(
             EnemyProjectilePattern pattern,
@@ -33,8 +38,13 @@ namespace Game.Enemy
             float explosionRadius = 0f,
             float rotationStepDegrees = 0f,
             CombatControlProfile controls = null,
-            float telegraphSeconds = 0f)
+            float telegraphSeconds = 0f,
+            ContentRef<SpriteDefinition> projectileVisual = default,
+            EnemyAttackCadence cadence = EnemyAttackCadence.CooldownAfterShot,
+            bool fixedOrientation = false)
         {
+            if (!Enum.IsDefined(typeof(EnemyAttackCadence), cadence))
+                throw new ArgumentOutOfRangeException(nameof(cadence));
             if (!Enum.IsDefined(typeof(EnemyProjectilePattern), pattern))
                 throw new ArgumentOutOfRangeException(nameof(pattern));
             NumericValidation.ValidateNonNegative(damage, nameof(damage));
@@ -68,6 +78,9 @@ namespace Game.Enemy
             ProjectileRadius = projectileRadius;
             ExplosionRadius = explosionRadius;
             RotationStepDegrees = rotationStepDegrees;
+            ProjectileVisual = projectileVisual;
+            Cadence = cadence;
+            FixedOrientation = fixedOrientation;
         }
     }
 }

@@ -2,18 +2,29 @@ using System;
 using System.Collections.Generic;
 using Game.Character;
 using Game.Content;
+using Game.Presentation;
 
 namespace Game.Progression
 {
-    public sealed class PassiveProgressionDefinition : BuildEntryDefinition
+    public sealed class PassiveProgressionDefinition : BuildEntryDefinition, IReferencesContent
     {
         private readonly CharacterStatModifier[] _levels;
 
         public IReadOnlyList<CharacterStatModifier> Levels => _levels;
+        public ContentRef<SpriteDefinition> Icon { get; }
 
         public PassiveProgressionDefinition(
             ContentId id,
             string displayName,
+            params CharacterStatModifier[] levels)
+            : this(id, displayName, default, levels)
+        {
+        }
+
+        public PassiveProgressionDefinition(
+            ContentId id,
+            string displayName,
+            ContentRef<SpriteDefinition> icon,
             params CharacterStatModifier[] levels)
             : base(id, BuildEntryKind.PassiveItem, displayName)
         {
@@ -21,6 +32,7 @@ namespace Game.Progression
                 throw new ArgumentException($"Passive progression requires exactly {MaxLevel} levels.", nameof(levels));
 
             _levels = (CharacterStatModifier[])levels.Clone();
+            Icon = icon;
         }
 
         public override DraftOptionPreview CreateDraftPreview(int currentLevel, int nextLevel)
@@ -70,6 +82,12 @@ namespace Game.Progression
             if (level < 1 || level > MaxLevel)
                 throw new ArgumentOutOfRangeException(nameof(level));
             return _levels[level - 1];
+        }
+
+        public IEnumerable<ContentReference> GetReferencedContent()
+        {
+            if (Icon.Id.IsValid)
+                yield return Icon.ToReference();
         }
     }
 }

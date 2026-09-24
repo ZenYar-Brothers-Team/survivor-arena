@@ -233,3 +233,14 @@ CG-01 отражает уже полученное approval 121 карточки
 Исходная сверка покрыла обе версии Game/Content, различия Art Direction, новый UX и Art Production, действующие решения и релевантные runtime границы. Проверены все группы 121 target IDs, но не изобретались production schedules, мета-экономика, отсутствующие значения и изображения. Unity tests здесь не запускались: это проект документации, не утверждение о новом runtime verification.
 
 Действующие спецификации всех 35 модулей — [modules](modules/), источники и milestones — [README](README.md), общий контракт и поставка assets — [ASSET_PRODUCTION](ASSET_PRODUCTION.md), ручной цикл баланса — [BALANCE_WORKFLOW](BALANCE_WORKFLOW.md). Эта сверка не является вторым execution-status registry.
+
+## Уточнение стартового scope — 2026-09-22
+
+[DECISION-0050](../decisions/0050-starting-content-and-unlocks.md) утверждает
+новый global initial pool/unlock mapping, включая passives и CHAR-002 gate;
+G-15 остаётся resolved по правилам DECISION-0037 с этой заменой mapping, runtime
+перепроверяется в IP-25/26. [DECISION-0051](../decisions/0051-field001-initial-slice.md)
+ограничивает [стартовый этап](milestones/FIELD-001-start.md) исходно открытым набором.
+G-13/G-14/AG-01 закрываются только для его IDs; G-04/G-05 поздних SET-002/015
+не блокируют независимые стартовые рецепты и не объявляются решёнными. Очередь
+подготовки недостающих данных и реализации остаётся только в STATUS.

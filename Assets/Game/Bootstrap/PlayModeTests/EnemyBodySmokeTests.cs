@@ -40,13 +40,24 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(position, rig.BodyRoot.localPosition);
             Assert.AreEqual(scale, rig.BodyRoot.localScale);
             run.TogglePause();
+            var deathPosition = enemy.transform.position;
             enemy.TakeDamage(10000);
+            Assert.IsTrue(enemy.gameObject.activeSelf);
+            Assert.IsTrue(enemy.GetComponent<EnemyDeathPresentationRuntime>().IsPlaying);
+            var deathRenderer = enemy.transform.Find("DeathVisual").GetComponent<SpriteRenderer>();
+            Assert.AreEqual("enemy-001-body", deathRenderer.sprite.name,
+                "Animated body must be copied before its presentation baseline is restored.");
+            Assert.IsTrue(deathRenderer.enabled);
+            Assert.AreEqual(deathPosition, enemy.transform.position);
+            yield return new WaitForSeconds(.35f);
             Assert.IsFalse(enemy.gameObject.activeSelf);
             Assert.IsNull(rig.BodyRenderer.sprite);
             spawner.Tick(run.Model.Elapsed, 2, true);
             Assert.IsTrue(enemy.gameObject.activeSelf);
             Assert.AreNotEqual(life, enemy.LifeId);
             Assert.AreEqual("enemy-001-body", rig.BodyRenderer.sprite.name);
+            Assert.IsTrue(rig.BodyRenderer.enabled, "Pooled animated body must become visible again.");
+            Assert.IsFalse(deathRenderer.gameObject.activeSelf);
             Assert.AreEqual(Color.white, rig.BodyRenderer.color);
             Assert.AreEqual(radius, enemy.GetComponent<CircleCollider2D>().radius);
             root.Shutdown();

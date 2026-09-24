@@ -35,6 +35,7 @@ namespace Game.ActiveSkill.Json
                 ActiveSkillEffectKind.Chain => typeof(ChainEffectData),
                 ActiveSkillEffectKind.Area => typeof(AreaEffectData),
                 ActiveSkillEffectKind.Mine => typeof(MineEffectData),
+                ActiveSkillEffectKind.Strike => typeof(StrikeEffectData),
                 _ => throw new JsonSerializationException($"Unknown active-skill effect kind '{kind}'.")
             };
 

@@ -76,6 +76,8 @@ namespace Game.Enemy
                 yield return Visual.ToReference();
             if (MotionProfile.Id.IsValid)
                 yield return MotionProfile.ToReference();
+            if (Attack?.ProjectileVisual.Id.IsValid == true)
+                yield return Attack.ProjectileVisual.ToReference();
         }
     }
 }

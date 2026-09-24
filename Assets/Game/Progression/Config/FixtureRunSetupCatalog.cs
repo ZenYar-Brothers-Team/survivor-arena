@@ -11,9 +11,12 @@ namespace Game.Progression
     {
         private const string ResourcePath = "Content/Run/FixtureRunSetup";
 
-        public static RunSetupConfig Create()
+        public static RunSetupConfig Create() => Load(ResourcePath);
+
+        /// <summary>Loads any run setup JSON (fixture or production Content/Run/ProductionRunSetup).</summary>
+        public static RunSetupConfig Load(string resourcePath)
         {
-            var data = JsonContentFile.Load<RunSetupConfigData>(ResourcePath);
+            var data = JsonContentFile.Load<RunSetupConfigData>(resourcePath);
             if (data == null)
                 throw new InvalidOperationException("Run setup config is empty.");
 

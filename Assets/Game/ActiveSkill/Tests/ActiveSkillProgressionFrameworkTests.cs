@@ -83,6 +83,20 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void FixtureBolt_TravelsHalfTheReferenceScreenHeightAtEveryLevel()
+        {
+            const float halfReferenceScreenHeight = 5f;
+            var bolt = FixtureActiveSkillCatalog.Create()
+                .Single(skill => skill.Id.ToString() == "FIXTURE-SKILL-BOLT");
+
+            foreach (var level in bolt.Levels)
+            {
+                var projectile = (ProjectileBurstEffect)level.Waves.Single().Effects.Single();
+                Assert.AreEqual(halfReferenceScreenHeight, projectile.Speed * projectile.LifetimeSeconds, 0.0001f);
+            }
+        }
+
+        [Test]
         public void Instance_LevelChangeCanAlterNumbersAndQualitativePattern()
         {
             var definition = FixtureActiveSkillCatalog.Create().Single(skill => skill.Id.ToString() == "FIXTURE-SKILL-BOLT");

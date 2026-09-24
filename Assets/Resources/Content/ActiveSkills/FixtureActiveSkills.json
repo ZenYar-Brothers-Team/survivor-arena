@@ -2,11 +2,13 @@
   {
     "id": "FIXTURE-SKILL-BOLT",
     "displayName": "Fixture Bolt",
+    "iconVisualId": "SKILL-001-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 4,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -17,7 +19,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -28,6 +30,7 @@
         "baseDamage": 5,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -38,7 +41,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -49,6 +52,7 @@
         "baseDamage": 6,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -59,7 +63,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 0,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -70,6 +74,7 @@
         "baseDamage": 7,
         "cooldownSeconds": 0.9,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -80,7 +85,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -91,6 +96,7 @@
         "baseDamage": 8,
         "cooldownSeconds": 0.65,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -101,7 +107,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -112,6 +118,7 @@
         "baseDamage": 9,
         "cooldownSeconds": 0.65,
         "targetingMode": "NearestEnemy",
+        "visualId": "SKILL-001-VISUAL-PROJECTILE",
         "waves": [
           {
             "effects": [
@@ -122,7 +129,7 @@
                 "spreadDegrees": 24,
                 "pierceCount": 1,
                 "speed": 10,
-                "lifetimeSeconds": 2,
+                "lifetimeSeconds": 0.5,
                 "collisionRadius": 0.15
               }
             ]
@@ -134,6 +141,7 @@
   {
     "id": "FIXTURE-SKILL-RING",
     "displayName": "Fixture Ring/Cross",
+    "iconVisualId": "SKILL-011-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 2.25,
@@ -298,6 +306,7 @@
   {
     "id": "FIXTURE-SKILL-BEAM",
     "displayName": "Fixture Beam",
+    "iconVisualId": "SKILL-012-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 1.75,
@@ -418,6 +427,8 @@
   {
     "id": "FIXTURE-SKILL-ORBIT",
     "displayName": "Fixture Orbit",
+    "iconVisualId": "SKILL-003-VISUAL-ICON",
+    "visualId": "SKILL-003-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 2.3,
@@ -544,6 +555,8 @@
   {
     "id": "FIXTURE-SKILL-BOOMERANG",
     "displayName": "Fixture Boomerang",
+    "iconVisualId": "SKILL-006-VISUAL-ICON",
+    "visualId": "SKILL-006-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 4.5,
@@ -688,6 +701,7 @@
   {
     "id": "FIXTURE-SKILL-CHAIN",
     "displayName": "Fixture Chain",
+    "iconVisualId": "SKILL-007-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 3.5,
@@ -796,6 +810,7 @@
   {
     "id": "FIXTURE-SKILL-MINE",
     "displayName": "Fixture Mine",
+    "iconVisualId": "SKILL-009-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 7,
@@ -924,6 +939,7 @@
   {
     "id": "FIXTURE-SKILL-DELAYED",
     "displayName": "Fixture Delayed Area",
+    "iconVisualId": "SKILL-010-VISUAL-ICON",
     "levels": [
       {
         "baseDamage": 9,
@@ -1118,6 +1134,7 @@
   {
     "id": "FIXTURE-SKILL-MOVEMENT",
     "displayName": "Fixture movement",
+    "iconVisualId": "SKILL-005-VISUAL-ICON",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,
@@ -1186,6 +1203,7 @@
   {
     "id": "FIXTURE-SKILL-WORLD-TARGET",
     "displayName": "Fixture world-target",
+    "iconVisualId": "SKILL-004-VISUAL-ICON",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,
@@ -1258,6 +1276,7 @@
   {
     "id": "FIXTURE-SKILL-DECELERATING",
     "displayName": "Fixture decelerating",
+    "iconVisualId": "SKILL-016-VISUAL-ICON",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,
@@ -1312,6 +1331,8 @@
   {
     "id": "FIXTURE-SKILL-RICOCHET",
     "displayName": "Fixture ricochet",
+    "iconVisualId": "SKILL-008-VISUAL-ICON",
+    "visualId": "SKILL-008-VISUAL-PROJECTILE",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,
@@ -1364,6 +1385,8 @@
   {
     "id": "FIXTURE-SKILL-SPHERES",
     "displayName": "Fixture spheres",
+    "iconVisualId": "SKILL-014-VISUAL-ICON",
+    "visualId": "SKILL-014-VISUAL-PROJECTILE",
     "baseLevel": {
       "baseDamage": 20,
       "cooldownSeconds": 2,

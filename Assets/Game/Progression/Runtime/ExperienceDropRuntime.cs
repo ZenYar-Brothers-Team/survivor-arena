@@ -4,6 +4,7 @@ using Game.Movement;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -18,6 +19,7 @@ namespace Game.Progression
         private ExperienceDropTimer _timer;
         private GameObjectPool<ExperienceDropRuntime> _pool;
         private bool _consumed;
+        private PickupSpritePresentation _presentation;
 
         public float Amount { get; private set; }
         public ExperienceDropIdentity Identity { get; private set; }
@@ -31,10 +33,8 @@ namespace Game.Progression
             _collider.isTrigger = true;
 
             var renderer = GetComponent<SpriteRenderer>();
-            if (renderer.sprite == null)
-                renderer.sprite = PlaceholderSprite.Shared;
-            renderer.color = new Color(0.25f, 0.85f, 1f, 1f);
-            transform.localScale = Vector3.one * 0.35f;
+            renderer.enabled = false;
+            EnsurePresentation();
         }
 
         public void Initialize(
@@ -61,6 +61,12 @@ namespace Game.Progression
             _pool = pool;
             _consumed = false;
             CacheComponents();
+            EnsurePresentation();
+            var visual = target.DropVisual;
+            _presentation.Initialize(visual != null ? visual.Sprite : PlaceholderSprite.Shared,
+                visual != null ? target.DropVisualScale : 0.35f,
+                visual != null ? Color.white : new Color(0.25f, 0.85f, 1f, 1f),
+                Mathf.Repeat(transform.position.x * 1.7f + transform.position.y * 2.3f, Mathf.PI * 2f));
             _collider.enabled = true;
             RefreshColliderRadius();
             _target.RegisterDrop(this);
@@ -71,6 +77,11 @@ namespace Game.Progression
         {
             if (_collider == null)
                 _collider = GetComponent<CircleCollider2D>();
+        }
+
+        private void EnsurePresentation()
+        {
+            _presentation ??= new PickupSpritePresentation(transform, 5);
         }
 
         private void Update() => Tick(Time.deltaTime);
@@ -100,6 +111,7 @@ namespace Game.Progression
         {
             if (_consumed || _timer == null) return false;
             RefreshColliderRadius();
+            if (IsRunRunning()) _presentation.Tick(deltaTime);
             if (_timer.Tick(deltaTime, IsRunRunning()))
             {
                 Consume(ExperienceEventKind.Expired);
@@ -139,6 +151,7 @@ namespace Game.Progression
             _consumed = true;
             _target?.UnregisterDrop(this);
             if (_collider != null) _collider.enabled = false;
+            _presentation?.Shutdown();
             DestroySelf();
         }
 
@@ -153,6 +166,7 @@ namespace Game.Progression
 
         private void DestroySelf()
         {
+            _presentation?.Shutdown();
             if (_pool != null && _target != null && _target.IsInitialized)
             {
                 _pool.Return(this);

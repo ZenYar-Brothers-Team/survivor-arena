@@ -6,6 +6,8 @@
 
 Новая самостоятельная возможность; в действующем плане нет отдельного владельца этого lifecycle/process. Использовать существующие подсистемы через перечисленные dependencies.
 
+Traveler body использует общую смерть [DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md): reward/Book event остаются на мгновенном `Died`, procedural visual tail без толчка задерживает только `Despawned`/pool return.
+
 ## Зависимости
 
 [IP-29](IP-29-traveler-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
@@ -13,6 +15,11 @@
 Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.
 
 ## Context
+
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+три Traveler profiles, probabilities/presence/support и proposed PICKUP-002.
+Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+используется как production data; проверки этого IP сохраняются.
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
@@ -67,3 +74,19 @@ spawn interval на [0,T−120], определяет выбор без повт
 игрока и HP/damage-only scaling. Простые support interactions заданы тем же решением.
 Production presence/XP/support/attack numbers, field pools и per-ID art остаются
 content gates; эти данные не подменяются synthetic framework fixtures.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-07](../milestones/FIELD-001-start.md#f1-07):
+TRAVELER-001/002/005 и production Book. Packet prerequisites: F1-00/01/02/04/05; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).

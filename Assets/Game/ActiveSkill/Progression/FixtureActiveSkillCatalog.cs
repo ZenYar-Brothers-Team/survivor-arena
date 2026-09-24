@@ -24,9 +24,16 @@ namespace Game.ActiveSkill
             MissingMemberHandling = MissingMemberHandling.Error,
         };
 
-        public static IReadOnlyList<ActiveSkillProgressionDefinition> Create()
+        public static IReadOnlyList<ActiveSkillProgressionDefinition> Create() => Load(ResourcePath);
+
+        /// <summary>Loads any active-skill JSON with the shared DTO mapping (fixture or production file).</summary>
+        public static IReadOnlyList<ActiveSkillProgressionDefinition> Load(string resourcePath) =>
+            FromJson(JsonContentFile.ReadText(resourcePath));
+
+        public static IReadOnlyList<ActiveSkillProgressionDefinition> FromJson(string json)
         {
-            var data = JsonContentFile.Load<ActiveSkillProgressionData[]>(ResourcePath, Settings);
+            var data = JsonConvert.DeserializeObject<ActiveSkillProgressionData[]>(json, Settings)
+                       ?? throw new ArgumentException("Active-skill content must be a JSON array.");
             var definitions = new ActiveSkillProgressionDefinition[data.Length];
             for (var i = 0; i < data.Length; i++)
                 definitions[i] = ToDefinition(data[i]);
@@ -42,20 +49,24 @@ namespace Game.ActiveSkill
             var sourceLevels = data.Levels ?? ActiveSkillLevelResolver.Resolve(data.BaseLevel, data.LevelChanges, Settings);
             var levels = new ActiveSkillLevelDefinition[sourceLevels.Length];
             for (var i = 0; i < levels.Length; i++)
-                levels[i] = ToLevel(sourceLevels[i]);
+                levels[i] = ToLevel(sourceLevels[i], data.VisualId);
 
-            return new ActiveSkillProgressionDefinition(data.Id, data.DisplayName, levels);
+            var icon = string.IsNullOrEmpty(data.IconVisualId)
+                ? default
+                : new ContentRef<SpriteDefinition>(data.IconVisualId);
+            return new ActiveSkillProgressionDefinition(data.Id, data.DisplayName, icon, levels);
         }
 
-        private static ActiveSkillLevelDefinition ToLevel(ActiveSkillLevelData data)
+        private static ActiveSkillLevelDefinition ToLevel(ActiveSkillLevelData data, string progressionVisualId)
         {
             var waves = new ActiveSkillActivationWave[data.Waves.Length];
             for (var i = 0; i < waves.Length; i++)
                 waves[i] = ToWave(data.Waves[i]);
 
-            var visual = string.IsNullOrEmpty(data.VisualId)
+            var visualId = string.IsNullOrEmpty(data.VisualId) ? progressionVisualId : data.VisualId;
+            var visual = string.IsNullOrEmpty(visualId)
                 ? default
-                : new ContentRef<SpriteDefinition>(data.VisualId);
+                : new ContentRef<SpriteDefinition>(visualId);
 
             if (data.TargetingMode == ActiveSkillTargetingMode.RandomEnemy && !data.TargetingRadius.HasValue)
                 throw new ArgumentException("Random targeting requires TargetingRadius.");
@@ -89,7 +100,7 @@ namespace Game.ActiveSkill
                 BeamEffectData b => new BeamEffect(
                     b.DurationSeconds, b.TickIntervalSeconds, b.Width, b.Range, b.TracksTarget, b.DamageMultiplier),
                 OrbitEffectData o => new OrbitEffect(
-                    o.BladeCount, o.Radius, o.AngularSpeedDegrees, o.DurationSeconds, o.HitCooldownSeconds, o.DamageMultiplier, o.BladeHitboxRadius ?? throw new ArgumentException("Orbit requires BladeHitboxRadius.")),
+                    o.BladeCount, o.Radius, o.AngularSpeedDegrees, o.DurationSeconds, o.HitCooldownSeconds, o.DamageMultiplier, o.BladeHitboxRadius ?? throw new ArgumentException("Orbit requires BladeHitboxRadius."), o.Persistent),
                 BoomerangEffectData bo => new BoomerangEffect(
                     bo.ProjectileCount, bo.SpreadDegrees, bo.Speed, bo.Range, bo.CollisionRadius,
                     bo.ReturnDamageMultiplier, bo.DamageMultiplier,
@@ -98,7 +109,8 @@ namespace Game.ActiveSkill
                     bo.LifetimeSeconds ?? throw new ArgumentException("Boomerang requires LifetimeSeconds.")),
                 ChainEffectData c => new ChainEffect(
                     c.TargetCount, c.JumpRange, c.DamageRetentionPerJump, c.DamageMultiplier),
-                AreaEffectData a => new AreaEffect(a.Radius, a.DamageMultiplier),
+                AreaEffectData a => new AreaEffect(a.Radius, a.DamageMultiplier, a.ExpansionSeconds),
+                StrikeEffectData st => new StrikeEffect(st.Radius, st.TelegraphSeconds, st.DamageMultiplier),
                 MineEffectData m => new MineEffect(
                     m.TriggerRadius, m.BlastRadius, m.LifetimeSeconds, m.MaxConcurrent,
                     m.SecondaryDelaySeconds, m.SecondaryDamageMultiplier, m.DamageMultiplier,

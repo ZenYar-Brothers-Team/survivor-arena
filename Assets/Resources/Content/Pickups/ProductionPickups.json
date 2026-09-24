@@ -1,0 +1,50 @@
+{
+  "potionId": "PICKUP-001",
+  "bookId": "PICKUP-002",
+  "baseChance": 0.015,
+  "seed": 230926,
+  "placementSkin": 0.05,
+  "feedbackSeconds": 0.18,
+  "experienceVisualId": "FIXTURE-XP-DROP-VISUAL",
+  "experienceVisualScale": 0.62,
+  "dropScatterRadius": 0.3,
+  "dropScatterSeed": 230927,
+  "enemyChances": {},
+  "fieldChances": {},
+  "pickups": [
+    {
+      "id": "PICKUP-001",
+      "kind": "Potion",
+      "healing": 18,
+      "contactRadius": 0.4,
+      "lifetimeSeconds": null,
+      "marker": "HP",
+      "color": [
+        0.9,
+        0.2,
+        0.2,
+        1
+      ],
+      "markerSize": 0.45,
+      "visualId": "PICKUP-001-VISUAL",
+      "visualScale": 0.68
+    },
+    {
+      "id": "PICKUP-002",
+      "kind": "Book",
+      "healing": 0,
+      "contactRadius": 0.4,
+      "lifetimeSeconds": null,
+      "marker": "Book",
+      "color": [
+        0.95,
+        0.75,
+        0.3,
+        1
+      ],
+      "markerSize": 0.5,
+      "visualId": "FIXTURE-TRAVELER-BOOK-VISUAL",
+      "visualScale": 0.7
+    }
+  ]
+}

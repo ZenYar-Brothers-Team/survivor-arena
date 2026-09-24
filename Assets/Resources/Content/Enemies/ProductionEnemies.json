@@ -1,0 +1,155 @@
+[
+  {
+    "id": "ENEMY-001",
+    "knockbackResistance": 0,
+    "maxHealth": 32,
+    "collisionSize": 0.8,
+    "movementSpeed": 1.2,
+    "contactDamage": 10,
+    "contactDamageInterval": 1,
+    "experienceReward": 1,
+    "contactControls": {
+      "knockbackDistance": 0.25,
+      "knockbackSeconds": 0.12
+    },
+    "visualId": "ENEMY-001-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
+    "movement": {
+      "kind": "Seek"
+    }
+  },
+  {
+    "id": "ENEMY-002",
+    "knockbackResistance": 0,
+    "maxHealth": 24,
+    "collisionSize": 0.65,
+    "movementSpeed": 2.25,
+    "contactDamage": 8,
+    "contactDamageInterval": 1,
+    "experienceReward": 1,
+    "contactControls": {
+      "knockbackDistance": 0.15,
+      "knockbackSeconds": 0.12
+    },
+    "visualId": "ENEMY-002-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
+    "movement": {
+      "kind": "Seek"
+    }
+  },
+  {
+    "id": "ENEMY-003",
+    "knockbackResistance": 0.2,
+    "maxHealth": 150,
+    "collisionSize": 1.15,
+    "movementSpeed": 0.8,
+    "contactDamage": 20,
+    "contactDamageInterval": 1,
+    "experienceReward": 3,
+    "contactControls": {
+      "knockbackDistance": 0.55,
+      "knockbackSeconds": 0.12
+    },
+    "movement": {
+      "kind": "Seek"
+    }
+  },
+  {
+    "id": "ENEMY-004",
+    "knockbackResistance": 0,
+    "maxHealth": 48,
+    "collisionSize": 0.8,
+    "movementSpeed": 0.95,
+    "contactDamage": 8,
+    "contactDamageInterval": 1,
+    "experienceReward": 2,
+    "contactControls": {
+      "knockbackDistance": 0.15,
+      "knockbackSeconds": 0.12
+    },
+    "movement": {
+      "kind": "KeepDistance",
+      "preferredDistance": 5,
+      "distanceTolerance": 0.5
+    },
+    "attack": {
+      "pattern": "Single",
+      "damage": 10,
+      "cooldownSeconds": 2.4,
+      "projectileSpeed": 4.5,
+      "projectileLifetimeSeconds": 1.8,
+      "projectileCount": 1,
+      "projectileRadius": 0.14,
+      "telegraphSeconds": 0.55,
+      "cadence": "WindupStartToStart",
+      "controls": {
+        "knockbackDistance": 0.35,
+        "knockbackSeconds": 0.12
+      },
+      "projectileVisualId": "ENEMY-004-VISUAL-PROJECTILE"
+    }
+  },
+  {
+    "id": "ENEMY-005",
+    "knockbackResistance": 0,
+    "maxHealth": 56,
+    "collisionSize": 0.75,
+    "movementSpeed": 1.1,
+    "contactDamage": 9,
+    "contactDamageInterval": 1,
+    "experienceReward": 3,
+    "contactControls": {
+      "knockbackDistance": 0.15,
+      "knockbackSeconds": 0.12
+    },
+    "movement": {
+      "kind": "DistanceReposition",
+      "preferredDistance": 6,
+      "distanceTolerance": 0.5,
+      "lateralStrength": 0.5,
+      "cycleSeconds": 3,
+      "repositionSeconds": 1
+    },
+    "attack": {
+      "pattern": "Single",
+      "damage": 14,
+      "cooldownSeconds": 2,
+      "projectileSpeed": 6.5,
+      "projectileLifetimeSeconds": 1.5,
+      "projectileCount": 1,
+      "projectileRadius": 0.1,
+      "telegraphSeconds": 0.45,
+      "cadence": "WindupStartToStart",
+      "controls": {
+        "knockbackDistance": 0.1,
+        "knockbackSeconds": 0.12
+      },
+      "projectileVisualId": "ENEMY-005-VISUAL-PROJECTILE"
+    }
+  },
+  {
+    "id": "ENEMY-007",
+    "knockbackResistance": 0,
+    "maxHealth": 64,
+    "collisionSize": 0.75,
+    "movementSpeed": 1.55,
+    "contactDamage": 14,
+    "contactDamageInterval": 1,
+    "experienceReward": 4,
+    "contactControls": {
+      "knockbackDistance": 0.4,
+      "knockbackSeconds": 0.12
+    },
+    "dashContactControls": {
+      "knockbackDistance": 0.65,
+      "knockbackSeconds": 0.12
+    },
+    "movement": {
+      "kind": "TelegraphedDash",
+      "dashTelegraphSeconds": 0.55,
+      "dashDurationSeconds": 0.55,
+      "dashCooldownSeconds": 4.5,
+      "dashSpeedMultiplier": 3.2
+    }
+  }
+]

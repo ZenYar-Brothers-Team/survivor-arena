@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-001",
+  "visualId": "FIELD-001-VISUAL-FENCE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [],
+  "generationPrompt": "Use case: stylized-concept. Transparent 2D Unity environment prop for FIELD-001 village outskirts: one short rustic woven wattle fence segment made from uneven wooden stakes and braided branches. Hand-painted storybook cutout game art, bold clean dark plum-brown contour and soft cel-painted shading. Horizontal three-quarter/top-down gameplay view, centered with transparent padding, readable small. Warm weathered brown wood and muted ochre highlights. Exactly one segment; no ground, grass, characters, text, watermark or cast shadow; clean alpha edges.",
+  "constraints": ["transparent background", "one horizontal segment", "no baked shadow"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Fields/field-001/field-001-fence-prop.png"],
+  "preparation": {
+    "sourceDimensions": [1536, 1024],
+    "sourceSha256": "8EED05A5782597F37837FF220D1D7C8F0C2DB24378C02319AE56133B09EA102F",
+    "runtimeSha256": "124FE95CB982A337213CE1D300AD1D8DB5DA9094C54604BBC79774D1A746D0AF",
+    "operations": ["Source copied unchanged into selected-master and v001.", "Visible alpha bounds fitted without distortion inside a transparent 512x256 canvas.", "Unity import: Prop, FullRect, Bilinear, Clamp, 128 PPU, max size 512, no mipmaps."],
+    "remaining": ["Production FIELD-001 geometry and metadata remain IP-23 work."]
+  }
+}

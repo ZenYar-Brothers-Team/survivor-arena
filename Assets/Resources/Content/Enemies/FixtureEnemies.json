@@ -27,6 +27,8 @@
     "contactDamage": 1.0,
     "contactDamageInterval": 1.0,
     "experienceReward": 1.0,
+    "visualId": "FIXTURE-ENEMY-FAN-VISUAL",
+    "motionProfileId": "FIXTURE-MOTION-COURIER",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 4.5,
@@ -41,6 +43,7 @@
       "projectileCount": 3,
       "spreadDegrees": 40.0,
       "projectileRadius": 0.12,
+      "projectileVisualId": "FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE",
       "telegraphSeconds": 0.25,
       "controls": {
         "knockbackDistance": 0.2,

@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Game.Telemetry;
 using Game.Pickup;
+using Game.Content;
 
 namespace Game.UI
 {
@@ -50,6 +51,7 @@ namespace Game.UI
             LevelUpDraftRuntime draft,
             RunController run,
             SpritePresentationRuntime presentation,
+            ContentRegistry registry,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
             IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
@@ -91,7 +93,7 @@ namespace Game.UI
                 Debug.isDebugBuild || Application.isEditor,
                 unlockedCharacters,
                 enemySpawner, bosses);
-            _presenter = new GameplayUiPresenter(_model, _view);
+            _presenter = new GameplayUiPresenter(_model, _view, registry);
             _presenter.Start();
             _playtestView = new UiToolkitPlaytestView(_document.rootVisualElement);
             _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);

@@ -135,7 +135,7 @@ IN GAME
 | ID | Enemy | Asset | Method | Status |  
 |---|---|---|---|---|  
 | ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT + procedural motion | APPROVED — v002; runtime 256×256 импортирован и IN GAME у FIXTURE-ENEMY-SEEKER. [Provenance](../../Art/Source/Enemies/enemy-001/asset-record.json); production ENEMY-001 binding и пользовательский gameplay review отдельно |
-| ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT | NOT STARTED |  
+| ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT + procedural motion | REVIEW — v002; v001 отклонён как испуганный и слишком похожий на playable goblin, v002 переделан в уверенного человеческого преследователя; runtime 256×256 IN GAME у FIXTURE-ENEMY-FAN. [Provenance](../../Art/Source/Enemies/enemy-002/asset-record.json); production binding и пользовательский gameplay review отдельно |
 | ENEMY-003 | Дровосек | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-004 | Пращник | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-005 | Королевский лучник | Body sprite | Generate via GPT | NOT STARTED |  
@@ -233,19 +233,19 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 
 | ID | Skill | World visual assets | Method | Status |  
 |---|---|---|---|---|  
-| SKILL-001 | Бросок камня | Stone projectile; optional impact | Generate via GPT \+ Hybrid | NOT STARTED |  
-| SKILL-002 | Веер игл | Needle projectile | Generate via GPT \+ Unity fan pattern | NOT STARTED |  
+| SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | APPROVED — projectile v001; runtime 256×256 IN GAME у FIXTURE-SKILL-BOLT, лёгкое вращение 140°/s и общий flash + 3 земляные частицы. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json); production SKILL-001 binding остаётся IP-17 |
+| SKILL-002 | Веер игл | Needle projectile | Derived from approved icon \+ Unity fan pattern | PREPARED — v001 выделен из approved icon (DECISION-0054), production SKILL-002 binding F1-01; Unity import/in-game review pending |
 | SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | NOT STARTED |  
-| SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | NOT STARTED |  
-| SKILL-005 | Ветряное копьё | Wind spear projectile | Generate via GPT \+ Unity motion | NOT STARTED |  
+| SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | PREPARED — процедурное кольцо `SkillWorldEffects.json` (DECISION-0054); in-game review pending |
+| SKILL-005 | Ветряное копьё | Wind spear projectile | Derived from approved icon \+ Unity motion | PREPARED — v001 из approved icon (DECISION-0054); Unity import/in-game review pending |
 | SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | NOT STARTED |  
-| SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | NOT STARTED |  
+| SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | PREPARED — процедурные сегменты цепи (DECISION-0054); in-game review pending |
 | SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | NOT STARTED |  
 | SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | NOT STARTED |  
-| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | NOT STARTED |  
+| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054); in-game review pending |
 | SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | NOT STARTED |  
 | SKILL-012 | Пульсирующий луч | Beam base visual | Hybrid; stretch/aim in Unity | NOT STARTED |  
-| SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | NOT STARTED |  
+| SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | PREPARED — v001 из approved icon (DECISION-0054); общий impact flash; Unity import/in-game review pending |
 | SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | NOT STARTED |  
 | SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | NOT STARTED |  
 | SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | NOT STARTED |
@@ -255,7 +255,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 \`SKILL-001 ... SKILL-016\`
 
 Method: \`Generate via GPT\`    
-Status: \`NOT STARTED\`
+Status: \`IMAGE APPROVED — v001; 16 masters and runtime imports prepared; 13 mapped to matching fixture skills for draft/build review; production binding remains IP-17\`
 
 \---
 
@@ -267,20 +267,20 @@ World sprite для passive item по умолчанию не нужен.
 
 | ID | Passive | Asset | Method | Status |  
 |---|---|---|---|---|  
-| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-002 | Собиратель | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-005 | Метроном | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | NOT STARTED |  
-| PASSIVE-014 | Упрямство | Icon | Generate via GPT | NOT STARTED |
+| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-002 | Собиратель | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-005 | Метроном | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-014 | Упрямство | Icon | Generate via GPT | IMAGE APPROVED — v001 |
 
 Постоянные world-aura для пассивок не создавать без отдельной gameplay/readability причины.
 
@@ -294,7 +294,7 @@ World sprite для passive item по умолчанию не нужен.
 \`SET-001 ... SET-020\`
 
 Method: \`Generate via GPT\`    
-Status: \`NOT STARTED\`
+Status: \`IMAGE APPROVED — v001; 20 masters and runtime imports prepared; 4 mapped to matching fixture sets for acquired-set review; production binding remains IP-19\`
 
 \#\# Set world effects
 
@@ -331,9 +331,9 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID / Entity | Asset | Method | Status | Notes |  
 |---|---|---|---|---|  
-| XP pickup | World sprite | Generate via GPT | NOT STARTED | Можно иметь 1–3 visual variants if useful |  
-| PICKUP-001 Healing Potion | World sprite | Generate via GPT | NOT STARTED | |  
-| Traveler Book | World sprite | Generate via GPT | NOT STARTED | Открывает extra draft |  
+| XP pickup | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Один cyan crystal; gameplay-scale review открыт |
+| PICKUP-001 Healing Potion | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Зелёное зелье; production binding и gameplay-scale review открыты |
+| Traveler Book | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Закрытая охристо-бордовая книга; открывает extra draft |
 | Meta currency | UI icon / optional world art | Generate via GPT | NOT STARTED | Точный presentation зависит от meta UI |
 
 \---
@@ -345,15 +345,15 @@ Generic rule: set effects должны быть вторичным визуал�
 | VFX | Method | Status | Notes |  
 |---|---|---|---|  
 | Basic hit flash | Procedural in Unity | IN GAME (fixture player) | Existing player Health.Damaged → animator; generic adapter tested separately, not all production owners |
-| Basic impact spark | Hybrid | NOT STARTED | Можно генерировать одну базовую вспышку |  
+| Basic impact spark | Procedural in Unity | IN GAME (fixture projectiles) | Общий короткий flash + material-colored particles; отдельный raster пока не нужен |
 | Slash impact | Hybrid | NOT STARTED | Для blade-type attacks |  
 | Generic explosion | Hybrid | NOT STARTED | Mine/sphere/set reuse |  
 | Lightning impact | Hybrid / Procedural | NOT STARTED | |  
 | Ice impact | Hybrid | NOT STARTED | |  
-| Heal effect | Hybrid | NOT STARTED | |  
-| Level-up effect | Hybrid | NOT STARTED | |  
+| Heal effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
+| Level-up effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
 | Set activation effect | Hybrid | NOT STARTED | Общий accent |  
-| Enemy death effect | Hybrid / Procedural | NOT STARTED | Переиспользуемый |  
+| Enemy death effect | Procedural in Unity | IN GAME | Общий squash/fade + земляная пыль для ordinary/boss/Traveler |
 | Slow feedback | Procedural / Hybrid | NOT STARTED | Tint \+ optional overlay |  
 | Projectile trail | Procedural / Hybrid | NOT STARTED | Trail Renderer \+ optional texture |  
 | Beam base | Hybrid | NOT STARTED | Texture/style \+ Unity stretch |  
@@ -376,7 +376,7 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID | Field | Needed art | Method | Status |  
 |---|---|---|---|---|  
-| FIELD-001 | Деревенская окраина | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | NOT STARTED |  
+| FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + куст/трава; production geometry и thumbnail остаются | Generate via GPT / Hybrid | REVIEW |
 | FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-003 | Пограничные руины | Ground/background \+ ruins/walls/bridge-style props | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
@@ -442,9 +442,9 @@ Method: \`Generate via GPT\`.
 
 | UI asset | Method | Status | Notes |  
 |---|---|---|---|  
-| 16 skill icons | Generate via GPT | NOT STARTED | Обязательны для HUD, draft и Pause / Build |  
-| 14 passive icons | Generate via GPT | NOT STARTED | Обязательны для draft и Pause / Build |  
-| 20 set icons | Generate via GPT | NOT STARTED | Обязательны для draft, acquired sets и set progress |  
+| 16 skill icons | Generate via GPT | IMAGE APPROVED — v001 | 16 masters/runtime imports; 13 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-17 binding remain |
+| 14 passive icons | Generate via GPT | IMAGE APPROVED — v001 | 14 masters/runtime imports; 9 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-18 binding remain |
+| 20 set icons | Generate via GPT | IMAGE APPROVED — v001 | 20 masters/runtime imports; 4 matching fixture mappings show for acquired sets; set-progress UI review and production IP-19 binding remain |
 | Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  
 | Field thumbnails | Generate / derive from field art | NOT STARTED | По одному на FIELD-001…010 для Field Select; отдельная уникальная картинка не нужна, если подходит crop/композиция existing field art |  
 | Meta-upgrade icons | Generate via GPT as content is defined | NOT STARTED | Только для реально реализованных permanent upgrades |  
@@ -553,7 +553,7 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 3\. World assets только для реализованных skills.  
 4\. XP pickup \+ potion \+ Traveler Book, если соответствующие systems уже работают.  
 5\. Один field kit для текущего field.  
-6\. Минимальные generic VFX: hit, death, heal, level-up.  
+6\. Минимальные generic VFX: hit и death; heal и level-up остаются под вопросом и не производятся без отдельного gameplay review.
 7\. Минимальные icons для реально доступного в build контента.
 
 \#\# Phase B — расширение текущего implementation scope  
@@ -609,8 +609,45 @@ Default для ещё не подключённых owners: \`Procedural in Unit
 
 ## Проверяемый fixture inventory — 2026-09-21
 
-[Manifest](../../Art/asset-manifest.json) фиксирует owner+role, method, source/runtime, stage и evidence. CHAR-001 concept identity подтверждена пользователем: это master fixture goblin v002; runtime остаётся FIXTURE-CHARACTER-AGILE, production binding отдельно IP-22. UI body reuse в диагностическом слоте принят пользователем 2026-09-21; production Character Select binding проверяется отдельно. Шесть новых procedural diagnostic roles (body/projectile/pickup/telegraph/shadow/impact) приняты пользователем в Presentation Fixture Review («всё хорошо», 2026-09-21); они не заменяют production строки выше. Player ShadowRenderer пока не имеет отдельного shadow asset. Полное исполнение IP учитывается только в STATUS.
+[Manifest](../../Art/asset-manifest.json) фиксирует owner+role, method, source/runtime, stage и evidence. CHAR-001 concept identity подтверждена пользователем: это master fixture goblin v002; runtime остаётся FIXTURE-CHARACTER-AGILE, production binding отдельно IP-22. UI body reuse в диагностическом слоте принят пользователем 2026-09-21; production Character Select binding проверяется отдельно. Шесть procedural diagnostic roles (body/projectile/pickup/telegraph/shadow/impact) приняты пользователем в Presentation Fixture Review («всё хорошо», 2026-09-21); они не заменяют production строки выше. Gameplay player/enemy shadow теперь использует общий procedural runtime по [ASSET_PIPELINE §24](ASSET_PIPELINE.md#24-единая-процедурная-ground-shadow). Полное исполнение IP учитывается только в STATUS.
 
 ## Body contact authoring
 
-Для новых и заменяемых character/enemy body с круговым контактом после runtime import выполнить [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body): максимальный вписанный круг по заполненному внешнему обводу, сохранение профиля, wiring, проверки и review. Принятый эталон — текущие goblin/villager; внутренние дырки не уменьшают круг. Production content gates сохраняются.
+Для новых и заменяемых character/enemy body сначала проверить silhouette compatibility с одним кругом: основная масса не должна быть крайне вытянутой, а конечности, оружие и аксессуары — чрезмерно далеко выступать от корпуса. Это не требование делать персонажей круглыми; отклоняются только крайности, при которых круг покрывает малую часть фигуры или возникает слишком большое визуальное пересечение до контакта. После runtime import выполнить [ASSET_PIPELINE §22](ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body): максимальный вписанный круг по заполненному внешнему обводу, сохранение профиля, wiring, проверки и review. Принятый эталон — текущие goblin/villager; внутренние дырки не уменьшают круг. Production content gates сохраняются.
+
+## Enemy death presentation
+
+Единый death algorithm выполняется процедурно в Unity для всех врагов: squash, shrink, darken/fade и небольшой dust burst. Специальные варианты по enemy ID и отдельные death sprites сейчас не производятся. Death не добавляет толчок. Параметры и обязательные проверки описаны в [ASSET_PIPELINE §23](ASSET_PIPELINE.md#23-единая-процедурная-смерть-врагов).
+
+## Gameplay ground shadow
+
+Гоблин, обычные враги, боссы и Travelers используют одну мягкую процедурную ellipse shadow без отдельных PNG. Маска создаётся один раз и переиспользуется всеми renderer; размер, цвет и смещение задаёт общий JSON-профиль. Правила и проверки описаны в [ASSET_PIPELINE §24](ASSET_PIPELINE.md#24-единая-процедурная-ground-shadow).
+
+## Gameplay projectile presentation
+
+У текущего `FIXTURE-ENEMY-FAN` используется утверждённый компактный снаряд-письмо: cream parchment, тёмный шнур и burgundy seal. Это fixture-only ranged presentation и не меняет approved melee card ENEMY-002. Письмо ориентируется по направлению полёта без spin; попадание использует тот же дешёвый impact algorithm с parchment-colored particles. [Provenance](../../Art/Source/Enemies/fixture-enemy-fan-projectile/asset-record.json). Камень SKILL-001 временно подключён к `FIXTURE-SKILL-BOLT`; его production binding остаётся IP-17. Общие правила описаны в [ASSET_PIPELINE §25](ASSET_PIPELINE.md#25-projectile-sprite-вращение-и-дешёвый-impact).
+
+## Стартовый состав — DECISION-0050
+
+Утверждено 2026-09-22: [состав и условия](../Content_design.md#starting-content-0050),
+[основание](../decisions/0050-starting-content-and-unlocks.md).
+Стартовый playable — CHAR-001; Путники FIELD-001 — TRAVELER-001 (боевой),
+TRAVELER-002 (неагрессивный), TRAVELER-005 (защитник). Использовать существующие
+ID и роли inventory; не создавать три новых ID или отдельные версии для каждого
+поля. Остальные семь Путников и полный roster остаются для дальнейшего контента.
+Начальные skills/passives/sets определены таблицей CD; поздние открытия доступны
+и на FIELD-001. Уже одобренные изображения полного каталога сохраняются.
+Этот выбор не утверждает ещё отсутствующие Traveler assets. Scope стартового
+этапа — [FIELD-001 initial slice](../implementation/milestones/FIELD-001-start.md);
+порядок производства и готовность — только в STATUS.
+Art Direction, Asset Pipeline и принятые visual gates сохраняются.
+
+### Ordinary enemies стартового поля — DECISION-0052
+
+По [DECISION-0052](../decisions/0052-field001-six-ordinary-enemies.md) стартовый
+art scope включает шесть обычных врагов: ENEMY-001…005 и ENEMY-007.
+К существующему набору добавлены body Королевского лучника и Охотничьей гончей,
+нужный projectile/impact Лучника и читаемая подача рывка Гончей. Переиспользовать
+подходящие общие роли; отдельный raster для каждого эффекта не обязателен.
+Существующие inventory IDs и per-image gates сохраняются; новые изображения
+этим решением не объявляются созданными или approved.

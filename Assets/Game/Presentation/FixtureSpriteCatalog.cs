@@ -55,11 +55,37 @@ namespace Game.Presentation
                     throw new InvalidOperationException($"Sprite '{id}' requires both contactRadius and contactCenterY.");
                 var contact = entry.ContactRadius.HasValue
                     ? new SpriteContactProfile(entry.ContactRadius.Value, entry.ContactCenterY.Value) : null;
-                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite, entry.Role.Value, contact)))
+                var projectile = ToProjectile(entry, id);
+                if (!definitions.TryAdd(id, new SpriteDefinition(id, sprite, entry.Role.Value, contact, projectile)))
                     throw new InvalidOperationException($"Duplicate fixture sprite id '{id}'.");
             }
 
             return definitions;
+        }
+
+        private static ProjectilePresentationProfile ToProjectile(SpriteDefinitionData entry, ContentId id)
+        {
+            if (entry.Role == SpriteRole.Projectile && entry.Projectile == null)
+                throw new InvalidOperationException($"Projectile sprite '{id}' requires presentation settings.");
+            if (entry.Role != SpriteRole.Projectile && entry.Projectile != null)
+                throw new InvalidOperationException($"Non-projectile sprite '{id}' cannot define projectile presentation.");
+            if (entry.Projectile == null) return null;
+            var data = entry.Projectile;
+            return new ProjectilePresentationProfile(data.VisualScale, data.SpinDegreesPerSecond,
+                data.ImpactDurationSeconds, data.FlashSize,
+                new Color(data.FlashRed, data.FlashGreen, data.FlashBlue, data.FlashAlpha),
+                data.ParticleCount, data.ParticleSize, data.ParticleSpeed,
+                new Color(data.ParticleRed, data.ParticleGreen, data.ParticleBlue, data.ParticleAlpha),
+                ToExplosion(data.Explosion));
+        }
+
+        private static ExplosionPresentationProfile ToExplosion(ExplosionPresentationProfileData data)
+        {
+            if (data == null) return null;
+            return new ExplosionPresentationProfile(data.DurationSeconds, data.FlashSizeMultiplier,
+                new Color(data.FlashRed, data.FlashGreen, data.FlashBlue, data.FlashAlpha),
+                data.ParticleCount, data.ParticleSizeMultiplier, data.ParticleSpeedMultiplier,
+                new Color(data.ParticleRed, data.ParticleGreen, data.ParticleBlue, data.ParticleAlpha));
         }
     }
 }

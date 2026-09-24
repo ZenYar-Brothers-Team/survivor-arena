@@ -1,3 +1,4 @@
+using System.Linq;
 using Game.ActiveSkill;
 using Game.Enemy;
 using Game.Presentation;
@@ -27,7 +28,23 @@ namespace Game.Bootstrap.Tests
                 Assert.AreSame(boss, catalog.Registry.Get<BossEncounterDefinition>(boss.Id));
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
-            Assert.AreEqual(2, catalog.SpriteMotionProfiles.Count);
+            // Shared presentation file: three fixture profiles plus production CHAR-001/ENEMY-001/ENEMY-002 (F1-03/F1-04).
+            CollectionAssert.AreEquivalent(new[] { "FIXTURE-MOTION-GOBLIN-AGILE", "FIXTURE-MOTION-VILLAGER", "FIXTURE-MOTION-COURIER",
+                    "CHAR-001-MOTION", "ENEMY-001-MOTION", "ENEMY-002-MOTION" },
+                catalog.SpriteMotionProfiles.Select(profile => profile.Id.ToString()));
+            Assert.AreEqual(.3f, catalog.EnemyDeathPresentation.TotalDurationSeconds, .0001f);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureEnemyDeathPresentation"));
+            Assert.AreEqual(.86f, catalog.GroundShadowPresentation.FallbackWidth, .0001f);
+            Assert.AreEqual(1.2f, catalog.GroundShadowPresentation.ContactWidthScale, .0001f);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureGroundShadowPresentation"));
+            Assert.AreEqual(1, catalog.FieldEnvironmentPresentations.Count);
+            var fieldPresentation = catalog.FieldEnvironmentPresentations.Single().Value;
+            Assert.AreEqual("FIXTURE-ENVIRONMENT-ARENA", fieldPresentation.EnvironmentId.ToString());
+            Assert.AreEqual(SpriteRole.Tile, fieldPresentation.Ground.Resolve(catalog.Registry).Role);
+            Assert.AreEqual(SpriteRole.Prop, fieldPresentation.Obstacle.Resolve(catalog.Registry).Role);
+            Assert.AreEqual(64, fieldPresentation.InteriorObstacleCount);
+            Assert.AreEqual(16, fieldPresentation.NearObstacleCount);
+            Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureFieldEnvironmentPresentation"));
             Assert.AreEqual(catalog.ActiveSkills.Count + catalog.Passives.Count + catalog.Sets.Count, catalog.BuildEntries.Count);
 
             foreach (var buildEntry in catalog.BuildEntries)
@@ -59,6 +76,60 @@ namespace Game.Bootstrap.Tests
             Assert.AreSame(
                 catalog.SpriteMotionProfiles[0],
                 agile.MotionProfile.Resolve(catalog.Registry));
+
+            var stone = catalog.Registry.Get<SpriteDefinition>("SKILL-001-VISUAL-PROJECTILE");
+            Assert.AreEqual(SpriteRole.Projectile, stone.Role);
+            Assert.AreEqual(140f, stone.ProjectilePresentation.SpinDegreesPerSecond);
+            var bolt = catalog.ActiveSkills.Single(skill => skill.Id == "FIXTURE-SKILL-BOLT");
+            Assert.IsTrue(bolt.Levels.All(level => level.Visual.Id == stone.Id));
+            foreach (var mapping in new[]
+                     {
+                         (Skill: "FIXTURE-SKILL-ORBIT", Visual: "SKILL-003-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-BOOMERANG", Visual: "SKILL-006-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-RICOCHET", Visual: "SKILL-008-VISUAL-PROJECTILE"),
+                         (Skill: "FIXTURE-SKILL-SPHERES", Visual: "SKILL-014-VISUAL-PROJECTILE")
+                     })
+            {
+                var skill = catalog.ActiveSkills.Single(candidate => candidate.Id == mapping.Skill);
+                Assert.IsTrue(skill.Levels.All(level => level.Visual.Id == mapping.Visual), mapping.Skill);
+                var worldVisual = catalog.Registry.Get<SpriteDefinition>(mapping.Visual);
+                Assert.AreEqual(SpriteRole.Projectile, worldVisual.Role, mapping.Visual);
+                Assert.IsNotNull(worldVisual.ProjectilePresentation, mapping.Visual);
+            }
+            var sphere = catalog.Registry.Get<SpriteDefinition>("SKILL-014-VISUAL-PROJECTILE");
+            Assert.IsNotNull(sphere.ProjectilePresentation.Explosion);
+            Assert.AreEqual(8, sphere.ProjectilePresentation.Explosion.ParticleCount);
+            Assert.IsTrue(catalog.ActiveSkills.All(skill => skill.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.ActiveSkills.Count,
+                catalog.ActiveSkills.Select(skill => skill.Icon.Id).Distinct().Count());
+            foreach (var skill in catalog.ActiveSkills)
+            {
+                var icon = skill.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{skill.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{skill.Id} icon sprite");
+            }
+            Assert.IsTrue(catalog.Passives.All(passive => passive.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.Passives.Count,
+                catalog.Passives.Select(passive => passive.Icon.Id).Distinct().Count());
+            foreach (var passive in catalog.Passives)
+            {
+                var icon = passive.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{passive.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{passive.Id} icon sprite");
+            }
+            Assert.IsTrue(catalog.Sets.All(set => set.Icon.Id.IsValid));
+            Assert.AreEqual(catalog.Sets.Count, catalog.Sets.Select(set => set.Icon.Id).Distinct().Count());
+            foreach (var set in catalog.Sets)
+            {
+                var icon = set.Icon.Resolve(catalog.Registry);
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, $"{set.Id} icon role");
+                Assert.IsNotNull(icon.Sprite, $"{set.Id} icon sprite");
+            }
+            var fan = catalog.Enemies.Single(enemy => enemy.Id == "FIXTURE-ENEMY-FAN");
+            Assert.AreEqual("FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE", fan.Attack.ProjectileVisual.Id.ToString());
+            Assert.AreEqual(SpriteRole.Pickup, catalog.Pickups.ExperienceVisual.Resolve(catalog.Registry).Role);
+            Assert.IsTrue(catalog.Pickups.Definitions.All(definition =>
+                definition.Visual.Resolve(catalog.Registry).Role == SpriteRole.Pickup));
         }
     }
 }

@@ -14,6 +14,11 @@
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+200×200 geometry, 64 obstacle rects и metadata.
+Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+используется как production data; проверки этого IP сохраняются.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новые GDD/CD fields, полные выбранные FIELD-001…010 и referenced entities; UI §5; Art Production §§11–13; DECISION-0003.
@@ -56,3 +61,24 @@ G-14: geometry/enemy pools; G-20 resolved по DECISION-0038 (difficulty 1–5).
 ## Потребители
 
 [IP-24](IP-24-production-waves.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-08](../milestones/FIELD-001-start.md#f1-08):
+FIELD-001 geometry/environment/metadata/thumbnail. Packet prerequisites: F1-00…07; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).
+
+Поправка [DECISION-0052](../../decisions/0052-field001-six-ordinary-enemies.md):
+ordinary pool FIELD-001 — ENEMY-001…005 и ENEMY-007, ровно шесть типов.
+F1-04 поставляет их definitions/art; F1-08 связывает все шесть с timeline,
+F1-09 проверяет совместную читаемость и давление. Боссы/Путники считаются отдельно.

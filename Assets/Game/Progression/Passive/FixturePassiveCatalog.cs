@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Game.Character;
+using Game.Content;
 using Game.Content.Json;
 using Game.Progression.Json;
+using Game.Presentation;
 
 namespace Game.Progression
 {
@@ -11,9 +13,12 @@ namespace Game.Progression
     {
         private const string ResourcePath = "Content/Passives/FixturePassives";
 
-        public static IReadOnlyList<PassiveProgressionDefinition> Create()
+        public static IReadOnlyList<PassiveProgressionDefinition> Create() => Load(ResourcePath);
+
+        /// <summary>Loads any passive JSON (fixture or production) with the shared DTO mapping.</summary>
+        public static IReadOnlyList<PassiveProgressionDefinition> Load(string resourcePath)
         {
-            var data = JsonContentFile.Load<PassiveProgressionData[]>(ResourcePath);
+            var data = JsonContentFile.Load<PassiveProgressionData[]>(resourcePath);
             var definitions = new PassiveProgressionDefinition[data.Length];
             for (var i = 0; i < data.Length; i++)
                 definitions[i] = ToDefinition(data[i]);
@@ -27,7 +32,10 @@ namespace Game.Progression
             for (var i = 0; i < levels.Length; i++)
                 levels[i] = ToModifier(data.Levels[i]);
 
-            return new PassiveProgressionDefinition(data.Id, data.DisplayName, levels);
+            var icon = string.IsNullOrEmpty(data.IconVisualId)
+                ? default
+                : new ContentRef<SpriteDefinition>(data.IconVisualId);
+            return new PassiveProgressionDefinition(data.Id, data.DisplayName, icon, levels);
         }
 
         internal static CharacterStatModifier ToModifier(CharacterStatModifierData data)

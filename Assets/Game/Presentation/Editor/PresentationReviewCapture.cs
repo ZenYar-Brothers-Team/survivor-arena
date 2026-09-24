@@ -123,6 +123,67 @@ namespace Game.Presentation.Editor
             }
         }
 
+        // Imported body and exact shared shadow preview; not a gameplay/density acceptance.
+        public static void CaptureCourierAndShadows()
+        {
+            var sprites = FixtureSpriteCatalog.CreateFor(new ContentId[] {
+                "FIXTURE-CHARACTER-AGILE-VISUAL-BODY", "FIXTURE-ENEMY-SEEKER-VISUAL",
+                "FIXTURE-ENEMY-FAN-VISUAL" });
+            var shadowProfile = FixtureGroundShadowPresentationCatalog.Create();
+            var root = new GameObject("Courier and shadow review");
+            var preview = new PreviewRenderUtility();
+            var materials = new[] { new Material(Shader.Find("Sprites/Default")),
+                new Material(Shader.Find("Sprites/Default")), new Material(Shader.Find("Sprites/Default")),
+                new Material(Shader.Find("Sprites/Default")) };
+            for (var i = 0; i < 3; i++) materials[i].mainTexture = sprites[i].Sprite.texture;
+            materials[3].mainTexture = GroundShadowSprite.Shared.texture;
+            Texture2D image = null;
+            try
+            {
+                for (var i = 0; i < sprites.Count; i++)
+                {
+                    var actor = new GameObject("Actor");
+                    actor.transform.SetParent(root.transform, false);
+                    actor.transform.localPosition = new Vector3(-1.8f + i * 1.8f, 0f, 0f);
+                    var shadow = new GameObject("GroundShadow");
+                    shadow.transform.SetParent(actor.transform, false);
+                    shadow.transform.localPosition = Vector3.down * (sprites[i].Contact.CenterY - shadowProfile.OffsetY);
+                    var shadowWidth = sprites[i].Contact.Radius * 2f * shadowProfile.ContactWidthScale;
+                    shadow.transform.localScale = new Vector3(shadowWidth, shadowProfile.Height, 1f);
+                    var shadowRenderer = shadow.AddComponent<SpriteRenderer>();
+                    shadowRenderer.sprite = GroundShadowSprite.Shared;
+                    shadowRenderer.color = shadowProfile.Color;
+                    shadowRenderer.sharedMaterial = materials[3];
+                    shadowRenderer.sortingOrder = -1;
+                    var body = new GameObject("Body");
+                    body.transform.SetParent(actor.transform, false);
+                    body.transform.localPosition = Vector3.down * sprites[i].Contact.CenterY;
+                    var bodyRenderer = body.AddComponent<SpriteRenderer>();
+                    bodyRenderer.sprite = sprites[i].Sprite;
+                    bodyRenderer.sharedMaterial = materials[i];
+                }
+                preview.AddSingleGO(root);
+                preview.camera.orthographic = true;
+                preview.camera.orthographicSize = 2.4f;
+                preview.camera.transform.position = new Vector3(0f, 0f, -10f);
+                preview.camera.nearClipPlane = .1f;
+                preview.camera.farClipPlane = 30f;
+                preview.camera.clearFlags = CameraClearFlags.SolidColor;
+                preview.camera.backgroundColor = new Color(.2f, .22f, .2f);
+                preview.BeginStaticPreview(new Rect(0, 0, 1600, 700));
+                preview.Render(true);
+                image = preview.EndStaticPreview();
+                Directory.CreateDirectory("TestResults");
+                File.WriteAllBytes("TestResults/enemy-002-shadow-review.png", image.EncodeToPNG());
+            }
+            finally
+            {
+                if (image != null) Object.DestroyImmediate(image);
+                preview.Cleanup();
+                foreach (var material in materials) Object.DestroyImmediate(material);
+            }
+        }
+
         [MenuItem("Tools/Survivor Arena/Capture Presentation Fixture Review")]
         public static void Capture()
         {

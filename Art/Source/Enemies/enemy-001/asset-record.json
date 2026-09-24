@@ -8,7 +8,7 @@
   "selectedVersion": "v002/concept-01.png",
   "approvedAt": "2026-09-21",
   "approvedBy": "user",
-  "approvalEvidence": "User selected the older, rougher second variant: «Хорошо, давай использовать этого.»",
+  "approvalEvidence": "User selected the older, rougher second variant: «Хорошо, давай использовать этого.» User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
   "referenceImages": [
     {
       "path": "../../Characters/fixture-character-agile/selected-master.png",
@@ -42,9 +42,6 @@
       "Runtime only: alpha bounds x57/y51/w1137/h1157 mapped without distortion (integer rounding only) into x32/y36/w191/h194 on a transparent 256x256 RGBA canvas; System.Drawing HighQualityBicubic/SourceCopy/TileFlipXY. No artistic changes.",
       "Unity import: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256; 160 PPU gives the same world canvas height as the 512px/320PPU player. Pivot (0.53,0.10) centered between boots at ground contact."
     ],
-    "remaining": [
-      "Final user gameplay/motion approval and dense 3–4-set review; image approval does not imply Gate E.",
-      "Production ENEMY-001 gameplay definition/binding remains IP-20; this integration uses unchanged FIXTURE-ENEMY-SEEKER gameplay identity and values."
-    ]
+    "remaining": ["Current visual/motion accepted by user; documented 3–4-set density verification remains.","Production ENEMY-001 gameplay definition/binding remains IP-20; the current integration uses FIXTURE-ENEMY-SEEKER."]
   }
 }

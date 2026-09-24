@@ -52,8 +52,9 @@
       "id": "CHAR-002",
       "name": "Бугор",
       "kind": "character",
-      "condition": "firstRun",
-      "price": 100
+      "condition": "fieldClear",
+      "price": 100,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "CHAR-003",
@@ -251,15 +252,17 @@
       "id": "SKILL-008",
       "name": "Рикошетный диск",
       "kind": "skill",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "SKILL-009",
       "name": "Магматическая мина",
       "kind": "skill",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "SKILL-010",
@@ -272,15 +275,17 @@
       "id": "SKILL-011",
       "name": "Спираль осколков",
       "kind": "skill",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-004"
     },
     {
       "id": "SKILL-012",
       "name": "Пульсирующий луч",
       "kind": "skill",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SKILL-013",
@@ -300,8 +305,9 @@
       "id": "SKILL-015",
       "name": "Крест клинков",
       "kind": "skill",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-004"
     },
     {
       "id": "SKILL-016",
@@ -309,7 +315,7 @@
       "kind": "skill",
       "condition": "fieldClear",
       "price": 0,
-      "requiredId": "FIELD-001"
+      "requiredId": "FIELD-002"
     },
     {
       "id": "SET-001",
@@ -322,15 +328,17 @@
       "id": "SET-002",
       "name": "Возвратный ритм",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "SET-003",
       "name": "Грозовой проводник",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "SET-004",
@@ -343,8 +351,9 @@
       "id": "SET-005",
       "name": "Жадность к знаниям",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "SET-006",
@@ -357,22 +366,25 @@
       "id": "SET-007",
       "name": "Векторный шторм",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-004"
     },
     {
       "id": "SET-008",
       "name": "Утилизатор",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "SET-009",
       "name": "Линия пробоя",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SET-010",
@@ -385,43 +397,49 @@
       "id": "SET-011",
       "name": "Кинетический арсенал",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "SET-012",
       "name": "Неподвижная крепость",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SET-013",
       "name": "Перегрузка сети",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SET-014",
       "name": "Танец клинков",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-004"
     },
     {
       "id": "SET-015",
       "name": "Алхимия хаоса",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "SET-016",
       "name": "Выстрел великана",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "SET-017",
@@ -434,15 +452,17 @@
       "id": "SET-018",
       "name": "Сфера разрушения",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SET-019",
       "name": "Ледяное копьё",
       "kind": "set",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     },
     {
       "id": "SET-020",
@@ -491,8 +511,9 @@
       "id": "PASSIVE-006",
       "name": "Эхо памяти",
       "kind": "passive",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "PASSIVE-007",
@@ -519,8 +540,9 @@
       "id": "PASSIVE-010",
       "name": "Талисман ученика",
       "kind": "passive",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-002"
     },
     {
       "id": "PASSIVE-011",
@@ -540,15 +562,17 @@
       "id": "PASSIVE-013",
       "name": "Длинные руки",
       "kind": "passive",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-001"
     },
     {
       "id": "PASSIVE-014",
       "name": "Упрямство",
       "kind": "passive",
-      "condition": "initial",
-      "price": 0
+      "condition": "fieldClear",
+      "price": 0,
+      "requiredId": "FIELD-003"
     }
   ]
 }

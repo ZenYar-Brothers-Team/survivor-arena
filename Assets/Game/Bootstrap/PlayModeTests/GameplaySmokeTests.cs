@@ -43,6 +43,13 @@ namespace Game.Bootstrap.PlayModeTests
             var timer = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.TimerLabel);
             Assert.AreEqual("00:00", timer.text);
             Assert.IsTrue(presentation.IsInitialized);
+            var fieldArt = GameObject.Find("FieldEnvironmentArt");
+            Assert.IsNotNull(fieldArt);
+            Assert.IsNotNull(fieldArt.transform.Find("Ground")?.GetComponent<SpriteRenderer>());
+            Assert.IsNotNull(fieldArt.transform.Find("Stump")?.GetComponent<SpriteRenderer>());
+            Assert.AreEqual(64, fieldArt.GetComponentsInChildren<Collider2D>().Length);
+            foreach (var renderer in fieldArt.GetComponentsInChildren<SpriteRenderer>())
+                if (renderer.name == "FenceObstacle") Assert.AreEqual(0f, renderer.transform.eulerAngles.z, 0.001f);
             var developmentToggle = gameplayUi.Document.rootVisualElement.Q<Button>(
                 GameplayUiElementIds.DevelopmentToggleButton);
             var developmentPanel = gameplayUi.Document.rootVisualElement.Q<VisualElement>(

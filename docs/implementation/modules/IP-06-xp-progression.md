@@ -28,7 +28,7 @@ Book awards, potion health, draft selection, production XP balancing.
 
 ## Acceptance criteria
 
-Death создаёт один drop с source life; expiry при recovery0 не даёт XP; pickup/recovery не удваиваются. Radius modifier немедленно действует на существующий drop. Multi-level award сохраняет thresholds и выдаёт ровно соответствующие level-up requests; pause/end freeze. Final current XP не подменяет lifetime awarded XP.
+Death создаёт один drop с source life и небольшим seeded-смещением внутри настроенного radius; expiry при recovery0 не даёт XP; pickup/recovery не удваиваются. Radius modifier немедленно действует на существующий drop. Multi-level award сохраняет thresholds и выдаёт ровно соответствующие level-up requests; pause/end freeze. Final current XP не подменяет lifetime awarded XP.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 

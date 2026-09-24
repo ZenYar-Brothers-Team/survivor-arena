@@ -68,6 +68,8 @@ namespace Game.Bootstrap
         private GameplayUiRoot gameplayUiRoot;
 
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
+        /// <summary>Production save file; independent from the prototype fixture profile (DECISION-0050).</summary>
+        public const string ProductionProfileFileName = "profile-v1.json";
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
         public BossEncounterRuntime BossEncounters { get; private set; }
@@ -95,6 +97,8 @@ namespace Game.Bootstrap
         private SettingsAudioRuntime _audio;
         private SettingsConfig _settingsConfig;
         private CameraShakeRuntime _shake;
+        private GroundShadowRuntime _playerGroundShadow;
+        private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -182,8 +186,9 @@ namespace Game.Bootstrap
                 if (IsInitialized) return;
                 ValidateSceneReferences();
                 SuspendForSelection();
-                if (Profile == null) Profile = new ProfileService(MetaCatalog.Load(true),
-                    new FileProfileStore(Path.Combine(Application.persistentDataPath, "fixture-profile-v1.json")));
+                // Real play uses the production economy and a separate save (F1-08); tests configure a fixture profile.
+                if (Profile == null) Profile = new ProfileService(MetaCatalog.Load(),
+                    new FileProfileStore(Path.Combine(Application.persistentDataPath, ProductionProfileFileName)));
                 EnsureProfileScreen();
                 Application.wantsToQuit += WantsToQuit;
                 await Profile.LoadAsync();
@@ -206,7 +211,7 @@ namespace Game.Bootstrap
             if (!Profile.CanStart) throw new InvalidOperationException("Profile must be saved before selection.");
             AtMainMenu = false;
             _metaPresenter.ClearResult();
-            Catalog = FixtureRuntimeContentCatalog.Create();
+            Catalog = CreateCatalog();
             _fieldScreen?.Dispose();
             _fieldScreen = null;
             FieldSelection = null;
@@ -265,7 +270,14 @@ namespace Game.Bootstrap
         }
 
         // Explicit composition entry point retained for scene integration tests and future navigation.
-        public void Initialize() => Initialize(FixtureRuntimeContentCatalog.Create().RunSetup.StartingCharacterId);
+        public void Initialize() { EnsureProfileScreen(); Initialize(CreateCatalog().RunSetup.StartingCharacterId); }
+
+        /// <summary>
+        /// Content follows the profile economy: the fixture profile (tests, prototype tools) composes fixture
+        /// content; the production profile composes the FIELD-001 startup content only (F1-08, DECISION-0054).
+        /// </summary>
+        private FixtureRuntimeContentCatalog CreateCatalog() =>
+            Profile != null && Profile.Catalog.IsFixture ? FixtureRuntimeContentCatalog.Create() : FixtureRuntimeContentCatalog.CreateProduction();
 
         public void Initialize(ContentId characterId, CharacterRoster roster = null, ContentId? fieldId = null, FieldRoster fields = null)
         {
@@ -277,7 +289,7 @@ namespace Game.Bootstrap
 
             // Run parameters (starting character, draft settings, XP curve) are content,
             // validated by their domain types when the catalog loads.
-            Catalog = FixtureRuntimeContentCatalog.Create();
+            Catalog = CreateCatalog();
             var setup = Catalog.RunSetup;
             if (!(roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).TrySelect(characterId, out var selectedCharacter))
                 throw new InvalidOperationException($"Character '{characterId}' is locked or missing.");
@@ -299,6 +311,12 @@ namespace Game.Bootstrap
                 runController.Model.ConfigureSelection(new RunSelectionSnapshot(characterId, selectedField.Id,
                     configuration.Environment.Id, configuration.Timeline.Id));
                 initializedSubsystems.Add(runController.Shutdown);
+                if (!Catalog.FieldEnvironmentPresentations.TryGetValue(configuration.Environment.Id, out var fieldPresentation))
+                    throw new InvalidOperationException($"Environment '{configuration.Environment.Id}' requires presentation content.");
+                _fieldEnvironmentArt = new FieldEnvironmentArtRuntime();
+                _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
+                    gameObject.scene, FixtureArenaGeometryCatalog.Create().SideLength);
+                initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();
                 player.transform.position = spawn.position;
@@ -326,11 +344,21 @@ namespace Game.Bootstrap
                     playerBody,
                     runController);
                 initializedSubsystems.Add(playerPresentation.Shutdown);
+                if (_playerGroundShadow == null) _playerGroundShadow = player.gameObject.AddComponent<GroundShadowRuntime>();
+                var playerRig = playerPresentation.GetComponent<SpritePresentationRig>();
+                _playerGroundShadow.Initialize(Catalog.GroundShadowPresentation, playerVisual.Contact, 1f,
+                    playerRig.BodyRenderer, playerRig.ShadowRenderer);
+                initializedSubsystems.Add(_playerGroundShadow.Shutdown);
 
-                experienceRuntime.Initialize(player, runController, setup.Experience);
+                var experienceVisual = Catalog.Pickups.ExperienceVisual.Resolve(Catalog.Registry);
+                experienceVisual.RequireRole(SpriteRole.Pickup);
+                experienceRuntime.Initialize(player, runController, setup.Experience, experienceVisual,
+                    Catalog.Pickups.ExperienceVisualScale, Catalog.Pickups.DropScatterRadius,
+                    Catalog.Pickups.DropScatterSeed);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
-                _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression, Catalog.ActiveSkills);
+                _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression,
+                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects);
                 initializedSubsystems.Add(_setEffects.Dispose);
                 draftRuntime.Initialize(
                     experienceRuntime,
@@ -351,7 +379,8 @@ namespace Game.Bootstrap
                 // The executor owns a scene GameObject (mine pool root); it is registered for
                 // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
                 // idempotent, and Shutdown disposes it again on the success path).
-                var effectExecutor = new SceneActiveSkillEffectExecutor(runController);
+                var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry,
+                    worldEffectProfiles: Catalog.SkillWorldEffects);
                 initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,
@@ -367,9 +396,13 @@ namespace Game.Bootstrap
 
                 if (Pickups == null) Pickups = gameObject.AddComponent<WorldPickupRuntime>();
                 var placement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
-                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin);
+                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
+                    additionalObstacles: _fieldEnvironmentArt.ObstacleColliders);
+                var pickupVisuals = Catalog.Pickups.Definitions.ToDictionary(definition => definition.Id,
+                    definition => definition.Visual.Resolve(Catalog.Registry));
                 Pickups.Initialize(Catalog.Pickups, runController.Model, player,
-                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement, selectedField.Id);
+                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement,
+                    selectedField.Id, pickupVisuals);
                 initializedSubsystems.Add(Pickups.Shutdown);
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
@@ -395,12 +428,14 @@ namespace Game.Bootstrap
                     runController.Model.Duration);
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
-                    enemyMotions, enemyContacts);
+                    enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation,
+                    Catalog.Registry);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
                 BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
-                    new EnemyExperienceDropSink(experienceRuntime, runController));
+                    new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
+                    Catalog.GroundShadowPresentation);
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
@@ -409,10 +444,12 @@ namespace Game.Bootstrap
                     initializedSubsystems.Add(Travelers.Shutdown);
                     var travelerPlacement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
                         player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
-                        Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f));
+                        Catalog.Travelers.Definitions.Values.Max(item => item.Body.CollisionSize * .5f),
+                        _fieldEnvironmentArt.ObstacleColliders);
                     Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
                         Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
-                        new EnemyExperienceDropSink(experienceRuntime, runController));
+                        new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
+                        Catalog.GroundShadowPresentation);
                 }
                 Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);
@@ -424,7 +461,8 @@ namespace Game.Bootstrap
                     draftRuntime,
                     runController,
                     playerPresentation,
-                    (roster ?? Catalog.Characters).UnlockedCharacters,
+                    Catalog.Registry,
+                    (roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).UnlockedCharacters,
                     enemySpawner,
                     Playtest,
                     BossEncounters, Pickups, Travelers);
@@ -522,6 +560,9 @@ namespace Game.Bootstrap
             _setEffects = null;
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
+            _playerGroundShadow?.Shutdown();
+            _fieldEnvironmentArt?.Dispose();
+            _fieldEnvironmentArt = null;
             player.Shutdown();
             FieldConfiguration = null;
         }

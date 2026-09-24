@@ -101,37 +101,37 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void Burst_Load100AcrossTenRuns_ReusesPoolWithinApprovedSpawnBudgets()
+        public void Burst_Load200AcrossTenRuns_ReusesPoolWithinApprovedSpawnBudgets()
         {
-            // User-approved IP-14 spawn-only bound: cold <=250ms, warm <=50ms,
-            // 100 enemies, 10 cycles. Does not claim physics/render frame time.
+            // Current fixture maximum: 200 enemies over 10 pool-reuse cycles.
+            // This measures spawn/pool CPU only, not physics/render frame time.
             var everSeen = new HashSet<EnemyRuntime>();
             Vector3[] firstPositions = null;
             var cold = 0d;
             var warmMax = 0d;
             for (var cycle = 0; cycle < 10; cycle++)
             {
-                _spawner.Initialize(CreateBurstDirector(100));
+                _spawner.Initialize(CreateBurstDirector(200));
                 var clock = System.Diagnostics.Stopwatch.StartNew();
                 var actual = _spawner.Tick(0, 0, true);
                 clock.Stop();
                 var milliseconds = clock.Elapsed.TotalMilliseconds;
                 if (cycle == 0) cold = milliseconds; else warmMax = System.Math.Max(warmMax, milliseconds);
-                Assert.AreEqual(100, actual);
-                Assert.AreEqual(100, _spawner.LastSpawnOutcome.Actual);
+                Assert.AreEqual(200, actual);
+                Assert.AreEqual(200, _spawner.LastSpawnOutcome.Actual);
                 Assert.AreEqual(0, _spawner.LastSpawnOutcome.Decision.Suppressed);
                 var live = LiveEnemies();
                 var positions = live.Select(e => e.transform.position).OrderBy(p => p.x).ThenBy(p => p.y).ToArray();
                 if (cycle == 0) firstPositions = positions; else CollectionAssert.AreEqual(firstPositions, positions);
                 foreach (var enemy in live) everSeen.Add(enemy);
-                Assert.AreEqual(_registryBaseline + 100, EnemyRegistry.Count);
+                Assert.AreEqual(_registryBaseline + 200, EnemyRegistry.Count);
                 Assert.AreEqual(0, _spawner.Tick(.5f, .5f, true));
                 _spawner.Shutdown();
                 Assert.AreEqual(_registryBaseline, EnemyRegistry.Count);
-                Assert.AreEqual(100, _spawnerObject.GetComponentsInChildren<EnemyRuntime>(true).Length);
+                Assert.AreEqual(200, _spawnerObject.GetComponentsInChildren<EnemyRuntime>(true).Length);
             }
-            TestContext.WriteLine($"IP-14 load: CPU={SystemInfo.processorType}; RAM={SystemInfo.systemMemorySize}MB; Unity={Application.unityVersion}; count=100; cycles=10; cold={cold:F3}ms; warmMax={warmMax:F3}ms; unique={everSeen.Count}");
-            Assert.AreEqual(100, everSeen.Count);
+            TestContext.WriteLine($"IP-14 load: CPU={SystemInfo.processorType}; RAM={SystemInfo.systemMemorySize}MB; Unity={Application.unityVersion}; count=200; cycles=10; cold={cold:F3}ms; warmMax={warmMax:F3}ms; unique={everSeen.Count}");
+            Assert.AreEqual(200, everSeen.Count);
             Assert.LessOrEqual(cold, 250d, "Approved cold spawn budget (ms).");
             Assert.LessOrEqual(warmMax, 50d, "Approved warm spawn budget (ms).");
         }

@@ -647,6 +647,8 @@ Runtime shadow:
 
 Этот порядок используется для каждого нового character, enemy, projectile, pickup, portrait или icon. Шаг нельзя объявлять пройденным только по наличию файла: применяются соответствующие approval gate и category checklist из следующего раздела.
 
+Повторяемые технические шаги 5–9 выполняются через `python scripts/art_pipeline.py <packet.json>` (plan) и `--apply` после уже полученного approval. Формат пакета и ограничения: [scripts/README](../../scripts/README.md#1-подготовка-утверждённого-арта). Команда не генерирует и не утверждает изображения, не создаёт `.meta`, не выводит body contacts из пикселей и не закрывает gates D/E. Новые записи имеют этап `Prepared`; проверки выполняет `scripts/check_project.py --scope art`. Для настройки существующих эффектов доступен ограниченный [visual-preview](../../scripts/README.md#2-быстрая-визуальная-итерация) без тестового прогона после каждого изменения числа; финальная проверка сохраняется.
+
 1. **Проверить content gate.** Определить, является ли owner production-сущностью или явно названным `FIXTURE-*`. Draft ID нельзя превращать в production content без approval.
 2. **Назначить идентификаторы.** Зафиксировать существующий owner content ID, visual ID `<OWNER-ID>-VISUAL-<ROLE>`, category, role, source folder, stable runtime filename и extensionless resource path.
 3. **Составить brief.** Взять generation contract из `ART_DIRECTION.md`, добавить назначение ассета, gameplay scale, camera view, silhouette requirement, разрешённые слои и category-specific ограничения. Не смешивать разные ассеты в одном generation request.
@@ -756,8 +758,8 @@ sprite/profile в runtime. Тела с motion используют existing Spri
 поэтому PPU определяет визуальный размер независимо от коллайдера.
 Health.Damaged даёт hit reaction; pause/terminal замораживают pose; death,
 reinitialize и pool return сбрасывают renderer/pose/subscription.
-Смерть сразу возвращает gameplay object в pool: отдельный death VFX и тень
-не добавляются этим art packet. Новая art integration не закрывает пользовательский gate E.
+Общий death tail и ground shadow подключаются через единые presentation profiles;
+они не содержат веток по конкретному enemy ID. Новая art integration не закрывает пользовательский gate E.
 
 `Art/ImportProfiles.json` — editor-side technical settings. Category defaults: UI icon 256, portrait 512; projectile/pickup/shadow 256; impact/telegraph 512. Center pivot используется для UI/VFX. World body требует записи с полным asset path и фактической ground-contact точкой: неизвестный body не получает произвольный pivot. Exact-path record задаёт PPU, maxSize, pivot и причину override; повторный import применяет тот же record. После изменения профиля выполнить Reimport затронутых ассетов. Общие Sprite/Single/sRGB/alpha/FullRect/Bilinear/Clamp/no mipmaps/no ReadWrite и uncompressed contract сохраняются. PPU > 0; pivot в [0,1]; maxSize — power-of-two 32…8192, увеличение сверх category target требует прежней memory/readability проверки.
 
@@ -777,15 +779,17 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 
 Один CircleCollider2D задаёт и физический упор, и contact damage. Вписываем максимально большой круг в заполненный внешний обвод персонажа, игнорируя внутренние дырки и промежутки между рукой и телом или ногами. Практическое определение обвода — выпуклая оболочка пикселей с alpha >=230/255; оружие и выступы участвуют в обводе, но не получают отдельных коллайдеров. Прозрачный padding и полупрозрачная тень не определяют размер. Визуальное пересечение до физического контакта допустимо; совпадение с каждым пикселем во время анимации не требуется.
 
+Круг является ограничением authoring, но не шаблоном внешности. Персонажей не требуется рисовать круглыми. Основная масса body может быть высокой, широкой и асимметричной, однако крайне вытянутые узкие силуэты и очень длинные далеко торчащие конечности, оружие или аксессуары не проходят стандартный body review: с одним кругом они дают слишком большую область видимого тела вне контакта. Такой candidate сначала перерабатывается на уровне силуэта; fit не компенсируется несколькими коллайдерами, скрытым увеличением круга или индивидуальной подгонкой gameplay geometry.
+
 Центр по X находится на вертикали sprite pivot: один и тот же круг помещается в исходный и зеркальный силуэты. Одновременно оптимизируются радиус и центр по Y. Для каждой грани оболочки выполняется `n·c + r <= -b`, где n — внешняя единичная нормаль, b — смещение грани, c — центр круга, r — радиус в пикселях; выбирается максимальный r. Например при грани x<=200 и center.x=140 допустимый радиус не больше 60 px. В JSON радиус и высота центра над foot pivot делятся на PPU и хранятся в world units. Дополнительного shrink factor нет; радиус округляется вниз до 0.000001 world units.
 
 ### Порядок работы
 
-1. Убедиться, что runtime PNG утверждён и импортирован, PPU и ground pivot записаны в `Art/ImportProfiles.json`. Масштаб рисунка сначала проверяется рядом с уже готовыми персонажами.
+1. До runtime preparation проверить source candidate на target scale: основная масса не выглядит крайне вытянутой, а выступающие части не создают чрезмерную дистанцию от корпуса до визуального края. Круг не должен делать всех персонажей круглыми; review отклоняет только крайности, несовместимые с одним contact circle. Затем убедиться, что runtime PNG утверждён и импортирован, PPU и ground pivot записаны в `Art/ImportProfiles.json`. Масштаб рисунка проверяется рядом с уже готовыми персонажами.
 2. Зарегистрировать Body в presentation catalog. Текущий authoring tool читает `FixtureSprites.json`: запись должна иметь парные `contactRadius` >0 и `contactCenterY` >=0, оба finite. Для новой записи допустимы временные стартовые значения, которые fit заменит до runtime integration. Production catalog требует соответствующего адаптера, fixture tool не вводит production ID автоматически.
 3. Из корня репозитория выполнить `python scripts/fit-body-contacts.py --fit-outer` для предложения, затем `python scripts/fit-body-contacts.py --fit-outer --write` для сохранения. Требуются Pillow, NumPy, SciPy. Команда обрабатывает все записи с contact profile: просмотреть JSON diff и убедиться в нужном scope. Без аргументов скрипт только проверяет сохранённые круги. `--radius-scale` предназначен для отдельно согласованных экспериментов и не входит в стандартный fit.
 4. Применить профиль через Unity API: для текущего Player — `Game.Presentation.Editor.FixtureContactBaker.BakePlayer`; enemy factory читает профиль при spawn/reuse. Сцену не править вручную в YAML. Gameplay root остаётся центром круга; body visual смещается вниз на contactCenterY. Root scaling компенсируется при задании radius. Анимация, flip, pause и pool reset не пересчитывают геометрию.
-5. Сделать capture с наложенными кругами: отдельно проверить оба направления спрайта и касание пар с восьми сторон. Текущая команда — `Game.Presentation.Editor.PresentationReviewCapture.CaptureContacts`; результат — `TestResults/body-contact-review.png`. Для новых body расширить выборку capture. Осмотреть также реальное движение, hit pose и читаемость толпы: выпуклая оболочка около длинного оружия может включать заметную пустую область.
+5. Сделать capture с наложенными кругами: отдельно проверить оба направления спрайта и касание пар с восьми сторон. Текущая команда — `Game.Presentation.Editor.PresentationReviewCapture.CaptureContacts`; результат — `TestResults/body-contact-review.png`. Для новых body расширить выборку capture. Осмотреть также реальное движение, hit pose и читаемость толпы: если круг покрывает лишь малую центральную часть фигуры или длинный выступ создаёт чрезмерное визуальное пересечение до контакта, вернуть body на silhouette revision.
 6. Проверить сохранённый круг внутри оболочки и касание её границы с допуском до одного пикселя для дискретизации, отсутствие урона до физического контакта, урон после контакта, pause/end и смешанный pool reuse. Запускать релевантные Unity tests по smoke-check safety procedure. Если для нового силуэта выпуклый обвод даёт нежелательный результат, зафиксировать отклонение и отдельный review, не подменять правило скрытым коэффициентом.
 7. Записать параметры, capture и проверки в evidence, обновить owning scope в STATUS и получить визуальную оценку. Замена PNG, PPU или pivot требует повторного fit и review; обычный reimport не перезаписывает contact profile.
 
@@ -797,5 +801,87 @@ Editor diagnostic: **Tools → Survivor Arena → Presentation Fixture Review**.
 |---|---:|---:|
 | Goblin | 0.401431 | 0.530976 |
 | Villager | 0.330282 | 0.469539 |
+| Courier v002 | 0.360855 | 0.453097 |
 
 Текущая пара принята пользователем как образец пайплайна; полный gameplay/density gate остаётся отдельным. Проверки: [contact evidence](../implementation/evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles).
+
+## 23. Единая процедурная смерть врагов
+
+По [DECISION-0040](../decisions/0040-shared-enemy-death-presentation.md) ordinary enemy, boss и Traveler используют один presentation algorithm без content-ID веток и без отдельного death raster:
+
+1. На `Died` gameplay немедленно отключает movement/attack/contact, collider, rigidbody simulation и telegraph, удаляет жизнь из target registry и выдаёт награду. Root остаётся в той же мировой позиции; impulse или направленный death push запрещены.
+2. Presentation копирует текущий активный sprite, material, sorting, flip и transform в дочерний `DeathVisual`. Исходный renderer скрывается. Это одинаково работает для plain placeholder и `VisualRoot/BodyRoot`.
+3. За authored squash interval тело расширяется по X и сжимается по Y. Затем уменьшается, темнеет и растворяется за fade interval. Одновременно один переиспользуемый ParticleSystem выпускает небольшой dust burst. Покадровые death sprites не генерируются.
+4. Только после visual tail публикуется `Despawned` и объект возвращается в pool. Pause не продвигает эффект; run terminal/cleanup отменяет tail и освобождает объект сразу. Reinitialize очищает clone, particles, color, flip и scale.
+
+Все параметры хранятся одним validated profile в `Content/Presentation/FixtureEnemyDeathPresentation.json`: durations >0; squash width 1…2; height/end scale 0.01…1 в пределах domain constraints; цвета RGBA 0…1; dust count 1…12; lifetime/speed/size >0. Текущий fixture: 0.10 s squash + 0.20 s fade, scale 1.12×0.72 → 0.15, пять dust particles размером 0.08 world units, приглушённого земляного цвета. Это один общий профиль, а не значения в individual enemy cards.
+
+Acceptance: Died и reward происходят немедленно; collider/physics/target registry выключены в тот же кадр; root position до и после tail совпадает; пауза замораживает позу и delayed despawn; terminal cleanup не ждёт tail; Despawned/pool return происходят один раз; ordinary/boss/Traveler получают один profile; mixed pool reuse не сохраняет старую позу или частицы. Проверки и текущие результаты: [evidence](../implementation/evidence/2026-09-22-shared-enemy-death.md).
+
+## 24. Единая процедурная ground shadow
+
+Для playable body, ordinary enemy, boss и Traveler используется одна мягкая эллиптическая тень. Отдельный raster asset не производится: `GroundShadowSprite` один раз создаёт общую radial alpha mask 32×32, а каждый актёр имеет только `SpriteRenderer`, который растягивает эту маску до ellipse. Маска не создаётся на каждого врага и не участвует в physics.
+
+Высота, цвет, прозрачность, вертикальное смещение, fallback-width/ground point и `contactWidthScale` задаются в `Content/Presentation/FixtureGroundShadowPresentation.json`. Для body с contact profile world-width тени равен `2 × contactRadius × contactWidthScale`; вычисление выполняется один раз при initialize/reuse и не читает sprite pixels. Тень находится у ground point body: `-contactCenterY + offsetY`; при отсутствии contact profile применяются общие fallback-значения. Для scaled enemy root local position и scale делятся на `collisionSize`, поэтому тень и body, чей `VisualRoot` компенсирует collision scale, остаются в одной визуальной системе координат. Sorting order равен body order минус один. Тень не наследует bob/tilt/squash дочернего `BodyRoot`.
+
+Один профиль передаётся composition root игроку, ordinary spawner, boss encounter и Traveler encounter. Pool reuse повторно включает и перенастраивает тот же renderer; cleanup отключает его. Во время короткого death tail тень остаётся на исходной позиции до `Despawned`, затем выключается вместе с объектом.
+
+Acceptance: player и все enemy categories получают один profile; два актора используют тот же `Sprite`; тень не добавляет collider; contact radius определяет ширину, contact center — ground alignment; collision-size compensation не меняет её world size; pool reuse не создаёт дополнительные renderers; raster manifest не содержит отдельного shadow PNG. Проверки и текущие результаты: [evidence](../implementation/evidence/2026-09-22-courier-and-ground-shadows.md).
+
+## 25. Projectile sprite, вращение и дешёвый impact
+
+Projectile raster проходит тот же approval → immutable source/master → 256×256 runtime derivative → provenance/manifest путь. Запись `SpriteRole.Projectile` обязана иметь `projectile` profile в `FixtureSprites.json`: относительный visual scale, spin в градусах в секунду и параметры общего impact burst. Gameplay radius остаётся authoritative и задаётся механикой; визуал нормализуется относительно `Sprite.bounds` и диаметра collider, поэтому импортный PPU и прозрачный padding не меняют попадание.
+
+Physics root не вращается. Направленный sprite живёт в дочернем `ProjectileVisual`, при spawn ориентируется вправо вдоль velocity; `spinDegreesPerSecond` вращает только этот child. Ноль сохраняет стабильную ориентацию письма/стрелы, небольшое ненулевое значение подходит камню или диску. Вращение продвигается только в `RunState.Running` и сбрасывается при pool reuse. Текущий fixture-камень проходит 5 world units — половину эталонной высоты экрана 10 units — при скорости 10 и lifetime 0.5 s на каждом уровне.
+
+Impact не требует отдельного raster. Один переиспользуемый `ParticleSystem` на pooled projectile выпускает один мягкий flash particle и 2–4 material-colored particles в world space. Для terminal hit collider и sprite выключаются сразу, damage уже применён, а возврат в pool задерживается только на короткую жизнь частиц; pause замораживает tail, terminal run state очищает его немедленно. Для pierce тот же emitter оставляет частицы в world space, пока projectile продолжает путь. Цвета различают материал и не кодируют кровь: камень даёт земляно-серую пыль, письмо — тёплые parchment flecks.
+
+Acceptance: custom visual имеет роль Projectile и полный profile; круглый collider сохраняет authored radius; child совпадает с направлением; spin не вращает physics root; placeholder остаётся fallback для fixtures без visual; hit damage не ждёт tail; pause/terminal cleanup/pool reuse не оставляют старый sprite или particles; source, runtime и approval зафиксированы в manifest. Текущая реализация: [evidence](../implementation/evidence/2026-09-22-projectile-art.md).
+
+## 26. Pickup sprites, bob/pulse и разброс drops
+
+XP, Зелье и Traveler Book используют отдельные 256×256 runtime derivatives с ролью `SpriteRole.Pickup`, centered pivot и category import profile. Их цвет и крупная форма различимы на gameplay scale: XP — cyan crystal, лечение — зелёная круглая бутылка, Book — охристо-бордовый закрытый том. Collider/collection radius остаются authoritative и не выводятся из пикселей.
+
+Один `PickupSpritePresentation` создаёт дочерний `VisualRoot` и применяет небольшой bob/pulse только в running-time. Root, trigger и authoritative position не двигаются и не масштабируются. Shutdown/pool return выключает renderer, очищает sprite/tint и возвращает transform baseline; отдельные raster frames, shadow и particle emitter не требуются.
+
+Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book проходят обычный reachable-point adapter. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md).
+
+Acceptance: три sprites зарегистрированы как Pickup и имеют source/provenance/runtime records; визуальная анимация замораживается на pause и не влияет на collider; последовательные drops из одной source point получают разные позиции внутри radius; pool reuse не сохраняет фазу/scale/tint; финальный gameplay-scale review остаётся пользовательским gate.
+
+## 27. Минимальный environment kit и visual-only fixture binding
+
+Первый FIELD-001 art pass состоит из одного ground tile, одного boundary prop, одного obstacle prop и двух лёгких decor props. Полный tileset, здания и landmarks не производятся до подтверждения базовой палитры и масштаба. Каждый raster имеет отдельные source/master/provenance/runtime records и роль `Tile` либо `Prop`.
+
+Первый проход не менял geometry: один tiled renderer покрывал арену, плетень обозначал только четыре далёкие boundary colliders, а пень накрывал единственный `Obstacle_Fixture`. Gameplay review показал, что на 200×200 поле такой набор почти не встречается. По [DECISION-0045](../decisions/0045-field-density-and-200-enemy-cap.md) fixture теперь дополнительно создаёт data-driven внутренние пни и плетни со статическими player-only colliders. Внутренний плетень всегда расположен горизонтально: вертикальное применение этого raster плохо читается в текущей перспективе. Куст и трава остаются без collider; их более плотная seeded-расстановка не накрывает gameplay obstacles и оставляет свободную зону у spawn.
+
+Ground derivative может использовать зеркальную сборку краёв для дешёвого бесшовного повторения. Tile PPU выбирается из целевого world repeat, а не из character default. Prop PPU и presentation scale фиксируются отдельно; они не выводят размер collider из пикселей. В одном environment создаётся один visual root, который полностью удаляется при shutdown/restart, а скрытые scene placeholders восстанавливаются.
+
+Acceptance: typed references разрешаются через общий registry; import profiles соответствуют Tile/Prop; boundary совпадает с physics; каждый внутренний пень/плетень имеет ровно один player-only collider; pickup/Traveler placement учитывает его bounds; decor не имеет physics components; одинаковые seeds дают одинаковую раскладку; cleanup не оставляет второй ground, obstacles или decor root. Исходный visual-only проход описан [DECISION-0044](../decisions/0044-field-environment-art-is-presentation-only.md), действующая плотность и obstacle contract — [DECISION-0045](../decisions/0045-field-density-and-200-enemy-cap.md).
+
+## 28. Пакет UI-иконок навыков
+
+Skill icon производится отдельной ролью `icon`, даже если для того же навыка уже существует projectile или VFX raster. Для каждого `SKILL-XXX` сохраняются `icon/vNNN/concept-NN.png`, `icon/selected-master.png` и отдельный `icon/asset-record.json`; world-art record в корне skill folder не переиспользуется как provenance иконки.
+
+Runtime-файл имеет стабильное имя `Assets/Resources/Art/UI/Icons/Skills/skill-XXX-icon.png`, visual ID `SKILL-XXX-VISUAL-ICON` и `SpriteRole.Icon`. Shared import profile ограничивает импорт до 256, ставит center pivot и не добавляет baked frame. Master остаётся lossless и неизменным; уменьшение выполняет Unity importer. Проверка проводится в реальном draft card и occupied build slot при минимальном размере UI.
+
+До появления production definitions разрешено временно назначить production icon существующему fixture skill только при ясном механическом соответствии. Такое назначение фиксируется decision/evidence, не переименовывает fixture ID и не считается реализацией production content. Иконку без соответствующего fixture skill следует импортировать и зарегистрировать без ложного mapping. Текущий пакет и mapping: [DECISION-0047](../decisions/0047-skill-icon-fixture-mapping.md), [evidence](../implementation/evidence/2026-09-22-skill-icons.md).
+
+## 29. Пакеты UI-иконок пассивок и сетов
+
+Пассивки и сеты используют тот же immutable icon packet, import profile и approval gate, что навыки. Исходники хранятся в `Art/Source/Passives/passive-XXX/icon/` и `Art/Source/Sets/set-XXX/icon/`; runtime-файлы — в `Assets/Resources/Art/UI/Icons/Passives/` и `Assets/Resources/Art/UI/Icons/Sets/`. Стабильные visual ID имеют вид `PASSIVE-XXX-VISUAL-ICON` и `SET-XXX-VISUAL-ICON`, роль всегда `SpriteRole.Icon`.
+
+Fixture mapping допустим только при ясном механическом соответствии. Отсутствие такого соответствия не блокирует импорт и регистрацию утверждённой иконки: она ожидает production definition IP-18 или IP-19. Presenter разрешает typed icon reference через общий registry; пассивка использует иконку в draft/build slot, приобретённый сет — в set row. Null reference остаётся допустимым для изолированных тестовых definitions.
+
+Текущий approved пакет включает 14 пассивок и 20 сетов. Девять fixture-пассивок и четыре fixture-сета получили соответствующие ссылки; остальные зарегистрированы без ложной gameplay-привязки. Основание и проверка: [DECISION-0048](../decisions/0048-passive-and-set-icon-fixture-mapping.md), [evidence](../implementation/evidence/2026-09-22-passive-and-set-icons.md).
+
+## 30. World-art для орбитального клинка, бумеранга, рикошетного диска и взрывной сферы
+
+`SKILL-003`, `SKILL-006`, `SKILL-008` и `SKILL-014` имеют по одному утверждённому прозрачному projectile master и 256×256 runtime derivative. UI icon остаётся отдельной ролью и provenance-записью. Все четыре world-sprite используют `SpriteRole.Projectile`, centered pivot и общий projectile import profile; gameplay radius, орбита, return, ricochet и blast radius не выводятся из пикселей.
+
+Один progression-level `visualId` наследуется всеми уровнями навыка, пока конкретный level не задаёт осознанный override. Fixture mapping используется только для визуального review механически соответствующего framework-паттерна и не регистрирует production definition.
+
+Орбитальный клинок не создаёт projectile physics root. На первой damage-выборке активации создаётся один pooled `SpriteRenderer` на каждый клинок, каждый остаётся visual-only child владельца. Позиция и касательная ориентация вычисляются из уже утверждённых `bladeCount`, `radius`, `angularSpeedDegrees` и duration; pause не двигает визуал, terminal/clear возвращает renderers в pool. Damage sampling и `bladeHitboxRadius` не меняются.
+
+Бумеранг, рикошетный диск и сфера используют существующий `ProjectileVisual`: collider и physics root не вращаются, child spin настраивается в profile и сбрасывается при reuse. Сфера дополнительно содержит optional explosion profile. Общий `ExplosionBurstRuntime` создаёт один мягкий core flash и небольшой радиальный particle burst в world space, масштабируя только presentation от authoritative blast radius. Damage выполняется до visual tail; pause замораживает burst, terminal cleanup очищает его немедленно, pool return не сохраняет частицы. Этот runtime не зависит от ID сферы и может быть повторно использован миной и set-effects через явный profile без нового raster.
+
+Acceptance: четыре references разрешаются registry и имеют Projectile role/profile; все уровни соответствующих fixtures наследуют один world visual; orbit создаёт точное число visual-only blades и очищает их; projectile spin не вращает collider root; sphere impact/expiry запускают общий burst без задержки damage; pause/terminal/pool reset не оставляют sprite или particles; masters, prompts, approval, runtime files и manifest records синхронизированы. Текущий пакет: [evidence](../implementation/evidence/2026-09-22-skill-world-art.md).

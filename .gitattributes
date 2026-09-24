@@ -33,3 +33,22 @@
 #   git config --global merge.unityyamlmerge.name "Unity Smart Merge"
 #   git config --global merge.unityyamlmerge.driver "'C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Tools\UnityYAMLMerge.exe' merge -p %O %B %A %A"
 #   git config --global merge.unityyamlmerge.recursive binary
+
+# Cloud session without LFS upload access (lfs.github.com blocked; DECISION-0054).
+# Listed PNGs are regular git blobs. To move them to LFS later: delete these lines,
+# then `git rm --cached <paths> && git add <paths>` and commit.
+Art/Source/Skills/skill-002/selected-master.png -filter -diff -merge binary
+Art/Source/Skills/skill-002/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Skills/skill-002/skill-002-projectile.png -filter -diff -merge binary
+Art/Source/Skills/skill-005/selected-master.png -filter -diff -merge binary
+Art/Source/Skills/skill-005/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Skills/skill-005/skill-005-projectile.png -filter -diff -merge binary
+Art/Source/Skills/skill-013/selected-master.png -filter -diff -merge binary
+Art/Source/Skills/skill-013/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Skills/skill-013/skill-013-projectile.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-004/selected-master.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-004/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-projectile.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-005/selected-master.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-005/v001/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png -filter -diff -merge binary

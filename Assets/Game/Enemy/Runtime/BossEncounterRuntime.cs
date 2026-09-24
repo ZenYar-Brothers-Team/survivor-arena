@@ -5,6 +5,7 @@ using Game.Combat;
 using Game.Diagnostics;
 using Game.Pooling;
 using Game.Run;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -24,6 +25,8 @@ namespace Game.Enemy
         private IEnemyLifecycleSink _sink;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectiles;
+        private EnemyDeathPresentationProfile _deathPresentation;
+        private GroundShadowPresentationProfile _groundShadowPresentation;
         public EnemyRuntime FinalBoss => _alive.TryGetValue(WaveHookKind.FinalBoss, out var enemy) && enemy.IsAlive ? enemy : null;
         public BossEncounterDefinition FinalDefinition => _definitions != null && _definitions.TryGetValue(WaveHookKind.FinalBoss, out var definition) ? definition : null;
         public event Action<EnemyLifeEvent> LifeEvent;
@@ -37,12 +40,14 @@ namespace Game.Enemy
             {
                 using var guard = PerfGuard.Measure("BossEncounter.Observation", 2f);
                 return string.Join("\n", _alive.Select(pair =>
-                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition.Id} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s"));
+                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition?.Id.ToString() ?? "none"} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s"));
             }
         }
 
         public void Initialize(WaveDirector director, RunController run, Transform target,
-            IReadOnlyList<BossEncounterDefinition> definitions, IEnemyLifecycleSink sink = null)
+            IReadOnlyList<BossEncounterDefinition> definitions, IEnemyLifecycleSink sink = null,
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null)
         {
             if (_director != null) throw new InvalidOperationException("Boss owner is already initialized.");
             if (director == null || run == null || run.Model == null || target == null || definitions == null)
@@ -57,6 +62,8 @@ namespace Game.Enemy
             _model = run.Model;
             _target = target;
             _sink = sink;
+            _deathPresentation = deathPresentation;
+            _groundShadowPresentation = groundShadowPresentation;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectiles ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _consumed.Clear();
@@ -73,7 +80,8 @@ namespace Game.Enemy
             var enemy = EnemyFactory.Spawn(definition.Body,
                 (Vector2)_target.position + new Vector2(definition.SpawnOffsetX, definition.SpawnOffsetY),
                 _target, _run, transform, pool: _pool, projectilePool: _projectiles,
-                lifecycleSink: this, category: EnemyCategory.Boss);
+                lifecycleSink: this, category: EnemyCategory.Boss, deathPresentation: _deathPresentation,
+                groundShadowPresentation: _groundShadowPresentation);
             // An observer may end the run during Spawned; don't leak that new life after terminal cleanup.
             if (_model == null || _model.State != RunState.Running) { enemy.Despawn(); return; }
             enemy.ConfigureBoss(definition);
@@ -82,7 +90,7 @@ namespace Game.Enemy
             enemy.CombatResolved += ForwardCombat;
             enemy.Health.HealthChanged += HandleHealthChanged;
             Action<int, int> handler = (previous, current) => PhaseChanged?.Invoke(new BossPhaseEvent(
-                enemy.Identity, definition.Phases[previous].Id, definition.Phases[current].Id, enemy.BossCombat.AttackDefinition.Id));
+                enemy.Identity, definition.Phases[previous].Id, definition.Phases[current].Id, enemy.BossCombat.AttackDefinition?.Id ?? default));
             _phaseHandlers.Add(enemy, handler);
             enemy.BossCombat.PhaseChanged += handler;
             Changed?.Invoke();
@@ -154,6 +162,7 @@ namespace Game.Enemy
             _target = null;
             _sink = null;
             _definitions = null;
+            _deathPresentation = null;
             _consumed.Clear();
             LifeEvent = null;
             PhaseChanged = null;

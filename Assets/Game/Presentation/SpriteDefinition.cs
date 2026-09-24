@@ -10,9 +10,10 @@ namespace Game.Presentation
         public Sprite Sprite { get; }
         public SpriteRole Role { get; }
         public SpriteContactProfile Contact { get; }
+        public ProjectilePresentationProfile ProjectilePresentation { get; }
 
         public SpriteDefinition(ContentId id, Sprite sprite, SpriteRole role = SpriteRole.Unspecified,
-            SpriteContactProfile contact = null)
+            SpriteContactProfile contact = null, ProjectilePresentationProfile projectilePresentation = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Sprite definition requires a valid content id.", nameof(id));
@@ -23,7 +24,10 @@ namespace Game.Presentation
             Role = role;
             if (contact != null && role != SpriteRole.Body)
                 throw new ArgumentException("Contact geometry requires a body sprite.", nameof(contact));
+            if (projectilePresentation != null && role != SpriteRole.Projectile)
+                throw new ArgumentException("Projectile presentation requires a projectile sprite.", nameof(projectilePresentation));
             Contact = contact;
+            ProjectilePresentation = projectilePresentation;
         }
 
         public void RequireRole(SpriteRole expected)

@@ -2,6 +2,7 @@ using Game.Character;
 using Game.Combat;
 using Game.Movement;
 using Game.Pooling;
+using Game.Presentation;
 using Game.Run;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ namespace Game.Enemy
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
+        private SpriteRenderer _visualRenderer;
+        private ProjectileImpactRuntime _impact;
+        private SpriteDefinition _visual;
         private EnemyAttackProfile _profile;
         private Vector2 _direction;
         private PlayerCharacterRuntime _target;
@@ -25,6 +29,7 @@ namespace Game.Enemy
         private EnemyProjectileLifetime _lifetime;
         private bool _initialized;
         private bool _despawned;
+        private bool _impactReleasePending;
 
         public bool IsActive => _initialized && !_despawned;
         public float RemainingSeconds => _lifetime?.RemainingSeconds ?? 0f;
@@ -37,7 +42,8 @@ namespace Game.Enemy
             PlayerCharacterRuntime target,
             RunController runController,
             GameObjectPool<EnemyProjectileRuntime> pool = null,
-            CombatSource source = default)
+            CombatSource source = default,
+            SpriteDefinition visual = null)
         {
             if (profile == null) throw new System.ArgumentNullException(nameof(profile));
             if (runController == null || runController.Model == null) throw new System.ArgumentException("Projectile requires an initialized run.", nameof(runController));
@@ -48,6 +54,8 @@ namespace Game.Enemy
             _target = target;
             Source = source;
             _pool = pool;
+            if (visual != null) visual.RequireRole(SpriteRole.Projectile);
+            _visual = visual;
             _direction = direction.sqrMagnitude <= Mathf.Epsilon ? Vector2.right : direction.normalized;
             _lifetime = new EnemyProjectileLifetime(profile.ProjectileLifetimeSeconds);
             _despawned = false;
@@ -59,19 +67,16 @@ namespace Game.Enemy
             _body.rotation = 0f;
             transform.localRotation = Quaternion.identity;
             if (_trail != null) { _trail.Clear(); _trail.emitting = true; }
-            _renderer.enabled = true;
             _renderer.flipX = _renderer.flipY = false;
             _body.bodyType = RigidbodyType2D.Kinematic;
             _body.gravityScale = 0f;
             _body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             _collider.isTrigger = true;
-            _collider.radius = 0.5f;
+            _collider.radius = profile.ProjectileRadius;
             _collider.enabled = true;
-            transform.localScale = Vector3.one * (profile.ProjectileRadius * 2f);
-            _renderer.sprite = PlaceholderSprite.Shared;
-            _renderer.color = profile.Pattern == EnemyProjectilePattern.Explosive
-                ? new Color(1f, 0.25f, 0.05f, 1f)
-                : new Color(1f, 0.8f, 0.15f, 1f);
+            transform.localScale = Vector3.one;
+            _impactReleasePending = false;
+            ConfigureVisual();
             gameObject.name = $"Enemy Projectile [{profile.Pattern}]";
             HandleRunState(_run.State);
         }
@@ -81,9 +86,16 @@ namespace Game.Enemy
         public void Tick(float deltaTime)
         {
             Game.Content.NumericValidation.ValidateNonNegative(deltaTime, nameof(deltaTime));
-            if (!_initialized || _despawned || _run == null)
+            if (!_initialized || _run == null)
                 return;
             var state = _run.State;
+            if (_impactReleasePending)
+            {
+                if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped ||
+                    _impact.Tick(deltaTime, state == RunState.Running)) ReleaseNow();
+                return;
+            }
+            if (_despawned) return;
             if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped)
             {
                 Despawn();
@@ -91,6 +103,9 @@ namespace Game.Enemy
             }
             var running = state == RunState.Running;
             _body.linearVelocity = running ? _direction * _profile.ProjectileSpeed : Vector2.zero;
+            if (running && _visualRenderer != null && _visualRenderer.enabled)
+                _visualRenderer.transform.Rotate(0f, 0f,
+                    _visual.ProjectilePresentation.SpinDegreesPerSecond * deltaTime);
             if (_lifetime.Tick(deltaTime, running))
             {
                 if (_profile.Pattern == EnemyProjectilePattern.Explosive) ApplyImpact(_body.position);
@@ -119,7 +134,9 @@ namespace Game.Enemy
                 direction = (Vector2)target.transform.position - impactPosition;
                 canHit = direction.sqrMagnitude <= profile.ExplosionRadius * profile.ExplosionRadius;
             }
-            Despawn();
+            PlayImpact(impactPosition);
+            if (_impact != null && _impact.IsPlaying) BeginImpactRelease();
+            else Despawn();
             if (canHit) target.ApplyDamage(new CombatDamageRequest(source, profile.Damage, profile.Controls, direction.x, direction.y));
         }
 
@@ -133,7 +150,25 @@ namespace Game.Enemy
 
         public void Despawn()
         {
-            if (!IsActive) return;
+            if (!_initialized) return;
+            if (_impactReleasePending) { ReleaseNow(); return; }
+            if (_despawned) return;
+            _despawned = true;
+            ReleaseNow();
+        }
+
+        private void BeginImpactRelease()
+        {
+            _despawned = true;
+            _impactReleasePending = true;
+            _body.linearVelocity = Vector2.zero;
+            _collider.enabled = false;
+            _renderer.enabled = false;
+            if (_visualRenderer != null) _visualRenderer.enabled = false;
+        }
+
+        private void ReleaseNow()
+        {
             var pool = _pool;
             ClearState();
             if (pool != null) { pool.Return(this); return; }
@@ -153,6 +188,8 @@ namespace Game.Enemy
             if (_body != null) { _body.linearVelocity = Vector2.zero; _body.angularVelocity = 0f; }
             if (_collider != null) _collider.enabled = false;
             if (_renderer != null) _renderer.enabled = false;
+            if (_visualRenderer != null) { _visualRenderer.enabled = false; _visualRenderer.sprite = null; }
+            _impact?.ResetPresentation();
             if (_trail != null) { _trail.emitting = false; _trail.Clear(); }
             Source = default;
             _profile = null;
@@ -161,6 +198,52 @@ namespace Game.Enemy
             _pool = null;
             _lifetime = null;
             _direction = Vector2.zero;
+            _visual = null;
+            _impactReleasePending = false;
+        }
+
+        private void PlayImpact(Vector2 position)
+        {
+            var profile = _visual?.ProjectilePresentation;
+            if (profile == null) return;
+            EnsurePresentationObjects();
+            _impact.Play(profile, position);
+        }
+
+        private void ConfigureVisual()
+        {
+            if (_visual == null)
+            {
+                _renderer.sprite = PlaceholderSprite.Shared;
+                _renderer.color = _profile.Pattern == EnemyProjectilePattern.Explosive
+                    ? new Color(1f, .25f, .05f, 1f) : new Color(1f, .8f, .15f, 1f);
+                _renderer.enabled = true;
+                if (_visualRenderer != null) _visualRenderer.enabled = false;
+                return;
+            }
+            EnsurePresentationObjects();
+            _renderer.enabled = false;
+            _visualRenderer.sprite = _visual.Sprite;
+            _visualRenderer.color = Color.white;
+            _visualRenderer.enabled = true;
+            _visualRenderer.transform.localPosition = Vector3.zero;
+            var size = _visual.Sprite.bounds.size;
+            var diameter = _profile.ProjectileRadius * 2f * _visual.ProjectilePresentation.VisualScale;
+            _visualRenderer.transform.localScale = Vector3.one * (diameter / Mathf.Max(size.x, size.y));
+            var angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+            _visualRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
+        private void EnsurePresentationObjects()
+        {
+            if (_visualRenderer == null)
+            {
+                var visual = new GameObject("ProjectileVisual");
+                visual.transform.SetParent(transform, false);
+                _visualRenderer = visual.AddComponent<SpriteRenderer>();
+            }
+            if (_impact == null) _impact = gameObject.GetComponent<ProjectileImpactRuntime>() ??
+                gameObject.AddComponent<ProjectileImpactRuntime>();
         }
 
         private void CacheComponents()

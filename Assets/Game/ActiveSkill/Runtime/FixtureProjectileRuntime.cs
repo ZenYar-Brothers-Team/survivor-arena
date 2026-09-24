@@ -7,6 +7,7 @@ using Game.Enemy;
 using Game.Movement;
 using Game.Pooling;
 using Game.Run;
+using Game.Presentation;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -18,6 +19,9 @@ namespace Game.ActiveSkill
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
+        private SpriteRenderer _visualRenderer;
+        private ProjectileImpactRuntime _impact;
+        private ExplosionBurstRuntime _explosion;
         private RunController _runController;
         private ActiveSkillProjectile _projectile;
         private GameObjectPool<FixtureProjectileRuntime> _pool;
@@ -33,6 +37,7 @@ namespace Game.ActiveSkill
         private bool _initialized;
         private bool _despawned;
         private int _generation;
+        private bool _impactReleasePending;
         public event Action<FixtureProjectileRuntime> Returned;
         public ContentId SourceId => _projectile.Damage.SourceId;
         public Vector2 Direction => _direction;
@@ -56,7 +61,6 @@ namespace Game.ActiveSkill
             _collider.isTrigger = true;
             _collider.radius = projectile.CollisionRadius;
             _collider.enabled = true;
-            _renderer.enabled = true;
             _body.position = projectile.Origin;
             transform.position = projectile.Origin;
             _direction = projectile.Direction;
@@ -65,15 +69,27 @@ namespace Game.ActiveSkill
             _retention = 1f;
             _despawned = false;
             _initialized = true;
+            _impactReleasePending = false;
+            ConfigureVisual(projectile);
         }
         private void FixedUpdate() => Simulate(Time.fixedDeltaTime);
         public void Simulate(float deltaTime)
         {
             NumericValidation.ValidateNonNegative(deltaTime, nameof(deltaTime));
-            if (!_initialized || _despawned || _runController.Model == null) return;
+            if (!_initialized || _runController.Model == null) return;
             var state = _runController.Model.State;
+            if (_impactReleasePending)
+            {
+                if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped ||
+                    TickPresentationTail(deltaTime, state == RunState.Running)) ReleaseNow();
+                return;
+            }
+            if (_despawned) return;
             if (state == RunState.Won || state == RunState.Lost || state == RunState.Stopped) { Despawn(); return; }
             if (state != RunState.Running) return;
+            if (_visualRenderer != null && _visualRenderer.enabled)
+                _visualRenderer.transform.Rotate(0f, 0f,
+                    _projectile.Visual.ProjectilePresentation.SpinDegreesPerSecond * deltaTime);
             var stop = _projectile.Behavior.StopAfterSeconds * _projectile.RangeMultiplier;
             var end = stop > 0f ? Mathf.Min(stop, _projectile.LifetimeSeconds) : _projectile.LifetimeSeconds;
             var dt = Mathf.Min(deltaTime, Mathf.Max(0f, end - _elapsed));
@@ -106,7 +122,11 @@ namespace Game.ActiveSkill
             {
                 var generation = _generation;
                 if (_projectile.Behavior.ExplodeOnExpiry) Explode(Position);
-                if (!_despawned && generation == _generation) Despawn();
+                if (!_despawned && generation == _generation)
+                {
+                    if (HasPlayingPresentationTail()) DespawnAfterImpact();
+                    else Despawn();
+                }
             }
         }
         private void OnTriggerEnter2D(Collider2D other) => TryImpact(other.GetComponentInParent<IEnemyDamageReceiver>(), other.ClosestPoint(Position));
@@ -132,13 +152,14 @@ namespace Game.ActiveSkill
             var damage = WithMultipliers(_projectile.Damage, multiplier, knockback).WithDirection(direction.x, direction.y);
             if (_projectile.Behavior.ExplosionDamageMultiplier > 0f) receiver.ApplyDamage(damage);
             else EnemyDamageArea.Apply(impactPoint, _projectile.ImpactAreaRadius, damage, receiver);
+            PlayImpact(impactPoint);
             if (_despawned || generation != _generation) return true;
             if (_projectile.Returns || _projectile.Behavior.UnlimitedPierce) return true;
             if (_ricochets > 0 && TryRicochet(receiver, impactPoint)) return true;
             if (--_remainingHits <= 0)
             {
                 if (_projectile.Behavior.ExplosionDamageMultiplier > 0f) Explode(impactPoint);
-                if (!_despawned && generation == _generation) Despawn();
+                if (!_despawned && generation == _generation) DespawnAfterImpact();
             }
             return true;
         }
@@ -174,15 +195,15 @@ namespace Game.ActiveSkill
         }
         private void Explode(Vector2 position)
         {
+            var generation = _generation;
             var behavior = _projectile.Behavior;
             EnemyDamageArea.Apply(position, _projectile.ImpactAreaRadius,
                 WithMultipliers(_projectile.Damage, behavior.ExplosionDamageMultiplier, behavior.ExplosionKnockbackMultiplier));
+            if (!_despawned && generation == _generation) PlayExplosion(position);
         }
         private static EnemyDamageRequest WithMultipliers(EnemyDamageRequest request, float damage, float knockback)
         {
-            var c = request.Combat;
-            return new EnemyDamageRequest(new CombatDamageRequest(c.Source, c.Amount * damage, c.Controls,
-                c.DirectionX, c.DirectionY, c.OutgoingKnockbackMultiplier * knockback));
+            return new EnemyDamageRequest(request.Combat.Scaled(damage, knockback));
         }
         public void Shutdown()
         {
@@ -196,16 +217,108 @@ namespace Game.ActiveSkill
             _direction = Vector2.zero;
             if (_collider != null) _collider.enabled = false;
             if (_body != null) _body.linearVelocity = Vector2.zero;
+            if (_renderer != null) _renderer.enabled = false;
+            if (_visualRenderer != null) { _visualRenderer.enabled = false; _visualRenderer.sprite = null; }
+            _impact?.ResetPresentation();
+            _explosion?.ResetPresentation();
+            _impactReleasePending = false;
         }
         public void Despawn()
         {
+            if (!_initialized) return;
+            if (_impactReleasePending) { _despawned = true; ReleaseNow(); return; }
             if (_despawned) return;
             _despawned = true;
+            ReleaseNow();
+        }
+
+        private void DespawnAfterImpact()
+        {
+            if (_despawned) return;
+            if (!HasPlayingPresentationTail()) { Despawn(); return; }
+            _despawned = true;
+            _impactReleasePending = true;
+            _collider.enabled = false;
+            _body.linearVelocity = Vector2.zero;
+            _renderer.enabled = false;
+            if (_visualRenderer != null) _visualRenderer.enabled = false;
+        }
+
+        private void ReleaseNow()
+        {
+            var pool = _pool;
             Shutdown();
             Returned?.Invoke(this);
-            if (_pool != null) _pool.Return(this);
+            if (pool != null) pool.Return(this);
             else if (Application.isPlaying) Destroy(gameObject);
             else DestroyImmediate(gameObject);
+        }
+
+        private void PlayImpact(Vector2 position)
+        {
+            var profile = _projectile.Visual?.ProjectilePresentation;
+            if (profile == null) return;
+            EnsurePresentationObjects();
+            _impact.Play(profile, position);
+        }
+
+        private void PlayExplosion(Vector2 position)
+        {
+            var profile = _projectile.Visual?.ProjectilePresentation?.Explosion;
+            if (profile == null) return;
+            EnsurePresentationObjects();
+            _explosion.Play(profile, position, _projectile.ImpactAreaRadius);
+        }
+
+        private bool HasPlayingPresentationTail()
+        {
+            return (_impact != null && _impact.IsPlaying) || (_explosion != null && _explosion.IsPlaying);
+        }
+
+        private bool TickPresentationTail(float deltaTime, bool isRunning)
+        {
+            var impactDone = _impact == null || _impact.Tick(deltaTime, isRunning);
+            var explosionDone = _explosion == null || _explosion.Tick(deltaTime, isRunning);
+            return impactDone && explosionDone;
+        }
+
+        private void ConfigureVisual(ActiveSkillProjectile projectile)
+        {
+            var visual = projectile.Visual;
+            if (visual == null)
+            {
+                _renderer.sprite = PlaceholderSprite.Shared;
+                _renderer.color = new Color(1f, .85f, .15f, 1f);
+                _renderer.enabled = true;
+                if (_visualRenderer != null) _visualRenderer.enabled = false;
+                return;
+            }
+            EnsurePresentationObjects();
+            _renderer.enabled = false;
+            _visualRenderer.sprite = visual.Sprite;
+            _visualRenderer.color = Color.white;
+            _visualRenderer.enabled = true;
+            _visualRenderer.transform.localPosition = Vector3.zero;
+            var size = visual.Sprite.bounds.size;
+            var diameter = projectile.CollisionRadius * 2f * visual.ProjectilePresentation.VisualScale;
+            var scale = diameter / Mathf.Max(size.x, size.y);
+            _visualRenderer.transform.localScale = Vector3.one * scale;
+            var angle = Mathf.Atan2(projectile.Direction.y, projectile.Direction.x) * Mathf.Rad2Deg;
+            _visualRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
+        private void EnsurePresentationObjects()
+        {
+            if (_visualRenderer == null)
+            {
+                var visual = new GameObject("ProjectileVisual");
+                visual.transform.SetParent(transform, false);
+                _visualRenderer = visual.AddComponent<SpriteRenderer>();
+            }
+            if (_impact == null) _impact = gameObject.GetComponent<ProjectileImpactRuntime>() ??
+                gameObject.AddComponent<ProjectileImpactRuntime>();
+            if (_explosion == null) _explosion = gameObject.GetComponent<ExplosionBurstRuntime>() ??
+                gameObject.AddComponent<ExplosionBurstRuntime>();
         }
         private void OnDestroy() { Shutdown(); Returned?.Invoke(this); Returned = null; }
         private void CacheComponents()

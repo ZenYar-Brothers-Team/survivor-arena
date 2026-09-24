@@ -23,7 +23,7 @@ namespace Game.Progression
             if (snapshot.Kind != EnemyLifeEventKind.Died || snapshot.ExperienceReward <= 0f) return;
             if (_run.Model == null || _run.Model.Outcome != null || snapshot.RunId != _run.Model.RunId ||
                 _rewardedLives.Contains(snapshot.LifeId)) return;
-            ExperienceDropFactory.Spawn(snapshot.ExperienceReward, snapshot.Position,
+            ExperienceDropFactory.Spawn(snapshot.ExperienceReward, _owner.ScatterDropPosition(snapshot.Position),
                 _owner.DropLifetimeSeconds, _owner, _run, pool: _owner.DropPool,
                 sourceLifeId: snapshot.LifeId, sourceContentId: snapshot.ContentId);
             _rewardedLives.Add(snapshot.LifeId);

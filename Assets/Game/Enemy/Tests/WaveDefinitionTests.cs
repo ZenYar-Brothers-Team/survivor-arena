@@ -109,6 +109,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(8f, timeline.SpawnRadius, "Spawn radius comes from the JSON, not a component default.");
             Assert.AreEqual(WavePhaseTag.Ordinary, tags[0]);
             Assert.GreaterOrEqual(timeline.TotalDurationSeconds, 15f * 60f);
+            Assert.AreEqual(200, timeline.Phases.Max(phase => phase.MaxAliveEnemies));
             CollectionAssert.AreEquivalent(
                 new[] { WaveHookKind.MidBoss, WaveHookKind.FinalBoss },
                 timeline.Hooks.Select(hook => hook.Kind));

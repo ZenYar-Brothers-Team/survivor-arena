@@ -2,6 +2,7 @@
   {
     "id": "FIXTURE-SET-OVERCHARGE",
     "displayName": "Fixture Overcharge",
+    "iconVisualId": "SET-001-VISUAL-ICON",
     "recipe": [
       {
         "id": "FIXTURE-SKILL-BOLT",
@@ -46,6 +47,7 @@
   {
     "id": "FIXTURE-SET-RECALL",
     "displayName": "Fixture Recall",
+    "iconVisualId": "SET-005-VISUAL-ICON",
     "recipe": [
       {
         "id": "FIXTURE-SKILL-BOLT",
@@ -82,7 +84,8 @@
   {
     "id": "FIXTURE-SET-GUARD",
     "displayName": "Fixture Guard",
-    "description": "Fixture: defense, healing and one reward-triggered burst (fake reward adapter).",
+    "iconVisualId": "SET-012-VISUAL-ICON",
+    "description": "Fixture: defense, healing, one reward-triggered burst (fake reward adapter); orbit bonus vs slowed targets and an orbit slow aura (live only for persistent orbits).",
     "recipe": [
       {
         "id": "FIXTURE-SKILL-BOLT",
@@ -113,12 +116,27 @@
         "kind": "RewardProc",
         "attackTemplate": "FIXTURE-SKILL-RING",
         "cooldownSeconds": 5
+      },
+      {
+        "kind": "SlowedTargetBonus",
+        "skill": "FIXTURE-SKILL-ORBIT",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.25
+        }
+      },
+      {
+        "kind": "OrbitSlowAura",
+        "skill": "FIXTURE-SKILL-ORBIT",
+        "slowFraction": 0.1,
+        "slowSeconds": 0.25,
+        "refreshSeconds": 0.1
       }
     ]
   },
   {
     "id": "FIXTURE-SET-STRIKE",
     "displayName": "Fixture Strike",
+    "iconVisualId": "SET-016-VISUAL-ICON",
     "description": "Fixture: independent bolt every 6 seconds; unaffected by action speed.",
     "recipe": [
       {

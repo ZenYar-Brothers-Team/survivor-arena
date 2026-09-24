@@ -9,7 +9,7 @@ namespace Game.Enemy
         {
             if (profile == null)
                 throw new ArgumentNullException(nameof(profile));
-            if (aimDirection.sqrMagnitude <= Mathf.Epsilon)
+            if (aimDirection.sqrMagnitude <= Mathf.Epsilon || profile.FixedOrientation)
                 aimDirection = Vector2.right;
 
             var count = profile.Pattern == EnemyProjectilePattern.Cross ? 4 : profile.ProjectileCount;

@@ -16,13 +16,17 @@ namespace Game.Enemy
     [RequireComponent(typeof(CircleCollider2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(LineRenderer))]
-    public sealed class EnemyRuntime : MonoBehaviour, IEnemyLifeTarget
+    public sealed class EnemyRuntime : MonoBehaviour, IEnemyLifeTarget, IEnemyControlReceiver
     {
         private Rigidbody2D _body;
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
         private SpritePresentationRuntime _presentation;
         private SpritePresentationRig _presentationRig;
+        private EnemyDeathPresentationRuntime _deathPresentation;
+        private EnemyDeathPresentationProfile _deathProfile;
+        private GroundShadowRuntime _groundShadow;
+        private GroundShadowPresentationProfile _groundShadowProfile;
         private LineRenderer _telegraph;
         private Transform _target;
         private RunController _runController;
@@ -33,17 +37,19 @@ namespace Game.Enemy
         private ContentId? _damageSource;
         private Guid? _runId;
         private bool _deathPublished;
+        private bool _dying;
         private bool _dispatchingLifecycle;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private EnemyMovementController _movementController;
         private EnemyAttackController _attackController;
         public BossCombatController BossCombat { get; private set; }
-        private EnemyAttackProfile CurrentAttack => BossCombat?.AttackDefinition.Attack ?? Definition?.Attack;
+        private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
         private bool _despawned;
         private IEnemyMovementDriver _movementDriver;
         private Func<bool> _damageAllowed;
+        private ContentRegistry _contentRegistry;
         public EnemyProtection Protection { get; } = new EnemyProtection();
 
         public void ConfigureEncounter(IEnemyMovementDriver movement, Func<bool> damageAllowed)
@@ -94,7 +100,10 @@ namespace Game.Enemy
             GameObjectPool<EnemyProjectileRuntime> projectilePool = null,
             EnemyCategory category = EnemyCategory.Ordinary,
             SpriteMotionProfile motionProfile = null,
-            SpriteContactProfile contact = null)
+            SpriteContactProfile contact = null,
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
@@ -106,6 +115,7 @@ namespace Game.Enemy
             if (contact != null && motionProfile == null)
                 throw new ArgumentException("Fitted contact requires the matching animated body.");
             _presentation?.Shutdown();
+            _deathPresentation?.ResetPresentation();
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             var reused = _initialized;
             if (_initialized)
@@ -123,6 +133,9 @@ namespace Game.Enemy
             LastProjectileSource = default;
             _despawned = false;
             _deathPublished = false;
+            _dying = false;
+            _deathProfile = deathPresentation;
+            _groundShadowProfile = groundShadowPresentation;
             _damageSource = null;
             LifeId = Guid.NewGuid();
             Category = category;
@@ -136,6 +149,7 @@ namespace Game.Enemy
             _lifecycleSink = lifecycleSink;
             _pool = pool;
             _projectilePool = projectilePool;
+            _contentRegistry = contentRegistry;
 
             CacheComponents();
             _collider.enabled = true;
@@ -166,6 +180,7 @@ namespace Game.Enemy
             Health.Died += HandleDeath;
             if (motionProfile != null)
                 InitializePresentation(visual, motionProfile, contact);
+            InitializeGroundShadow(contact);
             _contactTimer = new ContinuousContactTimer(definition.ContactDamageInterval);
             _initialized = true;
             EnemyRegistry.Register(this);
@@ -209,7 +224,7 @@ namespace Game.Enemy
             RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
-                LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
+                LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition?.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
                 EnemyProjectileFactory.Spawn(
                     CurrentAttack,
                     _body.position,
@@ -218,8 +233,25 @@ namespace Game.Enemy
                     _runController,
                     transform.parent,
                     _projectilePool,
-                    LastProjectileSource);
+                    LastProjectileSource,
+                    ResolveProjectileVisual(CurrentAttack));
             }
+        }
+
+        private SpriteDefinition ResolveProjectileVisual(EnemyAttackProfile attack)
+        {
+            if (_contentRegistry == null || attack == null || !attack.ProjectileVisual.Id.IsValid) return null;
+            var visual = attack.ProjectileVisual.Resolve(_contentRegistry);
+            visual.RequireRole(SpriteRole.Projectile);
+            return visual;
+        }
+
+        private void Update()
+        {
+            if (!_dying || _deathPresentation == null || _runController?.Model?.State != RunState.Running)
+                return;
+            if (_deathPresentation.Tick(Time.deltaTime))
+                EndLife(EnemyLifeReason.Killed, releaseObject: true);
         }
 
         public void ConfigureBoss(BossEncounterDefinition encounter)
@@ -272,6 +304,13 @@ namespace Game.Enemy
             return ResolveDamage(request.Combat).Health.Actual;
         }
 
+        /// <summary>Applies only the request's movement controls (e.g. SET-010 orbit slow); no damage, no hit event.</summary>
+        public void ApplyControl(CombatDamageRequest request)
+        {
+            if (!_initialized || !IsAlive || _dispatchingLifecycle || !IsRunRunning()) return;
+            Controls.Apply(request.WithAmount(0f).WithDirection(0f, 0f), Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true);
+        }
+
         public CombatResult ResolveDamage(CombatDamageRequest request)
         {
             if (!_initialized)
@@ -286,6 +325,8 @@ namespace Game.Enemy
             try
             {
                 Protection.Tick(_runController.Model?.Elapsed ?? 0f);
+                // "Already slowed" is decided before this hit applies its own slow (DECISION-0053).
+                if (Controls.MovementMultiplier < 1f) request = request.ResolveForSlowedTarget();
                 var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
                 var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount, _runController.Model?.Elapsed ?? 0f));
                 var result = new CombatResult(request.Source, identity, new HealthChange(request.Amount, measured.AfterMitigation, measured.Actual, false), distance);
@@ -312,8 +353,11 @@ namespace Game.Enemy
                 return;
 
             _despawned = true;
+            _dying = false;
+            _deathPresentation?.ResetPresentation();
             _presentation?.Shutdown();
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
+            _groundShadow?.Shutdown();
             Controls.Reset();
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
@@ -366,8 +410,15 @@ namespace Game.Enemy
         {
             if (_deathPublished || _despawned) return;
             _deathPublished = true;
+            _dying = true;
             _body.linearVelocity = Vector2.zero;
+            _body.angularVelocity = 0f;
+            _body.simulated = false;
             _collider.enabled = false;
+            _telegraph.enabled = false;
+            _contactTimer?.EndContact();
+            _contactTarget = null;
+            EnemyRegistry.Unregister(this);
             _dispatchingLifecycle = true;
             try
             {
@@ -377,8 +428,25 @@ namespace Game.Enemy
             finally
             {
                 _dispatchingLifecycle = false;
-                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+                BeginDeathPresentationOrRelease();
             }
+        }
+
+        private void BeginDeathPresentationOrRelease()
+        {
+            if (_deathProfile == null)
+            {
+                EndLife(EnemyLifeReason.Killed, releaseObject: true);
+                return;
+            }
+            var sourceRenderer = _presentationRig != null && _presentationRig.gameObject.activeSelf
+                ? _presentationRig.BodyRenderer : _renderer;
+            var sourceTransform = sourceRenderer.transform;
+            if (_deathPresentation == null)
+                _deathPresentation = gameObject.AddComponent<EnemyDeathPresentationRuntime>();
+            _deathPresentation.Begin(_deathProfile, sourceTransform, sourceRenderer);
+            _presentation?.Shutdown();
+            if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
         }
 
         private void OnDestroy()
@@ -435,6 +503,20 @@ namespace Game.Enemy
             _presentation.Initialize(new SpriteDefinition(Definition.Visual.Id, sprite, SpriteRole.Body, contact),
                 profile, Health, _body, _runController);
             _renderer.enabled = false;
+        }
+
+        private void InitializeGroundShadow(SpriteContactProfile contact)
+        {
+            if (_groundShadowProfile == null)
+            {
+                _groundShadow?.Shutdown();
+                return;
+            }
+            if (_groundShadow == null) _groundShadow = gameObject.AddComponent<GroundShadowRuntime>();
+            var usesScaleCompensatedBody = _presentationRig != null && _presentationRig.gameObject.activeSelf;
+            var bodyRenderer = usesScaleCompensatedBody ? _presentationRig.BodyRenderer : _renderer;
+            _groundShadow.Initialize(_groundShadowProfile, contact,
+                usesScaleCompensatedBody ? Definition.CollisionSize : 1f, bodyRenderer);
         }
 
         private void ConfigureTelegraph()

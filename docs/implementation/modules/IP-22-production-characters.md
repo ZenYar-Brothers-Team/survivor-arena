@@ -14,6 +14,11 @@
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+17 baseline stats, starting skill, веса и highlights.
+Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+используется как production data; проверки этого IP сохраняются.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 новые GDD characters; полные CHAR-001…010 и starting SKILL cards; UI §§4,23; Art Direction §§2,7,9; Art Production §1.
@@ -28,7 +33,7 @@
 
 ## Acceptance criteria
 
-correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке.
+correct initial stats/loadout/weights, 0-weight exclusions и selection locks; no invented unique passive. Selection показывает significant baseline modifiers, role и starting skill; baseline и критерий отображения документированы. CHAR-001 concept approval сохраняется как art fact, но fixture→production mapping/source reuse фиксируется отдельно с проверкой соответствия карточке. Основная масса body совместима с одним вписанным кругом: без крайнего вытяжения и чрезмерно длинных выступов, но без требования круглой формы.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -57,3 +62,19 @@ G-14: weights. G-15 resolved по DECISION-0037; цены и unlock metadata п�
 Перенести каноническую базовую точку сравнения Content Design в отдельные production baseline data и задать explicit ordered highlights каждого CHAR-ID по [DECISION-0026](../../decisions/0026-character-selection-baseline.md) и [контракту IP-12](IP-12-character-framework.md#character-select-data-contract). База отдельна от roster, порога автоматической значимости нет. Проверить соответствие числовых отличий actual stats; framework fixture values не переносятся как утверждённый production баланс. Numeric weights и unlock conditions/цены остаются собственными gates.
 
 Использовать `CharacterPresentation`/`CharacterComparisonBaseline`, typed body/crop/icon references и `CharacterStatField` из [IP-12 API](IP-12-character-framework.md#framework-api-и-fixture-schema). Placeholder разрешён только fixture catalog; production missing art не маскируется backfill.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-03](../milestones/FIELD-001-start.md#f1-03):
+CHAR-001; поздние character IDs только unlock metadata. Packet prerequisites: F1-00/01/02; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).

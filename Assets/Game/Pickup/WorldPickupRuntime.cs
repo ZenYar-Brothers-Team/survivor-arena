@@ -7,6 +7,7 @@ using Game.Enemy;
 using Game.Pooling;
 using Game.Run;
 using UnityEngine;
+using Game.Presentation;
 namespace Game.Pickup
 {
     /// <summary>Single main-thread owner: expiry before contact, stable spawn-sequence order, no collection during draft pause.</summary>
@@ -23,6 +24,8 @@ namespace Game.Pickup
         private IPickupPlacement _placement;
         private ContentId _field;
         private System.Random _random;
+        private System.Random _scatterRandom;
+        private IReadOnlyDictionary<ContentId, SpriteDefinition> _visuals;
         private long _sequence;
         private int _spawned, _collected, _expired, _cancelled, _rejected;
         private string _feedback = "";
@@ -35,7 +38,8 @@ namespace Game.Pickup
         public PickupSnapshot Snapshot => new PickupSnapshot(_spawned, _collected, _expired, _cancelled, _rejected, _active.Count, _feedback);
         public int InactiveCount => _pool?.InactiveCount ?? 0;
         public void Initialize(FixturePickupCatalog catalog, RunModel run, PlayerCharacterRuntime player,
-            IPickupRewardTarget target, IPickupPlacement placement, ContentId field)
+            IPickupRewardTarget target, IPickupPlacement placement, ContentId field,
+            IReadOnlyDictionary<ContentId, SpriteDefinition> visuals = null)
         {
             if (catalog == null || run == null || player == null || player.Health == null || target == null || placement == null || !field.IsValid)
                 throw new ArgumentException("Pickup runtime requires initialized dependencies.");
@@ -44,18 +48,28 @@ namespace Game.Pickup
             Shutdown();
             _catalog = catalog; _run = run; _player = player; _playerCollider = collider; _target = target; _placement = placement; _field = field;
             _random = new System.Random(catalog.Seed);
+            _scatterRandom = new System.Random(catalog.DropScatterSeed);
+            _visuals = visuals;
             _pool ??= new GameObjectPool<WorldPickupVisual>(WorldPickupVisual.CreateInstance, transform);
             _run.StateChanged += HandleState;
         }
         public WorldPickupVisual Spawn(PickupDefinition definition, Vector2 position, Guid? sourceLifeId = null, ContentId? sourceContentId = null)
         {
             if (_run == null || _run.State != RunState.Running || _player.Health == null || _player.Health.IsDead) return null;
-            if (!_placement.TryPlace(position, out var reachable)) { _rejected++; Changed?.Invoke(); return null; }
+            var scattered = Scatter(position, _catalog.DropScatterRadius, _scatterRandom);
+            if (!_placement.TryPlace(scattered, out var reachable)) { _rejected++; Changed?.Invoke(); return null; }
             var identity = new PickupIdentity(Guid.NewGuid(), _run.RunId, _sequence++, sourceLifeId, sourceContentId);
             var life = new PickupLife(definition, identity);
             var visual = _pool.Rent();
             visual.transform.SetParent(transform, false);
-            visual.Initialize(life, reachable);
+            SpriteDefinition sprite = null;
+            if (definition.Visual.Id.IsValid)
+            {
+                if (_visuals != null && !_visuals.TryGetValue(definition.Id, out sprite))
+                    throw new InvalidOperationException($"Pickup '{definition.Id}' is missing its resolved visual.");
+                sprite?.RequireRole(SpriteRole.Pickup);
+            }
+            visual.Initialize(life, reachable, sprite);
             _active.Add(visual); _spawned++;
             Spawned?.Invoke(new PickupEvent(life, reachable)); Changed?.Invoke();
             return visual;
@@ -93,6 +107,7 @@ namespace Game.Pickup
                 {
                     if (_run == null || _run.State != RunState.Running) break;
                     if (item.visual == null || !ReferenceEquals(item.visual.Life, item.life)) continue;
+                    item.visual.TickPresentation(deltaTime);
                     if (item.life.Tick(deltaTime, true)) { _expired++; Finish(item.visual, item.life); continue; }
                     TryCollect(item.visual, item.life.Identity.DropId);
                 }
@@ -147,8 +162,17 @@ namespace Game.Pickup
             foreach (var visual in _active.ToArray())
             { visual.Life.Cancel(); _active.Remove(visual); visual.Shutdown(); _pool.Return(visual); }
             _run = null; _player = null; _playerCollider = null; _target = null; _placement = null; _catalog = null;
+            _visuals = null; _scatterRandom = null;
             _rolledLives.Clear(); _sequence = 0; _spawned = _collected = _expired = _cancelled = _rejected = 0;
         }
         private void OnDestroy() => Shutdown();
+
+        private static Vector2 Scatter(Vector2 origin, float radius, System.Random random)
+        {
+            if (radius <= 0f) return origin;
+            var angle = random.NextDouble() * Math.PI * 2d;
+            var distance = Math.Sqrt(random.NextDouble()) * radius;
+            return origin + new Vector2((float)(Math.Cos(angle) * distance), (float)(Math.Sin(angle) * distance));
+        }
     }
 }

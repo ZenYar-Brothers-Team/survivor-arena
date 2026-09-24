@@ -14,6 +14,11 @@ Functional shell объединяет существующие feature-owned э�
 
 ## Context
 
+F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
+draft/recipe числа, highlights и отображение proposed PICKUP-002 после принятия.
+Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
+используется как production data; проверки этого IP сохраняются.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 UI §§1–5,11–23 полностью; новые GDD core loop/run/XP/build/sets/fields/characters/meta/Travelers; только отображаемые production cards и profile metadata; DECISION-0005. IP-10A owns reusable cards/HUD/build, IP-26 owns settings, feature modules own boss/Traveler/Book state.
@@ -136,3 +141,21 @@ spawn/visibility и camera follow читают baseline. Disable/pause/off/end �
 Этот binding также поставляет required special-kill contribution вне telemetry;
 Results суммирует ordinary/special kills и показывает acquired sets.
 Controls читает реальные InputAction bindings; remap не добавлен.
+
+## Стартовый packet FIELD-001 — field-001-start-R1
+
+[DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md) утверждён
+2026-09-22; [DECISION-0051](../../decisions/0051-field001-initial-slice.md) ограничивает
+этот этап исходно открытым контентом. Packet [F1-03](../milestones/FIELD-001-start.md#f1-03):
+startup/locks/recipe UI; Results и actual-content integration в F1-08. Packet prerequisites: F1-00/01/02; framework prerequisites из раздела
+«Зависимости» проверяются для требуемого scope. Каталожная dependency здесь
+означает конкретный проверенный поднабор из milestone, не весь каталог владельца.
+
+Scope/приёмка/checks пакета — [спецификация этапа](../milestones/FIELD-001-start.md).
+Точный состав и unlocks — [Content Design](../../Content_design.md#starting-content-0050).
+Все обязательные проверки этого IP сохраняются для выбранных IDs; полный scope
+выше и поздние IDs не удаляются. Потребители пакета и обратные связи перечислены
+в milestone; итоговый consumer — F1-08/F1-09. Текущие статусы, completed/remaining IDs,
+evidence и единственная очередь находятся в [STATUS](../STATUS.md#field001-execution).
+
+Принятый новый UI-контракт — раздел «Стартовая прогрессия» UI/UX. Полный Results→расширенный повторный run остаётся вне стартового этапа; этот этап не вводит постоянный field whitelist.

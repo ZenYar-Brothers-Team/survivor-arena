@@ -11,13 +11,16 @@ namespace Game.ActiveSkill
         public float DurationSeconds { get; }
         public float HitCooldownSeconds { get; }
         public float DamageMultiplier { get; }
+        /// <summary>Continuous orbit that lives while its skill keeps refreshing it; duration is unused.</summary>
+        public bool Persistent { get; }
 
-        public OrbitEffect(int bladeCount, float radius, float angularSpeedDegrees, float durationSeconds, float hitCooldownSeconds, float damageMultiplier = 1f, float bladeHitboxRadius = 0f)
+        public OrbitEffect(int bladeCount, float radius, float angularSpeedDegrees, float durationSeconds, float hitCooldownSeconds, float damageMultiplier = 1f, float bladeHitboxRadius = 0f, bool persistent = false)
         {
             NumericValidation.ValidateCount(bladeCount, nameof(bladeCount));
             NumericValidation.ValidatePositive(radius, nameof(radius));
             NumericValidation.ValidatePositive(angularSpeedDegrees, nameof(angularSpeedDegrees));
-            NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
+            if (persistent) NumericValidation.ValidateNonNegative(durationSeconds, nameof(durationSeconds));
+            else NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
             NumericValidation.ValidatePositive(hitCooldownSeconds, nameof(hitCooldownSeconds));
             NumericValidation.ValidateNonNegativeFinite(damageMultiplier, nameof(damageMultiplier));
             NumericValidation.ValidatePositive(bladeHitboxRadius, nameof(bladeHitboxRadius));
@@ -28,6 +31,7 @@ namespace Game.ActiveSkill
             DurationSeconds = durationSeconds;
             HitCooldownSeconds = hitCooldownSeconds;
             DamageMultiplier = damageMultiplier;
+            Persistent = persistent;
         }
     }
 }

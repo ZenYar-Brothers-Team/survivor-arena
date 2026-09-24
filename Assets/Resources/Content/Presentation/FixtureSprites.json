@@ -7,10 +7,595 @@
     "contactCenterY": 0.469539
   },
   {
+    "id": "FIXTURE-ENEMY-FAN-VISUAL",
+    "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
+    "role": "Body",
+    "contactRadius": 0.360855,
+    "contactCenterY": 0.453097
+  },
+  {
     "id": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
     "role": "Body",
     "contactRadius": 0.401431,
     "contactCenterY": 0.530976
+  },
+  {
+    "id": "SKILL-001-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-001/skill-001-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.5,
+      "spinDegreesPerSecond": 140.0,
+      "impactDurationSeconds": 0.16,
+      "flashSize": 0.23,
+      "flashRed": 0.76,
+      "flashGreen": 0.66,
+      "flashBlue": 0.5,
+      "flashAlpha": 0.72,
+      "particleCount": 3,
+      "particleSize": 0.055,
+      "particleSpeed": 0.48,
+      "particleRed": 0.38,
+      "particleGreen": 0.32,
+      "particleBlue": 0.24,
+      "particleAlpha": 0.82
+    }
+  },
+  {
+    "id": "SKILL-003-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-003/skill-003-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.6,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 1.0,
+      "flashGreen": 0.74,
+      "flashBlue": 0.2,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.72,
+      "particleGreen": 0.62,
+      "particleBlue": 0.4,
+      "particleAlpha": 0.78
+    }
+  },
+  {
+    "id": "SKILL-006-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-006/skill-006-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 720.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.2,
+      "flashRed": 0.94,
+      "flashGreen": 0.68,
+      "flashBlue": 0.28,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.05,
+      "particleSpeed": 0.44,
+      "particleRed": 0.45,
+      "particleGreen": 0.3,
+      "particleBlue": 0.18,
+      "particleAlpha": 0.8
+    }
+  },
+  {
+    "id": "SKILL-008-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.7,
+      "spinDegreesPerSecond": 900.0,
+      "impactDurationSeconds": 0.13,
+      "flashSize": 0.2,
+      "flashRed": 0.3,
+      "flashGreen": 0.88,
+      "flashBlue": 1.0,
+      "flashAlpha": 0.72,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.5,
+      "particleRed": 0.23,
+      "particleGreen": 0.72,
+      "particleBlue": 0.88,
+      "particleAlpha": 0.82
+    }
+  },
+  {
+    "id": "SKILL-014-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-014/skill-014-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.9,
+      "spinDegreesPerSecond": 120.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.22,
+      "flashRed": 1.0,
+      "flashGreen": 0.48,
+      "flashBlue": 0.08,
+      "flashAlpha": 0.76,
+      "particleCount": 4,
+      "particleSize": 0.055,
+      "particleSpeed": 0.5,
+      "particleRed": 0.45,
+      "particleGreen": 0.18,
+      "particleBlue": 0.58,
+      "particleAlpha": 0.84,
+      "explosion": {
+        "durationSeconds": 0.22,
+        "flashSizeMultiplier": 1.1,
+        "flashRed": 1.0,
+        "flashGreen": 0.62,
+        "flashBlue": 0.12,
+        "flashAlpha": 0.68,
+        "particleCount": 8,
+        "particleSizeMultiplier": 0.12,
+        "particleSpeedMultiplier": 1.1,
+        "particleRed": 0.58,
+        "particleGreen": 0.18,
+        "particleBlue": 0.68,
+        "particleAlpha": 0.82
+      }
+    }
+  },
+  {
+    "id": "FIXTURE-ENEMY-FAN-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/fixture-enemy-fan/fixture-enemy-fan-projectile",
+    "role": "Projectile",
+    "projectile": {
+      "visualScale": 1.65,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.2,
+      "flashRed": 0.88,
+      "flashGreen": 0.78,
+      "flashBlue": 0.57,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.42,
+      "particleRed": 0.72,
+      "particleGreen": 0.61,
+      "particleBlue": 0.43,
+      "particleAlpha": 0.8
+    }
+  },
+  {
+    "id": "FIXTURE-XP-DROP-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/xp-pickup/xp-pickup",
+    "role": "Pickup"
+  },
+  {
+    "id": "PICKUP-001-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/pickup-001/pickup-001-pickup",
+    "role": "Pickup"
+  },
+  {
+    "id": "FIXTURE-TRAVELER-BOOK-VISUAL",
+    "resourcePath": "Art/Sprites/Pickups/traveler-book/traveler-book-pickup",
+    "role": "Pickup"
+  },
+  {
+    "id": "FIELD-001-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-001-VISUAL-FENCE",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-fence-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-001-VISUAL-STUMP",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-stump-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-001-VISUAL-BUSH",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-bush-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-001-VISUAL-GRASS",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-grass-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "SKILL-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-015-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-015-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SKILL-016-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Skills/skill-016-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "PASSIVE-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Passives/passive-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-001-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-001-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-002-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-002-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-010-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-015-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-015-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-016-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-016-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-017-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-017-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-018-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-018-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-019-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-019-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-020-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-020-icon",
+    "role": "Icon"
+  },
+  {
+    "projectile": {
+      "visualScale": 4.3,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.86,
+      "flashGreen": 0.86,
+      "flashBlue": 0.9,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.55,
+      "particleGreen": 0.55,
+      "particleBlue": 0.62,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-002-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-002/skill-002-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 5.0,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.72,
+      "flashGreen": 0.95,
+      "flashBlue": 0.96,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.36,
+      "particleGreen": 0.74,
+      "particleBlue": 0.78,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-005-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-005/skill-005-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 2.7,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.8,
+      "flashGreen": 0.92,
+      "flashBlue": 1.0,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.45,
+      "particleGreen": 0.66,
+      "particleBlue": 0.95,
+      "particleAlpha": 0.8
+    },
+    "id": "SKILL-013-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-013/skill-013-projectile",
+    "role": "Projectile"
+  },
+  {
+    "id": "CHAR-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Body",
+    "contactRadius": 0.401431,
+    "contactCenterY": 0.530976
+  },
+  {
+    "id": "CHAR-001-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-001-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Icon"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.9,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.45,
+      "flashBlue": 0.38,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.4,
+      "particleGreen": 0.34,
+      "particleBlue": 0.28,
+      "particleAlpha": 0.8
+    },
+    "id": "ENEMY-004-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 4.6,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8
+    },
+    "id": "ENEMY-005-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
+    "role": "Projectile"
+  },
+  {
+    "id": "ENEMY-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
+    "role": "Body",
+    "contactRadius": 0.330282,
+    "contactCenterY": 0.469539
+  },
+  {
+    "id": "ENEMY-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
+    "role": "Body",
+    "contactRadius": 0.360855,
+    "contactCenterY": 0.453097
   }
 ]

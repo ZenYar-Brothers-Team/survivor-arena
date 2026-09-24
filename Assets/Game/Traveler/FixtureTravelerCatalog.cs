@@ -24,6 +24,8 @@ namespace Game.Traveler
             }
         }
         public static FixtureTravelerCatalog Create() => FromJson(JsonContentFile.ReadText("Content/Travelers/FixtureTravelers"));
+        /// <summary>Production TRAVELER-001/002/005 and the FIELD-001 schedule (F1-07, baseline v1).</summary>
+        public static FixtureTravelerCatalog CreateProduction() => FromJson(JsonContentFile.ReadText("Content/Travelers/ProductionTravelers"));
         public static FixtureTravelerCatalog FromJson(string json) => new FixtureTravelerCatalog(JsonConvert.DeserializeObject<TravelerCatalogData>(json, JsonContentFile.Settings));
     }
 }

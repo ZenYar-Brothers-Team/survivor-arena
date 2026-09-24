@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIXTURE-ENEMY-FAN",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved both presented projectile candidates and asked to continue integration; stone should rotate slightly during flight. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [
+    {
+      "path": "../../Characters/fixture-character-agile/selected-master.png",
+      "role": "Approved player style reference; not an edit target"
+    },
+    {
+      "path": "../../Enemies/enemy-001/selected-master.png",
+      "role": "Approved enemy style reference; not an edit target"
+    }
+  ],
+  "generationPrompt": "Use case: stylized-concept. Asset type: small top-down hostile gameplay projectile for the current courier fan-attack fixture. The supplied character images are style references only, not edit targets. Create exactly one tightly rolled dispatch letter projectile, isolated on a genuinely transparent square canvas. It should be a short compact cream parchment scroll tied once with dark cord and closed by one clearly visible burgundy wax seal; sturdy enough to read as a thrown object, not an open page. View: 3/4 top-down, oriented horizontally with forward direction toward screen-right. Shape: compact, broad and readable at 24–40 screen pixels, with no long ribbon tails or thin protrusions. Style: the same hand-painted 2D storybook cutout language as the references, thick deep plum-brown outer contour, flat matte colors, simple cel shading, restrained paper texture, warm upper-front light. The cream-and-burgundy palette should connect it to the courier but remain distinct from blood or danger telegraphs. Generous even transparent padding for rotation. No character, hand, satchel, weapon, background, floor, baked shadow, glow, trail, speed lines, dust, text, readable writing, UI, watermark, duplicate letters, or cropped edges.",
+  "constraints": [
+    "transparent background",
+    "compact silhouette",
+    "no baked shadow",
+    "readable at 24–40 screen pixels"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/fixture-enemy-fan/fixture-enemy-fan-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": [
+      1254,
+      1254
+    ],
+    "sourceSha256": "9B8692ED742354DA2DD2D28964CB804323036DA5A6EAC31ADB5EC26565725552",
+    "runtimeSha256": "EA04F5EF94C858353C929FA4B8355F2B1A6DDBF5B7B0FBEA2DF9772F71FA2F4B",
+    "operations": [
+      "Approved generated PNG copied byte-identically to selected-master.png and v001/concept-01.png.",
+      "Runtime only: visible bounds at alpha >=10, x313/y436/w683/h426, fitted without distortion inside 192x192 on a transparent 256x256 RGBA canvas.",
+        "Unity import: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 320 PPU, centered pivot."
+    ],
+    "remaining": []
+  }
+}

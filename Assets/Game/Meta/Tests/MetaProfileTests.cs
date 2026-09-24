@@ -44,14 +44,16 @@ namespace Game.Meta.Tests
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run();using var binding=new ProfileRunBinding(run,profile);run.Stop();await binding.SaveTask;
-            Assert.AreEqual(0,profile.Currency); Assert.AreEqual("Finish your first run (including Quit)",profile.PurchaseLockReason("CHAR-002"));
+            Assert.AreEqual(0,profile.Currency); Assert.AreEqual("Survive 15:00 on FIELD-001",profile.PurchaseLockReason("CHAR-002"));
         }
         [Test] public async Task Victory_RealFifteenMinutes_UnlocksFieldSkillSetTogether()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Pause();run.Tick(900);Assert.AreEqual(0,run.Elapsed);run.Resume();run.Tick(900);
             await profile.ApplyAsync(run.Outcome,true);
-            foreach(var id in new[]{"FIELD-002","SKILL-016","SET-020"}) Assert.IsTrue(profile.IsUnlocked(id),id);
+            // DECISION-0050 FIELD-001 pack; SKILL-016 now waits for FIELD-002.
+            foreach(var id in new[]{"FIELD-002","SKILL-008","PASSIVE-013","SET-002","SET-003","SET-011","SET-016","SET-020"}) Assert.IsTrue(profile.IsUnlocked(id),id);
+            Assert.IsFalse(profile.IsUnlocked("SKILL-016"));
             Assert.IsFalse(profile.IsUnlocked("CHAR-002"));Assert.IsNull(profile.PurchaseLockReason("CHAR-002"));
         }
         [Test] public async Task Victory_ShortFixture_DoesNotClearField()
@@ -70,12 +72,47 @@ namespace Game.Meta.Tests
         {
             var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
             Assert.IsFalse(await profile.PurchaseAsync("META-001",0));Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-002"));
-            var run=MetaTestData.Run(1000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
+            var lost=MetaTestData.Run(1,0);lost.Start();lost.Stop();await profile.ApplyAsync(lost.Outcome,true);
+            Assert.IsFalse(await profile.PurchaseAsync("CHAR-002",0),"A finished run no longer opens CHAR-002 (DECISION-0050).");
+            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
             Assert.IsTrue(await profile.PurchaseAsync("CHAR-002",0));Assert.IsFalse(await profile.PurchaseAsync("CHAR-002",0));
             for(var n=0;n<5;n++)Assert.IsTrue(await profile.PurchaseAsync("META-001",n));
             Assert.IsFalse(await profile.PurchaseAsync("META-001",4));Assert.IsFalse(await profile.PurchaseAsync("META-001",5));
             Assert.AreEqual(3400,profile.Currency);
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(5,loaded.Level("META-001"));Assert.IsTrue(loaded.IsUnlocked("CHAR-002"));
+        }
+        [Test] public async Task NewProductionProfile_StartsWithExactlyTheStartupSet()
+        {
+            var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
+            string[] Open(string kind)=>_catalog.Unlocks.Values.Where(r=>r.Kind==kind&&profile.IsUnlocked(r.Id)).Select(r=>r.Id).OrderBy(i=>i).ToArray();
+            CollectionAssert.AreEqual(new[]{"SKILL-001","SKILL-002","SKILL-003","SKILL-004","SKILL-005","SKILL-006","SKILL-007","SKILL-010","SKILL-013","SKILL-014"},Open("skill"));
+            CollectionAssert.AreEqual(new[]{"PASSIVE-001","PASSIVE-002","PASSIVE-003","PASSIVE-004","PASSIVE-005","PASSIVE-007","PASSIVE-008","PASSIVE-009","PASSIVE-011","PASSIVE-012"},Open("passive"));
+            CollectionAssert.AreEqual(new[]{"SET-001","SET-004","SET-006","SET-010","SET-017"},Open("set"));
+            CollectionAssert.AreEqual(new[]{"CHAR-001"},Open("character"));CollectionAssert.AreEqual(new[]{"FIELD-001"},Open("field"));
+            Assert.AreEqual(0,profile.Currency);
+        }
+        [Test] public async Task PoolGrowth_FollowsDecision0050Stages()
+        {
+            var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
+            int Count(string kind)=>_catalog.Unlocks.Values.Count(r=>r.Kind==kind&&profile.IsUnlocked(r.Id));
+            var expected=new[]{(11,11,10),(13,13,13),(14,14,18),(16,14,20)};
+            for(var i=0;i<4;i++)
+            {
+                var run=MetaTestData.Run(1,0,"FIELD-"+(i+1).ToString("000"));run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+                Assert.AreEqual(expected[i],(Count("skill"),Count("passive"),Count("set")),"after FIELD-"+(i+1).ToString("000"));
+            }
+        }
+        [Test] public async Task Load_SavedClearWithoutNewUnlock_GrantsItOnceWithoutCurrency()
+        {
+            var codec=new ProfileCodec(_catalog);var data=codec.Create();
+            data.ClearedFields.Add("FIELD-001");data.Currency=42;data.Unlocked.Add("SKILL-012");// old DECISION-0037 initial unlock stays
+            var store=new FailingProfileStore{Main=codec.Encode(data)};
+            var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
+            Assert.AreEqual(ProfileState.Ready,profile.State);
+            foreach(var id in new[]{"FIELD-002","SKILL-008","SET-020"}) Assert.IsTrue(profile.IsUnlocked(id),id);
+            Assert.IsTrue(profile.IsUnlocked("SKILL-012"),"Existing unlocks are never revoked.");
+            Assert.AreEqual(42,profile.Currency);Assert.AreEqual(1,store.Writes,"Migrated unlocks are persisted once.");
+            var again=new ProfileService(_catalog,store);await again.LoadAsync();Assert.AreEqual(1,store.Writes);
         }
         [Test] public async Task Modifiers_GlobalAndPersonal_AddWithoutMutatingPreviousRun()
         {

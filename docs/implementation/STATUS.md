@@ -2,14 +2,81 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-21
-Plan revision: design-sync-R2
-Current active module: none (IP-12A gameplay density review остаётся открытым)
-Next Ready module: none — оставшиеся production packets удерживают собственные content/art gates; следующие IP автоматически не начинать
+Last repository audit: 2026-09-24 (F1-00/01/02/03/05/08 Verified — Unity 709/709 EditMode, 26/26 PlayMode; F1-04/06/07 Implemented до закрытия art gates; F1-09 Blocked)
+Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
+Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
+Next Ready packet: нет. F1-00…F1-08 пройдены 2026-09-24 по разрешению пользователя; F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)); к общему backlog не переходить.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
 Подробности регистрации: [M-01 evidence](evidence/design-sync-R2-2026-09-21.md#m-01).
+
+## Утверждённый стартовый этап — 2026-09-22
+
+Пользователь утвердил [DECISION-0050](../decisions/0050-starting-content-and-unlocks.md)
+и поручил составить план только исходно открытого контента. [DECISION-0051](../decisions/0051-field001-initial-slice.md)
+и [FIELD-001 scope](milestones/FIELD-001-start.md) фиксируют 10 skills / 10 passives /
+5 sets, CHAR-001, ENEMY-001…005 и ENEMY-007, BOSS-001/MIDBOSS-001, TRAVELER-001/002/005,
+PICKUP-001/Book и поле с production schedule. Остальной контент сохраняется в IP.
+Поздние глобальные unlocks утверждены, но gameplay ими не входит в этот этап.
+Поправка пользователя: [DECISION-0052](../decisions/0052-field001-six-ordinary-enemies.md)
+расширяет ordinary pool до шести за счёт ENEMY-005/007; F1-00/04/08/09 и art scope
+синхронизированы. Новых runtime checks нет; очередь и зависимости сохраняются.
+
+Изменён только дизайн/план. Runtime MetaEconomy.json переведён на DECISION-0050
+в F1-03 (2026-09-24) вместе с миграцией при загрузке. IP-25/26 переоткрыты для новой delta;
+их прежнее evidence сохранено как база. Остальные framework scope без изменения
+поведения сохраняют своё состояние; production catalogs имеют прежние data/art
+и новые packet dependencies. Approved art не означает production bindings.
+
+Документационные проверки и read-only audit: [evidence](evidence/field-001-start-R1-2026-09-22-plan.md).
+
+Первоначальная команда ограничивалась подготовкой плана. Последующее разрешение
+на F1-00 и текущая граница зафиксированы ниже. После завершения этапа автоматически
+к позднему backlog не переходить; более ранние stop boundaries остаются историей.
+
+## Продолжение F1-00 — 2026-09-23
+
+Пользователь разрешил выполнить первый шаг и самостоятельно предложить начальный
+баланс для сложной первой карты. Уточнение: пройти без постоянной прокачки реально;
+основной путь к первой победе — обучение и сборка билда, upgrades только помогают.
+Разрешена подготовка конкретного baseline; runtime/F1-01 автоматически не начинать.
+Эта команда снимает прежнюю planning-only границу только для F1-00.
+Дополнительно пользователь разрешил корректировать существующие параметры врагов;
+предложенная delta для шести ordinary IDs включена в baseline v1.
+
+Подготовлены [baseline v1](../balance/field001-baseline-v1.md) и
+[численные таблицы](../balance/field001-baseline-v1.json),
+[DECISION-0053](../decisions/0053-field001-difficulty-and-baseline.md).
+F1-00 остаётся In progress до approval конкретной v1: 60 skill levels,
+60 passive levels, 5 set recipes/effects, 6 ordinary, bosses/Travelers/pickups,
+24 фазы, geometry и performance targets. API/art gaps явно закреплены за
+реализующими packet owners; production IDs ещё не реализованы. Статическая проверка
+и границы evidence — [F1-00 evidence](evidence/field001-baseline-v1-2026-09-23.md).
+Runtime/F1-01 не начаты; zero-meta победа и фактическая сложность ещё не проверялись.
+
+## Автономное продолжение FIELD-001 — 2026-09-24
+
+Пользователь поручил: утвердить/поправить и закрыть F1-00 (DECISION-0053 →
+Approved), затем последовательно пройти F1-01…F1-09 по очереди ниже; вместо
+ожидания ответа заводить DECISION-записи с выбором и обоснованием; арт готовить
+и подключать по scripts/README и ASSET_PIPELINE без предварительного просмотра
+(пользователь поправит вручную); после каждого пакета — safe smoke-check и
+синхронизация STATUS/evidence; коммитить по ходу работы. Остановка — только на
+решении без опоры в репозитории. После F1-09 к общему backlog не переходить.
+
+F1-00 закрыт: baseline v1 Approved без изменений, canon синхронизирован
+([evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24)).
+
+Среда исполнения этого продолжения — облачный Linux-контейнер **без Unity Editor**
+(Unity download/licensing недоступны). Safe smoke-check `check_project.py` там
+даёт NOT RUN. Вместо него каждый пакет проверяется compile/test harness на .NET 8:
+все 41 asmdef компилируются против UnityEngine reference assemblies с заглушками
+Editor/TestTools/InputSystem, NUnit-тесты без native Unity runtime исполняются
+(базовая линия до изменений: 315 из 683 тестов исполнимы и проходят; остальные
+требуют GameObject/сцен и считаются NOT RUN). Это не Unity evidence: пакеты с
+кодом получают не выше `Implemented`, `Verified` требует Unity-прогона на машине
+пользователя.
 
 ## Граница текущего продолжения
 
@@ -98,9 +165,44 @@ settings implementation/новые runtime checks ещё не выполняли
 
 Запрос «продолжай» разрешил реализацию IP-26 по DECISION-0038. Дальнейшие IP автоматически не начинать.
 
+Отдельный пользовательский art packet 2026-09-22 добавил утверждённые projectile images: камень SKILL-001 подключён к `FIXTURE-SKILL-BOLT`, письмо — только к ranged `FIXTURE-ENEMY-FAN`. Общий data-driven presentation сохраняет круглый collider, вращает только visual child камня и даёт короткий pooled flash + material particles. Проверки: **647/647 Game.* EditMode, 25/25 PlayMode, 0 skipped**, Unity 6000.6.0f1. Это не регистрирует production SKILL-001 и не меняет approved melee card ENEMY-002; статусы IP-17/IP-20 сохраняются. [Evidence](evidence/2026-09-22-projectile-art.md).
+
 ## Execution order
 
-Выбирать первый Ready в этой таблице, если пользователь не назвал IP. Проверять prerequisites целевой ревизии и текущий packet. Таблица задаёт очередь; текущие статусы — в записях ниже.
+При разрешении на исполнение выбирать первый Ready packet активного этапа ниже,
+если пользователь не назвал другой scope. Пока этап активен, поздний backlog
+автоматически не выбирать. Порядок IP после этапа сохранён во второй таблице.
+
+<a id="field001-execution"></a>
+### FIELD-001 initial slice — приоритетная очередь
+
+Все packets относятся к `field-001-start-R1`. Status ниже относится к packet,
+а не к полному каталожному IP. У всех ещё не начатых packets completed IDs: none,
+implementation/verification evidence: none. F1-00 разрешён только для подготовки
+данных; incomplete production ID по нему реализовывать нельзя.
+
+| Приоритет | Packet / владельцы | Status | Prerequisites / конкретный gate |
+|---:|---|---|---|
+| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Verified | 2026-09-24: baseline v1 Approved (DECISION-0053), canon синхронизирован; static validator PASS; [evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24) |
+| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Verified | 2026-09-24: completed IDs SKILL-001…007/010/013/014 (L1–6, art/VFX bound in data); Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); первый прогон: EditMode 706/709 → после исправлений 709/709 ([запись](evidence/field001-f1-01-2026-09-24.md#unity-прогон-2026-09-24)); PlayMode 25/26 — smoke F1-08 исправлен ([запись](evidence/field001-f1-08-2026-09-24.md#unity-прогоны-2026-09-24)); [evidence](evidence/field001-f1-01-2026-09-24.md), [DECISION-0054](../decisions/0054-field001-autonomous-execution.md) |
+| 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Verified | 2026-09-24: completed IDs PASSIVE-001…005/007…009/011/012 (L1–6, icons); Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-02-2026-09-24.md) |
+| 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Verified | 2026-09-24: CHAR-001 production definition/visual binding, MetaEconomy по DECISION-0050, миграция при загрузке; Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-03-2026-09-24.md) |
+| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Implemented | Автопроверки PASS; Verified после закрытия art gate. 2026-09-24: ENEMY-001…005/007 + PICKUP-001 (данные/поведение/снаряды), Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); **art gate:** тела ENEMY-003/004/005/007; [evidence](evidence/field001-f1-04-2026-09-24.md) |
+| 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Verified | 2026-09-24: SET-001/004/006/010/017 (пороги, эффекты, SET-017 attack/telegraph); Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-05-2026-09-24.md) |
+| 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Implemented | Автопроверки PASS; Verified после закрытия art gate. 2026-09-24: BOSS-001/MIDBOSS-001 (атаки, фазы, двойной рывок); Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); **art gate:** тела и снаряды боссов; [evidence](evidence/field001-f1-06-2026-09-24.md) |
+| 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Implemented | Автопроверки PASS; Verified после закрытия art gate. 2026-09-24: TRAVELER-001/002/005 + FIELD-001 schedule, PICKUP-002; Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); **art gate:** тела Путников; [evidence](evidence/field001-f1-07-2026-09-24.md) |
+| 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Verified | 2026-09-24: FIELD-001 (поле, 900-s timeline, 64 authored player-only obstacles), production composition без fixture fallback, production профиль `profile-v1.json`; Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-08-2026-09-24.md), [DECISION-0054 §9](../decisions/0054-field001-autonomous-execution.md#9-конкретизации-f1-08) |
+| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08 автопроверки PASS (Unity 2026-09-24). **Нужно от пользователя:** реальные прогоны по матрице, performance bounds, приёмка ощущения карты; art gates — [бриф](../art/field001-open-art-requests.md). [Подготовка/матрица NOT RUN](evidence/field001-f1-09-2026-09-24.md) |
+
+При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
+пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
+оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —
+зависимости по именам в спецификации packet и записям ниже, не повторные работы.
+
+### Общий IP backlog после этапа
+
+Порядок сохраняется для оставшегося scope. Возобновлять после команды пользователя;
+текущие IP statuses и revision exceptions — в записях ниже.
 
 | Приоритет | Модуль |
 |---:|---|
@@ -356,7 +458,8 @@ Current packet: Category import/role validation, provenance/inventory reconcilia
 Remaining gates: G-17 concept mapping и G-18 закрыты DECISION-0029; per-image/replacement gates сохраняются для новых assets. Пользователь принял Presentation Fixture Review; остаётся gameplay density часть gate E.
 Remaining acceptance / IDs: Реальный gameplay density review с 3–4 сетами. UI body reuse и idle/flip/hit/proc/death/collect/pause/reset в Presentation Fixture Review приняты пользователем 2026-09-21 («всё хорошо»). Четыре synthetic copies не являются этим прогоном; production enemy/pickup/VFX art не заявлен.
 Target implementation evidence: [IP-12A evidence](evidence/design-sync-R2-2026-09-21-ip12a.md#ip-12a), [pipeline/API](../art/ASSET_PIPELINE.md#21-category-profiles-и-reusable-adapters-ip-12a), [manifest](../../Art/asset-manifest.json).
-Art follow-up: approved ENEMY-001 body подключён к FIXTURE-ENEMY-SEEKER; импорт, отдельный child motion и pool reset проверены. 641/641 EditMode, 23/23 PlayMode; [evidence](evidence/2026-09-21-enemy001-art.md). Пользовательский gameplay/density gate остаётся открытым.
+Workflow tooling: пакетная подготовка approved art, numeric-only preview и безопасный scoped runner; [DECISION-0049](../decisions/0049-art-workflow-automation-and-preview.md), [tooling evidence](evidence/2026-09-22-workflow-tools.md). Density/per-image gates сохраняются.
+Art follow-up: approved ENEMY-001 body подключён к FIXTURE-ENEMY-SEEKER; импорт, отдельный child motion и pool reset проверены. 641/641 EditMode, 23/23 PlayMode; [evidence](evidence/2026-09-21-enemy001-art.md). Текущий gameplay-визуал принят пользователем 2026-09-22; документированный density-прогон с 3–4 сетами остаётся отдельной проверкой.
 Contact follow-up (IP-02/IP-04/IP-12A): по поручению пользователя от 2026-09-22 выполнен опыт с меньшими кругами внутри двух текущих body; [DECISION-0039](../decisions/0039-conservative-body-contact-circles.md), [evidence](evidence/2026-09-22-body-contact-circles.md). Повторный пользовательский плейтест ощущения открыт; этот опыт не закрывает production/density gates и не начинает следующий IP.
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **481/481 Game.* EditMode, 8/8 PlayMode, 0 skipped**. Body/UI/VFX import/reimport, role/resource negatives, alpha border, child-root invariance, pool/disable/reinitialize и preferences; manifest audit 9 records. Diagnostic capture 1920×1080 просмотрен; пользователь отдельно принял интерактивный стенд («всё хорошо»). Это не подтверждает плотный gameplay с 3–4 сетами. [Details](evidence/design-sync-R2-2026-09-21-ip12a.md#checks).
 Documentation impact: Approved DECISION-0029, Proposed technical DECISION-0030, GDD/Art Direction, pipeline/inventory/provenance/manifest, IP-12A/IP-14/IP-22/IP-26 и readiness. W-01 runtime burst поставлен отдельным IP-14; его spawn-only checks не закрывают gameplay density review.
@@ -436,57 +539,76 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 ### IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Status: Verified
+Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
-Current packet: Profile/economy по DECISION-0037; production JSON META-001…004 и 70 unlock definitions, отдельная fixture runtime integration и Meta UI.
-Remaining gates: Нет для этого packet; production gameplay/art принадлежат catalog IP. Hard-crash checkpoints исключены DECISION-0037.
-Remaining acceptance / IDs: none для profile/economy packet.
-Target implementation evidence: [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
+Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
+Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
+Remaining acceptance / IDs: Unity verification; terminal/save/retry на production профиле — F1-09 matrix. F1-08: production `profile-v1.json` и composition по экономике профиля Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md). F1-03 subset (10/10/5, DECISION-0050 mapping, load-time migration) Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Prior implementation evidence (design-sync-R2): [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
+Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
 Documentation impact: IP-25 API/schema/save/reset и IP-26 consumers, regression map; GDD/CD правила DECISION-0037 сохранены. Fixture Book=50, новые raster assets не создавались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25).
 
+Target implementation evidence: none для field-001-start-R1 delta.
+Target verification evidence: none для field-001-start-R1 delta; прежние smoke не переносятся автоматически.
+
 ### IP-26 — Functional UI и полный player flow
 
-Status: Verified
+Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Current packet: Functional fixture shell, required Results/notifications и app settings по DECISION-0038; production content/art остаются у catalog IP.
-Remaining gates: Нет для текущего functional packet: пользователь принял завершение 2026-09-21. Gameplay density review IP-12A и production content/art остаются отдельными.
-Remaining acceptance / IDs: none для functional packet; [пользовательская приёмка](evidence/design-sync-R2-2026-09-21-ip26.md#user-acceptance).
-Target implementation evidence: Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
+Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
+Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
+Remaining acceptance / IDs: Unity verification и F1-09 matrix (Results/save/retry на production composition). F1-08: selection/run/Results подключены к production composition — [evidence](evidence/field001-f1-08-2026-09-24.md). F1-03: production roster/lock reasons data — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Prior implementation evidence (design-sync-R2): Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: DECISION-0038, GDD/CD/UI settings/difficulty, IP-12A/16/23/26 contracts, DESIGN_SYNC, regression map и consumer readiness.
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
+Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-26).
+
+Target implementation evidence: none для field-001-start-R1 delta.
+Target verification evidence: none для field-001-start-R1 delta; прежние smoke не переносятся автоматически.
 
 ### IP-17 — Production Active Skills SKILL-001…016
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-01 — SKILL-001…007/010/013/014. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-08, IP-10A, IP-12A
 Blocked by: complete per-level parameters SKILL-001…016 и per-ID image gates.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates.
-Remaining acceptance / IDs: SKILL-001…016, полные уровни и per-ID assets/checks.
-Target implementation evidence: Нет для новых требований.
+Remaining acceptance / IDs: SKILL-008/009/011/012/015/016 и Unity verification стартового поднабора.
+Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
+Target implementation evidence: F1-01 subset only.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).
 
 ### IP-18 — Production Passive Items PASSIVE-001…014
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-02 — PASSIVE-001…005/007…009/011/012. Required packets: F1-00/01; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-09, IP-10A, IP-12A, IP-28
 Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; G-10 закрыт DECISION-0033/IP-28; полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default.
-Remaining acceptance / IDs: PASSIVE-001…014, production data/icons и связанные integration checks.
-Target implementation evidence: Нет для новых требований.
+Remaining acceptance / IDs: PASSIVE-006/010/013/014 и Unity verification стартового поднабора.
+Startup subset F1-02: PASSIVE-001…005/007…009/011/012 Implemented 2026-09-24 — [evidence](evidence/field001-f1-02-2026-09-24.md).
+Target implementation evidence: F1-02 subset only.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-18).
 
 ### IP-19 — Production Sets SET-001…020
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-05 — SET-001/004/006/010/017. Required packets: F1-00/01/02/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-11, IP-17, IP-18, IP-28, IP-12A
 Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope).
 Remaining gates: G-08 закрыт DECISION-0017. G-02 закрыт DECISION-0022. G-04/G-05/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия.
-Remaining acceptance / IDs: SET-001…020, полные thresholds/effect values, icons/VFX и integration.
+Remaining acceptance / IDs: остальные 15 SET ID и Unity verification стартового поднабора.
+Startup subset F1-05: SET-001/004/006/010/017 Implemented 2026-09-24 — [evidence](evidence/field001-f1-05-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-19).
@@ -494,10 +616,13 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-19)
 ### IP-20 — Production Enemies ENEMY-001…020 и зелье PICKUP-001
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-04, IP-13, IP-28, IP-12A
 Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
 Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
-Remaining acceptance / IDs: ENEMY-001…020, PICKUP-001, drop data и production art.
+Remaining acceptance / IDs: ENEMY-006, ENEMY-008…020; тела ENEMY-003/004/005/007 (art gate); Unity verification стартового поднабора.
+Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1: 641/641 Game.* EditMode и 23/23 PlayMode, 0 skipped. Import/reimport GUID, registry refs, child-only motion, hit/pause, death/mixed-pool reuse и Gameplay spawner. [Условия и ограничения](evidence/2026-09-21-enemy001-art.md#verification).
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20).
@@ -505,10 +630,13 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20)
 ### IP-21 — Production Final Bosses и Mid-bosses
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
 Blocked by: G-14 production attack payload/rewards/timings и per-ID asset packet readiness.
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
-Remaining acceptance / IDs: BOSS-001…010 и MIDBOSS-001…010, phase/attack data и art.
+Remaining acceptance / IDs: BOSS-002…010, MIDBOSS-002…010; тела/снаряды BOSS-001/MIDBOSS-001 (art gate); Unity verification.
+Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21).
@@ -516,21 +644,27 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21)
 ### IP-22 — Production Characters CHAR-001…010
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-03 — CHAR-001; поздние character IDs только unlock metadata. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
 Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
-Remaining acceptance / IDs: CHAR-001…010, complete stats/loadouts/weights и body/selection art.
-Target implementation evidence: Нет для новых требований.
+Remaining acceptance / IDs: CHAR-002…010 и Unity verification CHAR-001.
+Startup subset F1-03: CHAR-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Target implementation evidence: F1-03 subset only.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).
 
 ### IP-23 — Production Fields FIELD-001…010
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-08 — FIELD-001 geometry/environment/metadata/thumbnail. Required packets: F1-00…07; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
-Remaining acceptance / IDs: FIELD-001…010, geometry/metadata/kits/thumbnails.
+Remaining acceptance / IDs: FIELD-002…010, geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification.
+Startup subset F1-08: FIELD-001 geometry/obstacles/metadata/environment Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-23).
@@ -538,10 +672,13 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-23)
 ### IP-30 — Production Travelers TRAVELER-001…010 и Book
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-07 — TRAVELER-001/002/005 и production Book. Required packets: F1-00/01/02/04/05; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-29, IP-12A
 Blocked by: production Book card/ID/параметры, required Traveler/support/XP/presence data и per-ID art gates; prerequisite IP-29 выполнен.
 Remaining gates: G-03/G-10 semantics закрыты DECISION-0020/0033 и IP-28; G-11/G-12/scaling semantics — DECISION-0035. G-14/G-17, production Book card/ID/параметры, complete Traveler/support data и конкретные images. Designs TRAVELER-001…010 уже approved.
-Remaining acceptance / IDs: TRAVELER-001…010 и отсутствующая production Book card/ID/data/art.
+Remaining acceptance / IDs: TRAVELER-003/004/006…010; тела TRAVELER-001/002/005 (art gate); Unity verification.
+Startup subset F1-07: TRAVELER-001/002/005, FIELD-001 schedule, PICKUP-002 Implemented 2026-09-24 — [evidence](evidence/field001-f1-07-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-30).
@@ -549,10 +686,13 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-30)
 ### IP-24 — Canonical Wave / Encounter Content и field bindings
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-08 — FIELD-001 900-second schedule и startup bindings. Required packets: F1-00…07; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-14, IP-20, IP-21, IP-23, IP-29, IP-30
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-23 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон.
-Remaining acceptance / IDs: Полные production encounter schedules и bindings всех 10 полей; CG-02/CG-04.
+Remaining acceptance / IDs: Полные production encounter schedules и bindings полей 002…010; CG-02/CG-04; Unity verification FIELD-001.
+Startup subset F1-08: FIELD-001-TIMELINE (900 s, hooks 450/810) и startup bindings Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24).
@@ -560,8 +700,10 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24)
 ### IP-27 — End-to-end integration, regression и content validation
 
 Status: Blocked
+Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
+Startup packet: F1-09 — полный стартовый run и приёмка FIELD-001 только initial content. Required packets: F1-00…08; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-30 (Blocked, target scope).
+Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, field-001-start-R1 delta), IP-26 (Blocked, field-001-start-R1 delta), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
 Target implementation evidence: Нет для новых требований.
@@ -570,8 +712,54 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-27)
 
 ## Status maintenance rule
 
+Workflow tooling follow-up, 2026-09-22: Tooling packet: Implemented. Подготовка approved art и numeric-only visual-preview работают через общие команды; 18/18 tooling tests, реальный безопасный batch smoke **658/658 EditMode + 25/25 PlayMode**, 0 skipped, manifest 83 records. Повторное использование совпадающего evidence проверено; live REST остаётся непроверенным на открытом Editor (protocol/mode/filter flow покрыт изолированными тестами). [DECISION-0049](../decisions/0049-art-workflow-automation-and-preview.md), [команды](../../scripts/README.md), [evidence](evidence/2026-09-22-workflow-tools.md). Обязательные acceptance IP, Execution order и Next Ready сохранены.
+
 После изменения статуса/API/acceptance пересчитать готовность потребителей и Next Ready по Execution order. Implemented означает выполненный полный обязательный scope; Verified — фактически пройденные проверки с evidence. Исторический test count не переносится автоматически. Каталоги ведут completed/remaining IDs здесь; если ни один оставшийся packet не готов, указывать конкретный Blocked gate. В STATUS оставлять краткий результат, дату, revision и ссылку на подробное evidence в `evidence/`; старые проверки не читать при выборе следующего IP. Подробности — [WORKFLOW](WORKFLOW.md).
 
 ### Contact review follow-up — 2026-09-22
 
 Пользователь принял максимальные вписанные круги goblin/villager и поручил закрепить метод как этап пайплайна. Radius 0.401431 / 0.330282, centerY 0.530976 / 0.469539; [ASSET_PIPELINE §22](../art/ASSET_PIPELINE.md#22-подгонка-круга-контакта-для-world-body), [DECISION-0039](../decisions/0039-conservative-body-contact-circles.md), [evidence](evidence/2026-09-22-body-contact-circles.md#third-trial--maximum-inscribed-circles). Финальная runtime ревизия: 644/644 EditMode, 24/24 PlayMode, zero skipped. Последующее закрепление пайплайна меняет только документы. Общий gameplay/density gate IP-12A открыт; порядок IP не изменён.
+
+### Enemy death presentation follow-up — 2026-09-22
+
+По явному поручению пользователя мгновенное исчезновение заменено единым procedural tail для ordinary/boss/Traveler: squash, shrink/fade и dust; без специальных веток и без death push. Gameplay death/reward/untargeting остаются мгновенными, pool return задержан на 0.30 s и замораживается pause. Финальная проверка: 644/644 EditMode, 25/25 PlayMode, zero skipped. [DECISION-0040](../decisions/0040-shared-enemy-death-presentation.md), [pipeline](../art/ASSET_PIPELINE.md#23-единая-процедурная-смерть-врагов), [evidence](evidence/2026-09-22-shared-enemy-death.md). Порядок IP не изменён.
+
+Последующий пользовательский плейтест выявил невидимый death clone/pooled animated body. Порядок snapshot и восстановление renderer исправлены, regression обновлён. Пользователь повторно проверил Gameplay и принял результат 2026-09-22: «Сейчас выглядит хорошо», разрешил коммит и подтвердил запись полной процедуры. Финальный post-fix smoke: 644/644 EditMode, 25/25 PlayMode, zero skipped; подробности в evidence.
+
+### Courier and ground-shadow art follow-up — 2026-09-22
+
+По поручению выполнить art-пункты 1–3 вместе сгенерирован ENEMY-002 и подключён к неизменённому `FIXTURE-ENEMY-FAN` с отдельным быстрым motion profile. Пользователь отклонил v001 как испуганного и слишком похожего на playable goblin; v002 переделан в уверенного взрослого человеческого преследователя с отдельными пропорциями, позой и формой. Runtime 256×256; максимальный вписанный contact circle v002: radius 0.360855, centerY 0.453097. Player, ordinary enemies, bosses и Travelers используют один JSON-профиль ground shadow и общую процедурную 32×32 mask без отдельных PNG и physics. Финальный v002 smoke: 646/646 EditMode, 25/25 PlayMode, zero skipped. [DECISION-0041](../decisions/0041-shared-procedural-ground-shadows.md), [pipeline](../art/ASSET_PIPELINE.md#24-единая-процедурная-ground-shadow), [evidence](evidence/2026-09-22-courier-and-ground-shadows.md). Текущий ENEMY-002 v002 и тени приняты пользователем 2026-09-22; production binding не выполнен; статусы IP и Execution order не изменены.
+
+Последующее поручение синхронизировало правило с enemy-документами: Game Design, общий раздел Enemies и карточка ENEMY-002 в Content Design, Art Direction §8/generation/review и IP-20 теперь требуют отделять enemy identity от playable минимум по silhouette/proportions, posture/expression и costume/palette mass. Уверенный преследователь ENEMY-002 v002 является первым эталоном; [DECISION-0042](../decisions/0042-enemy-player-visual-separation.md). Runtime не менялся, новый smoke не требовался; порядок IP не изменён.
+
+Пользователь дополнительно уточнил общий silhouette constraint для кругового контакта: character/enemy body избегают крайнего вытяжения и чрезмерно длинных выступающих частей, но не обязаны быть круглыми. Правило синхронизировано в Game Design, Art Direction generation/review, Art Production, ASSET_PIPELINE §22, DECISION-0039 и acceptance IP-20/IP-22. Это art-authoring ограничение без runtime-изменений; новый smoke не требовался, порядок IP не изменён.
+
+После gameplay-просмотра пользователь поручил сделать ground shadow немного больше и зависимой от ширины персонажа, а death dust — меньше и земляного цвета. Shadow width теперь один раз вычисляется как authored contact diameter × 1.2, height увеличена до 0.24, fallback width — до 0.86; runtime pixel analysis и per-frame work не добавлены. Dust size установлен 0.08, цвет — приглушённый коричнево-земляной. Финальный smoke: 646/646 EditMode, 25/25 PlayMode, zero skipped; пользовательский плейтест до коммита по поручению не ожидался. Порядок IP не изменён.
+
+### Pickup art and drop-scatter follow-up — 2026-09-22
+
+По поручению пользователя сгенерированы и подключены XP crystal, лечебное зелье и Traveler Book: три `SpriteRole.Pickup` runtime derivatives 256×256 с единым дешёвым visual-only bob/pulse. XP и world pickups получают отдельный seeded-разброс радиусом 0.30 world units вокруг source point; scatter RNG не расходует chance RNG, а Potion/Book после смещения сохраняют reachable placement. Финальный smoke: **651/651 EditMode, 25/25 PlayMode, zero skipped**, Unity 6000.6.0f1. Изображения и их текущая gameplay-scale подача приняты пользователем 2026-09-22; статусы IP и Execution order не изменены. [DECISION-0043](../decisions/0043-seeded-drop-scatter.md), [pipeline](../art/ASSET_PIPELINE.md#26-pickup-sprites-bobpulse-и-разброс-drops), [evidence](evidence/2026-09-22-pickup-art-and-scatter.md).
+
+Последующий gameplay-feedback: XP и Зелье было трудно подбирать. Fixture XP pickup radius увеличен `0.20 → 0.50`, а общий contact radius Potion/Book — `0.22 → 0.40` world units. Визуальный размер, scatter и формулы modifiers не менялись; пользовательская повторная оценка ощущения открыта.
+
+По следующему поручению подготовлен минимальный visual kit FIELD-001: tiled земля, плетень, пень, куст и трава. Один data-driven visual-only runtime накрывает существующую fixture-геометрию, не меняет colliders и seeded-расставляет редкий decor без physics; restart/shutdown очищает visual root и восстанавливает placeholder. Проверки: **651/651 Game.* EditMode, 25/25 PlayMode, zero skipped**, Unity 6000.6.0f1. Пять изображений приняты пользователем в игре 2026-09-22; production geometry/metadata/thumbnail и статус IP-23 не меняются. [DECISION-0044](../decisions/0044-field-environment-art-is-presentation-only.md), [pipeline](../art/ASSET_PIPELINE.md#27-минимальный-environment-kit-и-visual-only-fixture-binding), [evidence](evidence/2026-09-22-field001-environment-art.md).
+
+Gameplay review выявил недостаточную плотность FIELD-001: boundary-плетень находился у края 200×200, дополнительный пень не создавался, decor встречался реже одного объекта на экран. По поручению пользователя fixture теперь создаёт 64 внутренних player-only obstacles (16 рядом со стартом), уплотняет visual decor и передаёт obstacle bounds в pickup/Traveler placement. Final Rush regular cap увеличен `24 → 200`; boss/Traveler и прочие GameObjects в него не входят. Проверки: **651/651 Game.* EditMode, 25/25 PlayMode, zero skipped**; 200-enemy spawn/pool benchmark (10 cycles): cold **20.182 ms**, warm max **2.717 ms**. Production IP-23 не объявляется завершённым. [DECISION-0045](../decisions/0045-field-density-and-200-enemy-cap.md), [evidence](evidence/2026-09-22-field001-environment-art.md#density-revision-after-gameplay-review).
+
+Следующий gameplay review ограничил fixture-камень дальностью 5 world units (скорость 10 × lifetime 0.5 s, половина reference screen height) на всех уровнях и оставил внутренний плетень только горизонтальным. Остальные projectiles и obstacle geometry не менялись. Проверки: **652/652 Game.* EditMode, 25/25 PlayMode, zero skipped**, Unity 6000.6.0f1. [DECISION-0046](../decisions/0046-stone-range-and-horizontal-fences.md), [projectile evidence](evidence/2026-09-22-projectile-art.md), [field evidence](evidence/2026-09-22-field001-environment-art.md#density-revision-after-gameplay-review).
+
+### Skill icon art follow-up — 2026-09-22
+
+Пользователь утвердил полный набор из 16 иконок `SKILL-001…016`. Для каждой сохранены immutable candidate/master, prompt/provenance и runtime import; все зарегистрированы как `SpriteRole.Icon`. Тринадцать существующих fixture-навыков временно ссылаются на механически соответствующие production icons, поэтому draft и occupied active slots в HUD/Pause Build показывают их через общий registry. `SKILL-002`, `SKILL-013` и `SKILL-015` импортированы без ложного fixture mapping. Проверки: manifest **41/41**, Unity 6000.6.0f1 **653/653 Game.* EditMode, 25/25 PlayMode, zero skipped**. Изображения approved; текущая UI-читаемость 13 подключённых иконок принята пользователем 2026-09-22. Production definitions/binding и UI review трёх неподключённых иконок остаются в IP-17, его статус и Execution order не изменены. [DECISION-0047](../decisions/0047-skill-icon-fixture-mapping.md), [pipeline](../art/ASSET_PIPELINE.md#28-пакет-ui-иконок-навыков), [evidence](evidence/2026-09-22-skill-icons.md).
+
+### Passive and set icon art follow-up — 2026-09-22
+
+Пользователь утвердил полный представленный набор: 14 иконок `PASSIVE-001…014` и 20 иконок `SET-001…020`. Для каждой сохранены immutable candidate/master, prompt/provenance и runtime import; все 34 зарегистрированы как `SpriteRole.Icon`. Девять fixture-пассивок и четыре fixture-сета с ясным механическим соответствием получили typed icon references и показываются через общий registry в draft/build slots и acquired-set rows. Остальные изображения импортированы без ложного fixture mapping. Проверки: manifest **75/75**, Unity 6000.6.0f1 **655/655 Game.* EditMode, 25/25 PlayMode, zero skipped**. Изображения approved; текущая UI-читаемость девяти подключённых пассивок и четырёх сетов принята пользователем 2026-09-22. Production definitions/binding и UI review неподключённых иконок остаются в IP-18/IP-19, их статус и Execution order не изменены. [DECISION-0048](../decisions/0048-passive-and-set-icon-fixture-mapping.md), [pipeline](../art/ASSET_PIPELINE.md#29-пакеты-ui-иконок-пассивок-и-сетов), [evidence](evidence/2026-09-22-passive-and-set-icons.md).
+
+### Skill world-art follow-up — 2026-09-22
+
+Пользователь утвердил четыре world candidates: одиночный орбитальный клинок `SKILL-003`, бумеранг `SKILL-006`, рикошетный диск `SKILL-008` и взрывную сферу `SKILL-014`. Для каждого сохранены immutable candidate/master, prompt/provenance и 256×256 runtime derivative; corresponding fixture levels наследуют typed `SpriteRole.Projectile` reference. Орбитальные клинки используют pooled visual-only renderers под owner transform; остальные — общий projectile child. Сфера запускает reusable particle-only explosion burst без отдельного raster и без задержки damage. Static checks: raster alpha/padding PASS, manifest **83/83**. После исправления двух неоднозначных `Object` cleanup calls Unity завершил импорт и проверил **658/658 Game.* EditMode, 0 skipped** на Unity 6000.6.0f1; Последующий tooling smoke подтвердил **25/25 PlayMode**, 0 skipped ([evidence](evidence/2026-09-22-workflow-tools.md)). Статусы IP-17 и Execution order не изменены; UI icon slots и gameplay-scale world presentation приняты пользователем 2026-09-22; автоматический smoke подтверждён последующим общим прогоном. [pipeline](../art/ASSET_PIPELINE.md#30-world-art-для-орбитального-клинка-бумеранга-рикошетного-диска-и-взрывной-сферы), [evidence](evidence/2026-09-22-skill-world-art.md).
+
+### Current in-game visual acceptance — 2026-09-22
+
+Пользователь сообщил: «Если что, я посмотрел всё, что в игре, можно считать окей, запрувлено.» Приняты текущий интерфейс и размеры иконок, подключённые skill/passive/set icons, world sprites, взрыв сферы, body/projectile/pickup/shadow и окружение FIELD-001. Визуальная приёмка текущей реализации закрыта; увеличение иконок не требуется. Исходная цитата и границы evidence: [плейтест](../playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят). Manifest/provenance и affected evidence синхронизированы. Production definitions, отсутствующие gameplay-привязки и проверки с неуказанными условиями сохраняют свои gates; автоматический PlayMode smoke нового world-art подтверждён последующим tooling-прогоном: **25/25**, 0 skipped ([evidence](evidence/2026-09-22-workflow-tools.md)). Изменены только документы и approval metadata; runtime/PNG/UI layout и Execution order не менялись.

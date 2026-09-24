@@ -18,6 +18,9 @@ Repository-specific helpers are read-only unless stated; none replaces
   hot paths and tests against the applicable `rules/` and `docs/decisions/`.
 - `/smoke-check` — safe EditMode/PlayMode execution; never batch mode over an
   open interactive Editor.
+- `scripts/art_pipeline.py` prepares explicit approved art packets; `scripts/check_project.py`
+  selects scoped checks and the safe Unity runner. For the numeric-only visual-preview
+  loop and command examples, read `scripts/README.md`; no extra review skill is required.
 - `/regression-map`, `/tech-debt` — maintain `docs/regression-map.md` and
   `docs/tech-debt-register.md` (writes only after confirmation).
 - `/design-review`, `/consistency-check`, `/content-audit`,

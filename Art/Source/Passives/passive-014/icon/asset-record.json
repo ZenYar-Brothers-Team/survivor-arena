@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "PASSIVE-014",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the complete presented set of 14 passive and 20 set icon candidates: «Утверждаю, всё». User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "generationPrompt": "Square 1:1 master for a small passive-item icon in a whimsical fantasy survival game. Stylized 2D storybook cutout, hand-painted but clean, thick deep-plum outer contour, flat matte colors, simple cel shading, bold readable silhouette, low detail, unmistakable at 48 pixels. One centered everyday or magical item fills about 72% of the canvas with generous transparent padding. Genuine transparent background. No frame, no card, no panel, no scene, no ground plane, no baked shadow, no text, no letters, no numbers, no logo, no watermark, no characters or hands, no photorealism, no 3D render, no pixel art. A battered wooden shield braced by a stubborn clenched knot motif.",
+  "constraints": [
+    "transparent background",
+    "no baked frame or text",
+    "centered functional emblem",
+    "readable at 48 px",
+    "deep-plum outline",
+    "master preserved losslessly"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Passives/passive-014-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "2c816ebfdb828fb823405383cd846e5cabdfdb17e7cf80831c60390381465cf5",
+    "runtimeSha256": "2c816ebfdb828fb823405383cd846e5cabdfdb17e7cf80831c60390381465cf5",
+    "operations": [
+      "Copied generated candidate byte-identically into the versioned source folder.",
+      "Promoted the approved candidate byte-identically to selected-master.png.",
+      "Copied the approved master byte-identically to the runtime path; Unity icon import profile downsizes the imported texture to maxSize 256 with center pivot, FullRect mesh, bilinear filtering, clamp wrap, sRGB, no mipmaps, and uncompressed texture format."
+    ],
+    "remainingReview": "Current in-game presentation accepted by user; production definition/binding remains with the owning IP."
+  }
+}

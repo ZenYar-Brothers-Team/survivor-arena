@@ -5,6 +5,9 @@ using System.Text;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
+using Game.ActiveSkill;
+using Game.Content;
+using UnityEngine;
 
 namespace Game.UI
 {
@@ -12,13 +15,15 @@ namespace Game.UI
     {
         private readonly IGameplayUiModel _model;
         private readonly IGameplayUiView _view;
+        private readonly ContentRegistry _registry;
         private bool _started;
         private Guid _banishRevision;
 
-        public GameplayUiPresenter(IGameplayUiModel model, IGameplayUiView view)
+        public GameplayUiPresenter(IGameplayUiModel model, IGameplayUiView view, ContentRegistry registry = null)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
             _view = view ?? throw new ArgumentNullException(nameof(view));
+            _registry = registry;
         }
 
         public void Start()
@@ -106,11 +111,12 @@ namespace Game.UI
             {
                 if (entry.Definition.Kind == BuildEntryKind.Set)
                 {
-                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName, (entry.Definition as SetDefinition)?.Description));
+                    sets.Add(new SetBuildViewState(entry.Definition.DisplayName,
+                        (entry.Definition as SetDefinition)?.Description, ResolveIcon(entry.Definition)));
                     continue;
                 }
                 var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
-                    BuildPassiveDetail(entry));
+                    BuildPassiveDetail(entry), ResolveIcon(entry.Definition));
                 if (entry.Definition.Kind == BuildEntryKind.ActiveSkill)
                     active.Add(slot);
                 else
@@ -262,6 +268,24 @@ namespace Game.UI
                 slots.Add(new BuildSlotViewState("Empty", 0, false));
         }
 
+        private Sprite ResolveIcon(BuildEntryDefinition definition)
+        {
+            if (_registry == null)
+                return null;
+
+            var reference = definition switch
+            {
+                ActiveSkillProgressionDefinition activeSkill => activeSkill.Icon,
+                PassiveProgressionDefinition passive => passive.Icon,
+                SetDefinition set => set.Icon,
+                _ => default
+            };
+            if (!reference.Id.IsValid || !reference.TryResolve(_registry, out var icon)) return null;
+
+            icon.RequireRole(SpriteRole.Icon);
+            return icon.Sprite;
+        }
+
         private DraftViewState BuildDraftState()
         {
             if (!_model.IsDraftOpen || _model.DraftRevision != _banishRevision || _model.RemainingBanishes == 0)
@@ -290,7 +314,8 @@ namespace Game.UI
                         .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
                 if (option.Definition is SetDefinition set) detail.Append("\n").Append(set.Description);
                 options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(),
-                    isSet: option.Definition.Kind == BuildEntryKind.Set, recipes: ProjectRecipes(option));
+                    icon: ResolveIcon(option.Definition), isSet: option.Definition.Kind == BuildEntryKind.Set,
+                    recipes: ProjectRecipes(option));
             }
 
             for (var i = source.Count; i < options.Length; i++)

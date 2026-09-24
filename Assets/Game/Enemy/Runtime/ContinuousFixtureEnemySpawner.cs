@@ -28,6 +28,9 @@ namespace Game.Enemy
         private IReadOnlyDictionary<ContentId, Sprite> _visuals;
         private IReadOnlyDictionary<ContentId, SpriteMotionProfile> _motions;
         private IReadOnlyDictionary<ContentId, SpriteContactProfile> _contacts;
+        private EnemyDeathPresentationProfile _deathPresentation;
+        private GroundShadowPresentationProfile _groundShadowPresentation;
+        private ContentRegistry _contentRegistry;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
@@ -71,7 +74,10 @@ namespace Game.Enemy
         public void Initialize(WaveDirector director, IReadOnlyDictionary<ContentId, Sprite> visuals = null,
             IEnemyLifecycleSink lifecycleSink = null,
             IReadOnlyDictionary<ContentId, SpriteMotionProfile> motions = null,
-            IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null)
+            IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null,
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
@@ -84,6 +90,9 @@ namespace Game.Enemy
             _visuals = visuals;
             _motions = motions;
             _contacts = contacts;
+            _deathPresentation = deathPresentation;
+            _groundShadowPresentation = groundShadowPresentation;
+            _contentRegistry = contentRegistry;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _outcomeOwner = runController != null ? runController.Model : null;
@@ -147,7 +156,10 @@ namespace Game.Enemy
                 _projectilePool,
                 this,
                 motionProfile: motion,
-                contact: contact);
+                contact: contact,
+                deathPresentation: _deathPresentation,
+                groundShadowPresentation: _groundShadowPresentation,
+                contentRegistry: _contentRegistry);
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
@@ -196,6 +208,8 @@ namespace Game.Enemy
             _visuals = null;
             _motions = null;
             _contacts = null;
+            _deathPresentation = null;
+            _contentRegistry = null;
             _outcomeOwner?.UnregisterOutcomeContributor(this);
             _outcomeOwner = null;
             _lifecycleSink = null;

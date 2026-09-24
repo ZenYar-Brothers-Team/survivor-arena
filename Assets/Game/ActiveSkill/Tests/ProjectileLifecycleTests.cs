@@ -2,6 +2,7 @@ using System;
 using Game.Combat;
 using Game.Enemy;
 using Game.Pooling;
+using Game.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -9,6 +10,94 @@ namespace Game.ActiveSkill.Tests
 {
     public sealed class ProjectileLifecycleTests
     {
+        [Test]
+        public void CustomVisual_SpinsChildOnlyAndImpactTailPausesBeforePoolReturn()
+        {
+            using var context = new SkillFrameworkTestContext();
+            var target = context.Enemy(Vector2.right);
+            var root = new GameObject("Projectile presentation pool");
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var profile = new ProjectilePresentationProfile(1.5f, 140f, .16f, .2f,
+                    Color.white, 3, .05f, .4f, Color.gray);
+                var visual = new SpriteDefinition("FIXTURE-PROJECTILE-VISUAL", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var pool = new GameObjectPool<FixtureProjectileRuntime>(FixtureProjectileFactory.Create, root.transform);
+                var shot = new ActiveSkillProjectile(Vector2.zero, Vector2.right, 2f, 2f, .15f, 0f,
+                    new EnemyDamageRequest("FIXTURE-VISUAL", 1f), visual: visual);
+                var projectile = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+                var visualRoot = projectile.transform.Find("ProjectileVisual");
+                projectile.Simulate(.5f);
+                Assert.AreEqual(70f, visualRoot.localEulerAngles.z, .01f);
+                Assert.AreEqual(0f, projectile.transform.eulerAngles.z, .001f);
+                Assert.AreEqual(.15f, projectile.GetComponent<CircleCollider2D>().radius, .0001f);
+
+                Assert.IsTrue(projectile.TryImpact(target, target.Position));
+                Assert.IsTrue(projectile.IsDespawned);
+                Assert.IsFalse(projectile.GetComponent<CircleCollider2D>().enabled);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Pause();
+                projectile.Simulate(1f);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Resume();
+                projectile.Simulate(.16f);
+                Assert.AreEqual(1, pool.InactiveCount);
+
+                var terminal = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+                Assert.IsTrue(terminal.TryImpact(target, target.Position));
+                context.Run.Model.Kill();
+                terminal.Despawn();
+                Assert.AreEqual(1, pool.InactiveCount, "Terminal cleanup must not wait for the visual tail.");
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(sprite);
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
+        [Test]
+        public void ExplosionPresentation_ExpiryUsesReusableBurstAndWaitsForPauseAwareTail()
+        {
+            using var context = new SkillFrameworkTestContext();
+            var root = new GameObject("Explosion presentation pool");
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1),
+                new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var explosion = new ExplosionPresentationProfile(.2f, 1.1f, Color.yellow,
+                    6, .1f, 1f, new Color(1f, .3f, .05f, 1f));
+                var profile = new ProjectilePresentationProfile(1f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray, explosion);
+                var visual = new SpriteDefinition("FIXTURE-EXPLOSIVE-SPHERE-VISUAL", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var pool = new GameObjectPool<FixtureProjectileRuntime>(FixtureProjectileFactory.Create,
+                    root.transform);
+                var shot = new ActiveSkillProjectile(Vector2.zero, Vector2.right, 1f, .5f, .1f, .5f,
+                    new EnemyDamageRequest("FIXTURE-EXPLOSIVE-SPHERE", 1f), visual: visual,
+                    behavior: new ProjectileBehavior(explosionDamageMultiplier: 2f, explodeOnExpiry: true));
+                var projectile = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+
+                projectile.Simulate(.5f);
+                Assert.IsTrue(projectile.IsDespawned);
+                Assert.IsFalse(projectile.GetComponent<CircleCollider2D>().enabled);
+                Assert.IsTrue(projectile.GetComponent<ExplosionBurstRuntime>().IsPlaying);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Pause();
+                projectile.Simulate(1f);
+                Assert.AreEqual(0, pool.InactiveCount);
+                context.Run.Model.Resume();
+                projectile.Simulate(.2f);
+                Assert.AreEqual(1, pool.InactiveCount);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(sprite);
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void ExplosionCallback_CannotDespawnReinitializedProjectile(bool expiry)

@@ -8,6 +8,54 @@
     "reason": "256px enemy derivative; 160 PPU preserves a 1.6-unit canvas relative to the 512px/320PPU player. Pivot follows the center between boots and ground contact after padding normalization; VisualRoot cancels collision scale."
   },
   {
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "256px courier derivative; 160 PPU preserves the shared 1.6-unit body canvas. Pivot is centered between the boots at ground contact; VisualRoot cancels fixture collision scale."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png",
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 mirrored-edge 512px tile covers 8 world units per repeat, limiting tiled-renderer geometry while retaining readable ground texture."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-fence-prop.png",
+    "pixelsPerUnit": 128,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 512x256 fence segment is authored as a four-by-two world-unit tiled boundary prop."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-stump-prop.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 obstacle prop uses the shared 1.6-unit world canvas and a visual-only scale over the existing collider."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-bush-prop.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 decorative bush uses a 1.6-unit canvas before seeded presentation scale variation."
+  },
+  {
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-grass-prop.png",
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 decorative grass uses a 1.6-unit canvas before seeded presentation scale variation."
+  },
+  {
     "key": "portrait",
     "pixelsPerUnit": 320,
     "maxSize": 512,

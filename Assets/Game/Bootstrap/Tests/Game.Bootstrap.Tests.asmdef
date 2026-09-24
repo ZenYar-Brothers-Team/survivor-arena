@@ -15,7 +15,8 @@
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
     "Game.Telemetry",
-    "Game.Meta"
+    "Game.Meta",
+    "Game.Content.Json"
   ],
   "includePlatforms": [
     "Editor"

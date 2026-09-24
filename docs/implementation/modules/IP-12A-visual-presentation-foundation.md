@@ -56,6 +56,8 @@ G-17 concept mapping подтверждён пользователем в DECISI
 
 Scoped follow-up: [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) разрешает conservative circle authoring для текущих goblin/villager. IP-02 применяет player circle, IP-04 — enemy circle; presentation смещает body относительно центра, не анимирует collider. Evidence и пользовательский повторный review: [contact circles](../evidence/2026-09-22-body-contact-circles.md).
 
+Shared enemy death follow-up: [DECISION-0040](../../decisions/0040-shared-enemy-death-presentation.md) задаёт один config-driven visual tail для обычных врагов, боссов и Travelers. Presentation клонирует активный renderer, делает squash/shrink/fade/dust без death push, уважает pause и полностью очищается при pool reuse. [Evidence](../evidence/2026-09-22-shared-enemy-death.md).
+
 Category/import overrides, role validation, crop ownership и generic adapter API описаны в [ASSET_PIPELINE §21](../../art/ASSET_PIPELINE.md#21-category-profiles-и-reusable-adapters-ip-12a), [DECISION-0030](../../decisions/0030-generic-presentation-adapters.md) и [asset manifest](../../../Art/asset-manifest.json). Existing player animator не заменяется. Fixture kit и Editor diagnostic не подменяют production binding и manual dense-gameplay review. Gameplay consumers передают motion/signals через IPresentationSource; визуальный fade не задерживает их authoritative teardown. IP-26 потребляет preference/request boundary для screen shake, сохраняя ownership Settings/camera.
 
 ## Settings consumer policy
@@ -65,3 +67,11 @@ IP-26 владеет persistent preference и bounded camera offset consumer. IP
 предоставляет прежний IScreenShakePreference/ScreenShakeRequestGate; actual-damage
 trigger, pause/off/terminal reset и независимость gameplay camera queries проверяет
 IP-26. Gameplay density review этого модуля остаётся отдельным acceptance.
+
+
+## Потребитель — стартовый FIELD-001
+
+Существующие presentation adapters и approved asset evidence переиспользуются пакетами первой карты. Оставшийся gameplay density review проверяется на production FIELD-001 в F1-09, без повторного approval неизменённых изображений.
+
+Scope — [field-001-start-R1](../milestones/FIELD-001-start.md);
+порядок, packet readiness и evidence — только [STATUS](../STATUS.md#field001-execution).

@@ -2,6 +2,7 @@ using System;
 using Game.Pooling;
 using Game.Run;
 using Game.Presentation;
+using Game.Content;
 using UnityEngine;
 
 namespace Game.Enemy
@@ -20,7 +21,10 @@ namespace Game.Enemy
             IEnemyLifecycleSink lifecycleSink = null,
             EnemyCategory category = EnemyCategory.Ordinary,
             SpriteMotionProfile motionProfile = null,
-            SpriteContactProfile contact = null)
+            SpriteContactProfile contact = null,
+            EnemyDeathPresentationProfile deathPresentation = null,
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -42,7 +46,10 @@ namespace Game.Enemy
                 projectilePool,
                 category,
                 motionProfile,
-                contact);
+                contact,
+                deathPresentation,
+                groundShadowPresentation,
+                contentRegistry);
             return runtime;
         }
 

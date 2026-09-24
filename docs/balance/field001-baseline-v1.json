@@ -1,0 +1,3619 @@
+{
+  "format": "field001-review-data",
+  "formatVersion": 1,
+  "revision": "field001-baseline-v1",
+  "approval": "Approved",
+  "runtimeImportable": false,
+  "units": {
+    "distance": "world units",
+    "time": "running seconds",
+    "damageHealthExperience": "absolute units",
+    "bonuses": "fractions; 0.2 = +20%",
+    "angularSpeed": "degrees/second"
+  },
+  "initialRoster": {
+    "actives": [
+      "SKILL-001",
+      "SKILL-002",
+      "SKILL-003",
+      "SKILL-004",
+      "SKILL-005",
+      "SKILL-006",
+      "SKILL-007",
+      "SKILL-010",
+      "SKILL-013",
+      "SKILL-014"
+    ],
+    "passives": [
+      "PASSIVE-001",
+      "PASSIVE-002",
+      "PASSIVE-003",
+      "PASSIVE-004",
+      "PASSIVE-005",
+      "PASSIVE-007",
+      "PASSIVE-008",
+      "PASSIVE-009",
+      "PASSIVE-011",
+      "PASSIVE-012"
+    ],
+    "sets": [
+      "SET-001",
+      "SET-004",
+      "SET-006",
+      "SET-010",
+      "SET-017"
+    ],
+    "enemies": [
+      "ENEMY-001",
+      "ENEMY-002",
+      "ENEMY-003",
+      "ENEMY-004",
+      "ENEMY-005",
+      "ENEMY-007"
+    ],
+    "travelers": [
+      "TRAVELER-001",
+      "TRAVELER-002",
+      "TRAVELER-005"
+    ],
+    "character": "CHAR-001",
+    "field": "FIELD-001"
+  },
+  "character": {
+    "id": "CHAR-001",
+    "startingSkill": "SKILL-001",
+    "startingSkillLevel": 1,
+    "stats": {
+      "maxHealth": 100,
+      "movementSpeed": 3,
+      "activeSkillDamageMultiplier": 1,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "skillDraftWeights": {
+      "SKILL-001": 1,
+      "SKILL-002": 1.35,
+      "SKILL-003": 1,
+      "SKILL-004": 1,
+      "SKILL-005": 1.35,
+      "SKILL-006": 1,
+      "SKILL-007": 1.35,
+      "SKILL-008": 1,
+      "SKILL-009": 0.7,
+      "SKILL-010": 1,
+      "SKILL-011": 1,
+      "SKILL-012": 1,
+      "SKILL-013": 1,
+      "SKILL-014": 0.7,
+      "SKILL-015": 1,
+      "SKILL-016": 1
+    },
+    "passiveDraftWeights": {
+      "PASSIVE-001": 1,
+      "PASSIVE-002": 1,
+      "PASSIVE-003": 1,
+      "PASSIVE-004": 1,
+      "PASSIVE-005": 1,
+      "PASSIVE-006": 1,
+      "PASSIVE-007": 1,
+      "PASSIVE-008": 1,
+      "PASSIVE-009": 1,
+      "PASSIVE-010": 1,
+      "PASSIVE-011": 1,
+      "PASSIVE-012": 1,
+      "PASSIVE-013": 1,
+      "PASSIVE-014": 1
+    },
+    "permanentUpgradesForBaseline": 0,
+    "highlights": [
+      "Начинает с Броска камня",
+      "Чаще находит иглы, копьё и молнию",
+      "Без начальных бонусов к характеристикам"
+    ]
+  },
+  "draft": {
+    "offerCount": 3,
+    "setDraftChance": 0.5,
+    "initialRerolls": 3,
+    "initialBanishes": 2,
+    "emptyBookCurrency": 50,
+    "activeSlots": 6,
+    "passiveSlots": 6
+  },
+  "experience": {
+    "startingLevel": 1,
+    "levelThresholds": [
+      4,
+      5,
+      7,
+      8,
+      10,
+      11,
+      13,
+      14,
+      16,
+      17,
+      19,
+      20,
+      22,
+      23,
+      25,
+      26,
+      28,
+      29,
+      31,
+      32,
+      34,
+      35,
+      37,
+      38,
+      40,
+      41,
+      43,
+      44,
+      46,
+      47,
+      49,
+      50,
+      52,
+      53,
+      55,
+      56,
+      58,
+      59,
+      61,
+      62,
+      64,
+      65,
+      67,
+      68,
+      70,
+      71,
+      73,
+      74,
+      76,
+      77,
+      79,
+      80,
+      82,
+      83,
+      85,
+      86,
+      88,
+      89,
+      91,
+      92
+    ],
+    "thresholdAfterArray": "repeat-last",
+    "baseDropLifetimeSeconds": 60,
+    "basePickupRadius": 0.5
+  },
+  "controls": {
+    "nonzeroKnockbackSeconds": 0.12,
+    "neutralSlowFraction": 0,
+    "neutralSlowSeconds": 0
+  },
+  "skills": [
+    {
+      "id": "SKILL-001",
+      "name": "Бросок камня",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "NearestEnemy",
+        "targetingRadius": 5,
+        "cooldownSeconds": 1.2,
+        "ricochetRange": 3,
+        "repeatRicochetTargets": false,
+        "distinctNearestTargets": true,
+        "range": 5,
+        "hitTargetsBeforeRicochet": 1,
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 20,
+          "count": 1,
+          "speed": 10,
+          "collisionRadius": 0.16,
+          "knockback": 0.35,
+          "actionSpeedBonus": 0,
+          "ricochetCount": 0,
+          "ricochetRetention": 1,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 2,
+          "damage": 26,
+          "count": 1,
+          "speed": 10,
+          "collisionRadius": 0.16,
+          "knockback": 0.42,
+          "actionSpeedBonus": 0,
+          "ricochetCount": 0,
+          "ricochetRetention": 1,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 3,
+          "damage": 26,
+          "count": 2,
+          "speed": 11.5,
+          "collisionRadius": 0.16,
+          "knockback": 0.42,
+          "actionSpeedBonus": 0,
+          "ricochetCount": 0,
+          "ricochetRetention": 1,
+          "lifetimeSeconds": 0.43478260869565216
+        },
+        {
+          "level": 4,
+          "damage": 26,
+          "count": 2,
+          "speed": 11.5,
+          "collisionRadius": 0.16,
+          "knockback": 0.42,
+          "actionSpeedBonus": 0,
+          "ricochetCount": 1,
+          "ricochetRetention": 0.8,
+          "lifetimeSeconds": 0.43478260869565216
+        },
+        {
+          "level": 5,
+          "damage": 26,
+          "count": 2,
+          "speed": 11.5,
+          "collisionRadius": 0.16,
+          "knockback": 0.49,
+          "actionSpeedBonus": 0.33,
+          "ricochetCount": 1,
+          "ricochetRetention": 0.8,
+          "lifetimeSeconds": 0.43478260869565216
+        },
+        {
+          "level": 6,
+          "damage": 31,
+          "count": 3,
+          "speed": 11.5,
+          "collisionRadius": 0.192,
+          "knockback": 0.49,
+          "actionSpeedBonus": 0.33,
+          "ricochetCount": 1,
+          "ricochetRetention": 0.8,
+          "lifetimeSeconds": 0.43478260869565216
+        }
+      ]
+    },
+    {
+      "id": "SKILL-002",
+      "name": "Веер игл",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "NearestEnemy",
+        "targetingRadius": 6,
+        "cooldownSeconds": 1.8,
+        "layout": "Fan",
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 9,
+          "count": 5,
+          "spreadDegrees": 60,
+          "range": 4,
+          "speed": 9,
+          "collisionRadius": 0.07,
+          "knockback": 0.08,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "lifetimeSeconds": 0.4444444444444444
+        },
+        {
+          "level": 2,
+          "damage": 9,
+          "count": 7,
+          "spreadDegrees": 60,
+          "range": 4.6,
+          "speed": 9,
+          "collisionRadius": 0.07,
+          "knockback": 0.08,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "lifetimeSeconds": 0.5111111111111111
+        },
+        {
+          "level": 3,
+          "damage": 11.25,
+          "count": 7,
+          "spreadDegrees": 60,
+          "range": 4.6,
+          "speed": 10.8,
+          "collisionRadius": 0.07,
+          "knockback": 0.08,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "lifetimeSeconds": 0.4259259259259259
+        },
+        {
+          "level": 4,
+          "damage": 11.25,
+          "count": 9,
+          "spreadDegrees": 90,
+          "range": 4.6,
+          "speed": 10.8,
+          "collisionRadius": 0.0805,
+          "knockback": 0.08,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "lifetimeSeconds": 0.4259259259259259
+        },
+        {
+          "level": 5,
+          "damage": 11.25,
+          "count": 9,
+          "spreadDegrees": 90,
+          "range": 4.6,
+          "speed": 10.8,
+          "collisionRadius": 0.0805,
+          "knockback": 0.1,
+          "actionSpeedBonus": 0.33,
+          "maxHitTargets": 1,
+          "lifetimeSeconds": 0.4259259259259259
+        },
+        {
+          "level": 6,
+          "damage": 11.25,
+          "count": 11,
+          "spreadDegrees": 90,
+          "range": 5.4,
+          "speed": 10.8,
+          "collisionRadius": 0.0805,
+          "knockback": 0.1,
+          "actionSpeedBonus": 0.33,
+          "maxHitTargets": 2,
+          "lifetimeSeconds": 0.5
+        }
+      ]
+    },
+    {
+      "id": "SKILL-003",
+      "name": "Орбитальные клинки",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "Self",
+        "targetingRadius": 0,
+        "persistent": true,
+        "activationCooldownSeconds": null,
+        "durationSeconds": null,
+        "actionSpeedAffectsOrbit": false,
+        "perBladeTargetHitCooldownSeconds": 0.6
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 14,
+          "count": 2,
+          "orbitRadius": 1.8,
+          "bladeHitboxRadius": 0.32,
+          "angularSpeedDegrees": 120,
+          "knockback": 0.18
+        },
+        {
+          "level": 2,
+          "damage": 17.5,
+          "count": 2,
+          "orbitRadius": 1.8,
+          "bladeHitboxRadius": 0.368,
+          "angularSpeedDegrees": 120,
+          "knockback": 0.18
+        },
+        {
+          "level": 3,
+          "damage": 17.5,
+          "count": 3,
+          "orbitRadius": 1.8,
+          "bladeHitboxRadius": 0.368,
+          "angularSpeedDegrees": 138,
+          "knockback": 0.18
+        },
+        {
+          "level": 4,
+          "damage": 17.5,
+          "count": 3,
+          "orbitRadius": 2.25,
+          "bladeHitboxRadius": 0.448,
+          "angularSpeedDegrees": 138,
+          "knockback": 0.18
+        },
+        {
+          "level": 5,
+          "damage": 17.5,
+          "count": 3,
+          "orbitRadius": 2.25,
+          "bladeHitboxRadius": 0.448,
+          "angularSpeedDegrees": 180,
+          "knockback": 0.252
+        },
+        {
+          "level": 6,
+          "damage": 20.3,
+          "count": 4,
+          "orbitRadius": 2.25,
+          "bladeHitboxRadius": 0.496,
+          "angularSpeedDegrees": 180,
+          "knockback": 0.252
+        }
+      ]
+    },
+    {
+      "id": "SKILL-004",
+      "name": "Импульсная волна",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "Self",
+        "targetingRadius": 0,
+        "cooldownSeconds": 4,
+        "waveExpansionSeconds": 0.25,
+        "hitOncePerWave": true
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 8,
+          "radius": 2.5,
+          "knockback": 1.6,
+          "actionSpeedBonus": 0,
+          "waveCount": 1,
+          "secondDelaySeconds": 0,
+          "secondRadiusMultiplier": 0,
+          "secondDamageMultiplier": 0,
+          "secondKnockbackMultiplier": 0
+        },
+        {
+          "level": 2,
+          "damage": 8,
+          "radius": 3.125,
+          "knockback": 1.84,
+          "actionSpeedBonus": 0,
+          "waveCount": 1,
+          "secondDelaySeconds": 0,
+          "secondRadiusMultiplier": 0,
+          "secondDamageMultiplier": 0,
+          "secondKnockbackMultiplier": 0
+        },
+        {
+          "level": 3,
+          "damage": 10,
+          "radius": 3.125,
+          "knockback": 2.4,
+          "actionSpeedBonus": 0,
+          "waveCount": 1,
+          "secondDelaySeconds": 0,
+          "secondRadiusMultiplier": 0,
+          "secondDamageMultiplier": 0,
+          "secondKnockbackMultiplier": 0
+        },
+        {
+          "level": 4,
+          "damage": 10,
+          "radius": 3.125,
+          "knockback": 2.4,
+          "actionSpeedBonus": 0,
+          "waveCount": 2,
+          "secondDelaySeconds": 0.35,
+          "secondRadiusMultiplier": 0.7,
+          "secondDamageMultiplier": 0.5,
+          "secondKnockbackMultiplier": 0.6
+        },
+        {
+          "level": 5,
+          "damage": 10,
+          "radius": 3.5,
+          "knockback": 2.4,
+          "actionSpeedBonus": 0.33,
+          "waveCount": 2,
+          "secondDelaySeconds": 0.35,
+          "secondRadiusMultiplier": 0.7,
+          "secondDamageMultiplier": 0.5,
+          "secondKnockbackMultiplier": 0.6
+        },
+        {
+          "level": 6,
+          "damage": 10,
+          "radius": 3.5,
+          "knockback": 2.72,
+          "actionSpeedBonus": 0.33,
+          "waveCount": 2,
+          "secondDelaySeconds": 0.35,
+          "secondRadiusMultiplier": 1,
+          "secondDamageMultiplier": 0.5,
+          "secondKnockbackMultiplier": 1
+        }
+      ]
+    },
+    {
+      "id": "SKILL-005",
+      "name": "Ветряное копьё",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "MovementDirection",
+        "targetingRadius": 0,
+        "initialDirectionDegrees": 0,
+        "cooldownSeconds": 2.4
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 34,
+          "maxHitTargets": 3,
+          "range": 6,
+          "speed": 12,
+          "collisionRadius": 0.12,
+          "knockback": 0.45,
+          "actionSpeedBonus": 0,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 2,
+          "damage": 42.5,
+          "maxHitTargets": 3,
+          "range": 6,
+          "speed": 12,
+          "collisionRadius": 0.12,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 3,
+          "damage": 42.5,
+          "maxHitTargets": 5,
+          "range": 7.2,
+          "speed": 12,
+          "collisionRadius": 0.12,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0,
+          "lifetimeSeconds": 0.6
+        },
+        {
+          "level": 4,
+          "damage": 42.5,
+          "maxHitTargets": 5,
+          "range": 7.2,
+          "speed": 12,
+          "collisionRadius": 0.162,
+          "knockback": 0.6525,
+          "actionSpeedBonus": 0,
+          "lifetimeSeconds": 0.6
+        },
+        {
+          "level": 5,
+          "damage": 42.5,
+          "maxHitTargets": 5,
+          "range": 7.2,
+          "speed": 14.4,
+          "collisionRadius": 0.162,
+          "knockback": 0.6525,
+          "actionSpeedBonus": 0.25,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 6,
+          "damage": 51,
+          "maxHitTargets": null,
+          "range": 7.2,
+          "speed": 14.4,
+          "collisionRadius": 0.186,
+          "knockback": 0.6525,
+          "actionSpeedBonus": 0.25,
+          "lifetimeSeconds": 0.5
+        }
+      ]
+    },
+    {
+      "id": "SKILL-006",
+      "name": "Бумеранг",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "NearestEnemy",
+        "targetingRadius": 6,
+        "cooldownSeconds": 2.8,
+        "hitCooldownSeconds": 1,
+        "hitCooldownScope": "skill-and-target",
+        "lifetimeSeconds": 4,
+        "knockbackDirection": "player-to-target",
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 22,
+          "count": 1,
+          "spreadDegrees": 0,
+          "range": 4,
+          "speed": 6,
+          "collisionRadius": 0.22,
+          "knockback": 0.3,
+          "actionSpeedBonus": 0,
+          "returnDamageMultiplier": 1,
+          "returnKnockbackMultiplier": 1
+        },
+        {
+          "level": 2,
+          "damage": 27.5,
+          "count": 1,
+          "spreadDegrees": 0,
+          "range": 4,
+          "speed": 6,
+          "collisionRadius": 0.22,
+          "knockback": 0.36,
+          "actionSpeedBonus": 0,
+          "returnDamageMultiplier": 1,
+          "returnKnockbackMultiplier": 1
+        },
+        {
+          "level": 3,
+          "damage": 27.5,
+          "count": 1,
+          "spreadDegrees": 0,
+          "range": 5.2,
+          "speed": 6,
+          "collisionRadius": 0.264,
+          "knockback": 0.36,
+          "actionSpeedBonus": 0,
+          "returnDamageMultiplier": 1,
+          "returnKnockbackMultiplier": 1
+        },
+        {
+          "level": 4,
+          "damage": 27.5,
+          "count": 2,
+          "spreadDegrees": 20,
+          "range": 5.2,
+          "speed": 6.9,
+          "collisionRadius": 0.264,
+          "knockback": 0.36,
+          "actionSpeedBonus": 0,
+          "returnDamageMultiplier": 1,
+          "returnKnockbackMultiplier": 1
+        },
+        {
+          "level": 5,
+          "damage": 27.5,
+          "count": 2,
+          "spreadDegrees": 20,
+          "range": 5.2,
+          "speed": 6.9,
+          "collisionRadius": 0.264,
+          "knockback": 0.435,
+          "actionSpeedBonus": 0.25,
+          "returnDamageMultiplier": 1,
+          "returnKnockbackMultiplier": 1
+        },
+        {
+          "level": 6,
+          "damage": 27.5,
+          "count": 2,
+          "spreadDegrees": 20,
+          "range": 5.2,
+          "speed": 6.9,
+          "collisionRadius": 0.264,
+          "knockback": 0.435,
+          "actionSpeedBonus": 0.25,
+          "returnDamageMultiplier": 1.75,
+          "returnKnockbackMultiplier": 1.5
+        }
+      ]
+    },
+    {
+      "id": "SKILL-007",
+      "name": "Цепная молния",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "NearestEnemy",
+        "targetingRadius": 6,
+        "cooldownSeconds": 2.2,
+        "knockback": 0,
+        "repeatTargets": false,
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 24,
+          "targetCount": 3,
+          "jumpRange": 2.5,
+          "damageRetentionPerJump": 0.85,
+          "actionSpeedBonus": 0
+        },
+        {
+          "level": 2,
+          "damage": 24,
+          "targetCount": 4,
+          "jumpRange": 2.875,
+          "damageRetentionPerJump": 0.85,
+          "actionSpeedBonus": 0
+        },
+        {
+          "level": 3,
+          "damage": 30,
+          "targetCount": 4,
+          "jumpRange": 2.875,
+          "damageRetentionPerJump": 0.88,
+          "actionSpeedBonus": 0
+        },
+        {
+          "level": 4,
+          "damage": 30,
+          "targetCount": 6,
+          "jumpRange": 3.375,
+          "damageRetentionPerJump": 0.88,
+          "actionSpeedBonus": 0
+        },
+        {
+          "level": 5,
+          "damage": 30,
+          "targetCount": 6,
+          "jumpRange": 3.375,
+          "damageRetentionPerJump": 0.9,
+          "actionSpeedBonus": 0.33
+        },
+        {
+          "level": 6,
+          "damage": 33.6,
+          "targetCount": 8,
+          "jumpRange": 3.375,
+          "damageRetentionPerJump": 0.95,
+          "actionSpeedBonus": 0.33
+        }
+      ]
+    },
+    {
+      "id": "SKILL-010",
+      "name": "Небесный удар",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "RandomEnemy",
+        "targetingRadius": 8,
+        "cooldownSeconds": 4.5,
+        "strikeSpacingSeconds": 0.3,
+        "distinctTargetsWithinActivation": true,
+        "missingDistinctTarget": "skip-extra-strike",
+        "targetSnapshot": "at-each-telegraph-start",
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 55,
+          "radius": 1.6,
+          "knockback": 0.45,
+          "actionSpeedBonus": 0,
+          "strikeCount": 1,
+          "telegraphSeconds": 0.6,
+          "thirdRadiusMultiplier": 1,
+          "thirdKnockbackMultiplier": 1
+        },
+        {
+          "level": 2,
+          "damage": 55,
+          "radius": 2,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0,
+          "strikeCount": 1,
+          "telegraphSeconds": 0.6,
+          "thirdRadiusMultiplier": 1,
+          "thirdKnockbackMultiplier": 1
+        },
+        {
+          "level": 3,
+          "damage": 71.5,
+          "radius": 2.24,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0,
+          "strikeCount": 1,
+          "telegraphSeconds": 0.6,
+          "thirdRadiusMultiplier": 1,
+          "thirdKnockbackMultiplier": 1
+        },
+        {
+          "level": 4,
+          "damage": 71.5,
+          "radius": 2.24,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0,
+          "strikeCount": 2,
+          "telegraphSeconds": 0.6,
+          "thirdRadiusMultiplier": 1,
+          "thirdKnockbackMultiplier": 1
+        },
+        {
+          "level": 5,
+          "damage": 71.5,
+          "radius": 2.24,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0.33,
+          "strikeCount": 2,
+          "telegraphSeconds": 0.45,
+          "thirdRadiusMultiplier": 1,
+          "thirdKnockbackMultiplier": 1
+        },
+        {
+          "level": 6,
+          "damage": 71.5,
+          "radius": 2.24,
+          "knockback": 0.54,
+          "actionSpeedBonus": 0.33,
+          "strikeCount": 3,
+          "telegraphSeconds": 0.45,
+          "thirdRadiusMultiplier": 1.5,
+          "thirdKnockbackMultiplier": 1.5
+        }
+      ]
+    },
+    {
+      "id": "SKILL-013",
+      "name": "Ледяные осколки",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "NearestEnemy",
+        "targetingRadius": 6,
+        "cooldownSeconds": 2.5,
+        "layout": "Fan",
+        "speed": 8,
+        "noTargetPolicy": "remain-ready"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "damage": 8,
+          "count": 7,
+          "spreadDegrees": 70,
+          "range": 4,
+          "collisionRadius": 0.1,
+          "knockback": 0.18,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "slowFraction": 0.2,
+          "slowSeconds": 1.5,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 2,
+          "damage": 8,
+          "count": 9,
+          "spreadDegrees": 70,
+          "range": 4,
+          "collisionRadius": 0.115,
+          "knockback": 0.18,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "slowFraction": 0.2,
+          "slowSeconds": 1.5,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 3,
+          "damage": 9.6,
+          "count": 9,
+          "spreadDegrees": 70,
+          "range": 4,
+          "collisionRadius": 0.115,
+          "knockback": 0.18,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1,
+          "slowFraction": 0.25,
+          "slowSeconds": 1.5,
+          "lifetimeSeconds": 0.5
+        },
+        {
+          "level": 4,
+          "damage": 9.6,
+          "count": 9,
+          "spreadDegrees": 85,
+          "range": 4.8,
+          "collisionRadius": 0.115,
+          "knockback": 0.18,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 2,
+          "slowFraction": 0.25,
+          "slowSeconds": 1.5,
+          "lifetimeSeconds": 0.6
+        },
+        {
+          "level": 5,
+          "damage": 9.6,
+          "count": 9,
+          "spreadDegrees": 85,
+          "range": 4.8,
+          "collisionRadius": 0.115,
+          "knockback": 0.216,
+          "actionSpeedBonus": 0.25,
+          "maxHitTargets": 2,
+          "slowFraction": 0.25,
+          "slowSeconds": 2,
+          "lifetimeSeconds": 0.6
+        },
+        {
+          "level": 6,
+          "damage": 9.6,
+          "count": 13,
+          "spreadDegrees": 100,
+          "range": 4.8,
+          "collisionRadius": 0.135,
+          "knockback": 0.216,
+          "actionSpeedBonus": 0.25,
+          "maxHitTargets": 2,
+          "slowFraction": 0.3,
+          "slowSeconds": 2,
+          "lifetimeSeconds": 0.6
+        }
+      ]
+    },
+    {
+      "id": "SKILL-014",
+      "name": "Взрывные сферы",
+      "source": "docs/Content_design.md",
+      "shared": {
+        "targeting": "FixedAxes",
+        "targetingRadius": 0,
+        "layout": "IndependentRandom",
+        "cooldownSeconds": 3.2,
+        "speed": 3,
+        "range": 5.4,
+        "lifetimeSeconds": 1.8,
+        "explodeOnExpiry": true
+      },
+      "levels": [
+        {
+          "level": 1,
+          "impactDamage": 18,
+          "explosionDamage": 32,
+          "count": 1,
+          "collisionRadius": 0.22,
+          "explosionRadius": 1.3,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 0.75,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1
+        },
+        {
+          "level": 2,
+          "impactDamage": 18,
+          "explosionDamage": 32,
+          "count": 1,
+          "collisionRadius": 0.22,
+          "explosionRadius": 1.69,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 0.9,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1
+        },
+        {
+          "level": 3,
+          "impactDamage": 21.6,
+          "explosionDamage": 41.6,
+          "count": 1,
+          "collisionRadius": 0.22,
+          "explosionRadius": 1.69,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 0.9,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1
+        },
+        {
+          "level": 4,
+          "impactDamage": 21.6,
+          "explosionDamage": 41.6,
+          "count": 2,
+          "collisionRadius": 0.253,
+          "explosionRadius": 1.69,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 0.9,
+          "actionSpeedBonus": 0,
+          "maxHitTargets": 1
+        },
+        {
+          "level": 5,
+          "impactDamage": 21.6,
+          "explosionDamage": 41.6,
+          "count": 2,
+          "collisionRadius": 0.253,
+          "explosionRadius": 1.69,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 1.05,
+          "actionSpeedBonus": 0.25,
+          "maxHitTargets": 1
+        },
+        {
+          "level": 6,
+          "impactDamage": 21.6,
+          "explosionDamage": 41.6,
+          "count": 2,
+          "collisionRadius": 0.253,
+          "explosionRadius": 1.885,
+          "impactKnockback": 0.25,
+          "explosionKnockback": 1.05,
+          "actionSpeedBonus": 0.25,
+          "maxHitTargets": 2
+        }
+      ]
+    }
+  ],
+  "passives": [
+    {
+      "id": "PASSIVE-001",
+      "levels": [
+        {
+          "level": 1,
+          "maxHealthBonus": 0.08
+        },
+        {
+          "level": 2,
+          "maxHealthBonus": 0.16
+        },
+        {
+          "level": 3,
+          "maxHealthBonus": 0.24
+        },
+        {
+          "level": 4,
+          "maxHealthBonus": 0.32
+        },
+        {
+          "level": 5,
+          "maxHealthBonus": 0.4
+        },
+        {
+          "level": 6,
+          "maxHealthBonus": 0.5
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-002",
+      "levels": [
+        {
+          "level": 1,
+          "regenerationHpPerSecond": 0.2,
+          "potionDropChanceBonus": 0.1
+        },
+        {
+          "level": 2,
+          "regenerationHpPerSecond": 0.4,
+          "potionDropChanceBonus": 0.2
+        },
+        {
+          "level": 3,
+          "regenerationHpPerSecond": 0.7,
+          "potionDropChanceBonus": 0.3
+        },
+        {
+          "level": 4,
+          "regenerationHpPerSecond": 1,
+          "potionDropChanceBonus": 0.4
+        },
+        {
+          "level": 5,
+          "regenerationHpPerSecond": 1.4,
+          "potionDropChanceBonus": 0.5
+        },
+        {
+          "level": 6,
+          "regenerationHpPerSecond": 2,
+          "potionDropChanceBonus": 0.6
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-003",
+      "levels": [
+        {
+          "level": 1,
+          "movementSpeedBonus": 0.05
+        },
+        {
+          "level": 2,
+          "movementSpeedBonus": 0.1
+        },
+        {
+          "level": 3,
+          "movementSpeedBonus": 0.15
+        },
+        {
+          "level": 4,
+          "movementSpeedBonus": 0.2
+        },
+        {
+          "level": 5,
+          "movementSpeedBonus": 0.25
+        },
+        {
+          "level": 6,
+          "movementSpeedBonus": 0.3
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-004",
+      "levels": [
+        {
+          "level": 1,
+          "activeDamageBonus": 0.08
+        },
+        {
+          "level": 2,
+          "activeDamageBonus": 0.16
+        },
+        {
+          "level": 3,
+          "activeDamageBonus": 0.24
+        },
+        {
+          "level": 4,
+          "activeDamageBonus": 0.32
+        },
+        {
+          "level": 5,
+          "activeDamageBonus": 0.4
+        },
+        {
+          "level": 6,
+          "activeDamageBonus": 0.5
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-005",
+      "levels": [
+        {
+          "level": 1,
+          "actionSpeedBonus": 0.05
+        },
+        {
+          "level": 2,
+          "actionSpeedBonus": 0.09
+        },
+        {
+          "level": 3,
+          "actionSpeedBonus": 0.13
+        },
+        {
+          "level": 4,
+          "actionSpeedBonus": 0.17
+        },
+        {
+          "level": 5,
+          "actionSpeedBonus": 0.21
+        },
+        {
+          "level": 6,
+          "actionSpeedBonus": 0.25
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-007",
+      "levels": [
+        {
+          "level": 1,
+          "pickupRadiusBonus": 0.1
+        },
+        {
+          "level": 2,
+          "pickupRadiusBonus": 0.2
+        },
+        {
+          "level": 3,
+          "pickupRadiusBonus": 0.3
+        },
+        {
+          "level": 4,
+          "pickupRadiusBonus": 0.4
+        },
+        {
+          "level": 5,
+          "pickupRadiusBonus": 0.5
+        },
+        {
+          "level": 6,
+          "pickupRadiusBonus": 0.6
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-008",
+      "levels": [
+        {
+          "level": 1,
+          "incomingDamageReduction": 0.05
+        },
+        {
+          "level": 2,
+          "incomingDamageReduction": 0.09
+        },
+        {
+          "level": 3,
+          "incomingDamageReduction": 0.13
+        },
+        {
+          "level": 4,
+          "incomingDamageReduction": 0.17
+        },
+        {
+          "level": 5,
+          "incomingDamageReduction": 0.21
+        },
+        {
+          "level": 6,
+          "incomingDamageReduction": 0.25
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-009",
+      "levels": [
+        {
+          "level": 1,
+          "healthRestorationBonus": 0.1
+        },
+        {
+          "level": 2,
+          "healthRestorationBonus": 0.2
+        },
+        {
+          "level": 3,
+          "healthRestorationBonus": 0.3
+        },
+        {
+          "level": 4,
+          "healthRestorationBonus": 0.4
+        },
+        {
+          "level": 5,
+          "healthRestorationBonus": 0.5
+        },
+        {
+          "level": 6,
+          "healthRestorationBonus": 0.6
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-011",
+      "levels": [
+        {
+          "level": 1,
+          "knockbackResistanceBonus": 0.1,
+          "outgoingKnockbackBonus": 0.1
+        },
+        {
+          "level": 2,
+          "knockbackResistanceBonus": 0.2,
+          "outgoingKnockbackBonus": 0.2
+        },
+        {
+          "level": 3,
+          "knockbackResistanceBonus": 0.3,
+          "outgoingKnockbackBonus": 0.3
+        },
+        {
+          "level": 4,
+          "knockbackResistanceBonus": 0.4,
+          "outgoingKnockbackBonus": 0.4
+        },
+        {
+          "level": 5,
+          "knockbackResistanceBonus": 0.5,
+          "outgoingKnockbackBonus": 0.5
+        },
+        {
+          "level": 6,
+          "knockbackResistanceBonus": 0.6,
+          "outgoingKnockbackBonus": 0.6
+        }
+      ]
+    },
+    {
+      "id": "PASSIVE-012",
+      "levels": [
+        {
+          "level": 1,
+          "effectSizeBonus": 0.05
+        },
+        {
+          "level": 2,
+          "effectSizeBonus": 0.1
+        },
+        {
+          "level": 3,
+          "effectSizeBonus": 0.15
+        },
+        {
+          "level": 4,
+          "effectSizeBonus": 0.2
+        },
+        {
+          "level": 5,
+          "effectSizeBonus": 0.25
+        },
+        {
+          "level": 6,
+          "effectSizeBonus": 0.3
+        }
+      ]
+    }
+  ],
+  "sets": [
+    {
+      "id": "SET-001",
+      "requirements": {
+        "SKILL-001": 3,
+        "PASSIVE-004": 2,
+        "PASSIVE-011": 2
+      },
+      "effects": [
+        {
+          "kind": "SkillTransform",
+          "skill": "SKILL-001",
+          "activeDamageBonus": 0.6,
+          "effectSizeBonus": 0.25,
+          "outgoingKnockbackBonus": 0.35
+        }
+      ]
+    },
+    {
+      "id": "SET-004",
+      "requirements": {
+        "SKILL-004": 3,
+        "SKILL-013": 3,
+        "PASSIVE-011": 2
+      },
+      "effects": [
+        {
+          "kind": "ConditionalPlayerKnockback",
+          "condition": "target-already-slowed",
+          "outgoingKnockbackBonus": 0.5
+        },
+        {
+          "kind": "SkillTransform",
+          "skill": "SKILL-004",
+          "effectSizeBonus": 0.25,
+          "outgoingKnockbackBonus": 0.35
+        }
+      ]
+    },
+    {
+      "id": "SET-006",
+      "requirements": {
+        "PASSIVE-001": 3,
+        "PASSIVE-002": 3,
+        "PASSIVE-009": 2
+      },
+      "effects": [
+        {
+          "kind": "StatBuff",
+          "maxHealthBonus": 0.2,
+          "regenerationHpPerSecond": 0.6,
+          "healthRestorationBonus": 0.2,
+          "potionDropChanceBonus": 0.25
+        }
+      ]
+    },
+    {
+      "id": "SET-010",
+      "requirements": {
+        "SKILL-003": 4,
+        "SKILL-013": 3,
+        "PASSIVE-003": 2,
+        "PASSIVE-008": 2
+      },
+      "effects": [
+        {
+          "kind": "ExistingOrbitSlow",
+          "skill": "SKILL-003",
+          "slowFraction": 0.15,
+          "refreshSeconds": 0.1,
+          "slowSeconds": 0.25,
+          "radius": "current-orbit-radius"
+        },
+        {
+          "kind": "ConditionalSkillDamage",
+          "skill": "SKILL-003",
+          "condition": "target-already-slowed",
+          "activeDamageBonus": 0.4
+        }
+      ]
+    },
+    {
+      "id": "SET-017",
+      "requirements": {
+        "SKILL-010": 4,
+        "PASSIVE-005": 3,
+        "PASSIVE-012": 2
+      },
+      "effects": [
+        {
+          "kind": "IndependentAttack",
+          "cooldownSeconds": 7.5,
+          "initialDelaySeconds": 7.5,
+          "damage": 150,
+          "targeting": "RandomEnemy",
+          "targetingRadius": 8,
+          "radius": 2.2,
+          "telegraphSeconds": 0.65,
+          "knockback": 1,
+          "knockbackSeconds": 0.12,
+          "actionSpeedScaling": false,
+          "genericDamageAndKnockbackScaling": true,
+          "effectSizeAndRangeScaling": true,
+          "countsAsSkillActivation": false
+        }
+      ]
+    }
+  ],
+  "enemies": [
+    {
+      "id": "ENEMY-001",
+      "maxHealth": 32,
+      "movementSpeed": 1.2,
+      "collisionSize": 0.8,
+      "contactDamage": 10,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 1,
+      "contactKnockback": 0.25,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null
+    },
+    {
+      "id": "ENEMY-002",
+      "maxHealth": 24,
+      "movementSpeed": 2.25,
+      "collisionSize": 0.65,
+      "contactDamage": 8,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 1,
+      "contactKnockback": 0.15,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null
+    },
+    {
+      "id": "ENEMY-003",
+      "maxHealth": 150,
+      "movementSpeed": 0.8,
+      "collisionSize": 1.15,
+      "contactDamage": 20,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 3,
+      "contactKnockback": 0.55,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0.2,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null
+    },
+    {
+      "id": "ENEMY-004",
+      "maxHealth": 48,
+      "movementSpeed": 0.95,
+      "collisionSize": 0.8,
+      "contactDamage": 8,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 2,
+      "contactKnockback": 0.15,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0,
+      "movement": {
+        "kind": "KeepDistance",
+        "preferredDistance": 5,
+        "distanceTolerance": 0.5,
+        "lateralStrength": 0,
+        "cycleSeconds": 3
+      },
+      "attack": {
+        "pattern": "Single",
+        "damage": 10,
+        "cooldownSeconds": 2.4,
+        "telegraphSeconds": 0.55,
+        "projectileSpeed": 4.5,
+        "projectileLifetimeSeconds": 1.8,
+        "projectileRadius": 0.14,
+        "projectileCount": 1,
+        "spreadDegrees": 0,
+        "burstIntervalSeconds": 0,
+        "explosionRadius": 0,
+        "rotationStepDegrees": 0,
+        "knockback": 0.35,
+        "knockbackSeconds": 0.12,
+        "slowFraction": 0,
+        "slowSeconds": 0,
+        "initialDelaySeconds": 2.4,
+        "cadence": "windup-start-to-windup-start",
+        "aimSnapshot": "windup-start"
+      }
+    },
+    {
+      "id": "ENEMY-005",
+      "maxHealth": 56,
+      "movementSpeed": 1.1,
+      "collisionSize": 0.75,
+      "contactDamage": 9,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 3,
+      "contactKnockback": 0.15,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0,
+      "movement": {
+        "kind": "DistanceReposition",
+        "preferredDistance": 6,
+        "distanceTolerance": 0.5,
+        "lateralStrength": 0.5,
+        "cycleSeconds": 3,
+        "holdingSeconds": 2,
+        "repositionSeconds": 1,
+        "alternateLateralDirection": true
+      },
+      "attack": {
+        "pattern": "Single",
+        "damage": 14,
+        "cooldownSeconds": 2,
+        "telegraphSeconds": 0.45,
+        "projectileSpeed": 6.5,
+        "projectileLifetimeSeconds": 1.5,
+        "projectileRadius": 0.1,
+        "projectileCount": 1,
+        "spreadDegrees": 0,
+        "burstIntervalSeconds": 0,
+        "explosionRadius": 0,
+        "rotationStepDegrees": 0,
+        "knockback": 0.1,
+        "knockbackSeconds": 0.12,
+        "slowFraction": 0,
+        "slowSeconds": 0,
+        "initialDelaySeconds": 2,
+        "cadence": "windup-start-to-windup-start",
+        "aimSnapshot": "windup-start"
+      }
+    },
+    {
+      "id": "ENEMY-007",
+      "maxHealth": 64,
+      "movementSpeed": 1.55,
+      "collisionSize": 0.75,
+      "contactDamage": 14,
+      "contactDamageIntervalSeconds": 1,
+      "experienceReward": 4,
+      "contactKnockback": 0.4,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0,
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.55,
+        "dashDurationSeconds": 0.55,
+        "dashCooldownSeconds": 4.5,
+        "dashSpeedMultiplier": 3.2,
+        "dashKnockback": 0.65,
+        "direction": "snapshot-at-telegraph-start"
+      },
+      "attack": null
+    }
+  ],
+  "boss": {
+    "id": "BOSS-001",
+    "spawnSeconds": 810,
+    "spawnOffset": [
+      8,
+      0
+    ],
+    "maxHealth": 4500,
+    "collisionSize": 2.4,
+    "movementSpeed": 0.7,
+    "contactDamage": 30,
+    "contactDamageIntervalSeconds": 1,
+    "knockbackResistance": 0.6,
+    "contactKnockback": 0.6,
+    "knockbackSeconds": 0.12,
+    "experienceReward": 150,
+    "movement": "Seek",
+    "attackSequence": [
+      "fan",
+      "ring"
+    ],
+    "firstAttackDelaySeconds": 3.6,
+    "healthPhaseThreshold": 0.5,
+    "thresholdComparison": "strictly-less",
+    "normalCooldownSeconds": 3.6,
+    "enragedCooldownSeconds": 2.88,
+    "attacks": [
+      {
+        "id": "fan",
+        "damage": 18,
+        "projectileCount": 5,
+        "spreadDegrees": 70,
+        "projectileSpeed": 4.8,
+        "projectileLifetimeSeconds": 3,
+        "projectileRadius": 0.14,
+        "telegraphSeconds": 0.7,
+        "knockback": 0.25,
+        "knockbackSeconds": 0.12,
+        "slowFraction": 0,
+        "slowSeconds": 0,
+        "burstIntervalSeconds": 0,
+        "explosionRadius": 0,
+        "rotationStepDegrees": 0
+      },
+      {
+        "id": "ring",
+        "damage": 14,
+        "projectileCount": 10,
+        "spreadDegrees": 360,
+        "projectileSpeed": 3.8,
+        "projectileLifetimeSeconds": 3,
+        "projectileRadius": 0.13,
+        "telegraphSeconds": 0.7,
+        "knockback": 0.15,
+        "knockbackSeconds": 0.12,
+        "slowFraction": 0,
+        "slowSeconds": 0,
+        "burstIntervalSeconds": 0,
+        "explosionRadius": 0,
+        "rotationStepDegrees": 0
+      }
+    ],
+    "rewardOnDespawn": 0,
+    "deathEndsRun": false,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+  },
+  "midboss": {
+    "id": "MIDBOSS-001",
+    "spawnSeconds": 450,
+    "spawnOffset": [
+      -8,
+      0
+    ],
+    "maxHealth": 1200,
+    "collisionSize": 1.6,
+    "movementSpeed": 0.85,
+    "contactDamage": 22,
+    "contactDamageIntervalSeconds": 1,
+    "knockbackResistance": 0.3,
+    "contactKnockback": 0.55,
+    "dashKnockback": 0.8,
+    "knockbackSeconds": 0.12,
+    "experienceReward": 60,
+    "movement": "DoubleTelegraphedDash",
+    "dashCount": 2,
+    "firstTelegraphSeconds": 0.65,
+    "secondTelegraphSeconds": 0.35,
+    "dashDurationSeconds": 0.45,
+    "dashSpeedMultiplier": 5,
+    "recoveryAfterPairSeconds": 5.5,
+    "firstPairDelaySeconds": 5.5,
+    "direction": "snapshot-at-each-telegraph-start",
+    "attack": null,
+    "rewardOnDespawn": 0
+  },
+  "travelers": [
+    {
+      "id": "TRAVELER-001",
+      "role": "Offensive",
+      "maxHealth": 650,
+      "movementSpeed": 0.75,
+      "collisionSize": 1.35,
+      "contactDamage": 20,
+      "contactDamageIntervalSeconds": 1,
+      "contactKnockback": 0.55,
+      "knockbackSeconds": 0.12,
+      "knockbackResistance": 0.25,
+      "experienceReward": 12,
+      "presenceSeconds": 90,
+      "bookDropCountOnKill": 1,
+      "rewardOnEscape": 0,
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "targets": "None",
+        "supportTargets": 1,
+        "cooldownAndTargetCountUsed": false
+      },
+      "name": "Дорожный громила",
+      "marker": "BRUISER",
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ],
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    {
+      "id": "TRAVELER-002",
+      "role": "Wanderer",
+      "maxHealth": 560,
+      "movementSpeed": 1,
+      "collisionSize": 1,
+      "contactDamage": 0,
+      "contactDamageIntervalSeconds": 1,
+      "contactKnockback": 0,
+      "knockbackSeconds": 0,
+      "knockbackResistance": 0.15,
+      "experienceReward": 10,
+      "presenceSeconds": 75,
+      "bookDropCountOnKill": 1,
+      "rewardOnEscape": 0,
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "targets": "None",
+        "supportTargets": 1,
+        "cooldownAndTargetCountUsed": false
+      },
+      "name": "Бродячий стрелок",
+      "marker": "WANDER",
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ],
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    {
+      "id": "TRAVELER-005",
+      "role": "Protector",
+      "maxHealth": 1150,
+      "movementSpeed": 0.65,
+      "collisionSize": 1.4,
+      "contactDamage": 0,
+      "contactDamageIntervalSeconds": 1,
+      "contactKnockback": 0,
+      "knockbackSeconds": 0,
+      "knockbackResistance": 0.65,
+      "experienceReward": 18,
+      "presenceSeconds": 90,
+      "bookDropCountOnKill": 1,
+      "rewardOnEscape": 0,
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": {
+        "kind": "Aura",
+        "radius": 3,
+        "reduction": 0.2,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "targets": "OrdinaryOnly",
+        "supportTargets": 1,
+        "cooldownAndTargetCountUsed": false
+      },
+      "name": "Паломник со щитом",
+      "marker": "GUARD",
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ],
+      "movement": {
+        "kind": "Seek"
+      }
+    }
+  ],
+  "travelerSchedule": {
+    "id": "FIELD-001-TRAVELERS",
+    "countProbabilities": [
+      0.15,
+      0.4,
+      0.35,
+      0.1
+    ],
+    "typeSelection": "uniform-without-replacement",
+    "spawnTimeIntervalSeconds": [
+      0,
+      780
+    ],
+    "timesIndependent": true,
+    "fieldRank": 1,
+    "fieldGrowth": 0.1,
+    "timeGrowth": 0.5,
+    "endBufferSeconds": 120,
+    "spawnScreenHeights": 2,
+    "placementAttempts": 32
+  },
+  "pickups": {
+    "basePotionChance": 0.015,
+    "enemyChanceOverrides": {},
+    "fieldChanceOverrides": {},
+    "eligiblePotionSources": "ordinary-only",
+    "placementSkin": 0.05,
+    "dropScatterRadius": 0.3,
+    "feedbackSeconds": 0.18,
+    "definitions": [
+      {
+        "id": "PICKUP-001",
+        "kind": "Potion",
+        "healing": 18,
+        "contactRadius": 0.4,
+        "lifetimeSeconds": null,
+        "visualId": "PICKUP-001-VISUAL",
+        "visualScale": 1,
+        "marker": "HP",
+        "markerSize": 0.45,
+        "color": [
+          0.9,
+          0.2,
+          0.2,
+          1
+        ]
+      },
+      {
+        "id": "PICKUP-002",
+        "kind": "Book",
+        "healing": 0,
+        "contactRadius": 0.4,
+        "lifetimeSeconds": null,
+        "visualId": "FIXTURE-TRAVELER-BOOK-VISUAL",
+        "visualScale": 1,
+        "marker": "Book",
+        "markerSize": 0.5,
+        "color": [
+          0.95,
+          0.75,
+          0.3,
+          1
+        ]
+      }
+    ],
+    "experienceVisualId": "FIXTURE-XP-DROP-VISUAL",
+    "experienceVisualScale": 1
+  },
+  "field": {
+    "id": "FIELD-001",
+    "difficulty": 1,
+    "durationSeconds": 900,
+    "arenaSideScreenHeights": 20,
+    "referenceScreenHeight": 10,
+    "arenaWidth": 200,
+    "arenaHeight": 200,
+    "wallThickness": 1,
+    "spawnPoint": [
+      0,
+      0
+    ],
+    "spawnRadius": 12,
+    "obstacles": [
+      {
+        "id": "FIELD-001-O01",
+        "kind": "Fence",
+        "x": 18.83,
+        "y": 5.42,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O02",
+        "kind": "Stump",
+        "x": -3.96,
+        "y": -5.2,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O03",
+        "kind": "Stump",
+        "x": -14.32,
+        "y": -6.85,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O04",
+        "kind": "Fence",
+        "x": 1.71,
+        "y": 9.26,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O05",
+        "kind": "Stump",
+        "x": -5.07,
+        "y": 18.19,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O06",
+        "kind": "Stump",
+        "x": -18.42,
+        "y": 18.97,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O07",
+        "kind": "Fence",
+        "x": -16.59,
+        "y": 9.06,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O08",
+        "kind": "Stump",
+        "x": 1.77,
+        "y": -12.85,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O09",
+        "kind": "Stump",
+        "x": -10.9,
+        "y": -19.56,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O10",
+        "kind": "Fence",
+        "x": 11.76,
+        "y": 14.64,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O11",
+        "kind": "Stump",
+        "x": 18.01,
+        "y": -9.42,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O12",
+        "kind": "Stump",
+        "x": -19.57,
+        "y": 14.75,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O13",
+        "kind": "Fence",
+        "x": 17.75,
+        "y": -0.99,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O14",
+        "kind": "Stump",
+        "x": -9.37,
+        "y": 12.68,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O15",
+        "kind": "Stump",
+        "x": 9.2,
+        "y": -18.31,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O16",
+        "kind": "Fence",
+        "x": -7.71,
+        "y": -12.27,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O17",
+        "kind": "Stump",
+        "x": 61.56,
+        "y": 72.2,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O18",
+        "kind": "Stump",
+        "x": -91.76,
+        "y": -56.61,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O19",
+        "kind": "Fence",
+        "x": 58.57,
+        "y": -4.03,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O20",
+        "kind": "Stump",
+        "x": 36.73,
+        "y": 18.8,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O21",
+        "kind": "Stump",
+        "x": 62.15,
+        "y": 78.23,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O22",
+        "kind": "Fence",
+        "x": -55.96,
+        "y": -67.28,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O23",
+        "kind": "Stump",
+        "x": -55.05,
+        "y": 61.88,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O24",
+        "kind": "Stump",
+        "x": -29.21,
+        "y": 70.75,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O25",
+        "kind": "Fence",
+        "x": 38.93,
+        "y": -64.59,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O26",
+        "kind": "Stump",
+        "x": -57.37,
+        "y": 70.14,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O27",
+        "kind": "Stump",
+        "x": -12.32,
+        "y": -27.96,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O28",
+        "kind": "Fence",
+        "x": 59.01,
+        "y": 13.59,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O29",
+        "kind": "Stump",
+        "x": -91.56,
+        "y": -72.24,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O30",
+        "kind": "Stump",
+        "x": 74.39,
+        "y": -13.94,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O31",
+        "kind": "Fence",
+        "x": -70.58,
+        "y": 39.62,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O32",
+        "kind": "Stump",
+        "x": -19.15,
+        "y": -26.15,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O33",
+        "kind": "Stump",
+        "x": -52.81,
+        "y": 92.37,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O34",
+        "kind": "Fence",
+        "x": 21.58,
+        "y": 80.2,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O35",
+        "kind": "Stump",
+        "x": 65.08,
+        "y": -48.02,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O36",
+        "kind": "Stump",
+        "x": 89.89,
+        "y": -50.5,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O37",
+        "kind": "Fence",
+        "x": -57.76,
+        "y": 23.46,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O38",
+        "kind": "Stump",
+        "x": -78.07,
+        "y": 44.36,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O39",
+        "kind": "Stump",
+        "x": -51.77,
+        "y": 37.37,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O40",
+        "kind": "Fence",
+        "x": 73.75,
+        "y": 1.76,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O41",
+        "kind": "Stump",
+        "x": -92.0,
+        "y": 24.9,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O42",
+        "kind": "Stump",
+        "x": -21.09,
+        "y": -43.3,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O43",
+        "kind": "Fence",
+        "x": 79.98,
+        "y": 85.59,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O44",
+        "kind": "Stump",
+        "x": 83.17,
+        "y": 61.32,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O45",
+        "kind": "Stump",
+        "x": -48.68,
+        "y": 0.66,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O46",
+        "kind": "Fence",
+        "x": 33.91,
+        "y": 87.18,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O47",
+        "kind": "Stump",
+        "x": -27.75,
+        "y": -43.36,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O48",
+        "kind": "Stump",
+        "x": 78.92,
+        "y": -72.79,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O49",
+        "kind": "Fence",
+        "x": 90.18,
+        "y": -68.36,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O50",
+        "kind": "Stump",
+        "x": -17.41,
+        "y": -57.27,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O51",
+        "kind": "Stump",
+        "x": 56.14,
+        "y": -88.6,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O52",
+        "kind": "Fence",
+        "x": 15.42,
+        "y": 34.36,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O53",
+        "kind": "Stump",
+        "x": 2.18,
+        "y": -67.42,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O54",
+        "kind": "Stump",
+        "x": 81.97,
+        "y": -80.95,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O55",
+        "kind": "Fence",
+        "x": 54.29,
+        "y": -51.43,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O56",
+        "kind": "Stump",
+        "x": 36.39,
+        "y": 78.87,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O57",
+        "kind": "Stump",
+        "x": 25.14,
+        "y": 25.32,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O58",
+        "kind": "Fence",
+        "x": 27.47,
+        "y": -40.63,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O59",
+        "kind": "Stump",
+        "x": 42.28,
+        "y": 40.8,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O60",
+        "kind": "Stump",
+        "x": 47.38,
+        "y": -11.57,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O61",
+        "kind": "Fence",
+        "x": -82.47,
+        "y": -59.76,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O62",
+        "kind": "Stump",
+        "x": -62.44,
+        "y": 54.56,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O63",
+        "kind": "Stump",
+        "x": 65.77,
+        "y": -25.84,
+        "width": 1.2,
+        "height": 1.0,
+        "rotationDegrees": 0
+      },
+      {
+        "id": "FIELD-001-O64",
+        "kind": "Fence",
+        "x": 17.11,
+        "y": -34.08,
+        "width": 2.4,
+        "height": 0.5,
+        "rotationDegrees": 0
+      }
+    ],
+    "obstaclesBlock": "player-only",
+    "timelineId": "FIELD-001-TIMELINE",
+    "environmentId": "FIELD-001-ENVIRONMENT",
+    "travelerScheduleId": "FIELD-001-TRAVELERS",
+    "finalBossId": "BOSS-001",
+    "midBossId": "MIDBOSS-001",
+    "thumbnailPlaceholder": "Деревенская окраина",
+    "description": "Переживите деревенскую облаву и продержитесь 15 минут.",
+    "unlockDescription": "Доступно с начала игры",
+    "sceneName": "Gameplay",
+    "spawnPointName": "PlayerSpawn"
+  },
+  "timeline": {
+    "id": "FIELD-001-TIMELINE",
+    "phases": [
+      {
+        "id": "FIELD-001-P01",
+        "startSeconds": 0,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 1.25,
+        "maxAliveEnemies": 40,
+        "composition": {
+          "ENEMY-001": 90,
+          "ENEMY-002": 10,
+          "ENEMY-003": 0,
+          "ENEMY-004": 0,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P02",
+        "startSeconds": 60,
+        "durationSeconds": 55,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.9,
+        "maxAliveEnemies": 60,
+        "composition": {
+          "ENEMY-001": 70,
+          "ENEMY-002": 25,
+          "ENEMY-003": 5,
+          "ENEMY-004": 0,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P03",
+        "startSeconds": 115,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 60,
+        "composition": {
+          "ENEMY-001": 70,
+          "ENEMY-002": 25,
+          "ENEMY-003": 5,
+          "ENEMY-004": 0,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": {
+          "count": 12,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P04",
+        "startSeconds": 120,
+        "durationSeconds": 30,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 2.4,
+        "maxAliveEnemies": 45,
+        "composition": {
+          "ENEMY-001": 70,
+          "ENEMY-002": 25,
+          "ENEMY-003": 5,
+          "ENEMY-004": 0,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P05",
+        "startSeconds": 150,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.65,
+        "maxAliveEnemies": 90,
+        "composition": {
+          "ENEMY-001": 60,
+          "ENEMY-002": 25,
+          "ENEMY-003": 15,
+          "ENEMY-004": 0,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P06",
+        "startSeconds": 210,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.55,
+        "maxAliveEnemies": 110,
+        "composition": {
+          "ENEMY-001": 55,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P07",
+        "startSeconds": 270,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 110,
+        "composition": {
+          "ENEMY-001": 55,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": {
+          "count": 18,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P08",
+        "startSeconds": 275,
+        "durationSeconds": 25,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 2.2,
+        "maxAliveEnemies": 80,
+        "composition": {
+          "ENEMY-001": 55,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 0,
+          "ENEMY-007": 0
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P09",
+        "startSeconds": 300,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.5,
+        "maxAliveEnemies": 120,
+        "composition": {
+          "ENEMY-001": 47,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 0,
+          "ENEMY-007": 8
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P10",
+        "startSeconds": 360,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.45,
+        "maxAliveEnemies": 140,
+        "composition": {
+          "ENEMY-001": 40,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 7,
+          "ENEMY-007": 8
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P11",
+        "startSeconds": 420,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 140,
+        "composition": {
+          "ENEMY-001": 40,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 7,
+          "ENEMY-007": 8
+        },
+        "burst": {
+          "count": 18,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P12",
+        "startSeconds": 425,
+        "durationSeconds": 25,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 1.8,
+        "maxAliveEnemies": 100,
+        "composition": {
+          "ENEMY-001": 50,
+          "ENEMY-002": 20,
+          "ENEMY-003": 15,
+          "ENEMY-004": 5,
+          "ENEMY-005": 5,
+          "ENEMY-007": 5
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P13",
+        "startSeconds": 450,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Ordinary",
+        "spawnIntervalSeconds": 0.6,
+        "maxAliveEnemies": 120,
+        "composition": {
+          "ENEMY-001": 45,
+          "ENEMY-002": 20,
+          "ENEMY-003": 15,
+          "ENEMY-004": 7,
+          "ENEMY-005": 6,
+          "ENEMY-007": 7
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P14",
+        "startSeconds": 510,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 0.38,
+        "maxAliveEnemies": 160,
+        "composition": {
+          "ENEMY-001": 38,
+          "ENEMY-002": 22,
+          "ENEMY-003": 16,
+          "ENEMY-004": 8,
+          "ENEMY-005": 8,
+          "ENEMY-007": 8
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P15",
+        "startSeconds": 570,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 160,
+        "composition": {
+          "ENEMY-001": 38,
+          "ENEMY-002": 22,
+          "ENEMY-003": 16,
+          "ENEMY-004": 8,
+          "ENEMY-005": 8,
+          "ENEMY-007": 8
+        },
+        "burst": {
+          "count": 24,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P16",
+        "startSeconds": 575,
+        "durationSeconds": 25,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 1.6,
+        "maxAliveEnemies": 110,
+        "composition": {
+          "ENEMY-001": 50,
+          "ENEMY-002": 20,
+          "ENEMY-003": 15,
+          "ENEMY-004": 5,
+          "ENEMY-005": 5,
+          "ENEMY-007": 5
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P17",
+        "startSeconds": 600,
+        "durationSeconds": 90,
+        "spawnMode": "Continuous",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 0.34,
+        "maxAliveEnemies": 180,
+        "composition": {
+          "ENEMY-001": 35,
+          "ENEMY-002": 24,
+          "ENEMY-003": 16,
+          "ENEMY-004": 8,
+          "ENEMY-005": 8,
+          "ENEMY-007": 9
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P18",
+        "startSeconds": 690,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 180,
+        "composition": {
+          "ENEMY-001": 35,
+          "ENEMY-002": 24,
+          "ENEMY-003": 16,
+          "ENEMY-004": 8,
+          "ENEMY-005": 8,
+          "ENEMY-007": 9
+        },
+        "burst": {
+          "count": 24,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P19",
+        "startSeconds": 695,
+        "durationSeconds": 25,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 1.4,
+        "maxAliveEnemies": 130,
+        "composition": {
+          "ENEMY-001": 45,
+          "ENEMY-002": 22,
+          "ENEMY-003": 18,
+          "ENEMY-004": 5,
+          "ENEMY-005": 5,
+          "ENEMY-007": 5
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P20",
+        "startSeconds": 720,
+        "durationSeconds": 60,
+        "spawnMode": "Continuous",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 0.3,
+        "maxAliveEnemies": 200,
+        "composition": {
+          "ENEMY-001": 33,
+          "ENEMY-002": 25,
+          "ENEMY-003": 16,
+          "ENEMY-004": 8,
+          "ENEMY-005": 8,
+          "ENEMY-007": 10
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P21",
+        "startSeconds": 780,
+        "durationSeconds": 30,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 1.2,
+        "maxAliveEnemies": 140,
+        "composition": {
+          "ENEMY-001": 48,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 5,
+          "ENEMY-005": 5,
+          "ENEMY-007": 5
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P22",
+        "startSeconds": 810,
+        "durationSeconds": 30,
+        "spawnMode": "Continuous",
+        "tag": "Rest",
+        "spawnIntervalSeconds": 0.65,
+        "maxAliveEnemies": 160,
+        "composition": {
+          "ENEMY-001": 45,
+          "ENEMY-002": 22,
+          "ENEMY-003": 15,
+          "ENEMY-004": 6,
+          "ENEMY-005": 5,
+          "ENEMY-007": 7
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P23",
+        "startSeconds": 840,
+        "durationSeconds": 55,
+        "spawnMode": "Continuous",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 0.28,
+        "maxAliveEnemies": 200,
+        "composition": {
+          "ENEMY-001": 35,
+          "ENEMY-002": 25,
+          "ENEMY-003": 15,
+          "ENEMY-004": 8,
+          "ENEMY-005": 7,
+          "ENEMY-007": 10
+        },
+        "burst": null,
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P24",
+        "startSeconds": 895,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1,
+        "maxAliveEnemies": 200,
+        "composition": {
+          "ENEMY-001": 50,
+          "ENEMY-002": 25,
+          "ENEMY-003": 15,
+          "ENEMY-004": 4,
+          "ENEMY-005": 3,
+          "ENEMY-007": 3
+        },
+        "burst": {
+          "count": 20,
+          "offsetSeconds": 0,
+          "windowSeconds": 1
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      }
+    ],
+    "hooks": [
+      {
+        "kind": "MidBoss",
+        "timeSeconds": 450
+      },
+      {
+        "kind": "FinalBoss",
+        "timeSeconds": 810
+      }
+    ]
+  },
+  "randomness": {
+    "referenceSeeds": {
+      "draft": 230923,
+      "waves": 230924,
+      "travelers": 230925,
+      "potion": 230926,
+      "dropScatter": 230927,
+      "skillRandomBase": 230928,
+      "setRandom": 230929,
+      "geometry": 230923
+    },
+    "comparisonRunSeeds": [
+      230923,
+      230933,
+      230943,
+      230953,
+      230963
+    ],
+    "subsystemSeedPolicy": "runSeed + fixed offsets 0,1,2,3,4,5,6; geometry fixed",
+    "perSkillSeedPolicy": "skillRandomBase + numeric skill ID",
+    "newRunSeedPolicy": "fresh seed per run, record resolved seeds; reference seeds only for comparisons"
+  },
+  "artInventory": [
+    {
+      "owner": "FIXTURE-XP-DROP",
+      "role": "pickup",
+      "visualId": "FIXTURE-XP-DROP-VISUAL",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/xp-pickup/xp-pickup.png",
+      "missing": ""
+    },
+    {
+      "owner": "PICKUP-001",
+      "role": "pickup",
+      "visualId": "PICKUP-001-VISUAL",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/pickup-001/pickup-001-pickup.png",
+      "missing": "Production PICKUP-001 binding."
+    },
+    {
+      "owner": "FIXTURE-TRAVELER-BOOK",
+      "role": "pickup",
+      "visualId": "FIXTURE-TRAVELER-BOOK-VISUAL",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Pickups/traveler-book/traveler-book-pickup.png",
+      "missing": ""
+    },
+    {
+      "owner": "SKILL-001",
+      "role": "projectile",
+      "visualId": "SKILL-001-VISUAL-PROJECTILE",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-001/skill-001-projectile.png",
+      "missing": "Production SKILL-001 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "SKILL-003",
+      "role": "projectile",
+      "visualId": "SKILL-003-VISUAL-PROJECTILE",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-003/skill-003-projectile.png",
+      "missing": "Production SKILL-003 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "SKILL-006",
+      "role": "projectile",
+      "visualId": "SKILL-006-VISUAL-PROJECTILE",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-006/skill-006-projectile.png",
+      "missing": "Production SKILL-006 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "SKILL-014",
+      "role": "projectile",
+      "visualId": "SKILL-014-VISUAL-PROJECTILE",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-014/skill-014-projectile.png",
+      "missing": "Production SKILL-014 definition/binding remain IP-17 work."
+    },
+    {
+      "owner": "ENEMY-002",
+      "role": "body",
+      "visualId": "ENEMY-002-VISUAL-BODY",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png",
+      "missing": "Production ENEMY-002 binding; fixture stats and behavior are unchanged."
+    },
+    {
+      "owner": "ENEMY-001",
+      "role": "body",
+      "visualId": "ENEMY-001-VISUAL-BODY",
+      "stage": "Imported",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png",
+      "missing": "Production ENEMY-001 owner binding; contact interval remains TBD for production. Documented 3–4-set density verification remains."
+    },
+    {
+      "owner": "CHAR-001",
+      "role": "body",
+      "visualId": null,
+      "stage": "Image approved",
+      "runtime": null,
+      "missing": "Production CHAR-001 catalog/runtime binding; fixture content is not renamed."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "tile",
+      "visualId": "FIELD-001-VISUAL-GROUND",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png",
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "boundary-prop",
+      "visualId": "FIELD-001-VISUAL-FENCE",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-fence-prop.png",
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "obstacle-prop",
+      "visualId": "FIELD-001-VISUAL-STUMP",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-stump-prop.png",
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "decor-bush",
+      "visualId": "FIELD-001-VISUAL-BUSH",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-bush-prop.png",
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "decor-grass",
+      "visualId": "FIELD-001-VISUAL-GRASS",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-grass-prop.png",
+      "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
+    },
+    {
+      "owner": "SKILL-001",
+      "role": "icon",
+      "visualId": "SKILL-001-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-001-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-002",
+      "role": "icon",
+      "visualId": "SKILL-002-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-002-icon.png",
+      "missing": "Production SKILL definition binding and actual slot readability review remain."
+    },
+    {
+      "owner": "SKILL-003",
+      "role": "icon",
+      "visualId": "SKILL-003-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-003-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-004",
+      "role": "icon",
+      "visualId": "SKILL-004-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-004-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-005",
+      "role": "icon",
+      "visualId": "SKILL-005-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-005-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-006",
+      "role": "icon",
+      "visualId": "SKILL-006-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-006-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-007",
+      "role": "icon",
+      "visualId": "SKILL-007-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-007-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-010",
+      "role": "icon",
+      "visualId": "SKILL-010-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-010-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "SKILL-013",
+      "role": "icon",
+      "visualId": "SKILL-013-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-013-icon.png",
+      "missing": "Production SKILL definition binding and actual slot readability review remain."
+    },
+    {
+      "owner": "SKILL-014",
+      "role": "icon",
+      "visualId": "SKILL-014-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Skills/skill-014-icon.png",
+      "missing": "Production SKILL definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-001",
+      "role": "icon",
+      "visualId": "PASSIVE-001-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-001-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-002",
+      "role": "icon",
+      "visualId": "PASSIVE-002-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-002-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-003",
+      "role": "icon",
+      "visualId": "PASSIVE-003-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-003-icon.png",
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-004",
+      "role": "icon",
+      "visualId": "PASSIVE-004-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-004-icon.png",
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-005",
+      "role": "icon",
+      "visualId": "PASSIVE-005-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-005-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-007",
+      "role": "icon",
+      "visualId": "PASSIVE-007-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-007-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-008",
+      "role": "icon",
+      "visualId": "PASSIVE-008-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-008-icon.png",
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-009",
+      "role": "icon",
+      "visualId": "PASSIVE-009-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-009-icon.png",
+      "missing": "Actual UI slot readability review and production PASSIVE definition binding remain."
+    },
+    {
+      "owner": "PASSIVE-011",
+      "role": "icon",
+      "visualId": "PASSIVE-011-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-011-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "PASSIVE-012",
+      "role": "icon",
+      "visualId": "PASSIVE-012-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Passives/passive-012-icon.png",
+      "missing": "Production PASSIVE definition binding remains."
+    },
+    {
+      "owner": "SET-001",
+      "role": "icon",
+      "visualId": "SET-001-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-001-icon.png",
+      "missing": "Production SET definition binding remains."
+    },
+    {
+      "owner": "SET-004",
+      "role": "icon",
+      "visualId": "SET-004-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-004-icon.png",
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-006",
+      "role": "icon",
+      "visualId": "SET-006-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-006-icon.png",
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-010",
+      "role": "icon",
+      "visualId": "SET-010-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-010-icon.png",
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    },
+    {
+      "owner": "SET-017",
+      "role": "icon",
+      "visualId": "SET-017-VISUAL-ICON",
+      "stage": "Image approved",
+      "runtime": "Assets/Resources/Art/UI/Icons/Sets/set-017-icon.png",
+      "missing": "Actual UI slot readability review and production SET definition binding remain."
+    }
+  ],
+  "presentationGates": {
+    "skillWorld": [
+      "SKILL-002",
+      "SKILL-004",
+      "SKILL-005",
+      "SKILL-007",
+      "SKILL-010",
+      "SKILL-013"
+    ],
+    "enemyBodyAndContact": [
+      "ENEMY-003",
+      "ENEMY-004",
+      "ENEMY-005",
+      "ENEMY-007"
+    ],
+    "enemyBodyApproval": [
+      "ENEMY-001"
+    ],
+    "bossAndTravelerBodies": [
+      "BOSS-001",
+      "MIDBOSS-001",
+      "TRAVELER-001",
+      "TRAVELER-002",
+      "TRAVELER-005"
+    ],
+    "fieldThumbnail": [
+      "FIELD-001"
+    ],
+    "notes": "Approved manifest entries may be reused; actual production bindings/contact authoring remain owner packet acceptance."
+  },
+  "performanceProposal": {
+    "platform": "Windows x64 standalone",
+    "cpu": "AMD Ryzen 5 5600H",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "ramClassGb": 16,
+    "resolution": [
+      1920,
+      1080
+    ],
+    "warmupSeconds": 30,
+    "sampleWindowSeconds": 60,
+    "p95FrameMs": 16.7,
+    "p99FrameMs": 33.3,
+    "maxGameplayStallMs": 100,
+    "ordinaryStressCount": 250,
+    "bossStressCount": 2,
+    "travelerStressCount": 3,
+    "restartCycles": 10,
+    "maxPostGcGrowthMb": 5,
+    "warmLoadSeconds": 3,
+    "measured": false
+  },
+  "ordinaryEnemyChanges": [
+    {
+      "id": "ENEMY-001",
+      "before": {
+        "maxHealth": 40,
+        "movementSpeed": 1,
+        "contactDamage": 10
+      },
+      "proposed": {
+        "maxHealth": 32,
+        "movementSpeed": 1.2,
+        "contactDamage": 10
+      }
+    },
+    {
+      "id": "ENEMY-002",
+      "before": {
+        "maxHealth": 28,
+        "movementSpeed": 1.55,
+        "contactDamage": 8
+      },
+      "proposed": {
+        "maxHealth": 24,
+        "movementSpeed": 2.25,
+        "contactDamage": 8
+      }
+    },
+    {
+      "id": "ENEMY-003",
+      "before": {
+        "maxHealth": 130,
+        "movementSpeed": 0.65,
+        "contactDamage": 18
+      },
+      "proposed": {
+        "maxHealth": 150,
+        "movementSpeed": 0.8,
+        "contactDamage": 20
+      }
+    },
+    {
+      "id": "ENEMY-004",
+      "before": {
+        "maxHealth": 55,
+        "movementSpeed": 0.75,
+        "contactDamage": 8
+      },
+      "proposed": {
+        "maxHealth": 48,
+        "movementSpeed": 0.95,
+        "contactDamage": 8
+      }
+    },
+    {
+      "id": "ENEMY-005",
+      "before": {
+        "maxHealth": 60,
+        "movementSpeed": 0.8,
+        "contactDamage": 9
+      },
+      "proposed": {
+        "maxHealth": 56,
+        "movementSpeed": 1.1,
+        "contactDamage": 9
+      }
+    },
+    {
+      "id": "ENEMY-007",
+      "before": {
+        "maxHealth": 70,
+        "movementSpeed": 0.9,
+        "contactDamage": 15
+      },
+      "proposed": {
+        "maxHealth": 64,
+        "movementSpeed": 1.55,
+        "contactDamage": 14
+      }
+    }
+  ]
+}

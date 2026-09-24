@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-001",
+  "visualId": "FIELD-001-VISUAL-GRASS",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-22",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "User authorized generation and immediate integration of the minimal FIELD-001 environment kit. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [],
+  "generationPrompt": "Use case: stylized-concept. Transparent 2D Unity decorative prop for FIELD-001 village outskirts: one compact tuft of wild meadow grass made from several short uneven blades. Hand-painted storybook cutout art with restrained plum-brown accents and soft cel shading. Isolated three-quarter/top-down gameplay view with transparent padding. Muted olive, straw ochre and dusty sage. No ground, flowers, stones, characters, text, watermark or cast shadow; clean alpha edges.",
+  "constraints": ["transparent background", "small unobtrusive silhouette", "no baked shadow"],
+  "runtimeOutputs": ["Assets/Resources/Art/Sprites/Fields/field-001/field-001-grass-prop.png"],
+  "preparation": {
+    "sourceDimensions": [1333, 1180],
+    "sourceSha256": "3CC33A8FB387BA6CFC16FE0DF5614444743685B7F7908730A92DEC7DE03ECA55",
+    "runtimeSha256": "64AB86B3CAB471783D5EA9810E5C6F6A56A04C1FF314031B55940B3A603338C0",
+    "operations": ["Source copied unchanged into selected-master and v001.", "Visible alpha bounds fitted without distortion inside a transparent 256x256 canvas.", "Unity import: Prop, FullRect, Bilinear, Clamp, 160 PPU, max size 256, no mipmaps."],
+    "remaining": ["Production FIELD-001 geometry and metadata remain IP-23 work."]
+  }
+}

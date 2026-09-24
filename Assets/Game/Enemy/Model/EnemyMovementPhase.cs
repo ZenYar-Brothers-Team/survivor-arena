@@ -9,6 +9,7 @@ namespace Game.Enemy
         Approaching,
         Retreating,
         TelegraphingDash,
-        Dashing
+        Dashing,
+        Repositioning
     }
 }

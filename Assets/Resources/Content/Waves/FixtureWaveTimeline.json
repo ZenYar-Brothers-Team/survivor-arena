@@ -121,7 +121,7 @@
     },
     {
       "id": "FIXTURE-WAVE-FINAL-RUSH", "displayName": "Final Rush", "tag": "Elite", "spawnMode": "Continuous",
-      "durationSeconds": 300.0, "spawnIntervalSeconds": 0.7, "maxAliveEnemies": 24,
+      "durationSeconds": 300.0, "spawnIntervalSeconds": 0.7, "maxAliveEnemies": 200,
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-DASH-EXPLOSIVE", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-SPIRAL", "weight": 2.0 },

@@ -8,6 +8,7 @@ namespace Game.Presentation.Tests
     public sealed class EnemySpriteImportTests
     {
         private const string Path = "Assets/Resources/Art/Sprites/Enemies/enemy-001/enemy-001-body.png";
+        private const string CourierPath = "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png";
 
         [Test]
         public void Villager_ImportAndReimport_PreserveSizeAlphaPivotAndGuid()
@@ -41,6 +42,26 @@ namespace Game.Presentation.Tests
                     }
             }
             finally { Object.DestroyImmediate(texture); }
+        }
+
+        [Test]
+        public void Courier_ImportAndReimport_PreserveRuntimeContract()
+        {
+            var guid = AssetDatabase.AssetPathToGUID(CourierPath);
+            AssetDatabase.ImportAsset(CourierPath, ImportAssetOptions.ForceUpdate);
+            Assert.AreEqual(guid, AssetDatabase.AssetPathToGUID(CourierPath));
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(CourierPath);
+            var importer = (TextureImporter)AssetImporter.GetAtPath(CourierPath);
+            Assert.IsNotNull(Resources.Load<Sprite>("Art/Sprites/Enemies/enemy-002/enemy-002-body"));
+            Assert.AreEqual(new Vector2(256, 256), sprite.rect.size);
+            Assert.AreEqual(new Vector2(.5f, .1f), importer.spritePivot);
+            Assert.AreEqual(160, importer.spritePixelsPerUnit);
+            Assert.AreEqual(256, importer.maxTextureSize);
+            Assert.AreEqual(TextureImporterType.Sprite, importer.textureType);
+            Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);
+            Assert.IsTrue(importer.alphaIsTransparency);
+            Assert.IsFalse(importer.mipmapEnabled);
+            Assert.IsFalse(importer.isReadable);
         }
     }
 }

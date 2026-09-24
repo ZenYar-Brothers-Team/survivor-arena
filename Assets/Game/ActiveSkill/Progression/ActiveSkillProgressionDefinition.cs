@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 
 namespace Game.ActiveSkill
 {
@@ -10,10 +11,20 @@ namespace Game.ActiveSkill
         private readonly ActiveSkillLevelDefinition[] _levels;
 
         public IReadOnlyList<ActiveSkillLevelDefinition> Levels => _levels;
+        public ContentRef<SpriteDefinition> Icon { get; }
 
         public ActiveSkillProgressionDefinition(
             ContentId id,
             string displayName,
+            params ActiveSkillLevelDefinition[] levels)
+            : this(id, displayName, default, levels)
+        {
+        }
+
+        public ActiveSkillProgressionDefinition(
+            ContentId id,
+            string displayName,
+            ContentRef<SpriteDefinition> icon,
             params ActiveSkillLevelDefinition[] levels)
             : base(id, BuildEntryKind.ActiveSkill, displayName)
         {
@@ -32,6 +43,7 @@ namespace Game.ActiveSkill
             }
 
             _levels = (ActiveSkillLevelDefinition[])levels.Clone();
+            Icon = icon;
         }
 
         public ActiveSkillLevelDefinition GetLevel(int level)
@@ -47,10 +59,12 @@ namespace Game.ActiveSkill
             var next = GetLevel(nextLevel);
             var values = new List<DraftValueChange>
             {
-                new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage),
-                new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"),
-                new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count)
+                new DraftValueChange("Base damage", current?.BaseDamage ?? 0f, next.BaseDamage)
             };
+            // A persistent orbit's cooldown is only its technical refresh interval, not a player-facing value.
+            if (!IsPersistentOrbit(next))
+                values.Add(new DraftValueChange("Base cooldown", current?.CooldownSeconds ?? 0f, next.CooldownSeconds, " s"));
+            values.Add(new DraftValueChange("Waves", current?.Waves.Count ?? 0, next.Waves.Count));
             if (current != null)
             {
                 var before = SkillParameterPreview.Capture(current);
@@ -63,10 +77,21 @@ namespace Game.ActiveSkill
             return new DraftOptionPreview(currentLevel, nextLevel, values);
         }
 
+        private static bool IsPersistentOrbit(ActiveSkillLevelDefinition level)
+        {
+            foreach (var wave in level.Waves)
+                foreach (var effect in wave.Effects)
+                    if (!(effect is OrbitEffect orbit) || !orbit.Persistent) return false;
+            return true;
+        }
+
         // Only levels that opted into a distinct Visual get validated; levels
         // without one simply have no presentation asset to check yet.
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            if (Icon.Id.IsValid)
+                yield return Icon.ToReference();
+
             foreach (var level in _levels)
             {
                 if (level.Visual.Id.IsValid)

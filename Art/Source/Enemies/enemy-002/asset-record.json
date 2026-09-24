@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-002",
+  "status": "approved",
+  "artDirectionRevision": "Approved revision read 2026-09-22; DECISION-0042 enemy/player separation",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-22",
+  "approvedBy": "user",
+  "approvalEvidence": "The user rejected v001 because the courier looked frightened and too similar to the playable goblin, then requested a confident human pursuer. Revised v002 was integrated for review. User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+  "referenceImages": [
+    {
+      "path": "../../Characters/fixture-character-agile/selected-master.png",
+      "role": "Approved player style reference; not an edit target"
+    },
+    {
+      "path": "../enemy-001/selected-master.png",
+      "role": "Approved enemy style and relative age/weight reference; not an edit target"
+    },
+    {
+      "path": "v001/concept-01.png",
+      "role": "Rejected first courier; exact redesign target for expression, proportions, silhouette and costume separation"
+    }
+  ],
+  "generationPrompt": "Create one production-ready 2D game sprite for a top-down survivor arena, using the two supplied sprites only as visual style and rendering references. Subject: ENEMY-002, a young adult human village courier taking part in a frantic pursuit. He must look faster, lighter and more fragile than the older rough villager: slim wiry body, youthful face, determined and slightly anxious expression, short tousled brown hair, simple worn medieval-fairytale village clothes, light boots, a prominent cross-body messenger satchel, and one rolled letter clearly visible in a hand or tucked at the satchel. No heavy armor and no large weapon. Full body, neutral animation-ready stance with a slight forward lean, both feet visible and roughly level, limbs separated enough for readable procedural bob/tilt, compact clean silhouette that remains readable at 128–160 pixels. Match the existing hand-painted cutout style: dark plum-brown ink outline, warm muted earthy colors with a small dusty-blue accent, soft warm light from upper front, restrained texture, proportions and finish consistent with the references. Center the character on a square transparent canvas with generous even padding. Isolated sprite only. No background, no floor, no ground shadow, no text, no UI, no speed lines, no dust, no glow, no extra characters, no cropped body parts.",
+  "prompt": "Use case: stylized-concept revision / identity redesign. The FIRST supplied image is the ENEMY-002 courier to remake. The goblin and older villager are comparison references only.\n\nRedesign ENEMY-002 so he is unmistakably a confident HUMAN PURSUER trying to catch the goblin, and cannot be confused with the playable goblin. Remove the frightened, anxious, sympathetic expression completely. Give him focused narrowed eyes, lowered determined brows, a firm closed mouth or slight competitive scowl, and a forward-looking hunting gaze. He should read as eager, relentless and certain that he will catch his target, without becoming an evil caricature.\n\nMake the silhouette substantially different from the goblin: a taller, lean adult human about 25–35 years old with longer legs, smaller head relative to body, compact cropped dark-brown hair, normal rounded human ears, straighter posture, squared shoulders and controlled runner-ready stance. Avoid the goblin's oversized head, huge round eyes, large ears, worried expression, spiky hair, neck scarf, ragged triangular tunic silhouette and crouched vulnerable posture.\n\nCostume: recognizable village courier uniform rather than scavenged adventurer clothing — fitted muted ochre or warm cream tunic, strong burgundy-red short sleeveless courier coat or tabard as the dominant color mass, dark fitted trousers, practical mid-calf running boots, broad cross-body leather dispatch satchel. Add one clear sealed rolled letter in his hand or secured at the bag. Clothes may be worn from travel but should be orderly, functional and mostly intact; no armor, no weapon, no patches dominating the design.\n\nPreserve the project's shared rendering language: hand-painted 2D storybook cutout, dark plum-brown outer contour, simple cel-shaded masses, restrained texture, soft warm upper-front lighting, readable at 128–160 px. Match line quality and finish of the villager while keeping a faster, lighter build. Human skin and burgundy/ochre palette should separate him clearly from the green/orange goblin.\n\nFull body in 3/4 top-down gameplay view, facing screen-right and slightly toward viewer. Neutral animation-ready pursuit stance with subtle forward lean, feet both fully visible and near a common ground line, limbs separated, no extreme running frame. Center one character on a square transparent canvas with generous padding. No background, floor, baked shadow, text, UI, speed lines, dust, glow, extra characters or cropped parts.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "young, light and fragile silhouette",
+    "messenger satchel and rolled letter readable at gameplay scale",
+    "neutral animation-ready pose"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": [1254, 1254],
+    "sourceSha256": "945F120C485AEC9FD0EA031B0EFD4800E2B0DEF22CF2FE70ABC2538A40DB15BE",
+    "runtimeSha256": "5D3EE705F3AA76CC8A381A8C262D86AFCA2AF44B38E0CBB8649FC048A54C1A70",
+    "operations": [
+      "Master copied unchanged and byte-identical to v002/concept-01.png.",
+      "Runtime only: visible bounds at alpha >=10, x323/y69/w711/h1121, mapped without distortion into x66/y36/w123/h194 on a transparent 256x256 RGBA canvas using System.Drawing high-quality bicubic interpolation. Near-transparent generator noise outside the body is excluded from framing.",
+      "Unity import target: Single/FullRect/Bilinear/Clamp, sRGB, alpha transparency, no mipmaps, no ReadWrite, uncompressed, maxSize 256, 160 PPU, pivot (0.50, 0.10)."
+    ],
+    "remaining": ["Production ENEMY-002 gameplay binding remains separate; the approved image is attached to FIXTURE-ENEMY-FAN data."]
+  }
+}

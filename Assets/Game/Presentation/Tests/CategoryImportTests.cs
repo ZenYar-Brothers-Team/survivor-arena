@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Game.Presentation.Editor;
 using NUnit.Framework;
 using UnityEditor;
@@ -10,6 +11,50 @@ namespace Game.Presentation.Tests
     public sealed class CategoryImportTests
     {
         private const string Body = "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png";
+        [TestCase("Skills", 16)]
+        [TestCase("Passives", 14)]
+        [TestCase("Sets", 20)]
+        public void ApprovedGameplayIcons_AllUseTheIconImportProfile(string category, int expectedCount)
+        {
+            var directory = $"Assets/Resources/Art/UI/Icons/{category}";
+            var paths = Directory.GetFiles(directory, "*.png").OrderBy(path => path).ToArray();
+            Assert.AreEqual(expectedCount, paths.Length);
+            foreach (var path in paths)
+            {
+                var assetPath = path.Replace('\\', '/');
+                var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+                Assert.IsNotNull(importer, assetPath);
+                var settings = new TextureImporterSettings();
+                importer.ReadTextureSettings(settings);
+                Assert.AreEqual(TextureImporterType.Sprite, importer.textureType, assetPath);
+                Assert.AreEqual(256, importer.maxTextureSize, assetPath);
+                Assert.AreEqual(new Vector2(.5f, .5f), settings.spritePivot, assetPath);
+                Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression, assetPath);
+                Assert.IsNotNull(AssetDatabase.LoadAssetAtPath<Sprite>(assetPath), assetPath);
+            }
+        }
+
+        [Test]
+        public void ApprovedSkillProjectiles_AllUseTheWorldProjectileImportProfile()
+        {
+            var paths = Directory.GetFiles("Assets/Resources/Art/Sprites/Skills", "*.png",
+                SearchOption.AllDirectories).OrderBy(path => path).ToArray();
+            Assert.AreEqual(8, paths.Length, "Five approved projectiles plus SKILL-002/005/013 derived in F1-01.");
+            foreach (var path in paths)
+            {
+                var assetPath = path.Replace('\\', '/');
+                var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+                Assert.IsNotNull(importer, assetPath);
+                var settings = new TextureImporterSettings();
+                importer.ReadTextureSettings(settings);
+                Assert.AreEqual(TextureImporterType.Sprite, importer.textureType, assetPath);
+                Assert.AreEqual(256, importer.maxTextureSize, assetPath);
+                Assert.AreEqual(320f, importer.spritePixelsPerUnit, assetPath);
+                Assert.AreEqual(new Vector2(.5f, .5f), settings.spritePivot, assetPath);
+                Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression, assetPath);
+                Assert.IsNotNull(AssetDatabase.LoadAssetAtPath<Sprite>(assetPath), assetPath);
+            }
+        }
 
         [TestCase("UI", "fixture-import-check-icon.png", 256)]
         [TestCase("VFX", "fixture-import-check-impact.png", 512)]

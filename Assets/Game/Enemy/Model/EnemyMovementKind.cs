@@ -7,6 +7,7 @@ namespace Game.Enemy
         Orbit,
         Zigzag,
         ApproachRetreat,
-        TelegraphedDash
+        TelegraphedDash,
+        DistanceReposition
     }
 }

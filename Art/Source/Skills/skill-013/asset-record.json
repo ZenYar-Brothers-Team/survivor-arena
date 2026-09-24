@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-013",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-24",
+  "sourceKind": "derived-from-approved-icon",
+  "generator": "scripts-free PIL derivation in session 2026-09-24 (crop/connected-component mask/rotate) of the user-approved icon master",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054.",
+  "prompt": "No generation prompt: single shard derived from the approved SKILL-013 icon master (Art/Source/Skills/skill-013/icon/selected-master.png) by cropping one element, masking neighbours, and rotating it to face +X. No pixels were painted.",
+  "constraints": [
+    "transparent background",
+    "single projectile",
+    "points to +X for runtime rotation",
+    "derived from approved icon; no new style"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-013/skill-013-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "890x330",
+    "sourceSha256": "7d57579366257bf89d84fe5dbb09e52630cb9227706404f1f89ba4db87734079",
+    "runtimeSha256": "4fb33c12113abc26d982659e356536c36fde5e3773c114ecc0a9605b8b9cf13c",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": true
+    }
+  }
+}

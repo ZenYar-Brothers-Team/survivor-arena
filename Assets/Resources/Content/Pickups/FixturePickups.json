@@ -5,12 +5,18 @@
   "seed": 48211,
   "placementSkin": 0.01,
   "feedbackSeconds": 1.5,
+  "experienceVisualId": "FIXTURE-XP-DROP-VISUAL",
+  "experienceVisualScale": 0.62,
+  "dropScatterRadius": 0.3,
+  "dropScatterSeed": 48212,
   "enemyChances": {},
   "fieldChances": {},
   "pickups": [
-    { "id": "FIXTURE-POTION", "kind": "Potion", "healing": 20, "contactRadius": 0.22,
-      "lifetimeSeconds": null, "marker": "+", "color": [0.4, 1, 0.45, 1], "markerSize": 0.14 },
-    { "id": "FIXTURE-BOOK", "kind": "Book", "healing": 0, "contactRadius": 0.22,
-      "lifetimeSeconds": null, "marker": "BOOK", "color": [0.95, 0.8, 0.35, 1], "markerSize": 0.08 }
+    { "id": "FIXTURE-POTION", "kind": "Potion", "healing": 20, "contactRadius": 0.4,
+      "lifetimeSeconds": null, "marker": "+", "color": [0.4, 1, 0.45, 1], "markerSize": 0.14,
+      "visualId": "PICKUP-001-VISUAL", "visualScale": 0.68 },
+    { "id": "FIXTURE-BOOK", "kind": "Book", "healing": 0, "contactRadius": 0.4,
+      "lifetimeSeconds": null, "marker": "BOOK", "color": [0.95, 0.8, 0.35, 1], "markerSize": 0.08,
+      "visualId": "FIXTURE-TRAVELER-BOOK-VISUAL", "visualScale": 0.7 }
   ]
 }

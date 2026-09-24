@@ -1,0 +1,184 @@
+[
+  {
+    "id": "SET-001",
+    "displayName": "Тяжёлый боезапас",
+    "iconVisualId": "SET-001-VISUAL-ICON",
+    "description": "Бросок камня получает большой bonus к damage, projectile size и outgoing knockback.",
+    "recipe": [
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-001",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.6,
+          "effectSizeMultiplierBonus": 0.25,
+          "outgoingKnockbackBonus": 0.35
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-004",
+    "displayName": "Ледяной таран",
+    "iconVisualId": "SET-004-VISUAL-ICON",
+    "description": "slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет.",
+    "recipe": [
+      {
+        "id": "SKILL-004",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-013",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SlowedTargetBonus",
+        "modifier": {
+          "outgoingKnockbackBonus": 0.5
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-004",
+        "modifier": {
+          "effectSizeMultiplierBonus": 0.25,
+          "outgoingKnockbackBonus": 0.35
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-006",
+    "displayName": "Полевой медик",
+    "iconVisualId": "SET-006-VISUAL-ICON",
+    "description": "дополнительно усиливает max HP, regeneration, health restoration и шанс выпадения Зелий лечения. Зелья восстанавливают больше здоровья.",
+    "recipe": [
+      {
+        "id": "PASSIVE-001",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-002",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-009",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "maxHealthMultiplierBonus": 0.2,
+          "healthRegenerationPerSecondBonus": 0.6,
+          "healthRestorationMultiplierBonus": 0.2,
+          "potionDropMultiplierBonus": 0.25
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-010",
+    "displayName": "Холодная орбита",
+    "iconVisualId": "SET-010-VISUAL-ICON",
+    "description": "враги внутри текущего orbit radius Орбитальных клинков получают слабый slow; Орбитальные клинки наносят повышенный damage slowed enemies.",
+    "recipe": [
+      {
+        "id": "SKILL-003",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "SKILL-013",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-008",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "OrbitSlowAura",
+        "skill": "SKILL-003",
+        "slowFraction": 0.15,
+        "slowSeconds": 0.25,
+        "refreshSeconds": 0.1
+      },
+      {
+        "kind": "SlowedTargetBonus",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4
+        },
+        "skill": "SKILL-003"
+      }
+    ]
+  },
+  {
+    "id": "SET-017",
+    "displayName": "Падающая звезда",
+    "iconVisualId": "SET-017-VISUAL-ICON",
+    "description": "с редким фиксированным cooldown выбирается случайный враг в допустимом радиусе от персонажа; после заметного telegraph в его позицию падает один очень мощный удар большой области.",
+    "recipe": [
+      {
+        "id": "SKILL-010",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-017-ATTACK",
+        "cooldownSeconds": 7.5,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  }
+]
