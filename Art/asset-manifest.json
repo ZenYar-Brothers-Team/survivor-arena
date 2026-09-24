@@ -1634,11 +1634,12 @@
       "provenance": "Art/Source/Enemies/enemy-003/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-003/enemy-003-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-003/enemy-003-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "ENEMY-004",
@@ -1650,11 +1651,12 @@
       "provenance": "Art/Source/Enemies/enemy-004/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "ENEMY-005",
@@ -1666,11 +1668,12 @@
       "provenance": "Art/Source/Enemies/enemy-005/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "MIDBOSS-001",
@@ -1682,11 +1685,12 @@
       "provenance": "Art/Source/Bosses/midboss-001/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-001/midboss-001-body.png",
       "resourcePath": "Art/Sprites/Bosses/midboss-001/midboss-001-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "BOSS-001",
@@ -1698,11 +1702,12 @@
       "provenance": "Art/Source/Bosses/boss-001/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-body.png",
       "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "TRAVELER-001",
@@ -1714,11 +1719,12 @@
       "provenance": "Art/Source/Travelers/traveler-001/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-001/traveler-001-body.png",
       "resourcePath": "Art/Sprites/Travelers/traveler-001/traveler-001-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "TRAVELER-002",
@@ -1730,11 +1736,12 @@
       "provenance": "Art/Source/Travelers/traveler-002/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-002/traveler-002-body.png",
       "resourcePath": "Art/Sprites/Travelers/traveler-002/traveler-002-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "TRAVELER-005",
@@ -1746,11 +1753,12 @@
       "provenance": "Art/Source/Travelers/traveler-005/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-body.png",
       "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "ENEMY-007",
@@ -1762,11 +1770,12 @@
       "provenance": "Art/Source/Enemies/enemy-007/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "BOSS-001",
@@ -1778,11 +1787,12 @@
       "provenance": "Art/Source/Bosses/boss-001/projectile/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-projectile.png",
       "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-projectile",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     },
     {
       "owner": "FIELD-001",
@@ -1794,11 +1804,12 @@
       "provenance": "Art/Source/Fields/field-001/background/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-background.png",
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-background",
-      "stage": "Prepared",
+      "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images."
+        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": ""
     }
   ]
 }

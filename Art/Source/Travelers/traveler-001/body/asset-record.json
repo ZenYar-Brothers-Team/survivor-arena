@@ -9,7 +9,7 @@
   "selectedVersion": "v001/concept-01.png",
   "approvedAt": "2026-09-24",
   "approvedBy": "user",
-  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images. User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят.",
   "prompt": "Generation prompt unavailable in the user-shared ChatGPT image post; the original user corrections are recorded in the source conversation.",
   "constraints": [
     "approved image or user-requested missing asset",
