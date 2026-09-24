@@ -2,9 +2,9 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…06 Implemented, Unity NOT RUN)
+Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…07 Implemented, Unity NOT RUN)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-07 — три Путника и production Книга; IP-12A gameplay density review остаётся открытым
+Current active packet: F1-08 — production FIELD-001 и полный забег; IP-12A gameplay density review остаётся открытым
 Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
@@ -190,8 +190,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Implemented | 2026-09-24: ENEMY-001…005/007 + PICKUP-001 (данные/поведение/снаряды), .NET harness PASS, Unity NOT RUN; **art gate:** тела ENEMY-003/004/005/007; [evidence](evidence/field001-f1-04-2026-09-24.md) |
 | 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Implemented | 2026-09-24: SET-001/004/006/010/017 (пороги, эффекты, SET-017 attack/telegraph); .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-05-2026-09-24.md) |
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Implemented | 2026-09-24: BOSS-001/MIDBOSS-001 (атаки, фазы, двойной рывок); .NET harness PASS, Unity NOT RUN; **art gate:** тела и снаряды боссов; [evidence](evidence/field001-f1-06-2026-09-24.md) |
-| 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | In progress | F1-00 Verified, F1-01/02/04/05 Implemented |
-| 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Blocked | F1-00…07; geometry/timeline/bindings и actual-content UI |
+| 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Implemented | 2026-09-24: TRAVELER-001/002/005 + FIELD-001 schedule, PICKUP-002; .NET harness PASS, Unity NOT RUN; **art gate:** тела Путников; [evidence](evidence/field001-f1-07-2026-09-24.md) |
+| 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | In progress | F1-00 Verified, F1-01…07 Implemented |
 | 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08; real-run matrix, performance bounds, closure of gameplay OBS |
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
@@ -676,7 +676,8 @@ Startup packet: F1-07 — TRAVELER-001/002/005 и production Book. Required pack
 Dependencies: IP-29, IP-12A
 Blocked by: production Book card/ID/параметры, required Traveler/support/XP/presence data и per-ID art gates; prerequisite IP-29 выполнен.
 Remaining gates: G-03/G-10 semantics закрыты DECISION-0020/0033 и IP-28; G-11/G-12/scaling semantics — DECISION-0035. G-14/G-17, production Book card/ID/параметры, complete Traveler/support data и конкретные images. Designs TRAVELER-001…010 уже approved.
-Remaining acceptance / IDs: TRAVELER-001…010 и отсутствующая production Book card/ID/data/art.
+Remaining acceptance / IDs: TRAVELER-003/004/006…010; тела TRAVELER-001/002/005 (art gate); Unity verification.
+Startup subset F1-07: TRAVELER-001/002/005, FIELD-001 schedule, PICKUP-002 Implemented 2026-09-24 — [evidence](evidence/field001-f1-07-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-30).

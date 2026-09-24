@@ -458,6 +458,39 @@ def bosses(baseline):
     return [final, midboss]
 
 
+def travelers(baseline):
+    schedule = baseline["travelerSchedule"]
+    seeds = baseline["randomness"]["referenceSeeds"]
+    if schedule["typeSelection"] != "uniform-without-replacement" or not schedule["timesIndependent"] \
+            or schedule["spawnTimeIntervalSeconds"] != [0, 900 - schedule["endBufferSeconds"]]:
+        raise SystemExit("Traveler schedule policy not expressible by the runtime")
+    result = []
+    for t in baseline["travelers"]:
+        if t["attack"] is not None or t["movement"]["kind"] != "Seek" or t["bookDropCountOnKill"] != 1 or t["rewardOnEscape"] != 0:
+            raise SystemExit(f"{t['id']}: unsupported Traveler policy")
+        support = t["support"]
+        result.append({
+            "id": t["id"], "name": t["name"], "marker": t["marker"], "role": t["role"],
+            "body": {"id": t["id"], "knockbackResistance": t["knockbackResistance"], "maxHealth": t["maxHealth"],
+                     "collisionSize": t["collisionSize"], "movementSpeed": t["movementSpeed"],
+                     "contactDamage": t["contactDamage"], "contactDamageInterval": t["contactDamageIntervalSeconds"],
+                     "experienceReward": t["experienceReward"], "movement": {"kind": "Seek"},
+                     "contactControls": {"knockbackDistance": t["contactKnockback"],
+                                         "knockbackSeconds": t["knockbackSeconds"] or baseline["controls"]["nonzeroKnockbackSeconds"]}},
+            "presenceSeconds": t["presenceSeconds"], "wanderSeconds": t["wanderSeconds"], "restSeconds": t["restSeconds"],
+            "avoidRadius": t["avoidRadius"], "avoidSeconds": t["avoidSeconds"], "guardOffset": t["guardOffset"],
+            "support": support["kind"], "supportRadius": support["radius"], "reduction": support["reduction"],
+            "resistance": support["resistance"], "shieldHp": support["shieldHp"], "shieldSeconds": support["shieldSeconds"],
+            "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
+        })
+    return {"travelers": result, "schedules": [{
+        "id": schedule["id"], "travelerIds": [t["id"] for t in baseline["travelers"]],
+        "countProbabilities": schedule["countProbabilities"], "seed": seeds["travelers"], "fieldRank": schedule["fieldRank"],
+        "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
+        "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
+        "timeGrowth": schedule["timeGrowth"]}]}
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
@@ -467,6 +500,7 @@ TARGETS = {
     "Assets/Resources/Content/Pickups/ProductionPickups.json": pickups,
     "Assets/Resources/Content/Sets/ProductionSets.json": sets,
     "Assets/Resources/Content/Bosses/ProductionBosses.json": bosses,
+    "Assets/Resources/Content/Travelers/ProductionTravelers.json": travelers,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }
 
