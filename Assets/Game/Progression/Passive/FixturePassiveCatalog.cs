@@ -13,9 +13,12 @@ namespace Game.Progression
     {
         private const string ResourcePath = "Content/Passives/FixturePassives";
 
-        public static IReadOnlyList<PassiveProgressionDefinition> Create()
+        public static IReadOnlyList<PassiveProgressionDefinition> Create() => Load(ResourcePath);
+
+        /// <summary>Loads any passive JSON (fixture or production) with the shared DTO mapping.</summary>
+        public static IReadOnlyList<PassiveProgressionDefinition> Load(string resourcePath)
         {
-            var data = JsonContentFile.Load<PassiveProgressionData[]>(ResourcePath);
+            var data = JsonContentFile.Load<PassiveProgressionData[]>(resourcePath);
             var definitions = new PassiveProgressionDefinition[data.Length];
             for (var i = 0; i < data.Length; i++)
                 definitions[i] = ToDefinition(data[i]);

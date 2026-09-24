@@ -171,8 +171,51 @@ def active_skills(baseline):
     return result
 
 
+PASSIVE_CHANNELS = {  # baseline review field -> runtime CharacterStatModifierData field
+    "maxHealthBonus": "maxHealthMultiplierBonus",
+    "regenerationHpPerSecond": "healthRegenerationPerSecondBonus",
+    "potionDropChanceBonus": "potionDropMultiplierBonus",
+    "movementSpeedBonus": "movementSpeedMultiplierBonus",
+    "activeDamageBonus": "activeSkillDamageMultiplierBonus",
+    "actionSpeedBonus": "actionSpeedBonus",
+    "pickupRadiusBonus": "pickupRadiusMultiplierBonus",
+    "incomingDamageReduction": "incomingDamageReductionBonus",
+    "healthRestorationBonus": "healthRestorationMultiplierBonus",
+    "knockbackResistanceBonus": "knockbackResistanceBonus",
+    "outgoingKnockbackBonus": "outgoingKnockbackBonus",
+    "effectSizeBonus": "effectSizeMultiplierBonus",
+}
+
+
+def content_design_names(prefix):
+    """Card titles from Content Design, e.g. '#### PASSIVE-001 — Крепкое сердце'."""
+    import re
+    text = (ROOT / "docs/Content_design.md").read_text(encoding="utf-8")
+    return {m.group(1): m.group(2).strip() for m in re.finditer(rf"^#+ ({prefix}-\d{{3}}) — (.+)$", text, re.M)}
+
+
+def passives(baseline):
+    names = content_design_names("PASSIVE")
+    result = []
+    for passive in baseline["passives"]:
+        levels = []
+        for row in passive["levels"]:
+            level = {}
+            for key, value in row.items():
+                if key == "level":
+                    continue
+                if key not in PASSIVE_CHANNELS:
+                    raise SystemExit(f"{passive['id']}: no runtime channel for {key}")
+                level[PASSIVE_CHANNELS[key]] = value
+            levels.append(level)
+        result.append({"id": passive["id"], "displayName": names[passive["id"]],
+                       "iconVisualId": f"{passive['id']}-VISUAL-ICON", "levels": levels})
+    return result
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
+    "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
 }
 
 

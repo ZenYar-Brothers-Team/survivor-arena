@@ -1,0 +1,264 @@
+[
+  {
+    "id": "PASSIVE-001",
+    "displayName": "Крепкое сердце",
+    "iconVisualId": "PASSIVE-001-VISUAL-ICON",
+    "levels": [
+      {
+        "maxHealthMultiplierBonus": 0.08
+      },
+      {
+        "maxHealthMultiplierBonus": 0.16
+      },
+      {
+        "maxHealthMultiplierBonus": 0.24
+      },
+      {
+        "maxHealthMultiplierBonus": 0.32
+      },
+      {
+        "maxHealthMultiplierBonus": 0.4
+      },
+      {
+        "maxHealthMultiplierBonus": 0.5
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-002",
+    "displayName": "Собиратель",
+    "iconVisualId": "PASSIVE-002-VISUAL-ICON",
+    "levels": [
+      {
+        "healthRegenerationPerSecondBonus": 0.2,
+        "potionDropMultiplierBonus": 0.1
+      },
+      {
+        "healthRegenerationPerSecondBonus": 0.4,
+        "potionDropMultiplierBonus": 0.2
+      },
+      {
+        "healthRegenerationPerSecondBonus": 0.7,
+        "potionDropMultiplierBonus": 0.3
+      },
+      {
+        "healthRegenerationPerSecondBonus": 1,
+        "potionDropMultiplierBonus": 0.4
+      },
+      {
+        "healthRegenerationPerSecondBonus": 1.4,
+        "potionDropMultiplierBonus": 0.5
+      },
+      {
+        "healthRegenerationPerSecondBonus": 2,
+        "potionDropMultiplierBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-003",
+    "displayName": "Лёгкие сапоги",
+    "iconVisualId": "PASSIVE-003-VISUAL-ICON",
+    "levels": [
+      {
+        "movementSpeedMultiplierBonus": 0.05
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.1
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.15
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.2
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.25
+      },
+      {
+        "movementSpeedMultiplierBonus": 0.3
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-004",
+    "displayName": "Точильный камень",
+    "iconVisualId": "PASSIVE-004-VISUAL-ICON",
+    "levels": [
+      {
+        "activeSkillDamageMultiplierBonus": 0.08
+      },
+      {
+        "activeSkillDamageMultiplierBonus": 0.16
+      },
+      {
+        "activeSkillDamageMultiplierBonus": 0.24
+      },
+      {
+        "activeSkillDamageMultiplierBonus": 0.32
+      },
+      {
+        "activeSkillDamageMultiplierBonus": 0.4
+      },
+      {
+        "activeSkillDamageMultiplierBonus": 0.5
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-005",
+    "displayName": "Метроном",
+    "iconVisualId": "PASSIVE-005-VISUAL-ICON",
+    "levels": [
+      {
+        "actionSpeedBonus": 0.05
+      },
+      {
+        "actionSpeedBonus": 0.09
+      },
+      {
+        "actionSpeedBonus": 0.13
+      },
+      {
+        "actionSpeedBonus": 0.17
+      },
+      {
+        "actionSpeedBonus": 0.21
+      },
+      {
+        "actionSpeedBonus": 0.25
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-007",
+    "displayName": "Магнит опыта",
+    "iconVisualId": "PASSIVE-007-VISUAL-ICON",
+    "levels": [
+      {
+        "pickupRadiusMultiplierBonus": 0.1
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.2
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.3
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.4
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.5
+      },
+      {
+        "pickupRadiusMultiplierBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-008",
+    "displayName": "Закалённая кожа",
+    "iconVisualId": "PASSIVE-008-VISUAL-ICON",
+    "levels": [
+      {
+        "incomingDamageReductionBonus": 0.05
+      },
+      {
+        "incomingDamageReductionBonus": 0.09
+      },
+      {
+        "incomingDamageReductionBonus": 0.13
+      },
+      {
+        "incomingDamageReductionBonus": 0.17
+      },
+      {
+        "incomingDamageReductionBonus": 0.21
+      },
+      {
+        "incomingDamageReductionBonus": 0.25
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-009",
+    "displayName": "Лечебная настойка",
+    "iconVisualId": "PASSIVE-009-VISUAL-ICON",
+    "levels": [
+      {
+        "healthRestorationMultiplierBonus": 0.1
+      },
+      {
+        "healthRestorationMultiplierBonus": 0.2
+      },
+      {
+        "healthRestorationMultiplierBonus": 0.3
+      },
+      {
+        "healthRestorationMultiplierBonus": 0.4
+      },
+      {
+        "healthRestorationMultiplierBonus": 0.5
+      },
+      {
+        "healthRestorationMultiplierBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-011",
+    "displayName": "Тяжёлый пояс",
+    "iconVisualId": "PASSIVE-011-VISUAL-ICON",
+    "levels": [
+      {
+        "knockbackResistanceBonus": 0.1,
+        "outgoingKnockbackBonus": 0.1
+      },
+      {
+        "knockbackResistanceBonus": 0.2,
+        "outgoingKnockbackBonus": 0.2
+      },
+      {
+        "knockbackResistanceBonus": 0.3,
+        "outgoingKnockbackBonus": 0.3
+      },
+      {
+        "knockbackResistanceBonus": 0.4,
+        "outgoingKnockbackBonus": 0.4
+      },
+      {
+        "knockbackResistanceBonus": 0.5,
+        "outgoingKnockbackBonus": 0.5
+      },
+      {
+        "knockbackResistanceBonus": 0.6,
+        "outgoingKnockbackBonus": 0.6
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-012",
+    "displayName": "Широкий замах",
+    "iconVisualId": "PASSIVE-012-VISUAL-ICON",
+    "levels": [
+      {
+        "effectSizeMultiplierBonus": 0.05
+      },
+      {
+        "effectSizeMultiplierBonus": 0.1
+      },
+      {
+        "effectSizeMultiplierBonus": 0.15
+      },
+      {
+        "effectSizeMultiplierBonus": 0.2
+      },
+      {
+        "effectSizeMultiplierBonus": 0.25
+      },
+      {
+        "effectSizeMultiplierBonus": 0.3
+      }
+    ]
+  }
+]
