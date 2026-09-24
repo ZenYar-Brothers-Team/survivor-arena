@@ -9,6 +9,7 @@ namespace Game.Run
 
         public RunModel Model { get; private set; }
         public bool IsInitialized { get; private set; }
+        private bool _ownsTimeScale;
 
         private void Awake()
         {
@@ -30,6 +31,8 @@ namespace Game.Run
         {
             if (IsInitialized) throw new System.InvalidOperationException("Run controller is already initialized.");
             Model = new RunModel(_durationSeconds);
+            Model.SpeedChanged += HandleSpeedChanged;
+            Model.StateChanged += HandleStateChanged;
             IsInitialized = true;
         }
 
@@ -38,6 +41,9 @@ namespace Game.Run
         {
             if (!IsInitialized) return;
             Model.Stop();
+            Model.SpeedChanged -= HandleSpeedChanged;
+            Model.StateChanged -= HandleStateChanged;
+            RestoreTimeScale();
             IsInitialized = false;
         }
 
@@ -50,6 +56,29 @@ namespace Game.Run
                 Model.ReleasePause(RunPauseReasons.Manual);
             else
                 Model.RequestPause(RunPauseReasons.Manual);
+        }
+
+        public bool SetSpeed(int multiplier) => IsInitialized && Model.SetSpeed(multiplier);
+
+        private void HandleSpeedChanged(int _) => ApplyTimeScale();
+
+        private void HandleStateChanged(RunState _) => ApplyTimeScale();
+
+        private void ApplyTimeScale()
+        {
+            if (Model.State == RunState.Running)
+            {
+                Time.timeScale = Model.SpeedMultiplier;
+                _ownsTimeScale = true;
+            }
+            else RestoreTimeScale();
+        }
+
+        private void RestoreTimeScale()
+        {
+            if (!_ownsTimeScale) return;
+            Time.timeScale = 1f;
+            _ownsTimeScale = false;
         }
     }
 }

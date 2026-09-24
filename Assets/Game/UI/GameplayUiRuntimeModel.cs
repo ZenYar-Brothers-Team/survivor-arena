@@ -47,6 +47,7 @@ namespace Game.UI
         public float ElapsedSeconds => _run.Model.Elapsed;
         public CharacterStatsViewState Stats => new CharacterStatsViewState(_player.Stats, _player.Controls);
         public RunState RunState => _run.Model.State;
+        public int SpeedMultiplier => _run.Model.SpeedMultiplier;
         public bool IsDraftOpen => _draft.IsDraftOpen;
         public Guid DraftRevision => _draft.Revision;
         public DraftRequest CurrentDraftRequest => _draft.CurrentRequest;
@@ -103,6 +104,7 @@ namespace Game.UI
             _draft.Changed += HandleDraftChanged;
             _draft.SelectionApplied += HandleSelectionApplied;
             _run.Model.StateChanged += HandleRunStateChanged;
+            _run.Model.SpeedChanged += HandleSpeedChanged;
             if (_waveDirector != null)
                 _waveDirector.PhaseChanged += HandleWavePhaseChanged;
             if (_enemySpawner != null)
@@ -114,6 +116,7 @@ namespace Game.UI
         public bool RerollDraft(Guid revision) => _draft.Reroll(revision);
         public bool BanishDraftOption(ContentId id, Guid revision) => _draft.Banish(id, revision);
         public void TogglePause() => _run.TogglePause();
+        public bool SetSpeed(int multiplier) => _run.SetSpeed(multiplier);
         public void AddFixtureExperience() => _experience.AddInterventionExperience(5f);
         public void AddFixtureBook()
         {
@@ -138,6 +141,7 @@ namespace Game.UI
             Changed?.Invoke();
         }
         private void HandleRunStateChanged(RunState _) => Changed?.Invoke();
+        private void HandleSpeedChanged(int _) => Changed?.Invoke();
         private void HandleWavePhaseChanged(WavePhaseDefinition _, int __) => Changed?.Invoke();
         private void HandleSpawnResolved(WaveSpawnOutcome _) => Changed?.Invoke();
 
@@ -207,6 +211,7 @@ namespace Game.UI
             _draft.Changed -= HandleDraftChanged;
             _draft.SelectionApplied -= HandleSelectionApplied;
             _run.Model.StateChanged -= HandleRunStateChanged;
+            _run.Model.SpeedChanged -= HandleSpeedChanged;
             if (_waveDirector != null)
                 _waveDirector.PhaseChanged -= HandleWavePhaseChanged;
             if (_enemySpawner != null)

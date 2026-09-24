@@ -26,6 +26,10 @@ namespace Game.UI
         private readonly Label _timerLabel;
         private readonly Label _waveLabel;
         private readonly Button _pauseButton;
+        private readonly Button _speedNormalButton;
+        private readonly Button _speedDoubleButton;
+        private readonly Button _speedTripleButton;
+        private readonly Button _speedQuintupleButton;
         private readonly VisualElement _activeSlots;
         private readonly VisualElement _passiveSlots;
         private readonly VisualElement _sets;
@@ -77,6 +81,7 @@ namespace Game.UI
         public event Action<Guid> DraftRerollRequested;
         public event Action<Guid> DraftBanishModeRequested;
         public event Action PauseRequested;
+        public event Action<int> SpeedRequested;
         public event Action AddExperienceRequested;
         public event Action AddBookRequested;
         public event Action ApplyDamageRequested;
@@ -101,6 +106,10 @@ namespace Game.UI
             _timerLabel = Require<Label>(root, GameplayUiElementIds.TimerLabel);
             _waveLabel = Require<Label>(root, GameplayUiElementIds.WaveLabel);
             _pauseButton = Require<Button>(root, GameplayUiElementIds.PauseButton);
+            _speedNormalButton = Require<Button>(root, GameplayUiElementIds.SpeedNormalButton);
+            _speedDoubleButton = Require<Button>(root, GameplayUiElementIds.SpeedDoubleButton);
+            _speedTripleButton = Require<Button>(root, GameplayUiElementIds.SpeedTripleButton);
+            _speedQuintupleButton = Require<Button>(root, GameplayUiElementIds.SpeedQuintupleButton);
             _activeSlots = Require<VisualElement>(root, GameplayUiElementIds.ActiveSlots);
             _passiveSlots = Require<VisualElement>(root, GameplayUiElementIds.PassiveSlots);
             _sets = Require<VisualElement>(root, GameplayUiElementIds.Sets);
@@ -145,6 +154,10 @@ namespace Game.UI
             _characterSelection = Require<VisualElement>(root, GameplayUiElementIds.CharacterSelection);
 
             _pauseButton.clicked += HandlePauseClicked;
+            _speedNormalButton.clicked += HandleNormalSpeedClicked;
+            _speedDoubleButton.clicked += HandleDoubleSpeedClicked;
+            _speedTripleButton.clicked += HandleTripleSpeedClicked;
+            _speedQuintupleButton.clicked += HandleQuintupleSpeedClicked;
             _runOverlayResumeButton.clicked += HandlePauseClicked;
             _rerollButton.clicked += HandleRerollClicked;
             _banishModeButton.clicked += HandleBanishModeClicked;
@@ -169,6 +182,10 @@ namespace Game.UI
 
         public void RenderHud(HudViewState state)
         {
+            RenderSpeedButton(_speedNormalButton, 1, state);
+            RenderSpeedButton(_speedDoubleButton, 2, state);
+            RenderSpeedButton(_speedTripleButton, 3, state);
+            RenderSpeedButton(_speedQuintupleButton, 5, state);
             _notification.Tick(Math.Max(0f, state.ElapsedSeconds - _previousElapsed));
             _previousElapsed = state.ElapsedSeconds;
             if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("LEVEL UP");
@@ -465,6 +482,16 @@ namespace Game.UI
         }
 
         private void HandlePauseClicked() => PauseRequested?.Invoke();
+        private void HandleNormalSpeedClicked() => SpeedRequested?.Invoke(1);
+        private void HandleDoubleSpeedClicked() => SpeedRequested?.Invoke(2);
+        private void HandleTripleSpeedClicked() => SpeedRequested?.Invoke(3);
+        private void HandleQuintupleSpeedClicked() => SpeedRequested?.Invoke(5);
+
+        private static void RenderSpeedButton(Button button, int multiplier, HudViewState state)
+        {
+            button.EnableInClassList("speed-button--selected", state.SpeedMultiplier == multiplier);
+            button.SetEnabled(state.CanChangeSpeed);
+        }
         private void HandleBanishModeClicked() => DraftBanishModeRequested?.Invoke(_renderedDraftRevision);
 
         private void HandleRerollClicked() => DraftRerollRequested?.Invoke(_renderedDraftRevision);
@@ -495,6 +522,10 @@ namespace Game.UI
         public void Dispose()
         {
             _pauseButton.clicked -= HandlePauseClicked;
+            _speedNormalButton.clicked -= HandleNormalSpeedClicked;
+            _speedDoubleButton.clicked -= HandleDoubleSpeedClicked;
+            _speedTripleButton.clicked -= HandleTripleSpeedClicked;
+            _speedQuintupleButton.clicked -= HandleQuintupleSpeedClicked;
             _runOverlayResumeButton.clicked -= HandlePauseClicked;
             _rerollButton.clicked -= HandleRerollClicked;
             _banishModeButton.clicked -= HandleBanishModeClicked;

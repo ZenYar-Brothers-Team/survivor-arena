@@ -74,6 +74,7 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 | Deadline before damage/contact | `TravelerRuntimeTests.PeacefulContact_DoesNotDispatchPlayerCombat_ExpiredAttackerCannotHit`, `Spawn_TwoScreenHeights_KillDropsOneBook_TimeoutNone` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Guard не позволяет порядку FixedUpdate/Update продлить встречу или выдать Book после deadline. |
 | Support lifetime independent of source Update | `EnemyProtectionTests.Aura_DeadlineExpiresBeforeDamage_WithoutWaitingForSourceUpdate` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Deadline источника проверяется до damage/control, без лишнего кадра aura. |
 | Traveler telemetry position export | `TravelerTelemetryTests.Export_IncludesScheduleLifeAndPlainPosition_AndDisposeUnsubscribes` | EditMode | См. IP-29 в [STATUS](implementation/STATUS.md) | Plain x/y предотвращают recursive Unity Vector2 serialization; dispose снимает events. |
+| Traveler reachable movement with many field obstacles | `BoxPickupPlacementTests.PlaceFrom_ClearStep_ReturnsRequestedPoint`, `PlaceFrom_BlockedOrDisconnectedStep_MatchesFullProjection`, `PlaceFrom_SixtyFourObstacles_StaysWithinMovementBudget` | EditMode | 2026-09-24, 714/714 EditMode | Короткий свободный шаг обходится без полной сетки; перекрытый шаг сохраняет прежнюю проекцию. |
 ## IP-25 — regression guards
 
 | Риск | Тесты | Вид | Evidence |

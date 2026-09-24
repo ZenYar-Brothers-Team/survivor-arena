@@ -7,6 +7,12 @@
             <ui:Label name="hud-level" text="LV 1" class="hud-label" />
             <ui:Label name="hud-wave" text="WAVE —" class="hud-wave" />
             <ui:ProgressBar name="hud-xp-bar" title="XP" low-value="0" high-value="100" class="hud-bar" />
+            <ui:VisualElement class="hud-speed-controls">
+                <ui:Button name="hud-speed-1" text="1×" class="speed-button" tooltip="Normal speed" />
+                <ui:Button name="hud-speed-2" text="2×" class="speed-button" tooltip="Double speed" />
+                <ui:Button name="hud-speed-3" text="3×" class="speed-button" tooltip="Triple speed" />
+                <ui:Button name="hud-speed-5" text="5×" class="speed-button" tooltip="Five times speed" />
+            </ui:VisualElement>
             <ui:Button name="hud-pause" text="Pause" class="compact-button" />
         </ui:VisualElement>
 

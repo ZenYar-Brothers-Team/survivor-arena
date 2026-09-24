@@ -36,6 +36,7 @@ namespace Game.UI
             _view.DraftRerollRequested += HandleDraftRerollRequested;
             _view.DraftBanishModeRequested += HandleDraftBanishModeRequested;
             _view.PauseRequested += HandlePauseRequested;
+            _view.SpeedRequested += HandleSpeedRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
             _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
@@ -61,7 +62,8 @@ namespace Game.UI
                     _model.WavePhaseName,
                     _model.WavePhaseTag),
                 _model.Stats,
-                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss));
+                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss,
+                _model.SpeedMultiplier, _model.RunState == RunState.Running));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
@@ -371,6 +373,12 @@ namespace Game.UI
             RefreshAll();
         }
 
+        private void HandleSpeedRequested(int multiplier)
+        {
+            if (_model.RunState != RunState.Running) return;
+            if (_model.SetSpeed(multiplier)) RefreshHud();
+        }
+
         private void HandleAddExperienceRequested()
         {
             if (_model.DevelopmentCommandsEnabled)
@@ -415,6 +423,7 @@ namespace Game.UI
             _view.DraftRerollRequested -= HandleDraftRerollRequested;
             _view.DraftBanishModeRequested -= HandleDraftBanishModeRequested;
             _view.PauseRequested -= HandlePauseRequested;
+            _view.SpeedRequested -= HandleSpeedRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
             _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;

@@ -45,6 +45,27 @@ namespace Game.Run.Tests
         }
 
         [Test]
+        public void Speed_OnlyAcceptsHudChoicesAndPersistsAcrossPause()
+        {
+            var model = new RunModel();
+            Assert.IsFalse(model.SetSpeed(2));
+            model.Start();
+            Assert.IsTrue(model.SetSpeed(2));
+            Assert.IsTrue(model.SetSpeed(3));
+            Assert.IsTrue(model.SetSpeed(5));
+            Assert.IsFalse(model.SetSpeed(4));
+            model.Pause();
+            Assert.AreEqual(5, model.SpeedMultiplier);
+            Assert.IsFalse(model.SetSpeed(2));
+            model.Resume();
+            Assert.AreEqual(5, model.SpeedMultiplier);
+            Assert.IsTrue(model.SetSpeed(1));
+            model.Stop();
+            Assert.IsFalse(model.SetSpeed(2));
+            Assert.AreEqual(1, model.SpeedMultiplier);
+        }
+
+        [Test]
         public void PauseReasons_ResumeOnlyAfterEveryOwnerReleasesPause()
         {
             var model = new RunModel(10f);

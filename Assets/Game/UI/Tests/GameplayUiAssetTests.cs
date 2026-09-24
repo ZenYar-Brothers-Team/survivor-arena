@@ -24,6 +24,10 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.StatsObservation));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.SkillObservation));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedNormalButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedDoubleButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedQuintupleButton));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.BuildPanel));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.ActiveSlots));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.PassiveSlots));

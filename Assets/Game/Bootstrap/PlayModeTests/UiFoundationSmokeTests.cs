@@ -37,7 +37,18 @@ namespace Game.Bootstrap.PlayModeTests
                     root.styleSheets.Add(Resources.Load<StyleSheet>("UI/GameplayUiStyles"));
                     view = new UiToolkitGameplayView(root);
                     view.RenderHud(new HudViewState(75, 100, 0.5f, 6, 120,
-                        new WaveViewState(1, 4, "Fixture", Game.Enemy.WavePhaseTag.Ordinary)));
+                        new WaveViewState(1, 4, "Fixture", Game.Enemy.WavePhaseTag.Ordinary),
+                        speedMultiplier: 5, canChangeSpeed: true));
+                    yield return null;
+                    yield return null;
+                    var speedNormal = root.Q<Button>(GameplayUiElementIds.SpeedNormalButton);
+                    var speedQuintuple = root.Q<Button>(GameplayUiElementIds.SpeedQuintupleButton);
+                    var pauseButton = root.Q<Button>(GameplayUiElementIds.PauseButton);
+                    Assert.GreaterOrEqual(speedNormal.worldBound.xMin, 0);
+                    Assert.LessOrEqual(speedQuintuple.worldBound.xMax, pauseButton.worldBound.xMin);
+                    Assert.LessOrEqual(pauseButton.worldBound.xMax, size.x);
+                    Assert.IsTrue(speedQuintuple.ClassListContains("speed-button--selected"));
+                    Capture(target, $"hud-speed-{size.x}x{size.y}");
                     view.SetDevelopmentControlsVisible(true);
                     var longText = string.Join(" ", new string[40]).Replace(" ", "Long fixture description ");
                     var projection = new RecipeProjectionViewState("Fixture recipe", 1, 2, 2, true, false,

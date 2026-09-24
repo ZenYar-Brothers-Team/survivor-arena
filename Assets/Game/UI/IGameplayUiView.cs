@@ -10,6 +10,7 @@ namespace Game.UI
         event Action<Guid> DraftRerollRequested;
         event Action<Guid> DraftBanishModeRequested;
         event Action PauseRequested;
+        event Action<int> SpeedRequested;
         event Action AddExperienceRequested;
         event Action AddBookRequested;
         event Action ApplyDamageRequested;

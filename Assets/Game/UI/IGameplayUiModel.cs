@@ -21,6 +21,7 @@ namespace Game.UI
         CharacterStatsViewState Stats { get; }
         RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }
+        int SpeedMultiplier { get; }
         bool IsDraftOpen { get; }
         Guid DraftRevision { get; }
         DraftRequest CurrentDraftRequest { get; }
@@ -47,6 +48,7 @@ namespace Game.UI
         bool RerollDraft(Guid revision);
         bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
+        bool SetSpeed(int multiplier);
         void AddFixtureExperience();
         void AddFixtureBook();
         void ApplyFixtureDamage();

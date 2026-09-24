@@ -101,6 +101,28 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void SpeedIntent_UpdatesRunningHudAndIgnoresPausedRun()
+        {
+            var model = CreateModel();
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            model.RunState = RunState.Running;
+            model.RaiseChanged();
+
+            view.RaiseSpeed(3);
+            Assert.AreEqual(3, model.SpeedMultiplier);
+            Assert.AreEqual(3, view.Hud.SpeedMultiplier);
+            Assert.IsTrue(view.Hud.CanChangeSpeed);
+
+            model.RunState = RunState.Paused;
+            model.RaiseChanged();
+            view.RaiseSpeed(5);
+            Assert.AreEqual(3, model.SpeedMultiplier);
+            Assert.IsFalse(view.Hud.CanChangeSpeed);
+        }
+
+        [Test]
         public void BanishMode_CancelIsFree_AndNewRevisionAndClosedDraftResetMode()
         {
             var model = CreateModel();
@@ -349,6 +371,7 @@ namespace Game.UI.Tests
             public float ElapsedSeconds { get; set; }
             public CharacterStatsViewState Stats { get; set; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
+            public int SpeedMultiplier { get; private set; } = 1;
             public bool IsDraftOpen { get; set; }
             public Guid DraftRevision { get; set; } = Guid.NewGuid();
             public DraftRequest CurrentDraftRequest { get; set; }
@@ -386,6 +409,7 @@ namespace Game.UI.Tests
             public bool RerollDraft(Guid revision) { RerollCalls++; return true; }
             public bool BanishDraftOption(ContentId id, Guid revision) { LastBanished = id; return true; }
             public void TogglePause() => PauseCalls++;
+            public bool SetSpeed(int multiplier) { SpeedMultiplier = multiplier; Changed?.Invoke(); return true; }
             public void AddFixtureBook() { BookCalls++; }
             public void AddFixtureExperience() => AddExperienceCalls++;
             public void ApplyFixtureDamage() => DamageCalls++;
@@ -402,6 +426,7 @@ namespace Game.UI.Tests
             public event Action<Guid> DraftRerollRequested;
             public event Action<Guid> DraftBanishModeRequested;
             public event Action PauseRequested;
+            public event Action<int> SpeedRequested;
             public event Action AddExperienceRequested;
         public event Action AddBookRequested;
             public event Action ApplyDamageRequested;
@@ -432,6 +457,7 @@ namespace Game.UI.Tests
             public void RaiseBanishMode(Guid? revision = null) => DraftBanishModeRequested?.Invoke(revision ?? Draft.Revision);
             public void RaiseBanish(ContentId id) { RaiseBanishMode(); RaiseSelect(id); }
             public void RaisePause() => PauseRequested?.Invoke();
+            public void RaiseSpeed(int multiplier) => SpeedRequested?.Invoke(multiplier);
             public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();

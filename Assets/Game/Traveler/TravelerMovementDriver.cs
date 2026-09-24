@@ -13,6 +13,8 @@ namespace Game.Traveler
         private readonly System.Random _random;
         private readonly List<EnemyRuntime> _ordinary = new List<EnemyRuntime>();
         private Vector2 _direction;
+        private Vector2 _lastReachable;
+        private bool _hasReachable;
         private float _remaining, _avoidRemaining;
         private bool _resting;
         public EnemyMovementPhase Phase { get; private set; }
@@ -42,7 +44,9 @@ namespace Game.Traveler
                 destination = position + (_resting && _avoidRemaining == 0 ? Vector2.zero : _direction) * speed * deltaTime;
             }
             var desired = Vector2.MoveTowards(position, destination, speed * deltaTime);
-            desired = _placement.Project(desired);
+            desired = _hasReachable ? _placement.ProjectFrom(_lastReachable, desired) : _placement.Project(desired);
+            _lastReachable = desired;
+            _hasReachable = true;
             if ((desired - position).sqrMagnitude < .000001f) _remaining = 0;
             return new EnemyMovementFrame(deltaTime > 0 ? (desired - position) / deltaTime : Vector2.zero, Phase);
         }

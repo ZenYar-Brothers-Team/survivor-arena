@@ -35,6 +35,44 @@ namespace Game.Pickup
                     : a.y > rect.yMin && a.y < rect.yMax && Math.Max(a.x, b.x) > rect.xMin && Math.Min(a.x, b.x) < rect.xMax) return false;
             return true;
         }
+        // A free point reached from an already reachable point stays in the spawn-connected component.
+        // This avoids rebuilding the whole arena grid for ordinary small movement steps.
+        public bool TryPlaceFrom(Vector2 knownReachable, Vector2 requested, out Vector2 reachable)
+        {
+            NumericValidation.ValidateFinite(requested.x, nameof(requested));
+            NumericValidation.ValidateFinite(requested.y, nameof(requested));
+            if (Free(knownReachable) && Free(requested) && ClearStraightSegment(knownReachable, requested))
+            { reachable = requested; return true; }
+            return TryPlace(requested, out reachable);
+        }
+        private bool ClearStraightSegment(Vector2 a, Vector2 b)
+        {
+            var delta = b - a;
+            foreach (var rect in _obstacles)
+            {
+                var min = 0f; var max = 1f;
+                if (delta.x == 0)
+                { if (a.x <= rect.xMin || a.x >= rect.xMax) continue; }
+                else
+                {
+                    var first = (rect.xMin - a.x) / delta.x;
+                    var second = (rect.xMax - a.x) / delta.x;
+                    min = Mathf.Max(min, Mathf.Min(first, second));
+                    max = Mathf.Min(max, Mathf.Max(first, second));
+                }
+                if (delta.y == 0)
+                { if (a.y <= rect.yMin || a.y >= rect.yMax) continue; }
+                else
+                {
+                    var first = (rect.yMin - a.y) / delta.y;
+                    var second = (rect.yMax - a.y) / delta.y;
+                    min = Mathf.Max(min, Mathf.Min(first, second));
+                    max = Mathf.Min(max, Mathf.Max(first, second));
+                }
+                if (min < max) return false;
+            }
+            return true;
+        }
         public bool TryPlace(Vector2 requested, out Vector2 reachable)
         {
             NumericValidation.ValidateFinite(requested.x, nameof(requested)); NumericValidation.ValidateFinite(requested.y, nameof(requested));
