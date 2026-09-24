@@ -18,6 +18,10 @@ namespace Game.Enemy
         public float DashSpeedMultiplier { get; }
         /// <summary>DistanceReposition: seconds at the end of each cycle spent moving sideways (the rest holds distance).</summary>
         public float RepositionSeconds { get; }
+        /// <summary>TelegraphedDash: dashes per sequence (MIDBOSS-001: 2), each with its own direction snapshot.</summary>
+        public int DashCount { get; }
+        /// <summary>Telegraph before the 2nd…Nth dash of a sequence.</summary>
+        public float FollowUpTelegraphSeconds { get; }
 
         public EnemyMovementProfile(
             EnemyMovementKind kind,
@@ -29,7 +33,9 @@ namespace Game.Enemy
             float dashDurationSeconds = 0.4f,
             float dashCooldownSeconds = 3f,
             float dashSpeedMultiplier = 3f,
-            float repositionSeconds = 0f)
+            float repositionSeconds = 0f,
+            int dashCount = 1,
+            float followUpTelegraphSeconds = 0f)
         {
             if (!Enum.IsDefined(typeof(EnemyMovementKind), kind))
                 throw new ArgumentOutOfRangeException(nameof(kind));
@@ -42,6 +48,8 @@ namespace Game.Enemy
             NumericValidation.ValidatePositive(dashCooldownSeconds, nameof(dashCooldownSeconds));
             NumericValidation.ValidatePositive(dashSpeedMultiplier, nameof(dashSpeedMultiplier));
             NumericValidation.ValidateNonNegative(repositionSeconds, nameof(repositionSeconds));
+            NumericValidation.ValidateCount(dashCount, nameof(dashCount));
+            NumericValidation.ValidateNonNegative(followUpTelegraphSeconds, nameof(followUpTelegraphSeconds));
             if (kind == EnemyMovementKind.DistanceReposition && (repositionSeconds <= 0f || repositionSeconds >= cycleSeconds))
                 throw new ArgumentOutOfRangeException(nameof(repositionSeconds), "Reposition time must be positive and shorter than the cycle.");
 
@@ -55,6 +63,8 @@ namespace Game.Enemy
             DashCooldownSeconds = dashCooldownSeconds;
             DashSpeedMultiplier = dashSpeedMultiplier;
             RepositionSeconds = repositionSeconds;
+            DashCount = dashCount;
+            FollowUpTelegraphSeconds = followUpTelegraphSeconds;
         }
     }
 }

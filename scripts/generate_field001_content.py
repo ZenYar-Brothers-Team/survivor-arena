@@ -394,6 +394,70 @@ def set_attacks(baseline):
     return result
 
 
+def boss_attack(attack, cooldown, cadence):
+    data = {"pattern": "Fan" if attack["id"] == "fan" else "Ring", "damage": attack["damage"], "cooldownSeconds": cooldown,
+            "projectileSpeed": attack["projectileSpeed"], "projectileLifetimeSeconds": attack["projectileLifetimeSeconds"],
+            "projectileCount": attack["projectileCount"], "projectileRadius": attack["projectileRadius"],
+            "telegraphSeconds": attack["telegraphSeconds"], "cadence": cadence,
+            "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]}}
+    if attack["id"] == "fan":
+        data["spreadDegrees"] = attack["spreadDegrees"]
+    else:
+        data["fixedOrientation"] = True  # ring starts at 0°, 36° step, no hidden rotation
+    return data
+
+
+def bosses(baseline):
+    names = {**content_design_names("BOSS"), **content_design_names("MIDBOSS")}
+    boss, mid = baseline["boss"], baseline["midboss"]
+    if boss["thresholdComparison"] != "strictly-less" or boss["attackSequence"] != ["fan", "ring"] \
+            or boss["firstAttackDelaySeconds"] != boss["normalCooldownSeconds"] or boss["movement"] != "Seek":
+        raise SystemExit("BOSS-001 policy not expressible by the runtime")
+    cadence = CADENCES[boss["cadence"]]
+    attacks = {a["id"]: a for a in boss["attacks"]}
+
+    def body(entry, movement, extra=None):
+        data = {"id": entry["id"], "maxHealth": entry["maxHealth"], "collisionSize": entry["collisionSize"],
+                "movementSpeed": entry["movementSpeed"], "contactDamage": entry["contactDamage"],
+                "contactDamageInterval": entry["contactDamageIntervalSeconds"], "experienceReward": entry["experienceReward"],
+                "knockbackResistance": entry["knockbackResistance"],
+                "contactControls": {"knockbackDistance": entry["contactKnockback"], "knockbackSeconds": entry["knockbackSeconds"]},
+                "movement": movement}
+        data.update(extra or {})
+        return data
+
+    final = {
+        "id": boss["id"], "displayName": names[boss["id"]], "hook": "FinalBoss",
+        "spawnOffsetX": boss["spawnOffset"][0], "spawnOffsetY": boss["spawnOffset"][1],
+        "keepAttackOrderOnPhaseChange": True, "strictHealthThreshold": True,
+        "body": body(boss, {"kind": "Seek"}),
+        "attacks": [{"id": f"{boss['id']}-{kind.upper()}", "attack": boss_attack(attacks[kind], boss["normalCooldownSeconds"], cadence)}
+                    for kind in boss["attackSequence"]] +
+                   [{"id": f"{boss['id']}-{kind.upper()}-ENRAGED", "attack": boss_attack(attacks[kind], boss["enragedCooldownSeconds"], cadence)}
+                    for kind in boss["attackSequence"]],
+        "phases": [
+            {"id": f"{boss['id']}-PHASE-1", "healthThreshold": 1,
+             "attackEnemyIds": [f"{boss['id']}-{kind.upper()}" for kind in boss["attackSequence"]]},
+            {"id": f"{boss['id']}-PHASE-2", "healthThreshold": boss["healthPhaseThreshold"],
+             "attackEnemyIds": [f"{boss['id']}-{kind.upper()}-ENRAGED" for kind in boss["attackSequence"]]},
+        ],
+    }
+    if mid["movement"] != "DoubleTelegraphedDash" or mid["direction"] != "snapshot-at-each-telegraph-start" \
+            or mid["firstPairDelaySeconds"] != mid["recoveryAfterPairSeconds"] or mid["attack"] is not None:
+        raise SystemExit("MIDBOSS-001 policy not expressible by the runtime")
+    midboss = {
+        "id": mid["id"], "displayName": names[mid["id"]], "hook": "MidBoss",
+        "spawnOffsetX": mid["spawnOffset"][0], "spawnOffsetY": mid["spawnOffset"][1],
+        "body": body(mid, {"kind": "TelegraphedDash", "dashTelegraphSeconds": mid["firstTelegraphSeconds"],
+                           "dashDurationSeconds": mid["dashDurationSeconds"], "dashCooldownSeconds": mid["recoveryAfterPairSeconds"],
+                           "dashSpeedMultiplier": mid["dashSpeedMultiplier"], "dashCount": mid["dashCount"],
+                           "followUpTelegraphSeconds": mid["secondTelegraphSeconds"]},
+                     {"dashContactControls": {"knockbackDistance": mid["dashKnockback"], "knockbackSeconds": mid["knockbackSeconds"]}}),
+        "phases": [{"id": f"{mid['id']}-PHASE-1", "healthThreshold": 1, "attackEnemyIds": []}],
+    }
+    return [final, midboss]
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
@@ -402,6 +466,7 @@ TARGETS = {
     "Assets/Resources/Content/Enemies/ProductionEnemies.json": enemies,
     "Assets/Resources/Content/Pickups/ProductionPickups.json": pickups,
     "Assets/Resources/Content/Sets/ProductionSets.json": sets,
+    "Assets/Resources/Content/Bosses/ProductionBosses.json": bosses,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }
 

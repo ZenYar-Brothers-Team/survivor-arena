@@ -40,7 +40,7 @@ namespace Game.Enemy
             {
                 using var guard = PerfGuard.Measure("BossEncounter.Observation", 2f);
                 return string.Join("\n", _alive.Select(pair =>
-                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition.Id} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s"));
+                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition?.Id.ToString() ?? "none"} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s"));
             }
         }
 
@@ -90,7 +90,7 @@ namespace Game.Enemy
             enemy.CombatResolved += ForwardCombat;
             enemy.Health.HealthChanged += HandleHealthChanged;
             Action<int, int> handler = (previous, current) => PhaseChanged?.Invoke(new BossPhaseEvent(
-                enemy.Identity, definition.Phases[previous].Id, definition.Phases[current].Id, enemy.BossCombat.AttackDefinition.Id));
+                enemy.Identity, definition.Phases[previous].Id, definition.Phases[current].Id, enemy.BossCombat.AttackDefinition?.Id ?? default));
             _phaseHandlers.Add(enemy, handler);
             enemy.BossCombat.PhaseChanged += handler;
             Changed?.Invoke();

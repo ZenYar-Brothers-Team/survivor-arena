@@ -82,7 +82,11 @@ namespace Game.Enemy
                 Pick(data.DashDurationSeconds, usesDash, neutral.DashDurationSeconds, Owner(nameof(data.DashDurationSeconds))),
                 Pick(data.DashCooldownSeconds, usesDash, neutral.DashCooldownSeconds, Owner(nameof(data.DashCooldownSeconds))),
                 Pick(data.DashSpeedMultiplier, usesDash, neutral.DashSpeedMultiplier, Owner(nameof(data.DashSpeedMultiplier))),
-                Pick(data.RepositionSeconds, reposition, neutral.RepositionSeconds, Owner(nameof(data.RepositionSeconds))));
+                Pick(data.RepositionSeconds, reposition, neutral.RepositionSeconds, Owner(nameof(data.RepositionSeconds))),
+                usesDash ? data.DashCount ?? 1 : 1,
+                usesDash && (data.DashCount ?? 1) > 1
+                    ? Require(data.FollowUpTelegraphSeconds, Owner(nameof(data.FollowUpTelegraphSeconds)))
+                    : data.FollowUpTelegraphSeconds ?? 0f);
         }
 
         private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)
@@ -108,7 +112,8 @@ namespace Game.Enemy
                 Require(data.TelegraphSeconds, Owner(nameof(data.TelegraphSeconds))),
                 string.IsNullOrWhiteSpace(data.ProjectileVisualId)
                     ? default : new ContentRef<Game.Presentation.SpriteDefinition>(data.ProjectileVisualId),
-                ParseCadence(data.Cadence, Owner(nameof(data.Cadence))));
+                ParseCadence(data.Cadence, Owner(nameof(data.Cadence))),
+                data.FixedOrientation ?? false);
         }
 
         private static EnemyAttackCadence ParseCadence(string cadence, string owner)

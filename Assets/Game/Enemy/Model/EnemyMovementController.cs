@@ -11,6 +11,7 @@ namespace Game.Enemy
         private float _dashCooldownRemaining;
         private float _dashPhaseRemaining;
         private Vector2 _dashDirection = Vector2.right;
+        private int _dashesLeftInSequence;
         public EnemyMovementPhase Phase { get; private set; } = EnemyMovementPhase.Seeking;
         private EnemyMovementPhase _dashPhase = EnemyMovementPhase.Seeking;
 
@@ -126,6 +127,18 @@ namespace Game.Enemy
                 _dashPhaseRemaining -= deltaTime;
                 if (_dashPhaseRemaining > 0f)
                     return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                if (--_dashesLeftInSequence > 0)
+                {
+                    // Follow-up dash: fresh direction snapshot, shorter telegraph, no pursuit in between (MIDBOSS-001).
+                    _dashDirection = toward.sqrMagnitude > Mathf.Epsilon ? toward : _dashDirection;
+                    _dashPhase = EnemyMovementPhase.TelegraphingDash;
+                    _dashPhaseRemaining = _profile.FollowUpTelegraphSeconds;
+                    if (_dashPhaseRemaining > 0f)
+                        return Frame(Vector2.zero, _dashPhase, _dashDirection);
+                    _dashPhase = EnemyMovementPhase.Dashing;
+                    _dashPhaseRemaining = _profile.DashDurationSeconds;
+                    return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                }
                 _dashPhase = EnemyMovementPhase.Seeking;
                 _dashCooldownRemaining = _profile.DashCooldownSeconds;
             }
@@ -133,6 +146,7 @@ namespace Game.Enemy
             _dashCooldownRemaining -= deltaTime;
             if (_dashCooldownRemaining <= 0f)
             {
+                _dashesLeftInSequence = _profile.DashCount;
                 _dashDirection = toward.sqrMagnitude > Mathf.Epsilon ? toward : _dashDirection;
                 _dashPhase = EnemyMovementPhase.TelegraphingDash;
                 _dashPhaseRemaining = _profile.DashTelegraphSeconds;

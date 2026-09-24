@@ -21,5 +21,7 @@ namespace Game.Enemy.Json
         public string ProjectileVisualId { get; set; }
         /// <summary>Optional; absent = CooldownAfterShot (fixture behavior).</summary>
         public string Cadence { get; set; }
+        /// <summary>Optional; true = pattern starts at world 0° regardless of aim.</summary>
+        public bool? FixedOrientation { get; set; }
     }
 }

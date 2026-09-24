@@ -44,7 +44,7 @@ namespace Game.Enemy
         private EnemyMovementController _movementController;
         private EnemyAttackController _attackController;
         public BossCombatController BossCombat { get; private set; }
-        private EnemyAttackProfile CurrentAttack => BossCombat?.AttackDefinition.Attack ?? Definition?.Attack;
+        private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
         private bool _despawned;
         private IEnemyMovementDriver _movementDriver;
@@ -224,7 +224,7 @@ namespace Game.Enemy
             RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
-                LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
+                LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition?.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
                 EnemyProjectileFactory.Spawn(
                     CurrentAttack,
                     _body.position,

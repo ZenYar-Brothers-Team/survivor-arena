@@ -17,7 +17,7 @@ namespace Game.Enemy
             NumericValidation.ValidatePositive(healthThreshold, nameof(healthThreshold));
             NumericValidation.ValidateRange(healthThreshold, 0, 1, nameof(healthThreshold));
             var copy = new List<EnemyDefinition>(attacks ?? throw new ArgumentNullException(nameof(attacks)));
-            if (copy.Count == 0) throw new ArgumentException("A phase needs an attack sequence.", nameof(attacks));
+            // An empty sequence is a boss without ranged attacks (MIDBOSS-001 dashes only).
             foreach (var attack in copy)
                 if (attack?.Attack == null || attack.Attack.TelegraphSeconds <= 0)
                     throw new ArgumentException("Every boss attack needs a projectile profile and positive telegraph.", nameof(attacks));

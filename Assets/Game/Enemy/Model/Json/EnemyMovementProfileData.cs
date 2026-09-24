@@ -15,5 +15,8 @@ namespace Game.Enemy.Json
         public float? DashCooldownSeconds { get; set; }
         public float? DashSpeedMultiplier { get; set; }
         public float? RepositionSeconds { get; set; }
+        /// <summary>TelegraphedDash only, optional: dashes per sequence (default 1) and follow-up telegraph.</summary>
+        public int? DashCount { get; set; }
+        public float? FollowUpTelegraphSeconds { get; set; }
     }
 }
