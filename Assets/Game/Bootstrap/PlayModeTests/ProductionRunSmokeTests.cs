@@ -14,14 +14,23 @@ namespace Game.Bootstrap.PlayModeTests
         [UnityTest]
         public IEnumerator NewProductionProfile_StartsField001_WithAuthoredObstaclesAndProductionContent()
         {
-            ProductionSmokeScene.Load();
-            yield return null;
-            yield return null;
-            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
-            CharacterSelectionSmokeDriver.StartDefault(root);
-            yield return null;
+            // Unexpected errors/exceptions fail the test through the framework. Warnings are collected so
+            // that timing-only PerfGuard diagnostics (DECISION-0008) cannot make the smoke flaky.
+            var warnings = new System.Collections.Generic.List<string>();
+            Application.LogCallback collect = (message, _, type) =>
+            {
+                if (type == LogType.Warning && !message.StartsWith("[Perf]")) warnings.Add(message);
+            };
+            Application.logMessageReceived += collect;
+            GameplayCompositionRoot root = null;
             try
             {
+                ProductionSmokeScene.Load();
+                yield return null;
+                yield return null;
+                root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+                CharacterSelectionSmokeDriver.StartDefault(root);
+                yield return null;
                 Assert.IsTrue(root.Catalog.IsProduction);
                 Assert.IsFalse(root.Catalog.BuildEntries.Any(e => e.Id.ToString().StartsWith("FIXTURE-")), "No fixture build entries.");
                 Assert.IsFalse(root.Catalog.Enemies.Any(e => e.Id.ToString().StartsWith("FIXTURE-")), "No fixture enemies.");
@@ -40,8 +49,9 @@ namespace Game.Bootstrap.PlayModeTests
             finally
             {
                 if (root != null && root.IsInitialized) root.Shutdown();
+                Application.logMessageReceived -= collect;
             }
-            LogAssert.NoUnexpectedReceived();
+            CollectionAssert.IsEmpty(warnings, "Only PerfGuard timing warnings are tolerated.");
         }
     }
 }
