@@ -68,6 +68,8 @@ namespace Game.Bootstrap
         private GameplayUiRoot gameplayUiRoot;
 
         public FixtureRuntimeContentCatalog Catalog { get; private set; }
+        /// <summary>Production save file; independent from the prototype fixture profile (DECISION-0050).</summary>
+        public const string ProductionProfileFileName = "profile-v1.json";
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
         public BossEncounterRuntime BossEncounters { get; private set; }
@@ -184,8 +186,9 @@ namespace Game.Bootstrap
                 if (IsInitialized) return;
                 ValidateSceneReferences();
                 SuspendForSelection();
-                if (Profile == null) Profile = new ProfileService(MetaCatalog.Load(true),
-                    new FileProfileStore(Path.Combine(Application.persistentDataPath, "fixture-profile-v1.json")));
+                // Real play uses the production economy and a separate save (F1-08); tests configure a fixture profile.
+                if (Profile == null) Profile = new ProfileService(MetaCatalog.Load(),
+                    new FileProfileStore(Path.Combine(Application.persistentDataPath, ProductionProfileFileName)));
                 EnsureProfileScreen();
                 Application.wantsToQuit += WantsToQuit;
                 await Profile.LoadAsync();
@@ -208,7 +211,7 @@ namespace Game.Bootstrap
             if (!Profile.CanStart) throw new InvalidOperationException("Profile must be saved before selection.");
             AtMainMenu = false;
             _metaPresenter.ClearResult();
-            Catalog = FixtureRuntimeContentCatalog.Create();
+            Catalog = CreateCatalog();
             _fieldScreen?.Dispose();
             _fieldScreen = null;
             FieldSelection = null;
@@ -267,7 +270,14 @@ namespace Game.Bootstrap
         }
 
         // Explicit composition entry point retained for scene integration tests and future navigation.
-        public void Initialize() => Initialize(FixtureRuntimeContentCatalog.Create().RunSetup.StartingCharacterId);
+        public void Initialize() { EnsureProfileScreen(); Initialize(CreateCatalog().RunSetup.StartingCharacterId); }
+
+        /// <summary>
+        /// Content follows the profile economy: the fixture profile (tests, prototype tools) composes fixture
+        /// content; the production profile composes the FIELD-001 startup content only (F1-08, DECISION-0054).
+        /// </summary>
+        private FixtureRuntimeContentCatalog CreateCatalog() =>
+            Profile != null && Profile.Catalog.IsFixture ? FixtureRuntimeContentCatalog.Create() : FixtureRuntimeContentCatalog.CreateProduction();
 
         public void Initialize(ContentId characterId, CharacterRoster roster = null, ContentId? fieldId = null, FieldRoster fields = null)
         {
@@ -279,7 +289,7 @@ namespace Game.Bootstrap
 
             // Run parameters (starting character, draft settings, XP curve) are content,
             // validated by their domain types when the catalog loads.
-            Catalog = FixtureRuntimeContentCatalog.Create();
+            Catalog = CreateCatalog();
             var setup = Catalog.RunSetup;
             if (!(roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).TrySelect(characterId, out var selectedCharacter))
                 throw new InvalidOperationException($"Character '{characterId}' is locked or missing.");
@@ -347,7 +357,8 @@ namespace Game.Bootstrap
                     Catalog.Pickups.DropScatterSeed);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
-                _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression, Catalog.ActiveSkills);
+                _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression,
+                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects);
                 initializedSubsystems.Add(_setEffects.Dispose);
                 draftRuntime.Initialize(
                     experienceRuntime,
@@ -369,7 +380,7 @@ namespace Game.Bootstrap
                 // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
                 // idempotent, and Shutdown disposes it again on the success path).
                 var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry,
-                    worldEffectProfiles: SkillWorldEffectCatalog.Create());
+                    worldEffectProfiles: Catalog.SkillWorldEffects);
                 initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,
@@ -451,7 +462,7 @@ namespace Game.Bootstrap
                     runController,
                     playerPresentation,
                     Catalog.Registry,
-                    (roster ?? Catalog.Characters).UnlockedCharacters,
+                    (roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).UnlockedCharacters,
                     enemySpawner,
                     Playtest,
                     BossEncounters, Pickups, Travelers);

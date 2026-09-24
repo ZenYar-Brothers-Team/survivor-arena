@@ -161,6 +161,34 @@ git blob через явный список путей в конце `.gitattrib
 - **Визуал.** Тела BOSS-001/MIDBOSS-001 и снаряды веера/кольца требуют генерации —
   открытый art gate; runtime показывает явные placeholders.
 
+### 9. Конкретизации F1-08
+
+- **Выбор composition.** Content следует экономике профиля. Реальный запуск
+  (`Start()`) использует production `MetaCatalog` и отдельный файл
+  `profile-v1.json`: прежний `fixture-profile-v1.json` прототипа не читается и не
+  мигрирует, так как его unlock/currency относятся к fixture-экономике
+  (DECISION-0050 mapping другой). Production профиль собирает только стартовые
+  production definitions (`FixtureRuntimeContentCatalog.CreateProduction()`) без
+  fixture fallback. Fixture-профиль (тесты, прототипные инструменты) по-прежнему
+  собирает fixture-каталог, поэтому существующие сценовые тесты не меняют поведение.
+- **Геометрия FIELD-001.** Используется сцена `Gameplay` c уже запечённой границей
+  200×200 и объектом `SpawnPoint` (в (0,0)). Baseline называет `wallThickness 1` и
+  `spawnPointName PlayerSpawn`; сцена имеет стены толщиной 0.5 снаружи края 200 и
+  имя `SpawnPoint`. Внутренний размер 200×200 и старт совпадают, поэтому сцена не
+  переименовывается и не перестраивается: толщина стены вне игровой площади на
+  геймплей не влияет, а правка сцены без Unity рискованна. Отличие — техническое,
+  не продуктовое.
+- **Препятствия.** 64 прямоугольника baseline (пень 1.2×1.0, плетень 2.4×0.5)
+  переносятся в presentation JSON как authored `obstacles`; runtime создаёт на
+  каждый `BoxCollider2D` точно этого размера, взаимодействующий только со слоем
+  Player (как DECISION-0045), со спрайтом, масштабированным по ширине прямоугольника.
+  Случайный генератор интерьерных препятствий в этом режиме не используется;
+  прототипный `Obstacle_Fixture` сцены скрыт и его collider выключен на время забега
+  (восстанавливается при Dispose). Pickup/Traveler placement получают те же bounds.
+- **Timeline/run setup.** Seeds волн/draft — `randomness.referenceSeeds` baseline;
+  все wave multipliers baseline v1 равны 1 (генератор отказывает иначе); фазы
+  непрерывны и покрывают ровно 900 s.
+
 ## Consequences
 
 Код: `OrbitEffect.Persistent`, `AreaEffect.ExpansionSeconds`, `StrikeEffect`,

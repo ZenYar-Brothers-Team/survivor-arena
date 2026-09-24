@@ -13,8 +13,11 @@ namespace Game.Meta
         public float FieldClearSeconds { get; }
         public IReadOnlyDictionary<string, MetaUpgrade> Upgrades { get; }
         public IReadOnlyDictionary<string, MetaUnlock> Unlocks { get; }
-        public MetaCatalog(MetaCatalogData data)
+        /// <summary>True for the fixture economy used by prototype content and tests.</summary>
+        public bool IsFixture { get; }
+        public MetaCatalog(MetaCatalogData data, bool isFixture = false)
         {
+            IsFixture = isFixture;
             if (data == null) throw new ArgumentNullException(nameof(data));
             RewardPerLevel = data.RewardPerLevel ?? throw new ArgumentException("rewardPerLevel required.");
             EmptyBookReward = data.EmptyBookReward ?? throw new ArgumentException("emptyBookReward required.");
@@ -42,6 +45,6 @@ namespace Game.Meta
             Unlocks = new ReadOnlyDictionary<string, MetaUnlock>(unlocks);
         }
         public static MetaCatalog Load(bool fixture = false) => new MetaCatalog(JsonContentFile.Load<MetaCatalogData>(
-            fixture ? "Content/Meta/FixtureMetaEconomy" : "Content/Meta/MetaEconomy"));
+            fixture ? "Content/Meta/FixtureMetaEconomy" : "Content/Meta/MetaEconomy"), fixture);
     }
 }

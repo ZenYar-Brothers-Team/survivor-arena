@@ -17,6 +17,7 @@ namespace Game.Bootstrap
     {
         private readonly List<PlaceholderState> _placeholders = new List<PlaceholderState>();
         private readonly List<Collider2D> _obstacleColliders = new List<Collider2D>();
+        private readonly List<Collider2D> _disabledSceneColliders = new List<Collider2D>();
         private GameObject _root;
 
         public Transform Root => _root != null ? _root.transform : null;
@@ -47,9 +48,20 @@ namespace Game.Bootstrap
                 foreach (var name in environment.ObstacleNames) HidePlaceholder(RequireUnique(transforms, name));
                 CreateGround(ground, sideLength);
                 CreateBoundary(fence, sideLength, definition.FenceHeight);
-                CreateSprite("Stump", obstacle, obstacleTransform.position, definition.ObstacleScale, 0, -2, _root.transform);
-                var interiorObstacles = CreateInteriorObstacles(definition, fence, obstacle, spawn.position,
-                    obstacleTransform.position, sideLength);
+                IReadOnlyList<Vector2> interiorObstacles;
+                if (definition.ExplicitObstacles.Count > 0)
+                {
+                    // Authored field (FIELD-001): the prototype scene obstacle is not part of this layout.
+                    HidePlaceholder(obstacleTransform);
+                    DisableSceneCollider(obstacleTransform);
+                    interiorObstacles = CreateAuthoredObstacles(definition, fence, obstacle);
+                }
+                else
+                {
+                    CreateSprite("Stump", obstacle, obstacleTransform.position, definition.ObstacleScale, 0, -2, _root.transform);
+                    interiorObstacles = CreateInteriorObstacles(definition, fence, obstacle, spawn.position,
+                        obstacleTransform.position, sideLength);
+                }
                 CreateDecor(definition, bush, grass, spawn.position, obstacleTransform.position, interiorObstacles, sideLength);
             }
             catch
@@ -63,6 +75,9 @@ namespace Game.Bootstrap
         {
             for (var i = 0; i < _placeholders.Count; i++) _placeholders[i].Restore();
             _placeholders.Clear();
+            for (var i = 0; i < _disabledSceneColliders.Count; i++)
+                if (_disabledSceneColliders[i] != null) _disabledSceneColliders[i].enabled = true;
+            _disabledSceneColliders.Clear();
             _obstacleColliders.Clear();
             if (_root == null) return;
             _root.SetActive(false);
@@ -180,6 +195,36 @@ namespace Game.Bootstrap
                 }
                 if (!accepted)
                     throw new InvalidOperationException($"Could not place interior field obstacle {index + 1}.");
+            }
+            return positions;
+        }
+
+        private void DisableSceneCollider(Transform target)
+        {
+            var collider = target.GetComponent<Collider2D>();
+            if (collider == null || !collider.enabled) return;
+            collider.enabled = false;
+            _disabledSceneColliders.Add(collider);
+        }
+
+        // Authored rectangles are the player-only collision boxes; sprites are scaled to the rectangle width.
+        private IReadOnlyList<Vector2> CreateAuthoredObstacles(FieldEnvironmentPresentationDefinition definition, Sprite fence, Sprite stump)
+        {
+            var playerLayer = LayerMask.NameToLayer("Player");
+            if (playerLayer < 0) throw new InvalidOperationException("Player layer is missing.");
+            var positions = new List<Vector2>(definition.ExplicitObstacles.Count);
+            foreach (var obstacle in definition.ExplicitObstacles)
+            {
+                var isFence = obstacle.Kind == FieldObstacleKind.Fence;
+                var sprite = isFence ? fence : stump;
+                var position = new Vector2(obstacle.X, obstacle.Y);
+                var scale = obstacle.Width / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
+                var renderer = CreateSprite(obstacle.Id, sprite, position, scale, 0f, -2, _root.transform);
+                var box = renderer.gameObject.AddComponent<BoxCollider2D>();
+                box.size = new Vector2(obstacle.Width / scale, obstacle.Height / scale);
+                box.excludeLayers = ~(1 << playerLayer);
+                _obstacleColliders.Add(box);
+                positions.Add(position);
             }
             return positions;
         }

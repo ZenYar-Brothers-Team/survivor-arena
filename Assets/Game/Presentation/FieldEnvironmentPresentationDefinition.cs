@@ -38,6 +38,8 @@ namespace Game.Presentation
         public float FenceColliderWidth { get; }
         public float FenceColliderHeight { get; }
         public float StumpColliderRadius { get; }
+        /// <summary>Authored obstacles; empty = seeded random placement (fixture arena).</summary>
+        public IReadOnlyList<FieldObstacleDefinition> ExplicitObstacles { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -73,6 +75,20 @@ namespace Game.Presentation
             FenceColliderWidth = Required(data.FenceColliderWidth, nameof(data.FenceColliderWidth));
             FenceColliderHeight = Required(data.FenceColliderHeight, nameof(data.FenceColliderHeight));
             StumpColliderRadius = Required(data.StumpColliderRadius, nameof(data.StumpColliderRadius));
+            var obstacles = new List<FieldObstacleDefinition>();
+            var obstacleIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var item in data.Obstacles ?? Array.Empty<FieldObstacleData>())
+            {
+                if (item == null) throw new ArgumentException("Field obstacles cannot contain null.");
+                var obstacle = new FieldObstacleDefinition(item.Id, item.Kind ?? throw new ArgumentException("Obstacle kind is required."),
+                    Required(item.X, "obstacle x"), Required(item.Y, "obstacle y"), Required(item.Width, "obstacle width"),
+                    Required(item.Height, "obstacle height"));
+                if (!obstacleIds.Add(obstacle.Id)) throw new ArgumentException($"Duplicate field obstacle '{obstacle.Id}'.");
+                obstacles.Add(obstacle);
+            }
+            if (obstacles.Count > 0 && obstacles.Count != (data.InteriorObstacleCount ?? -1))
+                throw new ArgumentException("Authored obstacle count must match interiorObstacleCount.");
+            ExplicitObstacles = obstacles.AsReadOnly();
 
             if (!Id.IsValid || !EnvironmentId.IsValid || !Ground.Id.IsValid || !Fence.Id.IsValid ||
                 !Obstacle.Id.IsValid || !Bush.Id.IsValid || !Grass.Id.IsValid || string.IsNullOrWhiteSpace(ObstacleName))

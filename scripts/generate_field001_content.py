@@ -491,6 +491,78 @@ def travelers(baseline):
         "timeGrowth": schedule["timeGrowth"]}]}
 
 
+def fields(baseline):
+    field = baseline["field"]
+    names = content_design_names("FIELD")
+    if field["obstaclesBlock"] != "player-only" or field["spawnPoint"] != [0, 0]:
+        raise SystemExit("FIELD-001 geometry policy not expressible by the runtime")
+    return {
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"]],
+        # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9).
+        "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]}],
+        "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
+                    "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
+                    "unlockDescription": field["unlockDescription"], "environmentId": field["environmentId"],
+                    "timelineId": field["timelineId"], "travelerScheduleId": field["travelerScheduleId"],
+                    "finalBossId": field["finalBossId"], "midBossId": field["midBossId"],
+                    "enemyIds": [e["id"] for e in baseline["enemies"]]}],
+    }
+
+
+def field_presentation(baseline):
+    """Accepted FIELD-001 art/decor values from the fixture arena; obstacles are the 64 authored baseline rects."""
+    fixture = json.loads((ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json")
+                         .read_text(encoding="utf-8-sig"))[0]
+    field = baseline["field"]
+    data = dict(fixture, id="FIELD-001-PRESENTATION", environmentId=field["environmentId"],
+                interiorObstacleCount=len(field["obstacles"]),
+                nearObstacleCount=sum(1 for o in field["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
+    for o in field["obstacles"]:
+        if o["rotationDegrees"] != 0 or o["kind"] not in ("Stump", "Fence"):
+            raise SystemExit(f"{o['id']}: unsupported obstacle")
+    data["obstacles"] = [{"id": o["id"], "kind": o["kind"], "x": o["x"], "y": o["y"], "width": o["width"], "height": o["height"]}
+                         for o in field["obstacles"]]
+    return [data]
+
+
+def minutes(seconds):
+    return f"{int(seconds // 60)}:{int(seconds % 60):02d}"
+
+
+def timeline(baseline):
+    t = baseline["timeline"]
+    phases, clock = [], 0
+    for p in t["phases"]:
+        if p["startSeconds"] != clock:
+            raise SystemExit(f"{p['id']}: phases must be contiguous")
+        clock += p["durationSeconds"]
+        modifiers = p["modifiers"]
+        if any(v != 1 for v in modifiers.values()):
+            raise SystemExit(f"{p['id']}: baseline v1 keeps all wave multipliers at 1")
+        phase = {"id": p["id"], "displayName": f"{minutes(p['startSeconds'])}–{minutes(clock)}", "tag": p["tag"],
+                 "spawnMode": p["spawnMode"], "durationSeconds": p["durationSeconds"],
+                 "spawnIntervalSeconds": p["spawnIntervalSeconds"], "maxAliveEnemies": p["maxAliveEnemies"],
+                 "composition": [{"enemyId": k, "weight": v} for k, v in p["composition"].items() if v > 0],
+                 "modifiers": modifiers}
+        if p["burst"]:
+            phase["burst"] = p["burst"]
+        phases.append(phase)
+    if clock != baseline["field"]["durationSeconds"]:
+        raise SystemExit("timeline must cover the whole field duration")
+    return {"id": t["id"], "seed": baseline["randomness"]["referenceSeeds"]["waves"],
+            "spawnRadius": baseline["field"]["spawnRadius"], "phases": phases, "hooks": t["hooks"]}
+
+
+def run_setup(baseline):
+    draft, xp = baseline["draft"], baseline["experience"]
+    return {"startingCharacterId": baseline["character"]["id"],
+            "draft": {"offerCount": draft["offerCount"], "setDraftChance": draft["setDraftChance"],
+                      "seed": baseline["randomness"]["referenceSeeds"]["draft"], "initialRerolls": draft["initialRerolls"],
+                      "initialBanishes": draft["initialBanishes"], "emptyBookCurrency": draft["emptyBookCurrency"]},
+            "experience": {"levelThresholds": xp["levelThresholds"], "baseDropLifetimeSeconds": xp["baseDropLifetimeSeconds"]}}
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
@@ -501,6 +573,10 @@ TARGETS = {
     "Assets/Resources/Content/Sets/ProductionSets.json": sets,
     "Assets/Resources/Content/Bosses/ProductionBosses.json": bosses,
     "Assets/Resources/Content/Travelers/ProductionTravelers.json": travelers,
+    "Assets/Resources/Content/Fields/ProductionFields.json": fields,
+    "Assets/Resources/Content/Presentation/ProductionFieldEnvironmentPresentation.json": field_presentation,
+    "Assets/Resources/Content/Waves/ProductionWaveTimeline.json": timeline,
+    "Assets/Resources/Content/Run/ProductionRunSetup.json": run_setup,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }
 
