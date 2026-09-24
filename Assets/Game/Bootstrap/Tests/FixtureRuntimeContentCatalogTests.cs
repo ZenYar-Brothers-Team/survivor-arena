@@ -28,7 +28,10 @@ namespace Game.Bootstrap.Tests
                 Assert.AreSame(boss, catalog.Registry.Get<BossEncounterDefinition>(boss.Id));
             Assert.AreEqual(2, catalog.Characters.AllCharacters.Count);
             Assert.AreEqual(1, catalog.Characters.UnlockedCharacters.Count);
-            Assert.AreEqual(3, catalog.SpriteMotionProfiles.Count);
+            // Shared presentation file: three fixture profiles plus production CHAR-001/ENEMY-001/ENEMY-002 (F1-03/F1-04).
+            CollectionAssert.AreEquivalent(new[] { "FIXTURE-MOTION-GOBLIN-AGILE", "FIXTURE-MOTION-VILLAGER", "FIXTURE-MOTION-COURIER",
+                    "CHAR-001-MOTION", "ENEMY-001-MOTION", "ENEMY-002-MOTION" },
+                catalog.SpriteMotionProfiles.Select(profile => profile.Id.ToString()));
             Assert.AreEqual(.3f, catalog.EnemyDeathPresentation.TotalDurationSeconds, .0001f);
             Assert.IsTrue(catalog.SourceSnapshot.ContainsKey("Content/Presentation/FixtureEnemyDeathPresentation"));
             Assert.AreEqual(.86f, catalog.GroundShadowPresentation.FallbackWidth, .0001f);

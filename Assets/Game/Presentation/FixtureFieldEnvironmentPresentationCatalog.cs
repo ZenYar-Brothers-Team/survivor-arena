@@ -12,10 +12,13 @@ namespace Game.Presentation
     {
         private const string ResourcePath = "Content/Presentation/FixtureFieldEnvironmentPresentation";
 
-        public static IReadOnlyDictionary<ContentId, FieldEnvironmentPresentationDefinition> Create()
+        public static IReadOnlyDictionary<ContentId, FieldEnvironmentPresentationDefinition> Create() => Load(ResourcePath);
+
+        /// <summary>Loads fixture or production field presentation (Content/Presentation/ProductionFieldEnvironmentPresentation).</summary>
+        public static IReadOnlyDictionary<ContentId, FieldEnvironmentPresentationDefinition> Load(string resourcePath)
         {
             var data = JsonConvert.DeserializeObject<FieldEnvironmentPresentationData[]>(
-                JsonContentFile.ReadText(ResourcePath), JsonContentFile.Settings)
+                JsonContentFile.ReadText(resourcePath), JsonContentFile.Settings)
                 ?? throw new ArgumentException("Field environment presentation config is required.");
             var definitions = data.Select(entry => new FieldEnvironmentPresentationDefinition(entry)).ToList();
             if (definitions.Count == 0 || definitions.Select(item => item.EnvironmentId).Distinct().Count() != definitions.Count)

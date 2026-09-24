@@ -25,6 +25,9 @@ namespace Game.ActiveSkill
         public float Damage { get; }
         public ActiveSkillLevelDefinition LevelDefinition { get; }
         public Transform OwnerTransform { get; }
+        /// <summary>Conditional bonuses resolved at activation, applied only against already slowed targets.</summary>
+        public SlowedTargetBonus SlowedTargetBonus { get; }
+        public float SlowedTargetDamageFactor { get; }
 
         public ActiveSkillActivation(
             ContentId sourceId,
@@ -37,7 +40,8 @@ namespace Game.ActiveSkill
             Transform ownerTransform,
             CombatIdentity owner = default,
             float outgoingKnockbackMultiplier = 1f, float sizeMultiplier = 1f, float rangeMultiplier = 1f,
-            System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f, CombatSource? sourceOverride = null)
+            System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f, CombatSource? sourceOverride = null,
+            SlowedTargetBonus slowedTargetBonus = default, float slowedTargetDamageFactor = 1f)
         {
             NumericValidation.ValidatePositive(sizeMultiplier, nameof(sizeMultiplier));
             NumericValidation.ValidatePositive(rangeMultiplier, nameof(rangeMultiplier));
@@ -60,6 +64,9 @@ namespace Game.ActiveSkill
             Damage = damage;
             LevelDefinition = levelDefinition;
             OwnerTransform = ownerTransform;
+            NumericValidation.ValidateNonNegative(slowedTargetDamageFactor, nameof(slowedTargetDamageFactor));
+            SlowedTargetBonus = slowedTargetBonus;
+            SlowedTargetDamageFactor = slowedTargetDamageFactor;
         }
     }
 }

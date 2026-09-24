@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-004",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-24",
+  "sourceKind": "derived-from-approved-master",
+  "generator": "PIL derivation in session 2026-09-24 from an approved master",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054.",
+  "prompt": "No generation prompt: hostile sling stone derived from the approved SKILL-001 stone master (Art/Source/Skills/skill-001/selected-master.png): brightness 0.82, saturation 0.8, soft coral-red danger rim (Art Direction §12 hostile danger).",
+  "constraints": [
+    "transparent background",
+    "single projectile",
+    "hostile coral rim"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1390x1535",
+    "sourceSha256": "634f69419b0d9339dd8421422a9bf44376547852505884a05215c301be7dbb35",
+    "runtimeSha256": "0fffb8f578819930c2e442d55be0ccc46f4acaf2100cfa74a4798e781602bef1",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": true
+    }
+  }
+}

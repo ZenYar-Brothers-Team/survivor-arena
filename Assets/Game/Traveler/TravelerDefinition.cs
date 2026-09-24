@@ -38,7 +38,8 @@ namespace Game.Traveler
             Support = data.Support ?? throw new ArgumentException("support required.");
             if (!Enum.IsDefined(typeof(TravelerRole), Role) || !Enum.IsDefined(typeof(TravelerSupportKind), Support)) throw new ArgumentException("Invalid role/support.");
             Body = FixtureEnemyCatalog.ToDefinition(data.Body);
-            if (Body.Id != Id || Body.Visual.Id.IsValid) throw new ArgumentException("Fixture body must share identity and use placeholder visuals.");
+            if (Body.Id != Id || (Body.Visual.Id.IsValid && Id.ToString().StartsWith("FIXTURE-", StringComparison.Ordinal)))
+                throw new ArgumentException("Traveler body must share identity; fixture Travelers use placeholder visuals.");
             PresenceSeconds = Positive(data.PresenceSeconds, "presenceSeconds");
             WanderSeconds = Positive(data.WanderSeconds, "wanderSeconds");
             RestSeconds = Nonnegative(data.RestSeconds, "restSeconds");

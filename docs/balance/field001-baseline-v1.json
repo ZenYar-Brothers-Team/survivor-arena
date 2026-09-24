@@ -2,7 +2,7 @@
   "format": "field001-review-data",
   "formatVersion": 1,
   "revision": "field001-baseline-v1",
-  "approval": "Proposed",
+  "approval": "Approved",
   "runtimeImportable": false,
   "units": {
     "distance": "world units",

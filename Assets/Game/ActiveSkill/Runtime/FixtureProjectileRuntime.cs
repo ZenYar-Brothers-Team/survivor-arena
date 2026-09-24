@@ -203,9 +203,7 @@ namespace Game.ActiveSkill
         }
         private static EnemyDamageRequest WithMultipliers(EnemyDamageRequest request, float damage, float knockback)
         {
-            var c = request.Combat;
-            return new EnemyDamageRequest(new CombatDamageRequest(c.Source, c.Amount * damage, c.Controls,
-                c.DirectionX, c.DirectionY, c.OutgoingKnockbackMultiplier * knockback));
+            return new EnemyDamageRequest(request.Combat.Scaled(damage, knockback));
         }
         public void Shutdown()
         {

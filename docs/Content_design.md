@@ -433,7 +433,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: Бросок камня получает большой bonus к damage, projectile size и outgoing knockback.
 Роль: простой ранний сет, который превращает базовый projectile в тяжёлую ударную атаку.
 Визуал: существующие камни становятся крупнее и получают характерный тяжёлый impact/trail; новых projectiles нет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-001 L3, PASSIVE-004 L2, PASSIVE-011 L2; только Броску камня +60% damage, +25% size, +35% outgoing knockback.
 
 #### SET-002 — Возвратный ритм
 Статус: Approved.
@@ -463,7 +463,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет.
 Роль: собирает slow + knockback в понятный control-build.
 Визуал: короткий ледяной flash на slowed target при сильном отбрасывании; новых projectiles нет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-004 L3, SKILL-013 L3, PASSIVE-011 L2; +50% outgoing knockback игрока по цели, уже замедленной до текущего hit; Импульсной волне ещё +25% radius и +35% knockback.
 
 #### SET-005 — Жадность к знаниям
 Статус: Approved.
@@ -483,7 +483,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: дополнительно усиливает max HP, regeneration, health restoration и шанс выпадения Зелий лечения. Зелья восстанавливают больше здоровья.
 Роль: простой и предсказуемый defensive/sustain set.
 Визуал: только более заметный heal pulse при лечении; объектов на поле не добавляет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги PASSIVE-001 L3, PASSIVE-002 L3, PASSIVE-009 L2; +20% max HP, +0.6 HP/s regen, +20% health restoration, +25% относительного шанса Зелья.
 
 #### SET-007 — Векторный шторм
 Статус: Approved.
@@ -523,7 +523,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: враги внутри текущего orbit radius Орбитальных клинков получают слабый slow; Орбитальные клинки наносят повышенный damage slowed enemies.
 Роль: превращает уже существующую орбиту в зону контроля.
 Визуал: ледяной tint на самой существующей орбите; отдельная aura-entity не создаётся.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-003 L4, SKILL-013 L3, PASSIVE-003 L2, PASSIVE-008 L2; внутри текущего orbit radius slow 15% с обновлением каждые 0.1 s и duration 0.25 s; орбите +40% damage по уже замедленным целям.
 
 #### SET-011 — Кинетический арсенал
 Статус: Approved.
@@ -593,7 +593,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: с редким фиксированным cooldown выбирается случайный враг в допустимом радиусе от персонажа; после заметного telegraph в его позицию падает один очень мощный удар большой области.
 Роль: редкий burst-AoE, не требующий новой target/debuff системы.
 Визуал: один telegraph и один яркий impact; projectile spam отсутствует.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-010 L4, PASSIVE-005 L3, PASSIVE-012 L2; 150 damage, radius 2.2, targeting radius 8, knockback 1, telegraph 0.65 s, отдельный cooldown 7.5 s (первая попытка через 7.5 s после получения); generic damage/knockback и size/range применяются один раз, action speed не влияет.
 
 #### SET-018 — Сфера разрушения
 Статус: Approved.
@@ -758,13 +758,13 @@ CHAR-002 «Бугор»: покупка за 100 после прохождени
 
 ### World Pickups
 
-Предложенный production ID Книги — **PICKUP-002**. Механика Книги уже утверждена
-в GDD; регистрация этого ID, contact radius 0.4 и повторное использование имеющегося
-Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md).
-До approval это proposed binding, не новая Approved production-карточка.
+Production ID Книги — **PICKUP-002** (Approved вместе с [baseline v1](balance/field001-baseline-v1.md),
+[DECISION-0053](decisions/0053-field001-difficulty-and-baseline.md)). Механика Книги утверждена
+в GDD; contact radius 0.4, без expiry, scatter 0.3, повторно используется имеющийся
+approved Traveler Book art. Одна Книга за убийство Путника; при пустом пуле — 50 валюты.
 
 #### PICKUP-001 — Зелье лечения
-Статус: Approved design / numbers TBD.
+Статус: Approved. Числа FIELD-001 baseline v1: лечение 18 HP, базовый шанс 1.5% с ordinary kill, contact radius 0.4, без expiry, scatter 0.3.
 Источник: может выпадать после смерти обычного противника; базовый drop chance является настраиваемым balance parameter и при необходимости может переопределяться для отдельных типов врагов/полей.
 Приоритет chance: override типа врага → override поля → общий base chance; заданный 0 не пропускается. После выбора базы применяется относительный potion drop multiplier персонажа, итог ограничен 100% (5% × 1.6 = 8%; 80% × 1.6 = 100% после ограничения).
 Поведение: остаётся на земле до подбора или конца забега; optional lifetime задаётся балансом в секундах running-time и останавливается на паузе. Перед placement получает небольшой seeded-разброс вокруг точки смерти, чтобы соседние drops не закрывали друг друга; недоступная получившаяся точка за границей поля или внутри препятствия заменяется ближайшей доступной игроку точкой. При контакте с персонажем мгновенно подбирается и исчезает; XP pickup radius не влияет на подбор.
@@ -778,7 +778,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Визуальный контракт преследователей: общий rendering language связывает их с playable roster одним сказочным миром, но не общей идентичностью. Враг должен отличаться от playable-персонажей одновременно силуэтом, пропорциями и осанкой, а также хотя бы одним из следующих крупных признаков: костюм/экипировка, основная palette mass, форма головы/лица. Человеческие преследователи не повторяют гоблинские большую голову и глаза, короткие ноги, большие уши, лоскутный scavenger-костюм и настороженно-испуганную эмоциональную базу. Выражение и поза должны соответствовать роли в погоне; исключение требует явной карточки конкретного ID.
 
-Интервал повторного contact damage для ENEMY-001…020 остаётся TBD и должен быть задан до перевода каждой карточки в production-статус.
+Интервал повторного contact damage: 1 s для ENEMY-001…005/007 (baseline v1, первый hit сразу, без общего invulnerability timer); для остальных ID остаётся TBD до их production-статуса.
 
 ###
 
@@ -788,7 +788,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: простая базовая melee-угроза.
 
-### Размер / collision: 0.8. HP: 40. Speed: 1.00. Contact damage: 10.
+### Размер / collision: 0.8. HP: 32. Speed: 1.20. Contact damage: 10.
 ### Knockback: contact 0.25; ranged/other 0. Knockback resistance 0%.
 
 ### Поведение: участник первой стихийной облавы; идёт прямо к гоблину без специальных манёвров.
@@ -805,7 +805,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: быстрая хрупкая melee-угроза.
 
-### Размер / collision: 0.65. HP: 28. Speed: 1.55. Contact damage: 8.
+### Размер / collision: 0.65. HP: 24. Speed: 2.25. Contact damage: 8.
 ### Knockback: contact 0.15; ranged/other 0. Knockback resistance 0%.
 
 ### Поведение: молодой участник облавы налегке; быстро сокращает дистанцию по прямой и создаёт давление числом.
@@ -824,7 +824,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: медленный выносливый блокирующий враг.
 
-### Размер / collision: 1.15. HP: 130. Speed: 0.65. Contact damage: 18.
+### Размер / collision: 1.15. HP: 150. Speed: 0.80. Contact damage: 20.
 ### Knockback: contact 0.55; ranged/other 0. Knockback resistance 20%.
 
 ### Поведение: крупный человек с тяжёлым рабочим инструментом; медленно идёт к гоблину, формируя плотную переднюю линию.
@@ -841,12 +841,12 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: базовый ranged-враг.
 
-### Размер / collision: 0.8. HP: 55. Speed: 0.75. Contact damage: 8.
+### Размер / collision: 0.8. HP: 48. Speed: 0.95. Contact damage: 8.
 ### Knockback: contact 0.15; sling stone 0.35. Knockback resistance 0%.
 
 ### Поведение: старается держаться на средней дистанции.
 
-### Ranged / особое: выпускает один медленный камень из пращи: 10 damage, cooldown 2.4 с.
+### Ranged / особое: выпускает один медленный камень из пращи: 10 damage, cooldown 2.4 с. Baseline v1: дистанция 5±0.5, windup 0.55 s, speed 4.5, lifetime 1.8, radius 0.14.
 
 ### XP reward: 2. Контексты: FIELD-001…004; редкий на FIELD-001.
 
@@ -858,12 +858,12 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: точный ranged-враг средней угрозы.
 
-### Размер / collision: 0.75. HP: 60. Speed: 0.80. Contact damage: 9.
+### Размер / collision: 0.75. HP: 56. Speed: 1.10. Contact damage: 9.
 ### Knockback: contact 0.15; arrow 0.10. Knockback resistance 0%.
 
 ### Поведение: сохраняет дистанцию и периодически меняет позицию вокруг игрока.
 
-### Ranged / особое: один быстрый projectile: 14 damage, cooldown 2.0 с.
+### Ranged / особое: один быстрый projectile: 14 damage, cooldown 2.0 с. Baseline v1: дистанция 6±0.5, windup 0.45 s, speed 6.5, lifetime 1.5, radius 0.10; цикл 2 s удержания + 1 s касательного смещения (strength 0.5, знак меняется каждый цикл).
 
 ### XP reward: 3. Контексты: FIELD-001…006 (расширение по DECISION-0052).
 
@@ -892,10 +892,10 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Роль: melee-враг с периодическим ускорением.
 
-### Размер / collision: 0.75. HP: 70. Speed: 0.90. Contact damage: 15.
+### Размер / collision: 0.75. HP: 64. Speed: 1.55. Contact damage: 14.
 ### Knockback: contact 0.40; dash contact 0.65. Knockback resistance 0%.
 
-### Поведение: служебная гончая охотников обычно движется умеренно; каждые несколько секунд делает короткий прямой рывок к позиции гоблина, зафиксированной в момент старта.
+### Поведение: служебная гончая охотников обычно движется умеренно; каждые несколько секунд делает короткий прямой рывок к позиции гоблина, зафиксированной в момент старта. Baseline v1: telegraph 0.55 s → dash 0.55 s на speed×3.2 → recovery 4.5 s; первый dash через 4.5 s после spawn.
 
 ### Ranged / особое: нет.
 
@@ -1143,7 +1143,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Фаза усиления: после 50% HP уменьшает cooldown между атаками примерно на 20%.
 
-### XP / reward: TBD; победа в забеге всё равно определяется таймером, а не убийством босса.
+### XP / reward: 150 XP (baseline v1); победа в забеге всё равно определяется таймером, а не убийством босса. FIELD-001 timing: появление на 13:30 (810 s), speed 0.7, fan 70°/speed 4.8, ring 10×36°/speed 3.8, telegraph 0.7 s, интервал стартов 3.6 s → 2.88 s при HP строго ниже 50%.
 
 ###
 
@@ -1293,7 +1293,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Поведение / attacks: опытный участник деревенской облавы с 2 последовательными короткими рывками каждые несколько секунд.
 
-### XP / reward и точный момент появления: TBD в Wave / Encounter Content.
+### XP / reward и момент появления: 60 XP, 7:30 (450 s) на FIELD-001 (baseline v1). Speed 0.85; пара рывков: telegraph 0.65 s → dash 0.45 s, затем telegraph 0.35 s с новым направлением → dash 0.45 s, dash speed ×5; 5.5 s pursuit перед каждой парой.
 
 ###
 
@@ -1416,7 +1416,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 
 ### Travelers / Путники
 
-По DECISION-0050 для FIELD-001 пул ровно TRAVELER-001 / TRAVELER-002 / TRAVELER-005 — по одному представителю боевой, неагрессивной и защитной роли. Это три возможных типа, не обязательные три появления. Число 0–3, выбор без повторов, timing/scaling и награда Книга сохраняются. Остальные семь ID остаются для последующих полей; параметры HP/speed/damage существующих карточек этим пакетом не меняются. Точные presence/XP/support values требуют отдельного balance packet.
+По DECISION-0050 для FIELD-001 пул ровно TRAVELER-001 / TRAVELER-002 / TRAVELER-005 — по одному представителю боевой, неагрессивной и защитной роли. Это три возможных типа, не обязательные три появления. Число 0–3, выбор без повторов, timing/scaling и награда Книга сохраняются. Остальные семь ID остаются для последующих полей; параметры HP/speed/damage существующих карточек этим пакетом не меняются. Presence/XP/support values FIELD-001 заданы baseline v1 (DECISION-0053).
 
 Все десять Путников ниже имеют статус Approved. Путник — временная специальная цель, а не единый тип мини-босса. В текущем пуле используются три роли: 4 боевых Путника, которые атакуют игрока и по ощущению близки к простым mini-boss encounters; 3 неагрессивных Путника, которые в основном блуждают/избегают игрока; 3 Путника-защитника, которые сами не охотятся на игрока, а помогают обычным врагам и стараются держаться рядом с ними. Если любой Путник убит до ухода, он роняет Книгу. Подбор Книги немедленно открывает внеочередной draft из 3 предложений; Книга не даёт XP и не повышает уровень. Число Путников на забег задаётся системным правилом GDD: выбирается 0–3 по настраиваемому дискретному распределению вероятностей. Для каждого выбранного Путника время появления независимо выбирается равномерно по интервалу 0:00–13:00 для 15-минутного забега; тип выбирается из пула поля случайно без повторов. Базовые профили утверждены; только HP и ненулевой damage масштабируются полем и моментом появления. Скорость и support strength не масштабируются. Формула K=(1+0.10×(r−1))×(1+0.50×u), r=1…10 — ступень поля, u=t/(T−120) в пределах [0,1], t/T — running seconds, T>120; coefficients задаются JSON. При r=5, T=900, t=390: K=1.75. Spawn — две полные высоты gameplay viewport от игрока внутри доступного поля. [DECISION-0035](decisions/0035-traveler-encounter-rules.md) задаёт timing, scaling и единые support rules. Окна присутствия, обычный XP reward, production field pools и per-ID support числа остаются balance/encounter-data.
 
@@ -1427,7 +1427,7 @@ Traveler Book art входят в [baseline v1](balance/field001-baseline-v1.md)
 Профиль: 650 HP; speed 0.75; contact damage 20.
 Knockback: contact 0.55; ranged/other 0. Knockback resistance 25%.
 Поведение: медленно и прямо преследует гоблина. Никаких ranged-атак и специальных манёвров; основная сложность — высокий запас HP относительно ранней стадии и давление контактом.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 12, время присутствия 90 s (baseline v1, FIELD-001).
 
 #### TRAVELER-002 — Бродячий стрелок
 Статус: Approved.
@@ -1436,7 +1436,7 @@ Knockback: contact 0.55; ranged/other 0. Knockback resistance 25%.
 Профиль: 560 HP; speed 1.00; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 15%.
 Поведение: не выбирает игрока целью и не атакует. Блуждает по полю с периодической сменой направления; если игрок подходит слишком близко, некоторое время старается двигаться от него, после чего снова возвращается к обычному блужданию.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 10, время присутствия 75 s (baseline v1: блуждание 3 s / отдых 0.5 s, при distance<3 уходит 1.5 s).
 
 #### TRAVELER-003 — Странствующий копейщик
 Статус: Approved.
@@ -1463,7 +1463,7 @@ Knockback: contact 0.45; ranged/other 0. Knockback resistance 20%.
 Профиль: 1150 HP; speed 0.65; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 65%.
 Поведение: не преследует игрока. Старается находиться рядом с плотной группой обычных врагов и физически занимать пространство между ними и игроком. Обычные враги в небольшом круговом радиусе вокруг него получают умеренное снижение входящего damage; точный radius и reduction — balance-data. Сам Путник не атакует.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 18, время присутствия 90 s (baseline v1: guard offset 1, support radius 3, ordinary damage reduction 20%).
 
 #### TRAVELER-006 — Дорожный маг
 Статус: Approved.

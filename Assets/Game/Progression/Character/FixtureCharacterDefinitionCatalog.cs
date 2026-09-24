@@ -15,12 +15,11 @@ namespace Game.Progression
         public static CharacterRoster Create()
         {
             var data = JsonContentFile.Load<CharacterDefinitionData[]>(ResourcePath);
-            var definitions = new CharacterDefinition[data.Length];
+            var definitions = LoadDefinitions(data);
             var unlocked = new List<ContentId>();
             var reasons = new Dictionary<ContentId, string>();
             for (var i = 0; i < data.Length; i++)
             {
-                definitions[i] = ToDefinition(data[i]);
                 if (data[i].InitiallyUnlocked)
                     unlocked.Add(definitions[i].Id);
                 else
@@ -30,12 +29,24 @@ namespace Game.Progression
             return new CharacterRoster(definitions, new FixtureCharacterAccessProvider(unlocked, reasons));
         }
 
-        public static CharacterComparisonBaseline CreateBaseline()
+        /// <summary>Maps character DTOs with the shared validation (fixture or production file).</summary>
+        public static CharacterDefinition[] LoadDefinitions(CharacterDefinitionData[] data)
         {
-            var data = JsonContentFile.Load<CharacterBaselineData>("Content/Characters/FixtureCharacterBaseline");
+            if (data == null) throw new ArgumentNullException(nameof(data));
+            var definitions = new CharacterDefinition[data.Length];
+            for (var i = 0; i < data.Length; i++)
+                definitions[i] = ToDefinition(data[i]);
+            return definitions;
+        }
+
+        public static CharacterComparisonBaseline LoadBaseline(string resourcePath)
+        {
+            var data = JsonContentFile.Load<CharacterBaselineData>(resourcePath);
             if (data?.BaseStats == null) throw new InvalidOperationException("Character baseline stats are required.");
             return new CharacterComparisonBaseline(data.Id, CharacterBaseStatsMapper.Map(data.BaseStats));
         }
+
+        public static CharacterComparisonBaseline CreateBaseline() => LoadBaseline("Content/Characters/FixtureCharacterBaseline");
 
         public static CharacterPresentation MapPresentation(CharacterPresentationData data)
         {

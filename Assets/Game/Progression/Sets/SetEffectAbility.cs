@@ -29,6 +29,11 @@ namespace Game.Progression
                     if (effect.Kind == SetEffectKind.StatBuff) _host.Stats.SetModifier(Key(i), effect.Modifier);
                     if (effect.Kind == SetEffectKind.SkillTransform) _host.SetSkillModifier(Key(i), effect.Skill.Value, effect.Modifier);
                     if (effect.Kind == SetEffectKind.IndependentAttack) _cooldowns[i] = effect.CooldownSeconds;
+                    if (effect.Kind == SetEffectKind.SlowedTargetBonus)
+                        _host.SetSlowedTargetBonus(Key(i), effect.Skill, new SlowedTargetBonus(
+                            effect.Modifier.ActiveSkillDamageMultiplierBonus, effect.Modifier.OutgoingKnockbackBonus));
+                    if (effect.Kind == SetEffectKind.OrbitSlowAura)
+                        _host.SetOrbitSlowAura(Key(i), _definition.Id, effect.Skill.Value, effect.SlowFraction, effect.SlowSeconds, effect.RefreshSeconds);
                 }
                 _host.ActiveSkillActivated += OnActivation; _host.Rewarded += OnReward; _host.LevelEarned += OnLevel;
             }
@@ -66,7 +71,7 @@ namespace Game.Progression
             var effect = _definition.Effects[i];
             _cooldowns[i] = effect.CooldownSeconds; // Commit before callbacks: reentrant sources cannot proc recursively.
             if (effect.BuffSeconds > 0) { _host.Stats.SetModifier(Key(i), effect.Modifier); _buffs[i] = effect.BuffSeconds; }
-            _host.Attack(Key(i), _definition.Id, effect.AttackTemplate.Value);
+            _host.Attack(Key(i), _definition.Id, effect.AttackTemplate.Value, effect.ScalesWithSizeAndRange);
             ProcCount++;
         }
         public void Tick(float deltaTime, bool isRunning)
@@ -95,6 +100,7 @@ namespace Game.Progression
             for (var i = 0; i < _counts.Length; i++)
             {
                 _host.Stats.RemoveModifier(Key(i)); _host.RemoveSkillModifier(Key(i)); _host.ClearAttack(Key(i));
+                _host.RemoveSlowedTargetBonus(Key(i)); _host.RemoveOrbitSlowAura(Key(i));
                 _counts[i] = 0; _cooldowns[i] = 0; _buffs[i] = 0;
             }
         }

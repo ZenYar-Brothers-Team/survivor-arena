@@ -14,9 +14,16 @@ namespace Game.Enemy
         public float SpawnOffsetX { get; }
         public float SpawnOffsetY { get; }
         public IReadOnlyList<BossPhaseDefinition> Phases { get; }
+        /// <summary>Phase changes keep the running wind-up and the attack order; only later intervals change (BOSS-001).</summary>
+        public bool KeepAttackOrderOnPhaseChange { get; }
+        /// <summary>Phase threshold compares strictly below (health &lt; threshold) instead of at-or-below.</summary>
+        public bool StrictHealthThreshold { get; }
+        /// <summary>Attack carriers authored inline with this encounter; register them with the encounter.</summary>
+        public IReadOnlyList<EnemyDefinition> OwnedAttacks { get; }
 
         public BossEncounterDefinition(ContentId id, string displayName, WaveHookKind hook,
-            EnemyDefinition body, float spawnOffsetX, float spawnOffsetY, IEnumerable<BossPhaseDefinition> phases)
+            EnemyDefinition body, float spawnOffsetX, float spawnOffsetY, IEnumerable<BossPhaseDefinition> phases,
+            bool keepAttackOrderOnPhaseChange = false, bool strictHealthThreshold = false, IEnumerable<EnemyDefinition> ownedAttacks = null)
         {
             if (!id.IsValid) throw new ArgumentException("Encounter id is required.", nameof(id));
             if (string.IsNullOrWhiteSpace(displayName)) throw new ArgumentException("Boss name is required.", nameof(displayName));
@@ -37,6 +44,9 @@ namespace Game.Enemy
             SpawnOffsetX = spawnOffsetX;
             SpawnOffsetY = spawnOffsetY;
             Phases = copy.AsReadOnly();
+            KeepAttackOrderOnPhaseChange = keepAttackOrderOnPhaseChange;
+            StrictHealthThreshold = strictHealthThreshold;
+            OwnedAttacks = new List<EnemyDefinition>(ownedAttacks ?? Array.Empty<EnemyDefinition>()).AsReadOnly();
         }
 
         public IEnumerable<ContentReference> GetReferencedContent()

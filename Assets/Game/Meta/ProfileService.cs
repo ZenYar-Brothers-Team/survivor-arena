@@ -39,7 +39,7 @@ namespace Game.Meta
                 {
                     var backup = await _store.ReadAsync(true);
                     if (backup == null) { var fresh = _codec.Create(); await _store.WriteAsync(_codec.Encode(fresh)); _data = fresh; Publish(ProfileState.Ready); return; }
-                    _data = _codec.Decode(backup); await _store.WriteAsync(_codec.Encode(_data));
+                    _data = _codec.Decode(backup); ResolveUnlocks(_data); await _store.WriteAsync(_codec.Encode(_data));
                     Publish(ProfileState.Ready, "Recovered backup; the latest transaction may be missing."); return;
                 }
                 try { _data = _codec.Decode(main); }
@@ -52,11 +52,15 @@ namespace Game.Meta
                     catch (ProfileVersionException) { throw; }
                     catch { _resetAllowed = true; throw; }
                     // Preserve corrupt input and the valid backup before replacing either.
+                    ResolveUnlocks(_data);
                     await _store.PreserveAndResetAsync(_codec.Encode(_data));
                     Publish(ProfileState.Ready, "Recovered backup; the latest transaction may be missing."); return;
                 }
+                // DECISION-0050 migration: saved clears grant any missing free unlocks, without rewards;
+                // existing unlocks and purchases are never revoked.
+                var migrated = ResolveUnlocks(_data).Count > 0;
                 var canonical = _codec.Encode(_data);
-                if ((int?)Newtonsoft.Json.Linq.JObject.Parse(main)["schemaVersion"] != ProfileCodec.CurrentVersion)
+                if (migrated || (int?)Newtonsoft.Json.Linq.JObject.Parse(main)["schemaVersion"] != ProfileCodec.CurrentVersion)
                     await _store.WriteAsync(canonical);
                 Publish(ProfileState.Ready);
             }

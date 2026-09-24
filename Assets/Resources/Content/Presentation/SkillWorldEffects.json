@@ -1,0 +1,74 @@
+[
+  {
+    "skillId": "SKILL-004",
+    "kind": "ExpandingRing",
+    "color": [
+      0.98,
+      0.84,
+      0.52,
+      0.72
+    ],
+    "impactColor": [
+      1.0,
+      0.93,
+      0.74,
+      0.5
+    ],
+    "thickness": 0.18,
+    "fadeSeconds": 0.15
+  },
+  {
+    "skillId": "SKILL-007",
+    "kind": "ChainArc",
+    "color": [
+      0.8,
+      0.7,
+      1.0,
+      0.95
+    ],
+    "impactColor": [
+      0.94,
+      0.9,
+      1.0,
+      0.8
+    ],
+    "thickness": 0.09,
+    "fadeSeconds": 0.16
+  },
+  {
+    "skillId": "SKILL-010",
+    "kind": "StrikeTelegraph",
+    "color": [
+      0.95,
+      0.8,
+      0.38,
+      0.28
+    ],
+    "impactColor": [
+      1.0,
+      0.94,
+      0.7,
+      0.75
+    ],
+    "thickness": 0.12,
+    "fadeSeconds": 0.22
+  },
+  {
+    "skillId": "SET-017-ATTACK",
+    "kind": "StrikeTelegraph",
+    "color": [
+      1.0,
+      0.86,
+      0.42,
+      0.34
+    ],
+    "impactColor": [
+      1.0,
+      0.97,
+      0.82,
+      0.9
+    ],
+    "thickness": 0.16,
+    "fadeSeconds": 0.3
+  }
+]

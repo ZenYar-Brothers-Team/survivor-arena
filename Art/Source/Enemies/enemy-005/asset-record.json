@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-005",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-24",
+  "sourceKind": "procedural",
+  "generator": "PIL procedural drawing in session 2026-09-24",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054.",
+  "prompt": "No generation prompt: procedural arrow drawn with PIL in the approved cutout language — deep-plum outline #241B2B, flat wood shaft, steel head facing +X, coral fletching and a soft coral danger glow (Art Direction §9.2/§12).",
+  "constraints": [
+    "transparent background",
+    "single arrow",
+    "points to +X",
+    "hostile coral accent"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1145x267",
+    "sourceSha256": "573f5a5424b3073581d2031d55f1940705178c5f965cb191ea118025c738e833",
+    "runtimeSha256": "507b6257e91293d316854ad218cbbe56f87798ab20478e51689eae3b45c0e79e",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": true
+    }
+  }
+}

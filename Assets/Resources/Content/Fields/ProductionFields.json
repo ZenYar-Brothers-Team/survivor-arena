@@ -1,0 +1,42 @@
+{
+  "defaultFieldId": "FIELD-001",
+  "availableFieldIds": [
+    "FIELD-001"
+  ],
+  "environments": [
+    {
+      "id": "FIELD-001-ENVIRONMENT",
+      "sceneName": "Gameplay",
+      "spawnPointName": "SpawnPoint",
+      "obstacleNames": [
+        "Wall_Top",
+        "Wall_Bottom",
+        "Wall_Left",
+        "Wall_Right"
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "FIELD-001",
+      "displayName": "Деревенская окраина",
+      "description": "Переживите деревенскую облаву и продержитесь 15 минут.",
+      "thumbnailPlaceholder": "Деревенская окраина",
+      "difficulty": 1,
+      "unlockDescription": "Доступно с начала игры",
+      "environmentId": "FIELD-001-ENVIRONMENT",
+      "timelineId": "FIELD-001-TIMELINE",
+      "travelerScheduleId": "FIELD-001-TRAVELERS",
+      "finalBossId": "BOSS-001",
+      "midBossId": "MIDBOSS-001",
+      "enemyIds": [
+        "ENEMY-001",
+        "ENEMY-002",
+        "ENEMY-003",
+        "ENEMY-004",
+        "ENEMY-005",
+        "ENEMY-007"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 # FIELD-001 — стартовый баланс v1
 
-Ревизия: `field001-baseline-v1`, 2026-09-23. **Proposed: численный пакет для review,
-не проверенный в игре баланс и не production JSON.** Подготовлен по поручению
+Ревизия: `field001-baseline-v1`, 2026-09-23. **Approved 2026-09-24** по делегированию
+пользователя ([DECISION-0053](../decisions/0053-field001-difficulty-and-baseline.md)):
+принятые исходные данные F1-01…09, ещё не проверенный в игре баланс и не production JSON. Подготовлен по поручению
 пользователя самостоятельно заполнить первый шаг. Цель сложности утверждена
 отдельно в [DECISION-0053](../decisions/0053-field001-difficulty-and-baseline.md).
 Текущее исполнение и очередь — только [STATUS](../implementation/STATUS.md#field001-execution).

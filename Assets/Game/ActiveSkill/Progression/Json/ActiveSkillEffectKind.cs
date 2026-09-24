@@ -9,6 +9,7 @@ namespace Game.ActiveSkill.Json
         Boomerang,
         Chain,
         Area,
-        Mine
+        Mine,
+        Strike
     }
 }

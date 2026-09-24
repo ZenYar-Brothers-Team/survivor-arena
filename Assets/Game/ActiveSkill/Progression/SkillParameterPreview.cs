@@ -55,6 +55,10 @@ namespace Game.ActiveSkill
                             result[key + "damage retention"] = c.DamageRetentionPerJump;
                             break;
                         case AreaEffect a: result[key + "radius"] = a.Radius; break;
+                        case StrikeEffect st:
+                            result[key + "radius"] = st.Radius;
+                            result[key + "telegraph"] = st.TelegraphSeconds;
+                            break;
                         case MineEffect m:
                             result[key + "blast radius"] = m.BlastRadius;
                             result[key + "lifetime"] = m.LifetimeSeconds;

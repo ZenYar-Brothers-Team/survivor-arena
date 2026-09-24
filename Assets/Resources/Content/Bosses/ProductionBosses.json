@@ -1,0 +1,165 @@
+[
+  {
+    "id": "BOSS-001",
+    "displayName": "Староста-герой",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-001",
+      "maxHealth": 4500,
+      "collisionSize": 2.4,
+      "movementSpeed": 0.7,
+      "contactDamage": 30,
+      "contactDamageInterval": 1,
+      "experienceReward": 150,
+      "knockbackResistance": 0.6,
+      "contactControls": {
+        "knockbackDistance": 0.6,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-001-FAN",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 18,
+          "cooldownSeconds": 3.6,
+          "projectileSpeed": 4.8,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "spreadDegrees": 70
+        }
+      },
+      {
+        "id": "BOSS-001-RING",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 14,
+          "cooldownSeconds": 3.6,
+          "projectileSpeed": 3.8,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 10,
+          "projectileRadius": 0.13,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.15,
+            "knockbackSeconds": 0.12
+          },
+          "fixedOrientation": true
+        }
+      },
+      {
+        "id": "BOSS-001-FAN-ENRAGED",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 18,
+          "cooldownSeconds": 2.88,
+          "projectileSpeed": 4.8,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "spreadDegrees": 70
+        }
+      },
+      {
+        "id": "BOSS-001-RING-ENRAGED",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 14,
+          "cooldownSeconds": 2.88,
+          "projectileSpeed": 3.8,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 10,
+          "projectileRadius": 0.13,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.15,
+            "knockbackSeconds": 0.12
+          },
+          "fixedOrientation": true
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-001-PHASE-1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-001-FAN",
+          "BOSS-001-RING"
+        ]
+      },
+      {
+        "id": "BOSS-001-PHASE-2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [
+          "BOSS-001-FAN-ENRAGED",
+          "BOSS-001-RING-ENRAGED"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-001",
+    "displayName": "Старший загонщик",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "body": {
+      "id": "MIDBOSS-001",
+      "maxHealth": 1200,
+      "collisionSize": 1.6,
+      "movementSpeed": 0.85,
+      "contactDamage": 22,
+      "contactDamageInterval": 1,
+      "experienceReward": 60,
+      "knockbackResistance": 0.3,
+      "contactControls": {
+        "knockbackDistance": 0.55,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.65,
+        "dashDurationSeconds": 0.45,
+        "dashCooldownSeconds": 5.5,
+        "dashSpeedMultiplier": 5,
+        "dashCount": 2,
+        "followUpTelegraphSeconds": 0.35
+      },
+      "dashContactControls": {
+        "knockbackDistance": 0.8,
+        "knockbackSeconds": 0.12
+      }
+    },
+    "phases": [
+      {
+        "id": "MIDBOSS-001-PHASE-1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      }
+    ]
+  }
+]

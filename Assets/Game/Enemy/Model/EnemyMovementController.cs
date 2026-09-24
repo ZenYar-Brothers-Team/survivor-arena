@@ -11,6 +11,7 @@ namespace Game.Enemy
         private float _dashCooldownRemaining;
         private float _dashPhaseRemaining;
         private Vector2 _dashDirection = Vector2.right;
+        private int _dashesLeftInSequence;
         public EnemyMovementPhase Phase { get; private set; } = EnemyMovementPhase.Seeking;
         private EnemyMovementPhase _dashPhase = EnemyMovementPhase.Seeking;
 
@@ -55,6 +56,8 @@ namespace Game.Enemy
                     return CalculateApproachRetreat(toward, movementSpeed);
                 case EnemyMovementKind.TelegraphedDash:
                     return CalculateDash(toward, movementSpeed, deltaTime);
+                case EnemyMovementKind.DistanceReposition:
+                    return CalculateReposition(toward, distance, movementSpeed);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -71,6 +74,24 @@ namespace Game.Enemy
             var combined = radial + tangent;
             return Frame(combined.sqrMagnitude <= Mathf.Epsilon ? Vector2.zero : combined.normalized * movementSpeed,
                 EnemyMovementPhase.Orbiting);
+        }
+
+        // ENEMY-005 (baseline v1): hold distance, then briefly move tangentially with distance correction;
+        // the tangent side alternates every cycle and the result never exceeds movement speed.
+        private EnemyMovementFrame CalculateReposition(Vector2 toward, float distance, float movementSpeed)
+        {
+            var cycle = Mathf.FloorToInt(_elapsed / _profile.CycleSeconds);
+            var inCycle = _elapsed - cycle * _profile.CycleSeconds;
+            var radial = Vector2.zero;
+            if (distance > _profile.PreferredDistance + _profile.DistanceTolerance) radial = toward;
+            else if (distance < Mathf.Max(0f, _profile.PreferredDistance - _profile.DistanceTolerance)) radial = -toward;
+            if (inCycle < _profile.CycleSeconds - _profile.RepositionSeconds)
+                return Frame(radial * movementSpeed, radial == Vector2.zero ? EnemyMovementPhase.HoldingDistance :
+                    radial == toward ? EnemyMovementPhase.Approaching : EnemyMovementPhase.Retreating);
+            var side = cycle % 2 == 0 ? 1f : -1f;
+            var combined = radial + new Vector2(-toward.y, toward.x) * (_profile.LateralStrength * side);
+            return Frame(combined.sqrMagnitude <= Mathf.Epsilon ? Vector2.zero : combined.normalized * movementSpeed,
+                EnemyMovementPhase.Repositioning);
         }
 
         private EnemyMovementFrame CalculateZigzag(Vector2 toward, float movementSpeed)
@@ -106,6 +127,18 @@ namespace Game.Enemy
                 _dashPhaseRemaining -= deltaTime;
                 if (_dashPhaseRemaining > 0f)
                     return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                if (--_dashesLeftInSequence > 0)
+                {
+                    // Follow-up dash: fresh direction snapshot, shorter telegraph, no pursuit in between (MIDBOSS-001).
+                    _dashDirection = toward.sqrMagnitude > Mathf.Epsilon ? toward : _dashDirection;
+                    _dashPhase = EnemyMovementPhase.TelegraphingDash;
+                    _dashPhaseRemaining = _profile.FollowUpTelegraphSeconds;
+                    if (_dashPhaseRemaining > 0f)
+                        return Frame(Vector2.zero, _dashPhase, _dashDirection);
+                    _dashPhase = EnemyMovementPhase.Dashing;
+                    _dashPhaseRemaining = _profile.DashDurationSeconds;
+                    return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                }
                 _dashPhase = EnemyMovementPhase.Seeking;
                 _dashCooldownRemaining = _profile.DashCooldownSeconds;
             }
@@ -113,6 +146,7 @@ namespace Game.Enemy
             _dashCooldownRemaining -= deltaTime;
             if (_dashCooldownRemaining <= 0f)
             {
+                _dashesLeftInSequence = _profile.DashCount;
                 _dashDirection = toward.sqrMagnitude > Mathf.Epsilon ? toward : _dashDirection;
                 _dashPhase = EnemyMovementPhase.TelegraphingDash;
                 _dashPhaseRemaining = _profile.DashTelegraphSeconds;

@@ -1,0 +1,156 @@
+{
+  "travelers": [
+    {
+      "id": "TRAVELER-001",
+      "name": "Дорожный громила",
+      "marker": "BRUISER",
+      "role": "Offensive",
+      "body": {
+        "id": "TRAVELER-001",
+        "knockbackResistance": 0.25,
+        "maxHealth": 650,
+        "collisionSize": 1.35,
+        "movementSpeed": 0.75,
+        "contactDamage": 20,
+        "contactDamageInterval": 1,
+        "experienceReward": 12,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0.55,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-002",
+      "name": "Бродячий стрелок",
+      "marker": "WANDER",
+      "role": "Wanderer",
+      "body": {
+        "id": "TRAVELER-002",
+        "knockbackResistance": 0.15,
+        "maxHealth": 560,
+        "collisionSize": 1,
+        "movementSpeed": 1,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 10,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 75,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-005",
+      "name": "Паломник со щитом",
+      "marker": "GUARD",
+      "role": "Protector",
+      "body": {
+        "id": "TRAVELER-005",
+        "knockbackResistance": 0.65,
+        "maxHealth": 1150,
+        "collisionSize": 1.4,
+        "movementSpeed": 0.65,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 18,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "Aura",
+      "supportRadius": 3,
+      "reduction": 0.2,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    }
+  ],
+  "schedules": [
+    {
+      "id": "FIELD-001-TRAVELERS",
+      "travelerIds": [
+        "TRAVELER-001",
+        "TRAVELER-002",
+        "TRAVELER-005"
+      ],
+      "countProbabilities": [
+        0.15,
+        0.4,
+        0.35,
+        0.1
+      ],
+      "seed": 230925,
+      "fieldRank": 1,
+      "placementAttempts": 32,
+      "endBufferSeconds": 120,
+      "spawnScreenHeights": 2,
+      "fieldGrowth": 0.1,
+      "timeGrowth": 0.5
+    }
+  ]
+}

@@ -62,3 +62,18 @@ loader. Победа без meta, сложность первых попыток
 читаемость в толпе ещё требуют production integration и реальных reports F1-09.
 Существующие findings IP-12A/OBS-01 не объявлены закрытыми. Runtime content,
 save files, art и Unity scenes не менялись.
+
+<a id="approval-2026-09-24"></a>
+## Approval — 2026-09-24
+
+По делегированию пользователя baseline v1 принят **без изменений**
+([DECISION-0053 Approval](../../decisions/0053-field001-difficulty-and-baseline.md#approval--2026-09-24)).
+JSON `approval: Approved`; `runtimeImportable` остаётся false — перенос в production
+JSON выполняют F1-01…08. Content Design синхронизирован: ENEMY-001…005/007
+(HP/speed/contact, contact interval 1 s, ranged/dash timing), PICKUP-001 (18 HP, 1.5%),
+PICKUP-002 Книга, BOSS-001/MIDBOSS-001 (XP, timings), TRAVELER-001/002/005
+(XP/presence/support).
+
+Проверки: `python -X utf8 docs/balance/validate_field001_baseline.py` — PASS
+(те же counts, что выше). Unity не запускался: изменились только документы и
+review JSON вне Assets.

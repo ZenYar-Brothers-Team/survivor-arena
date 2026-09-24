@@ -28,7 +28,10 @@ namespace Game.Enemy
         {
             _profile = profile ?? throw new ArgumentNullException(nameof(profile));
             _repeat = repeat;
+            if (WindupCadence) _cooldownRemaining = profile.CooldownSeconds;
         }
+
+        private bool WindupCadence => _profile.Cadence == EnemyAttackCadence.WindupStartToStart;
 
         // Sequence re-entry starts a full wind-up, while retaining this pattern's accumulated spiral rotation.
         public void RestartCycle()
@@ -47,10 +50,13 @@ namespace Game.Enemy
             if (!isSimulating)
                 return Array.Empty<EnemyShotCommand>();
 
-            if (aimDirection.sqrMagnitude > Mathf.Epsilon) AimDirection = aimDirection.normalized;
+            // Wind-up cadence keeps the aim snapshotted at wind-up start until the shot.
+            if (aimDirection.sqrMagnitude > Mathf.Epsilon && !(WindupCadence && Phase == EnemyAttackPhase.Telegraphing))
+                AimDirection = aimDirection.normalized;
             var shots = new List<EnemyShotCommand>();
             if (Phase == EnemyAttackPhase.Telegraphing)
             {
+                if (WindupCadence) _cooldownRemaining -= deltaTime;
                 _telegraphRemaining = Mathf.Max(0f, _telegraphRemaining - deltaTime);
                 if (_telegraphRemaining > 0f) return Array.Empty<EnemyShotCommand>();
                 Fire(shots);
@@ -72,6 +78,8 @@ namespace Game.Enemy
             Phase = _burstShotsRemaining > 0 ? EnemyAttackPhase.Bursting : EnemyAttackPhase.Cooldown;
             if (_cooldownRemaining <= 0f && _burstShotsRemaining == 0 && (!_hasFired || _repeat))
             {
+                // Start-to-start: the next interval begins with this wind-up, not with the shot.
+                if (WindupCadence) _cooldownRemaining += _profile.CooldownSeconds;
                 if (_profile.TelegraphSeconds > 0f)
                 {
                     Phase = EnemyAttackPhase.Telegraphing;
@@ -93,7 +101,7 @@ namespace Game.Enemy
             }
             if (_profile.Pattern == EnemyProjectilePattern.Spiral)
                 _rotationDegrees = Mathf.Repeat(_rotationDegrees + _profile.RotationStepDegrees, 360f);
-            _cooldownRemaining = _profile.CooldownSeconds;
+            if (!WindupCadence) _cooldownRemaining = _profile.CooldownSeconds;
             Phase = _burstShotsRemaining > 0 ? EnemyAttackPhase.Bursting : EnemyAttackPhase.Cooldown;
         }
     }

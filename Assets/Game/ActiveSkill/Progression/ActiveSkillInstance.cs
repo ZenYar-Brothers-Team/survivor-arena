@@ -44,7 +44,8 @@ namespace Game.ActiveSkill
             IActiveSkillTargetProvider targetProvider,
             IActiveSkillEffectExecutor executor,
             Vector2 movementDirection = default, CharacterStatModifier skillModifier = default,
-            CombatSource? sourceOverride = null, bool forceActivation = false)
+            CombatSource? sourceOverride = null, bool forceActivation = false,
+            SlowedTargetBonus slowedTargetBonus = default, bool setScalesWithSizeAndRange = false)
         {
             if (owner == null || owner.Stats == null)
                 throw new ArgumentNullException(nameof(owner));
@@ -59,7 +60,8 @@ namespace Game.ActiveSkill
             if (!isRunning || (!forceActivation && !_cooldown.IsReady))
                 return false;
 
-            var isSet = sourceOverride.HasValue && sourceOverride.Value.Origin == CombatSourceOrigin.Set;
+            // Set attacks ignore generic size/range unless the set explicitly opts in (SET-017, DECISION-0053).
+            var isSet = sourceOverride.HasValue && sourceOverride.Value.Origin == CombatSourceOrigin.Set && !setScalesWithSizeAndRange;
             var rangeMultiplier = isSet ? 1f : owner.Stats.EffectRangeMultiplier + owner.Stats.BaseStats.EffectRangeMultiplier * skillModifier.EffectRangeMultiplierBonus;
             var sizeMultiplier = isSet ? 1f : owner.Stats.EffectSizeMultiplier + owner.Stats.BaseStats.EffectSizeMultiplier * skillModifier.EffectSizeMultiplierBonus;
             var damageMultiplier = owner.Stats.ActiveSkillDamageMultiplier + owner.Stats.BaseStats.ActiveSkillDamageMultiplier * skillModifier.ActiveSkillDamageMultiplierBonus;
@@ -104,7 +106,8 @@ namespace Game.ActiveSkill
                 levelDefinition,
                 owner.transform,
                 owner.Identity,
-                knockbackMultiplier, sizeMultiplier, rangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees, sourceOverride));
+                knockbackMultiplier, sizeMultiplier, rangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees, sourceOverride,
+                slowedTargetBonus, slowedTargetBonus.DamageFactor(damageMultiplier)));
             if (!forceActivation) _cooldown.Consume(levelDefinition.CooldownSeconds,
                 owner.Stats.BaseStats.ActiveSkillCooldownMultiplier / (1f + owner.Stats.ActionSpeedBonus + targeting.ActionSpeedBonus + skillModifier.ActionSpeedBonus));
             TriggerCount++;

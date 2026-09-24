@@ -1,0 +1,171 @@
+[
+  {
+    "id": "SET-017-ATTACK",
+    "displayName": "Падающая звезда",
+    "iconVisualId": "SET-017-VISUAL-ICON",
+    "levels": [
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "baseDamage": 150,
+        "cooldownSeconds": 7.5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "RandomEnemy",
+        "targetingRadius": 8,
+        "randomSeed": 230946,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Strike",
+                "radius": 2.2,
+                "telegraphSeconds": 0.65
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

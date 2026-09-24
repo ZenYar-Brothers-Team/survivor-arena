@@ -33,5 +33,7 @@ namespace Game.Presentation.Json
         public float? FenceColliderWidth { get; set; }
         public float? FenceColliderHeight { get; set; }
         public float? StumpColliderRadius { get; set; }
+        /// <summary>Optional authored obstacles; when present they replace seeded random placement (FIELD-001).</summary>
+        public FieldObstacleData[] Obstacles { get; set; }
     }
 }

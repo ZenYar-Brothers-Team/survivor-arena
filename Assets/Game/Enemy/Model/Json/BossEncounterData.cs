@@ -9,5 +9,9 @@ namespace Game.Enemy.Json
         public float? SpawnOffsetX { get; set; }
         public float? SpawnOffsetY { get; set; }
         public BossPhaseData[] Phases { get; set; }
+        /// <summary>Optional inline attacks referenced by phase attackEnemyIds (production bosses).</summary>
+        public BossAttackData[] Attacks { get; set; }
+        public bool? KeepAttackOrderOnPhaseChange { get; set; }
+        public bool? StrictHealthThreshold { get; set; }
     }
 }
