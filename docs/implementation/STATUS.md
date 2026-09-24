@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-23 (F1-00 proposal data/docs/schema audit; no new runtime verification)
+Last repository audit: 2026-09-24 (F1-00 approved; F1-01 started)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-00 — initial balance/data baseline; IP-12A gameplay density review остаётся открытым
-Next Ready packet: none while F1-00 is in progress; production Ready modules: none. Разрешён только F1-00, следующие пакеты автоматически не начинать.
+Current active packet: F1-01 — ten production active skills; IP-12A gameplay density review остаётся открытым
+Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -54,6 +54,29 @@ F1-00 остаётся In progress до approval конкретной v1: 60 ski
 реализующими packet owners; production IDs ещё не реализованы. Статическая проверка
 и границы evidence — [F1-00 evidence](evidence/field001-baseline-v1-2026-09-23.md).
 Runtime/F1-01 не начаты; zero-meta победа и фактическая сложность ещё не проверялись.
+
+## Автономное продолжение FIELD-001 — 2026-09-24
+
+Пользователь поручил: утвердить/поправить и закрыть F1-00 (DECISION-0053 →
+Approved), затем последовательно пройти F1-01…F1-09 по очереди ниже; вместо
+ожидания ответа заводить DECISION-записи с выбором и обоснованием; арт готовить
+и подключать по scripts/README и ASSET_PIPELINE без предварительного просмотра
+(пользователь поправит вручную); после каждого пакета — safe smoke-check и
+синхронизация STATUS/evidence; коммитить по ходу работы. Остановка — только на
+решении без опоры в репозитории. После F1-09 к общему backlog не переходить.
+
+F1-00 закрыт: baseline v1 Approved без изменений, canon синхронизирован
+([evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24)).
+
+Среда исполнения этого продолжения — облачный Linux-контейнер **без Unity Editor**
+(Unity download/licensing недоступны). Safe smoke-check `check_project.py` там
+даёт NOT RUN. Вместо него каждый пакет проверяется compile/test harness на .NET 8:
+все 41 asmdef компилируются против UnityEngine reference assemblies с заглушками
+Editor/TestTools/InputSystem, NUnit-тесты без native Unity runtime исполняются
+(базовая линия до изменений: 315 из 683 тестов исполнимы и проходят; остальные
+требуют GameObject/сцен и считаются NOT RUN). Это не Unity evidence: пакеты с
+кодом получают не выше `Implemented`, `Verified` требует Unity-прогона на машине
+пользователя.
 
 ## Граница текущего продолжения
 
@@ -160,11 +183,11 @@ implementation/verification evidence: none. F1-00 разрешён только 
 
 | Приоритет | Packet / владельцы | Status | Prerequisites / конкретный gate |
 |---:|---|---|---|
-| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | In progress | baseline-v1 подготовлен; ожидает approval чисел и явных timing semantics по DECISION-0053; [evidence](evidence/field001-baseline-v1-2026-09-23.md) |
-| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Blocked | F1-00; per-ID required level parameters и world presentation gates |
+| 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Verified | 2026-09-24: baseline v1 Approved (DECISION-0053), canon синхронизирован; static validator PASS; [evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24) |
+| 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | In progress | F1-00 Verified; world presentation gates закрываются внутри пакета |
 | 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Blocked | F1-00/01; production mapping и numeric validation |
 | 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Blocked | F1-00/01/02; numeric weights, body/crop binding и initial mapping verification |
-| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Blocked | F1-00; combat/drop/heal data, missing body assets и production bindings |
+| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Ready | F1-00 Verified; body assets/production bindings — внутри пакета; выполняется после F1-01…03 по порядку |
 | 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Blocked | F1-00/01/02/04; thresholds/effect payload, SET-017 presentation |
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Blocked | F1-00/01/04; timings/attack/reward data и art |
 | 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Blocked | F1-00/01/02/04/05; Book ID/card, Traveler presence/XP/support values и art |
