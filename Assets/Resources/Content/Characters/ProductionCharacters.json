@@ -1,0 +1,78 @@
+[
+  {
+    "id": "CHAR-001",
+    "displayName": "Клёпка",
+    "initiallyUnlocked": true,
+    "startingActiveSkillId": "SKILL-001",
+    "visualId": "CHAR-001-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 100,
+      "movementSpeed": 3,
+      "activeSkillDamageMultiplier": 1,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 0.7
+      }
+    ],
+    "presentation": {
+      "role": "Начинает с Броска камня · Чаще находит иглы, копьё и молнию · Без начальных бонусов к характеристикам",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-001-VISUAL-PORTRAIT",
+      "iconId": "CHAR-001-VISUAL-ICON",
+      "highlights": []
+    }
+  }
+]

@@ -83,6 +83,26 @@ git blob через явный список путей в конце `.gitattrib
   SKILL-002/005/013 (сторона наконечника +X); волна, цепь и telegraph/impact —
   процедурные формы (`SkillWorldEffects.json`, палитра Art Direction §9.2/§12).
 
+### 5. Конкретизации F1-03
+
+- **CHAR-001 визуал.** Утверждённое тело гоблина (связь CHAR-001 ↔ fixture goblin
+  подтверждена пользователем ранее) регистрируется production ID
+  `CHAR-001-VISUAL-BODY` c тем же файлом и contact profile; portrait/icon выбора —
+  тот же спрайт (`CHAR-001-VISUAL-PORTRAIT`/`-ICON`, scale-to-fit), motion
+  `CHAR-001-MOTION` — копия утверждённого goblin-профиля. Новых изображений нет.
+- **Draft weights.** В production definition только десять стартовых skills
+  (1.35 для 002/005/007, 0.70 для 014, 1 для остальных); веса поздних ID остаются
+  в baseline JSON до их production-определений: registry не содержит поздних skills,
+  а locked ID всё равно фильтруются до розыгрыша.
+- **Highlights.** У Клёпки нет отклонений от базовых характеристик, поэтому
+  stat-highlights пусты (разрешённое «нет highlights»); тексты baseline выводятся
+  в строке роли персонажа.
+- **Миграция профиля.** Формат профиля не меняется (schema 1). При загрузке
+  сохранённые прохождения досчитывают бесплатные unlocks нового mapping без валюты
+  и receipts; прежние unlocks/покупки не отзываются; изменение сразу сохраняется.
+  Путь production-файла профиля и переключение gameplay composition на production
+  роли выполняются в F1-08 (сейчас сцена использует fixture-профиль).
+
 ## Consequences
 
 Код: `OrbitEffect.Persistent`, `AreaEffect.ExpansionSeconds`, `StrikeEffect`,

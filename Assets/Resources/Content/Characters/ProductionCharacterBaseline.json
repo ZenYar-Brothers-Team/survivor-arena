@@ -1,0 +1,22 @@
+{
+  "id": "CHARACTER-BASELINE-001",
+  "baseStats": {
+    "maxHealth": 100,
+    "movementSpeed": 3,
+    "activeSkillDamageMultiplier": 1,
+    "activeSkillCooldownMultiplier": 1,
+    "incomingDamageMultiplier": 1,
+    "healthRestorationMultiplier": 1,
+    "healthRegenerationPerSecond": 0,
+    "disappearingXpRecovery": 0,
+    "pickedUpXpMultiplier": 1,
+    "xpDropLifetimeBonusSeconds": 0,
+    "pickupRadius": 0.5,
+    "knockbackResistance": 0,
+    "outgoingKnockbackBonus": 0,
+    "effectSizeMultiplier": 1,
+    "effectRangeMultiplier": 1,
+    "potionDropMultiplier": 1,
+    "lowHealthDamageMaxBonus": 0
+  }
+}

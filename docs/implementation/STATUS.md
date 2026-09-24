@@ -2,9 +2,9 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-24 (F1-00 Verified; F1-01/02 Implemented, Unity NOT RUN)
+Last repository audit: 2026-09-24 (F1-00 Verified; F1-01…03 Implemented, Unity NOT RUN)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
-Current active packet: F1-03 — Клёпка, стартовый профиль и выбор; IP-12A gameplay density review остаётся открытым
+Current active packet: F1-04 — шесть обычных врагов и зелье; IP-12A gameplay density review остаётся открытым
 Next Ready packet: определяется очередью [FIELD-001](#field001-execution); пользователь 2026-09-24 разрешил последовательно пройти F1-00…F1-09 без промежуточных подтверждений.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
@@ -23,8 +23,8 @@ PICKUP-001/Book и поле с production schedule. Остальной конт�
 расширяет ordinary pool до шести за счёт ENEMY-005/007; F1-00/04/08/09 и art scope
 синхронизированы. Новых runtime checks нет; очередь и зависимости сохраняются.
 
-Изменён только дизайн/план. Runtime MetaEconomy.json всё ещё содержит прежний
-mapping; F1-03 исправит его и проверит миграцию. IP-25/26 переоткрыты для новой delta;
+Изменён только дизайн/план. Runtime MetaEconomy.json переведён на DECISION-0050
+в F1-03 (2026-09-24) вместе с миграцией при загрузке. IP-25/26 переоткрыты для новой delta;
 их прежнее evidence сохранено как база. Остальные framework scope без изменения
 поведения сохраняют своё состояние; production catalogs имеют прежние data/art
 и новые packet dependencies. Approved art не означает production bindings.
@@ -186,8 +186,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 1 | [F1-00 — полные данные](milestones/FIELD-001-start.md#f1-00); IP-17…26/30/32 | Verified | 2026-09-24: baseline v1 Approved (DECISION-0053), canon синхронизирован; static validator PASS; [evidence](evidence/field001-baseline-v1-2026-09-23.md#approval-2026-09-24) |
 | 2 | [F1-01 — 10 skills](milestones/FIELD-001-start.md#f1-01); IP-17 | Implemented | 2026-09-24: completed IDs SKILL-001…007/010/013/014 (L1–6, art/VFX bound in data); .NET harness PASS, Unity NOT RUN → Verified после `check_project.py --scope full`; [evidence](evidence/field001-f1-01-2026-09-24.md), [DECISION-0054](../decisions/0054-field001-autonomous-execution.md) |
 | 3 | [F1-02 — 10 passives](milestones/FIELD-001-start.md#f1-02); IP-18 | Implemented | 2026-09-24: completed IDs PASSIVE-001…005/007…009/011/012 (L1–6, icons); .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-02-2026-09-24.md) |
-| 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | In progress | F1-00 Verified, F1-01/02 Implemented |
-| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | Ready | F1-00 Verified; body assets/production bindings — внутри пакета; выполняется после F1-01…03 по порядку |
+| 4 | [F1-03 — Клёпка/profile/UI](milestones/FIELD-001-start.md#f1-03); IP-22/25/26 | Implemented | 2026-09-24: CHAR-001 production definition/visual binding, MetaEconomy по DECISION-0050, миграция при загрузке; .NET harness PASS, Unity NOT RUN; [evidence](evidence/field001-f1-03-2026-09-24.md) |
+| 5 | [F1-04 — enemies/potion](milestones/FIELD-001-start.md#f1-04); IP-20 | In progress | F1-00 Verified |
 | 6 | [F1-05 — 5 sets](milestones/FIELD-001-start.md#f1-05); IP-19 | Blocked | F1-00/01/02/04; thresholds/effect payload, SET-017 presentation |
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Blocked | F1-00/01/04; timings/attack/reward data и art |
 | 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Blocked | F1-00/01/02/04/05; Book ID/card, Traveler presence/XP/support values и art |
@@ -545,7 +545,7 @@ Startup packet: F1-03 — новый production profile 10/10/5 и DECISION-0050
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
 Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
 Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
-Remaining acceptance / IDs: новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08; complete delta verification для этого packet.
+Remaining acceptance / IDs: terminal integration в F1-08; Unity verification. F1-03 subset (10/10/5, DECISION-0050 mapping, load-time migration) Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
 Prior implementation evidence (design-sync-R2): [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
 Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
 Documentation impact: IP-25 API/schema/save/reset и IP-26 consumers, regression map; GDD/CD правила DECISION-0037 сохранены. Fixture Book=50, новые raster assets не создавались.
@@ -562,7 +562,7 @@ Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content int
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
 Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
 Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
-Remaining acceptance / IDs: startup/locks/recipe UI; Results и actual-content integration в F1-08; complete delta verification для этого packet.
+Remaining acceptance / IDs: recipe UI и actual-content selection на production composition, Results — F1-05/F1-08; Unity verification. F1-03: production roster/lock reasons data — [evidence](evidence/field001-f1-03-2026-09-24.md).
 Prior implementation evidence (design-sync-R2): Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: DECISION-0038, GDD/CD/UI settings/difficulty, IP-12A/16/23/26 contracts, DESIGN_SYNC, regression map и consumer readiness.
 Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
@@ -646,8 +646,9 @@ Startup packet: F1-03 — CHAR-001; поздние character IDs только un
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
 Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
-Remaining acceptance / IDs: CHAR-001…010, complete stats/loadouts/weights и body/selection art.
-Target implementation evidence: Нет для новых требований.
+Remaining acceptance / IDs: CHAR-002…010 и Unity verification CHAR-001.
+Startup subset F1-03: CHAR-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Target implementation evidence: F1-03 subset only.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).
 

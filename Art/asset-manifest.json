@@ -364,19 +364,20 @@
     {
       "owner": "CHAR-001",
       "role": "body",
-      "visualId": null,
+      "visualId": "CHAR-001-VISUAL-BODY",
       "method": "Generate",
       "owningIp": "IP-22",
       "source": "Art/Source/Characters/fixture-character-agile/selected-master.png",
       "provenance": "Art/Source/Characters/fixture-character-agile/asset-record.json",
-      "runtime": null,
-      "resourcePath": null,
+      "runtime": "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png",
+      "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
       "stage": "Image approved",
       "evidence": [
         "User confirmed concept identity 2026-09-21; conceptBindings in asset-record.json",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+        "F1-03 2026-09-24: production CHAR-001-VISUAL-BODY/-PORTRAIT/-ICON sprite entries reuse the approved goblin body bytes and contact profile; no new image (DECISION-0054)."
       ],
-      "missing": "Production CHAR-001 catalog/runtime binding; fixture content is not renamed."
+      "missing": "Gameplay composition switch to the production roster (F1-08) and in-game review of the select crop."
     },
     {
       "owner": "FIXTURE-CHARACTER-AGILE",

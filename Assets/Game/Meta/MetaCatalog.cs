@@ -5,7 +5,7 @@ using Game.Content;
 using Game.Content.Json;
 namespace Game.Meta
 {
-    /// <summary>Approved DECISION-0037 economy; fixture access is a separately loaded catalog.</summary>
+    /// <summary>Approved DECISION-0037 economy with the DECISION-0050 unlock mapping; fixture access is a separately loaded catalog.</summary>
     public sealed class MetaCatalog
     {
         public long RewardPerLevel { get; }

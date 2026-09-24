@@ -522,5 +522,22 @@
     "id": "SKILL-013-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Skills/skill-013/skill-013-projectile",
     "role": "Projectile"
+  },
+  {
+    "id": "CHAR-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Body",
+    "contactRadius": 0.401431,
+    "contactCenterY": 0.530976
+  },
+  {
+    "id": "CHAR-001-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-001-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
+    "role": "Icon"
   }
 ]

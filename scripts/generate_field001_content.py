@@ -213,9 +213,36 @@ def passives(baseline):
     return result
 
 
+CHARACTER_BASELINE_ID = "CHARACTER-BASELINE-001"
+
+
+def characters(baseline):
+    """CHAR-001 only: draft weights for the ten startup skills (late weights stay baseline metadata)."""
+    character = baseline["character"]
+    startup = set(baseline["initialRoster"]["actives"])
+    names = content_design_names("CHAR")
+    weights = [{"skillId": skill, "weight": weight}
+               for skill, weight in character["skillDraftWeights"].items() if skill in startup]
+    return [{
+        "id": character["id"], "displayName": names[character["id"]],
+        "initiallyUnlocked": True, "startingActiveSkillId": character["startingSkill"],
+        "visualId": f"{character['id']}-VISUAL-BODY", "motionProfileId": f"{character['id']}-MOTION",
+        "baseStats": character["stats"], "draftWeights": weights,
+        "presentation": {"role": " · ".join(character["highlights"]), "baselineId": CHARACTER_BASELINE_ID,
+                         "cropId": f"{character['id']}-VISUAL-PORTRAIT", "iconId": f"{character['id']}-VISUAL-ICON",
+                         "highlights": []},
+    }]
+
+
+def character_baseline(baseline):
+    return {"id": CHARACTER_BASELINE_ID, "baseStats": baseline["character"]["stats"]}
+
+
 TARGETS = {
     "Assets/Resources/Content/ActiveSkills/ProductionActiveSkills.json": active_skills,
     "Assets/Resources/Content/Passives/ProductionPassives.json": passives,
+    "Assets/Resources/Content/Characters/ProductionCharacters.json": characters,
+    "Assets/Resources/Content/Characters/ProductionCharacterBaseline.json": character_baseline,
 }
 
 
