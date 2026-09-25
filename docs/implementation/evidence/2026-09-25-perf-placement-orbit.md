@@ -47,5 +47,5 @@
 | .NET harness compile | 0 errors |
 | .NET harness NUnit | 431/753 PASS; регрессий 0 относительно `develop-evg` (`db5868d`); 12/12 `BoxPickupPlacementTests` PASS |
 | Мутационная проверка оракула | порядок соседей — ловит `TryPlace_ExactEqualDistanceTie_…`; пропуск линии запроса — 415/416 расхождений; «узел на линии запроса всегда свободен» — эквивалентный мутант (узел внутри препятствия уже отсечён рёбрами) |
-| `EnemyDamageAreaCirclesTests` | **NOT RUN** — нужен Unity physics |
-| `smoke-check` (`check_project.py --scope full`) | **NOT RUN** — в облачной среде нет Unity (`msvcrt`/Unity недоступны) |
+| `smoke-check` (`check_project.py --scope full`) | Пользователь, 2026-09-25, Unity 6000.6.0f1 batch: **EditMode 726/726, PlayMode 27/27, 0 skipped** (+8 новых EditMode относительно 718, включая `EnemyDamageAreaCirclesTests` 3/3); manifest PASS 103; `TestResults/checks/20260925T160418-414838Z/summary.json` |
+| Unity-время после фикса | **не измерено** — нужен плейтест и проверка `[Perf]` в Editor.log |
