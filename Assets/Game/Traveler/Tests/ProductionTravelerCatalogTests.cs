@@ -55,6 +55,10 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(812.5f, scaled.MaxHealth, 1e-3f);
             Assert.AreEqual(25f, scaled.ContactDamage, 1e-3f);
             Assert.AreEqual(0.75f, scaled.MovementSpeed, 1e-5f, "Speed is never scaled.");
+            var body = Traveler("TRAVELER-001").Body;
+            Assert.IsTrue(body.Visual.Id.IsValid && body.MotionProfile.Id.IsValid, "Production Traveler has approved body art.");
+            Assert.AreEqual(body.Visual.Id, scaled.Visual.Id, "Scaling keeps the body art the runtime animates (DECISION-0059).");
+            Assert.AreEqual(body.MotionProfile.Id, scaled.MotionProfile.Id);
         }
 
         [Test]

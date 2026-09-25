@@ -422,6 +422,17 @@ def boss_attack(attack, cooldown, cadence):
     return data
 
 
+def boss_teleport(teleport):
+    """BOSS-001 teleport-slam (DECISION-0059); the runtime validates ranges."""
+    return {"farDistance": teleport["farDistance"], "farSeconds": teleport["farSeconds"],
+            "landingDistance": teleport["landingDistance"], "telegraphSeconds": teleport["telegraphSeconds"],
+            "impactRadius": teleport["impactRadius"], "impactDamage": teleport["impactDamage"],
+            "impactControls": {"knockbackDistance": teleport["impactKnockback"],
+                               "knockbackSeconds": teleport["impactKnockbackSeconds"]},
+            "impactEffectSeconds": teleport["impactEffectSeconds"],
+            "telegraphColor": teleport["telegraphColor"], "impactColor": teleport["impactColor"]}
+
+
 def bosses(baseline):
     names = {**content_design_names("BOSS"), **content_design_names("MIDBOSS")}
     boss, mid = baseline["boss"], baseline["midboss"]
@@ -451,6 +462,7 @@ def bosses(baseline):
                     for kind in boss["attackSequence"]] +
                    [{"id": f"{boss['id']}-{kind.upper()}-ENRAGED", "attack": boss_attack(attacks[kind], boss["enragedCooldownSeconds"], cadence)}
                     for kind in boss["attackSequence"]],
+        "teleport": boss_teleport(boss["teleport"]),
         "phases": [
             {"id": f"{boss['id']}-PHASE-1", "healthThreshold": 1,
              "attackEnemyIds": [f"{boss['id']}-{kind.upper()}" for kind in boss["attackSequence"]]},

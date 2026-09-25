@@ -34,6 +34,12 @@ namespace Game.Enemy.Tests
             Assert.IsTrue(ring.FixedOrientation);
             Assert.AreEqual(2.88f, boss.Phases[1].Attacks[0].Attack.CooldownSeconds, 1e-5f);
             Assert.AreEqual(0.5f, boss.Phases[1].HealthThreshold, 1e-5f);
+            var teleport = boss.Teleport;
+            Assert.IsNotNull(teleport, "DECISION-0059: BOSS-001 teleport-slams a player who keeps away.");
+            Assert.AreEqual(5f, teleport.FarDistance, 1e-5f, "Half of the 10-unit reference screen height.");
+            Assert.AreEqual(5f, teleport.FarSeconds, 1e-5f);
+            Assert.Less(teleport.LandingDistance, teleport.ImpactRadius, "A player standing still is caught by the slam.");
+            Assert.AreEqual(20f, teleport.ImpactDamage, 1e-5f);
 
             var mid = Encounter("MIDBOSS-001");
             Assert.AreEqual(WaveHookKind.MidBoss, mid.Hook);
@@ -43,6 +49,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0.35f, mid.Body.Movement.FollowUpTelegraphSeconds, 1e-5f);
             Assert.AreEqual(0.8f, mid.Body.DashContactControls.KnockbackDistance, 1e-5f);
             Assert.AreEqual(0, mid.Phases.Single().Attacks.Count);
+            Assert.IsNull(mid.Teleport, "Only the final boss teleports.");
         }
 
         private static List<(float time, int count, Vector2 first)> Run(BossCombatController combat, float seconds, float health,

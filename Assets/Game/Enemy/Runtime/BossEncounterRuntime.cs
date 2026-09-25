@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Character;
 using Game.Combat;
 using Game.Content;
 using Game.Diagnostics;
@@ -18,11 +19,16 @@ namespace Game.Enemy
         private readonly Dictionary<WaveHookKind, EnemyRuntime> _alive = new Dictionary<WaveHookKind, EnemyRuntime>();
         private readonly HashSet<WaveHookKind> _consumed = new HashSet<WaveHookKind>();
         private readonly Dictionary<EnemyRuntime, Action<int, int>> _phaseHandlers = new Dictionary<EnemyRuntime, Action<int, int>>();
+        private readonly Dictionary<EnemyRuntime, BossTeleportController> _teleports = new Dictionary<EnemyRuntime, BossTeleportController>();
+        private readonly Dictionary<EnemyRuntime, BossTeleportPresentation> _teleportViews = new Dictionary<EnemyRuntime, BossTeleportPresentation>();
+        private readonly List<BossTeleportPresentation> _teleportViewPool = new List<BossTeleportPresentation>();
+        private readonly List<KeyValuePair<EnemyRuntime, BossTeleportController>> _teleportTicks = new List<KeyValuePair<EnemyRuntime, BossTeleportController>>();
         private IReadOnlyDictionary<WaveHookKind, BossEncounterDefinition> _definitions;
         private WaveDirector _director;
         private RunController _run;
         private RunModel _model;
         private Transform _target;
+        private PlayerCharacterRuntime _player;
         private IEnemyLifecycleSink _sink;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectiles;
@@ -42,7 +48,8 @@ namespace Game.Enemy
             {
                 using var guard = PerfGuard.Measure("BossEncounter.Observation", 2f);
                 return string.Join("\n", _alive.Select(pair =>
-                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition?.Id.ToString() ?? "none"} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s"));
+                    $"{pair.Key}: {pair.Value.ContentId} · life {pair.Value.LifeId:N} · phase {pair.Value.BossCombat.Phase.Id} · attack {pair.Value.BossCombat.AttackDefinition?.Id.ToString() ?? "none"} · {pair.Value.AttackPhase} {pair.Value.AttackPhaseRemaining:0.##} s" +
+                    (_teleports.TryGetValue(pair.Value, out var teleport) ? $" · teleport {teleport.Phase} far {teleport.FarElapsed:0.0} s" : "")));
             }
         }
 
@@ -64,6 +71,7 @@ namespace Game.Enemy
             _run = run;
             _model = run.Model;
             _target = target;
+            _player = target.GetComponent<PlayerCharacterRuntime>();
             _sink = sink;
             _deathPresentation = deathPresentation;
             _groundShadowPresentation = groundShadowPresentation;
@@ -91,6 +99,7 @@ namespace Game.Enemy
             // An observer may end the run during Spawned; don't leak that new life after terminal cleanup.
             if (_model == null || _model.State != RunState.Running) { enemy.Despawn(); return; }
             enemy.ConfigureBoss(definition);
+            if (definition.Teleport != null) _teleports.Add(enemy, new BossTeleportController(definition.Teleport, new System.Random(enemy.LifeId.GetHashCode())));
             _alive.Add(hook.Kind, enemy);
             enemy.Despawned += HandleDespawn;
             enemy.CombatResolved += ForwardCombat;
@@ -115,9 +124,90 @@ namespace Game.Enemy
                 enemy.BossCombat.PhaseChanged -= handler;
                 _phaseHandlers.Remove(enemy);
             }
+            _teleports.Remove(enemy);
+            ReleaseTeleportView(enemy);
             foreach (var pair in _alive)
                 if (pair.Value == enemy) { _alive.Remove(pair.Key); break; }
             Changed?.Invoke();
+        }
+
+        private void FixedUpdate()
+        {
+            if (_model == null || _teleports.Count == 0) return;
+            using var guard = PerfGuard.Measure("BossEncounter.Teleport", 1f);
+            var running = _model.State == RunState.Running;
+            // A slam can end the run (player death) and clear the lives iterated here.
+            _teleportTicks.Clear();
+            _teleportTicks.AddRange(_teleports);
+            foreach (var pair in _teleportTicks)
+            {
+                var enemy = pair.Key;
+                if (_model == null || enemy == null || !_teleports.ContainsKey(enemy)) continue;
+                var controller = pair.Value;
+                if (!enemy.IsAlive)
+                {
+                    // A dying boss never lands: drop its pending marker instead of freezing it on the ground.
+                    if (controller.Phase == BossTeleportPhase.Telegraphing && _teleportViews.TryGetValue(enemy, out var dyingView))
+                        dyingView.ResetPresentation();
+                    continue;
+                }
+                var signal = controller.Tick(Time.fixedDeltaTime, running, enemy.Position, _target.position);
+                if (signal == BossTeleportSignal.TelegraphStarted) TeleportView(enemy).ShowTelegraph(controller.Profile, controller.Landing);
+                else if (signal == BossTeleportSignal.Impact) Slam(enemy, controller);
+            }
+        }
+
+        private void Update()
+        {
+            if (_model == null || _teleportViews.Count == 0) return;
+            var running = _model.State == RunState.Running;
+            foreach (var view in _teleportViews.Values) view.Tick(Time.deltaTime, running);
+        }
+
+        /// <summary>BOSS-001 teleport-slam (DECISION-0059): land next to the player and hit them if they are still in the marked area.</summary>
+        private void Slam(EnemyRuntime enemy, BossTeleportController controller)
+        {
+            var profile = controller.Profile;
+            var landing = controller.Landing;
+            var body = enemy.GetComponent<Rigidbody2D>();
+            body.position = landing;
+            body.linearVelocity = Vector2.zero;
+            enemy.transform.position = landing;
+            TeleportView(enemy).PlayImpact(profile, landing);
+            if (_player == null || _player.Health == null || _player.Health.IsDead || profile.ImpactDamage <= 0f) return;
+            var playerPosition = (Vector2)_target.position;
+            if (!controller.Hits(playerPosition)) return;
+            var direction = playerPosition - landing;
+            _player.ApplyDamage(new CombatDamageRequest(
+                new CombatSource(enemy.Identity, enemy.ContentId, CombatSourceOrigin.EnemyContact),
+                profile.ImpactDamage, profile.ImpactControls, direction.x, direction.y));
+        }
+
+        private BossTeleportPresentation TeleportView(EnemyRuntime enemy)
+        {
+            if (_teleportViews.TryGetValue(enemy, out var view)) return view;
+            if (_teleportViewPool.Count > 0)
+            {
+                view = _teleportViewPool[_teleportViewPool.Count - 1];
+                _teleportViewPool.RemoveAt(_teleportViewPool.Count - 1);
+            }
+            else
+            {
+                var viewObject = new GameObject("BossTeleportEffect");
+                viewObject.transform.SetParent(transform, false);
+                view = viewObject.AddComponent<BossTeleportPresentation>();
+            }
+            _teleportViews.Add(enemy, view);
+            return view;
+        }
+
+        private void ReleaseTeleportView(EnemyRuntime enemy)
+        {
+            if (!_teleportViews.TryGetValue(enemy, out var view)) return;
+            _teleportViews.Remove(enemy);
+            if (view == null) return;
+            view.ResetPresentation();
+            _teleportViewPool.Add(view);
         }
 
         public void OnEnemyLifeEvent(EnemyLifeEvent snapshot)
@@ -166,6 +256,7 @@ namespace Game.Enemy
             _model = null;
             _run = null;
             _target = null;
+            _player = null;
             _sink = null;
             _definitions = null;
             _deathPresentation = null;

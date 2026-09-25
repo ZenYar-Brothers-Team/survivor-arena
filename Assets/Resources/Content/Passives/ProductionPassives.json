@@ -142,16 +142,16 @@
         "pickupRadiusMultiplierBonus": 0.9
       },
       {
+        "pickupRadiusMultiplierBonus": 1.2
+      },
+      {
         "pickupRadiusMultiplierBonus": 1.5
       },
       {
-        "pickupRadiusMultiplierBonus": 2.2
+        "pickupRadiusMultiplierBonus": 1.9
       },
       {
-        "pickupRadiusMultiplierBonus": 3
-      },
-      {
-        "pickupRadiusMultiplierBonus": 4
+        "pickupRadiusMultiplierBonus": 2.33
       }
     ]
   },

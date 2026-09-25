@@ -13,5 +13,7 @@ namespace Game.Enemy.Json
         public BossAttackData[] Attacks { get; set; }
         public bool? KeepAttackOrderOnPhaseChange { get; set; }
         public bool? StrictHealthThreshold { get; set; }
+        /// <summary>Optional teleport-slam; absent means the boss never teleports (DECISION-0059).</summary>
+        public BossTeleportData Teleport { get; set; }
     }
 }

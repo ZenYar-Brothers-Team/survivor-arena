@@ -68,9 +68,12 @@ namespace Game.Traveler
                 a.ProjectileSpeed, a.ProjectileLifetimeSeconds, a.ProjectileCount, a.SpreadDegrees, a.BurstIntervalSeconds,
                 a.ProjectileRadius, a.ExplosionRadius, a.RotationStepDegrees, a.Controls, a.TelegraphSeconds,
                 a.ProjectileVisual);
+            // Art references stay: the runtime builds the animated body from them (a scaled body without
+            // them threw mid-spawn and left an unregistered, invulnerable Traveler, DECISION-0059).
             return new EnemyDefinition(Id, Body.MaxHealth * multiplier, Body.CollisionSize, Body.MovementSpeed,
-                Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, movement: Body.Movement,
-                attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls);
+                Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, visual: Body.Visual, movement: Body.Movement,
+                attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls,
+                motionProfile: Body.MotionProfile);
         }
         // Body art/motion/projectile visuals must reach the registry like a boss body does (DECISION-0057).
         public IEnumerable<ContentReference> GetReferencedContent() => Body.GetReferencedContent();

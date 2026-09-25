@@ -61,7 +61,8 @@ namespace Game.Enemy
                 }
                 definitions.Add(new BossEncounterDefinition(entry.Id, entry.DisplayName, hook,
                     FixtureEnemyCatalog.ToDefinition(entry.Body), entry.SpawnOffsetX.Value, entry.SpawnOffsetY.Value, phases,
-                    entry.KeepAttackOrderOnPhaseChange ?? false, entry.StrictHealthThreshold ?? false, owned));
+                    entry.KeepAttackOrderOnPhaseChange ?? false, entry.StrictHealthThreshold ?? false, owned,
+                    BossTeleportProfile.FromData(entry.Teleport, $"Boss {entry.Id}")));
             }
             if (!hooks.Contains(WaveHookKind.FinalBoss)) throw new ArgumentException("Final boss definition is required.", nameof(data));
             return definitions.AsReadOnly();

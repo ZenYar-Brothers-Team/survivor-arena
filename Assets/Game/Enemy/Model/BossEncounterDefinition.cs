@@ -20,10 +20,13 @@ namespace Game.Enemy
         public bool StrictHealthThreshold { get; }
         /// <summary>Attack carriers authored inline with this encounter; register them with the encounter.</summary>
         public IReadOnlyList<EnemyDefinition> OwnedAttacks { get; }
+        /// <summary>Teleport-slam against a player who keeps away from the boss; null when the boss has none (DECISION-0059).</summary>
+        public BossTeleportProfile Teleport { get; }
 
         public BossEncounterDefinition(ContentId id, string displayName, WaveHookKind hook,
             EnemyDefinition body, float spawnOffsetX, float spawnOffsetY, IEnumerable<BossPhaseDefinition> phases,
-            bool keepAttackOrderOnPhaseChange = false, bool strictHealthThreshold = false, IEnumerable<EnemyDefinition> ownedAttacks = null)
+            bool keepAttackOrderOnPhaseChange = false, bool strictHealthThreshold = false, IEnumerable<EnemyDefinition> ownedAttacks = null,
+            BossTeleportProfile teleport = null)
         {
             if (!id.IsValid) throw new ArgumentException("Encounter id is required.", nameof(id));
             if (string.IsNullOrWhiteSpace(displayName)) throw new ArgumentException("Boss name is required.", nameof(displayName));
@@ -47,6 +50,7 @@ namespace Game.Enemy
             KeepAttackOrderOnPhaseChange = keepAttackOrderOnPhaseChange;
             StrictHealthThreshold = strictHealthThreshold;
             OwnedAttacks = new List<EnemyDefinition>(ownedAttacks ?? Array.Empty<EnemyDefinition>()).AsReadOnly();
+            Teleport = teleport;
         }
 
         public IEnumerable<ContentReference> GetReferencedContent()

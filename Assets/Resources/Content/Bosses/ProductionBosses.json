@@ -108,6 +108,31 @@
         }
       }
     ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 5,
+      "landingDistance": 2.2,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 2.6,
+      "impactDamage": 20,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    },
     "phases": [
       {
         "id": "BOSS-001-PHASE-1",

@@ -43,8 +43,10 @@ namespace Game.Progression.Tests
             var metronome = StatsWith("PASSIVE-005", 6);
             Assert.AreEqual(0.25f, metronome.ActionSpeedBonus, 1e-4f);
             Assert.AreEqual(1f / 1.25f, metronome.ActiveSkillCooldownMultiplier, 1e-4f);
-            // DECISION-0055: L6 reaches about a quarter of the 10-unit reference screen height.
-            Assert.AreEqual(2.5f, StatsWith("PASSIVE-007", 6).PickupRadius, 1e-4f);
+            // DECISION-0059: L6 is 1.5 times smaller than the DECISION-0055 value (2.5 units); L1-L2 unchanged.
+            Assert.AreEqual(1.665f, StatsWith("PASSIVE-007", 6).PickupRadius, 1e-4f);
+            Assert.AreEqual(0.95f, StatsWith("PASSIVE-007", 2).PickupRadius, 1e-4f);
+            Assert.AreEqual(1.1f, StatsWith("PASSIVE-007", 3).PickupRadius, 1e-4f);
             Assert.AreEqual(0.7f, StatsWith("PASSIVE-007", 1).PickupRadius, 1e-4f);
             Assert.AreEqual(0.75f, StatsWith("PASSIVE-008", 6).IncomingDamageMultiplier, 1e-4f);
             Assert.AreEqual(1.6f, StatsWith("PASSIVE-009", 6).HealthRestorationMultiplier, 1e-4f);

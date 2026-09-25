@@ -1219,19 +1219,19 @@
         },
         {
           "level": 3,
-          "pickupRadiusBonus": 1.5
+          "pickupRadiusBonus": 1.2
         },
         {
           "level": 4,
-          "pickupRadiusBonus": 2.2
+          "pickupRadiusBonus": 1.5
         },
         {
           "level": 5,
-          "pickupRadiusBonus": 3.0
+          "pickupRadiusBonus": 1.9
         },
         {
           "level": 6,
-          "pickupRadiusBonus": 4.0
+          "pickupRadiusBonus": 2.33
         }
       ]
     },
@@ -1688,7 +1688,20 @@
     "rewardOnDespawn": 0,
     "deathEndsRun": false,
     "cadence": "windup-start-to-windup-start",
-    "aimSnapshot": "windup-start"
+    "aimSnapshot": "windup-start",
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 5,
+      "landingDistance": 2.2,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 2.6,
+      "impactDamage": 20,
+      "impactKnockback": 0.5,
+      "impactKnockbackSeconds": 0.12,
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [1, 0.35, 0.15, 0.85],
+      "impactColor": [1, 0.8, 0.45, 0.95]
+    }
   },
   "midboss": {
     "id": "MIDBOSS-001",
