@@ -32,3 +32,8 @@ Explode → PlayExplosion`. Путь срабатывает на каждом п
 | .NET harness NUnit | 431/754 PASS, регрессий 0 относительно `1cea1f5`; новый тест требует Unity (ParticleSystem) — не исполним в harness |
 | `smoke-check` (`check_project.py --scope full`) | **NOT RUN** — в облачной среде нет Unity |
 | Регрессионный тест | `ProjectileLifecycleTests.ImpactThenExplosion_SamePooledProjectile_UsesSeparateParticleSystemsAcrossReuse` |
+
+Первый Unity-прогон пользователя (2026-09-25): EditMode 726/727 — упала только новая проверка
+`particleCount` сразу после `Emit`: у вручную симулируемой системы счётчик обновляется на следующем шаге
+симуляции (в игре — tail-тик `FixedUpdate`). Исключений и ошибок `AddComponent` не было (иначе тест упал бы
+раньше, на `TryImpact`). Тест теперь делает один шаг `Simulate(0.01)` перед подсчётом; нужен повторный прогон.

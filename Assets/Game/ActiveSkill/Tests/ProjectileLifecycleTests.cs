@@ -143,6 +143,8 @@ namespace Game.ActiveSkill.Tests
                 Assert.AreSame(projectile.transform, impactParticles.transform.parent);
                 Assert.AreSame(projectile.transform, explosionParticles.transform.parent);
                 Assert.IsNull(projectile.GetComponent<ParticleSystem>(), "The shared projectile root carries no particle system.");
+                // Emitted particles are counted after the next manual simulation step (the tail tick of FixedUpdate).
+                projectile.Simulate(.01f);
                 Assert.AreEqual(1 + profile.ParticleCount, impactParticles.particleCount);
                 Assert.AreEqual(1 + explosionProfile.ParticleCount, explosionParticles.particleCount);
 
