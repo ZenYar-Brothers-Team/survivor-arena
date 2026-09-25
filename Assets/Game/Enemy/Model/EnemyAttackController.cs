@@ -9,6 +9,7 @@ namespace Game.Enemy
     {
         private readonly EnemyAttackProfile _profile;
         private readonly bool _repeat;
+        private readonly System.Random _random;
         private float _cooldownRemaining;
         private float _burstRemaining;
         private int _burstShotsRemaining;
@@ -24,10 +25,14 @@ namespace Game.Enemy
             Phase == EnemyAttackPhase.Bursting ? _burstRemaining : Mathf.Max(0f, _cooldownRemaining);
         public Vector2 AimDirection { get; private set; } = Vector2.right;
 
-        public EnemyAttackController(EnemyAttackProfile profile, bool repeat = true)
+        /// <param name="random">Source of Burst aim deviation; required when a Burst profile has a spread.</param>
+        public EnemyAttackController(EnemyAttackProfile profile, bool repeat = true, System.Random random = null)
         {
             _profile = profile ?? throw new ArgumentNullException(nameof(profile));
+            if (profile.Pattern == EnemyProjectilePattern.Burst && profile.SpreadDegrees > 0f && random == null)
+                throw new ArgumentNullException(nameof(random), "Burst aim deviation needs a random source.");
             _repeat = repeat;
+            _random = random;
             if (WindupCadence) _cooldownRemaining = profile.CooldownSeconds;
         }
 
@@ -69,7 +74,7 @@ namespace Game.Enemy
                 _burstRemaining -= deltaTime;
                 while (_burstShotsRemaining > 0 && _burstRemaining <= 0f)
                 {
-                    shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, AimDirection));
+                    shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, AimDirection, 0f, NextJitter()));
                     _burstShotsRemaining--;
                     _burstRemaining += _profile.BurstIntervalSeconds;
                 }
@@ -93,7 +98,7 @@ namespace Game.Enemy
         private void Fire(List<EnemyShotCommand> shots)
         {
             _hasFired = true;
-            shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, AimDirection, _rotationDegrees));
+            shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, AimDirection, _rotationDegrees, NextJitter()));
             if (_profile.Pattern == EnemyProjectilePattern.Burst)
             {
                 _burstShotsRemaining = _profile.ProjectileCount - 1;
@@ -104,5 +109,11 @@ namespace Game.Enemy
             if (!WindupCadence) _cooldownRemaining = _profile.CooldownSeconds;
             Phase = _burstShotsRemaining > 0 ? EnemyAttackPhase.Bursting : EnemyAttackPhase.Cooldown;
         }
+
+        // Burst: each shot deviates uniformly within ±SpreadDegrees/2 of the current aim (ENEMY-005, DECISION-0055).
+        private float NextJitter() =>
+            _profile.Pattern == EnemyProjectilePattern.Burst && _profile.SpreadDegrees > 0f
+                ? ((float)_random.NextDouble() - .5f) * _profile.SpreadDegrees
+                : 0f;
     }
 }

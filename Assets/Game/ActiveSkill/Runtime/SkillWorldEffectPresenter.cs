@@ -76,6 +76,12 @@ namespace Game.ActiveSkill
         {
             var shape = Rent(ProceduralShapeSprites.Disc, profile.ImpactColor, center, 0f, profile.FadeSeconds, false);
             shape.Renderer.transform.localScale = Vector3.one * radius * 2f;
+            if (!profile.HasPillar) return;
+            // Light falling from above onto the strike point (OBS-03, playtest 2026-09-24_e1e04fc4).
+            var pillar = Rent(ProceduralShapeSprites.Pillar, profile.ImpactColor, center, 0f, profile.FadeSeconds, false);
+            pillar.Renderer.sortingOrder = SortingOrder + 1;
+            var size = ProceduralShapeSprites.Pillar.bounds.size;
+            pillar.Renderer.transform.localScale = new Vector3(profile.PillarWidth / size.x, profile.PillarHeight / size.y, 1f);
         }
 
         public void Segment(SkillWorldEffectProfile profile, Vector2 from, Vector2 to)

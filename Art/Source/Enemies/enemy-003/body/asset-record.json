@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-003",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; FIELD-001 visual packet 2026-09-24",
+  "sourceKind": "ai-generated",
+  "generator": "ChatGPT image generation, shared by user",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images. User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят.",
+  "prompt": "Generation prompt unavailable in the user-shared ChatGPT image post; the original user corrections are recorded in the source conversation.",
+  "constraints": [
+    "approved image or user-requested missing asset",
+    "source original preserved",
+    "transparent background"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-003/enemy-003-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "256x256",
+    "sourceSha256": "d8a12840732745613486d11e81559f8a60c64d088f071e8928c6068a0ae52472",
+    "runtimeSha256": "d8a12840732745613486d11e81559f8a60c64d088f071e8928c6068a0ae52472",
+    "recipe": {
+      "mode": "copy"
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "df51f4189ca29954648cafbf10de1d0ffe80eb9407ccdf63bb2a792e899d7dfe",
+  "promptProvenance": "The shared ChatGPT image post did not expose the internal generation prompt; prompt field records this limitation.",
+  "sourceSharePost": "https://chatgpt.com/s/m_6ab55b496d088191acd1d8fc36dbf88d"
+}

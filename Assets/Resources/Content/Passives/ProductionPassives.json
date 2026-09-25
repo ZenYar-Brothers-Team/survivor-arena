@@ -136,22 +136,22 @@
     "iconVisualId": "PASSIVE-007-VISUAL-ICON",
     "levels": [
       {
-        "pickupRadiusMultiplierBonus": 0.1
-      },
-      {
-        "pickupRadiusMultiplierBonus": 0.2
-      },
-      {
-        "pickupRadiusMultiplierBonus": 0.3
-      },
-      {
         "pickupRadiusMultiplierBonus": 0.4
       },
       {
-        "pickupRadiusMultiplierBonus": 0.5
+        "pickupRadiusMultiplierBonus": 0.9
       },
       {
-        "pickupRadiusMultiplierBonus": 0.6
+        "pickupRadiusMultiplierBonus": 1.5
+      },
+      {
+        "pickupRadiusMultiplierBonus": 2.2
+      },
+      {
+        "pickupRadiusMultiplierBonus": 3
+      },
+      {
+        "pickupRadiusMultiplierBonus": 4
       }
     ]
   },

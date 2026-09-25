@@ -21,6 +21,9 @@ namespace Game.ActiveSkill
         // Whole-tick budget: scheduled effects (beams/chains/areas scan every alive enemy
         // or run physics overlaps) plus mines. Generous for fixture-scale content.
         private const float TickWarningMilliseconds = 2f;
+        // One orbit tick replaces what used to be one EnemyDamageArea.Apply per blade; it is a single area hit per
+        // HitCooldown, so it gets the same 2 ms budget as one EnemyDamageArea.Apply and the executor Tick.
+        private const float OrbitBladeAreaWarningMilliseconds = 2f;
 
         private readonly RunController _runController;
         private readonly IActiveSkillProjectileLauncher _projectileLauncher;
@@ -378,8 +381,21 @@ namespace Game.ActiveSkill
                 Vector2.right,
                 rotationDegrees: baseRotation);
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
-            for (var i = 0; i < directions.Length; i++)
-                EnemyDamageArea.Apply(center + directions[i] * effect.Radius * scheduled.Activation.RangeMultiplier, effect.BladeHitboxRadius * scheduled.Activation.SizeMultiplier, damage);
+            var orbitRadius = effect.Radius * scheduled.Activation.RangeMultiplier;
+            var bladeRadius = effect.BladeHitboxRadius * scheduled.Activation.SizeMultiplier;
+            using (PerfGuard.Measure("SceneActiveSkillEffectExecutor.OrbitalBladeArea", OrbitBladeAreaWarningMilliseconds))
+            {
+                // Rented per call (like EnemyDamageArea) so a re-entrant damage callback cannot reuse the list mid-loop.
+                var bladeCenters = UnityEngine.Pool.ListPool<Vector2>.Get();
+                try
+                {
+                    for (var i = 0; i < directions.Length; i++)
+                        bladeCenters.Add(center + directions[i] * orbitRadius);
+                    // One physics query for the whole ring instead of one per blade; per-blade hits are unchanged.
+                    EnemyDamageArea.ApplyCircles(center, orbitRadius + bladeRadius, bladeCenters, bladeRadius, damage);
+                }
+                finally { UnityEngine.Pool.ListPool<Vector2>.Release(bladeCenters); }
+            }
             if (scheduled.TickIndex == 0 && scheduled.Activation.OwnerTransform != null)
             {
                 var visual = ResolveProjectileVisual(scheduled.Activation.LevelDefinition);

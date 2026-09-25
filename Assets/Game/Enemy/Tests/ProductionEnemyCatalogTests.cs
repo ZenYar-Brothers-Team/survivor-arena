@@ -53,26 +53,28 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(3f, archer.Movement.CycleSeconds);
             Assert.AreEqual(1f, archer.Movement.RepositionSeconds);
             Assert.AreEqual(0.5f, archer.Movement.LateralStrength);
-            Assert.AreEqual(14f, archer.Attack.Damage);
+            Assert.AreEqual(EnemyProjectilePattern.Burst, archer.Attack.Pattern);
+            Assert.AreEqual(3, archer.Attack.ProjectileCount);
+            Assert.AreEqual(7f, archer.Attack.Damage);
+            Assert.AreEqual(0.18f, archer.Attack.BurstIntervalSeconds, 1e-5f);
+            Assert.AreEqual(12f, archer.Attack.SpreadDegrees, 1e-5f);
             Assert.AreEqual(6.5f, archer.Attack.ProjectileSpeed);
 
             var hound = Enemy("ENEMY-007");
             Assert.AreEqual(EnemyMovementKind.TelegraphedDash, hound.Movement.Kind);
             Assert.AreEqual(0.55f, hound.Movement.DashTelegraphSeconds, 1e-5f);
             Assert.AreEqual(0.55f, hound.Movement.DashDurationSeconds, 1e-5f);
-            Assert.AreEqual(4.5f, hound.Movement.DashCooldownSeconds, 1e-5f);
+            Assert.AreEqual(2.5f, hound.Movement.DashCooldownSeconds, 1e-5f);
             Assert.AreEqual(3.2f, hound.Movement.DashSpeedMultiplier, 1e-5f);
             Assert.AreEqual(0.65f, hound.DashContactControls.KnockbackDistance, 1e-5f);
             Assert.AreEqual(0.4f, hound.ContactControls.KnockbackDistance, 1e-5f);
         }
 
         [Test]
-        public void Visuals_BindOnlyAvailableArt_MissingBodiesStayExplicit()
+        public void Visuals_BindProductionBodySprites()
         {
-            Assert.AreEqual("ENEMY-001-VISUAL-BODY", Enemy("ENEMY-001").Visual.Id.ToString());
-            Assert.AreEqual("ENEMY-002-VISUAL-BODY", Enemy("ENEMY-002").Visual.Id.ToString());
-            foreach (var id in new[] { "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" })
-                Assert.IsFalse(Enemy(id).Visual.Id.IsValid, $"{id} body is an open art gate, not a fixture image.");
+            foreach (var id in new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" })
+                Assert.AreEqual($"{id}-VISUAL-BODY", Enemy(id).Visual.Id.ToString());
         }
 
         [Test]
@@ -92,6 +94,39 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(EnemyAttackPhase.Telegraphing, controller.Phase, "Next wind-up starts 2.4 s after the previous start.");
             Assert.AreEqual(0, controller.Tick(10f, false, Vector2.right).Length, "Pause freezes the wind-up.");
             Assert.AreEqual(EnemyAttackPhase.Telegraphing, controller.Phase);
+        }
+
+        [Test]
+        public void ArcherVolley_FiresThreeSequentialArrows_EachWithinTheSpreadWindow()
+        {
+            var attack = Enemy("ENEMY-005").Attack;
+            var controller = new EnemyAttackController(attack, random: new System.Random(5));
+            var shots = new System.Collections.Generic.List<EnemyShotCommand>();
+            var times = new System.Collections.Generic.List<float>();
+            var time = 0f;
+            for (var i = 0; i < 400 && shots.Count < 3; i++)
+            {
+                time += 0.01f;
+                var fired = controller.Tick(0.01f, true, Vector2.right);
+                foreach (var shot in fired) { shots.Add(shot); times.Add(time); }
+            }
+            Assert.AreEqual(3, shots.Count);
+            Assert.AreEqual(times[0] + 0.18f, times[1], 0.011f, "Arrows follow one after another.");
+            Assert.AreEqual(times[1] + 0.18f, times[2], 0.011f);
+            var angles = new System.Collections.Generic.HashSet<float>();
+            foreach (var shot in shots)
+            {
+                var angle = Mathf.Atan2(shot.Direction.y, shot.Direction.x) * Mathf.Rad2Deg;
+                Assert.LessOrEqual(Mathf.Abs(angle), 6f + 1e-3f, "Deviation stays within ±spread/2.");
+                angles.Add(Mathf.Round(angle * 1000f));
+            }
+            Assert.Greater(angles.Count, 1, "Arrows deviate randomly rather than repeat one angle.");
+        }
+
+        [Test]
+        public void BurstSpread_RequiresARandomSource()
+        {
+            Assert.Throws<System.ArgumentNullException>(() => new EnemyAttackController(Enemy("ENEMY-005").Attack));
         }
 
         [Test]

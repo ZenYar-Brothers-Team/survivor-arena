@@ -6,8 +6,13 @@ using UnityEngine.Pool;
 
 namespace Game.ActiveSkill
 {
+    /// <summary>
+    /// Physics-query area damage for skills. Main-thread only; buffers are rented per call so lethal callbacks may
+    /// re-enter. Queries all Default-layer colliders (there is no dedicated enemy layer yet — DECISION-0056).
+    /// </summary>
     public static class EnemyDamageArea
     {
+        /// <summary>Damages each live receiver overlapping one circle once; knockback points away from the center.</summary>
         public static int Apply(
             Vector2 center,
             float radius,
@@ -35,6 +40,57 @@ namespace Game.ActiveSkill
             finally
             {
                 ListPool<Collider2D>.Release(colliders);
+                HashSetPool<IEnemyDamageReceiver>.Release(damaged);
+            }
+        }
+
+        /// <summary>
+        /// Same result as calling <see cref="Apply"/> once per circle in <paramref name="circleCenters"/> order, but with a
+        /// single physics query covering all circles (<paramref name="queryCenter"/>, <paramref name="queryRadius"/> must
+        /// contain every circle). Each circle damages a receiver at most once, so a receiver under two circles takes two
+        /// hits exactly as with separate calls; knockback points away from the hitting circle. Overlap uses the collider
+        /// shape (<see cref="Collider2D.ClosestPoint"/>), matching <c>OverlapCircle</c> rather than center distance.
+        /// </summary>
+        /// <returns>Total hits applied across all circles.</returns>
+        public static int ApplyCircles(Vector2 queryCenter, float queryRadius, IReadOnlyList<Vector2> circleCenters,
+            float circleRadius, EnemyDamageRequest damage)
+        {
+            if (circleCenters == null) throw new System.ArgumentNullException(nameof(circleCenters));
+            if (circleRadius <= 0f || circleCenters.Count == 0) return 0;
+            var colliders = ListPool<Collider2D>.Get();
+            var receivers = ListPool<IEnemyDamageReceiver>.Get();
+            var damaged = HashSetPool<IEnemyDamageReceiver>.Get();
+            try
+            {
+                Physics2D.OverlapCircle(queryCenter, queryRadius, ContactFilter2D.noFilter, colliders);
+                // Resolve each collider's receiver once instead of once per circle.
+                for (var i = 0; i < colliders.Count; i++)
+                    receivers.Add(colliders[i] != null ? colliders[i].GetComponentInParent<IEnemyDamageReceiver>() : null);
+                var hits = 0;
+                var radiusSquared = circleRadius * circleRadius;
+                for (var circle = 0; circle < circleCenters.Count; circle++)
+                {
+                    var center = circleCenters[circle];
+                    damaged.Clear();
+                    for (var i = 0; i < colliders.Count; i++)
+                    {
+                        var collider = colliders[i];
+                        var receiver = receivers[i];
+                        // A lethal hit from an earlier circle may disable or destroy the collider (pool return).
+                        if (receiver == null || collider == null || !collider.enabled || !collider.gameObject.activeInHierarchy) continue;
+                        if ((collider.ClosestPoint(center) - center).sqrMagnitude > radiusSquared) continue;
+                        var radial = receiver.Position - center;
+                        var before = damaged.Count;
+                        ApplyOnce(receiver, damage.WithDirection(radial.x, radial.y), damaged);
+                        hits += damaged.Count - before;
+                    }
+                }
+                return hits;
+            }
+            finally
+            {
+                ListPool<Collider2D>.Release(colliders);
+                ListPool<IEnemyDamageReceiver>.Release(receivers);
                 HashSetPool<IEnemyDamageReceiver>.Release(damaged);
             }
         }

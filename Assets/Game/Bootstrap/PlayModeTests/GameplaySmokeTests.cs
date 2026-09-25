@@ -18,6 +18,40 @@ namespace Game.Bootstrap.PlayModeTests
     public sealed class GameplaySmokeTests
     {
         [UnityTest]
+        public IEnumerator HudSpeed_PauseAndEnd_RestoresUnityTimeScale()
+        {
+            ProfileSmokeScene.Load();
+            yield return null;
+            yield return null;
+            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            CharacterSelectionSmokeDriver.StartDefault(root);
+            yield return null;
+            var run = Object.FindAnyObjectByType<RunController>();
+            var ui = Object.FindAnyObjectByType<GameplayUiRoot>();
+            try
+            {
+                var hud = ui.Document.rootVisualElement;
+                Submit(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
+                Assert.AreEqual(3, run.Model.SpeedMultiplier);
+                Assert.AreEqual(3f, Time.timeScale);
+                Assert.IsTrue(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton).ClassListContains("speed-button--selected"));
+
+                run.Model.Pause();
+                Assert.AreEqual(1f, Time.timeScale);
+                Assert.IsFalse(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton).enabledSelf);
+                run.Model.Resume();
+                Assert.AreEqual(3f, Time.timeScale);
+                run.Model.Stop();
+                Assert.AreEqual(1f, Time.timeScale);
+            }
+            finally
+            {
+                if (run != null && run.IsInitialized) run.Shutdown();
+                Time.timeScale = 1f;
+            }
+        }
+
+        [UnityTest]
         public IEnumerator GameplayScene_ComposesLevelsUpAndResumes()
         {
             ProfileSmokeScene.Load();

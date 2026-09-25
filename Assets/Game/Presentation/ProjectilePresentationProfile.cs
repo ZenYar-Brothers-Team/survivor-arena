@@ -17,12 +17,14 @@ namespace Game.Presentation
         public float ParticleSpeed { get; }
         public Color ParticleColor { get; }
         public ExplosionPresentationProfile Explosion { get; }
+        /// <summary>Hostile-projectile halo; null for player projectiles.</summary>
+        public ProjectileThreatHaloProfile ThreatHalo { get; }
 
         /// <summary>Creates validated visual scale, spin and material-impact settings.</summary>
         public ProjectilePresentationProfile(float visualScale, float spinDegreesPerSecond,
             float impactDurationSeconds, float flashSize, Color flashColor, int particleCount,
             float particleSize, float particleSpeed, Color particleColor,
-            ExplosionPresentationProfile explosion = null)
+            ExplosionPresentationProfile explosion = null, ProjectileThreatHaloProfile threatHalo = null)
         {
             NumericValidation.ValidatePositive(visualScale, nameof(visualScale));
             NumericValidation.ValidateFinite(spinDegreesPerSecond, nameof(spinDegreesPerSecond));
@@ -43,6 +45,7 @@ namespace Game.Presentation
             ParticleSpeed = particleSpeed;
             ParticleColor = particleColor;
             Explosion = explosion;
+            ThreatHalo = threatHalo;
         }
 
         private static void ValidateColor(Color color, string name)

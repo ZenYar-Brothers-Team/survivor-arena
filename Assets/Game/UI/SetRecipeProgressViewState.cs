@@ -9,13 +9,17 @@ namespace Game.UI
         public bool IsEligible { get; }
         public bool IsAcquired { get; }
         public bool HasProgress { get; }
+        /// <summary>Components present in the build at any level (playtest 2026-09-24_9ae3826e OBS-01).</summary>
+        public int OwnedComponents { get; }
+        /// <summary>One visible line per component, owned ones marked; level requirement shown alongside.</summary>
+        public string Components { get; }
 
         public SetRecipeProgressViewState(
             string title,
             int fulfilledComponents,
             int requiredComponents,
             bool isEligible,
-            bool isAcquired, string detail = "", bool? hasProgress = null)
+            bool isAcquired, string detail = "", bool? hasProgress = null, int? ownedComponents = null, string components = "")
         {
             Detail = detail ?? string.Empty;
             Title = title ?? string.Empty;
@@ -25,6 +29,8 @@ namespace Game.UI
             IsAcquired = isAcquired;
             // Legacy producer fallback; IP-11 supplies partial-threshold progress explicitly.
             HasProgress = hasProgress ?? fulfilledComponents > 0;
+            OwnedComponents = ownedComponents ?? fulfilledComponents;
+            Components = components ?? string.Empty;
         }
     }
 }

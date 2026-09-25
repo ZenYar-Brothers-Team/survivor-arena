@@ -5,7 +5,9 @@ namespace Game.Enemy
 {
     public static class EnemyProjectilePatternGenerator
     {
-        public static EnemyShotCommand[] Create(EnemyAttackProfile profile, Vector2 aimDirection, float rotationDegrees = 0f)
+        /// <param name="aimJitterDegrees">Extra angle for this shot only (Burst random deviation); 0 keeps the aim.</param>
+        public static EnemyShotCommand[] Create(EnemyAttackProfile profile, Vector2 aimDirection, float rotationDegrees = 0f,
+            float aimJitterDegrees = 0f)
         {
             if (profile == null)
                 throw new ArgumentNullException(nameof(profile));
@@ -18,7 +20,7 @@ namespace Game.Enemy
                 profile.Pattern == EnemyProjectilePattern.Explosive)
                 count = 1;
 
-            var baseAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg + rotationDegrees;
+            var baseAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg + rotationDegrees + aimJitterDegrees;
             var commands = new EnemyShotCommand[count];
             for (var i = 0; i < count; i++)
             {

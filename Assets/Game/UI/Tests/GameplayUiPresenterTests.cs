@@ -101,6 +101,28 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void SpeedIntent_UpdatesRunningHudAndIgnoresPausedRun()
+        {
+            var model = CreateModel();
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            model.RunState = RunState.Running;
+            model.RaiseChanged();
+
+            view.RaiseSpeed(3);
+            Assert.AreEqual(3, model.SpeedMultiplier);
+            Assert.AreEqual(3, view.Hud.SpeedMultiplier);
+            Assert.IsTrue(view.Hud.CanChangeSpeed);
+
+            model.RunState = RunState.Paused;
+            model.RaiseChanged();
+            view.RaiseSpeed(5);
+            Assert.AreEqual(3, model.SpeedMultiplier);
+            Assert.IsFalse(view.Hud.CanChangeSpeed);
+        }
+
+        [Test]
         public void BanishMode_CancelIsFree_AndNewRevisionAndClosedDraftResetMode()
         {
             var model = CreateModel();
@@ -298,6 +320,32 @@ namespace Game.UI.Tests
             Assert.IsTrue(view.Draft.Options[0].Recipes[0].IsAcquired);
         }
 
+        [Test]
+        public void SetProgress_CountsOwnedComponentsByPresence_AndNamesMissingOnes()
+        {
+            var active = new BuildEntryDefinition("FIXTURE-A", BuildEntryKind.ActiveSkill, "Active");
+            var owned = new BuildEntryDefinition("FIXTURE-P1", BuildEntryKind.PassiveItem, "Owned passive");
+            var missing = new BuildEntryDefinition("FIXTURE-P2", BuildEntryKind.PassiveItem, "Missing passive");
+            var set = new SetDefinition("FIXTURE-SET", "Set", new SetRecipeComponent(active.Id, active.Kind, 3),
+                new SetRecipeComponent(owned.Id, owned.Kind, 2), new SetRecipeComponent(missing.Id, missing.Kind, 1));
+            var build = new PlayerBuild(active);
+            build.Apply(owned);
+            var model = CreateModel();
+            model.SetDefinitions = new[] { set };
+            model.BuildEntries = new List<BuildEntry>(build.Entries);
+            model.Names[missing.Id] = missing.DisplayName;
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+
+            var progress = view.Build.SetRecipeProgress[0];
+            Assert.AreEqual(0, progress.FulfilledComponents, "No level requirement is met yet.");
+            Assert.AreEqual(2, progress.OwnedComponents, "Both owned components count regardless of level.");
+            StringAssert.Contains("✓ Active Lv.1 / required Lv.3", progress.Components);
+            StringAssert.Contains("✓ Owned passive Lv.1 / required Lv.2", progress.Components);
+            StringAssert.Contains("○ Missing passive not owned / required Lv.1", progress.Components);
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -349,6 +397,7 @@ namespace Game.UI.Tests
             public float ElapsedSeconds { get; set; }
             public CharacterStatsViewState Stats { get; set; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
+            public int SpeedMultiplier { get; private set; } = 1;
             public bool IsDraftOpen { get; set; }
             public Guid DraftRevision { get; set; } = Guid.NewGuid();
             public DraftRequest CurrentDraftRequest { get; set; }
@@ -360,6 +409,8 @@ namespace Game.UI.Tests
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
             public IReadOnlyList<BuildEntry> BuildEntries { get; set; }
             public IReadOnlyList<SetDefinition> SetDefinitions { get; set; }
+            public Dictionary<ContentId, string> Names { get; } = new Dictionary<ContentId, string>();
+            public string FindBuildEntryName(ContentId id) => Names.TryGetValue(id, out var name) ? name : null;
             public CharacterDefinition SelectedCharacter { get; set; }
             public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }
@@ -386,6 +437,7 @@ namespace Game.UI.Tests
             public bool RerollDraft(Guid revision) { RerollCalls++; return true; }
             public bool BanishDraftOption(ContentId id, Guid revision) { LastBanished = id; return true; }
             public void TogglePause() => PauseCalls++;
+            public bool SetSpeed(int multiplier) { SpeedMultiplier = multiplier; Changed?.Invoke(); return true; }
             public void AddFixtureBook() { BookCalls++; }
             public void AddFixtureExperience() => AddExperienceCalls++;
             public void ApplyFixtureDamage() => DamageCalls++;
@@ -402,6 +454,7 @@ namespace Game.UI.Tests
             public event Action<Guid> DraftRerollRequested;
             public event Action<Guid> DraftBanishModeRequested;
             public event Action PauseRequested;
+            public event Action<int> SpeedRequested;
             public event Action AddExperienceRequested;
         public event Action AddBookRequested;
             public event Action ApplyDamageRequested;
@@ -432,6 +485,7 @@ namespace Game.UI.Tests
             public void RaiseBanishMode(Guid? revision = null) => DraftBanishModeRequested?.Invoke(revision ?? Draft.Revision);
             public void RaiseBanish(ContentId id) { RaiseBanishMode(); RaiseSelect(id); }
             public void RaisePause() => PauseRequested?.Invoke();
+            public void RaiseSpeed(int multiplier) => SpeedRequested?.Invoke(multiplier);
             public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();

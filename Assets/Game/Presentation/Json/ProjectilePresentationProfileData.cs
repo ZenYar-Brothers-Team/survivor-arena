@@ -19,5 +19,6 @@ namespace Game.Presentation.Json
         public float ParticleBlue { get; set; }
         public float ParticleAlpha { get; set; }
         public ExplosionPresentationProfileData Explosion { get; set; }
+        public ProjectileThreatHaloData ThreatHalo { get; set; }
     }
 }

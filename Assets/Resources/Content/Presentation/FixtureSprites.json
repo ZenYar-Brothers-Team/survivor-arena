@@ -164,7 +164,16 @@
       "particleRed": 0.72,
       "particleGreen": 0.61,
       "particleBlue": 0.43,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     }
   },
   {
@@ -542,7 +551,7 @@
   },
   {
     "projectile": {
-      "visualScale": 1.9,
+      "visualScale": 2.4,
       "spinDegreesPerSecond": 0.0,
       "impactDurationSeconds": 0.12,
       "flashSize": 0.18,
@@ -556,7 +565,16 @@
       "particleRed": 0.4,
       "particleGreen": 0.34,
       "particleBlue": 0.28,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.8,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     },
     "id": "ENEMY-004-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
@@ -578,7 +596,16 @@
       "particleRed": 0.62,
       "particleGreen": 0.42,
       "particleBlue": 0.26,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 3.2,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     },
     "id": "ENEMY-005-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
@@ -597,5 +624,104 @@
     "role": "Body",
     "contactRadius": 0.360855,
     "contactCenterY": 0.453097
+  },
+  {
+    "contactRadius": 0.428145,
+    "contactCenterY": 0.479255,
+    "id": "ENEMY-003-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-003/enemy-003-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.494547,
+    "contactCenterY": 0.58123,
+    "id": "ENEMY-004-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.517498,
+    "contactCenterY": 0.585548,
+    "id": "ENEMY-005-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.653641,
+    "contactCenterY": 0.74843,
+    "id": "MIDBOSS-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-001/midboss-001-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.799287,
+    "contactCenterY": 0.813552,
+    "id": "BOSS-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.430985,
+    "contactCenterY": 0.580906,
+    "id": "TRAVELER-001-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-001/traveler-001-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.411772,
+    "contactCenterY": 0.669265,
+    "id": "TRAVELER-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-002/traveler-002-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.496326,
+    "contactCenterY": 0.52232,
+    "id": "TRAVELER-005-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.539194,
+    "contactCenterY": 0.601087,
+    "id": "ENEMY-007-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
+    "role": "Body"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-001-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-projectile",
+    "role": "Projectile"
+  },
+  {
+    "id": "FIELD-001-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-background",
+    "role": "Background"
   }
 ]

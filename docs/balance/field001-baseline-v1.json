@@ -1210,27 +1210,27 @@
       "levels": [
         {
           "level": 1,
-          "pickupRadiusBonus": 0.1
-        },
-        {
-          "level": 2,
-          "pickupRadiusBonus": 0.2
-        },
-        {
-          "level": 3,
-          "pickupRadiusBonus": 0.3
-        },
-        {
-          "level": 4,
           "pickupRadiusBonus": 0.4
         },
         {
+          "level": 2,
+          "pickupRadiusBonus": 0.9
+        },
+        {
+          "level": 3,
+          "pickupRadiusBonus": 1.5
+        },
+        {
+          "level": 4,
+          "pickupRadiusBonus": 2.2
+        },
+        {
           "level": 5,
-          "pickupRadiusBonus": 0.5
+          "pickupRadiusBonus": 3.0
         },
         {
           "level": 6,
-          "pickupRadiusBonus": 0.6
+          "pickupRadiusBonus": 4.0
         }
       ]
     },
@@ -1576,16 +1576,16 @@
         "alternateLateralDirection": true
       },
       "attack": {
-        "pattern": "Single",
-        "damage": 14,
+        "pattern": "Burst",
+        "damage": 7,
         "cooldownSeconds": 2,
         "telegraphSeconds": 0.45,
         "projectileSpeed": 6.5,
         "projectileLifetimeSeconds": 1.5,
         "projectileRadius": 0.1,
-        "projectileCount": 1,
-        "spreadDegrees": 0,
-        "burstIntervalSeconds": 0,
+        "projectileCount": 3,
+        "spreadDegrees": 12,
+        "burstIntervalSeconds": 0.18,
         "explosionRadius": 0,
         "rotationStepDegrees": 0,
         "knockback": 0.1,
@@ -1612,7 +1612,7 @@
         "kind": "TelegraphedDash",
         "dashTelegraphSeconds": 0.55,
         "dashDurationSeconds": 0.55,
-        "dashCooldownSeconds": 4.5,
+        "dashCooldownSeconds": 2.5,
         "dashSpeedMultiplier": 3.2,
         "dashKnockback": 0.65,
         "direction": "snapshot-at-telegraph-start"
@@ -1923,6 +1923,7 @@
   },
   "field": {
     "id": "FIELD-001",
+    "thumbnailVisualId": "FIELD-001-VISUAL-BACKGROUND",
     "difficulty": 1,
     "durationSeconds": 900,
     "arenaSideScreenHeights": 20,

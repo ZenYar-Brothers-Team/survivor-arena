@@ -11,6 +11,8 @@
       "id": "BOSS-001",
       "maxHealth": 4500,
       "collisionSize": 2.4,
+      "visualId": "BOSS-001-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "movementSpeed": 0.7,
       "contactDamage": 30,
       "contactDamageInterval": 1,
@@ -41,6 +43,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
           "spreadDegrees": 70
         }
       },
@@ -60,6 +63,7 @@
             "knockbackDistance": 0.15,
             "knockbackSeconds": 0.12
           },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
           "fixedOrientation": true
         }
       },
@@ -79,6 +83,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
           "spreadDegrees": 70
         }
       },
@@ -98,6 +103,7 @@
             "knockbackDistance": 0.15,
             "knockbackSeconds": 0.12
           },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
           "fixedOrientation": true
         }
       }
@@ -131,6 +137,8 @@
       "id": "MIDBOSS-001",
       "maxHealth": 1200,
       "collisionSize": 1.6,
+      "visualId": "MIDBOSS-001-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "movementSpeed": 0.85,
       "contactDamage": 22,
       "contactDamageInterval": 1,

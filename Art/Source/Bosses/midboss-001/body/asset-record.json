@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "MIDBOSS-001",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; FIELD-001 visual packet 2026-09-24",
+  "sourceKind": "ai-generated",
+  "generator": "ChatGPT image generation, shared by user",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-24",
+  "approvedBy": "user",
+  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images. User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят.",
+  "prompt": "Generation prompt unavailable in the user-shared ChatGPT image post; the original user corrections are recorded in the source conversation.",
+  "constraints": [
+    "approved image or user-requested missing asset",
+    "source original preserved",
+    "transparent background"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/midboss-001/midboss-001-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "512x512",
+    "sourceSha256": "f23078910675076ded93f633b4113e7dd2a09f7f8c9d243447756c60098ff8dd",
+    "runtimeSha256": "f23078910675076ded93f633b4113e7dd2a09f7f8c9d243447756c60098ff8dd",
+    "recipe": {
+      "mode": "copy"
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "719bb799b0d1842678628904c78d16d9659f61cd48393decb13265db4811d34e",
+  "promptProvenance": "The shared ChatGPT image post did not expose the internal generation prompt; prompt field records this limitation.",
+  "sourceSharePost": "https://chatgpt.com/s/m_6ab55b496d088191acd1d8fc36dbf88d"
+}

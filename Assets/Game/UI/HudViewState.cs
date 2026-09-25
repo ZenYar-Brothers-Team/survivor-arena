@@ -15,6 +15,8 @@ namespace Game.UI
         public RunExperienceSnapshot ExperienceTotals { get; }
         public long BookCurrency { get; }
         public BossViewState Boss { get; }
+        public int SpeedMultiplier { get; }
+        public bool CanChangeSpeed { get; }
 
         public HudViewState(
             float currentHealth,
@@ -24,7 +26,8 @@ namespace Game.UI
             float elapsedSeconds,
             WaveViewState wave,
             CharacterStatsViewState stats = null,
-            RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default)
+            RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default,
+            int speedMultiplier = 1, bool canChangeSpeed = false)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
@@ -36,6 +39,8 @@ namespace Game.UI
             ExperienceTotals = experienceTotals;
             BookCurrency = bookCurrency;
             Boss = boss;
+            SpeedMultiplier = speedMultiplier;
+            CanChangeSpeed = canChangeSpeed;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Combat;
 using Game.Content;
+using Game.Diagnostics;
 using Game.Enemy;
 using Game.Pooling;
 using Game.Presentation;
@@ -86,6 +87,8 @@ namespace Game.ActiveSkill
             TickCooldowns(deltaTime);
             var totalDegrees = Effect.AngularSpeedDegrees * deltaTime;
             var steps = Math.Max(1, Mathf.CeilToInt(totalDegrees / MaxSweepDegreesPerStep));
+            // Whole-ring cost per frame (every blade × sweep step); same 2 ms budget as one area hit.
+            using var guard = PerfGuard.Measure("PersistentOrbitState.BladeSweep", 2f);
             for (var step = 0; step < steps; step++)
             {
                 _phaseDegrees = Mathf.Repeat(_phaseDegrees + totalDegrees / steps, 360f);

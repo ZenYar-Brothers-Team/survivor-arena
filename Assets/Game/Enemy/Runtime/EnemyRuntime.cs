@@ -172,7 +172,9 @@ namespace Game.Enemy
             _renderer.color = visual != null ? Color.white : new Color(0.85f, 0.2f, 0.2f, 1f);
 
             _movementController = new EnemyMovementController(definition.Movement);
-            _attackController = definition.Attack == null ? null : new EnemyAttackController(definition.Attack);
+            // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
+            _attackController = definition.Attack == null ? null
+                : new EnemyAttackController(definition.Attack, random: new System.Random(LifeId.GetHashCode()));
             MovementPhase = EnemyMovementPhase.Seeking;
             ConfigureTelegraph();
 

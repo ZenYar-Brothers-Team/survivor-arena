@@ -158,5 +158,77 @@
     "pivotX": 0.5,
     "pivotY": 0.09,
     "reason": "Approved fixture body ground-contact line; preserve existing pivot and world size."
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for ENEMY-003; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-003/enemy-003-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for ENEMY-004; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for ENEMY-005; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for MIDBOSS-001; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-001/midboss-001-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for BOSS-001; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-001/boss-001-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for TRAVELER-001; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-001/traveler-001-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for TRAVELER-002; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-002/traveler-002-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "Authored ground-contact body derivative for TRAVELER-005; visual canvas independent of collision size.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.1,
+    "reason": "256px hound body derivative with authored ground-contact pivot.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png"
   }
 ]

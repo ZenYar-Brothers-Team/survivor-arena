@@ -76,8 +76,12 @@ namespace Game.Presentation
                 new Color(data.FlashRed, data.FlashGreen, data.FlashBlue, data.FlashAlpha),
                 data.ParticleCount, data.ParticleSize, data.ParticleSpeed,
                 new Color(data.ParticleRed, data.ParticleGreen, data.ParticleBlue, data.ParticleAlpha),
-                ToExplosion(data.Explosion));
+                ToExplosion(data.Explosion), ToThreatHalo(data.ThreatHalo));
         }
+
+        private static ProjectileThreatHaloProfile ToThreatHalo(ProjectileThreatHaloData data) =>
+            data == null ? null : new ProjectileThreatHaloProfile(data.Scale,
+                new Color(data.Red, data.Green, data.Blue, data.Alpha), data.PulseSeconds, data.PulseAmplitude);
 
         private static ExplosionPresentationProfile ToExplosion(ExplosionPresentationProfileData data)
         {

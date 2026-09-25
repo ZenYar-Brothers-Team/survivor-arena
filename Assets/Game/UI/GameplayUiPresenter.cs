@@ -36,6 +36,7 @@ namespace Game.UI
             _view.DraftRerollRequested += HandleDraftRerollRequested;
             _view.DraftBanishModeRequested += HandleDraftBanishModeRequested;
             _view.PauseRequested += HandlePauseRequested;
+            _view.SpeedRequested += HandleSpeedRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
             _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
@@ -61,7 +62,8 @@ namespace Game.UI
                     _model.WavePhaseName,
                     _model.WavePhaseTag),
                 _model.Stats,
-                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss));
+                _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss,
+                _model.SpeedMultiplier, _model.RunState == RunState.Running));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
@@ -145,7 +147,8 @@ namespace Game.UI
                     fulfilled,
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
-                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition)));
+                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition),
+                    CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null))));
             }
 
             return new BuildViewState(active, passive, sets, progress);
@@ -201,6 +204,14 @@ namespace Game.UI
             return 0;
         }
 
+        // Presence counts regardless of the recipe level requirement (playtest 2026-09-24_9ae3826e OBS-01).
+        private int CountOwnedComponents(SetDefinition set)
+        {
+            var owned = 0;
+            foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) owned++;
+            return owned;
+        }
+
         private bool HasPossession(SetDefinition set)
         {
             foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) return true;
@@ -215,12 +226,14 @@ namespace Game.UI
                 var current = ComponentLevel(component);
                 var selected = option.HasValue && option.Value.Definition.Id == component.Id;
                 var projected = selected ? option.Value.Preview.NextLevel : current;
-                var name = component.Id.ToString();
+                var name = _model.FindBuildEntryName(component.Id) ?? component.Id.ToString();
                 foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == component.Id) name = entry.Definition.DisplayName;
                 if (selected) name = option.Value.Definition.DisplayName;
-                var mark = current >= component.MinimumLevel ? "✓" : current > 0 ? "◐" : "○";
-                details.Add($"{mark} {name} Lv.{current}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
-                    $" / required Lv.{component.MinimumLevel}");
+                // Owned components are marked by presence; the level requirement is shown separately.
+                var mark = current > 0 ? "✓" : "○";
+                var level = current > 0 ? $" Lv.{current}" : " not owned";
+                details.Add($"{mark} {name}{level}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
+                    $" / required Lv.{component.MinimumLevel}" + (current >= component.MinimumLevel ? " (met)" : ""));
             }
             return details;
         }
@@ -371,6 +384,12 @@ namespace Game.UI
             RefreshAll();
         }
 
+        private void HandleSpeedRequested(int multiplier)
+        {
+            if (_model.RunState != RunState.Running) return;
+            if (_model.SetSpeed(multiplier)) RefreshHud();
+        }
+
         private void HandleAddExperienceRequested()
         {
             if (_model.DevelopmentCommandsEnabled)
@@ -415,6 +434,7 @@ namespace Game.UI
             _view.DraftRerollRequested -= HandleDraftRerollRequested;
             _view.DraftBanishModeRequested -= HandleDraftBanishModeRequested;
             _view.PauseRequested -= HandlePauseRequested;
+            _view.SpeedRequested -= HandleSpeedRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
             _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;

@@ -50,6 +50,8 @@
       "knockbackDistance": 0.55,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-003-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "Seek"
     }
@@ -67,6 +69,8 @@
       "knockbackDistance": 0.15,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-004-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5,
@@ -102,6 +106,8 @@
       "knockbackDistance": 0.15,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-005-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "DistanceReposition",
       "preferredDistance": 6,
@@ -111,12 +117,12 @@
       "repositionSeconds": 1
     },
     "attack": {
-      "pattern": "Single",
-      "damage": 14,
+      "pattern": "Burst",
+      "damage": 7,
       "cooldownSeconds": 2,
       "projectileSpeed": 6.5,
       "projectileLifetimeSeconds": 1.5,
-      "projectileCount": 1,
+      "projectileCount": 3,
       "projectileRadius": 0.1,
       "telegraphSeconds": 0.45,
       "cadence": "WindupStartToStart",
@@ -124,7 +130,9 @@
         "knockbackDistance": 0.1,
         "knockbackSeconds": 0.12
       },
-      "projectileVisualId": "ENEMY-005-VISUAL-PROJECTILE"
+      "projectileVisualId": "ENEMY-005-VISUAL-PROJECTILE",
+      "burstIntervalSeconds": 0.18,
+      "spreadDegrees": 12
     }
   },
   {
@@ -140,6 +148,8 @@
       "knockbackDistance": 0.4,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-007-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
     "dashContactControls": {
       "knockbackDistance": 0.65,
       "knockbackSeconds": 0.12
@@ -148,7 +158,7 @@
       "kind": "TelegraphedDash",
       "dashTelegraphSeconds": 0.55,
       "dashDurationSeconds": 0.55,
-      "dashCooldownSeconds": 4.5,
+      "dashCooldownSeconds": 2.5,
       "dashSpeedMultiplier": 3.2
     }
   }

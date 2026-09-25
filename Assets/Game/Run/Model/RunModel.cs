@@ -10,6 +10,7 @@ namespace Game.Run
 
         public float Duration { get; }
         public float Elapsed { get; private set; }
+        public int SpeedMultiplier { get; private set; } = 1;
         public RunState State { get; private set; } = RunState.NotStarted;
         public int PauseReasonCount => _pauseReasons.Count;
         public Guid RunId { get; } = Guid.NewGuid();
@@ -32,6 +33,7 @@ namespace Game.Run
         public event Action Won;
         public event Action Lost;
         public event Action<RunState> StateChanged;
+        public event Action<int> SpeedChanged;
         public event Action<RunOutcome> Completed;
         /// <summary>Accepted pause ownership transitions, including additional reasons while paused.</summary>
         public event Action<string, bool> PauseChanged;
@@ -53,6 +55,19 @@ namespace Game.Run
         public void Pause()
         {
             RequestPause(RunPauseReasons.Manual);
+        }
+
+        /// <summary>Run HUD speed choices; pause retains the selected speed for resume.</summary>
+        public bool SetSpeed(int multiplier)
+        {
+            if (multiplier != 1 && multiplier != 2 && multiplier != 3 && multiplier != 5)
+                return false;
+            if (State != RunState.Running)
+                return false;
+            if (SpeedMultiplier == multiplier) return true;
+            SpeedMultiplier = multiplier;
+            SpeedChanged?.Invoke(multiplier);
+            return true;
         }
 
         public void Resume()

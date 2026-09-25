@@ -231,7 +231,7 @@ namespace Game.Bootstrap
             _pendingCharacterId = id;
             var previousField = FieldSelection?.SelectedId ?? Catalog.Fields.DefaultFieldId;
             FieldSelection = new FieldSelectionSession(_fieldRoster, previousField, this);
-            _fieldScreen = new FieldSelectScreen(transform, FieldSelection);
+            _fieldScreen = new FieldSelectScreen(transform, FieldSelection, Catalog.Registry);
             _selectionScreen?.Dispose();
             _selectionScreen = null;
             NotifyNavigation();

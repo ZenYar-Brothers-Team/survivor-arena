@@ -65,7 +65,8 @@ namespace Game.Traveler
             foreach (var life in _lives.ToArray())
             {
                 if (_model.Elapsed >= life.Deadline) { life.Actor.Despawn(EnemyLifeReason.Escaped); continue; }
-                var projected = _placement.Project(life.Actor.Position);
+                var projected = _placement.ProjectFrom(life.LastReachablePosition, life.Actor.Position);
+                life.LastReachablePosition = projected;
                 if ((projected - life.Actor.Position).sqrMagnitude > .000001f)
                     life.Actor.GetComponent<Rigidbody2D>().position = projected;
             }

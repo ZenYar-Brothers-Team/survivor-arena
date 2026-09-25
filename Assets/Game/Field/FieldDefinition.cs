@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 
 namespace Game.Field
 {
-    /// <summary>IP-16 field data. Difficulty is authored metadata; thumbnail is a labelled placeholder until art approval.</summary>
+    /// <summary>IP-16 field data. Difficulty and thumbnail are authored selection metadata.</summary>
     public sealed class FieldDefinition : IContentDefinition, IReferencesContent
     {
         public ContentId Id { get; }
         public string DisplayName { get; }
         public string Description { get; }
         public string ThumbnailPlaceholder { get; }
+        public ContentRef<SpriteDefinition>? Thumbnail { get; }
         public int Difficulty { get; }
         public string UnlockDescription { get; }
         public ContentRef<FieldEnvironmentDefinition> Environment { get; }
@@ -24,10 +26,12 @@ namespace Game.Field
 
         public FieldDefinition(ContentId id, string displayName, string description, string thumbnailPlaceholder,
             int difficulty, string unlockDescription, ContentId environment, ContentId timeline, ContentId finalBoss,
-            IEnumerable<ContentId> enemies, ContentId? midBoss = null, ContentId? travelers = null)
+            IEnumerable<ContentId> enemies, ContentId? midBoss = null, ContentId? travelers = null,
+            ContentId? thumbnail = null)
         {
             if (!id.IsValid || !environment.IsValid || !timeline.IsValid || !finalBoss.IsValid ||
-                (midBoss.HasValue && !midBoss.Value.IsValid) || (travelers.HasValue && !travelers.Value.IsValid))
+                (midBoss.HasValue && !midBoss.Value.IsValid) || (travelers.HasValue && !travelers.Value.IsValid) ||
+                (thumbnail.HasValue && !thumbnail.Value.IsValid))
                 throw new ArgumentException("Field requires valid typed references.");
             if (string.IsNullOrWhiteSpace(displayName) || string.IsNullOrWhiteSpace(description) ||
                 string.IsNullOrWhiteSpace(thumbnailPlaceholder) || string.IsNullOrWhiteSpace(unlockDescription))
@@ -40,6 +44,7 @@ namespace Game.Field
             DisplayName = displayName;
             Description = description;
             ThumbnailPlaceholder = thumbnailPlaceholder;
+            Thumbnail = thumbnail.HasValue ? new ContentRef<SpriteDefinition>(thumbnail.Value) : (ContentRef<SpriteDefinition>?)null;
             Difficulty = difficulty;
             UnlockDescription = unlockDescription;
             Environment = new ContentRef<FieldEnvironmentDefinition>(environment);
@@ -57,6 +62,7 @@ namespace Game.Field
             yield return FinalBoss.ToReference();
             if (MidBoss.HasValue) yield return MidBoss.Value.ToReference();
             if (Travelers.HasValue) yield return Travelers.Value.ToReference();
+            if (Thumbnail.HasValue) yield return Thumbnail.Value.ToReference();
             foreach (var enemy in Enemies) yield return enemy.ToReference();
         }
 

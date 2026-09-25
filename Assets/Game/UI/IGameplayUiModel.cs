@@ -21,6 +21,7 @@ namespace Game.UI
         CharacterStatsViewState Stats { get; }
         RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }
+        int SpeedMultiplier { get; }
         bool IsDraftOpen { get; }
         Guid DraftRevision { get; }
         DraftRequest CurrentDraftRequest { get; }
@@ -32,6 +33,8 @@ namespace Game.UI
         IReadOnlyList<DraftOption> DraftOptions { get; }
         IReadOnlyList<BuildEntry> BuildEntries { get; }
         IReadOnlyList<SetDefinition> SetDefinitions { get; }
+        /// <summary>Display name of a draftable build entry (owned or not); null when unknown.</summary>
+        string FindBuildEntryName(ContentId id);
         CharacterDefinition SelectedCharacter { get; }
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }
@@ -47,6 +50,7 @@ namespace Game.UI
         bool RerollDraft(Guid revision);
         bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
+        bool SetSpeed(int multiplier);
         void AddFixtureExperience();
         void AddFixtureBook();
         void ApplyFixtureDamage();

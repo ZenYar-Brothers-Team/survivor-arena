@@ -1,6 +1,6 @@
 {
   "name": "Game.Field",
   "rootNamespace": "Game.Field",
-  "references": ["Game.Content", "Game.Content.Json", "Game.Enemy", "Newtonsoft.Json"],
+  "references": ["Game.Content", "Game.Content.Json", "Game.Enemy", "Game.Presentation", "Newtonsoft.Json"],
   "autoReferenced": true
 }

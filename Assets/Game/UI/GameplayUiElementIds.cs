@@ -87,6 +87,10 @@ namespace Game.UI
         public const string TimerLabel = "hud-timer";
         public const string WaveLabel = "hud-wave";
         public const string PauseButton = "hud-pause";
+        public const string SpeedNormalButton = "hud-speed-1";
+        public const string SpeedDoubleButton = "hud-speed-2";
+        public const string SpeedTripleButton = "hud-speed-3";
+        public const string SpeedQuintupleButton = "hud-speed-5";
         public const string BuildPanel = "build-panel";
         public const string ActiveSlots = "build-active-slots";
         public const string PassiveSlots = "build-passive-slots";

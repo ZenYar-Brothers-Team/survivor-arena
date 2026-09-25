@@ -22,6 +22,8 @@ UI §§1,6–10,14,19–23; GDD только отображаемые run/HP/XP/
 
 Reusable DraftCard/ContentCard/details, icon references, current→next-level/effect text, recipe projection rendering contract, normal/hover/pressed/disabled/selected/locked states. Elapsed HUD 00:00→15:00, compact 6+6 icons/acquired sets, Pause/Build layout, nonblocking notifications. Fixture states including Book/sets/locked do not require full feature implementation. Preserve bounded collapsed DEV and lightweight changed-state rebuild.
 
+HUD предоставляет игроку выбор скорости 1×/2×/3×/5× через presenter intent и run owner. Выбор действует только во время Running, сохраняется через pause, возвращается к 1× после завершения/выхода и при новом забеге. Активная скорость видна в HUD.
+
 ## Out of Scope
 
 Gameplay rule ownership, final image generation, settings services/full navigation, compendium/advanced stats/complex transitions.

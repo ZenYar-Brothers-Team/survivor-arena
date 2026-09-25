@@ -17,7 +17,7 @@ namespace Game.UI
         public event Action<ContentId> Selected;
         public event Action StartRequested;
         public event Action BackRequested;
-        public FieldSelectScreen(Transform parent, FieldSelectionSession session)
+        public FieldSelectScreen(Transform parent, FieldSelectionSession session, ContentRegistry registry)
         {
             _owner = new GameObject("Field Selection UI");
             UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(_owner, parent.gameObject.scene);
@@ -41,7 +41,7 @@ namespace Game.UI
             _start = root.Q<Button>(GameplayUiElementIds.FieldSelectStart);
             _start.clicked += () => StartRequested?.Invoke();
             root.Q<Button>(GameplayUiElementIds.FieldSelectBack).clicked += () => BackRequested?.Invoke();
-            _presenter = new FieldSelectPresenter(session, this);
+            _presenter = new FieldSelectPresenter(session, this, registry);
         }
         public void Render(IReadOnlyList<FieldSelectCardViewState> cards, bool canStart)
         {
@@ -51,8 +51,18 @@ namespace Game.UI
                 var card = new ContentCard(state.Card, () => Selected?.Invoke(state.Id))
                     { name = GameplayUiElementIds.FieldSelectCard(state.Id.ToString()) };
                 card.AddToClassList("character-select-card");
-                var thumbnail = new Label(state.ThumbnailPlaceholder) { name = GameplayUiElementIds.FieldSelectThumbnail };
-                thumbnail.AddToClassList("field-thumbnail-placeholder");
+                VisualElement thumbnail;
+                if (state.Thumbnail != null)
+                {
+                    thumbnail = new Image { sprite = state.Thumbnail, scaleMode = ScaleMode.ScaleAndCrop,
+                        name = GameplayUiElementIds.FieldSelectThumbnail };
+                    thumbnail.AddToClassList("field-thumbnail-image");
+                }
+                else
+                {
+                    thumbnail = new Label(state.ThumbnailPlaceholder) { name = GameplayUiElementIds.FieldSelectThumbnail };
+                    thumbnail.AddToClassList("field-thumbnail-placeholder");
+                }
                 card.Insert(0, thumbnail);
                 _cards.Add(card);
             }
