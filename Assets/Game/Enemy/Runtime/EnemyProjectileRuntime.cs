@@ -18,6 +18,9 @@ namespace Game.Enemy
         private CircleCollider2D _collider;
         private SpriteRenderer _renderer;
         private SpriteRenderer _visualRenderer;
+        private SpriteRenderer _haloRenderer;
+        private float _haloBaseDiameter;
+        private float _haloElapsed;
         private ProjectileImpactRuntime _impact;
         private SpriteDefinition _visual;
         private EnemyAttackProfile _profile;
@@ -106,6 +109,12 @@ namespace Game.Enemy
             if (running && _visualRenderer != null && _visualRenderer.enabled)
                 _visualRenderer.transform.Rotate(0f, 0f,
                     _visual.ProjectilePresentation.SpinDegreesPerSecond * deltaTime);
+            if (running && _haloRenderer != null && _haloRenderer.enabled)
+            {
+                _haloElapsed += deltaTime;
+                var halo = _visual.ProjectilePresentation.ThreatHalo;
+                _haloRenderer.transform.localScale = Vector3.one * (_haloBaseDiameter * halo.PulseFactor(_haloElapsed));
+            }
             if (_lifetime.Tick(deltaTime, running))
             {
                 if (_profile.Pattern == EnemyProjectilePattern.Explosive) ApplyImpact(_body.position);
@@ -165,6 +174,7 @@ namespace Game.Enemy
             _collider.enabled = false;
             _renderer.enabled = false;
             if (_visualRenderer != null) _visualRenderer.enabled = false;
+            if (_haloRenderer != null) _haloRenderer.enabled = false;
         }
 
         private void ReleaseNow()
@@ -189,6 +199,8 @@ namespace Game.Enemy
             if (_collider != null) _collider.enabled = false;
             if (_renderer != null) _renderer.enabled = false;
             if (_visualRenderer != null) { _visualRenderer.enabled = false; _visualRenderer.sprite = null; }
+            if (_haloRenderer != null) _haloRenderer.enabled = false;
+            _haloElapsed = 0f;
             _impact?.ResetPresentation();
             if (_trail != null) { _trail.emitting = false; _trail.Clear(); }
             Source = default;
@@ -219,6 +231,7 @@ namespace Game.Enemy
                     ? new Color(1f, .25f, .05f, 1f) : new Color(1f, .8f, .15f, 1f);
                 _renderer.enabled = true;
                 if (_visualRenderer != null) _visualRenderer.enabled = false;
+                if (_haloRenderer != null) _haloRenderer.enabled = false;
                 return;
             }
             EnsurePresentationObjects();
@@ -232,6 +245,31 @@ namespace Game.Enemy
             _visualRenderer.transform.localScale = Vector3.one * (diameter / Mathf.Max(size.x, size.y));
             var angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
             _visualRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+            ConfigureHalo(_visual.ProjectilePresentation.ThreatHalo);
+        }
+
+        private void ConfigureHalo(ProjectileThreatHaloProfile halo)
+        {
+            _haloElapsed = 0f;
+            if (halo == null)
+            {
+                if (_haloRenderer != null) _haloRenderer.enabled = false;
+                return;
+            }
+            if (_haloRenderer == null)
+            {
+                var haloObject = new GameObject("ThreatHalo");
+                haloObject.transform.SetParent(transform, false);
+                _haloRenderer = haloObject.AddComponent<SpriteRenderer>();
+            }
+            _haloRenderer.sprite = ProceduralShapeSprites.Disc;
+            _haloRenderer.color = halo.Color;
+            _haloRenderer.sortingLayerID = _visualRenderer.sortingLayerID;
+            _haloRenderer.sortingOrder = _visualRenderer.sortingOrder - 1;
+            _haloRenderer.transform.localPosition = Vector3.zero;
+            _haloBaseDiameter = _profile.ProjectileRadius * 2f * halo.Scale;
+            _haloRenderer.transform.localScale = Vector3.one * _haloBaseDiameter;
+            _haloRenderer.enabled = true;
         }
 
         private void EnsurePresentationObjects()

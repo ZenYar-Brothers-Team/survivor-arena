@@ -33,6 +33,8 @@ namespace Game.UI
         IReadOnlyList<DraftOption> DraftOptions { get; }
         IReadOnlyList<BuildEntry> BuildEntries { get; }
         IReadOnlyList<SetDefinition> SetDefinitions { get; }
+        /// <summary>Display name of a draftable build entry (owned or not); null when unknown.</summary>
+        string FindBuildEntryName(ContentId id);
         CharacterDefinition SelectedCharacter { get; }
         IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; }
         bool DevelopmentCommandsEnabled { get; }

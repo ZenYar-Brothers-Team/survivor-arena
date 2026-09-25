@@ -147,7 +147,8 @@ namespace Game.UI
                     fulfilled,
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
-                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition)));
+                    isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition),
+                    CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null))));
             }
 
             return new BuildViewState(active, passive, sets, progress);
@@ -203,6 +204,14 @@ namespace Game.UI
             return 0;
         }
 
+        // Presence counts regardless of the recipe level requirement (playtest 2026-09-24_9ae3826e OBS-01).
+        private int CountOwnedComponents(SetDefinition set)
+        {
+            var owned = 0;
+            foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) owned++;
+            return owned;
+        }
+
         private bool HasPossession(SetDefinition set)
         {
             foreach (var component in set.Recipe) if (ComponentLevel(component) > 0) return true;
@@ -217,12 +226,14 @@ namespace Game.UI
                 var current = ComponentLevel(component);
                 var selected = option.HasValue && option.Value.Definition.Id == component.Id;
                 var projected = selected ? option.Value.Preview.NextLevel : current;
-                var name = component.Id.ToString();
+                var name = _model.FindBuildEntryName(component.Id) ?? component.Id.ToString();
                 foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == component.Id) name = entry.Definition.DisplayName;
                 if (selected) name = option.Value.Definition.DisplayName;
-                var mark = current >= component.MinimumLevel ? "✓" : current > 0 ? "◐" : "○";
-                details.Add($"{mark} {name} Lv.{current}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
-                    $" / required Lv.{component.MinimumLevel}");
+                // Owned components are marked by presence; the level requirement is shown separately.
+                var mark = current > 0 ? "✓" : "○";
+                var level = current > 0 ? $" Lv.{current}" : " not owned";
+                details.Add($"{mark} {name}{level}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
+                    $" / required Lv.{component.MinimumLevel}" + (current >= component.MinimumLevel ? " (met)" : ""));
             }
             return details;
         }

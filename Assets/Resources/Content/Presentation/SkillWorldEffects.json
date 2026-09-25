@@ -51,7 +51,9 @@
       0.75
     ],
     "thickness": 0.12,
-    "fadeSeconds": 0.22
+    "fadeSeconds": 0.3,
+    "pillarWidth": 0.7,
+    "pillarHeight": 3.2
   },
   {
     "skillId": "SET-017-ATTACK",
@@ -69,6 +71,8 @@
       0.9
     ],
     "thickness": 0.16,
-    "fadeSeconds": 0.3
+    "fadeSeconds": 0.3,
+    "pillarWidth": 0.9,
+    "pillarHeight": 3.6
   }
 ]

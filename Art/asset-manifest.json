@@ -1770,12 +1770,11 @@
       "provenance": "Art/Source/Enemies/enemy-007/body/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png",
       "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
-      "stage": "Integrated",
+      "stage": "Prepared",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "Playtest 2026-09-24_e1e04fc4 OBS-07, user: «гончая слишком большая, нужно уменьшить раза в 2»; follow-up request 2026-09-25 to fix playtest feedback."
       ],
-      "missing": ""
+      "missing": "Unity import checks and target-scale visual review."
     },
     {
       "owner": "BOSS-001",

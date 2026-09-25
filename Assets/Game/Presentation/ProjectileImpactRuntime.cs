@@ -52,6 +52,7 @@ namespace Game.Presentation
         {
             if (_particles != null) return;
             _particles = gameObject.AddComponent<ParticleSystem>();
+            ParticlePresentationMaterial.Apply(_particles, GetComponent<SpriteRenderer>());
             var main = _particles.main;
             main.playOnAwake = false;
             main.loop = false;

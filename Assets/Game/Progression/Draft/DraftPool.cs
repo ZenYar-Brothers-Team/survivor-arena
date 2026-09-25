@@ -35,6 +35,13 @@ namespace Game.Progression
                 throw new ArgumentNullException(nameof(setOffers), "A set catalog requires an explicit global offer policy.");
         }
 
+        /// <summary>Finds a pool definition, including ones not yet in the build (UI component names).</summary>
+        public bool TryGetDefinition(ContentId id, out BuildEntryDefinition definition)
+        {
+            definition = _definitions.Find(item => item.Id == id);
+            return definition != null;
+        }
+
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0) =>
             CreateOptions(build, offerCount, new SeededDraftRandom(offset));
 

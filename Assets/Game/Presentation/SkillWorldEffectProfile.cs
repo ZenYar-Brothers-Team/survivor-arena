@@ -18,14 +18,25 @@ namespace Game.Presentation
         public float Thickness { get; }
         /// <summary>Fade time of a finished ring, arc or impact flash, in running seconds.</summary>
         public float FadeSeconds { get; }
+        /// <summary>Width of the vertical light pillar over a strike impact, in world units (0 = no pillar).</summary>
+        public float PillarWidth { get; }
+        /// <summary>Height of that pillar above the impact point, in world units (0 = no pillar).</summary>
+        public float PillarHeight { get; }
+        public bool HasPillar => PillarHeight > 0f;
 
         public SkillWorldEffectProfile(ContentId skillId, SkillWorldEffectKind kind, Color color, Color impactColor,
-            float thickness, float fadeSeconds)
+            float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f)
         {
             if (!skillId.IsValid) throw new ArgumentException("Skill world effect requires a skill id.", nameof(skillId));
             if (!Enum.IsDefined(typeof(SkillWorldEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
             NumericValidation.ValidatePositive(thickness, nameof(thickness));
             NumericValidation.ValidatePositive(fadeSeconds, nameof(fadeSeconds));
+            NumericValidation.ValidateNonNegative(pillarWidth, nameof(pillarWidth));
+            NumericValidation.ValidateNonNegative(pillarHeight, nameof(pillarHeight));
+            if ((pillarWidth > 0f) != (pillarHeight > 0f))
+                throw new ArgumentException("A strike pillar needs both width and height.", nameof(pillarHeight));
+            if (pillarHeight > 0f && kind != SkillWorldEffectKind.StrikeTelegraph)
+                throw new ArgumentException("Only strike effects can have a light pillar.", nameof(pillarHeight));
             ValidateColor(color, nameof(color));
             ValidateColor(impactColor, nameof(impactColor));
             SkillId = skillId;
@@ -34,6 +45,8 @@ namespace Game.Presentation
             ImpactColor = impactColor;
             Thickness = thickness;
             FadeSeconds = fadeSeconds;
+            PillarWidth = pillarWidth;
+            PillarHeight = pillarHeight;
         }
 
         private static void ValidateColor(Color color, string name)

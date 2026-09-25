@@ -49,6 +49,10 @@ namespace Game.Progression
         public RunDraftSnapshot Totals => new RunDraftSnapshot(_acceptedBooks, _selections, _emptyRequests, _cancelled, _bookCurrency);
         public DraftRunControls Controls { get; private set; }
         public IReadOnlyList<SetDefinition> SetDefinitions { get; private set; } = Array.Empty<SetDefinition>();
+
+        /// <summary>Display name of any build entry this run can offer; null when unknown or not initialized.</summary>
+        public string FindDisplayName(ContentId id) =>
+            _pool != null && _pool.TryGetDefinition(id, out var definition) ? definition.DisplayName : null;
         public PlayerSetRuntime Sets { get; private set; }
         public int RemainingRerolls => Controls?.RemainingRerolls ?? 0;
         public int RemainingBanishes => Controls?.RemainingBanishes ?? 0;

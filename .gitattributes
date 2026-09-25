@@ -52,3 +52,6 @@ Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-projectile.png -filter 
 Art/Source/Enemies/enemy-005/selected-master.png -filter -diff -merge binary
 Art/Source/Enemies/enemy-005/v001/concept-01.png -filter -diff -merge binary
 Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-007/body/selected-master.png -filter -diff -merge binary
+Art/Source/Enemies/enemy-007/body/v002/concept-01.png -filter -diff -merge binary
+Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png -filter -diff -merge binary

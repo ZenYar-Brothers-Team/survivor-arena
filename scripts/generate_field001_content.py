@@ -294,6 +294,10 @@ def enemies(baseline):
                 "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]},
                 "projectileVisualId": ENEMY_PROJECTILE_VISUALS[enemy["id"]],
             }
+            if attack["pattern"] == "Burst":
+                # Sequential shots with per-shot random aim deviation within ±spread/2 (DECISION-0055).
+                entry["attack"]["burstIntervalSeconds"] = attack["burstIntervalSeconds"]
+                entry["attack"]["spreadDegrees"] = attack["spreadDegrees"]
         result.append(entry)
     return result
 

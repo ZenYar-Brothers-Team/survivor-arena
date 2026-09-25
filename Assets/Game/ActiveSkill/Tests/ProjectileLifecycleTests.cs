@@ -83,6 +83,11 @@ namespace Game.ActiveSkill.Tests
                 Assert.IsTrue(projectile.IsDespawned);
                 Assert.IsFalse(projectile.GetComponent<CircleCollider2D>().enabled);
                 Assert.IsTrue(projectile.GetComponent<ExplosionBurstRuntime>().IsPlaying);
+                // Regression (playtest 2026-09-24_e1e04fc4 OBS-02): code-created particles need a material,
+                // otherwise they render as magenta squares.
+                var particleMaterial = projectile.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+                Assert.IsNotNull(particleMaterial);
+                Assert.AreSame(ProceduralShapeSprites.Disc.texture, particleMaterial.mainTexture);
                 Assert.AreEqual(0, pool.InactiveCount);
                 context.Run.Model.Pause();
                 projectile.Simulate(1f);

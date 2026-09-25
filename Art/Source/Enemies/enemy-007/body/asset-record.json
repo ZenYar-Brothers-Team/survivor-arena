@@ -4,12 +4,12 @@
   "role": "body",
   "status": "approved",
   "artDirectionRevision": "Approved 2026-09-22; FIELD-001 visual packet 2026-09-24",
-  "sourceKind": "ai-generated",
+  "sourceKind": "derived-from-approved-master",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v001/concept-01.png",
-  "approvedAt": "2026-09-24",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-25",
   "approvedBy": "user",
-  "approvalEvidence": "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images. User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят.",
+  "approvalEvidence": "Playtest 2026-09-24_e1e04fc4 OBS-07, user: «гончая слишком большая, нужно уменьшить раза в 2»; follow-up request 2026-09-25 to fix playtest feedback.",
   "prompt": "Use case: stylized-concept. Asset type: transparent 2D body sprite for ENEMY-007, the Hunting Hound in Survival Arena FIELD-001. Use the supplied villager and woodcutter images only as style references, not as edit targets. Create ONE athletic human-owned hunting dog, clearly a quadruped, alert and determined, poised to dash toward screen-right and slightly toward the viewer. Strong compact silhouette that fits a single contact circle: sturdy chest, muscular legs, head forward, tail short or curled close; no exaggerated long thin protrusions. Three-quarter top-down view consistent with the references, all four paws visible and on approximately one ground plane, animation-ready stance rather than a frozen airborne leap. Brown and warm grey fur with a simple neat leather collar; no green goblin palette. Match the established hand-painted storybook cutout look: dark plum-brown lively outline, 2–3 broad matte color masses, simple cel shading, restrained paper texture, warm upper-front light. Readable at 128–160 display pixels. Center on square transparent RGBA canvas with generous padding around every edge. No background, ground, baked shadow, text, UI, speed lines, dust, glow, extra characters or cropped parts.",
   "constraints": [
     "approved image or user-requested missing asset",
@@ -21,13 +21,15 @@
   ],
   "preparation": {
     "sourceDimensions": "256x256",
-    "sourceSha256": "fffec744e1b0769e581a10cb10e7e4d16145f36a4c0ad5d351d46f4e42ad7297",
-    "runtimeSha256": "fffec744e1b0769e581a10cb10e7e4d16145f36a4c0ad5d351d46f4e42ad7297",
+    "sourceSha256": "e3de67bc971e7de062cdc3eb6393f234256185f23afa21de78349b0f96451a6b",
+    "runtimeSha256": "e3de67bc971e7de062cdc3eb6393f234256185f23afa21de78349b0f96451a6b",
     "recipe": {
       "mode": "copy"
     }
   },
   "originalGeneratedImage": "original-generated.png",
   "originalSha256": "6ffc1a7533d345eb16ace2be46484aed6550ec04b253d9015466eacbd2977a01",
-  "promptProvenance": "Exact prompt issued in this task; stored in prompt."
+  "promptProvenance": "Exact prompt issued in this task; stored in prompt.",
+  "replacesSha256": "fffec744e1b0769e581a10cb10e7e4d16145f36a4c0ad5d351d46f4e42ad7297",
+  "derivation": "v002 = approved v001 master scaled by 0.5 about the import pivot (0.5, 0.1) on the same 256×256 canvas (LANCZOS); ground contact line, import profile and collider unchanged. Prepared by hand because art_pipeline.py requires body contact values that ENEMY-007 does not define; adding them would change gameplay collision."
 }

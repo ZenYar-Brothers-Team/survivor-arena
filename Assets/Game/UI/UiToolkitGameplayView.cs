@@ -388,8 +388,10 @@ namespace Game.UI
             foreach (var recipe in state.SetRecipeProgress)
             {
                 if (recipe.IsAcquired || !recipe.HasProgress) continue;
+                var status = recipe.IsEligible ? "Recipe fulfilled · not acquired" :
+                    $"Levels met {recipe.FulfilledComponents}/{recipe.RequiredComponents}";
                 _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
-                    $"{recipe.FulfilledComponents}/{recipe.RequiredComponents} · {(recipe.IsEligible ? "Recipe fulfilled · not acquired" : "In progress")}", recipe.Detail)));
+                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail)));
             }
         }
 

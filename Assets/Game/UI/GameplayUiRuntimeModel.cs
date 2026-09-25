@@ -59,6 +59,7 @@ namespace Game.UI
         public IReadOnlyList<DraftOption> DraftOptions => _draft.IsDraftOpen ? _draft.CurrentDraft.Options : NoDraftOptions;
         public IReadOnlyList<BuildEntry> BuildEntries => _buildEntries;
         public IReadOnlyList<SetDefinition> SetDefinitions => _draft.SetDefinitions;
+        public string FindBuildEntryName(ContentId id) => _draft.FindDisplayName(id);
         public CharacterDefinition SelectedCharacter => _draft.Character;
         public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
         public bool DevelopmentCommandsEnabled { get; }

@@ -320,6 +320,32 @@ namespace Game.UI.Tests
             Assert.IsTrue(view.Draft.Options[0].Recipes[0].IsAcquired);
         }
 
+        [Test]
+        public void SetProgress_CountsOwnedComponentsByPresence_AndNamesMissingOnes()
+        {
+            var active = new BuildEntryDefinition("FIXTURE-A", BuildEntryKind.ActiveSkill, "Active");
+            var owned = new BuildEntryDefinition("FIXTURE-P1", BuildEntryKind.PassiveItem, "Owned passive");
+            var missing = new BuildEntryDefinition("FIXTURE-P2", BuildEntryKind.PassiveItem, "Missing passive");
+            var set = new SetDefinition("FIXTURE-SET", "Set", new SetRecipeComponent(active.Id, active.Kind, 3),
+                new SetRecipeComponent(owned.Id, owned.Kind, 2), new SetRecipeComponent(missing.Id, missing.Kind, 1));
+            var build = new PlayerBuild(active);
+            build.Apply(owned);
+            var model = CreateModel();
+            model.SetDefinitions = new[] { set };
+            model.BuildEntries = new List<BuildEntry>(build.Entries);
+            model.Names[missing.Id] = missing.DisplayName;
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+
+            var progress = view.Build.SetRecipeProgress[0];
+            Assert.AreEqual(0, progress.FulfilledComponents, "No level requirement is met yet.");
+            Assert.AreEqual(2, progress.OwnedComponents, "Both owned components count regardless of level.");
+            StringAssert.Contains("✓ Active Lv.1 / required Lv.3", progress.Components);
+            StringAssert.Contains("✓ Owned passive Lv.1 / required Lv.2", progress.Components);
+            StringAssert.Contains("○ Missing passive not owned / required Lv.1", progress.Components);
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -383,6 +409,8 @@ namespace Game.UI.Tests
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
             public IReadOnlyList<BuildEntry> BuildEntries { get; set; }
             public IReadOnlyList<SetDefinition> SetDefinitions { get; set; }
+            public Dictionary<ContentId, string> Names { get; } = new Dictionary<ContentId, string>();
+            public string FindBuildEntryName(ContentId id) => Names.TryGetValue(id, out var name) ? name : null;
             public CharacterDefinition SelectedCharacter { get; set; }
             public IReadOnlyList<CharacterDefinition> UnlockedCharacters { get; set; }
             public bool DevelopmentCommandsEnabled { get; set; }

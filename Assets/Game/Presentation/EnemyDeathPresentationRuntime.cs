@@ -32,6 +32,7 @@ namespace Game.Presentation
             _renderer.sharedMaterial = sourceRenderer.sharedMaterial;
             _renderer.sortingLayerID = sourceRenderer.sortingLayerID;
             _renderer.sortingOrder = sourceRenderer.sortingOrder;
+            ParticlePresentationMaterial.Apply(_dust, _renderer);
             _renderer.flipX = sourceRenderer.flipX;
             _renderer.color = sourceRenderer.color;
             _startScale = _visual.localScale;

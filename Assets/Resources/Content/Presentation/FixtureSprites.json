@@ -164,7 +164,16 @@
       "particleRed": 0.72,
       "particleGreen": 0.61,
       "particleBlue": 0.43,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     }
   },
   {
@@ -542,7 +551,7 @@
   },
   {
     "projectile": {
-      "visualScale": 1.9,
+      "visualScale": 2.4,
       "spinDegreesPerSecond": 0.0,
       "impactDurationSeconds": 0.12,
       "flashSize": 0.18,
@@ -556,7 +565,16 @@
       "particleRed": 0.4,
       "particleGreen": 0.34,
       "particleBlue": 0.28,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.8,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     },
     "id": "ENEMY-004-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
@@ -578,7 +596,16 @@
       "particleRed": 0.62,
       "particleGreen": 0.42,
       "particleBlue": 0.26,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 3.2,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     },
     "id": "ENEMY-005-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
@@ -677,7 +704,16 @@
       "particleRed": 0.62,
       "particleGreen": 0.42,
       "particleBlue": 0.26,
-      "particleAlpha": 0.8
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
     },
     "id": "BOSS-001-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-projectile",
