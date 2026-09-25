@@ -41,7 +41,8 @@ namespace Game.ActiveSkill
             CombatIdentity owner = default,
             float outgoingKnockbackMultiplier = 1f, float sizeMultiplier = 1f, float rangeMultiplier = 1f,
             System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f, CombatSource? sourceOverride = null,
-            SlowedTargetBonus slowedTargetBonus = default, float slowedTargetDamageFactor = 1f)
+            SlowedTargetBonus slowedTargetBonus = default, float slowedTargetDamageFactor = 1f,
+            Vector2? aimPointOverride = null)
         {
             NumericValidation.ValidatePositive(sizeMultiplier, nameof(sizeMultiplier));
             NumericValidation.ValidatePositive(rangeMultiplier, nameof(rangeMultiplier));
@@ -59,7 +60,8 @@ namespace Game.ActiveSkill
             Level = level;
             Origin = origin;
             AimDirection = aimDirection.sqrMagnitude > Mathf.Epsilon ? aimDirection.normalized : Vector2.right;
-            AimPoint = initialTarget != null ? initialTarget.Position : origin;
+            // A point attack without an on-screen enemy aims at a picked screen point (DECISION-0058).
+            AimPoint = initialTarget != null ? initialTarget.Position : aimPointOverride ?? origin;
             InitialTarget = initialTarget;
             Damage = damage;
             LevelDefinition = levelDefinition;

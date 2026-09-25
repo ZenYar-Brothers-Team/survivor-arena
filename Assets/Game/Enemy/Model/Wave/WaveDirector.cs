@@ -22,6 +22,9 @@ namespace Game.Enemy
         public bool BurstConsumed => _burstConsumed;
 
         public WaveTimelineDefinition Timeline => _timeline;
+        /// <summary>Seed actually driving composition and spawn angles: a per-run seed from the
+        /// composition root (DECISION-0057) or the timeline reference seed.</summary>
+        public int Seed { get; }
         public int PhaseCount => _timeline.Phases.Count;
         public int CurrentPhaseIndex { get; private set; }
         public WavePhaseDefinition CurrentPhase => _timeline.Phases[CurrentPhaseIndex];
@@ -35,7 +38,8 @@ namespace Game.Enemy
         public WaveDirector(
             WaveTimelineDefinition timeline,
             IReadOnlyDictionary<ContentId, EnemyDefinition> enemies,
-            float runDurationSeconds)
+            float runDurationSeconds,
+            int? seed = null)
         {
             _timeline = timeline ?? throw new ArgumentNullException(nameof(timeline));
             if (enemies == null)
@@ -70,8 +74,9 @@ namespace Game.Enemy
                 _phaseEnemies[phaseIndex] = scaled;
             }
 
-            _random = new Random(timeline.Seed);
-            _geometryRandom = new Random(timeline.Seed);
+            Seed = seed ?? timeline.Seed;
+            _random = new Random(Seed);
+            _geometryRandom = new Random(Seed);
             _spawnTimer = new ContinuousSpawnTimer(CurrentPhase.SpawnIntervalSeconds);
         }
 
@@ -143,6 +148,10 @@ namespace Game.Enemy
 
         /// <summary>Uniform circle angle in radians; seeded independently of composition.
         /// This reproduces spawn decisions, not the subsequent physics simulation.</summary>
+        /// <summary>True while ordinary spawns use the screen-edge opening placement (DECISION-0057).</summary>
+        public bool IsOpeningSpawnActive =>
+            _timeline.OpeningSpawn != null && Elapsed < _timeline.OpeningSpawn.DurationSeconds;
+
         public double SelectSpawnAngle() => _geometryRandom.NextDouble() * Math.PI * 2d;
 
         public EnemyDefinition SelectEnemy()

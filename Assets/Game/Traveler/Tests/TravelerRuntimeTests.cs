@@ -86,6 +86,19 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(0,_travelers.Snapshot.Count); CollectionAssert.AreEqual(schedule,_travelers.Schedule.Select(item=>item.Time));
         }
         [Test]
+        public void Initialize_PerRunSeedDrivesScheduleDraw_DefaultsToReferenceSeed()
+        {
+            var schedule=_catalog.Schedules[0];
+            Assert.AreEqual(schedule.Seed,_travelers.Seed);
+            for (var seed=1; seed<=3; seed++)
+            {
+                _travelers.Initialize(schedule,_catalog,_run,_player.transform,_camera,_placement,_pickups,_pickupCatalog.Book,null,seed:seed);
+                var expected=schedule.Draw(_run.Model.Duration,new System.Random(seed));
+                Assert.AreEqual(seed,_travelers.Seed);
+                CollectionAssert.AreEqual(expected.Select(item=>(item.Id,item.Time)),_travelers.Schedule.Select(item=>(item.Id,item.Time)));
+            }
+        }
+        [Test]
         public void Protection_OnlyOrdinarySameRun_ExitAndSourceRemovalCleanUp()
         {
             var guard=Spawn("GUARD");

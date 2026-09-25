@@ -2,6 +2,10 @@
   "id": "FIELD-001-TIMELINE",
   "seed": 230924,
   "spawnRadius": 12,
+  "openingSpawn": {
+    "durationSeconds": 20,
+    "screenMargin": 1
+  },
   "phases": [
     {
       "id": "FIELD-001-P01",

@@ -7,5 +7,6 @@ namespace Game.Enemy.Json
         public float SpawnRadius { get; set; }
         public WavePhaseData[] Phases { get; set; }
         public WaveHookData[] Hooks { get; set; }
+        public WaveOpeningSpawnData OpeningSpawn { get; set; }
     }
 }

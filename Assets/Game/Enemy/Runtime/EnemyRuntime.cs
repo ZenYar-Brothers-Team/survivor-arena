@@ -537,13 +537,14 @@ namespace Game.Enemy
         private void RenderTelegraph(EnemyMovementFrame movement)
         {
             var attackTelegraph = _attackController?.Phase == EnemyAttackPhase.Telegraphing;
-            _telegraph.enabled = movement.IsTelegraphing || attackTelegraph;
+            var dashLine = movement.IsTelegraphing && Definition.Movement.ShowDashTelegraphLine;
+            _telegraph.enabled = dashLine || attackTelegraph;
             if (!_telegraph.enabled) return;
             var start = (Vector3)_body.position;
             var length = Mathf.Max(2f, Definition.MovementSpeed * Definition.Movement.DashSpeedMultiplier *
                 Definition.Movement.DashDurationSeconds);
-            var direction = movement.IsTelegraphing ? movement.TelegraphDirection : _attackController.AimDirection;
-            if (!movement.IsTelegraphing) length = CurrentAttack.ProjectileSpeed * CurrentAttack.TelegraphSeconds;
+            var direction = dashLine ? movement.TelegraphDirection : _attackController.AimDirection;
+            if (!dashLine) length = CurrentAttack.ProjectileSpeed * CurrentAttack.TelegraphSeconds;
             _telegraph.SetPosition(0, start);
             _telegraph.SetPosition(1, start + (Vector3)(direction * length));
         }

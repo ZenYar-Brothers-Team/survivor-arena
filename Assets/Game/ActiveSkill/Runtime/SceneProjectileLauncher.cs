@@ -9,6 +9,7 @@ namespace Game.ActiveSkill
     public sealed class SceneProjectileLauncher : IActiveSkillProjectileLauncher, IDisposable
     {
         private readonly RunController _runController;
+        private readonly Game.Enemy.ICombatTargetQuery _retargetQuery;
         private readonly Transform _root;
         private readonly GameObjectPool<FixtureProjectileRuntime> _pool;
         private readonly HashSet<FixtureProjectileRuntime> _active = new HashSet<FixtureProjectileRuntime>();
@@ -16,16 +17,18 @@ namespace Game.ActiveSkill
         public int ActiveCount => _active.Count;
         public int InactiveCount => _pool.InactiveCount;
 
-        public SceneProjectileLauncher(RunController runController)
+        /// <param name="retargetQuery">Ricochet target selection; the executor passes its on-screen query (DECISION-0058).</param>
+        public SceneProjectileLauncher(RunController runController, Game.Enemy.ICombatTargetQuery retargetQuery = null)
         {
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
+            _retargetQuery = retargetQuery;
             _root = new GameObject("Active Skill Projectile Pool").transform;
             _pool = new GameObjectPool<FixtureProjectileRuntime>(FixtureProjectileFactory.Create, _root);
         }
         public void Launch(ActiveSkillProjectile projectile)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(SceneProjectileLauncher));
-            var runtime = FixtureProjectileFactory.Spawn(projectile, _runController, _root, _pool);
+            var runtime = FixtureProjectileFactory.Spawn(projectile, _runController, _root, _pool, _retargetQuery);
             _active.Add(runtime);
             runtime.Returned += OnReturned;
         }

@@ -17,7 +17,7 @@ namespace Game.Bootstrap
     /// <summary>Development-only composition/provenance. Release creates no recorder or listeners.</summary>
     public static class PlaytestComposition
     {
-        public static IPlaytestSession Create(FixtureRuntimeContentCatalog catalog, RunModel run,
+        public static IPlaytestSession Create(FixtureRuntimeContentCatalog catalog, int draftSeed, RunModel run,
             PlayerCharacterRuntime player, PlayerExperienceRuntime xp, LevelUpDraftRuntime draft,
             ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
         {
@@ -38,7 +38,8 @@ namespace Game.Bootstrap
                     character = draft.Character.Id.ToString(), field = run.Selection?.FieldId.ToString(),
                     environment = run.Selection?.EnvironmentId.ToString(),
                     timeline = spawner.Director.Timeline.Id.ToString(), durationSeconds = run.Duration,
-                    seeds = new { draft = catalog.RunSetup.Draft.Seed, wave = spawner.Director.Timeline.Seed },
+                    seeds = new { draft = draftSeed, referenceDraft = catalog.RunSetup.Draft.Seed, wave = spawner.Director.Seed,
+                        referenceWave = spawner.Director.Timeline.Seed, traveler = (travelers as TravelerEncounterRuntime)?.Seed },
                     initialStats = player.Stats, initialBuild = entries, runSetup = catalog.RunSetup,
                     overrides = new { durationSeconds = run.Duration, source = "RunController scene configuration" }
                 }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");

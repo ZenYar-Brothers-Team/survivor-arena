@@ -128,7 +128,10 @@ def skill_levels(skill, kb_seconds, seed_base):
                 third = i == 2
                 radius = row["radius"] * (row["thirdRadiusMultiplier"] if third else 1)
                 strike_kb = kb * (row["thirdKnockbackMultiplier"] if third else 1)
-                waves.append(wave([{"kind": "Strike", "radius": radius, "telegraphSeconds": row["telegraphSeconds"]}],
+                strike = {"kind": "Strike", "radius": radius, "telegraphSeconds": row["telegraphSeconds"]}
+                if "verticalScale" in shared:
+                    strike["verticalScale"] = shared["verticalScale"]
+                waves.append(wave([strike],
                                   controls(strike_kb, kb_seconds), delay=round(shared["strikeSpacingSeconds"] * i, 6)))
             level["waves"] = waves
         elif sid == "SKILL-014":
@@ -280,6 +283,8 @@ def enemies(baseline):
                                     dashDurationSeconds=movement["dashDurationSeconds"],
                                     dashCooldownSeconds=movement["dashCooldownSeconds"],
                                     dashSpeedMultiplier=movement["dashSpeedMultiplier"])
+            if "showDashTelegraphLine" in movement:
+                runtime_movement["showDashTelegraphLine"] = movement["showDashTelegraphLine"]
             entry["dashContactControls"] = {"knockbackDistance": movement["dashKnockback"], "knockbackSeconds": kb_seconds}
         entry["movement"] = runtime_movement
         attack = enemy["attack"]
@@ -395,7 +400,8 @@ def set_attacks(baseline):
             level = {"baseDamage": effect["damage"], "cooldownSeconds": effect["cooldownSeconds"], "actionSpeedBonus": 0,
                      "rotationPerActivationDegrees": 0, "targetingMode": "RandomEnemy",
                      "targetingRadius": effect["targetingRadius"], "randomSeed": seed_base + int(entry["id"].split("-")[1]),
-                     "waves": [wave([{"kind": "Strike", "radius": effect["radius"], "telegraphSeconds": effect["telegraphSeconds"]}],
+                     "waves": [wave([dict({"kind": "Strike", "radius": effect["radius"], "telegraphSeconds": effect["telegraphSeconds"]},
+                                         **({"verticalScale": effect["verticalScale"]} if "verticalScale" in effect else {}))],
                                     controls(effect["knockback"], effect["knockbackSeconds"] or kb_seconds))]}
             result.append({"id": SET_ATTACK_TEMPLATES[entry["id"]], "displayName": content_design_names("SET")[entry["id"]],
                            "iconVisualId": f"{entry['id']}-VISUAL-ICON", "levels": [level] * 6})
@@ -563,7 +569,8 @@ def timeline(baseline):
     if clock != baseline["field"]["durationSeconds"]:
         raise SystemExit("timeline must cover the whole field duration")
     return {"id": t["id"], "seed": baseline["randomness"]["referenceSeeds"]["waves"],
-            "spawnRadius": baseline["field"]["spawnRadius"], "phases": phases, "hooks": t["hooks"]}
+            "spawnRadius": baseline["field"]["spawnRadius"], "openingSpawn": baseline["field"]["openingSpawn"],
+            "phases": phases, "hooks": t["hooks"]}
 
 
 def run_setup(baseline):

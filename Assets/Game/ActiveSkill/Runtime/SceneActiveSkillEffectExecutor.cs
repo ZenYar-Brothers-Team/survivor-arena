@@ -32,6 +32,9 @@ namespace Game.ActiveSkill
         private readonly List<SkillOrbitVisualState> _orbitVisuals = new List<SkillOrbitVisualState>();
         private readonly List<IEnemyDamageReceiver> _enemyBuffer = new List<IEnemyDamageReceiver>();
         private readonly ICombatTargetQuery _targets;
+        // Target/point selection sees only on-screen enemies (DECISION-0058); hit tests use _targets.
+        private readonly ICombatTargetQuery _selection;
+        private readonly ITargetViewport _viewport;
         private readonly HashSet<EnemyTargetLife> _chainHitBuffer = new HashSet<EnemyTargetLife>();
         private readonly List<EnemyTargetLife> _chainCandidates = new List<EnemyTargetLife>();
         private readonly Transform _minePoolRoot;
@@ -55,6 +58,7 @@ namespace Game.ActiveSkill
             public Vector2 Point;
             public float Remaining;
             public object Telegraph;
+            public object Pillar;
             public SkillWorldEffectProfile Profile;
         }
 
@@ -108,13 +112,16 @@ namespace Game.ActiveSkill
             IActiveSkillProjectileLauncher projectileLauncher = null,
             ICombatTargetQuery targets = null,
             ContentRegistry contentRegistry = null,
-            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffectProfiles = null)
+            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffectProfiles = null,
+            ITargetViewport viewport = null)
         {
             _runController = runController != null
                 ? runController
                 : throw new ArgumentNullException(nameof(runController));
-            _projectileLauncher = projectileLauncher ?? new SceneProjectileLauncher(runController);
             _targets = targets ?? new SceneCombatTargetQuery();
+            _viewport = viewport;
+            _selection = viewport == null ? _targets : new ViewportCombatTargetQuery(_targets, viewport);
+            _projectileLauncher = projectileLauncher ?? new SceneProjectileLauncher(runController, _selection);
             _contentRegistry = contentRegistry;
             _minePoolRoot = new GameObject("Mine Pool").transform;
             _minePool = new GameObjectPool<SpriteRenderer>(CreateMineMarker, _minePoolRoot);
@@ -145,7 +152,7 @@ namespace Game.ActiveSkill
                 }
                 else if (randomTargets && waveIndex > 0)
                 {
-                    _targets.CopyAliveTo(_enemyBuffer);
+                    _selection.CopyAliveTo(_enemyBuffer);
                     var radius = activation.LevelDefinition.Targeting.Radius * activation.RangeMultiplier;
                     IEnemyDamageReceiver selected = null;
                     var count = 0;
@@ -155,9 +162,13 @@ namespace Game.ActiveSkill
                         if (!life.IsAlive || usedTargets.Contains(life) || (candidate.Position - activation.Origin).sqrMagnitude > radius * radius) continue;
                         if (activation.Random.Next(++count) == 0) selected = candidate;
                     }
-                    if (selected == null) continue;
-                    usedTargets.Add(new EnemyTargetLife(selected));
-                    centerOverride = selected.Position;
+                    if (selected != null)
+                    {
+                        usedTargets.Add(new EnemyTargetLife(selected));
+                        centerOverride = selected.Position;
+                    }
+                    else if (TryPickScreenPoint(activation.Origin, radius, activation.Random, out var point)) centerOverride = point;
+                    else continue;
                 }
                 var wave = waves[waveIndex];
                 for (var effectIndex = 0; effectIndex < wave.Effects.Count; effectIndex++)
@@ -268,7 +279,7 @@ namespace Game.ActiveSkill
                 effect.SpreadDegrees,
                 scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees, scheduled.Activation.Random);
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
-            if (effect.Behavior.DistinctNearestTargets) _targets.CopyAliveTo(_enemyBuffer);
+            if (effect.Behavior.DistinctNearestTargets) _selection.CopyAliveTo(_enemyBuffer);
             for (var i = 0; i < directions.Length; i++)
             {
                 if (effect.Behavior.DistinctNearestTargets)
@@ -283,10 +294,14 @@ namespace Game.ActiveSkill
                         if (radius > 0f && candidateDistance > radius * radius) continue;
                         if (candidate.IsAlive && candidateDistance < distance) { nearest = targetIndex; distance = candidateDistance; }
                     }
-                    if (nearest < 0) break;
-                    directions[i] = (_enemyBuffer[nearest].Position - scheduled.Activation.Origin).normalized;
-                    if (directions[i].sqrMagnitude <= Mathf.Epsilon) directions[i] = scheduled.Activation.AimDirection;
-                    _enemyBuffer.RemoveAt(nearest);
+                    if (nearest >= 0)
+                    {
+                        directions[i] = (_enemyBuffer[nearest].Position - scheduled.Activation.Origin).normalized;
+                        if (directions[i].sqrMagnitude <= Mathf.Epsilon) directions[i] = scheduled.Activation.AimDirection;
+                        _enemyBuffer.RemoveAt(nearest);
+                    }
+                    // No further on-screen target: the projectile keeps its layout direction (DECISION-0058).
+                    else if (_viewport == null) break;
                 }
                 _projectileLauncher.Launch(new ActiveSkillProjectile(
                     scheduled.Activation.Origin, directions[i], effect.Speed,
@@ -418,7 +433,7 @@ namespace Game.ActiveSkill
 
         private void ExecuteChain(ScheduledSkillEffect scheduled, ChainEffect effect)
         {
-            _targets.CopyAliveTo(_enemyBuffer);
+            _selection.CopyAliveTo(_enemyBuffer);
             _chainHitBuffer.Clear();
             _chainCandidates.Clear();
             foreach (var candidate in _enemyBuffer) _chainCandidates.Add(new EnemyTargetLife(candidate));
@@ -629,8 +644,9 @@ namespace Game.ActiveSkill
             }
             else
             {
-                // Later strike: new distinct random valid target at its own telegraph start; none -> skipped.
-                _targets.CopyAliveTo(_enemyBuffer);
+                // Later strike: new distinct random on-screen target at its own telegraph start; none ->
+                // random on-screen point in range (DECISION-0058), else skipped.
+                _selection.CopyAliveTo(_enemyBuffer);
                 var radius = scheduled.Activation.LevelDefinition.Targeting.Radius * scheduled.Activation.RangeMultiplier;
                 var origin = scheduled.Activation.OwnerTransform != null ? (Vector2)scheduled.Activation.OwnerTransform.position : scheduled.Activation.Origin;
                 IEnemyDamageReceiver selected = null;
@@ -642,15 +658,19 @@ namespace Game.ActiveSkill
                     var roll = scheduled.Activation.Random != null ? scheduled.Activation.Random.Next(++count) : ++count - 1;
                     if (roll == 0) selected = candidate;
                 }
-                if (selected == null) return;
-                scheduled.StrikeTargets.Used.Add(new EnemyTargetLife(selected));
-                point = selected.Position;
+                if (selected != null)
+                {
+                    scheduled.StrikeTargets.Used.Add(new EnemyTargetLife(selected));
+                    point = selected.Position;
+                }
+                else if (!TryPickScreenPoint(origin, radius, scheduled.Activation.Random, out point)) return;
             }
             var pending = new PendingStrike { Scheduled = scheduled, Effect = effect, Point = point, Remaining = effect.TelegraphSeconds };
             if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.StrikeTelegraph, out var profile))
             {
                 pending.Profile = profile;
-                pending.Telegraph = _worldEffects.BeginTelegraph(profile, point, effect.Radius * scheduled.Activation.SizeMultiplier);
+                pending.Telegraph = _worldEffects.BeginTelegraph(profile, point, effect.Radius * scheduled.Activation.SizeMultiplier,
+                    effect.VerticalScale);
             }
             _pendingStrikes.Add(pending);
             if (effect.TelegraphSeconds <= 0f) TickPendingStrikes(0f);
@@ -658,7 +678,15 @@ namespace Game.ActiveSkill
 
         private void TickPendingStrikes(float deltaTime)
         {
-            for (var i = 0; i < _pendingStrikes.Count; i++) _pendingStrikes[i].Remaining -= deltaTime;
+            for (var i = 0; i < _pendingStrikes.Count; i++)
+            {
+                var strike = _pendingStrikes[i];
+                strike.Remaining -= deltaTime;
+                // DECISION-0058: the light pillar lands slightly before the impact flash.
+                if (strike.Pillar == null && strike.Profile != null && strike.Profile.HasPillar &&
+                    strike.Remaining > 0f && strike.Remaining <= strike.Profile.PillarLeadSeconds)
+                    strike.Pillar = _worldEffects.BeginPillar(strike.Profile, strike.Point);
+            }
             for (var i = _pendingStrikes.Count - 1; i >= 0; i--)
             {
                 if (i >= _pendingStrikes.Count) continue;
@@ -667,9 +695,17 @@ namespace Game.ActiveSkill
                 _pendingStrikes.RemoveAt(i);
                 var radius = pending.Effect.Radius * pending.Scheduled.Activation.SizeMultiplier;
                 if (pending.Telegraph != null) _worldEffects.Release(pending.Telegraph, 0.0001f);
-                EnemyDamageArea.Apply(pending.Point, radius, CreateDamage(pending.Scheduled, pending.Effect.DamageMultiplier));
-                if (pending.Profile != null) _worldEffects.Flash(pending.Profile, pending.Point, radius);
+                EnemyDamageArea.Apply(pending.Point, radius, CreateDamage(pending.Scheduled, pending.Effect.DamageMultiplier),
+                    verticalScale: pending.Effect.VerticalScale);
+                if (pending.Profile != null)
+                    _worldEffects.Flash(pending.Profile, pending.Point, radius, pending.Effect.VerticalScale, pending.Pillar);
             }
+        }
+
+        private bool TryPickScreenPoint(Vector2 origin, float radius, System.Random random, out Vector2 point)
+        {
+            point = default;
+            return _viewport != null && random != null && _viewport.Current.TryPickPoint(origin, radius, random, out point);
         }
 
         private static EnemyDamageRequest CreateDamage(ScheduledSkillEffect scheduled, float effectMultiplier)

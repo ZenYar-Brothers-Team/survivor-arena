@@ -26,7 +26,7 @@ JSON: camelCase, `schemaVersion: 1`, `recorderVersion: IP-31/1`. Seconds — с�
 | provenance | commit либо unknown, nullable dirty, platform, Editor/Development, fixture marker |
 | provenance.files | Resource path, SHA-256 точного UTF-8 текста, сам JSON; сохранены вместе с cached catalog |
 | provenance.configHash | SHA-256 ordinal file list + canonical resolved settings; data/override меняют hash |
-| provenance.resolved | Starting character/timeline, initial stats/build, run config, actual duration override, draft/wave seeds |
+| provenance.resolved | Starting character/timeline, initial stats/build, run config, actual duration override, draft seed этого прогона (fresh per run, DECISION-0057) и reference draft seed, wave seed этого прогона и reference wave seed |
 | provenance.rngUncovered | UnityEngine.Random spawn positions; нет deterministic replay. Authored skill seeds доступны в source snapshots |
 | runningSeconds / elapsedSimulationSeconds | RunModel.Elapsed, без паузы |
 | wallSeconds / pauseWallSeconds | Monotonic wall time до terminal; pause отдельно, ownership reasons — timeline |

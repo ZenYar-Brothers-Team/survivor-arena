@@ -41,6 +41,10 @@ namespace Game.Bootstrap.PlayModeTests
                 yield return null;
                 var boss = root.BossEncounters.FinalBoss;
                 Assert.IsNotNull(boss);
+                var bossRig = boss.GetComponentInChildren<Game.Presentation.SpritePresentationRig>();
+                // DECISION-0057: a boss with body art spawns animated; this fixture scene's boss has none.
+                Assert.AreEqual(root.BossEncounters.FinalDefinition.Body.Visual.Id.IsValid,
+                    bossRig != null && bossRig.gameObject.activeSelf);
                 Assert.AreEqual(DisplayStyle.Flex, bar.resolvedStyle.display);
                 Assert.Greater(bar.resolvedStyle.width, 0);
                 StringAssert.Contains(root.BossEncounters.FinalDefinition.DisplayName, bar.title);

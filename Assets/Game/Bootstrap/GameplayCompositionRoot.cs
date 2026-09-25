@@ -52,6 +52,13 @@ namespace Game.Bootstrap
         private ContentId _pendingCharacterId;
         public FieldSelectionSession FieldSelection { get; private set; }
         public ResolvedFieldConfiguration FieldConfiguration { get; private set; }
+        /// <summary>Draft, wave and traveler seeds of the current run: fresh per run (DECISION-0057) unless
+        /// <see cref="UseReferenceSeeds"/> pins the reference seeds from content JSON for
+        /// comparison runs and deterministic smoke tests.</summary>
+        public int DraftSeed { get; private set; }
+        public int WaveSeed { get; private set; }
+        public int TravelerSeed { get; private set; }
+        public bool UseReferenceSeeds { get; set; }
         public UnityEngine.UIElements.UIDocument FieldSelectionDocument => _fieldScreen?.Document;
         private Behaviour[] _waitingComponents;
         private bool[] _previousEnabled;
@@ -357,8 +364,10 @@ namespace Game.Bootstrap
                     Catalog.Pickups.DropScatterSeed);
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
+                // DECISION-0058: player attacks choose enemies/points only on the visible screen.
+                var targetViewport = new CameraTargetViewport(Camera.main);
                 _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression,
-                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects);
+                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects, targetViewport);
                 initializedSubsystems.Add(_setEffects.Dispose);
                 draftRuntime.Initialize(
                     experienceRuntime,
@@ -367,7 +376,7 @@ namespace Game.Bootstrap
                     selectedCharacter,
                     Catalog.Registry,
                     setup.Draft.OfferCount,
-                    new SeededDraftRandom(setup.Draft.Seed),
+                    new SeededDraftRandom(DraftSeed = UseReferenceSeeds ? setup.Draft.Seed : FreshRunSeed.Next()),
                     setup.Draft.InitialRerolls,
                     setup.Draft.InitialBanishes,
                     Catalog.Sets,
@@ -380,14 +389,14 @@ namespace Game.Bootstrap
                 // rollback before Initialize so a failed Initialize cannot leak it (Dispose is
                 // idempotent, and Shutdown disposes it again on the success path).
                 var effectExecutor = new SceneActiveSkillEffectExecutor(runController, contentRegistry: Catalog.Registry,
-                    worldEffectProfiles: Catalog.SkillWorldEffects);
+                    worldEffectProfiles: Catalog.SkillWorldEffects, viewport: targetViewport);
                 initializedSubsystems.Add(effectExecutor.Dispose);
                 activeSkillRuntime.Initialize(
                     player,
                     runController,
                     draftRuntime,
                     Catalog.ActiveSkills,
-                    new SceneEnemyTargetProvider(),
+                    new SceneEnemyTargetProvider(viewport: targetViewport),
                     effectExecutor);
                 initializedSubsystems.Add(activeSkillRuntime.Shutdown);
 
@@ -413,29 +422,26 @@ namespace Game.Bootstrap
                 {
                     var enemy = configuration.Enemies[i];
                     enemiesById.Add(enemy.Id, enemy);
-                    if (enemy.Visual.TryResolve(Catalog.Registry, out var enemySprite))
-                    {
-                        if (enemy.MotionProfile.Id.IsValid) enemySprite.RequireRole(SpriteRole.Body);
-                        enemyVisuals.Add(enemy.Id, enemySprite.Sprite);
-                        if (enemySprite.Contact != null) enemyContacts.Add(enemy.Id, enemySprite.Contact);
-                    }
-                    if (enemy.MotionProfile.TryResolve(Catalog.Registry, out var enemyMotion))
-                        enemyMotions.Add(enemy.Id, enemyMotion);
+                    var enemyBody = EnemyBodyVisual.Resolve(enemy, Catalog.Registry);
+                    if (enemyBody.Sprite != null) enemyVisuals.Add(enemy.Id, enemyBody.Sprite);
+                    if (enemyBody.Contact != null) enemyContacts.Add(enemy.Id, enemyBody.Contact);
+                    if (enemyBody.Motion != null) enemyMotions.Add(enemy.Id, enemyBody.Motion);
                 }
                 var waveDirector = new WaveDirector(
                     configuration.Timeline,
                     enemiesById,
-                    runController.Model.Duration);
+                    runController.Model.Duration,
+                    WaveSeed = UseReferenceSeeds ? configuration.Timeline.Seed : FreshRunSeed.Next());
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
                     enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation,
-                    Catalog.Registry);
+                    Catalog.Registry, Camera.main);
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
                 BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
                     new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
-                    Catalog.GroundShadowPresentation);
+                    Catalog.GroundShadowPresentation, Catalog.Registry);
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
@@ -449,9 +455,10 @@ namespace Game.Bootstrap
                     Travelers.Initialize(travelerSchedule, Catalog.Travelers, runController, player.transform,
                         Camera.main, new TravelerPlacement(travelerPlacement), Pickups, Catalog.Pickups.Book,
                         new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
-                        Catalog.GroundShadowPresentation);
+                        Catalog.GroundShadowPresentation, Catalog.Registry,
+                        TravelerSeed = UseReferenceSeeds ? travelerSchedule.Seed : FreshRunSeed.Next());
                 }
-                Playtest = PlaytestComposition.Create(Catalog, runController.Model, player, experienceRuntime,
+                Playtest = PlaytestComposition.Create(Catalog, DraftSeed, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 

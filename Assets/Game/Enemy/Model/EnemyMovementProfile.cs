@@ -22,6 +22,9 @@ namespace Game.Enemy
         public int DashCount { get; }
         /// <summary>Telegraph before the 2nd…Nth dash of a sequence.</summary>
         public float FollowUpTelegraphSeconds { get; }
+        /// <summary>TelegraphedDash: draw the aim line during the dash telegraph. The telegraph pause
+        /// itself stays; ENEMY-007 hides the line (DECISION-0057, playtest 2026-09-25_5233a664 OBS-05).</summary>
+        public bool ShowDashTelegraphLine { get; }
 
         public EnemyMovementProfile(
             EnemyMovementKind kind,
@@ -35,7 +38,8 @@ namespace Game.Enemy
             float dashSpeedMultiplier = 3f,
             float repositionSeconds = 0f,
             int dashCount = 1,
-            float followUpTelegraphSeconds = 0f)
+            float followUpTelegraphSeconds = 0f,
+            bool showDashTelegraphLine = true)
         {
             if (!Enum.IsDefined(typeof(EnemyMovementKind), kind))
                 throw new ArgumentOutOfRangeException(nameof(kind));
@@ -65,6 +69,7 @@ namespace Game.Enemy
             RepositionSeconds = repositionSeconds;
             DashCount = dashCount;
             FollowUpTelegraphSeconds = followUpTelegraphSeconds;
+            ShowDashTelegraphLine = showDashTelegraphLine;
         }
     }
 }

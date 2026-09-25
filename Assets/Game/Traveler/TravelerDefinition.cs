@@ -5,7 +5,7 @@ using Game.Enemy;
 using Game.Traveler.Json;
 namespace Game.Traveler
 {
-    public sealed class TravelerDefinition : IContentDefinition
+    public sealed class TravelerDefinition : IContentDefinition, IReferencesContent
     {
         public ContentId Id { get; }
         public string Name { get; }
@@ -72,5 +72,7 @@ namespace Game.Traveler
                 Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, movement: Body.Movement,
                 attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls);
         }
+        // Body art/motion/projectile visuals must reach the registry like a boss body does (DECISION-0057).
+        public IEnumerable<ContentReference> GetReferencedContent() => Body.GetReferencedContent();
     }
 }

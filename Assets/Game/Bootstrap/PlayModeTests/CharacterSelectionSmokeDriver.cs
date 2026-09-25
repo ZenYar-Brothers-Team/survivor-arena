@@ -19,6 +19,8 @@ namespace Game.Bootstrap.PlayModeTests
         }
         public static void StartField(GameplayCompositionRoot root)
         {
+            // Smoke assertions expect the reference draft/wave sequences, not fresh per-run seeds.
+            root.UseReferenceSeeds = true;
             var button = root.FieldSelectionDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectStart);
             Assert.IsNotNull(button);
             Assert.IsTrue(button.enabledSelf);

@@ -248,7 +248,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 | SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | PREPARED — процедурные сегменты цепи (DECISION-0054); in-game review pending |
 | SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | NOT STARTED |  
 | SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | NOT STARTED |  
-| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054); in-game review pending |
+| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054), столб света за 0.15 s до вспышки и эллипс 0.7 для камеры 3/4 — совпадает с областью урона ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)); in-game review pending |
 | SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | NOT STARTED |  
 | SKILL-012 | Пульсирующий луч | Beam base visual | Hybrid; stretch/aim in Unity | NOT STARTED |  
 | SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | PREPARED — v001 из approved icon (DECISION-0054); общий impact flash; Unity import/in-game review pending |

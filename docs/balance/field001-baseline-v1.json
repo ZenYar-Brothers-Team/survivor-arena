@@ -197,7 +197,7 @@
       92
     ],
     "thresholdAfterArray": "repeat-last",
-    "baseDropLifetimeSeconds": 60,
+    "baseDropLifetimeSeconds": 45,
     "basePickupRadius": 0.5
   },
   "controls": {
@@ -219,7 +219,7 @@
         "distinctNearestTargets": true,
         "range": 5,
         "hitTargetsBeforeRicochet": 1,
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "previous-direction"
       },
       "levels": [
         {
@@ -305,7 +305,7 @@
         "targetingRadius": 6,
         "cooldownSeconds": 1.8,
         "layout": "Fan",
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "previous-direction"
       },
       "levels": [
         {
@@ -635,7 +635,7 @@
         "hitCooldownScope": "skill-and-target",
         "lifetimeSeconds": 4,
         "knockbackDirection": "player-to-target",
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "previous-direction"
       },
       "levels": [
         {
@@ -728,7 +728,7 @@
         "cooldownSeconds": 2.2,
         "knockback": 0,
         "repeatTargets": false,
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "previous-direction"
       },
       "levels": [
         {
@@ -790,10 +790,11 @@
         "targetingRadius": 8,
         "cooldownSeconds": 4.5,
         "strikeSpacingSeconds": 0.3,
+        "verticalScale": 0.7,
         "distinctTargetsWithinActivation": true,
-        "missingDistinctTarget": "skip-extra-strike",
+        "missingDistinctTarget": "random-on-screen-point",
         "targetSnapshot": "at-each-telegraph-start",
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "random-on-screen-point"
       },
       "levels": [
         {
@@ -874,7 +875,7 @@
         "cooldownSeconds": 2.5,
         "layout": "Fan",
         "speed": 8,
-        "noTargetPolicy": "remain-ready"
+        "noTargetPolicy": "previous-direction"
       },
       "levels": [
         {
@@ -1454,6 +1455,7 @@
           "targeting": "RandomEnemy",
           "targetingRadius": 8,
           "radius": 2.2,
+          "verticalScale": 0.7,
           "telegraphSeconds": 0.65,
           "knockback": 1,
           "knockbackSeconds": 0.12,
@@ -1615,7 +1617,8 @@
         "dashCooldownSeconds": 2.5,
         "dashSpeedMultiplier": 3.2,
         "dashKnockback": 0.65,
-        "direction": "snapshot-at-telegraph-start"
+        "direction": "snapshot-at-telegraph-start",
+        "showDashTelegraphLine": false
       },
       "attack": null
     }
@@ -1936,6 +1939,10 @@
       0
     ],
     "spawnRadius": 12,
+    "openingSpawn": {
+      "durationSeconds": 20,
+      "screenMargin": 1
+    },
     "obstacles": [
       {
         "id": "FIELD-001-O01",

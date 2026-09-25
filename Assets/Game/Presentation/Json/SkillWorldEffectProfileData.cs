@@ -11,5 +11,7 @@ namespace Game.Presentation.Json
         /// <summary>Optional strike light pillar; omitted or 0 means none.</summary>
         public float PillarWidth { get; set; }
         public float PillarHeight { get; set; }
+        /// <summary>Optional: pillar appears this many seconds before the impact; omitted = with it.</summary>
+        public float PillarLeadSeconds { get; set; }
     }
 }

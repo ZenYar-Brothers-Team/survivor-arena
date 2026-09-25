@@ -105,7 +105,7 @@ Game Design определяет правила систем. Content Design о�
 
 ### Active Skills
 
-Все шестнадцать active skills ниже имеют статус Approved. Их поведение, targeting/pattern, уровни и участие в сетах являются каноническими; численные значения остаются balance-data и могут настраиваться без изменения базовой механики. Все умения срабатывают автоматически и имеют уровни 1–6. В сеттинге это импровизированные приёмы, найденное или украденное оружие и приспособленная магия монстров-беглецов. Из status effects сейчас системно разрешён slow; заморозка, burn, stun и другие отдельные status-системы не введены.
+Все шестнадцать active skills ниже имеют статус Approved. Их поведение, targeting/pattern, уровни и участие в сетах являются каноническими; численные значения остаются balance-data и могут настраиваться без изменения базовой механики. Все умения срабатывают автоматически и имеют уровни 1–6. Цели и точки удара выбираются только на видимом экране; «ближайший» и «случайный» враг ниже означают ближайшего/случайного среди видимых врагов в пределах радиуса умения, а без подходящей цели направленная атака срабатывает в предыдущем направлении, атака по точке — в случайную точку экрана в радиусе (GDD, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)). В сеттинге это импровизированные приёмы, найденное или украденное оружие и приспособленная магия монстров-беглецов. Из status effects сейчас системно разрешён slow; заморозка, burn, stun и другие отдельные status-системы не введены.
 
 #### SKILL-001 — Бросок камня
 Статус: Approved.
@@ -211,10 +211,10 @@ Knockback: 0.70 world units от центра взрыва.
 Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): доступно с начала на новом профиле.
 
 Роль: мощный периодический AoE по скоплению врагов.
-Targeting / pattern: случайно выбирает одного врага среди всех валидных врагов в заданном targeting radius от персонажа; после короткой задержки в зафиксированную позицию выбранной цели ударяет область урона. Targeting radius — balance-data и не зависит напрямую от границ видимой области экрана.
-База: 55 damage, impact radius 1.6, targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с.
+Targeting / pattern: случайно выбирает одного врага среди видимых на экране валидных врагов в заданном targeting radius от персонажа; после короткой задержки в зафиксированную позицию выбранной цели ударяет область урона. Targeting radius — balance-data и действует дополнительно к границе экрана; если на экране в радиусе нет врага, удар приходится в случайную точку экрана в пределах radius ([DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
+База: 55 damage, impact radius 1.6, targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с. Область удара — эллипс на земле: по горизонтали impact radius, по вертикали impact radius × 0.7 (камера 3/4, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
 Knockback: 0.45 world units радиально от центра точки удара.
-Уровни 1–6: L1 один удар; L2 +25% impact radius и +20% knockback; L3 +30% damage и ещё +15% impact radius; L4 2 последовательных удара по двум разным случайным валидным врагам внутри targeting radius, если доступны, второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +50% impact radius и +50% knockback.
+Уровни 1–6: L1 один удар; L2 +25% impact radius и +20% knockback; L3 +30% damage и ещё +15% impact radius; L4 2 последовательных удара по двум разным случайным видимым валидным врагам внутри targeting radius; если второго врага нет — в случайную точку экрана в radius; второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +50% impact radius и +50% knockback.
 Взаимодействия: выбранная точка фиксируется в момент telegraph, поэтому враг может выйти из зоны до удара. Сеты: SET-017.
 
 #### SKILL-011 — Спираль осколков
@@ -590,10 +590,10 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): доступно с начала на новом профиле.
 Рецепт: SKILL-010 «Небесный удар» + PASSIVE-005 «Метроном» + PASSIVE-012 «Широкий замах».
 Тип: отдельный простой set-attack.
-Эффект: с редким фиксированным cooldown выбирается случайный враг в допустимом радиусе от персонажа; после заметного telegraph в его позицию падает один очень мощный удар большой области.
+Эффект: с редким фиксированным cooldown выбирается случайный видимый враг в допустимом радиусе от персонажа (без него — случайная точка экрана в радиусе, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)); после заметного telegraph в его позицию падает один очень мощный удар большой области.
 Роль: редкий burst-AoE, не требующий новой target/debuff системы.
 Визуал: один telegraph и один яркий impact; projectile spam отсутствует.
-Параметры (baseline v1, DECISION-0053): пороги SKILL-010 L4, PASSIVE-005 L3, PASSIVE-012 L2; 150 damage, radius 2.2, targeting radius 8, knockback 1, telegraph 0.65 s, отдельный cooldown 7.5 s (первая попытка через 7.5 s после получения); generic damage/knockback и size/range применяются один раз, action speed не влияет.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-010 L4, PASSIVE-005 L3, PASSIVE-012 L2; 150 damage, radius 2.2 (эллипс с вертикальной полуосью × 0.7, DECISION-0058), targeting radius 8, knockback 1, telegraph 0.65 s, отдельный cooldown 7.5 s (первая попытка через 7.5 s после получения); generic damage/knockback и size/range применяются один раз, action speed не влияет.
 
 #### SET-018 — Сфера разрушения
 Статус: Approved.

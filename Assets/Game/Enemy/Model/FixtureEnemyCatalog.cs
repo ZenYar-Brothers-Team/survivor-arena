@@ -86,7 +86,8 @@ namespace Game.Enemy
                 usesDash ? data.DashCount ?? 1 : 1,
                 usesDash && (data.DashCount ?? 1) > 1
                     ? Require(data.FollowUpTelegraphSeconds, Owner(nameof(data.FollowUpTelegraphSeconds)))
-                    : data.FollowUpTelegraphSeconds ?? 0f);
+                    : data.FollowUpTelegraphSeconds ?? 0f,
+                usesDash ? data.ShowDashTelegraphLine ?? neutral.ShowDashTelegraphLine : neutral.ShowDashTelegraphLine);
         }
 
         private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)

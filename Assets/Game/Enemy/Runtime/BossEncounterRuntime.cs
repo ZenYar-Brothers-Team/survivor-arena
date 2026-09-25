@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Combat;
+using Game.Content;
 using Game.Diagnostics;
 using Game.Pooling;
 using Game.Run;
@@ -27,6 +28,7 @@ namespace Game.Enemy
         private GameObjectPool<EnemyProjectileRuntime> _projectiles;
         private EnemyDeathPresentationProfile _deathPresentation;
         private GroundShadowPresentationProfile _groundShadowPresentation;
+        private ContentRegistry _contentRegistry;
         public EnemyRuntime FinalBoss => _alive.TryGetValue(WaveHookKind.FinalBoss, out var enemy) && enemy.IsAlive ? enemy : null;
         public BossEncounterDefinition FinalDefinition => _definitions != null && _definitions.TryGetValue(WaveHookKind.FinalBoss, out var definition) ? definition : null;
         public event Action<EnemyLifeEvent> LifeEvent;
@@ -47,7 +49,8 @@ namespace Game.Enemy
         public void Initialize(WaveDirector director, RunController run, Transform target,
             IReadOnlyList<BossEncounterDefinition> definitions, IEnemyLifecycleSink sink = null,
             EnemyDeathPresentationProfile deathPresentation = null,
-            GroundShadowPresentationProfile groundShadowPresentation = null)
+            GroundShadowPresentationProfile groundShadowPresentation = null,
+            ContentRegistry contentRegistry = null)
         {
             if (_director != null) throw new InvalidOperationException("Boss owner is already initialized.");
             if (director == null || run == null || run.Model == null || target == null || definitions == null)
@@ -64,6 +67,7 @@ namespace Game.Enemy
             _sink = sink;
             _deathPresentation = deathPresentation;
             _groundShadowPresentation = groundShadowPresentation;
+            _contentRegistry = contentRegistry;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectiles ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _consumed.Clear();
@@ -77,11 +81,13 @@ namespace Game.Enemy
             if (_model.State != RunState.Running || !_consumed.Add(hook.Kind)) return;
             using var guard = PerfGuard.Measure("BossEncounter.Spawn", 2f);
             var definition = _definitions[hook.Kind];
+            var body = EnemyBodyVisual.Resolve(definition.Body, _contentRegistry);
             var enemy = EnemyFactory.Spawn(definition.Body,
                 (Vector2)_target.position + new Vector2(definition.SpawnOffsetX, definition.SpawnOffsetY),
-                _target, _run, transform, pool: _pool, projectilePool: _projectiles,
-                lifecycleSink: this, category: EnemyCategory.Boss, deathPresentation: _deathPresentation,
-                groundShadowPresentation: _groundShadowPresentation);
+                _target, _run, transform, visual: body.Sprite, pool: _pool, projectilePool: _projectiles,
+                lifecycleSink: this, category: EnemyCategory.Boss, motionProfile: body.Motion, contact: body.Contact,
+                deathPresentation: _deathPresentation, groundShadowPresentation: _groundShadowPresentation,
+                contentRegistry: _contentRegistry);
             // An observer may end the run during Spawned; don't leak that new life after terminal cleanup.
             if (_model == null || _model.State != RunState.Running) { enemy.Despawn(); return; }
             enemy.ConfigureBoss(definition);
@@ -163,6 +169,7 @@ namespace Game.Enemy
             _sink = null;
             _definitions = null;
             _deathPresentation = null;
+            _contentRegistry = null;
             _consumed.Clear();
             LifeEvent = null;
             PhaseChanged = null;

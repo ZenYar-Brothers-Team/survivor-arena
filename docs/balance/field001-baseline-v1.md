@@ -42,7 +42,7 @@ rewards и geometry. Все множители волн равны 1: давле
 | HP / движение | 100 / 3 world units/s | 100 HP из карточки; 3 — конкретизация 100% скорости |
 | Начало | SKILL-001 L1, level 1, 6+6 слотов | Утверждённые правила |
 | Базовая регенерация / возврат истёкшего XP | 0 / 0 | Не давать бесплатный sustain и удалённую прокачку |
-| XP pickup radius / lifetime | 0.5 units / 60 s | За опытом нужно возвращаться, но есть время на обход; PASSIVE-007 L6 даёт ×5 = 2.5 units ([DECISION-0055](../decisions/0055-playtest-2026-09-24-fixes.md)) |
+| XP pickup radius / lifetime | 0.5 units / 45 s | За опытом нужно возвращаться, но есть время на обход; lifetime 60 → 45 s по плейтесту ([DECISION-0057](../decisions/0057-playtest-2026-09-25-fixes.md)); PASSIVE-007 L6 даёт ×5 = 2.5 units ([DECISION-0055](../decisions/0055-playtest-2026-09-24-fixes.md)) |
 | Draft | 3 предложения; 3 reroll, 2 banish за run | Позволяет исправить несколько неудачных выборов |
 | setDraftChance | 0.50 для каждого подходящего сета | Рецепт открывает шанс предложения, не выдаёт сет |
 | Веса Клёпки | SKILL-002/005/007: 1.35; 009/014: 0.70; остальные: 1 | Сохраняется направление карточки; закрытый 009 в draft не попадает |
@@ -95,7 +95,7 @@ body contact врагов измеряется отдельно по утвер�
 | SKILL-005 | range 6; speed 12; half-width/collision radius 0.12 | 3 цели означает 2 дополнительных пробивания; L6 unlimited только до expiry |
 | SKILL-006 | targeting 6; outbound range 4; speed 6; radius 0.22; lifetime 4 | L4 два под углом 20°; общий target cooldown 1 s для всех бумерангов данного skill |
 | SKILL-007 | targeting 6; jump range 2.5 | L6 range 3.375 и damage 33.6: последний уровень добавляет damage, не range |
-| SKILL-010 | targeting 8; следующие telegraphs стартуют с шагом 0.3 s | Каждая точка фиксируется при начале своего telegraph; нет другой цели — лишний удар пропускается |
+| SKILL-010 | targeting 8; следующие telegraphs стартуют с шагом 0.3 s | Каждая точка фиксируется при начале своего telegraph; цели только на экране, нет другой цели — случайная точка экрана в radius; область — эллипс radius × 0.7 по вертикали ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)) |
 | SKILL-013 | targeting 6; range 4; speed 8; radius 0.10 | L6 radius 0.135: +15% и +20% от базы складываются; slow 30% на 2 s |
 | SKILL-014 | speed 3; lifetime 1.8; range 5.4; radius 0.22 | L4 меняет size, не speed; L6 impact первой цели, взрыв при второй либо expiry |
 
@@ -122,8 +122,9 @@ Cooldown=`baseCooldown/(1+intrinsicActionBonus+Σ externalActionBonus)`;
 slow duration и orbit hit interval этим не сокращаются. У непрерывной орбиты нет
 второй копии от action speed и нет окна без клинков при смене уровня.
 
-Отсутствие цели не создаёт удар по фиктивной точке. Target-dependent skill остаётся
-готовым и срабатывает при появлении валидной цели, не тратя cooldown впустую;
+Цели выбираются только на видимом экране. Без валидной цели на экране target-dependent skill
+не ждёт: направленный срабатывает в предыдущем направлении, удар по точке — в случайную точку
+экрана в radius ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md));
 Self/MovementDirection/IndependentRandom
 работают без enemy target. У SKILL-010 смерть выбранного врага после фиксации точки
 не отменяет удар в эту точку и не перенаводит его. Delayed waves отменяются на
@@ -206,7 +207,7 @@ DECISION-0055 стреляет очередью Burst: 3 стрелы через
 Лучник 2 s держит дистанцию, затем 1 s перемещается по касательной с коррекцией
 дистанции; цикл 3 s, lateral strength 0.5, знак касательной меняется каждый цикл.
 Движение нормируется до speed 1.1, не ускоряется от сложения осей. Гончая фиксирует
-направление в начале windup; в windup стоит, вне dash преследует. Первый dash через
+направление в начале windup; в windup стоит, вне dash преследует. Красная линия прицела во время windup не рисуется (`showDashTelegraphLine: false`, DECISION-0057); у боссов линия сохраняется. Первый dash через
 2.5 s после spawn (было 4.5, DECISION-0055); дистанция рывка 1.55×3.2×0.55=2.728. Contact и dash используют один
 contact timer: переход фазы не даёт дополнительного instant hit.
 
@@ -271,7 +272,7 @@ height 10 (20 высот на сторону), wall thickness 1, старт (0,0
 runtime генератор. Вокруг старта свободная область; стены/объекты блокируют только
 игрока. Враги и pickups не получают новых collision exceptions.
 
-Ordinary spawn radius 12, uniform angle по отдельному RNG. Геометрия размещения
+Ordinary spawn radius 12, uniform angle по отдельному RNG. Первые 20 s (`field.openingSpawn`) ordinary враги появляются по тому же углу сразу за краем видимой камеры — прямоугольник обзора плюс 1 unit — чтобы первые враги были видны почти сразу ([DECISION-0057](../decisions/0057-playtest-2026-09-25-fixes.md)). Геометрия размещения
 не смешивает random stream выбора типа врага. На границах используется текущий
 field placement contract; нельзя спавнить внутри player collider. Collision rect
 должен быть визуально читаемым на approved art, это проверка F1-08/09.

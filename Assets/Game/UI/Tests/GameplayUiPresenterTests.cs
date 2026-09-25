@@ -346,6 +346,37 @@ namespace Game.UI.Tests
             StringAssert.Contains("○ Missing passive not owned / required Lv.1", progress.Components);
         }
 
+        [Test]
+        public void SetProgress_CarriesTheSetIconBeforeAcquisition()
+        {
+            var texture = new UnityEngine.Texture2D(2, 2);
+            var sprite = UnityEngine.Sprite.Create(texture, new UnityEngine.Rect(0, 0, 2, 2), UnityEngine.Vector2.zero);
+            try
+            {
+                var icon = new SpriteDefinition("FIXTURE-SET-ICON", sprite, SpriteRole.Icon);
+                var active = new BuildEntryDefinition("FIXTURE-A", BuildEntryKind.ActiveSkill, "Active");
+                var set = new SetDefinition("FIXTURE-SET", "Set", "", Array.Empty<SetEffectDefinition>(),
+                    new ContentRef<SpriteDefinition>("FIXTURE-SET-ICON"), new SetRecipeComponent(active.Id, active.Kind, 1),
+                    new SetRecipeComponent("FIXTURE-P1", BuildEntryKind.PassiveItem, 1),
+                    new SetRecipeComponent("FIXTURE-P2", BuildEntryKind.PassiveItem, 1));
+                var model = CreateModel();
+                model.SetDefinitions = new[] { set };
+                model.BuildEntries = new List<BuildEntry>(new PlayerBuild(active).Entries);
+                var view = new FakeView();
+                using var presenter = new GameplayUiPresenter(model, view, ContentRegistry.BuildFrom(new IContentDefinition[] { icon }));
+                presenter.Start();
+
+                var progress = view.Build.SetRecipeProgress[0];
+                Assert.IsFalse(progress.IsAcquired);
+                Assert.AreSame(sprite, progress.Icon, "Playtest 2026-09-25_5233a664 OBS-03: pause set card shows its icon.");
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(sprite);
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");

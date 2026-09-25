@@ -13,6 +13,8 @@ namespace Game.Enemy
         public float SpawnRadius { get; }
         public IReadOnlyList<WavePhaseDefinition> Phases { get; }
         public IReadOnlyList<WaveHookDefinition> Hooks { get; }
+        /// <summary>Optional opening screen-edge spawn window; null keeps the spawn radius from the start.</summary>
+        public WaveOpeningSpawnDefinition OpeningSpawn { get; }
         public float TotalDurationSeconds { get; }
 
         public WaveTimelineDefinition(
@@ -20,7 +22,8 @@ namespace Game.Enemy
             int seed,
             float spawnRadius,
             IReadOnlyList<WavePhaseDefinition> phases,
-            IReadOnlyList<WaveHookDefinition> hooks = null)
+            IReadOnlyList<WaveHookDefinition> hooks = null,
+            WaveOpeningSpawnDefinition openingSpawn = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Wave timeline requires a valid id.", nameof(id));
@@ -68,6 +71,7 @@ namespace Game.Enemy
             SpawnRadius = spawnRadius;
             Phases = phaseCopy;
             Hooks = hookCopy;
+            OpeningSpawn = openingSpawn;
             TotalDurationSeconds = total;
         }
 

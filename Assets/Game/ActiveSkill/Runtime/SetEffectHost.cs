@@ -21,7 +21,8 @@ namespace Game.ActiveSkill
         private readonly Dictionary<ContentId, ActiveSkillProgressionDefinition> _catalog = new Dictionary<ContentId, ActiveSkillProgressionDefinition>();
         private readonly Dictionary<string, (ContentId skill, CharacterStatModifier modifier)> _modifiers = new Dictionary<string, (ContentId, CharacterStatModifier)>();
         private readonly Dictionary<string, (ActiveSkillInstance instance, SceneActiveSkillEffectExecutor executor)> _attacks = new Dictionary<string, (ActiveSkillInstance, SceneActiveSkillEffectExecutor)>();
-        private readonly IActiveSkillTargetProvider _targets = new SceneEnemyTargetProvider();
+        private readonly IActiveSkillTargetProvider _targets;
+        private readonly ITargetViewport _viewport;
         private readonly Dictionary<string, (ContentId? skill, SlowedTargetBonus bonus)> _slowedBonuses = new Dictionary<string, (ContentId?, SlowedTargetBonus)>();
         private readonly Dictionary<string, OrbitSlowAura> _auras = new Dictionary<string, OrbitSlowAura>();
         private readonly List<Collider2D> _auraColliders = new List<Collider2D>();
@@ -45,9 +46,11 @@ namespace Game.ActiveSkill
         public event Action<int> LevelEarned;
         public SetEffectHost(PlayerCharacterRuntime player, RunController run, PlayerActiveSkillSetRuntime skills,
             ExperienceProgression experience, IEnumerable<ActiveSkillProgressionDefinition> catalog,
-            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffects = null)
+            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffects = null, ITargetViewport viewport = null)
         {
             _player = player; _run = run; _skills = skills; _experience = experience; _worldEffects = worldEffects;
+            _viewport = viewport;
+            _targets = new SceneEnemyTargetProvider(viewport: viewport);
             foreach (var definition in catalog) _catalog.Add(definition.Id, definition);
             _skills.SetSkillModifier = GetSkillModifier;
             _skills.SetSlowedTargetBonus = GetSlowedTargetBonus;
@@ -134,7 +137,7 @@ namespace Game.ActiveSkill
             if (!_attacks.TryGetValue(key, out var attack))
             {
                 if (!_catalog.TryGetValue(template, out var definition)) throw new InvalidOperationException("Missing set attack template " + template);
-                attack = (new ActiveSkillInstance(definition), new SceneActiveSkillEffectExecutor(_run, worldEffectProfiles: _worldEffects));
+                attack = (new ActiveSkillInstance(definition), new SceneActiveSkillEffectExecutor(_run, worldEffectProfiles: _worldEffects, viewport: _viewport));
                 _attacks.Add(key, attack);
             }
             var mover = _player.GetComponent<PlayerMover>();

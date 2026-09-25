@@ -13,11 +13,21 @@ namespace Game.ActiveSkill
     public static class EnemyDamageArea
     {
         /// <summary>Damages each live receiver overlapping one circle once; knockback points away from the center.</summary>
+        /// <summary>Is <paramref name="offset"/> inside an ellipse of half-width <paramref name="radius"/>
+        /// and half-height radius × <paramref name="verticalScale"/>? Boundary counts as inside.</summary>
+        public static bool InsideEllipse(Vector2 offset, float radius, float verticalScale)
+        {
+            var x = offset.x / radius;
+            var y = offset.y / (radius * verticalScale);
+            return x * x + y * y <= 1f + 1e-4f;
+        }
+
         public static int Apply(
             Vector2 center,
             float radius,
             EnemyDamageRequest damage,
-            IEnemyDamageReceiver directTarget = null)
+            IEnemyDamageReceiver directTarget = null,
+            float verticalScale = 1f)
         {
             using var guard = PerfGuard.Measure("EnemyDamageArea.Apply", 2f);
             // Each invocation rents its own buffers, including nested calls from lethal callbacks.
@@ -31,6 +41,8 @@ namespace Game.ActiveSkill
                 for (var i = 0; i < colliders.Count; i++)
                 {
                     if (colliders[i] == null) continue;
+                    // Flattened ground area (DECISION-0058): the body's nearest point must lie in the ellipse.
+                    if (verticalScale < 1f && !InsideEllipse(colliders[i].ClosestPoint(center) - center, radius, verticalScale)) continue;
                     var receiver = colliders[i].GetComponentInParent<IEnemyDamageReceiver>();
                     var radial = receiver != null ? receiver.Position - center : Vector2.zero;
                     ApplyOnce(receiver, damage.WithDirection(radial.x, radial.y), damaged);

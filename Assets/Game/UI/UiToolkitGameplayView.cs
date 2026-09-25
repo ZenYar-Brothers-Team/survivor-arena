@@ -391,7 +391,8 @@ namespace Game.UI
                 var status = recipe.IsEligible ? "Recipe fulfilled · not acquired" :
                     $"Levels met {recipe.FulfilledComponents}/{recipe.RequiredComponents}";
                 _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
-                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail)));
+                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail,
+                    icon: recipe.Icon)));
             }
         }
 

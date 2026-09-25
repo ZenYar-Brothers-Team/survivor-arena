@@ -32,7 +32,7 @@ namespace Game.Presentation
                 if (entry == null) throw new InvalidOperationException("Skill world effects cannot contain null.");
                 var profile = new SkillWorldEffectProfile(new ContentId(entry.SkillId), entry.Kind,
                     ToColor(entry.Color, entry.SkillId), ToColor(entry.ImpactColor, entry.SkillId), entry.Thickness, entry.FadeSeconds,
-                    entry.PillarWidth, entry.PillarHeight);
+                    entry.PillarWidth, entry.PillarHeight, entry.PillarLeadSeconds);
                 if (!result.TryAdd(profile.SkillId, profile))
                     throw new InvalidOperationException($"Duplicate skill world effect '{entry.SkillId}'.");
             }

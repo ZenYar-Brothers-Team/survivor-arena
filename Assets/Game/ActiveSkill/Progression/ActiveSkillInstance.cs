@@ -27,6 +27,7 @@ namespace Game.ActiveSkill
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             var targeting = definition.GetLevel(1).Targeting;
             _lastDirection = targeting.InitialDirection;
+            LastAimDirection = targeting.InitialDirection;
             if (targeting.RandomSeed.HasValue) _random = new System.Random(targeting.RandomSeed.Value);
         }
 
@@ -69,6 +70,7 @@ namespace Game.ActiveSkill
             var levelDefinition = Definition.GetLevel(Level);
             var origin = (Vector2)owner.transform.position;
             IEnemyDamageReceiver target = null;
+            Vector2? fallbackPoint = null;
             var targeting = levelDefinition.Targeting;
             if (targeting.Mode == ActiveSkillTargetingMode.RandomEnemy)
             {
@@ -78,24 +80,36 @@ namespace Game.ActiveSkill
                 setProvider.CopyAliveTo(_targets);
                 var radius = targeting.Radius * rangeMultiplier;
                 var eligible = 0;
-                // Reservoir sampling: uniform over all valid world targets, no viewport dependency.
+                // Reservoir sampling: uniform over valid targets; the provider keeps only on-screen ones (DECISION-0058).
                 foreach (var candidate in _targets)
                 {
                     if (!new EnemyTargetLife(candidate).IsAlive || (candidate.Position - origin).sqrMagnitude > radius * radius) continue;
                     if (_random.Next(++eligible) == 0) target = candidate;
                 }
-                if (target == null) return false;
+                // No valid enemy on screen: strike a random on-screen point in range instead of waiting.
+                if (target == null)
+                {
+                    if (!(targetProvider is IActiveSkillAimArea area) || !area.TryPickPoint(origin, radius, _random, out var point))
+                        return false;
+                    fallbackPoint = point;
+                }
             }
             else if (targeting.Mode == ActiveSkillTargetingMode.NearestEnemy)
             {
-                if (!targetProvider.TryGetTarget(origin, out target) || !new EnemyTargetLife(target).IsAlive) return false;
                 var radius = targeting.Radius * rangeMultiplier;
-                if (radius > 0f && (target.Position - origin).sqrMagnitude > radius * radius) return false;
+                if (!targetProvider.TryGetTarget(origin, out target) || !new EnemyTargetLife(target).IsAlive ||
+                    (radius > 0f && (target.Position - origin).sqrMagnitude > radius * radius))
+                    target = null;
+                // DECISION-0058: without a valid on-screen enemy the attack keeps its previous direction.
+                if (target == null && !(targetProvider is IActiveSkillAimArea { IsScreenLimited: true })) return false;
             }
             var direction = targeting.Mode == ActiveSkillTargetingMode.MovementDirection
-                ? _lastDirection : target != null ? target.Position - origin : Vector2.right;
+                ? _lastDirection
+                : target != null ? target.Position - origin
+                : fallbackPoint.HasValue ? fallbackPoint.Value - origin
+                : targeting.Mode == ActiveSkillTargetingMode.NearestEnemy ? LastAimDirection : Vector2.right;
             LastAimDirection = direction.sqrMagnitude > Mathf.Epsilon ? direction.normalized : _lastDirection;
-            LastAimPoint = target != null ? target.Position : origin;
+            LastAimPoint = target != null ? target.Position : fallbackPoint ?? origin;
             executor.Schedule(new ActiveSkillActivation(
                 Definition.Id,
                 Level,
@@ -107,7 +121,7 @@ namespace Game.ActiveSkill
                 owner.transform,
                 owner.Identity,
                 knockbackMultiplier, sizeMultiplier, rangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees, sourceOverride,
-                slowedTargetBonus, slowedTargetBonus.DamageFactor(damageMultiplier)));
+                slowedTargetBonus, slowedTargetBonus.DamageFactor(damageMultiplier), fallbackPoint));
             if (!forceActivation) _cooldown.Consume(levelDefinition.CooldownSeconds,
                 owner.Stats.BaseStats.ActiveSkillCooldownMultiplier / (1f + owner.Stats.ActionSpeedBonus + targeting.ActionSpeedBonus + skillModifier.ActionSpeedBonus));
             TriggerCount++;

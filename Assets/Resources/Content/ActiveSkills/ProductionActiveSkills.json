@@ -1392,7 +1392,8 @@
               {
                 "kind": "Strike",
                 "radius": 1.6,
-                "telegraphSeconds": 0.6
+                "telegraphSeconds": 0.6,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1419,7 +1420,8 @@
               {
                 "kind": "Strike",
                 "radius": 2,
-                "telegraphSeconds": 0.6
+                "telegraphSeconds": 0.6,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1446,7 +1448,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.6
+                "telegraphSeconds": 0.6,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1473,7 +1476,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.6
+                "telegraphSeconds": 0.6,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1489,7 +1493,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.6
+                "telegraphSeconds": 0.6,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1516,7 +1521,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.45
+                "telegraphSeconds": 0.45,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1532,7 +1538,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.45
+                "telegraphSeconds": 0.45,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1559,7 +1566,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.45
+                "telegraphSeconds": 0.45,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1575,7 +1583,8 @@
               {
                 "kind": "Strike",
                 "radius": 2.24,
-                "telegraphSeconds": 0.45
+                "telegraphSeconds": 0.45,
+                "verticalScale": 0.7
               }
             ],
             "controls": {
@@ -1591,7 +1600,8 @@
               {
                 "kind": "Strike",
                 "radius": 3.36,
-                "telegraphSeconds": 0.45
+                "telegraphSeconds": 0.45,
+                "verticalScale": 0.7
               }
             ],
             "controls": {

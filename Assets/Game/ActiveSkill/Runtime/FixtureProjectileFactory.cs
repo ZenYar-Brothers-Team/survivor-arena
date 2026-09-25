@@ -8,14 +8,15 @@ namespace Game.ActiveSkill
     public static class FixtureProjectileFactory
     {
         public static FixtureProjectileRuntime Spawn(ActiveSkillProjectile projectile, RunController runController,
-            Transform parent = null, GameObjectPool<FixtureProjectileRuntime> pool = null)
+            Transform parent = null, GameObjectPool<FixtureProjectileRuntime> pool = null,
+            Game.Enemy.ICombatTargetQuery retargetQuery = null)
         {
             if (runController == null) throw new ArgumentNullException(nameof(runController));
             var runtime = pool != null ? pool.Rent() : Create();
             try
             {
                 runtime.transform.SetParent(parent, worldPositionStays: true);
-                runtime.Initialize(projectile, runController, pool);
+                runtime.Initialize(projectile, runController, pool, retargetQuery);
                 return runtime;
             }
             catch

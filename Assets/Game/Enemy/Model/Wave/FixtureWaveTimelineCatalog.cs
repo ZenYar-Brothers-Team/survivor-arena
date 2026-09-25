@@ -29,8 +29,13 @@ namespace Game.Enemy
             for (var i = 0; i < hooks.Length; i++)
                 hooks[i] = new WaveHookDefinition(data.Hooks[i].Kind, data.Hooks[i].TimeSeconds);
 
+            var opening = data.OpeningSpawn == null ? null : new WaveOpeningSpawnDefinition(
+                data.OpeningSpawn.DurationSeconds ?? throw new InvalidOperationException("Opening spawn requires durationSeconds."),
+                data.OpeningSpawn.ScreenMargin ?? throw new InvalidOperationException("Opening spawn requires screenMargin."));
+
             return new WaveTimelineDefinition(data.Id,
-                data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius, phases, hooks);
+                data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius, phases, hooks,
+                opening);
         }
 
         private static WavePhaseDefinition ToPhase(WavePhaseData data)

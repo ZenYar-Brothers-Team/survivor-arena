@@ -110,7 +110,7 @@ namespace Game.ActiveSkill
                 ChainEffectData c => new ChainEffect(
                     c.TargetCount, c.JumpRange, c.DamageRetentionPerJump, c.DamageMultiplier),
                 AreaEffectData a => new AreaEffect(a.Radius, a.DamageMultiplier, a.ExpansionSeconds),
-                StrikeEffectData st => new StrikeEffect(st.Radius, st.TelegraphSeconds, st.DamageMultiplier),
+                StrikeEffectData st => new StrikeEffect(st.Radius, st.TelegraphSeconds, st.DamageMultiplier, st.VerticalScale ?? 1f),
                 MineEffectData m => new MineEffect(
                     m.TriggerRadius, m.BlastRadius, m.LifetimeSeconds, m.MaxConcurrent,
                     m.SecondaryDelaySeconds, m.SecondaryDamageMultiplier, m.DamageMultiplier,

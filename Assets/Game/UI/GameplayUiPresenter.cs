@@ -148,7 +148,8 @@ namespace Game.UI
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
                     isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition),
-                    CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null))));
+                    CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null)),
+                    ResolveIcon(definition)));
             }
 
             return new BuildViewState(active, passive, sets, progress);

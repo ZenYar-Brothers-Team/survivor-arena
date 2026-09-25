@@ -31,6 +31,7 @@ namespace Game.Enemy
         private EnemyDeathPresentationProfile _deathPresentation;
         private GroundShadowPresentationProfile _groundShadowPresentation;
         private ContentRegistry _contentRegistry;
+        private Camera _viewCamera;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private bool _initialized;
@@ -77,7 +78,8 @@ namespace Game.Enemy
             IReadOnlyDictionary<ContentId, SpriteContactProfile> contacts = null,
             EnemyDeathPresentationProfile deathPresentation = null,
             GroundShadowPresentationProfile groundShadowPresentation = null,
-            ContentRegistry contentRegistry = null)
+            ContentRegistry contentRegistry = null,
+            Camera viewCamera = null)
         {
             if (_initialized)
                 throw new System.InvalidOperationException("Enemy spawner is already initialized.");
@@ -93,6 +95,7 @@ namespace Game.Enemy
             _deathPresentation = deathPresentation;
             _groundShadowPresentation = groundShadowPresentation;
             _contentRegistry = contentRegistry;
+            _viewCamera = viewCamera;
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectilePool ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _outcomeOwner = runController != null ? runController.Model : null;
@@ -144,7 +147,7 @@ namespace Game.Enemy
             var visual = _visuals != null && _visuals.TryGetValue(definition.Id, out var sprite) ? sprite : null;
             var motion = _motions != null && _motions.TryGetValue(definition.Id, out var profile) ? profile : null;
             var contact = _contacts != null && _contacts.TryGetValue(definition.Id, out var fitted) ? fitted : null;
-            var spawnPosition = (Vector2)target.position + direction * _director.Timeline.SpawnRadius;
+            var spawnPosition = (Vector2)target.position + SpawnOffset(angle, direction);
             var enemy = EnemyFactory.Spawn(
                 definition,
                 spawnPosition,
@@ -164,6 +167,20 @@ namespace Game.Enemy
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
             return true;
+        }
+
+        // DECISION-0057: during the opening window enemies start just outside the camera view
+        // (the camera follows the target); otherwise, or without an orthographic camera, on the radius.
+        private Vector2 SpawnOffset(double angle, Vector2 direction)
+        {
+            var opening = _director.Timeline.OpeningSpawn;
+            if (!_director.IsOpeningSpawnActive || _viewCamera == null || !_viewCamera.orthographic)
+                return direction * _director.Timeline.SpawnRadius;
+
+            var halfHeight = _viewCamera.orthographicSize;
+            WaveScreenEdgePlacement.Offset(angle, halfHeight * _viewCamera.aspect, halfHeight, opening.ScreenMargin,
+                out var x, out var y);
+            return new Vector2(x, y);
         }
 
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
@@ -210,6 +227,7 @@ namespace Game.Enemy
             _contacts = null;
             _deathPresentation = null;
             _contentRegistry = null;
+            _viewCamera = null;
             _outcomeOwner?.UnregisterOutcomeContributor(this);
             _outcomeOwner = null;
             _lifecycleSink = null;

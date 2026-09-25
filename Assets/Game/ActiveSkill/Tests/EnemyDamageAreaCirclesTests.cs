@@ -54,6 +54,24 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void Apply_FlattenedArea_SparesBodiesAboveTheEllipse_ButKeepsTheFullWidth()
+        {
+            // DECISION-0058: radius 1.6 × 0.7 -> half-height 1.12; enemy colliders have radius 0.5.
+            using var context = new SkillFrameworkTestContext();
+            var above = context.Enemy(new Vector2(0f, 1.9f));   // body edge at 1.4: inside the circle, outside the ellipse
+            var near = context.Enemy(new Vector2(0f, 1.5f));    // body edge at 1.0: inside both
+            var side = context.Enemy(new Vector2(2f, 0f));      // body edge at 1.5: full horizontal reach
+            Physics2D.SyncTransforms();
+
+            var hits = EnemyDamageArea.Apply(Vector2.zero, 1.6f, new EnemyDamageRequest("FIXTURE-STRIKE", 10f), verticalScale: 0.7f);
+
+            Assert.AreEqual(2, hits);
+            Assert.AreEqual(100f, above.Health.CurrentHealth, 1e-4f);
+            Assert.AreEqual(90f, near.Health.CurrentHealth, 1e-4f);
+            Assert.AreEqual(90f, side.Health.CurrentHealth, 1e-4f);
+        }
+
+        [Test]
         public void ApplyCircles_ZeroRadiusOrNoCircles_DealsNoDamage()
         {
             using var context = new SkillFrameworkTestContext();

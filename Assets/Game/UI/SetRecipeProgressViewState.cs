@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Game.UI
 {
     public readonly struct SetRecipeProgressViewState
@@ -13,13 +15,16 @@ namespace Game.UI
         public int OwnedComponents { get; }
         /// <summary>One visible line per component, owned ones marked; level requirement shown alongside.</summary>
         public string Components { get; }
+        /// <summary>Approved set icon, also before acquisition (playtest 2026-09-25_5233a664 OBS-03).</summary>
+        public Sprite Icon { get; }
 
         public SetRecipeProgressViewState(
             string title,
             int fulfilledComponents,
             int requiredComponents,
             bool isEligible,
-            bool isAcquired, string detail = "", bool? hasProgress = null, int? ownedComponents = null, string components = "")
+            bool isAcquired, string detail = "", bool? hasProgress = null, int? ownedComponents = null, string components = "",
+            Sprite icon = null)
         {
             Detail = detail ?? string.Empty;
             Title = title ?? string.Empty;
@@ -31,6 +36,7 @@ namespace Game.UI
             HasProgress = hasProgress ?? fulfilledComponents > 0;
             OwnedComponents = ownedComponents ?? fulfilledComponents;
             Components = components ?? string.Empty;
+            Icon = icon;
         }
     }
 }

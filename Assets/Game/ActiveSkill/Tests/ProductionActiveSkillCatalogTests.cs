@@ -114,6 +114,8 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(0.45f, ((StrikeEffect)l6.Waves[0].Effects[0]).TelegraphSeconds, 1e-5f);
             Assert.AreEqual(2.24f * 1.5f, ((StrikeEffect)l6.Waves[2].Effects[0]).Radius, 1e-4f);
             Assert.AreEqual(0.54f * 1.5f, l6.Waves[2].Controls.KnockbackDistance, 1e-4f);
+            Assert.IsTrue(Enumerable.Range(1, 6).SelectMany(level => Skill("SKILL-010").GetLevel(level).Waves)
+                .All(wave => ((StrikeEffect)wave.Effects[0]).VerticalScale == 0.7f), "DECISION-0058: flattened ground area.");
         }
 
         [Test]

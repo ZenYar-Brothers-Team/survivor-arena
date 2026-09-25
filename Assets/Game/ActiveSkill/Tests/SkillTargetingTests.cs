@@ -25,7 +25,7 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
-        public void RandomWorldTargets_AreSeededUniformWithinRadiusAndIndependentOfViewport()
+        public void RandomWorldTargets_WithoutScreenLimit_AreSeededUniformWithinRadius()
         {
             using var context = new SkillFrameworkTestContext();
             var definition = FixtureActiveSkillCatalog.Create().Single(s => s.Id.ToString() == "FIXTURE-SKILL-WORLD-TARGET");

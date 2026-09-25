@@ -57,11 +57,23 @@ namespace Game.ActiveSkill
         }
 
         /// <summary>Held filled telegraph disc for a pending strike; released with <see cref="Release"/>.</summary>
-        public object BeginTelegraph(SkillWorldEffectProfile profile, Vector2 center, float radius)
+        public object BeginTelegraph(SkillWorldEffectProfile profile, Vector2 center, float radius, float verticalScale = 1f)
         {
             var shape = Rent(ProceduralShapeSprites.Disc, profile.Color, center, 0f, 0f, true);
-            shape.Renderer.transform.localScale = Vector3.one * radius * 2f;
+            SetGroundDisc(shape, radius, verticalScale);
             return shape;
+        }
+
+        /// <summary>Held light pillar that starts before the strike lands; <see cref="Flash"/> releases it.</summary>
+        public object BeginPillar(SkillWorldEffectProfile profile, Vector2 center)
+        {
+            if (!profile.HasPillar) return null;
+            // Light falling from above onto the strike point (OBS-03, playtest 2026-09-24_e1e04fc4).
+            var pillar = Rent(ProceduralShapeSprites.Pillar, profile.ImpactColor, center, 0f, 0f, true);
+            pillar.Renderer.sortingOrder = SortingOrder + 1;
+            var size = ProceduralShapeSprites.Pillar.bounds.size;
+            pillar.Renderer.transform.localScale = new Vector3(profile.PillarWidth / size.x, profile.PillarHeight / size.y, 1f);
+            return pillar;
         }
 
         /// <summary>Stops holding a shape; it fades over <paramref name="fadeSeconds"/> and returns to the pool.</summary>
@@ -72,17 +84,17 @@ namespace Game.ActiveSkill
             shape.Remaining = shape.Fade = Mathf.Max(fadeSeconds, 0.0001f);
         }
 
-        public void Flash(SkillWorldEffectProfile profile, Vector2 center, float radius)
+        /// <summary>Impact flash; a pillar begun earlier fades with it, otherwise one starts now.</summary>
+        public void Flash(SkillWorldEffectProfile profile, Vector2 center, float radius, float verticalScale = 1f, object pillar = null)
         {
             var shape = Rent(ProceduralShapeSprites.Disc, profile.ImpactColor, center, 0f, profile.FadeSeconds, false);
-            shape.Renderer.transform.localScale = Vector3.one * radius * 2f;
-            if (!profile.HasPillar) return;
-            // Light falling from above onto the strike point (OBS-03, playtest 2026-09-24_e1e04fc4).
-            var pillar = Rent(ProceduralShapeSprites.Pillar, profile.ImpactColor, center, 0f, profile.FadeSeconds, false);
-            pillar.Renderer.sortingOrder = SortingOrder + 1;
-            var size = ProceduralShapeSprites.Pillar.bounds.size;
-            pillar.Renderer.transform.localScale = new Vector3(profile.PillarWidth / size.x, profile.PillarHeight / size.y, 1f);
+            SetGroundDisc(shape, radius, verticalScale);
+            Release(pillar ?? BeginPillar(profile, center), profile.FadeSeconds);
         }
+
+        // The drawn ellipse is the gameplay hit ellipse of the strike (DECISION-0058).
+        private static void SetGroundDisc(Shape shape, float radius, float verticalScale) =>
+            shape.Renderer.transform.localScale = new Vector3(radius * 2f, radius * 2f * verticalScale, 1f);
 
         public void Segment(SkillWorldEffectProfile profile, Vector2 from, Vector2 to)
         {

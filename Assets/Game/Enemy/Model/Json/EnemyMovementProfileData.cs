@@ -18,5 +18,7 @@ namespace Game.Enemy.Json
         /// <summary>TelegraphedDash only, optional: dashes per sequence (default 1) and follow-up telegraph.</summary>
         public int? DashCount { get; set; }
         public float? FollowUpTelegraphSeconds { get; set; }
+        /// <summary>TelegraphedDash only, optional: false hides the dash aim line (neutral: shown).</summary>
+        public bool? ShowDashTelegraphLine { get; set; }
     }
 }

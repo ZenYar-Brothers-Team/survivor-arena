@@ -27,7 +27,8 @@ namespace Game.ActiveSkill
         private GameObjectPool<FixtureProjectileRuntime> _pool;
         private readonly HashSet<EnemyTargetLife> _hitThisPass = new HashSet<EnemyTargetLife>();
         private readonly List<IEnemyDamageReceiver> _targets = new List<IEnemyDamageReceiver>();
-        private readonly ICombatTargetQuery _query = new SceneCombatTargetQuery();
+        private readonly ICombatTargetQuery _allTargets = new SceneCombatTargetQuery();
+        private ICombatTargetQuery _query;
         private Vector2 _direction;
         private float _elapsed;
         private int _remainingHits;
@@ -45,9 +46,11 @@ namespace Game.ActiveSkill
         public bool IsDespawned => _despawned;
 
         private void Awake() => CacheComponents();
-        public void Initialize(ActiveSkillProjectile projectile, RunController runController, GameObjectPool<FixtureProjectileRuntime> pool = null)
+        public void Initialize(ActiveSkillProjectile projectile, RunController runController, GameObjectPool<FixtureProjectileRuntime> pool = null,
+            ICombatTargetQuery retargetQuery = null)
         {
             Shutdown();
+            _query = retargetQuery ?? _allTargets;
             _generation++;
             _runController = runController != null ? runController : throw new ArgumentNullException(nameof(runController));
             _projectile = projectile;

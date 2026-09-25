@@ -66,8 +66,18 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0.55f, hound.Movement.DashDurationSeconds, 1e-5f);
             Assert.AreEqual(2.5f, hound.Movement.DashCooldownSeconds, 1e-5f);
             Assert.AreEqual(3.2f, hound.Movement.DashSpeedMultiplier, 1e-5f);
+            Assert.IsFalse(hound.Movement.ShowDashTelegraphLine,
+                "DECISION-0057: the hound keeps its telegraph pause without the red aim line.");
             Assert.AreEqual(0.65f, hound.DashContactControls.KnockbackDistance, 1e-5f);
             Assert.AreEqual(0.4f, hound.ContactControls.KnockbackDistance, 1e-5f);
+        }
+
+        [Test]
+        public void DashTelegraphLine_IsShownUnlessContentHidesIt()
+        {
+            var dashers = FixtureEnemyCatalog.Create().Where(e => e.Movement.Kind == EnemyMovementKind.TelegraphedDash).ToArray();
+            Assert.IsNotEmpty(dashers);
+            Assert.IsTrue(dashers.All(e => e.Movement.ShowDashTelegraphLine), "Omitted flag keeps the aim line.");
         }
 
         [Test]

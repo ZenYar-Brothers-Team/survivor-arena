@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.Content;
 using Game.Enemy;
 using Game.Presentation;
@@ -137,6 +138,32 @@ namespace Game.ActiveSkill.Tests
             _executor.Clear();
             Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount);
             Assert.AreEqual(0, _executor.ExpandingAreaCount);
+        }
+
+        [Test]
+        public void StrikePillar_AppearsBeforeTheImpact_AndGroundDiscIsFlattened()
+        {
+            var profiles = SkillWorldEffectCatalog.FromJson(
+                "[{\"skillId\":\"FIXTURE-SKILL-EXECUTOR\",\"kind\":\"StrikeTelegraph\",\"color\":[1,1,1,1],\"impactColor\":[1,1,1,1]," +
+                "\"thickness\":0.1,\"fadeSeconds\":0.3,\"pillarWidth\":0.7,\"pillarHeight\":3,\"pillarLeadSeconds\":0.15}]");
+            _executor = new SceneActiveSkillEffectExecutor(_runController, worldEffectProfiles: profiles);
+            var level = new ActiveSkillLevelDefinition(1f, 4f, ActiveSkillTargetingMode.Self,
+                new ActiveSkillActivationWave(0f, 0f, 1f, new StrikeEffect(0.5f, 0.6f, verticalScale: 0.7f)));
+            _executor.Schedule(Activation(level, null, 1f));
+            _executor.Tick(0f, true);
+            Assert.AreEqual(1, _executor.ActiveWorldEffectShapeCount, "Only the telegraph disc at first.");
+            var disc = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                .Single(renderer => renderer.enabled && renderer.name == "SkillWorldEffect");
+            Assert.AreEqual(0.7f, disc.transform.localScale.y / disc.transform.localScale.x, 1e-4f,
+                "DECISION-0058: the ground disc is seen at the 3/4 camera angle.");
+
+            _executor.Tick(0.4f, true); // 0.2 s left: pillar not yet
+            Assert.AreEqual(1, _executor.ActiveWorldEffectShapeCount);
+            _executor.Tick(0.1f, true); // 0.1 s left: inside the 0.15 s lead
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "DECISION-0058: pillar lands before the flash.");
+            _executor.Tick(0.1f, true); // impact: pillar reused, not duplicated
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "Flash and the same pillar; the telegraph is gone.");
+            _executor.Clear();
         }
 
         private static ActiveSkillLevelDefinition Level(OrbitEffect orbit, float refresh) =>

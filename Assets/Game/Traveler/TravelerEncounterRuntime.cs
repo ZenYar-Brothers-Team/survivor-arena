@@ -31,8 +31,12 @@ namespace Game.Traveler
         private System.Random _random;
         private Game.Presentation.EnemyDeathPresentationProfile _deathPresentation;
         private Game.Presentation.GroundShadowPresentationProfile _groundShadowPresentation;
+        private ContentRegistry _contentRegistry;
         private int _next, _sequence, _devIndex;
         public bool IsInitialized => _model != null;
+        /// <summary>Seed actually driving the schedule draw and placement: a per-run seed from the
+        /// composition root (DECISION-0057) or the schedule reference seed.</summary>
+        public int Seed { get; private set; }
         public IReadOnlyList<TravelerScheduleEntry> Schedule { get; private set; } = Array.Empty<TravelerScheduleEntry>();
         public IReadOnlyList<TravelerSnapshot> Snapshot => _lives.Where(life => life.Actor != null && life.Actor.IsAlive).Select(life => new TravelerSnapshot(life, _model.RunId)).ToList().AsReadOnly();
         public string DevelopmentObservation => string.Join("\n", _lives.Select(life => $"{life.Definition.Id} · {life.Definition.Role} · {life.Actor.MovementPhase}/{life.Actor.AttackPhase} · spawn {life.SpawnTime:0.0}s / until {life.Deadline:0.0}s · ×{life.Scale:0.00}"));
@@ -41,18 +45,22 @@ namespace Game.Traveler
         public void Initialize(TravelerScheduleDefinition schedule, FixtureTravelerCatalog catalog, RunController run,
             Transform player, Camera camera, TravelerPlacement placement, WorldPickupRuntime pickups, PickupDefinition book,
             IEnemyLifecycleSink xp, Game.Presentation.EnemyDeathPresentationProfile deathPresentation = null,
-            Game.Presentation.GroundShadowPresentationProfile groundShadowPresentation = null)
+            Game.Presentation.GroundShadowPresentationProfile groundShadowPresentation = null,
+            Game.Content.ContentRegistry contentRegistry = null, int? seed = null)
         {
             if (schedule == null || catalog == null || run?.Model == null || player == null || camera == null || !camera.orthographic || placement == null || pickups == null || book?.Kind != PickupRewardKind.Book)
                 throw new ArgumentException("Traveler dependencies required.");
             foreach (var id in schedule.TravelerIds) if (!catalog.Definitions.ContainsKey(id)) throw new ArgumentException("Missing Traveler definition.");
-            var planned = schedule.Draw(run.Model.Duration, new System.Random(schedule.Seed));
+            var resolvedSeed = seed ?? schedule.Seed;
+            var planned = schedule.Draw(run.Model.Duration, new System.Random(resolvedSeed));
             Shutdown();
+            Seed = resolvedSeed;
             _schedule = schedule; _definitions = catalog.Definitions; _run = run; _model = run.Model;
             _player = player; _camera = camera; _placement = placement; _pickups = pickups; _book = book; _xp = xp;
             _deathPresentation = deathPresentation;
             _groundShadowPresentation = groundShadowPresentation;
-            Schedule = planned; _random = new System.Random(unchecked(schedule.Seed ^ 0x54726176));
+            _contentRegistry = contentRegistry;
+            Schedule = planned; _random = new System.Random(unchecked(resolvedSeed ^ 0x54726176));
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectiles ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
             _model.StateChanged += HandleState;
@@ -85,11 +93,15 @@ namespace Game.Traveler
             var definition = _definitions[id];
             if (!_placement.TrySpawn(_player.position, _camera.orthographicSize * 2 * _schedule.SpawnScreenHeights,
                 _schedule.PlacementAttempts, _random, out var position)) throw new InvalidOperationException("Traveler spawn circle has no sampled reachable point; field geometry/config invalid.");
+            // Art comes from the unscaled body: Scale() rebuilds stats only (DECISION-0057).
+            var body = EnemyBodyVisual.Resolve(definition.Body, _contentRegistry);
             var actor = EnemyFactory.Spawn(definition.Scale(scale), position, _player, _run, transform,
-                pool: _pool, projectilePool: _projectiles, category: EnemyCategory.Traveler,
-                deathPresentation: _deathPresentation, groundShadowPresentation: _groundShadowPresentation);
+                visual: body.Sprite, pool: _pool, projectilePool: _projectiles, category: EnemyCategory.Traveler,
+                motionProfile: body.Motion, contact: body.Contact, deathPresentation: _deathPresentation,
+                groundShadowPresentation: _groundShadowPresentation, contentRegistry: _contentRegistry);
             var life = new TravelerLife(actor, definition, spawnTime, scale, _sequence++);
-            actor.GetComponent<SpriteRenderer>().color = definition.Color;
+            // The role color only tints placeholder squares; approved art keeps its own colors.
+            if (body.Sprite == null) actor.GetComponent<SpriteRenderer>().color = definition.Color;
             _lives.Add(life);
             actor.ConfigureEncounter(definition.Role == TravelerRole.Offensive ? null :
                 new TravelerMovementDriver(definition, _placement, _model.RunId, _random.Next()), () => DamageAllowed(life));
@@ -175,6 +187,7 @@ namespace Game.Traveler
             foreach (var projectile in GetComponentsInChildren<EnemyProjectileRuntime>()) projectile.Shutdown();
             _model = null; _run = null; _player = null; _pickups = null; _book = null; _xp = null; _schedule = null; _definitions = null;
             _deathPresentation = null;
+            _contentRegistry = null;
             Schedule = Array.Empty<TravelerScheduleEntry>(); _next = _sequence = _devIndex = 0;
         }
         private void OnDestroy() => Shutdown();

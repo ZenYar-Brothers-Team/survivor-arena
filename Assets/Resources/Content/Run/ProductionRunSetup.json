@@ -71,6 +71,6 @@
       91,
       92
     ],
-    "baseDropLifetimeSeconds": 60
+    "baseDropLifetimeSeconds": 45
   }
 }

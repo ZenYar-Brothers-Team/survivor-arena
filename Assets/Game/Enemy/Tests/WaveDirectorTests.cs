@@ -155,6 +155,26 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void RunSeed_ReplacesTheReferenceSeed_ForCompositionAndAngles()
+        {
+            var timeline = WaveTestData.ThreePhaseTimeline(seed: 7);
+            var reference = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration);
+            var sameRun = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration, seed: 7);
+            var otherRun = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration, seed: 8);
+
+            Assert.AreEqual(7, reference.Seed);
+            Assert.AreEqual(8, otherRun.Seed, "DECISION-0057: each run may use its own wave seed.");
+            var differs = false;
+            for (var i = 0; i < 16; i++)
+            {
+                var angle = reference.SelectSpawnAngle();
+                Assert.AreEqual(angle, sameRun.SelectSpawnAngle());
+                differs |= angle != otherRun.SelectSpawnAngle();
+            }
+            Assert.IsTrue(differs);
+        }
+
+        [Test]
         public void Hooks_FireOnceInTimeOrderAndOnlyWhileRunning()
         {
             var director = CreateDirector();

@@ -23,9 +23,13 @@ namespace Game.Presentation
         /// <summary>Height of that pillar above the impact point, in world units (0 = no pillar).</summary>
         public float PillarHeight { get; }
         public bool HasPillar => PillarHeight > 0f;
+        /// <summary>Seconds before the impact at which the pillar appears, so light lands before the
+        /// flash (0 = together with it; DECISION-0058). Clamped to the strike telegraph at runtime.</summary>
+        public float PillarLeadSeconds { get; }
 
         public SkillWorldEffectProfile(ContentId skillId, SkillWorldEffectKind kind, Color color, Color impactColor,
-            float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f)
+            float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f,
+            float pillarLeadSeconds = 0f)
         {
             if (!skillId.IsValid) throw new ArgumentException("Skill world effect requires a skill id.", nameof(skillId));
             if (!Enum.IsDefined(typeof(SkillWorldEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
@@ -37,6 +41,9 @@ namespace Game.Presentation
                 throw new ArgumentException("A strike pillar needs both width and height.", nameof(pillarHeight));
             if (pillarHeight > 0f && kind != SkillWorldEffectKind.StrikeTelegraph)
                 throw new ArgumentException("Only strike effects can have a light pillar.", nameof(pillarHeight));
+            NumericValidation.ValidateNonNegativeFinite(pillarLeadSeconds, nameof(pillarLeadSeconds));
+            if (pillarLeadSeconds > 0f && pillarHeight <= 0f)
+                throw new ArgumentException("Pillar lead requires a pillar.", nameof(pillarLeadSeconds));
             ValidateColor(color, nameof(color));
             ValidateColor(impactColor, nameof(impactColor));
             SkillId = skillId;
@@ -47,6 +54,7 @@ namespace Game.Presentation
             FadeSeconds = fadeSeconds;
             PillarWidth = pillarWidth;
             PillarHeight = pillarHeight;
+            PillarLeadSeconds = pillarLeadSeconds;
         }
 
         private static void ValidateColor(Color color, string name)
