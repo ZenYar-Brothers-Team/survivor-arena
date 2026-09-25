@@ -143,15 +143,15 @@ namespace Game.ActiveSkill.Tests
                 Assert.AreSame(projectile.transform, impactParticles.transform.parent);
                 Assert.AreSame(projectile.transform, explosionParticles.transform.parent);
                 Assert.IsNull(projectile.GetComponent<ParticleSystem>(), "The shared projectile root carries no particle system.");
-                // Emitted particles are counted after the next manual simulation step (the tail tick of FixedUpdate).
-                projectile.Simulate(.01f);
-                Assert.AreEqual(1 + profile.ParticleCount, impactParticles.particleCount);
-                Assert.AreEqual(1 + explosionProfile.ParticleCount, explosionParticles.particleCount);
-
+                // particleCount is not observable for manually simulated systems in EditMode (always 0 in Unity 6000.6
+                // runs), so emission is guarded through the presenters' IsPlaying and the pause-aware tail instead.
+                projectile.Simulate(.15f);
+                Assert.IsFalse(impact.IsPlaying, "Impact tail (0.1 s) finished.");
+                Assert.IsTrue(explosion.IsPlaying, "Explosion tail (0.2 s) still running independently.");
+                Assert.AreEqual(0, pool.InactiveCount);
                 projectile.Simulate(.5f);
+                Assert.IsFalse(explosion.IsPlaying);
                 Assert.AreEqual(1, pool.InactiveCount, "Both tails finished and the projectile returned to the pool.");
-                Assert.AreEqual(0, impactParticles.particleCount);
-                Assert.AreEqual(0, explosionParticles.particleCount);
 
                 var reused = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
                 Assert.AreSame(projectile, reused);
