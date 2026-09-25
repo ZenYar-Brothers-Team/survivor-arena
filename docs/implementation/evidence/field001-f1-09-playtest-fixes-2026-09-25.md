@@ -27,11 +27,11 @@
 | `python scripts/validate-art-manifest.py` | PASS, 103 records |
 | .NET harness compile (все asmdef) | 0 errors |
 | .NET harness NUnit | 425/745 PASS против 421/741 на `develop-evg` (`db5868d`); регрессий 0; +4 новых теста PASS |
-| Unity EditMode/PlayMode | **NOT RUN** — в облачной среде нет Unity; нужен `python scripts/check_project.py --scope full` |
+| Unity 6000.6.0f1, `python scripts/check_project.py --scope full` (пользователь, 2026-09-25, после `bb4bd39`) | **EditMode 718/718, PlayMode 27/27, 0 skipped**; manifest PASS 103; `TestResults/checks/20260925T055241-717822Z/summary.json` |
 
 Новые/изменённые тесты: `ProjectileLifecycleTests` (particle material — Unity-only),
 `ProductionEnemyCatalogTests` (залп лучника, обязательный random, рывок 2.5 s),
 `HostileProjectileReadabilityTests`, `GameplayUiPresenterTests.SetProgress_…`,
 `ProductionPassiveCatalogTests` (радиус 0.7/2.5 — Unity-only).
 
-Визуальный результат (цвет частиц, столб света, ореол, размер гончей) проверяется только в игре.
+Автопроверки не оценивают визуальный результат (цвет частиц, столб света, ореол, размер гончей) и ощущение лучника/гончей/магнита — это повторный прогон пользователя; OBS остаются «исправлено», а не «проверено», до него.
