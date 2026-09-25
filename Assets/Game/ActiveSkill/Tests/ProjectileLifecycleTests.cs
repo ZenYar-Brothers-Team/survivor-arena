@@ -5,6 +5,7 @@ using Game.Pooling;
 using Game.Presentation;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace Game.ActiveSkill.Tests
 {
@@ -85,7 +86,7 @@ namespace Game.ActiveSkill.Tests
                 Assert.IsTrue(projectile.GetComponent<ExplosionBurstRuntime>().IsPlaying);
                 // Regression (playtest 2026-09-24_e1e04fc4 OBS-02): code-created particles need a material,
                 // otherwise they render as magenta squares.
-                var particleMaterial = projectile.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+                var particleMaterial = projectile.GetComponent<ExplosionBurstRuntime>().Particles.GetComponent<ParticleSystemRenderer>().sharedMaterial;
                 Assert.IsNotNull(particleMaterial);
                 Assert.AreSame(ProceduralShapeSprites.Disc.texture, particleMaterial.mainTexture);
                 Assert.AreEqual(0, pool.InactiveCount);
@@ -95,6 +96,69 @@ namespace Game.ActiveSkill.Tests
                 context.Run.Model.Resume();
                 projectile.Simulate(.2f);
                 Assert.AreEqual(1, pool.InactiveCount);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(sprite);
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
+        // Regression: impact and explosion presenters both lived on the pooled projectile root; the explosion's
+        // AddComponent<ParticleSystem> returned null after an impact and threw inside FixedUpdate on every
+        // exploding hit (SKILL-014), dropping play below 1 FPS. Each presenter now owns a child object.
+        [Test]
+        public void ImpactThenExplosion_SamePooledProjectile_UsesSeparateParticleSystemsAcrossReuse()
+        {
+            using var context = new SkillFrameworkTestContext();
+            var root = new GameObject("Impact explosion pool");
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var enemy = context.Enemy(Vector2.right);
+                Physics2D.SyncTransforms();
+                var explosionProfile = new ExplosionPresentationProfile(.2f, 1.1f, Color.yellow,
+                    6, .1f, 1f, new Color(1f, .3f, .05f, 1f));
+                var profile = new ProjectilePresentationProfile(1f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray, explosionProfile);
+                var visual = new SpriteDefinition("FIXTURE-IMPACT-EXPLOSION-VISUAL", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var pool = new GameObjectPool<FixtureProjectileRuntime>(FixtureProjectileFactory.Create, root.transform);
+                var shot = new ActiveSkillProjectile(Vector2.zero, Vector2.right, 1f, 1f, .1f, .5f,
+                    new EnemyDamageRequest("FIXTURE-IMPACT-EXPLOSION", 1f), visual: visual,
+                    behavior: new ProjectileBehavior(explosionDamageMultiplier: 2f, explodeOnExpiry: true));
+                var projectile = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+
+                // One hit plays the impact and then the explosion on the same projectile (SKILL-014 path).
+                Assert.IsTrue(projectile.TryImpact(enemy, enemy.Position));
+                var impact = projectile.GetComponent<ProjectileImpactRuntime>();
+                var explosion = projectile.GetComponent<ExplosionBurstRuntime>();
+                Assert.IsTrue(impact.IsPlaying);
+                Assert.IsTrue(explosion.IsPlaying);
+                var impactParticles = impact.Particles;
+                var explosionParticles = explosion.Particles;
+                Assert.IsNotNull(impactParticles);
+                Assert.IsNotNull(explosionParticles);
+                Assert.AreNotSame(impactParticles.gameObject, explosionParticles.gameObject);
+                Assert.AreSame(projectile.transform, impactParticles.transform.parent);
+                Assert.AreSame(projectile.transform, explosionParticles.transform.parent);
+                Assert.IsNull(projectile.GetComponent<ParticleSystem>(), "The shared projectile root carries no particle system.");
+                Assert.AreEqual(1 + profile.ParticleCount, impactParticles.particleCount);
+                Assert.AreEqual(1 + explosionProfile.ParticleCount, explosionParticles.particleCount);
+
+                projectile.Simulate(.5f);
+                Assert.AreEqual(1, pool.InactiveCount, "Both tails finished and the projectile returned to the pool.");
+                Assert.AreEqual(0, impactParticles.particleCount);
+                Assert.AreEqual(0, explosionParticles.particleCount);
+
+                var reused = FixtureProjectileFactory.Spawn(shot, context.Run, root.transform, pool);
+                Assert.AreSame(projectile, reused);
+                Assert.IsTrue(reused.TryImpact(enemy, enemy.Position));
+                Assert.AreSame(impactParticles, impact.Particles, "Created once, reused for the next life.");
+                Assert.AreSame(explosionParticles, explosion.Particles);
+                Assert.AreEqual(2, reused.GetComponentsInChildren<ParticleSystem>(true).Length);
+                Assert.AreEqual(94f, enemy.Health.CurrentHealth, 1e-4f, "Two lives × (1 impact + 2 explosion) damage.");
+                LogAssert.NoUnexpectedReceived();
             }
             finally
             {

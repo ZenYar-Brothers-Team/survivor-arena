@@ -27,6 +27,9 @@ namespace Game.Presentation
         /// <summary>Assigns the material and draws the particles just above the owner's sprite.</summary>
         public static void Apply(ParticleSystem particles, Renderer spriteMaterialSource)
         {
+            if (particles == null)
+                throw new System.ArgumentNullException(nameof(particles),
+                    "No particle system to configure; a second AddComponent<ParticleSystem> on one GameObject returns null — give each presenter its own child object.");
             var renderer = particles.GetComponent<ParticleSystemRenderer>();
             renderer.sharedMaterial = For(spriteMaterialSource);
             renderer.renderMode = ParticleSystemRenderMode.Billboard;

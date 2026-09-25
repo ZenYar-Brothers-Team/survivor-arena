@@ -5,8 +5,18 @@ namespace Game.Presentation
     /// <summary>Reusable world-space explosion burst that owns no gameplay timing or damage.</summary>
     public sealed class ExplosionBurstRuntime : MonoBehaviour
     {
+        /// <summary>Name of the child object that owns this presenter's particle system.</summary>
+        public const string ParticlesObjectName = "ExplosionParticles";
+
         private ParticleSystem _particles;
         private float _remaining;
+
+        /// <summary>
+        /// This presenter's own particle system, created on first play on a dedicated child object and kept for
+        /// pooled reuse; null before the first play. Several presenters share one projectile root, and Unity allows
+        /// only one ParticleSystem per GameObject, so none of them may add it to the root.
+        /// </summary>
+        public ParticleSystem Particles => _particles;
 
         /// <summary>True while the manually simulated burst still has visible particles.</summary>
         public bool IsPlaying => _remaining > 0f;
@@ -49,7 +59,11 @@ namespace Game.Presentation
         private void EnsureParticles()
         {
             if (_particles != null) return;
-            _particles = gameObject.AddComponent<ParticleSystem>();
+            // Own child per presenter (DECISION-0013 isolation): impact and explosion both play on one pooled
+            // projectile root, and a second AddComponent<ParticleSystem> on that root returns null.
+            var owner = new GameObject(ParticlesObjectName);
+            owner.transform.SetParent(transform, false);
+            _particles = owner.AddComponent<ParticleSystem>();
             ParticlePresentationMaterial.Apply(_particles, GetComponent<SpriteRenderer>());
             var main = _particles.main;
             main.playOnAwake = false;
