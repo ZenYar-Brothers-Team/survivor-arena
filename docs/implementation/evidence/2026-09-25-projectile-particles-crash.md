@@ -30,7 +30,8 @@ Explode → PlayExplosion`. Путь срабатывает на каждом п
 |---|---|
 | .NET harness compile | 0 errors |
 | .NET harness NUnit | 431/754 PASS, регрессий 0 относительно `1cea1f5`; новый тест требует Unity (ParticleSystem) — не исполним в harness |
-| `smoke-check` (`check_project.py --scope full`) | **NOT RUN** — в облачной среде нет Unity |
+| `smoke-check` (`check_project.py --scope full`) | Пользователь, 2026-09-25, Unity 6000.6.0f1 batch, после `c6fe0ac`: **EditMode 727/727, PlayMode 27/27, 0 skipped**; manifest PASS 103; `TestResults/checks/20260925T170816-189288Z/summary.json` |
+| Проверка в игре (FPS при взрывах сфер) | не выполнена — ждёт плейтеста |
 | Регрессионный тест | `ProjectileLifecycleTests.ImpactThenExplosion_SamePooledProjectile_UsesSeparateParticleSystemsAcrossReuse` |
 
 Первый Unity-прогон пользователя (2026-09-25): EditMode 726/727 — упала только новая проверка
