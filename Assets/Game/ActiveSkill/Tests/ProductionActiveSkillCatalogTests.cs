@@ -127,10 +127,12 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(1f, Effect<BoomerangEffect>("SKILL-006", 1).HitCooldownSeconds, 1e-5f);
             Assert.AreEqual(8, Effect<ChainEffect>("SKILL-007", 6).TargetCount);
             Assert.AreEqual(0.95f, Effect<ChainEffect>("SKILL-007", 6).DamageRetentionPerJump, 1e-5f);
+            Assert.AreEqual(2.86f, Skill("SKILL-007").GetLevel(1).CooldownSeconds, 1e-5f, "User nerf 2026-09-26: cooldown +30%.");
             Assert.AreEqual(0f, Skill("SKILL-007").GetLevel(1).Waves[0].Controls.KnockbackDistance);
             var spheres = Effect<ProjectileBurstEffect>("SKILL-014", 6);
             Assert.AreEqual(ProjectileLayout.IndependentRandom, spheres.Layout);
-            Assert.AreEqual(41.6f / 21.6f, spheres.Behavior.ExplosionDamageMultiplier, 1e-4f);
+            Assert.AreEqual(33.8f / 21.6f, spheres.Behavior.ExplosionDamageMultiplier, 1e-4f);
+            Assert.AreEqual(26f / 18f, Effect<ProjectileBurstEffect>("SKILL-014", 1).Behavior.ExplosionDamageMultiplier, 1e-4f, "User nerf 2026-09-26: L1 explosion 26.");
             Assert.AreEqual(1.05f / 0.25f, spheres.Behavior.ExplosionKnockbackMultiplier, 1e-4f);
             Assert.IsTrue(spheres.Behavior.ExplodeOnExpiry);
             Assert.AreEqual(1, spheres.PierceCount, "L6 passes the first target and explodes on the second.");
