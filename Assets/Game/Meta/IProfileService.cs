@@ -27,5 +27,7 @@ namespace Game.Meta
         Task<bool> ApplyAsync(RunOutcome outcome, bool started);
         Task<bool> RetrySaveAsync();
         void SetRunActive(bool active);
+        /// <summary>Development-only: unlocks every catalog entry of the given kinds without spending currency.</summary>
+        Task<bool> UnlockAllForDevelopmentAsync(params string[] kinds);
     }
 }

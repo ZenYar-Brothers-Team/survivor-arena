@@ -10,7 +10,9 @@ namespace Game.UI.Tests
         public bool CanPlay => true;
         public string Notification => "";
         public string MovementBindings => "WASD";
-        public int Plays,Quits;
+        public bool DevelopmentTools {get;set;}
+        public int Plays,Quits,DevelopmentUnlocks;
+        public void UnlockAllForDevelopment(){DevelopmentUnlocks++;}
         public void Play(){Plays++;}public void MainMenu(){AtMainMenu=true;NavigationChanged?.Invoke();}
         public void Meta(){} public void QuitRun(){Quits++;}public void Exit(){}
     }

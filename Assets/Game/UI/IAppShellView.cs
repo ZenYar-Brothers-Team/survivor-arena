@@ -4,7 +4,7 @@ namespace Game.UI
 {
     public interface IAppShellView
     {
-        event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save;
+        event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll;
         event Action<float, float, float> Audio;
         event Action<bool> Shake, Preview;
         event Action<VideoMode> Video;

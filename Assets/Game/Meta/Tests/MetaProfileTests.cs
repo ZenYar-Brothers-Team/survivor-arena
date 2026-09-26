@@ -56,6 +56,15 @@ namespace Game.Meta.Tests
             Assert.IsFalse(profile.IsUnlocked("SKILL-016"));
             Assert.IsFalse(profile.IsUnlocked("CHAR-002"));Assert.IsNull(profile.PurchaseLockReason("CHAR-002"));
         }
+        [Test] public async Task DevelopmentUnlock_CharactersAndFields_FreeAndPersisted()
+        {
+            var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
+            Assert.IsTrue(await profile.UnlockAllForDevelopmentAsync("character","field"));
+            foreach(var rule in _catalog.Unlocks.Values.Where(r=>r.Kind=="character"||r.Kind=="field")) Assert.IsTrue(profile.IsUnlocked(rule.Id),rule.Id);
+            Assert.AreEqual(0,profile.Currency);Assert.IsFalse(profile.IsUnlocked("SKILL-016"),"Only the requested kinds.");
+            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.IsTrue(loaded.IsUnlocked("CHAR-008"));
+            profile.SetRunActive(true);Assert.IsFalse(await profile.UnlockAllForDevelopmentAsync("character"));
+        }
         [Test] public async Task Victory_ShortFixture_DoesNotClearField()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();

@@ -159,6 +159,20 @@ namespace Game.Bootstrap
         public void Meta() { if (!AtMainMenu || !CanPlay) return; AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation(); }
         public void QuitRun() => QuitProfileRun();
         public void Exit() => Application.Quit();
+        public bool DevelopmentTools => Application.isEditor || Debug.isDebugBuild;
+        public async void UnlockAllForDevelopment()
+        {
+            if (!DevelopmentTools || !AtMainMenu || !CanPlay) return;
+            try
+            {
+                // One summary notification instead of a queue of per-unlock announcements.
+                foreach (var rule in Profile.Catalog.Unlocks.Values)
+                    if (rule.Kind == "character" || rule.Kind == "field") _knownUnlocks.Add(rule.Id);
+                if (await Profile.UnlockAllForDevelopmentAsync("character", "field") && this != null)
+                    _notifications?.Push("DEV — all characters and fields unlocked");
+            }
+            catch (Exception exception) { Debug.LogError($"Development unlock failed: {exception}", this); }
+        }
 
         public void ConfigureProfile(IProfileService profile)
         {

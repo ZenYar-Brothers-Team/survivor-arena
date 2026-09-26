@@ -18,6 +18,16 @@ namespace Game.UI.Tests
             nav.AtMainMenu=false;nav.AtManualPause=true;view.OpenSettings();view.CloseSettings();
             Assert.IsTrue(view.State.PauseActions);Assert.IsTrue(nav.AtManualPause);
         }
+        [Test] public async Task DevelopmentUnlock_OnlyInDevelopmentTools_AtMainMenu()
+        {
+            var nav=new FakeAppNavigation();var view=new FakeAppShellView();
+            var settings=new SettingsService(SettingsConfig.Load(),new MemorySettingsStore(),new FakeVideoDevice());await settings.LoadAsync();
+            using var presenter=new AppShellPresenter(nav,settings,new FakeAudioPreview(),view);
+            Assert.IsFalse(view.State.DevelopmentUnlock);view.UnlockAll();Assert.AreEqual(0,nav.DevelopmentUnlocks);
+            nav.DevelopmentTools=true;presenter.Refresh();Assert.IsTrue(view.State.DevelopmentUnlock);
+            view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
+            view.OpenSettings();Assert.IsFalse(view.State.DevelopmentUnlock);view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
+        }
         [Test] public void Assets_AllShellSemanticIdsExist()
         {
             var tree=Resources.Load<VisualTreeAsset>("UI/AppShell").CloneTree();

@@ -189,6 +189,18 @@ namespace Game.Meta
             }
             catch (Exception error) { Publish(ProfileState.PendingResult, "Result not saved: " + error.Message); return false; }
         }
+        public async Task<bool> UnlockAllForDevelopmentAsync(params string[] kinds)
+        {
+            if (State != ProfileState.Ready || RunActive || kinds == null) return false;
+            var next = _codec.Copy(_data); var added = false;
+            foreach (var rule in Catalog.Unlocks.Values)
+                if (Array.IndexOf(kinds, rule.Kind) >= 0 && next.Unlocked.Add(rule.Id)) added = true;
+            if (!added) return true;
+            ResolveUnlocks(next);
+            Publish(ProfileState.Saving);
+            try { await _store.WriteAsync(_codec.Encode(next)); _data = next; Publish(ProfileState.Ready, "Development unlock saved"); return true; }
+            catch (Exception error) { Publish(ProfileState.Ready, "Development unlock not saved: " + error.Message); return false; }
+        }
         public Task<bool> RetrySaveAsync() => State == ProfileState.PendingResult && _pending != null ? SavePendingAsync() : Task.FromResult(false);
         private static MetaRunReceipt CopyReceipt(MetaRunReceipt value) => new MetaRunReceipt { RunId = value.RunId, LevelReward = value.LevelReward,
             BookReward = value.BookReward, NewUnlocks = new List<string>(value.NewUnlocks) };

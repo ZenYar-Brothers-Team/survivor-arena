@@ -3,6 +3,7 @@
     <ui:Label text="SURVIVOR ARENA" class="shell-title" />
     <ui:Button name="ShellPlay" text="Play" /><ui:Button name="ShellMeta" text="Meta progression" /><ui:Button name="ShellSettings" text="Settings" /><ui:Button name="ShellExit" text="Exit" />
   </ui:VisualElement></ui:VisualElement>
+  <ui:Button name="ShellDevelopmentUnlockAll" text="DEV: unlock all characters &amp; fields" class="shell-dev" />
   <ui:Button name="ShellBack" text="Main Menu" class="shell-back" />
   <ui:VisualElement name="ShellPause" class="shell-pause"><ui:Button name="ShellPauseSettings" text="Settings" /><ui:Button name="ShellQuit" text="Quit Run" /></ui:VisualElement>
   <ui:VisualElement name="SettingsBody" class="shell-page"><ui:ScrollView class="shell-panel settings-panel">
