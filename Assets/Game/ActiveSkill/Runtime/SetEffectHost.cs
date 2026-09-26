@@ -119,8 +119,7 @@ namespace Game.ActiveSkill
             if (!_skills.TryGetPersistentOrbitRadius(aura.Skill, out var radius) || radius <= 0f) return;
             _auraColliders.Clear();
             _auraHits.Clear();
-            var filter = new ContactFilter2D();
-            filter.NoFilter();
+            var filter = EnemyPhysicsLayer.CreateQueryFilter();
             Physics2D.OverlapCircle(_player.transform.position, radius, filter, _auraColliders);
             var request = new CombatDamageRequest(new CombatSource(_player.Identity, aura.Set, CombatSourceOrigin.Set), 0f, aura.Controls);
             foreach (var collider in _auraColliders)

@@ -8,7 +8,7 @@ namespace Game.ActiveSkill
 {
     /// <summary>
     /// Physics-query area damage for skills. Main-thread only; buffers are rented per call so lethal callbacks may
-    /// re-enter. Queries all Default-layer colliders (there is no dedicated enemy layer yet — DECISION-0056).
+    /// re-enter. Queries only the enemy physics layer (DECISION-0056).
     /// </summary>
     public static class EnemyDamageArea
     {
@@ -37,7 +37,7 @@ namespace Game.ActiveSkill
             {
                 ApplyOnce(directTarget, damage, damaged);
                 if (radius <= 0f) return damaged.Count;
-                Physics2D.OverlapCircle(center, radius, ContactFilter2D.noFilter, colliders);
+                Physics2D.OverlapCircle(center, radius, EnemyPhysicsLayer.CreateQueryFilter(), colliders);
                 for (var i = 0; i < colliders.Count; i++)
                 {
                     if (colliders[i] == null) continue;
@@ -74,7 +74,7 @@ namespace Game.ActiveSkill
             var damaged = HashSetPool<IEnemyDamageReceiver>.Get();
             try
             {
-                Physics2D.OverlapCircle(queryCenter, queryRadius, ContactFilter2D.noFilter, colliders);
+                Physics2D.OverlapCircle(queryCenter, queryRadius, EnemyPhysicsLayer.CreateQueryFilter(), colliders);
                 // Resolve each collider's receiver once instead of once per circle.
                 for (var i = 0; i < colliders.Count; i++)
                     receivers.Add(colliders[i] != null ? colliders[i].GetComponentInParent<IEnemyDamageReceiver>() : null);

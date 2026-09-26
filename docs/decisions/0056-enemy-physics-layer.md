@@ -1,6 +1,6 @@
 # DECISION-0056 — Физический слой врагов для area-запросов
 
-Status: Proposed
+Status: Approved
 Date: 2026-09-25
 Related IP: IP-08 (active skill framework), IP-14/IP-20 (enemies), IP-16 (field physics)
 Related content IDs: —
@@ -23,7 +23,7 @@ Related content IDs: —
 RefreshColliderRadius`); после DECISION-0055 на PASSIVE-007 L6 это 2.5 units. Каждый такой коллайдер
 попадает в любой AoE-запрос рядом с ним, поэтому стоимость area damage растёт с числом лежащего опыта.
 
-## Decision (предложение)
+## Decision
 
 1. Завести слой `Enemy` в TagManager; `EnemyFactory`/`EnemyRuntime` ставят его на root и коллайдеры
    врагов (включая боссов и Путников). Остальные объекты остаются на своих слоях.
@@ -40,11 +40,25 @@ RefreshColliderRadius`); после DECISION-0055 на PASSIVE-007 L6 это 2.5
 
 ## Consequences
 
-До одобрения код не меняется: запросы остаются с `noFilter` (комментарий в `EnemyDamageArea`).
-Проблема 3 perf-аудита 2026-09-25 остаётся открытой; проблемы 1, 2, 4 исправлены без изменения
-контрактов (см. регрессионную карту). После одобрения — изменение TagManager, фабрики врагов, пяти
-запросов и тестов слоя; Unity-проверка полным smoke.
+Реализовано 2026-09-26:
+
+- `ProjectSettings/TagManager.asset`: слой 7 `Enemy`. Collision matrix не менялась (все пары
+  сталкиваются), поэтому движение/контакт с игроком, снаряды и стены работают как раньше;
+  player-only препятствия по-прежнему исключают всё, кроме `Player` (`excludeLayers`).
+- `EnemyPhysicsLayer` (Game.Enemy): индекс слоя (ошибка, если слоя нет) и `CreateQueryFilter()` —
+  `noFilter` (triggers включены) с маской `Enemy`. `EnemyRuntime.Initialize` ставит слой на root —
+  единственный объект с коллайдером врага; обычные враги, боссы и Путники создаются через `EnemyFactory`.
+- Пять area-запросов используют этот фильтр. Альтернатива «фильтр по trigger» отклонена.
+- Тесты: `EnemyPhysicsLayerTests` (слой врага; 100 trigger-коллайдеров рядом не попадают в запрос,
+  урон прежний) и существующие area/orbit/set тесты без изменений.
+
+Проверка: Unity 6000.6.0f1 full smoke 2026-09-26 — EditMode 757/757, PlayMode 27/27, 0 skipped
+(`TestResults/checks/20260926T062226-949358Z/summary.json`).
+
+Проблема 3 perf-аудита 2026-09-25 закрыта в коде. В игре пользователь 2026-09-26: «проверил, всё хорошо»;
+замеры времени `EnemyDamageArea.Apply`/FPS не снимались. Новый код, которому нужны враги в физическом запросе, использует этот фильтр;
+новые коллайдеры на объектах врага должны получать тот же слой.
 
 ## Approval
 
-Не утверждено. Нужен выбор пользователя: слой `Enemy` (рекомендуется) или фильтр по trigger.
+Утверждено пользователем 2026-09-26: «0056-enemy-physics-layer делаем отдельный слой» — выбран слой `Enemy`.

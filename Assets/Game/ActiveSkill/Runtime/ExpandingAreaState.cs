@@ -41,8 +41,7 @@ namespace Game.ActiveSkill
             var radius = CurrentRadius;
             if (radius <= 0f) return IsComplete;
             _colliders.Clear();
-            var filter = new ContactFilter2D();
-            filter.NoFilter();
+            var filter = EnemyPhysicsLayer.CreateQueryFilter();
             Physics2D.OverlapCircle(Center, radius, filter, _colliders);
             for (var i = 0; i < _colliders.Count; i++)
             {

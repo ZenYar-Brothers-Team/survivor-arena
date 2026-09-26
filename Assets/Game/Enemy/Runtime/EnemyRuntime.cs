@@ -152,6 +152,8 @@ namespace Game.Enemy
             _contentRegistry = contentRegistry;
 
             CacheComponents();
+            // Only the root carries the collider; skill area damage queries this layer only (DECISION-0056).
+            gameObject.layer = EnemyPhysicsLayer.Index;
             _collider.enabled = true;
             _body.gravityScale = 0f;
             _body.simulated = true;

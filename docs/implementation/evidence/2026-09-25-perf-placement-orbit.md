@@ -14,7 +14,7 @@
 2. **Orbit tick** (`SceneActiveSkillEffectExecutor.ExecuteOrbitTick`) — один `OverlapCircle` на всё
    кольцо (`EnemyDamageArea.ApplyCircles`), попадание по каждому клинку — по форме коллайдера
    (`Collider2D.ClosestPoint`), дедупликация и knockback — per blade, как раньше.
-3. **Слой врагов** — не менялся: выделенного слоя нет, предложение — [DECISION-0056](../../decisions/0056-enemy-physics-layer.md) (Proposed).
+3. **Слой врагов** — в этом фиксе не менялся; позже реализован по [DECISION-0056](../../decisions/0056-enemy-physics-layer.md) (Approved 2026-09-26).
 4. **PerfGuard** — `SceneActiveSkillEffectExecutor.OrbitalBladeArea` (2 ms, как один area hit и Tick)
    и `PersistentOrbitState.BladeSweep` (2 ms) для production-орбиты SKILL-003.
 

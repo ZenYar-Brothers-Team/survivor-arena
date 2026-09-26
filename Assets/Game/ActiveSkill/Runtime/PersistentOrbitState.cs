@@ -141,8 +141,7 @@ namespace Game.ActiveSkill
             var offset = to - from;
             var length = offset.magnitude;
             _colliders.Clear();
-            var filter = new ContactFilter2D();
-            filter.NoFilter();
+            var filter = EnemyPhysicsLayer.CreateQueryFilter();
             if (length <= Mathf.Epsilon)
                 Physics2D.OverlapCircle(to, hitbox, filter, _colliders);
             else
