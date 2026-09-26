@@ -34,5 +34,7 @@ namespace Game.Meta
         void SetRunActive(bool active);
         /// <summary>Development-only: unlocks every catalog entry of the given kinds without spending currency.</summary>
         Task<bool> UnlockAllForDevelopmentAsync(params string[] kinds);
+        /// <summary>Development-only: replaces the profile with a new one; previous files are preserved by the store.</summary>
+        Task<bool> ResetForDevelopmentAsync();
     }
 }

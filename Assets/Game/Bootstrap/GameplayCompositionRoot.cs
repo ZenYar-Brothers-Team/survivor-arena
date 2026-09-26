@@ -174,6 +174,19 @@ namespace Game.Bootstrap
             }
             catch (Exception exception) { Debug.LogError($"Development unlock failed: {exception}", this); }
         }
+        public async void ResetProgressionForDevelopment()
+        {
+            if (!DevelopmentTools || !AtMainMenu || !CanPlay) return;
+            try
+            {
+                if (!await Profile.ResetForDevelopmentAsync() || this == null) return;
+                // Re-baseline so unlocks earned after the reset are announced again.
+                _knownUnlocks.Clear();
+                foreach (var rule in Profile.Catalog.Unlocks.Values) if (Profile.IsUnlocked(rule.Id)) _knownUnlocks.Add(rule.Id);
+                _notifications?.Push("DEV — all progression reset (previous profile preserved)");
+            }
+            catch (Exception exception) { Debug.LogError($"Development reset failed: {exception}", this); }
+        }
 
         public void ConfigureProfile(IProfileService profile)
         {

@@ -28,6 +28,19 @@ namespace Game.UI.Tests
             view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
             view.OpenSettings();Assert.IsFalse(view.State.DevelopmentUnlock);view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
         }
+        [Test] public async Task DevelopmentReset_NeedsSecondClick_AndDisarmsOutsideMainMenu()
+        {
+            var nav=new FakeAppNavigation();var view=new FakeAppShellView();
+            var settings=new SettingsService(SettingsConfig.Load(),new MemorySettingsStore(),new FakeVideoDevice());await settings.LoadAsync();
+            using var presenter=new AppShellPresenter(nav,settings,new FakeAudioPreview(),view);
+            view.ResetProgress();view.ResetProgress();Assert.AreEqual(0,nav.DevelopmentResets,"Hidden without development tools.");
+            nav.DevelopmentTools=true;presenter.Refresh();
+            view.ResetProgress();Assert.IsTrue(view.State.DevelopmentResetArmed);Assert.AreEqual(0,nav.DevelopmentResets);
+            view.ResetProgress();Assert.AreEqual(1,nav.DevelopmentResets);Assert.IsFalse(view.State.DevelopmentResetArmed);
+            view.ResetProgress();view.OpenSettings();Assert.IsFalse(view.State.DevelopmentResetArmed);
+            view.CloseSettings();view.ResetProgress();Assert.AreEqual(1,nav.DevelopmentResets,"Leaving the menu disarms the reset.");
+            view.UnlockAll();Assert.IsFalse(view.State.DevelopmentResetArmed,"Another command disarms the reset.");
+        }
         [Test] public void Assets_AllShellSemanticIdsExist()
         {
             var tree=Resources.Load<VisualTreeAsset>("UI/AppShell").CloneTree();

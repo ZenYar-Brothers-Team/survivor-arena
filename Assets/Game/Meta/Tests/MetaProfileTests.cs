@@ -65,6 +65,20 @@ namespace Game.Meta.Tests
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.IsTrue(loaded.IsUnlocked("CHAR-008"));
             profile.SetRunActive(true);Assert.IsFalse(await profile.UnlockAllForDevelopmentAsync("character"));
         }
+        [Test] public async Task DevelopmentReset_ReturnsToNewProfile_PreservingPreviousFiles()
+        {
+            var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
+            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+            Assert.IsTrue(await profile.PurchaseAsync("META-001",0));Assert.IsTrue(await profile.SetUpgradesDisabledAsync(true));
+            Assert.IsTrue(await profile.UnlockAllForDevelopmentAsync("character","field"));
+            var fresh=new ProfileService(_catalog,new MemoryProfileStore());await fresh.LoadAsync();
+            Assert.IsTrue(await profile.ResetForDevelopmentAsync());
+            Assert.AreEqual(1,store.Preserved);Assert.AreEqual(0,profile.Currency);Assert.AreEqual(0,profile.Level("META-001"));
+            Assert.IsFalse(profile.UpgradesDisabled);Assert.IsNull(profile.LastReceipt);
+            foreach(var rule in _catalog.Unlocks.Values)Assert.AreEqual(fresh.IsUnlocked(rule.Id),profile.IsUnlocked(rule.Id),rule.Id);
+            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(0,loaded.Currency);Assert.IsFalse(loaded.IsUnlocked("CHAR-008"));
+            profile.SetRunActive(true);Assert.IsFalse(await profile.ResetForDevelopmentAsync());
+        }
         [Test] public async Task Victory_ShortFixture_DoesNotClearField()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();

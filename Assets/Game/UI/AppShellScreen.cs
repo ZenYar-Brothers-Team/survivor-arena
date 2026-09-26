@@ -12,7 +12,7 @@ namespace Game.UI
         private AppShellViewState _state;
         private bool _disposed;
         public UIDocument Document { get; }
-        public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll;
+        public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         public event Action<float,float,float> Audio;
         public event Action<bool> Shake, Preview;
         public event Action<VideoMode> Video;
@@ -31,6 +31,7 @@ namespace Game.UI
             Hook(GameplayUiElementIds.ShellPlay,()=>Play?.Invoke()); Hook(GameplayUiElementIds.ShellMeta,()=>Meta?.Invoke());
             Hook(GameplayUiElementIds.ShellSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellExit,()=>Exit?.Invoke());
             Hook(GameplayUiElementIds.ShellDevelopmentUnlockAll,()=>DevelopmentUnlockAll?.Invoke());
+            Hook(GameplayUiElementIds.ShellDevelopmentReset,()=>DevelopmentReset?.Invoke());
             Hook(GameplayUiElementIds.ShellBack,()=>MainMenu?.Invoke()); Hook(GameplayUiElementIds.ShellPauseSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellQuit,()=>Quit?.Invoke());
             Hook(GameplayUiElementIds.SettingsBack,()=>Back?.Invoke()); Hook(GameplayUiElementIds.SettingsApply,()=>Apply?.Invoke());
             Hook(GameplayUiElementIds.SettingsKeep,()=>Keep?.Invoke()); Hook(GameplayUiElementIds.SettingsRevert,()=>Revert?.Invoke()); Hook(GameplayUiElementIds.SettingsSave,()=>Save?.Invoke());
@@ -48,7 +49,9 @@ namespace Game.UI
         {
             if(_disposed||Document==null)return; _state=state;
             Visible(GameplayUiElementIds.ShellMenu,state.Menu); Visible(GameplayUiElementIds.ShellBack,state.CharacterBack);
-            Visible(GameplayUiElementIds.ShellPause,state.PauseActions); Visible(GameplayUiElementIds.ShellDevelopmentUnlockAll,state.DevelopmentUnlock); Visible(GameplayUiElementIds.SettingsBody,state.Settings);
+            Visible(GameplayUiElementIds.ShellPause,state.PauseActions); Visible(GameplayUiElementIds.ShellDevelopment,state.DevelopmentUnlock);
+            Q<Button>(GameplayUiElementIds.ShellDevelopmentReset).text=state.DevelopmentResetArmed?"DEV: click again to reset ALL progression":"DEV: reset all progression";
+            Visible(GameplayUiElementIds.SettingsBody,state.Settings);
             Q<Button>(GameplayUiElementIds.ShellPlay).SetEnabled(state.CanPlay); Q<Button>(GameplayUiElementIds.ShellMeta).SetEnabled(state.CanPlay);
             Q<Slider>(GameplayUiElementIds.SettingsMaster).SetValueWithoutNotify(state.Values.Master*100);
             Q<Slider>(GameplayUiElementIds.SettingsMusic).SetValueWithoutNotify(state.Values.Music*100);

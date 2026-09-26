@@ -218,6 +218,19 @@ namespace Game.Meta
             try { await _store.WriteAsync(_codec.Encode(next)); _data = next; Publish(ProfileState.Ready, "Development unlock saved"); return true; }
             catch (Exception error) { Publish(ProfileState.Ready, "Development unlock not saved: " + error.Message); return false; }
         }
+        public async Task<bool> ResetForDevelopmentAsync()
+        {
+            if (State != ProfileState.Ready || RunActive) return false;
+            var fresh = _codec.Create();
+            Publish(ProfileState.Saving);
+            try
+            {
+                // PreserveAndReset keeps the old main/backup as .preserved-* so a mistaken reset stays recoverable.
+                await _store.PreserveAndResetAsync(_codec.Encode(fresh)); _data = fresh; _lastReceipt = null;
+                Publish(ProfileState.Ready, "Development reset saved"); return true;
+            }
+            catch (Exception error) { Publish(ProfileState.Ready, "Development reset not saved: " + error.Message); return false; }
+        }
         public Task<bool> RetrySaveAsync() => State == ProfileState.PendingResult && _pending != null ? SavePendingAsync() : Task.FromResult(false);
         private static MetaRunReceipt CopyReceipt(MetaRunReceipt value) => new MetaRunReceipt { RunId = value.RunId, LevelReward = value.LevelReward,
             BookReward = value.BookReward, NewUnlocks = new List<string>(value.NewUnlocks) };

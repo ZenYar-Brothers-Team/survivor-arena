@@ -13,6 +13,7 @@ namespace Game.UI
         /// <summary>Editor/Development build only (DECISION-0005).</summary>
         bool DevelopmentTools { get; }
         void UnlockAllForDevelopment();
+        void ResetProgressionForDevelopment();
         void Play(); void MainMenu(); void Meta(); void QuitRun(); void Exit();
     }
 }

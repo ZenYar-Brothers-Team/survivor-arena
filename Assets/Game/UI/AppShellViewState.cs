@@ -21,11 +21,13 @@ namespace Game.UI
         public string Bindings { get; }
         public string VideoStatus { get; }
         public bool DevelopmentUnlock { get; }
+        /// <summary>First reset click arms the destructive action; the second performs it.</summary>
+        public bool DevelopmentResetArmed { get; }
         public AppShellViewState(bool menu, bool characterBack, bool pauseActions, bool settings, bool canPlay,
             bool busy, bool confirming, SettingsSnapshot values, VideoMode candidate, VideoMode desktop,
-            IReadOnlyList<VideoMode> modes, string message, string bindings, string videoStatus, VideoMode safeWindow, string notification, bool developmentUnlock = false)
+            IReadOnlyList<VideoMode> modes, string message, string bindings, string videoStatus, VideoMode safeWindow, string notification, bool developmentUnlock = false, bool developmentResetArmed = false)
         {
-            SafeWindow=safeWindow;Notification=notification;DevelopmentUnlock=developmentUnlock;
+            SafeWindow=safeWindow;Notification=notification;DevelopmentUnlock=developmentUnlock;DevelopmentResetArmed=developmentResetArmed;
             Menu=menu;CharacterBack=characterBack;PauseActions=pauseActions;Settings=settings;CanPlay=canPlay;
             Busy=busy;Confirming=confirming;Values=values;Candidate=candidate;Desktop=desktop;
             Modes=new List<VideoMode>(modes).AsReadOnly();Message=message;Bindings=bindings;VideoStatus=videoStatus;

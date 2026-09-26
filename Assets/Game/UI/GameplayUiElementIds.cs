@@ -12,7 +12,9 @@ namespace Game.UI
         public const string ShellPause = "ShellPause";
         public const string ShellPauseSettings = "ShellPauseSettings";
         public const string ShellQuit = "ShellQuit";
+        public const string ShellDevelopment = "ShellDevelopment";
         public const string ShellDevelopmentUnlockAll = "ShellDevelopmentUnlockAll";
+        public const string ShellDevelopmentReset = "ShellDevelopmentReset";
         public const string SettingsBody = "SettingsBody";
         public const string SettingsMaster = "SettingsMaster";
         public const string SettingsMusic = "SettingsMusic";

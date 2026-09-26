@@ -16,13 +16,21 @@ namespace Game.UI
             navigation.NavigationChanged+=Refresh; settings.Changed+=Refresh;
             view.Play+=Play; view.Meta+=Meta; view.Settings+=Open; view.Exit+=Exit; view.MainMenu+=Menu; view.Quit+=Quit;
             view.Back+=Back; view.Apply+=Apply; view.Keep+=Keep; view.Revert+=Revert; view.Save+=Save;
-            view.Audio+=Audio; view.Shake+=Shake; view.Preview+=Preview; view.Video+=Video; view.DevelopmentUnlockAll+=UnlockAll;
+            view.Audio+=Audio; view.Shake+=Shake; view.Preview+=Preview; view.Video+=Video; view.DevelopmentUnlockAll+=UnlockAll; view.DevelopmentReset+=ResetProgress;
             Refresh();
         }
         private void Play() { if(!SettingsOpen&&_navigation.CanPlay)_navigation.Play(); }
         private void Meta() { if(!SettingsOpen&&_navigation.CanPlay)_navigation.Meta(); }
         private void Exit() => _navigation.Exit();
-        private void UnlockAll() { if(DevelopmentUnlockVisible)_navigation.UnlockAllForDevelopment(); }
+        private bool _resetArmed;
+        private void UnlockAll() { _resetArmed=false; if(DevelopmentUnlockVisible)_navigation.UnlockAllForDevelopment(); Refresh(); }
+        // Destructive: the first click only arms the button, the second one resets.
+        private void ResetProgress()
+        {
+            if(!DevelopmentUnlockVisible) { _resetArmed=false; return; }
+            if(!_resetArmed) { _resetArmed=true; Refresh(); return; }
+            _resetArmed=false; _navigation.ResetProgressionForDevelopment(); Refresh();
+        }
         private bool DevelopmentUnlockVisible => _navigation.DevelopmentTools&&_navigation.AtMainMenu&&!SettingsOpen&&_navigation.CanPlay;
         private void Menu() { if(!SettingsOpen)_navigation.MainMenu(); }
         private void Quit() { if(!SettingsOpen)_navigation.QuitRun(); }
@@ -43,20 +51,21 @@ namespace Game.UI
         private void Video(VideoMode mode) => _settings.SetCandidate(mode);
         public void Refresh()
         {
+            if(!DevelopmentUnlockVisible)_resetArmed=false;
             _view.Render(new AppShellViewState(_navigation.AtMainMenu&&!SettingsOpen, _navigation.AtCharacterSelection&&!SettingsOpen,
                 _navigation.AtManualPause&&!SettingsOpen, SettingsOpen, _navigation.CanPlay,
                 _settings.PreviewState==VideoPreviewState.Applying||_settings.PreviewState==VideoPreviewState.Reverting,
                 _settings.PreviewState==VideoPreviewState.Confirming, _settings.Current, _settings.Candidate,
                 _settings.Video.Desktop, _settings.Video.WindowModes, _settings.Message??"", _navigation.MovementBindings,
                 _settings.Video.Current+(_settings.Video.Current.Borderless?" Borderless":" Windowed")+
-                    (_settings.PreviewState==VideoPreviewState.Confirming?" — Revert in "+Math.Ceiling(_settings.SecondsRemaining)+"s":""), _settings.Video.SafeWindow, _navigation.Notification, DevelopmentUnlockVisible));
+                    (_settings.PreviewState==VideoPreviewState.Confirming?" — Revert in "+Math.Ceiling(_settings.SecondsRemaining)+"s":""), _settings.Video.SafeWindow, _navigation.Notification, DevelopmentUnlockVisible, _resetArmed));
         }
         public void Dispose()
         {
             _audio.StopPreviews(); _navigation.NavigationChanged-=Refresh; _settings.Changed-=Refresh;
             _view.Play-=Play; _view.Meta-=Meta; _view.Settings-=Open; _view.Exit-=Exit; _view.MainMenu-=Menu; _view.Quit-=Quit;
             _view.Back-=Back; _view.Apply-=Apply; _view.Keep-=Keep; _view.Revert-=Revert; _view.Save-=Save;
-            _view.Audio-=Audio; _view.Shake-=Shake; _view.Preview-=Preview; _view.Video-=Video; _view.DevelopmentUnlockAll-=UnlockAll;
+            _view.Audio-=Audio; _view.Shake-=Shake; _view.Preview-=Preview; _view.Video-=Video; _view.DevelopmentUnlockAll-=UnlockAll; _view.DevelopmentReset-=ResetProgress;
         }
     }
 }
