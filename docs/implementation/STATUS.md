@@ -2,7 +2,7 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (арт FIELD-002: ENEMY-006/008/009, колонна/святилище и повторное использование снарядов подключены; Unity 802/802 EditMode + 28/28 PlayMode; ранее срез FIELD-002 DECISION-0063)
+Last repository audit: 2026-09-26 (body art ENEMY-010…020 подключён; Unity 804/804 EditMode + 28/28 PlayMode, manifest 138/138; ранее арт FIELD-002 и срез DECISION-0063)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
 Next Ready packet: нет. Срез FIELD-002 F2-01…05 Implemented 2026-09-26; F2-06 ждёт ручного прогона FIELD-002 ([очередь](#field002-execution)). IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
@@ -641,11 +641,11 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-04, IP-13, IP-28, IP-12A
-Blocked by: body art ENEMY-010…020 и нужный projectile art для этих последующих ID (per-ID art gate). ENEMY-006 переиспользует ENEMY-005 projectile. Данные и поведение всех 20 врагов реализованы 2026-09-26.
-Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
-Remaining acceptance / IDs: ENEMY-006/008/009 gameplay-scale review; ENEMY-010…020 art; startup body art принят 2026-09-24.
+Blocked by: projectile art для поздних ranged IDs (per-ID art gate) и gameplay-scale review новых body. ENEMY-006 переиспользует ENEMY-005 projectile. Данные и поведение всех 20 врагов реализованы 2026-09-26.
+Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28; G-14 для поздних ID закрыт DECISION-0062; AG-01 сохраняется для отсутствующих projectile images и игрового визуального review.
+Remaining acceptance / IDs: ENEMY-006/008/009 и ENEMY-010…020 gameplay-scale body review; projectile art поздних ranged IDs; startup body art принят 2026-09-24.
 Data packet 2026-09-26: [enemies-v1](../balance/enemies-v1.md) — недостающие параметры 14 врагов, скорость ×1.3 к карточной по образцу FIELD-001, прочие карточные числа без изменений; Approved 2026-09-26 ([DECISION-0062](../decisions/0062-enemies-data-v1.md)); static validator PASS; G-14 для этих ID закрыт.
-Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты); ENEMY-006/008/009 body art подключён 2026-09-26, ENEMY-010…020 остаются placeholders; Unity full PASS 802/802 + 28/28 — [data evidence](evidence/2026-09-26-enemies-v1.md), [art evidence](evidence/2026-09-26-field002-enemy-art.md).
+Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты); ENEMY-006/008/009 body art — [FIELD-002 evidence](evidence/2026-09-26-field002-enemy-art.md), ENEMY-010…020 body art — [late-art evidence](evidence/2026-09-26-late-enemy-body-art.md). Последний safe full PASS 804/804 EditMode + 28/28 PlayMode, manifest 138/138. Projectile art и ручной gameplay-scale review остаются открытыми.
 Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 ENEMY-007 body contact refit to its approved half-size v002 sprite: radius 0.266696, centerY 0.299833; global contact fit PASS, Unity full smoke 784/784 EditMode и 27/27 PlayMode, zero skipped — [evidence](evidence/2026-09-26-enemy007-contact-refit.md). Остальные gates и статус IP-20 не изменились.
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).

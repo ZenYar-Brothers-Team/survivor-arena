@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-013",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved ENEMY-010 candidate-01 with «подходит», requested changes only to ENEMY-020 after reviewing ENEMY-010…020, then explicitly approved integration of the entire set: «отлично, встраивай набор в игру» (2026-09-26).",
+  "prompt": "Use case: stylized-concept. Asset type: ENEMY-013 enemy body sprite for Survival Arena. Monster hunter, nimble professional who treats the goblin as dangerous prey, alternates approach and retreat. Dark desaturated brown leather coat with broad burgundy shoulder cape, short-brim hunter hat, compact trap satchel, one short hooked blade held close. Alert narrowed eyes and controlled confident stance, athletic long-legged human proportions. Distinct from soldier and goblin: practical hunter silhouette, no green skin, no patchwork scavenger clothing. No firearm or crossbow. Create ONE isolated transparent-background full-body 2D storybook cutout game body sprite. Three-quarter top-down orthographic gameplay view facing right and slightly toward viewer; neutral animation-ready pose, focused confident pursuer, compact silhouette suitable for one inscribed circular contact area. Readable at 256px. Square true-alpha canvas: silhouette about 72–78% height, at least 12% side padding, 14% above, 9% below both feet. Thick slightly irregular deep-plum outline, 3–5 large matte color masses, simple cel shading, subtle paper texture, soft warm top-front light compatible with horizontal flip. Clearly human and distinct from small green goblin playable characters: longer legs, smaller head, upright assured posture, organized costume. No scenery, ground plane, baked shadow, text, symbols, logo, watermark, UI, frame, 3D, photorealism, pixel art, particles, motion blur, extra limbs, duplicated items, tiny ornament, extremely long protrusions or cropped elements.",
+  "constraints": [
+    "approved late-enemy body candidate",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-013/enemy-013-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "10f8df878ef6d3dabe9a03270abde40afae11ba1e2a7ac2975731db2e3a7e4b3",
+    "runtimeSha256": "555dad6ae2f4c192faed5c23bb1ccd0caabe68f2db29337f01176c893580f53c",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 24,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

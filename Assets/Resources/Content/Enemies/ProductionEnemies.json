@@ -255,6 +255,8 @@
       "knockbackDistance": 0.2,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-010-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5.5,
@@ -291,6 +293,8 @@
       "knockbackDistance": 0.2,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-011-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5,
@@ -325,6 +329,8 @@
       "knockbackDistance": 0.3,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-012-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5.5,
@@ -359,6 +365,8 @@
       "knockbackDistance": 0.35,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-013-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
     "movement": {
       "kind": "ApproachRetreat",
       "cycleSeconds": 2.6
@@ -377,6 +385,8 @@
       "knockbackDistance": 0.25,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-014-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 7,
@@ -412,6 +422,8 @@
       "knockbackDistance": 0.25,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-015-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 5.5,
@@ -446,6 +458,8 @@
       "knockbackDistance": 0.75,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-016-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "dashContactControls": {
       "knockbackDistance": 1.1,
       "knockbackSeconds": 0.12
@@ -472,6 +486,8 @@
       "knockbackDistance": 0.35,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-017-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
     "movement": {
       "kind": "Zigzag",
       "lateralStrength": 0.8,
@@ -491,6 +507,8 @@
       "knockbackDistance": 0.2,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-018-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 6,
@@ -526,6 +544,8 @@
       "knockbackDistance": 0.65,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-019-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "Seek"
     },
@@ -559,6 +579,8 @@
       "knockbackDistance": 0.9,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-020-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "Seek"
     }

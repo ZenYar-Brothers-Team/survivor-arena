@@ -1024,5 +1024,82 @@
     "id": "ENEMY-009-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-009/enemy-009-body",
     "role": "Body"
+  },
+  {
+    "contactRadius": 0.270428,
+    "contactCenterY": 0.292851,
+    "id": "ENEMY-010-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.254664,
+    "contactCenterY": 0.412046,
+    "id": "ENEMY-011-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.26875,
+    "contactCenterY": 0.530931,
+    "id": "ENEMY-012-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.321563,
+    "contactCenterY": 0.449081,
+    "id": "ENEMY-013-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-013/enemy-013-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.464741,
+    "contactCenterY": 0.885725,
+    "id": "ENEMY-014-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.320779,
+    "contactCenterY": 0.448671,
+    "id": "ENEMY-015-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.454714,
+    "contactCenterY": 0.728751,
+    "id": "ENEMY-016-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-016/enemy-016-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.260367,
+    "contactCenterY": 0.363056,
+    "id": "ENEMY-017-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-017/enemy-017-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.264113,
+    "contactCenterY": 0.412536,
+    "id": "ENEMY-018-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.472115,
+    "contactCenterY": 0.900354,
+    "id": "ENEMY-019-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.569836,
+    "contactCenterY": 0.602924,
+    "id": "ENEMY-020-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-020/enemy-020-body",
+    "role": "Body"
   }
 ]

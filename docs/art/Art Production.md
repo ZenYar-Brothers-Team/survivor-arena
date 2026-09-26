@@ -143,17 +143,17 @@ IN GAME
 | ENEMY-007 | Охотничья гончая | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-007/body/asset-record.json) |
 | ENEMY-008 | Конный разведчик | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-26. [Provenance](../../Art/Source/Enemies/enemy-008/body/asset-record.json) |
 | ENEMY-009 | Щитоносец ополчения | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-26. [Provenance](../../Art/Source/Enemies/enemy-009/body/asset-record.json) |
-| ENEMY-010 | Гвардейский стрелок | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-011 | Боевой капеллан | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-012 | Королевский копейщик | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-013 | Охотник на чудовищ | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-014 | Осадный маг | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-015 | Инквизитор | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-016 | Латный рыцарь | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-017 | Рыцарь-дуэлянт | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-018 | Придворный чародей | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-019 | Серафим-страж | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-020 | Ангел-каратель | Body sprite | Generate via GPT | NOT STARTED |
+| ENEMY-010 | Гвардейский стрелок | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-010/body/asset-record.json) |
+| ENEMY-011 | Боевой капеллан | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-011/body/asset-record.json) |
+| ENEMY-012 | Королевский копейщик | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-012/body/asset-record.json) |
+| ENEMY-013 | Охотник на чудовищ | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-013/body/asset-record.json) |
+| ENEMY-014 | Осадный маг | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-014/body/asset-record.json) |
+| ENEMY-015 | Инквизитор | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-015/body/asset-record.json) |
+| ENEMY-016 | Латный рыцарь | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-016/body/asset-record.json) |
+| ENEMY-017 | Рыцарь-дуэлянт | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-017/body/asset-record.json) |
+| ENEMY-018 | Придворный чародей | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-018/body/asset-record.json) |
+| ENEMY-019 | Серафим-страж | Body sprite | Generate via GPT | BOUND — v001, принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-019/body/asset-record.json) |
+| ENEMY-020 | Ангел-каратель | Body sprite | Generate via GPT | BOUND — v001 (candidate-05), принят 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Enemies/enemy-020/body/asset-record.json) |
 
 \#\#\# Enemy attack visuals  
 Отдельные projectile/effect assets добавляются только для реально используемых ranged patterns. Максимально переиспользовать общие семейства:  

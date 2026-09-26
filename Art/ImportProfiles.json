@@ -342,5 +342,93 @@
     "pivotY": 0.075,
     "reason": "ENEMY-009 256px body; foot-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-009/enemy-009-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.125,
+    "reason": "ENEMY-010 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-010/enemy-010-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.144531,
+    "reason": "ENEMY-011 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-011/enemy-011-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.132812,
+    "reason": "ENEMY-012 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-012/enemy-012-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.140625,
+    "reason": "ENEMY-013 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-013/enemy-013-body.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.125,
+    "reason": "ENEMY-014 256px body; ground-contact pivot measured from approved silhouette; 128 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-014/enemy-014-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.121094,
+    "reason": "ENEMY-015 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-015/enemy-015-body.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.121094,
+    "reason": "ENEMY-016 256px body; ground-contact pivot measured from approved silhouette; 128 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-016/enemy-016-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.136719,
+    "reason": "ENEMY-017 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-017/enemy-017-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.113281,
+    "reason": "ENEMY-018 256px body; ground-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-018/enemy-018-body.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.125,
+    "reason": "ENEMY-019 256px body; ground-contact pivot measured from approved silhouette; 128 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-019/enemy-019-body.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.144531,
+    "reason": "ENEMY-020 256px body; ground-contact pivot measured from approved angel silhouette; 128 PPU large late-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-020/enemy-020-body.png"
   }
 ]

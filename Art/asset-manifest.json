@@ -2204,6 +2204,182 @@
         "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
       ],
       "missing": "Target-scale gameplay visual review remains."
+    },
+    {
+      "owner": "ENEMY-010",
+      "role": "body",
+      "visualId": "ENEMY-010-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-010/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-010/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-010/enemy-010-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-011",
+      "role": "body",
+      "visualId": "ENEMY-011-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-011/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-011/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-011/enemy-011-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-012",
+      "role": "body",
+      "visualId": "ENEMY-012-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-012/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-012/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-012/enemy-012-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-013",
+      "role": "body",
+      "visualId": "ENEMY-013-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-013/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-013/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-013/enemy-013-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-013/enemy-013-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-014",
+      "role": "body",
+      "visualId": "ENEMY-014-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-014/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-014/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-014/enemy-014-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-015",
+      "role": "body",
+      "visualId": "ENEMY-015-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-015/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-015/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-015/enemy-015-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-016",
+      "role": "body",
+      "visualId": "ENEMY-016-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-016/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-016/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-016/enemy-016-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-016/enemy-016-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-017",
+      "role": "body",
+      "visualId": "ENEMY-017-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-017/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-017/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-017/enemy-017-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-017/enemy-017-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-018",
+      "role": "body",
+      "visualId": "ENEMY-018-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-018/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-018/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-018/enemy-018-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-019",
+      "role": "body",
+      "visualId": "ENEMY-019-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-019/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-019/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-019/enemy-019-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-020",
+      "role": "body",
+      "visualId": "ENEMY-020-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-020/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-020/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-020/enemy-020-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-020/enemy-020-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved ENEMY-020 candidate-05 and requested the complete ENEMY-010…020 set integrated: «отлично, встраивай набор в игру» (2026-09-26)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

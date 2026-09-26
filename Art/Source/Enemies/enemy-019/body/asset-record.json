@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-019",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved ENEMY-010 candidate-01 with «подходит», requested changes only to ENEMY-020 after reviewing ENEMY-010…020, then explicitly approved integration of the entire set: «отлично, встраивай набор в игру» (2026-09-26).",
+  "prompt": "Use case: stylized-concept. Asset type: ENEMY-019 enemy body sprite for Survival Arena. Seraphim guard: heavy late-game hybrid of armor and ranged pressure, slowly advances while firing a five-shot fan. Broad white-stone and pale-blue armored celestial soldier with restrained gold trim, stern calm face, compact folded feather wings framing shoulders, one short ceremonial ranged gauntlet held close to chest. Heavy planted silhouette, more armored and grounded than floating angel. No firing projectiles, no halo baked into body. ONE isolated full-body 2D hand-drawn storybook cutout enemy body sprite on genuinely transparent square canvas. Three-quarter top-down orthographic gameplay view facing right and slightly toward viewer. Neutral animation-ready pose, strong compact readable silhouette at 256px, complete figure about 72–78% canvas height with true-alpha padding above, sides and below feet. Thick slightly irregular deep-plum outer contour, matte colors, 3–5 large forms, simple cel shading, light paper texture, warm top-front light that works under horizontal flip. Large organized heavenly pursuer, visually distinct from small green goblin player. Compact folded wings close to torso, no enormous spans or long protrusions, one circular contact profile. Both feet or grounded armored boots visible. No scenery, ground plane, baked shadow, text, symbols, logo, watermark, frame, UI, pixel art, 3D, photorealism, gore, motion blur, particles, floating spell effects, extra limbs, duplicated wings or cropped elements.",
+  "constraints": [
+    "approved late-enemy body candidate",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-019/enemy-019-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "4f49cead694e9182124ef4e80eaa9daed6d8864aa6d90bf9068997228720cc24",
+    "runtimeSha256": "32d7518be9ae43372b00f7cc5a923f27399077ce28174033a19bc63c7df2e2fa",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 12,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

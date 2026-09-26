@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-017",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved ENEMY-010 candidate-01 with «подходит», requested changes only to ENEMY-020 after reviewing ENEMY-010…020, then explicitly approved integration of the entire set: «отлично, встраивай набор в игру» (2026-09-26).",
+  "prompt": "Use case: stylized-concept. Asset type: ENEMY-017 enemy body sprite for Survival Arena. Duelist knight: agile mobile melee threat who changes direction rapidly. Lean athletic long-legged human in lighter steel breastplate and fitted burgundy surcoat, asymmetric short shoulder cape, open-faced narrow helmet, one compact curved dueling sword held low and near torso. Confident calculating expression, poised but neutral stance. Distinct from broad plate knight: narrow fast silhouette. No extra sword, no fencing lunge or speed lines. ONE isolated full-body 2D hand-drawn storybook cutout game sprite on genuinely transparent square canvas. Three-quarter top-down orthographic gameplay view facing right and slightly toward viewer. Neutral animation-ready pose, strong compact silhouette readable at 256px, about 72–78% canvas height with generous padding and complete feet inside. Thick slightly irregular deep-plum contour, 3–5 large matte color masses, simple cel shading, soft warm top-front light compatible with horizontal flip, subtle paper texture. A confident pursuer distinct from the small green goblin player. Keep weapons and wings compact around body for one circular contact profile. No scenery, ground, baked shadow, text, numerals, emblem, watermark, UI, frame, pixel art, 3D, photorealism, gore, motion blur, particles, extra limbs, duplicated equipment, tiny ornaments or cropped parts.",
+  "constraints": [
+    "approved late-enemy body candidate",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-017/enemy-017-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "235a2474088d0b3257e436d6a91bd9780fbeede198912c736afe1c7177578b34",
+    "runtimeSha256": "953503bc476890d3ea10a7f9911b90d8a9de0be6e098d8be0654087087ea5c49",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 24,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

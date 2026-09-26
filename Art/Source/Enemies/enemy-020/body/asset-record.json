@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-020",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved ENEMY-020 candidate-05 and requested the complete ENEMY-010…020 set integrated: «отлично, встраивай набор в игру» (2026-09-26).",
+  "prompt": "Make one precise clothing adjustment to this ENEMY-020 angel sprite. Preserve the exact gentle face, hairstyle, large wings, sleeveless open-shoulder upper tunic, arms, sword, pose, palette, outline, transparent canvas and light graceful style. Add a little more opaque airy ivory and pale-blue fabric around the hips and UPPER THIGHS: overlapping soft tunic panels should fall slightly lower and closer around both hips so the upper thighs are modestly covered, while the lower legs, sandals and sense of movement remain visible. Keep the outfit light, open and elegant; do not return to bulky robes or any armor. Do not change anatomy, wing size, sword length, gaze, camera angle or framing. No nudity, sheer fabric, background, ground shadow, effects, text or extra objects.",
+  "constraints": [
+    "approved ENEMY-020 candidate-05",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-020/enemy-020-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "1eda155f4e27d99e164ea484fa5b0aa7dc289978c025e65255de76ea9c00fe98",
+    "runtimeSha256": "26251ddb8909d2617df1900369dd3ab2f0d46816cce151a9d8d37810240395e0",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 32,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}
