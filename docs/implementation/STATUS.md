@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-26 (поздние умения/пассивки DECISION-0060 и процедурный луч, Unity 766/766 EditMode + 27/27 PlayMode; ранее DECISION-0056 слой врагов, 757/757 + 27/27)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: нет. IP-17 Implemented после подключения world art; IP-18 Implemented ждёт ручной проверки иконок. IP-19 удерживают собственные data gates G-04/G-05/G-13. F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
+Next Ready packet: IP-19 в общем backlog после утверждения sets-v1 и подключения world art IP-17; автоматически не начинать. Активный milestone F1-09 остаётся Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)). IP-17/IP-18 Implemented ждут ручной visual review.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -607,13 +607,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-18)
 
 ### IP-19 — Production Sets SET-001…020
 
-Status: Blocked
+Status: Ready
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-05 — SET-001/004/006/010/017. Required packets: F1-00/01/02/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-11, IP-17, IP-18, IP-28, IP-12A
-Blocked by: data gates G-04/G-05/G-13; IP-17/IP-18 Implemented, awaiting their visual review.
-Remaining gates: G-08 закрыт DECISION-0017. G-02 закрыт DECISION-0022. G-04/G-05/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия.
+Blocked by: нет для реализации; IP-17/IP-18 Implemented, IP-11/IP-28 Verified, IP-12A Implemented.
+Remaining gates: G-08 закрыт DECISION-0017, G-02 закрыт DECISION-0022; G-04/G-05/G-13 закрыты DECISION-0061 для sets-v1. Финальная проверка и visual acceptance остаются после реализации.
 Remaining acceptance / IDs: остальные 15 SET ID и Unity verification стартового поднабора.
+Data packet 2026-09-26: [sets-v1](../balance/sets-v1.md) — пороги и числа 15 сетов, решения G-04/G-05 и орбита SET-014; Approved 2026-09-26 ([DECISION-0061](../decisions/0061-sets-data-v1.md), мусор +50%, орбита +35% вращения); static validator PASS. G-04/G-05/G-13 для этих ID закрыты; IP-17 world art подключён 2026-09-26.
 Startup subset F1-05: SET-001/004/006/010/017 Implemented 2026-09-24 — [evidence](evidence/field001-f1-05-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.

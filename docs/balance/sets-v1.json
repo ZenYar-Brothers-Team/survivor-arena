@@ -1,0 +1,490 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "sets-v1",
+ "approval": "Approved 2026-09-26 (DECISION-0061)",
+ "runtimeImportable": false,
+ "units": {
+  "distance": "world units",
+  "time": "running seconds",
+  "fractions": "0.3 = +30%"
+ },
+ "baselineSets": [
+  "SET-001",
+  "SET-004",
+  "SET-006",
+  "SET-010",
+  "SET-017"
+ ],
+ "decisions": {
+  "G-04": {
+   "chosen": "rebound-after-first-hit",
+   "options": [
+    "rebound-after-first-hit",
+    "disc-returns-after-last-hit",
+    "boomerang-only"
+   ]
+  },
+  "G-05": {
+   "chosen": "junk-projectile-damage-only",
+   "options": [
+    "junk-projectile-damage-only",
+    "amplify-heavy-junk-explosion"
+   ]
+  },
+  "SET-014-orbit": {
+   "chosen": "rotation-speed",
+   "options": [
+    "rotation-speed",
+    "no-action-speed-for-orbit"
+   ]
+  }
+ },
+ "sets": [
+  {
+   "id": "SET-002",
+   "requirements": {
+    "SKILL-006": 3,
+    "SKILL-008": 3,
+    "PASSIVE-003": 2
+   },
+   "effects": [
+    {
+     "kind": "ReturnPhaseTransform",
+     "skills": [
+      "SKILL-006",
+      "SKILL-008"
+     ],
+     "returnDamageBonus": 0.5,
+     "returnProjectileSpeedBonus": 0.3,
+     "disc": "rebound-after-first-hit"
+    }
+   ],
+   "gate": "G-04"
+  },
+  {
+   "id": "SET-003",
+   "requirements": {
+    "SKILL-007": 4,
+    "PASSIVE-005": 3,
+    "PASSIVE-013": 2
+   },
+   "effects": [
+    {
+     "kind": "ChainTransform",
+     "skill": "SKILL-007",
+     "extraTargets": 2,
+     "jumpRangeBonus": 0.3,
+     "falloffMultiplier": 0.5
+    }
+   ]
+  },
+  {
+   "id": "SET-005",
+   "requirements": {
+    "PASSIVE-006": 3,
+    "PASSIVE-007": 3,
+    "PASSIVE-010": 3
+   },
+   "effects": [
+    {
+     "kind": "StatBuff",
+     "disappearingXpRecoveryBonus": 0.2,
+     "pickupRadiusBonus": 0.3,
+     "pickedUpXpMultiplierBonus": 0.15
+    },
+    {
+     "kind": "LevelHeal",
+     "healFraction": 0.05
+    }
+   ]
+  },
+  {
+   "id": "SET-007",
+   "requirements": {
+    "SKILL-002": 3,
+    "SKILL-011": 3,
+    "SKILL-015": 3,
+    "PASSIVE-012": 2
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-002",
+     "activeDamageBonus": 0.25,
+     "effectSizeBonus": 0.2,
+     "effectRangeBonus": 0.2
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-011",
+     "activeDamageBonus": 0.25,
+     "effectSizeBonus": 0.2,
+     "effectRangeBonus": 0.2
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-015",
+     "activeDamageBonus": 0.25,
+     "effectSizeBonus": 0.2,
+     "effectRangeBonus": 0.2
+    }
+   ]
+  },
+  {
+   "id": "SET-008",
+   "requirements": {
+    "SKILL-009": 3,
+    "SKILL-014": 3,
+    "SKILL-016": 3,
+    "PASSIVE-012": 2
+   },
+   "effects": [
+    {
+     "kind": "ProjectileReplacement",
+     "skill": "SKILL-016",
+     "everyNthProjectile": 8,
+     "collisionRadiusMultiplier": 2.0,
+     "stopTimeMultiplier": 1.5,
+     "explodeAtStop": true,
+     "explosionRadius": 1.2,
+     "explosionDamageMultiplier": 4.0,
+     "explosionKnockback": 0.6,
+     "counter": "SKILL-016 projectiles created by ordinary activations; resets on run start"
+    },
+    {
+     "kind": "ExplosionRadiusBonus",
+     "skills": [
+      "SKILL-009",
+      "SKILL-014"
+     ],
+     "includesHeavyJunk": true,
+     "explosionRadiusBonus": 0.15
+    }
+   ]
+  },
+  {
+   "id": "SET-009",
+   "requirements": {
+    "SKILL-005": 3,
+    "SKILL-012": 3,
+    "PASSIVE-004": 2,
+    "PASSIVE-013": 2
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-005",
+     "activeDamageBonus": 0.4,
+     "effectSizeBonus": 0.25,
+     "effectRangeBonus": 0.3
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-012",
+     "activeDamageBonus": 0.4,
+     "effectSizeBonus": 0.25,
+     "effectRangeBonus": 0.3
+    },
+    {
+     "kind": "PierceBonus",
+     "skill": "SKILL-005",
+     "extraPierce": 2
+    }
+   ]
+  },
+  {
+   "id": "SET-011",
+   "requirements": {
+    "SKILL-001": 3,
+    "SKILL-005": 3,
+    "SKILL-008": 3,
+    "PASSIVE-004": 2,
+    "PASSIVE-013": 2
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-001",
+     "activeDamageBonus": 0.35,
+     "effectRangeBonus": 0.25,
+     "outgoingKnockbackBonus": 0.1,
+     "projectileSpeedBonus": 0.3
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-005",
+     "activeDamageBonus": 0.35,
+     "effectRangeBonus": 0.25,
+     "outgoingKnockbackBonus": 0.1,
+     "projectileSpeedBonus": 0.3
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-008",
+     "activeDamageBonus": 0.35,
+     "effectRangeBonus": 0.25,
+     "outgoingKnockbackBonus": 0.1,
+     "projectileSpeedBonus": 0.3
+    }
+   ]
+  },
+  {
+   "id": "SET-012",
+   "requirements": {
+    "SKILL-004": 3,
+    "PASSIVE-001": 3,
+    "PASSIVE-008": 2,
+    "PASSIVE-011": 2,
+    "PASSIVE-014": 2
+   },
+   "effects": [
+    {
+     "kind": "StatBuff",
+     "maxHealthBonus": 0.25,
+     "incomingDamageReduction": 0.1,
+     "knockbackResistanceBonus": 0.3
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-004",
+     "effectSizeBonus": 0.3,
+     "outgoingKnockbackBonus": 0.4
+    }
+   ]
+  },
+  {
+   "id": "SET-013",
+   "requirements": {
+    "SKILL-007": 4,
+    "SKILL-012": 4,
+    "PASSIVE-004": 2,
+    "PASSIVE-005": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "pattern": "FanOutDischarge",
+     "cooldownSeconds": 6,
+     "initialDelaySeconds": 6,
+     "targeting": "NearestEnemy",
+     "targetingRadius": 7,
+     "primaryDamage": 90,
+     "branchTargets": 5,
+     "branchRadius": 3,
+     "branchDamage": 45,
+     "knockback": 0,
+     "knockbackSeconds": 0,
+     "actionSpeedScaling": false,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ]
+  },
+  {
+   "id": "SET-014",
+   "requirements": {
+    "SKILL-003": 3,
+    "SKILL-011": 3,
+    "SKILL-015": 3,
+    "PASSIVE-003": 2,
+    "PASSIVE-004": 2,
+    "PASSIVE-005": 2
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-011",
+     "activeDamageBonus": 0.4,
+     "actionSpeedBonus": 0.2,
+     "effectSizeBonus": 0.25
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-015",
+     "activeDamageBonus": 0.4,
+     "actionSpeedBonus": 0.2,
+     "effectSizeBonus": 0.25
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-003",
+     "activeDamageBonus": 0.4,
+     "effectSizeBonus": 0.25,
+     "orbitAngularSpeedBonus": 0.35,
+     "note": "continuous orbit has no cooldown; action speed becomes rotation speed"
+    }
+   ]
+  },
+  {
+   "id": "SET-015",
+   "requirements": {
+    "SKILL-009": 3,
+    "SKILL-014": 3,
+    "SKILL-016": 3,
+    "PASSIVE-002": 2,
+    "PASSIVE-009": 2,
+    "PASSIVE-012": 2
+   },
+   "effects": [
+    {
+     "kind": "ExplosionTransform",
+     "skills": [
+      "SKILL-009",
+      "SKILL-014"
+     ],
+     "explosionDamageBonus": 0.35,
+     "explosionRadiusBonus": 0.25
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-016",
+     "activeDamageBonus": 0.5,
+     "note": "G-05: junk has no own explosion; SET-008 heavy-junk explosion is not amplified"
+    },
+    {
+     "kind": "RewardProc",
+     "event": "potion-collected",
+     "cooldownSeconds": 10,
+     "pattern": "AreaAroundPlayer",
+     "damage": 120,
+     "radius": 3.0,
+     "knockback": 1.2,
+     "knockbackSeconds": 0.12,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ],
+   "gate": "G-05"
+  },
+  {
+   "id": "SET-016",
+   "requirements": {
+    "SKILL-005": 4,
+    "PASSIVE-004": 3,
+    "PASSIVE-013": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "pattern": "Projectile",
+     "cooldownSeconds": 5,
+     "initialDelaySeconds": 5,
+     "targeting": "MovementDirection",
+     "damage": 120,
+     "maxHitTargets": 8,
+     "range": 9,
+     "speed": 10,
+     "collisionRadius": 0.45,
+     "knockback": 1.5,
+     "knockbackSeconds": 0.12,
+     "visual": "SKILL-005 sprite x2.5, set tint",
+     "actionSpeedScaling": false,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ]
+  },
+  {
+   "id": "SET-018",
+   "requirements": {
+    "SKILL-014": 4,
+    "PASSIVE-004": 2,
+    "PASSIVE-012": 2,
+    "PASSIVE-014": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "pattern": "ExplodingProjectile",
+     "cooldownSeconds": 8,
+     "initialDelaySeconds": 8,
+     "targeting": "IndependentRandom",
+     "impactDamage": 40,
+     "explosionDamage": 160,
+     "explosionRadius": 3.0,
+     "speed": 2,
+     "lifetimeSeconds": 3,
+     "range": 6,
+     "collisionRadius": 0.6,
+     "explodeOnExpiry": true,
+     "impactKnockback": 0.4,
+     "explosionKnockback": 1.5,
+     "knockbackSeconds": 0.12,
+     "maxConcurrent": 1,
+     "visual": "SKILL-014 sprite x2.5, set tint",
+     "actionSpeedScaling": false,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ]
+  },
+  {
+   "id": "SET-019",
+   "requirements": {
+    "SKILL-013": 4,
+    "PASSIVE-011": 2,
+    "PASSIVE-013": 2,
+    "PASSIVE-014": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "pattern": "Projectile",
+     "cooldownSeconds": 6,
+     "initialDelaySeconds": 6,
+     "targeting": "MovementDirection",
+     "damage": 90,
+     "maxHitTargets": 5,
+     "range": 8,
+     "speed": 9,
+     "collisionRadius": 0.35,
+     "slowFraction": 0.5,
+     "slowSeconds": 2.5,
+     "knockback": 1.0,
+     "knockbackSeconds": 0.12,
+     "visual": "SKILL-013 sprite x3, set tint",
+     "actionSpeedScaling": false,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ]
+  },
+  {
+   "id": "SET-020",
+   "requirements": {
+    "SKILL-001": 4,
+    "PASSIVE-011": 2,
+    "PASSIVE-012": 2,
+    "PASSIVE-013": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "pattern": "Projectile",
+     "cooldownSeconds": 5,
+     "initialDelaySeconds": 5,
+     "targeting": "IndependentRandom",
+     "damage": 100,
+     "maxHitTargets": 4,
+     "range": 7,
+     "speed": 5,
+     "collisionRadius": 0.55,
+     "knockback": 2.0,
+     "knockbackSeconds": 0.12,
+     "maxConcurrent": 1,
+     "visual": "SKILL-001 sprite x3, set tint",
+     "actionSpeedScaling": false,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true,
+     "countsAsSkillActivation": false
+    }
+   ]
+  }
+ ]
+}
