@@ -27,8 +27,13 @@ namespace Game.Enemy
                 definition.Movement,
                 ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier),
                 definition.KnockbackResistance,
-                definition.ContactControls, definition.DashContactControls, definition.MotionProfile);
+                definition.ContactControls, definition.DashContactControls, definition.MotionProfile,
+                ScaleDashVolley(definition.DashVolley, modifiers.AttackDamageMultiplier));
         }
+
+        private static EnemyDashVolleyProfile ScaleDashVolley(EnemyDashVolleyProfile volley, float damageMultiplier) =>
+            volley == null ? null : new EnemyDashVolleyProfile(ScaleAttack(volley.Attack, damageMultiplier), volley.RepeatEveryNthDash,
+                volley.RepeatBelowHealthFraction, volley.RepeatDelaySeconds, volley.RepeatRotationDegrees);
 
         private static EnemyAttackProfile ScaleAttack(EnemyAttackProfile attack, float damageMultiplier)
         {

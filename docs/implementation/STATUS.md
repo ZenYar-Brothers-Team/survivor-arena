@@ -206,8 +206,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 
 | Приоритет | Packet / владельцы | Status | Prerequisites / gate |
 |---:|---|---|---|
-| 1 | F2-01 — атака в конце рывка и повторный залп (IP-15/IP-21 framework) | Ready | — |
-| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Blocked | F2-01; тела — art gate, до арта placeholders |
+| 1 | F2-01 — атака в конце рывка и повторный залп (IP-15/IP-21 framework) | Implemented | 2026-09-26: `EnemyDashVolleyProfile/Controller`, JSON `dashEndAttack`/`dashEndRepeat`, масштаб волн; EditMode 211/211 (Enemy/Traveler/Bootstrap) |
+| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Ready | F2-01 Implemented; тела — art gate, до арта placeholders |
 | 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Ready | Арт тракта — gate; временно арт FIELD-001 с собственной геометрией |
 | 4 | F2-04 — волны FIELD-002 и модификаторы поля (IP-24) | Ready | Враги IP-20 реализованы |
 | 5 | F2-05 — общий пул Путников без повторов ролей (IP-29/IP-30) | Ready | — |

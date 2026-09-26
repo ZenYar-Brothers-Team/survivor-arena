@@ -43,6 +43,7 @@ namespace Game.Enemy
         private GameObjectPool<EnemyProjectileRuntime> _projectilePool;
         private EnemyMovementController _movementController;
         private EnemyAttackController _attackController;
+        private EnemyDashVolleyController _dashVolley;
         public BossCombatController BossCombat { get; private set; }
         private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
@@ -174,6 +175,7 @@ namespace Game.Enemy
             _renderer.color = visual != null ? Color.white : new Color(0.85f, 0.2f, 0.2f, 1f);
 
             _movementController = new EnemyMovementController(definition.Movement);
+            _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
                 : new EnemyAttackController(definition.Attack, random: new System.Random(LifeId.GetHashCode()));
@@ -215,6 +217,7 @@ namespace Game.Enemy
                 isSimulating);
             _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
+            if (_dashVolley != null) FireDashVolley(movement.Phase, isSimulating);
             if (!isSimulating || _attackController == null)
             {
                 RenderTelegraph(movement);
@@ -240,6 +243,20 @@ namespace Game.Enemy
                     LastProjectileSource,
                     ResolveProjectileVisual(CurrentAttack));
             }
+        }
+
+        // DECISION-0063: the ring leaves the moment the dash stops; the dash telegraph is its warning.
+        private void FireDashVolley(EnemyMovementPhase phase, bool isSimulating)
+        {
+            var shots = _dashVolley.Tick(phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime, isSimulating,
+                (Vector2)_target.position - _body.position);
+            if (shots.Length == 0) return;
+            var attack = Definition.DashVolley.Attack;
+            var visual = ResolveProjectileVisual(attack);
+            LastProjectileSource = new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile);
+            for (var i = 0; i < shots.Length; i++)
+                EnemyProjectileFactory.Spawn(attack, _body.position, shots[i].Direction, _projectileTarget, _runController,
+                    transform.parent, _projectilePool, LastProjectileSource, visual);
         }
 
         private SpriteDefinition ResolveProjectileVisual(EnemyAttackProfile attack)

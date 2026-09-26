@@ -21,6 +21,8 @@ namespace Game.Enemy
         public EnemyAttackProfile Attack { get; }
         public float KnockbackResistance { get; }
         public CombatControlProfile DashContactControls { get; }
+        /// <summary>Optional ring fired when a dash ends (BOSS-002/MIDBOSS-002, DECISION-0063).</summary>
+        public EnemyDashVolleyProfile DashVolley { get; }
         public CombatControlProfile ContactControls { get; }
 
         public EnemyDefinition(
@@ -37,7 +39,8 @@ namespace Game.Enemy
             float knockbackResistance = 0f,
             CombatControlProfile contactControls = null,
             CombatControlProfile dashContactControls = null,
-            ContentRef<SpriteMotionProfile> motionProfile = default)
+            ContentRef<SpriteMotionProfile> motionProfile = default,
+            EnemyDashVolleyProfile dashVolley = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -66,6 +69,9 @@ namespace Game.Enemy
             KnockbackResistance = knockbackResistance;
             ContactControls = contactControls ?? CombatControlProfile.None;
             DashContactControls = dashContactControls ?? CombatControlProfile.None;
+            if (dashVolley != null && Movement.Kind != EnemyMovementKind.TelegraphedDash)
+                throw new ArgumentException("A dash volley needs dash movement.", nameof(dashVolley));
+            DashVolley = dashVolley;
         }
 
         // Visual is optional: content authored without art yet (e.g. fixtures) simply
@@ -78,6 +84,8 @@ namespace Game.Enemy
                 yield return MotionProfile.ToReference();
             if (Attack?.ProjectileVisual.Id.IsValid == true)
                 yield return Attack.ProjectileVisual.ToReference();
+            if (DashVolley?.Attack.ProjectileVisual.Id.IsValid == true)
+                yield return DashVolley.Attack.ProjectileVisual.ToReference();
         }
     }
 }

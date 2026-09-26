@@ -73,7 +73,7 @@ namespace Game.Traveler
             return new EnemyDefinition(Id, Body.MaxHealth * multiplier, Body.CollisionSize, Body.MovementSpeed,
                 Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, visual: Body.Visual, movement: Body.Movement,
                 attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls,
-                motionProfile: Body.MotionProfile);
+                motionProfile: Body.MotionProfile, dashVolley: Body.DashVolley);
         }
         // Body art/motion/projectile visuals must reach the registry like a boss body does (DECISION-0057).
         public IEnumerable<ContentReference> GetReferencedContent() => Body.GetReferencedContent();

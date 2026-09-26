@@ -51,7 +51,24 @@ namespace Game.Enemy
                 movement.Kind == EnemyMovementKind.TelegraphedDash
                     ? RequireControls(data.DashContactControls, $"Enemy {data.Id} dashContactControls") : null,
                 string.IsNullOrEmpty(data.MotionProfileId) ? default :
-                    new ContentRef<SpriteMotionProfile>(data.MotionProfileId));
+                    new ContentRef<SpriteMotionProfile>(data.MotionProfileId),
+                ToDashVolley(data));
+        }
+
+        private static EnemyDashVolleyProfile ToDashVolley(EnemyDefinitionData data)
+        {
+            if (data.DashEndAttack == null)
+            {
+                if (data.DashEndRepeat != null) throw new InvalidOperationException($"Enemy {data.Id} dashEndRepeat needs dashEndAttack.");
+                return null;
+            }
+            var attack = ToAttack(data.Id, data.DashEndAttack);
+            var repeat = data.DashEndRepeat;
+            return repeat == null ? new EnemyDashVolleyProfile(attack) : new EnemyDashVolleyProfile(attack,
+                Require(repeat.EveryNthDash, $"Enemy {data.Id} dashEndRepeat.everyNthDash"),
+                Require(repeat.BelowHealthFraction, $"Enemy {data.Id} dashEndRepeat.belowHealthFraction"),
+                Require(repeat.DelaySeconds, $"Enemy {data.Id} dashEndRepeat.delaySeconds"),
+                Require(repeat.RotationDegrees, $"Enemy {data.Id} dashEndRepeat.rotationDegrees"));
         }
 
         // Every field the kind actually reads must be explicit in config; fields it never

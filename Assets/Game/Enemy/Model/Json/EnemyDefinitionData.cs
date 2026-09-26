@@ -20,5 +20,8 @@ namespace Game.Enemy.Json
         public string MotionProfileId { get; set; }
         public EnemyMovementProfileData Movement { get; set; }
         public EnemyAttackProfileData Attack { get; set; }
+        /// <summary>Optional ring on dash end; requires TelegraphedDash movement (DECISION-0063).</summary>
+        public EnemyAttackProfileData DashEndAttack { get; set; }
+        public EnemyDashVolleyRepeatData DashEndRepeat { get; set; }
     }
 }
