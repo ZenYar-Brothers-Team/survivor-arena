@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Reflection;
+using Game.Combat;
 using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
@@ -60,6 +62,24 @@ namespace Game.Character.Tests
             Assert.IsNotNull(_player.Health);
             Assert.AreNotSame(firstHealth, _player.Health);
             Assert.DoesNotThrow(() => Invoke(_player, "Update"));
+        }
+
+        [Test]
+        public void Update_WhileRunning_ReportsRegenerationWithItsOwnSource()
+        {
+            // Playtest 794c2696: regeneration healing was reported without attribution ("unknown").
+            _player.Initialize(new CharacterBaseStats(100f, 3f, healthRegenerationPerSecond: 1f), _runController);
+            _runController.Model.Start();
+            var results = new List<CombatResult>();
+            _player.CombatResolved += results.Add;
+
+            Invoke(_player, "Update");
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(CombatSourceOrigin.Regeneration, results[0].Source.Origin);
+            Assert.IsNull(results[0].Source.ContentId);
+            Assert.AreEqual(_player.Identity, results[0].Source.Owner);
+            Assert.IsTrue(results[0].Health.IsHealing);
         }
 
         private static void Invoke(MonoBehaviour behaviour, string method)

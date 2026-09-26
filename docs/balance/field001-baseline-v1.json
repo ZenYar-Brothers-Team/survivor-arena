@@ -1691,10 +1691,10 @@
     "aimSnapshot": "windup-start",
     "teleport": {
       "farDistance": 5,
-      "farSeconds": 5,
-      "landingDistance": 2.2,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
-      "impactRadius": 2.6,
+      "impactRadius": 3.5,
       "impactDamage": 20,
       "impactKnockback": 0.5,
       "impactKnockbackSeconds": 0.12,

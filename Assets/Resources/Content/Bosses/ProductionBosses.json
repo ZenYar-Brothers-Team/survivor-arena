@@ -110,10 +110,10 @@
     ],
     "teleport": {
       "farDistance": 5,
-      "farSeconds": 5,
-      "landingDistance": 2.2,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
-      "impactRadius": 2.6,
+      "impactRadius": 3.5,
       "impactDamage": 20,
       "impactControls": {
         "knockbackDistance": 0.5,
@@ -259,10 +259,10 @@
     ],
     "teleport": {
       "farDistance": 5,
-      "farSeconds": 5,
-      "landingDistance": 2.2,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
-      "impactRadius": 2.6,
+      "impactRadius": 3.5,
       "impactDamage": 20,
       "impactControls": {
         "knockbackDistance": 0.5,

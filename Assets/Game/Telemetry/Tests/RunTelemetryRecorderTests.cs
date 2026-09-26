@@ -63,6 +63,16 @@ namespace Game.Telemetry.Tests
             Assert.AreEqual(JTokenType.Null, data["producers"].Type);
         }
         [Test]
+        public void ContentlessSourceWithKnownOrigin_IsLabelledByOrigin()
+        {
+            var run = new RunModel(); var recorder = TelemetryTestData.Recorder(run);
+            var player = new CombatIdentity(Guid.NewGuid(), run.RunId, null, CombatEntityCategory.Player);
+            recorder.Combat(new CombatResult(new CombatSource(player, null, CombatSourceOrigin.Regeneration), player, new HealthChange(5, 5, 5, true)));
+            var data = JObject.Parse(recorder.Snapshot(null, false).Json);
+            Assert.AreEqual("Regeneration", (string)data["combat"][0]["source"]);
+            Assert.AreEqual("Regeneration", (string)data["combat"][0]["origin"]);
+        }
+        [Test]
         public void BoundedBuffers_SaturateWithoutEvictingDedupIds_AndCountDroppedData()
         {
             var run = new RunModel(); var recorder = TelemetryTestData.Recorder(run, new TelemetryLimits(2, 1, 1));

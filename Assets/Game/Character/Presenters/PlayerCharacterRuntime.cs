@@ -74,7 +74,8 @@ namespace Game.Character
                             runController.Model != null &&
                             runController.Model.State == RunState.Running;
             if (isRunning && !Health.IsDead && Stats.HealthRegenerationPerSecond > 0f)
-                Heal(Stats.HealthRegenerationPerSecond * Time.deltaTime);
+                Heal(Stats.HealthRegenerationPerSecond * Time.deltaTime,
+                    new CombatSource(Identity, null, CombatSourceOrigin.Regeneration));
         }
 
         // Undoes exactly what Initialize() set up, so a partially-initialized

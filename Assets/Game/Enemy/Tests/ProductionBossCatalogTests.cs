@@ -37,8 +37,14 @@ namespace Game.Enemy.Tests
             var teleport = boss.Teleport;
             Assert.IsNotNull(teleport, "DECISION-0059: BOSS-001 teleport-slams a player who keeps away.");
             Assert.AreEqual(5f, teleport.FarDistance, 1e-5f, "Half of the 10-unit reference screen height.");
-            Assert.AreEqual(5f, teleport.FarSeconds, 1e-5f);
-            Assert.Less(teleport.LandingDistance, teleport.ImpactRadius, "A player standing still is caught by the slam.");
+            Assert.AreEqual(2f, teleport.FarSeconds, 1e-5f);
+            Assert.AreEqual(1.5f, teleport.LandingDistance, 1e-5f);
+            Assert.AreEqual(3.5f, teleport.ImpactRadius, 1e-5f);
+            // User request 2026-09-26: a base-speed player (3 u/s, ProductionCharacterBaseline) running straight away
+            // from the landing point during the telegraph is still inside the slam.
+            const float baseMovementSpeed = 3f;
+            Assert.Less(teleport.LandingDistance + baseMovementSpeed * teleport.TelegraphSeconds, teleport.ImpactRadius,
+                "A base-speed player cannot leave the slam circle during the telegraph.");
             Assert.AreEqual(20f, teleport.ImpactDamage, 1e-5f);
 
             var mid = Encounter("MIDBOSS-001");

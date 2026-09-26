@@ -121,7 +121,9 @@ namespace Game.Telemetry
                     ? _run.Elapsed - start : (double?)null;
                 rows.Add(new JObject
                 {
-                    ["source"] = key.Source?.ToString() ?? "unknown", ["level"] = key.Level,
+                    // Content-less sources with a known origin (regeneration) are labelled by origin, not "unknown".
+                    ["source"] = key.Source?.ToString() ?? (key.Origin == CombatSourceOrigin.Unknown ? "unknown" : key.Origin.ToString()),
+                    ["level"] = key.Level,
                     ["origin"] = key.Origin.ToString(), ["targetCategory"] = key.Target.ToString(),
                     ["healing"] = key.Healing, ["results"] = value.Results, ["attempted"] = value.Attempted,
                     ["applied"] = value.Applied, ["overkill"] = key.Healing ? JValue.CreateNull() : new JValue(value.Overkill),
