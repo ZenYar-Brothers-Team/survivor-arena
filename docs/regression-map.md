@@ -92,6 +92,8 @@ Shared enemy death presentation: `EnemyDeathPresentationSmokeTests.Death_StopsIn
 
 Contact follow-up: `SpriteContactProfileTests` guards the filled outer silhouette, tangency without unused radial margin and profile validation; `BodyContactSmokeTests` checks eight contact directions; `EnemyBodyPresentationTests` checks radius after mixed pool reuse. [DECISION-0039 / evidence](implementation/evidence/2026-09-22-body-contact-circles.md), [OBS-01](playtests/2026-09-22_contact-gap.md).
 
+Raster contact profiles: `python scripts/fit-body-contacts.py` checks every saved circle against the current PNG, PPU and pivot. It caught ENEMY-007's stale v001-sized collider after its body was scaled to v002; rerun after any body PNG or contact-profile change. [Refit evidence](implementation/evidence/2026-09-26-enemy007-contact-refit.md).
+
 EnemyBodyPresentationTests защищает child-only motion, hit/pause, mixed-pool reuse
 и typed motion reference/scaling; EnemySpriteImportTests — import/reimport GUID,
 size/pivot/transparent border; EnemyBodySmokeTests — реальную цепочку

@@ -31,5 +31,5 @@
   "originalSha256": "6ffc1a7533d345eb16ace2be46484aed6550ec04b253d9015466eacbd2977a01",
   "promptProvenance": "Exact prompt issued in this task; stored in prompt.",
   "replacesSha256": "fffec744e1b0769e581a10cb10e7e4d16145f36a4c0ad5d351d46f4e42ad7297",
-  "derivation": "v002 = approved v001 master scaled by 0.5 about the import pivot (0.5, 0.1) on the same 256×256 canvas (LANCZOS); ground contact line, import profile and collider unchanged. Prepared by hand because art_pipeline.py requires body contact values that ENEMY-007 does not define; adding them would change gameplay collision."
+  "derivation": "v002 = approved v001 master scaled by 0.5 about the import pivot (0.5, 0.1) on the same 256×256 canvas (LANCZOS); ground contact line and import profile unchanged. The original contact circle was inadvertently left at v001 size. On 2026-09-26 it was refitted to v002 as radius 0.266696 and centerY 0.299833; see docs/implementation/evidence/2026-09-26-enemy007-contact-refit.md."
 }

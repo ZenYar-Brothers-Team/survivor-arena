@@ -1,0 +1,7 @@
+# ENEMY-007 contact refit — 2026-09-26
+
+After the approved hound body was scaled to half size in v002, `FixtureSprites.json` still held the v001 circle (`contactRadius` 0.539194, `contactCenterY` 0.601087). At that center the circle was outside the current alpha ≥230 convex silhouette, so the global body-contact validator stopped at ENEMY-007. The user asked to fix this on 2026-09-26.
+
+The current 256×256 RGBA body and unchanged import profile (160 PPU, pivot 0.5/0.1) were measured with `python scripts/fit-body-contacts.py --fit-outer`. The maximal circle on the pivot X axis is radius **0.266696** and centerY **0.299833** world units; outer maximum is 0.266697. Only those two authored contact values changed. No PNG, PPU, pivot, attack timing or damage value changed. `EnemyRuntime` applies this profile to its CircleCollider2D on initialize/reuse, so the physical collision and contact-damage boundary now follow the smaller art under DECISION-0039.
+
+Regression check: `python scripts/fit-body-contacts.py` now finishes successfully for all 19 registered bodies. It also exposed a half-pixel center calculation error in the recently prepared CHAR-002…005 profiles; their centers were corrected to the official tool output, with no radius or PNG changes. `python scripts/check_project.py --scope full` passed on Unity 6000.6.0f1: 784/784 Game.* EditMode and 27/27 PlayMode, zero failed or skipped; receipt: `TestResults/checks/20260926T114235-401899Z/summary.json`. Gameplay-scale visual review of the hound remains a separate user playtest check.
