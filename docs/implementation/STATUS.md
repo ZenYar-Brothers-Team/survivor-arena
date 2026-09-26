@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (IP-19 все 20 сетов по DECISION-0061, Unity 784/784 EditMode + 27/27 PlayMode; ранее поздние умения/пассивки DECISION-0060 и DECISION-0056)
+Last repository audit: 2026-09-26 (IP-20 все 20 врагов по DECISION-0062, Unity 790/790 EditMode + 27/27 PlayMode; ранее IP-19 сеты DECISION-0061)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: нет. IP-19 Implemented 2026-09-26 (ждёт ручной проверки 3–4 сетов); IP-17/IP-18 Implemented ждут ручной visual review. IP-20 и дальше удерживают собственные data gates (G-14). F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
+Next Ready packet: нет. IP-20 Blocked только на арт 14 врагов (данные и поведение реализованы 2026-09-26); IP-17/IP-18/IP-19 Implemented ждут ручной проверки. IP-21 и дальше удерживают собственные data gates (G-14). F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -626,9 +626,11 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-04, IP-13, IP-28, IP-12A
-Blocked by: собственные content/design gates ниже; prerequisite IP-28 выполнен.
+Blocked by: body/projectile art ENEMY-006, 008…020 (per-ID art gate). Данные и поведение всех 20 врагов реализованы 2026-09-26.
 Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
 Remaining acceptance / IDs: ENEMY-006, ENEMY-008…020; startup body art принят 2026-09-24.
+Data packet 2026-09-26: [enemies-v1](../balance/enemies-v1.md) — недостающие параметры 14 врагов, скорость ×1.3 к карточной по образцу FIELD-001, прочие карточные числа без изменений; Approved 2026-09-26 ([DECISION-0062](../decisions/0062-enemies-data-v1.md)); static validator PASS; G-14 для этих ID закрыт.
+Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты), placeholders до арта; Unity full PASS 790/790 + 27/27 — [evidence](evidence/2026-09-26-enemies-v1.md).
 Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 ENEMY-007 body contact refit to its approved half-size v002 sprite: radius 0.266696, centerY 0.299833; global contact fit PASS, Unity full smoke 784/784 EditMode и 27/27 PlayMode, zero skipped — [evidence](evidence/2026-09-26-enemy007-contact-refit.md). Остальные gates и статус IP-20 не изменились.
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).

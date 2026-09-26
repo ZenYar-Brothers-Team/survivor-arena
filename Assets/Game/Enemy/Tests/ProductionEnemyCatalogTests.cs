@@ -5,17 +5,17 @@ using UnityEngine;
 
 namespace Game.Enemy.Tests
 {
-    /// <summary>F1-04: six production ordinary enemies and their approved baseline v1 behaviour.</summary>
+    /// <summary>F1-04: the six FIELD-001 ordinary enemies and their approved baseline v1 behaviour.</summary>
     public sealed class ProductionEnemyCatalogTests
     {
         private static EnemyDefinition Enemy(string id) => ProductionEnemyCatalog.Create().Single(e => e.Id.ToString() == id);
 
         [Test]
-        public void Catalog_ContainsExactlyTheSixStartupEnemies_WithRebalancedStats()
+        public void Catalog_ContainsAllTwentyEnemies_WithStartupSixRebalanced()
         {
             var enemies = ProductionEnemyCatalog.Create();
-            CollectionAssert.AreEqual(new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" },
-                enemies.Select(e => e.Id.ToString()));
+            CollectionAssert.AreEqual(Enumerable.Range(1, 20).Select(n => $"ENEMY-{n:000}"), enemies.Select(e => e.Id.ToString()),
+                "Late fourteen from enemies-v1 (DECISION-0062); ProductionLateEnemyCatalogTests covers them.");
             var expected = new (string id, float hp, float speed, float contact, float xp)[]
             {
                 ("ENEMY-001", 32, 1.2f, 10, 1), ("ENEMY-002", 24, 2.25f, 8, 1), ("ENEMY-003", 150, 0.8f, 20, 3),

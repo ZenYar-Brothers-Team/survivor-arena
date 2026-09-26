@@ -21,6 +21,7 @@ BASELINE = ROOT / "docs/balance/field001-baseline-v1.json"
 
 LATE_PACKET = ROOT / "docs/balance/late-skills-passives-v1.json"
 SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
+ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
 
 
 def load_baseline():
@@ -35,6 +36,10 @@ def load_baseline():
     if not str(late_sets.get("approval", "")).startswith("Approved"):
         raise SystemExit("Sets packet is not Approved; production content cannot be generated.")
     data["lateSets"] = late_sets
+    late_enemies = json.loads(ENEMIES_PACKET.read_text(encoding="utf-8"))
+    if not str(late_enemies.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Enemies packet is not Approved; production content cannot be generated.")
+    data["lateEnemies"] = late_enemies
     return data
 
 
@@ -327,7 +332,12 @@ CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}
 
 def enemies(baseline):
     result = []
-    for enemy in baseline["enemies"]:
+    potion_chance = baseline["pickups"]["basePotionChance"]
+    for enemy in baseline["lateEnemies"]["enemies"]:
+        # enemies-v1 (DECISION-0062) restates the shared ordinary potion chance; it is not a per-enemy table.
+        if enemy["potionDropChance"] != potion_chance:
+            raise SystemExit(f"{enemy['id']}: per-enemy potion chance is not supported")
+    for enemy in sorted(baseline["enemies"] + baseline["lateEnemies"]["enemies"], key=lambda item: item["id"]):
         kb_seconds = enemy["knockbackSeconds"]
         movement = dict(enemy["movement"])
         entry = {
@@ -341,8 +351,12 @@ def enemies(baseline):
             entry["visualId"], entry["motionProfileId"] = ENEMY_VISUALS[enemy["id"]]
         kind = movement["kind"]
         runtime_movement = {"kind": kind}
-        if kind in ("KeepDistance", "DistanceReposition"):
+        if kind in ("KeepDistance", "DistanceReposition", "Orbit"):
             runtime_movement.update(preferredDistance=movement["preferredDistance"], distanceTolerance=movement["distanceTolerance"])
+        if kind in ("Orbit", "Zigzag"):
+            runtime_movement["lateralStrength"] = movement["lateralStrength"]
+        if kind in ("Zigzag", "ApproachRetreat"):
+            runtime_movement["cycleSeconds"] = movement["cycleSeconds"]
         if kind == "DistanceReposition":
             if movement["cycleSeconds"] != movement["holdingSeconds"] + movement["repositionSeconds"] or not movement["alternateLateralDirection"]:
                 raise SystemExit(f"{enemy['id']}: unsupported reposition cycle")
@@ -369,8 +383,15 @@ def enemies(baseline):
                 "projectileCount": attack["projectileCount"], "projectileRadius": attack["projectileRadius"],
                 "telegraphSeconds": attack["telegraphSeconds"], "cadence": CADENCES[attack["cadence"]],
                 "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]},
-                "projectileVisualId": ENEMY_PROJECTILE_VISUALS[enemy["id"]],
             }
+            if enemy["id"] in ENEMY_PROJECTILE_VISUALS:
+                entry["attack"]["projectileVisualId"] = ENEMY_PROJECTILE_VISUALS[enemy["id"]]
+            if attack["pattern"] == "Fan":
+                entry["attack"]["spreadDegrees"] = attack["spreadDegrees"]
+            if attack["pattern"] == "Spiral":
+                entry["attack"]["rotationStepDegrees"] = attack["rotationStepDegrees"]
+            if attack["pattern"] == "Explosive":
+                entry["attack"]["explosionRadius"] = attack["explosionRadius"]
             if attack["pattern"] == "Burst":
                 # Sequential shots with per-shot random aim deviation within ±spread/2 (DECISION-0055).
                 entry["attack"]["burstIntervalSeconds"] = attack["burstIntervalSeconds"]

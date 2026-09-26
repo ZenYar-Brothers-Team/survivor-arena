@@ -1,0 +1,601 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "enemies-v1",
+ "approval": "Approved 2026-09-26 (DECISION-0062)",
+ "runtimeImportable": false,
+ "units": {
+  "distance": "world units",
+  "time": "running seconds",
+  "fractions": "0.1 = 10%"
+ },
+ "reference": {
+  "playerSpeed": 3.0,
+  "field001SpeedFactors": {
+   "ENEMY-001": 1.2,
+   "ENEMY-002": 1.45,
+   "ENEMY-003": 1.23,
+   "ENEMY-004": 1.27,
+   "ENEMY-005": 1.38,
+   "ENEMY-007": 1.72
+  },
+  "speedFactor": 1.3,
+  "speedCap": 2.2
+ },
+ "enemies": [
+  {
+   "id": "ENEMY-006",
+   "maxHealth": 85,
+   "movementSpeed": 0.85,
+   "collisionSize": 0.9,
+   "contactDamage": 12,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 4,
+   "contactKnockback": 0.2,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.1,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 6.5,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Fan",
+    "damage": 10,
+    "cooldownSeconds": 3.0,
+    "telegraphSeconds": 0.6,
+    "projectileSpeed": 5.5,
+    "projectileLifetimeSeconds": 1.6,
+    "projectileRadius": 0.12,
+    "projectileCount": 3,
+    "spreadDegrees": 35,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.3,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.0,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-008",
+   "maxHealth": 90,
+   "movementSpeed": 1.3,
+   "collisionSize": 0.8,
+   "contactDamage": 12,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 4,
+   "contactKnockback": 0.6,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.2,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "Orbit",
+    "preferredDistance": 1.2,
+    "distanceTolerance": 0.4,
+    "lateralStrength": 0.9
+   },
+   "attack": null
+  },
+  {
+   "id": "ENEMY-009",
+   "maxHealth": 220,
+   "movementSpeed": 0.7,
+   "collisionSize": 1.2,
+   "contactDamage": 22,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 6,
+   "contactKnockback": 0.45,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.55,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "Seek"
+   },
+   "attack": null
+  },
+  {
+   "id": "ENEMY-010",
+   "maxHealth": 100,
+   "movementSpeed": 0.9,
+   "collisionSize": 0.85,
+   "contactDamage": 12,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 5,
+   "contactKnockback": 0.2,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.1,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 5.5,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Burst",
+    "damage": 9,
+    "cooldownSeconds": 3.2,
+    "telegraphSeconds": 0.5,
+    "projectileSpeed": 7.0,
+    "projectileLifetimeSeconds": 1.2,
+    "projectileRadius": 0.1,
+    "projectileCount": 3,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0.15,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.15,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.2,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-011",
+   "maxHealth": 120,
+   "movementSpeed": 0.85,
+   "collisionSize": 0.9,
+   "contactDamage": 14,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 6,
+   "contactKnockback": 0.2,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.15,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 5.0,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Ring",
+    "damage": 9,
+    "cooldownSeconds": 3.8,
+    "telegraphSeconds": 0.6,
+    "projectileSpeed": 3.2,
+    "projectileLifetimeSeconds": 2.5,
+    "projectileRadius": 0.16,
+    "projectileCount": 8,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.25,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.8,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-012",
+   "maxHealth": 115,
+   "movementSpeed": 1.0,
+   "collisionSize": 0.85,
+   "contactDamage": 15,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 6,
+   "contactKnockback": 0.3,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.15,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 5.5,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Single",
+    "damage": 18,
+    "cooldownSeconds": 3.0,
+    "telegraphSeconds": 0.7,
+    "projectileSpeed": 8.0,
+    "projectileLifetimeSeconds": 1.1,
+    "projectileRadius": 0.16,
+    "projectileCount": 1,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.65,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.0,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-013",
+   "maxHealth": 110,
+   "movementSpeed": 1.55,
+   "collisionSize": 0.75,
+   "contactDamage": 16,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 6,
+   "contactKnockback": 0.35,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.1,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "ApproachRetreat",
+    "cycleSeconds": 2.6
+   },
+   "attack": null
+  },
+  {
+   "id": "ENEMY-014",
+   "maxHealth": 180,
+   "movementSpeed": 0.65,
+   "collisionSize": 1.05,
+   "contactDamage": 20,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 8,
+   "contactKnockback": 0.25,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.25,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 7.0,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Explosive",
+    "damage": 24,
+    "cooldownSeconds": 4.0,
+    "telegraphSeconds": 0.9,
+    "projectileSpeed": 3.0,
+    "projectileLifetimeSeconds": 3.0,
+    "projectileRadius": 0.25,
+    "projectileCount": 1,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 1.0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.8,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 4.0,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-015",
+   "maxHealth": 145,
+   "movementSpeed": 0.9,
+   "collisionSize": 0.9,
+   "contactDamage": 16,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 7,
+   "contactKnockback": 0.25,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.2,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 5.5,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Cross",
+    "damage": 13,
+    "cooldownSeconds": 3.3,
+    "telegraphSeconds": 0.55,
+    "projectileSpeed": 5.0,
+    "projectileLifetimeSeconds": 1.8,
+    "projectileRadius": 0.13,
+    "projectileCount": 4,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.35,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.3,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-016",
+   "maxHealth": 320,
+   "movementSpeed": 0.8,
+   "collisionSize": 1.3,
+   "contactDamage": 28,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 10,
+   "contactKnockback": 0.75,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.65,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "TelegraphedDash",
+    "dashTelegraphSeconds": 0.8,
+    "dashDurationSeconds": 1.0,
+    "dashCooldownSeconds": 5.0,
+    "dashSpeedMultiplier": 3.5,
+    "dashKnockback": 1.1,
+    "direction": "snapshot-at-telegraph-start",
+    "showDashTelegraphLine": false
+   },
+   "attack": null
+  },
+  {
+   "id": "ENEMY-017",
+   "maxHealth": 170,
+   "movementSpeed": 1.75,
+   "collisionSize": 0.8,
+   "contactDamage": 20,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 8,
+   "contactKnockback": 0.35,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.2,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "Zigzag",
+    "lateralStrength": 0.8,
+    "cycleSeconds": 0.9
+   },
+   "attack": null
+  },
+  {
+   "id": "ENEMY-018",
+   "maxHealth": 190,
+   "movementSpeed": 0.85,
+   "collisionSize": 0.95,
+   "contactDamage": 18,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 9,
+   "contactKnockback": 0.2,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.25,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "KeepDistance",
+    "preferredDistance": 6.0,
+    "distanceTolerance": 0.5,
+    "lateralStrength": 0,
+    "cycleSeconds": 3
+   },
+   "attack": {
+    "pattern": "Spiral",
+    "damage": 12,
+    "cooldownSeconds": 3.4,
+    "telegraphSeconds": 0.6,
+    "projectileSpeed": 3.2,
+    "projectileLifetimeSeconds": 2.6,
+    "projectileRadius": 0.15,
+    "projectileCount": 10,
+    "spreadDegrees": 0,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 18,
+    "knockback": 0.3,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.4,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-019",
+   "maxHealth": 300,
+   "movementSpeed": 0.9,
+   "collisionSize": 1.1,
+   "contactDamage": 26,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 12,
+   "contactKnockback": 0.65,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.6,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "Seek"
+   },
+   "attack": {
+    "pattern": "Fan",
+    "damage": 15,
+    "cooldownSeconds": 3.5,
+    "telegraphSeconds": 0.6,
+    "projectileSpeed": 5.0,
+    "projectileLifetimeSeconds": 1.8,
+    "projectileRadius": 0.14,
+    "projectileCount": 5,
+    "spreadDegrees": 50,
+    "burstIntervalSeconds": 0,
+    "explosionRadius": 0,
+    "rotationStepDegrees": 0,
+    "knockback": 0.4,
+    "knockbackSeconds": 0.12,
+    "slowFraction": 0,
+    "slowSeconds": 0,
+    "initialDelaySeconds": 3.5,
+    "cadence": "windup-start-to-windup-start",
+    "aimSnapshot": "windup-start"
+   }
+  },
+  {
+   "id": "ENEMY-020",
+   "maxHealth": 420,
+   "movementSpeed": 1.1,
+   "collisionSize": 1.25,
+   "contactDamage": 36,
+   "contactDamageIntervalSeconds": 1,
+   "experienceReward": 15,
+   "contactKnockback": 0.9,
+   "knockbackSeconds": 0.12,
+   "knockbackResistance": 0.7,
+   "potionDropChance": 0.015,
+   "movement": {
+    "kind": "Seek"
+   },
+   "attack": null
+  }
+ ],
+ "cardChanges": [
+  {
+   "id": "ENEMY-006",
+   "before": {
+    "movementSpeed": 0.65
+   },
+   "proposed": {
+    "movementSpeed": 0.85
+   }
+  },
+  {
+   "id": "ENEMY-008",
+   "before": {
+    "movementSpeed": 1.0
+   },
+   "proposed": {
+    "movementSpeed": 1.3
+   }
+  },
+  {
+   "id": "ENEMY-009",
+   "before": {
+    "movementSpeed": 0.55
+   },
+   "proposed": {
+    "movementSpeed": 0.7
+   }
+  },
+  {
+   "id": "ENEMY-010",
+   "before": {
+    "movementSpeed": 0.7
+   },
+   "proposed": {
+    "movementSpeed": 0.9
+   }
+  },
+  {
+   "id": "ENEMY-011",
+   "before": {
+    "movementSpeed": 0.65
+   },
+   "proposed": {
+    "movementSpeed": 0.85
+   }
+  },
+  {
+   "id": "ENEMY-012",
+   "before": {
+    "movementSpeed": 0.75
+   },
+   "proposed": {
+    "movementSpeed": 1.0
+   }
+  },
+  {
+   "id": "ENEMY-013",
+   "before": {
+    "movementSpeed": 1.2
+   },
+   "proposed": {
+    "movementSpeed": 1.55
+   }
+  },
+  {
+   "id": "ENEMY-014",
+   "before": {
+    "movementSpeed": 0.5
+   },
+   "proposed": {
+    "movementSpeed": 0.65
+   }
+  },
+  {
+   "id": "ENEMY-015",
+   "before": {
+    "movementSpeed": 0.7
+   },
+   "proposed": {
+    "movementSpeed": 0.9
+   }
+  },
+  {
+   "id": "ENEMY-016",
+   "before": {
+    "movementSpeed": 0.6
+   },
+   "proposed": {
+    "movementSpeed": 0.8
+   }
+  },
+  {
+   "id": "ENEMY-017",
+   "before": {
+    "movementSpeed": 1.35
+   },
+   "proposed": {
+    "movementSpeed": 1.75
+   }
+  },
+  {
+   "id": "ENEMY-018",
+   "before": {
+    "movementSpeed": 0.65
+   },
+   "proposed": {
+    "movementSpeed": 0.85
+   }
+  },
+  {
+   "id": "ENEMY-019",
+   "before": {
+    "movementSpeed": 0.7
+   },
+   "proposed": {
+    "movementSpeed": 0.9
+   }
+  },
+  {
+   "id": "ENEMY-020",
+   "before": {
+    "movementSpeed": 0.85
+   },
+   "proposed": {
+    "movementSpeed": 1.1
+   }
+  }
+ ],
+ "fieldPressureGuideline": {
+  "status": "direction for IP-23/IP-24 wave packets; not production data of this packet",
+  "perFieldHealthMultiplierStep": 0.12,
+  "perFieldDamageMultiplierStep": 0.08,
+  "perFieldDensityStep": 0.1,
+  "example": "FIELD-003: HP x1.24, damage x1.16, density +20% vs FIELD-001"
+ }
+}
