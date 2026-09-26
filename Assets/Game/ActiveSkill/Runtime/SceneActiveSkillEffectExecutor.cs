@@ -504,9 +504,21 @@ namespace Game.ActiveSkill
             var marker = _minePool.Rent();
             marker.transform.SetParent(null, worldPositionStays: false);
             marker.transform.position = scheduled.Activation.Origin;
-            marker.transform.localScale = Vector3.one * effect.TriggerRadius * 2f;
-            marker.sprite = PlaceholderSprite.Shared;
-            marker.color = new Color(1f, 0.35f, 0.1f, 0.8f);
+            var visual = ResolveProjectileVisual(scheduled.Activation.LevelDefinition);
+            if (visual != null)
+            {
+                marker.sprite = visual.Sprite;
+                marker.color = Color.white;
+                var diameter = effect.TriggerRadius * 2f * visual.ProjectilePresentation.VisualScale;
+                var bounds = visual.Sprite.bounds.size;
+                marker.transform.localScale = Vector3.one * (diameter / Mathf.Max(bounds.x, bounds.y));
+            }
+            else
+            {
+                marker.sprite = PlaceholderSprite.Shared;
+                marker.color = new Color(1f, 0.35f, 0.1f, 0.8f);
+                marker.transform.localScale = Vector3.one * effect.TriggerRadius * 2f;
+            }
             _mines.Add(new SkillMineState(scheduled, effect, marker.gameObject, _minePool));
         }
 

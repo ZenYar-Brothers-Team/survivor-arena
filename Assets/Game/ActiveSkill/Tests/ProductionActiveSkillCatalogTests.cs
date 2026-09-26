@@ -13,9 +13,6 @@ namespace Game.ActiveSkill.Tests
     /// </summary>
     public sealed class ProductionActiveSkillCatalogTests
     {
-        // DECISION-0060: world art is an open per-ID gate; these render the explicit placeholder until approved.
-        private static readonly string[] AwaitingWorldArt = { "SKILL-009", "SKILL-011", "SKILL-015", "SKILL-016" };
-
         private static ActiveSkillProgressionDefinition Skill(string id) =>
             ProductionActiveSkillCatalog.Create().Single(s => s.Id.ToString() == id);
 
@@ -151,7 +148,6 @@ namespace Game.ActiveSkill.Tests
                 Assert.AreEqual("Icon", sprites[skill.Icon.Id.ToString()], skill.Id.ToString());
                 var visual = skill.GetLevel(1).Visual.Id;
                 if (visual.IsValid) Assert.AreEqual("Projectile", sprites[visual.ToString()], skill.Id.ToString());
-                else if (AwaitingWorldArt.Contains(skill.Id.ToString())) Assert.IsFalse(worldEffects.ContainsKey(skill.Id));
                 else Assert.IsTrue(worldEffects.ContainsKey(skill.Id), $"{skill.Id} needs a sprite or a procedural world effect.");
             }
             Assert.AreEqual(SkillWorldEffectKind.Beam, worldEffects[new ContentId("SKILL-012")].Kind);

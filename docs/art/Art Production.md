@@ -247,14 +247,14 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 | SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | NOT STARTED |  
 | SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | PREPARED — процедурные сегменты цепи (DECISION-0054); in-game review pending |
 | SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | NOT STARTED |  
-| SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | NOT STARTED |  
+| SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | IMAGE APPROVED — v001; спрайт мины подключён, gameplay-scale review pending |
 | SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054), столб света за 0.15 s до вспышки и эллипс 0.7 для камеры 3/4 — совпадает с областью урона ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)); in-game review pending |
-| SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | NOT STARTED |  
+| SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | IMAGE APPROVED — v001; одиночный осколок подключён, gameplay-scale review pending |
 | SKILL-012 | Пульсирующий луч | Beam base visual | Procedural in Unity | PREPARED — процедурная полоса (свечение по ширине попадания + яркое ядро) на каждый tick урона, `SkillWorldEffects.json`; выбор пользователя 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); in-game review pending |
 | SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | PREPARED — v001 из approved icon (DECISION-0054); общий impact flash; Unity import/in-game review pending |
 | SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | NOT STARTED |  
-| SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | NOT STARTED |  
-| SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | NOT STARTED |
+| SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | IMAGE APPROVED — v001; одна режущая волна подключена, gameplay-scale review pending |
+| SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | IMAGE APPROVED — v001; одна крышка-снаряд подключена, gameplay-scale review pending |
 
 \#\#\# Skill UI icons  
 Нужно 16 icons:  

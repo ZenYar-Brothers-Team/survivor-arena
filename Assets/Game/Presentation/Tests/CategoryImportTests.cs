@@ -39,7 +39,7 @@ namespace Game.Presentation.Tests
         {
             var paths = Directory.GetFiles("Assets/Resources/Art/Sprites/Skills", "*.png",
                 SearchOption.AllDirectories).OrderBy(path => path).ToArray();
-            Assert.AreEqual(8, paths.Length, "Five approved projectiles plus SKILL-002/005/013 derived in F1-01.");
+            Assert.AreEqual(12, paths.Length, "Approved world sprites include SKILL-009/011/015/016.");
             foreach (var path in paths)
             {
                 var assetPath = path.Replace('\\', '/');

@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-26 (поздние умения/пассивки DECISION-0060 и процедурный луч, Unity 766/766 EditMode + 27/27 PlayMode; ранее DECISION-0056 слой врагов, 757/757 + 27/27)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: нет. IP-17 Blocked на world art SKILL-009/011/015/016 (пользователь сгенерирует отдельно), IP-18 Implemented (ждёт ручной проверки иконок); IP-19 и дальше заблокированы IP-17 и собственными gates. F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
+Next Ready packet: нет. IP-17 Implemented после подключения world art; IP-18 Implemented ждёт ручной проверки иконок. IP-19 удерживают собственные data gates G-04/G-05/G-13. F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -574,18 +574,19 @@ Target verification evidence: none для field-001-start-R1 delta; прежни
 
 ### IP-17 — Production Active Skills SKILL-001…016
 
-Status: Blocked
+Status: Implemented
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-01 — SKILL-001…007/010/013/014. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-08, IP-10A, IP-12A
-Blocked by: world art SKILL-009/011/015/016 (per-ID art gate; пользователь сгенерирует отдельно). Данные и поведение всех 16 ID реализованы.
-Remaining gates: G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates.
-Remaining acceptance / IDs: world visuals SKILL-009/011/015/016 (сейчас явный placeholder); ручная проверка читаемости луча и снарядов на реальной скорости.
+Blocked by: нет для реализации; данные, поведение и world art всех 16 ID подключены.
+Remaining gates: ручная visual acceptance на реальной скорости; G-08/G-09 закрыты DECISION-0017, параметры 16 skills Approved по DECISION-0053/0060.
+Remaining acceptance / IDs: ручная проверка читаемости луча SKILL-012, мины и снарядов SKILL-009/011/015/016 на реальной скорости.
 Late IDs 2026-09-26: SKILL-008/009/011/012/015/016 Implemented (production JSON, per-ID тесты L1…L6), луч SKILL-012 — процедурный; Unity full PASS 766/766 + 27/27 — [evidence](evidence/2026-09-26-late-skills-passives.md).
-Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для SKILL-008/009/011/012/015/016 — Approved 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); static validator PASS; блокер «per-level parameters» для этих ID снят; world art SKILL-009/011/012/015/016 остаётся per-ID gate.
+Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для SKILL-008/009/011/012/015/016 — Approved 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); static validator PASS. SKILL-012 использует процедурный луч; world art остальных четырёх подключён ниже.
+World art 2026-09-26: пользователь утвердил SKILL-009/011/015/016; immutable masters, provenance, runtime PNG и typed references подключены. Unity full PASS 769/769 EditMode + 27/27 PlayMode, manifest 108/108; gameplay-scale review остаётся открытым. [Evidence](evidence/2026-09-26-late-skill-world-art.md).
 Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
-Target implementation evidence: F1-01 subset only.
-Target verification evidence: Новые checks не запускались.
+Target implementation evidence: F1-01 subset и поздние SKILL-008/009/011/012/015/016; см. evidence выше.
+Target verification evidence: автоматические проверки PASS 2026-09-26; ручная visual acceptance не проведена.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).
 
 ### IP-18 — Production Passive Items PASSIVE-001…014
@@ -610,7 +611,7 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-05 — SET-001/004/006/010/017. Required packets: F1-00/01/02/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-11, IP-17, IP-18, IP-28, IP-12A
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope).
+Blocked by: data gates G-04/G-05/G-13; IP-17/IP-18 Implemented, awaiting their visual review.
 Remaining gates: G-08 закрыт DECISION-0017. G-02 закрыт DECISION-0022. G-04/G-05/G-13: recipes/effects approved, но thresholds/proc payload и два внутренних конфликта требуют закрытия.
 Remaining acceptance / IDs: остальные 15 SET ID и Unity verification стартового поднабора.
 Startup subset F1-05: SET-001/004/006/010/017 Implemented 2026-09-24 — [evidence](evidence/field001-f1-05-2026-09-24.md).

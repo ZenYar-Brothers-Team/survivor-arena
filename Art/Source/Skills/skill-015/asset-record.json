@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-015",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction, read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D gameplay world effect sprite candidate for Survival Arena, SKILL-015 Cross Blades. ONE long compact cutting wave, a crescent-like slash of pale steel and warm cream with a dark plum outer contour, broad at the center tapering to thick readable ends, oriented to travel right. Unity duplicates and rotates this one wave into four or eight directions; absolutely no cross, no second wave, no crossed swords, no weapon, no particle trail. Stylized storybook cutout, hand-painted flat matte color, 2-3 large shape masses, simple cel shadow, gentle paper texture, thick lively charcoal-plum #241B2B outline. 3/4 top-down gameplay presentation, readable at 50-90 screen pixels, one isolated sprite centered on square canvas with generous transparent padding, true alpha. No scene, floor, cast shadow, text, frame, photorealism, 3D render, pixel art.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-015/skill-015-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "0ce830809ef683ef351452d15c915919ca49fa4f68183fb628ef73367543e7ff",
+    "runtimeSha256": "2fbce7696449784e46170b60f382c48a7c73347693a684900e8220ae240327e8",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true
+    }
+  }
+}

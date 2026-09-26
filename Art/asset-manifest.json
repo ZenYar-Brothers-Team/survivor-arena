@@ -1826,6 +1826,70 @@
         "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
       ],
       "missing": ""
+    },
+    {
+      "owner": "SKILL-009",
+      "role": "projectile",
+      "visualId": "SKILL-009-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-009/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-009/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-009/skill-009-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-009/skill-009-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+      ],
+      "missing": "Gameplay-scale readability review at actual speed."
+    },
+    {
+      "owner": "SKILL-011",
+      "role": "projectile",
+      "visualId": "SKILL-011-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-011/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-011/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-011/skill-011-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-011/skill-011-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+      ],
+      "missing": "Gameplay-scale readability review at actual speed."
+    },
+    {
+      "owner": "SKILL-015",
+      "role": "projectile",
+      "visualId": "SKILL-015-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-015/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-015/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-015/skill-015-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-015/skill-015-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+      ],
+      "missing": "Gameplay-scale readability review at actual speed."
+    },
+    {
+      "owner": "SKILL-016",
+      "role": "projectile",
+      "visualId": "SKILL-016-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-17",
+      "source": "Art/Source/Skills/skill-016/selected-master.png",
+      "provenance": "Art/Source/Skills/skill-016/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-016/skill-016-projectile.png",
+      "resourcePath": "Art/Sprites/Skills/skill-016/skill-016-projectile",
+      "stage": "Image approved",
+      "evidence": [
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+      ],
+      "missing": "Gameplay-scale readability review at actual speed."
     }
   ]
 }

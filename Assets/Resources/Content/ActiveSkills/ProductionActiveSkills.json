@@ -1604,6 +1604,7 @@
     "id": "SKILL-009",
     "displayName": "Магматическая мина",
     "iconVisualId": "SKILL-009-VISUAL-ICON",
+    "visualId": "SKILL-009-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 40,
@@ -2020,6 +2021,7 @@
     "id": "SKILL-011",
     "displayName": "Спираль осколков",
     "iconVisualId": "SKILL-011-VISUAL-ICON",
+    "visualId": "SKILL-011-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 12,
@@ -2851,6 +2853,7 @@
     "id": "SKILL-015",
     "displayName": "Крест клинков",
     "iconVisualId": "SKILL-015-VISUAL-ICON",
+    "visualId": "SKILL-015-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 30,
@@ -3086,6 +3089,7 @@
     "id": "SKILL-016",
     "displayName": "Разбрасыватель мусора",
     "iconVisualId": "SKILL-016-VISUAL-ICON",
+    "visualId": "SKILL-016-VISUAL-PROJECTILE",
     "levels": [
       {
         "baseDamage": 4,

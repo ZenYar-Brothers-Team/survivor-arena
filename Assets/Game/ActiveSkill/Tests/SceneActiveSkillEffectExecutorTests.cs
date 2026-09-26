@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.Content;
 using Game.Enemy;
 using Game.Presentation;
@@ -96,6 +97,35 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(2, _executor.ActiveMineCount);
             _executor.Tick(1f, true);
             Assert.AreEqual(0, _executor.ActiveMineCount);
+        }
+
+        [Test]
+        public void Mine_UsesRegisteredWorldSpriteInsteadOfPlaceholder()
+        {
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f),
+                new Vector2(.5f, .5f), 1f);
+            try
+            {
+                var profile = new ProjectilePresentationProfile(.45f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray);
+                var visual = new SpriteDefinition("SKILL-009-VISUAL-PROJECTILE", sprite,
+                    SpriteRole.Projectile, projectilePresentation: profile);
+                var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { visual });
+                _executor = new SceneActiveSkillEffectExecutor(
+                    _runController, new RecordingLauncher(), contentRegistry: registry);
+                var level = new ActiveSkillLevelDefinition(1f, 1f, ActiveSkillTargetingMode.Self,
+                    new ContentRef<SpriteDefinition>(visual.Id),
+                    new ActiveSkillActivationWave(0f, 0f, 1f, new MineEffect(.5f, 1f, 1f, 2)));
+
+                _executor.Schedule(Activation(level, null, 2f));
+                _executor.Tick(0f, true);
+
+                var marker = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                    .Single(renderer => renderer.gameObject.name == "Fixture Active Skill Mine");
+                Assert.AreSame(sprite, marker.sprite);
+                Assert.AreEqual(Color.white, marker.color);
+            }
+            finally { Object.DestroyImmediate(sprite); }
         }
 
         [Test]

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SKILL-009",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction, read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»",
+  "prompt": "Use case: stylized-concept. Asset type: transparent 2D gameplay world sprite candidate for Survival Arena, SKILL-009 Magma Mine. A single squat, compact improvised goblin-made magma mine, an irregular dark basalt lump with 3 large ember-orange molten fissures and a simple chunky metal band; clear armed mine silhouette from a 3/4 top-down game camera, no blast or movement effect. Stylized storybook cutout, hand-painted flat matte colors, 2-3 broad color masses, simple cel shadow, subtle paper texture, thick lively charcoal-plum #241B2B contour. Readable at 48-80 screen pixels. Center one object on a square canvas with generous transparent padding. Actual alpha transparency. No floor, cast shadow, glow cloud, scene, text, numbers, frame, photorealism, 3D, pixel art, extra objects. This is a visual preview candidate, not an approved runtime asset.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Skills/skill-009/skill-009-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "1fad08e14d38749f80221a8e8525dbbca9ff99c9636295967c2504e5079282cf",
+    "runtimeSha256": "28c610f26e04c14c7500d931162496cf10d36f23f54d8b7a3e3f5ce87217de88",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true
+    }
+  }
+}

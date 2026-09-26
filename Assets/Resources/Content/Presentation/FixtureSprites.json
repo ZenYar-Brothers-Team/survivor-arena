@@ -723,5 +723,93 @@
     "id": "FIELD-001-VISUAL-BACKGROUND",
     "resourcePath": "Art/Sprites/Fields/field-001/field-001-background",
     "role": "Background"
+  },
+  {
+    "projectile": {
+      "visualScale": 0.45,
+      "spinDegreesPerSecond": 0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 1.0,
+      "flashGreen": 0.48,
+      "flashBlue": 0.08,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.65,
+      "particleGreen": 0.312,
+      "particleBlue": 0.052000000000000005,
+      "particleAlpha": 0.78
+    },
+    "id": "SKILL-009-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-009/skill-009-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.5,
+      "spinDegreesPerSecond": 0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.5,
+      "flashGreen": 0.88,
+      "flashBlue": 0.94,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.325,
+      "particleGreen": 0.5720000000000001,
+      "particleBlue": 0.611,
+      "particleAlpha": 0.78
+    },
+    "id": "SKILL-011-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-011/skill-011-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 1.0,
+      "flashGreen": 0.84,
+      "flashBlue": 0.56,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.65,
+      "particleGreen": 0.546,
+      "particleBlue": 0.36400000000000005,
+      "particleAlpha": 0.78
+    },
+    "id": "SKILL-015-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-015/skill-015-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.3,
+      "spinDegreesPerSecond": 90,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.8,
+      "flashGreen": 0.54,
+      "flashBlue": 0.3,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.52,
+      "particleGreen": 0.35100000000000003,
+      "particleBlue": 0.195,
+      "particleAlpha": 0.78
+    },
+    "id": "SKILL-016-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Skills/skill-016/skill-016-projectile",
+    "role": "Projectile"
   }
 ]
