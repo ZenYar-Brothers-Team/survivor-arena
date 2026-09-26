@@ -1,0 +1,700 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "late-skills-passives-v1",
+ "approval": "Approved 2026-09-26 (DECISION-0060)",
+ "runtimeImportable": false,
+ "units": {
+  "distance": "world units",
+  "time": "running seconds",
+  "fractions": "0.3 = +30%"
+ },
+ "skills": [
+  {
+   "id": "SKILL-008",
+   "shared": {
+    "targeting": "NearestEnemy",
+    "targetingRadius": 6,
+    "cooldownSeconds": 2.0,
+    "ricochetRange": 3,
+    "ricochetRetention": 1,
+    "repeatRicochetTargets": true,
+    "noTargetPolicy": "previous-direction",
+    "knockbackDirection": "flight"
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damage": 18,
+     "maxHits": 3,
+     "ricochetCount": 2,
+     "speed": 9,
+     "range": 12,
+     "lifetimeSeconds": 1.333333,
+     "collisionRadius": 0.2,
+     "knockback": 0.25,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 2,
+     "damage": 18,
+     "maxHits": 4,
+     "ricochetCount": 3,
+     "speed": 10.35,
+     "range": 15,
+     "lifetimeSeconds": 1.449275,
+     "collisionRadius": 0.2,
+     "knockback": 0.25,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 3,
+     "damage": 23.4,
+     "maxHits": 4,
+     "ricochetCount": 3,
+     "speed": 10.35,
+     "range": 15,
+     "lifetimeSeconds": 1.449275,
+     "collisionRadius": 0.2,
+     "knockback": 0.3,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 4,
+     "damage": 23.4,
+     "maxHits": 6,
+     "ricochetCount": 5,
+     "speed": 11.7,
+     "range": 21,
+     "lifetimeSeconds": 1.794872,
+     "collisionRadius": 0.2,
+     "knockback": 0.3,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 5,
+     "damage": 23.4,
+     "maxHits": 6,
+     "ricochetCount": 5,
+     "speed": 11.7,
+     "range": 21,
+     "lifetimeSeconds": 1.794872,
+     "collisionRadius": 0.2,
+     "knockback": 0.3625,
+     "actionSpeedBonus": 0.25
+    },
+    {
+     "level": 6,
+     "damage": 23.4,
+     "maxHits": 8,
+     "ricochetCount": 7,
+     "speed": 13.95,
+     "range": 27,
+     "lifetimeSeconds": 1.935484,
+     "collisionRadius": 0.24,
+     "knockback": 0.3625,
+     "actionSpeedBonus": 0.25
+    }
+   ]
+  },
+  {
+   "id": "SKILL-009",
+   "shared": {
+    "targeting": "Self",
+    "targetingRadius": 0,
+    "cooldownSeconds": 3.0,
+    "triggerRadius": 0.8,
+    "explodeOnExpiry": true,
+    "overflow": "oldest-removed",
+    "knockbackDirection": "radial-from-blast"
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damage": 40,
+     "blastRadius": 1.5,
+     "knockback": 0.7,
+     "maxConcurrent": 4,
+     "lifetimeSeconds": 6,
+     "actionSpeedBonus": 0,
+     "secondaryDelaySeconds": 0,
+     "secondaryRadiusMultiplier": 0,
+     "secondaryDamageMultiplier": 0,
+     "secondaryKnockbackMultiplier": 0
+    },
+    {
+     "level": 2,
+     "damage": 40,
+     "blastRadius": 1.875,
+     "knockback": 0.84,
+     "maxConcurrent": 4,
+     "lifetimeSeconds": 6,
+     "actionSpeedBonus": 0,
+     "secondaryDelaySeconds": 0,
+     "secondaryRadiusMultiplier": 0,
+     "secondaryDamageMultiplier": 0,
+     "secondaryKnockbackMultiplier": 0
+    },
+    {
+     "level": 3,
+     "damage": 52.0,
+     "blastRadius": 1.875,
+     "knockback": 0.98,
+     "maxConcurrent": 4,
+     "lifetimeSeconds": 6,
+     "actionSpeedBonus": 0,
+     "secondaryDelaySeconds": 0,
+     "secondaryRadiusMultiplier": 0,
+     "secondaryDamageMultiplier": 0,
+     "secondaryKnockbackMultiplier": 0
+    },
+    {
+     "level": 4,
+     "damage": 52.0,
+     "blastRadius": 1.875,
+     "knockback": 0.98,
+     "maxConcurrent": 6,
+     "lifetimeSeconds": 7.2,
+     "actionSpeedBonus": 0,
+     "secondaryDelaySeconds": 0,
+     "secondaryRadiusMultiplier": 0,
+     "secondaryDamageMultiplier": 0,
+     "secondaryKnockbackMultiplier": 0
+    },
+    {
+     "level": 5,
+     "damage": 52.0,
+     "blastRadius": 2.1,
+     "knockback": 0.98,
+     "maxConcurrent": 6,
+     "lifetimeSeconds": 7.2,
+     "actionSpeedBonus": 0.33,
+     "secondaryDelaySeconds": 0,
+     "secondaryRadiusMultiplier": 0,
+     "secondaryDamageMultiplier": 0,
+     "secondaryKnockbackMultiplier": 0
+    },
+    {
+     "level": 6,
+     "damage": 52.0,
+     "blastRadius": 2.1,
+     "knockback": 0.98,
+     "maxConcurrent": 6,
+     "lifetimeSeconds": 7.2,
+     "actionSpeedBonus": 0.33,
+     "secondaryDelaySeconds": 0.4,
+     "secondaryRadiusMultiplier": 0.75,
+     "secondaryDamageMultiplier": 0.6,
+     "secondaryKnockbackMultiplier": 0.7
+    }
+   ]
+  },
+  {
+   "id": "SKILL-011",
+   "shared": {
+    "targeting": "Self",
+    "targetingRadius": 0,
+    "layout": "Ring",
+    "cooldownSeconds": 2.4,
+    "initialDirectionDegrees": 0,
+    "rotationPerActivationDegrees": 15,
+    "maxHitTargets": 1
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damage": 12,
+     "count": 8,
+     "range": 4.5,
+     "speed": 8,
+     "lifetimeSeconds": 0.5625,
+     "collisionRadius": 0.12,
+     "knockback": 0.12,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0
+    },
+    {
+     "level": 2,
+     "damage": 12,
+     "count": 10,
+     "range": 5.175,
+     "speed": 8,
+     "lifetimeSeconds": 0.646875,
+     "collisionRadius": 0.12,
+     "knockback": 0.12,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0
+    },
+    {
+     "level": 3,
+     "damage": 15.0,
+     "count": 10,
+     "range": 5.175,
+     "speed": 8,
+     "lifetimeSeconds": 0.646875,
+     "collisionRadius": 0.12,
+     "knockback": 0.144,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0
+    },
+    {
+     "level": 4,
+     "damage": 15.0,
+     "count": 12,
+     "range": 5.175,
+     "speed": 9.6,
+     "lifetimeSeconds": 0.539062,
+     "collisionRadius": 0.138,
+     "knockback": 0.144,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0
+    },
+    {
+     "level": 5,
+     "damage": 15.0,
+     "count": 12,
+     "range": 5.175,
+     "speed": 9.6,
+     "lifetimeSeconds": 0.539062,
+     "collisionRadius": 0.138,
+     "knockback": 0.168,
+     "actionSpeedBonus": 0.33,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0
+    },
+    {
+     "level": 6,
+     "damage": 15.0,
+     "count": 12,
+     "range": 5.85,
+     "speed": 9.6,
+     "lifetimeSeconds": 0.609375,
+     "collisionRadius": 0.138,
+     "knockback": 0.168,
+     "actionSpeedBonus": 0.33,
+     "waveCount": 2,
+     "secondDelaySeconds": 0.15,
+     "secondRotationDegrees": 15.0
+    }
+   ]
+  },
+  {
+   "id": "SKILL-012",
+   "shared": {
+    "targeting": "NearestEnemy",
+    "targetingRadius": 6,
+    "cooldownSeconds": 3.0,
+    "tickIntervalSeconds": 0.2,
+    "hitsAllOnLine": true,
+    "knockbackDirection": "radial-from-player",
+    "noTargetPolicy": "previous-direction"
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damagePerTick": 10,
+     "durationSeconds": 0.8,
+     "width": 0.4,
+     "length": 6,
+     "knockbackPerTick": 0.04,
+     "actionSpeedBonus": 0,
+     "tracksTarget": false
+    },
+    {
+     "level": 2,
+     "damagePerTick": 10,
+     "durationSeconds": 1.1,
+     "width": 0.46,
+     "length": 6,
+     "knockbackPerTick": 0.04,
+     "actionSpeedBonus": 0,
+     "tracksTarget": false
+    },
+    {
+     "level": 3,
+     "damagePerTick": 12.5,
+     "durationSeconds": 1.1,
+     "width": 0.46,
+     "length": 6,
+     "knockbackPerTick": 0.05,
+     "actionSpeedBonus": 0,
+     "tracksTarget": false
+    },
+    {
+     "level": 4,
+     "damagePerTick": 12.5,
+     "durationSeconds": 1.1,
+     "width": 0.62,
+     "length": 7.2,
+     "knockbackPerTick": 0.05,
+     "actionSpeedBonus": 0,
+     "tracksTarget": false
+    },
+    {
+     "level": 5,
+     "damagePerTick": 12.5,
+     "durationSeconds": 1.1,
+     "width": 0.62,
+     "length": 7.2,
+     "knockbackPerTick": 0.058,
+     "actionSpeedBonus": 0.33,
+     "tracksTarget": false
+    },
+    {
+     "level": 6,
+     "damagePerTick": 12.5,
+     "durationSeconds": 1.5,
+     "width": 0.68,
+     "length": 7.2,
+     "knockbackPerTick": 0.058,
+     "actionSpeedBonus": 0.33,
+     "tracksTarget": true
+    }
+   ]
+  },
+  {
+   "id": "SKILL-015",
+   "shared": {
+    "targeting": "FixedAxes",
+    "targetingRadius": 0,
+    "layout": "Cross",
+    "cooldownSeconds": 3.5,
+    "initialDirectionDegrees": 0,
+    "unlimitedPierce": true,
+    "hitOncePerWave": true,
+    "knockbackDirection": "flight"
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damage": 30,
+     "count": 4,
+     "range": 4,
+     "speed": 10,
+     "lifetimeSeconds": 0.4,
+     "collisionRadius": 0.3,
+     "knockback": 0.3,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    },
+    {
+     "level": 2,
+     "damage": 30,
+     "count": 4,
+     "range": 5.2,
+     "speed": 10,
+     "lifetimeSeconds": 0.52,
+     "collisionRadius": 0.345,
+     "knockback": 0.3,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    },
+    {
+     "level": 3,
+     "damage": 39.0,
+     "count": 4,
+     "range": 5.2,
+     "speed": 10,
+     "lifetimeSeconds": 0.52,
+     "collisionRadius": 0.345,
+     "knockback": 0.375,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    },
+    {
+     "level": 4,
+     "damage": 39.0,
+     "count": 8,
+     "range": 5.8,
+     "speed": 10,
+     "lifetimeSeconds": 0.58,
+     "collisionRadius": 0.345,
+     "knockback": 0.375,
+     "actionSpeedBonus": 0,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    },
+    {
+     "level": 5,
+     "damage": 39.0,
+     "count": 8,
+     "range": 5.8,
+     "speed": 10,
+     "lifetimeSeconds": 0.58,
+     "collisionRadius": 0.345,
+     "knockback": 0.435,
+     "actionSpeedBonus": 0.33,
+     "waveCount": 1,
+     "secondDelaySeconds": 0,
+     "secondRotationDegrees": 0,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    },
+    {
+     "level": 6,
+     "damage": 39.0,
+     "count": 8,
+     "range": 5.8,
+     "speed": 10,
+     "lifetimeSeconds": 0.58,
+     "collisionRadius": 0.345,
+     "knockback": 0.435,
+     "actionSpeedBonus": 0.33,
+     "waveCount": 2,
+     "secondDelaySeconds": 0.35,
+     "secondRotationDegrees": 22.5,
+     "secondDamageMultiplier": 1,
+     "secondKnockbackMultiplier": 1
+    }
+   ]
+  },
+  {
+   "id": "SKILL-016",
+   "shared": {
+    "targeting": "IndependentRandom",
+    "targetingRadius": 0,
+    "layout": "IndependentRandom",
+    "cooldownSeconds": 0.35,
+    "speedDecay": "linear-to-zero",
+    "despawnAtStop": true,
+    "knockbackDirection": "flight"
+   },
+   "levels": [
+    {
+     "level": 1,
+     "damage": 4,
+     "count": 1,
+     "initialSpeed": 8,
+     "stopAfterSeconds": 1.4,
+     "lifetimeSeconds": 1.4,
+     "range": 5.6,
+     "collisionRadius": 0.12,
+     "maxHitTargets": 1,
+     "knockback": 0.08,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 2,
+     "damage": 4,
+     "count": 1,
+     "initialSpeed": 8,
+     "stopAfterSeconds": 1.68,
+     "lifetimeSeconds": 1.68,
+     "range": 6.72,
+     "collisionRadius": 0.144,
+     "maxHitTargets": 1,
+     "knockback": 0.08,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 3,
+     "damage": 4.6,
+     "count": 2,
+     "initialSpeed": 8,
+     "stopAfterSeconds": 1.68,
+     "lifetimeSeconds": 1.68,
+     "range": 6.72,
+     "collisionRadius": 0.144,
+     "maxHitTargets": 1,
+     "knockback": 0.08,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 4,
+     "damage": 4.6,
+     "count": 2,
+     "initialSpeed": 9.6,
+     "stopAfterSeconds": 1.68,
+     "lifetimeSeconds": 1.68,
+     "range": 8.064,
+     "collisionRadius": 0.144,
+     "maxHitTargets": 2,
+     "knockback": 0.08,
+     "actionSpeedBonus": 0
+    },
+    {
+     "level": 5,
+     "damage": 4.6,
+     "count": 2,
+     "initialSpeed": 9.6,
+     "stopAfterSeconds": 1.68,
+     "lifetimeSeconds": 1.68,
+     "range": 8.064,
+     "collisionRadius": 0.144,
+     "maxHitTargets": 2,
+     "knockback": 0.1,
+     "actionSpeedBonus": 0.35
+    },
+    {
+     "level": 6,
+     "damage": 5.6,
+     "count": 3,
+     "initialSpeed": 9.6,
+     "stopAfterSeconds": 1.68,
+     "lifetimeSeconds": 1.68,
+     "range": 8.064,
+     "collisionRadius": 0.168,
+     "maxHitTargets": 2,
+     "knockback": 0.1,
+     "actionSpeedBonus": 0.35
+    }
+   ]
+  }
+ ],
+ "passives": [
+  {
+   "id": "PASSIVE-006",
+   "levels": [
+    {
+     "level": 1,
+     "disappearingXpRecoveryBonus": 0.1
+    },
+    {
+     "level": 2,
+     "disappearingXpRecoveryBonus": 0.2
+    },
+    {
+     "level": 3,
+     "disappearingXpRecoveryBonus": 0.3
+    },
+    {
+     "level": 4,
+     "disappearingXpRecoveryBonus": 0.4
+    },
+    {
+     "level": 5,
+     "disappearingXpRecoveryBonus": 0.5
+    },
+    {
+     "level": 6,
+     "disappearingXpRecoveryBonus": 0.6
+    }
+   ]
+  },
+  {
+   "id": "PASSIVE-010",
+   "levels": [
+    {
+     "level": 1,
+     "pickedUpXpMultiplierBonus": 0.05
+    },
+    {
+     "level": 2,
+     "pickedUpXpMultiplierBonus": 0.1
+    },
+    {
+     "level": 3,
+     "pickedUpXpMultiplierBonus": 0.15
+    },
+    {
+     "level": 4,
+     "pickedUpXpMultiplierBonus": 0.2
+    },
+    {
+     "level": 5,
+     "pickedUpXpMultiplierBonus": 0.25
+    },
+    {
+     "level": 6,
+     "pickedUpXpMultiplierBonus": 0.3
+    }
+   ]
+  },
+  {
+   "id": "PASSIVE-013",
+   "levels": [
+    {
+     "level": 1,
+     "effectRangeMultiplierBonus": 0.08
+    },
+    {
+     "level": 2,
+     "effectRangeMultiplierBonus": 0.16
+    },
+    {
+     "level": 3,
+     "effectRangeMultiplierBonus": 0.24
+    },
+    {
+     "level": 4,
+     "effectRangeMultiplierBonus": 0.32
+    },
+    {
+     "level": 5,
+     "effectRangeMultiplierBonus": 0.4
+    },
+    {
+     "level": 6,
+     "effectRangeMultiplierBonus": 0.5
+    }
+   ]
+  },
+  {
+   "id": "PASSIVE-014",
+   "levels": [
+    {
+     "level": 1,
+     "lowHealthDamageMaxBonus": 0.15
+    },
+    {
+     "level": 2,
+     "lowHealthDamageMaxBonus": 0.25
+    },
+    {
+     "level": 3,
+     "lowHealthDamageMaxBonus": 0.35
+    },
+    {
+     "level": 4,
+     "lowHealthDamageMaxBonus": 0.45
+    },
+    {
+     "level": 5,
+     "lowHealthDamageMaxBonus": 0.55
+    },
+    {
+     "level": 6,
+     "lowHealthDamageMaxBonus": 0.7
+    }
+   ]
+  }
+ ],
+ "draftWeights": {
+  "CHAR-001": {
+   "SKILL-008": 1,
+   "SKILL-009": 0.7,
+   "SKILL-011": 1,
+   "SKILL-012": 1,
+   "SKILL-015": 1,
+   "SKILL-016": 1,
+   "PASSIVE-006": 1,
+   "PASSIVE-010": 1,
+   "PASSIVE-013": 1,
+   "PASSIVE-014": 1
+  }
+ }
+}

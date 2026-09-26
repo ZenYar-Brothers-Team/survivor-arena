@@ -18,6 +18,7 @@ F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) сод�
 60 уровней и матрицу continuous orbit / expanding wave / targeting.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
+Остаток SKILL-008/009/011/012/015/016: [данные v1](../../balance/late-skills-passives-v1.md) (статус approval — в STATUS).
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
@@ -63,9 +64,10 @@ G-08/G-09 закрыты DECISION-0017; нужны полные параметр
 ## Мета-доступ
 
 IP-25 владеет persistent access по [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md)
-и разделу «Мета-экономика» CD. SKILL-016/SET-020 требуют прохождения FIELD-001;
-остальные active skills/sets исходно открыты. Production definitions сохраняют этот
-mapping; runtime проверяет access дополнительно к прочим требованиям draft/recipe.
+и разделу «Мета-экономика» CD. Unlock каждого ID задаёт [DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md)
+и его карточка CD (часть ID открыта с начала, остальные — после прохождения конкретного поля).
+Production definitions сохраняют этот mapping; runtime проверяет access дополнительно
+к прочим требованиям draft/recipe.
 
 ## Стартовый packet FIELD-001 — field-001-start-R1
 

@@ -75,9 +75,10 @@ encounter semantics остаются в scope соответствующих в�
 ## Мета-доступ
 
 IP-25 владеет persistent access по [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md)
-и разделу «Мета-экономика» CD. SKILL-016/SET-020 требуют прохождения FIELD-001;
-остальные active skills/sets исходно открыты. Production definitions сохраняют этот
-mapping; runtime проверяет access дополнительно к прочим требованиям draft/recipe.
+и разделу «Мета-экономика» CD. Unlock каждого ID задаёт [DECISION-0050](../../decisions/0050-starting-content-and-unlocks.md)
+и его карточка CD (часть ID открыта с начала, остальные — после прохождения конкретного поля).
+Production definitions сохраняют этот mapping; runtime проверяет access дополнительно
+к прочим требованиям draft/recipe.
 
 ## Стартовый packet FIELD-001 — field-001-start-R1
 
