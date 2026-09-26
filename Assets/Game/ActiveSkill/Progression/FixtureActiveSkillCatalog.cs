@@ -108,7 +108,7 @@ namespace Game.ActiveSkill
                     bo.ReturnKnockbackMultiplier ?? throw new ArgumentException("Boomerang requires ReturnKnockbackMultiplier."),
                     bo.LifetimeSeconds ?? throw new ArgumentException("Boomerang requires LifetimeSeconds.")),
                 ChainEffectData c => new ChainEffect(
-                    c.TargetCount, c.JumpRange, c.DamageRetentionPerJump, c.DamageMultiplier),
+                    c.TargetCount, c.JumpRange, c.DamageRetentionPerJump, c.DamageMultiplier, c.FanOut),
                 AreaEffectData a => new AreaEffect(a.Radius, a.DamageMultiplier, a.ExpansionSeconds),
                 StrikeEffectData st => new StrikeEffect(st.Radius, st.TelegraphSeconds, st.DamageMultiplier, st.VerticalScale ?? 1f),
                 MineEffectData m => new MineEffect(

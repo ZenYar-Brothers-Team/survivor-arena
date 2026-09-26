@@ -7,5 +7,6 @@ namespace Game.ActiveSkill.Json
         public float JumpRange { get; set; }
         public float DamageRetentionPerJump { get; set; }
         public float DamageMultiplier { get; set; } = 1f;
+        public bool FanOut { get; set; }
     }
 }

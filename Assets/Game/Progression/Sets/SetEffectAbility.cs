@@ -28,6 +28,7 @@ namespace Game.Progression
                     var effect = definition.Effects[i];
                     if (effect.Kind == SetEffectKind.StatBuff) _host.Stats.SetModifier(Key(i), effect.Modifier);
                     if (effect.Kind == SetEffectKind.SkillTransform) _host.SetSkillModifier(Key(i), effect.Skill.Value, effect.Modifier);
+                    if (effect.Kind == SetEffectKind.SkillMechanics) _host.SetSkillMechanics(Key(i), effect.Skill.Value, effect.Mechanics);
                     if (effect.Kind == SetEffectKind.IndependentAttack) _cooldowns[i] = effect.CooldownSeconds;
                     if (effect.Kind == SetEffectKind.SlowedTargetBonus)
                         _host.SetSlowedTargetBonus(Key(i), effect.Skill, new SlowedTargetBonus(
@@ -99,7 +100,7 @@ namespace Game.Progression
             _host.ActiveSkillActivated -= OnActivation; _host.Rewarded -= OnReward; _host.LevelEarned -= OnLevel;
             for (var i = 0; i < _counts.Length; i++)
             {
-                _host.Stats.RemoveModifier(Key(i)); _host.RemoveSkillModifier(Key(i)); _host.ClearAttack(Key(i));
+                _host.Stats.RemoveModifier(Key(i)); _host.RemoveSkillModifier(Key(i)); _host.RemoveSkillMechanics(Key(i)); _host.ClearAttack(Key(i));
                 _host.RemoveSlowedTargetBonus(Key(i)); _host.RemoveOrbitSlowAura(Key(i));
                 _counts[i] = 0; _cooldowns[i] = 0; _buffs[i] = 0;
             }

@@ -4,6 +4,7 @@ using Game.Diagnostics;
 using Game.Character;
 using Game.Combat;
 using Game.Enemy;
+using Game.Progression;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -15,6 +16,7 @@ namespace Game.ActiveSkill
         private readonly System.Random _random;
         private Vector2 _lastDirection;
         public SkillHitLedger HitLedger { get; } = new SkillHitLedger();
+        public SkillProjectileSequence ProjectileSequence { get; } = new SkillProjectileSequence();
         public Vector2 LastAimDirection { get; private set; }
         public Vector2 LastAimPoint { get; private set; }
 
@@ -46,7 +48,8 @@ namespace Game.ActiveSkill
             IActiveSkillEffectExecutor executor,
             Vector2 movementDirection = default, CharacterStatModifier skillModifier = default,
             CombatSource? sourceOverride = null, bool forceActivation = false,
-            SlowedTargetBonus slowedTargetBonus = default, bool setScalesWithSizeAndRange = false)
+            SlowedTargetBonus slowedTargetBonus = default, bool setScalesWithSizeAndRange = false,
+            SkillMechanicBonus skillMechanics = default)
         {
             if (owner == null || owner.Stats == null)
                 throw new ArgumentNullException(nameof(owner));
@@ -121,7 +124,9 @@ namespace Game.ActiveSkill
                 owner.transform,
                 owner.Identity,
                 knockbackMultiplier, sizeMultiplier, rangeMultiplier, _random, HitLedger, TriggerCount * targeting.RotationPerActivationDegrees, sourceOverride,
-                slowedTargetBonus, slowedTargetBonus.DamageFactor(damageMultiplier), fallbackPoint));
+                slowedTargetBonus, slowedTargetBonus.DamageFactor(damageMultiplier), fallbackPoint,
+                skillMechanics, damageMultiplier > 0f ? owner.Stats.ActiveSkillDamageMultiplier / damageMultiplier : 1f,
+                ProjectileSequence));
             if (!forceActivation) _cooldown.Consume(levelDefinition.CooldownSeconds,
                 owner.Stats.BaseStats.ActiveSkillCooldownMultiplier / (1f + owner.Stats.ActionSpeedBonus + targeting.ActionSpeedBonus + skillModifier.ActionSpeedBonus));
             TriggerCount++;

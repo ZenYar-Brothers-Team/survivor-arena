@@ -1,5 +1,507 @@
 [
   {
+    "id": "SET-013-ATTACK",
+    "displayName": "Перегрузка сети",
+    "iconVisualId": "SET-013-VISUAL-ICON",
+    "levels": [
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 90,
+        "targetingMode": "NearestEnemy",
+        "targetingRadius": 7,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Chain",
+                "targetCount": 6,
+                "jumpRange": 3,
+                "damageRetentionPerJump": 0.5,
+                "fanOut": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SET-015-ATTACK",
+    "displayName": "Алхимия хаоса",
+    "iconVisualId": "SET-015-VISUAL-ICON",
+    "levels": [
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 10,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "baseDamage": 120,
+        "targetingMode": "Self",
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "Area",
+                "radius": 3,
+                "expansionSeconds": 0.15
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SET-016-ATTACK",
+    "displayName": "Выстрел великана",
+    "iconVisualId": "SET-016-VISUAL-ICON",
+    "visualId": "SKILL-005-VISUAL-PROJECTILE",
+    "levels": [
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 120,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 10,
+                "collisionRadius": 0.45,
+                "pierceCount": 7,
+                "lifetimeSeconds": 0.9
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1.5,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "SET-017-ATTACK",
     "displayName": "Падающая звезда",
     "iconVisualId": "SET-017-VISUAL-ICON",
@@ -167,6 +669,636 @@
             ],
             "controls": {
               "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SET-018-ATTACK",
+    "displayName": "Сфера разрушения",
+    "iconVisualId": "SET-018-VISUAL-ICON",
+    "visualId": "SKILL-014-VISUAL-PROJECTILE",
+    "levels": [
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 8,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230947,
+        "baseDamage": 40,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 2,
+                "collisionRadius": 0.6,
+                "pierceCount": 0,
+                "lifetimeSeconds": 3,
+                "impactAreaRadius": 3,
+                "behavior": {
+                  "explosionDamageMultiplier": 4,
+                  "explodeOnExpiry": true,
+                  "explosionKnockbackMultiplier": 3.75
+                }
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 0.4,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SET-019-ATTACK",
+    "displayName": "Ледяное копьё",
+    "iconVisualId": "SET-019-VISUAL-ICON",
+    "visualId": "SKILL-013-VISUAL-PROJECTILE",
+    "levels": [
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 6,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "MovementDirection",
+        "initialDirectionDegrees": 0,
+        "baseDamage": 90,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "Single",
+                "spreadDegrees": 0,
+                "speed": 9,
+                "collisionRadius": 0.35,
+                "pierceCount": 4,
+                "lifetimeSeconds": 0.888889
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12,
+              "slowFraction": 0.5,
+              "slowSeconds": 2.5
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SET-020-ATTACK",
+    "displayName": "Каменное ядро",
+    "iconVisualId": "SET-020-VISUAL-ICON",
+    "visualId": "SKILL-001-VISUAL-PROJECTILE",
+    "levels": [
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
+              "knockbackSeconds": 0.12
+            }
+          }
+        ]
+      },
+      {
+        "cooldownSeconds": 5,
+        "actionSpeedBonus": 0,
+        "rotationPerActivationDegrees": 0,
+        "targetingMode": "Self",
+        "randomSeed": 230949,
+        "baseDamage": 100,
+        "waves": [
+          {
+            "delaySeconds": 0,
+            "rotationDegrees": 0,
+            "damageMultiplier": 1,
+            "effects": [
+              {
+                "kind": "ProjectileBurst",
+                "projectileCount": 1,
+                "layout": "IndependentRandom",
+                "spreadDegrees": 0,
+                "speed": 5,
+                "collisionRadius": 0.55,
+                "pierceCount": 3,
+                "lifetimeSeconds": 1.4
+              }
+            ],
+            "controls": {
+              "knockbackDistance": 2,
               "knockbackSeconds": 0.12
             }
           }

@@ -9,7 +9,7 @@ namespace Game.ActiveSkill.Tests
         [Test]
         public void FallingStarTemplate_IsOneTelegraphedStrike()
         {
-            var template = ProductionSetAttackCatalog.Create().Single();
+            var template = ProductionSetAttackCatalog.Create().Single(t => t.Id.ToString() == "SET-017-ATTACK");
             Assert.AreEqual("SET-017-ATTACK", template.Id.ToString());
             var level = template.GetLevel(1);
             Assert.AreEqual(150f, level.BaseDamage);

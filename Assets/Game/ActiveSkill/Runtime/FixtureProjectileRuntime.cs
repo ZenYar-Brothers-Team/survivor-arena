@@ -35,6 +35,7 @@ namespace Game.ActiveSkill
         private int _ricochets;
         private float _retention;
         private bool _isReturning;
+        private bool _rebounding;
         private bool _initialized;
         private bool _despawned;
         private int _generation;
@@ -70,6 +71,7 @@ namespace Game.ActiveSkill
             _remainingHits = 1 + projectile.PierceCount;
             _ricochets = projectile.Behavior.RicochetCount;
             _retention = 1f;
+            _rebounding = false;
             _despawned = false;
             _initialized = true;
             _impactReleasePending = false;
@@ -112,13 +114,14 @@ namespace Game.ActiveSkill
             if (_isReturning)
             {
                 var offset = (Vector2)_projectile.ReturnTarget.position - _body.position;
-                var distance = _projectile.Speed * dt;
+                var distance = _projectile.Speed * _projectile.ReturnSpeedMultiplier * dt;
                 if (offset.sqrMagnitude <= distance * distance) { Despawn(); return; }
                 if (offset.sqrMagnitude > Mathf.Epsilon) _direction = offset.normalized;
             }
             var next = _elapsed + dt;
             // Exact integral of linear speed decay: independent of frame subdivision, never accelerates again.
-            var travel = stop > 0f ? _projectile.Speed * (dt - (next * next - _elapsed * _elapsed) / (2f * stop)) : _projectile.Speed * dt;
+            var speed = _projectile.Speed * (_rebounding ? _projectile.ReboundSpeedMultiplier : 1f);
+            var travel = stop > 0f ? speed * (dt - (next * next - _elapsed * _elapsed) / (2f * stop)) : speed * dt;
             _body.position += _direction * travel;
             _elapsed = next;
             if (_elapsed >= end)
@@ -150,7 +153,8 @@ namespace Game.ActiveSkill
             else if (!_hitThisPass.Add(life)) return false;
             var generation = _generation;
             var direction = _projectile.Returns ? receiver.Position - (Vector2)_projectile.ReturnTarget.position : _direction;
-            var multiplier = _retention * (_isReturning ? _projectile.ReturnDamageMultiplier : 1f);
+            var multiplier = _retention * (_isReturning ? _projectile.ReturnDamageMultiplier : 1f) *
+                             (_rebounding ? _projectile.ReboundDamageMultiplier : 1f);
             var knockback = _retention * (_isReturning ? _projectile.ReturnKnockbackMultiplier : 1f);
             var damage = WithMultipliers(_projectile.Damage, multiplier, knockback).WithDirection(direction.x, direction.y);
             if (_projectile.Behavior.ExplosionDamageMultiplier > 0f) receiver.ApplyDamage(damage);
@@ -175,6 +179,7 @@ namespace Game.ActiveSkill
             if (nearest == null) return false;
             _ricochets--;
             _retention *= _projectile.Behavior.RicochetRetention;
+            _rebounding = true;
             _direction = (nearest.Position - position).normalized;
             if (_direction.sqrMagnitude <= Mathf.Epsilon) _direction = _projectile.Direction;
             _hitThisPass.Remove(new EnemyTargetLife(nearest));
@@ -213,6 +218,7 @@ namespace Game.ActiveSkill
             _initialized = false;
             _elapsed = 0f;
             _isReturning = false;
+            _rebounding = false;
             _hitThisPass.Clear();
             _targets.Clear();
             _projectile = default;

@@ -41,6 +41,14 @@
         "modifier": {
           "incomingDamageReductionBonus": 0.1
         }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "FIXTURE-SKILL-BOLT",
+        "mechanics": {
+          "projectileSpeedBonus": 0.2,
+          "extraPierce": 1
+        }
       }
     ]
   },

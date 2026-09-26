@@ -54,9 +54,14 @@ namespace Game.ActiveSkill
             _phaseDegrees = initialPhaseDegrees;
         }
 
+        /// <summary>Rotation speed factor from set mechanics (SET-014); 1 = card speed.</summary>
+        public float AngularSpeedMultiplier { get; private set; } = 1f;
+
         public void Refresh(OrbitEffect effect, EnemyDamageRequest damage, float rangeMultiplier, float sizeMultiplier,
-            float leaseSeconds, SpriteDefinition visual)
+            float leaseSeconds, SpriteDefinition visual, float angularSpeedMultiplier = 1f)
         {
+            NumericValidation.ValidatePositive(angularSpeedMultiplier, nameof(angularSpeedMultiplier));
+            AngularSpeedMultiplier = angularSpeedMultiplier;
             var countChanged = Effect == null || Effect.BladeCount != effect.BladeCount;
             Effect = effect ?? throw new ArgumentNullException(nameof(effect));
             _damage = damage;
@@ -85,7 +90,7 @@ namespace Game.ActiveSkill
             _sinceRefresh += deltaTime;
             if (_sinceRefresh > LeaseSeconds) return false;
             TickCooldowns(deltaTime);
-            var totalDegrees = Effect.AngularSpeedDegrees * deltaTime;
+            var totalDegrees = Effect.AngularSpeedDegrees * AngularSpeedMultiplier * deltaTime;
             var steps = Math.Max(1, Mathf.CeilToInt(totalDegrees / MaxSweepDegreesPerStep));
             // Whole-ring cost per frame (every blade × sweep step); same 2 ms budget as one area hit.
             using var guard = PerfGuard.Measure("PersistentOrbitState.BladeSweep", 2f);

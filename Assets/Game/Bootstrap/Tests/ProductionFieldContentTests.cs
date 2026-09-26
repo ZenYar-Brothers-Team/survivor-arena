@@ -97,10 +97,11 @@ namespace Game.Bootstrap.Tests
         {
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
             Assert.IsTrue(catalog.IsProduction);
-            Assert.AreEqual(35, catalog.BuildEntries.Count,
-                "16 skills + 14 passives + 5 sets; profile access filters locked ones from the draft (DECISION-0060).");
+            Assert.AreEqual(50, catalog.BuildEntries.Count,
+                "16 skills + 14 passives + 20 sets; profile access filters locked ones from the draft (DECISION-0060/0061).");
             Assert.IsFalse(catalog.BuildEntries.Any(e => e.Id.ToString().StartsWith("FIXTURE-")));
-            Assert.AreEqual("SET-017-ATTACK", catalog.SetAttackTemplates.Single().Id.ToString());
+            CollectionAssert.AreEqual(new[] { "SET-013-ATTACK", "SET-015-ATTACK", "SET-016-ATTACK", "SET-017-ATTACK",
+                "SET-018-ATTACK", "SET-019-ATTACK", "SET-020-ATTACK" }, catalog.SetAttackTemplates.Select(t => t.Id.ToString()));
             Assert.AreEqual("CHAR-001", catalog.RunSetup.StartingCharacterId.ToString());
             Assert.AreEqual(0.5f, catalog.RunSetup.Draft.SetDraftChance);
             Assert.AreEqual(45f, catalog.RunSetup.Experience.BaseDropLifetimeSeconds,

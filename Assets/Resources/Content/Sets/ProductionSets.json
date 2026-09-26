@@ -34,6 +34,81 @@
     ]
   },
   {
+    "id": "SET-002",
+    "displayName": "Возвратный ритм",
+    "iconVisualId": "SET-002-VISUAL-ICON",
+    "description": "Бумеранг и Рикошетный диск получают повышенный damage и projectile speed на обратном пути к персонажу. Никаких дополнительных временных buffs или stacks нет.",
+    "recipe": [
+      {
+        "id": "SKILL-006",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-008",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-006",
+        "mechanics": {
+          "returnDamageBonus": 0.5,
+          "returnSpeedBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-008",
+        "mechanics": {
+          "returnDamageBonus": 0.5,
+          "returnSpeedBonus": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-003",
+    "displayName": "Грозовой проводник",
+    "iconVisualId": "SET-003-VISUAL-ICON",
+    "description": "Цепная молния получает больше max targets, увеличенный jump range и заметно меньшее падение damage между прыжками.",
+    "recipe": [
+      {
+        "id": "SKILL-007",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-007",
+        "mechanics": {
+          "extraChainTargets": 2,
+          "chainJumpRangeBonus": 0.3,
+          "chainFalloffReduction": 0.5
+        }
+      }
+    ]
+  },
+  {
     "id": "SET-004",
     "displayName": "Ледяной таран",
     "iconVisualId": "SET-004-VISUAL-ICON",
@@ -73,6 +148,43 @@
     ]
   },
   {
+    "id": "SET-005",
+    "displayName": "Жадность к знаниям",
+    "iconVisualId": "SET-005-VISUAL-ICON",
+    "description": "заметно усиливает disappearing-XP recovery, XP pickup radius и picked-up XP. Дополнительно каждый level-up восстанавливает небольшую долю HP.",
+    "recipe": [
+      {
+        "id": "PASSIVE-006",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-007",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-010",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "disappearingXpRecoveryBonus": 0.2,
+          "pickupRadiusMultiplierBonus": 0.3,
+          "pickedUpXpMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "LevelHeal",
+        "healFraction": 0.05
+      }
+    ]
+  },
+  {
     "id": "SET-006",
     "displayName": "Полевой медик",
     "iconVisualId": "SET-006-VISUAL-ICON",
@@ -102,6 +214,181 @@
           "healthRegenerationPerSecondBonus": 0.6,
           "healthRestorationMultiplierBonus": 0.2,
           "potionDropMultiplierBonus": 0.25
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-007",
+    "displayName": "Векторный шторм",
+    "iconVisualId": "SET-007-VISUAL-ICON",
+    "description": "три указанных умения получают bonus к effect size/width, range и damage. Их patterns не поворачиваются и не синхронизируются специальными правилами.",
+    "recipe": [
+      {
+        "id": "SKILL-002",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-011",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-015",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-002",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.25,
+          "effectSizeMultiplierBonus": 0.2,
+          "effectRangeMultiplierBonus": 0.2
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-011",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.25,
+          "effectSizeMultiplierBonus": 0.2,
+          "effectRangeMultiplierBonus": 0.2
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-015",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.25,
+          "effectSizeMultiplierBonus": 0.2,
+          "effectRangeMultiplierBonus": 0.2
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-008",
+    "displayName": "Утилизатор",
+    "iconVisualId": "SET-008-VISUAL-ICON",
+    "description": "каждый N-й projectile Разбрасывателя мусора заменяется одним «тяжёлым мусором»: он крупнее, медленнее останавливается и при остановке взрывается. Explosion skills компонентов получают небольшой общий bonus к radius.",
+    "recipe": [
+      {
+        "id": "SKILL-009",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-014",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-016",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-016",
+        "mechanics": {
+          "heavyEveryNth": 8,
+          "heavySizeMultiplier": 2,
+          "heavyStopMultiplier": 1.5,
+          "heavyExplosionRadius": 1.2,
+          "heavyExplosionDamageMultiplier": 4,
+          "heavyExplosionKnockback": 0.6
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-009",
+        "mechanics": {
+          "explosionRadiusBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-014",
+        "mechanics": {
+          "explosionRadiusBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-016",
+        "mechanics": {
+          "explosionRadiusBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-009",
+    "displayName": "Линия пробоя",
+    "iconVisualId": "SET-009-VISUAL-ICON",
+    "description": "Ветряное копьё и Пульсирующий луч получают большой bonus к range, damage и width; Ветряное копьё дополнительно получает bonus к pierce. Никаких marks или изменения target selection нет.",
+    "recipe": [
+      {
+        "id": "SKILL-005",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-012",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-005",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4,
+          "effectSizeMultiplierBonus": 0.25,
+          "effectRangeMultiplierBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-012",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4,
+          "effectSizeMultiplierBonus": 0.25,
+          "effectRangeMultiplierBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-005",
+        "mechanics": {
+          "extraPierce": 2
         }
       }
     ]
@@ -151,6 +438,349 @@
     ]
   },
   {
+    "id": "SET-011",
+    "displayName": "Кинетический арсенал",
+    "iconVisualId": "SET-011-VISUAL-ICON",
+    "description": "перечисленные direct projectiles получают большой bonus к projectile speed, damage, range и небольшой bonus к outgoing knockback. Cross-skill cooldown reduction убран.",
+    "recipe": [
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-005",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-008",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-001",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.35,
+          "effectRangeMultiplierBonus": 0.25,
+          "outgoingKnockbackBonus": 0.1
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-001",
+        "mechanics": {
+          "projectileSpeedBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-005",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.35,
+          "effectRangeMultiplierBonus": 0.25,
+          "outgoingKnockbackBonus": 0.1
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-005",
+        "mechanics": {
+          "projectileSpeedBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-008",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.35,
+          "effectRangeMultiplierBonus": 0.25,
+          "outgoingKnockbackBonus": 0.1
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-008",
+        "mechanics": {
+          "projectileSpeedBonus": 0.3
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-012",
+    "displayName": "Неподвижная крепость",
+    "iconVisualId": "SET-012-VISUAL-ICON",
+    "description": "большой bonus к max HP, damage reduction и player knockback resistance; Импульсная волна получает большой bonus к radius и outgoing knockback. Reactive proc после получения damage убран.",
+    "recipe": [
+      {
+        "id": "SKILL-004",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-001",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-008",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-014",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "maxHealthMultiplierBonus": 0.25,
+          "incomingDamageReductionBonus": 0.1,
+          "knockbackResistanceBonus": 0.3
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-004",
+        "modifier": {
+          "effectSizeMultiplierBonus": 0.3,
+          "outgoingKnockbackBonus": 0.4
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-013",
+    "displayName": "Перегрузка сети",
+    "iconVisualId": "SET-013-VISUAL-ICON",
+    "description": "с фиксированным редким cooldown сет поражает ближайшего врага A мощным электрическим ударом; от A одновременно расходятся разряды максимум к нескольким врагам в радиусе. Вторичные разряды дальше не прыгают.",
+    "recipe": [
+      {
+        "id": "SKILL-007",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "SKILL-012",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-013-ATTACK",
+        "cooldownSeconds": 6,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-014",
+    "displayName": "Танец клинков",
+    "iconVisualId": "SET-014-VISUAL-ICON",
+    "description": "три blade/shard skills постоянно получают большой bonus к damage, action speed и effect size. Периодическая «фаза танца» и отдельный rhythm cycle убраны.",
+    "recipe": [
+      {
+        "id": "SKILL-003",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-011",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-015",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-011",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4,
+          "actionSpeedBonus": 0.2,
+          "effectSizeMultiplierBonus": 0.25
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-015",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4,
+          "actionSpeedBonus": 0.2,
+          "effectSizeMultiplierBonus": 0.25
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-003",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.4,
+          "effectSizeMultiplierBonus": 0.25
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-003",
+        "mechanics": {
+          "orbitAngularSpeedBonus": 0.35
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-015",
+    "displayName": "Алхимия хаоса",
+    "iconVisualId": "SET-015-VISUAL-ICON",
+    "description": "перечисленные explosive/random skills постоянно получают большой bonus к explosion damage/radius. Подбор Зелья лечения дополнительно создаёт один мощный explosion вокруг персонажа с отдельным внутренним cooldown. Сложный временный «режим утилизации» убран.",
+    "recipe": [
+      {
+        "id": "SKILL-009",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-014",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-016",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-002",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-009",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-009",
+        "mechanics": {
+          "explosionDamageBonus": 0.35,
+          "explosionRadiusBonus": 0.25
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-014",
+        "mechanics": {
+          "explosionDamageBonus": 0.35,
+          "explosionRadiusBonus": 0.25
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-016",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.5
+        }
+      },
+      {
+        "kind": "RewardProc",
+        "attackTemplate": "SET-015-ATTACK",
+        "cooldownSeconds": 10,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-016",
+    "displayName": "Выстрел великана",
+    "iconVisualId": "SET-016-VISUAL-ICON",
+    "description": "раз в несколько секунд по текущему направлению движения персонажа вылетает один огромный тяжёлый bolt. Он наносит очень высокий damage, пробивает много целей и сильно отбрасывает их.",
+    "recipe": [
+      {
+        "id": "SKILL-005",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-016-ATTACK",
+        "cooldownSeconds": 5,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
     "id": "SET-017",
     "displayName": "Падающая звезда",
     "iconVisualId": "SET-017-VISUAL-ICON",
@@ -177,6 +807,114 @@
         "kind": "IndependentAttack",
         "attackTemplate": "SET-017-ATTACK",
         "cooldownSeconds": 7.5,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-018",
+    "displayName": "Сфера разрушения",
+    "iconVisualId": "SET-018-VISUAL-ICON",
+    "description": "с редким cooldown в случайном направлении выпускается одна очень крупная медленная сфера. При первом попадании или завершении lifetime она создаёт мощный взрыв.",
+    "recipe": [
+      {
+        "id": "SKILL-014",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-014",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-018-ATTACK",
+        "cooldownSeconds": 8,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-019",
+    "displayName": "Ледяное копьё",
+    "iconVisualId": "SET-019-VISUAL-ICON",
+    "description": "с редким cooldown по направлению движения выпускается один огромный ледяной shard. Он пробивает несколько врагов, наносит высокий damage, сильно замедляет и заметно отбрасывает поражённые цели.",
+    "recipe": [
+      {
+        "id": "SKILL-013",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-014",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-019-ATTACK",
+        "cooldownSeconds": 6,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-020",
+    "displayName": "Каменное ядро",
+    "iconVisualId": "SET-020-VISUAL-ICON",
+    "description": "раз в несколько секунд в случайном направлении запускается один массивный медленный валун. Он пробивает ограниченное число целей, наносит высокий damage и очень сильно отбрасывает врагов.",
+    "recipe": [
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 4
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-013",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-020-ATTACK",
+        "cooldownSeconds": 5,
         "scalesWithSizeAndRange": true
       }
     ]

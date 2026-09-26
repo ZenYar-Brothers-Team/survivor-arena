@@ -6,6 +6,7 @@ using Game.Diagnostics;
 using Game.Enemy;
 using Game.Movement;
 using Game.Pooling;
+using Game.Progression;
 using Game.Run;
 using Game.Presentation;
 using UnityEngine;
@@ -37,6 +38,7 @@ namespace Game.ActiveSkill
         private readonly ITargetViewport _viewport;
         private readonly HashSet<EnemyTargetLife> _chainHitBuffer = new HashSet<EnemyTargetLife>();
         private readonly List<EnemyTargetLife> _chainCandidates = new List<EnemyTargetLife>();
+        private readonly List<(float distance, EnemyTargetLife life)> _fanOutBranches = new List<(float, EnemyTargetLife)>();
         private readonly Transform _minePoolRoot;
         private readonly GameObjectPool<SpriteRenderer> _minePool;
         private readonly Transform _orbitPoolRoot;
@@ -279,6 +281,18 @@ namespace Game.ActiveSkill
                 effect.SpreadDegrees,
                 scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees, scheduled.Activation.Random);
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
+            var mechanics = scheduled.Activation.Mechanics;
+            // Set speed bonus keeps travel distance: lifetime shrinks by the same factor (sets-v1).
+            var speedFactor = 1f + mechanics.ProjectileSpeedBonus;
+            var explosive = effect.Behavior.ExplosionDamageMultiplier > 0f;
+            var behavior = explosive && mechanics.ExplosionDamageBonus > 0f
+                ? WithExplosion(effect.Behavior, effect.Behavior.ExplosionDamageMultiplier * (1f + mechanics.ExplosionDamageBonus),
+                    effect.Behavior.ExplodeOnExpiry, effect.Behavior.ExplosionKnockbackMultiplier, effect.Behavior.UnlimitedPierce,
+                    effect.Behavior.StopAfterSeconds)
+                : effect.Behavior;
+            var impactRadius = effect.ImpactAreaRadius * (explosive ? 1f + mechanics.ExplosionRadiusBonus : 1f);
+            var pierce = effect.Behavior.UnlimitedPierce ? effect.PierceCount : effect.PierceCount + mechanics.ExtraPierce;
+            var rebound = effect.Behavior.RicochetCount > 0;
             if (effect.Behavior.DistinctNearestTargets) _selection.CopyAliveTo(_enemyBuffer);
             for (var i = 0; i < directions.Length; i++)
             {
@@ -303,16 +317,55 @@ namespace Game.ActiveSkill
                     // No further on-screen target: the projectile keeps its layout direction (DECISION-0058).
                     else if (_viewport == null) break;
                 }
+                var sequence = scheduled.Activation.ProjectileSequence;
+                if (mechanics.HasHeavyReplacement && sequence != null && sequence.NextIsEvery(mechanics.HeavyEveryNth))
+                {
+                    LaunchHeavy(scheduled, effect, directions[i], damage, mechanics);
+                    continue;
+                }
                 _projectileLauncher.Launch(new ActiveSkillProjectile(
-                    scheduled.Activation.Origin, directions[i], effect.Speed,
-                    effect.LifetimeSeconds * scheduled.Activation.RangeMultiplier,
+                    scheduled.Activation.Origin, directions[i], effect.Speed * speedFactor,
+                    effect.LifetimeSeconds * scheduled.Activation.RangeMultiplier / speedFactor,
                     effect.CollisionRadius * scheduled.Activation.SizeMultiplier,
-                    effect.ImpactAreaRadius * scheduled.Activation.SizeMultiplier,
-                    damage, effect.PierceCount, behavior: effect.Behavior,
+                    impactRadius * scheduled.Activation.SizeMultiplier,
+                    damage, pierce, behavior: behavior,
                     rangeMultiplier: scheduled.Activation.RangeMultiplier,
-                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
+                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition),
+                    reboundDamageMultiplier: rebound ? 1f + mechanics.ReturnDamageBonus : 1f,
+                    reboundSpeedMultiplier: rebound ? 1f + mechanics.ReturnSpeedBonus : 1f));
             }
         }
+
+        /// <summary>
+        /// SET-008 heavy junk: bigger, stops later, passes through enemies and explodes when it stops. Its explosion is
+        /// derived from damage without other sets' skill transforms (no set-to-set amplification, G-05).
+        /// </summary>
+        private void LaunchHeavy(ScheduledSkillEffect scheduled, ProjectileBurstEffect effect, Vector2 direction,
+            EnemyDamageRequest damage, SkillMechanicBonus mechanics)
+        {
+            var baseKnockback = scheduled.Wave.Controls.KnockbackDistance;
+            var stop = effect.Behavior.StopAfterSeconds * mechanics.HeavyStopMultiplier;
+            var lifetime = effect.LifetimeSeconds * mechanics.HeavyStopMultiplier;
+            var behavior = WithExplosion(effect.Behavior,
+                mechanics.HeavyExplosionDamageMultiplier * scheduled.Activation.SetTransformDamageNormalization,
+                explodeOnExpiry: true,
+                knockbackMultiplier: baseKnockback > 0f ? mechanics.HeavyExplosionKnockback / baseKnockback : 0f,
+                unlimitedPierce: true, stopAfterSeconds: stop);
+            _projectileLauncher.Launch(new ActiveSkillProjectile(
+                scheduled.Activation.Origin, direction, effect.Speed,
+                lifetime * scheduled.Activation.RangeMultiplier,
+                effect.CollisionRadius * mechanics.HeavySizeMultiplier * scheduled.Activation.SizeMultiplier,
+                mechanics.HeavyExplosionRadius * (1f + mechanics.ExplosionRadiusBonus) * scheduled.Activation.SizeMultiplier,
+                damage, 0, behavior: behavior,
+                rangeMultiplier: scheduled.Activation.RangeMultiplier,
+                visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
+        }
+
+        private static ProjectileBehavior WithExplosion(ProjectileBehavior source, float damageMultiplier, bool explodeOnExpiry,
+            float knockbackMultiplier, bool unlimitedPierce, float stopAfterSeconds) =>
+            new ProjectileBehavior(stopAfterSeconds, unlimitedPierce, source.RicochetCount, source.RicochetRange,
+                source.RicochetRetention, source.RepeatRicochetTargets, source.DistinctNearestTargets,
+                damageMultiplier, explodeOnExpiry, knockbackMultiplier);
 
         private void ExecuteBoomerang(ScheduledSkillEffect scheduled, BoomerangEffect effect)
         {
@@ -335,12 +388,14 @@ namespace Game.ActiveSkill
                     0f,
                     damage,
                     returnAfterSeconds: returnAfter,
-                    returnDamageMultiplier: effect.ReturnDamageMultiplier,
+                    // SET-002: return bonus adds to the card's return multiplier (DECISION-0021 additive rule).
+                    returnDamageMultiplier: effect.ReturnDamageMultiplier + scheduled.Activation.Mechanics.ReturnDamageBonus,
                     returnTarget: scheduled.Activation.OwnerTransform,
                     hitLedger: scheduled.Activation.HitLedger,
                     hitCooldownSeconds: effect.HitCooldownSeconds,
                     returnKnockbackMultiplier: effect.ReturnKnockbackMultiplier,
-                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
+                    visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition),
+                    returnSpeedMultiplier: 1f + scheduled.Activation.Mechanics.ReturnSpeedBonus));
             }
         }
 
@@ -447,8 +502,18 @@ namespace Game.ActiveSkill
             _chainPoints.Clear();
             _chainPoints.Add(previousPosition);
             var damageAmount = scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effect.DamageMultiplier;
+            var mechanics = scheduled.Activation.Mechanics;
+            var targetCount = effect.TargetCount + mechanics.ExtraChainTargets;
+            var jumpRange = effect.JumpRange * (1f + mechanics.ChainJumpRangeBonus) * scheduled.Activation.RangeMultiplier;
+            // SET-003: the per-jump falloff shrinks, retention itself never exceeds 1.
+            var retention = 1f - (1f - effect.DamageRetentionPerJump) * (1f - mechanics.ChainFalloffReduction);
+            if (effect.FanOut)
+            {
+                ExecuteFanOut(scheduled, effect, current, damageAmount, targetCount, jumpRange, retention);
+                return;
+            }
 
-            for (var jump = 0; jump < effect.TargetCount; jump++)
+            for (var jump = 0; jump < targetCount; jump++)
             {
                 if (current == null || !current.IsAlive || !_chainHitBuffer.Add(new EnemyTargetLife(current)))
                     break;
@@ -458,11 +523,10 @@ namespace Game.ActiveSkill
                 current.ApplyDamage(CreateDamage(scheduled, effect.DamageMultiplier).WithAmount(damageAmount).WithDirection(direction.x, direction.y));
                 previousPosition = currentPosition;
                 _chainPoints.Add(currentPosition);
-                damageAmount *= effect.DamageRetentionPerJump;
+                damageAmount *= retention;
 
                 IEnemyDamageReceiver next = null;
-                var range = effect.JumpRange * scheduled.Activation.RangeMultiplier;
-                var nearestDistance = range * range;
+                var nearestDistance = jumpRange * jumpRange;
                 for (var i = 0; i < _chainCandidates.Count; i++)
                 {
                     var life = _chainCandidates[i];
@@ -479,6 +543,41 @@ namespace Game.ActiveSkill
             }
             if (_chainPoints.Count > 1 && _worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.ChainArc, out var profile))
                 for (var i = 1; i < _chainPoints.Count; i++) _worldEffects.Segment(profile, _chainPoints[i - 1], _chainPoints[i]);
+        }
+
+        /// <summary>SET-013: one primary hit, then simultaneous branches to the nearest others around it; no further jumps.</summary>
+        private void ExecuteFanOut(ScheduledSkillEffect scheduled, ChainEffect effect, IEnemyDamageReceiver primary,
+            float damageAmount, int targetCount, float branchRange, float retention)
+        {
+            if (primary == null || !primary.IsAlive) return;
+            var center = primary.Position;
+            var direction = center - scheduled.Activation.Origin;
+            primary.ApplyDamage(CreateDamage(scheduled, effect.DamageMultiplier).WithAmount(damageAmount).WithDirection(direction.x, direction.y));
+            _chainHitBuffer.Add(new EnemyTargetLife(primary));
+            _chainPoints.Add(center);
+            _fanOutBranches.Clear();
+            var rangeSquared = branchRange * branchRange;
+            for (var i = 0; i < _chainCandidates.Count; i++)
+            {
+                var life = _chainCandidates[i];
+                if (!life.IsAlive || _chainHitBuffer.Contains(life)) continue;
+                var distance = (life.Target.Position - center).sqrMagnitude;
+                if (distance <= rangeSquared) _fanOutBranches.Add((distance, life));
+            }
+            _fanOutBranches.Sort((left, right) => left.distance.CompareTo(right.distance));
+            var branchDamage = damageAmount * retention;
+            var branchCount = Mathf.Min(targetCount - 1, _fanOutBranches.Count);
+            for (var i = 0; i < branchCount; i++)
+            {
+                var target = _fanOutBranches[i].life.Target;
+                if (!target.IsAlive) continue;
+                var offset = target.Position - center;
+                target.ApplyDamage(CreateDamage(scheduled, effect.DamageMultiplier).WithAmount(branchDamage).WithDirection(offset.x, offset.y));
+                if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.ChainArc, out var branchProfile))
+                    _worldEffects.Segment(branchProfile, center, target.Position);
+            }
+            if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.ChainArc, out var profile))
+                _worldEffects.Segment(profile, scheduled.Activation.Origin, center);
         }
 
         private void PlaceMine(ScheduledSkillEffect scheduled, MineEffect effect)
@@ -556,16 +655,20 @@ namespace Game.ActiveSkill
                 if (!triggered)
                     continue;
 
+                // SET-008/015: explosion-only bonuses on the whole blast, including the L6 secondary one.
+                var blastMechanics = mine.Scheduled.Activation.Mechanics;
+                var blastRadius = mine.Effect.BlastRadius * (1f + blastMechanics.ExplosionRadiusBonus);
+                var blastDamage = mine.Effect.DamageMultiplier * (1f + blastMechanics.ExplosionDamageBonus);
                 EnemyDamageArea.Apply(
                     mine.Position,
-                    mine.Effect.BlastRadius * mine.Scheduled.Activation.SizeMultiplier,
-                    CreateDamage(mine.Scheduled, mine.Effect.DamageMultiplier));
+                    blastRadius * mine.Scheduled.Activation.SizeMultiplier,
+                    CreateDamage(mine.Scheduled, blastDamage));
                 if (mine.Effect.SecondaryDamageMultiplier > 0f)
                 {
                     _scheduled.Add(new ScheduledSkillEffect(
                         mine.Scheduled.Activation,
                         mine.Scheduled.Wave,
-                        new AreaEffect(mine.Effect.BlastRadius * mine.Effect.SecondaryRadiusMultiplier, mine.Effect.DamageMultiplier * mine.Effect.SecondaryDamageMultiplier),
+                        new AreaEffect(blastRadius * mine.Effect.SecondaryRadiusMultiplier, blastDamage * mine.Effect.SecondaryDamageMultiplier),
                         mine.Effect.SecondaryDelaySeconds,
                         0,
                         mine.Position, mine.Effect.SecondaryKnockbackMultiplier));
@@ -602,7 +705,7 @@ namespace Game.ActiveSkill
                 slowedTargetKnockbackBonus: activation.SlowedTargetBonus.KnockbackBonus));
             var lease = Mathf.Max(PersistentOrbitMinimumLeaseSeconds, activation.LevelDefinition.CooldownSeconds * 4f);
             state.Refresh(effect, damage, activation.RangeMultiplier, activation.SizeMultiplier, lease,
-                ResolveProjectileVisual(activation.LevelDefinition));
+                ResolveProjectileVisual(activation.LevelDefinition), 1f + activation.Mechanics.OrbitAngularSpeedBonus);
         }
 
         private void TickPersistentOrbits(float deltaTime)

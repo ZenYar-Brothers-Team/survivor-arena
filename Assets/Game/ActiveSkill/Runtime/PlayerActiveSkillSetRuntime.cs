@@ -37,6 +37,8 @@ namespace Game.ActiveSkill
         public Func<ContentId, CharacterStatModifier> SetSkillModifier { get; set; }
         /// <summary>Set-provided bonuses against already slowed targets for a skill (SET-004/SET-010).</summary>
         public Func<ContentId, SlowedTargetBonus> SetSlowedTargetBonus { get; set; }
+        /// <summary>Skill-specific set mechanics provider (sets-v1); null when no set host is composed.</summary>
+        public Func<ContentId, SkillMechanicBonus> SetSkillMechanics { get; set; }
         public int SkillCount => _instances.Count;
         public IEnumerable<ActiveSkillInstance> Skills => _instances.Values;
 
@@ -135,7 +137,8 @@ namespace Game.ActiveSkill
             {
                 if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
                     SetSkillModifier?.Invoke(instance.Definition.Id) ?? default,
-                    slowedTargetBonus: SetSlowedTargetBonus?.Invoke(instance.Definition.Id) ?? default))
+                    slowedTargetBonus: SetSlowedTargetBonus?.Invoke(instance.Definition.Id) ?? default,
+                    skillMechanics: SetSkillMechanics?.Invoke(instance.Definition.Id) ?? default))
                 {
                     Activated?.Invoke(new CombatSource(owner.Identity, instance.Definition.Id, CombatSourceOrigin.ActiveSkill, instance.Level));
                     triggered = true;

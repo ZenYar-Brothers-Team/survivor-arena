@@ -26,6 +26,11 @@ namespace Game.ActiveSkill
         public Transform ReturnTarget { get; }
         public bool Returns => ReturnAfterSeconds > 0f;
         public SpriteDefinition Visual { get; }
+        /// <summary>Speed factor on the return pass (SET-002); 1 = unchanged.</summary>
+        public float ReturnSpeedMultiplier { get; }
+        /// <summary>Damage/speed factors after the first ricochet hit — the disc's "return rhythm" (SET-002, G-04).</summary>
+        public float ReboundDamageMultiplier { get; }
+        public float ReboundSpeedMultiplier { get; }
 
         public ActiveSkillProjectile(
             Vector2 origin,
@@ -40,7 +45,8 @@ namespace Game.ActiveSkill
             float returnDamageMultiplier = 1f,
             Transform returnTarget = null, ProjectileBehavior behavior = null,
             SkillHitLedger hitLedger = null, float hitCooldownSeconds = 0f, float returnKnockbackMultiplier = 1f,
-            float rangeMultiplier = 1f, SpriteDefinition visual = null)
+            float rangeMultiplier = 1f, SpriteDefinition visual = null, float returnSpeedMultiplier = 1f,
+            float reboundDamageMultiplier = 1f, float reboundSpeedMultiplier = 1f)
         {
             if (direction.sqrMagnitude <= Mathf.Epsilon)
                 throw new ArgumentException("Projectile direction cannot be zero.", nameof(direction));
@@ -77,6 +83,12 @@ namespace Game.ActiveSkill
             ReturnTarget = returnTarget;
             if (visual != null) visual.RequireRole(SpriteRole.Projectile);
             Visual = visual;
+            NumericValidation.ValidatePositive(returnSpeedMultiplier, nameof(returnSpeedMultiplier));
+            NumericValidation.ValidateNonNegative(reboundDamageMultiplier, nameof(reboundDamageMultiplier));
+            NumericValidation.ValidatePositive(reboundSpeedMultiplier, nameof(reboundSpeedMultiplier));
+            ReturnSpeedMultiplier = returnSpeedMultiplier;
+            ReboundDamageMultiplier = reboundDamageMultiplier;
+            ReboundSpeedMultiplier = reboundSpeedMultiplier;
         }
     }
 }

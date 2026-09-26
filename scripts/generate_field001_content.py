@@ -20,6 +20,7 @@ BASELINE = ROOT / "docs/balance/field001-baseline-v1.json"
 
 
 LATE_PACKET = ROOT / "docs/balance/late-skills-passives-v1.json"
+SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
 
 
 def load_baseline():
@@ -30,6 +31,10 @@ def load_baseline():
     if not str(late.get("approval", "")).startswith("Approved"):
         raise SystemExit("Late skills/passives packet is not Approved; production content cannot be generated.")
     data["late"] = late
+    late_sets = json.loads(SETS_PACKET.read_text(encoding="utf-8"))
+    if not str(late_sets.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Sets packet is not Approved; production content cannot be generated.")
+    data["lateSets"] = late_sets
     return data
 
 
@@ -247,6 +252,7 @@ PASSIVE_CHANNELS = {  # baseline review field -> runtime CharacterStatModifierDa
     "knockbackResistanceBonus": "knockbackResistanceBonus",
     "outgoingKnockbackBonus": "outgoingKnockbackBonus",
     "effectSizeBonus": "effectSizeMultiplierBonus",
+    "effectRangeBonus": "effectRangeMultiplierBonus",
     # Late packet rows already use the runtime channel names (DECISION-0060).
     "disappearingXpRecoveryBonus": "disappearingXpRecoveryBonus",
     "pickedUpXpMultiplierBonus": "pickedUpXpMultiplierBonus",
@@ -400,7 +406,77 @@ def pickups(baseline):
     }
 
 
-SET_ATTACK_TEMPLATES = {"SET-017": "SET-017-ATTACK"}
+SET_ATTACK_TEMPLATES = {name: f"{name}-ATTACK" for name in
+                        ("SET-013", "SET-015", "SET-016", "SET-017", "SET-018", "SET-019", "SET-020")}
+SKILL_TRANSFORM_STATS = ("activeDamageBonus", "effectSizeBonus", "effectRangeBonus", "outgoingKnockbackBonus", "actionSpeedBonus")
+SKILL_TRANSFORM_MECHANICS = {"projectileSpeedBonus": "projectileSpeedBonus", "orbitAngularSpeedBonus": "orbitAngularSpeedBonus"}
+
+
+def mechanics(skill, values):
+    return {"kind": "SkillMechanics", "skill": skill, "mechanics": values}
+
+
+def late_set_effects(entry):
+    """sets-v1 (DECISION-0061) review effects -> runtime SetEffect JSON."""
+    effects = []
+    for effect in entry["effects"]:
+        kind = effect["kind"]
+        if kind == "SkillTransform":
+            stats = {PASSIVE_CHANNELS[k]: v for k, v in effect.items() if k in SKILL_TRANSFORM_STATS}
+            if stats:
+                effects.append({"kind": "SkillTransform", "skill": effect["skill"], "modifier": stats})
+            extra = {SKILL_TRANSFORM_MECHANICS[k]: v for k, v in effect.items() if k in SKILL_TRANSFORM_MECHANICS}
+            if extra:
+                effects.append(mechanics(effect["skill"], extra))
+            unknown = set(effect) - {"kind", "skill", "note"} - set(SKILL_TRANSFORM_STATS) - set(SKILL_TRANSFORM_MECHANICS)
+            if unknown:
+                raise SystemExit(f"{entry['id']}: unmapped transform fields {sorted(unknown)}")
+        elif kind == "StatBuff":
+            effects.append({"kind": "StatBuff", "modifier": {PASSIVE_CHANNELS[k]: v for k, v in effect.items() if k != "kind"}})
+        elif kind == "LevelHeal":
+            effects.append({"kind": "LevelHeal", "healFraction": effect["healFraction"]})
+        elif kind == "ReturnPhaseTransform":
+            if effect["disc"] != entry.get("discPolicy", "rebound-after-first-hit"):
+                raise SystemExit(f"{entry['id']}: unsupported disc return policy")
+            for skill in effect["skills"]:
+                effects.append(mechanics(skill, {"returnDamageBonus": effect["returnDamageBonus"],
+                                                 "returnSpeedBonus": effect["returnProjectileSpeedBonus"]}))
+        elif kind == "ChainTransform":
+            effects.append(mechanics(effect["skill"], {"extraChainTargets": effect["extraTargets"],
+                                                       "chainJumpRangeBonus": effect["jumpRangeBonus"],
+                                                       "chainFalloffReduction": 1 - effect["falloffMultiplier"]}))
+        elif kind == "ProjectileReplacement":
+            if not effect["explodeAtStop"]:
+                raise SystemExit(f"{entry['id']}: heavy projectile must explode at stop")
+            effects.append(mechanics(effect["skill"], {
+                "heavyEveryNth": effect["everyNthProjectile"], "heavySizeMultiplier": effect["collisionRadiusMultiplier"],
+                "heavyStopMultiplier": effect["stopTimeMultiplier"], "heavyExplosionRadius": effect["explosionRadius"],
+                "heavyExplosionDamageMultiplier": effect["explosionDamageMultiplier"],
+                "heavyExplosionKnockback": effect["explosionKnockback"]}))
+        elif kind == "ExplosionRadiusBonus":
+            skills = list(effect["skills"]) + (["SKILL-016"] if effect.get("includesHeavyJunk") else [])
+            for skill in skills:
+                effects.append(mechanics(skill, {"explosionRadiusBonus": effect["explosionRadiusBonus"]}))
+        elif kind == "ExplosionTransform":
+            for skill in effect["skills"]:
+                effects.append(mechanics(skill, {"explosionDamageBonus": effect["explosionDamageBonus"],
+                                                 "explosionRadiusBonus": effect["explosionRadiusBonus"]}))
+        elif kind == "PierceBonus":
+            effects.append(mechanics(effect["skill"], {"extraPierce": effect["extraPierce"]}))
+        elif kind in ("IndependentAttack", "RewardProc"):
+            if effect.get("actionSpeedScaling") or effect.get("countsAsSkillActivation") \
+                    or not effect["genericDamageAndKnockbackScaling"]:
+                raise SystemExit(f"{entry['id']}: set attack policy not expressible")
+            if kind == "IndependentAttack" and effect["initialDelaySeconds"] != effect["cooldownSeconds"]:
+                raise SystemExit(f"{entry['id']}: first attack must come after one full cooldown")
+            if kind == "RewardProc" and effect["event"] != "potion-collected":
+                raise SystemExit(f"{entry['id']}: unsupported reward event")
+            effects.append({"kind": kind, "attackTemplate": SET_ATTACK_TEMPLATES[entry["id"]],
+                            "cooldownSeconds": effect["cooldownSeconds"],
+                            "scalesWithSizeAndRange": effect["effectSizeAndRangeScaling"]})
+        else:
+            raise SystemExit(f"{entry['id']}: no runtime mapping for {kind}")
+    return effects
 
 
 def card_field(card_id, field):
@@ -414,7 +490,15 @@ def card_field(card_id, field):
 def sets(baseline):
     names = content_design_names("SET")
     result = []
-    for entry in baseline["sets"]:
+    late = {entry["id"]: entry for entry in baseline["lateSets"]["sets"]}
+    for entry in sorted(baseline["sets"] + list(late.values()), key=lambda item: item["id"]):
+        if entry["id"] in late:
+            recipe = [{"id": item, "kind": "ActiveSkill" if item.startswith("SKILL-") else "PassiveItem", "minimumLevel": level}
+                      for item, level in entry["requirements"].items()]
+            result.append({"id": entry["id"], "displayName": names[entry["id"]], "iconVisualId": f"{entry['id']}-VISUAL-ICON",
+                           "description": card_field(entry["id"], "Эффект"), "recipe": recipe,
+                           "effects": late_set_effects(entry)})
+            continue
         recipe = [{"id": item, "kind": "ActiveSkill" if item.startswith("SKILL-") else "PassiveItem", "minimumLevel": level}
                   for item, level in entry["requirements"].items()]
         effects = []
@@ -471,7 +555,65 @@ def set_attacks(baseline):
                                     controls(effect["knockback"], effect["knockbackSeconds"] or kb_seconds))]}
             result.append({"id": SET_ATTACK_TEMPLATES[entry["id"]], "displayName": content_design_names("SET")[entry["id"]],
                            "iconVisualId": f"{entry['id']}-VISUAL-ICON", "levels": [level] * 6})
-    return result
+    for entry in baseline["lateSets"]["sets"]:
+        for effect in entry["effects"]:
+            if effect["kind"] not in ("IndependentAttack", "RewardProc"):
+                continue
+            number = int(entry["id"].split("-")[1])
+            template = late_set_attack(entry["id"], effect, seed_base + number, kb_seconds)
+            result.append(template)
+    return sorted(result, key=lambda item: item["id"])
+
+
+SET_ATTACK_VISUALS = {"SET-016": "SKILL-005-VISUAL-PROJECTILE", "SET-018": "SKILL-014-VISUAL-PROJECTILE",
+                      "SET-019": "SKILL-013-VISUAL-PROJECTILE", "SET-020": "SKILL-001-VISUAL-PROJECTILE"}
+
+
+def late_set_attack(set_id, effect, seed, kb_seconds):
+    """Attack templates for sets-v1 set attacks; they reuse active-skill effect families."""
+    pattern = effect["pattern"]
+    kb = effect.get("knockback", 0)
+    level = {"cooldownSeconds": effect["cooldownSeconds"], "actionSpeedBonus": 0, "rotationPerActivationDegrees": 0}
+    if pattern == "FanOutDischarge":
+        level.update(baseDamage=effect["primaryDamage"], targetingMode="NearestEnemy", targetingRadius=effect["targetingRadius"])
+        level["waves"] = [wave([{"kind": "Chain", "targetCount": 1 + effect["branchTargets"], "jumpRange": effect["branchRadius"],
+                                 "damageRetentionPerJump": effect["branchDamage"] / effect["primaryDamage"], "fanOut": True}],
+                               controls(kb, kb_seconds))]
+    elif pattern == "AreaAroundPlayer":
+        level.update(baseDamage=effect["damage"], targetingMode="Self")
+        level["waves"] = [wave([{"kind": "Area", "radius": effect["radius"], "expansionSeconds": 0.15}],
+                               controls(kb, effect["knockbackSeconds"]))]
+    elif pattern in ("Projectile", "ExplodingProjectile"):
+        random_direction = effect["targeting"] == "IndependentRandom"
+        if random_direction:
+            level.update(targetingMode="Self", randomSeed=seed)
+        elif effect["targeting"] == "MovementDirection":
+            level.update(targetingMode="MovementDirection", initialDirectionDegrees=0)
+        else:
+            raise SystemExit(f"{set_id}: unsupported set projectile targeting")
+        projectile = {"kind": "ProjectileBurst", "projectileCount": 1,
+                      "layout": "IndependentRandom" if random_direction else "Single", "spreadDegrees": 0,
+                      "speed": effect["speed"], "collisionRadius": effect["collisionRadius"]}
+        if pattern == "Projectile":
+            level["baseDamage"] = effect["damage"]
+            projectile.update(pierceCount=pierce(effect["maxHitTargets"]), lifetimeSeconds=effect["range"] / effect["speed"])
+            ctrl = controls(kb, effect["knockbackSeconds"], effect.get("slowFraction", 0), effect.get("slowSeconds", 0))
+        else:
+            level["baseDamage"] = effect["impactDamage"]
+            projectile.update(pierceCount=0, lifetimeSeconds=effect["lifetimeSeconds"], impactAreaRadius=effect["explosionRadius"],
+                              behavior={"explosionDamageMultiplier": effect["explosionDamage"] / effect["impactDamage"],
+                                        "explodeOnExpiry": effect["explodeOnExpiry"],
+                                        "explosionKnockbackMultiplier": effect["explosionKnockback"] / effect["impactKnockback"]})
+            ctrl = controls(effect["impactKnockback"], effect["knockbackSeconds"])
+        level["waves"] = [wave([projectile], ctrl)]
+    else:
+        raise SystemExit(f"{set_id}: unknown set attack pattern {pattern}")
+    template = {"id": SET_ATTACK_TEMPLATES[set_id], "displayName": content_design_names("SET")[set_id],
+                "iconVisualId": f"{set_id}-VISUAL-ICON"}
+    if set_id in SET_ATTACK_VISUALS:
+        template["visualId"] = SET_ATTACK_VISUALS[set_id]
+    template["levels"] = [level] * 6
+    return template
 
 
 def boss_attack(attack, cooldown, cadence):

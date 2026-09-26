@@ -94,5 +94,41 @@
     "pillarWidth": 0.9,
     "pillarHeight": 3.6,
     "pillarLeadSeconds": 0.15
+  },
+  {
+    "skillId": "SET-013-ATTACK",
+    "kind": "ChainArc",
+    "color": [
+      0.55,
+      0.95,
+      1.0,
+      0.95
+    ],
+    "impactColor": [
+      0.9,
+      1.0,
+      1.0,
+      0.8
+    ],
+    "thickness": 0.14,
+    "fadeSeconds": 0.2
+  },
+  {
+    "skillId": "SET-015-ATTACK",
+    "kind": "ExpandingRing",
+    "color": [
+      0.72,
+      1.0,
+      0.45,
+      0.75
+    ],
+    "impactColor": [
+      0.92,
+      1.0,
+      0.7,
+      0.5
+    ],
+    "thickness": 0.22,
+    "fadeSeconds": 0.2
   }
 ]

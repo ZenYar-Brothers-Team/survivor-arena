@@ -18,12 +18,15 @@ namespace Game.Progression
         public float SlowFraction { get; }
         public float SlowSeconds { get; }
         public float RefreshSeconds { get; }
-        /// <summary>IndependentAttack only: generic size/range stats also scale this set attack (SET-017).</summary>
+        /// <summary>IndependentAttack/RewardProc: generic size/range stats also scale this set attack (SET-017, SET-015).</summary>
         public bool ScalesWithSizeAndRange { get; }
+        /// <summary>SkillMechanics only: skill-specific non-stat bonuses (sets-v1, DECISION-0061).</summary>
+        public SkillMechanicBonus Mechanics { get; }
         public SetEffectDefinition(SetEffectKind kind, CharacterStatModifier modifier = default,
             ContentId? skill = null, ContentId? attackTemplate = null, float cooldownSeconds = 0,
             int activationCount = 0, float healFraction = 0, float buffSeconds = 0,
-            float slowFraction = 0, float slowSeconds = 0, float refreshSeconds = 0, bool scalesWithSizeAndRange = false)
+            float slowFraction = 0, float slowSeconds = 0, float refreshSeconds = 0, bool scalesWithSizeAndRange = false,
+            SkillMechanicBonus mechanics = default)
         {
             if (!Enum.IsDefined(typeof(SetEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
             NumericValidation.ValidateNonNegative(cooldownSeconds, nameof(cooldownSeconds));
@@ -56,8 +59,15 @@ namespace Game.Progression
                 NumericValidation.ValidatePositive(slowSeconds, nameof(slowSeconds));
                 NumericValidation.ValidatePositive(refreshSeconds, nameof(refreshSeconds));
             }
-            if (scalesWithSizeAndRange && kind != SetEffectKind.IndependentAttack)
-                throw new ArgumentException("Only independent set attacks can opt into size/range scaling.");
+            if (kind == SetEffectKind.SkillMechanics)
+            {
+                if (!skill.HasValue || !skill.Value.IsValid) throw new ArgumentException("Skill mechanics require a target skill.");
+                if (mechanics.Equals(default(SkillMechanicBonus))) throw new ArgumentException("Skill mechanics cannot be empty.", nameof(mechanics));
+            }
+            else if (!mechanics.Equals(default(SkillMechanicBonus)))
+                throw new ArgumentException("Only SkillMechanics effects carry mechanic bonuses.", nameof(mechanics));
+            if (scalesWithSizeAndRange && kind != SetEffectKind.IndependentAttack && kind != SetEffectKind.RewardProc)
+                throw new ArgumentException("Only set attacks and reward procs can opt into size/range scaling.");
             if (kind == SetEffectKind.SkillTransform)
             {
                 var supported = new CharacterStatModifier(activeSkillDamageMultiplierBonus: modifier.ActiveSkillDamageMultiplierBonus,
@@ -69,6 +79,7 @@ namespace Game.Progression
             Kind = kind; Modifier = modifier; Skill = skill; AttackTemplate = attackTemplate;
             CooldownSeconds = cooldownSeconds; ActivationCount = activationCount; HealFraction = healFraction; BuffSeconds = buffSeconds;
             SlowFraction = slowFraction; SlowSeconds = slowSeconds; RefreshSeconds = refreshSeconds; ScalesWithSizeAndRange = scalesWithSizeAndRange;
+            Mechanics = mechanics;
         }
     }
 }

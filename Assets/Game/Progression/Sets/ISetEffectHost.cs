@@ -14,6 +14,8 @@ namespace Game.Progression
         event Action<int> LevelEarned;
         void SetSkillModifier(string key, ContentId skill, CharacterStatModifier modifier);
         void RemoveSkillModifier(string key);
+        void SetSkillMechanics(string key, ContentId skill, SkillMechanicBonus bonus);
+        void RemoveSkillMechanics(string key);
         void Attack(string key, ContentId set, ContentId template, bool scalesWithSizeAndRange = false);
         /// <summary>Registers a bonus against already slowed targets; <paramref name="skill"/> null = all player skills.</summary>
         void SetSlowedTargetBonus(string key, ContentId? skill, SlowedTargetBonus bonus);

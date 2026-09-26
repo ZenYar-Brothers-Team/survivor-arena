@@ -14,5 +14,6 @@ namespace Game.Progression.Json
         public float? SlowSeconds { get; set; }
         public float? RefreshSeconds { get; set; }
         public bool? ScalesWithSizeAndRange { get; set; }
+        public SkillMechanicBonusData Mechanics { get; set; }
     }
 }

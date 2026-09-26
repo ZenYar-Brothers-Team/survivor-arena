@@ -14,9 +14,9 @@ namespace Game.Progression.Tests
             set.Recipe.Single(c => c.Id.ToString() == component).MinimumLevel;
 
         [Test]
-        public void Catalog_ContainsTheFiveStartupSets_WithBaselineThresholds()
+        public void Catalog_ContainsAllTwentySets_WithBaselineThresholdsForTheStartupFive()
         {
-            CollectionAssert.AreEqual(new[] { "SET-001", "SET-004", "SET-006", "SET-010", "SET-017" },
+            CollectionAssert.AreEqual(Enumerable.Range(1, 20).Select(n => $"SET-{n:000}"),
                 ProductionSetCatalog.Create().Select(s => s.Id.ToString()));
             Assert.AreEqual(3, Threshold(Set("SET-001"), "SKILL-001"));
             Assert.AreEqual(2, Threshold(Set("SET-001"), "PASSIVE-004"));

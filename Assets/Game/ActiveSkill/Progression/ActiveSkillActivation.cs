@@ -2,6 +2,7 @@ using System;
 using Game.Combat;
 using Game.Content;
 using Game.Enemy;
+using Game.Progression;
 using UnityEngine;
 
 namespace Game.ActiveSkill
@@ -28,6 +29,11 @@ namespace Game.ActiveSkill
         /// <summary>Conditional bonuses resolved at activation, applied only against already slowed targets.</summary>
         public SlowedTargetBonus SlowedTargetBonus { get; }
         public float SlowedTargetDamageFactor { get; }
+        /// <summary>Skill-specific set mechanics resolved at activation (sets-v1, DECISION-0061).</summary>
+        public SkillMechanicBonus Mechanics { get; }
+        /// <summary>Removes skill-specific set damage transforms from damage-derived set payloads (no set-to-set amplification).</summary>
+        public float SetTransformDamageNormalization { get; }
+        public SkillProjectileSequence ProjectileSequence { get; }
 
         public ActiveSkillActivation(
             ContentId sourceId,
@@ -42,7 +48,8 @@ namespace Game.ActiveSkill
             float outgoingKnockbackMultiplier = 1f, float sizeMultiplier = 1f, float rangeMultiplier = 1f,
             System.Random random = null, SkillHitLedger hitLedger = null, float rotationDegrees = 0f, CombatSource? sourceOverride = null,
             SlowedTargetBonus slowedTargetBonus = default, float slowedTargetDamageFactor = 1f,
-            Vector2? aimPointOverride = null)
+            Vector2? aimPointOverride = null, SkillMechanicBonus mechanics = default,
+            float setTransformDamageNormalization = 1f, SkillProjectileSequence projectileSequence = null)
         {
             NumericValidation.ValidatePositive(sizeMultiplier, nameof(sizeMultiplier));
             NumericValidation.ValidatePositive(rangeMultiplier, nameof(rangeMultiplier));
@@ -69,6 +76,10 @@ namespace Game.ActiveSkill
             NumericValidation.ValidateNonNegative(slowedTargetDamageFactor, nameof(slowedTargetDamageFactor));
             SlowedTargetBonus = slowedTargetBonus;
             SlowedTargetDamageFactor = slowedTargetDamageFactor;
+            NumericValidation.ValidatePositive(setTransformDamageNormalization, nameof(setTransformDamageNormalization));
+            Mechanics = mechanics;
+            SetTransformDamageNormalization = setTransformDamageNormalization;
+            ProjectileSequence = projectileSequence;
         }
     }
 }

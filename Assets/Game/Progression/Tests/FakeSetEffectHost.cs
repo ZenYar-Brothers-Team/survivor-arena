@@ -24,6 +24,10 @@ namespace Game.Progression.Tests
             SkillModifiers[key] = modifier;
         }
         public void RemoveSkillModifier(string key) => SkillModifiers.Remove(key);
+        public Dictionary<string, (ContentId skill, SkillMechanicBonus bonus)> SkillMechanics { get; } =
+            new Dictionary<string, (ContentId, SkillMechanicBonus)>();
+        public void SetSkillMechanics(string key, ContentId skill, SkillMechanicBonus bonus) => SkillMechanics[key] = (skill, bonus);
+        public void RemoveSkillMechanics(string key) => SkillMechanics.Remove(key);
         public Dictionary<string, (ContentId? skill, SlowedTargetBonus bonus)> SlowedBonuses { get; } = new Dictionary<string, (ContentId?, SlowedTargetBonus)>();
         public Dictionary<string, (ContentId set, ContentId skill, float fraction, float seconds, float refresh)> Auras { get; } =
             new Dictionary<string, (ContentId, ContentId, float, float, float)>();

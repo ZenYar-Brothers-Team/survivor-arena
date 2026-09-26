@@ -20,6 +20,7 @@ namespace Game.ActiveSkill
         private readonly ExperienceProgression _experience;
         private readonly Dictionary<ContentId, ActiveSkillProgressionDefinition> _catalog = new Dictionary<ContentId, ActiveSkillProgressionDefinition>();
         private readonly Dictionary<string, (ContentId skill, CharacterStatModifier modifier)> _modifiers = new Dictionary<string, (ContentId, CharacterStatModifier)>();
+        private readonly Dictionary<string, (ContentId skill, SkillMechanicBonus bonus)> _mechanics = new Dictionary<string, (ContentId, SkillMechanicBonus)>();
         private readonly Dictionary<string, (ActiveSkillInstance instance, SceneActiveSkillEffectExecutor executor)> _attacks = new Dictionary<string, (ActiveSkillInstance, SceneActiveSkillEffectExecutor)>();
         private readonly IActiveSkillTargetProvider _targets;
         private readonly ITargetViewport _viewport;
@@ -54,6 +55,7 @@ namespace Game.ActiveSkill
             foreach (var definition in catalog) _catalog.Add(definition.Id, definition);
             _skills.SetSkillModifier = GetSkillModifier;
             _skills.SetSlowedTargetBonus = GetSlowedTargetBonus;
+            _skills.SetSkillMechanics = GetSkillMechanics;
             _skills.Activated += OnActivation; _experience.LevelUp += OnLevel;
         }
         private void OnActivation(CombatSource source) => ActiveSkillActivated?.Invoke(source);
@@ -77,6 +79,20 @@ namespace Game.ActiveSkill
                 }
             return new CharacterStatModifier(activeSkillDamageMultiplierBonus: damage, actionSpeedBonus: speed,
                 effectSizeMultiplierBonus: size, effectRangeMultiplierBonus: range, outgoingKnockbackBonus: knockback);
+        }
+        public void SetSkillMechanics(string key, ContentId skill, SkillMechanicBonus bonus)
+        {
+            if (!_catalog.ContainsKey(skill)) throw new InvalidOperationException("Missing mechanics skill " + skill);
+            _mechanics[key] = (skill, bonus);
+            GetSkillMechanics(skill); // validates composition now (e.g. two heavy replacements) instead of mid-run
+        }
+        public void RemoveSkillMechanics(string key) => _mechanics.Remove(key);
+        public SkillMechanicBonus GetSkillMechanics(ContentId skill)
+        {
+            var total = default(SkillMechanicBonus);
+            foreach (var entry in _mechanics.Values)
+                if (entry.skill == skill) total = total.Plus(entry.bonus);
+            return total;
         }
         public void SetSlowedTargetBonus(string key, ContentId? skill, SlowedTargetBonus bonus)
         {
@@ -170,10 +186,11 @@ namespace Game.ActiveSkill
         {
             if (_disposed) return;
             _disposed = true;
-            _skills.Activated -= OnActivation; _skills.SetSkillModifier = null; _skills.SetSlowedTargetBonus = null; _experience.LevelUp -= OnLevel;
+            _skills.Activated -= OnActivation; _skills.SetSkillModifier = null; _skills.SetSlowedTargetBonus = null;
+            _skills.SetSkillMechanics = null; _experience.LevelUp -= OnLevel;
             _slowedBonuses.Clear(); _auras.Clear();
             foreach (var attack in _attacks.Values) { attack.executor.Dispose(); attack.instance.HitLedger.Clear(); }
-            _attacks.Clear(); _modifiers.Clear();
+            _attacks.Clear(); _modifiers.Clear(); _mechanics.Clear();
         }
     }
 }

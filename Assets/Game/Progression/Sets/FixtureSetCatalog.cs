@@ -50,12 +50,15 @@ namespace Game.Progression
                 if (!e.Kind.HasValue) throw new InvalidOperationException("Set effect kind is required.");
                 if ((e.Kind == SetEffectKind.StatBuff || e.Kind == SetEffectKind.SkillTransform || e.Kind == SetEffectKind.SlowedTargetBonus) && e.Modifier == null)
                     throw new InvalidOperationException("Set modifier required.");
+                if (e.Kind == SetEffectKind.SkillMechanics && e.Mechanics == null)
+                    throw new InvalidOperationException("Set skill mechanics required.");
                 effects[i] = new SetEffectDefinition(e.Kind.Value,
                     e.Modifier == null ? default : FixturePassiveCatalog.ToModifier(e.Modifier),
                     e.Skill == null ? (ContentId?)null : new ContentId(e.Skill),
                     e.AttackTemplate == null ? (ContentId?)null : new ContentId(e.AttackTemplate),
                     e.CooldownSeconds ?? 0, e.ActivationCount ?? 0, e.HealFraction ?? 0, e.BuffSeconds ?? 0,
-                    e.SlowFraction ?? 0, e.SlowSeconds ?? 0, e.RefreshSeconds ?? 0, e.ScalesWithSizeAndRange ?? false);
+                    e.SlowFraction ?? 0, e.SlowSeconds ?? 0, e.RefreshSeconds ?? 0, e.ScalesWithSizeAndRange ?? false,
+                    e.Mechanics == null ? default : e.Mechanics.ToBonus());
             }
             var icon = string.IsNullOrEmpty(data.IconVisualId)
                 ? default
