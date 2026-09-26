@@ -16,11 +16,16 @@ namespace Game.UI
         public IReadOnlyList<MetaCardViewState> Cards { get; }
         public IReadOnlyList<string> Characters { get; }
         public string SelectedCharacter { get; }
+        public bool ShowUpgradesToggle { get; }
+        public bool UpgradesDisabled { get; }
+        public bool CanToggleUpgrades { get; }
         public MetaViewState(bool visible, string title, string summary, string message, bool canContinue,
             bool canShop, bool results, bool error, bool canReset, bool canQuit, IEnumerable<MetaCardViewState> cards,
-            IEnumerable<string> characters, string selected)
+            IEnumerable<string> characters, string selected, bool showUpgradesToggle = false, bool upgradesDisabled = false,
+            bool canToggleUpgrades = false)
         { Visible = visible; Title = title; Summary = summary; Message = message; CanContinue = canContinue;
             CanShop = canShop; IsResults = results; IsError = error; CanReset = canReset; CanQuit = canQuit;
-            Cards = new List<MetaCardViewState>(cards).AsReadOnly(); Characters = new List<string>(characters).AsReadOnly(); SelectedCharacter = selected; }
+            Cards = new List<MetaCardViewState>(cards).AsReadOnly(); Characters = new List<string>(characters).AsReadOnly(); SelectedCharacter = selected;
+            ShowUpgradesToggle = showUpgradesToggle; UpgradesDisabled = upgradesDisabled; CanToggleUpgrades = canToggleUpgrades; }
     }
 }

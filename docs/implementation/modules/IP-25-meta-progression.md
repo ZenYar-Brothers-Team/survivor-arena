@@ -89,9 +89,12 @@ PendingResult/LoadError. `ProfileRunBinding` наблюдает только Run
 по IsUnlocked до создания draft. `Modifier(characterId)` даёт один source-owned
 вклад global+personal stats; composition применяет его до Health init.
 
-`ProfileCodec` schemaVersion=1: currency, firstRun, upgrades (stable keys META-ID
+`ProfileCodec` schemaVersion=2: currency, firstRun, upgradesDisabled, upgrades (stable keys META-ID
 или META-ID:CharacterId), unlocked, clearedFields, runs (RunId→receipt). Регистр ID
 сохраняется. IProfileMigration — явный шаг версии; неизвестная версия блокируется.
+Встроенный шаг `ProfileMigrationV1ToV2` добавляет `upgradesDisabled=false` (улучшения активны).
+`SetUpgradesDisabledAsync(bool)` ([DECISION-0064](../../decisions/0064-disable-permanent-upgrades.md)) —
+только в Ready и вне run; при `true` `Modifier` возвращает нулевой вклад, уровни и валюта не меняются.
 `MetaCatalogData`, `MetaUpgradeData`, `MetaUnlockData` задают JSON schema required
 fields; unknown properties запрещены. Production/fixture catalogs разделены.
 

@@ -8,11 +8,16 @@ namespace Game.Meta
 {
     public sealed class ProfileCodec
     {
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
         private readonly Dictionary<int, IProfileMigration> _migrations = new Dictionary<int, IProfileMigration>();
         private readonly MetaCatalog _catalog;
         public ProfileCodec(MetaCatalog catalog, IEnumerable<IProfileMigration> migrations = null)
-        { _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog)); if (migrations != null) foreach (var item in migrations) _migrations.Add(item.FromVersion, item); }
+        {
+            _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
+            // Shipped schema steps are always present; callers may add older (synthetic/test) steps.
+            _migrations.Add(1, new ProfileMigrationV1ToV2());
+            if (migrations != null) foreach (var item in migrations) _migrations.Add(item.FromVersion, item);
+        }
         public ProfileData Create()
         {
             var data = new ProfileData { SchemaVersion = CurrentVersion, Upgrades = new Dictionary<string, int>(),
@@ -33,7 +38,7 @@ namespace Game.Meta
                 version++;
             }
             var document = JObject.Parse(json);
-            foreach (var field in new[] { "schemaVersion", "currency", "firstRun", "upgrades", "unlocked", "clearedFields", "runs" })
+            foreach (var field in new[] { "schemaVersion", "currency", "firstRun", "upgradesDisabled", "upgrades", "unlocked", "clearedFields", "runs" })
                 if (document[field] == null || document[field].Type == JTokenType.Null) throw new ArgumentException("Missing profile field: " + field);
             var data = JsonConvert.DeserializeObject<ProfileData>(json, Settings);
             Validate(data); return data;

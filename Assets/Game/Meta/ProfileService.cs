@@ -136,8 +136,25 @@ namespace Game.Meta
             } while (changed);
             return unlocked;
         }
+        public bool UpgradesDisabled => _data?.UpgradesDisabled ?? false;
+        public string UpgradesToggleLockReason => State != ProfileState.Ready ? "Save the profile first" : RunActive ? "Available between runs" : null;
+        /// <summary>DECISION-0064: switches every permanent upgrade off/on without refund; levels and currency are kept.</summary>
+        public async Task<bool> SetUpgradesDisabledAsync(bool disabled)
+        {
+            if (UpgradesToggleLockReason != null) return false;
+            if (_data.UpgradesDisabled == disabled) return true;
+            var next = _codec.Copy(_data); next.UpgradesDisabled = disabled;
+            Publish(ProfileState.Saving);
+            try
+            {
+                await _store.WriteAsync(_codec.Encode(next)); _data = next;
+                Publish(ProfileState.Ready, disabled ? "Permanent upgrades disabled" : "Permanent upgrades enabled"); return true;
+            }
+            catch (Exception error) { Publish(ProfileState.Ready, "Setting not saved: " + error.Message); return false; }
+        }
         public CharacterStatModifier Modifier(string character)
         {
+            if (UpgradesDisabled) return default;
             float hp = 0, damage = 0;
             foreach (var upgrade in Catalog.Upgrades.Values)
             {

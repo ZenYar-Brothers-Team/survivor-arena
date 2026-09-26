@@ -4,6 +4,7 @@
 .meta-title { font-size: 32px; -unity-font-style: bold; margin-bottom: 12px; }
 .meta-summary { font-size: 22px; white-space: normal; }
 .meta-message { font-size: 18px; color: rgb(245, 195, 103); white-space: normal; margin-top: 12px; }
+.meta-upgrades-disabled { margin-top: 12px; font-size: 19px; }
 .meta-cards { flex-grow: 1; margin-top: 16px; }
 .meta-card { margin-bottom: 12px; padding: 12px; background-color: rgb(40, 45, 52); }
 .meta-card Label { font-size: 19px; white-space: normal; }

@@ -18,13 +18,26 @@ namespace Game.UI.Tests
             view.Close();Assert.AreEqual(1,navigation.Selections);Assert.IsFalse(view.State.Visible);
             presenter.Dispose();view.Shop();Assert.IsFalse(view.State.Visible);
         }
+        [Test] public async Task UpgradesToggle_OnlyInShop_DisablesUpgradesAndMarksCards()
+        {
+            var profile=new ProfileService(MetaCatalog.Load(),new MemoryProfileStore());await profile.LoadAsync();
+            var view=new FakeMetaView();using var presenter=new MetaPresenter(profile,view,new FakeProfileNavigation());
+            Assert.IsFalse(view.State.ShowUpgradesToggle);
+            view.Shop();Assert.IsTrue(view.State.ShowUpgradesToggle);Assert.IsTrue(view.State.CanToggleUpgrades);Assert.IsFalse(view.State.UpgradesDisabled);
+            view.DisableUpgrades(true);await Task.Yield();
+            Assert.IsTrue(profile.UpgradesDisabled);Assert.IsTrue(view.State.UpgradesDisabled);
+            StringAssert.Contains("inactive",view.State.Cards.Single(c=>c.Id=="META-001").Text);
+            StringAssert.Contains("without meta bonuses",view.State.Summary);
+            view.DisableUpgrades(false);await Task.Yield();
+            Assert.IsFalse(profile.UpgradesDisabled);StringAssert.DoesNotContain("inactive",view.State.Cards.Single(c=>c.Id=="META-001").Text);
+        }
         [Test] public void Uxml_AllSemanticElementsExist()
         {
             var tree=Resources.Load<VisualTreeAsset>("UI/MetaScreen");Assert.IsNotNull(tree);var root=tree.CloneTree();
             foreach(var name in new[]{GameplayUiElementIds.MetaBody,GameplayUiElementIds.MetaCards,GameplayUiElementIds.MetaCharacter,
                 GameplayUiElementIds.MetaOpen,GameplayUiElementIds.MetaClose,GameplayUiElementIds.MetaRetry,GameplayUiElementIds.MetaSelection,
                 GameplayUiElementIds.MetaQuit,GameplayUiElementIds.MetaSave,GameplayUiElementIds.MetaReset,GameplayUiElementIds.MetaTitle,
-                GameplayUiElementIds.MetaSummary,GameplayUiElementIds.MetaMessage})Assert.IsNotNull(root.Q(name),name);
+                GameplayUiElementIds.MetaSummary,GameplayUiElementIds.MetaMessage,GameplayUiElementIds.MetaUpgradesDisabled})Assert.IsNotNull(root.Q(name),name);
             Assert.IsNotNull(Resources.Load<StyleSheet>("UI/MetaScreenStyles"));
         }
     }

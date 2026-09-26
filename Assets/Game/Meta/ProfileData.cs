@@ -7,6 +7,8 @@ namespace Game.Meta
         public int SchemaVersion { get; set; }
         public long Currency { get; set; }
         public bool FirstRun { get; set; }
+        /// <summary>DECISION-0064: purchased upgrade levels are kept but grant no bonus while true.</summary>
+        public bool UpgradesDisabled { get; set; }
         public Dictionary<string, int> Upgrades { get; set; }
         public HashSet<string> Unlocked { get; set; }
         public HashSet<string> ClearedFields { get; set; }

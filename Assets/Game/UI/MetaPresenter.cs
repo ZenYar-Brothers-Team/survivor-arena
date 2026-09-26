@@ -21,6 +21,7 @@ namespace Game.UI
             view.ShopRequested += Shop; view.CloseRequested += Close; view.RetryRequested += Retry;
             view.SelectionRequested += Selection; view.QuitRequested += Quit; view.SaveRequested += Save;
             view.ResetRequested += Reset; view.CharacterRequested += Character; view.PurchaseRequested += Purchase;
+            view.UpgradesDisabledRequested += UpgradesDisabled;
             Refresh();
         }
         public void ShowResult(RunOutcome outcome) { _result = outcome; _shop = false; Refresh(); }
@@ -35,6 +36,8 @@ namespace Game.UI
         private async void Reset() { await _profile.ResetAsync(); if (!_disposed && _profile.CanStart) _navigation.ReturnToProfileSelection(); }
         private void Character(string id) { if (_profile.IsUnlocked(id)) { _character = id; Refresh(); } }
         private async void Purchase(MetaCardViewState card) { await _profile.PurchaseAsync(card.Id, card.Level, card.Character); }
+        // A refused change still re-renders so the view toggle snaps back to the profile value.
+        private async void UpgradesDisabled(bool disabled) { if (!await _profile.SetUpgradesDisabledAsync(disabled)) Refresh(); }
         private void Refresh()
         {
             if (_disposed) return;
@@ -50,7 +53,7 @@ namespace Game.UI
                     var reason = _profile.PurchaseLockReason(upgrade.Id, owner);
                     var icon = upgrade.Stat == "health" ? "HP" : "DMG";
                     cards.Add(new MetaCardViewState(upgrade.Id, owner, level,
-                        icon + " · " + upgrade.Name + " · " + level + "/" + upgrade.Cap,
+                        icon + " · " + upgrade.Name + " · " + level + "/" + upgrade.Cap + (_profile.UpgradesDisabled ? " · inactive" : ""),
                         "+" + (upgrade.Bonus * 100).ToString("0") + "% per level · " +
                         (level >= upgrade.Cap ? "MAX" : upgrade.Price(level) + " currency") + "\n" + (reason ?? "Buy"), reason == null));
                 }
@@ -63,6 +66,7 @@ namespace Game.UI
                 }
             }
             var summary = "Currency: " + _profile.Currency;
+            if (_shop && _profile.UpgradesDisabled) summary += "\nPermanent upgrades are disabled: runs start without meta bonuses.";
             if (_result != null && !_shop)
             {
                 _result.Contributions.TryGetValue("experience", out var xp);
@@ -81,7 +85,7 @@ namespace Game.UI
                 error ? "Profile unavailable" : _shop ? "Meta progression" : _result != null ? "Run results" : "Loading profile",
                 summary, _profile.Message ?? (_profile.State == ProfileState.Saving ? "Saving…" : ""),
                 _profile.CanStart, _profile.CanStart, _result != null && !_shop, error, _profile.CanReset, _profile.RunActive,
-                cards, characters, _character));
+                cards, characters, _character, _shop, _profile.UpgradesDisabled, _shop && _profile.UpgradesToggleLockReason == null));
         }
         public void Dispose()
         {
@@ -89,6 +93,7 @@ namespace Game.UI
             _view.ShopRequested -= Shop; _view.CloseRequested -= Close; _view.RetryRequested -= Retry;
             _view.SelectionRequested -= Selection; _view.QuitRequested -= Quit; _view.SaveRequested -= Save;
             _view.ResetRequested -= Reset; _view.CharacterRequested -= Character; _view.PurchaseRequested -= Purchase;
+            _view.UpgradesDisabledRequested -= UpgradesDisabled;
         }
     }
 }

@@ -20,6 +20,11 @@ namespace Game.Meta
         bool IsUnlocked(string id);
         int Level(string upgrade, string character = null);
         string PurchaseLockReason(string id, string character = null);
+        /// <summary>DECISION-0064: when true, <see cref="Modifier"/> grants nothing although purchased levels are kept.</summary>
+        bool UpgradesDisabled { get; }
+        /// <summary>Null when the upgrades switch can be changed now (profile ready, between runs).</summary>
+        string UpgradesToggleLockReason { get; }
+        Task<bool> SetUpgradesDisabledAsync(bool disabled);
         CharacterStatModifier Modifier(string character);
         Task LoadAsync();
         Task ResetAsync();

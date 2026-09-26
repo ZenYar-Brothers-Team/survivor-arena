@@ -90,6 +90,41 @@ namespace Game.Meta.Tests
             Assert.AreEqual(3400,profile.Currency);
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(5,loaded.Level("META-001"));Assert.IsTrue(loaded.IsUnlocked("CHAR-002"));
         }
+        [Test] public async Task UpgradesDisabled_RemovesBonusWithoutRefund_PersistsAndRestores()
+        {
+            // DECISION-0064: "play from scratch" switch, not a reset.
+            var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
+            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+            Assert.IsTrue(await profile.PurchaseAsync("META-001",0));
+            var currency=profile.Currency;var bonus=profile.Modifier("CHAR-001");
+            Assert.Greater(bonus.MaxHealthMultiplierBonus,0f);
+            Assert.IsTrue(await profile.SetUpgradesDisabledAsync(true));
+            Assert.IsTrue(profile.UpgradesDisabled);Assert.AreEqual(default(CharacterStatModifier),profile.Modifier("CHAR-001"));
+            Assert.AreEqual(1,profile.Level("META-001"),"Purchased levels are kept.");Assert.AreEqual(currency,profile.Currency,"No refund.");
+            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();
+            Assert.IsTrue(loaded.UpgradesDisabled);Assert.AreEqual(default(CharacterStatModifier),loaded.Modifier("CHAR-001"));
+            Assert.IsTrue(await loaded.SetUpgradesDisabledAsync(false));Assert.AreEqual(bonus,loaded.Modifier("CHAR-001"));
+        }
+        [Test] public async Task UpgradesDisabled_CannotChangeDuringRun_OrWhenSaveFails()
+        {
+            var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
+            profile.SetRunActive(true);
+            Assert.AreEqual("Available between runs",profile.UpgradesToggleLockReason);
+            Assert.IsFalse(await profile.SetUpgradesDisabledAsync(true));Assert.IsFalse(profile.UpgradesDisabled);
+            profile.SetRunActive(false);
+            var failing=new FailingProfileStore();var other=new ProfileService(_catalog,failing);await other.LoadAsync();
+            failing.Fail=true;
+            Assert.IsFalse(await other.SetUpgradesDisabledAsync(true));Assert.IsFalse(other.UpgradesDisabled);
+            Assert.AreEqual(ProfileState.Ready,other.State);
+        }
+        [Test] public async Task Load_V1Profile_MigratesWithUpgradesActive()
+        {
+            var codec=new ProfileCodec(_catalog);var json=JObject.Parse(codec.Encode(codec.Create()));
+            json["schemaVersion"]=1;json.Remove("upgradesDisabled");
+            var store=new FailingProfileStore {Main=json.ToString()};var profile=new ProfileService(_catalog,store);
+            await profile.LoadAsync();Assert.AreEqual(ProfileState.Ready,profile.State);Assert.IsFalse(profile.UpgradesDisabled);
+            var saved=JObject.Parse(store.Main);Assert.AreEqual(2,(int)saved["schemaVersion"]);Assert.IsFalse((bool)saved["upgradesDisabled"]);
+        }
         [Test] public async Task NewProductionProfile_StartsWithExactlyTheStartupSet()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
@@ -194,7 +229,7 @@ namespace Game.Meta.Tests
             await profile.LoadAsync();Assert.AreEqual(ProfileState.LoadError,profile.State);Assert.AreEqual(0,store.Writes);
             await profile.ResetAsync();Assert.AreEqual(ProfileState.Ready,profile.State);Assert.AreEqual(1,store.Preserved);
         }
-        [TestCase(2)] [TestCase(0)] public async Task Load_UnknownVersion_DoesNotReplaceWithBackupOrReset(int version)
+        [TestCase(3)] [TestCase(0)] public async Task Load_UnknownVersion_DoesNotReplaceWithBackupOrReset(int version)
         {
             var codec=new ProfileCodec(_catalog);var json=JObject.Parse(codec.Encode(codec.Create()));json["schemaVersion"]=version;
             var store=new FailingProfileStore {Main=json.ToString(),Backup=codec.Encode(codec.Create())};var profile=new ProfileService(_catalog,store);
@@ -205,7 +240,7 @@ namespace Game.Meta.Tests
             var codec=new ProfileCodec(_catalog);var json=JObject.Parse(codec.Encode(codec.Create()));json["schemaVersion"]=0;
             var store=new FailingProfileStore {Main=json.ToString()};var profile=new ProfileService(_catalog,store,new[]{new SyntheticProfileMigration()});
             await profile.LoadAsync();Assert.AreEqual(ProfileState.Ready,profile.State);Assert.AreEqual(0,(int)JObject.Parse(store.Backup)["schemaVersion"]);
-            Assert.AreEqual(1,(int)JObject.Parse(store.Main)["schemaVersion"]);
+            Assert.AreEqual(ProfileCodec.CurrentVersion,(int)JObject.Parse(store.Main)["schemaVersion"]);
         }
     }
 }

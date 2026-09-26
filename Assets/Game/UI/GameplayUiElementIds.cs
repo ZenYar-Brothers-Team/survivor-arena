@@ -34,6 +34,7 @@ namespace Game.UI
         public const string MetaBody = "meta-body";
         public const string MetaCards = "meta-cards";
         public const string MetaCharacter = "meta-character";
+        public const string MetaUpgradesDisabled = "meta-upgrades-disabled";
         public const string MetaOpen = "meta-open";
         public const string MetaClose = "meta-close";
         public const string MetaRetry = "meta-retry";

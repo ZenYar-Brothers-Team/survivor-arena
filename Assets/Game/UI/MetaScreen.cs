@@ -13,10 +13,12 @@ namespace Game.UI
         private readonly VisualElement _body;
         private readonly ScrollView _cards;
         private readonly DropdownField _characters;
+        private readonly Toggle _upgradesDisabled;
         public UIDocument Document { get; }
         public event Action ShopRequested, CloseRequested, RetryRequested, SelectionRequested, QuitRequested, SaveRequested, ResetRequested;
         public event Action<string> CharacterRequested;
         public event Action<MetaCardViewState> PurchaseRequested;
+        public event Action<bool> UpgradesDisabledRequested;
         public MetaScreen(Transform parent)
         {
             _owner = new GameObject("Profile UI");
@@ -33,6 +35,8 @@ namespace Game.UI
             _body = root.Q(GameplayUiElementIds.MetaBody); _cards = root.Q<ScrollView>(GameplayUiElementIds.MetaCards);
             _characters = root.Q<DropdownField>(GameplayUiElementIds.MetaCharacter);
             _characters.RegisterValueChangedCallback(e => CharacterRequested?.Invoke(e.newValue));
+            _upgradesDisabled = root.Q<Toggle>(GameplayUiElementIds.MetaUpgradesDisabled);
+            _upgradesDisabled.RegisterValueChangedCallback(e => UpgradesDisabledRequested?.Invoke(e.newValue));
             Hook(GameplayUiElementIds.MetaOpen, () => ShopRequested?.Invoke()); Hook(GameplayUiElementIds.MetaClose, () => CloseRequested?.Invoke());
             Hook(GameplayUiElementIds.MetaRetry, () => RetryRequested?.Invoke()); Hook(GameplayUiElementIds.MetaSelection, () => SelectionRequested?.Invoke());
             Hook(GameplayUiElementIds.MetaQuit, () => QuitRequested?.Invoke()); Hook(GameplayUiElementIds.MetaSave, () => SaveRequested?.Invoke());
@@ -58,6 +62,8 @@ namespace Game.UI
             Button(GameplayUiElementIds.MetaReset, state.CanReset);
             _characters.style.display = state.Cards.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             _characters.choices = new List<string>(state.Characters); _characters.SetValueWithoutNotify(state.SelectedCharacter);
+            _upgradesDisabled.style.display = state.ShowUpgradesToggle ? DisplayStyle.Flex : DisplayStyle.None;
+            _upgradesDisabled.SetValueWithoutNotify(state.UpgradesDisabled); _upgradesDisabled.SetEnabled(state.CanToggleUpgrades);
             _cards.Clear();
             foreach (var stateCard in state.Cards)
             {

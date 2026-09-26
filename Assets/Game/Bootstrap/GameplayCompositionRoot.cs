@@ -132,6 +132,7 @@ namespace Game.Bootstrap
         }
         private string PermanentSummary(ContentId character)
         {
+            if (Profile.UpgradesDisabled) return "Permanent bonuses: disabled in Meta progression";
             var modifier = Profile.Modifier(character.ToString());
             return $"Permanent bonuses: HP +{modifier.MaxHealthMultiplierBonus:P0}, damage +{modifier.ActiveSkillDamageMultiplierBonus:P0}";
         }

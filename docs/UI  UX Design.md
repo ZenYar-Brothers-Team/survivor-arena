@@ -569,6 +569,16 @@ Permanent upgrades отображаются списком карточек: г�
 при недостатке валюты или pending сохранении Buy отключён с явной причиной.
 Ошибка покупки не списывает валюту; новые upgrades действуют со следующего run.
 
+Над списком карточек — галочка «Disable permanent upgrades (play from scratch;
+no refund, levels kept)» ([DECISION-0064](decisions/0064-disable-permanent-upgrades.md)).
+Видна только на экране Meta Progression (не в DEV-панели); меняется только вне run
+и при сохранённом профиле, иначе неактивна. Выбор сохраняется в профиле. Пока галочка
+стоит: все upgrade-карточки помечены `inactive`, в сводке строка «Permanent upgrades
+are disabled: runs start without meta bonuses», экран выбора персонажа показывает
+«Permanent bonuses: disabled in Meta progression». Покупки остаются доступными и
+накапливают уровни, которые начнут действовать после снятия галочки. Unlocks не
+затрагиваются. Ошибка записи оставляет прежнее значение и показывает сообщение.
+
 Каждая карточка:  
 \- icon;  
 \- name;  

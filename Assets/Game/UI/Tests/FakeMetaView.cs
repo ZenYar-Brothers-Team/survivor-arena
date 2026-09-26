@@ -7,6 +7,7 @@ namespace Game.UI.Tests
         public event Action ShopRequested, CloseRequested, RetryRequested, SelectionRequested, QuitRequested, SaveRequested, ResetRequested;
         public event Action<string> CharacterRequested;
         public event Action<MetaCardViewState> PurchaseRequested;
+        public event Action<bool> UpgradesDisabledRequested;
         public void Render(MetaViewState state) => State = state;
         public void Shop() => ShopRequested?.Invoke();
         public void Buy(MetaCardViewState card) => PurchaseRequested?.Invoke(card);
@@ -17,5 +18,6 @@ namespace Game.UI.Tests
         public void Quit() => QuitRequested?.Invoke();
         public void Save() => SaveRequested?.Invoke();
         public void Reset() => ResetRequested?.Invoke();
+        public void DisableUpgrades(bool disabled) => UpgradesDisabledRequested?.Invoke(disabled);
     }
 }
