@@ -1,0 +1,1894 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "field002-v1",
+ "approval": "Approved 2026-09-26 with user corrections (DECISION-0063)",
+ "runtimeImportable": false,
+ "reference": "field001-baseline-v1",
+ "fieldPressure": {
+  "field": 2,
+  "healthMultiplier": 1.12,
+  "damageMultiplier": 1.08,
+  "densityFactor": 1.1,
+  "restDensityFactor": 1.25,
+  "burstCountFactor": 1.15,
+  "rosterIntroductionPhaseShift": 2
+ },
+ "enemyPool": [
+  "ENEMY-001",
+  "ENEMY-002",
+  "ENEMY-003",
+  "ENEMY-004",
+  "ENEMY-005",
+  "ENEMY-007",
+  "ENEMY-008",
+  "ENEMY-009",
+  "ENEMY-006"
+ ],
+ "newEnemiesInFirstWave": [
+  "ENEMY-008"
+ ],
+ "travelers": {
+  "pool": "global: all implemented Travelers",
+  "selection": "count 0-3 by the shared probabilities, then types one by one uniformly among unselected types whose role is not used yet",
+  "implementedNow": [
+   "TRAVELER-001",
+   "TRAVELER-002",
+   "TRAVELER-005"
+  ],
+  "fieldScaling": "K r=2 (existing formula)"
+ },
+ "field": {
+  "id": "FIELD-002",
+  "thumbnailVisualId": "FIELD-002-VISUAL-BACKGROUND",
+  "difficulty": 1,
+  "durationSeconds": 900,
+  "arenaSideScreenHeights": 20,
+  "referenceScreenHeight": 10,
+  "arenaWidth": 200,
+  "arenaHeight": 200,
+  "wallThickness": 1,
+  "spawnPoint": [
+   0,
+   0
+  ],
+  "spawnRadius": 12,
+  "openingSpawn": {
+   "durationSeconds": 20,
+   "screenMargin": 1
+  },
+  "obstacles": [
+   {
+    "id": "FIELD-002-O01",
+    "kind": "Rock",
+    "cluster": 1,
+    "x": 8.39,
+    "y": 1.17,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O02",
+    "kind": "Rock",
+    "cluster": 1,
+    "x": 10.59,
+    "y": 1.17,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O03",
+    "kind": "Rock",
+    "cluster": 1,
+    "x": 12.79,
+    "y": 1.17,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O04",
+    "kind": "Column",
+    "cluster": 1,
+    "x": 14.99,
+    "y": 1.17,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O05",
+    "kind": "Rock",
+    "cluster": 2,
+    "x": -18.79,
+    "y": -0.55,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O06",
+    "kind": "Rock",
+    "cluster": 2,
+    "x": -16.59,
+    "y": -0.55,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O07",
+    "kind": "Rock",
+    "cluster": 2,
+    "x": -14.39,
+    "y": -0.55,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O08",
+    "kind": "Column",
+    "cluster": 2,
+    "x": -12.19,
+    "y": -0.55,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O09",
+    "kind": "Column",
+    "cluster": 3,
+    "x": -2.22,
+    "y": -18.79,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O10",
+    "kind": "Rock",
+    "cluster": 3,
+    "x": -0.02,
+    "y": -18.79,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O11",
+    "kind": "Rock",
+    "cluster": 3,
+    "x": 2.18,
+    "y": -18.79,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O12",
+    "kind": "Rock",
+    "cluster": 3,
+    "x": 4.38,
+    "y": -18.79,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O13",
+    "kind": "Rock",
+    "cluster": 3,
+    "x": 6.58,
+    "y": -18.79,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O14",
+    "kind": "Column",
+    "cluster": 4,
+    "x": 21.06,
+    "y": 18.74,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O15",
+    "kind": "Rock",
+    "cluster": 4,
+    "x": 21.06,
+    "y": 20.94,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O16",
+    "kind": "Rock",
+    "cluster": 4,
+    "x": 21.06,
+    "y": 23.14,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O17",
+    "kind": "Column",
+    "cluster": 4,
+    "x": 21.06,
+    "y": 25.34,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O18",
+    "kind": "Rock",
+    "cluster": 5,
+    "x": -8.22,
+    "y": -31.13,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O19",
+    "kind": "Rock",
+    "cluster": 5,
+    "x": -8.22,
+    "y": -28.93,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O20",
+    "kind": "Rock",
+    "cluster": 5,
+    "x": -8.22,
+    "y": -26.73,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O21",
+    "kind": "Rock",
+    "cluster": 5,
+    "x": -8.22,
+    "y": -24.53,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O22",
+    "kind": "Column",
+    "cluster": 5,
+    "x": -8.22,
+    "y": -22.33,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O23",
+    "kind": "Column",
+    "cluster": 6,
+    "x": 4.17,
+    "y": 23.52,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O24",
+    "kind": "Rock",
+    "cluster": 6,
+    "x": 6.37,
+    "y": 23.52,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O25",
+    "kind": "Rock",
+    "cluster": 6,
+    "x": 8.57,
+    "y": 23.52,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O26",
+    "kind": "Column",
+    "cluster": 6,
+    "x": 10.77,
+    "y": 23.52,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O27",
+    "kind": "Rock",
+    "cluster": 7,
+    "x": -27.69,
+    "y": 7.39,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O28",
+    "kind": "Rock",
+    "cluster": 7,
+    "x": -25.49,
+    "y": 7.39,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O29",
+    "kind": "Rock",
+    "cluster": 7,
+    "x": -23.29,
+    "y": 7.39,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O30",
+    "kind": "Rock",
+    "cluster": 7,
+    "x": -21.09,
+    "y": 7.39,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O31",
+    "kind": "Column",
+    "cluster": 7,
+    "x": -18.89,
+    "y": 7.39,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O32",
+    "kind": "Column",
+    "cluster": 8,
+    "x": 6.44,
+    "y": -9.94,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O33",
+    "kind": "Rock",
+    "cluster": 8,
+    "x": 8.64,
+    "y": -9.94,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O34",
+    "kind": "Rock",
+    "cluster": 8,
+    "x": 10.84,
+    "y": -9.94,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O35",
+    "kind": "Rock",
+    "cluster": 8,
+    "x": 13.04,
+    "y": -9.94,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O36",
+    "kind": "Column",
+    "cluster": 9,
+    "x": -5.76,
+    "y": 9.45,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O37",
+    "kind": "Rock",
+    "cluster": 9,
+    "x": -5.76,
+    "y": 11.65,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O38",
+    "kind": "Column",
+    "cluster": 9,
+    "x": -5.76,
+    "y": 13.85,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O39",
+    "kind": "Column",
+    "cluster": 10,
+    "x": 29.95,
+    "y": -14.42,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O40",
+    "kind": "Rock",
+    "cluster": 10,
+    "x": 29.95,
+    "y": -12.22,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O41",
+    "kind": "Rock",
+    "cluster": 10,
+    "x": 29.95,
+    "y": -10.02,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O42",
+    "kind": "Rock",
+    "cluster": 10,
+    "x": 29.95,
+    "y": -7.82,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O43",
+    "kind": "Column",
+    "cluster": 10,
+    "x": 29.95,
+    "y": -5.62,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O44",
+    "kind": "Column",
+    "cluster": 11,
+    "x": -6.42,
+    "y": -49.86,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O45",
+    "kind": "Rock",
+    "cluster": 11,
+    "x": -4.22,
+    "y": -49.86,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O46",
+    "kind": "Column",
+    "cluster": 11,
+    "x": -2.02,
+    "y": -49.86,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O47",
+    "kind": "Column",
+    "cluster": 12,
+    "x": 31.55,
+    "y": 72.43,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O48",
+    "kind": "Rock",
+    "cluster": 12,
+    "x": 33.75,
+    "y": 72.43,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O49",
+    "kind": "Rock",
+    "cluster": 12,
+    "x": 35.95,
+    "y": 72.43,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O50",
+    "kind": "Rock",
+    "cluster": 12,
+    "x": 38.15,
+    "y": 72.43,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O51",
+    "kind": "Rock",
+    "cluster": 13,
+    "x": -59.0,
+    "y": 5.87,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O52",
+    "kind": "Rock",
+    "cluster": 13,
+    "x": -56.8,
+    "y": 5.87,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O53",
+    "kind": "Column",
+    "cluster": 13,
+    "x": -54.6,
+    "y": 5.87,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O54",
+    "kind": "Column",
+    "cluster": 14,
+    "x": -70.68,
+    "y": -27.3,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O55",
+    "kind": "Rock",
+    "cluster": 14,
+    "x": -70.68,
+    "y": -25.1,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O56",
+    "kind": "Rock",
+    "cluster": 14,
+    "x": -70.68,
+    "y": -22.9,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O57",
+    "kind": "Rock",
+    "cluster": 14,
+    "x": -70.68,
+    "y": -20.7,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O58",
+    "kind": "Column",
+    "cluster": 14,
+    "x": -70.68,
+    "y": -18.5,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O59",
+    "kind": "Column",
+    "cluster": 15,
+    "x": 27.86,
+    "y": 48.66,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O60",
+    "kind": "Rock",
+    "cluster": 15,
+    "x": 30.06,
+    "y": 48.66,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O61",
+    "kind": "Rock",
+    "cluster": 15,
+    "x": 32.26,
+    "y": 48.66,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O62",
+    "kind": "Rock",
+    "cluster": 15,
+    "x": 34.46,
+    "y": 48.66,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O63",
+    "kind": "Rock",
+    "cluster": 15,
+    "x": 36.66,
+    "y": 48.66,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O64",
+    "kind": "Column",
+    "cluster": 16,
+    "x": 12.89,
+    "y": -74.58,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O65",
+    "kind": "Rock",
+    "cluster": 16,
+    "x": 15.09,
+    "y": -74.58,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O66",
+    "kind": "Rock",
+    "cluster": 16,
+    "x": 17.29,
+    "y": -74.58,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O67",
+    "kind": "Rock",
+    "cluster": 16,
+    "x": 19.49,
+    "y": -74.58,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O68",
+    "kind": "Column",
+    "cluster": 16,
+    "x": 21.69,
+    "y": -74.58,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O69",
+    "kind": "Column",
+    "cluster": 17,
+    "x": -27.18,
+    "y": 26.8,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O70",
+    "kind": "Rock",
+    "cluster": 17,
+    "x": -27.18,
+    "y": 29.0,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O71",
+    "kind": "Rock",
+    "cluster": 17,
+    "x": -27.18,
+    "y": 31.2,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O72",
+    "kind": "Column",
+    "cluster": 17,
+    "x": -27.18,
+    "y": 33.4,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O73",
+    "kind": "Column",
+    "cluster": 18,
+    "x": 17.76,
+    "y": -37.2,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O74",
+    "kind": "Rock",
+    "cluster": 18,
+    "x": 17.76,
+    "y": -35.0,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O75",
+    "kind": "Rock",
+    "cluster": 18,
+    "x": 17.76,
+    "y": -32.8,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O76",
+    "kind": "Column",
+    "cluster": 18,
+    "x": 17.76,
+    "y": -30.6,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O77",
+    "kind": "Column",
+    "cluster": 19,
+    "x": -88.33,
+    "y": 19.06,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O78",
+    "kind": "Rock",
+    "cluster": 19,
+    "x": -88.33,
+    "y": 21.26,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O79",
+    "kind": "Column",
+    "cluster": 19,
+    "x": -88.33,
+    "y": 23.46,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O80",
+    "kind": "Column",
+    "cluster": 20,
+    "x": -13.53,
+    "y": 84.82,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O81",
+    "kind": "Rock",
+    "cluster": 20,
+    "x": -11.33,
+    "y": 84.82,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O82",
+    "kind": "Rock",
+    "cluster": 20,
+    "x": -9.13,
+    "y": 84.82,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O83",
+    "kind": "Rock",
+    "cluster": 21,
+    "x": -79.07,
+    "y": 35.71,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O84",
+    "kind": "Rock",
+    "cluster": 21,
+    "x": -76.87,
+    "y": 35.71,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O85",
+    "kind": "Rock",
+    "cluster": 21,
+    "x": -74.67,
+    "y": 35.71,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O86",
+    "kind": "Rock",
+    "cluster": 21,
+    "x": -72.47,
+    "y": 35.71,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O87",
+    "kind": "Column",
+    "cluster": 21,
+    "x": -70.27,
+    "y": 35.71,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O88",
+    "kind": "Column",
+    "cluster": 22,
+    "x": 78.69,
+    "y": 20.52,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O89",
+    "kind": "Rock",
+    "cluster": 22,
+    "x": 80.89,
+    "y": 20.52,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O90",
+    "kind": "Rock",
+    "cluster": 22,
+    "x": 83.09,
+    "y": 20.52,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O91",
+    "kind": "Column",
+    "cluster": 22,
+    "x": 85.29,
+    "y": 20.52,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O92",
+    "kind": "Column",
+    "cluster": 23,
+    "x": 54.33,
+    "y": 52.55,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O93",
+    "kind": "Rock",
+    "cluster": 23,
+    "x": 56.53,
+    "y": 52.55,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O94",
+    "kind": "Rock",
+    "cluster": 23,
+    "x": 58.73,
+    "y": 52.55,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O95",
+    "kind": "Column",
+    "cluster": 23,
+    "x": 60.93,
+    "y": 52.55,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O96",
+    "kind": "Column",
+    "cluster": 24,
+    "x": -57.48,
+    "y": -41.52,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O97",
+    "kind": "Rock",
+    "cluster": 24,
+    "x": -57.48,
+    "y": -39.32,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O98",
+    "kind": "Rock",
+    "cluster": 24,
+    "x": -57.48,
+    "y": -37.12,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O99",
+    "kind": "Rock",
+    "cluster": 24,
+    "x": -57.48,
+    "y": -34.92,
+    "width": 1.6,
+    "height": 1.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-002-O100",
+    "kind": "Column",
+    "cluster": 24,
+    "x": -57.48,
+    "y": -32.72,
+    "width": 0.9,
+    "height": 0.9,
+    "rotationDegrees": 0
+   }
+  ],
+  "obstaclesBlock": "player-only",
+  "timelineId": "FIELD-001-TIMELINE",
+  "environmentId": "FIELD-001-ENVIRONMENT",
+  "travelerScheduleId": "FIELD-001-TRAVELERS",
+  "finalBossId": "BOSS-001",
+  "midBossId": "MIDBOSS-001",
+  "thumbnailPlaceholder": "Деревенская окраина",
+  "description": "Переживите деревенскую облаву и продержитесь 15 минут.",
+  "unlockDescription": "Доступно с начала игры",
+  "sceneName": "Gameplay",
+  "spawnPointName": "PlayerSpawn",
+  "obstacleClusters": {
+   "count": 24,
+   "minClusterSpacing": 16,
+   "startClearRadius": 8,
+   "pieceSpacing": 2.2,
+   "centralClusters": 10,
+   "centralRing": [
+    10,
+    34
+   ],
+   "centralMinSpacing": 9,
+   "seed": 20260926
+  }
+ },
+ "timeline": {
+  "id": "FIELD-002-TIMELINE",
+  "hooks": [
+   {
+    "kind": "MidBoss",
+    "timeSeconds": 450
+   },
+   {
+    "kind": "FinalBoss",
+    "timeSeconds": 810
+   }
+  ],
+  "phases": [
+   {
+    "id": "FIELD-002-P01",
+    "startSeconds": 0,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 1.136,
+    "maxAliveEnemies": 44,
+    "composition": {
+     "ENEMY-001": 75,
+     "ENEMY-002": 10,
+     "ENEMY-003": 5,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P02",
+    "startSeconds": 60,
+    "durationSeconds": 55,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.818,
+    "maxAliveEnemies": 66,
+    "composition": {
+     "ENEMY-001": 55,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P03",
+    "startSeconds": 115,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 66,
+    "composition": {
+     "ENEMY-001": 55,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": {
+     "count": 14,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P04",
+    "startSeconds": 120,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.745,
+    "maxAliveEnemies": 50,
+    "composition": {
+     "ENEMY-001": 55,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P05",
+    "startSeconds": 150,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.591,
+    "maxAliveEnemies": 99,
+    "composition": {
+     "ENEMY-001": 35,
+     "ENEMY-002": 25,
+     "ENEMY-003": 20,
+     "ENEMY-004": 5,
+     "ENEMY-005": 0,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P06",
+    "startSeconds": 210,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.5,
+    "maxAliveEnemies": 121,
+    "composition": {
+     "ENEMY-001": 30,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P07",
+    "startSeconds": 270,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 121,
+    "composition": {
+     "ENEMY-001": 30,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": {
+     "count": 21,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P08",
+    "startSeconds": 275,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.6,
+    "maxAliveEnemies": 88,
+    "composition": {
+     "ENEMY-001": 30,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P09",
+    "startSeconds": 300,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.455,
+    "maxAliveEnemies": 132,
+    "composition": {
+     "ENEMY-001": 29,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 5,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P10",
+    "startSeconds": 360,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.409,
+    "maxAliveEnemies": 154,
+    "composition": {
+     "ENEMY-001": 22,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P11",
+    "startSeconds": 420,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 154,
+    "composition": {
+     "ENEMY-001": 22,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 0
+    },
+    "burst": {
+     "count": 21,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P12",
+    "startSeconds": 425,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.309,
+    "maxAliveEnemies": 110,
+    "composition": {
+     "ENEMY-001": 32,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 5,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P13",
+    "startSeconds": 450,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.545,
+    "maxAliveEnemies": 132,
+    "composition": {
+     "ENEMY-001": 27,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 7,
+     "ENEMY-005": 6,
+     "ENEMY-007": 7,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 0
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P14",
+    "startSeconds": 510,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.345,
+    "maxAliveEnemies": 176,
+    "composition": {
+     "ENEMY-001": 16,
+     "ENEMY-002": 22,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 4
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P15",
+    "startSeconds": 570,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 176,
+    "composition": {
+     "ENEMY-001": 16,
+     "ENEMY-002": 22,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 4
+    },
+    "burst": {
+     "count": 28,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P16",
+    "startSeconds": 575,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.164,
+    "maxAliveEnemies": 121,
+    "composition": {
+     "ENEMY-001": 28,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 5,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 4
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P17",
+    "startSeconds": 600,
+    "durationSeconds": 90,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.309,
+    "maxAliveEnemies": 198,
+    "composition": {
+     "ENEMY-001": 10,
+     "ENEMY-002": 24,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 9,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 4
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P18",
+    "startSeconds": 690,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 198,
+    "composition": {
+     "ENEMY-001": 10,
+     "ENEMY-002": 21,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 9,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": {
+     "count": 28,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P19",
+    "startSeconds": 695,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.018,
+    "maxAliveEnemies": 143,
+    "composition": {
+     "ENEMY-001": 17,
+     "ENEMY-002": 22,
+     "ENEMY-003": 23,
+     "ENEMY-004": 5,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P20",
+    "startSeconds": 720,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.273,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 10,
+     "ENEMY-002": 20,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 10,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P21",
+    "startSeconds": 780,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 0.873,
+    "maxAliveEnemies": 154,
+    "composition": {
+     "ENEMY-001": 20,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 5,
+     "ENEMY-005": 5,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P22",
+    "startSeconds": 810,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 0.591,
+    "maxAliveEnemies": 176,
+    "composition": {
+     "ENEMY-001": 17,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 5,
+     "ENEMY-007": 7,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P23",
+    "startSeconds": 840,
+    "durationSeconds": 55,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.255,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 10,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 10,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   },
+   {
+    "id": "FIELD-002-P24",
+    "startSeconds": 895,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 22,
+     "ENEMY-002": 25,
+     "ENEMY-003": 20,
+     "ENEMY-004": 4,
+     "ENEMY-005": 3,
+     "ENEMY-007": 3,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7
+    },
+    "burst": {
+     "count": 23,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.12,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.08,
+     "attackDamageMultiplier": 1.08
+    }
+   }
+  ]
+ },
+ "midboss": {
+  "id": "MIDBOSS-002",
+  "spawnSeconds": 450,
+  "spawnOffset": [
+   -8,
+   0
+  ],
+  "maxHealth": 1600,
+  "collisionSize": 2.0,
+  "movementSpeed": 0.8,
+  "contactDamage": 26,
+  "contactDamageIntervalSeconds": 1,
+  "knockbackResistance": 0.5,
+  "contactKnockback": 0.7,
+  "knockbackSeconds": 0.12,
+  "experienceReward": 75,
+  "movement": {
+   "kind": "TelegraphedDash",
+   "dashTelegraphSeconds": 0.8,
+   "dashDurationSeconds": 0.8,
+   "dashSpeedMultiplier": 4.5,
+   "dashCooldownSeconds": 5.0,
+   "dashKnockback": 1.0,
+   "firstDashDelaySeconds": 5.0,
+   "showDashTelegraphLine": true
+  },
+  "dashEndAttack": {
+   "damage": 14,
+   "projectileCount": 6,
+   "spreadDegrees": 360,
+   "projectileSpeed": 3.6,
+   "projectileLifetimeSeconds": 3,
+   "projectileRadius": 0.14,
+   "telegraphSeconds": 0,
+   "knockback": 0.2,
+   "knockbackSeconds": 0.12,
+   "slowFraction": 0,
+   "slowSeconds": 0,
+   "burstIntervalSeconds": 0,
+   "explosionRadius": 0,
+   "rotationStepDegrees": 0,
+   "trigger": "dash-end"
+  },
+  "deathEndsRun": false
+ },
+ "boss": {
+  "id": "BOSS-002",
+  "spawnSeconds": 810,
+  "spawnOffset": [
+   8,
+   0
+  ],
+  "maxHealth": 6000,
+  "collisionSize": 3.0,
+  "movementSpeed": 0.7,
+  "contactDamage": 34,
+  "contactDamageIntervalSeconds": 1,
+  "knockbackResistance": 0.75,
+  "contactKnockback": 0.8,
+  "knockbackSeconds": 0.12,
+  "experienceReward": 180,
+  "movement": {
+   "kind": "TelegraphedDash",
+   "dashTelegraphSeconds": 0.9,
+   "dashDurationSeconds": 0.9,
+   "dashSpeedMultiplier": 4.5,
+   "dashCooldownSeconds": 4.5,
+   "dashKnockback": 1.2,
+   "firstDashDelaySeconds": 4.5,
+   "showDashTelegraphLine": true
+  },
+  "dashEndAttack": {
+   "damage": 16,
+   "projectileCount": 8,
+   "spreadDegrees": 360,
+   "projectileSpeed": 4.0,
+   "projectileLifetimeSeconds": 3,
+   "projectileRadius": 0.15,
+   "telegraphSeconds": 0,
+   "knockback": 0.25,
+   "knockbackSeconds": 0.12,
+   "slowFraction": 0,
+   "slowSeconds": 0,
+   "burstIntervalSeconds": 0,
+   "explosionRadius": 0,
+   "rotationStepDegrees": 0,
+   "trigger": "dash-end"
+  },
+  "enrage": {
+   "healthThreshold": 0.5,
+   "thresholdComparison": "strictly-less",
+   "everyNthDash": 2,
+   "extraVolleyDelaySeconds": 0.35,
+   "extraVolleyRotationDegrees": 22.5
+  },
+  "teleport": {
+   "farDistance": 5,
+   "farSeconds": 5,
+   "landingDistance": 2.2,
+   "telegraphSeconds": 0.6,
+   "impactRadius": 2.6,
+   "impactDamage": 20,
+   "impactKnockback": 0.5,
+   "impactKnockbackSeconds": 0.12,
+   "impactEffectSeconds": 0.45,
+   "telegraphColor": [
+    1,
+    0.35,
+    0.15,
+    0.85
+   ],
+   "impactColor": [
+    1,
+    0.8,
+    0.45,
+    0.95
+   ]
+  },
+  "deathEndsRun": false
+ }
+}

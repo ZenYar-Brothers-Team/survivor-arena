@@ -5,7 +5,7 @@
 Last repository audit: 2026-09-26 (IP-20 все 20 врагов по DECISION-0062, Unity 790/790 EditMode + 27/27 PlayMode; ранее IP-19 сеты DECISION-0061)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: нет. IP-20 Blocked только на арт 14 врагов (данные и поведение реализованы 2026-09-26); IP-17/IP-18/IP-19 Implemented ждут ручной проверки. IP-21 и дальше удерживают собственные data gates (G-14). F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
+Next Ready packet: F2-01 (срез FIELD-002, [очередь](#field002-execution)); пользователь 2026-09-26 утвердил срез и разрешил реализацию. IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -198,6 +198,20 @@ implementation/verification evidence: none. F1-00 разрешён только 
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
 оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —
 зависимости по именам в спецификации packet и записям ниже, не повторные работы.
+
+<a id="field002-execution"></a>
+### FIELD-002 slice — очередь (DECISION-0063)
+
+Данные: [field002-v1](../balance/field002-v1.md). Status ниже относится к packet, не к полному IP.
+
+| Приоритет | Packet / владельцы | Status | Prerequisites / gate |
+|---:|---|---|---|
+| 1 | F2-01 — атака в конце рывка и повторный залп (IP-15/IP-21 framework) | Ready | — |
+| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Blocked | F2-01; тела — art gate, до арта placeholders |
+| 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Ready | Арт тракта — gate; временно арт FIELD-001 с собственной геометрией |
+| 4 | F2-04 — волны FIELD-002 и модификаторы поля (IP-24) | Ready | Враги IP-20 реализованы |
+| 5 | F2-05 — общий пул Путников без повторов ролей (IP-29/IP-30) | Ready | — |
+| 6 | F2-06 — приёмка: прогоны FIELD-002, сложность, производительность | Blocked | F2-01…05; ручной прогон пользователя |
 
 ### Общий IP backlog после этапа
 
