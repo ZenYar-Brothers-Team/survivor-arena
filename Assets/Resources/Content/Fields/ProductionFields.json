@@ -1,11 +1,23 @@
 {
   "defaultFieldId": "FIELD-001",
   "availableFieldIds": [
-    "FIELD-001"
+    "FIELD-001",
+    "FIELD-002"
   ],
   "environments": [
     {
       "id": "FIELD-001-ENVIRONMENT",
+      "sceneName": "Gameplay",
+      "spawnPointName": "SpawnPoint",
+      "obstacleNames": [
+        "Wall_Top",
+        "Wall_Bottom",
+        "Wall_Left",
+        "Wall_Right"
+      ]
+    },
+    {
+      "id": "FIELD-002-ENVIRONMENT",
       "sceneName": "Gameplay",
       "spawnPointName": "SpawnPoint",
       "obstacleNames": [
@@ -37,6 +49,30 @@
         "ENEMY-004",
         "ENEMY-005",
         "ENEMY-007"
+      ]
+    },
+    {
+      "id": "FIELD-002",
+      "displayName": "Королевский тракт",
+      "description": "учит учитывать геометрию и первые более плотные сочетания врагов.",
+      "thumbnailPlaceholder": "Королевский тракт",
+      "difficulty": 1,
+      "unlockDescription": "Пройдите «Деревенскую окраину»",
+      "environmentId": "FIELD-002-ENVIRONMENT",
+      "timelineId": "FIELD-002-TIMELINE",
+      "travelerScheduleId": "FIELD-002-TRAVELERS",
+      "finalBossId": "BOSS-002",
+      "midBossId": "MIDBOSS-002",
+      "enemyIds": [
+        "ENEMY-001",
+        "ENEMY-002",
+        "ENEMY-003",
+        "ENEMY-004",
+        "ENEMY-005",
+        "ENEMY-007",
+        "ENEMY-008",
+        "ENEMY-009",
+        "ENEMY-006"
       ]
     }
   ]

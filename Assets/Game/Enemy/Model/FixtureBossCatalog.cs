@@ -20,11 +20,13 @@ namespace Game.Enemy
             if (data == null) throw new ArgumentNullException(nameof(data));
             var byId = enemies.ToDictionary(e => e.Id);
             var definitions = new List<BossEncounterDefinition>();
-            var hooks = new HashSet<WaveHookKind>();
+            // Several fields each bind their own final/mid boss; hooks repeat across fields, ids never do (DECISION-0063).
+            var ids = new HashSet<string>();
             foreach (var entry in data)
             {
-                if (entry == null || !Enum.TryParse(entry.Hook, out WaveHookKind hook) || !hooks.Add(hook))
-                    throw new ArgumentException("Boss hook is invalid or duplicated.", nameof(data));
+                if (entry == null || !Enum.TryParse(entry.Hook, out WaveHookKind hook))
+                    throw new ArgumentException("Boss hook is invalid.", nameof(data));
+                if (!ids.Add(entry.Id)) throw new ArgumentException($"Duplicate boss encounter '{entry.Id}'.", nameof(data));
                 if (entry.SpawnOffsetX == null || entry.SpawnOffsetY == null || entry.Phases == null)
                     throw new ArgumentException("Boss spawn offsets and phases must be explicit.", nameof(data));
                 if (entry.Body?.Id != entry.Id) throw new ArgumentException("Body identity must match encounter identity.", nameof(data));
@@ -64,7 +66,7 @@ namespace Game.Enemy
                     entry.KeepAttackOrderOnPhaseChange ?? false, entry.StrictHealthThreshold ?? false, owned,
                     BossTeleportProfile.FromData(entry.Teleport, $"Boss {entry.Id}")));
             }
-            if (!hooks.Contains(WaveHookKind.FinalBoss)) throw new ArgumentException("Final boss definition is required.", nameof(data));
+            if (definitions.All(d => d.Hook != WaveHookKind.FinalBoss)) throw new ArgumentException("Final boss definition is required.", nameof(data));
             return definitions.AsReadOnly();
         }
     }

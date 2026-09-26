@@ -39,7 +39,8 @@ namespace Game.Bootstrap
 
         private static readonly string[] ProductionSources = { ProductionActiveSkillCatalog.ResourcePath, ProductionSetAttackCatalog.ResourcePath,
             ProductionPassiveCatalog.ResourcePath, ProductionSetCatalog.ResourcePath, ProductionEnemyCatalog.ResourcePath,
-            ProductionBossCatalog.ResourcePath, ProductionWaveTimelinePath, ProductionRunSetupPath,
+            ProductionBossCatalog.ResourcePath, ProductionWaveTimelinePath, "Content/Waves/ProductionWaveTimelineField002",
+            ProductionRunSetupPath,
             ProductionCharacterDefinitionCatalog.ResourcePath, ProductionCharacterDefinitionCatalog.BaselinePath,
             "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites",
             "Content/Presentation/FixtureEnemyDeathPresentation", "Content/Presentation/FixtureGroundShadowPresentation",
@@ -49,6 +50,8 @@ namespace Game.Bootstrap
 
         public const string ProductionFieldsPath = "Content/Fields/ProductionFields";
         public const string ProductionWaveTimelinePath = "Content/Waves/ProductionWaveTimeline";
+        /// <summary>Timelines of further fields; each field resolves its own by id (DECISION-0063).</summary>
+        public static readonly string[] ProductionExtraWaveTimelinePaths = { "Content/Waves/ProductionWaveTimelineField002" };
         public const string ProductionRunSetupPath = "Content/Run/ProductionRunSetup";
         public const string ProductionFieldPresentationPath = "Content/Presentation/ProductionFieldEnvironmentPresentation";
 
@@ -253,6 +256,8 @@ namespace Game.Bootstrap
             allDefinitions.AddRange(bosses);
             allDefinitions.AddRange(bosses.SelectMany(boss => boss.OwnedAttacks));
             allDefinitions.Add(waveTimeline);
+            foreach (var path in ProductionExtraWaveTimelinePaths)
+                allDefinitions.Add(FixtureWaveTimelineCatalog.FromJson(JsonContentFile.ReadText(path)));
             allDefinitions.AddRange(fields.Environments);
             allDefinitions.AddRange(fields.Roster.AllFields);
             allDefinitions.AddRange(travelers.Definitions.Values);

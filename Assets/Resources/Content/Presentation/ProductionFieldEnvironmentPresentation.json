@@ -545,5 +545,840 @@
         "height": 0.5
       }
     ]
+  },
+  {
+    "id": "FIELD-002-PRESENTATION",
+    "environmentId": "FIELD-002-ENVIRONMENT",
+    "groundVisualId": "FIELD-001-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
+    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "fenceHeight": 1.35,
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 2001,
+    "obstacleSeed": 2002,
+    "interiorObstacleCount": 100,
+    "nearObstacleCount": 21,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "obstacles": [
+      {
+        "id": "FIELD-002-O01",
+        "kind": "Stump",
+        "x": 8.39,
+        "y": 1.17,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O02",
+        "kind": "Stump",
+        "x": 10.59,
+        "y": 1.17,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O03",
+        "kind": "Stump",
+        "x": 12.79,
+        "y": 1.17,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O04",
+        "kind": "Stump",
+        "x": 14.99,
+        "y": 1.17,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O05",
+        "kind": "Stump",
+        "x": -18.79,
+        "y": -0.55,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O06",
+        "kind": "Stump",
+        "x": -16.59,
+        "y": -0.55,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O07",
+        "kind": "Stump",
+        "x": -14.39,
+        "y": -0.55,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O08",
+        "kind": "Stump",
+        "x": -12.19,
+        "y": -0.55,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O09",
+        "kind": "Stump",
+        "x": -2.22,
+        "y": -18.79,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O10",
+        "kind": "Stump",
+        "x": -0.02,
+        "y": -18.79,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O11",
+        "kind": "Stump",
+        "x": 2.18,
+        "y": -18.79,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O12",
+        "kind": "Stump",
+        "x": 4.38,
+        "y": -18.79,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O13",
+        "kind": "Stump",
+        "x": 6.58,
+        "y": -18.79,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O14",
+        "kind": "Stump",
+        "x": 21.06,
+        "y": 18.74,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O15",
+        "kind": "Stump",
+        "x": 21.06,
+        "y": 20.94,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O16",
+        "kind": "Stump",
+        "x": 21.06,
+        "y": 23.14,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O17",
+        "kind": "Stump",
+        "x": 21.06,
+        "y": 25.34,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O18",
+        "kind": "Stump",
+        "x": -8.22,
+        "y": -31.13,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O19",
+        "kind": "Stump",
+        "x": -8.22,
+        "y": -28.93,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O20",
+        "kind": "Stump",
+        "x": -8.22,
+        "y": -26.73,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O21",
+        "kind": "Stump",
+        "x": -8.22,
+        "y": -24.53,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O22",
+        "kind": "Stump",
+        "x": -8.22,
+        "y": -22.33,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O23",
+        "kind": "Stump",
+        "x": 4.17,
+        "y": 23.52,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O24",
+        "kind": "Stump",
+        "x": 6.37,
+        "y": 23.52,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O25",
+        "kind": "Stump",
+        "x": 8.57,
+        "y": 23.52,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O26",
+        "kind": "Stump",
+        "x": 10.77,
+        "y": 23.52,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O27",
+        "kind": "Stump",
+        "x": -27.69,
+        "y": 7.39,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O28",
+        "kind": "Stump",
+        "x": -25.49,
+        "y": 7.39,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O29",
+        "kind": "Stump",
+        "x": -23.29,
+        "y": 7.39,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O30",
+        "kind": "Stump",
+        "x": -21.09,
+        "y": 7.39,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O31",
+        "kind": "Stump",
+        "x": -18.89,
+        "y": 7.39,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O32",
+        "kind": "Stump",
+        "x": 6.44,
+        "y": -9.94,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O33",
+        "kind": "Stump",
+        "x": 8.64,
+        "y": -9.94,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O34",
+        "kind": "Stump",
+        "x": 10.84,
+        "y": -9.94,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O35",
+        "kind": "Stump",
+        "x": 13.04,
+        "y": -9.94,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O36",
+        "kind": "Stump",
+        "x": -5.76,
+        "y": 9.45,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O37",
+        "kind": "Stump",
+        "x": -5.76,
+        "y": 11.65,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O38",
+        "kind": "Stump",
+        "x": -5.76,
+        "y": 13.85,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O39",
+        "kind": "Stump",
+        "x": 29.95,
+        "y": -14.42,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O40",
+        "kind": "Stump",
+        "x": 29.95,
+        "y": -12.22,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O41",
+        "kind": "Stump",
+        "x": 29.95,
+        "y": -10.02,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O42",
+        "kind": "Stump",
+        "x": 29.95,
+        "y": -7.82,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O43",
+        "kind": "Stump",
+        "x": 29.95,
+        "y": -5.62,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O44",
+        "kind": "Stump",
+        "x": -6.42,
+        "y": -49.86,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O45",
+        "kind": "Stump",
+        "x": -4.22,
+        "y": -49.86,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O46",
+        "kind": "Stump",
+        "x": -2.02,
+        "y": -49.86,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O47",
+        "kind": "Stump",
+        "x": 31.55,
+        "y": 72.43,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O48",
+        "kind": "Stump",
+        "x": 33.75,
+        "y": 72.43,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O49",
+        "kind": "Stump",
+        "x": 35.95,
+        "y": 72.43,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O50",
+        "kind": "Stump",
+        "x": 38.15,
+        "y": 72.43,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O51",
+        "kind": "Stump",
+        "x": -59,
+        "y": 5.87,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O52",
+        "kind": "Stump",
+        "x": -56.8,
+        "y": 5.87,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O53",
+        "kind": "Stump",
+        "x": -54.6,
+        "y": 5.87,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O54",
+        "kind": "Stump",
+        "x": -70.68,
+        "y": -27.3,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O55",
+        "kind": "Stump",
+        "x": -70.68,
+        "y": -25.1,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O56",
+        "kind": "Stump",
+        "x": -70.68,
+        "y": -22.9,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O57",
+        "kind": "Stump",
+        "x": -70.68,
+        "y": -20.7,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O58",
+        "kind": "Stump",
+        "x": -70.68,
+        "y": -18.5,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O59",
+        "kind": "Stump",
+        "x": 27.86,
+        "y": 48.66,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O60",
+        "kind": "Stump",
+        "x": 30.06,
+        "y": 48.66,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O61",
+        "kind": "Stump",
+        "x": 32.26,
+        "y": 48.66,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O62",
+        "kind": "Stump",
+        "x": 34.46,
+        "y": 48.66,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O63",
+        "kind": "Stump",
+        "x": 36.66,
+        "y": 48.66,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O64",
+        "kind": "Stump",
+        "x": 12.89,
+        "y": -74.58,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O65",
+        "kind": "Stump",
+        "x": 15.09,
+        "y": -74.58,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O66",
+        "kind": "Stump",
+        "x": 17.29,
+        "y": -74.58,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O67",
+        "kind": "Stump",
+        "x": 19.49,
+        "y": -74.58,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O68",
+        "kind": "Stump",
+        "x": 21.69,
+        "y": -74.58,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O69",
+        "kind": "Stump",
+        "x": -27.18,
+        "y": 26.8,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O70",
+        "kind": "Stump",
+        "x": -27.18,
+        "y": 29,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O71",
+        "kind": "Stump",
+        "x": -27.18,
+        "y": 31.2,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O72",
+        "kind": "Stump",
+        "x": -27.18,
+        "y": 33.4,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O73",
+        "kind": "Stump",
+        "x": 17.76,
+        "y": -37.2,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O74",
+        "kind": "Stump",
+        "x": 17.76,
+        "y": -35,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O75",
+        "kind": "Stump",
+        "x": 17.76,
+        "y": -32.8,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O76",
+        "kind": "Stump",
+        "x": 17.76,
+        "y": -30.6,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O77",
+        "kind": "Stump",
+        "x": -88.33,
+        "y": 19.06,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O78",
+        "kind": "Stump",
+        "x": -88.33,
+        "y": 21.26,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O79",
+        "kind": "Stump",
+        "x": -88.33,
+        "y": 23.46,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O80",
+        "kind": "Stump",
+        "x": -13.53,
+        "y": 84.82,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O81",
+        "kind": "Stump",
+        "x": -11.33,
+        "y": 84.82,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O82",
+        "kind": "Stump",
+        "x": -9.13,
+        "y": 84.82,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O83",
+        "kind": "Stump",
+        "x": -79.07,
+        "y": 35.71,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O84",
+        "kind": "Stump",
+        "x": -76.87,
+        "y": 35.71,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O85",
+        "kind": "Stump",
+        "x": -74.67,
+        "y": 35.71,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O86",
+        "kind": "Stump",
+        "x": -72.47,
+        "y": 35.71,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O87",
+        "kind": "Stump",
+        "x": -70.27,
+        "y": 35.71,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O88",
+        "kind": "Stump",
+        "x": 78.69,
+        "y": 20.52,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O89",
+        "kind": "Stump",
+        "x": 80.89,
+        "y": 20.52,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O90",
+        "kind": "Stump",
+        "x": 83.09,
+        "y": 20.52,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O91",
+        "kind": "Stump",
+        "x": 85.29,
+        "y": 20.52,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O92",
+        "kind": "Stump",
+        "x": 54.33,
+        "y": 52.55,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O93",
+        "kind": "Stump",
+        "x": 56.53,
+        "y": 52.55,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O94",
+        "kind": "Stump",
+        "x": 58.73,
+        "y": 52.55,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O95",
+        "kind": "Stump",
+        "x": 60.93,
+        "y": 52.55,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O96",
+        "kind": "Stump",
+        "x": -57.48,
+        "y": -41.52,
+        "width": 0.9,
+        "height": 0.9
+      },
+      {
+        "id": "FIELD-002-O97",
+        "kind": "Stump",
+        "x": -57.48,
+        "y": -39.32,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O98",
+        "kind": "Stump",
+        "x": -57.48,
+        "y": -37.12,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O99",
+        "kind": "Stump",
+        "x": -57.48,
+        "y": -34.92,
+        "width": 1.6,
+        "height": 1.2
+      },
+      {
+        "id": "FIELD-002-O100",
+        "kind": "Stump",
+        "x": -57.48,
+        "y": -32.72,
+        "width": 0.9,
+        "height": 0.9
+      }
+    ]
   }
 ]

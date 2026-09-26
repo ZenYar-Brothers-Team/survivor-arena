@@ -11,8 +11,6 @@
       "id": "BOSS-001",
       "maxHealth": 4500,
       "collisionSize": 2.4,
-      "visualId": "BOSS-001-VISUAL-BODY",
-      "motionProfileId": "ENEMY-001-MOTION",
       "movementSpeed": 0.7,
       "contactDamage": 30,
       "contactDamageInterval": 1,
@@ -24,7 +22,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "BOSS-001-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -162,8 +162,6 @@
       "id": "MIDBOSS-001",
       "maxHealth": 1200,
       "collisionSize": 1.6,
-      "visualId": "MIDBOSS-001-VISUAL-BODY",
-      "motionProfileId": "ENEMY-001-MOTION",
       "movementSpeed": 0.85,
       "contactDamage": 22,
       "contactDamageInterval": 1,
@@ -182,6 +180,8 @@
         "dashCount": 2,
         "followUpTelegraphSeconds": 0.35
       },
+      "visualId": "MIDBOSS-001-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 0.8,
         "knockbackSeconds": 0.12
@@ -190,6 +190,145 @@
     "phases": [
       {
         "id": "MIDBOSS-001-PHASE-1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      }
+    ]
+  },
+  {
+    "id": "BOSS-002",
+    "displayName": "Капитан королевской стражи",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "body": {
+      "id": "BOSS-002",
+      "maxHealth": 6000,
+      "collisionSize": 3,
+      "movementSpeed": 0.7,
+      "contactDamage": 34,
+      "contactDamageInterval": 1,
+      "experienceReward": 180,
+      "knockbackResistance": 0.75,
+      "contactControls": {
+        "knockbackDistance": 0.8,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.9,
+        "dashDurationSeconds": 0.9,
+        "dashCooldownSeconds": 4.5,
+        "dashSpeedMultiplier": 4.5,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1.2,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttack": {
+        "pattern": "Ring",
+        "damage": 16,
+        "cooldownSeconds": 1,
+        "projectileSpeed": 4,
+        "projectileLifetimeSeconds": 3,
+        "projectileCount": 8,
+        "projectileRadius": 0.15,
+        "telegraphSeconds": 0,
+        "controls": {
+          "knockbackDistance": 0.25,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "dashEndRepeat": {
+        "everyNthDash": 2,
+        "belowHealthFraction": 0.5,
+        "delaySeconds": 0.35,
+        "rotationDegrees": 22.5
+      }
+    },
+    "phases": [
+      {
+        "id": "BOSS-002-PHASE-1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 5,
+      "landingDistance": 2.2,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 2.6,
+      "impactDamage": 20,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "MIDBOSS-002",
+    "displayName": "Сержант стражи",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "body": {
+      "id": "MIDBOSS-002",
+      "maxHealth": 1600,
+      "collisionSize": 2,
+      "movementSpeed": 0.8,
+      "contactDamage": 26,
+      "contactDamageInterval": 1,
+      "experienceReward": 75,
+      "knockbackResistance": 0.5,
+      "contactControls": {
+        "knockbackDistance": 0.7,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.8,
+        "dashDurationSeconds": 0.8,
+        "dashCooldownSeconds": 5,
+        "dashSpeedMultiplier": 4.5,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttack": {
+        "pattern": "Ring",
+        "damage": 14,
+        "cooldownSeconds": 1,
+        "projectileSpeed": 3.6,
+        "projectileLifetimeSeconds": 3,
+        "projectileCount": 6,
+        "projectileRadius": 0.14,
+        "telegraphSeconds": 0,
+        "controls": {
+          "knockbackDistance": 0.2,
+          "knockbackSeconds": 0.12
+        }
+      }
+    },
+    "phases": [
+      {
+        "id": "MIDBOSS-002-PHASE-1",
         "healthThreshold": 1,
         "attackEnemyIds": []
       }

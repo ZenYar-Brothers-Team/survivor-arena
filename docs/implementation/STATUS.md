@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (IP-20 все 20 врагов по DECISION-0062, Unity 790/790 EditMode + 27/27 PlayMode; ранее IP-19 сеты DECISION-0061)
+Last repository audit: 2026-09-26 (срез FIELD-002 по DECISION-0063, Unity 802/802 EditMode + 28/28 PlayMode; ранее IP-20 враги DECISION-0062)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: F2-01 (срез FIELD-002, [очередь](#field002-execution)); пользователь 2026-09-26 утвердил срез и разрешил реализацию. IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
+Next Ready packet: нет. Срез FIELD-002 F2-01…05 Implemented 2026-09-26; F2-06 ждёт ручного прогона FIELD-002 ([очередь](#field002-execution)). IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -207,11 +207,11 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | Приоритет | Packet / владельцы | Status | Prerequisites / gate |
 |---:|---|---|---|
 | 1 | F2-01 — атака в конце рывка и повторный залп (IP-15/IP-21 framework) | Implemented | 2026-09-26: `EnemyDashVolleyProfile/Controller`, JSON `dashEndAttack`/`dashEndRepeat`, масштаб волн; EditMode 211/211 (Enemy/Traveler/Bootstrap) |
-| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Ready | F2-01 Implemented; тела — art gate, до арта placeholders |
-| 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Ready | Арт тракта — gate; временно арт FIELD-001 с собственной геометрией |
-| 4 | F2-04 — волны FIELD-002 и модификаторы поля (IP-24) | Ready | Враги IP-20 реализованы |
-| 5 | F2-05 — общий пул Путников без повторов ролей (IP-29/IP-30) | Ready | — |
-| 6 | F2-06 — приёмка: прогоны FIELD-002, сложность, производительность | Blocked | F2-01…05; ручной прогон пользователя |
+| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Implemented | 2026-09-26; тела — art gate, placeholders; [evidence](evidence/2026-09-26-field002-slice.md) |
+| 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Implemented | 2026-09-26; арт тракта — gate, временно спрайт пня FIELD-001 по авторским прямоугольникам; [evidence](evidence/2026-09-26-field002-slice.md) |
+| 4 | F2-04 — волны FIELD-002 и модификаторы поля (IP-24) | Implemented | 2026-09-26; [evidence](evidence/2026-09-26-field002-slice.md) |
+| 5 | F2-05 — общий пул Путников без повторов ролей (IP-29/IP-30) | Implemented | 2026-09-26; [evidence](evidence/2026-09-26-field002-slice.md) |
+| 6 | F2-06 — приёмка: прогоны FIELD-002, сложность, производительность | Blocked | F2-01…05 Implemented (Unity 802/802 + 28/28); нужен ручной прогон пользователя |
 
 ### Общий IP backlog после этапа
 

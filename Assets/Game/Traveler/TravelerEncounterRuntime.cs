@@ -52,7 +52,7 @@ namespace Game.Traveler
                 throw new ArgumentException("Traveler dependencies required.");
             foreach (var id in schedule.TravelerIds) if (!catalog.Definitions.ContainsKey(id)) throw new ArgumentException("Missing Traveler definition.");
             var resolvedSeed = seed ?? schedule.Seed;
-            var planned = schedule.Draw(run.Model.Duration, new System.Random(resolvedSeed));
+            var planned = schedule.Draw(run.Model.Duration, new System.Random(resolvedSeed), id => catalog.Definitions[id].Role);
             Shutdown();
             Seed = resolvedSeed;
             _schedule = schedule; _definitions = catalog.Definitions; _run = run; _model = run.Model;

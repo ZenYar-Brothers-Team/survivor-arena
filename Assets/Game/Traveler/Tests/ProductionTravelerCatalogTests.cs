@@ -45,7 +45,7 @@ namespace Game.Traveler.Tests
         [Test]
         public void Schedule_ScalesOnlyHpAndDamage_ByFieldRankAndTime()
         {
-            var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single();
+            var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single(s => s.Id.ToString() == "FIELD-001-TRAVELERS");
             Assert.AreEqual("FIELD-001-TRAVELERS", schedule.Id.ToString());
             CollectionAssert.AreEqual(new[] { 0.15f, 0.4f, 0.35f, 0.1f }, schedule.CountProbabilities);
             Assert.AreEqual(1f, schedule.Scale(0f, 900f), 1e-5f);
@@ -64,7 +64,7 @@ namespace Game.Traveler.Tests
         [Test]
         public void Draws_ProduceZeroToThreeDistinctTypes_WithinTheSpawnWindow()
         {
-            var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single();
+            var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single(s => s.Id.ToString() == "FIELD-001-TRAVELERS");
             var counts = new int[4];
             for (var seed = 0; seed < 400; seed++)
             {

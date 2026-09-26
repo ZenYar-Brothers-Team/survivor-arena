@@ -46,15 +46,21 @@ namespace Game.Traveler
             if (duration <= EndBufferSeconds) throw new ArgumentException("Run must exceed end buffer.");
             return (1 + FieldGrowth * (FieldRank - 1)) * (1 + TimeGrowth * Math.Min(1, spawnTime / (duration - EndBufferSeconds)));
         }
-        public IReadOnlyList<TravelerScheduleEntry> Draw(float duration, Random random)
+        /// <summary>
+        /// Draws count and types. With <paramref name="roleOf"/> roles never repeat within a run: after a pick every
+        /// remaining type of that role leaves the pool, and the count is capped by the number of roles (DECISION-0063).
+        /// </summary>
+        public IReadOnlyList<TravelerScheduleEntry> Draw(float duration, Random random, Func<ContentId, TravelerRole> roleOf = null)
         {
             Scale(0, duration);
             var draw = random.NextDouble(); var cumulative = 0f; var count = 3;
             for (var i = 0; i < 4; i++) { cumulative += CountProbabilities[i]; if (draw < cumulative) { count = i; break; } }
             var pool = TravelerIds.ToList(); var entries = new List<TravelerScheduleEntry>();
+            if (roleOf != null) count = Math.Min(count, pool.Select(roleOf).Distinct().Count());
             for (var i = 0; i < count; i++)
             {
                 var index = random.Next(pool.Count); var id = pool[index]; pool.RemoveAt(index);
+                if (roleOf != null) { var role = roleOf(id); pool.RemoveAll(other => roleOf(other) == role); }
                 var time = (float)random.NextDouble() * (duration - EndBufferSeconds);
                 entries.Add(new TravelerScheduleEntry(id, time, i, Scale(time, duration)));
             }

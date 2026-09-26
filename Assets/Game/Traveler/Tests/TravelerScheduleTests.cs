@@ -18,6 +18,25 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(3,result.Count); Assert.AreEqual(3,result.Select(item=>item.Id).Distinct().Count());
             foreach(var item in result) Assert.AreEqual(expected,item.Time);
         }
+        [Test]
+        public void RoleAwareDraw_NeverRepeatsARole_AndCapsCountByRoles()
+        {
+            // DECISION-0063: one global pool; four types but only two roles -> at most two, one per role.
+            var data = Data["schedules"][0].ToObject<TravelerScheduleData>();
+            var ids = data.TravelerIds.ToList();
+            ids.Add("FIXTURE-TRAVELER-EXTRA");
+            data.TravelerIds = ids.ToArray();
+            data.CountProbabilities = new[] { 0f, 0f, 0f, 1f };
+            var definition = new TravelerScheduleDefinition(data);
+            TravelerRole Role(ContentId id) => id.ToString() == ids[0] || id.ToString() == ids[1] ? TravelerRole.Offensive : TravelerRole.Protector;
+            for (var seed = 0; seed < 50; seed++)
+            {
+                var entries = definition.Draw(900, new Random(seed), Role);
+                Assert.AreEqual(2, entries.Count, $"seed {seed}");
+                Assert.AreEqual(2, entries.Select(e => Role(e.Id)).Distinct().Count(), $"seed {seed}");
+            }
+        }
+
         [TestCase(0)] [TestCase(1)] [TestCase(2)] [TestCase(3)]
         public void CountDraw_IsDeterministic_WithoutReplacement_WithinCutoff(int count)
         {

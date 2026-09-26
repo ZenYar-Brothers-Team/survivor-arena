@@ -22,6 +22,7 @@ BASELINE = ROOT / "docs/balance/field001-baseline-v1.json"
 LATE_PACKET = ROOT / "docs/balance/late-skills-passives-v1.json"
 SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
 ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
+FIELD002_PACKET = ROOT / "docs/balance/field002-v1.json"
 
 
 def load_baseline():
@@ -40,6 +41,10 @@ def load_baseline():
     if not str(late_enemies.get("approval", "")).startswith("Approved"):
         raise SystemExit("Enemies packet is not Approved; production content cannot be generated.")
     data["lateEnemies"] = late_enemies
+    field_two = json.loads(FIELD002_PACKET.read_text(encoding="utf-8"))
+    if not str(field_two.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-002 packet is not Approved; production content cannot be generated.")
+    data["field002"] = field_two
     return data
 
 
@@ -586,8 +591,8 @@ def set_attacks(baseline):
     return sorted(result, key=lambda item: item["id"])
 
 
-SET_ATTACK_VISUALS = {"SET-016": "SKILL-005-VISUAL-PROJECTILE", "SET-018": "SKILL-014-VISUAL-PROJECTILE",
-                      "SET-019": "SKILL-013-VISUAL-PROJECTILE", "SET-020": "SKILL-001-VISUAL-PROJECTILE"}
+# Approved set projectile art (commit b595f9e, docs/implementation/evidence/2026-09-26-set-world-art.md).
+SET_ATTACK_VISUALS = {name: f"{name}-VISUAL-PROJECTILE" for name in ("SET-016", "SET-018", "SET-019", "SET-020")}
 
 
 def late_set_attack(set_id, effect, seed, kb_seconds):
@@ -671,14 +676,15 @@ def bosses(baseline):
     cadence = CADENCES[boss["cadence"]]
     attacks = {a["id"]: a for a in boss["attacks"]}
 
-    def body(entry, movement, extra=None):
+    def body(entry, movement, extra=None, art=True):
         data = {"id": entry["id"], "maxHealth": entry["maxHealth"], "collisionSize": entry["collisionSize"],
-                "visualId": f"{entry['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
                 "movementSpeed": entry["movementSpeed"], "contactDamage": entry["contactDamage"],
                 "contactDamageInterval": entry["contactDamageIntervalSeconds"], "experienceReward": entry["experienceReward"],
                 "knockbackResistance": entry["knockbackResistance"],
                 "contactControls": {"knockbackDistance": entry["contactKnockback"], "knockbackSeconds": entry["knockbackSeconds"]},
                 "movement": movement}
+        if art:  # FIELD-002 bosses have no approved body art yet (DECISION-0063): explicit placeholder
+            data.update(visualId=f"{entry['id']}-VISUAL-BODY", motionProfileId="ENEMY-001-MOTION")
         data.update(extra or {})
         return data
 
@@ -712,7 +718,46 @@ def bosses(baseline):
                      {"dashContactControls": {"knockbackDistance": mid["dashKnockback"], "knockbackSeconds": mid["knockbackSeconds"]}}),
         "phases": [{"id": f"{mid['id']}-PHASE-1", "healthThreshold": 1, "attackEnemyIds": []}],
     }
-    return [final, midboss]
+    return [final, midboss] + field_two_bosses(baseline, names, body)
+
+
+def dash_ring(ring, kb_seconds):
+    if ring["trigger"] != "dash-end" or ring["spreadDegrees"] != 360:
+        raise SystemExit("dash volley must be a full ring on dash end")
+    return {"pattern": "Ring", "damage": ring["damage"], "cooldownSeconds": 1, "projectileSpeed": ring["projectileSpeed"],
+            "projectileLifetimeSeconds": ring["projectileLifetimeSeconds"], "projectileCount": ring["projectileCount"],
+            "projectileRadius": ring["projectileRadius"], "telegraphSeconds": ring["telegraphSeconds"],
+            "controls": {"knockbackDistance": ring["knockback"], "knockbackSeconds": ring["knockbackSeconds"] or kb_seconds}}
+
+
+def field_two_bosses(baseline, names, body):
+    """BOSS-002 / MIDBOSS-002 (field002-v1, DECISION-0063): dash movement with a ring on dash end."""
+    result = []
+    for key, hook in (("boss", "FinalBoss"), ("midboss", "MidBoss")):
+        entry = baseline["field002"][key]
+        move = entry["movement"]
+        if move["kind"] != "TelegraphedDash" or move["firstDashDelaySeconds"] != move["dashCooldownSeconds"]:
+            raise SystemExit(f"{entry['id']}: dash timing not expressible by the runtime")
+        extra = {"dashContactControls": {"knockbackDistance": move["dashKnockback"], "knockbackSeconds": entry["knockbackSeconds"]},
+                 "dashEndAttack": dash_ring(entry["dashEndAttack"], entry["knockbackSeconds"])}
+        enrage = entry.get("enrage")
+        if enrage:
+            if enrage["thresholdComparison"] != "strictly-less":
+                raise SystemExit(f"{entry['id']}: enrage comparison not expressible")
+            extra["dashEndRepeat"] = {"everyNthDash": enrage["everyNthDash"], "belowHealthFraction": enrage["healthThreshold"],
+                                      "delaySeconds": enrage["extraVolleyDelaySeconds"],
+                                      "rotationDegrees": enrage["extraVolleyRotationDegrees"]}
+        movement = {"kind": "TelegraphedDash", "dashTelegraphSeconds": move["dashTelegraphSeconds"],
+                    "dashDurationSeconds": move["dashDurationSeconds"], "dashCooldownSeconds": move["dashCooldownSeconds"],
+                    "dashSpeedMultiplier": move["dashSpeedMultiplier"], "showDashTelegraphLine": move["showDashTelegraphLine"]}
+        encounter = {"id": entry["id"], "displayName": names[entry["id"]], "hook": hook,
+                     "spawnOffsetX": entry["spawnOffset"][0], "spawnOffsetY": entry["spawnOffset"][1],
+                     "body": body(entry, movement, extra, art=False),
+                     "phases": [{"id": f"{entry['id']}-PHASE-1", "healthThreshold": 1, "attackEnemyIds": []}]}
+        if "teleport" in entry:
+            encounter["teleport"] = boss_teleport(entry["teleport"])
+        result.append(encounter)
+    return result
 
 
 def travelers(baseline):
@@ -741,12 +786,17 @@ def travelers(baseline):
             "resistance": support["resistance"], "shieldHp": support["shieldHp"], "shieldSeconds": support["shieldSeconds"],
             "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
         })
-    return {"travelers": result, "schedules": [{
-        "id": schedule["id"], "travelerIds": [t["id"] for t in baseline["travelers"]],
-        "countProbabilities": schedule["countProbabilities"], "seed": seeds["travelers"], "fieldRank": schedule["fieldRank"],
-        "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
-        "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
-        "timeGrowth": schedule["timeGrowth"]}]}
+    def entry(schedule_id, seed, rank):
+        # DECISION-0063: every field draws from the global pool of implemented Travelers, roles never repeat.
+        return {"id": schedule_id, "travelerIds": [t["id"] for t in baseline["travelers"]],
+                "countProbabilities": schedule["countProbabilities"], "seed": seed, "fieldRank": rank,
+                "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
+                "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
+                "timeGrowth": schedule["timeGrowth"]}
+    if not baseline["field002"]["travelers"]["pool"].startswith("global"):
+        raise SystemExit("FIELD-002 Traveler pool must be the global pool")
+    return {"travelers": result, "schedules": [entry(schedule["id"], seeds["travelers"], schedule["fieldRank"]),
+                                               entry("FIELD-002-TRAVELERS", seeds["travelers"] + 1000, 2)]}
 
 
 def fields(baseline):
@@ -754,18 +804,28 @@ def fields(baseline):
     names = content_design_names("FIELD")
     if field["obstaclesBlock"] != "player-only" or field["spawnPoint"] != [0, 0]:
         raise SystemExit("FIELD-001 geometry policy not expressible by the runtime")
+    two = baseline["field002"]["field"]
+    walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"]],
-        # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9).
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"]],
+        # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
-                          "obstacleNames": ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]}],
+                          "obstacleNames": walls},
+                         {"id": "FIELD-002-ENVIRONMENT", "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": walls}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
                     "thumbnailVisualId": field["thumbnailVisualId"],
                     "unlockDescription": field["unlockDescription"], "environmentId": field["environmentId"],
                     "timelineId": field["timelineId"], "travelerScheduleId": field["travelerScheduleId"],
                     "finalBossId": field["finalBossId"], "midBossId": field["midBossId"],
-                    "enemyIds": [e["id"] for e in baseline["enemies"]]}],
+                    "enemyIds": [e["id"] for e in baseline["enemies"]]},
+                   {"id": two["id"], "displayName": names[two["id"]], "description": card_field(two["id"], "Роль"),
+                    "thumbnailPlaceholder": "Королевский тракт", "difficulty": two["difficulty"],
+                    "unlockDescription": "Пройдите «Деревенскую окраину»", "environmentId": "FIELD-002-ENVIRONMENT",
+                    "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
+                    "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
+                    "enemyIds": baseline["field002"]["enemyPool"]}],
     }
 
 
@@ -782,7 +842,20 @@ def field_presentation(baseline):
             raise SystemExit(f"{o['id']}: unsupported obstacle")
     data["obstacles"] = [{"id": o["id"], "kind": o["kind"], "x": o["x"], "y": o["y"], "width": o["width"], "height": o["height"]}
                          for o in field["obstacles"]]
-    return [data]
+    two = baseline["field002"]["field"]
+    # Road art is an open gate (DECISION-0063): until it is approved, FIELD-002 draws its own rects with the
+    # accepted FIELD-001 art — rocks and columns as stumps. Colliders always follow the authored rects.
+    interim = {"Rock": "Stump", "Column": "Stump"}
+    for o in two["obstacles"]:
+        if o["rotationDegrees"] != 0 or o["kind"] not in interim:
+            raise SystemExit(f"{o['id']}: unsupported obstacle")
+    second = dict(data, id="FIELD-002-PRESENTATION", environmentId="FIELD-002-ENVIRONMENT",
+                  seed=data["seed"] + 1000, obstacleSeed=data["obstacleSeed"] + 1000,
+                  interiorObstacleCount=len(two["obstacles"]),
+                  nearObstacleCount=sum(1 for o in two["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
+    second["obstacles"] = [{"id": o["id"], "kind": interim[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
+                            "height": o["height"]} for o in two["obstacles"]]
+    return [data, second]
 
 
 def minutes(seconds):
@@ -790,14 +863,22 @@ def minutes(seconds):
 
 
 def timeline(baseline):
-    t = baseline["timeline"]
+    return field_timeline(baseline["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"], True)
+
+
+def timeline_field002(baseline):
+    return field_timeline(baseline["field002"]["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"] + 1000,
+                          False)
+
+
+def field_timeline(t, baseline, seed, neutral_modifiers):
     phases, clock = [], 0
     for p in t["phases"]:
         if p["startSeconds"] != clock:
             raise SystemExit(f"{p['id']}: phases must be contiguous")
         clock += p["durationSeconds"]
         modifiers = p["modifiers"]
-        if any(v != 1 for v in modifiers.values()):
+        if neutral_modifiers and any(v != 1 for v in modifiers.values()):
             raise SystemExit(f"{p['id']}: baseline v1 keeps all wave multipliers at 1")
         phase = {"id": p["id"], "displayName": f"{minutes(p['startSeconds'])}–{minutes(clock)}", "tag": p["tag"],
                  "spawnMode": p["spawnMode"], "durationSeconds": p["durationSeconds"],
@@ -809,7 +890,7 @@ def timeline(baseline):
         phases.append(phase)
     if clock != baseline["field"]["durationSeconds"]:
         raise SystemExit("timeline must cover the whole field duration")
-    return {"id": t["id"], "seed": baseline["randomness"]["referenceSeeds"]["waves"],
+    return {"id": t["id"], "seed": seed,
             "spawnRadius": baseline["field"]["spawnRadius"], "openingSpawn": baseline["field"]["openingSpawn"],
             "phases": phases, "hooks": t["hooks"]}
 
@@ -836,6 +917,7 @@ TARGETS = {
     "Assets/Resources/Content/Fields/ProductionFields.json": fields,
     "Assets/Resources/Content/Presentation/ProductionFieldEnvironmentPresentation.json": field_presentation,
     "Assets/Resources/Content/Waves/ProductionWaveTimeline.json": timeline,
+    "Assets/Resources/Content/Waves/ProductionWaveTimelineField002.json": timeline_field002,
     "Assets/Resources/Content/Run/ProductionRunSetup.json": run_setup,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }

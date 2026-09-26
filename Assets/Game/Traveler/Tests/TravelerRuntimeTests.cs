@@ -93,7 +93,7 @@ namespace Game.Traveler.Tests
             for (var seed=1; seed<=3; seed++)
             {
                 _travelers.Initialize(schedule,_catalog,_run,_player.transform,_camera,_placement,_pickups,_pickupCatalog.Book,null,seed:seed);
-                var expected=schedule.Draw(_run.Model.Duration,new System.Random(seed));
+                var expected=schedule.Draw(_run.Model.Duration,new System.Random(seed),id=>_catalog.Definitions[id].Role);
                 Assert.AreEqual(seed,_travelers.Seed);
                 CollectionAssert.AreEqual(expected.Select(item=>(item.Id,item.Time)),_travelers.Schedule.Select(item=>(item.Id,item.Time)));
             }

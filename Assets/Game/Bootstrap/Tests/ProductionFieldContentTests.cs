@@ -40,7 +40,10 @@ namespace Game.Bootstrap.Tests
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
-            var bodies = catalog.Bosses.Select(boss => boss.Body)
+            // FIELD-002 bosses have no approved body art yet (DECISION-0063 art gate); they must not borrow any.
+            foreach (var id in new[] { "BOSS-002", "MIDBOSS-002" })
+                Assert.IsFalse(catalog.Bosses.Single(boss => boss.Id.ToString() == id).Body.Visual.Id.IsValid, id);
+            var bodies = catalog.Bosses.Where(boss => boss.Id.ToString().EndsWith("-001")).Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
             Assert.AreEqual(5, bodies.Length, "MIDBOSS-001, BOSS-001, TRAVELER-001/002/005.");
             foreach (var body in bodies)
@@ -66,8 +69,7 @@ namespace Game.Bootstrap.Tests
         public void Field001_UsesTheProductionEncounterReferences()
         {
             var catalog = FixtureFieldCatalog.FromJson(JsonContentFile.ReadText(FixtureRuntimeContentCatalog.ProductionFieldsPath));
-            var field = catalog.Roster.AllFields.Single();
-            Assert.AreEqual("FIELD-001", field.Id.ToString());
+            var field = catalog.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001");
             Assert.AreEqual("Деревенская окраина", field.DisplayName);
             Assert.AreEqual(1, field.Difficulty);
             Assert.AreEqual("BOSS-001", field.FinalBoss.Id.ToString());
@@ -75,13 +77,14 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("FIELD-001-TRAVELERS", field.Travelers.Value.Id.ToString());
             Assert.AreEqual("FIELD-001-VISUAL-BACKGROUND", field.Thumbnail.Value.Id.ToString());
             Assert.AreEqual(6, field.Enemies.Count);
-            Assert.AreEqual("SpawnPoint", catalog.Environments.Single().SpawnPointName);
+            Assert.AreEqual("SpawnPoint", catalog.Environments.Single(e => e.Id.ToString() == "FIELD-001-ENVIRONMENT").SpawnPointName);
         }
 
         [Test]
         public void Presentation_Places64AuthoredObstaclesWithFreeStart()
         {
-            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values.Single();
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
+                .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
             Assert.AreEqual(64, presentation.ExplicitObstacles.Count);
             foreach (var obstacle in presentation.ExplicitObstacles)
             {
@@ -106,7 +109,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(0.5f, catalog.RunSetup.Draft.SetDraftChance);
             Assert.AreEqual(45f, catalog.RunSetup.Experience.BaseDropLifetimeSeconds,
                 "DECISION-0057: dropped XP disappears after 45 s (playtest 2026-09-25_5233a664 OBS-04).");
-            var configuration = catalog.Fields.Roster.AllFields.Single().Resolve(catalog.Registry);
+            CollectionAssert.AreEqual(new[] { "FIELD-001", "FIELD-002" }, catalog.Fields.Roster.AllFields.Select(f => f.Id.ToString()));
+            var configuration = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry);
             Assert.AreEqual(SpriteRole.Background,
                 configuration.Field.Thumbnail.Value.Resolve(catalog.Registry).Role);
             Assert.AreEqual("FIELD-001-TIMELINE", configuration.Timeline.Id.ToString());
