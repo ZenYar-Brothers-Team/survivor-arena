@@ -148,6 +148,8 @@
       "knockbackDistance": 0.2,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-006-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "KeepDistance",
       "preferredDistance": 6.5,
@@ -167,6 +169,7 @@
         "knockbackDistance": 0.3,
         "knockbackSeconds": 0.12
       },
+      "projectileVisualId": "ENEMY-005-VISUAL-PROJECTILE",
       "spreadDegrees": 35
     }
   },
@@ -211,6 +214,8 @@
       "knockbackDistance": 0.6,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-008-VISUAL-BODY",
+    "motionProfileId": "ENEMY-002-MOTION",
     "movement": {
       "kind": "Orbit",
       "preferredDistance": 1.2,
@@ -231,6 +236,8 @@
       "knockbackDistance": 0.45,
       "knockbackSeconds": 0.12
     },
+    "visualId": "ENEMY-009-VISUAL-BODY",
+    "motionProfileId": "ENEMY-001-MOTION",
     "movement": {
       "kind": "Seek"
     }

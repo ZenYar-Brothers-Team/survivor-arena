@@ -28,7 +28,9 @@ namespace Game.Bootstrap.Tests
             CollectionAssert.AreEquivalent(new[] { "BOSS-002", "MIDBOSS-002" }, configuration.Bosses.Select(b => b.Id.ToString()));
             Assert.AreEqual(2, ((TravelerScheduleDefinition)configuration.Travelers).FieldRank, "Traveler K uses r = 2.");
             Assert.AreEqual(1, configuration.Field.Difficulty);
-            Assert.IsFalse(configuration.Field.Thumbnail.HasValue, "Road thumbnail is an open art gate; the placeholder text shows.");
+            Assert.IsTrue(configuration.Field.Thumbnail.HasValue);
+            Assert.AreEqual("FIELD-002-VISUAL-BACKGROUND", configuration.Field.Thumbnail.Value.Id.ToString());
+            Assert.AreEqual(SpriteRole.Background, configuration.Field.Thumbnail.Value.Resolve(Catalog.Registry).Role);
         }
 
         [Test]
@@ -57,6 +59,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(6000f, final.Body.MaxHealth);
             Assert.AreEqual(EnemyMovementKind.TelegraphedDash, final.Body.Movement.Kind);
             Assert.AreEqual(8, final.Body.DashVolley.Attack.ProjectileCount);
+            Assert.AreEqual("BOSS-001-VISUAL-PROJECTILE", final.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(16f, final.Body.DashVolley.Attack.Damage);
             Assert.AreEqual(2, final.Body.DashVolley.RepeatEveryNthDash);
             Assert.AreEqual(0.5f, final.Body.DashVolley.RepeatBelowHealthFraction, 1e-5f);
@@ -65,6 +68,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(WaveHookKind.MidBoss, mid.Hook);
             Assert.AreEqual(1600f, mid.Body.MaxHealth);
             Assert.AreEqual(6, mid.Body.DashVolley.Attack.ProjectileCount);
+            Assert.AreEqual("BOSS-001-VISUAL-PROJECTILE", mid.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(0, mid.Body.DashVolley.RepeatEveryNthDash);
         }
 
@@ -76,8 +80,13 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(100, presentation.ExplicitObstacles.Count);
             Assert.IsTrue(presentation.ExplicitObstacles.All(o => UnityEngine.Mathf.Sqrt(o.X * o.X + o.Y * o.Y) >= 8f),
                 "Start circle of 8 units stays free.");
-            // Interim art (DECISION-0063): until road art is approved rocks and columns render with the accepted stump sprite.
-            Assert.IsTrue(presentation.ExplicitObstacles.All(o => o.Kind == FieldObstacleKind.Stump));
+            Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-COLUMN", presentation.Column.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-SHRINE", presentation.Shrine.Id.ToString());
+            Assert.Greater(presentation.ShrineChance, 0f);
+            Assert.IsTrue(presentation.ExplicitObstacles.Any(o => o.Kind == FieldObstacleKind.Column));
+            Assert.IsTrue(presentation.ExplicitObstacles.Any(o => o.Kind == FieldObstacleKind.Stump));
         }
 
         [Test]

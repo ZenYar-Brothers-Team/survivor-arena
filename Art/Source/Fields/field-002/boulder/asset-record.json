@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-002-BOULDER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+  "prompt": "Use case: game obstacle sprite concept for FIELD-002 Royal Road. Create ONE isolated weathered roadside boulder on truly transparent square canvas, no baseplate. 2D hand-drawn stylized storybook cutout; three-quarter top-down orthographic view, top and front faces visible. Broad low blue-grey stone, roughly 4:3 footprint, compact simple silhouette suited to a small player-only circular obstacle. Chunky irregular form, thick charcoal-plum outer outline, simple cel shade and faint matte paper texture. Subdued contrast against a taupe/blue-grey cobblestone road while still legible as collision obstacle. Single stone, generous padding, ground contact at bottom. No grass cluster, no ground shadow, no character, no text, no frame, no 3D rendering, no pixel art. At least 1024px square.",
+  "constraints": [
+    "approved FIELD-002 candidate",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-002/field-002-boulder-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "649a628eb6d9b2381db5450e23316921b5f88c18c9f708892c2741d9afa68ccc",
+    "runtimeSha256": "693859a29187919f2133d702b51e7cdfb70c665bedfa721bb82e076d24384b80",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

@@ -2034,6 +2034,176 @@
         "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "BOSS-002",
+      "role": "body",
+      "visualId": "BOSS-002-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-002/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-002/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-002/boss-002-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-002",
+      "role": "body",
+      "visualId": "MIDBOSS-002-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-002/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-002/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-002/midboss-002-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-002/midboss-002-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "FIELD-002",
+      "role": "tile",
+      "visualId": "FIELD-002-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-ground-tile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "FIELD-002-BOULDER",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-BOULDER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/boulder/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/boulder/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-boulder-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-boulder-prop",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "FIELD-002-COLUMN",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-COLUMN",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/column/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/column/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-column-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-column-prop",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T135835-874659Z/summary.json; authored Column obstacles use this sprite."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "FIELD-002-SHRINE",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-SHRINE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/shrine/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/shrine/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-shrine-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-shrine-prop",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T135835-874659Z/summary.json; sparse visual-only field decor uses this sprite."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "FIELD-002",
+      "role": "background",
+      "visualId": "FIELD-002-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-background",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "ENEMY-006",
+      "role": "body",
+      "visualId": "ENEMY-006-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-006/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-006/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-006/enemy-006-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-006/enemy-006-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
+      ],
+      "missing": "Target-scale gameplay visual review remains."
+    },
+    {
+      "owner": "ENEMY-008",
+      "role": "body",
+      "visualId": "ENEMY-008-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-008/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-008/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-008/enemy-008-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-008/enemy-008-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
+      ],
+      "missing": "Target-scale gameplay visual review remains."
+    },
+    {
+      "owner": "ENEMY-009",
+      "role": "body",
+      "visualId": "ENEMY-009-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-009/body/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-009/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-009/enemy-009-body.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-009/enemy-009-body",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
+      ],
+      "missing": "Target-scale gameplay visual review remains."
     }
   ]
 }

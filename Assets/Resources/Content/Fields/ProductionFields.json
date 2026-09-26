@@ -57,6 +57,7 @@
       "description": "учит учитывать геометрию и первые более плотные сочетания врагов.",
       "thumbnailPlaceholder": "Королевский тракт",
       "difficulty": 1,
+      "thumbnailVisualId": "FIELD-002-VISUAL-BACKGROUND",
       "unlockDescription": "Пройдите «Деревенскую окраину»",
       "environmentId": "FIELD-002-ENVIRONMENT",
       "timelineId": "FIELD-002-TIMELINE",

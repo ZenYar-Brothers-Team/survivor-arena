@@ -4,6 +4,7 @@ namespace Game.Presentation
     public enum FieldObstacleKind
     {
         Stump,
-        Fence
+        Fence,
+        Column
     }
 }

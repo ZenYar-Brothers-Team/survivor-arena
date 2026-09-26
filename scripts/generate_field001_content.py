@@ -329,9 +329,13 @@ ENEMY_VISUALS = {  # Imported FIELD-001 body references; motion profiles remain 
     "ENEMY-003": ("ENEMY-003-VISUAL-BODY", "ENEMY-001-MOTION"),
     "ENEMY-004": ("ENEMY-004-VISUAL-BODY", "ENEMY-001-MOTION"),
     "ENEMY-005": ("ENEMY-005-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-006": ("ENEMY-006-VISUAL-BODY", "ENEMY-001-MOTION"),
     "ENEMY-007": ("ENEMY-007-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-008": ("ENEMY-008-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-009": ("ENEMY-009-VISUAL-BODY", "ENEMY-001-MOTION"),
 }
-ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE"}
+ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE",
+                            "ENEMY-006": "ENEMY-005-VISUAL-PROJECTILE"}
 CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}
 
 
@@ -683,7 +687,7 @@ def bosses(baseline):
                 "knockbackResistance": entry["knockbackResistance"],
                 "contactControls": {"knockbackDistance": entry["contactKnockback"], "knockbackSeconds": entry["knockbackSeconds"]},
                 "movement": movement}
-        if art:  # FIELD-002 bosses have no approved body art yet (DECISION-0063): explicit placeholder
+        if art:
             data.update(visualId=f"{entry['id']}-VISUAL-BODY", motionProfileId="ENEMY-001-MOTION")
         data.update(extra or {})
         return data
@@ -727,6 +731,7 @@ def dash_ring(ring, kb_seconds):
     return {"pattern": "Ring", "damage": ring["damage"], "cooldownSeconds": 1, "projectileSpeed": ring["projectileSpeed"],
             "projectileLifetimeSeconds": ring["projectileLifetimeSeconds"], "projectileCount": ring["projectileCount"],
             "projectileRadius": ring["projectileRadius"], "telegraphSeconds": ring["telegraphSeconds"],
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
             "controls": {"knockbackDistance": ring["knockback"], "knockbackSeconds": ring["knockbackSeconds"] or kb_seconds}}
 
 
@@ -752,7 +757,7 @@ def field_two_bosses(baseline, names, body):
                     "dashSpeedMultiplier": move["dashSpeedMultiplier"], "showDashTelegraphLine": move["showDashTelegraphLine"]}
         encounter = {"id": entry["id"], "displayName": names[entry["id"]], "hook": hook,
                      "spawnOffsetX": entry["spawnOffset"][0], "spawnOffsetY": entry["spawnOffset"][1],
-                     "body": body(entry, movement, extra, art=False),
+                     "body": body(entry, movement, extra),
                      "phases": [{"id": f"{entry['id']}-PHASE-1", "healthThreshold": 1, "attackEnemyIds": []}]}
         if "teleport" in entry:
             encounter["teleport"] = boss_teleport(entry["teleport"])
@@ -822,6 +827,7 @@ def fields(baseline):
                     "enemyIds": [e["id"] for e in baseline["enemies"]]},
                    {"id": two["id"], "displayName": names[two["id"]], "description": card_field(two["id"], "Роль"),
                     "thumbnailPlaceholder": "Королевский тракт", "difficulty": two["difficulty"],
+                    "thumbnailVisualId": "FIELD-002-VISUAL-BACKGROUND",
                     "unlockDescription": "Пройдите «Деревенскую окраину»", "environmentId": "FIELD-002-ENVIRONMENT",
                     "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
                     "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
@@ -843,17 +849,19 @@ def field_presentation(baseline):
     data["obstacles"] = [{"id": o["id"], "kind": o["kind"], "x": o["x"], "y": o["y"], "width": o["width"], "height": o["height"]}
                          for o in field["obstacles"]]
     two = baseline["field002"]["field"]
-    # Road art is an open gate (DECISION-0063): until it is approved, FIELD-002 draws its own rects with the
-    # accepted FIELD-001 art — rocks and columns as stumps. Colliders always follow the authored rects.
-    interim = {"Rock": "Stump", "Column": "Stump"}
+    # Both authored obstacle families keep their gameplay rectangles; only the sprite family differs.
+    obstacle_kinds = {"Rock": "Stump", "Column": "Column"}
     for o in two["obstacles"]:
-        if o["rotationDegrees"] != 0 or o["kind"] not in interim:
+        if o["rotationDegrees"] != 0 or o["kind"] not in obstacle_kinds:
             raise SystemExit(f"{o['id']}: unsupported obstacle")
     second = dict(data, id="FIELD-002-PRESENTATION", environmentId="FIELD-002-ENVIRONMENT",
+                  groundVisualId="FIELD-002-VISUAL-GROUND", obstacleVisualId="FIELD-002-VISUAL-BOULDER",
+                  columnVisualId="FIELD-002-VISUAL-COLUMN", shrineVisualId="FIELD-002-VISUAL-SHRINE",
+                  shrineChance=0.025,
                   seed=data["seed"] + 1000, obstacleSeed=data["obstacleSeed"] + 1000,
                   interiorObstacleCount=len(two["obstacles"]),
                   nearObstacleCount=sum(1 for o in two["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
-    second["obstacles"] = [{"id": o["id"], "kind": interim[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
+    second["obstacles"] = [{"id": o["id"], "kind": obstacle_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                             "height": o["height"]} for o in two["obstacles"]]
     return [data, second]
 

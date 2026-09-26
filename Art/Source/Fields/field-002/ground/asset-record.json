@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-002",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+  "prompt": "Use case: top-down game environment tile concept for FIELD-002 Royal Road. Make ONE square seamless repeating 2D ground tile, edge-to-edge opaque image. A broad worn cobblestone road surface between villages: irregular blue-grey and warm taupe paving stones, sparse dusty mortar, very subdued tiny tufts in seams. Orthographic 3/4 top-down read but near-flat surface, no horizon and no road edges or border. Stylized hand-drawn storybook cutout game art, chunky shapes, charcoal-plum soft irregular linework, simple cel shading, matte color, little paper texture. Low saturation and low contrast so characters, cyan XP and coral hazard markers remain readable. Match a warm whimsical fairy-tale chase. Tile must join on all four edges without obvious repeated focal feature. No people, props, shadows, text, logos, lighting gradient, 3D render, pixel art. Square at least 1024px.",
+  "constraints": [
+    "approved FIELD-002 candidate",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-002/field-002-ground-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "512x512",
+    "sourceSha256": "dc8988c2d7be93965dacadeff5f8fdb8f54d809c0ee8d6c7386da82948777eef",
+    "runtimeSha256": "dc8988c2d7be93965dacadeff5f8fdb8f54d809c0ee8d6c7386da82948777eef",
+    "recipe": {
+      "mode": "copy"
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "6d380b07585145fa0316f51d4898feb6e8675aa0f6a600d1b7a5c220f3094f7a",
+  "technicalPreparation": "Ground: RGBA conversion, downscale to 256px, mirrored quadrants to seamless 512px tile."
+}

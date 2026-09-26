@@ -964,5 +964,65 @@
     "id": "SET-020-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Sets/set-020/set-020-projectile",
     "role": "Projectile"
+  },
+  {
+    "contactRadius": 0.742858,
+    "contactCenterY": 0.918418,
+    "id": "BOSS-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.618311,
+    "contactCenterY": 0.832151,
+    "id": "MIDBOSS-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-002/midboss-002-body",
+    "role": "Body"
+  },
+  {
+    "id": "FIELD-002-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-002-VISUAL-BOULDER",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-boulder-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-COLUMN",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-column-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-SHRINE",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-shrine-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-background",
+    "role": "Background"
+  },
+  {
+    "contactRadius": 0.336619,
+    "contactCenterY": 0.888349,
+    "id": "ENEMY-006-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-006/enemy-006-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.603173,
+    "contactCenterY": 0.73044,
+    "id": "ENEMY-008-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-008/enemy-008-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.458403,
+    "contactCenterY": 0.727409,
+    "id": "ENEMY-009-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Enemies/enemy-009/enemy-009-body",
+    "role": "Body"
   }
 ]

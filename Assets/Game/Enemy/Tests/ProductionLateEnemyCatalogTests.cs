@@ -135,14 +135,21 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void LateEnemies_HaveNoBodyArtYet_AndUseTheExplicitPlaceholder()
+        public void RemainingLateEnemies_UseTheExplicitPlaceholder()
         {
-            // Body/projectile art is a per-ID gate (DECISION-0062); no fixture art is borrowed for these IDs.
-            foreach (var enemy in ProductionEnemyCatalog.Create().Where(e => int.Parse(e.Id.ToString().Substring(6)) >= 8
-                         || e.Id.ToString() == "ENEMY-006"))
+            // Later enemy art remains a per-ID gate (DECISION-0062).
+            foreach (var enemy in ProductionEnemyCatalog.Create().Where(e => int.Parse(e.Id.ToString().Substring(6)) >= 10))
             {
                 Assert.IsFalse(enemy.Visual.Id.IsValid, enemy.Id.ToString());
                 if (enemy.Attack != null) Assert.IsFalse(enemy.Attack.ProjectileVisual.Id.IsValid, enemy.Id.ToString());
+            }
+            var crossbow = ProductionEnemyCatalog.Create().Single(e => e.Id.ToString() == "ENEMY-006");
+            Assert.AreEqual("ENEMY-005-VISUAL-PROJECTILE", crossbow.Attack.ProjectileVisual.Id.ToString());
+            foreach (var id in new[] { "ENEMY-006", "ENEMY-008", "ENEMY-009" })
+            {
+                var enemy = ProductionEnemyCatalog.Create().Single(e => e.Id.ToString() == id);
+                Assert.AreEqual(id + "-VISUAL-BODY", enemy.Visual.Id.ToString());
+                Assert.IsTrue(enemy.MotionProfile.Id.IsValid, id);
             }
         }
     }

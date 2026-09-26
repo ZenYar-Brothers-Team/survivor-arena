@@ -37,6 +37,8 @@ namespace Game.Bootstrap
             var obstacle = Resolve(definition.Obstacle, registry, SpriteRole.Prop);
             var bush = Resolve(definition.Bush, registry, SpriteRole.Prop);
             var grass = Resolve(definition.Grass, registry, SpriteRole.Prop);
+            var column = definition.Column.Id.IsValid ? Resolve(definition.Column, registry, SpriteRole.Prop) : null;
+            var shrine = definition.Shrine.Id.IsValid ? Resolve(definition.Shrine, registry, SpriteRole.Prop) : null;
             var transforms = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true)).ToList();
             var spawn = RequireUnique(transforms, environment.SpawnPointName);
             var obstacleTransform = RequireUnique(transforms, definition.ObstacleName);
@@ -54,7 +56,7 @@ namespace Game.Bootstrap
                     // Authored field (FIELD-001): the prototype scene obstacle is not part of this layout.
                     HidePlaceholder(obstacleTransform);
                     DisableSceneCollider(obstacleTransform);
-                    interiorObstacles = CreateAuthoredObstacles(definition, fence, obstacle);
+                    interiorObstacles = CreateAuthoredObstacles(definition, fence, obstacle, column);
                 }
                 else
                 {
@@ -62,7 +64,7 @@ namespace Game.Bootstrap
                     interiorObstacles = CreateInteriorObstacles(definition, fence, obstacle, spawn.position,
                         obstacleTransform.position, sideLength);
                 }
-                CreateDecor(definition, bush, grass, spawn.position, obstacleTransform.position, interiorObstacles, sideLength);
+                CreateDecor(definition, bush, grass, shrine, spawn.position, obstacleTransform.position, interiorObstacles, sideLength);
             }
             catch
             {
@@ -111,7 +113,7 @@ namespace Game.Bootstrap
             renderer.transform.rotation = Quaternion.Euler(0, 0, rotation);
         }
 
-        private void CreateDecor(FieldEnvironmentPresentationDefinition definition, Sprite bush, Sprite grass,
+        private void CreateDecor(FieldEnvironmentPresentationDefinition definition, Sprite bush, Sprite grass, Sprite shrine,
             Vector2 spawn, Vector2 obstacle, IReadOnlyList<Vector2> interiorObstacles, float sideLength)
         {
             var random = new Random(definition.Seed);
@@ -127,6 +129,11 @@ namespace Game.Bootstrap
                     Vector2.Distance(position, obstacle) < definition.SafeRadius ||
                     interiorObstacles.Any(item => Vector2.Distance(position, item) < 1.5f))
                     continue;
+                if (shrine != null && random.NextDouble() < definition.ShrineChance)
+                {
+                    CreateSprite("Shrine", shrine, position, 1f, 0f, -8, _root.transform);
+                    continue;
+                }
                 var useBush = random.NextDouble() < definition.BushChance;
                 var scale = useBush
                     ? Range(random, definition.BushScaleMin, definition.BushScaleMax)
@@ -208,7 +215,7 @@ namespace Game.Bootstrap
         }
 
         // Authored rectangles are the player-only collision boxes; sprites are scaled to the rectangle width.
-        private IReadOnlyList<Vector2> CreateAuthoredObstacles(FieldEnvironmentPresentationDefinition definition, Sprite fence, Sprite stump)
+        private IReadOnlyList<Vector2> CreateAuthoredObstacles(FieldEnvironmentPresentationDefinition definition, Sprite fence, Sprite stump, Sprite column)
         {
             var playerLayer = LayerMask.NameToLayer("Player");
             if (playerLayer < 0) throw new InvalidOperationException("Player layer is missing.");
@@ -216,7 +223,7 @@ namespace Game.Bootstrap
             foreach (var obstacle in definition.ExplicitObstacles)
             {
                 var isFence = obstacle.Kind == FieldObstacleKind.Fence;
-                var sprite = isFence ? fence : stump;
+                var sprite = obstacle.Kind == FieldObstacleKind.Column ? column : isFence ? fence : stump;
                 var position = new Vector2(obstacle.X, obstacle.Y);
                 var scale = obstacle.Width / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
                 var renderer = CreateSprite(obstacle.Id, sprite, position, scale, 0f, -2, _root.transform);

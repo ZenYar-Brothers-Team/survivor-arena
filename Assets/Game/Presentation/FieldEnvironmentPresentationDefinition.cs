@@ -14,6 +14,9 @@ namespace Game.Presentation
         public ContentRef<SpriteDefinition> Obstacle { get; }
         public ContentRef<SpriteDefinition> Bush { get; }
         public ContentRef<SpriteDefinition> Grass { get; }
+        public ContentRef<SpriteDefinition> Column { get; }
+        public ContentRef<SpriteDefinition> Shrine { get; }
+        public float ShrineChance { get; }
         public string ObstacleName { get; }
         public float FenceHeight { get; }
         public float ObstacleScale { get; }
@@ -51,6 +54,9 @@ namespace Game.Presentation
             Obstacle = new ContentRef<SpriteDefinition>(data.ObstacleVisualId);
             Bush = new ContentRef<SpriteDefinition>(data.BushVisualId);
             Grass = new ContentRef<SpriteDefinition>(data.GrassVisualId);
+            if (!string.IsNullOrWhiteSpace(data.ColumnVisualId)) Column = new ContentRef<SpriteDefinition>(data.ColumnVisualId);
+            if (!string.IsNullOrWhiteSpace(data.ShrineVisualId)) Shrine = new ContentRef<SpriteDefinition>(data.ShrineVisualId);
+            ShrineChance = data.ShrineChance ?? 0f;
             ObstacleName = data.ObstacleName;
             FenceHeight = Required(data.FenceHeight, nameof(data.FenceHeight));
             ObstacleScale = Required(data.ObstacleScale, nameof(data.ObstacleScale));
@@ -99,6 +105,11 @@ namespace Game.Presentation
             NumericValidation.ValidateNonNegative(DecorationJitter, nameof(DecorationJitter));
             NumericValidation.ValidateRange(DecorationChance, 0, 1, nameof(DecorationChance));
             NumericValidation.ValidateRange(BushChance, 0, 1, nameof(BushChance));
+            NumericValidation.ValidateRange(ShrineChance, 0, 1, nameof(ShrineChance));
+            if (ShrineChance > 0 && !Shrine.Id.IsValid)
+                throw new ArgumentException("shrineVisualId is required when shrineChance is positive.");
+            if (obstacles.Exists(item => item.Kind == FieldObstacleKind.Column) && !Column.Id.IsValid)
+                throw new ArgumentException("columnVisualId is required for column obstacles.");
             NumericValidation.ValidateNonNegative(DecorationMargin, nameof(DecorationMargin));
             NumericValidation.ValidateNonNegative(SafeRadius, nameof(SafeRadius));
             ValidateScaleRange(GrassScaleMin, GrassScaleMax, "grass");
@@ -125,6 +136,8 @@ namespace Game.Presentation
             yield return Obstacle.ToReference();
             yield return Bush.ToReference();
             yield return Grass.ToReference();
+            if (Column.Id.IsValid) yield return Column.ToReference();
+            if (Shrine.Id.IsValid) yield return Shrine.ToReference();
         }
 
         private static float Required(float? value, string name) =>

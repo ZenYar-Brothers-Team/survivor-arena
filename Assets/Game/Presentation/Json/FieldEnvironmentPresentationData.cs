@@ -9,6 +9,9 @@ namespace Game.Presentation.Json
         public string ObstacleVisualId { get; set; }
         public string BushVisualId { get; set; }
         public string GrassVisualId { get; set; }
+        public string ColumnVisualId { get; set; }
+        public string ShrineVisualId { get; set; }
+        public float? ShrineChance { get; set; }
         public string ObstacleName { get; set; }
         public float? FenceHeight { get; set; }
         public float? ObstacleScale { get; set; }

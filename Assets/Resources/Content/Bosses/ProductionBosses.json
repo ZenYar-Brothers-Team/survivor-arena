@@ -222,6 +222,8 @@
         "dashSpeedMultiplier": 4.5,
         "showDashTelegraphLine": true
       },
+      "visualId": "BOSS-002-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1.2,
         "knockbackSeconds": 0.12
@@ -235,6 +237,7 @@
         "projectileCount": 8,
         "projectileRadius": 0.15,
         "telegraphSeconds": 0,
+        "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
         "controls": {
           "knockbackDistance": 0.25,
           "knockbackSeconds": 0.12
@@ -307,6 +310,8 @@
         "dashSpeedMultiplier": 4.5,
         "showDashTelegraphLine": true
       },
+      "visualId": "MIDBOSS-002-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1,
         "knockbackSeconds": 0.12
@@ -320,6 +325,7 @@
         "projectileCount": 6,
         "projectileRadius": 0.14,
         "telegraphSeconds": 0,
+        "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
         "controls": {
           "knockbackDistance": 0.2,
           "knockbackSeconds": 0.12

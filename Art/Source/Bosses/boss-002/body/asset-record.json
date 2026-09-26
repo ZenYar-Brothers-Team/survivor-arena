@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-002",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+  "prompt": "Use case: game sprite concept. Asset: BOSS-002 Captain of the Royal Guard, a threatening but noble human pursuer in a warm ironic fairy tale survivor game. Create ONE full-body 2D hand-drawn storybook cutout sprite on a genuinely transparent background. Three-quarter top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, feet on a clear level ground-contact line. Very broad, compact armored torso and shoulders, disciplined confident face, imposing royal-blue and burgundy surcoat over polished muted steel, restrained captain's crest and one short thick sword held close to body. Distinguish him clearly from a sergeant by higher rank and stronger, ceremonial silhouette. Thick slightly irregular charcoal-plum outer outline, simple cel shade, matte color, 3-5 major shapes, tiny paper texture. Centered full silhouette with generous clear padding, no extreme thin protrusions; body suited to one circular contact area. No ground shadow, no effects, no text, no frame, no 3D rendering, no pixel art, no green goblin skin. Output single isolated sprite, square canvas at least 1024px.",
+  "constraints": [
+    "approved FIELD-002 candidate",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-002/boss-002-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "75bd666b666ee79eb623e38a9713954f8667e93c74e96e11f4f0cba221223435",
+    "runtimeSha256": "a6b535abcb1663a5c93bed73b4469942bb456600cd6db96f4aa4b244cc36ea71",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

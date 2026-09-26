@@ -139,10 +139,10 @@ IN GAME
 | ENEMY-003 | Дровосек | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-003/body/asset-record.json) |
 | ENEMY-004 | Пращник | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-004/body/asset-record.json) |
 | ENEMY-005 | Королевский лучник | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-005/body/asset-record.json) |
-| ENEMY-006 | Арбалетчик | Body sprite | Generate via GPT | NOT STARTED |  
+| ENEMY-006 | Арбалетчик | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-26; снаряд переиспользует ENEMY-005. [Provenance](../../Art/Source/Enemies/enemy-006/body/asset-record.json) |
 | ENEMY-007 | Охотничья гончая | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-007/body/asset-record.json) |
-| ENEMY-008 | Конный разведчик | Body sprite | Generate via GPT | NOT STARTED |  
-| ENEMY-009 | Щитоносец ополчения | Body sprite | Generate via GPT | NOT STARTED |  
+| ENEMY-008 | Конный разведчик | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-26. [Provenance](../../Art/Source/Enemies/enemy-008/body/asset-record.json) |
+| ENEMY-009 | Щитоносец ополчения | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-26. [Provenance](../../Art/Source/Enemies/enemy-009/body/asset-record.json) |
 | ENEMY-010 | Гвардейский стрелок | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-011 | Боевой капеллан | Body sprite | Generate via GPT | NOT STARTED |  
 | ENEMY-012 | Королевский копейщик | Body sprite | Generate via GPT | NOT STARTED |  
@@ -179,7 +179,7 @@ IN GAME
 | ID | Boss | Asset | Method | Status |  
 |---|---|---|---|---|  
 | BOSS-001 | Староста-герой | Body sprite | Generate via GPT | IN GAME — body/projectile v001, приняты 2026-09-24. [Body provenance](../../Art/Source/Bosses/boss-001/body/asset-record.json), [projectile provenance](../../Art/Source/Bosses/boss-001/projectile/asset-record.json) |
-| BOSS-002 | Капитан королевской стражи | Body sprite | Generate via GPT | NOT STARTED |  
+| BOSS-002 | Капитан королевской стражи | Body sprite | Generate via GPT | IN GAME — body v001 утверждён и подключён 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-002/body/asset-record.json) |
 | BOSS-003 | Главный королевский ловчий | Body sprite | Generate via GPT | NOT STARTED |  
 | BOSS-004 | Рыцарь знамени | Body sprite | Generate via GPT | NOT STARTED |  
 | BOSS-005 | Великий инквизитор | Body sprite | Generate via GPT | NOT STARTED |  
@@ -198,7 +198,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 | ID | Mid-boss | Asset | Method | Status |  
 |---|---|---|---|---|  
 | MIDBOSS-001 | Старший загонщик | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Bosses/midboss-001/body/asset-record.json) |
-| MIDBOSS-002 | Сержант стражи | Body sprite | Generate via GPT | NOT STARTED |  
+| MIDBOSS-002 | Сержант стражи | Body sprite | Generate via GPT | IN GAME — body v001 утверждён и подключён 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-002/body/asset-record.json) |
 | MIDBOSS-003 | Королевский следопыт | Body sprite | Generate via GPT | NOT STARTED |  
 | MIDBOSS-004 | Рыцарь-преследователь | Body sprite | Generate via GPT | NOT STARTED |  
 | MIDBOSS-005 | Капитан городской стражи | Body sprite | Generate via GPT | NOT STARTED |  
@@ -383,7 +383,7 @@ Generic rule: set effects должны быть вторичным визуал�
 | ID | Field | Needed art | Method | Status |  
 |---|---|---|---|---|  
 | FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + куст/трава; production geometry и thumbnail | Generate via GPT / Hybrid | Thumbnail v001 IN GAME, принят 2026-09-24; geometry и полный run оцениваются отдельно. [Provenance](../../Art/Source/Fields/field-001/background/asset-record.json) |
-| FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | NOT STARTED |  
+| FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | Ground, boulder, колонна, святилище и thumbnail v001 подключены 2026-09-26; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-26-field002-art.md) |
 | FIELD-003 | Пограничные руины | Ground/background \+ ruins/walls/bridge-style props | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-005 | Королевская столица | Ground/background \+ city decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
@@ -452,7 +452,7 @@ Method: \`Generate via GPT\`.
 | 14 passive icons | Generate via GPT | IMAGE APPROVED — v001 | 14 masters/runtime imports; 9 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-18 binding remain |
 | 20 set icons | Generate via GPT | IMAGE APPROVED — v001 | 20 masters/runtime imports; 4 matching fixture mappings show for acquired sets; set-progress UI review and production IP-19 binding remain |
 | Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  
-| Field thumbnails | Generate / derive from field art | FIELD-001 IN GAME, принят; FIELD-002…010 NOT STARTED | FIELD-001 показывает отдельную картинку в Field Select. Остальные поля получают thumbnail при реализации. |
+| Field thumbnails | Generate / derive from field art | FIELD-001 IN GAME, принят; FIELD-002 IN GAME, gameplay-scale review открыт; FIELD-003…010 NOT STARTED | FIELD-001 и FIELD-002 показывают отдельные картинки в Field Select. Остальные поля получают thumbnail при реализации. |
 | Meta-upgrade icons | Generate via GPT as content is defined | NOT STARTED | Только для реально реализованных permanent upgrades |  
 | Pickup icons if UI needs separate icon | Reuse world sprite / Generate if needed | NOT STARTED | Не создавать отдельный asset без необходимости |
 

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-002",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+  "prompt": "Use case: FIELD-002 Royal Road field-selection thumbnail concept for a 2D survivor game. Create one clean landscape illustration, 3:2 composition, no text, no UI frame. Three-quarter top-down view of a broad blue-grey cobblestone royal road winding between warm dusty villages; groups of roadside boulders and squat guard-post columns form wide passages, a tiny pale roadside shrine, low hills and a distant watch post. Tell the warm ironic fairy-tale pursuit setting through the environment only: organized royal route beyond a humble village. No characters or active attacks. Hand-drawn stylized storybook cutout, strong chunky shapes, thick subtly irregular charcoal-plum outlines, matte muted royal blue, taupe, stone grey and dusty ochre; simple cel shading, light paper texture. Readable when reduced to a small field-select card, open central road as focal shape. No lettering, number, logos, border, photorealism, 3D render, pixel art.",
+  "constraints": [
+    "approved FIELD-002 candidate",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-002/field-002-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "5901b65de92b1b453498ccff1e1ff69e63a5349e1e6968ce6e852a81f38d4b74",
+    "runtimeSha256": "5901b65de92b1b453498ccff1e1ff69e63a5349e1e6968ce6e852a81f38d4b74",
+    "recipe": {
+      "mode": "copy"
+    }
+  },
+  "originalGeneratedImage": "original-generated.png",
+  "originalSha256": "4aa0f6cc87e789dc17b1d1de8dcc97f430d214cb750f92b58cf47ff4ea4f8b25",
+  "technicalPreparation": "Thumbnail: RGB-to-RGBA conversion without changing visible pixels."
+}

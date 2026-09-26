@@ -262,5 +262,85 @@
     "pivotY": 0.107,
     "reason": "CHAR-005 authored foot contact on the 512px body derivative; 320 PPU player-body contract.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-005/char-005-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.045,
+    "reason": "BOSS-002 512px body; foot-contact pivot measured from approved silhouette, boss scale matches BOSS-001.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-002/boss-002-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.075,
+    "reason": "MIDBOSS-002 512px body; foot-contact pivot measured from approved silhouette, mid-boss scale matches MIDBOSS-001.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-002/midboss-002-body.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 mirrored-edge 512px tile covers eight world units per repeat.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 boulder uses a 1.6-unit prop canvas; collider remains authored in field data.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-boulder-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 column uses a 1.6-unit prop canvas; awaiting distinct obstacle mapping.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-column-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 shrine is non-colliding decor; awaiting distinct decor mapping.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-shrine-prop.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-background.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.045,
+    "reason": "ENEMY-006 256px body; foot-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-006/enemy-006-body.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.08,
+    "reason": "ENEMY-008 256px mounted-body canvas at 128 PPU; hoof contact pivot measured from approved silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-008/enemy-008-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.075,
+    "reason": "ENEMY-009 256px body; foot-contact pivot measured from approved silhouette; 160 PPU ordinary-enemy canvas.",
+    "key": "Assets/Resources/Art/Sprites/Enemies/enemy-009/enemy-009-body.png"
   }
 ]

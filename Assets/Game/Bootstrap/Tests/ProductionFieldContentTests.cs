@@ -40,12 +40,9 @@ namespace Game.Bootstrap.Tests
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
-            // FIELD-002 bosses have no approved body art yet (DECISION-0063 art gate); they must not borrow any.
-            foreach (var id in new[] { "BOSS-002", "MIDBOSS-002" })
-                Assert.IsFalse(catalog.Bosses.Single(boss => boss.Id.ToString() == id).Body.Visual.Id.IsValid, id);
-            var bodies = catalog.Bosses.Where(boss => boss.Id.ToString().EndsWith("-001")).Select(boss => boss.Body)
+            var bodies = catalog.Bosses.Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
-            Assert.AreEqual(5, bodies.Length, "MIDBOSS-001, BOSS-001, TRAVELER-001/002/005.");
+            Assert.AreEqual(7, bodies.Length, "FIELD-001/002 bosses and the three implemented Travelers.");
             foreach (var body in bodies)
             {
                 var visual = EnemyBodyVisual.Resolve(body, catalog.Registry);

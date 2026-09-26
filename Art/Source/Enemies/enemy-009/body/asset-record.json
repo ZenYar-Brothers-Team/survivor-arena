@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-009",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+  "prompt": "Use case: production enemy body candidate for a 2D Unity survivor game. ENEMY-009, Militia Shieldbearer, a very durable slow frontline pursuer from the Royal Road. ONE isolated full-body human sprite on a genuinely transparent square canvas, no ground shadow. Three-quarter top-down orthographic gameplay view, facing RIGHT and slightly toward viewer; neutral compact animation-ready stance, both boots on one horizontal contact line. Broad heavy torso, planted short stance, one LARGE battered rectangular blue-grey shield held close in front-right of his body as the dominant silhouette, other hand with a short blunt sidearm tucked close. Worn militia armor and quilted burgundy/ochre cloth, less noble than the royal captain, stern determined expression. Readable instantly at 256px as a shield wall that takes many hits; shield must not entirely hide face and torso. Compact silhouette suitable for one centered circular contact profile; no long spear or far protruding weapon. Warm ironic fairy-tale chase, 2D hand-drawn storybook cutout, chunky 3–5 large forms, thick slightly irregular charcoal-plum outline, simple cel shading, matte muted colors, subtle paper texture. Body spans about 70–78% canvas height with generous true-alpha margin. No battle effects, arrows, text, scenery, frame, pixel art, pseudo-3D rendering or green goblin skin.",
+  "constraints": [
+    "approved FIELD-002 enemy candidate",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-009/enemy-009-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "1c68a4a56a657b1db1604ea7f4ae03fcb41e14f621f3641ca5902ad3fa213f92",
+    "runtimeSha256": "6f2c6e2f093e7cdabd9e60aada6f39eb10a6c00dc7ac38f02bae9c3cacb08407",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

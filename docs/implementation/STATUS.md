@@ -2,7 +2,7 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (срез FIELD-002 по DECISION-0063, Unity 802/802 EditMode + 28/28 PlayMode; ранее IP-20 враги DECISION-0062)
+Last repository audit: 2026-09-26 (арт FIELD-002: ENEMY-006/008/009, колонна/святилище и повторное использование снарядов подключены; Unity 802/802 EditMode + 28/28 PlayMode; ранее срез FIELD-002 DECISION-0063)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
 Next Ready packet: нет. Срез FIELD-002 F2-01…05 Implemented 2026-09-26; F2-06 ждёт ручного прогона FIELD-002 ([очередь](#field002-execution)). IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
@@ -207,8 +207,8 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | Приоритет | Packet / владельцы | Status | Prerequisites / gate |
 |---:|---|---|---|
 | 1 | F2-01 — атака в конце рывка и повторный залп (IP-15/IP-21 framework) | Implemented | 2026-09-26: `EnemyDashVolleyProfile/Controller`, JSON `dashEndAttack`/`dashEndRepeat`, масштаб волн; EditMode 211/211 (Enemy/Traveler/Bootstrap) |
-| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Implemented | 2026-09-26; тела — art gate, placeholders; [evidence](evidence/2026-09-26-field002-slice.md) |
-| 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Implemented | 2026-09-26; арт тракта — gate, временно спрайт пня FIELD-001 по авторским прямоугольникам; [evidence](evidence/2026-09-26-field002-slice.md) |
+| 2 | F2-02 — BOSS-002/MIDBOSS-002 production encounters (IP-21) | Implemented | 2026-09-26; оба body v001 утверждены, импортированы и подключены; gameplay-scale review открыт. [Encounter evidence](evidence/2026-09-26-field002-slice.md), [art evidence](evidence/2026-09-26-field002-art.md) |
+| 3 | F2-03 — поле FIELD-002: геометрия, окружение, выбор поля (IP-23) | Implemented | 2026-09-26; ground, boulder, column, shrine и thumbnail v001 подключены; boundary использует прежний плетень, gameplay-scale review открыт. [Field evidence](evidence/2026-09-26-field002-slice.md), [art evidence](evidence/2026-09-26-field002-art.md) |
 | 4 | F2-04 — волны FIELD-002 и модификаторы поля (IP-24) | Implemented | 2026-09-26; [evidence](evidence/2026-09-26-field002-slice.md) |
 | 5 | F2-05 — общий пул Путников без повторов ролей (IP-29/IP-30) | Implemented | 2026-09-26; [evidence](evidence/2026-09-26-field002-slice.md) |
 | 6 | F2-06 — приёмка: прогоны FIELD-002, сложность, производительность | Blocked | F2-01…05 Implemented (Unity 802/802 + 28/28); нужен ручной прогон пользователя |
@@ -641,11 +641,11 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-04 — ENEMY-001…005, ENEMY-007 и PICKUP-001. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-04, IP-13, IP-28, IP-12A
-Blocked by: body/projectile art ENEMY-006, 008…020 (per-ID art gate). Данные и поведение всех 20 врагов реализованы 2026-09-26.
+Blocked by: body art ENEMY-010…020 и нужный projectile art для этих последующих ID (per-ID art gate). ENEMY-006 переиспользует ENEMY-005 projectile. Данные и поведение всех 20 врагов реализованы 2026-09-26.
 Remaining gates: G-10 semantics/lifecycle закрыты DECISION-0033/IP-28. G-14: contact intervals, недостающие attack/drop/healing values; AG-01 для конкретных картинок. Approved design не означает complete JSON.
-Remaining acceptance / IDs: ENEMY-006, ENEMY-008…020; startup body art принят 2026-09-24.
+Remaining acceptance / IDs: ENEMY-006/008/009 gameplay-scale review; ENEMY-010…020 art; startup body art принят 2026-09-24.
 Data packet 2026-09-26: [enemies-v1](../balance/enemies-v1.md) — недостающие параметры 14 врагов, скорость ×1.3 к карточной по образцу FIELD-001, прочие карточные числа без изменений; Approved 2026-09-26 ([DECISION-0062](../decisions/0062-enemies-data-v1.md)); static validator PASS; G-14 для этих ID закрыт.
-Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты), placeholders до арта; Unity full PASS 790/790 + 27/27 — [evidence](evidence/2026-09-26-enemies-v1.md).
+Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты); ENEMY-006/008/009 body art подключён 2026-09-26, ENEMY-010…020 остаются placeholders; Unity full PASS 802/802 + 28/28 — [data evidence](evidence/2026-09-26-enemies-v1.md), [art evidence](evidence/2026-09-26-field002-enemy-art.md).
 Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 ENEMY-007 body contact refit to its approved half-size v002 sprite: radius 0.266696, centerY 0.299833; global contact fit PASS, Unity full smoke 784/784 EditMode и 27/27 PlayMode, zero skipped — [evidence](evidence/2026-09-26-enemy007-contact-refit.md). Остальные gates и статус IP-20 не изменились.
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).
@@ -660,7 +660,7 @@ Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04
 Dependencies: IP-15, IP-12A
 Blocked by: G-14 production attack payload/rewards/timings и per-ID asset packet readiness.
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
-Remaining acceptance / IDs: BOSS-002…010, MIDBOSS-002…010; startup body/projectile art принят 2026-09-24.
+Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
@@ -688,7 +688,7 @@ Startup packet: F1-08 — FIELD-001 geometry/environment/metadata/thumbnail. Req
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
-Remaining acceptance / IDs: FIELD-002…010, geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification.
+Remaining acceptance / IDs: FIELD-002 gameplay-scale review; FIELD-003…010 geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-08: FIELD-001 geometry/obstacles/metadata/environment Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.

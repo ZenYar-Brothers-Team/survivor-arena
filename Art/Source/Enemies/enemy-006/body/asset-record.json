@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-006",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+  "prompt": "Use case: production enemy body candidate for a 2D Unity survivor game. ENEMY-006, Royal Guard Crossbowman. ONE isolated full-body human soldier sprite on a genuinely transparent square canvas, no ground shadow. Stylized hand-drawn storybook cutout consistent with a blue-and-gold royal archer and armored guard captain: thick irregular dark charcoal-plum outline, chunky readable 3–5 shape silhouette, matte muted royal blue, cream linen and warm steel, simple cel shade, minimal fine detail. Three-quarter top-down orthographic gameplay view, facing RIGHT and slightly toward viewer, composed neutral animation-ready stance with both boots on same horizontal ground-contact line. Trained focused pursuer, upright human proportions, blue short guard tabard and simple helmet. Hold a compact visibly mechanical CROSSBOW across the torso, stock and bow limbs kept close to body, clearly distinct from a longbow or firearm. The crossbow must remain readable when reduced to a 256px enemy sprite. Body approximately 70–78% canvas height with generous alpha margin, compact enough for one circular contact profile. No bolts in flight, no baked attack flash or trails, no text, frame, scenery, pixel art, pseudo-3D rendering, green skin or goblin features.",
+  "constraints": [
+    "approved FIELD-002 enemy candidate",
+    "transparent background",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-006/enemy-006-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "0d004573077dbacb9e451ca49eda1cbbc43a32a79db26d9f6bec155929f5d90b",
+    "runtimeSha256": "1e446ab2ac0c5f73f149f87d3ff41fa89c096e682fa56b1fb4251ac8dfd3eda2",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}
