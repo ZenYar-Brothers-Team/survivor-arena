@@ -38,6 +38,9 @@ namespace Game.UI
             _view.PauseRequested += HandlePauseRequested;
             _view.SpeedRequested += HandleSpeedRequested;
             _view.AddExperienceRequested += HandleAddExperienceRequested;
+            _view.AddLargeExperienceRequested += HandleAddLargeExperienceRequested;
+            _view.AddRerollsRequested += HandleAddRerollsRequested;
+            _view.UnlockAllDraftEntriesRequested += HandleUnlockAllDraftEntriesRequested;
             _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
             _view.ApplyHealingRequested += HandleApplyHealingRequested;
@@ -391,10 +394,33 @@ namespace Game.UI
             if (_model.SetSpeed(multiplier)) RefreshHud();
         }
 
+        // Development command amounts (DECISION-0005 debug surface), not gameplay tuning.
+        private const float SmallExperienceGrant = 5f;
+        private const float LargeExperienceGrant = 100f;
+        private const int RerollGrant = 100;
+
         private void HandleAddExperienceRequested()
         {
             if (_model.DevelopmentCommandsEnabled)
-                _model.AddFixtureExperience();
+                _model.AddFixtureExperience(SmallExperienceGrant);
+        }
+
+        private void HandleAddLargeExperienceRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled)
+                _model.AddFixtureExperience(LargeExperienceGrant);
+        }
+
+        private void HandleAddRerollsRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled && _model.RunState != RunState.Won && _model.RunState != RunState.Lost)
+                _model.GrantFixtureRerolls(RerollGrant);
+        }
+
+        private void HandleUnlockAllDraftEntriesRequested()
+        {
+            if (_model.DevelopmentCommandsEnabled)
+                _model.UnlockAllDraftEntries();
         }
 
         private void HandleAddBookRequested()
@@ -437,6 +463,9 @@ namespace Game.UI
             _view.PauseRequested -= HandlePauseRequested;
             _view.SpeedRequested -= HandleSpeedRequested;
             _view.AddExperienceRequested -= HandleAddExperienceRequested;
+            _view.AddLargeExperienceRequested -= HandleAddLargeExperienceRequested;
+            _view.AddRerollsRequested -= HandleAddRerollsRequested;
+            _view.UnlockAllDraftEntriesRequested -= HandleUnlockAllDraftEntriesRequested;
             _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;
             _view.ApplyHealingRequested -= HandleApplyHealingRequested;

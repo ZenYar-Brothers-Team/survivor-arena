@@ -25,3 +25,6 @@ runtime-параметр нельзя заполнять скрытым default 
 - World art SKILL-009/011/012/015/016 — отдельные per-ID gates; fixture fallback не используется.
 - Настройка после плейтеста — через BALANCE_WORKFLOW, отдельной правкой данных.
 - Проверка таблицы: `python -X utf8 docs/balance/validate_late_skills_passives.py` (PASS 2026-09-26).
+- Визуал 2026-09-26: процедурные растровые кандидаты пользователь отклонил; луч SKILL-012 рисуется
+  процедурно (выбор пользователя), world art SKILL-009/011/015/016 пользователь сгенерирует отдельно, до этого
+  они показывают явный placeholder. Реализация: [evidence](../implementation/evidence/2026-09-26-late-skills-passives.md).

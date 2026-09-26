@@ -55,7 +55,23 @@
         "weight": 1.35
       },
       {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 0.7
+      },
+      {
         "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
         "weight": 1
       },
       {
@@ -65,6 +81,14 @@
       {
         "skillId": "SKILL-014",
         "weight": 0.7
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
       }
     ],
     "presentation": {

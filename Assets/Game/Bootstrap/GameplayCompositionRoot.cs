@@ -472,7 +472,8 @@ namespace Game.Bootstrap
                     (roster ?? new CharacterRoster(Catalog.Characters.AllCharacters, new ProfileAccessProvider(Profile))).UnlockedCharacters,
                     enemySpawner,
                     Playtest,
-                    BossEncounters, Pickups, Travelers);
+                    BossEncounters, Pickups, Travelers,
+                    Catalog.BuildEntries); // development "unlock all" draws from the whole catalog, never the save
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
                 _profileBinding = new ProfileRunBinding(runController.Model, Profile);
                 initializedSubsystems.Add(_profileBinding.Dispose);

@@ -10,7 +10,7 @@ namespace Game.ActiveSkill
 {
     /// <summary>
     /// Pooled procedural world shapes for skills without projectile sprites (expanding pulse,
-    /// lightning arcs, strike telegraphs). Owns only presentation; gameplay sizes are passed in.
+    /// lightning arcs, strike telegraphs, beams). Owns only presentation; gameplay sizes are passed in.
     /// Time advances only while the run is running; <see cref="Clear"/> returns every renderer.
     /// </summary>
     internal sealed class SkillWorldEffectPresenter : IDisposable
@@ -104,6 +104,22 @@ namespace Game.ActiveSkill
             var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
             var shape = Rent(PlaceholderSprite.Shared, profile.Color, (from + to) * .5f, angle, profile.FadeSeconds, false);
             shape.Renderer.transform.localScale = new Vector3(length, profile.Thickness, 1f);
+        }
+
+        /// <summary>
+        /// One beam pulse along the gameplay hit band: a soft glow as wide as the band and a bright core of
+        /// <see cref="SkillWorldEffectProfile.Thickness"/>, both fading over the profile fade time.
+        /// </summary>
+        public void BeamPulse(SkillWorldEffectProfile profile, Vector2 origin, Vector2 direction, float length, float width)
+        {
+            if (length <= Mathf.Epsilon || width <= Mathf.Epsilon || direction.sqrMagnitude <= Mathf.Epsilon) return;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var size = ProceduralShapeSprites.Beam.bounds.size;
+            var glow = Rent(ProceduralShapeSprites.Beam, profile.Color, origin, angle, profile.FadeSeconds, false);
+            glow.Renderer.transform.localScale = new Vector3(length / size.x, width / size.y, 1f);
+            var core = Rent(ProceduralShapeSprites.Beam, profile.ImpactColor, origin, angle, profile.FadeSeconds, false);
+            core.Renderer.sortingOrder = SortingOrder + 1;
+            core.Renderer.transform.localScale = new Vector3(length / size.x, Mathf.Min(profile.Thickness, width) / size.y, 1f);
         }
 
         public void Tick(float deltaTime)

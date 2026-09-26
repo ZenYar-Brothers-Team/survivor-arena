@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (DECISION-0056 слой врагов, Unity 757/757 EditMode + 27/27 PlayMode; ранее исправления по плейтестам 2026-09-24, Unity 718/718 EditMode + 27/27 PlayMode; до этого: F1-00…08 Verified; FIELD-001 art принят пользователем — Unity 709/709 EditMode, 26/26 PlayMode; F1-09 Blocked до полной матрицы прогона)
+Last repository audit: 2026-09-26 (поздние умения/пассивки DECISION-0060 и процедурный луч, Unity 766/766 EditMode + 27/27 PlayMode; ранее DECISION-0056 слой врагов, 757/757 + 27/27)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: IP-17 (общий backlog; пользователь 2026-09-26 разрешил идти дальше). F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)). Data packet [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для остатка IP-17/IP-18 Approved 2026-09-26 (DECISION-0060) → **IP-17 Ready** (первый по порядку), IP-18 Ready.
+Next Ready packet: нет. IP-17 Blocked на world art SKILL-009/011/015/016 (пользователь сгенерирует отдельно), IP-18 Implemented (ждёт ручной проверки иконок); IP-19 и дальше заблокированы IP-17 и собственными gates. F1-09 Blocked до ручных прогонов и приёмки пользователя (см. [очередь](#field001-execution)).
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -574,13 +574,14 @@ Target verification evidence: none для field-001-start-R1 delta; прежни
 
 ### IP-17 — Production Active Skills SKILL-001…016
 
-Status: Ready
+Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-01 — SKILL-001…007/010/013/014. Required packets: F1-00; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-08, IP-10A, IP-12A
-Blocked by: нет для данных (DECISION-0060). World art SKILL-009/011/012/015/016 — per-ID gate: эти ID нельзя связать с production visual без утверждённого арта.
+Blocked by: world art SKILL-009/011/015/016 (per-ID art gate; пользователь сгенерирует отдельно). Данные и поведение всех 16 ID реализованы.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; нужны полные параметры 16 skills; G-04 только если решение меняет SKILL-008; images проходят asset gates.
-Remaining acceptance / IDs: SKILL-008/009/011/012/015/016 и Unity verification стартового поднабора.
+Remaining acceptance / IDs: world visuals SKILL-009/011/015/016 (сейчас явный placeholder); ручная проверка читаемости луча и снарядов на реальной скорости.
+Late IDs 2026-09-26: SKILL-008/009/011/012/015/016 Implemented (production JSON, per-ID тесты L1…L6), луч SKILL-012 — процедурный; Unity full PASS 766/766 + 27/27 — [evidence](evidence/2026-09-26-late-skills-passives.md).
 Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для SKILL-008/009/011/012/015/016 — Approved 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); static validator PASS; блокер «per-level parameters» для этих ID снят; world art SKILL-009/011/012/015/016 остаётся per-ID gate.
 Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
 Target implementation evidence: F1-01 subset only.
@@ -589,13 +590,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17)
 
 ### IP-18 — Production Passive Items PASSIVE-001…014
 
-Status: Ready
+Status: Implemented
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-02 — PASSIVE-001…005/007…009/011/012. Required packets: F1-00/01; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-09, IP-10A, IP-12A, IP-28
-Blocked by: нет — значения PASSIVE-006/010/013/014 и каналы утверждены (DECISION-0060); prerequisite IP-28 выполнен.
+Blocked by: нет.
 Remaining gates: G-08/G-09 закрыты DECISION-0017; G-10 закрыт DECISION-0033/IP-28; полные значения 14 passives остаются; отсутствие конкретного runtime parameter не заполняется hidden default.
-Remaining acceptance / IDs: PASSIVE-006/010/013/014 и Unity verification стартового поднабора.
+Remaining acceptance / IDs: все 14 ID реализованы; осталась ручная проверка читаемости иконок PASSIVE-006/010/013/014 в draft/build slots.
+Late IDs 2026-09-26: PASSIVE-006/010/013/014 Implemented, Unity full PASS 766/766 + 27/27 — [evidence](evidence/2026-09-26-late-skills-passives.md).
 Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для PASSIVE-006/010/013/014 — значения карточек и каналы, Approved 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); static validator PASS.
 Startup subset F1-02: PASSIVE-001…005/007…009/011/012 Implemented 2026-09-24 — [evidence](evidence/field001-f1-02-2026-09-24.md).
 Target implementation evidence: F1-02 subset only.
@@ -770,3 +772,5 @@ Gameplay review выявил недостаточную плотность FIELD
 ### Traveler placement performance fix — 2026-09-24
 
 Журнал Editor показал повторяющиеся `Pickup.ReachablePlacement` по 29–36 мс во время движения Путника: каждый кадр заново строилась сетка достижимости поля с 64 внутренними препятствиями. Для перемещения от уже достижимой точки к свободной точке без пересечения препятствий добавлена прямая проверка сегмента; перекрытый путь по-прежнему использует прежнюю полную проекцию. Это техническое исправление без изменения правил движения и поддержки. Регрессионные тесты: **714/714 Game.* EditMode**, **27/27 PlayMode**, zero skipped, Unity 6000.6.0f1. Статусы IP и Execution order не менялись.
+
+Dev-панель 2026-09-26 (поручение пользователя): `+100 XP`, `+100 rerolls` и «Unlock all skills/passives/sets (run)» — только текущий забег, профиль не меняется; Unity 768/768 + 27/27. [Evidence](evidence/2026-09-26-late-skills-passives.md#dev-панель-поручение-пользователя-2026-09-26). Статусы IP и Execution order не менялись.

@@ -54,7 +54,8 @@ namespace Game.UI
             ContentRegistry registry,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
-            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
+            IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null,
+            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -92,7 +93,7 @@ namespace Game.UI
                 presentation,
                 Debug.isDebugBuild || Application.isEditor,
                 unlockedCharacters,
-                enemySpawner, bosses);
+                enemySpawner, bosses, allDraftEntries);
             _presenter = new GameplayUiPresenter(_model, _view, registry);
             _presenter.Start();
             _playtestView = new UiToolkitPlaytestView(_document.rootVisualElement);

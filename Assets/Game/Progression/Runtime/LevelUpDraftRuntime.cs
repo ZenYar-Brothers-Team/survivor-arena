@@ -185,6 +185,26 @@ namespace Game.Progression
             _initialized = true;
         }
 
+        /// <summary>Development command: adds rerolls for this run only.</summary>
+        public void GrantDevelopmentRerolls(int count)
+        {
+            if (!_initialized) throw new InvalidOperationException("Level-up draft runtime is not initialized.");
+            Controls.GrantRerolls(count);
+            Changed?.Invoke();
+        }
+
+        /// <summary>
+        /// Development command: adds entries (e.g. profile-locked skills/passives/sets) to this run's draft pool.
+        /// The profile save is not touched; set recipes still apply.
+        /// </summary>
+        public int AddDevelopmentDraftEntries(IEnumerable<BuildEntryDefinition> definitions)
+        {
+            if (!_initialized) throw new InvalidOperationException("Level-up draft runtime is not initialized.");
+            var added = _pool.AddDefinitions(definitions);
+            if (added > 0) Changed?.Invoke();
+            return added;
+        }
+
         // Compatibility entry points for direct model callers. UI always supplies its captured revision.
         public bool Select(ContentId id) => Select(id, Revision);
         public bool Select(ContentId id, Guid revision)

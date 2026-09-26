@@ -23,17 +23,17 @@ namespace Game.Progression.Tests
         }
 
         [Test]
-        public void DraftWeights_CoverOnlyStartupSkills_WithCardDirection()
+        public void DraftWeights_CoverAllSkills_WithCardDirection()
         {
             var character = ProductionCharacterDefinitionCatalog.CreateDefinitions().Single();
-            Assert.AreEqual(10, character.DraftWeights.Count);
+            Assert.AreEqual(16, character.DraftWeights.Count);
             Assert.AreEqual(1.35f, character.GetDraftWeight(new ContentId("SKILL-002")), 1e-5f);
             Assert.AreEqual(1.35f, character.GetDraftWeight(new ContentId("SKILL-005")), 1e-5f);
             Assert.AreEqual(1.35f, character.GetDraftWeight(new ContentId("SKILL-007")), 1e-5f);
             Assert.AreEqual(0.7f, character.GetDraftWeight(new ContentId("SKILL-014")), 1e-5f);
             Assert.AreEqual(1f, character.GetDraftWeight(new ContentId("SKILL-001")), 1e-5f);
-            Assert.IsFalse(character.DraftWeights.ContainsKey(new ContentId("SKILL-009")),
-                "Late skills are not production definitions in FIELD-001; their weights stay baseline metadata.");
+            Assert.AreEqual(0.7f, character.GetDraftWeight(new ContentId("SKILL-009")), 1e-5f,
+                "Late skills carry their baseline weight; profile access still filters locked ones (DECISION-0060).");
         }
 
         [Test]

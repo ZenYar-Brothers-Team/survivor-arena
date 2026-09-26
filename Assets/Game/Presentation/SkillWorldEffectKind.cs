@@ -5,6 +5,8 @@ namespace Game.Presentation
     {
         ExpandingRing,
         ChainArc,
-        StrikeTelegraph
+        StrikeTelegraph,
+        /// <summary>Pulsing beam band redrawn on every damage tick (SKILL-012).</summary>
+        Beam
     }
 }

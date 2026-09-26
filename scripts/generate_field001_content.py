@@ -1,6 +1,7 @@
 """Generate FIELD-001 production content JSON from the approved balance baseline.
 
-Source of numbers: docs/balance/field001-baseline-v1.json (Approved, DECISION-0053).
+Source of numbers: docs/balance/field001-baseline-v1.json (Approved, DECISION-0053) and, for the
+late skills/passives, docs/balance/late-skills-passives-v1.json (Approved, DECISION-0060).
 The baseline is a review format and is never loaded by Unity; this script maps it
 losslessly into the runtime DTO layout. Run from the repository root:
 
@@ -18,10 +19,17 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / "docs/balance/field001-baseline-v1.json"
 
 
+LATE_PACKET = ROOT / "docs/balance/late-skills-passives-v1.json"
+
+
 def load_baseline():
     data = json.loads(BASELINE.read_text(encoding="utf-8"))
     if data.get("approval") != "Approved":
         raise SystemExit("Baseline is not Approved; production content cannot be generated.")
+    late = json.loads(LATE_PACKET.read_text(encoding="utf-8"))
+    if not str(late.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Late skills/passives packet is not Approved; production content cannot be generated.")
+    data["late"] = late
     return data
 
 
@@ -36,8 +44,8 @@ def controls(knockback, kb_seconds, slow=0.0, slow_seconds=0.0):
     return result
 
 
-def wave(effects, ctrl, delay=0.0, damage_multiplier=1.0):
-    entry = {"delaySeconds": delay, "rotationDegrees": 0, "damageMultiplier": damage_multiplier, "effects": effects}
+def wave(effects, ctrl, delay=0.0, damage_multiplier=1.0, rotation=0):
+    entry = {"delaySeconds": delay, "rotationDegrees": rotation, "damageMultiplier": damage_multiplier, "effects": effects}
     if ctrl:
         entry["controls"] = ctrl
     return entry
@@ -145,6 +153,54 @@ def skill_levels(skill, kb_seconds, seed_base):
                              "explodeOnExpiry": shared["explodeOnExpiry"],
                              "explosionKnockbackMultiplier": row["explosionKnockback"] / row["impactKnockback"]}}],
                 controls(row["impactKnockback"], kb_seconds))]
+        elif sid == "SKILL-008":
+            level.update(targetingMode="NearestEnemy", targetingRadius=shared["targetingRadius"])
+            level["waves"] = [wave([{
+                "kind": "ProjectileBurst", "projectileCount": 1, "layout": "Single", "spreadDegrees": 0,
+                "pierceCount": 0, "speed": row["speed"], "lifetimeSeconds": row["lifetimeSeconds"],
+                "collisionRadius": row["collisionRadius"],
+                "behavior": {"ricochetCount": row["ricochetCount"], "ricochetRange": shared["ricochetRange"],
+                             "ricochetRetention": shared["ricochetRetention"],
+                             "repeatRicochetTargets": shared["repeatRicochetTargets"]}}], controls(kb, kb_seconds))]
+        elif sid == "SKILL-009":
+            level.update(targetingMode="Self")
+            mine = {"kind": "Mine", "triggerRadius": shared["triggerRadius"], "blastRadius": row["blastRadius"],
+                    "lifetimeSeconds": row["lifetimeSeconds"], "maxConcurrent": row["maxConcurrent"]}
+            if row["secondaryDamageMultiplier"] > 0:
+                mine.update(secondaryDelaySeconds=row["secondaryDelaySeconds"],
+                            secondaryDamageMultiplier=row["secondaryDamageMultiplier"],
+                            secondaryRadiusMultiplier=row["secondaryRadiusMultiplier"],
+                            secondaryKnockbackMultiplier=row["secondaryKnockbackMultiplier"])
+            level["waves"] = [wave([mine], controls(kb, kb_seconds))]
+        elif sid in ("SKILL-011", "SKILL-015"):
+            level.update(targetingMode="Self", initialDirectionDegrees=shared["initialDirectionDegrees"],
+                         rotationPerActivationDegrees=shared.get("rotationPerActivationDegrees", 0))
+            effect = {"kind": "ProjectileBurst", "projectileCount": row["count"], "layout": shared["layout"],
+                      "spreadDegrees": 0, "pierceCount": 0, "speed": row["speed"],
+                      "lifetimeSeconds": row["lifetimeSeconds"], "collisionRadius": row["collisionRadius"]}
+            if shared.get("unlimitedPierce"):
+                effect["behavior"] = {"unlimitedPierce": True}
+            waves = [wave([effect], controls(kb, kb_seconds))]
+            if row["waveCount"] >= 2:
+                waves.append(wave([dict(effect)], controls(kb * row.get("secondKnockbackMultiplier", 1), kb_seconds),
+                                  delay=row["secondDelaySeconds"], rotation=row["secondRotationDegrees"],
+                                  damage_multiplier=row.get("secondDamageMultiplier", 1)))
+            level["waves"] = waves
+        elif sid == "SKILL-012":
+            level.update(targetingMode="NearestEnemy", targetingRadius=shared["targetingRadius"],
+                         baseDamage=row["damagePerTick"])
+            level["waves"] = [wave([{
+                "kind": "Beam", "durationSeconds": row["durationSeconds"],
+                "tickIntervalSeconds": shared["tickIntervalSeconds"], "width": row["width"],
+                "range": row["length"], "tracksTarget": row["tracksTarget"]}],
+                controls(row["knockbackPerTick"], kb_seconds))]
+        elif sid == "SKILL-016":
+            level.update(targetingMode="Self", randomSeed=seed_base + number)
+            level["waves"] = [wave([{
+                "kind": "ProjectileBurst", "projectileCount": row["count"], "layout": shared["layout"],
+                "spreadDegrees": 0, "pierceCount": pierce(row["maxHitTargets"]), "speed": row["initialSpeed"],
+                "lifetimeSeconds": row["lifetimeSeconds"], "collisionRadius": row["collisionRadius"],
+                "behavior": {"stopAfterSeconds": row["stopAfterSeconds"]}}], controls(kb, kb_seconds))]
         else:
             raise SystemExit(f"No runtime mapping for {sid}")
         if level["cooldownSeconds"] is None:
@@ -157,16 +213,18 @@ SKILL_VISUALS = {  # projectile/orbit sprite per skill; procedural world effects
     "SKILL-001": "SKILL-001-VISUAL-PROJECTILE", "SKILL-002": "SKILL-002-VISUAL-PROJECTILE",
     "SKILL-003": "SKILL-003-VISUAL-PROJECTILE", "SKILL-005": "SKILL-005-VISUAL-PROJECTILE",
     "SKILL-006": "SKILL-006-VISUAL-PROJECTILE", "SKILL-013": "SKILL-013-VISUAL-PROJECTILE",
-    "SKILL-014": "SKILL-014-VISUAL-PROJECTILE",
-}
+    "SKILL-014": "SKILL-014-VISUAL-PROJECTILE", "SKILL-008": "SKILL-008-VISUAL-PROJECTILE",
+}  # SKILL-009/011/015/016 world art is an open per-ID gate (DECISION-0060): explicit placeholder until approved
 
 
 def active_skills(baseline):
     kb_seconds = baseline["controls"]["nonzeroKnockbackSeconds"]
     seed_base = baseline["randomness"]["referenceSeeds"]["skillRandomBase"]
+    names = content_design_names("SKILL")
     result = []
-    for skill in baseline["skills"]:
-        entry = {"id": skill["id"], "displayName": skill["name"], "iconVisualId": f"{skill['id']}-VISUAL-ICON"}
+    for skill in sorted(baseline["skills"] + baseline["late"]["skills"], key=lambda item: item["id"]):
+        entry = {"id": skill["id"], "displayName": skill.get("name", names[skill["id"]]),
+                 "iconVisualId": f"{skill['id']}-VISUAL-ICON"}
         if skill["id"] in SKILL_VISUALS:
             entry["visualId"] = SKILL_VISUALS[skill["id"]]
         entry["levels"] = skill_levels(skill, kb_seconds, seed_base)
@@ -187,6 +245,11 @@ PASSIVE_CHANNELS = {  # baseline review field -> runtime CharacterStatModifierDa
     "knockbackResistanceBonus": "knockbackResistanceBonus",
     "outgoingKnockbackBonus": "outgoingKnockbackBonus",
     "effectSizeBonus": "effectSizeMultiplierBonus",
+    # Late packet rows already use the runtime channel names (DECISION-0060).
+    "disappearingXpRecoveryBonus": "disappearingXpRecoveryBonus",
+    "pickedUpXpMultiplierBonus": "pickedUpXpMultiplierBonus",
+    "effectRangeMultiplierBonus": "effectRangeMultiplierBonus",
+    "lowHealthDamageMaxBonus": "lowHealthDamageMaxBonus",
 }
 
 
@@ -200,7 +263,7 @@ def content_design_names(prefix):
 def passives(baseline):
     names = content_design_names("PASSIVE")
     result = []
-    for passive in baseline["passives"]:
+    for passive in sorted(baseline["passives"] + baseline["late"]["passives"], key=lambda item: item["id"]):
         levels = []
         for row in passive["levels"]:
             level = {}
@@ -220,12 +283,13 @@ CHARACTER_BASELINE_ID = "CHARACTER-BASELINE-001"
 
 
 def characters(baseline):
-    """CHAR-001 only: draft weights for the ten startup skills (late weights stay baseline metadata)."""
+    """CHAR-001 only: draft weights for every implemented skill; locked ones are filtered by profile access."""
     character = baseline["character"]
-    startup = set(baseline["initialRoster"]["actives"])
+    implemented = set(baseline["initialRoster"]["actives"]) | {skill["id"] for skill in baseline["late"]["skills"]}
+    late_weights = baseline["late"]["draftWeights"][character["id"]]
     names = content_design_names("CHAR")
-    weights = [{"skillId": skill, "weight": weight}
-               for skill, weight in character["skillDraftWeights"].items() if skill in startup]
+    weights = [{"skillId": skill, "weight": late_weights.get(skill, weight)}
+               for skill, weight in sorted(character["skillDraftWeights"].items()) if skill in implemented]
     return [{
         "id": character["id"], "displayName": names[character["id"]],
         "initiallyUnlocked": True, "startingActiveSkillId": character["startingSkill"],

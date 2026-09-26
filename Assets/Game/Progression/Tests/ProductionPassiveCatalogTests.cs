@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Game.Progression.Tests
 {
-    /// <summary>F1-02: production PASSIVE-001…005/007…009/011/012 levels and their stat channels.</summary>
+    /// <summary>F1-02: production PASSIVE-001…014 levels and their stat channels (late four: DECISION-0060).</summary>
     public sealed class ProductionPassiveCatalogTests
     {
         private static PassiveProgressionDefinition Passive(string id) =>
@@ -18,11 +18,10 @@ namespace Game.Progression.Tests
         }
 
         [Test]
-        public void Catalog_ContainsExactlyTheTenStartupPassives_WithSixLevelsAndIcons()
+        public void Catalog_ContainsAllFourteenPassives_WithSixLevelsAndIcons()
         {
             var passives = ProductionPassiveCatalog.Create();
-            CollectionAssert.AreEqual(new[] { "PASSIVE-001", "PASSIVE-002", "PASSIVE-003", "PASSIVE-004", "PASSIVE-005",
-                "PASSIVE-007", "PASSIVE-008", "PASSIVE-009", "PASSIVE-011", "PASSIVE-012" }, passives.Select(p => p.Id.ToString()));
+            CollectionAssert.AreEqual(Enumerable.Range(1, 14).Select(n => $"PASSIVE-{n:000}"), passives.Select(p => p.Id.ToString()));
             foreach (var passive in passives)
             {
                 Assert.AreEqual(6, passive.Levels.Count);
@@ -81,6 +80,37 @@ namespace Game.Progression.Tests
                 Passive("PASSIVE-002").Levels.Select(l => l.HealthRegenerationPerSecondBonus).ToArray());
             CollectionAssert.AreEqual(new[] { 0.08f, 0.16f, 0.24f, 0.32f, 0.4f, 0.5f },
                 Passive("PASSIVE-004").Levels.Select(l => l.ActiveSkillDamageMultiplierBonus).ToArray());
+        }
+
+        [Test]
+        public void LatePassives_MapCardValuesToTheirSingleChannel()
+        {
+            CollectionAssert.AreEqual(new[] { .1f, .2f, .3f, .4f, .5f, .6f },
+                Passive("PASSIVE-006").Levels.Select(l => l.DisappearingXpRecoveryBonus).ToArray());
+            CollectionAssert.AreEqual(new[] { .05f, .1f, .15f, .2f, .25f, .3f },
+                Passive("PASSIVE-010").Levels.Select(l => l.PickedUpXpMultiplierBonus).ToArray());
+            CollectionAssert.AreEqual(new[] { .08f, .16f, .24f, .32f, .4f, .5f },
+                Passive("PASSIVE-013").Levels.Select(l => l.EffectRangeMultiplierBonus).ToArray());
+            CollectionAssert.AreEqual(new[] { .15f, .25f, .35f, .45f, .55f, .7f },
+                Passive("PASSIVE-014").Levels.Select(l => l.LowHealthDamageMaxBonus).ToArray());
+            Assert.AreEqual(0.6f, StatsWith("PASSIVE-006", 6).DisappearingXpRecovery, 1e-4f);
+            Assert.AreEqual(1.3f, StatsWith("PASSIVE-010", 6).PickedUpXpMultiplier, 1e-4f);
+            var reach = StatsWith("PASSIVE-013", 6);
+            Assert.AreEqual(1.5f, reach.EffectRangeMultiplier, 1e-4f);
+            Assert.AreEqual(1f, reach.EffectSizeMultiplier, 1e-4f, "Range never grows size.");
+        }
+
+        [Test]
+        public void Stubbornness_ScalesLinearlyWithMissingHealth_AndCapsAtTenPercent()
+        {
+            var stats = StatsWith("PASSIVE-014", 6);
+            Assert.AreEqual(1f, stats.LowHealthDamageMultiplier, 1e-4f, "Full HP gives no bonus.");
+            stats.UpdateHealthRatio(0.55f);
+            Assert.AreEqual(1.35f, stats.LowHealthDamageMultiplier, 1e-4f, "IP-09 worked example: 55% HP -> half of +70%.");
+            stats.UpdateHealthRatio(0.1f);
+            Assert.AreEqual(1.7f, stats.LowHealthDamageMultiplier, 1e-4f);
+            stats.UpdateHealthRatio(0.02f);
+            Assert.AreEqual(1.7f, stats.LowHealthDamageMultiplier, 1e-4f);
         }
     }
 }

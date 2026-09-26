@@ -7,9 +7,15 @@ using UnityEngine;
 
 namespace Game.ActiveSkill.Tests
 {
-    /// <summary>F1-01: production SKILL-001…007/010/013/014 mapped from the approved FIELD-001 baseline v1.</summary>
+    /// <summary>
+    /// F1-01: production SKILL-001…007/010/013/014 mapped from the approved FIELD-001 baseline v1; the late six
+    /// (DECISION-0060) are covered by <see cref="ProductionLateSkillCatalogTests"/>.
+    /// </summary>
     public sealed class ProductionActiveSkillCatalogTests
     {
+        // DECISION-0060: world art is an open per-ID gate; these render the explicit placeholder until approved.
+        private static readonly string[] AwaitingWorldArt = { "SKILL-009", "SKILL-011", "SKILL-015", "SKILL-016" };
+
         private static ActiveSkillProgressionDefinition Skill(string id) =>
             ProductionActiveSkillCatalog.Create().Single(s => s.Id.ToString() == id);
 
@@ -17,11 +23,10 @@ namespace Game.ActiveSkill.Tests
             (T)Skill(id).GetLevel(level).Waves[wave].Effects[0];
 
         [Test]
-        public void Catalog_ContainsExactlyTheTenStartupSkills_WithSixLevelsAndIcons()
+        public void Catalog_ContainsAllSixteenSkills_WithSixLevelsAndIcons()
         {
             var skills = ProductionActiveSkillCatalog.Create();
-            CollectionAssert.AreEqual(new[] { "SKILL-001", "SKILL-002", "SKILL-003", "SKILL-004", "SKILL-005",
-                "SKILL-006", "SKILL-007", "SKILL-010", "SKILL-013", "SKILL-014" }, skills.Select(s => s.Id.ToString()));
+            CollectionAssert.AreEqual(Enumerable.Range(1, 16).Select(n => $"SKILL-{n:000}"), skills.Select(s => s.Id.ToString()));
             foreach (var skill in skills)
             {
                 Assert.AreEqual(6, skill.Levels.Count, skill.Id.ToString());
@@ -146,8 +151,10 @@ namespace Game.ActiveSkill.Tests
                 Assert.AreEqual("Icon", sprites[skill.Icon.Id.ToString()], skill.Id.ToString());
                 var visual = skill.GetLevel(1).Visual.Id;
                 if (visual.IsValid) Assert.AreEqual("Projectile", sprites[visual.ToString()], skill.Id.ToString());
+                else if (AwaitingWorldArt.Contains(skill.Id.ToString())) Assert.IsFalse(worldEffects.ContainsKey(skill.Id));
                 else Assert.IsTrue(worldEffects.ContainsKey(skill.Id), $"{skill.Id} needs a sprite or a procedural world effect.");
             }
+            Assert.AreEqual(SkillWorldEffectKind.Beam, worldEffects[new ContentId("SKILL-012")].Kind);
             Assert.AreEqual(SkillWorldEffectKind.ExpandingRing, worldEffects[new ContentId("SKILL-004")].Kind);
             Assert.AreEqual(SkillWorldEffectKind.ChainArc, worldEffects[new ContentId("SKILL-007")].Kind);
             Assert.AreEqual(SkillWorldEffectKind.StrikeTelegraph, worldEffects[new ContentId("SKILL-010")].Kind);

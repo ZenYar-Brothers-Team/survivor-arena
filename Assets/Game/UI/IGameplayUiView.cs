@@ -12,6 +12,9 @@ namespace Game.UI
         event Action PauseRequested;
         event Action<int> SpeedRequested;
         event Action AddExperienceRequested;
+        event Action AddLargeExperienceRequested;
+        event Action AddRerollsRequested;
+        event Action UnlockAllDraftEntriesRequested;
         event Action AddBookRequested;
         event Action ApplyDamageRequested;
         event Action ApplyHealingRequested;

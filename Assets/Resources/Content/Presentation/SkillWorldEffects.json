@@ -36,6 +36,24 @@
     "fadeSeconds": 0.16
   },
   {
+    "skillId": "SKILL-012",
+    "kind": "Beam",
+    "color": [
+      0.78,
+      0.32,
+      0.95,
+      0.55
+    ],
+    "impactColor": [
+      1.0,
+      0.86,
+      0.98,
+      0.95
+    ],
+    "thickness": 0.14,
+    "fadeSeconds": 0.24
+  },
+  {
     "skillId": "SKILL-010",
     "kind": "StrikeTelegraph",
     "color": [

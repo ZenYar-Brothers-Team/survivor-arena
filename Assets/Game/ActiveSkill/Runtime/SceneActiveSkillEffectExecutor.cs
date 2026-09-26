@@ -369,18 +369,23 @@ namespace Game.ActiveSkill
                 direction = (scheduled.Activation.InitialTarget.Position - scheduled.Activation.Origin).normalized;
 
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
+            var length = effect.Range * scheduled.Activation.RangeMultiplier;
+            var width = effect.Width * scheduled.Activation.SizeMultiplier;
             _targets.CopyAliveTo(_enemyBuffer);
             for (var i = 0; i < _enemyBuffer.Count; i++)
             {
                 var enemy = _enemyBuffer[i];
                 var offset = enemy.Position - scheduled.Activation.Origin;
                 var forward = Vector2.Dot(offset, direction);
-                if (forward < 0f || forward > effect.Range * scheduled.Activation.RangeMultiplier)
+                if (forward < 0f || forward > length)
                     continue;
                 var perpendicular = Mathf.Abs(direction.x * offset.y - direction.y * offset.x);
-                if (perpendicular <= effect.Width * scheduled.Activation.SizeMultiplier * 0.5f)
+                if (perpendicular <= width * 0.5f)
                     enemy.ApplyDamage(damage.WithDirection(offset.x, offset.y));
             }
+            // Procedural pulse drawn exactly over the hit band (length × width) of this tick.
+            if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.Beam, out var profile))
+                _worldEffects.BeamPulse(profile, scheduled.Activation.Origin, direction, length, width);
         }
 
         private void ExecuteOrbitTick(ScheduledSkillEffect scheduled, OrbitEffect effect)

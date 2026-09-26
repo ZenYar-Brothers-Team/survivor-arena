@@ -72,6 +72,7 @@
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
                 <ui:VisualElement class="development-button-row">
                     <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
+                    <ui:Button name="development-add-xp-100" text="+100 XP" class="compact-button" />
                     <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
                     <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
                 </ui:VisualElement>
@@ -90,6 +91,8 @@
                 <ui:Button name="development-drop-potion" text="Drop fixture potion" class="compact-button" />
                 <ui:Button name="development-drop-book" text="Drop fixture Book" class="compact-button" />
                 <ui:Button name="development-add-book" text="Collect fixture Book" class="compact-button" />
+                <ui:Button name="development-add-rerolls" text="+100 rerolls" class="compact-button" />
+                <ui:Button name="development-unlock-all" text="Unlock all skills/passives/sets (run)" class="compact-button" />
                 <ui:Label text="SET RECIPES" class="development-section-title" />
                 <ui:VisualElement name="development-set-recipes" class="set-recipe-panel" />
                 <ui:Label text="ACTIVE SKILLS" class="development-section-title development-section-spaced" />

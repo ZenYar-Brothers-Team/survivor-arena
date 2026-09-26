@@ -166,6 +166,37 @@ namespace Game.ActiveSkill.Tests
             _executor.Clear();
         }
 
+        [Test]
+        public void BeamTick_DrawsGlowAndCoreOverTheHitBand_ThenFades()
+        {
+            var inside = SpawnEnemy(new Vector2(3f, 0.1f), 100f);
+            var outside = SpawnEnemy(new Vector2(3f, 1.5f), 100f);
+            var profiles = SkillWorldEffectCatalog.FromJson(
+                "[{\"skillId\":\"FIXTURE-SKILL-EXECUTOR\",\"kind\":\"Beam\",\"color\":[1,0,1,0.5],\"impactColor\":[1,1,1,1]," +
+                "\"thickness\":0.14,\"fadeSeconds\":0.24}]");
+            _executor = new SceneActiveSkillEffectExecutor(_runController, worldEffectProfiles: profiles);
+            var level = new ActiveSkillLevelDefinition(1f, 3f, ActiveSkillTargetingMode.Self,
+                new ActiveSkillActivationWave(0f, 0f, 1f, new BeamEffect(0.2f, 0.2f, 0.4f, 6f, false)));
+            _executor.Schedule(Activation(level, null, 10f));
+            _executor.Tick(0f, true);
+
+            Assert.AreEqual(90f, inside.Health.CurrentHealth, 1e-4f);
+            Assert.AreEqual(100f, outside.Health.CurrentHealth, 1e-4f);
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "One glow and one core per tick.");
+            var shapes = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                .Where(renderer => renderer.enabled && renderer.name == "SkillWorldEffect")
+                .OrderBy(renderer => renderer.sortingOrder).ToArray();
+            Assert.AreEqual(6f, shapes[0].bounds.size.x, 1e-3f, "Drawn length equals the gameplay range.");
+            Assert.AreEqual(0.4f, shapes[0].bounds.size.y, 1e-3f, "Glow width equals the gameplay hit width.");
+            Assert.AreEqual(0.14f, shapes[1].bounds.size.y, 1e-3f, "Core uses the profile thickness.");
+            Assert.AreEqual(0f, shapes[0].bounds.min.x, 1e-3f, "Band starts at the activation origin.");
+
+            _executor.Tick(0.1f, false);
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "Pause freezes the fade.");
+            _executor.Tick(0.3f, true);
+            Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount, "Pulse returns to the pool after its fade.");
+        }
+
         private static ActiveSkillLevelDefinition Level(OrbitEffect orbit, float refresh) =>
             new ActiveSkillLevelDefinition(1f, refresh, ActiveSkillTargetingMode.Self,
                 new ActiveSkillActivationWave(0f, 0f, 1f, orbit));

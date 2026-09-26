@@ -14,7 +14,7 @@ namespace Game.Presentation
         public SkillWorldEffectKind Kind { get; }
         public Color Color { get; }
         public Color ImpactColor { get; }
-        /// <summary>Ring/arc line width in world units.</summary>
+        /// <summary>Ring/arc line width in world units; for a beam, the width of its bright core.</summary>
         public float Thickness { get; }
         /// <summary>Fade time of a finished ring, arc or impact flash, in running seconds.</summary>
         public float FadeSeconds { get; }

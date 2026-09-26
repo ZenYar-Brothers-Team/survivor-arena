@@ -206,6 +206,33 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void DevelopmentGrants_UseTheirAmounts_AndAreIgnoredOutsideDevelopment()
+        {
+            var model = CreateModel();
+            var view = new FakeView();
+            using (var presenter = new GameplayUiPresenter(model, view))
+            {
+                presenter.Start();
+                view.RaiseAddExperience();
+                Assert.AreEqual(5f, model.LastExperienceAmount);
+                view.RaiseAddLargeExperience();
+                Assert.AreEqual(100f, model.LastExperienceAmount);
+                view.RaiseAddRerolls();
+                Assert.AreEqual(100, model.RerollGrant);
+                view.RaiseUnlockAll();
+                Assert.AreEqual(1, model.UnlockAllCalls);
+
+                model.DevelopmentCommandsEnabled = false;
+                view.RaiseAddLargeExperience();
+                view.RaiseAddRerolls();
+                view.RaiseUnlockAll();
+                Assert.AreEqual(2, model.AddExperienceCalls);
+                Assert.AreEqual(100, model.RerollGrant);
+                Assert.AreEqual(1, model.UnlockAllCalls);
+            }
+        }
+
+        [Test]
         public void ProductionModel_HidesDevelopmentControls()
         {
             var model = CreateModel();
@@ -470,7 +497,12 @@ namespace Game.UI.Tests
             public void TogglePause() => PauseCalls++;
             public bool SetSpeed(int multiplier) { SpeedMultiplier = multiplier; Changed?.Invoke(); return true; }
             public void AddFixtureBook() { BookCalls++; }
-            public void AddFixtureExperience() => AddExperienceCalls++;
+            public float LastExperienceAmount;
+            public int RerollGrant;
+            public int UnlockAllCalls;
+            public void AddFixtureExperience(float amount) { AddExperienceCalls++; LastExperienceAmount = amount; }
+            public void GrantFixtureRerolls(int count) => RerollGrant += count;
+            public int UnlockAllDraftEntries() { UnlockAllCalls++; return 0; }
             public void ApplyFixtureDamage() => DamageCalls++;
             public void ApplyFixtureHealing() => HealingCalls++;
             public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
@@ -487,6 +519,9 @@ namespace Game.UI.Tests
             public event Action PauseRequested;
             public event Action<int> SpeedRequested;
             public event Action AddExperienceRequested;
+            public event Action AddLargeExperienceRequested;
+            public event Action AddRerollsRequested;
+            public event Action UnlockAllDraftEntriesRequested;
         public event Action AddBookRequested;
             public event Action ApplyDamageRequested;
             public event Action ApplyHealingRequested;
@@ -519,6 +554,9 @@ namespace Game.UI.Tests
             public void RaiseSpeed(int multiplier) => SpeedRequested?.Invoke(multiplier);
             public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
+            public void RaiseAddLargeExperience() => AddLargeExperienceRequested?.Invoke();
+            public void RaiseAddRerolls() => AddRerollsRequested?.Invoke();
+            public void RaiseUnlockAll() => UnlockAllDraftEntriesRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();
             public void RaiseHealing() => ApplyHealingRequested?.Invoke();
             public void RaisePresentationMotion(SpritePresentationPreviewMotion previewMotion) =>

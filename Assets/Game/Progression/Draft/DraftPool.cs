@@ -35,6 +35,29 @@ namespace Game.Progression
                 throw new ArgumentNullException(nameof(setOffers), "A set catalog requires an explicit global offer policy.");
         }
 
+        /// <summary>
+        /// Development command: adds definitions that are not in the pool yet (e.g. profile-locked content for this run).
+        /// Returns how many were added; existing ids are skipped.
+        /// </summary>
+        public int AddDefinitions(IEnumerable<BuildEntryDefinition> definitions)
+        {
+            if (definitions == null)
+                throw new ArgumentNullException(nameof(definitions));
+            var added = 0;
+            foreach (var definition in definitions)
+            {
+                if (definition == null)
+                    throw new ArgumentException("Draft pool cannot contain null definitions.", nameof(definitions));
+                if (_definitions.Exists(item => item.Id == definition.Id))
+                    continue;
+                if (_sets == null && definition.Kind == BuildEntryKind.Set)
+                    throw new ArgumentNullException(nameof(definitions), "A set catalog requires an explicit global offer policy.");
+                _definitions.Add(definition);
+                added++;
+            }
+            return added;
+        }
+
         /// <summary>Finds a pool definition, including ones not yet in the build (UI component names).</summary>
         public bool TryGetDefinition(ContentId id, out BuildEntryDefinition definition)
         {

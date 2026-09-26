@@ -51,7 +51,10 @@ namespace Game.UI
         bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
         bool SetSpeed(int multiplier);
-        void AddFixtureExperience();
+        void AddFixtureExperience(float amount);
+        void GrantFixtureRerolls(int count);
+        /// <summary>Adds every catalog skill/passive/set to this run's draft pool; returns how many were added.</summary>
+        int UnlockAllDraftEntries();
         void AddFixtureBook();
         void ApplyFixtureDamage();
         void ApplyFixtureHealing();

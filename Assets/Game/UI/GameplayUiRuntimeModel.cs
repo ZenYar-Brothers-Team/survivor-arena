@@ -26,6 +26,7 @@ namespace Game.UI
         private readonly ContinuousFixtureEnemySpawner _enemySpawner;
         private readonly WaveDirector _waveDirector;
         private readonly IBossEncounterRuntime _bosses;
+        private readonly IReadOnlyList<BuildEntryDefinition> _allDraftEntries;
         public BossViewState Boss
         {
             get
@@ -83,7 +84,8 @@ namespace Game.UI
             SpritePresentationRuntime presentation,
             bool developmentCommandsEnabled,
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
-            ContinuousFixtureEnemySpawner enemySpawner = null, IBossEncounterRuntime bosses = null)
+            ContinuousFixtureEnemySpawner enemySpawner = null, IBossEncounterRuntime bosses = null,
+            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _skills = player.GetComponent<PlayerActiveSkillSetRuntime>();
@@ -94,6 +96,7 @@ namespace Game.UI
             _unlockedCharacters = unlockedCharacters ?? Array.Empty<CharacterDefinition>();
             _enemySpawner = enemySpawner;
             _bosses = bosses;
+            _allDraftEntries = allDraftEntries ?? Array.Empty<BuildEntryDefinition>();
             if (_bosses != null) _bosses.Changed += HandleBossChanged;
             _waveDirector = enemySpawner != null ? enemySpawner.Director : null;
             DevelopmentCommandsEnabled = developmentCommandsEnabled;
@@ -118,7 +121,9 @@ namespace Game.UI
         public bool BanishDraftOption(ContentId id, Guid revision) => _draft.Banish(id, revision);
         public void TogglePause() => _run.TogglePause();
         public bool SetSpeed(int multiplier) => _run.SetSpeed(multiplier);
-        public void AddFixtureExperience() => _experience.AddInterventionExperience(5f);
+        public void AddFixtureExperience(float amount) => _experience.AddInterventionExperience(amount);
+        public void GrantFixtureRerolls(int count) => _draft.GrantDevelopmentRerolls(count);
+        public int UnlockAllDraftEntries() => _draft.AddDevelopmentDraftEntries(_allDraftEntries);
         public void AddFixtureBook()
         {
             if (DevelopmentCommandsEnabled && _run.Model.State == RunState.Running)

@@ -1576,6 +1576,23 @@
       "missing": "Actual-scale readability review in the production run (F1-08/F1-09)."
     },
     {
+      "owner": "SKILL-012",
+      "role": "impact",
+      "visualId": null,
+      "method": "Procedural",
+      "owningIp": "IP-17",
+      "source": null,
+      "provenance": null,
+      "runtime": "Assets/Game/ActiveSkill/Runtime/SkillWorldEffectPresenter.cs",
+      "resourcePath": null,
+      "stage": "Prepared",
+      "evidence": [
+        "Pulsing beam: one soft glow band as wide as the gameplay hit width and one bright core per damage tick (ProceduralShapeSprites.Beam), faded over 0.24 s.",
+        "Colors/fade in Assets/Resources/Content/Presentation/SkillWorldEffects.json; the user chose a procedural beam over raster art on 2026-09-26 (DECISION-0060)."
+      ],
+      "missing": "Actual-scale readability review in a real run."
+    },
+    {
       "owner": "ENEMY-004",
       "role": "projectile",
       "visualId": "ENEMY-004-VISUAL-PROJECTILE",

@@ -93,11 +93,12 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void ProductionComposition_ContainsOnlyStartupDefinitions_AndResolves()
+        public void ProductionComposition_ContainsProductionDefinitions_AndResolves()
         {
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
             Assert.IsTrue(catalog.IsProduction);
-            Assert.AreEqual(25, catalog.BuildEntries.Count, "10 skills + 10 passives + 5 sets.");
+            Assert.AreEqual(35, catalog.BuildEntries.Count,
+                "16 skills + 14 passives + 5 sets; profile access filters locked ones from the draft (DECISION-0060).");
             Assert.IsFalse(catalog.BuildEntries.Any(e => e.Id.ToString().StartsWith("FIXTURE-")));
             Assert.AreEqual("SET-017-ATTACK", catalog.SetAttackTemplates.Single().Id.ToString());
             Assert.AreEqual("CHAR-001", catalog.RunSetup.StartingCharacterId.ToString());

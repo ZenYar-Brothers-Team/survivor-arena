@@ -35,6 +35,14 @@ namespace Game.Progression
             return true;
         }
 
+        /// <summary>Development command: adds rerolls for the current run only (not saved, reset restores the initial value).</summary>
+        public void GrantRerolls(int count)
+        {
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count));
+            RemainingRerolls = (int)Math.Min(int.MaxValue, (long)RemainingRerolls + count);
+        }
+
         public bool TryBanish(ContentId id)
         {
             if (!id.IsValid || RemainingBanishes <= 0 || !_banishedIds.Add(id))

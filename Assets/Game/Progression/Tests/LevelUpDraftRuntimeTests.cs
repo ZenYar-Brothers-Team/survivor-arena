@@ -380,6 +380,24 @@ namespace Game.Progression.Tests
             Assert.IsNotNull(_draftRuntime.Build);
         }
 
+        [Test]
+        public void DevelopmentCommands_GrantRerolls_AndAddLockedEntriesOnce()
+        {
+            var changes = 0;
+            _draftRuntime.Changed += () => changes++;
+            _draftRuntime.GrantDevelopmentRerolls(100);
+            Assert.AreEqual(102, _draftRuntime.RemainingRerolls);
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => _draftRuntime.GrantDevelopmentRerolls(0));
+
+            var locked = Active("FIXTURE-ACTIVE-LOCKED");
+            Assert.IsNull(_draftRuntime.FindDisplayName(locked.Id));
+            Assert.AreEqual(1, _draftRuntime.AddDevelopmentDraftEntries(new[] { locked, Passive("FIXTURE-PASSIVE-ONE") }),
+                "Entries already in the pool are skipped.");
+            Assert.AreEqual("FIXTURE-ACTIVE-LOCKED", _draftRuntime.FindDisplayName(locked.Id));
+            Assert.AreEqual(0, _draftRuntime.AddDevelopmentDraftEntries(new[] { locked }));
+            Assert.AreEqual(2, changes, "One notification per effective command.");
+        }
+
         private static BuildEntryDefinition Active(string id)
         {
             return new BuildEntryDefinition(id, BuildEntryKind.ActiveSkill, id);

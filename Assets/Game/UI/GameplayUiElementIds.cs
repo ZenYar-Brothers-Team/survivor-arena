@@ -117,6 +117,9 @@ namespace Game.UI
         public const string DevelopmentBuildPane = "development-pane-build";
         public const string DevelopmentPresentationPane = "development-pane-presentation";
         public const string AddExperienceButton = "development-add-xp";
+        public const string AddLargeExperienceButton = "development-add-xp-100";
+        public const string AddRerollsButton = "development-add-rerolls";
+        public const string UnlockAllDraftEntriesButton = "development-unlock-all";
         public const string DamageButton = "development-damage";
         public const string HealButton = "development-heal";
         public const string SkillObservation = "development-skill-observation";

@@ -61,6 +61,9 @@ namespace Game.UI
         private readonly VisualElement _developmentBuildPane;
         private readonly VisualElement _developmentPresentationPane;
         private readonly Button _addExperienceButton;
+        private readonly Button _addLargeExperienceButton;
+        private readonly Button _addRerollsButton;
+        private readonly Button _unlockAllDraftEntriesButton;
         private readonly Button _damageButton;
         private readonly Button _healButton;
         private readonly Label _enemyObservation;
@@ -83,6 +86,9 @@ namespace Game.UI
         public event Action PauseRequested;
         public event Action<int> SpeedRequested;
         public event Action AddExperienceRequested;
+        public event Action AddLargeExperienceRequested;
+        public event Action AddRerollsRequested;
+        public event Action UnlockAllDraftEntriesRequested;
         public event Action AddBookRequested;
         public event Action ApplyDamageRequested;
         public event Action ApplyHealingRequested;
@@ -139,6 +145,9 @@ namespace Game.UI
             _developmentBuildPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentBuildPane);
             _developmentPresentationPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPresentationPane);
             _addExperienceButton = Require<Button>(root, GameplayUiElementIds.AddExperienceButton);
+            _addLargeExperienceButton = Require<Button>(root, GameplayUiElementIds.AddLargeExperienceButton);
+            _addRerollsButton = Require<Button>(root, GameplayUiElementIds.AddRerollsButton);
+            _unlockAllDraftEntriesButton = Require<Button>(root, GameplayUiElementIds.UnlockAllDraftEntriesButton);
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
@@ -162,6 +171,9 @@ namespace Game.UI
             _rerollButton.clicked += HandleRerollClicked;
             _banishModeButton.clicked += HandleBanishModeClicked;
             _addExperienceButton.clicked += HandleAddExperienceClicked;
+            _addLargeExperienceButton.clicked += HandleAddLargeExperienceClicked;
+            _addRerollsButton.clicked += HandleAddRerollsClicked;
+            _unlockAllDraftEntriesButton.clicked += HandleUnlockAllDraftEntriesClicked;
             _addBookButton.clicked += HandleAddBookClicked;
             _damageButton.clicked += HandleDamageClicked;
             _healButton.clicked += HandleHealingClicked;
@@ -500,6 +512,9 @@ namespace Game.UI
         private void HandleRerollClicked() => DraftRerollRequested?.Invoke(_renderedDraftRevision);
         private void HandleAddBookClicked() => AddBookRequested?.Invoke();
         private void HandleAddExperienceClicked() => AddExperienceRequested?.Invoke();
+        private void HandleAddLargeExperienceClicked() => AddLargeExperienceRequested?.Invoke();
+        private void HandleAddRerollsClicked() => AddRerollsRequested?.Invoke();
+        private void HandleUnlockAllDraftEntriesClicked() => UnlockAllDraftEntriesRequested?.Invoke();
         private void HandleDamageClicked() => ApplyDamageRequested?.Invoke();
         private void HandleHealingClicked() => ApplyHealingRequested?.Invoke();
         private void HandlePresentationLiveClicked() =>
@@ -533,6 +548,9 @@ namespace Game.UI
             _rerollButton.clicked -= HandleRerollClicked;
             _banishModeButton.clicked -= HandleBanishModeClicked;
             _addExperienceButton.clicked -= HandleAddExperienceClicked;
+            _addLargeExperienceButton.clicked -= HandleAddLargeExperienceClicked;
+            _addRerollsButton.clicked -= HandleAddRerollsClicked;
+            _unlockAllDraftEntriesButton.clicked -= HandleUnlockAllDraftEntriesClicked;
             _addBookButton.clicked -= HandleAddBookClicked;
             _damageButton.clicked -= HandleDamageClicked;
             _healButton.clicked -= HandleHealingClicked;

@@ -131,6 +131,31 @@
     ]
   },
   {
+    "id": "PASSIVE-006",
+    "displayName": "Эхо памяти",
+    "iconVisualId": "PASSIVE-006-VISUAL-ICON",
+    "levels": [
+      {
+        "disappearingXpRecoveryBonus": 0.1
+      },
+      {
+        "disappearingXpRecoveryBonus": 0.2
+      },
+      {
+        "disappearingXpRecoveryBonus": 0.3
+      },
+      {
+        "disappearingXpRecoveryBonus": 0.4
+      },
+      {
+        "disappearingXpRecoveryBonus": 0.5
+      },
+      {
+        "disappearingXpRecoveryBonus": 0.6
+      }
+    ]
+  },
+  {
     "id": "PASSIVE-007",
     "displayName": "Магнит опыта",
     "iconVisualId": "PASSIVE-007-VISUAL-ICON",
@@ -206,6 +231,31 @@
     ]
   },
   {
+    "id": "PASSIVE-010",
+    "displayName": "Талисман ученика",
+    "iconVisualId": "PASSIVE-010-VISUAL-ICON",
+    "levels": [
+      {
+        "pickedUpXpMultiplierBonus": 0.05
+      },
+      {
+        "pickedUpXpMultiplierBonus": 0.1
+      },
+      {
+        "pickedUpXpMultiplierBonus": 0.15
+      },
+      {
+        "pickedUpXpMultiplierBonus": 0.2
+      },
+      {
+        "pickedUpXpMultiplierBonus": 0.25
+      },
+      {
+        "pickedUpXpMultiplierBonus": 0.3
+      }
+    ]
+  },
+  {
     "id": "PASSIVE-011",
     "displayName": "Тяжёлый пояс",
     "iconVisualId": "PASSIVE-011-VISUAL-ICON",
@@ -258,6 +308,56 @@
       },
       {
         "effectSizeMultiplierBonus": 0.3
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-013",
+    "displayName": "Длинные руки",
+    "iconVisualId": "PASSIVE-013-VISUAL-ICON",
+    "levels": [
+      {
+        "effectRangeMultiplierBonus": 0.08
+      },
+      {
+        "effectRangeMultiplierBonus": 0.16
+      },
+      {
+        "effectRangeMultiplierBonus": 0.24
+      },
+      {
+        "effectRangeMultiplierBonus": 0.32
+      },
+      {
+        "effectRangeMultiplierBonus": 0.4
+      },
+      {
+        "effectRangeMultiplierBonus": 0.5
+      }
+    ]
+  },
+  {
+    "id": "PASSIVE-014",
+    "displayName": "Упрямство",
+    "iconVisualId": "PASSIVE-014-VISUAL-ICON",
+    "levels": [
+      {
+        "lowHealthDamageMaxBonus": 0.15
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.25
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.35
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.45
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.55
+      },
+      {
+        "lowHealthDamageMaxBonus": 0.7
       }
     ]
   }

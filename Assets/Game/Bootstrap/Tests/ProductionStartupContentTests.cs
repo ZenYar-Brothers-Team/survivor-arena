@@ -37,8 +37,13 @@ namespace Game.Bootstrap.Tests
             profile.LoadAsync().GetAwaiter().GetResult();
             var roster = ProductionCharacterDefinitionCatalog.Create(new ProfileAccessProvider(profile));
             CollectionAssert.AreEqual(new[] { "CHAR-001" }, roster.UnlockedCharacters.Select(c => c.Id.ToString()));
-            Assert.IsTrue(skills.All(s => profile.IsUnlocked(s.Id.ToString())), "Every production skill is in the new-profile pool.");
-            Assert.IsTrue(passives.All(p => profile.IsUnlocked(p.Id.ToString())), "Every production passive is in the new-profile pool.");
+            // DECISION-0050: a new profile opens exactly the startup ten + ten; late IDs (DECISION-0060) stay locked.
+            var startupSkills = new[] { "SKILL-001", "SKILL-002", "SKILL-003", "SKILL-004", "SKILL-005",
+                "SKILL-006", "SKILL-007", "SKILL-010", "SKILL-013", "SKILL-014" };
+            var startupPassives = new[] { "PASSIVE-001", "PASSIVE-002", "PASSIVE-003", "PASSIVE-004", "PASSIVE-005",
+                "PASSIVE-007", "PASSIVE-008", "PASSIVE-009", "PASSIVE-011", "PASSIVE-012" };
+            CollectionAssert.AreEqual(startupSkills, skills.Select(s => s.Id.ToString()).Where(profile.IsUnlocked));
+            CollectionAssert.AreEqual(startupPassives, passives.Select(p => p.Id.ToString()).Where(profile.IsUnlocked));
         }
     }
 }
