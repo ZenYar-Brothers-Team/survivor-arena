@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-004",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-002…005 review 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation).",
+  "prompt": "Edit this exact transparent full-body illustration of CHAR-004 Tetka Shmyga, a middle-aged female goblin tinkerer. Preserve her face, hair, goggles, patched apron and work clothes, skin, palette, compact build, painterly linework, right-facing 3/4 top-down view, and both boots. Give her a distinct neutral tinkerer gesture: her RIGHT hand on image LEFT lightly touches or adjusts the goggles at the side of her forehead, elbow bent; her other hand rests low beside the tool pouch. Keep exactly two natural arms and hands, all anatomy correct. Simplify the belt into a narrow cloth tie with one compact tool roll secured high on the hip; keep one small capped bottle nestled inside a pocket, not dangling. No large buckle, dangling bottle or separate oversized pouch. Maintain ample empty transparent margins, no background, shadow, text, explosion, magic, extra limbs or new props.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "approved revised candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-004/char-004-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "1f9e08ac98b896b24eedfac733ce3cb9ef52a0afe7d45d134a6f9435b34b7ec3",
+    "runtimeSha256": "7bcad1077027c5a94e5c074571af86dcfbc969929255672eb56d727f80a2ddec",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

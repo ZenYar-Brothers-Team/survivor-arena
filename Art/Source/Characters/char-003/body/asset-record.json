@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-003",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-002…005 review 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation).",
+  "prompt": "Edit the supplied transparent full-body illustration of CHAR-003 Shepotka. Preserve her exact young slim goblin identity, face, long ears, hooded dusty teal cape, short patched tunic, shoulder satchel, palette and storybook outline. Give her a distinct relaxed scout pose: one arm bent so a hand lightly holds the crossbody satchel strap near her collarbone, the other arm hanging low with an open hand slightly behind her hip. Remove the waist belt and every hanging waist pouch or dangling belt cord; the single small satchel remains on its diagonal shoulder strap. Keep arms readable and separate from torso, both feet fully visible and on one contact line, 3/4 top-down facing right, ample true transparent alpha margins. No floor, shadow, text, weapons, extra limbs or effects.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "approved revised candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-003/char-003-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "d6d0a37905d63ff2f9a965c5a48e9bbc0b19750b61997fa149ea7cf9c49c7515",
+    "runtimeSha256": "b378d282a37b0e6c4204c417e58963ed0aae9cea20832d123052da66e9fcfe76",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

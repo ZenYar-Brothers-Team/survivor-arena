@@ -656,7 +656,7 @@ Startup packet: F1-03 — CHAR-001; поздние character IDs только un
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
 Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
-Remaining acceptance / IDs: CHAR-002…010 и Unity verification CHAR-001.
+Remaining acceptance / IDs: CHAR-002…010 production bindings, gameplay-scale body review и Unity verification CHAR-001. Утверждённые body CHAR-002…005 подготовлены как visual assets 2026-09-26 — [evidence](evidence/2026-09-26-character-body-art.md).
 Startup subset F1-03: CHAR-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
 Target implementation evidence: F1-03 subset only.
 Target verification evidence: Новые checks не запускались.

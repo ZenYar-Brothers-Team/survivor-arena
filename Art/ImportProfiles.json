@@ -230,5 +230,37 @@
     "pivotY": 0.1,
     "reason": "256px hound body derivative with authored ground-contact pivot.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.102,
+    "reason": "CHAR-002 authored foot contact on the 512px body derivative; 320 PPU player-body contract.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-002/char-002-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.098,
+    "reason": "CHAR-003 authored foot contact on the 512px body derivative; 320 PPU player-body contract.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-003/char-003-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.53,
+    "pivotY": 0.111,
+    "reason": "CHAR-004 authored foot contact on the 512px body derivative; 320 PPU player-body contract.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-004/char-004-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.53,
+    "pivotY": 0.107,
+    "reason": "CHAR-005 authored foot contact on the 512px body derivative; 320 PPU player-body contract.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-005/char-005-body.png"
   }
 ]

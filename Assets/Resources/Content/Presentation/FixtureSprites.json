@@ -811,5 +811,33 @@
     "id": "SKILL-016-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Skills/skill-016/skill-016-projectile",
     "role": "Projectile"
+  },
+  {
+    "contactRadius": 0.468087,
+    "contactCenterY": 0.493088,
+    "id": "CHAR-002-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.325532,
+    "contactCenterY": 0.86303,
+    "id": "CHAR-003-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.267831,
+    "contactCenterY": 0.291658,
+    "id": "CHAR-004-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.365678,
+    "contactCenterY": 0.700301,
+    "id": "CHAR-005-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
+    "role": "Body"
   }
 ]

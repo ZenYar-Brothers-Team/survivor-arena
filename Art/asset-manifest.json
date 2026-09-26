@@ -1890,6 +1890,70 @@
         "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
       ],
       "missing": "Gameplay-scale readability review at actual speed."
+    },
+    {
+      "owner": "CHAR-002",
+      "role": "body",
+      "visualId": "CHAR-002-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-002/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-002/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-002/char-002-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-003",
+      "role": "body",
+      "visualId": "CHAR-003-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-003/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-003/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-003/char-003-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-004",
+      "role": "body",
+      "visualId": "CHAR-004-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-004/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-004/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-004/char-004-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-005",
+      "role": "body",
+      "visualId": "CHAR-005-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-005/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-005/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-005/char-005-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

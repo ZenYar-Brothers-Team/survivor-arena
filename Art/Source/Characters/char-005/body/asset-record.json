@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-005",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-002…005 review 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation).",
+  "prompt": "Edit this exact transparent full-body illustration of CHAR-005 Babka Iskra, the small elderly female goblin witch. Preserve her unmistakable old wrinkled face, gray-white hair, broad ears, layered plum ochre robes, lively eyes, compact body, 3/4 top-down right-facing angle and storybook painterly linework. Give her a different expressive but animation-ready neutral gesture: one hand is raised near her chest with palm open and fingers relaxed, showing curiosity; the other lightly gathers the robe at her side. Keep both arms and hands anatomically clear and exactly two. REMOVE the rope waist belt and all hanging waist pouches and dangling trinkets. Replace them with two small flat sewn robe pockets and one prominent stolen gold amulet worn high on a short necklace near her collar, with no glow. Preserve both feet and generous transparent margins. No floor, shadow, text, staff, spell effect, action pose or extra limbs.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "approved revised candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-005/char-005-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "e0225a48c666bb866c4da952a9ab26b0721d0b61041d0dba9d17fcd13c9f0e57",
+    "runtimeSha256": "8f430c09c31a9d38c4a74c6b850ebbd23199a97eec827320d2c862b240c2778d",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

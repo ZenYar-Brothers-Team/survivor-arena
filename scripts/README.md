@@ -19,7 +19,7 @@ python scripts/check_project.py --scope art
 `preparation` имеет два режима:
 
 - `copy`: byte-identical PNG; действующий Unity import profile задаёт импортное разрешение. Для body нужен заранее подготовленный approved input с правильной ground-contact line.
-- `fit`: только технический downscale без увеличения силуэта, прозрачный квадратный canvas и центрирование. `size`, `padding` и `cropAlpha` задаются явно. `cropAlpha: false` сохраняет авторский canvas при масштабировании. Body этим режимом не центрируется автоматически.
+- `fit`: только технический downscale без увеличения силуэта, прозрачный квадратный canvas и центрирование. `size`, `padding` и `cropAlpha` задаются явно; необязательный `alphaNoiseCutoff` (0–32) обнуляет случайные слабые alpha-пиксели до уменьшения. Для body допустим только `cropAlpha: false`: полный авторский canvas, включая ground-contact line, масштабируется как единое целое; `pivot` и contact profile задаются по итоговому runtime PNG.
 
 Новые import overrides задаются полным `importProfile` с `pixelsPerUnit`, `maxSize`, `pivotX`, `pivotY`, `reason`. Для body нужны точный profile и явно подготовленные `sprite.contactRadius` / `contactCenterY`. Для projectile нужен полный `sprite.projectile`. Существующие sprite/import profiles должны совпадать: смена gameplay geometry или поведения не является пакетной заменой картинки.
 

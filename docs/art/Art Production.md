@@ -106,10 +106,10 @@ IN GAME
 |---|---|---|---|---|---|  
 | CHAR-001 | Клёпка | Body sprite | Generate via GPT | APPROVED | Концепт = fixture goblin v002: связь подтверждена пользователем 2026-09-21 в asset-record. Runtime интегрирован как FIXTURE-CHARACTER-AGILE; production binding CHAR-001 относится к IP-22 |
 | CHAR-001 | Клёпка | Character Select image | Reuse body sprite first | NOT STARTED | Crop/variant existing body; отдельный portrait только если понадобится |  
-| CHAR-002 | Бугор | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-003 | Шепотка | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-004 | Тётка Шмыга | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-005 | Бабка Искра | Body sprite | Generate via GPT | NOT STARTED | |  
+| CHAR-002 | Бугор | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-003 | Шепотка | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-004 | Тётка Шмыга | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-005 | Бабка Искра | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
 | CHAR-006 | Гром | Body sprite | Generate via GPT | NOT STARTED | Огр; отдельный крупный силуэт |  
 | CHAR-007 | Дед Вертун | Body sprite | Generate via GPT | NOT STARTED | |  
 | CHAR-008 | Тётушка Светляк | Body sprite | Generate via GPT | NOT STARTED | |  

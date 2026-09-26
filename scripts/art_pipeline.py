@@ -134,6 +134,12 @@ def prepare_png(data, recipe):
         if type(recipe.get("cropAlpha")) is not bool:
             raise ValueError("fit requires an explicit cropAlpha boolean")
         image = source.copy()
+        noise_cutoff = recipe.get("alphaNoiseCutoff", 0)
+        if type(noise_cutoff) is not int or not 0 <= noise_cutoff <= 32:
+            raise ValueError("fit alphaNoiseCutoff must be an integer in [0, 32]")
+        if noise_cutoff:
+            alpha = image.getchannel("A").point(lambda value: 0 if value < noise_cutoff else value)
+            image.putalpha(alpha)
         if recipe["cropAlpha"]:
             bounds = image.getchannel("A").getbbox()
             if bounds is None:
@@ -214,8 +220,9 @@ def build_plan(packet, root=ROOT):
         if sha(original) != asset["sha256"]:
             raise ValueError(f"Approved input hash mismatch: {identity}")
         recipe = asset.get("preparation", {})
-        if role == "body" and recipe.get("mode") != "copy":
-            raise ValueError("Body normalization needs authored ground-contact preparation; use an approved prepared input")
+        if role == "body" and (recipe.get("mode") not in ("copy", "fit") or
+                               (recipe.get("mode") == "fit" and recipe.get("cropAlpha") is not False)):
+            raise ValueError("Body fit must preserve the authored full canvas and ground-contact line")
         derivative, dimensions = prepare_png(original, recipe)
         candidate = directory / asset["version"] / "concept-01.png"
         master = directory / "selected-master.png"
