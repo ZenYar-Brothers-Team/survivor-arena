@@ -1,5 +1,7 @@
 using Game.Combat;
+using Game.Content;
 using Game.Enemy;
+using Game.Presentation;
 using Game.Progression;
 using NUnit.Framework;
 using UnityEngine;
@@ -84,6 +86,36 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(4f / 1.5f, heavyJunk.Behavior.ExplosionDamageMultiplier, 1e-5f, "SET-015 junk damage is not amplified (G-05).");
             Assert.AreEqual(0.6f / 0.08f, heavyJunk.Behavior.ExplosionKnockbackMultiplier, 1e-4f);
             Assert.AreEqual(0f, _launcher.Projectiles[0].ImpactAreaRadius, "Ordinary junk has no explosion to enlarge.");
+        }
+
+        [Test]
+        public void HeavyReplacement_UsesSetSpriteWhileOrdinaryJunkKeepsSkillSprite()
+        {
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f), Vector2.one * .5f, 1f);
+            try
+            {
+                var skillVisual = new SpriteDefinition("SKILL-016-VISUAL-PROJECTILE", sprite, SpriteRole.Projectile);
+                var heavyVisual = new SpriteDefinition("SET-008-VISUAL-PROJECTILE", sprite, SpriteRole.Projectile);
+                var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { skillVisual, heavyVisual });
+                _executor.Dispose();
+                _executor = new SceneActiveSkillEffectExecutor(_context.Run, _launcher, contentRegistry: registry);
+                var level = new ActiveSkillLevelDefinition(10f, 1f, ActiveSkillTargetingMode.Self,
+                    new ContentRef<SpriteDefinition>(skillVisual.Id),
+                    new ActiveSkillActivationWave(0f, 0f, 1f,
+                        new ProjectileBurstEffect(1, ProjectileLayout.Single, 0f, 0, 8f, 1f, .12f,
+                            behavior: new ProjectileBehavior(stopAfterSeconds: 1f))));
+                var mechanics = new SkillMechanicBonus(heavyEveryNth: 2, heavySizeMultiplier: 2f,
+                    heavyStopMultiplier: 1.5f, heavyExplosionRadius: 1f, heavyExplosionDamageMultiplier: 2f,
+                    heavyExplosionKnockback: .1f);
+                var sequence = new SkillProjectileSequence();
+
+                Fire(level, mechanics, sequence);
+                Fire(level, mechanics, sequence);
+
+                Assert.AreSame(skillVisual, _launcher.Projectiles[0].Visual);
+                Assert.AreSame(heavyVisual, _launcher.Projectiles[1].Visual);
+            }
+            finally { Object.DestroyImmediate(sprite); }
         }
 
         [Test]

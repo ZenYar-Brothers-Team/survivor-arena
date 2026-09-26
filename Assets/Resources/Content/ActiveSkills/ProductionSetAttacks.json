@@ -311,7 +311,7 @@
     "id": "SET-016-ATTACK",
     "displayName": "Выстрел великана",
     "iconVisualId": "SET-016-VISUAL-ICON",
-    "visualId": "SKILL-005-VISUAL-PROJECTILE",
+    "visualId": "SET-016-VISUAL-PROJECTILE",
     "levels": [
       {
         "cooldownSeconds": 5,
@@ -680,7 +680,7 @@
     "id": "SET-018-ATTACK",
     "displayName": "Сфера разрушения",
     "iconVisualId": "SET-018-VISUAL-ICON",
-    "visualId": "SKILL-014-VISUAL-PROJECTILE",
+    "visualId": "SET-018-VISUAL-PROJECTILE",
     "levels": [
       {
         "cooldownSeconds": 8,
@@ -910,7 +910,7 @@
     "id": "SET-019-ATTACK",
     "displayName": "Ледяное копьё",
     "iconVisualId": "SET-019-VISUAL-ICON",
-    "visualId": "SKILL-013-VISUAL-PROJECTILE",
+    "visualId": "SET-019-VISUAL-PROJECTILE",
     "levels": [
       {
         "cooldownSeconds": 6,
@@ -1116,7 +1116,7 @@
     "id": "SET-020-ATTACK",
     "displayName": "Каменное ядро",
     "iconVisualId": "SET-020-VISUAL-ICON",
-    "visualId": "SKILL-001-VISUAL-PROJECTILE",
+    "visualId": "SET-020-VISUAL-PROJECTILE",
     "levels": [
       {
         "cooldownSeconds": 5,

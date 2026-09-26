@@ -29,6 +29,7 @@ namespace Game.ActiveSkill
         private readonly List<Collider2D> _auraColliders = new List<Collider2D>();
         private readonly HashSet<IEnemyControlReceiver> _auraHits = new HashSet<IEnemyControlReceiver>();
         private readonly IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> _worldEffects;
+        private readonly ContentRegistry _contentRegistry;
 
         private sealed class OrbitSlowAura
         {
@@ -47,9 +48,11 @@ namespace Game.ActiveSkill
         public event Action<int> LevelEarned;
         public SetEffectHost(PlayerCharacterRuntime player, RunController run, PlayerActiveSkillSetRuntime skills,
             ExperienceProgression experience, IEnumerable<ActiveSkillProgressionDefinition> catalog,
-            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffects = null, ITargetViewport viewport = null)
+            IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> worldEffects = null, ITargetViewport viewport = null,
+            ContentRegistry contentRegistry = null)
         {
             _player = player; _run = run; _skills = skills; _experience = experience; _worldEffects = worldEffects;
+            _contentRegistry = contentRegistry;
             _viewport = viewport;
             _targets = new SceneEnemyTargetProvider(viewport: viewport);
             foreach (var definition in catalog) _catalog.Add(definition.Id, definition);
@@ -152,7 +155,8 @@ namespace Game.ActiveSkill
             if (!_attacks.TryGetValue(key, out var attack))
             {
                 if (!_catalog.TryGetValue(template, out var definition)) throw new InvalidOperationException("Missing set attack template " + template);
-                attack = (new ActiveSkillInstance(definition), new SceneActiveSkillEffectExecutor(_run, worldEffectProfiles: _worldEffects, viewport: _viewport));
+                attack = (new ActiveSkillInstance(definition), new SceneActiveSkillEffectExecutor(_run,
+                    contentRegistry: _contentRegistry, worldEffectProfiles: _worldEffects, viewport: _viewport));
                 _attacks.Add(key, attack);
             }
             var mover = _player.GetComponent<PlayerMover>();

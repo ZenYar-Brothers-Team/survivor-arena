@@ -358,7 +358,16 @@ namespace Game.ActiveSkill
                 mechanics.HeavyExplosionRadius * (1f + mechanics.ExplosionRadiusBonus) * scheduled.Activation.SizeMultiplier,
                 damage, 0, behavior: behavior,
                 rangeMultiplier: scheduled.Activation.RangeMultiplier,
-                visual: ResolveProjectileVisual(scheduled.Activation.LevelDefinition)));
+                visual: ResolveHeavyJunkVisual(scheduled.Activation.LevelDefinition)));
+        }
+
+        private SpriteDefinition ResolveHeavyJunkVisual(ActiveSkillLevelDefinition level)
+        {
+            // SET-008 replaces one SKILL-016 projectile. Its distinct sprite changes presentation only.
+            if (_contentRegistry == null) return ResolveProjectileVisual(level);
+            var visual = _contentRegistry.Get<SpriteDefinition>(new ContentId("SET-008-VISUAL-PROJECTILE"));
+            visual.RequireRole(SpriteRole.Projectile);
+            return visual;
         }
 
         private static ProjectileBehavior WithExplosion(ProjectileBehavior source, float damageMultiplier, bool explodeOnExpiry,

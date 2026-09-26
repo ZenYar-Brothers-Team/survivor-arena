@@ -1954,6 +1954,86 @@
         "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-008",
+      "role": "projectile",
+      "visualId": "SET-008-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-008/projectile/selected-master.png",
+      "provenance": "Art/Source/Sets/set-008/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Sets/set-008/set-008-projectile.png",
+      "resourcePath": "Art/Sprites/Sets/set-008/set-008-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-016",
+      "role": "projectile",
+      "visualId": "SET-016-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-016/projectile/selected-master.png",
+      "provenance": "Art/Source/Sets/set-016/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Sets/set-016/set-016-projectile.png",
+      "resourcePath": "Art/Sprites/Sets/set-016/set-016-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-018",
+      "role": "projectile",
+      "visualId": "SET-018-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-018/projectile/selected-master.png",
+      "provenance": "Art/Source/Sets/set-018/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Sets/set-018/set-018-projectile.png",
+      "resourcePath": "Art/Sprites/Sets/set-018/set-018-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-019",
+      "role": "projectile",
+      "visualId": "SET-019-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-019/projectile/selected-master.png",
+      "provenance": "Art/Source/Sets/set-019/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Sets/set-019/set-019-projectile.png",
+      "resourcePath": "Art/Sprites/Sets/set-019/set-019-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "SET-020",
+      "role": "projectile",
+      "visualId": "SET-020-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-19",
+      "source": "Art/Source/Sets/set-020/projectile/selected-master.png",
+      "provenance": "Art/Source/Sets/set-020/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Sets/set-020/set-020-projectile.png",
+      "resourcePath": "Art/Sprites/Sets/set-020/set-020-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-016",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю».",
+  "prompt": "Edit the exact supplied transparent SET-016 giant bolt projectile. Keep the same forged dark steel wedge head, short shaft, ochre bindings, dusty-teal inlay, orientation toward right, 3/4 top-down perspective and 2D storybook painting. Change ONLY scale and framing: shrink the COMPLETE bolt uniformly so the tip and tail together span about 68% of the square image width, leaving unmistakably broad true transparent alpha margins of 15-16% left and right and at least 20% above/below. Do not deform or redesign it. No floor, shadow, new object, text, effects or crop.",
+  "constraints": [
+    "true transparent background",
+    "single projectile",
+    "no baked trail or explosion",
+    "readable at gameplay scale"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Sets/set-016/set-016-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "31735fa4cf231c40f321b56d8676a6ae917a5f759267d20d7308b97ab3828ff8",
+    "runtimeSha256": "ee8c108d7e8e923af15c5c11733710a40effae5f1d6b859f383dbbe79ee84485",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": false
+    }
+  }
+}

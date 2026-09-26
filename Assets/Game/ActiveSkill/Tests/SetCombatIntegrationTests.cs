@@ -3,6 +3,7 @@ using Game.Character;
 using Game.Combat;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 namespace Game.ActiveSkill.Tests
@@ -70,6 +71,37 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(.5f, host.GetSkillModifier(id).ActiveSkillDamageMultiplierBonus, .0001f);
             host.RemoveSkillModifier("one"); Assert.AreEqual(.3f, host.GetSkillModifier(id).ActiveSkillDamageMultiplierBonus, .0001f);
             host.Dispose(); Assert.IsNull(skills.SetSkillModifier);
+        }
+
+        [Test]
+        public void SetAttack_UsesRegisteredProjectileSprite()
+        {
+            using var context = new SkillFrameworkTestContext();
+            var skills = context.Owner.AddComponent<PlayerActiveSkillSetRuntime>();
+            var sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0f, 0f, 1f, 1f), Vector2.one * .5f, 1f);
+            try
+            {
+                var profile = new ProjectilePresentationProfile(1f, 0f, .1f, .1f,
+                    Color.white, 3, .05f, .4f, Color.gray);
+                var visual = new SpriteDefinition("SET-016-VISUAL-PROJECTILE", sprite, SpriteRole.Projectile,
+                    projectilePresentation: profile);
+                var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { visual });
+                var level = new ActiveSkillLevelDefinition(10f, 1f, ActiveSkillTargetingMode.Self,
+                    new ContentRef<SpriteDefinition>(visual.Id),
+                    new ActiveSkillActivationWave(0f, 0f, 1f,
+                        new ProjectileBurstEffect(1, ProjectileLayout.Single, 0f, 0, 8f, 1f, .2f)));
+                var definition = new ActiveSkillProgressionDefinition("FIXTURE-SET-ATTACK", "Set attack",
+                    Enumerable.Repeat(level, 6).ToArray());
+                using var host = new SetEffectHost(context.Player, context.Run, skills, new ExperienceProgression(10),
+                    new[] { definition }, contentRegistry: registry);
+
+                host.Attack("set-attack", new ContentId("FIXTURE-SET"), definition.Id);
+
+                var projectile = Object.FindObjectsByType<FixtureProjectileRuntime>(FindObjectsSortMode.None)
+                    .Single(runtime => runtime.gameObject.activeInHierarchy);
+                Assert.AreSame(sprite, projectile.transform.Find("ProjectileVisual").GetComponent<SpriteRenderer>().sprite);
+            }
+            finally { Object.DestroyImmediate(sprite); }
         }
     }
 }

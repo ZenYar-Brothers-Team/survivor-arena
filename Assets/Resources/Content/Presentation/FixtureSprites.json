@@ -839,5 +839,130 @@
     "id": "CHAR-005-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
     "role": "Body"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.3,
+      "spinDegreesPerSecond": 90,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.8,
+      "flashGreen": 0.54,
+      "flashBlue": 0.3,
+      "flashAlpha": 0.68,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.4,
+      "particleRed": 0.52,
+      "particleGreen": 0.35100000000000003,
+      "particleBlue": 0.195,
+      "particleAlpha": 0.78
+    },
+    "id": "SET-008-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Sets/set-008/set-008-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 5.0,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.72,
+      "flashGreen": 0.95,
+      "flashBlue": 0.96,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.36,
+      "particleGreen": 0.74,
+      "particleBlue": 0.78,
+      "particleAlpha": 0.8
+    },
+    "id": "SET-016-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Sets/set-016/set-016-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.9,
+      "spinDegreesPerSecond": 120.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.22,
+      "flashRed": 1.0,
+      "flashGreen": 0.48,
+      "flashBlue": 0.08,
+      "flashAlpha": 0.76,
+      "particleCount": 4,
+      "particleSize": 0.055,
+      "particleSpeed": 0.5,
+      "particleRed": 0.45,
+      "particleGreen": 0.18,
+      "particleBlue": 0.58,
+      "particleAlpha": 0.84,
+      "explosion": {
+        "durationSeconds": 0.22,
+        "flashSizeMultiplier": 1.1,
+        "flashRed": 1.0,
+        "flashGreen": 0.62,
+        "flashBlue": 0.12,
+        "flashAlpha": 0.68,
+        "particleCount": 8,
+        "particleSizeMultiplier": 0.12,
+        "particleSpeedMultiplier": 1.1,
+        "particleRed": 0.58,
+        "particleGreen": 0.18,
+        "particleBlue": 0.68,
+        "particleAlpha": 0.82
+      }
+    },
+    "id": "SET-018-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Sets/set-018/set-018-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 2.7,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.8,
+      "flashGreen": 0.92,
+      "flashBlue": 1.0,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.45,
+      "particleGreen": 0.66,
+      "particleBlue": 0.95,
+      "particleAlpha": 0.8
+    },
+    "id": "SET-019-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Sets/set-019/set-019-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.5,
+      "spinDegreesPerSecond": 140.0,
+      "impactDurationSeconds": 0.16,
+      "flashSize": 0.23,
+      "flashRed": 0.76,
+      "flashGreen": 0.66,
+      "flashBlue": 0.5,
+      "flashAlpha": 0.72,
+      "particleCount": 3,
+      "particleSize": 0.055,
+      "particleSpeed": 0.48,
+      "particleRed": 0.38,
+      "particleGreen": 0.32,
+      "particleBlue": 0.24,
+      "particleAlpha": 0.82
+    },
+    "id": "SET-020-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Sets/set-020/set-020-projectile",
+    "role": "Projectile"
   }
 ]

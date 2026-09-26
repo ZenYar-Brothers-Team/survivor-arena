@@ -615,6 +615,7 @@ Blocked by: нет для реализации; IP-17/IP-18 Implemented, IP-11/I
 Remaining gates: G-08 закрыт DECISION-0017, G-02 закрыт DECISION-0022; G-04/G-05/G-13 закрыты DECISION-0061 для sets-v1. Финальная проверка и visual acceptance остаются после реализации.
 Remaining acceptance / IDs: все 20 SET ID реализованы; остаются реальный прогон и ручное сочетание 3–4 сетов на реальном масштабе.
 Data packet 2026-09-26: [sets-v1](../balance/sets-v1.md) — пороги и числа 15 сетов, решения G-04/G-05 и орбита SET-014; Approved 2026-09-26 ([DECISION-0061](../decisions/0061-sets-data-v1.md), мусор +50%, орбита +35% вращения); static validator PASS. G-04/G-05/G-13 для этих ID закрыты; IP-17 world art подключён 2026-09-26.
+World art 2026-09-26: пользователь утвердил отдельные projectile-спрайты SET-008/016/018/019/020; masters, provenance, runtime PNG, typed references и специальные маршруты SET-008/set-attacks подключены. Art PASS 44/44, full PASS 792/792 EditMode + 27/27 PlayMode, manifest 117/117. Gameplay-scale и ручной обзор сочетания сетов остаются открытыми. [Evidence](evidence/2026-09-26-set-world-art.md).
 Startup subset F1-05: SET-001/004/006/010/017 Implemented 2026-09-24 — [evidence](evidence/field001-f1-05-2026-09-24.md).
 Target implementation evidence: 2026-09-26 — SET-002/003/005/007/008/009/011/012/013/014/015/016/018/019/020 и новый вид `SkillMechanics`; [evidence](evidence/2026-09-26-sets-v1.md).
 Target verification evidence: Unity full PASS 2026-09-26, EditMode 784/784 + PlayMode 27/27 (автоматические); ручная проверка сочетаний не выполнена.

@@ -367,7 +367,8 @@ namespace Game.Bootstrap
                 // DECISION-0058: player attacks choose enemies/points only on the visible screen.
                 var targetViewport = new CameraTargetViewport(Camera.main);
                 _setEffects = new SetEffectHost(player, runController, activeSkillRuntime, experienceRuntime.Progression,
-                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects, targetViewport);
+                    Catalog.ActiveSkills.Concat(Catalog.SetAttackTemplates), Catalog.SkillWorldEffects, targetViewport,
+                    Catalog.Registry);
                 initializedSubsystems.Add(_setEffects.Dispose);
                 draftRuntime.Initialize(
                     experienceRuntime,

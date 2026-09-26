@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-020",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю».",
+  "prompt": "Edit the exact supplied transparent SET-020 massive boulder projectile. Preserve the same single heavy rounded rock, warm beige and slate facets, dark plum outline, 3/4 top-down perspective and stylized 2D hand-painted storybook treatment. Change ONLY scale and framing: shrink the complete boulder uniformly so its visible silhouette spans about 68-70 percent of the square image width and height, leaving clearly broad 15 percent true transparent alpha margins on every side. Keep it centered and all protrusions intact. No redesign, floor, background, cast shadow, dust, particles, text, extra objects or crop.",
+  "constraints": [
+    "true transparent background",
+    "single projectile",
+    "no baked trail or explosion",
+    "readable at gameplay scale"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Sets/set-020/set-020-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "61cc4d060dd395c3b3ec06ae8c4faa66af9e170300c903900bd3bbcd1d18f8db",
+    "runtimeSha256": "8119a6d1926d20fdc33cdc8bae04f11c31d5344adba9f6d990b82384f9b1eb20",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": false
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-008",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-26",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-26",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю».",
+  "prompt": "Edit the exact supplied transparent SET-008 heavy junk projectile. Keep the same cast-iron mass, rust plates, handle, perspective, color, outline and storybook 2D rendering. Change ONLY scale and framing: shrink the COMPLETE object uniformly so its visible silhouette occupies about 66-70% of the square canvas in both width and height, leaving a very obvious broad transparent blank border of 15-17% all around. Center it without changing the design. Preserve true alpha transparency, no floor, shadow, extra objects or crop.",
+  "constraints": [
+    "true transparent background",
+    "single projectile",
+    "no baked trail or explosion",
+    "readable at gameplay scale"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Sets/set-008/set-008-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "78d27ed67520bae9193152ad7c41b0a2f69e0e83ef4a24e7babec947795d0288",
+    "runtimeSha256": "b5f55c3b111c81b7b2ee6dce8bbb10f17a466801d59af6dba4d767920383b5ed",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": false
+    }
+  }
+}

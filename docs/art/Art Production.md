@@ -241,18 +241,18 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 |---|---|---|---|---|  
 | SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | APPROVED — projectile v001; runtime 256×256 IN GAME у FIXTURE-SKILL-BOLT, лёгкое вращение 140°/s и общий flash + 3 земляные частицы. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json); production SKILL-001 binding остаётся IP-17 |
 | SKILL-002 | Веер игл | Needle projectile | Derived from approved icon \+ Unity fan pattern | PREPARED — v001 выделен из approved icon (DECISION-0054), production SKILL-002 binding F1-01; Unity import/in-game review pending |
-| SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | NOT STARTED |  
+| SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
 | SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | PREPARED — процедурное кольцо `SkillWorldEffects.json` (DECISION-0054); in-game review pending |
 | SKILL-005 | Ветряное копьё | Wind spear projectile | Derived from approved icon \+ Unity motion | PREPARED — v001 из approved icon (DECISION-0054); Unity import/in-game review pending |
-| SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | NOT STARTED |  
+| SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
 | SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | PREPARED — процедурные сегменты цепи (DECISION-0054); in-game review pending |
-| SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | NOT STARTED |  
+| SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
 | SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | IMAGE APPROVED — v001; спрайт мины подключён, gameplay-scale review pending |
 | SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054), столб света за 0.15 s до вспышки и эллипс 0.7 для камеры 3/4 — совпадает с областью урона ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)); in-game review pending |
 | SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | IMAGE APPROVED — v001; одиночный осколок подключён, gameplay-scale review pending |
 | SKILL-012 | Пульсирующий луч | Beam base visual | Procedural in Unity | PREPARED — процедурная полоса (свечение по ширине попадания + яркое ядро) на каждый tick урона, `SkillWorldEffects.json`; выбор пользователя 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); in-game review pending |
 | SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | PREPARED — v001 из approved icon (DECISION-0054); общий impact flash; Unity import/in-game review pending |
-| SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | NOT STARTED |  
+| SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | IMAGE APPROVED — v001; world sprite и общий explosion presenter подключены, gameplay-scale review pending |
 | SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | IMAGE APPROVED — v001; одна режущая волна подключена, gameplay-scale review pending |
 | SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | IMAGE APPROVED — v001; одна крышка-снаряд подключена, gameplay-scale review pending |
 
@@ -315,7 +315,7 @@ Status: \`IMAGE APPROVED — v001; 20 masters and runtime imports prepared; 4 ma
 | SET-005 Жадность к знаниям | XP/progression accent if needed | Procedural / Hybrid |  
 | SET-006 Полевой медик | Healing accent | Reuse generic VFX |  
 | SET-007 Векторный шторм | Existing skill size/width emphasis | Procedural |  
-| SET-008 Утилизатор | Heavy trash replacement projectile \+ explosion | Hybrid |  
+| SET-008 Утилизатор | Heavy trash replacement projectile \+ explosion; отдельный projectile v001 подключён | Hybrid |
 | SET-009 Линия пробоя | Existing linear attacks amplified | Procedural / Hybrid |  
 | SET-010 Холодная орбита | Cold orbit/slow accent | Hybrid |  
 | SET-011 Кинетический арсенал | Speed/trail/impact amplification | Procedural / Hybrid |  
@@ -323,11 +323,11 @@ Status: \`IMAGE APPROVED — v001; 20 masters and runtime imports prepared; 4 ma
 | SET-013 Перегрузка сети | Distinct electrical network burst | Hybrid |  
 | SET-014 Танец клинков | Existing blades/shards amplified | Procedural / Hybrid |  
 | SET-015 Алхимия хаоса | Potion-triggered explosion | Reuse/variant explosion VFX |  
-| SET-016 Выстрел великана | Huge bolt projectile | Generate via GPT \+ Unity motion |  
+| SET-016 Выстрел великана | Huge bolt projectile v001 подключён | Generate via GPT \+ Unity motion |
 | SET-017 Падающая звезда | Telegraph \+ large strike | Hybrid |  
-| SET-018 Сфера разрушения | Large slow sphere \+ explosion | Hybrid |  
-| SET-019 Ледяное копьё | Huge ice shard | Generate via GPT \+ Hybrid |  
-| SET-020 Каменное ядро | Massive boulder | Generate via GPT \+ Hybrid |
+| SET-018 Сфера разрушения | Large slow sphere v001 подключена; explosion использует общий presenter | Hybrid |
+| SET-019 Ледяное копьё | Huge ice shard v001 подключён | Generate via GPT \+ Hybrid |
+| SET-020 Каменное ядро | Massive boulder v001 подключён | Generate via GPT \+ Hybrid |
 
 Generic rule: set effects должны быть вторичным визуальным слоем и не забивать основные active skills.
 
