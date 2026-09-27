@@ -11,3 +11,6 @@
 .meta-card Button { width: 170px; min-height: 32px; margin-top: 8px; }
 .meta-actions { flex-direction: row; flex-wrap: wrap; margin-top: 12px; }
 .meta-actions Button { min-width: 160px; min-height: 40px; margin-right: 12px; }
+.meta-body Button, .meta-launcher Button { background-color: rgb(52, 60, 78); color: rgb(240, 243, 248); border-color: rgb(92, 104, 128); }
+.meta-body Button:hover, .meta-launcher Button:hover { background-color: rgb(66, 76, 98); }
+.meta-body Button:disabled, .meta-launcher Button:disabled { opacity: 0.45; }

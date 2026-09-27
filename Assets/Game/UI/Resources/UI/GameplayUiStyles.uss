@@ -27,15 +27,15 @@
     margin-right: 14px;
 }
 
-.hud-bar > .unity-progress-bar__background {
+.hud-bar .unity-progress-bar__background {
     background-color: rgb(45, 51, 64);
 }
 
-.hud-bar > .unity-progress-bar__progress {
+.hud-bar .unity-progress-bar__progress {
     background-color: rgb(75, 190, 102);
 }
 
-#hud-xp-bar > .unity-progress-bar__progress {
+#hud-xp-bar .unity-progress-bar__progress {
     background-color: rgb(83, 139, 235);
 }
 
@@ -258,7 +258,26 @@
     margin-right: 3px;
 }
 
-.development-tab-active {
+/* Buttons use an explicit dark fill so the light inherited text stays readable. */
+.development-toggle,
+.development-panel .unity-button,
+.primary-button,
+.compact-button,
+.speed-button {
+    background-color: rgb(52, 60, 78);
+    color: rgb(240, 243, 248);
+    border-color: rgb(92, 104, 128);
+}
+
+.development-toggle:hover,
+.development-panel .unity-button:hover,
+.primary-button:hover,
+.compact-button:hover,
+.speed-button:hover {
+    background-color: rgb(66, 76, 98);
+}
+
+.development-panel .development-tab-active {
     background-color: rgb(69, 91, 130);
     -unity-font-style: bold;
 }
