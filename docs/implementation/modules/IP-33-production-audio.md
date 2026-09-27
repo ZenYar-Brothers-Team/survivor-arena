@@ -9,6 +9,8 @@
 
 ## Scope
 
+Технические точки входа: [Game.Audio](../../../Assets/Game/Audio), [ProductionAudio.json](../../../Assets/Resources/Content/Audio/ProductionAudio.json), [SOURCES](../../audio/SOURCES.json). Ownership и переносы — [DECISION-0072](../../decisions/0072-project-structure-and-audio-ownership.md); [PROJECT_MAP](../../PROJECT_MAP.md#звук) связывает данные и checks. Bootstrap создаёт Audio, Settings хранит предпочтения и preview interface.
+
 Первый срез интегрирует выбранные CC0-клипы через общий каталог и аудиообработчик событий забега. Музыка обычного боя и одна тема босса переиспользуются для всего roster; атмосфера FIELD-001 звучит только на этом поле. Каждый новый ID босса не создаёт музыкальную дорожку. Снаряды не владеют источниками звука; поток обычных попаданий, смертей и XP агрегируется по времени и числу голосов. Пользователь поручил AI выполнить импорт, код, проверки и документацию; художественный отзыв даётся после прослушивания в игре.
 
 ## Acceptance

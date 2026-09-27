@@ -125,7 +125,9 @@ Semantic IDs — `GameplayUiElementIds.Shell*`/`Settings*`, assets —
 `UI/AppShell.uxml` и `UI/AppShellStyles.uss`. Результаты используют IP-25 Meta IDs;
 `MetaSelection` теперь означает Main Menu, standalone launchers скрыты.
 
-`SettingsAudioRuntime` владеет Music/gameplay SFX и двумя preview sources;
+`Game.Audio.AudioRoutingRuntime` владеет Music/menu SFX и двумя preview sources
+(перенос из Settings — [DECISION-0072](../../decisions/0072-project-structure-and-audio-ownership.md));
+settings preferences и `IAudioPreview` остаются в Game.Settings, production run events — у [IP-33](IP-33-production-audio.md).
 короткие synthetic clips — только проверка routing, не production soundtrack.
 Каждый источник получает Master×channel×sourceGain один раз. Gameplay SFX
 не запускается вне Running; pause сохраняет playback position, terminal останавливает.

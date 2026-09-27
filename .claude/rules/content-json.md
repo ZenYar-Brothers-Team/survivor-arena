@@ -13,6 +13,8 @@ Adapted from the upstream `data-files` rules. Files here are the authoring layer
 - One file per content category under `Assets/Resources/Content/<Category>/` (`Enemies/`, `Characters/`, `Passives/`, `ActiveSkills/`, `Waves/`, `Sets/`, `Presentation/`), named `Fixture<Thing>.json` for placeholder sets. New category = new subfolder + `Fixture*Catalog`/`*Catalog` in the owning module.
 
 ## Schema is documented in code
+
+- Before editing production JSON, check `scripts/content/generate.py:TARGETS`. Listed outputs are generated from approved sources in `scripts/content/sources.py:SOURCE_PATHS`: edit the source, run `python scripts/content/generate.py`, then `--check`. Other catalogs (including Audio, Meta and Settings) remain directly authored. See `docs/PROJECT_MAP.md`.
 - The DTO class (`Assets/Game/<Module>/**/Json/*Data.cs`) **is** the schema; the catalog maps it through validating domain constructors. Adding a JSON field = DTO field + catalog mapping + domain validation + test in the same change. Unknown properties are errors (`MissingMemberHandling.Error`).
 - Meaning of numbers (units, safe ranges, what they affect) is documented in `docs/Content_design.md` (or the DTO/domain XML comment for fixture-only fields) since JSON has no comments.
 
@@ -22,7 +24,7 @@ Adapted from the upstream `data-files` rules. Files here are the authoring layer
 - Seeds and spawn geometry are content and live here.
 
 ## Integrity
-- **No orphaned entries**: every entry is referenced by a catalog/registry, another JSON (`enemyId`, sprite id, skill id), or a test. Cross-references must resolve — the content registry validates them; keep `FixtureRuntimeContentCatalogTests` current.
+- **No orphaned entries**: every entry is referenced by a catalog/registry, another JSON (`enemyId`, sprite id, skill id), or a test. Cross-references must resolve — the content registry validates them; keep `RuntimeContentCatalogTests` current.
 - IDs are stable and never reused for unrelated entities. The user-approved replacements in DECISION-0015 (SKILL-001, PASSIVE-002/007, SET-001…008) are explicit semantic migrations, not permission to silently reuse other IDs. Keep content/build revisions and old-versus-new meaning distinguishable in saves, telemetry and balance evidence; do not reinterpret historical data as the new card. `FIXTURE-*` ids are non-production placeholders; never use a production id (`CHAR-`, `SKILL-`, `PASSIVE-`, `ENEMY-`, `BOSS-`, `SET-`) for fixture data, and never add production content from a Draft card in `docs/Content_design.md`.
 - Breaking schema changes (renamed/removed field or id) migrate all existing JSON, tests, and docs in the same change and get a DECISION when an id changes.
 - After editing values run the affected EditMode tests (`/smoke-check`) — tests assert configured values. The user-approved numeric-only visual-preview loop in `scripts/README.md` may defer those tests until a visual variant is selected; it is restricted to the four listed presentation profiles and never counts as runtime verification. Gameplay values, schema/ID changes and final IP acceptance retain their checks.

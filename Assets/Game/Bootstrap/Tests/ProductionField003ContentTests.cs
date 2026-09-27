@@ -11,7 +11,7 @@ namespace Game.Bootstrap.Tests
     /// <summary>FIELD-003 (field003-v1, DECISION-0067): field, timeline, bosses and Traveler schedule resolve from production data.</summary>
     public sealed class ProductionField003ContentTests
     {
-        private static FixtureRuntimeContentCatalog Catalog => FixtureRuntimeContentCatalog.CreateProduction();
+        private static RuntimeContentCatalog Catalog => RuntimeContentCatalog.CreateProduction();
 
         private static ResolvedFieldConfiguration Field003()
         {
@@ -54,7 +54,7 @@ namespace Game.Bootstrap.Tests
         [Test]
         public void Presentation_PlacesTheRuins_WallsAsFencesAndRubbleAsBoulders_WithAFreeStart()
         {
-            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION");
             // DECISION-0068: one ruined wall fragment with its rubble per 48-unit cell (4×4), turned at random every run.
             var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,

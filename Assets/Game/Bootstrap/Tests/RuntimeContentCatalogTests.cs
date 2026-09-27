@@ -7,12 +7,12 @@ using NUnit.Framework;
 
 namespace Game.Bootstrap.Tests
 {
-    public class FixtureRuntimeContentCatalogTests
+    public class RuntimeContentCatalogTests
     {
         [Test]
         public void Create_BuildsOneValidatedRegistryForEveryRuntimeDefinition()
         {
-            var catalog = FixtureRuntimeContentCatalog.Create();
+            var catalog = RuntimeContentCatalog.CreateFixture();
 
             Assert.IsTrue(catalog.Registry.IsBuilt);
             Assert.AreEqual(2, catalog.Pickups.Definitions.Count);

@@ -1,4 +1,4 @@
-namespace Game.Bootstrap.Audio
+namespace Game.Audio.Json
 {
     public sealed class AudioCatalogData
     {
@@ -7,8 +7,7 @@ namespace Game.Bootstrap.Audio
         public string BossMusic;
         public string VictoryMusic;
         public string DefeatMusic;
-        public string FieldAmbience;
-        public float? AmbienceGain;
+        public AudioAmbienceData[] FieldAmbiences;
         public float? RoutineGlobalCooldownSeconds;
         public AudioCueData[] Cues;
     }

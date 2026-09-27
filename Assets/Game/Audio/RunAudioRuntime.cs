@@ -9,7 +9,7 @@ using Game.Run;
 using Game.Settings;
 using UnityEngine;
 
-namespace Game.Bootstrap.Audio
+namespace Game.Audio
 {
     /// <summary>One run's bounded, event-driven sound layer. Projectiles never own audio sources.</summary>
     public sealed class RunAudioRuntime : IDisposable
@@ -26,7 +26,7 @@ namespace Game.Bootstrap.Audio
         private readonly Dictionary<string, int> _variants = new Dictionary<string, int>(StringComparer.Ordinal);
         private readonly ProductionAudioCatalog _catalog;
         private readonly ISettingsService _settings;
-        private readonly SettingsAudioRuntime _music;
+        private readonly AudioRoutingRuntime _music;
         private readonly RunModel _run;
         private readonly Health _health;
         private readonly PlayerExperienceRuntime _xp;
@@ -36,13 +36,14 @@ namespace Game.Bootstrap.Audio
         private readonly ContinuousFixtureEnemySpawner _enemies;
         private readonly BossEncounterRuntime _bosses;
         private readonly AudioSource _ambience;
+        private readonly float _ambienceGain;
         private int _livingBosses;
         private double _lastRoutine = double.NegativeInfinity;
 
         public RunAudioRuntime(Transform parent, ProductionAudioCatalog catalog, ISettingsService settings,
-            SettingsAudioRuntime music, RunModel run, Health health, PlayerExperienceRuntime xp,
+            AudioRoutingRuntime music, RunModel run, Health health, PlayerExperienceRuntime xp,
             LevelUpDraftRuntime draft, PlayerActiveSkillSetRuntime skills, WorldPickupRuntime pickups,
-            ContinuousFixtureEnemySpawner enemies, BossEncounterRuntime bosses, bool field001Ambience)
+            ContinuousFixtureEnemySpawner enemies, BossEncounterRuntime bosses, string fieldId)
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -51,7 +52,9 @@ namespace Game.Bootstrap.Audio
             _pickups = pickups; _enemies = enemies; _bosses = bosses;
             _owner = new GameObject("Run audio"); _owner.transform.SetParent(parent, false);
             for (var i = 0; i < _voices.Length; i++) _voices[i] = Source();
-            _ambience = Source(); _ambience.clip = catalog.FieldAmbience; _ambience.loop = true;
+            _ambience = Source(); _ambience.loop = true;
+            var hasAmbience = catalog.TryGetAmbience(fieldId, out var ambienceClip, out _ambienceGain);
+            _ambience.clip = ambienceClip;
             _settings.Changed += Refresh;
             _run.StateChanged += State;
             _run.Completed += Completed;
@@ -69,7 +72,7 @@ namespace Game.Bootstrap.Audio
             _bosses.PhaseChanged += BossPhase;
             Refresh();
             _music.PlayMusic(catalog.BattleMusic);
-            if (field001Ambience) _ambience.Play();
+            if (hasAmbience) _ambience.Play();
             State(run.State);
         }
 
@@ -85,7 +88,7 @@ namespace Game.Bootstrap.Audio
         {
             for (var i = 0; i < _voices.Length; i++)
                 _voices[i].volume = _settings.Current.Gain(false, _gains[i]);
-            _ambience.volume = _settings.Current.Gain(true, _catalog.AmbienceGain);
+            _ambience.volume = _settings.Current.Gain(true, _ambienceGain);
         }
 
         public bool Play(string id)

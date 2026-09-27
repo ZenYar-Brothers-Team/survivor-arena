@@ -11,6 +11,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import art_pipeline as art
 import check_project as checks
+from content.read_card import cards
 
 
 class ArtPacketTests(unittest.TestCase):
@@ -182,6 +183,24 @@ class CheckRunnerTests(unittest.TestCase):
         self.assertEqual("art", checks.choose_scope(["Assets/Resources/Art/a.png"]))
         self.assertEqual("full", checks.choose_scope(["Assets/Game/Presentation/Foo.cs"]))
         self.assertEqual("full", checks.choose_scope(["Assets/Resources/Content/Pickups/FixturePickups.json"]))
+        self.assertEqual("audio", checks.choose_scope([checks.AUDIO_MANIFEST, "Assets/Resources/Audio/Music/boss_music.ogg"]))
+        self.assertEqual("full", checks.choose_scope(["Assets/Game/Audio/RunAudioRuntime.cs"]))
+        self.assertEqual("full", checks.choose_scope(["docs/Content_design.md"]))
+
+    def test_full_and_scoped_checks_include_required_data_validators(self):
+        full = checks.data_check_commands("full", [])
+        self.assertEqual(["scripts/content/generate.py", "scripts/audio/check_audio.py"], [args[1] for args in full])
+        self.assertIn("--check", full[0])
+        self.assertEqual([full[1]], checks.data_check_commands("audio", []))
+        self.assertEqual([full[0]], checks.data_check_commands("content", []))
+        self.assertEqual([full[0]], checks.data_check_commands("docs", ["docs/Content_design.md"]))
+        self.assertEqual([full[0]], checks.data_check_commands("code", ["Assets/Resources/Content/Enemies/ProductionEnemies.json"]))
+        self.assertEqual([full[1]], checks.data_check_commands("code", ["Assets/Game/Audio/RunAudioRuntime.cs"]))
+
+    def test_failed_data_check_cannot_produce_successful_evidence(self):
+        with patch.object(checks, "command", side_effect=ValueError("stale generated content")):
+            with self.assertRaisesRegex(ValueError, "stale generated content"):
+                checks.run_data_checks(checks.data_check_commands("full", []))
 
     def test_unreadable_process_probe_never_launches_batch(self):
         with patch.object(checks, "command", side_effect=subprocess.CalledProcessError(1, "probe")):
@@ -224,6 +243,43 @@ class CheckRunnerTests(unittest.TestCase):
             self.assertEqual(first, checks.fingerprint(root))
             image.write_bytes(b"replacement")
             self.assertNotEqual(first, checks.fingerprint(root))
+
+    def test_fingerprint_includes_authoring_sources_and_audio_provenance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            previous = checks.fingerprint(root)
+            for relative in (*checks.SOURCE_PATHS, checks.AUDIO_MANIFEST):
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("first", encoding="utf-8")
+                changed = checks.fingerprint(root)
+                self.assertNotEqual(previous, changed, relative)
+                path.write_text("second", encoding="utf-8")
+                self.assertNotEqual(changed, checks.fingerprint(root), relative)
+                previous = checks.fingerprint(root)
+
+    def test_card_reader_keeps_same_level_fields_and_stops_at_next_card_or_category(self):
+        text = """### Enemies
+### ENEMY-001 — One
+### Статус: Approved.
+### Поведение: full rule.
+### ENEMY-002 — Two
+### Статус: Approved.
+### Bosses
+General boss rules.
+#### BOSS-001 — Boss
+HP: 10.
+"""
+        found = cards(text)
+        self.assertEqual(["ENEMY-001", "ENEMY-002", "BOSS-001"], [entry[0] for entry in found])
+        self.assertIn("Поведение: full rule.", found[0][3])
+        self.assertNotIn("ENEMY-002", found[0][3])
+        self.assertNotIn("General boss rules", found[1][3])
+        self.assertIn("HP: 10.", found[-1][3])
+
+    def test_card_reader_rejects_ambiguous_ids(self):
+        with self.assertRaisesRegex(ValueError, "Duplicate"):
+            cards("### SKILL-001 — One\n### SKILL-001 — Another\n")
 
     def test_first_import_metadata_does_not_require_repeating_successful_tests(self):
         with tempfile.TemporaryDirectory() as directory:

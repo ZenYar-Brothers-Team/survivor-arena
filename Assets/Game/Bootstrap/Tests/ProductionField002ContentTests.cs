@@ -11,7 +11,7 @@ namespace Game.Bootstrap.Tests
     /// <summary>FIELD-002 slice (DECISION-0063): field, timeline, bosses and Traveler schedule resolve from production data.</summary>
     public sealed class ProductionField002ContentTests
     {
-        private static FixtureRuntimeContentCatalog Catalog => FixtureRuntimeContentCatalog.CreateProduction();
+        private static RuntimeContentCatalog Catalog => RuntimeContentCatalog.CreateProduction();
 
         private static ResolvedFieldConfiguration Field002()
         {
@@ -75,7 +75,7 @@ namespace Game.Bootstrap.Tests
         [Test]
         public void Presentation_GeneratesRowsOfRocksAndColumnsPerRun_WithAFreeStart()
         {
-            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION");
             // DECISION-0068: rows of 3–5 rocks or columns are placed every run, one row per 38.4-unit cell (5×5).
             var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,

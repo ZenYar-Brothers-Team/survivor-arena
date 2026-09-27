@@ -20,7 +20,7 @@ using Game.Run;
 using Game.UI;
 using UnityEngine;
 using Game.Telemetry;
-using Game.Bootstrap.Audio;
+using Game.Audio;
 
 namespace Game.Bootstrap
 {
@@ -77,7 +77,7 @@ namespace Game.Bootstrap
         [SerializeField]
         private GameplayUiRoot gameplayUiRoot;
 
-        public FixtureRuntimeContentCatalog Catalog { get; private set; }
+        public RuntimeContentCatalog Catalog { get; private set; }
         /// <summary>Production save file; independent from the prototype fixture profile (DECISION-0050).</summary>
         public const string ProductionProfileFileName = "profile-v1.json";
         public bool IsInitialized { get; private set; }
@@ -104,7 +104,7 @@ namespace Game.Bootstrap
         public UnityEngine.UIElements.UIDocument ShellDocument => _shellScreen?.Document;
         private AppShellScreen _shellScreen;
         private AppShellPresenter _shellPresenter;
-        private SettingsAudioRuntime _audio;
+        private AudioRoutingRuntime _audio;
         private ProductionAudioCatalog _audioCatalog;
         private RunAudioRuntime _runAudio;
         private SettingsConfig _settingsConfig;
@@ -130,7 +130,7 @@ namespace Game.Bootstrap
             _notifications = new NotificationQueue(_settingsConfig.NotificationSeconds);
             _notifications.Changed += NotifyNavigation;
             foreach (var rule in Profile.Catalog.Unlocks.Values) if (Profile.IsUnlocked(rule.Id)) _knownUnlocks.Add(rule.Id);
-            _audio = new SettingsAudioRuntime(transform, Settings, _settingsConfig);
+            _audio = new AudioRoutingRuntime(transform, Settings, _settingsConfig);
             _audioCatalog = ProductionAudioCatalog.Load();
             _audio.PlayMusic(_audioCatalog.MenuMusic);
             _shellScreen = new AppShellScreen(transform);
@@ -328,8 +328,8 @@ namespace Game.Bootstrap
         /// Content follows the profile economy: the fixture profile (tests, prototype tools) composes fixture
         /// content; the production profile composes the FIELD-001 startup content only (F1-08, DECISION-0054).
         /// </summary>
-        private FixtureRuntimeContentCatalog CreateCatalog() =>
-            Profile != null && Profile.Catalog.IsFixture ? FixtureRuntimeContentCatalog.Create() : FixtureRuntimeContentCatalog.CreateProduction();
+        private RuntimeContentCatalog CreateCatalog() =>
+            Profile != null && Profile.Catalog.IsFixture ? RuntimeContentCatalog.CreateFixture() : RuntimeContentCatalog.CreateProduction();
 
         public void Initialize(ContentId characterId, CharacterRoster roster = null, ContentId? fieldId = null, FieldRoster fields = null)
         {
@@ -536,7 +536,7 @@ namespace Game.Bootstrap
                     _runAudio = new RunAudioRuntime(transform, _audioCatalog, Settings, _audio,
                         runController.Model, player.Health, experienceRuntime, draftRuntime,
                         activeSkillRuntime, Pickups, enemySpawner, BossEncounters,
-                        selectedField.Id.ToString() == "FIELD-001");
+                        selectedField.Id.ToString());
                     initializedSubsystems.Add(() => { _runAudio?.Dispose(); _runAudio = null; });
                 }
                 runController.Model.Completed += ShowProfileResult;

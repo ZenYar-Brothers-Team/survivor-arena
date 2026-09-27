@@ -51,7 +51,7 @@ namespace Game.Bootstrap.PlayModeTests
                 var run = Object.FindAnyObjectByType<RunController>();
                 Assert.AreEqual("FIELD-002", run.Model.Selection.FieldId.ToString());
                 // DECISION-0068: the colliders are exactly this run's generated layout.
-                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                     .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION").ObstacleLayout;
                 Assert.AreEqual(layout.ReferenceSeed, root.LayoutSeed, "Reference seeds pin the layout.");
                 var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-002-ENVIRONMENT");

@@ -9,6 +9,10 @@ Load only the skill needed for the current operation. A module does not require
 every review skill, a full skill-directory scan, or an agent per review.
 An explicit user request for a broader audit still defines the scope.
 
+`docs/PROJECT_MAP.md` routes code/data/checks without loading helper catalogs.
+Audio ownership and commands are in `rules/audio-code.md`; generated content
+sources and outputs are listed by `scripts/content/sources.py` and `generate.py`.
+
 ## Project skills, rules and hooks
 
 Repository-specific helpers are read-only unless stated; none replaces

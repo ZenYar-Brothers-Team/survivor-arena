@@ -20,7 +20,7 @@
 | Особые атаки боссов (зоны, лучи, призыв), повтор залпа, атаки после рывка, фазовые рывки (DECISION-0066) | `BossHazardFieldTests`, `BossHazardRuntimeTests`, `BossSpecialStepTests`, `EnemyAttackFollowUpTests`, `EnemyDashEndAttacksTests`, `ProductionLateBossCatalogTests`, `BossHazardSmokeTests` | EditMode / PlayMode | OK |
 | Пул `GameObjectPool<T>` | `GameObjectPoolTests` | EditMode | OK (добавлено в ревью) |
 | Общий валидатор чисел | `NumericValidationTests` | EditMode | OK (добавлено в ревью) |
-| Загрузка контента: реестр, ссылки, каталоги | `ContentRegistryTests`, `FixtureRuntimeContentCatalogTests`, `FixtureCharacterCatalogTests` | EditMode | OK |
+| Загрузка контента: реестр, ссылки, каталоги | `ContentRegistryTests`, `RuntimeContentCatalogTests`, `FixtureCharacterCatalogTests` | EditMode | OK |
 | Презентация спрайтов (композитор позы) | `Game.Presentation.Tests` (`ProceduralSpriteAnimatorTests` и др.) | EditMode | OK |
 | Category imports, role/crop validation, generic presentation pause/fade/pool/disable и shake preference | `CategoryImportTests`, `GenericPresentationTests`, `ScreenShakeRequestGateTests`, `PresentationAdapterSmokeTests` | EditMode / PlayMode | OK; manual art/dense gameplay review отдельно |
 | Composition root: сборка, откат при сбое | `GameplayCompositionSceneTests`, `GameplaySmokeTests` | EditMode / PlayMode | GAP: откат при частичном сбое покрыт только косвенно (runtime-тесты выше), прямого теста `GameplayCompositionRoot.Initialize` с искусственным сбоем нет |

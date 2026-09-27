@@ -24,7 +24,7 @@ namespace Game.Telemetry.Tests
             Xp = Root.AddComponent<PlayerExperienceRuntime>();
             Xp.Initialize(Player, Run, new ExperienceSettings(5, 1000f));
             Draft = Root.AddComponent<LevelUpDraftRuntime>();
-            var catalog = FixtureRuntimeContentCatalog.Create();
+            var catalog = RuntimeContentCatalog.CreateFixture();
             Draft.Initialize(Xp, Run, catalog.BuildEntries, catalog.BuildEntries[0], 3, new SeededDraftRandom(12), 1, 1, catalog.Sets, new FixtureSetExtraAbilityFactory(), 1);
             if (recording) Session = new PlaytestSession(Run.Model, Player, Xp, Draft, null, null,
                 TelemetryTestData.Provenance(), Sink, () => 0, DateTime.UtcNow);

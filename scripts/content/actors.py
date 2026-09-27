@@ -1,0 +1,197 @@
+"""Production content: actors. Numeric inputs live in the approved authoring sources."""
+from content.sources import content_design_names
+
+
+CHARACTER_BASELINE_ID = "CHARACTER-BASELINE-001"
+
+
+def characters(baseline):
+    """CHAR-001 only: draft weights for every implemented skill; locked ones are filtered by profile access."""
+    character = baseline["character"]
+    implemented = set(baseline["initialRoster"]["actives"]) | {skill["id"] for skill in baseline["late"]["skills"]}
+    late_weights = baseline["late"]["draftWeights"][character["id"]]
+    names = content_design_names("CHAR")
+    weights = [{"skillId": skill, "weight": late_weights.get(skill, weight)}
+               for skill, weight in sorted(character["skillDraftWeights"].items()) if skill in implemented]
+    return [{
+        "id": character["id"], "displayName": names[character["id"]],
+        "initiallyUnlocked": True, "startingActiveSkillId": character["startingSkill"],
+        "visualId": f"{character['id']}-VISUAL-BODY", "motionProfileId": f"{character['id']}-MOTION",
+        "baseStats": character["stats"], "draftWeights": weights,
+        "presentation": {"role": " · ".join(character["highlights"]), "baselineId": CHARACTER_BASELINE_ID,
+                         "cropId": f"{character['id']}-VISUAL-PORTRAIT", "iconId": f"{character['id']}-VISUAL-ICON",
+                         "highlights": []},
+    }]
+
+
+def character_baseline(baseline):
+    return {"id": CHARACTER_BASELINE_ID, "baseStats": baseline["character"]["stats"]}
+
+
+ENEMY_VISUALS = {  # Imported FIELD-001 body references; motion profiles remain shared by movement family.
+    "ENEMY-001": ("ENEMY-001-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-002": ("ENEMY-002-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-003": ("ENEMY-003-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-004": ("ENEMY-004-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-005": ("ENEMY-005-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-006": ("ENEMY-006-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-007": ("ENEMY-007-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-008": ("ENEMY-008-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-009": ("ENEMY-009-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-010": ("ENEMY-010-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-011": ("ENEMY-011-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-012": ("ENEMY-012-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-013": ("ENEMY-013-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-014": ("ENEMY-014-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-015": ("ENEMY-015-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-016": ("ENEMY-016-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-017": ("ENEMY-017-VISUAL-BODY", "ENEMY-002-MOTION"),
+    "ENEMY-018": ("ENEMY-018-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-019": ("ENEMY-019-VISUAL-BODY", "ENEMY-001-MOTION"),
+    "ENEMY-020": ("ENEMY-020-VISUAL-BODY", "ENEMY-001-MOTION"),
+}
+
+
+ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE",
+                            "ENEMY-006": "ENEMY-005-VISUAL-PROJECTILE"}
+
+
+CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}
+
+
+def enemies(baseline):
+    result = []
+    potion_chance = baseline["pickups"]["basePotionChance"]
+    for enemy in baseline["lateEnemies"]["enemies"]:
+        # enemies-v1 (DECISION-0062) restates the shared ordinary potion chance; it is not a per-enemy table.
+        if enemy["potionDropChance"] != potion_chance:
+            raise SystemExit(f"{enemy['id']}: per-enemy potion chance is not supported")
+    for enemy in sorted(baseline["enemies"] + baseline["lateEnemies"]["enemies"], key=lambda item: item["id"]):
+        kb_seconds = enemy["knockbackSeconds"]
+        movement = dict(enemy["movement"])
+        entry = {
+            "id": enemy["id"], "knockbackResistance": enemy["knockbackResistance"], "maxHealth": enemy["maxHealth"],
+            "collisionSize": enemy["collisionSize"], "movementSpeed": enemy["movementSpeed"],
+            "contactDamage": enemy["contactDamage"], "contactDamageInterval": enemy["contactDamageIntervalSeconds"],
+            "experienceReward": enemy["experienceReward"],
+            "contactControls": {"knockbackDistance": enemy["contactKnockback"], "knockbackSeconds": kb_seconds},
+        }
+        if enemy["id"] in ENEMY_VISUALS:
+            entry["visualId"], entry["motionProfileId"] = ENEMY_VISUALS[enemy["id"]]
+        kind = movement["kind"]
+        runtime_movement = {"kind": kind}
+        if kind in ("KeepDistance", "DistanceReposition", "Orbit"):
+            runtime_movement.update(preferredDistance=movement["preferredDistance"], distanceTolerance=movement["distanceTolerance"])
+        if kind in ("Orbit", "Zigzag"):
+            runtime_movement["lateralStrength"] = movement["lateralStrength"]
+        if kind in ("Zigzag", "ApproachRetreat"):
+            runtime_movement["cycleSeconds"] = movement["cycleSeconds"]
+        if kind == "DistanceReposition":
+            if movement["cycleSeconds"] != movement["holdingSeconds"] + movement["repositionSeconds"] or not movement["alternateLateralDirection"]:
+                raise SystemExit(f"{enemy['id']}: unsupported reposition cycle")
+            runtime_movement.update(lateralStrength=movement["lateralStrength"], cycleSeconds=movement["cycleSeconds"],
+                                    repositionSeconds=movement["repositionSeconds"])
+        if kind == "TelegraphedDash":
+            if movement["direction"] != "snapshot-at-telegraph-start":
+                raise SystemExit(f"{enemy['id']}: unsupported dash direction policy")
+            runtime_movement.update(dashTelegraphSeconds=movement["dashTelegraphSeconds"],
+                                    dashDurationSeconds=movement["dashDurationSeconds"],
+                                    dashCooldownSeconds=movement["dashCooldownSeconds"],
+                                    dashSpeedMultiplier=movement["dashSpeedMultiplier"])
+            if "showDashTelegraphLine" in movement:
+                runtime_movement["showDashTelegraphLine"] = movement["showDashTelegraphLine"]
+            entry["dashContactControls"] = {"knockbackDistance": movement["dashKnockback"], "knockbackSeconds": kb_seconds}
+        entry["movement"] = runtime_movement
+        attack = enemy["attack"]
+        if attack:
+            if attack["initialDelaySeconds"] != attack["cooldownSeconds"] or attack["aimSnapshot"] != "windup-start":
+                raise SystemExit(f"{enemy['id']}: attack timing not expressible by the runtime cadence")
+            entry["attack"] = {
+                "pattern": attack["pattern"], "damage": attack["damage"], "cooldownSeconds": attack["cooldownSeconds"],
+                "projectileSpeed": attack["projectileSpeed"], "projectileLifetimeSeconds": attack["projectileLifetimeSeconds"],
+                "projectileCount": attack["projectileCount"], "projectileRadius": attack["projectileRadius"],
+                "telegraphSeconds": attack["telegraphSeconds"], "cadence": CADENCES[attack["cadence"]],
+                "controls": {"knockbackDistance": attack["knockback"], "knockbackSeconds": attack["knockbackSeconds"]},
+            }
+            if enemy["id"] in ENEMY_PROJECTILE_VISUALS:
+                entry["attack"]["projectileVisualId"] = ENEMY_PROJECTILE_VISUALS[enemy["id"]]
+            if attack["pattern"] == "Fan":
+                entry["attack"]["spreadDegrees"] = attack["spreadDegrees"]
+            if attack["pattern"] == "Spiral":
+                entry["attack"]["rotationStepDegrees"] = attack["rotationStepDegrees"]
+            if attack["pattern"] == "Explosive":
+                entry["attack"]["explosionRadius"] = attack["explosionRadius"]
+            if attack["pattern"] == "Burst":
+                # Sequential shots with per-shot random aim deviation within ±spread/2 (DECISION-0055).
+                entry["attack"]["burstIntervalSeconds"] = attack["burstIntervalSeconds"]
+                entry["attack"]["spreadDegrees"] = attack["spreadDegrees"]
+        result.append(entry)
+    return result
+
+
+# In-game accepted presentation scales (docs/playtests/2026-09-22_visual-acceptance.md) win over the review
+# format's neutral 1.0; gameplay values below come from the baseline unchanged (DECISION-0054 section 6).
+ACCEPTED_PICKUP_VISUAL_SCALES = {"Potion": 0.68, "Book": 0.7, "experience": 0.62}
+
+
+def pickups(baseline):
+    data = baseline["pickups"]
+    if data["enemyChanceOverrides"] or data["fieldChanceOverrides"] or data["eligiblePotionSources"] != "ordinary-only":
+        raise SystemExit("pickup overrides/eligibility need a runtime mapping review")
+    seeds = baseline["randomness"]["referenceSeeds"]
+    definitions = data["definitions"]
+    by_kind = {d["kind"]: d for d in definitions}
+    return {
+        "potionId": by_kind["Potion"]["id"], "bookId": by_kind["Book"]["id"],
+        "baseChance": data["basePotionChance"], "seed": seeds["potion"],
+        "placementSkin": data["placementSkin"], "feedbackSeconds": data["feedbackSeconds"],
+        "experienceVisualId": data["experienceVisualId"],
+        "experienceVisualScale": ACCEPTED_PICKUP_VISUAL_SCALES["experience"],
+        "dropScatterRadius": data["dropScatterRadius"], "dropScatterSeed": seeds["dropScatter"],
+        "enemyChances": {}, "fieldChances": {},
+        "pickups": [{"id": d["id"], "kind": d["kind"], "healing": d["healing"], "contactRadius": d["contactRadius"],
+                     "lifetimeSeconds": d["lifetimeSeconds"], "marker": d["marker"], "color": d["color"],
+                     "markerSize": d["markerSize"], "visualId": d["visualId"],
+                     "visualScale": ACCEPTED_PICKUP_VISUAL_SCALES[d["kind"]]} for d in definitions],
+    }
+
+
+def travelers(baseline):
+    schedule = baseline["travelerSchedule"]
+    seeds = baseline["randomness"]["referenceSeeds"]
+    if schedule["typeSelection"] != "uniform-without-replacement" or not schedule["timesIndependent"] \
+            or schedule["spawnTimeIntervalSeconds"] != [0, 900 - schedule["endBufferSeconds"]]:
+        raise SystemExit("Traveler schedule policy not expressible by the runtime")
+    result = []
+    for t in baseline["travelers"]:
+        if t["attack"] is not None or t["movement"]["kind"] != "Seek" or t["bookDropCountOnKill"] != 1 or t["rewardOnEscape"] != 0:
+            raise SystemExit(f"{t['id']}: unsupported Traveler policy")
+        support = t["support"]
+        result.append({
+            "id": t["id"], "name": t["name"], "marker": t["marker"], "role": t["role"],
+            "body": {"id": t["id"], "knockbackResistance": t["knockbackResistance"], "maxHealth": t["maxHealth"],
+                     "visualId": f"{t['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
+                     "collisionSize": t["collisionSize"], "movementSpeed": t["movementSpeed"],
+                     "contactDamage": t["contactDamage"], "contactDamageInterval": t["contactDamageIntervalSeconds"],
+                     "experienceReward": t["experienceReward"], "movement": {"kind": "Seek"},
+                     "contactControls": {"knockbackDistance": t["contactKnockback"],
+                                         "knockbackSeconds": t["knockbackSeconds"] or baseline["controls"]["nonzeroKnockbackSeconds"]}},
+            "presenceSeconds": t["presenceSeconds"], "wanderSeconds": t["wanderSeconds"], "restSeconds": t["restSeconds"],
+            "avoidRadius": t["avoidRadius"], "avoidSeconds": t["avoidSeconds"], "guardOffset": t["guardOffset"],
+            "support": support["kind"], "supportRadius": support["radius"], "reduction": support["reduction"],
+            "resistance": support["resistance"], "shieldHp": support["shieldHp"], "shieldSeconds": support["shieldSeconds"],
+            "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
+        })
+    def entry(schedule_id, seed, rank):
+        # DECISION-0063: every field draws from the global pool of implemented Travelers, roles never repeat.
+        return {"id": schedule_id, "travelerIds": [t["id"] for t in baseline["travelers"]],
+                "countProbabilities": schedule["countProbabilities"], "seed": seed, "fieldRank": rank,
+                "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
+                "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
+                "timeGrowth": schedule["timeGrowth"]}
+    for key in ("field002", "field003"):
+        if not baseline[key]["travelers"]["pool"].startswith("global"):
+            raise SystemExit(f"{key} Traveler pool must be the global pool")
+    return {"travelers": result, "schedules": [entry(schedule["id"], seeds["travelers"], schedule["fieldRank"]),
+                                               entry("FIELD-002-TRAVELERS", seeds["travelers"] + 1000, 2),
+                                               entry("FIELD-003-TRAVELERS", seeds["travelers"] + 2000, 3)]}

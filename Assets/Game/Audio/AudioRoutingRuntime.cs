@@ -1,10 +1,11 @@
 using System;
 using Game.Run;
+using Game.Settings;
 using UnityEngine;
-namespace Game.Settings
+namespace Game.Audio
 {
     /// <summary>Owned endpoints; every source receives master exactly once.</summary>
-    public sealed class SettingsAudioRuntime : IAudioPreview, IDisposable
+    public sealed class AudioRoutingRuntime : IAudioPreview, IDisposable
     {
         private readonly GameObject _owner;
         private readonly ISettingsService _settings;
@@ -13,7 +14,7 @@ namespace Game.Settings
         private readonly SettingsConfig _config;
         private RunModel _run;
         private float _musicGain = 1, _sfxGain = 1;
-        public SettingsAudioRuntime(Transform parent, ISettingsService settings, SettingsConfig config)
+        public AudioRoutingRuntime(Transform parent, ISettingsService settings, SettingsConfig config)
         {
             _settings = settings; _config = config;
             _owner = new GameObject("Audio routing"); _owner.transform.SetParent(parent, false);

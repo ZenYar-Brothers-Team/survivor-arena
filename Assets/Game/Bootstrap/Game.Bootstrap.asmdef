@@ -21,7 +21,8 @@
     "Game.Settings",
     "Game.Movement",
     "Game.Diagnostics",
-    "Unity.InputSystem"
+    "Unity.InputSystem",
+    "Game.Audio"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

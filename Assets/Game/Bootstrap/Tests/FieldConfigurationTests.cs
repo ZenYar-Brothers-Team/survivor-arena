@@ -11,7 +11,7 @@ namespace Game.Bootstrap.Tests
 {
     public sealed class FieldConfigurationTests
     {
-        private FixtureRuntimeContentCatalog Catalog => FixtureRuntimeContentCatalog.Create();
+        private RuntimeContentCatalog Catalog => RuntimeContentCatalog.CreateFixture();
         private FieldDefinition Copy(string environment = "FIXTURE-ENVIRONMENT-ARENA", string timeline = "FIXTURE-WAVE-TIMELINE",
             string final = "FIXTURE-BOSS-FINAL", string mid = "FIXTURE-BOSS-MID", string[] enemies = null, string traveler = null)
         {

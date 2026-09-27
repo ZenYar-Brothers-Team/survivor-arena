@@ -5,12 +5,6 @@ alwaysApply: true
 
 # Implementation workflow
 
-- The canonical product documents are `docs/Game_design.md`, `docs/Content_design.md`, and `docs/implementation/`.
-- Before implementing an IP module, follow `docs/implementation/WORKFLOW.md`.
-- `docs/implementation/STATUS.md` is the only source of execution status.
-- If the user requests the next module, select the first numerically ordered module with status `Ready`.
-- Read the selected IP specification and its declared design context before editing code.
-- Draft content is a non-binding compatibility target and cannot become production content without explicit approval.
-- Run the module checks and update status/evidence/documentation impact in the same change.
-- Route system changes to Game Design, entity/parameter changes to Content Design, and scope/dependency changes to the IP specification.
-- Record cross-layer decisions in `docs/decisions/`; never treat a workaround as a product decision automatically.
+- Read `AGENTS.md` for the shared contract and applicable `.claude/rules`; they apply to Cursor too.
+- For IP work, follow `docs/implementation/WORKFLOW.md`. `STATUS.md` alone defines execution status, the explicit Execution order and current authorization boundaries; numeric IP order is not the queue.
+- Use `docs/PROJECT_MAP.md` to find owning code, editable sources, generated outputs and checks. Load only the selected module's Context and complete referenced cards.

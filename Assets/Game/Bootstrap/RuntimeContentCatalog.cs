@@ -15,18 +15,18 @@ using System.Collections.ObjectModel;
 namespace Game.Bootstrap
 {
     /// <summary>
-    /// Immutable runtime content for one composition. <see cref="Create"/> builds the fixture prototype set;
+    /// Immutable runtime content for one composition. <see cref="CreateFixture"/> builds the fixture prototype set;
     /// <see cref="CreateProduction"/> builds the FIELD-001 startup set (F1-08) from production files only,
     /// without fixture definitions or placeholder sprite fallback.
     /// </summary>
-    public sealed class FixtureRuntimeContentCatalog
+    public sealed class RuntimeContentCatalog
     {
         // All content here is immutable once built, so it only needs parsing once
         // per game session (this static field resets on domain reload, i.e. once
         // per Editor Play session or once per real process launch) rather than
         // once per run/scene reload.
-        private static FixtureRuntimeContentCatalog _cached;
-        private static FixtureRuntimeContentCatalog _cachedProduction;
+        private static RuntimeContentCatalog _cached;
+        private static RuntimeContentCatalog _cachedProduction;
 
         private static readonly string[] FixtureSources = { "Content/ActiveSkills/FixtureActiveSkills", "Content/Passives/FixturePassives",
             "Content/Sets/FixtureSets", "Content/Enemies/FixtureEnemies", "Content/Bosses/FixtureBosses", "Content/Waves/FixtureWaveTimeline",
@@ -83,7 +83,7 @@ namespace Game.Bootstrap
         /// <summary>Exact resource bytes retained with the cached catalog, not re-read on later runs.</summary>
         public IReadOnlyDictionary<string, string> SourceSnapshot { get; }
 
-        private FixtureRuntimeContentCatalog(
+        private RuntimeContentCatalog(
             ContentRegistry registry,
             IReadOnlyList<BuildEntryDefinition> buildEntries,
             IReadOnlyList<ActiveSkillProgressionDefinition> activeSkills,
@@ -127,7 +127,7 @@ namespace Game.Bootstrap
             SourceSnapshot = new ReadOnlyDictionary<string, string>(sources);
         }
 
-        public static FixtureRuntimeContentCatalog Create()
+        public static RuntimeContentCatalog CreateFixture()
         {
             if (_cached != null)
                 return _cached;
@@ -203,7 +203,7 @@ namespace Game.Bootstrap
                 characters.AllCharacters[i].ValidateDraftSkillReferences(registry);
             }
 
-            _cached = new FixtureRuntimeContentCatalog(
+            _cached = new RuntimeContentCatalog(
                 registry,
                 buildEntries,
                 activeSkills,
@@ -222,7 +222,7 @@ namespace Game.Bootstrap
         }
 
         /// <summary>FIELD-001 startup composition: production definitions only (DECISION-0050/0051, F1-08).</summary>
-        public static FixtureRuntimeContentCatalog CreateProduction()
+        public static RuntimeContentCatalog CreateProduction()
         {
             if (_cachedProduction != null)
                 return _cachedProduction;
@@ -286,7 +286,7 @@ namespace Game.Bootstrap
                 character.ValidateDraftSkillReferences(registry);
             }
 
-            _cachedProduction = new FixtureRuntimeContentCatalog(
+            _cachedProduction = new RuntimeContentCatalog(
                 registry, buildEntries, activeSkills, passives, sets, enemies, waveTimeline, runSetup, characters,
                 spriteMotionProfiles, enemyDeathPresentation, groundShadowPresentation, bosses, fields, pickups, travelers,
                 fieldEnvironmentPresentations, true, setAttacks, SkillWorldEffectCatalog.Create(), ProductionSources);

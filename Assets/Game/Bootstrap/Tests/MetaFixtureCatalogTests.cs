@@ -6,7 +6,7 @@ namespace Game.Bootstrap.Tests
     {
         [Test] public void FixtureAccess_AllBuildCharacterFieldIdsHaveRules()
         {
-            var meta=MetaCatalog.Load(true);var runtime=FixtureRuntimeContentCatalog.Create();
+            var meta=MetaCatalog.Load(true);var runtime=RuntimeContentCatalog.CreateFixture();
             foreach(var item in runtime.BuildEntries)Assert.IsTrue(meta.Unlocks.ContainsKey(item.Id.ToString()),item.Id.ToString());
             foreach(var item in runtime.Characters.AllCharacters)Assert.IsTrue(meta.Unlocks.ContainsKey(item.Id.ToString()),item.Id.ToString());
             foreach(var item in runtime.Fields.Roster.AllFields)Assert.IsTrue(meta.Unlocks.ContainsKey(item.Id.ToString()),item.Id.ToString());

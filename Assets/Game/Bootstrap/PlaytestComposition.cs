@@ -17,7 +17,7 @@ namespace Game.Bootstrap
     /// <summary>Development-only composition/provenance. Release creates no recorder or listeners.</summary>
     public static class PlaytestComposition
     {
-        public static IPlaytestSession Create(FixtureRuntimeContentCatalog catalog, int draftSeed, RunModel run,
+        public static IPlaytestSession Create(RuntimeContentCatalog catalog, int draftSeed, RunModel run,
             PlayerCharacterRuntime player, PlayerExperienceRuntime xp, LevelUpDraftRuntime draft,
             ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
         {

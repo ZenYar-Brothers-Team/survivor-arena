@@ -2,12 +2,12 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Game.Bootstrap.Editor
+namespace Game.Audio.Editor
 {
     /// <summary>Stream long shared tracks; keep short one-shot cues ready in memory.</summary>
     public sealed class ProductionAudioImportPostprocessor : AssetPostprocessor
     {
-        private const string Root = "Assets/Resources/Audio/Field001/";
+        private const string Root = "Assets/Resources/Audio/";
 
         private void OnPreprocessAudio()
         {

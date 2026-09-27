@@ -16,9 +16,13 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 from art_pipeline import ROOT, inside, json_bytes, read_json, sha
+from content.sources import SOURCE_PATHS
+from content.generate import TARGETS
 
 
-ART_FILTER = r"^Game\.(Presentation\.Tests\.|Bootstrap\.Tests\.FixtureRuntimeContentCatalogTests)"
+ART_FILTER = r"^Game\.(Presentation\.Tests\.|Bootstrap\.Tests\.RuntimeContentCatalogTests)"
+AUDIO_FILTER = r"^Game\.Audio\.Tests\."
+AUDIO_MANIFEST = "docs/audio/SOURCES.json"
 PREVIEW_FILES = {
     "Assets/Resources/Content/Presentation/" + name + ".json" for name in (
         "FixtureGroundShadowPresentation", "FixtureEnemyDeathPresentation",
@@ -73,12 +77,39 @@ def changed_paths(root=ROOT):
 def choose_scope(paths):
     if not paths:
         return "docs"
+    if any(p in SOURCE_PATHS for p in paths):
+        return "full"
     if all(p.endswith(".md") for p in paths):
         return "docs"
+    if all(is_audio_data(p) or p.endswith(".md") for p in paths):
+        return "audio"
     if all(p.startswith(("Art/", "Assets/Resources/Art/")) or p.endswith(".md") or
            p == "Assets/Resources/Content/Presentation/FixtureSprites.json" for p in paths):
         return "art"
     return "full"
+
+
+def is_audio_data(path):
+    return path == AUDIO_MANIFEST or path.startswith(("Assets/Resources/Audio/", "Assets/Resources/Content/Audio/"))
+
+
+def data_check_commands(scope, paths):
+    """Validators are additive; scoped Unity tests never replace data integrity checks."""
+    commands = []
+    if scope in ("full", "content") or any(p in SOURCE_PATHS or p in TARGETS or p.startswith("scripts/content/") for p in paths):
+        commands.append([sys.executable, "scripts/content/generate.py", "--check"])
+    if scope in ("full", "audio") or any(is_audio_data(p) or p.startswith(("Assets/Game/Audio/", "scripts/audio/")) for p in paths):
+        commands.append([sys.executable, "scripts/audio/check_audio.py"])
+    return commands
+
+
+def run_data_checks(commands, root=ROOT):
+    results = []
+    for args in commands:
+        output = command(args, root).strip()
+        print(output, flush=True)
+        results.append({"command": args[1:], "output": output})
+    return results
 
 
 def preview_diff(before, after, path=""):
@@ -127,8 +158,9 @@ def fingerprint(root=ROOT, exclude=frozenset()):
     for directory in ("Assets", "Packages", "ProjectSettings", "scripts"):
         files.extend(p for p in (root / directory).rglob("*") if p.is_file()
                      and "__pycache__" not in p.parts and p.suffix != ".pyc")
-    files += [root / "Art/ImportProfiles.json", root / "Art/asset-manifest.json"]
-    for path in sorted(files):
+    files += [root / relative for relative in (*SOURCE_PATHS, AUDIO_MANIFEST,
+                                             "Art/ImportProfiles.json", "Art/asset-manifest.json")]
+    for path in sorted(set(files)):
         if not path.is_file() or path.relative_to(root).as_posix() in exclude:
             continue
         digest.update(path.relative_to(root).as_posix().encode("utf-8") + b"\0")
@@ -257,7 +289,7 @@ def request(url, payload=None):
 def editor_groups(test_filter):
     # UnitySkills takes a literal class/namespace, NOT Unity CLI's regex syntax.
     if test_filter == ART_FILTER:
-        return ["Game.Presentation.Tests", "Game.Bootstrap.Tests.FixtureRuntimeContentCatalogTests"]
+        return ["Game.Presentation.Tests", "Game.Bootstrap.Tests.RuntimeContentCatalogTests"]
     if test_filter == r"^Game\.":
         return ["Game"]
     literal = test_filter.removeprefix("^").replace(r"\.", ".").rstrip(".")
@@ -320,7 +352,7 @@ def run_editor_group(platform, group, output, timeout, url, root=ROOT):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--scope", choices=("auto", "docs", "art", "code", "full", "visual-preview"), default="auto")
+    parser.add_argument("--scope", choices=("auto", "docs", "art", "audio", "content", "code", "full", "visual-preview"), default="auto")
     parser.add_argument("--paths", nargs="+")
     parser.add_argument("--base", default="HEAD", help="Baseline commit for visual-preview numeric-only diff")
     parser.add_argument("--filter", dest="test_filter")
@@ -339,17 +371,20 @@ def main():
             raise ValueError("visual-preview requires --paths to make the scope explicit")
         if args.timeout <= 0:
             raise ValueError("timeout must be positive")
-        test_filter = args.test_filter or (ART_FILTER if scope == "art" else r"^Game\.")
+        test_filter = args.test_filter or (ART_FILTER if scope == "art" else AUDIO_FILTER if scope == "audio" else r"^Game\.")
         if not test_filter.startswith("^Game\\."):
             raise ValueError("Filter must be anchored to ^Game\\. so third-party tests cannot masquerade as project evidence")
-        platforms = args.platforms or (["EditMode"] if scope == "art" else ["EditMode", "PlayMode"])
+        platforms = args.platforms or (["EditMode"] if scope in ("art", "audio") else ["EditMode", "PlayMode"])
         if scope == "full" and (args.test_filter or args.platforms):
             raise ValueError("full always runs all Game.* EditMode + PlayMode; use code for a custom subset")
         static_checks(scope, paths, args.base)
-        if args.plan or scope in ("docs", "visual-preview"):
+        validators = data_check_commands(scope, paths)
+        if args.plan or scope in ("docs", "content", "visual-preview"):
+            data_results = [] if args.plan else run_data_checks(validators)
             print(json.dumps({"verdict": "PREVIEW ONLY" if scope == "visual-preview" else "PLAN" if args.plan else "STATIC PASS",
                               "scope": scope, "paths": paths, "Unity": "NOT RUN",
-                              "plannedPlatforms": [] if scope in ("docs", "visual-preview") else platforms,
+                              "plannedPlatforms": [] if scope in ("docs", "content", "visual-preview") else platforms,
+                              "dataChecks": data_results, "plannedDataChecks": [args[1:] for args in validators],
                               "filter": test_filter,
                               "previewMenu": "Tools > Survivor Arena > Presentation Fixture Review" if scope == "visual-preview" else None,
                               "note": "No runtime verification or visual approval implied."}, ensure_ascii=False))
@@ -360,6 +395,7 @@ def main():
         if any(p["batch"] for p in processes):
             raise NotRun("Another batch run already owns this project")
         before = fingerprint()
+        data_results = run_data_checks(validators)
         before_assets = {p.relative_to(ROOT).as_posix() for p in (ROOT / "Assets").rglob("*")}
         key = sha(json_bytes({"fingerprint": before, "platforms": platforms, "filter": test_filter, "scope": scope}))
         receipt_path = ROOT / "TestResults/checks" / (key + ".json")
@@ -369,6 +405,8 @@ def main():
                                                          for p, h in receipt["evidenceHashes"].items()):
                 if scope in ("art", "full"):
                     print(command([sys.executable, "scripts/validate-art-manifest.py"]).strip(), flush=True)
+                if fingerprint() != before:
+                    raise NotRun("Inputs changed during reuse validation; cached evidence was not reused.")
                 print(json.dumps(dict(receipt, verdict="REUSED PASS"), ensure_ascii=False))
                 return 0
         stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%S-%fZ")
@@ -391,7 +429,7 @@ def main():
             raise NotRun("Inputs changed during checks. Results saved; no reusable PASS recorded.")
         hashes = {r.get("xml", r.get("resultFile")): sha(Path(r.get("xml", r.get("resultFile"))).read_bytes()) for r in results}
         receipt = {"verdict": "PASS", "scope": scope, "checkedAt": stamp, "fingerprint": after,
-                   "filter": test_filter, "results": results, "evidenceHashes": hashes,
+                   "filter": test_filter, "results": results, "dataChecks": data_results, "evidenceHashes": hashes,
                    "createdImportMetadata": imported_meta,
                    "unityVersion": (ROOT / "ProjectSettings/ProjectVersion.txt").read_text().strip()}
         # Only a fresh closed-Editor run is reusable; memory/unsaved scenes are not fingerprinted.

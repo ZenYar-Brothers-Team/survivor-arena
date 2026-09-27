@@ -1,0 +1,16 @@
+{
+  "name": "Game.Audio",
+  "rootNamespace": "Game.Audio",
+  "references": [
+    "Game.Content",
+    "Game.Content.Json",
+    "Game.Combat",
+    "Game.Run",
+    "Game.Settings",
+    "Game.Presentation",
+    "Game.ActiveSkill",
+    "Game.Progression",
+    "Game.Pickup",
+    "Game.Enemy"
+  ]
+}

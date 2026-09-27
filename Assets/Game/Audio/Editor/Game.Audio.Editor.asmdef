@@ -1,0 +1,8 @@
+{
+  "name": "Game.Audio.Editor",
+  "rootNamespace": "Game.Audio.Editor",
+  "references": [],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

@@ -597,10 +597,12 @@ Achievement-based unlocks показывают условие вместо price
 
 \---
 
+<a id="settings"></a>
 \# 18\. Settings
 
 Минимальный набор:
 
+<a id="audio"></a>
 \#\#\# Audio  
 \- Master Volume;  
 \- Music Volume;  

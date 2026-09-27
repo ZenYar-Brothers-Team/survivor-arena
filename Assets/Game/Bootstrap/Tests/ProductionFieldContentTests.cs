@@ -12,7 +12,7 @@ namespace Game.Bootstrap.Tests
     public sealed class ProductionFieldContentTests
     {
         private static WaveTimelineDefinition Timeline() =>
-            FixtureWaveTimelineCatalog.FromJson(JsonContentFile.ReadText(FixtureRuntimeContentCatalog.ProductionWaveTimelinePath));
+            FixtureWaveTimelineCatalog.FromJson(JsonContentFile.ReadText(RuntimeContentCatalog.ProductionWaveTimelinePath));
 
         [Test]
         public void Timeline_Covers900Seconds_WithBossHooksAndAllSixOrdinaries()
@@ -39,7 +39,7 @@ namespace Game.Bootstrap.Tests
         public void BossesAndTravelers_ResolveApprovedBodyArt()
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
-            var catalog = FixtureRuntimeContentCatalog.CreateProduction();
+            var catalog = RuntimeContentCatalog.CreateProduction();
             // FIELD-001/002 bosses have approved art. BOSS-003…010/MIDBOSS-003…010 (DECISION-0066) wait for their per-ID art
             // gates and are explicit placeholders, including the FIELD-003 pair already bound to its field (DECISION-0067).
             var approved = new[] { "BOSS-001", "MIDBOSS-001", "BOSS-002", "MIDBOSS-002" };
@@ -72,7 +72,7 @@ namespace Game.Bootstrap.Tests
         [Test]
         public void Field001_UsesTheProductionEncounterReferences()
         {
-            var catalog = FixtureFieldCatalog.FromJson(JsonContentFile.ReadText(FixtureRuntimeContentCatalog.ProductionFieldsPath));
+            var catalog = FixtureFieldCatalog.FromJson(JsonContentFile.ReadText(RuntimeContentCatalog.ProductionFieldsPath));
             var field = catalog.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001");
             Assert.AreEqual("Деревенская окраина", field.DisplayName);
             Assert.AreEqual(1, field.Difficulty);
@@ -88,7 +88,7 @@ namespace Game.Bootstrap.Tests
         public void Presentation_GeneratesDenseMixedObstaclesPerRun_WithFreeStart()
         {
             // DECISION-0069: 12×12 cells, two compact obstacles in each, with clear inter-cell passages.
-            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath).Values
                 .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
             Assert.AreEqual(0, presentation.ExplicitObstacles.Count);
             Assert.IsNotNull(presentation.ObstacleLayout);
@@ -114,7 +114,7 @@ namespace Game.Bootstrap.Tests
         [Test]
         public void Presentation_AlwaysShowsTwoSeparatedObstaclesOnTheOpeningScreen()
         {
-            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath).Values
                 .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
             var screen = presentation.ObstacleLayout.StartScreen;
             Assert.IsNotNull(screen);
@@ -143,7 +143,7 @@ namespace Game.Bootstrap.Tests
         [Test]
         public void ProductionComposition_ContainsProductionDefinitions_AndResolves()
         {
-            var catalog = FixtureRuntimeContentCatalog.CreateProduction();
+            var catalog = RuntimeContentCatalog.CreateProduction();
             Assert.IsTrue(catalog.IsProduction);
             Assert.AreEqual(50, catalog.BuildEntries.Count,
                 "16 skills + 14 passives + 20 sets; profile access filters locked ones from the draft (DECISION-0060/0061).");

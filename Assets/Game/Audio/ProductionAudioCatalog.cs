@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Game.Audio.Json;
+using Game.Content;
 using Game.Content.Json;
 using UnityEngine;
 
-namespace Game.Bootstrap.Audio
+namespace Game.Audio
 {
     /// <summary>Validated presentation content. Every referenced clip must import before a run starts.</summary>
     public sealed class ProductionAudioCatalog
     {
         private readonly Dictionary<string, AudioClip[]> _clips = new Dictionary<string, AudioClip[]>(StringComparer.Ordinal);
         private readonly Dictionary<string, AudioCueData> _cues = new Dictionary<string, AudioCueData>(StringComparer.Ordinal);
+        private readonly Dictionary<string, AudioClip> _ambienceClips = new Dictionary<string, AudioClip>(StringComparer.Ordinal);
+        private readonly Dictionary<string, float> _ambienceGains = new Dictionary<string, float>(StringComparer.Ordinal);
         public AudioClip MenuMusic { get; }
         public AudioClip BattleMusic { get; }
         public AudioClip BossMusic { get; }
         public AudioClip VictoryMusic { get; }
         public AudioClip DefeatMusic { get; }
-        public AudioClip FieldAmbience { get; }
-        public float AmbienceGain { get; }
         public float RoutineGlobalCooldownSeconds { get; }
 
         public static ProductionAudioCatalog Load() =>
@@ -30,11 +32,17 @@ namespace Game.Bootstrap.Audio
             BossMusic = Require(data.BossMusic);
             VictoryMusic = Require(data.VictoryMusic);
             DefeatMusic = Require(data.DefeatMusic);
-            FieldAmbience = Require(data.FieldAmbience);
-            if (!data.AmbienceGain.HasValue || float.IsNaN(data.AmbienceGain.Value) ||
-                data.AmbienceGain.Value < 0 || data.AmbienceGain.Value > 1)
-                throw new InvalidOperationException("Invalid ambienceGain.");
-            AmbienceGain = data.AmbienceGain.Value;
+            if (data.FieldAmbiences == null) throw new InvalidOperationException("fieldAmbiences is required (may be empty).");
+            foreach (var ambience in data.FieldAmbiences)
+            {
+                if (ambience == null || string.IsNullOrWhiteSpace(ambience.FieldId) || !ambience.Gain.HasValue)
+                    throw new InvalidOperationException("Field ambience requires fieldId and gain.");
+                NumericValidation.ValidateRange(ambience.Gain.Value, 0, 1, "ambience.gain");
+                if (_ambienceClips.ContainsKey(ambience.FieldId))
+                    throw new InvalidOperationException($"Duplicate field ambience '{ambience.FieldId}'.");
+                _ambienceClips.Add(ambience.FieldId, Require(ambience.Clip));
+                _ambienceGains.Add(ambience.FieldId, ambience.Gain.Value);
+            }
             if (!data.RoutineGlobalCooldownSeconds.HasValue ||
                 float.IsNaN(data.RoutineGlobalCooldownSeconds.Value) ||
                 data.RoutineGlobalCooldownSeconds.Value < 0 || data.RoutineGlobalCooldownSeconds.Value > 1)
@@ -59,6 +67,15 @@ namespace Game.Bootstrap.Audio
         {
             if (!_cues.TryGetValue(id, out cue)) { clips = null; return false; }
             clips = _clips[id];
+            return true;
+        }
+
+        /// <summary>Fields without a binding have no ambience; shared music remains available.</summary>
+        public bool TryGetAmbience(string fieldId, out AudioClip clip, out float gain)
+        {
+            gain = 0;
+            if (!_ambienceClips.TryGetValue(fieldId, out clip)) return false;
+            gain = _ambienceGains[fieldId];
             return true;
         }
 

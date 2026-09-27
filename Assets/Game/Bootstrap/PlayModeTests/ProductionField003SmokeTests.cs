@@ -54,7 +54,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual("FIELD-003", run.Model.Selection.FieldId.ToString());
                 var art = GameObject.Find("FieldEnvironmentArt");
                 // DECISION-0068: the colliders are exactly this run's generated layout.
-                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                     .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION").ObstacleLayout;
                 var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-003-ENVIRONMENT");
                 Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);

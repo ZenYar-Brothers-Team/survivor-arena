@@ -13,6 +13,10 @@
 - Read the selected module and only its Context sections, full referenced content cards,
   necessary code/tests and applicable rules below. Search headings/symbols before reading
   large files; do not reread unchanged material already in context.
+- Use `docs/PROJECT_MAP.md` to find the owning code, authoring sources, generated outputs
+  and checks. `python scripts/content/read_card.py <ID>` reads a full canonical card.
+  For outputs listed in `scripts/content/generate.py:TARGETS`, edit their authoring
+  inputs and regenerate; do not patch generated JSON directly.
 - Never ship Draft content or invent a missing product rule. Existing approvals persist;
   approved documents do not resolve their remaining TBDs automatically.
 - Complete required checks; synchronize STATUS and affected documents in the same change.
@@ -36,6 +40,7 @@ All paths below are relative to `.claude/rules/`. Do not load unrelated rules.
 | Enemy AI | `enemy-ai-code.md` plus gameplay rules |
 | UI C#, UXML, USS or any development/debug surface | `ui-code.md` |
 | Content JSON, DTO/catalog/schema changes | `content-json.md` |
+| Audio code, clips, catalog, provenance or tooling | `audio-code.md` plus C#/content rules when applicable |
 | Unity tests or test execution | `unity-tests.md`; execution: `.claude/skills/smoke-check/SKILL.md` (repo-relative) |
 | Design, IP specifications, decisions | `design-docs.md` |
 | Raster generation/edit/import/replacement/wiring or procedural sprite presentation | `visual-presentation.md`; read `docs/art/ART_DIRECTION.md` and `docs/art/ASSET_PIPELINE.md` (repo-relative) before any raster operation |

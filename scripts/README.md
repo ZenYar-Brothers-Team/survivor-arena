@@ -63,13 +63,15 @@ python scripts/check_project.py --scope art
 ```powershell
 python scripts/check_project.py --plan
 python scripts/check_project.py --scope full
+python scripts/check_project.py --scope audio
+python scripts/check_project.py --scope content
 python scripts/check_project.py --scope code --platforms EditMode --filter '^Game\.Combat\.'
 python scripts/check_project.py --scope docs --paths docs/implementation/WORKFLOW.md
 ```
 
-`auto` (по умолчанию) смотрит staged/unstaged изменения и untracked files: только Markdown → static; только art/inventory/sprite registry → art; код, gameplay JSON, инструменты и смешанные изменения → full. `--paths` ограничивает статический scope конкретной задачи при чужих незавершённых изменениях; этот список не является полной проверкой остального working tree. Требования выбранного IP имеют приоритет над auto.
+`auto` (по умолчанию) смотрит staged/unstaged изменения и untracked files: только Markdown → static (кроме Content Design — входа генератора); только audio clips/catalog/SOURCES → audio; только art/inventory/sprite registry → art; код, входы/выходы генератора, инструменты и смешанные изменения → full. `--paths` ограничивает статический scope конкретной задачи при чужих незавершённых изменениях; этот список не является полной проверкой остального working tree. Требования выбранного IP имеют приоритет над auto.
 
-`art` запускает Game.Presentation.Tests и FixtureRuntimeContentCatalogTests в EditMode, затем manifest validator. `code` допускает явные platform/filter. `full` выполняет все `Game.*` EditMode + PlayMode и manifest audit; custom filter/platform с этим scope запрещены. Существующие тесты не удалены. `Test-Unity.ps1` сохранён как совместимая оболочка над безопасным runner; результаты теперь находятся в отдельной папке каждого запуска.
+`art` запускает Game.Presentation.Tests и RuntimeContentCatalogTests в EditMode, затем manifest validator. `audio` запускает audio integrity и Game.Audio.Tests в EditMode. `content` выполняет generation `--check` без Unity; STATIC PASS не означает runtime acceptance. `code` допускает явные platform/filter и добавляет data validators для затронутых audio/source paths. `full` выполняет generation check, audio integrity, все `Game.*` EditMode + PlayMode и art manifest audit; custom filter/platform с этим scope запрещены. Существующие тесты не удалены. `Test-Unity.ps1` сохранён как совместимая оболочка над безопасным runner; результаты теперь находятся в отдельной папке каждого запуска.
 
 Перед каждым Unity запуском runner проверяет процессы и project lock. При открытом Editor используется UnitySkills REST; Bypass для PlayMode включает только пользователь. Недоступная проверка процессов, другой project, запрет режима или недоступный REST дают `NOT RUN / INCOMPLETE` и exit 2. При закрытом Editor запускается установленная версия из ProjectVersion. Никакого batch поверх открытого Editor и автоматического закрытия Editor. `--unity-url` выбирает явно нужный локальный endpoint; `--unity-path` позволяет указать Editor. Процессам запрещено конкурировать через локальный runner lock.
 
@@ -81,10 +83,27 @@ python scripts/check_project.py --scope docs --paths docs/implementation/WORKFLO
 python scripts/check_project.py --scope full --reuse
 ```
 
-`--reuse` явно разрешает использовать предыдущий PASS только для того же scope/filter/platform, при закрытом Editor, совпадении hashes всех Assets/Packages/ProjectSettings/scripts и двух art catalogs, наличии неизменённых evidence-файлов. Вывод `REUSED PASS` содержит исходную дату. Обычные `.md` вне этих деревьев не меняют fingerprint. Изменение проверяемых inputs во время запуска запрещает записать reusable PASS. Единственное исключение — создание новых `.meta` для уже присутствовавших до запуска assets/folders при первом импорте: они перечисляются в receipt и включаются в итоговый fingerprint, без повторного прогона ради этих файлов. Любые другие изменения, включая изменение существующего `.meta`, по-прежнему блокируют reusable PASS. REST evidence не переиспользуется: несохранённое Editor-состояние не имеет файлового fingerprint. Без `--reuse` проверки выполняются заново. Пробелы в генерируемых Unity `.meta` не проверяются через `git diff --check`; импорт проверяется Unity.
+`--reuse` явно разрешает использовать предыдущий PASS только для того же scope/filter/platform, при закрытом Editor, совпадении hashes всех Assets/Packages/ProjectSettings/scripts двух art catalogs, `docs/audio/SOURCES.json` и всех `SOURCE_PATHS` генератора (включая Content Design), наличии неизменённых evidence-файлов. Data validators выполняются и при reuse. Вывод `REUSED PASS` содержит исходную дату. Остальные `.md` вне этих деревьев не меняют fingerprint. Изменение проверяемых inputs во время запуска запрещает записать reusable PASS. Единственное исключение — создание новых `.meta` для уже присутствовавших до запуска assets/folders при первом импорте: они перечисляются в receipt и включаются в итоговый fingerprint, без повторного прогона ради этих файлов. Любые другие изменения, включая изменение существующего `.meta`, по-прежнему блокируют reusable PASS. REST evidence не переиспользуется: несохранённое Editor-состояние не имеет файлового fingerprint. Без `--reuse` проверки выполняются заново. Пробелы в генерируемых Unity `.meta` не проверяются через `git diff --check`; импорт проверяется Unity.
 
 Проверка самих инструментов без Unity:
 
 ```powershell
 python -m unittest discover -s scripts/tests -v
 ```
+
+## 4. Генерация контента и аудио
+
+[Карта проекта](../docs/PROJECT_MAP.md) связывает owning systems, authoring sources и checks.
+Генерация: [scripts/content/README](content/README.md). Сначала менять approved source,
+затем `python scripts/content/generate.py`; `--check` проверяет соответствие без записи.
+Прежняя команда `scripts/generate_field001_content.py` сохранена как оболочка.
+
+Аудиоданные редактируются в `Assets/Resources/Content/Audio/ProductionAudio.json`.
+Общие клипы — `Assets/Resources/Audio/Music` и `Sfx`; атмосфера — `Ambience/<fieldId>`.
+`fieldAmbiences` содержит fieldId/clip/gain; новый файл требует provenance в
+`docs/audio/SOURCES.json`. `python scripts/audio/check_audio.py` проверяет вложенные
+пути, hashes/licenses, cue references и field IDs без Unity.
+
+`--plan` показывает plannedDataChecks без их запуска; полный smoke записывает
+результаты data validators в `summary.json`. Изменение gain/clip не подтверждает
+художественную приёмку — она проверяется прослушиванием по IP-33.

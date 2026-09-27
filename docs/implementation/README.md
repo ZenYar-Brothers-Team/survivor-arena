@@ -13,12 +13,14 @@
 
 ## Источники и authority
 
+- [PROJECT_MAP](../PROJECT_MAP.md) — навигация по owning code, authoring sources, generated outputs и checks; без копий дизайна или статусов.
 - [Game Design](../Game_design.md) — общие игровые правила.
 - [Content Design](../Content_design.md) — конкретные сущности, behavior и balance data; 121 target card уже утверждена.
 - [UI / UX Design](../UI%20%20UX%20Design.md) — пользовательские экраны, состояния и взаимодействия.
 - [Art Direction](../art/ART_DIRECTION.md) — утверждённое визуальное направление.
 - [Art Production](../art/Art%20Production.md) — inventory и роли ассетов.
 - [Asset Pipeline](../art/ASSET_PIPELINE.md) — технические пути, provenance, подготовка, импорт и image approval.
+- [Audio plan](../audio/AUDIO_PLAN.md) — звуковой образ/ведомость; реализуемый scope и audio contracts — [IP-33](modules/IP-33-production-audio.md) и его Context.
 - [Модули](modules/) — scope, зависимости, критерии и проверки.
 - [STATUS](STATUS.md) — единственная Execution order, текущие статусы, готовность, краткое evidence и ссылки на подробности.
 - [WORKFLOW](WORKFLOW.md) — процесс работы над выбранным IP.
@@ -29,7 +31,7 @@ Repository/code показывает фактически реализованн
 
 Если пользователь не назвал модуль, выбирать **первый Ready в Execution order из STATUS**, а не первый по номеру. Зависимости должны быть Implemented/Verified для требуемого целевого scope. ID остаётся стабильным и не задаёт очередность.
 
-30 существующих IP сохранены под прежними IDs/filenames; 28 получают изменения scope, IP-00/IP-02 сохраняют behavioral contracts. Пять новых — IP-28 pickup framework, IP-29 Traveler framework, IP-30 production Travelers/Book, IP-31 локальная телеметрия и IP-32 ручной AI balance workflow. Все 35 спецификаций полные; отдельное слияние со старым текстом не требуется.
+При регистрации design-sync-R2 сохранены 30 прежних IDs/filenames и добавлены IP-28…32: pickup/Traveler frameworks, production Travelers/Book, телеметрия и ручной AI balance workflow. Позднее отдельным поручением добавлен [IP-33](modules/IP-33-production-audio.md), production audio. Спецификации описывают целевой scope; текущая готовность и очередь находятся только в STATUS.
 
 Историческое Verified подтверждает только прежний scope. STATUS ссылается на [архив прежнего scope](evidence/pre-design-sync-R2.md) и [подробные проверки целевой ревизии](evidence/design-sync-R2-2026-09-21.md); эти записи не содержат текущих статусов. При старте IP читать его запись и Context, а evidence — только по необходимости. Fixture, готовый production поднабор и весь каталог имеют разные критерии завершения; первый поднабор не закрывает catalog IP.
 
