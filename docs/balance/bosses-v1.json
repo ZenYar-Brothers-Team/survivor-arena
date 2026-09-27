@@ -2,7 +2,7 @@
  "format": "late-content-review-data",
  "formatVersion": 1,
  "revision": "bosses-v1",
- "approval": "Proposed 2026-09-27 (DECISION-0066)",
+ "approval": "Proposed 2026-09-27, редакция 2 (DECISION-0066)",
  "runtimeImportable": false,
  "units": {
   "distance": "world units",
@@ -11,6 +11,7 @@
  },
  "reference": {
   "playerSpeed": 3.0,
+  "playerBaseHealth": 100,
   "field001": {
    "BOSS-001": {
     "xp": 150,
@@ -38,8 +39,12 @@
   "damageRoleOfContact": {
    "aimed": 0.55,
    "area": 0.45,
-   "heavy": 0.7
+   "heavy": 0.7,
+   "zone": 0.8,
+   "beam": 0.9,
+   "burn": 0.3
   },
+  "burnIsPerSecond": true,
   "rounding": "half-up",
   "experience": {
    "FinalBoss": "150 + 30·(N−1)",
@@ -54,6 +59,45 @@
   "cadence": "windup-start-to-windup-start",
   "aimSnapshot": "windup-start"
  },
+ "newAttackFamilies": [
+  {
+   "id": "F1",
+   "name": "Zone",
+   "summary": "круг на земле заполняется за fillSeconds, затем бьёт игрока внутри; размещения AtPlayer / AroundPlayer / Trail / AroundSelf / SafeCircles (бьёт весь экран, кроме кругов); опционально горящая земля lingerSeconds",
+   "users": [
+    "BOSS-003",
+    "BOSS-004",
+    "BOSS-005",
+    "BOSS-007",
+    "BOSS-010",
+    "MIDBOSS-004",
+    "MIDBOSS-006",
+    "MIDBOSS-007",
+    "MIDBOSS-008"
+   ]
+  },
+  {
+   "id": "F2",
+   "name": "Beam",
+   "summary": "луч от босса длиной во весь экран: тонкая линия telegraph, затем активный луч; несколько углов от направления на игрока, опциональный поворот sweepDegrees; урон один раз за активацию",
+   "users": [
+    "BOSS-006",
+    "BOSS-009",
+    "MIDBOSS-009",
+    "MIDBOSS-010"
+   ]
+  },
+  {
+   "id": "F3",
+   "name": "Summon",
+   "summary": "призыв обычных врагов поля по кругу вокруг игрока с метками telegraph; не больше maxAlive живых призванных; призванные — обычные враги (XP, лут), смерть босса их не убирает",
+   "users": [
+    "BOSS-008",
+    "MIDBOSS-003",
+    "MIDBOSS-005"
+   ]
+  }
+ ],
  "runtimeExtensions": [
   {
    "id": "E1",
@@ -89,10 +133,11 @@
   {
    "id": "E4",
    "name": "dashEnd attacks",
-   "summary": "после последнего рывка серии: список атак любого pattern с задержкой и ориентацией towardPlayer/awayFromDash; замена списка ниже порога HP",
+   "summary": "после последнего рывка серии: список атак (снаряды или зона) с задержкой и ориентацией towardPlayer/awayFromDash/self; замена списка ниже порога HP",
    "users": [
     "BOSS-004",
     "BOSS-007",
+    "MIDBOSS-004",
     "MIDBOSS-007",
     "MIDBOSS-010"
    ]
@@ -100,9 +145,11 @@
   {
    "id": "E5",
    "name": "holdRangedDuringDash",
-   "summary": "очередь дальних атак стоит на паузе во время telegraph и рывка",
+   "summary": "очередь атак стоит на паузе во время telegraph и рывка",
    "users": [
-    "BOSS-009"
+    "BOSS-007",
+    "BOSS-009",
+    "MIDBOSS-010"
    ]
   },
   {
@@ -150,6 +197,7 @@
      "attacks": [
       {
        "id": "FAN3",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 18,
@@ -169,6 +217,7 @@
       },
       {
        "id": "HEAVY",
+       "kind": "Projectile",
        "role": "heavy",
        "pattern": "Single",
        "damage": 22,
@@ -185,6 +234,26 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "TRAPS3",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundPlayer",
+       "count": 3,
+       "radius": 1.2,
+       "scatterRadius": 3.0,
+       "minSpacing": 1.8,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 1.2,
+       "damage": 26,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.5,
+       "slowSeconds": 1.5,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 3.4
       }
      ],
      "movementOverride": null,
@@ -197,6 +266,7 @@
      "attacks": [
       {
        "id": "FAN3",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 18,
@@ -221,6 +291,7 @@
       },
       {
        "id": "HEAVY",
+       "kind": "Projectile",
        "role": "heavy",
        "pattern": "Single",
        "damage": 22,
@@ -237,10 +308,30 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "TRAPS5",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundPlayer",
+       "count": 5,
+       "radius": 1.2,
+       "scatterRadius": 3.0,
+       "minSpacing": 1.8,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 1.2,
+       "damage": 26,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.5,
+       "slowSeconds": 1.5,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 3.4
       }
      ],
      "movementOverride": null,
-     "note": "второй веер через 0.35 s, повёрнут на 15° (половина шага веера)"
+     "note": "второй веер через 0.35 s в полшага; капканов 5"
     }
    ],
    "dashEnd": null,
@@ -325,7 +416,7 @@
       "followUpTelegraphSeconds": 0.35,
       "showDashTelegraphLine": true
      },
-     "note": "серия из двух рывков, веер после второго"
+     "note": "серия из двух рывков, залп и удар после второго"
     }
    ],
    "dashEnd": {
@@ -336,6 +427,7 @@
       "orientation": "towardPlayer",
       "attack": {
        "id": "FAN6",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 21,
@@ -352,6 +444,30 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      }
+     },
+     {
+      "delaySeconds": 0,
+      "orientation": "self",
+      "attack": {
+       "id": "BANNER-SLAM",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundSelf",
+       "count": 1,
+       "radius": 3.0,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 0.6,
+       "damage": 30,
+       "knockback": 1.0,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 0
       }
      }
     ]
@@ -412,6 +528,7 @@
      "attacks": [
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 23,
@@ -431,6 +548,7 @@
       },
       {
        "id": "FAN5",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 23,
@@ -447,6 +565,26 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "BONFIRES",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "Trail",
+       "count": 4,
+       "radius": 1.4,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.5,
+       "fillSeconds": 1.0,
+       "damage": 34,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 3.0,
+       "lingerDamagePerSecond": 13,
+       "cooldownSeconds": 3.4
       }
      ],
      "movementOverride": null,
@@ -459,6 +597,7 @@
      "attacks": [
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 23,
@@ -483,6 +622,7 @@
       },
       {
        "id": "FAN5",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 23,
@@ -499,6 +639,26 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "BONFIRES",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "Trail",
+       "count": 4,
+       "radius": 1.4,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.5,
+       "fillSeconds": 1.0,
+       "damage": 34,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 3.0,
+       "lingerDamagePerSecond": 13,
+       "cooldownSeconds": 3.4
       }
      ],
      "movementOverride": null,
@@ -566,6 +726,7 @@
      "attacks": [
       {
        "id": "BURST4",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Burst",
        "damage": 22,
@@ -585,6 +746,7 @@
       },
       {
        "id": "RING12",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 18,
@@ -601,6 +763,23 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "BEAM",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        0
+       ],
+       "length": 24,
+       "width": 1.2,
+       "telegraphSeconds": 1.0,
+       "activeSeconds": 0.5,
+       "sweepDegrees": 0.0,
+       "damage": 36,
+       "knockback": 0.4,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 3.2
       }
      ],
      "movementOverride": null,
@@ -613,6 +792,7 @@
      "attacks": [
       {
        "id": "BURST4",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Burst",
        "damage": 22,
@@ -632,6 +812,7 @@
       },
       {
        "id": "RING12",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 18,
@@ -653,10 +834,27 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "BEAM-SWEEP",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        0
+       ],
+       "length": 24,
+       "width": 1.2,
+       "telegraphSeconds": 1.0,
+       "activeSeconds": 1.0,
+       "sweepDegrees": 60,
+       "damage": 36,
+       "knockback": 0.4,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 3.2
       }
      ],
      "movementOverride": null,
-     "note": "второе кольцо через 0.3 s, смещение 15° (половина шага)"
+     "note": "второе кольцо через 0.3 s; луч поворачивается на 60° за 1 s"
     }
    ],
    "dashEnd": null,
@@ -715,13 +913,34 @@
     "followUpTelegraphSeconds": 0.0,
     "showDashTelegraphLine": true
    },
-   "holdRangedDuringDash": false,
+   "holdRangedDuringDash": true,
    "phases": [
     {
      "id": "P1",
      "belowHealth": 1.0,
      "thresholdComparison": "strictly-less",
-     "attacks": [],
+     "attacks": [
+      {
+       "id": "SKY-HAMMER",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AtPlayer",
+       "count": 1,
+       "radius": 2.5,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 1.4,
+       "damage": 37,
+       "knockback": 1.2,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 6.0
+      }
+     ],
      "movementOverride": null,
      "note": ""
     },
@@ -729,7 +948,28 @@
      "id": "P2",
      "belowHealth": 0.45,
      "thresholdComparison": "strictly-less",
-     "attacks": [],
+     "attacks": [
+      {
+       "id": "SKY-HAMMER",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AtPlayer",
+       "count": 1,
+       "radius": 2.5,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 1.4,
+       "damage": 37,
+       "knockback": 1.2,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 6.0
+      }
+     ],
      "movementOverride": null,
      "note": "после рывка три взрывных снаряда веером 40° вместо одного"
     }
@@ -742,6 +982,7 @@
       "orientation": "towardPlayer",
       "attack": {
        "id": "EXPLOSIVE",
+       "kind": "Projectile",
        "role": "heavy",
        "pattern": "Explosive",
        "damage": 32,
@@ -769,6 +1010,7 @@
        "orientation": "towardPlayer",
        "attack": {
         "id": "EXPLOSIVE-FAN3",
+        "kind": "Projectile",
         "role": "heavy",
         "pattern": "Explosive",
         "damage": 32,
@@ -846,6 +1088,7 @@
      "attacks": [
       {
        "id": "FAN7",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 28,
@@ -865,6 +1108,7 @@
       },
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 28,
@@ -884,6 +1128,7 @@
       },
       {
        "id": "RING14",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 23,
@@ -900,6 +1145,16 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "CALL-DUELISTS",
+       "kind": "Summon",
+       "enemyId": "ENEMY-017",
+       "count": 4,
+       "spawnDistance": 6.0,
+       "maxAlive": 8,
+       "telegraphSeconds": 0.8,
+       "cooldownSeconds": 3.0
       }
      ],
      "movementOverride": null,
@@ -912,6 +1167,7 @@
      "attacks": [
       {
        "id": "FAN7",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 28,
@@ -931,6 +1187,7 @@
       },
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 28,
@@ -950,6 +1207,7 @@
       },
       {
        "id": "RING14",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 23,
@@ -971,10 +1229,20 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "CALL-DUELISTS",
+       "kind": "Summon",
+       "enemyId": "ENEMY-017",
+       "count": 4,
+       "spawnDistance": 6.0,
+       "maxAlive": 8,
+       "telegraphSeconds": 0.8,
+       "cooldownSeconds": 3.0
       }
      ],
      "movementOverride": null,
-     "note": "третья атака цикла (кольцо) двойная: повтор через 0.35 s со смещением в полшага"
+     "note": "третья атака цикла (кольцо) двойная"
     }
    ],
    "dashEnd": null,
@@ -1042,6 +1310,7 @@
      "attacks": [
       {
        "id": "FAN5",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 31,
@@ -1061,6 +1330,7 @@
       },
       {
        "id": "RING12",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 25,
@@ -1082,6 +1352,25 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "SPEARS3",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        -30,
+        0,
+        30
+       ],
+       "length": 24,
+       "width": 0.9,
+       "telegraphSeconds": 0.9,
+       "activeSeconds": 0.4,
+       "sweepDegrees": 0.0,
+       "damage": 50,
+       "knockback": 0.5,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 2.9
       }
      ],
      "movementOverride": null,
@@ -1094,6 +1383,7 @@
      "attacks": [
       {
        "id": "FAN5",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 31,
@@ -1113,6 +1403,7 @@
       },
       {
        "id": "RING12",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 25,
@@ -1134,6 +1425,25 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "SPEARS3",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        -30,
+        0,
+        30
+       ],
+       "length": 24,
+       "width": 0.9,
+       "telegraphSeconds": 0.9,
+       "activeSeconds": 0.4,
+       "sweepDegrees": 0.0,
+       "damage": 50,
+       "knockback": 0.5,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 2.2
       }
      ],
      "movementOverride": {
@@ -1207,6 +1517,7 @@
      "attacks": [
       {
        "id": "RING16",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 28,
@@ -1231,6 +1542,7 @@
       },
       {
        "id": "FAN9",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 34,
@@ -1250,6 +1562,7 @@
       },
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 34,
@@ -1266,6 +1579,26 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "JUDGEMENT",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "SafeCircles",
+       "count": 2,
+       "radius": 1.8,
+       "scatterRadius": 4.5,
+       "minSpacing": 4.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 2.0,
+       "damage": 50,
+       "knockback": 0.6,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 2.8
       }
      ],
      "movementOverride": null,
@@ -1278,6 +1611,7 @@
      "attacks": [
       {
        "id": "RING16",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 28,
@@ -1310,6 +1644,7 @@
       },
       {
        "id": "FAN9",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 34,
@@ -1334,6 +1669,7 @@
       },
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 34,
@@ -1355,10 +1691,30 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "JUDGEMENT",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "SafeCircles",
+       "count": 2,
+       "radius": 1.8,
+       "scatterRadius": 4.5,
+       "minSpacing": 4.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 2.0,
+       "damage": 50,
+       "knockback": 0.6,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 2.8
       }
      ],
      "movementOverride": null,
-     "note": "каждый pattern повторяется через 0.4 s"
+     "note": "каждый рисунок снарядов повторяется через 0.4 s"
     },
     {
      "id": "P3",
@@ -1367,6 +1723,7 @@
      "attacks": [
       {
        "id": "RING16",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 28,
@@ -1399,6 +1756,7 @@
       },
       {
        "id": "FAN9",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 34,
@@ -1423,6 +1781,7 @@
       },
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 34,
@@ -1444,6 +1803,26 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "JUDGEMENT",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "SafeCircles",
+       "count": 2,
+       "radius": 1.8,
+       "scatterRadius": 4.5,
+       "minSpacing": 4.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 2.0,
+       "damage": 50,
+       "knockback": 0.6,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 2.24
       }
      ],
      "movementOverride": null,
@@ -1511,6 +1890,7 @@
      "attacks": [
       {
        "id": "FAN5x2",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 13,
@@ -1532,10 +1912,20 @@
         }
        ],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "RELEASE-HOUNDS",
+       "kind": "Summon",
+       "enemyId": "ENEMY-007",
+       "count": 2,
+       "spawnDistance": 6.0,
+       "maxAlive": 4,
+       "telegraphSeconds": 0.8,
+       "cooldownSeconds": 3.4
       }
      ],
      "movementOverride": null,
-     "note": "два веера подряд: второй через 0.4 s, в полшага"
+     "note": "два веера подряд; спускает двух гончих"
     }
    ],
    "dashEnd": null,
@@ -1583,7 +1973,35 @@
      "note": ""
     }
    ],
-   "dashEnd": null,
+   "dashEnd": {
+    "firesAfter": "last-dash-of-series",
+    "attacks": [
+     {
+      "delaySeconds": 0,
+      "orientation": "self",
+      "attack": {
+       "id": "GROUND-SLAM",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundSelf",
+       "count": 1,
+       "radius": 2.0,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 0.5,
+       "damage": 24,
+       "knockback": 0.9,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 0
+      }
+     }
+    ]
+   },
    "teleport": null,
    "deathEndsRun": false
   },
@@ -1618,6 +2036,7 @@
      "attacks": [
       {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 18,
@@ -1634,10 +2053,40 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "CROSS",
+       "kind": "Projectile",
+       "role": "aimed",
+       "pattern": "Cross",
+       "damage": 18,
+       "cooldownSeconds": 3.2,
+       "telegraphSeconds": 0.7,
+       "projectileSpeed": 4.6,
+       "projectileLifetimeSeconds": 3.0,
+       "projectileRadius": 0.15,
+       "projectileCount": 4,
+       "spreadDegrees": 0,
+       "burstIntervalSeconds": 0.0,
+       "explosionRadius": 0.0,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "followUps": [],
+       "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "CALL-SHIELDS",
+       "kind": "Summon",
+       "enemyId": "ENEMY-009",
+       "count": 3,
+       "spawnDistance": 6.0,
+       "maxAlive": 6,
+       "telegraphSeconds": 0.8,
+       "cooldownSeconds": 3.2
       }
      ],
      "movementOverride": null,
-     "note": ""
+     "note": "крест каждые 3.2 s, каждый третий слот — призыв щитоносцев"
     }
    ],
    "dashEnd": null,
@@ -1679,6 +2128,7 @@
      "attacks": [
       {
        "id": "RING10",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 14,
@@ -1698,6 +2148,7 @@
       },
       {
        "id": "BOLT",
+       "kind": "Projectile",
        "role": "heavy",
        "pattern": "Single",
        "damage": 21,
@@ -1714,10 +2165,30 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "METEORS",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundPlayer",
+       "count": 3,
+       "radius": 1.3,
+       "scatterRadius": 3.0,
+       "minSpacing": 1.8,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 1.2,
+       "damage": 24,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 3.0
       }
      ],
      "movementOverride": null,
-     "note": "кольцо, через 0.5 s после него — быстрый снаряд; цикл 4.8 s"
+     "note": "кольцо, через 0.5 s быстрый снаряд, затем три метеора"
     }
    ],
    "dashEnd": null,
@@ -1773,6 +2244,7 @@
       "orientation": "awayFromDash",
       "attack": {
        "id": "REAR-FAN5",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 21,
@@ -1789,6 +2261,30 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      }
+     },
+     {
+      "delaySeconds": 0,
+      "orientation": "self",
+      "attack": {
+       "id": "HOLY-GROUND",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundSelf",
+       "count": 1,
+       "radius": 2.0,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 0.5,
+       "damage": 30,
+       "knockback": 0.3,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 3.0,
+       "lingerDamagePerSecond": 11,
+       "cooldownSeconds": 0
       }
      }
     ]
@@ -1827,6 +2323,7 @@
      "attacks": [
       {
        "id": "FAN3",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 23,
@@ -1843,6 +2340,26 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 1.0
+      },
+      {
+       "id": "SHOCKWAVE",
+       "kind": "Zone",
+       "role": "zone",
+       "placement": "AroundSelf",
+       "count": 1,
+       "radius": 3.0,
+       "scatterRadius": 0.0,
+       "minSpacing": 0.0,
+       "intervalSeconds": 0.0,
+       "fillSeconds": 0.8,
+       "damage": 34,
+       "knockback": 0.8,
+       "knockbackSeconds": 0.12,
+       "slowFraction": 0.0,
+       "slowSeconds": 0.0,
+       "lingerSeconds": 0.0,
+       "lingerDamagePerSecond": 0,
+       "cooldownSeconds": 3.0
       }
      ],
      "movementOverride": null,
@@ -1884,6 +2401,7 @@
      "attacks": [
       {
        "id": "RING12",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 21,
@@ -1903,6 +2421,7 @@
       },
       {
        "id": "FAN7",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Fan",
        "damage": 25,
@@ -1919,10 +2438,27 @@
        "knockbackSeconds": 0.12,
        "followUps": [],
        "windupMovementMultiplier": 0.4
+      },
+      {
+       "id": "BEAM",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        0
+       ],
+       "length": 24,
+       "width": 1.0,
+       "telegraphSeconds": 0.9,
+       "activeSeconds": 0.4,
+       "sweepDegrees": 0.0,
+       "damage": 41,
+       "knockback": 0.4,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 3.0
       }
      ],
      "movementOverride": null,
-     "note": "во время windup скорость ×0.4"
+     "note": "во время windup снарядов скорость ×0.4"
     }
    ],
    "dashEnd": null,
@@ -1959,13 +2495,34 @@
     "followUpTelegraphSeconds": 0.0,
     "showDashTelegraphLine": true
    },
-   "holdRangedDuringDash": false,
+   "holdRangedDuringDash": true,
    "phases": [
     {
      "id": "P1",
      "belowHealth": 1.0,
      "thresholdComparison": "strictly-less",
-     "attacks": [],
+     "attacks": [
+      {
+       "id": "BEAM-CROSS",
+       "kind": "Beam",
+       "role": "beam",
+       "anglesDegrees": [
+        0,
+        90,
+        180,
+        270
+       ],
+       "length": 24,
+       "width": 0.9,
+       "telegraphSeconds": 1.0,
+       "activeSeconds": 0.4,
+       "sweepDegrees": 0.0,
+       "damage": 45,
+       "knockback": 0.4,
+       "knockbackSeconds": 0.12,
+       "cooldownSeconds": 4.5
+      }
+     ],
      "movementOverride": null,
      "note": ""
     }
@@ -1978,6 +2535,7 @@
       "orientation": "towardPlayer",
       "attack": {
        "id": "RING8",
+       "kind": "Projectile",
        "role": "area",
        "pattern": "Ring",
        "damage": 23,
@@ -2001,6 +2559,7 @@
       "orientation": "towardPlayer",
       "attack": {
        "id": "CROSS",
+       "kind": "Projectile",
        "role": "aimed",
        "pattern": "Cross",
        "damage": 28,

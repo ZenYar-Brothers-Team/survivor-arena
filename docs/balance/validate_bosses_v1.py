@@ -59,7 +59,7 @@ def main():
     encounters = {e["id"]: e for e in data["encounters"]}
     require(list(encounters) == IDS, "Expected BOSS-003…010 and MIDBOSS-003…010 once each, in order")
     users = {}
-    for ext in data["runtimeExtensions"]:
+    for ext in data["runtimeExtensions"] + data["newAttackFamilies"]:
         for eid in ext["users"]:
             users.setdefault(eid, set()).add(ext["id"])
 
@@ -83,9 +83,11 @@ def main():
         require(below[1:] == c["thresholds"], f"{eid}: phase thresholds {below[1:]} vs card {c['thresholds']}")
         require(all(p["thresholdComparison"] == "strictly-less" for p in e["phases"]), f"{eid}: threshold comparison")
 
-        # Attacks: damage from the role formula, readable geometry, card counts.
+        # Projectile attacks: damage from the role formula, readable geometry, card counts.
         counts = CARD_COUNTS.get(eid, {})
-        for a in all_attacks(e):
+        attacks = list(all_attacks(e))
+        shots = [a for a in attacks if a["kind"] == "Projectile"]
+        for a in shots:
             require(a["pattern"] in PATTERNS, f"{eid}.{a['id']}: pattern")
             require(a["damage"] == int(e["contactDamage"] * roles[a["role"]] + 0.5), f"{eid}.{a['id']}: damage formula")
             require(a["projectileSpeed"] > 0 and a["projectileLifetimeSeconds"] > 0 and a["projectileRadius"] > 0
@@ -99,13 +101,60 @@ def main():
             delays = [f["delaySeconds"] for f in a["followUps"]]
             require(all(d > 0 for d in delays) and delays == sorted(delays), f"{eid}.{a['id']}: follow-up delays")
             require(0 < a["windupMovementMultiplier"] <= 1, f"{eid}.{a['id']}: windup movement multiplier")
+        require(all(k in {a["id"] for a in shots} for k in counts), f"{eid}: card attack missing")
+
+        # Signature attacks: telegraphed, escapable at base speed, never a one-shot of the base 100 HP.
+        speed = ref["playerSpeed"]
+        base_hp = ref["playerBaseHealth"]
+        for a in attacks:
+            if a["kind"] == "Zone":
+                require(a["damage"] == int(e["contactDamage"] * roles["zone"] + 0.5), f"{eid}.{a['id']}: zone damage formula")
+                require(a["damage"] < base_hp and a["fillSeconds"] >= 0.5 and a["radius"] > 0 and a["count"] >= 1,
+                        f"{eid}.{a['id']}: zone must be readable and not lethal from full base HP")
+                if a["placement"] == "AroundSelf":
+                    require(a["radius"] - e["collisionSize"] / 2 <= speed * a["fillSeconds"],
+                            f"{eid}.{a['id']}: player touching the boss must be able to leave the zone")
+                elif a["placement"] == "SafeCircles":
+                    require(a["count"] >= 2 and a["radius"] >= 1.5 and a["minSpacing"] >= 2 * a["radius"]
+                            and a["scatterRadius"] - a["radius"] <= speed * a["fillSeconds"] * 0.5,
+                            f"{eid}.{a['id']}: a safe circle must be reachable in half the fill time")
+                else:
+                    require(a["radius"] <= speed * a["fillSeconds"], f"{eid}.{a['id']}: zone must be escapable from its center")
+                if a["placement"] in ("AroundPlayer", "SafeCircles"):
+                    require(a["scatterRadius"] > 0 and a["minSpacing"] > 0, f"{eid}.{a['id']}: scatter geometry")
+                if a["placement"] == "Trail":
+                    require(a["count"] > 1 and a["intervalSeconds"] > 0, f"{eid}.{a['id']}: trail timing")
+                require((a["lingerSeconds"] > 0) == (a["lingerDamagePerSecond"] > 0), f"{eid}.{a['id']}: burning ground")
+                if a["lingerSeconds"]:
+                    require(a["lingerDamagePerSecond"] == int(e["contactDamage"] * roles["burn"] + 0.5),
+                            f"{eid}.{a['id']}: burn formula")
+                require(a["slowFraction"] == 0 or (0 < a["slowFraction"] < 1 and a["slowSeconds"] > 0), f"{eid}.{a['id']}: slow")
+            elif a["kind"] == "Beam":
+                require(a["damage"] == int(e["contactDamage"] * roles["beam"] + 0.5) and a["damage"] < base_hp,
+                        f"{eid}.{a['id']}: beam damage formula / not lethal")
+                require(a["length"] >= 20 and a["telegraphSeconds"] >= 0.8 and a["activeSeconds"] > 0
+                        and a["width"] / 2 <= speed * a["telegraphSeconds"], f"{eid}.{a['id']}: full-screen, readable beam")
+                angles = a["anglesDegrees"]
+                require(len(angles) == len(set(angles)) and all(abs(x) <= 360 for x in angles), f"{eid}.{a['id']}: beam angles")
+            elif a["kind"] == "Summon":
+                ctx = re.search(r"^### " + a["enemyId"] + r" —.*?Контексты: FIELD-(\d{3})…(\d{3})", content, re.M | re.S)
+                require(ctx is not None and int(ctx[1]) <= n <= int(ctx[2]),
+                        f"{eid}.{a['id']}: {a['enemyId']} not in FIELD-{n:03d} context")
+                require(0 < a["count"] <= a["maxAlive"] and a["telegraphSeconds"] > 0 and a["spawnDistance"] >= 4,
+                        f"{eid}.{a['id']}: summon limits")
+            else:
+                require(a["kind"] == "Projectile", f"{eid}.{a['id']}: unknown attack kind")
         for p in e["phases"]:
             for a in p["attacks"]:
-                require(a["cooldownSeconds"] > a["telegraphSeconds"] > 0, f"{eid}.{a['id']}: wind-up must fit the cooldown")
-                last = max([f["delaySeconds"] for f in a["followUps"]], default=0)
-                require(a["telegraphSeconds"] + last < a["cooldownSeconds"] + a["telegraphSeconds"],
-                        f"{eid}.{a['id']}: follow-ups must finish before the next wind-up ends")
-        require(bool(list(all_attacks(e))) or eid == "MIDBOSS-004", f"{eid}: card has ranged attacks")
+                wind = a.get("telegraphSeconds", a.get("fillSeconds", 0))
+                require(a["cooldownSeconds"] > 0 and wind > 0, f"{eid}.{a['id']}: sequence item needs a cooldown and a warning")
+                if a["kind"] == "Projectile":
+                    require(a["cooldownSeconds"] > a["telegraphSeconds"], f"{eid}.{a['id']}: wind-up must fit the cooldown")
+                if a["kind"] == "Zone":
+                    require(a["intervalSeconds"] * (a["count"] - 1) + a["fillSeconds"] <= a["cooldownSeconds"],
+                            f"{eid}.{a['id']}: zones must land before the next item starts")
+        require(bool(attacks), f"{eid}: no attacks")
+        require(any(a["kind"] != "Projectile" for a in attacks), f"{eid}: every boss needs a signature attack")
 
         # Held distance must be inside the teleport trigger and within projectile reach.
         move = e["movement"]
@@ -113,7 +162,7 @@ def main():
             far = move["preferredDistance"] + move["distanceTolerance"]
             if e["teleport"]:
                 require(far <= e["teleport"]["farDistance"], f"{eid}: held distance would trigger the teleport")
-            for a in all_attacks(e):
+            for a in shots:
                 require(a["projectileSpeed"] * a["projectileLifetimeSeconds"] >= far + 1, f"{eid}.{a['id']}: reach")
         for m in [move] + [p["movementOverride"] for p in e["phases"] if p["movementOverride"]]:
             if m["kind"] == "TelegraphedDash":
@@ -126,11 +175,11 @@ def main():
             require(t["landingDistance"] + ref["playerSpeed"] * t["telegraphSeconds"] < t["impactRadius"],
                     f"{eid}: teleport slam must stay unavoidable at base speed (DECISION-0059)")
 
-        # Every extension the data needs is declared, and no declared extension is unused.
+        # Every extension/family the data needs is declared, and nothing declared is unused.
         needed = set()
-        if any(a["followUps"] for a in all_attacks(e)):
+        if any(a["followUps"] for a in shots):
             needed.add("E1")
-        if any(a["pattern"] == "Explosive" and a["projectileCount"] > 1 for a in all_attacks(e)):
+        if any(a["pattern"] == "Explosive" and a["projectileCount"] > 1 for a in shots):
             needed.add("E2")
         if any(p["movementOverride"] for p in e["phases"]):
             needed.add("E3")
@@ -138,8 +187,11 @@ def main():
             needed.add("E4")
         if e["holdRangedDuringDash"]:
             needed.add("E5")
-        if any(a["windupMovementMultiplier"] != 1 for a in all_attacks(e)):
+        if any(a["windupMovementMultiplier"] != 1 for a in shots):
             needed.add("E6")
+        for family, kind in (("F1", "Zone"), ("F2", "Beam"), ("F3", "Summon")):
+            if any(a["kind"] == kind for a in attacks):
+                needed.add(family)
         require(needed == users.get(eid, set()), f"{eid}: runtime extensions {sorted(needed)} vs declared {sorted(users.get(eid, set()))}")
 
     print(f"PASS: {len(encounters)} encounters validated against Content Design cards")

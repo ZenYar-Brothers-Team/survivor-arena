@@ -662,7 +662,7 @@ Blocked by: G-14 production attack payload/rewards/timings (data packet bosses-v
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
 Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
-Data packet 2026-09-27: [bosses-v1](../balance/bosses-v1.md) — недостающие параметры BOSS-003…010/MIDBOSS-003…010 (урон как доля контакта, XP, тайминги, телепорт финальных) и шесть расширений схемы E1…E6 для поведения из карточек; карточные числа без изменений; Proposed ([DECISION-0066](../decisions/0066-bosses-data-v1.md)); static validator PASS. G-14 не закрыт до approval.
+Data packet 2026-09-27: [bosses-v1](../balance/bosses-v1.md) — недостающие параметры BOSS-003…010/MIDBOSS-003…010 (урон как доля контакта, XP, тайминги, телепорт финальных) фирменные атаки каждому боссу на трёх новых семействах (зона, луч, призыв; редакция 2 по просьбе пользователя) и расширения схемы E1…E6; карточные числа без изменений; Proposed ([DECISION-0066](../decisions/0066-bosses-data-v1.md)); static validator PASS. G-14 не закрыт до approval.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21).
