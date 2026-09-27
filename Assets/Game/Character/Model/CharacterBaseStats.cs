@@ -62,6 +62,13 @@ namespace Game.Character
             Validate();
         }
 
+        /// <summary>Copy with the incoming-damage multiplier scaled (run-level hostile damage, DECISION-0075).</summary>
+        public CharacterBaseStats WithIncomingDamageScale(float scale) => new CharacterBaseStats(MaxHealth, MovementSpeed,
+            ActiveSkillDamageMultiplier, ActiveSkillCooldownMultiplier, IncomingDamageMultiplier * scale,
+            HealthRestorationMultiplier, HealthRegenerationPerSecond, DisappearingXpRecovery, PickedUpXpMultiplier,
+            XpDropLifetimeBonusSeconds, PickupRadius, KnockbackResistance, OutgoingKnockbackBonus, EffectSizeMultiplier,
+            EffectRangeMultiplier, PotionDropMultiplier, LowHealthDamageMaxBonus);
+
         public void Validate()
         {
             NumericValidation.ValidatePositive(MaxHealth, nameof(MaxHealth));

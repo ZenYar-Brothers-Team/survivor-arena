@@ -19,6 +19,23 @@ namespace Game.Progression.Tests
             Assert.AreEqual(50, setup.Draft.EmptyBookCurrency);
             CollectionAssert.AreEqual(new[] { 5f, 10f, 15f }, setup.Experience.LevelThresholds);
             Assert.AreEqual(60f, setup.Experience.BaseDropLifetimeSeconds);
+            Assert.AreEqual(1f, setup.HostileDamageMultiplier);
+        }
+
+        [Test]
+        public void ProductionSetup_SlowsEarlyLevelsAndScalesHostileDamage()
+        {
+            // DECISION-0075: early levels cost 3x, the cumulative cost to L40 stays ~1258; hostile damage x0.7.
+            var setup = FixtureRunSetupCatalog.Load("Content/Run/ProductionRunSetup");
+            var thresholds = setup.Experience.LevelThresholds;
+            Assert.AreEqual(12f, thresholds[0]);
+            Assert.AreEqual(3f, thresholds[0] / 4f, 1e-5f, "L1 -> L2 costs three times the former 4 XP.");
+            var toForty = 0f;
+            for (var i = 0; i < 39; i++) toForty += thresholds[i];
+            Assert.AreEqual(1257f, toForty);
+            for (var i = 1; i < thresholds.Count; i++) Assert.GreaterOrEqual(thresholds[i], thresholds[i - 1]);
+            Assert.AreEqual(0.7f, setup.HostileDamageMultiplier, 1e-5f);
+            Assert.Throws<ArgumentOutOfRangeException>(() => new RunSetupConfig("FIXTURE-CHARACTER-X", setup.Draft, setup.Experience, 0f));
         }
 
         [Test]

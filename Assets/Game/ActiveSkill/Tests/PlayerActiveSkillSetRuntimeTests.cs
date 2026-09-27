@@ -60,6 +60,28 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void SkillModifier_CharacterBoostAppliesToTheStartingSkillOnly()
+        {
+            // DECISION-0075: the character's specialization boosts only its starting active skill.
+            var starting = new BuildEntryDefinition("FIXTURE-SKILL-BOLT", BuildEntryKind.ActiveSkill, "Bolt");
+            var second = new BuildEntryDefinition("FIXTURE-SKILL-RING", BuildEntryKind.ActiveSkill, "Ring");
+            var character = new CharacterDefinition("FIXTURE-CHARACTER-BOOST", "Boost", new CharacterBaseStats(100f, 3f),
+                starting.Id, default, default, null,
+                new CharacterStatModifier(activeSkillDamageMultiplierBonus: 0.6f, actionSpeedBonus: 0.25f));
+            _draft.Shutdown();
+            _draft.Initialize(_experience, _runController, new[] { starting, second }, character,
+                Game.Content.ContentRegistry.BuildFrom(new Game.Content.IContentDefinition[] { starting, second }), 2);
+
+            var boosted = _skillSet.SkillModifier(starting.Id);
+            Assert.AreEqual(0.6f, boosted.ActiveSkillDamageMultiplierBonus, 1e-5f);
+            Assert.AreEqual(0.25f, boosted.ActionSpeedBonus, 1e-5f);
+            Assert.AreEqual(default(CharacterStatModifier), _skillSet.SkillModifier(second.Id));
+            Assert.Throws<System.ArgumentException>(() => new CharacterDefinition("FIXTURE-CHARACTER-BAD", "Bad",
+                new CharacterBaseStats(100f, 3f), starting.Id, default, default, null,
+                new CharacterStatModifier(maxHealthMultiplierBonus: 0.5f)), "Only per-skill channels are allowed.");
+        }
+
+        [Test]
         public void SixSkills_CoexistFreezeAndSurviveShutdownReinitializeWithoutStaleInstances()
         {
             var catalog = FixtureActiveSkillCatalog.Create();

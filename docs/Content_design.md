@@ -301,7 +301,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Статус: Approved.
 Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): доступно с начала на новом профиле.
 Эффект: добавляет постоянную регенерацию здоровья и увеличивает вероятность выпадения Зелья лечения с обычных противников.
-Уровни 1–6: регенерация +0.2 / +0.4 / +0.7 / +1.0 / +1.4 / +2.0 HP в секунду; относительный bonus к базовому drop chance Зелья лечения +10% / +20% / +30% / +40% / +50% / +60%.
+Уровни 1–6: регенерация +0.1 / +0.2 / +0.35 / +0.5 / +0.7 / +1.0 HP в секунду (вдвое ниже прежнего, [DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)); относительный bonus к базовому drop chance Зелья лечения +10% / +20% / +30% / +40% / +50% / +60%.
 Взаимодействия: регенерация не поднимает HP выше максимального значения. Bonus к drop chance применяется относительно базового шанса: например, базовые 5% при +60% превращаются в 8%, а не в 65%.
 Сеты: SET-006, SET-015.
 
@@ -483,7 +483,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: дополнительно усиливает max HP, regeneration, health restoration и шанс выпадения Зелий лечения. Зелья восстанавливают больше здоровья.
 Роль: простой и предсказуемый defensive/sustain set.
 Визуал: только более заметный heal pulse при лечении; объектов на поле не добавляет.
-Параметры (baseline v1, DECISION-0053): пороги PASSIVE-001 L3, PASSIVE-002 L3, PASSIVE-009 L2; +20% max HP, +0.6 HP/s regen, +20% health restoration, +25% относительного шанса Зелья.
+Параметры (baseline v1, DECISION-0053): пороги PASSIVE-001 L3, PASSIVE-002 L3, PASSIVE-009 L2; +20% max HP, +0.3 HP/s regen (было 0.6, [DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)), +20% health restoration, +25% относительного шанса Зелья.
 
 #### SET-007 — Векторный шторм
 Статус: Approved.
@@ -764,7 +764,7 @@ Production ID Книги — **PICKUP-002** (Approved вместе с [baseline 
 approved Traveler Book art. Одна Книга за убийство Путника; при пустом пуле — 50 валюты.
 
 #### PICKUP-001 — Зелье лечения
-Статус: Approved. Числа FIELD-001 baseline v1: лечение 18 HP, базовый шанс 1.5% с ordinary kill, contact radius 0.4, без expiry, scatter 0.3.
+Статус: Approved. Числа FIELD-001 baseline v1: лечение 30 HP (было 18, [DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)), базовый шанс 1.5% с ordinary kill, contact radius 0.4, без expiry, scatter 0.3.
 Источник: может выпадать после смерти обычного противника; базовый drop chance является настраиваемым balance parameter и при необходимости может переопределяться для отдельных типов врагов/полей.
 Приоритет chance: override типа врага → override поля → общий base chance; заданный 0 не пропускается. После выбора базы применяется относительный potion drop multiplier персонажа, итог ограничен 100% (5% × 1.6 = 8%; 80% × 1.6 = 100% после ограничения).
 Поведение: остаётся на земле до подбора или конца забега; optional lifetime задаётся балансом в секундах running-time и останавливается на паузе. Перед placement получает небольшой seeded-разброс вокруг точки смерти, чтобы соседние drops не закрывали друг друга; недоступная получившаяся точка за границей поля или внутри препятствия заменяется ближайшей доступной игроку точкой. При контакте с персонажем мгновенно подбирается и исчезает; XP pickup radius не влияет на подбор.
@@ -1557,6 +1557,7 @@ Knockback: contact 0.65; projectile 0.50. Knockback resistance 60%.
 Gameplay-роль: универсальный стартовый персонаж без выраженной специализации.
 Базовые характеристики: 100 HP; movement 100%; active damage 100%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-001 «Бросок камня».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-001 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-002, SKILL-005, SKILL-007; пониженные — SKILL-009, SKILL-014; остальные близки к стандартным.
 Unlock: доступен с начала игры.
 
@@ -1567,6 +1568,7 @@ Unlock: доступен с начала игры.
 Gameplay-роль: прочный персонаж ближней зоны, которому выгодно держать преследователей рядом.
 Базовые характеристики: 120 HP; movement 92%; active damage 105%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-003 «Орбитальные клинки».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-003 +60% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-015; пониженные — SKILL-010, SKILL-012; остальные стандартные.
 Unlock (DECISION-0050): покупка за 100 после первого прохождения FIELD-001; простой Quit или поражение не выполняет условие.
 
@@ -1577,6 +1579,7 @@ Unlock (DECISION-0050): покупка за 100 после первого про
 Gameplay-роль: хрупкая осторожная разведчица с акцентом на сильные направленные projectiles.
 Базовые характеристики: 90 HP; movement 108%; active damage 110%; cooldown duration 105%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-005 «Ветряное копьё».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-005 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-001, SKILL-012, SKILL-013; пониженные — SKILL-003, SKILL-009; остальные стандартные.
 Unlock: завершить FIELD-002.
 
@@ -1587,6 +1590,7 @@ Unlock: завершить FIELD-002.
 Gameplay-роль: мобильный сапёр для билдов через мины, взрывы и постоянное изменение маршрута.
 Базовые характеристики: 95 HP; movement 110%; active damage 95%; cooldown duration 92%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-009 «Магматическая мина».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-009 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-014; пониженные — SKILL-010, SKILL-012; остальные стандартные.
 Unlock: покупка за мета-валюту после открытия FIELD-003; цена 300.
 
@@ -1597,6 +1601,7 @@ Unlock: покупка за мета-валюту после открытия FI
 Gameplay-роль: магически ориентированный персонаж для частых цепных и многоцелевых атак.
 Базовые характеристики: 85 HP; movement 105%; active damage 108%; cooldown duration 95%; disappearing-XP recovery 10%.
 Стартовое умение: SKILL-007 «Цепная молния».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-007 +45% damage и +40% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-001, SKILL-008, SKILL-011; пониженные — SKILL-003, SKILL-009; остальные стандартные.
 Unlock: завершить FIELD-004.
 
@@ -1607,6 +1612,7 @@ Unlock: завершить FIELD-004.
 Gameplay-роль: очень крупный и медленный персонаж с редкими, но мощными AoE-атаками.
 Базовые характеристики: 130 HP; movement 90%; active damage 112%; cooldown duration 110%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-010 «Небесный удар».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-010 +45% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-004, SKILL-014, SKILL-015; пониженные — SKILL-006, SKILL-008; остальные стандартные.
 Unlock: покупка за мета-валюту после открытия FIELD-005; цена 500.
 
@@ -1617,6 +1623,7 @@ Unlock: покупка за мета-валюту после открытия FI
 Gameplay-роль: самый мобильный персонаж, предпочитающий атаки, хорошо работающие во время постоянного бегства.
 Базовые характеристики: 85 HP; movement 118%; active damage 95%; cooldown duration 90%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-006 «Бумеранг».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-006 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-002, SKILL-008, SKILL-013; пониженные — SKILL-009, SKILL-010; остальные стандартные.
 Unlock: завершить FIELD-006.
 
@@ -1627,6 +1634,7 @@ Unlock: завершить FIELD-006.
 Gameplay-роль: персонаж с ворованным световым фокусом для частых дальних атак и направленного покрытия пространства.
 Базовые характеристики: 95 HP; movement 100%; active damage 105%; cooldown duration 90%; disappearing-XP recovery 5%.
 Стартовое умение: SKILL-012 «Пульсирующий луч».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-012 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-001, SKILL-005, SKILL-007; пониженные — SKILL-003, SKILL-009; остальные стандартные.
 Unlock: покупка за мета-валюту после открытия FIELD-007; цена 700.
 
@@ -1637,6 +1645,7 @@ Unlock: покупка за мета-валюту после открытия FI
 Gameplay-роль: стрелок, предпочитающий вееры, пробивание и плотный фронтальный урон.
 Базовые характеристики: 100 HP; movement 105%; active damage 107%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-013 «Ледяные осколки».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-013 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-002, SKILL-005, SKILL-015; пониженные — SKILL-004, SKILL-010; остальные стандартные.
 Unlock: завершить FIELD-008.
 
@@ -1647,6 +1656,7 @@ Unlock: завершить FIELD-008.
 Gameplay-роль: опытный персонаж поздней прогрессии для билдов на круговое покрытие и одновременную работу по множеству направлений.
 Базовые характеристики: 110 HP; movement 95%; active damage 108%; cooldown duration 100%; disappearing-XP recovery 5%.
 Стартовое умение: SKILL-015 «Крест клинков».
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-015 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
 Draft weights: повышенные — SKILL-003, SKILL-004, SKILL-011; пониженные — SKILL-001, SKILL-012; остальные стандартные.
 Unlock: завершить FIELD-009.
 

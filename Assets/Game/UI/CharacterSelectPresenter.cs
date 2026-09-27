@@ -28,7 +28,8 @@ namespace Game.UI
                 var presentation = character.Presentation ?? throw new InvalidOperationException("Selection requires presentation metadata.");
                 var baseline = presentation.Baseline.Resolve(_registry);
                 var reason = _session.Roster.GetLockReason(character.Id);
-                var summary = presentation.Role + "\nStarts with " + character.ResolveStartingActiveSkill(_registry).DisplayName;
+                var summary = presentation.Role + "\nStarts with " + character.ResolveStartingActiveSkill(_registry).DisplayName +
+                    StartingSkillBoostText.Describe(character.StartingSkillBoost);
                 foreach (var field in presentation.Highlights)
                     summary += "\n" + CharacterHighlightFormatter.Format(character.BaseStats, baseline.Stats, field);
                 if (_permanentSummary != null) summary += "\n" + _permanentSummary(character.Id);

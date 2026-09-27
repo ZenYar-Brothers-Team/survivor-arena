@@ -20,6 +20,10 @@ namespace Game.Progression.Tests
             Assert.AreEqual(1f, character.BaseStats.ActiveSkillDamageMultiplier);
             Assert.AreEqual("CHAR-001-VISUAL-BODY", character.Visual.Id.ToString());
             Assert.AreEqual("CHAR-001-MOTION", character.MotionProfile.Id.ToString());
+            // DECISION-0075: Stone Throw specialization, 1.6 × 1.25 = ×2 power without passives.
+            Assert.AreEqual(0.6f, character.StartingSkillBoost.ActiveSkillDamageMultiplierBonus, 1e-5f);
+            Assert.AreEqual(0.25f, character.StartingSkillBoost.ActionSpeedBonus, 1e-5f);
+            Assert.AreEqual(0f, character.StartingSkillBoost.EffectSizeMultiplierBonus);
         }
 
         [Test]

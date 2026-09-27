@@ -12,7 +12,7 @@ namespace Game.Pickup.Tests
             var catalog = ProductionPickupCatalog.Create();
             Assert.AreEqual("PICKUP-001", catalog.Potion.Id.ToString());
             Assert.AreEqual(PickupRewardKind.Potion, catalog.Potion.Kind);
-            Assert.AreEqual(18f, catalog.Potion.Healing);
+            Assert.AreEqual(30f, catalog.Potion.Healing, "DECISION-0075: 18 -> 30.");
             Assert.AreEqual(0.4f, catalog.Potion.ContactRadius, 1e-5f);
             Assert.IsNull(catalog.Potion.LifetimeSeconds, "Potion stays until picked up or run end.");
             Assert.AreEqual("PICKUP-001-VISUAL", catalog.Potion.Visual.Id.ToString());

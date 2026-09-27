@@ -21,8 +21,8 @@ namespace Game.Pickup
         private PlayerCharacterRuntime _player;
         private Collider2D _playerCollider;
         private IPickupRewardTarget _target;
-        private IPickupPlacement _placement;
         private ContentId _field;
+        private Rect _fieldBounds;
         private System.Random _random;
         private System.Random _scatterRandom;
         private IReadOnlyDictionary<ContentId, SpriteDefinition> _visuals;
@@ -38,26 +38,56 @@ namespace Game.Pickup
         public PickupSnapshot Snapshot => new PickupSnapshot(_spawned, _collected, _expired, _cancelled, _rejected, _active.Count, _feedback);
         public int InactiveCount => _pool?.InactiveCount ?? 0;
         public void Initialize(FixturePickupCatalog catalog, RunModel run, PlayerCharacterRuntime player,
-            IPickupRewardTarget target, IPickupPlacement placement, ContentId field,
-            IReadOnlyDictionary<ContentId, SpriteDefinition> visuals = null)
+            IPickupRewardTarget target, Rect fieldBounds, ContentId field,
+            IReadOnlyDictionary<ContentId, SpriteDefinition> visuals = null, int? dropSeed = null, int? scatterSeed = null)
         {
-            if (catalog == null || run == null || player == null || player.Health == null || target == null || placement == null || !field.IsValid)
+            if (catalog == null || run == null || player == null || player.Health == null || target == null || !field.IsValid)
                 throw new ArgumentException("Pickup runtime requires initialized dependencies.");
             var collider = player.GetComponent<Collider2D>();
             if (collider == null) throw new ArgumentException("Pickup target requires contact geometry.");
             Shutdown();
-            _catalog = catalog; _run = run; _player = player; _playerCollider = collider; _target = target; _placement = placement; _field = field;
-            _random = new System.Random(catalog.Seed);
-            _scatterRandom = new System.Random(catalog.DropScatterSeed);
+            if (fieldBounds.width <= 0f || fieldBounds.height <= 0f) throw new ArgumentException("Pickup field bounds must be positive.");
+            _fieldBounds = fieldBounds;
+            _catalog = catalog; _run = run; _player = player; _playerCollider = collider; _target = target; _field = field;
+            // Composition passes fresh per-run seeds (DECISION-0074); the catalog seeds are the reference/test values.
+            _random = new System.Random(dropSeed ?? catalog.Seed);
+            _scatterRandom = new System.Random(scatterSeed ?? catalog.DropScatterSeed);
             _visuals = visuals;
             _pool ??= new GameObjectPool<WorldPickupVisual>(WorldPickupVisual.CreateInstance, transform);
             _run.StateChanged += HandleState;
+            Prewarm();
+        }
+
+        /// <summary>
+        /// DECISION-0074: the first potion used to build its pooled visual (GameObject, fallback TextMesh, sprite child)
+        /// inside an enemy death, a visible hitch before the first level-up. It is built once during run composition.
+        /// </summary>
+        private void Prewarm()
+        {
+            if (_pool.InactiveCount == 0)
+            {
+                var visual = _pool.Rent();
+                visual.transform.SetParent(transform, false);
+                foreach (var definition in new[] { _catalog.Potion, _catalog.Book })
+                {
+                    SpriteDefinition sprite = null;
+                    if (definition.Visual.Id.IsValid) _visuals?.TryGetValue(definition.Id, out sprite);
+                    visual.Initialize(new PickupLife(definition, new PickupIdentity(Guid.NewGuid(), _run.RunId, 0)),
+                        _player.transform.position, sprite);
+                }
+                visual.Shutdown();
+                _pool.Return(visual);
+            }
         }
         public WorldPickupVisual Spawn(PickupDefinition definition, Vector2 position, Guid? sourceLifeId = null, ContentId? sourceContentId = null)
         {
             if (_run == null || _run.State != RunState.Running || _player.Health == null || _player.Health.IsDead) return null;
             var scattered = Scatter(position, _catalog.DropScatterRadius, _scatterRandom);
-            if (!_placement.TryPlace(scattered, out var reachable)) { _rejected++; Changed?.Invoke(); return null; }
+            // DECISION-0075: the drop stays exactly where it fell (plus scatter), even inside an obstacle; no reachability
+            // search runs. A drop the player cannot touch simply stays on the ground (user decision 2026-09-27).
+            var skin = _catalog.PlacementSkin;
+            var reachable = new Vector2(Mathf.Clamp(scattered.x, _fieldBounds.xMin + skin, _fieldBounds.xMax - skin),
+                Mathf.Clamp(scattered.y, _fieldBounds.yMin + skin, _fieldBounds.yMax - skin));
             var identity = new PickupIdentity(Guid.NewGuid(), _run.RunId, _sequence++, sourceLifeId, sourceContentId);
             var life = new PickupLife(definition, identity);
             var visual = _pool.Rent();
@@ -161,7 +191,7 @@ namespace Game.Pickup
             // without reporting a second terminal result; life identity guards the returning callback.
             foreach (var visual in _active.ToArray())
             { visual.Life.Cancel(); _active.Remove(visual); visual.Shutdown(); _pool.Return(visual); }
-            _run = null; _player = null; _playerCollider = null; _target = null; _placement = null; _catalog = null;
+            _run = null; _player = null; _playerCollider = null; _target = null; _catalog = null;
             _visuals = null; _scatterRandom = null;
             _rolledLives.Clear(); _sequence = 0; _spawned = _collected = _expired = _cancelled = _rejected = 0;
         }

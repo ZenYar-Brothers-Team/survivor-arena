@@ -36,7 +36,8 @@ namespace Game.Progression
                     Require(draft.SetDraftChance, "draft.setDraftChance")),
                 new ExperienceSettings(
                     Require(experience.BaseDropLifetimeSeconds, "experience.baseDropLifetimeSeconds"),
-                    Require(experience.LevelThresholds, "experience.levelThresholds")));
+                    Require(experience.LevelThresholds, "experience.levelThresholds")),
+                Require(data.HostileDamageMultiplier, "hostileDamageMultiplier"));
         }
 
         private static T Require<T>(T? value, string description) where T : struct

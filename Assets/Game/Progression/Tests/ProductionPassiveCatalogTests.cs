@@ -35,7 +35,7 @@ namespace Game.Progression.Tests
         {
             Assert.AreEqual(150f, StatsWith("PASSIVE-001", 6).MaxHealth, 1e-3f);
             var gatherer = StatsWith("PASSIVE-002", 6);
-            Assert.AreEqual(2f, gatherer.HealthRegenerationPerSecond, 1e-4f);
+            Assert.AreEqual(1f, gatherer.HealthRegenerationPerSecond, 1e-4f, "DECISION-0075: regen halved.");
             Assert.AreEqual(1.6f, gatherer.PotionDropMultiplier, 1e-4f);
             Assert.AreEqual(3.9f, StatsWith("PASSIVE-003", 6).MovementSpeed, 1e-4f);
             Assert.AreEqual(1.5f, StatsWith("PASSIVE-004", 6).ActiveSkillDamageMultiplier, 1e-4f);
@@ -76,7 +76,7 @@ namespace Game.Progression.Tests
         {
             CollectionAssert.AreEqual(new[] { 0.05f, 0.09f, 0.13f, 0.17f, 0.21f, 0.25f },
                 Passive("PASSIVE-005").Levels.Select(l => l.ActionSpeedBonus).ToArray());
-            CollectionAssert.AreEqual(new[] { 0.2f, 0.4f, 0.7f, 1f, 1.4f, 2f },
+            CollectionAssert.AreEqual(new[] { 0.1f, 0.2f, 0.35f, 0.5f, 0.7f, 1f },
                 Passive("PASSIVE-002").Levels.Select(l => l.HealthRegenerationPerSecondBonus).ToArray());
             CollectionAssert.AreEqual(new[] { 0.08f, 0.16f, 0.24f, 0.32f, 0.4f, 0.5f },
                 Passive("PASSIVE-004").Levels.Select(l => l.ActiveSkillDamageMultiplierBonus).ToArray());

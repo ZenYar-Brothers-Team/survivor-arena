@@ -167,4 +167,5 @@ def run_setup(baseline):
             "draft": {"offerCount": draft["offerCount"], "setDraftChance": draft["setDraftChance"],
                       "seed": baseline["randomness"]["referenceSeeds"]["draft"], "initialRerolls": draft["initialRerolls"],
                       "initialBanishes": draft["initialBanishes"], "emptyBookCurrency": draft["emptyBookCurrency"]},
-            "experience": {"levelThresholds": xp["levelThresholds"], "baseDropLifetimeSeconds": xp["baseDropLifetimeSeconds"]}}
+            "experience": {"levelThresholds": xp["levelThresholds"], "baseDropLifetimeSeconds": xp["baseDropLifetimeSeconds"]},
+            "hostileDamageMultiplier": baseline["combat"]["hostileDamageMultiplier"]}

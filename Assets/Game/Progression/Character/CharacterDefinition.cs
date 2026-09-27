@@ -18,6 +18,11 @@ namespace Game.Progression
         public ContentRef<SpriteDefinition> Visual { get; }
         public ContentRef<SpriteMotionProfile> MotionProfile { get; }
         public IReadOnlyDictionary<ContentId, float> DraftWeights => _draftWeights;
+        /// <summary>
+        /// DECISION-0075: specialization of the starting active skill (damage / action speed / size / range bonuses),
+        /// applied to that skill only for the whole run; default = no bonus.
+        /// </summary>
+        public CharacterStatModifier StartingSkillBoost { get; }
 
         public CharacterDefinition(
             ContentId id,
@@ -52,7 +57,26 @@ namespace Game.Progression
             ContentId startingActiveSkillId, ContentRef<SpriteDefinition> visual,
             ContentRef<SpriteMotionProfile> motionProfile, CharacterPresentation presentation,
             params CharacterDraftWeight[] draftWeights)
+            : this(id, displayName, baseStats, startingActiveSkillId, visual, motionProfile, presentation, default, draftWeights)
         {
+        }
+
+        public CharacterDefinition(ContentId id, string displayName, CharacterBaseStats baseStats,
+            ContentId startingActiveSkillId, ContentRef<SpriteDefinition> visual,
+            ContentRef<SpriteMotionProfile> motionProfile, CharacterPresentation presentation,
+            CharacterStatModifier startingSkillBoost, params CharacterDraftWeight[] draftWeights)
+        {
+            // Only the per-skill channels of the skill modifier pipeline are meaningful for one skill.
+            if (!new CharacterStatModifier(activeSkillDamageMultiplierBonus: startingSkillBoost.ActiveSkillDamageMultiplierBonus,
+                    actionSpeedBonus: startingSkillBoost.ActionSpeedBonus,
+                    effectSizeMultiplierBonus: startingSkillBoost.EffectSizeMultiplierBonus,
+                    effectRangeMultiplierBonus: startingSkillBoost.EffectRangeMultiplierBonus).Equals(startingSkillBoost))
+                throw new ArgumentException("Starting skill boost supports damage, action speed, size and range only.", nameof(startingSkillBoost));
+            NumericValidation.ValidateNonNegative(startingSkillBoost.ActiveSkillDamageMultiplierBonus, nameof(startingSkillBoost));
+            NumericValidation.ValidateNonNegative(startingSkillBoost.ActionSpeedBonus, nameof(startingSkillBoost));
+            NumericValidation.ValidateNonNegative(startingSkillBoost.EffectSizeMultiplierBonus, nameof(startingSkillBoost));
+            NumericValidation.ValidateNonNegative(startingSkillBoost.EffectRangeMultiplierBonus, nameof(startingSkillBoost));
+            StartingSkillBoost = startingSkillBoost;
             Presentation = presentation;
             if (!id.IsValid)
                 throw new ArgumentException("Character requires a valid content id.", nameof(id));

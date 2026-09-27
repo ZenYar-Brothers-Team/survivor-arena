@@ -5,7 +5,7 @@
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 Current active packet: нет; REPO-01 завершён в разрешённом scope.
 Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 866/866 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md). Ручную приёмку эти проверки не заменяют.
+Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
@@ -47,6 +47,10 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 
 Дополнительный отзыв 2026-09-27: на стартовом экране FIELD-001 гарантированы два видимых объекта вне свободного круга радиуса 6 ([DECISION-0070](../decisions/0070-field001-opening-screen-obstacles.md)); SKILL-007 L1–L3 слегка ослаблен до 22/22/27.5 damage ([DECISION-0071](../decisions/0071-early-chain-lightning-damage.md)). Safe full check: EditMode 856/856, PlayMode 30/30, art provenance 151/151 PASS; layout validator 200 сидов PASS. Игровой баланс ждёт ручного прогона. [Evidence](evidence/2026-09-27-opening-screen-and-lightning.md).
 Плейтест 2026-09-27 (вечер), [DECISION-0073](../decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md): в списке сетов только meta-открытые, упущенные сеты внизу; порог прыжка боссов 6.25 units (+25%); все пропсы FIELD-002/003 появляются в каждом забеге как варианты кусков паттернов; урон умений выровнен и снижен (медиана ×0.7). EditMode 866/866, PlayMode 30/30 PASS. Сложность ждёт ручного прогона. [Evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md).
+
+Подлаг перед первым level-up ([DECISION-0074](../decisions/0074-pickup-hitch-and-fresh-drop-seed.md)): первый дроп зелья строил visual и полный поиск точки внутри смерти врага (88 ms в PlayMode, 372 ms в Editor); пул прогревается при сборке забега, размещение сначала проверяет прямой отрезок от игрока — 1.2 ms. Броски и разброс дропа получают свежий seed на каждый забег.
+
+Ребаланс прогрессии ([DECISION-0075](../decisions/0075-progression-specialization-and-survivability.md)): первые уровни втрое дороже при прежней сумме XP к L40; стартовое умение персонажа получает специализацию ≈×2 (CHAR-001: +60% damage, +25% action speed); урон врагов по игроку ×0.7; зелье 30 HP; регенерация вдвое слабее; дроп пикапов без поиска пути. EditMode 870/870, PlayMode 30/30 PASS (`TestResults/checks/20260927T172233-150157Z`). Темп и выживаемость ждут ручного прогона.
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его

@@ -30,27 +30,27 @@
     "iconVisualId": "PASSIVE-002-VISUAL-ICON",
     "levels": [
       {
-        "healthRegenerationPerSecondBonus": 0.2,
+        "healthRegenerationPerSecondBonus": 0.1,
         "potionDropMultiplierBonus": 0.1
       },
       {
-        "healthRegenerationPerSecondBonus": 0.4,
+        "healthRegenerationPerSecondBonus": 0.2,
         "potionDropMultiplierBonus": 0.2
       },
       {
-        "healthRegenerationPerSecondBonus": 0.7,
+        "healthRegenerationPerSecondBonus": 0.35,
         "potionDropMultiplierBonus": 0.3
       },
       {
-        "healthRegenerationPerSecondBonus": 1,
+        "healthRegenerationPerSecondBonus": 0.5,
         "potionDropMultiplierBonus": 0.4
       },
       {
-        "healthRegenerationPerSecondBonus": 1.4,
+        "healthRegenerationPerSecondBonus": 0.7,
         "potionDropMultiplierBonus": 0.5
       },
       {
-        "healthRegenerationPerSecondBonus": 2,
+        "healthRegenerationPerSecondBonus": 1,
         "potionDropMultiplierBonus": 0.6
       }
     ]

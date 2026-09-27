@@ -136,7 +136,7 @@ namespace Game.ActiveSkill
             foreach (var instance in _instances.Values)
             {
                 if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
-                    SetSkillModifier?.Invoke(instance.Definition.Id) ?? default,
+                    SkillModifier(instance.Definition.Id),
                     slowedTargetBonus: SetSlowedTargetBonus?.Invoke(instance.Definition.Id) ?? default,
                     skillMechanics: SetSkillMechanics?.Invoke(instance.Definition.Id) ?? default))
                 {
@@ -146,6 +146,21 @@ namespace Game.ActiveSkill
             }
             _executor.Tick(0f, isRunning);
             return triggered;
+        }
+
+        /// <summary>Set-effect modifiers of the skill plus the character's starting-skill boost (DECISION-0075).</summary>
+        public CharacterStatModifier SkillModifier(ContentId skill)
+        {
+            var set = SetSkillModifier?.Invoke(skill) ?? default;
+            var character = draftRuntime.Character;
+            if (character == null || character.StartingActiveSkill.Id != skill) return set;
+            var boost = character.StartingSkillBoost;
+            return new CharacterStatModifier(
+                activeSkillDamageMultiplierBonus: set.ActiveSkillDamageMultiplierBonus + boost.ActiveSkillDamageMultiplierBonus,
+                actionSpeedBonus: set.ActionSpeedBonus + boost.ActionSpeedBonus,
+                effectSizeMultiplierBonus: set.EffectSizeMultiplierBonus + boost.EffectSizeMultiplierBonus,
+                effectRangeMultiplierBonus: set.EffectRangeMultiplierBonus + boost.EffectRangeMultiplierBonus,
+                outgoingKnockbackBonus: set.OutgoingKnockbackBonus);
         }
 
         /// <summary>Current world radius of a live persistent orbit of <paramref name="skill"/>, if any.</summary>

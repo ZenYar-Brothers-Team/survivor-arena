@@ -90,8 +90,14 @@ def main():
     require(set(data["character"]["stats"]) == {p[0].lower() + p[1:] for p in properties},
             "Character stat matrix no longer covers every required DTO stat")
     costs = data["experience"]["levelThresholds"]
-    require(costs == [4 + math.floor(1.5 * i) for i in range(60)], "XP formula/array mismatch")
-    require(sum(costs[:39]) == 1258 and costs[-1] == 92, "XP example mismatch")
+    # DECISION-0075: C'(L) = round(C(L) * (0.8 + 2.2 * exp(-(L-1) / 7.64))), non-decreasing, where
+    # C(L) = 4 + floor(1.5 * (L - 1)); early levels cost 3x, the cumulative cost to L40 stays ~1258.
+    expected, previous = [], 0
+    for i in range(60):
+        value = max(previous, round((4 + math.floor(1.5 * i)) * (0.8 + 2.2 * math.exp(-i / 7.64))))
+        expected.append(value); previous = value
+    require(costs == expected, "XP formula/array mismatch")
+    require(costs[0] == 12 and sum(costs[:39]) == 1257 and costs[-1] == 74, "XP example mismatch")
 
     enemies = {entry["id"]: entry for entry in data["enemies"]}
     for delta in data["ordinaryEnemyChanges"]:

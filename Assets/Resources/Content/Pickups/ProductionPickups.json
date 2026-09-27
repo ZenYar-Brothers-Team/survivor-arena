@@ -15,7 +15,7 @@
     {
       "id": "PICKUP-001",
       "kind": "Potion",
-      "healing": 18,
+      "healing": 30,
       "contactRadius": 0.4,
       "lifetimeSeconds": null,
       "marker": "HP",

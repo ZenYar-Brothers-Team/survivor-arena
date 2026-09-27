@@ -42,8 +42,7 @@ namespace Game.Pickup.Tests
             _run.Model.Start(); Physics2D.SyncTransforms();
         }
         private void InitializePickups() => _pickups.Initialize(_catalog, _run.Model, _player,
-            new PlayerPickupRewardTarget(_player, _run.Model, _draft, _ => _rewards++),
-            new BoxPickupPlacement(new Rect(-10, -10, 20, 20), Array.Empty<Rect>(), Vector2.one * .5f, Vector2.zero, .01f), "FIXTURE-FIELD");
+            new PlayerPickupRewardTarget(_player, _run.Model, _draft, _ => _rewards++), new Rect(-10, -10, 20, 20), "FIXTURE-FIELD");
         [TearDown]
         public void TearDown()
         {
@@ -148,6 +147,42 @@ namespace Game.Pickup.Tests
             Assert.AreSame(drop, reused); Assert.AreEqual(1, _pickups.Snapshot.Spawned); Assert.AreEqual(0, _pickups.Snapshot.Cancelled);
             Assert.AreEqual(Vector3.one, reused.transform.localScale); Assert.AreEqual("BOOK", reused.GetComponentInChildren<TextMesh>().text);
             Assert.AreEqual(_run.Model.RunId, reused.Life.Identity.RunId);
+        }
+        [Test]
+        public void Initialize_PrewarmsOnePooledVisual_SoTheFirstDropDoesNotBuildIt()
+        {
+            // DECISION-0074: the first potion built its visual inside an enemy death (hitch before the first level-up).
+            Assert.AreEqual(1, _pickups.InactiveCount);
+            var drop = _pickups.Spawn(_catalog.Potion, Vector2.zero);
+            Assert.IsNotNull(drop);
+            Assert.AreEqual(0, _pickups.InactiveCount, "The first drop reuses the prewarmed visual.");
+        }
+        [Test]
+        public void DeathDrop_RollSequenceFollowsTheRunSeed()
+        {
+            // DECISION-0074: composition passes a fresh seed per run, so potion drops differ between runs.
+            _catalog = FixturePickupCatalog.FromJson(JsonContentFile.ReadText("Content/Pickups/FixturePickups").Replace("\"baseChance\": 0.08", "\"baseChance\": 0.5"));
+            string Pattern(int seed)
+            {
+                _run.Shutdown(); _run.Initialize();
+                _pickups.Initialize(_catalog, _run.Model, _player, new PlayerPickupRewardTarget(_player, _run.Model, _draft, _ => { }),
+                    new Rect(-10, -10, 20, 20), "FIXTURE-FIELD", dropSeed: seed);
+                _run.Model.Start();
+                var result = new System.Text.StringBuilder();
+                for (var i = 0; i < 24; i++)
+                {
+                    var before = _pickups.Snapshot.Spawned;
+                    var enemy = EnemyFactory.Spawn(FixtureEnemyCatalog.Create()[0], Vector2.right * 3, _player.transform, _run,
+                        _owner.transform, lifecycleSink: _pickups);
+                    enemy.LifeEvent += snapshot => { if (snapshot.Kind == EnemyLifeEventKind.Died) _pickups.OnEnemyLifeEvent(snapshot); };
+                    enemy.TakeDamage(100000);
+                    result.Append(_pickups.Snapshot.Spawned > before ? '1' : '0');
+                }
+                return result.ToString();
+            }
+            var first = Pattern(11);
+            Assert.AreEqual(first, Pattern(11), "The same seed repeats the same rolls.");
+            Assert.AreNotEqual(first, Pattern(12), "Another run seed gives another drop sequence.");
         }
         [TestCase(EnemyCategory.Ordinary, true, 1)]
         [TestCase(EnemyCategory.Ordinary, false, 0)]

@@ -211,7 +211,7 @@
         "kind": "StatBuff",
         "modifier": {
           "maxHealthMultiplierBonus": 0.2,
-          "healthRegenerationPerSecondBonus": 0.6,
+          "healthRegenerationPerSecondBonus": 0.3,
           "healthRestorationMultiplierBonus": 0.2,
           "potionDropMultiplierBonus": 0.25
         }

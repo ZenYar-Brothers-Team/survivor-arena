@@ -7,5 +7,6 @@ namespace Game.Progression.Json
         public string StartingCharacterId { get; set; }
         public DraftSettingsData Draft { get; set; }
         public ExperienceSettingsData Experience { get; set; }
+        public float? HostileDamageMultiplier { get; set; }
     }
 }

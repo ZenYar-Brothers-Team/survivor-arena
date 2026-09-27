@@ -50,7 +50,7 @@ namespace Game.Progression.Tests
             using (new SetEffectAbility(Set("SET-006"), host))
             {
                 Assert.AreEqual(120f, host.Stats.MaxHealth, 1e-3f);
-                Assert.AreEqual(0.6f, host.Stats.HealthRegenerationPerSecond, 1e-4f);
+                Assert.AreEqual(0.3f, host.Stats.HealthRegenerationPerSecond, 1e-4f);
                 Assert.AreEqual(1.25f, host.Stats.PotionDropMultiplier, 1e-4f);
             }
             Assert.AreEqual(100f, host.Stats.MaxHealth, 1e-3f, "Removing the set removes its buff.");

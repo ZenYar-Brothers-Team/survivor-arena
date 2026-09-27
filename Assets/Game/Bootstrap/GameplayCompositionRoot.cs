@@ -61,6 +61,8 @@ namespace Game.Bootstrap
         /// <summary>Seed of this run's obstacle layout (DECISION-0068); 0 for fields without one.</summary>
         public int LayoutSeed { get; private set; }
         public int TravelerSeed { get; private set; }
+        /// <summary>Potion drop-roll seed of the current run: fresh per run (DECISION-0074) unless reference seeds are pinned.</summary>
+        public int PickupSeed { get; private set; }
         public bool UseReferenceSeeds { get; set; }
         public UnityEngine.UIElements.UIDocument FieldSelectionDocument => _fieldScreen?.Document;
         private Behaviour[] _waitingComponents;
@@ -377,7 +379,7 @@ namespace Game.Bootstrap
                 player.transform.position = spawn.position;
                 if (body != null) { body.position = spawn.position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
                 initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
-                player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id, Profile.Modifier(selectedCharacter.Id.ToString()));
+                player.Initialize(selectedCharacter.BaseStats.WithIncomingDamageScale(setup.HostileDamageMultiplier), runController, selectedCharacter.Id, Profile.Modifier(selectedCharacter.Id.ToString()));
                 initializedSubsystems.Add(player.Shutdown);
 
                 if (!selectedCharacter.Visual.Id.IsValid || !selectedCharacter.MotionProfile.Id.IsValid)
@@ -409,7 +411,7 @@ namespace Game.Bootstrap
                 experienceVisual.RequireRole(SpriteRole.Pickup);
                 experienceRuntime.Initialize(player, runController, setup.Experience, experienceVisual,
                     Catalog.Pickups.ExperienceVisualScale, Catalog.Pickups.DropScatterRadius,
-                    Catalog.Pickups.DropScatterSeed);
+                    UseReferenceSeeds ? Catalog.Pickups.DropScatterSeed : FreshRunSeed.Next());
                 initializedSubsystems.Add(experienceRuntime.Shutdown);
 
                 // DECISION-0058: player attacks choose enemies/points only on the visible screen.
@@ -453,14 +455,13 @@ namespace Game.Bootstrap
                 initializedSubsystems.Add(passiveRuntime.Shutdown);
 
                 if (Pickups == null) Pickups = gameObject.AddComponent<WorldPickupRuntime>();
-                var placement = FixturePickupPlacement.Create(configuration.Environment, gameObject.scene,
-                    player.GetComponent<Collider2D>(), Catalog.Pickups.PlacementSkin,
-                    additionalObstacles: _fieldEnvironmentArt.ObstacleColliders);
                 var pickupVisuals = Catalog.Pickups.Definitions.ToDictionary(definition => definition.Id,
                     definition => definition.Visual.Resolve(Catalog.Registry));
                 Pickups.Initialize(Catalog.Pickups, runController.Model, player,
-                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward), placement,
-                    selectedField.Id, pickupVisuals);
+                    new PlayerPickupRewardTarget(player, runController.Model, draftRuntime, _setEffects.PublishReward),
+                    FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), selectedField.Id, pickupVisuals,
+                    PickupSeed = UseReferenceSeeds ? Catalog.Pickups.Seed : FreshRunSeed.Next(),
+                    UseReferenceSeeds ? Catalog.Pickups.DropScatterSeed : FreshRunSeed.Next());
                 initializedSubsystems.Add(Pickups.Shutdown);
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);

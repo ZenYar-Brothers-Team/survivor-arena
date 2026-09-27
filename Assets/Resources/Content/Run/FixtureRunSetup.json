@@ -11,5 +11,6 @@
   "experience": {
     "levelThresholds": [5, 10, 15],
     "baseDropLifetimeSeconds": 60
-  }
+  },
+  "hostileDamageMultiplier": 1
 }

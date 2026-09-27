@@ -35,7 +35,9 @@ namespace Game.Bootstrap.PlayModeTests
                 var outside = root.Pickups.Spawn(root.Catalog.Pickups.Potion, new Vector2(rightEdge + 100, 0));
                 Assert.Less(outside.transform.position.x, rightEdge);
                 var inside = root.Pickups.Spawn(root.Catalog.Pickups.Book, new Vector2(3, 0));
-                Assert.Greater(Vector2.Distance(inside.transform.position, new Vector2(3, 0)), .5f);
+                // DECISION-0075: a drop stays where it fell (plus scatter), even inside an obstacle.
+                Assert.LessOrEqual(Vector2.Distance(inside.transform.position, new Vector2(3, 0)),
+                    root.Catalog.Pickups.DropScatterRadius + 1e-4f);
                 var potionSprite = outside.transform.Find("VisualRoot").GetComponent<SpriteRenderer>();
                 var bookSprite = inside.transform.Find("VisualRoot").GetComponent<SpriteRenderer>();
                 Assert.IsTrue(potionSprite.enabled); Assert.IsTrue(bookSprite.enabled);

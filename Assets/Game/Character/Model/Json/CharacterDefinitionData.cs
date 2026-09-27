@@ -12,5 +12,6 @@ namespace Game.Character.Json
         public string MotionProfileId { get; set; }
         public CharacterBaseStatsData BaseStats { get; set; }
         public CharacterDraftWeightData[] DraftWeights { get; set; }
+        public CharacterSkillBoostData StartingSkillBoost { get; set; }
     }
 }

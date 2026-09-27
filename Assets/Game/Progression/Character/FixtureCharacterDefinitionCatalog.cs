@@ -84,6 +84,11 @@ namespace Game.Progression
                     ? default
                     : new ContentRef<SpriteMotionProfile>(data.MotionProfileId),
                 MapPresentation(data.Presentation),
+                data.StartingSkillBoost == null ? default : new CharacterStatModifier(
+                    activeSkillDamageMultiplierBonus: data.StartingSkillBoost.ActiveSkillDamageMultiplierBonus,
+                    actionSpeedBonus: data.StartingSkillBoost.ActionSpeedBonus,
+                    effectSizeMultiplierBonus: data.StartingSkillBoost.EffectSizeMultiplierBonus,
+                    effectRangeMultiplierBonus: data.StartingSkillBoost.EffectRangeMultiplierBonus),
                 weights);
         }
     }

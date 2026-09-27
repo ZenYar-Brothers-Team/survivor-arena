@@ -34,7 +34,7 @@ namespace Game.Traveler.Tests
             var camera=new GameObject("camera"); camera.transform.SetParent(_root.transform); _camera=camera.AddComponent<Camera>(); _camera.orthographic=true; _camera.orthographicSize=5;
             var reachable=new BoxPickupPlacement(new Rect(-100,-100,200,200),Array.Empty<Rect>(),Vector2.one*.7f,Vector2.zero,.01f);
             _placement=new TravelerPlacement(reachable); _pickupCatalog=FixturePickupCatalog.Create();
-            _pickups=_root.AddComponent<WorldPickupRuntime>(); _pickups.Initialize(_pickupCatalog,_run.Model,_player,new TravelerTestRewardTarget(),reachable,"FIXTURE-FIELD");
+            _pickups=_root.AddComponent<WorldPickupRuntime>(); _pickups.Initialize(_pickupCatalog,_run.Model,_player,new TravelerTestRewardTarget(),new Rect(-100,-100,200,200),"FIXTURE-FIELD");
             _catalog=FixtureTravelerCatalog.Create(); _travelers=_root.AddComponent<TravelerEncounterRuntime>(); Initialize();
             _travelers.LifeEvent+=_events.Add; _run.Model.Start();
         }

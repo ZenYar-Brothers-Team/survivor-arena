@@ -10,6 +10,18 @@ namespace Game.Bootstrap
     /// <summary>Adapter for the IP-16 axis-aligned fixture arena; production geometry supplies its own IPickupPlacement.</summary>
     public static class FixturePickupPlacement
     {
+        /// <summary>Inner rectangle between the four boundary walls (world pickups clamp into it, DECISION-0075).</summary>
+        public static Rect ArenaBounds(FieldEnvironmentDefinition environment, Scene scene)
+        {
+            FieldEnvironmentBinding.Validate(environment, scene);
+            Physics2D.SyncTransforms();
+            var walls = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<BoxCollider2D>())
+                .Where(box => box.name.StartsWith("Wall_", StringComparison.Ordinal))
+                .ToDictionary(box => box.name, box => box.bounds);
+            return Rect.MinMaxRect(walls["Wall_Left"].max.x, walls["Wall_Bottom"].max.y,
+                walls["Wall_Right"].min.x, walls["Wall_Top"].min.y);
+        }
+
         public static IPickupPlacement Create(FieldEnvironmentDefinition environment, Scene scene, Collider2D player,
             float skin, float minimumHalfSize = 0, IEnumerable<Collider2D> additionalObstacles = null)
         {

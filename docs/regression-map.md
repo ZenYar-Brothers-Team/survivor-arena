@@ -14,6 +14,8 @@
 | Откат `PlayerActiveSkillSetRuntime`/`PlayerPassiveSetRuntime` при сбое Initialize; passive повторный Initialize и Shutdown→Initialize без stale catalog/stacking | `PlayerActiveSkillSetRuntimeRollbackTests`, `PlayerPassiveSetRuntimeRollbackTests` | EditMode | OK (добавлено в ревью) |
 | Активные навыки: срабатывание, кулдаун, эффекты, мины | `PlayerActiveSkillSetRuntimeTests`, `ActiveSkillTimingTests`, `ProjectileAndAreaTests`, `SceneActiveSkillEffectExecutorTests`, `ActiveSkillProgressionFrameworkTests` | EditMode | OK |
 | Видимость сетов по мета-открытиям и упущенные сеты (DECISION-0073) | `SetReachabilityTests`, `GameplayUiPresenterTests.SetProgress_MissedSetsAreListedLast` | EditMode | OK; фильтр draft pool в `GameplayUiRuntimeModel` без прямого теста (TD-040) |
+| Первый дроп зелья без подлага; свежий seed бросков дропа (DECISION-0074) | `WorldPickupRuntimeTests` (`Initialize_PrewarmsOnePooledVisual_…`, `DeathDrop_RollSequenceFollowsTheRunSeed`) | EditMode | OK |
+| XP-кривая, урон врагов по игроку, специализация стартового умения (DECISION-0075) | `RunSetupConfigTests.ProductionSetup_…`, `ProductionCharacterCatalogTests`, `PlayerActiveSkillSetRuntimeTests.SkillModifier_…`, `WorldPickupSmokeTests` | EditMode / PlayMode | OK |
 | Wave Director: фазы, хуки, лимиты, состав | `WaveDefinitionTests`, `WaveDirectorTests` | EditMode | OK |
 | Спавн/деспавн врагов, пул, `EnemyRegistry` | `WaveSpawnerTests`, `EnemyRuntimeLifecycleTests`, `EnemySpawnerSceneIntegrationTests` | EditMode | OK |
 | Паттерны движения/атаки врагов | `EnemyPatternTests`, `EnemyMovementAndContactTests` | EditMode | OK |

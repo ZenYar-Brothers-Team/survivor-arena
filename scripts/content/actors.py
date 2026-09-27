@@ -18,6 +18,7 @@ def characters(baseline):
         "initiallyUnlocked": True, "startingActiveSkillId": character["startingSkill"],
         "visualId": f"{character['id']}-VISUAL-BODY", "motionProfileId": f"{character['id']}-MOTION",
         "baseStats": character["stats"], "draftWeights": weights,
+        "startingSkillBoost": character["startingSkillBoost"],
         "presentation": {"role": " · ".join(character["highlights"]), "baselineId": CHARACTER_BASELINE_ID,
                          "cropId": f"{character['id']}-VISUAL-PORTRAIT", "iconId": f"{character['id']}-VISUAL-ICON",
                          "highlights": []},
