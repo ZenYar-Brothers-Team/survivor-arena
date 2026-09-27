@@ -3,6 +3,7 @@ using System.Linq;
 using Game.Content;
 using Game.Enemy;
 using Game.Meta;
+using Game.Presentation;
 using Game.Run;
 using Game.UI;
 using NUnit.Framework;
@@ -49,7 +50,12 @@ namespace Game.Bootstrap.PlayModeTests
 
                 var run = Object.FindAnyObjectByType<RunController>();
                 Assert.AreEqual("FIELD-002", run.Model.Selection.FieldId.ToString());
-                Assert.AreEqual(100, GameObject.Find("FieldEnvironmentArt").GetComponentsInChildren<Collider2D>().Length);
+                // DECISION-0068: the colliders are exactly this run's generated layout.
+                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+                    .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION").ObstacleLayout;
+                Assert.AreEqual(layout.ReferenceSeed, root.LayoutSeed, "Reference seeds pin the layout.");
+                var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-002-ENVIRONMENT");
+                Assert.AreEqual(expected.Count, GameObject.Find("FieldEnvironmentArt").GetComponentsInChildren<Collider2D>().Length);
                 for (var i = 0; i < 600; i++) yield return new WaitForFixedUpdate();
                 Assert.AreEqual(RunState.Running, run.Model.State);
                 var enemies = Object.FindObjectsByType<EnemyRuntime>(FindObjectsSortMode.None);

@@ -85,18 +85,27 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_Places64AuthoredObstaclesWithFreeStart()
+        public void Presentation_GeneratesSixtyFourSingleObstaclesPerRun_OnePerCell_WithFreeStart()
         {
+            // DECISION-0068: the layout is generated every run from patterns; 8×8 cells, one stump or fence each.
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
                 .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
-            Assert.AreEqual(64, presentation.ExplicitObstacles.Count);
-            foreach (var obstacle in presentation.ExplicitObstacles)
+            Assert.AreEqual(0, presentation.ExplicitObstacles.Count);
+            Assert.IsNotNull(presentation.ObstacleLayout);
+            foreach (var seed in new[] { presentation.ObstacleLayout.ReferenceSeed, 1, 2, 3 })
             {
-                Assert.LessOrEqual(System.Math.Abs(obstacle.X) + obstacle.Width / 2, 100f);
-                Assert.LessOrEqual(System.Math.Abs(obstacle.Y) + obstacle.Height / 2, 100f);
-                Assert.Greater(obstacle.X * obstacle.X + obstacle.Y * obstacle.Y, 4f, "Start area stays free.");
+                var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero, seed,
+                    "FIELD-001-ENVIRONMENT");
+                Assert.AreEqual(64, obstacles.Count, $"seed {seed}");
+                foreach (var obstacle in obstacles)
+                {
+                    Assert.LessOrEqual(System.Math.Abs(obstacle.X) + obstacle.Width / 2, 99f);
+                    Assert.LessOrEqual(System.Math.Abs(obstacle.Y) + obstacle.Height / 2, 99f);
+                    Assert.Greater(obstacle.X * obstacle.X + obstacle.Y * obstacle.Y, 36f, "Start area stays free.");
+                    Assert.IsTrue(obstacle.Kind == FieldObstacleKind.Stump || (obstacle.Kind == FieldObstacleKind.Fence && obstacle.Width > obstacle.Height),
+                        "Single stumps or horizontal fences (DECISION-0046).");
+                }
             }
-            Assert.AreEqual(16, presentation.ExplicitObstacles.Count(o => System.Math.Abs(o.X) <= 20 && System.Math.Abs(o.Y) <= 20));
         }
 
         [Test]

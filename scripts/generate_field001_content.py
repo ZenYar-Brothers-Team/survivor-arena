@@ -25,6 +25,7 @@ ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
 FIELD002_PACKET = ROOT / "docs/balance/field002-v1.json"
 BOSSES_PACKET = ROOT / "docs/balance/bosses-v1.json"
 FIELD003_PACKET = ROOT / "docs/balance/field003-v1.json"
+LAYOUTS_PACKET = ROOT / "docs/balance/field-layouts-v1.json"
 
 
 def load_baseline():
@@ -55,6 +56,10 @@ def load_baseline():
     if not str(field_three.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-003 packet is not Approved; production content cannot be generated.")
     data["field003"] = field_three
+    layouts = json.loads(LAYOUTS_PACKET.read_text(encoding="utf-8"))
+    if not str(layouts.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Field layouts packet is not Approved; production content cannot be generated.")
+    data["layouts"] = {entry["presentationId"]: entry for entry in layouts["fields"]}
     return data
 
 
@@ -1065,7 +1070,22 @@ def field_presentation(baseline):
                  nearObstacleCount=sum(1 for o in three["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
     third["obstacles"] = [{"id": o["id"], "kind": ruin_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                            "height": o["height"]} for o in three["obstacles"]]
-    return [data, second, third]
+    presentations = [data, second, third]
+    # DECISION-0068: the first three fields generate their obstacles every run from patterns instead of a fixed list.
+    wall = baseline["field"]["wallThickness"]
+    for presentation in presentations:
+        layout = baseline["layouts"][presentation["id"]]
+        presentation.pop("obstacles")
+        presentation["obstacleLayout"] = {
+            "cellSize": layout["cellSize"], "patternsPerCell": layout["patternsPerCell"],
+            "edgeMargin": layout["edgeMargin"] + wall, "cellMargin": layout["cellMargin"],
+            "startClearRadius": layout["startClearRadius"], "minPatternGap": layout["minPatternGap"],
+            "placementAttempts": layout["placementAttempts"], "referenceSeed": layout["referenceSeed"],
+            "patterns": [{"id": pattern["id"], "weight": pattern["weight"], "rotations": pattern["rotations"],
+                          "pieces": [{"kind": piece["kind"], "x": piece["x"], "y": piece["y"], "width": piece["width"],
+                                      "height": piece["height"]} for piece in pattern["pieces"]]}
+                         for pattern in layout["patterns"]]}
+    return presentations
 
 
 def minutes(seconds):

@@ -31,520 +31,50 @@
     "fenceColliderWidth": 3,
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
-    "obstacles": [
-      {
-        "id": "FIELD-001-O01",
-        "kind": "Fence",
-        "x": 18.83,
-        "y": 5.42,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O02",
-        "kind": "Stump",
-        "x": -3.96,
-        "y": -5.2,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O03",
-        "kind": "Stump",
-        "x": -14.32,
-        "y": -6.85,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O04",
-        "kind": "Fence",
-        "x": 1.71,
-        "y": 9.26,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O05",
-        "kind": "Stump",
-        "x": -5.07,
-        "y": 18.19,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O06",
-        "kind": "Stump",
-        "x": -18.42,
-        "y": 18.97,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O07",
-        "kind": "Fence",
-        "x": -16.59,
-        "y": 9.06,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O08",
-        "kind": "Stump",
-        "x": 1.77,
-        "y": -12.85,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O09",
-        "kind": "Stump",
-        "x": -10.9,
-        "y": -19.56,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O10",
-        "kind": "Fence",
-        "x": 11.76,
-        "y": 14.64,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O11",
-        "kind": "Stump",
-        "x": 18.01,
-        "y": -9.42,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O12",
-        "kind": "Stump",
-        "x": -19.57,
-        "y": 14.75,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O13",
-        "kind": "Fence",
-        "x": 17.75,
-        "y": -0.99,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O14",
-        "kind": "Stump",
-        "x": -9.37,
-        "y": 12.68,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O15",
-        "kind": "Stump",
-        "x": 9.2,
-        "y": -18.31,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O16",
-        "kind": "Fence",
-        "x": -7.71,
-        "y": -12.27,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O17",
-        "kind": "Stump",
-        "x": 61.56,
-        "y": 72.2,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O18",
-        "kind": "Stump",
-        "x": -91.76,
-        "y": -56.61,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O19",
-        "kind": "Fence",
-        "x": 58.57,
-        "y": -4.03,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O20",
-        "kind": "Stump",
-        "x": 36.73,
-        "y": 18.8,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O21",
-        "kind": "Stump",
-        "x": 62.15,
-        "y": 78.23,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O22",
-        "kind": "Fence",
-        "x": -55.96,
-        "y": -67.28,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O23",
-        "kind": "Stump",
-        "x": -55.05,
-        "y": 61.88,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O24",
-        "kind": "Stump",
-        "x": -29.21,
-        "y": 70.75,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O25",
-        "kind": "Fence",
-        "x": 38.93,
-        "y": -64.59,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O26",
-        "kind": "Stump",
-        "x": -57.37,
-        "y": 70.14,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O27",
-        "kind": "Stump",
-        "x": -12.32,
-        "y": -27.96,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O28",
-        "kind": "Fence",
-        "x": 59.01,
-        "y": 13.59,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O29",
-        "kind": "Stump",
-        "x": -91.56,
-        "y": -72.24,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O30",
-        "kind": "Stump",
-        "x": 74.39,
-        "y": -13.94,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O31",
-        "kind": "Fence",
-        "x": -70.58,
-        "y": 39.62,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O32",
-        "kind": "Stump",
-        "x": -19.15,
-        "y": -26.15,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O33",
-        "kind": "Stump",
-        "x": -52.81,
-        "y": 92.37,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O34",
-        "kind": "Fence",
-        "x": 21.58,
-        "y": 80.2,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O35",
-        "kind": "Stump",
-        "x": 65.08,
-        "y": -48.02,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O36",
-        "kind": "Stump",
-        "x": 89.89,
-        "y": -50.5,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O37",
-        "kind": "Fence",
-        "x": -57.76,
-        "y": 23.46,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O38",
-        "kind": "Stump",
-        "x": -78.07,
-        "y": 44.36,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O39",
-        "kind": "Stump",
-        "x": -51.77,
-        "y": 37.37,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O40",
-        "kind": "Fence",
-        "x": 73.75,
-        "y": 1.76,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O41",
-        "kind": "Stump",
-        "x": -92,
-        "y": 24.9,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O42",
-        "kind": "Stump",
-        "x": -21.09,
-        "y": -43.3,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O43",
-        "kind": "Fence",
-        "x": 79.98,
-        "y": 85.59,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O44",
-        "kind": "Stump",
-        "x": 83.17,
-        "y": 61.32,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O45",
-        "kind": "Stump",
-        "x": -48.68,
-        "y": 0.66,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O46",
-        "kind": "Fence",
-        "x": 33.91,
-        "y": 87.18,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O47",
-        "kind": "Stump",
-        "x": -27.75,
-        "y": -43.36,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O48",
-        "kind": "Stump",
-        "x": 78.92,
-        "y": -72.79,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O49",
-        "kind": "Fence",
-        "x": 90.18,
-        "y": -68.36,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O50",
-        "kind": "Stump",
-        "x": -17.41,
-        "y": -57.27,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O51",
-        "kind": "Stump",
-        "x": 56.14,
-        "y": -88.6,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O52",
-        "kind": "Fence",
-        "x": 15.42,
-        "y": 34.36,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O53",
-        "kind": "Stump",
-        "x": 2.18,
-        "y": -67.42,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O54",
-        "kind": "Stump",
-        "x": 81.97,
-        "y": -80.95,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O55",
-        "kind": "Fence",
-        "x": 54.29,
-        "y": -51.43,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O56",
-        "kind": "Stump",
-        "x": 36.39,
-        "y": 78.87,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O57",
-        "kind": "Stump",
-        "x": 25.14,
-        "y": 25.32,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O58",
-        "kind": "Fence",
-        "x": 27.47,
-        "y": -40.63,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O59",
-        "kind": "Stump",
-        "x": 42.28,
-        "y": 40.8,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O60",
-        "kind": "Stump",
-        "x": 47.38,
-        "y": -11.57,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O61",
-        "kind": "Fence",
-        "x": -82.47,
-        "y": -59.76,
-        "width": 2.4,
-        "height": 0.5
-      },
-      {
-        "id": "FIELD-001-O62",
-        "kind": "Stump",
-        "x": -62.44,
-        "y": 54.56,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O63",
-        "kind": "Stump",
-        "x": 65.77,
-        "y": -25.84,
-        "width": 1.2,
-        "height": 1
-      },
-      {
-        "id": "FIELD-001-O64",
-        "kind": "Fence",
-        "x": 17.11,
-        "y": -34.08,
-        "width": 2.4,
-        "height": 0.5
-      }
-    ]
+    "obstacleLayout": {
+      "cellSize": 24,
+      "patternsPerCell": 1,
+      "edgeMargin": 4,
+      "cellMargin": 2,
+      "startClearRadius": 6,
+      "minPatternGap": 3,
+      "placementAttempts": 30,
+      "referenceSeed": 1002,
+      "patterns": [
+        {
+          "id": "STUMP",
+          "weight": 65,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.2,
+              "height": 1
+            }
+          ]
+        },
+        {
+          "id": "FENCE",
+          "weight": 35,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 2.4,
+              "height": 0.5
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "FIELD-002-PRESENTATION",
@@ -578,811 +108,249 @@
     "fenceColliderWidth": 3,
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
-    "obstacles": [
-      {
-        "id": "FIELD-002-O01",
-        "kind": "Stump",
-        "x": 8.39,
-        "y": 1.17,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O02",
-        "kind": "Stump",
-        "x": 10.59,
-        "y": 1.17,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O03",
-        "kind": "Stump",
-        "x": 12.79,
-        "y": 1.17,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O04",
-        "kind": "Column",
-        "x": 14.99,
-        "y": 1.17,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O05",
-        "kind": "Stump",
-        "x": -18.79,
-        "y": -0.55,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O06",
-        "kind": "Stump",
-        "x": -16.59,
-        "y": -0.55,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O07",
-        "kind": "Stump",
-        "x": -14.39,
-        "y": -0.55,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O08",
-        "kind": "Column",
-        "x": -12.19,
-        "y": -0.55,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O09",
-        "kind": "Column",
-        "x": -2.22,
-        "y": -18.79,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O10",
-        "kind": "Stump",
-        "x": -0.02,
-        "y": -18.79,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O11",
-        "kind": "Stump",
-        "x": 2.18,
-        "y": -18.79,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O12",
-        "kind": "Stump",
-        "x": 4.38,
-        "y": -18.79,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O13",
-        "kind": "Stump",
-        "x": 6.58,
-        "y": -18.79,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O14",
-        "kind": "Column",
-        "x": 21.06,
-        "y": 18.74,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O15",
-        "kind": "Stump",
-        "x": 21.06,
-        "y": 20.94,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O16",
-        "kind": "Stump",
-        "x": 21.06,
-        "y": 23.14,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O17",
-        "kind": "Column",
-        "x": 21.06,
-        "y": 25.34,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O18",
-        "kind": "Stump",
-        "x": -8.22,
-        "y": -31.13,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O19",
-        "kind": "Stump",
-        "x": -8.22,
-        "y": -28.93,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O20",
-        "kind": "Stump",
-        "x": -8.22,
-        "y": -26.73,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O21",
-        "kind": "Stump",
-        "x": -8.22,
-        "y": -24.53,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O22",
-        "kind": "Column",
-        "x": -8.22,
-        "y": -22.33,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O23",
-        "kind": "Column",
-        "x": 4.17,
-        "y": 23.52,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O24",
-        "kind": "Stump",
-        "x": 6.37,
-        "y": 23.52,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O25",
-        "kind": "Stump",
-        "x": 8.57,
-        "y": 23.52,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O26",
-        "kind": "Column",
-        "x": 10.77,
-        "y": 23.52,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O27",
-        "kind": "Stump",
-        "x": -27.69,
-        "y": 7.39,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O28",
-        "kind": "Stump",
-        "x": -25.49,
-        "y": 7.39,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O29",
-        "kind": "Stump",
-        "x": -23.29,
-        "y": 7.39,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O30",
-        "kind": "Stump",
-        "x": -21.09,
-        "y": 7.39,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O31",
-        "kind": "Column",
-        "x": -18.89,
-        "y": 7.39,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O32",
-        "kind": "Column",
-        "x": 6.44,
-        "y": -9.94,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O33",
-        "kind": "Stump",
-        "x": 8.64,
-        "y": -9.94,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O34",
-        "kind": "Stump",
-        "x": 10.84,
-        "y": -9.94,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O35",
-        "kind": "Stump",
-        "x": 13.04,
-        "y": -9.94,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O36",
-        "kind": "Column",
-        "x": -5.76,
-        "y": 9.45,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O37",
-        "kind": "Stump",
-        "x": -5.76,
-        "y": 11.65,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O38",
-        "kind": "Column",
-        "x": -5.76,
-        "y": 13.85,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O39",
-        "kind": "Column",
-        "x": 29.95,
-        "y": -14.42,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O40",
-        "kind": "Stump",
-        "x": 29.95,
-        "y": -12.22,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O41",
-        "kind": "Stump",
-        "x": 29.95,
-        "y": -10.02,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O42",
-        "kind": "Stump",
-        "x": 29.95,
-        "y": -7.82,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O43",
-        "kind": "Column",
-        "x": 29.95,
-        "y": -5.62,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O44",
-        "kind": "Column",
-        "x": -6.42,
-        "y": -49.86,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O45",
-        "kind": "Stump",
-        "x": -4.22,
-        "y": -49.86,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O46",
-        "kind": "Column",
-        "x": -2.02,
-        "y": -49.86,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O47",
-        "kind": "Column",
-        "x": 31.55,
-        "y": 72.43,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O48",
-        "kind": "Stump",
-        "x": 33.75,
-        "y": 72.43,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O49",
-        "kind": "Stump",
-        "x": 35.95,
-        "y": 72.43,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O50",
-        "kind": "Stump",
-        "x": 38.15,
-        "y": 72.43,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O51",
-        "kind": "Stump",
-        "x": -59,
-        "y": 5.87,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O52",
-        "kind": "Stump",
-        "x": -56.8,
-        "y": 5.87,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O53",
-        "kind": "Column",
-        "x": -54.6,
-        "y": 5.87,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O54",
-        "kind": "Column",
-        "x": -70.68,
-        "y": -27.3,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O55",
-        "kind": "Stump",
-        "x": -70.68,
-        "y": -25.1,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O56",
-        "kind": "Stump",
-        "x": -70.68,
-        "y": -22.9,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O57",
-        "kind": "Stump",
-        "x": -70.68,
-        "y": -20.7,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O58",
-        "kind": "Column",
-        "x": -70.68,
-        "y": -18.5,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O59",
-        "kind": "Column",
-        "x": 27.86,
-        "y": 48.66,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O60",
-        "kind": "Stump",
-        "x": 30.06,
-        "y": 48.66,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O61",
-        "kind": "Stump",
-        "x": 32.26,
-        "y": 48.66,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O62",
-        "kind": "Stump",
-        "x": 34.46,
-        "y": 48.66,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O63",
-        "kind": "Stump",
-        "x": 36.66,
-        "y": 48.66,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O64",
-        "kind": "Column",
-        "x": 12.89,
-        "y": -74.58,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O65",
-        "kind": "Stump",
-        "x": 15.09,
-        "y": -74.58,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O66",
-        "kind": "Stump",
-        "x": 17.29,
-        "y": -74.58,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O67",
-        "kind": "Stump",
-        "x": 19.49,
-        "y": -74.58,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O68",
-        "kind": "Column",
-        "x": 21.69,
-        "y": -74.58,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O69",
-        "kind": "Column",
-        "x": -27.18,
-        "y": 26.8,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O70",
-        "kind": "Stump",
-        "x": -27.18,
-        "y": 29,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O71",
-        "kind": "Stump",
-        "x": -27.18,
-        "y": 31.2,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O72",
-        "kind": "Column",
-        "x": -27.18,
-        "y": 33.4,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O73",
-        "kind": "Column",
-        "x": 17.76,
-        "y": -37.2,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O74",
-        "kind": "Stump",
-        "x": 17.76,
-        "y": -35,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O75",
-        "kind": "Stump",
-        "x": 17.76,
-        "y": -32.8,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O76",
-        "kind": "Column",
-        "x": 17.76,
-        "y": -30.6,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O77",
-        "kind": "Column",
-        "x": -88.33,
-        "y": 19.06,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O78",
-        "kind": "Stump",
-        "x": -88.33,
-        "y": 21.26,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O79",
-        "kind": "Column",
-        "x": -88.33,
-        "y": 23.46,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O80",
-        "kind": "Column",
-        "x": -13.53,
-        "y": 84.82,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O81",
-        "kind": "Stump",
-        "x": -11.33,
-        "y": 84.82,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O82",
-        "kind": "Stump",
-        "x": -9.13,
-        "y": 84.82,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O83",
-        "kind": "Stump",
-        "x": -79.07,
-        "y": 35.71,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O84",
-        "kind": "Stump",
-        "x": -76.87,
-        "y": 35.71,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O85",
-        "kind": "Stump",
-        "x": -74.67,
-        "y": 35.71,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O86",
-        "kind": "Stump",
-        "x": -72.47,
-        "y": 35.71,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O87",
-        "kind": "Column",
-        "x": -70.27,
-        "y": 35.71,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O88",
-        "kind": "Column",
-        "x": 78.69,
-        "y": 20.52,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O89",
-        "kind": "Stump",
-        "x": 80.89,
-        "y": 20.52,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O90",
-        "kind": "Stump",
-        "x": 83.09,
-        "y": 20.52,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O91",
-        "kind": "Column",
-        "x": 85.29,
-        "y": 20.52,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O92",
-        "kind": "Column",
-        "x": 54.33,
-        "y": 52.55,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O93",
-        "kind": "Stump",
-        "x": 56.53,
-        "y": 52.55,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O94",
-        "kind": "Stump",
-        "x": 58.73,
-        "y": 52.55,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O95",
-        "kind": "Column",
-        "x": 60.93,
-        "y": 52.55,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O96",
-        "kind": "Column",
-        "x": -57.48,
-        "y": -41.52,
-        "width": 0.9,
-        "height": 0.9
-      },
-      {
-        "id": "FIELD-002-O97",
-        "kind": "Stump",
-        "x": -57.48,
-        "y": -39.32,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O98",
-        "kind": "Stump",
-        "x": -57.48,
-        "y": -37.12,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O99",
-        "kind": "Stump",
-        "x": -57.48,
-        "y": -34.92,
-        "width": 1.6,
-        "height": 1.2
-      },
-      {
-        "id": "FIELD-002-O100",
-        "kind": "Column",
-        "x": -57.48,
-        "y": -32.72,
-        "width": 0.9,
-        "height": 0.9
-      }
-    ],
     "columnVisualId": "FIELD-002-VISUAL-COLUMN",
     "shrineVisualId": "FIELD-002-VISUAL-SHRINE",
-    "shrineChance": 0.025
+    "shrineChance": 0.025,
+    "obstacleLayout": {
+      "cellSize": 38.4,
+      "patternsPerCell": 1,
+      "edgeMargin": 4,
+      "cellMargin": 3,
+      "startClearRadius": 8,
+      "minPatternGap": 4,
+      "placementAttempts": 30,
+      "referenceSeed": 2002,
+      "patterns": [
+        {
+          "id": "ROCK-ROW-3",
+          "weight": 10,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            }
+          ]
+        },
+        {
+          "id": "ROCK-ROW-4",
+          "weight": 14,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -3.3,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": -1.1,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 1.1,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 3.3,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            }
+          ]
+        },
+        {
+          "id": "ROCK-ROW-5",
+          "weight": 12,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -4.4,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": -2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            },
+            {
+              "kind": "Stump",
+              "x": 4.4,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-3",
+          "weight": 14,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-4",
+          "weight": 26,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -3.3,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": -1.1,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 1.1,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 3.3,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-5",
+          "weight": 24,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -4.4,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": -2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 4.4,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "FIELD-003-PRESENTATION",
@@ -1416,863 +384,254 @@
     "fenceColliderWidth": 3,
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
-    "obstacles": [
-      {
-        "id": "FIELD-003-O001",
-        "kind": "Fence",
-        "x": 20.53,
-        "y": -13.74,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O002",
-        "kind": "Fence",
-        "x": 24.37,
-        "y": -13.74,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O003",
-        "kind": "Fence",
-        "x": 18.77,
-        "y": -16.78,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O004",
-        "kind": "Fence",
-        "x": 26.13,
-        "y": -16.78,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O005",
-        "kind": "Stump",
-        "x": 21.51,
-        "y": -10.43,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O006",
-        "kind": "Stump",
-        "x": 23.02,
-        "y": -8.29,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O007",
-        "kind": "Stump",
-        "x": 19.2,
-        "y": -10.59,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O008",
-        "kind": "Fence",
-        "x": -35.21,
-        "y": 1.08,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O009",
-        "kind": "Fence",
-        "x": -35.21,
-        "y": 4.92,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O010",
-        "kind": "Fence",
-        "x": -33.45,
-        "y": 7.48,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O011",
-        "kind": "Stump",
-        "x": -31.69,
-        "y": 4.84,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O012",
-        "kind": "Stump",
-        "x": -41.06,
-        "y": -3.54,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O013",
-        "kind": "Stump",
-        "x": -32.7,
-        "y": 0.15,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O014",
-        "kind": "Fence",
-        "x": -8.68,
-        "y": -18.95,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O015",
-        "kind": "Fence",
-        "x": -8.68,
-        "y": -15.11,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O016",
-        "kind": "Fence",
-        "x": -10.44,
-        "y": -12.55,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O017",
-        "kind": "Stump",
-        "x": -7.67,
-        "y": -22.15,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O018",
-        "kind": "Stump",
-        "x": -4.31,
-        "y": -19.41,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O019",
-        "kind": "Stump",
-        "x": -10.3,
-        "y": -23.37,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O020",
-        "kind": "Fence",
-        "x": 11.36,
-        "y": 26.26,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O021",
-        "kind": "Fence",
-        "x": 15.2,
-        "y": 26.26,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O022",
-        "kind": "Fence",
-        "x": 19.04,
-        "y": 26.26,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O023",
-        "kind": "Stump",
-        "x": 11.42,
-        "y": 29.53,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O024",
-        "kind": "Stump",
-        "x": 10.83,
-        "y": 32.2,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O025",
-        "kind": "Stump",
-        "x": 7.01,
-        "y": 23.36,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O026",
-        "kind": "Fence",
-        "x": -15.35,
-        "y": 20.79,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O027",
-        "kind": "Fence",
-        "x": -19.19,
-        "y": 20.79,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O028",
-        "kind": "Fence",
-        "x": -13.59,
-        "y": 17.75,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O029",
-        "kind": "Fence",
-        "x": -13.59,
-        "y": 13.91,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O030",
-        "kind": "Stump",
-        "x": -10.17,
-        "y": 25.88,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O031",
-        "kind": "Stump",
-        "x": -17.28,
-        "y": 25.74,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O032",
-        "kind": "Stump",
-        "x": -11.47,
-        "y": 22.68,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O033",
-        "kind": "Stump",
-        "x": -17.04,
-        "y": 15.47,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O034",
-        "kind": "Fence",
-        "x": 35.19,
-        "y": 6.39,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O035",
-        "kind": "Fence",
-        "x": 39.03,
-        "y": 6.39,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O036",
-        "kind": "Fence",
-        "x": 33.43,
-        "y": 3.35,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O037",
-        "kind": "Fence",
-        "x": 40.79,
-        "y": 3.35,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O038",
-        "kind": "Stump",
-        "x": 30.53,
-        "y": 6.2,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O039",
-        "kind": "Stump",
-        "x": 37.02,
-        "y": 3.31,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O040",
-        "kind": "Fence",
-        "x": -64.45,
-        "y": -65.61,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O041",
-        "kind": "Fence",
-        "x": -68.29,
-        "y": -65.61,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O042",
-        "kind": "Fence",
-        "x": -62.69,
-        "y": -68.65,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O043",
-        "kind": "Fence",
-        "x": -70.05,
-        "y": -68.65,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O044",
-        "kind": "Stump",
-        "x": -62.67,
-        "y": -61.63,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O045",
-        "kind": "Stump",
-        "x": -59.92,
-        "y": -66.78,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O046",
-        "kind": "Stump",
-        "x": -67.91,
-        "y": -63.28,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O047",
-        "kind": "Fence",
-        "x": -60.6,
-        "y": 4.87,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O048",
-        "kind": "Fence",
-        "x": -60.6,
-        "y": 8.71,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O049",
-        "kind": "Fence",
-        "x": -58.84,
-        "y": 11.27,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O050",
-        "kind": "Stump",
-        "x": -58.02,
-        "y": -1.06,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O051",
-        "kind": "Stump",
-        "x": -55.79,
-        "y": 0.68,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O052",
-        "kind": "Stump",
-        "x": -63.53,
-        "y": 2.17,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O053",
-        "kind": "Stump",
-        "x": -55.7,
-        "y": 7.41,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O054",
-        "kind": "Fence",
-        "x": -80.65,
-        "y": 67.72,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O055",
-        "kind": "Fence",
-        "x": -80.65,
-        "y": 71.56,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O056",
-        "kind": "Fence",
-        "x": -82.41,
-        "y": 74.12,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O057",
-        "kind": "Stump",
-        "x": -79.58,
-        "y": 63.65,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O058",
-        "kind": "Stump",
-        "x": -76.92,
-        "y": 70.47,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O059",
-        "kind": "Stump",
-        "x": -74.92,
-        "y": 61.74,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O060",
-        "kind": "Stump",
-        "x": -76.07,
-        "y": 67.13,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O061",
-        "kind": "Fence",
-        "x": -73.85,
-        "y": 23.56,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O062",
-        "kind": "Fence",
-        "x": -77.69,
-        "y": 23.56,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O063",
-        "kind": "Fence",
-        "x": -72.09,
-        "y": 20.52,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O064",
-        "kind": "Fence",
-        "x": -72.09,
-        "y": 16.68,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O065",
-        "kind": "Stump",
-        "x": -75.01,
-        "y": 18.93,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O066",
-        "kind": "Stump",
-        "x": -76.24,
-        "y": 21.62,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O067",
-        "kind": "Fence",
-        "x": -83.05,
-        "y": -34.23,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O068",
-        "kind": "Fence",
-        "x": -86.89,
-        "y": -34.23,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O069",
-        "kind": "Fence",
-        "x": -81.29,
-        "y": -37.27,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O070",
-        "kind": "Fence",
-        "x": -81.29,
-        "y": -41.11,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O071",
-        "kind": "Stump",
-        "x": -78.51,
-        "y": -28.27,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O072",
-        "kind": "Stump",
-        "x": -85.53,
-        "y": -30.81,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O073",
-        "kind": "Stump",
-        "x": -83.19,
-        "y": -39.72,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O074",
-        "kind": "Stump",
-        "x": -78.74,
-        "y": -31.45,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O075",
-        "kind": "Fence",
-        "x": -54.33,
-        "y": 56.98,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O076",
-        "kind": "Fence",
-        "x": -50.49,
-        "y": 56.98,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O077",
-        "kind": "Fence",
-        "x": -46.65,
-        "y": 56.98,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O078",
-        "kind": "Stump",
-        "x": -50.55,
-        "y": 52.81,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O079",
-        "kind": "Stump",
-        "x": -51.7,
-        "y": 61.8,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O080",
-        "kind": "Stump",
-        "x": -58.14,
-        "y": 62.02,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O081",
-        "kind": "Stump",
-        "x": -53.14,
-        "y": 54.86,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O082",
-        "kind": "Fence",
-        "x": 12.32,
-        "y": 73.69,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O083",
-        "kind": "Fence",
-        "x": 12.32,
-        "y": 77.53,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O084",
-        "kind": "Fence",
-        "x": 10.56,
-        "y": 80.09,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O085",
-        "kind": "Stump",
-        "x": 16.9,
-        "y": 74.59,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O086",
-        "kind": "Stump",
-        "x": 12.46,
-        "y": 69.17,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O087",
-        "kind": "Stump",
-        "x": 14.34,
-        "y": 77.95,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O088",
-        "kind": "Fence",
-        "x": -84.86,
-        "y": 47.49,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O089",
-        "kind": "Fence",
-        "x": -81.02,
-        "y": 47.49,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O090",
-        "kind": "Fence",
-        "x": -86.62,
-        "y": 44.45,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O091",
-        "kind": "Fence",
-        "x": -79.26,
-        "y": 44.45,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O092",
-        "kind": "Stump",
-        "x": -90.82,
-        "y": 51.16,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O093",
-        "kind": "Stump",
-        "x": -84.42,
-        "y": 50.69,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O094",
-        "kind": "Stump",
-        "x": -87.55,
-        "y": 51.38,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O095",
-        "kind": "Stump",
-        "x": -79.72,
-        "y": 53.14,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O096",
-        "kind": "Fence",
-        "x": 83.39,
-        "y": -3.44,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O097",
-        "kind": "Fence",
-        "x": 83.39,
-        "y": 0.4,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O098",
-        "kind": "Fence",
-        "x": 85.15,
-        "y": 2.96,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O099",
-        "kind": "Stump",
-        "x": 83.45,
-        "y": -7.33,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O100",
-        "kind": "Stump",
-        "x": 81.17,
-        "y": -5.75,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O101",
-        "kind": "Fence",
-        "x": -3.56,
-        "y": -40.67,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O102",
-        "kind": "Fence",
-        "x": 0.28,
-        "y": -40.67,
-        "width": 3.2,
-        "height": 0.8
-      },
-      {
-        "id": "FIELD-003-O103",
-        "kind": "Fence",
-        "x": -5.32,
-        "y": -43.71,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O104",
-        "kind": "Fence",
-        "x": -5.32,
-        "y": -47.55,
-        "width": 0.8,
-        "height": 3.2
-      },
-      {
-        "id": "FIELD-003-O105",
-        "kind": "Stump",
-        "x": -1.37,
-        "y": -36.81,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O106",
-        "kind": "Stump",
-        "x": -4.15,
-        "y": -38.32,
-        "width": 1.4,
-        "height": 1.1
-      },
-      {
-        "id": "FIELD-003-O107",
-        "kind": "Stump",
-        "x": 1.14,
-        "y": -44.89,
-        "width": 1.4,
-        "height": 1.1
-      }
-    ]
+    "obstacleLayout": {
+      "cellSize": 48,
+      "patternsPerCell": 1,
+      "edgeMargin": 4,
+      "cellMargin": 3,
+      "startClearRadius": 10,
+      "minPatternGap": 4,
+      "placementAttempts": 30,
+      "referenceSeed": 3002,
+      "patterns": [
+        {
+          "id": "RUIN-L",
+          "weight": 1,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -0.07,
+              "y": 4.67,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": 3.77,
+              "y": 4.67,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": -1.83,
+              "y": 1.63,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Fence",
+              "x": -1.83,
+              "y": -2.21,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Stump",
+              "x": 1.53,
+              "y": 1.67,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": 4.33,
+              "y": 2.27,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": -4.67,
+              "y": -4.52,
+              "width": 1.4,
+              "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "RUIN-U",
+          "weight": 1,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -3.47,
+              "y": 2.1,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": 0.37,
+              "y": 2.1,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": -5.23,
+              "y": -0.94,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Fence",
+              "x": 2.13,
+              "y": -0.94,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Stump",
+              "x": -1.57,
+              "y": -1.5,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": -3.27,
+              "y": -4.3,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": 4.93,
+              "y": 4.3,
+              "width": 1.4,
+              "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "RUIN-LINE",
+          "weight": 1,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -3.1,
+              "y": -0.1,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": 0.74,
+              "y": -0.1,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Fence",
+              "x": 4.58,
+              "y": -0.1,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Stump",
+              "x": -1.2,
+              "y": 1.9,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": 2.7,
+              "y": -2.1,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": 6.5,
+              "y": 2.1,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": -6.5,
+              "y": -1.9,
+              "width": 1.4,
+              "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "RUIN-CORNER",
+          "weight": 1,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -1.4,
+              "y": -2.6,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Fence",
+              "x": -1.4,
+              "y": 1.24,
+              "width": 0.8,
+              "height": 3.2
+            },
+            {
+              "kind": "Fence",
+              "x": 0.36,
+              "y": 3.8,
+              "width": 3.2,
+              "height": 0.8
+            },
+            {
+              "kind": "Stump",
+              "x": 1,
+              "y": -1.4,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": -3.8,
+              "y": 2,
+              "width": 1.4,
+              "height": 1.1
+            },
+            {
+              "kind": "Stump",
+              "x": 3.8,
+              "y": 1,
+              "width": 1.4,
+              "height": 1.1
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

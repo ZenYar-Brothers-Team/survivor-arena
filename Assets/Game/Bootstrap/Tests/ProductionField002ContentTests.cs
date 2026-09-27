@@ -73,20 +73,24 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_PlacesTheHundredAuthoredObstacles_WithAFreeStart()
+        public void Presentation_GeneratesRowsOfRocksAndColumnsPerRun_WithAFreeStart()
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION");
-            Assert.AreEqual(100, presentation.ExplicitObstacles.Count);
-            Assert.IsTrue(presentation.ExplicitObstacles.All(o => UnityEngine.Mathf.Sqrt(o.X * o.X + o.Y * o.Y) >= 8f),
+            // DECISION-0068: rows of 3–5 rocks or columns are placed every run, one row per 38.4-unit cell (5×5).
+            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
+                presentation.ObstacleLayout.ReferenceSeed, "FIELD-002-ENVIRONMENT");
+            Assert.That(obstacles.Count, Is.InRange(75, 125), "25 rows of 3–5 pieces.");
+            Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
+                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 8f - 1e-3f),
                 "Start circle of 8 units stays free.");
             Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
             Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
             Assert.AreEqual("FIELD-002-VISUAL-COLUMN", presentation.Column.Id.ToString());
             Assert.AreEqual("FIELD-002-VISUAL-SHRINE", presentation.Shrine.Id.ToString());
             Assert.Greater(presentation.ShrineChance, 0f);
-            Assert.IsTrue(presentation.ExplicitObstacles.Any(o => o.Kind == FieldObstacleKind.Column));
-            Assert.IsTrue(presentation.ExplicitObstacles.Any(o => o.Kind == FieldObstacleKind.Stump));
+            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Column));
+            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Stump));
         }
 
         [Test]

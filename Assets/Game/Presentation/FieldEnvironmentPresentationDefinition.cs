@@ -41,8 +41,10 @@ namespace Game.Presentation
         public float FenceColliderWidth { get; }
         public float FenceColliderHeight { get; }
         public float StumpColliderRadius { get; }
-        /// <summary>Authored obstacles; empty = seeded random placement (fixture arena).</summary>
+        /// <summary>Authored obstacles; empty = layout or seeded random placement (fixture arena).</summary>
         public IReadOnlyList<FieldObstacleDefinition> ExplicitObstacles { get; }
+        /// <summary>Per-run pattern layout (DECISION-0068); null = authored or fixture random obstacles.</summary>
+        public FieldObstacleLayoutDefinition ObstacleLayout { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -95,6 +97,9 @@ namespace Game.Presentation
             if (obstacles.Count > 0 && obstacles.Count != (data.InteriorObstacleCount ?? -1))
                 throw new ArgumentException("Authored obstacle count must match interiorObstacleCount.");
             ExplicitObstacles = obstacles.AsReadOnly();
+            ObstacleLayout = ToLayout(data.ObstacleLayout);
+            if (ObstacleLayout != null && obstacles.Count > 0)
+                throw new ArgumentException("A field uses either authored obstacles or a per-run layout, not both.");
 
             if (!Id.IsValid || !EnvironmentId.IsValid || !Ground.Id.IsValid || !Fence.Id.IsValid ||
                 !Obstacle.Id.IsValid || !Bush.Id.IsValid || !Grass.Id.IsValid || string.IsNullOrWhiteSpace(ObstacleName))
@@ -108,7 +113,8 @@ namespace Game.Presentation
             NumericValidation.ValidateRange(ShrineChance, 0, 1, nameof(ShrineChance));
             if (ShrineChance > 0 && !Shrine.Id.IsValid)
                 throw new ArgumentException("shrineVisualId is required when shrineChance is positive.");
-            if (obstacles.Exists(item => item.Kind == FieldObstacleKind.Column) && !Column.Id.IsValid)
+            if ((obstacles.Exists(item => item.Kind == FieldObstacleKind.Column) ||
+                 ObstacleLayout?.UsesKind(FieldObstacleKind.Column) == true) && !Column.Id.IsValid)
                 throw new ArgumentException("columnVisualId is required for column obstacles.");
             NumericValidation.ValidateNonNegative(DecorationMargin, nameof(DecorationMargin));
             NumericValidation.ValidateNonNegative(SafeRadius, nameof(SafeRadius));
@@ -138,6 +144,34 @@ namespace Game.Presentation
             yield return Grass.ToReference();
             if (Column.Id.IsValid) yield return Column.ToReference();
             if (Shrine.Id.IsValid) yield return Shrine.ToReference();
+        }
+
+        private static FieldObstacleLayoutDefinition ToLayout(FieldObstacleLayoutData data)
+        {
+            if (data == null) return null;
+            if (data.Patterns == null) throw new ArgumentException("obstacleLayout.patterns is required.");
+            var patterns = new List<FieldObstaclePattern>();
+            foreach (var pattern in data.Patterns)
+            {
+                if (pattern?.Pieces == null || pattern.Rotations == null)
+                    throw new ArgumentException("Layout patterns need rotations and pieces.");
+                var pieces = new List<FieldObstaclePiece>();
+                foreach (var piece in pattern.Pieces)
+                {
+                    if (piece == null) throw new ArgumentException($"Pattern {pattern.Id} has an empty piece.");
+                    pieces.Add(new FieldObstaclePiece(piece.Kind ?? throw new ArgumentException("Piece kind is required."),
+                        Required(piece.X, "piece x"), Required(piece.Y, "piece y"), Required(piece.Width, "piece width"),
+                        Required(piece.Height, "piece height")));
+                }
+                patterns.Add(new FieldObstaclePattern(pattern.Id, Required(pattern.Weight, "pattern weight"), pattern.Rotations, pieces));
+            }
+            return new FieldObstacleLayoutDefinition(Required(data.CellSize, "obstacleLayout.cellSize"),
+                data.PatternsPerCell ?? throw new ArgumentException("obstacleLayout.patternsPerCell is required."),
+                Required(data.EdgeMargin, "obstacleLayout.edgeMargin"), Required(data.CellMargin, "obstacleLayout.cellMargin"),
+                Required(data.StartClearRadius, "obstacleLayout.startClearRadius"),
+                Required(data.MinPatternGap, "obstacleLayout.minPatternGap"),
+                data.PlacementAttempts ?? throw new ArgumentException("obstacleLayout.placementAttempts is required."),
+                data.ReferenceSeed ?? throw new ArgumentException("obstacleLayout.referenceSeed is required."), patterns);
         }
 
         private static float Required(float? value, string name) =>

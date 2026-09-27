@@ -53,10 +53,12 @@ namespace Game.Bootstrap.PlayModeTests
                 var run = Object.FindAnyObjectByType<RunController>();
                 Assert.AreEqual("FIELD-003", run.Model.Selection.FieldId.ToString());
                 var art = GameObject.Find("FieldEnvironmentArt");
-                Assert.AreEqual(107, art.GetComponentsInChildren<Collider2D>().Length);
-                var vertical = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
-                    .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION").ExplicitObstacles
-                    .First(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width);
+                // DECISION-0068: the colliders are exactly this run's generated layout.
+                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
+                    .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION").ObstacleLayout;
+                var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-003-ENVIRONMENT");
+                Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);
+                var vertical = expected.First(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width);
                 var wall = art.GetComponentsInChildren<BoxCollider2D>().Single(c => c.gameObject.name == vertical.Id.ToString());
                 Physics2D.SyncTransforms();
                 Assert.AreEqual(vertical.Width, wall.bounds.size.x, 0.02f, "A vertical wall keeps its authored width.");

@@ -57,6 +57,8 @@ namespace Game.Bootstrap
         /// comparison runs and deterministic smoke tests.</summary>
         public int DraftSeed { get; private set; }
         public int WaveSeed { get; private set; }
+        /// <summary>Seed of this run's obstacle layout (DECISION-0068); 0 for fields without one.</summary>
+        public int LayoutSeed { get; private set; }
         public int TravelerSeed { get; private set; }
         public bool UseReferenceSeeds { get; set; }
         public UnityEngine.UIElements.UIDocument FieldSelectionDocument => _fieldScreen?.Document;
@@ -349,8 +351,11 @@ namespace Game.Bootstrap
                 if (!Catalog.FieldEnvironmentPresentations.TryGetValue(configuration.Environment.Id, out var fieldPresentation))
                     throw new InvalidOperationException($"Environment '{configuration.Environment.Id}' requires presentation content.");
                 _fieldEnvironmentArt = new FieldEnvironmentArtRuntime();
+                // DECISION-0068: fields with a pattern layout get a fresh obstacle arrangement every run.
+                var layout = fieldPresentation.ObstacleLayout;
+                LayoutSeed = layout == null ? 0 : UseReferenceSeeds ? layout.ReferenceSeed : FreshRunSeed.Next();
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
-                    gameObject.scene, FixtureArenaGeometryCatalog.Create().SideLength);
+                    gameObject.scene, FixtureArenaGeometryCatalog.Create().SideLength, layout == null ? (int?)null : LayoutSeed);
                 initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();

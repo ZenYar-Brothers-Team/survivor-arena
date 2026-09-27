@@ -38,5 +38,7 @@ namespace Game.Presentation.Json
         public float? StumpColliderRadius { get; set; }
         /// <summary>Optional authored obstacles; when present they replace seeded random placement (FIELD-001).</summary>
         public FieldObstacleData[] Obstacles { get; set; }
+        /// <summary>Optional per-run pattern layout (DECISION-0068); excludes authored obstacles.</summary>
+        public FieldObstacleLayoutData ObstacleLayout { get; set; }
     }
 }

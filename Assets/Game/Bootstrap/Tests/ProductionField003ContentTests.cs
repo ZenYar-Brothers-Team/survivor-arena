@@ -56,12 +56,16 @@ namespace Game.Bootstrap.Tests
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION");
-            Assert.AreEqual(107, presentation.ExplicitObstacles.Count);
-            Assert.AreEqual(56, presentation.ExplicitObstacles.Count(o => o.Kind == FieldObstacleKind.Fence), "Wall fragments.");
-            Assert.AreEqual(51, presentation.ExplicitObstacles.Count(o => o.Kind == FieldObstacleKind.Stump), "Rubble.");
-            Assert.IsTrue(presentation.ExplicitObstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width),
-                "Some wall fragments stand vertically.");
-            Assert.IsTrue(presentation.ExplicitObstacles.All(o => UnityEngine.Mathf.Sqrt(o.X * o.X + o.Y * o.Y) >= 10f),
+            // DECISION-0068: one ruined wall fragment with its rubble per 48-unit cell (4×4), turned at random every run.
+            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
+                presentation.ObstacleLayout.ReferenceSeed, "FIELD-003-ENVIRONMENT");
+            Assert.That(obstacles.Count, Is.InRange(96, 112), "16 fragments of 6–7 pieces.");
+            Assert.That(obstacles.Count(o => o.Kind == FieldObstacleKind.Fence), Is.InRange(48, 64), "Wall fragments.");
+            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Stump), "Rubble.");
+            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width), "Some walls stand vertically.");
+            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Width > o.Height), "Some walls lie horizontally.");
+            Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
+                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 10f - 1e-3f),
                 "Start circle of 10 units stays free.");
             Assert.AreEqual("FIELD-001-VISUAL-FENCE", presentation.Fence.Id.ToString(), "Approved fence art until the ruins art.");
             Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
