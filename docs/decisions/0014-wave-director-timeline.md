@@ -1,5 +1,7 @@
 # DECISION-0014 — Wave Director: таймлайн как контент, директор решает, спавнер исполняет
 
+> Поправка 2026-09-27: phase-level cap и uncapped burst заменены timeline-level техническим пределом по [DECISION-0076](0076-wave-cap-and-field001-rhythm.md). Остальная архитектура director/spawner сохраняется.
+
 Status: Approved
 
 Date: 2026-09-20
@@ -15,7 +17,7 @@ IP-14 требует, чтобы continuous spawn управлялся посл�
 ## Decision
 
 - Расписание — контент: `WaveTimelineDefinition` (`IContentDefinition`, `IReferencesContent`) загружается из `Assets/Resources/Content/Waves/FixtureWaveTimeline.json` через `FixtureWaveTimelineCatalog` (правило «значения в конфиге, не в коде», DECISION-0009). Ссылки на врагов валидирует общий `ContentRegistry`.
-- `WaveDirector` — чистая C#-модель без GameObject: по времени забега выбирает фазу, считает, сколько врагов пора создать (переиспользует `ContinuousSpawnTimer` на интервал текущей фазы, ограничивает `maxAliveEnemies`), выбирает тип врага взвешенно и детерминированно (`seed` и `spawnRadius` задаются в JSON таймлайна, а не в коде или сериализованных полях). `ContinuousFixtureEnemySpawner` только исполняет решения директора и владеет пулами.
+- `WaveDirector` — чистая C#-модель без GameObject: по времени забега выбирает фазу, считает, сколько врагов пора создать (переиспользует `ContinuousSpawnTimer` на интервал текущей фазы, ограничивает timeline-level `maxAliveEnemies`), выбирает тип врага взвешенно и детерминированно (`seed` и `spawnRadius` задаются в JSON таймлайна, а не в коде или сериализованных полях). `ContinuousFixtureEnemySpawner` только исполняет решения директора и владеет пулами.
 - Время таймлайна = `RunModel.Elapsed`. Оно уже pause-aware, поэтому пауза и завершение забега не сдвигают фазы и не спавнят врагов; отдельного таймера у директора нет.
 - Последняя фаза удерживается до конца забега, поэтому расписание короче забега имеет определённое поведение.
 - Per-wave overrides — независимые множители `WaveEnemyModifiers` (HP, скорость, contact damage, damage атаки). `WaveEnemyScaler` строит scaled-копию `EnemyDefinition` с тем же id один раз на фазу при создании директора; identity-модификаторы возвращают оригинал без аллокаций. Независимость множителей позволяет более поздней волне быть быстрее, но слабее.
@@ -38,7 +40,7 @@ IP-14 требует, чтобы continuous spawn управлялся посл�
 
 ## Дополнение 2026-09-21 — W-01
 
-Политика утверждена [DECISION-0029](0029-burst-pressure-and-player-palette.md): burst игнорирует лимит обычных врагов и не ждёт свободных мест; завершившиеся окна не накапливают спавн; pause-aware время сохранено. Боссы и Путники не занимают regular cap. Реализация и результаты проверок учитываются отдельно в STATUS.
+Изначальная политика DECISION-0029 заменена [DECISION-0076](0076-wave-cap-and-field001-rhythm.md): burst также ограничен единым техническим пределом, а подавленный остаток не ждёт свободных мест. Завершившиеся окна не накапливают спавн; pause-aware время сохранено. Боссы и Путники не занимают regular cap.
 
 ## Дополнение 2026-09-21 — runtime contract design-sync-R2
 

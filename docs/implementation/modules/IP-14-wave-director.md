@@ -28,7 +28,7 @@ Production schedules, adaptive difficulty, Traveler RNG/type selection, profiler
 
 ## Acceptance criteria
 
-Burst исполняется один раз в заданном окне независимо от regular enemy cap: заполненный лимит не обрезает группу и не откладывает её появление. Боссы и Путники не занимают regular cap. Пауза замораживает время окна; завершившиеся окна и невышедший остаток не воспроизводятся после skip; terminal state прекращает спавн. Continuous behavior retained. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline.
+`maxAliveEnemies` задаётся один раз на timeline и является техническим, а не фазовым балансным пределом. Burst исполняется один раз в заданном окне и также подчиняется этому пределу: доступная часть группы появляется, подавленный остаток не откладывается. Боссы и Путники не занимают regular cap. Пауза замораживает время окна; завершившиеся окна и невышедший остаток не воспроизводятся после skip; terminal state прекращает спавн. Continuous behavior retained. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline. Основание: [DECISION-0076](../../decisions/0076-wave-cap-and-field001-rhythm.md).
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -55,13 +55,13 @@ W-01 утверждён [DECISION-0029](../../decisions/0029-burst-pressure-and-
 ## Runtime и fixture schema
 
 `WaveTimelineData.seed` и `WavePhaseData.spawnMode` обязательны. Mode — `Continuous`
-или `Burst`, независимо от rhythm tag. Continuous сохраняет interval/cap; burst требует
+или `Burst`, независимо от rhythm tag. Continuous сохраняет interval; timeline задаёт единый cap; burst требует
 объект `burst` с `count` (целое ≥0), `offsetSeconds` (≥0) и `windowSeconds` (>0).
 Окно `[offset, offset + window)` находится внутри duration фазы. Например, count=18,
 offset=0, window=1 в фазе с началом 45 s: первый running tick в `[45,46)` запрашивает
 все 18 врагов; tick ровно в 46 s отменяет группу. Один burst — одна группа, без
-растягивания выдачи и без повторных попыток. Интервал и regular cap остаются явными
-положительными полями фаз; burst их не применяет.
+растягивания выдачи и без повторных попыток. Интервал остаётся явным положительным
+полем фазы; regular cap — явным положительным полем timeline и применяется в обоих режимах.
 
 Director использует elapsed run time для окна и transitions, delta для continuous timer.
 При смене фазы continuous delta ограничен временем, проведённым в новой фазе;
@@ -87,7 +87,7 @@ Expired — сумма численностей пропущенных груп�
 IP-31 может подписаться на producer независимо от gameplay; запись в exporter не обязательна.
 
 Fixture сохраняет ordinary/elite/rest cadence и меняет три pressure-фазы на группы
-18/26/34 с окном 1 s от начала фазы: synthetic проверка uncapped pressure и faster/frailer
+18/26/34 с окном 1 s от начала фазы: synthetic проверка capped pressure и faster/frailer
 modifiers, не утверждённый баланс поля. Production schedules принадлежат IP-24.
 
 ## Нагрузочная проверка

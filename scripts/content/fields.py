@@ -148,7 +148,7 @@ def field_timeline(t, baseline, seed, neutral_modifiers):
             raise SystemExit(f"{p['id']}: baseline v1 keeps all wave multipliers at 1")
         phase = {"id": p["id"], "displayName": f"{minutes(p['startSeconds'])}–{minutes(clock)}", "tag": p["tag"],
                  "spawnMode": p["spawnMode"], "durationSeconds": p["durationSeconds"],
-                 "spawnIntervalSeconds": p["spawnIntervalSeconds"], "maxAliveEnemies": p["maxAliveEnemies"],
+                 "spawnIntervalSeconds": p["spawnIntervalSeconds"],
                  "composition": [{"enemyId": k, "weight": v} for k, v in p["composition"].items() if v > 0],
                  "modifiers": modifiers}
         if p["burst"]:
@@ -156,7 +156,7 @@ def field_timeline(t, baseline, seed, neutral_modifiers):
         phases.append(phase)
     if clock != baseline["field"]["durationSeconds"]:
         raise SystemExit("timeline must cover the whole field duration")
-    return {"id": t["id"], "seed": seed,
+    return {"id": t["id"], "seed": seed, "maxAliveEnemies": t["maxAliveEnemies"],
             "spawnRadius": baseline["field"]["spawnRadius"], "openingSpawn": baseline["field"]["openingSpawn"],
             "phases": phases, "hooks": t["hooks"]}
 

@@ -12,7 +12,7 @@
  "reference": {
   "playerSpeed": 3.0,
   "field001SpeedFactors": {
-   "ENEMY-001": 1.2,
+   "ENEMY-001": 0.96,
    "ENEMY-002": 1.45,
    "ENEMY-003": 1.23,
    "ENEMY-004": 1.27,

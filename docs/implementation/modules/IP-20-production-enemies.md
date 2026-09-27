@@ -18,6 +18,7 @@ F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) сод�
 before→proposed параметры шести врагов, ranged timing/reposition и Зелье.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
+Скорость ENEMY-001 снижена с 1.20 до 0.96 по пользовательскому отзыву в [DECISION-0077](../../decisions/0077-early-projectile-growth-and-enemy001-speed.md).
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 

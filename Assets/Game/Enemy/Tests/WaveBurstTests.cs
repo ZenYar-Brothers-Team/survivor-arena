@@ -9,22 +9,22 @@ namespace Game.Enemy.Tests
     {
         private static WavePhaseDefinition Burst(string id = "FIXTURE-B", int count = 12,
             float offset = 1, float window = 2) => new WavePhaseDefinition(id, "Burst", WavePhaseTag.Pressure,
-                5, 1, 2, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") },
+                5, 1, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") },
                 spawnMode: WaveSpawnMode.Burst, burst: new WaveBurstDefinition(count, offset, window));
 
         private static WaveDirector Director(params WavePhaseDefinition[] phases) => new WaveDirector(
-            new WaveTimelineDefinition("FIXTURE-T", 42, 6, phases), WaveTestData.TestEnemies(), 30);
+            new WaveTimelineDefinition("FIXTURE-T", 42, 6, 8, phases), WaveTestData.TestEnemies(), 30);
 
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(12)]
-        public void Burst_AtFullCap_EmitsWholeGroupExactlyOnce(int count)
+        public void Burst_AtTechnicalCap_IsSuppressedAndConsumedExactlyOnce(int count)
         {
             var director = Director(Burst(count: count));
             Assert.AreEqual(0, director.Advance(.9f, .9f, true, 500));
-            Assert.AreEqual(count, director.Advance(1, .1f, true, 500));
+            Assert.AreEqual(0, director.Advance(1, .1f, true, 500));
             Assert.AreEqual(count, director.LastDecision.Requested);
-            Assert.AreEqual(0, director.LastDecision.Suppressed);
+            Assert.AreEqual(count, director.LastDecision.Suppressed);
             Assert.AreEqual(0, director.LastDecision.Deferred);
             Assert.IsTrue(director.BurstConsumed);
             Assert.AreEqual(0, director.Advance(1, 0, true, 500));
@@ -50,17 +50,20 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0, director.Advance(1, 1, false, 0));
             Assert.AreEqual(0, director.Elapsed);
             Assert.IsFalse(director.BurstConsumed);
-            Assert.AreEqual(12, director.Advance(1, 1, true, 0));
+            Assert.AreEqual(8, director.Advance(1, 1, true, 0));
+            Assert.AreEqual(12, director.LastDecision.Requested);
+            Assert.AreEqual(4, director.LastDecision.Suppressed);
             Assert.AreEqual(0, director.Advance(30, 29, false, 0));
             Assert.AreEqual(1, director.Elapsed);
-            Assert.AreEqual(12, Director(Burst()).Advance(1, 1, true, 0), "New run owns a new director.");
+            Assert.AreEqual(8, Director(Burst()).Advance(1, 1, true, 0), "New run owns a new director.");
         }
 
         [Test]
         public void Burst_SkipAcrossPhases_ExpiresOldGroupsAndEmitsOnlyOpenGroup()
         {
             var director = Director(Burst("FIXTURE-A"), Burst("FIXTURE-B"), Burst("FIXTURE-C"));
-            Assert.AreEqual(12, director.Advance(11, 11, true, 200));
+            Assert.AreEqual(8, director.Advance(11, 11, true, 0));
+            Assert.AreEqual(4, director.LastDecision.Suppressed);
             Assert.AreEqual(24, director.LastDecision.Expired);
             Assert.AreEqual(2, director.CurrentPhaseIndex);
         }
@@ -69,12 +72,12 @@ namespace Game.Enemy.Tests
         public void Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression()
         {
             var director = Director(Burst(), WaveTestData.Phase("FIXTURE-C", WavePhaseTag.Rest,
-                10, 1, 2, null, WaveTestData.Entry("FIXTURE-ENEMY-A")));
+                10, 1, null, WaveTestData.Entry("FIXTURE-ENEMY-A")));
             Assert.AreEqual(1, director.Advance(6, 6, true, 1));
             Assert.AreEqual(12, director.LastDecision.Expired);
             Assert.AreEqual(1, director.LastDecision.Requested);
-            Assert.AreEqual(0, director.Advance(8, 2, true, 2));
-            Assert.AreEqual(2, director.LastDecision.Suppressed);
+            Assert.AreEqual(2, director.Advance(8, 2, true, 2));
+            Assert.AreEqual(0, director.LastDecision.Suppressed);
             Assert.AreEqual(0, director.Advance(8, 0, true, 0));
             Assert.AreEqual(1, director.Advance(9, 1, true, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => director.Advance(8, 1, true, 0));
@@ -83,7 +86,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void Hooks_SameTimeAndSkippedBoundaries_AreOrderedOnceBeforeBurst()
         {
-            var director = new WaveDirector(new WaveTimelineDefinition("FIXTURE-T", 42, 6,
+            var director = new WaveDirector(new WaveTimelineDefinition("FIXTURE-T", 42, 6, 20,
                 new[] { Burst(offset: 0) }, new[] {
                     new WaveHookDefinition(WaveHookKind.FinalBoss, 0),
                     new WaveHookDefinition(WaveHookKind.MidBoss, 0) }), WaveTestData.TestEnemies(), 30);
@@ -118,9 +121,9 @@ namespace Game.Enemy.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveBurstDefinition(1, 0, 0));
             Assert.Throws<ArgumentException>(() => Burst(offset: 4, window: 2));
             Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "P", WavePhaseTag.Pressure,
-                5, 1, 2, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, spawnMode: WaveSpawnMode.Burst));
+                5, 1, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, spawnMode: WaveSpawnMode.Burst));
             Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "P", WavePhaseTag.Pressure,
-                5, 1, 2, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, burst: new WaveBurstDefinition(1, 0, 1)));
+                5, 1, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, burst: new WaveBurstDefinition(1, 0, 1)));
         }
 
         [Test]

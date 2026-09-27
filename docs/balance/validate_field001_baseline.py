@@ -62,6 +62,11 @@ def main():
                 if entry["id"] in ["SKILL-001", "SKILL-002", "SKILL-005", "SKILL-013"]:
                     require(math.isclose(merged["range"], merged["speed"] * merged["lifetimeSeconds"]),
                             f"Range/lifetime mismatch: {entry['id']} L{row['level']}")
+    skills = {entry["id"]: entry for entry in data["skills"]}
+    require([row["count"] for row in skills["SKILL-002"]["levels"]] == [3, 4, 5, 7, 9, 11],
+            "SKILL-002 projectile progression changed")
+    require([row["count"] for row in skills["SKILL-013"]["levels"]] == [4, 5, 6, 7, 9, 13],
+            "SKILL-013 projectile progression changed")
 
     # Validate recipes against all 20 canonical recipes, not a second handwritten list.
     recipes = {}
@@ -100,19 +105,24 @@ def main():
     require(costs[0] == 12 and sum(costs[:39]) == 1257 and costs[-1] == 74, "XP example mismatch")
 
     enemies = {entry["id"]: entry for entry in data["enemies"]}
+    require(math.isclose(enemies["ENEMY-001"]["movementSpeed"], 0.96),
+            "ENEMY-001 must remain 20% slower than its former 1.20 speed")
     for delta in data["ordinaryEnemyChanges"]:
         require(all(enemies[delta["id"]][key] == value for key, value in delta["proposed"].items()),
                 f"Enemy before/after table out of sync: {delta['id']}")
-    elapsed, nominal, xp, alive_bound, bursts = 0, 0, 0, 0, 0
+    elapsed, nominal, xp, bursts = 0, 0, 0, 0
     intro = {}
+    technical_cap = data["timeline"]["maxAliveEnemies"]
+    require(technical_cap == 200, "Ordinary-enemy technical cap must be the shared 200")
     for phase in data["timeline"]["phases"]:
         require(phase["startSeconds"] == elapsed and phase["durationSeconds"] > 0,
                 f"Timeline gap/overlap: {phase['id']}")
         weights = phase["composition"]
-        require(set(weights) == set(enemies) and sum(weights.values()) == 100
-                and all(weight >= 0 for weight in weights.values()), f"Invalid mixture: {phase['id']}")
+        require(set(weights) <= set(enemies) and sum(weights.values()) == 100
+                and 2 <= len(weights) <= 4 and all(weight > 0 for weight in weights.values()),
+                f"Invalid focused mixture: {phase['id']}")
         require(all(value == 1 for value in phase["modifiers"].values()), "Unexpected stat growth")
-        require(phase["spawnIntervalSeconds"] > 0 and phase["maxAliveEnemies"] > 0, "Invalid cadence/cap")
+        require(phase["spawnIntervalSeconds"] > 0 and "maxAliveEnemies" not in phase, "Invalid cadence/phase cap")
         for name, weight in weights.items():
             if weight:
                 intro.setdefault(name, elapsed)
@@ -123,22 +133,20 @@ def main():
                     "Burst window extends beyond its phase")
             count = burst["count"]
             require(isinstance(count, int) and count > 0, "Invalid burst count")
-            alive_bound += count
             bursts += count
         else:
             require(phase["spawnMode"] == "Continuous" and phase["burst"] is None, "Wrong phase kind")
             count = math.floor(phase["durationSeconds"] / phase["spawnIntervalSeconds"])
-            alive_bound = max(alive_bound, phase["maxAliveEnemies"])
         nominal += count
         xp += count * sum(enemies[name]["experienceReward"] * weight for name, weight in weights.items()) / 100
         elapsed += phase["durationSeconds"]
     require(elapsed == data["field"]["durationSeconds"] == 900, "Run must last 900 seconds")
-    require(intro["ENEMY-004"] == 210 and intro["ENEMY-007"] == 300 and intro["ENEMY-005"] == 360,
+    require(intro["ENEMY-004"] == 230 and intro["ENEMY-007"] == 340 and intro["ENEMY-005"] == 430,
             "Threat introductions moved")
     require([(h["kind"], h["timeSeconds"]) for h in data["timeline"]["hooks"]]
             == [("MidBoss", data["midboss"]["spawnSeconds"]), ("FinalBoss", data["boss"]["spawnSeconds"])],
             "Hook/body spawn timing mismatch")
-    require(alive_bound <= data["performanceProposal"]["ordinaryStressCount"], "Stress count below upper bound")
+    require(technical_cap <= data["performanceProposal"]["ordinaryStressCount"], "Stress count below upper bound")
 
     obstacles = data["field"]["obstacles"]
     require(len(obstacles) == len({item["id"] for item in obstacles}) == 64, "Expected 64 distinct obstacles")
@@ -165,8 +173,8 @@ def main():
     for entry in data["artInventory"]:
         if entry["runtime"]:
             require((ROOT / entry["runtime"]).is_file(), f"Missing art: {entry['runtime']}")
-    print(f"PASS: 60 skill + 60 passive levels; exactly 5 canonical recipes; {elapsed}s / 24 phases")
-    print(f"Nominal requests={nominal}; expected ordinary XP={xp:.1f}; bursts={bursts}; alive upper bound={alive_bound}")
+    print(f"PASS: 60 skill + 60 passive levels; exactly 5 canonical recipes; {elapsed}s / {len(data['timeline']['phases'])} phases")
+    print(f"Nominal requests={nominal}; expected ordinary XP={xp:.1f}; bursts={bursts}; technical cap={technical_cap}")
     print(f"PASS: six-enemy delta, required character stats, Traveler/pickup values, 64 obstacle bounds/gaps, {len(data['artInventory'])} art paths")
     print("Static proposal validation only; runtime compatibility, difficulty and performance are not verified.")
 

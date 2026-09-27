@@ -10,7 +10,7 @@ PATH = ROOT / "docs/balance/field003-v1.json"
 F1 = ROOT / "docs/balance/field001-baseline-v1.json"
 F2 = ROOT / "docs/balance/field002-v1.json"
 BOSSES = ROOT / "docs/balance/bosses-v1.json"
-STRESS_ORDINARY = 250  # baseline v1 performance stress target for ordinary enemies
+TECHNICAL_ORDINARY_CAP = 200
 
 
 def require(condition, message):
@@ -50,12 +50,14 @@ def main():
     first = data["timeline"]["phases"][0]["composition"]
     require(all(first[e] > 0 for e in data["newEnemiesInFirstWave"]), "The new type appears in the first wave (DECISION-0063)")
 
-    # Timeline: FIELD-001 skeleton, never lighter than FIELD-002, constant visible modifiers, within the stress target.
-    phases, base, prev = data["timeline"]["phases"], one["timeline"]["phases"], two["timeline"]["phases"]
-    require(len(phases) == len(base) == len(prev), "Same phase skeleton as FIELD-001/002")
+    # Timeline keeps its approved cadence; every field shares one technical ordinary-enemy ceiling.
+    phases, prev = data["timeline"]["phases"], two["timeline"]["phases"]
+    require(data["timeline"]["maxAliveEnemies"] == one["timeline"]["maxAliveEnemies"]
+            == two["timeline"]["maxAliveEnemies"] == TECHNICAL_ORDINARY_CAP,
+            "All fields use the shared technical ordinary-enemy cap")
     elapsed = 0
-    for p, q, r in zip(phases, base, prev):
-        require(p["startSeconds"] == elapsed == q["startSeconds"] and p["durationSeconds"] == q["durationSeconds"],
+    for p in phases:
+        require(p["startSeconds"] == elapsed and p["durationSeconds"] > 0,
                 f"Timeline gap/drift: {p['id']}")
         elapsed += p["durationSeconds"]
         require(set(p["composition"]) == set(pool) and sum(p["composition"].values()) == 100
@@ -63,13 +65,11 @@ def main():
         require(p["modifiers"] == {"healthMultiplier": pressure["healthMultiplier"], "speedMultiplier": 1,
                                    "contactDamageMultiplier": pressure["damageMultiplier"],
                                    "attackDamageMultiplier": pressure["damageMultiplier"]}, f"Modifiers: {p['id']}")
-        require(p["maxAliveEnemies"] >= r["maxAliveEnemies"], f"Lighter cap than FIELD-002: {p['id']}")
+        require("maxAliveEnemies" not in p, f"Phase-specific cap returned: {p['id']}")
         if p["spawnMode"] == "Continuous":
-            require(0 < p["spawnIntervalSeconds"] <= r["spawnIntervalSeconds"], f"Sparser than FIELD-002: {p['id']}")
+            require(p["spawnIntervalSeconds"] > 0, f"Invalid cadence: {p['id']}")
         else:
-            require(p["burst"]["count"] >= r["burst"]["count"], f"Smaller burst than FIELD-002: {p['id']}")
-        burst = p["burst"]["count"] if p["burst"] else 0
-        require(p["maxAliveEnemies"] + burst <= STRESS_ORDINARY, f"Cap + burst above the stress target: {p['id']}")
+            require(p["burst"]["count"] > 0, f"Invalid burst: {p['id']}")
     require(elapsed == 900, "Timeline must cover 900 s")
     require([h["timeSeconds"] for h in data["timeline"]["hooks"]] == [450, 810], "Boss hooks at 7:30 / 13:30")
     require(pressure["healthMultiplier"] > two["fieldPressure"]["healthMultiplier"]

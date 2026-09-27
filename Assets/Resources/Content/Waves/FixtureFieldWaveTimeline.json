@@ -2,6 +2,7 @@
   "id": "FIXTURE-WAVE-FOCUSED",
   "seed": 13579,
   "spawnRadius": 7,
+  "maxAliveEnemies": 200,
   "phases": [
     {
       "id": "FIXTURE-WAVE-FOCUSED-ORDINARY",
@@ -10,7 +11,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 900,
       "spawnIntervalSeconds": 3,
-      "maxAliveEnemies": 5,
       "composition": [{ "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1 }]
     }
   ],

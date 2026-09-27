@@ -129,7 +129,7 @@ namespace Game.Enemy
             if (decision.Requested > 0 || decision.Expired > 0)
             {
                 LastSpawnOutcome = new WaveSpawnOutcome(_director.CurrentPhase.Id, _director.Elapsed,
-                    _director.CurrentPhase.SpawnMode, decision, actual, AliveCount, _director.CurrentPhase.MaxAliveEnemies);
+                    _director.CurrentPhase.SpawnMode, decision, actual, AliveCount, _director.Timeline.MaxAliveEnemies);
                 SpawnResolved?.Invoke(LastSpawnOutcome);
             }
             return actual;

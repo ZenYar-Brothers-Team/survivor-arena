@@ -57,15 +57,17 @@ namespace Game.ActiveSkill.Tests
         [Test]
         public void NeedlesSpearAndShards_MapMaxTargetsToPierceAndSlow()
         {
+            CollectionAssert.AreEqual(new[] { 3, 4, 5, 7, 9, 11 }, Enumerable.Range(1, 6)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-002", level).ProjectileCount));
             Assert.AreEqual(1, Effect<ProjectileBurstEffect>("SKILL-002", 6).PierceCount);
-            Assert.AreEqual(11, Effect<ProjectileBurstEffect>("SKILL-002", 6).ProjectileCount);
             Assert.AreEqual(90f, Effect<ProjectileBurstEffect>("SKILL-002", 6).SpreadDegrees);
             Assert.AreEqual(2, Effect<ProjectileBurstEffect>("SKILL-005", 1).PierceCount);
             Assert.AreEqual(4, Effect<ProjectileBurstEffect>("SKILL-005", 3).PierceCount);
             Assert.IsTrue(Effect<ProjectileBurstEffect>("SKILL-005", 6).Behavior.UnlimitedPierce);
             Assert.AreEqual(ActiveSkillTargetingMode.MovementDirection, Skill("SKILL-005").GetLevel(1).TargetingMode);
+            CollectionAssert.AreEqual(new[] { 4, 5, 6, 7, 9, 13 }, Enumerable.Range(1, 6)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-013", level).ProjectileCount));
             var shards = Skill("SKILL-013").GetLevel(6);
-            Assert.AreEqual(13, ((ProjectileBurstEffect)shards.Waves[0].Effects[0]).ProjectileCount);
             Assert.AreEqual(100f, ((ProjectileBurstEffect)shards.Waves[0].Effects[0]).SpreadDegrees);
             Assert.AreEqual(0.3f, shards.Waves[0].Controls.SlowFraction, 1e-5f);
             Assert.AreEqual(2f, shards.Waves[0].Controls.SlowSeconds, 1e-5f);

@@ -1,6 +1,7 @@
 {
   "id": "FIELD-003-TIMELINE",
   "seed": 232924,
+  "maxAliveEnemies": 200,
   "spawnRadius": 12,
   "openingSpawn": {
     "durationSeconds": 20,
@@ -14,7 +15,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 1.042,
-      "maxAliveEnemies": 48,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -51,7 +51,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 55,
       "spawnIntervalSeconds": 0.75,
-      "maxAliveEnemies": 72,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -88,7 +87,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 72,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -130,7 +128,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 30,
       "spawnIntervalSeconds": 1.6,
-      "maxAliveEnemies": 54,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -167,7 +164,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.542,
-      "maxAliveEnemies": 108,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -220,7 +216,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.39,
-      "maxAliveEnemies": 132,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -273,7 +268,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 132,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -331,7 +325,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 25,
       "spawnIntervalSeconds": 1.467,
-      "maxAliveEnemies": 96,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -384,7 +377,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.417,
-      "maxAliveEnemies": 144,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -437,7 +429,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.319,
-      "maxAliveEnemies": 168,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -494,7 +485,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 168,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -556,7 +546,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 25,
       "spawnIntervalSeconds": 1.2,
-      "maxAliveEnemies": 120,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -613,7 +602,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.5,
-      "maxAliveEnemies": 144,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -670,7 +658,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.317,
-      "maxAliveEnemies": 192,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -727,7 +714,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 192,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -789,7 +775,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 25,
       "spawnIntervalSeconds": 1.067,
-      "maxAliveEnemies": 132,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -846,7 +831,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 90,
       "spawnIntervalSeconds": 0.283,
-      "maxAliveEnemies": 216,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -903,7 +887,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 216,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -965,7 +948,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 25,
       "spawnIntervalSeconds": 0.933,
-      "maxAliveEnemies": 156,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -1022,7 +1004,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 60,
       "spawnIntervalSeconds": 0.25,
-      "maxAliveEnemies": 220,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -1079,7 +1060,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 30,
       "spawnIntervalSeconds": 0.8,
-      "maxAliveEnemies": 168,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -1136,7 +1116,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 30,
       "spawnIntervalSeconds": 0.433,
-      "maxAliveEnemies": 192,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -1193,7 +1172,6 @@
       "spawnMode": "Continuous",
       "durationSeconds": 55,
       "spawnIntervalSeconds": 0.233,
-      "maxAliveEnemies": 220,
       "composition": [
         {
           "enemyId": "ENEMY-001",
@@ -1250,7 +1228,6 @@
       "spawnMode": "Burst",
       "durationSeconds": 5,
       "spawnIntervalSeconds": 1,
-      "maxAliveEnemies": 220,
       "composition": [
         {
           "enemyId": "ENEMY-001",

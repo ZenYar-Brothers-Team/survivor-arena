@@ -11,6 +11,8 @@ namespace Game.Enemy
         public ContentId Id { get; }
         public int Seed { get; }
         public float SpawnRadius { get; }
+        /// <summary>Technical ceiling for ordinary enemies, shared by every phase.</summary>
+        public int MaxAliveEnemies { get; }
         public IReadOnlyList<WavePhaseDefinition> Phases { get; }
         public IReadOnlyList<WaveHookDefinition> Hooks { get; }
         /// <summary>Optional opening screen-edge spawn window; null keeps the spawn radius from the start.</summary>
@@ -21,6 +23,7 @@ namespace Game.Enemy
             ContentId id,
             int seed,
             float spawnRadius,
+            int maxAliveEnemies,
             IReadOnlyList<WavePhaseDefinition> phases,
             IReadOnlyList<WaveHookDefinition> hooks = null,
             WaveOpeningSpawnDefinition openingSpawn = null)
@@ -28,6 +31,7 @@ namespace Game.Enemy
             if (!id.IsValid)
                 throw new ArgumentException("Wave timeline requires a valid id.", nameof(id));
             NumericValidation.ValidatePositive(spawnRadius, nameof(spawnRadius));
+            NumericValidation.ValidateCount(maxAliveEnemies, nameof(maxAliveEnemies));
             if (phases == null || phases.Count == 0)
                 throw new ArgumentException("Wave timeline requires at least one phase.", nameof(phases));
 
@@ -69,6 +73,7 @@ namespace Game.Enemy
             Id = id;
             Seed = seed;
             SpawnRadius = spawnRadius;
+            MaxAliveEnemies = maxAliveEnemies;
             Phases = phaseCopy;
             Hooks = hookCopy;
             OpeningSpawn = openingSpawn;

@@ -191,7 +191,7 @@ namespace Game.UI
                 .Append(" · ").Append(director.CurrentPhaseIndex + 1).Append('/').Append(director.PhaseCount)
                 .Append(' ').Append(phase.DisplayName).Append(" [").Append(phase.Tag).Append("]\n")
                 .Append(phase.SpawnMode).Append(" · interval ").Append(phase.SpawnIntervalSeconds.ToString("0.##", CultureInfo.InvariantCulture))
-                .Append("s · regular cap ").Append(phase.MaxAliveEnemies)
+                .Append("s · technical regular cap ").Append(director.Timeline.MaxAliveEnemies)
                 .Append(" · alive ").Append(aliveEnemies).Append('\n')
                 .Append("Mix: ").Append(mix).Append('\n')
                 .Append("Mods: HP x").Append(modifiers.HealthMultiplier.ToString("0.##", CultureInfo.InvariantCulture))
@@ -203,7 +203,7 @@ namespace Game.UI
             if (phase.Burst != null)
                 summary.Append("Burst ").Append(phase.Burst.Count).Append(" · window [")
                     .Append(phase.Burst.OffsetSeconds).Append(", ").Append(phase.Burst.OffsetSeconds + phase.Burst.WindowSeconds)
-                    .Append(")s · consumed ").Append(director.BurstConsumed).Append(" · ignores cap\n");
+                    .Append(")s · consumed ").Append(director.BurstConsumed).Append(" · obeys technical cap\n");
             summary.Append("Last spawn @ ").Append(outcome.Elapsed).Append("s · ").Append(outcome.PhaseId)
                 .Append(" · requested ").Append(outcome.Decision.Requested).Append(" actual ").Append(outcome.Actual)
                 .Append(" suppressed ").Append(outcome.Decision.Suppressed).Append(" deferred ").Append(outcome.Decision.Deferred)

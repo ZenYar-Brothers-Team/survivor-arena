@@ -18,7 +18,7 @@ namespace Game.Enemy.Tests
                 "Late fourteen from enemies-v1 (DECISION-0062); ProductionLateEnemyCatalogTests covers them.");
             var expected = new (string id, float hp, float speed, float contact, float xp)[]
             {
-                ("ENEMY-001", 32, 1.2f, 10, 1), ("ENEMY-002", 24, 2.25f, 8, 1), ("ENEMY-003", 150, 0.8f, 20, 3),
+                ("ENEMY-001", 32, 0.96f, 10, 1), ("ENEMY-002", 24, 2.25f, 8, 1), ("ENEMY-003", 150, 0.8f, 20, 3),
                 ("ENEMY-004", 48, 0.95f, 8, 2), ("ENEMY-005", 56, 1.1f, 9, 3), ("ENEMY-007", 64, 1.55f, 14, 4)
             };
             foreach (var row in expected)

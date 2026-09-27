@@ -1086,6 +1086,7 @@
  },
  "timeline": {
   "id": "FIELD-002-TIMELINE",
+  "maxAliveEnemies": 200,
   "hooks": [
    {
     "kind": "MidBoss",
@@ -1104,7 +1105,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 1.136,
-    "maxAliveEnemies": 44,
     "composition": {
      "ENEMY-001": 75,
      "ENEMY-002": 10,
@@ -1131,7 +1131,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.818,
-    "maxAliveEnemies": 66,
     "composition": {
      "ENEMY-001": 55,
      "ENEMY-002": 25,
@@ -1158,7 +1157,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 66,
     "composition": {
      "ENEMY-001": 55,
      "ENEMY-002": 25,
@@ -1189,7 +1187,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 1.745,
-    "maxAliveEnemies": 50,
     "composition": {
      "ENEMY-001": 55,
      "ENEMY-002": 25,
@@ -1216,7 +1213,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.591,
-    "maxAliveEnemies": 99,
     "composition": {
      "ENEMY-001": 35,
      "ENEMY-002": 25,
@@ -1243,7 +1239,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.5,
-    "maxAliveEnemies": 121,
     "composition": {
      "ENEMY-001": 30,
      "ENEMY-002": 22,
@@ -1270,7 +1265,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 121,
     "composition": {
      "ENEMY-001": 30,
      "ENEMY-002": 22,
@@ -1301,7 +1295,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 1.6,
-    "maxAliveEnemies": 88,
     "composition": {
      "ENEMY-001": 30,
      "ENEMY-002": 22,
@@ -1328,7 +1321,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.455,
-    "maxAliveEnemies": 132,
     "composition": {
      "ENEMY-001": 29,
      "ENEMY-002": 22,
@@ -1355,7 +1347,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.409,
-    "maxAliveEnemies": 154,
     "composition": {
      "ENEMY-001": 22,
      "ENEMY-002": 22,
@@ -1382,7 +1373,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 154,
     "composition": {
      "ENEMY-001": 22,
      "ENEMY-002": 22,
@@ -1413,7 +1403,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 1.309,
-    "maxAliveEnemies": 110,
     "composition": {
      "ENEMY-001": 32,
      "ENEMY-002": 20,
@@ -1440,7 +1429,6 @@
     "spawnMode": "Continuous",
     "tag": "Ordinary",
     "spawnIntervalSeconds": 0.545,
-    "maxAliveEnemies": 132,
     "composition": {
      "ENEMY-001": 27,
      "ENEMY-002": 20,
@@ -1467,7 +1455,6 @@
     "spawnMode": "Continuous",
     "tag": "Pressure",
     "spawnIntervalSeconds": 0.345,
-    "maxAliveEnemies": 176,
     "composition": {
      "ENEMY-001": 16,
      "ENEMY-002": 22,
@@ -1494,7 +1481,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 176,
     "composition": {
      "ENEMY-001": 16,
      "ENEMY-002": 22,
@@ -1525,7 +1511,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 1.164,
-    "maxAliveEnemies": 121,
     "composition": {
      "ENEMY-001": 28,
      "ENEMY-002": 20,
@@ -1552,7 +1537,6 @@
     "spawnMode": "Continuous",
     "tag": "Pressure",
     "spawnIntervalSeconds": 0.309,
-    "maxAliveEnemies": 198,
     "composition": {
      "ENEMY-001": 10,
      "ENEMY-002": 24,
@@ -1579,7 +1563,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 198,
     "composition": {
      "ENEMY-001": 10,
      "ENEMY-002": 21,
@@ -1610,7 +1593,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 1.018,
-    "maxAliveEnemies": 143,
     "composition": {
      "ENEMY-001": 17,
      "ENEMY-002": 22,
@@ -1637,7 +1619,6 @@
     "spawnMode": "Continuous",
     "tag": "Pressure",
     "spawnIntervalSeconds": 0.273,
-    "maxAliveEnemies": 220,
     "composition": {
      "ENEMY-001": 10,
      "ENEMY-002": 20,
@@ -1664,7 +1645,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 0.873,
-    "maxAliveEnemies": 154,
     "composition": {
      "ENEMY-001": 20,
      "ENEMY-002": 22,
@@ -1691,7 +1671,6 @@
     "spawnMode": "Continuous",
     "tag": "Rest",
     "spawnIntervalSeconds": 0.591,
-    "maxAliveEnemies": 176,
     "composition": {
      "ENEMY-001": 17,
      "ENEMY-002": 22,
@@ -1718,7 +1697,6 @@
     "spawnMode": "Continuous",
     "tag": "Pressure",
     "spawnIntervalSeconds": 0.255,
-    "maxAliveEnemies": 220,
     "composition": {
      "ENEMY-001": 10,
      "ENEMY-002": 22,
@@ -1745,7 +1723,6 @@
     "spawnMode": "Burst",
     "tag": "Pressure",
     "spawnIntervalSeconds": 1,
-    "maxAliveEnemies": 220,
     "composition": {
      "ENEMY-001": 22,
      "ENEMY-002": 25,

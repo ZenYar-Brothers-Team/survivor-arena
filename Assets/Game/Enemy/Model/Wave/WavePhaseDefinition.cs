@@ -11,7 +11,6 @@ namespace Game.Enemy
         public WavePhaseTag Tag { get; }
         public float DurationSeconds { get; }
         public float SpawnIntervalSeconds { get; }
-        public int MaxAliveEnemies { get; }
         public IReadOnlyList<WaveCompositionEntry> Composition { get; }
         public WaveEnemyModifiers Modifiers { get; }
         public WaveSpawnMode SpawnMode { get; }
@@ -23,7 +22,6 @@ namespace Game.Enemy
             WavePhaseTag tag,
             float durationSeconds,
             float spawnIntervalSeconds,
-            int maxAliveEnemies,
             IReadOnlyList<WaveCompositionEntry> composition,
             WaveEnemyModifiers modifiers = null,
             WaveSpawnMode spawnMode = WaveSpawnMode.Continuous,
@@ -37,7 +35,6 @@ namespace Game.Enemy
                 throw new ArgumentOutOfRangeException(nameof(tag));
             NumericValidation.ValidatePositive(durationSeconds, nameof(durationSeconds));
             NumericValidation.ValidatePositive(spawnIntervalSeconds, nameof(spawnIntervalSeconds));
-            NumericValidation.ValidateCount(maxAliveEnemies, nameof(maxAliveEnemies));
             if (!Enum.IsDefined(typeof(WaveSpawnMode), spawnMode))
                 throw new ArgumentOutOfRangeException(nameof(spawnMode));
             if ((spawnMode == WaveSpawnMode.Burst) != (burst != null))
@@ -65,7 +62,6 @@ namespace Game.Enemy
             Tag = tag;
             DurationSeconds = durationSeconds;
             SpawnIntervalSeconds = spawnIntervalSeconds;
-            MaxAliveEnemies = maxAliveEnemies;
             Composition = copy;
             Modifiers = modifiers ?? WaveEnemyModifiers.Identity;
             SpawnMode = spawnMode;

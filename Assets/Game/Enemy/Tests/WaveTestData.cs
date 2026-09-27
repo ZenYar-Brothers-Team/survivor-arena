@@ -26,10 +26,9 @@ namespace Game.Enemy.Tests
             WavePhaseTag tag,
             float duration,
             float interval,
-            int maxAlive,
             WaveEnemyModifiers modifiers,
             params WaveCompositionEntry[] composition) =>
-            new WavePhaseDefinition(id, id, tag, duration, interval, maxAlive, composition, modifiers);
+            new WavePhaseDefinition(id, id, tag, duration, interval, composition, modifiers);
 
         // Ordinary (0-10s) -> Pressure (10-25s, faster/frailer) -> Rest (25-30s).
         public static WaveTimelineDefinition ThreePhaseTimeline(int seed = 7) =>
@@ -37,13 +36,14 @@ namespace Game.Enemy.Tests
                 "FIXTURE-WAVE-TEST",
                 seed,
                 SpawnRadius,
+                8,
                 new[]
                 {
-                    Phase("FIXTURE-PHASE-ORDINARY", WavePhaseTag.Ordinary, 10f, 2f, 4, null, Entry("FIXTURE-ENEMY-A")),
-                    Phase("FIXTURE-PHASE-PRESSURE", WavePhaseTag.Pressure, 15f, 0.5f, 8,
+                    Phase("FIXTURE-PHASE-ORDINARY", WavePhaseTag.Ordinary, 10f, 2f, null, Entry("FIXTURE-ENEMY-A")),
+                    Phase("FIXTURE-PHASE-PRESSURE", WavePhaseTag.Pressure, 15f, 0.5f,
                         new WaveEnemyModifiers(healthMultiplier: 0.5f, speedMultiplier: 1.5f),
                         Entry("FIXTURE-ENEMY-B")),
-                    Phase("FIXTURE-PHASE-REST", WavePhaseTag.Rest, 5f, 4f, 2, null, Entry("FIXTURE-ENEMY-A"))
+                    Phase("FIXTURE-PHASE-REST", WavePhaseTag.Rest, 5f, 4f, null, Entry("FIXTURE-ENEMY-A"))
                 },
                 new[]
                 {

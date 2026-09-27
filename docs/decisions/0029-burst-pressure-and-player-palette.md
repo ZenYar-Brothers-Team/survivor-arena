@@ -1,5 +1,7 @@
 # DECISION-0029 — Burst pressure и читаемость игрока
 
+> Поправка 2026-09-27: правило uncapped burst заменено [DECISION-0076](0076-wave-cap-and-field001-rhythm.md). Burst теперь подчиняется единому timeline-level техническому пределу 200; подавленный остаток по-прежнему не переносится.
+
 Status: Approved
 
 Date: 2026-09-21

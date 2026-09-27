@@ -72,7 +72,7 @@ Book описана как утверждённая механика, но от�
 | ID | Существенный delta |
 |---|---|
 | SKILL-001 | «Искровой болт» → «Бросок камня»; L4 pierce заменён ricochet; heavy impact/size/knockback |
-| SKILL-002 | Сохранён fan; обновлены range/speed/size/knockback, pierce и накопление уровней |
+| SKILL-002 | Сохранён fan; обновлены range/speed/size/knockback, pierce и накопление уровней; после DECISION-0077 count растёт 3/4/5/7/9/11 |
 | SKILL-003 | Явный blade hitbox radius, его scaling отдельно от orbit radius; rotation speed и knockback |
 | SKILL-004 | 28 → 8 base damage; knockback становится основным эффектом; вторичная волна получает отдельные radius/damage/knockback ratios |
 | SKILL-005 | Nearest-enemy aim → направление движения, при остановке последнее ненулевое направление; direction фиксируется при запуске |
@@ -83,7 +83,7 @@ Book описана как утверждённая механика, но от�
 | SKILL-010 | Выбор случайного valid enemy в world targeting radius вместо ближайших; экран не определяет доступность; target position snapshot для telegraph |
 | SKILL-011 | Расширены range/speed/size/knockback и двойная круговая очередь с half-step offset |
 | SKILL-012 | Tick knockback, ширина/дальность/duration; поздний tracking луча требует точного runtime поведения |
-| SKILL-013 | Три крупных burst shards без status → семь мелких с 20% slow на 1.5 s; плотный fan/уровни/пирсинг переписаны |
+| SKILL-013 | Три крупных burst shards без status → четыре мелких на L1 с 20% slow на 1.5 s; count растёт 4/5/6/7/9/13, fan/уровни/пирсинг переписаны |
 | SKILL-014 | Nearest aim → независимое random direction каждой сферы; impact/explosion имеют разные knockback и компоненты damage |
 | SKILL-015 | Ориентация креста на врага → фиксированные горизонталь/вертикаль; затем диагонали и повтор с поворотом |
 | SKILL-016 | Новое: random non-targeted trash projectiles, linear deceleration до нуля, despawn при остановке; pierce, count и size upgrades |
@@ -206,7 +206,7 @@ Phase A/B/C (`Art Production.md:546–573`) задают поставку по �
 | G-14 Encounter/content numbers | ENEMY contact intervals; boss speed/attack/reward details; traveler production presence/XP/support values (framework scaling определён DECISION-0035); numeric character weights; field pools/geometry/schedules отсутствуют или неполны | IP-20…24/IP-30/IP-32; per-ID/per-field completeness, отдельные production schedule IDs |
 | G-15 Meta and run exit | **Resolved — DECISION-0037.** Reward 5×level, Book 50, Quit/handled error payout; clear=900s alive; простой каталог upgrades/unlocks и atomic profile/save failure policy | IP-25/IP-26; no duplicate reward/retry double-start и terminal precedence |
 | G-16 Presentation/settings | **Resolved — DECISION-0038.** Defaults, separate settings save/error policy, video Apply/Keep/10s Revert, Master/Music/SFX routing и bounded visual shake | IP-26 реализует service/consumer и checks; IP-12A request boundary переиспользуется, baseline follow сохранён |
-| W-01 Burst pressure policy | **Resolved — DECISION-0029.** Burst обходит regular cap; boss/Traveler исключены из cap; pause-aware window, expired windows не догоняются | IP-14; runtime и boundary/load tests остаются обязательными |
+| W-01 Burst pressure policy | **Resolved — DECISION-0076 supersedes DECISION-0029 cap rule.** Единый timeline-level technical cap действует на continuous/burst; подавленный burst remainder не переносится; boss/Traveler исключены из cap; pause-aware window и expiry сохранены | IP-14; runtime и boundary/load tests остаются обязательными |
 | G-17 Art evidence | Пользователь 2026-09-21 подтвердил CHAR-001 concept = fixture satchel goblin v002; связь записана в asset-record, master hash совпадает с v002 | IP-12A: актуализировать inventory/manifest по фактам; production binding/crop review отдельно IP-22 |
 | G-18 Player palette | **Resolved — DECISION-0029.** Зелёная skin-family текущих гоблинов, читаемый силуэт для всех playable species | IP-12A; §4.4 Art Direction согласован с §9.2 |
 | G-19 Character Select baseline/highlights | **Resolved — DECISION-0026.** Отдельная явная база сравнения и authored ordered highlights; без автоматического порога значимости и выбора базы из roster | IP-12 fixture data/validation; IP-22 production values и per-character highlights. Прежняя ссылка на G-15 для presentation gap исправлена |

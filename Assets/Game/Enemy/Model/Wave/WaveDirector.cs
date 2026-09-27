@@ -118,8 +118,8 @@ namespace Game.Enemy
                 HookTriggered?.Invoke(hook);
             }
 
-            // W-01: a burst is one whole group, never capped or retried. Last-phase
-            // hold does not extend its window. Skipped windows expire without replay.
+            // Bursts are attempted once and never retried. The shared ordinary-enemy
+            // ceiling is a technical safeguard, so it also limits burst spawns.
             if (CurrentPhase.SpawnMode == WaveSpawnMode.Burst)
             {
                 var burst = CurrentPhase.Burst;
@@ -133,14 +133,16 @@ namespace Game.Enemy
                     else
                         expired = checked(expired + burst.Count);
                 }
-                LastDecision = new WaveSpawnDecision(count, count, expired);
-                return count;
+                var burstCapacity = Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
+                var burstAllowed = Math.Min(count, burstCapacity);
+                LastDecision = new WaveSpawnDecision(count, burstAllowed, expired);
+                return burstAllowed;
             }
 
             // A skip must not charge time spent in old phases to the new cadence.
             var phaseDelta = changed ? Math.Min(deltaTime, Elapsed - _phaseStarts[CurrentPhaseIndex]) : deltaTime;
             var due = _spawnTimer.Tick(phaseDelta, true);
-            var capacity = Math.Max(0, CurrentPhase.MaxAliveEnemies - aliveEnemies);
+            var capacity = Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
             var allowed = Math.Min(due, capacity);
             LastDecision = new WaveSpawnDecision(due, allowed, expired);
             return allowed;

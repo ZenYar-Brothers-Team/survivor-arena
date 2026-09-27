@@ -12,14 +12,13 @@ namespace Game.Enemy.Tests
             var entry = WaveTestData.Entry("FIXTURE-ENEMY-A");
             var one = new[] { entry };
 
-            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition(default, "Name", WavePhaseTag.Ordinary, 5f, 1f, 3, one));
-            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", " ", WavePhaseTag.Ordinary, 5f, 1f, 3, one));
-            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", (WavePhaseTag)99, 5f, 1f, 3, one));
-            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 0f, 1f, 3, one));
-            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 0f, 3, one));
-            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 1f, 0, one));
-            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 1f, 3, Array.Empty<WaveCompositionEntry>()));
-            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 1f, 3, new[] { entry, entry }));
+            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition(default, "Name", WavePhaseTag.Ordinary, 5f, 1f, one));
+            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", " ", WavePhaseTag.Ordinary, 5f, 1f, one));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", (WavePhaseTag)99, 5f, 1f, one));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 0f, 1f, one));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 0f, one));
+            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 1f, Array.Empty<WaveCompositionEntry>()));
+            Assert.Throws<ArgumentException>(() => new WavePhaseDefinition("FIXTURE-P", "N", WavePhaseTag.Ordinary, 5f, 1f, new[] { entry, entry }));
         }
 
         [Test]
@@ -36,21 +35,23 @@ namespace Game.Enemy.Tests
         [Test]
         public void Timeline_RejectsInvalidPhasesAndHooks()
         {
-            var phase = WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 5f, 1f, 3, null, WaveTestData.Entry("FIXTURE-ENEMY-A"));
+            var phase = WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 5f, 1f, null, WaveTestData.Entry("FIXTURE-ENEMY-A"));
 
-            Assert.Throws<ArgumentException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, Array.Empty<WavePhaseDefinition>()));
-            Assert.Throws<ArgumentException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, new[] { phase, phase }));
+            Assert.Throws<ArgumentException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 3, Array.Empty<WavePhaseDefinition>()));
+            Assert.Throws<ArgumentException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 3, new[] { phase, phase }));
             Assert.Throws<ArgumentException>(() => new WaveTimelineDefinition(
                 "FIXTURE-T",
                 1,
                 WaveTestData.SpawnRadius,
+                3,
                 new[] { phase },
                 new[]
                 {
                     new WaveHookDefinition(WaveHookKind.MidBoss, 1f),
                     new WaveHookDefinition(WaveHookKind.MidBoss, 2f)
                 }));
-            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, 0f, new[] { phase }));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, 0f, 3, new[] { phase }));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 0, new[] { phase }));
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveHookDefinition(WaveHookKind.FinalBoss, -1f));
         }
 
@@ -109,7 +110,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(8f, timeline.SpawnRadius, "Spawn radius comes from the JSON, not a component default.");
             Assert.AreEqual(WavePhaseTag.Ordinary, tags[0]);
             Assert.GreaterOrEqual(timeline.TotalDurationSeconds, 15f * 60f);
-            Assert.AreEqual(200, timeline.Phases.Max(phase => phase.MaxAliveEnemies));
+            Assert.AreEqual(200, timeline.MaxAliveEnemies);
             CollectionAssert.AreEquivalent(
                 new[] { WaveHookKind.MidBoss, WaveHookKind.FinalBoss },
                 timeline.Hooks.Select(hook => hook.Kind));
@@ -127,7 +128,6 @@ namespace Game.Enemy.Tests
             Assert.Greater(
                 elite.Min(phase => 1f / phase.SpawnIntervalSeconds),
                 rest.Max(phase => 1f / phase.SpawnIntervalSeconds));
-            Assert.Greater(elite.Min(phase => phase.MaxAliveEnemies), rest.Max(phase => phase.MaxAliveEnemies));
         }
 
         [Test]

@@ -4,7 +4,7 @@
     "knockbackResistance": 0,
     "maxHealth": 32,
     "collisionSize": 0.8,
-    "movementSpeed": 1.2,
+    "movementSpeed": 0.96,
     "contactDamage": 10,
     "contactDamageInterval": 1,
     "experienceReward": 1,

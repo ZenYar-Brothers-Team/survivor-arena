@@ -45,12 +45,13 @@ def main():
     require(any(first[e] > 0 for e in data["newEnemiesInFirstWave"]) and set(data["newEnemiesInFirstWave"]) <= set(pool) - field_one,
             "A new enemy type must appear in the first wave (DECISION-0063)")
 
-    # Timeline: same pacing skeleton as FIELD-001, never lighter, constant visible field modifiers.
-    phases, f1 = data["timeline"]["phases"], base["timeline"]["phases"]
-    require(len(phases) == len(f1), "Same phase skeleton as FIELD-001")
+    # Timeline keeps its approved cadence; the ordinary-enemy ceiling is a shared technical safeguard.
+    phases = data["timeline"]["phases"]
+    require(data["timeline"]["maxAliveEnemies"] == base["timeline"]["maxAliveEnemies"] == 200,
+            "All fields use the shared technical ordinary-enemy cap")
     elapsed = 0
-    for p, q in zip(phases, f1):
-        require(p["startSeconds"] == elapsed == q["startSeconds"] and p["durationSeconds"] == q["durationSeconds"],
+    for p in phases:
+        require(p["startSeconds"] == elapsed and p["durationSeconds"] > 0,
                 f"Timeline gap/drift: {p['id']}")
         elapsed += p["durationSeconds"]
         require(set(p["composition"]) == set(pool) and sum(p["composition"].values()) == 100
@@ -58,11 +59,11 @@ def main():
         require(p["modifiers"] == {"healthMultiplier": pressure["healthMultiplier"], "speedMultiplier": 1,
                                    "contactDamageMultiplier": pressure["damageMultiplier"],
                                    "attackDamageMultiplier": pressure["damageMultiplier"]}, f"Modifiers: {p['id']}")
-        require(p["maxAliveEnemies"] >= q["maxAliveEnemies"], f"Lighter cap than FIELD-001: {p['id']}")
+        require("maxAliveEnemies" not in p, f"Phase-specific cap returned: {p['id']}")
         if p["spawnMode"] == "Continuous":
-            require(0 < p["spawnIntervalSeconds"] <= q["spawnIntervalSeconds"], f"Sparser than FIELD-001: {p['id']}")
+            require(p["spawnIntervalSeconds"] > 0, f"Invalid cadence: {p['id']}")
         else:
-            require(p["burst"]["count"] >= q["burst"]["count"], f"Smaller burst than FIELD-001: {p['id']}")
+            require(p["burst"]["count"] > 0, f"Invalid burst: {p['id']}")
     require(elapsed == 900, "Timeline must cover 900 s")
     require([h["timeSeconds"] for h in data["timeline"]["hooks"]] == [450, 810], "Boss hooks at 7:30 / 13:30")
 

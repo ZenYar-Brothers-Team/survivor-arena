@@ -84,7 +84,7 @@ namespace Game.Enemy.Tests
 
             Assert.AreEqual(0, director.Advance(1f, 1f, true, 0));
             Assert.AreEqual(1, director.Advance(2f, 1f, true, 0), "Ordinary phase spawns every 2s.");
-            Assert.AreEqual(0, director.Advance(4.5f, 2f, true, 4), "Alive at the cap blocks spawning.");
+            Assert.AreEqual(0, director.Advance(4.5f, 2f, true, 8), "Alive at the shared technical cap blocks spawning.");
 
             director.Advance(10f, 0f, true, 0);
             Assert.AreEqual(4, director.Advance(12f, 2f, true, 0), "Pressure phase spawns every 0.5s.");
@@ -131,9 +131,10 @@ namespace Game.Enemy.Tests
                     "FIXTURE-WAVE-WEIGHTS",
                     seed,
                     WaveTestData.SpawnRadius,
+                    5,
                     new[]
                     {
-                        WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 60f, 1f, 5, null,
+                        WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 60f, 1f, null,
                             WaveTestData.Entry("FIXTURE-ENEMY-A", 3f),
                             WaveTestData.Entry("FIXTURE-ENEMY-B", 1f))
                     }),

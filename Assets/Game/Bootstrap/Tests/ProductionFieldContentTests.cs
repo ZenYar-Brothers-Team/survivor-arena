@@ -19,7 +19,7 @@ namespace Game.Bootstrap.Tests
         {
             var timeline = Timeline();
             Assert.AreEqual("FIELD-001-TIMELINE", timeline.Id.ToString());
-            Assert.AreEqual(24, timeline.Phases.Count);
+            Assert.AreEqual(16, timeline.Phases.Count);
             Assert.AreEqual(900f, timeline.TotalDurationSeconds, 1e-3f);
             Assert.AreEqual(12f, timeline.SpawnRadius);
             Assert.AreEqual(20f, timeline.OpeningSpawn.DurationSeconds, "DECISION-0057: screen-edge opening spawn.");
@@ -28,11 +28,17 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(810f, timeline.Hooks.Single(h => h.Kind == WaveHookKind.FinalBoss).TimeSeconds);
             var ids = timeline.Phases.SelectMany(p => p.Composition).Select(c => c.Enemy.Id.ToString()).Distinct().OrderBy(i => i);
             CollectionAssert.AreEqual(new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" }, ids);
-            Assert.AreEqual(200, timeline.Phases.Max(p => p.MaxAliveEnemies));
-            CollectionAssert.AreEqual(new[] { 12, 18, 18, 24, 24, 20 },
+            Assert.AreEqual(200, timeline.MaxAliveEnemies);
+            Assert.IsTrue(timeline.Phases.All(p => p.Composition.Count >= 2 && p.Composition.Count <= 4),
+                "FIELD-001 phases use focused two-to-four enemy compositions.");
+            Assert.IsTrue(timeline.Phases.Skip(4).Where(p => p.Tag != WavePhaseTag.Rest && p.SpawnMode == WaveSpawnMode.Continuous)
+                .All(p => p.DurationSeconds >= 70f && p.DurationSeconds <= 90f), "Later combat waves last 70–90 seconds.");
+            Assert.IsTrue(timeline.Phases.Where(p => p.Tag == WavePhaseTag.Rest).All(p => p.DurationSeconds == 20f),
+                "Respites stay short.");
+            CollectionAssert.AreEqual(new[] { 12, 20 },
                 timeline.Phases.Where(p => p.SpawnMode == WaveSpawnMode.Burst).Select(p => p.Burst.Count).ToArray());
-            Assert.IsFalse(timeline.Phases.Take(9).Any(p => p.Composition.Any(c => c.Enemy.Id.ToString() == "ENEMY-005")),
-                "Archer enters only from 6:00.");
+            Assert.IsFalse(timeline.Phases.Take(8).Any(p => p.Composition.Any(c => c.Enemy.Id.ToString() == "ENEMY-005")),
+                "Archer enters only after the opening sequence.");
         }
 
         [Test]

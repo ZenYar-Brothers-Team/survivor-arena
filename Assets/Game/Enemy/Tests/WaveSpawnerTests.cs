@@ -48,9 +48,10 @@ namespace Game.Enemy.Tests
                 "FIXTURE-WAVE-SPAWNER",
                 3,
                 WaveTestData.SpawnRadius,
+                maxAlive,
                 new[]
                 {
-                    WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 60f, 1f, maxAlive, null,
+                    WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 60f, 1f, null,
                         WaveTestData.Entry("FIXTURE-ENEMY-A"))
                 });
             return new WaveDirector(timeline, WaveTestData.TestEnemies(), 60f);
@@ -60,8 +61,8 @@ namespace Game.Enemy.Tests
             _spawnerObject.GetComponentsInChildren<EnemyRuntime>(false).ToList();
 
         private WaveDirector CreateBurstDirector(int count) => new WaveDirector(
-            new WaveTimelineDefinition("FIXTURE-BURST-T", 3, WaveTestData.SpawnRadius,
-                new[] { new WavePhaseDefinition("FIXTURE-BURST-P", "Burst", WavePhaseTag.Pressure, 60, 1, 1,
+            new WaveTimelineDefinition("FIXTURE-BURST-T", 3, WaveTestData.SpawnRadius, 200,
+                new[] { new WavePhaseDefinition("FIXTURE-BURST-P", "Burst", WavePhaseTag.Pressure, 60, 1,
                     new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, spawnMode: WaveSpawnMode.Burst,
                     burst: new WaveBurstDefinition(count, 0, 1)) }), WaveTestData.TestEnemies(), 60);
 
@@ -137,7 +138,7 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void Tick_SpawnsUpToPhaseCapAndRegistersEnemies()
+        public void Tick_SpawnsUpToTimelineTechnicalCapAndRegistersEnemies()
         {
             _spawner.Initialize(CreateDirector());
 

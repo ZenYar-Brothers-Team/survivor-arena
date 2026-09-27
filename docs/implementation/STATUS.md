@@ -3,9 +3,9 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
-Current active packet: нет; REPO-01 завершён в разрешённом scope.
+Current active packet: нет; wave cap / FIELD-001 rhythm follow-up завершён, ручной плейтест открыт.
 Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md). Ручную приёмку эти проверки не заменяют.
+Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
@@ -51,6 +51,10 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 Подлаг перед первым level-up ([DECISION-0074](../decisions/0074-pickup-hitch-and-fresh-drop-seed.md)): первый дроп зелья строил visual и полный поиск точки внутри смерти врага (88 ms в PlayMode, 372 ms в Editor); пул прогревается при сборке забега, размещение сначала проверяет прямой отрезок от игрока — 1.2 ms. Броски и разброс дропа получают свежий seed на каждый забег.
 
 Ребаланс прогрессии ([DECISION-0075](../decisions/0075-progression-specialization-and-survivability.md)): первые уровни втрое дороже при прежней сумме XP к L40; стартовое умение персонажа получает специализацию ≈×2 (CHAR-001: +60% damage, +25% action speed); урон врагов по игроку ×0.7; зелье 30 HP; регенерация вдвое слабее; дроп пикапов без поиска пути. EditMode 870/870, PlayMode 30/30 PASS (`TestResults/checks/20260927T172233-150157Z`). Темп и выживаемость ждут ручного прогона.
+
+Ритм волн ([DECISION-0076](../decisions/0076-wave-cap-and-field001-rhythm.md)): `maxAliveEnemies=200` перенесён на timeline и стал единым техническим пределом continuous/burst; FIELD-001 сокращён с 24 до 16 фаз, после быстрого старта combat-фазы 70–90 s, передышки 20 s, составы 2–4 типа. Номинальный поток сохранён: 1736 requests и expected XP 2886.6 против прежних ≈1735/≈2883. Unity full PASS 870/870 + 30/30; ручная оценка темпа/производительности открыта. [Evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md).
+
+Ранние вееры и первый враг ([DECISION-0077](../decisions/0077-early-projectile-growth-and-enemy001-speed.md)): projectile counts SKILL-002 теперь 3/4/5/7/9/11, SKILL-013 — 4/5/6/7/9/13; прежние финальные 11/13 сохранены. ENEMY-001 «Селянин с вилами» замедлен ровно на 20%, 1.20 → 0.96. Static validators PASS; Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T191226-569482Z`). Ручная оценка ранней силы и давления открыта. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
@@ -363,12 +367,12 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 
 Status: Verified
 Dependencies: IP-04, IP-13
-Current packet: Explicit continuous/burst schema, one-shot uncapped windows, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection.
-Remaining gates: Нет для synthetic framework. W-01 выполнен по DECISION-0029; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
+Current packet: timeline-level technical cap 200 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076).
+Remaining gates: Нет для synthetic framework. W-01 обновлён по DECISION-0076; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
 Remaining acceptance / IDs: none for the fixture framework packet.
-Target implementation evidence: [IP-14 evidence](evidence/design-sync-R2-2026-09-21-ip14.md#ip-14), [runtime/schema](modules/IP-14-wave-director.md#runtime-и-fixture-schema).
-Target verification evidence: 2026-09-21, Unity 6000.6.0f1: **496/496 Game.* EditMode, 9/9 PlayMode, 0 skipped**. 100 enemies ×10 cycles: empty-pool 10.342 ms, pooled max 1.376 ms; approved bounds 250/50 ms, unique objects 100, registry baseline restored. [Conditions/results](evidence/design-sync-R2-2026-09-21-ip14.md#checks).
-Documentation impact: DECISION-0014 supplement, IP-14 schema/fixture rationale, IP-15/IP-24 consumer contracts и readiness. GDD/CD/art без изменений; production balance/FPS guarantees не заявлены.
+Target implementation evidence: [DECISION-0076 follow-up](evidence/2026-09-27-wave-cap-and-field001-rhythm.md), [runtime/schema](modules/IP-14-wave-director.md#runtime-и-fixture-schema).
+Target verification evidence: 2026-09-27, Unity 6000.6.0f1: **870/870 Game.* EditMode, 30/30 PlayMode, 0 skipped**; targeted wave/bootstrap/UI EditMode **293/293**. [Details](evidence/2026-09-27-wave-cap-and-field001-rhythm.md#проверки).
+Documentation impact: GDD/CD, DECISION-0014/0029/0045/0076, IP-14/IP-24, balance packets и STATUS синхронизированы. Production FPS guarantee не заявляется; manual FIELD-001 review открыт.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-14).
 
 ### IP-15 — Boss/mid-boss encounter framework
@@ -466,6 +470,7 @@ Late IDs 2026-09-26: SKILL-008/009/011/012/015/016 Implemented (production JSON,
 Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passives-v1.md) для SKILL-008/009/011/012/015/016 — Approved 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); static validator PASS. SKILL-012 использует процедурный луч; world art остальных четырёх подключён ниже.
 World art 2026-09-26: пользователь утвердил SKILL-009/011/015/016; immutable masters, provenance, runtime PNG и typed references подключены. Unity full PASS 769/769 EditMode + 27/27 PlayMode, manifest 108/108; gameplay-scale review остаётся открытым. [Evidence](evidence/2026-09-26-late-skill-world-art.md).
 Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
+Balance follow-up 2026-09-27: SKILL-002/013 получили постепенный projectile-count growth с прежними финальными caps; production data и all-level assertions синхронизированы, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 Target implementation evidence: F1-01 subset и поздние SKILL-008/009/011/012/015/016; см. evidence выше.
 Target verification evidence: автоматические проверки PASS 2026-09-26; ручная visual acceptance не проведена.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).
@@ -514,6 +519,7 @@ Remaining acceptance / IDs: ENEMY-006/008/009 и ENEMY-010…020 gameplay-scale 
 Data packet 2026-09-26: [enemies-v1](../balance/enemies-v1.md) — недостающие параметры 14 врагов, скорость ×1.3 к карточной по образцу FIELD-001, прочие карточные числа без изменений; Approved 2026-09-26 ([DECISION-0062](../decisions/0062-enemies-data-v1.md)); static validator PASS; G-14 для этих ID закрыт.
 Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты); ENEMY-006/008/009 body art — [FIELD-002 evidence](evidence/2026-09-26-field002-enemy-art.md), ENEMY-010…020 body art — [late-art evidence](evidence/2026-09-26-late-enemy-body-art.md). Projectile v001 для ENEMY-010/011/012/014/015/018/019 утверждены и подключены 2026-09-27; полный PASS 857/857 EditMode + 30/30 PlayMode, manifest 188/188. Открыт только ручной gameplay-scale review. [Projectile art evidence](evidence/2026-09-27-enemy-projectile-art.md).
 Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
+Balance follow-up 2026-09-27: ENEMY-001 speed 1.20 → 0.96 (−20%); прочие параметры и Seek-поведение сохранены, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 ENEMY-007 body contact refit to its approved half-size v002 sprite: radius 0.266696, centerY 0.299833; global contact fit PASS, Unity full smoke 784/784 EditMode и 27/27 PlayMode, zero skipped — [evidence](evidence/2026-09-26-enemy007-contact-refit.md). Остальные gates и статус IP-20 не изменились.
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1: 641/641 Game.* EditMode и 23/23 PlayMode, 0 skipped. Import/reimport GUID, registry refs, child-only motion, hit/pause, death/mixed-pool reuse и Gameplay spawner. [Условия и ограничения](evidence/2026-09-21-enemy001-art.md#verification).
@@ -596,9 +602,10 @@ Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-23 
 Remaining gates: CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон.
 Remaining acceptance / IDs: Полные production encounter schedules и bindings полей 004…010 (002/003 реализованы, ручные прогоны открыты); CG-02/CG-04; Unity verification FIELD-001.
 Startup subset F1-08: FIELD-001-TIMELINE (900 s, hooks 450/810) и startup bindings Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
-FIELD-003-TIMELINE Implemented 2026-09-27 по field003-v1 (DECISION-0067): 24 фазы, HP ×1.24, урон ×1.16, ENEMY-010 с первой волны, лимит со всплеском ≤ 250; Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md). Ручной прогон не выполнен.
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+DECISION-0076 follow-up Verified 2026-09-27: FIELD-001 — 16 фаз с 2–4 типами, combat-фазы 70–90 s и передышки 20 s; cap 200 перенесён на timeline и применяется также к burst. Unity full PASS 870/870 + 30/30; [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md). Ручной плейтест открыт.
+FIELD-003-TIMELINE Implemented 2026-09-27 по field003-v1 (DECISION-0067): 24 фазы, HP ×1.24, урон ×1.16, ENEMY-010 с первой волны; после DECISION-0076 использует общий технический cap 200. Исторический Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md). Ручной прогон не выполнен.
+Target implementation evidence: FIELD-001 rhythm и общий cap — [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md); остальные поля 004…010 остаются gated.
+Target verification evidence: DECISION-0076 delta — Unity 6000.6.0f1, 870/870 EditMode + 30/30 PlayMode, 0 skipped; ручной плейтест не выполнен.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24).
 
 ### IP-27 — End-to-end integration, regression и content validation

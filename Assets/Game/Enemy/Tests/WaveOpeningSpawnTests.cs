@@ -40,8 +40,8 @@ namespace Game.Enemy.Tests
         [Test]
         public void Director_OpeningIsActiveOnlyBeforeItsDuration()
         {
-            var timeline = new WaveTimelineDefinition("FIXTURE-WAVE-OPENING", 7, WaveTestData.SpawnRadius,
-                new[] { WaveTestData.Phase("FIXTURE-PHASE-ORDINARY", WavePhaseTag.Ordinary, 30f, 1f, 10, null, WaveTestData.Entry("FIXTURE-ENEMY-A")) },
+            var timeline = new WaveTimelineDefinition("FIXTURE-WAVE-OPENING", 7, WaveTestData.SpawnRadius, 10,
+                new[] { WaveTestData.Phase("FIXTURE-PHASE-ORDINARY", WavePhaseTag.Ordinary, 30f, 1f, null, WaveTestData.Entry("FIXTURE-ENEMY-A")) },
                 openingSpawn: new WaveOpeningSpawnDefinition(20f, Margin));
             var director = new WaveDirector(timeline, WaveTestData.TestEnemies(), 30f);
 
@@ -64,7 +64,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void Catalog_ReadsOpening_AndRejectsMissingFieldsByName()
         {
-            const string template = "{{\"id\":\"FIXTURE-T\",\"seed\":1,\"spawnRadius\":6,{0}\"phases\":[{{\"id\":\"FIXTURE-P\",\"displayName\":\"P\",\"tag\":\"Ordinary\",\"spawnMode\":\"Continuous\",\"durationSeconds\":10,\"spawnIntervalSeconds\":1,\"maxAliveEnemies\":4,\"composition\":[{{\"enemyId\":\"FIXTURE-ENEMY-A\",\"weight\":1}}]}}]}}";
+            const string template = "{{\"id\":\"FIXTURE-T\",\"seed\":1,\"spawnRadius\":6,\"maxAliveEnemies\":4,{0}\"phases\":[{{\"id\":\"FIXTURE-P\",\"displayName\":\"P\",\"tag\":\"Ordinary\",\"spawnMode\":\"Continuous\",\"durationSeconds\":10,\"spawnIntervalSeconds\":1,\"composition\":[{{\"enemyId\":\"FIXTURE-ENEMY-A\",\"weight\":1}}]}}]}}";
 
             var timeline = FixtureWaveTimelineCatalog.FromJson(string.Format(template, "\"openingSpawn\":{\"durationSeconds\":20,\"screenMargin\":1},"));
             Assert.AreEqual(20f, timeline.OpeningSpawn.DurationSeconds);

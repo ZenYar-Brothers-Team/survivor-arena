@@ -256,7 +256,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 5,
+                "projectileCount": 3,
                 "layout": "Fan",
                 "spreadDegrees": 60,
                 "pierceCount": 0,
@@ -287,7 +287,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 7,
+                "projectileCount": 4,
                 "layout": "Fan",
                 "spreadDegrees": 60,
                 "pierceCount": 0,
@@ -318,7 +318,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 7,
+                "projectileCount": 5,
                 "layout": "Fan",
                 "spreadDegrees": 60,
                 "pierceCount": 0,
@@ -349,7 +349,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 9,
+                "projectileCount": 7,
                 "layout": "Fan",
                 "spreadDegrees": 90,
                 "pierceCount": 0,
@@ -2434,7 +2434,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 7,
+                "projectileCount": 4,
                 "layout": "Fan",
                 "spreadDegrees": 70,
                 "pierceCount": 0,
@@ -2467,7 +2467,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 9,
+                "projectileCount": 5,
                 "layout": "Fan",
                 "spreadDegrees": 70,
                 "pierceCount": 0,
@@ -2500,7 +2500,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 9,
+                "projectileCount": 6,
                 "layout": "Fan",
                 "spreadDegrees": 70,
                 "pierceCount": 0,
@@ -2533,7 +2533,7 @@
             "effects": [
               {
                 "kind": "ProjectileBurst",
-                "projectileCount": 9,
+                "projectileCount": 7,
                 "layout": "Fan",
                 "spreadDegrees": 85,
                 "pierceCount": 1,

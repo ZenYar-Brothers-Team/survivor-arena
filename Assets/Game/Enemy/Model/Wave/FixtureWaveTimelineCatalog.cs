@@ -34,7 +34,8 @@ namespace Game.Enemy
                 data.OpeningSpawn.ScreenMargin ?? throw new InvalidOperationException("Opening spawn requires screenMargin."));
 
             return new WaveTimelineDefinition(data.Id,
-                data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius, phases, hooks,
+                data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius,
+                data.MaxAliveEnemies ?? throw new InvalidOperationException("Wave timeline requires maxAliveEnemies."), phases, hooks,
                 opening);
         }
 
@@ -64,7 +65,6 @@ namespace Game.Enemy
                 data.Tag,
                 data.DurationSeconds,
                 data.SpawnIntervalSeconds,
-                data.MaxAliveEnemies,
                 composition,
                 modifiers, mode, burst);
         }

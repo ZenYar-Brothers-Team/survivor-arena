@@ -45,9 +45,8 @@ namespace Game.Bootstrap.Tests
                 Assert.AreEqual(1.16f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1.16f, phase.Modifiers.AttackDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1f, phase.Modifiers.SpeedMultiplier, 1e-5f, phase.Id.ToString());
-                var burst = phase.SpawnMode == WaveSpawnMode.Burst ? phase.Burst.Count : 0;
-                Assert.LessOrEqual(phase.MaxAliveEnemies + burst, 250, $"{phase.Id}: within the 250-ordinary stress target.");
             }
+            Assert.AreEqual(200, configuration.Timeline.MaxAliveEnemies, "Shared technical ordinary-enemy cap.");
             Assert.AreEqual(900f, configuration.Timeline.TotalDurationSeconds, 1e-3f);
         }
 
