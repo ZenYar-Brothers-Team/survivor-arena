@@ -85,6 +85,7 @@ namespace Game.UI.Tests
                 view.RaiseAddExperience();
                 view.RaiseDamage();
                 view.RaiseHealing();
+                view.RaiseHealthLock();
                 view.RaisePresentationMotion(SpritePresentationPreviewMotion.Left);
                 view.RaisePresentationReset();
 
@@ -95,6 +96,8 @@ namespace Game.UI.Tests
                 Assert.AreEqual(1, model.AddExperienceCalls);
                 Assert.AreEqual(1, model.DamageCalls);
                 Assert.AreEqual(1, model.HealingCalls);
+                Assert.IsTrue(model.IsHealthLocked);
+                Assert.IsTrue(view.Hud.IsHealthLocked);
                 Assert.AreEqual(SpritePresentationPreviewMotion.Left, model.LastPreviewMotion);
                 Assert.AreEqual(1, model.PresentationResetCalls);
             }
@@ -507,6 +510,8 @@ namespace Game.UI.Tests
             public int UnlockAllDraftEntries() { UnlockAllCalls++; return 0; }
             public void ApplyFixtureDamage() => DamageCalls++;
             public void ApplyFixtureHealing() => HealingCalls++;
+            public bool IsHealthLocked { get; private set; }
+            public void ToggleFixtureHealthLock() => IsHealthLocked = !IsHealthLocked;
             public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
                 LastPreviewMotion = previewMotion;
             public void ResetPresentation() => PresentationResetCalls++;
@@ -527,6 +532,7 @@ namespace Game.UI.Tests
         public event Action AddBookRequested;
             public event Action ApplyDamageRequested;
             public event Action ApplyHealingRequested;
+            public event Action ToggleHealthLockRequested;
             public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
             public event Action PresentationResetRequested;
             public HudViewState Hud { get; private set; }
@@ -561,6 +567,7 @@ namespace Game.UI.Tests
             public void RaiseUnlockAll() => UnlockAllDraftEntriesRequested?.Invoke();
             public void RaiseDamage() => ApplyDamageRequested?.Invoke();
             public void RaiseHealing() => ApplyHealingRequested?.Invoke();
+            public void RaiseHealthLock() => ToggleHealthLockRequested?.Invoke();
             public void RaisePresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
                 PresentationMotionPreviewRequested?.Invoke(previewMotion);
             public void RaisePresentationReset() => PresentationResetRequested?.Invoke();

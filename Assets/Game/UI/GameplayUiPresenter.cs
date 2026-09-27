@@ -44,6 +44,7 @@ namespace Game.UI
             _view.AddBookRequested += HandleAddBookRequested;
             _view.ApplyDamageRequested += HandleApplyDamageRequested;
             _view.ApplyHealingRequested += HandleApplyHealingRequested;
+            _view.ToggleHealthLockRequested += HandleToggleHealthLockRequested;
             _view.PresentationMotionPreviewRequested += HandlePresentationMotionPreviewRequested;
             _view.PresentationResetRequested += HandlePresentationResetRequested;
             _started = true;
@@ -66,7 +67,8 @@ namespace Game.UI
                     _model.WavePhaseTag),
                 _model.Stats,
                 _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss,
-                _model.SpeedMultiplier, _model.RunState == RunState.Running, _model.RunDurationSeconds));
+                _model.SpeedMultiplier, _model.RunState == RunState.Running, _model.RunDurationSeconds,
+                _model.DevelopmentCommandsEnabled && _model.IsHealthLocked));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
@@ -440,6 +442,13 @@ namespace Game.UI
                 _model.ApplyFixtureHealing();
         }
 
+        private void HandleToggleHealthLockRequested()
+        {
+            if (!_model.DevelopmentCommandsEnabled) return;
+            _model.ToggleFixtureHealthLock();
+            RefreshHud();
+        }
+
         private void HandlePresentationMotionPreviewRequested(SpritePresentationPreviewMotion previewMotion)
         {
             if (_model.DevelopmentCommandsEnabled)
@@ -469,6 +478,7 @@ namespace Game.UI
             _view.AddBookRequested -= HandleAddBookRequested;
             _view.ApplyDamageRequested -= HandleApplyDamageRequested;
             _view.ApplyHealingRequested -= HandleApplyHealingRequested;
+            _view.ToggleHealthLockRequested -= HandleToggleHealthLockRequested;
             _view.PresentationMotionPreviewRequested -= HandlePresentationMotionPreviewRequested;
             _view.PresentationResetRequested -= HandlePresentationResetRequested;
             _started = false;

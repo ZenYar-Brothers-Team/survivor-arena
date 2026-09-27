@@ -83,5 +83,30 @@ namespace Game.Combat.Tests
             Assert.AreEqual(4f, cappedHealing, 0.0001f);
             Assert.AreEqual(10f, health.CurrentHealth, 0.0001f);
         }
+
+        [Test]
+        public void IsLocked_WhenSet_FreezesHealthAndUnlockRestoresChanges()
+        {
+            var health = new Health(new FixedHealthProfile(10f));
+            health.TakeDamage(4f);
+            var damagedEvents = 0;
+            health.Damaged += _ => damagedEvents++;
+
+            health.IsLocked = true;
+            var lockedDamage = health.TakeDamage(100f);
+            var lockedHealing = health.Heal(3f);
+
+            Assert.AreEqual(0f, lockedDamage);
+            Assert.AreEqual(0f, lockedHealing);
+            Assert.AreEqual(6f, health.CurrentHealth, 0.0001f);
+            Assert.IsFalse(health.IsDead);
+            Assert.AreEqual(0, damagedEvents);
+
+            health.IsLocked = false;
+            health.TakeDamage(1f);
+
+            Assert.AreEqual(5f, health.CurrentHealth, 0.0001f);
+            Assert.AreEqual(1, damagedEvents);
+        }
     }
 }

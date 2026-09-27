@@ -18,6 +18,7 @@ namespace Game.UI
         event Action AddBookRequested;
         event Action ApplyDamageRequested;
         event Action ApplyHealingRequested;
+        event Action ToggleHealthLockRequested;
         event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
         event Action PresentationResetRequested;
 

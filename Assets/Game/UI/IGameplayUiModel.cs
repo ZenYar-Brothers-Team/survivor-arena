@@ -59,6 +59,8 @@ namespace Game.UI
         void AddFixtureBook();
         void ApplyFixtureDamage();
         void ApplyFixtureHealing();
+        bool IsHealthLocked { get; }
+        void ToggleFixtureHealthLock();
         void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion);
         void ResetPresentation();
     }

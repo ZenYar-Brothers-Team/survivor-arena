@@ -126,6 +126,7 @@ namespace Game.UI
         public const string UnlockAllDraftEntriesButton = "development-unlock-all";
         public const string DamageButton = "development-damage";
         public const string HealButton = "development-heal";
+        public const string HealthLockButton = "development-health-lock";
         public const string SkillObservation = "development-skill-observation";
         public const string EnemyObservation = "development-enemy-observation";
         public const string WaveObservation = "development-wave-observation";

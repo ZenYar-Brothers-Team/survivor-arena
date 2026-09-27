@@ -18,6 +18,7 @@ namespace Game.UI
         public BossViewState Boss { get; }
         public int SpeedMultiplier { get; }
         public bool CanChangeSpeed { get; }
+        public bool IsHealthLocked { get; }
 
         public HudViewState(
             float currentHealth,
@@ -28,7 +29,8 @@ namespace Game.UI
             WaveViewState wave,
             CharacterStatsViewState stats = null,
             RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default,
-            int speedMultiplier = 1, bool canChangeSpeed = false, float runDurationSeconds = 0f)
+            int speedMultiplier = 1, bool canChangeSpeed = false, float runDurationSeconds = 0f,
+            bool isHealthLocked = false)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
@@ -43,6 +45,7 @@ namespace Game.UI
             Boss = boss;
             SpeedMultiplier = speedMultiplier;
             CanChangeSpeed = canChangeSpeed;
+            IsHealthLocked = isHealthLocked;
         }
     }
 }

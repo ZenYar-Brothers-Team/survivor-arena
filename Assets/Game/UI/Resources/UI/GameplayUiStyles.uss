@@ -277,6 +277,12 @@
     background-color: rgb(66, 76, 98);
 }
 
+.development-panel .development-lock-active {
+    background-color: rgb(150, 52, 44);
+    border-color: rgb(220, 110, 96);
+    -unity-font-style: bold;
+}
+
 .development-panel .development-tab-active {
     background-color: rgb(69, 91, 130);
     -unity-font-style: bold;

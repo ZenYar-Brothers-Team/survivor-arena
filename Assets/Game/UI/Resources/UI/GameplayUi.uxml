@@ -75,6 +75,7 @@
                     <ui:Button name="development-add-xp-100" text="+100 XP" class="compact-button" />
                     <ui:Button name="development-damage" text="-10 HP" class="compact-button" />
                     <ui:Button name="development-heal" text="+10 HP" class="compact-button" />
+                    <ui:Button name="development-health-lock" text="Lock HP" class="compact-button" tooltip="Freeze current HP (god mode for testing)" />
                 </ui:VisualElement>
                 <ui:Label text="ENEMY FIXTURE" class="development-section-title development-section-spaced" />
                 <ui:Label name="development-enemy-observation" text="Enemy fixtures unavailable" class="development-help" />

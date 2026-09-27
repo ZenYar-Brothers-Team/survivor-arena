@@ -12,6 +12,9 @@ namespace Game.Combat
         public float CurrentHealth { get; private set; }
         public float MaxHealth => _profile.MaxHealth;
         public bool IsDead { get; private set; }
+        // Development HP lock (DECISION-0005 debug surface): while set, damage and healing
+        // leave CurrentHealth unchanged. Never set by gameplay code.
+        public bool IsLocked { get; set; }
 
         public event Action<float, float> HealthChanged;
         public event Action<float> Damaged;
@@ -30,7 +33,7 @@ namespace Game.Combat
         public HealthChange TakeDamageMeasured(float amount)
         {
             NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
-            if (IsDead || amount == 0f)
+            if (IsDead || IsLocked || amount == 0f)
                 return new HealthChange(amount, 0f, 0f, false);
 
             var previousHealth = CurrentHealth;
@@ -62,7 +65,7 @@ namespace Game.Combat
         public HealthChange HealMeasured(float amount)
         {
             NumericValidation.ValidateNonNegativeFinite(amount, nameof(amount));
-            if (IsDead || amount == 0f)
+            if (IsDead || IsLocked || amount == 0f)
                 return new HealthChange(amount, 0f, 0f, true);
 
             var previousHealth = CurrentHealth;
@@ -100,6 +103,15 @@ namespace Game.Combat
         {
             if (_lastMaxHealth == MaxHealth) return;
             var previousHealth = CurrentHealth;
+            if (IsLocked)
+            {
+                // A locked value only follows a max-health drop below it.
+                _lastMaxHealth = MaxHealth;
+                CurrentHealth = Math.Min(MaxHealth, CurrentHealth);
+                if (Math.Abs(CurrentHealth - previousHealth) > float.Epsilon)
+                    HealthChanged?.Invoke(previousHealth, CurrentHealth);
+                return;
+            }
             var healthRatio = _lastMaxHealth > 0f ? CurrentHealth / _lastMaxHealth : 0f;
             _lastMaxHealth = MaxHealth;
             CurrentHealth = Math.Min(MaxHealth, Math.Max(0f, healthRatio * MaxHealth));

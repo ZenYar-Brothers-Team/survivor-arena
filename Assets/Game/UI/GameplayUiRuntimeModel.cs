@@ -132,6 +132,12 @@ namespace Game.UI
         }
         public void ApplyFixtureDamage() => _player.TakeDamage(10f);
         public void ApplyFixtureHealing() => _player.Heal(10f);
+        public bool IsHealthLocked => _player.Health.IsLocked;
+        public void ToggleFixtureHealthLock()
+        {
+            _player.Health.IsLocked = !_player.Health.IsLocked;
+            Changed?.Invoke();
+        }
         public void PreviewPresentationMotion(SpritePresentationPreviewMotion previewMotion) =>
             _presentation.SetPreviewMotion(previewMotion);
         public void ResetPresentation() => _presentation.ResetPresentation();

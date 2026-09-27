@@ -66,6 +66,7 @@ namespace Game.UI
         private readonly Button _unlockAllDraftEntriesButton;
         private readonly Button _damageButton;
         private readonly Button _healButton;
+        private readonly Button _healthLockButton;
         private readonly Label _enemyObservation;
         private readonly Label _waveObservation;
         private readonly Label _skillObservation;
@@ -92,6 +93,7 @@ namespace Game.UI
         public event Action AddBookRequested;
         public event Action ApplyDamageRequested;
         public event Action ApplyHealingRequested;
+        public event Action ToggleHealthLockRequested;
         public event Action<SpritePresentationPreviewMotion> PresentationMotionPreviewRequested;
         public event Action PresentationResetRequested;
 
@@ -150,6 +152,7 @@ namespace Game.UI
             _unlockAllDraftEntriesButton = Require<Button>(root, GameplayUiElementIds.UnlockAllDraftEntriesButton);
             _damageButton = Require<Button>(root, GameplayUiElementIds.DamageButton);
             _healButton = Require<Button>(root, GameplayUiElementIds.HealButton);
+            _healthLockButton = Require<Button>(root, GameplayUiElementIds.HealthLockButton);
             _enemyObservation = Require<Label>(root, GameplayUiElementIds.EnemyObservation);
             _skillObservation = Require<Label>(root, GameplayUiElementIds.SkillObservation);
             _waveObservation = Require<Label>(root, GameplayUiElementIds.WaveObservation);
@@ -177,6 +180,7 @@ namespace Game.UI
             _addBookButton.clicked += HandleAddBookClicked;
             _damageButton.clicked += HandleDamageClicked;
             _healButton.clicked += HandleHealingClicked;
+            _healthLockButton.clicked += HandleHealthLockClicked;
             _developmentToggleButton.clicked += HandleDevelopmentToggleClicked;
             _developmentCloseButton.clicked += HandleDevelopmentCloseClicked;
             _developmentRunTab.clicked += ShowDevelopmentRunTab;
@@ -221,6 +225,8 @@ namespace Game.UI
             var remaining = Math.Max(0, (int)Math.Ceiling(state.RunDurationSeconds - state.ElapsedSeconds));
             _timerLabel.text = $"{remaining / 60:00}:{remaining % 60:00}";
             RenderWave(state.Wave);
+            _healthLockButton.text = state.IsHealthLocked ? "HP locked" : "Lock HP";
+            _healthLockButton.EnableInClassList("development-lock-active", state.IsHealthLocked);
             if (state.Stats != null)
                 _characterStats = $"Action speed +{state.Stats.ActionSpeedBonus:P0} · Pickup radius {state.Stats.PickupRadius:0.##}";
             if (_developmentControlsAvailable && state.ExperienceTotals != null)
@@ -517,6 +523,7 @@ namespace Game.UI
         private void HandleUnlockAllDraftEntriesClicked() => UnlockAllDraftEntriesRequested?.Invoke();
         private void HandleDamageClicked() => ApplyDamageRequested?.Invoke();
         private void HandleHealingClicked() => ApplyHealingRequested?.Invoke();
+        private void HandleHealthLockClicked() => ToggleHealthLockRequested?.Invoke();
         private void HandlePresentationLiveClicked() =>
             PresentationMotionPreviewRequested?.Invoke(SpritePresentationPreviewMotion.Live);
         private void HandlePresentationIdleClicked() =>
@@ -554,6 +561,7 @@ namespace Game.UI
             _addBookButton.clicked -= HandleAddBookClicked;
             _damageButton.clicked -= HandleDamageClicked;
             _healButton.clicked -= HandleHealingClicked;
+            _healthLockButton.clicked -= HandleHealthLockClicked;
             _developmentToggleButton.clicked -= HandleDevelopmentToggleClicked;
             _developmentCloseButton.clicked -= HandleDevelopmentCloseClicked;
             _developmentRunTab.clicked -= ShowDevelopmentRunTab;
