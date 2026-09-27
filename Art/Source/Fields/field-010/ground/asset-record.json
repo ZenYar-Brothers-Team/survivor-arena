@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27).",
+  "prompt": "Use case: stylized-concept\nAsset type: seamless tileable 2D game ground texture for a top-down survivor arena\nStyle/medium: polished hand-painted fantasy game texture, soft painterly forms, readable at gameplay scale, restrained detail\nComposition/framing: exact orthographic top-down view, square texture, fully seamless on all four edges, evenly distributed surface variation, no focal point\nLighting/mood: diffuse neutral ambient light baked very lightly; no directional shadows\nConstraints: ground surface only; low contrast so characters, projectiles and hazards remain readable; no props, no objects, no walls, no borders, no horizon, no perspective, no text, no runes, no emblems, no logos, no watermark; avoid obvious repeated motifs\nPrimary request: hall-of-salvation floor made of warm ivory marble paving transformed by a sunset palette: peach, coral rose, amber gold and soft lavender reflections distributed through the stone\nColor palette: clearly warm sunset theme, peach, rose, amber, lavender and warm ivory; visually distinct from a cool white heavenly floor, no glowing symbols",
+  "constraints": [
+    "approved FIELD-010 sunset ground candidate",
+    "opaque low-contrast ground",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ground-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "144785f5370c83460eaf76cf4834b40a3ebf70e520f066d2b098690e9ed1bd53",
+    "runtimeSha256": "144785f5370c83460eaf76cf4834b40a3ebf70e520f066d2b098690e9ed1bd53",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

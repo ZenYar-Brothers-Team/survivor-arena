@@ -1174,5 +1174,61 @@
     "pivotY": 0.5,
     "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-golden-brazier-prop.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 ground tile covers eight world units per repeat; low-contrast sunset terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ground-tile.png"
   }
 ]

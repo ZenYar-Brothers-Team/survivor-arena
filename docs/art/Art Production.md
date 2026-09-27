@@ -670,3 +670,13 @@ FIELD-001…003 применяют approved additions через optional per-pi
 не выводя collider из sprite. FIELD-004…010 entries зарегистрированы без ложных
 production bindings до появления данных полей. Подробности и проверки:
 [evidence](../implementation/evidence/2026-09-27-field-obstacle-art.md).
+
+## FIELD-004…010 ground textures — 2026-09-27
+
+Семь утверждённых top-down ground textures подготовлены как `SpriteRole.Tile`:
+земля рыцарского лагеря, мостовая столицы, холодный камень академии, мшистый
+монастырский сад, тёмные плиты цитадели, светлый небесный камень и отдельный
+закатный мрамор FIELD-010. Каждый tile использует 64 PPU и 512 max import size.
+Visual IDs зарегистрированы без production bindings до появления presentation data
+FIELD-004…010. Подробности и проверки:
+[evidence](../implementation/evidence/2026-09-27-field004-010-ground-textures.md).

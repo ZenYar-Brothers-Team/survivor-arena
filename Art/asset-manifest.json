@@ -4149,6 +4149,118 @@
         "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004",
+      "role": "tile",
+      "visualId": "FIELD-004-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005",
+      "role": "tile",
+      "visualId": "FIELD-005-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006",
+      "role": "tile",
+      "visualId": "FIELD-006-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007",
+      "role": "tile",
+      "visualId": "FIELD-007-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008",
+      "role": "tile",
+      "visualId": "FIELD-008-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009",
+      "role": "tile",
+      "visualId": "FIELD-009-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010",
+      "role": "tile",
+      "visualId": "FIELD-010-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

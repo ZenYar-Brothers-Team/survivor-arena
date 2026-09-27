@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-005",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27).",
+  "prompt": "Use case: stylized-concept\nAsset type: seamless tileable 2D game ground texture for a top-down survivor arena\nStyle/medium: polished hand-painted fantasy game texture, soft painterly forms, readable at gameplay scale, restrained detail\nComposition/framing: exact orthographic top-down view, square texture, fully seamless on all four edges, evenly distributed surface variation, no focal point\nLighting/mood: diffuse neutral ambient light baked very lightly; no directional shadows\nConstraints: ground surface only; low contrast so characters, projectiles and hazards remain readable; no props, no objects, no walls, no borders, no horizon, no perspective, no text, no runes, no emblems, no logos, no watermark; avoid obvious repeated motifs\nPrimary request: worn royal-capital plaza paving made of pale warm-gray limestone cobbles and broad dressed stone slabs, with restrained dusty burgundy and faded blue mineral accents in a few seams\nColor palette: warm pearl gray, limestone beige, tiny desaturated burgundy and slate-blue accents",
+  "constraints": [
+    "approved FIELD-005 ground candidate",
+    "opaque low-contrast ground",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-005/field-005-ground-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "8e396a7bf326ccc2777946c1b9aab4f983298f6de575e9bedc5af5ebd889b9ac",
+    "runtimeSha256": "8e396a7bf326ccc2777946c1b9aab4f983298f6de575e9bedc5af5ebd889b9ac",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27).",
+  "prompt": "Use case: stylized-concept\nAsset type: seamless tileable 2D game ground texture for a top-down survivor arena\nStyle/medium: polished hand-painted fantasy game texture, soft painterly forms, readable at gameplay scale, restrained detail\nComposition/framing: exact orthographic top-down view, square texture, fully seamless on all four edges, evenly distributed surface variation, no focal point\nLighting/mood: diffuse neutral ambient light baked very lightly; no directional shadows\nConstraints: ground surface only; low contrast so characters, projectiles and hazards remain readable; no props, no objects, no walls, no borders, no horizon, no perspective, no text, no runes, no emblems, no logos, no watermark; avoid obvious repeated motifs\nPrimary request: monastery-garden ground blending compact mossy earth with irregular worn pale garden stones and delicate natural leaf-stain variation\nColor palette: muted sage, moss green, soft soil brown, weathered pale stone; calm and organic",
+  "constraints": [
+    "approved FIELD-007 ground candidate",
+    "opaque low-contrast ground",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-007/field-007-ground-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "21acaac5c6550ad74f86fe0027b1db43a971a92dced338ab7d8080ce55f3c8df",
+    "runtimeSha256": "21acaac5c6550ad74f86fe0027b1db43a971a92dced338ab7d8080ce55f3c8df",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

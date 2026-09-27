@@ -2133,5 +2133,40 @@
     "id": "FIELD-010-VISUAL-GOLDEN-BRAZIER",
     "resourcePath": "Art/Sprites/Fields/field-010/field-010-golden-brazier-prop",
     "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-005-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-006-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-007-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-008-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-009-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-010-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-ground-tile",
+    "role": "Tile"
   }
 ]
