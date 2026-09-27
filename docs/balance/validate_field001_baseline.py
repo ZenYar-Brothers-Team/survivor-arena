@@ -67,6 +67,27 @@ def main():
             "SKILL-002 projectile progression changed")
     require([row["count"] for row in skills["SKILL-013"]["levels"]] == [4, 5, 6, 7, 9, 13],
             "SKILL-013 projectile progression changed")
+    require([row["count"] for row in skills["SKILL-003"]["levels"]] == [1, 1, 2, 3, 3, 4],
+            "SKILL-003 blade progression changed")
+    require([row["radius"] for row in skills["SKILL-010"]["levels"]] == [0.8, 1.6, 2.24, 2.24, 2.24, 2.24],
+            "SKILL-010 radius progression changed")
+    orbit_l2 = skills["SKILL-003"]["levels"][1]
+    require(orbit_l2["damage"] == 12.25 and orbit_l2["bladeHitboxRadius"] == 0.368
+            and orbit_l2["angularSpeedDegrees"] == 138,
+            "SKILL-003 L2 must combine the former L2/L3 stat gains")
+    require([row["damage"] for row in skills["SKILL-001"]["levels"][:3]] == [9.33, 14, 18.2]
+            and [row["count"] for row in skills["SKILL-001"]["levels"]] == [1, 1, 2, 2, 2, 3],
+            "SKILL-001 early damage/count progression changed")
+    require([row["radius"] for row in skills["SKILL-004"]["levels"][:3]] == [1.25, 2.5, 3.125],
+            "SKILL-004 early radius progression changed")
+    require([row["maxHitTargets"] for row in skills["SKILL-005"]["levels"][:3]] == [1, 3, 5],
+            "SKILL-005 early target progression changed")
+    require([row["range"] for row in skills["SKILL-006"]["levels"][:3]] == [1.6, 3.2, 4.16],
+            "SKILL-006 early range progression changed")
+    require([row["targetCount"] for row in skills["SKILL-007"]["levels"][:3]] == [2, 3, 4],
+            "SKILL-007 early target progression changed")
+    require([row["explosionRadius"] for row in skills["SKILL-014"]["levels"][:3]] == [0.65, 1.3, 1.69],
+            "SKILL-014 early explosion-radius progression changed")
 
     # Validate recipes against all 20 canonical recipes, not a second handwritten list.
     recipes = {}

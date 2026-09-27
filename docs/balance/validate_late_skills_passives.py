@@ -13,21 +13,26 @@ CHANNELS = {"PASSIVE-006": "disappearingXpRecoveryBonus", "PASSIVE-010": "picked
             "PASSIVE-013": "effectRangeMultiplierBonus", "PASSIVE-014": "lowHealthDamageMaxBonus"}
 # Card L1 numbers (Content_design.md) that the table must keep: (field, value). Damage after DECISION-0073.
 CARD_L1 = {
-    "SKILL-008": [("damage", 12.6), ("maxHits", 3), ("cooldownSeconds", 2.0), ("knockback", 0.25)],
-    "SKILL-009": [("damage", 24), ("blastRadius", 1.5), ("cooldownSeconds", 3.0), ("maxConcurrent", 4), ("knockback", 0.7)],
-    "SKILL-011": [("damage", 8.4), ("count", 8), ("cooldownSeconds", 2.4), ("knockback", 0.12)],
-    "SKILL-012": [("damagePerTick", 7.5), ("tickIntervalSeconds", 0.2), ("durationSeconds", 0.8), ("cooldownSeconds", 3.0), ("knockbackPerTick", 0.04)],
-    "SKILL-015": [("damage", 13.5), ("count", 4), ("cooldownSeconds", 3.5), ("knockback", 0.3)],
-    "SKILL-016": [("damage", 2.8), ("count", 1), ("cooldownSeconds", 0.35), ("initialSpeed", 8.0), ("stopAfterSeconds", 1.4), ("knockback", 0.08)],
+    "SKILL-008": [("damage", 12.6), ("maxHits", 2), ("cooldownSeconds", 2.0), ("knockback", 0.25)],
+    "SKILL-009": [("damage", 24), ("blastRadius", 0.75), ("cooldownSeconds", 3.0), ("maxConcurrent", 4), ("knockback", 0.7)],
+    "SKILL-011": [("damage", 8.4), ("count", 4), ("cooldownSeconds", 2.4), ("knockback", 0.12)],
+    "SKILL-012": [("damagePerTick", 7.5), ("tickIntervalSeconds", 0.2), ("durationSeconds", 0.4), ("cooldownSeconds", 3.0), ("knockbackPerTick", 0.04)],
+    "SKILL-015": [("damage", 13.5), ("count", 4), ("range", 2), ("cooldownSeconds", 3.5), ("knockback", 0.3)],
+    "SKILL-016": [("damage", 2.8), ("count", 1), ("cooldownSeconds", 0.35), ("initialSpeed", 8.0), ("stopAfterSeconds", 0.7), ("knockback", 0.08)],
 }
 # Card qualitative level counts that must appear exactly.
 CARD_COUNTS = {
-    "SKILL-008": ("maxHits", [3, 4, 4, 6, 6, 8]),
+    "SKILL-008": ("maxHits", [2, 3, 4, 6, 6, 8]),
     "SKILL-009": ("maxConcurrent", [4, 4, 4, 6, 6, 6]),
-    "SKILL-011": ("count", [8, 10, 10, 12, 12, 12]),
-    "SKILL-012": ("durationSeconds", [0.8, 1.1, 1.1, 1.1, 1.1, 1.5]),
+    "SKILL-011": ("count", [4, 7, 10, 12, 12, 12]),
+    "SKILL-012": ("durationSeconds", [0.4, 0.8, 1.1, 1.1, 1.1, 1.5]),
     "SKILL-015": ("count", [4, 4, 4, 8, 8, 8]),
     "SKILL-016": ("count", [1, 1, 2, 2, 2, 3]),
+}
+EARLY_CURVES = {
+    "SKILL-008": ("range", [9, 12, 15]), "SKILL-009": ("blastRadius", [.75, 1.5, 1.875]),
+    "SKILL-011": ("count", [4, 7, 10]), "SKILL-012": ("durationSeconds", [.4, .8, 1.1]),
+    "SKILL-015": ("range", [2, 4, 5.2]), "SKILL-016": ("stopAfterSeconds", [.7, 1.4, 1.68]),
 }
 CARD_PASSIVES = {"PASSIVE-006": [.1, .2, .3, .4, .5, .6], "PASSIVE-010": [.05, .1, .15, .2, .25, .3],
                  "PASSIVE-013": [.08, .16, .24, .32, .4, .5], "PASSIVE-014": [.15, .25, .35, .45, .55, .7]}
@@ -69,6 +74,9 @@ def main():
             require(math.isclose(rows[0][field], value), f"Card L1 value changed: {name}.{field}")
         field, values = CARD_COUNTS[name]
         require([row[field] for row in rows] == values, f"Card level progression changed: {name}.{field}")
+        early_field, early_values = EARLY_CURVES[name]
+        require([row[early_field] for row in rows[:3]] == early_values,
+                f"Early progression changed: {name}.{early_field}")
         for row in rows:
             for key, value in row.items():
                 if isinstance(value, (int, float)) and not isinstance(value, bool):

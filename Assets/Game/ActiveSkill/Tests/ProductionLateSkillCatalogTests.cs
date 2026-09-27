@@ -22,8 +22,11 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(12.6f, l1.BaseDamage, 1e-4f, "DECISION-0073: 18 × 0.7.");
             Assert.AreEqual(2f, l1.CooldownSeconds);
             Assert.AreEqual(ActiveSkillTargetingMode.NearestEnemy, l1.TargetingMode);
-            CollectionAssert.AreEqual(new[] { 2, 3, 3, 5, 5, 7 },
+            CollectionAssert.AreEqual(new[] { 1, 2, 3, 5, 5, 7 },
                 Enumerable.Range(1, 6).Select(level => Effect<ProjectileBurstEffect>("SKILL-008", level).Behavior.RicochetCount));
+            CollectionAssert.AreEqual(new[] { 9f, 12f, 15f }, Enumerable.Range(1, 3)
+                .Select(level => (float)System.Math.Round(Effect<ProjectileBurstEffect>("SKILL-008", level).Speed
+                    * Effect<ProjectileBurstEffect>("SKILL-008", level).LifetimeSeconds, 3)));
             var l6 = Effect<ProjectileBurstEffect>("SKILL-008", 6);
             Assert.IsTrue(l6.Behavior.RepeatRicochetTargets, "Repeats a target only when no other valid target exists.");
             Assert.AreEqual(27f, l6.Speed * l6.LifetimeSeconds, 1e-3f, "Travel budget 6 + 3 x 7 ricochets.");
@@ -37,7 +40,8 @@ namespace Game.ActiveSkill.Tests
         {
             var l1 = Effect<MineEffect>("SKILL-009", 1);
             Assert.AreEqual(24f, Skill("SKILL-009").GetLevel(1).BaseDamage, 1e-4f);
-            Assert.AreEqual(1.5f, l1.BlastRadius, 1e-5f);
+            CollectionAssert.AreEqual(new[] { 0.75f, 1.5f, 1.875f }, Enumerable.Range(1, 3)
+                .Select(level => Effect<MineEffect>("SKILL-009", level).BlastRadius));
             Assert.AreEqual(4, l1.MaxConcurrent);
             Assert.AreEqual(6f, l1.LifetimeSeconds, 1e-5f);
             Assert.AreEqual(0f, l1.SecondaryDamageMultiplier);
@@ -58,7 +62,7 @@ namespace Game.ActiveSkill.Tests
         {
             var l1 = Skill("SKILL-011").GetLevel(1);
             Assert.AreEqual(15f, l1.Targeting.RotationPerActivationDegrees, 1e-5f);
-            CollectionAssert.AreEqual(new[] { 8, 10, 10, 12, 12, 12 },
+            CollectionAssert.AreEqual(new[] { 4, 7, 10, 12, 12, 12 },
                 Enumerable.Range(1, 6).Select(level => Effect<ProjectileBurstEffect>("SKILL-011", level).ProjectileCount));
             Assert.AreEqual(ProjectileLayout.Ring, Effect<ProjectileBurstEffect>("SKILL-011", 1).Layout);
             var l6 = Skill("SKILL-011").GetLevel(6);
@@ -75,7 +79,8 @@ namespace Game.ActiveSkill.Tests
             var l1 = Effect<BeamEffect>("SKILL-012", 1);
             Assert.AreEqual(7.5f, Skill("SKILL-012").GetLevel(1).BaseDamage, 1e-4f);
             Assert.AreEqual(0.2f, l1.TickIntervalSeconds, 1e-5f);
-            Assert.AreEqual(0.8f, l1.DurationSeconds, 1e-5f);
+            CollectionAssert.AreEqual(new[] { 0.4f, 0.8f, 1.1f }, Enumerable.Range(1, 3)
+                .Select(level => Effect<BeamEffect>("SKILL-012", level).DurationSeconds));
             Assert.AreEqual(6f, l1.Range, 1e-5f);
             Assert.AreEqual(0.4f, l1.Width, 1e-5f);
             Assert.AreEqual(0.04f, Skill("SKILL-012").GetLevel(1).Waves[0].Controls.KnockbackDistance, 1e-5f);
@@ -93,6 +98,9 @@ namespace Game.ActiveSkill.Tests
             var l1 = Effect<ProjectileBurstEffect>("SKILL-015", 1);
             Assert.AreEqual(ProjectileLayout.Cross, l1.Layout);
             Assert.AreEqual(4, l1.ProjectileCount);
+            CollectionAssert.AreEqual(new[] { 2f, 4f, 5.2f }, Enumerable.Range(1, 3)
+                .Select(level => (float)System.Math.Round(Effect<ProjectileBurstEffect>("SKILL-015", level).Speed
+                    * Effect<ProjectileBurstEffect>("SKILL-015", level).LifetimeSeconds, 3)));
             Assert.IsTrue(l1.Behavior.UnlimitedPierce, "Each wave cuts through every enemy once.");
             Assert.AreEqual(ActiveSkillTargetingMode.Self, Skill("SKILL-015").GetLevel(1).TargetingMode);
             Assert.AreEqual(0f, Skill("SKILL-015").GetLevel(1).Targeting.RotationPerActivationDegrees);
@@ -113,7 +121,8 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(ProjectileLayout.IndependentRandom, l1.Layout);
             Assert.IsTrue(Skill("SKILL-016").GetLevel(1).Targeting.RandomSeed.HasValue, "Random directions need a JSON seed.");
             Assert.AreEqual(8f, l1.Speed, 1e-5f);
-            Assert.AreEqual(1.4f, l1.Behavior.StopAfterSeconds, 1e-5f);
+            CollectionAssert.AreEqual(new[] { 0.7f, 1.4f, 1.68f }, Enumerable.Range(1, 3)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-016", level).Behavior.StopAfterSeconds));
             CollectionAssert.AreEqual(new[] { 1, 1, 2, 2, 2, 3 },
                 Enumerable.Range(1, 6).Select(level => Effect<ProjectileBurstEffect>("SKILL-016", level).ProjectileCount));
             Assert.AreEqual(1, Effect<ProjectileBurstEffect>("SKILL-016", 4).PierceCount);

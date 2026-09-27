@@ -113,9 +113,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: базовый физический точечный урон по ближайшим целям.
 Targeting / pattern: автоматически выбирает ближайшего врага и бросает в него быстрый камень.
-База: 14 damage (было 20; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 1.2 с, 1 projectile.
+База: 9.33 damage (прежние 14 разделены на 1.5), cooldown 1.2 с, 1 projectile. Прежние 14 damage возвращаются на L2; поздний damage после общего ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md) не изменён.
 Knockback: 0.35 world units при попадании, по направлению полёта камня.
-Уровни 1–6: L1 базовая версия; L2 +30% damage и +20% knockback; L3 одновременно бросает 2 камня по разным ближайшим целям и +15% projectile speed; L4 после первого попадания каждый камень рикошетит в 1 дополнительного ближайшего врага, сохраняя 80% damage и knockback; L5 +33% action speed и ещё +20% knockback; L6 одновременно бросает 3 камня, +25% damage и +20% projectile size.
+Уровни 1–6: L1 1 камень и 9.33 damage; L2 damage вырастает до 14 и +20% knockback; L3 одновременно бросает 2 камня по разным ближайшим целям, damage вырастает до 18.2 и projectile speed — на 15%; L4 после первого попадания каждый камень рикошетит в 1 дополнительного ближайшего врага, сохраняя 80% damage и knockback; L5 +33% action speed и ещё +20% knockback; L6 одновременно бросает 3 камня, 21.7 damage и +20% projectile size.
 Взаимодействия: общий damage и action speed модифицируются пассивными предметами. Сеты: SET-001, SET-011, SET-020.
 
 #### SKILL-002 — Веер игл
@@ -135,9 +135,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: постоянная защита ближней зоны и контактный урон вокруг игрока.
 Targeting / pattern: клинки непрерывно вращаются вокруг персонажа и наносят урон врагам при пересечении.
-База: 2 клинка, 9.8 damage за попадание (было 14; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), радиус орбиты 1.8, blade hitbox radius 0.32.
+База: 1 клинок, 9.8 damage за попадание (было 14; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), радиус орбиты 1.8, blade hitbox radius 0.32.
 Knockback: 0.18 world units за попадание, радиально от персонажа.
-Уровни 1–6: L1 2 клинка; L2 +25% damage и +15% blade hitbox radius; L3 3 клинка и +15% rotation speed; L4 +25% радиус орбиты и одновременно +25% blade hitbox radius; L5 +35% rotation speed и +40% knockback; L6 4 клинка, +20% damage и ещё +15% blade hitbox radius.
+Уровни 1–6: L1 1 клинок; L2 +25% damage, +15% blade hitbox radius и +15% rotation speed; L3 2 клинка; L4 3 клинка, +25% радиус орбиты и одновременно +25% blade hitbox radius; L5 +35% rotation speed и +40% knockback; L6 4 клинка, +20% damage и ещё +15% blade hitbox radius.
 Взаимодействия: один клинок не может наносить повторный урон одной цели чаще заданного hit cooldown; значение является balance-data. Сеты: SET-010, SET-014.
 
 #### SKILL-004 — Импульсная волна
@@ -146,9 +146,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: периодический контроль пространства вокруг персонажа через сильный knockback; урон вторичен.
 Targeting / pattern: через фиксированный cooldown создаёт круговую волну, расходящуюся от игрока и отбрасывающую поражённых врагов радиально от персонажа.
-База: 6.4 damage (было 8; ×0.8 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), радиус 2.5, cooldown 4.0 с.
+База: 6.4 damage (было 8; ×0.8 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), радиус 1.25, cooldown 4.0 с.
 Knockback: 1.6 world units, радиально от персонажа; это основной эффект умения.
-Уровни 1–6: L1 базовая волна; L2 +25% radius и +15% knockback; L3 +35% knockback и +25% damage; L4 через 0.35 с после основной волны возникает вторая волна с 70% текущего radius, 60% knockback и 50% damage; L5 +33% action speed и ещё +15% radius; L6 вторая волна получает полный radius и 100% knockback основной волны, а knockback основной волны дополнительно увеличивается на 20%; damage второй волны остаётся 50% основного.
+Уровни 1–6: L1 radius 1.25; L2 radius вырастает до 2.5 и +15% knockback; L3 radius вырастает до 3.125, +35% knockback и +25% damage; L4 через 0.35 с после основной волны возникает вторая волна с 70% текущего radius, 60% knockback и 50% damage; L5 +33% action speed и radius 3.5; L6 вторая волна получает полный radius и 100% knockback основной волны, а knockback основной волны дополнительно увеличивается на 20%; damage второй волны остаётся 50% основного.
 Взаимодействия: каждая волна поражает каждую цель максимум один раз за проход; направление knockback всегда идёт от позиции персонажа наружу. Сеты: SET-004, SET-012.
 
 #### SKILL-005 — Ветряное копьё
@@ -157,9 +157,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: высокий линейный урон по плотной группе.
 Targeting / pattern: автоматически стреляет длинным пробивающим снарядом в текущем направлении движения персонажа. Если в момент срабатывания персонаж стоит на месте, используется последнее ненулевое направление его движения.
-База: 32.3 damage (было 34; ×0.95 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), пробивает 3 врагов, cooldown 2.4 с.
+База: 32.3 damage (было 34; ×0.95 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), поражает 1 врага, cooldown 2.4 с.
 Knockback: 0.45 world units по направлению полёта копья при каждом попадании.
-Уровни 1–6: L1 базовая версия; L2 +25% damage и +20% knockback; L3 пробивание увеличивается до 5 целей и +20% range; L4 projectile width +35% и ещё +25% knockback; L5 +25% action speed и +20% projectile speed; L6 пробивание становится неограниченным до конца lifetime, +25% damage и +20% projectile width.
+Уровни 1–6: L1 поражает 1 цель; L2 пробивание увеличивается до 3 целей, +25% damage и +20% knockback; L3 пробивание увеличивается до 5 целей и +20% range; L4 projectile width +35% и ещё +25% knockback; L5 +25% action speed и +20% projectile speed; L6 пробивание становится неограниченным до конца lifetime, +25% damage и +20% projectile width.
 Взаимодействия: projectile lifetime/range — balance-data; направление определяется движением персонажа в момент срабатывания и после запуска не меняется. Сеты: SET-009, SET-011, SET-016.
 
 #### SKILL-006 — Бумеранг
@@ -168,9 +168,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: повторные попадания по траектории и контроль пространства движением снаряда.
 Targeting / pattern: запускается в сторону ближайшего врага, летит вперёд, затем возвращается к текущей позиции персонажа.
-База: 11.2 damage за попадание (было 16; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 2.8 с, per-target hit cooldown 1.0 с. Дальность исходящего прохода 3.2 world units, радиус попадания 0.16; L3 увеличивает их до 4.16 и 0.192 соответственно ([DECISION-0069](decisions/0069-field001-feedback-tuning.md)).
+База: 11.2 damage за попадание (было 16; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 2.8 с, per-target hit cooldown 1.0 с. Дальность исходящего прохода 1.6 world units, радиус попадания 0.16; L2 возвращает range 3.2, L3 увеличивает его до 4.16 и радиус попадания до 0.192 ([DECISION-0069](decisions/0069-field001-feedback-tuning.md)).
 Knockback: 0.30 world units за попадание, всегда радиально от персонажа независимо от того, летит бумеранг от игрока или возвращается.
-Уровни 1–6: L1 один бумеранг; L2 +25% damage (20 за попадание) и +20% knockback; L3 +30% дальность и +20% радиуса попадания; L4 одновременно 2 бумеранга под небольшим углом и +15% projectile speed; L5 +25% action speed и ещё +25% knockback; L6 возвращающийся проход наносит +75% damage и имеет +50% knockback относительно исходящего прохода. Базовый визуальный масштаб снаряда 1.4.
+Уровни 1–6: L1 один бумеранг с range 1.6; L2 range вырастает до 3.2, +25% damage и +20% knockback; L3 range вырастает до 4.16 и радиус попадания — на 20%; L4 одновременно 2 бумеранга под небольшим углом и +15% projectile speed; L5 +25% action speed и ещё +25% knockback; L6 возвращающийся проход наносит +75% damage и имеет +50% knockback относительно исходящего прохода. Базовый визуальный масштаб снаряда 1.4.
 Взаимодействия: одна и та же цель может быть поражена этим умением многократно без жёсткого лимита числа попаданий, если между попаданиями прошло достаточно времени. Для каждой цели действует per-target hit cooldown 1.0 с, общий для всех одновременно существующих бумерангов SKILL-006; пересечение той же цели раньше истечения cooldown не наносит новый damage и knockback. Сеты: SET-002.
 
 #### SKILL-007 — Цепная молния
@@ -179,9 +179,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: быстрый урон по группе рассредоточенных врагов.
 Targeting / pattern: ударяет ближайшего врага; затем каждый следующий прыжок начинается от последней поражённой цели и выбирает ближайшего к ней ещё не поражённого врага в пределах jump range. Таким образом молния строит последовательную цепочку A → B → C → D, а не выбирает все дополнительные цели вокруг первой.
-База: 15.4 damage, до 3 целей, cooldown 2.86 с (перезарядка +30% по [DECISION-0065](decisions/0065-skill-014-explosion-nerf.md); ранний урон снижен по [DECISION-0071](decisions/0071-early-chain-lightning-damage.md) до 22, затем ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)).
+База: 15.4 damage, до 2 целей, cooldown 2.86 с (перезарядка +30% по [DECISION-0065](decisions/0065-skill-014-explosion-nerf.md); ранний урон снижен по [DECISION-0071](decisions/0071-early-chain-lightning-damage.md) до 22, затем ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)).
 Knockback: 0 world units на всех уровнях; цепная молния не смещает цели.
-Уровни 1–6: L1 3 цели и 15.4 damage; L2 4 цели и +15% максимальная дистанция прыжка, 15.4 damage; L3 +25% damage до 19.25 и падение damage между прыжками уменьшается с 15% до 12%; L4 6 целей, ещё +20% jump range и 21 damage; L5 +33% action speed и падение damage уменьшается до 10%, 21 damage; L6 8 целей, падение damage уменьшается до 5%, 23.52 damage (все значения ×0.7 по DECISION-0073).
+Уровни 1–6: L1 2 цели и 15.4 damage; L2 3 цели и +15% максимальная дистанция прыжка, 15.4 damage; L3 4 цели, +25% damage до 19.25 и падение damage между прыжками уменьшается с 15% до 12%; L4 6 целей, ещё +20% jump range и 21 damage; L5 +33% action speed и падение damage уменьшается до 10%, 21 damage; L6 8 целей, падение damage уменьшается до 5%, 23.52 damage (все значения ×0.7 по DECISION-0073).
 Взаимодействия: одна активация не поражает одну цель дважды; максимальная дистанция прыжка — balance-data. Сеты: SET-003, SET-013.
 
 #### SKILL-008 — Рикошетный диск
@@ -190,9 +190,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: эффективный урон в средней плотности врагов.
 Targeting / pattern: летит к ближайшей цели и после попадания автоматически перенаправляется к другой ближайшей цели.
-База: 12.6 damage (было 18; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), 3 попадания, cooldown 2.0 с.
+База: 12.6 damage (было 18; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), 2 попадания, cooldown 2.0 с.
 Knockback: 0.25 world units при каждом попадании по текущему направлению полёта диска.
-Уровни 1–6: L1 3 попадания; L2 4 попадания и +15% projectile speed; L3 +30% damage и +20% knockback; L4 6 попаданий и ещё +15% projectile speed; L5 +25% action speed и ещё +25% knockback; L6 8 попаданий, +25% projectile speed и +20% projectile size.
+Уровни 1–6: L1 2 попадания; L2 3 попадания и +15% projectile speed; L3 4 попадания, +30% damage и +20% knockback; L4 6 попаданий и ещё +15% projectile speed; L5 +25% action speed и ещё +25% knockback; L6 8 попаданий, +25% projectile speed и +20% projectile size.
 Взаимодействия: в рамках одной активации диск старается не выбирать одну и ту же цель повторно, пока есть другие валидные цели. Сеты: SET-002, SET-011.
 
 #### SKILL-009 — Магматическая мина
@@ -201,9 +201,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: урон по преследующим врагам и использование маршрута игрока.
 Targeting / pattern: автоматически оставляет мину в текущей позиции персонажа; мина взрывается при приближении врага или по истечении lifetime.
-База: 24 damage (было 40; ×0.6 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), blast radius 1.5, cooldown 3.0 с, одновременно максимум 4 мины.
+База: 24 damage (было 40; ×0.6 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), blast radius 0.75, cooldown 3.0 с, одновременно максимум 4 мины.
 Knockback: 0.70 world units от центра взрыва.
-Уровни 1–6: L1 базовая мина; L2 +25% blast radius и +20% knockback; L3 +30% damage и ещё +20% knockback; L4 максимум 6 активных мин и +20% lifetime; L5 +33% action speed и ещё +15% blast radius; L6 через 0.4 с после первого взрыва возникает второй взрыв с 75% текущего radius, 60% damage и 70% knockback первого.
+Уровни 1–6: L1 blast radius 0.75; L2 blast radius вырастает до 1.5 и +20% knockback; L3 blast radius вырастает до 1.875, +30% damage и ещё +20% knockback; L4 максимум 6 активных мин и +20% lifetime; L5 +33% action speed и blast radius 2.1; L6 через 0.4 с после первого взрыва возникает второй взрыв с 75% текущего radius, 60% damage и 70% knockback первого.
 Взаимодействия: постановка не требует ручного ввода; старейшая мина исчезает при превышении лимита. Сеты: SET-008, SET-015.
 
 #### SKILL-010 — Небесный удар
@@ -212,9 +212,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: мощный периодический AoE по скоплению врагов.
 Targeting / pattern: случайно выбирает одного врага среди видимых на экране валидных врагов в заданном targeting radius от персонажа; после короткой задержки в зафиксированную позицию выбранной цели ударяет область урона. Targeting radius — balance-data и действует дополнительно к границе экрана; если на экране в радиусе нет врага, удар приходится в случайную точку экрана в пределах radius ([DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
-База: 24.75 damage (было 55; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), impact radius 1.6, targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с. Область удара — эллипс на земле: по горизонтали impact radius, по вертикали impact radius × 0.7 (камера 3/4, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
+База: 24.75 damage (было 55; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), impact radius 0.8, targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с. Область удара — эллипс на земле: по горизонтали impact radius, по вертикали impact radius × 0.7 (камера 3/4, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
 Knockback: 0.45 world units радиально от центра точки удара.
-Уровни 1–6: L1 один удар; L2 +25% impact radius и +20% knockback; L3 +30% damage и ещё +15% impact radius; L4 2 последовательных удара по двум разным случайным видимым валидным врагам внутри targeting radius; если второго врага нет — в случайную точку экрана в radius; второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +50% impact radius и +50% knockback.
+Уровни 1–6: L1 один удар с impact radius 0.8; L2 impact radius вырастает до 1.6 и knockback — на 20%; L3 +30% damage и impact radius вырастает до 2.24, догоняя прежнюю кривую; L4 2 последовательных удара по двум разным случайным видимым валидным врагам внутри targeting radius; если второго врага нет — в случайную точку экрана в radius; второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +50% impact radius и +50% knockback.
 Взаимодействия: выбранная точка фиксируется в момент telegraph, поэтому враг может выйти из зоны до удара. Сеты: SET-017.
 
 #### SKILL-011 — Спираль осколков
@@ -223,9 +223,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: равномерное покрытие пространства вокруг персонажа.
 Targeting / pattern: выпускает серию снарядов по кругу; направление каждой следующей активации немного поворачивается, формируя спиральный рисунок.
-База: 8 снарядов по кругу, 8.4 damage (было 12; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 2.4 с.
+База: 4 снаряда по кругу, 8.4 damage (было 12; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 2.4 с.
 Knockback: 0.12 world units от каждого осколка по направлению его полёта.
-Уровни 1–6: L1 8 снарядов; L2 10 снарядов и +15% range; L3 +25% damage и +20% knockback; L4 12 снарядов, +20% projectile speed и +15% projectile size; L5 +33% action speed и ещё +20% knockback; L6 две последовательные полные круговые очереди с поворотом второй на половину углового шага и +15% range.
+Уровни 1–6: L1 4 снаряда; L2 7 снарядов и +15% range; L3 10 снарядов, +25% damage и +20% knockback; L4 12 снарядов, +20% projectile speed и +15% projectile size; L5 +33% action speed и ещё +20% knockback; L6 две последовательные полные круговые очереди с поворотом второй на половину углового шага и +15% range.
 Взаимодействия: manual targeting отсутствует; рисунок определяется только текущей конфигурацией умения. Сеты: SET-007, SET-014.
 
 #### SKILL-012 — Пульсирующий луч
@@ -234,9 +234,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: фокусированный урон по ближайшему направлению с хорошим пробиванием.
 Targeting / pattern: короткий луч автоматически направляется на ближайшего врага и существует ограниченное время.
-База: 7.5 damage (было 10; ×0.75 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)) каждые 0.2 с в течение 0.8 с, cooldown 3.0 с.
+База: 7.5 damage (было 10; ×0.75 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)) каждые 0.2 с в течение 0.4 с, cooldown 3.0 с.
 Knockback: 0.04 world units за каждый tick, радиально от персонажа; повторные ticks могут последовательно смещать одну цель.
-Уровни 1–6: L1 базовый луч; L2 duration 1.1 с и +15% beam width; L3 +25% damage per tick и +25% knockback per tick; L4 +40% beam width и +20% range; L5 +33% action speed и ещё +20% knockback per tick; L6 duration 1.5 с, луч медленно доворачивается вслед за текущей целью и получает ещё +15% beam width.
+Уровни 1–6: L1 duration 0.4 с; L2 duration 0.8 с и +15% beam width; L3 duration 1.1 с, +25% damage per tick и +25% knockback per tick; L4 +40% beam width и +20% range; L5 +33% action speed и ещё +20% knockback per tick; L6 duration 1.5 с, луч медленно доворачивается вслед за текущей целью и получает ещё +15% beam width.
 Взаимодействия: луч поражает всех врагов на своей линии; частота tick является частью skill definition. Сеты: SET-009, SET-013.
 
 #### SKILL-013 — Ледяные осколки
@@ -256,9 +256,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: медленные крупные projectiles с AoE при столкновении.
 Targeting / pattern: при каждом срабатывании выпускает сферу в случайном направлении; направление каждой сферы определяется независимо в момент создания. При первом столкновении с врагом или по окончании lifetime сфера взрывается.
-База: 12.6 impact damage + 18.2 explosion damage (было 18 + 26; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), radius 1.3, cooldown 3.2 с. Взрыв ослаблен с 32 до 26 (L3–L6: 33.8 вместо 41.6) по решению пользователя 2026-09-26 ([DECISION-0065](decisions/0065-skill-014-explosion-nerf.md)): взрыв больше не убивает ENEMY-001 (32 HP) одним ударом.
+База: 12.6 impact damage + 18.2 explosion damage (было 18 + 26; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), explosion radius 0.65, cooldown 3.2 с. Взрыв ослаблен с 32 до 26 (L3–L6: 33.8 вместо 41.6) по решению пользователя 2026-09-26 ([DECISION-0065](decisions/0065-skill-014-explosion-nerf.md)): взрыв больше не убивает ENEMY-001 (32 HP) одним ударом.
 Knockback: impact 0.25 world units по направлению полёта сферы; explosion 0.75 world units радиально от центра взрыва.
-Уровни 1–6: L1 одна сфера; L2 +30% explosion radius и +20% explosion knockback; L3 +30% explosion damage и +20% impact damage; L4 одновременно 2 сферы и +15% projectile size; L5 +25% action speed и ещё +20% explosion knockback; L6 сферы проходят сквозь первую цель и взрываются при втором попадании либо по lifetime, при этом получают ещё +15% explosion radius.
+Уровни 1–6: L1 одна сфера с explosion radius 0.65; L2 radius вырастает до 1.3 и +20% explosion knockback; L3 radius вырастает до 1.69, +30% explosion damage и +20% impact damage; L4 одновременно 2 сферы и +15% projectile size; L5 +25% action speed и ещё +20% explosion knockback; L6 сферы проходят сквозь первую цель и взрываются при втором попадании либо по lifetime, при этом получают ещё +15% explosion radius.
 Взаимодействия: impact и explosion — части одного active skill; общий damage modifier применяется к обеим составляющим. Случайное направление не зависит от позиции ближайшего врага. Если одновременно создаётся несколько сфер, каждая независимо получает собственное случайное направление. Сеты: SET-008, SET-015, SET-018.
 
 #### SKILL-015 — Крест клинков
@@ -267,9 +267,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: периодический burst по четырём направлениям с сильным поздним покрытием.
 Targeting / pattern: центрируется на персонаже и в базовой версии выпускает четыре длинных режущих волны по фиксированным горизонтальному и вертикальному направлениям. Ориентация не зависит от положения врагов или направления движения персонажа.
-База: 13.5 damage каждой волной (было 30; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 3.5 с.
+База: 13.5 damage каждой волной (было 30; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), range 2, cooldown 3.5 с.
 Knockback: 0.30 world units от каждой волны по направлению её распространения.
-Уровни 1–6: L1 4 волны; L2 +30% range и +15% wave width; L3 +30% damage и +25% knockback; L4 добавляются диагональные направления, всего 8 волн, и +15% range; L5 +33% action speed и ещё +20% knockback; L6 через 0.35 с после первой активации повторяется второй полный крест, повернутый на 22.5°, с полными damage и knockback.
+Уровни 1–6: L1 4 волны с range 2; L2 range вырастает до 4 и +15% wave width; L3 range вырастает до 5.2, +30% damage и +25% knockback; L4 добавляются диагональные направления, всего 8 волн, и range 5.8; L5 +33% action speed и ещё +20% knockback; L6 через 0.35 с после первой активации повторяется второй полный крест, повернутый на 22.5°, с полными damage и knockback.
 Взаимодействия: каждая волна поражает каждого врага максимум один раз; пересечение нескольких волн может нанести несколько отдельных попаданий. Сеты: SET-007, SET-014.
 
 #### SKILL-016 — Разбрасыватель мусора
@@ -278,9 +278,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 Роль: очень частое хаотичное покрытие пространства множеством слабых случайно направленных projectiles.
 Targeting / pattern: не выбирает цель. При каждом срабатывании выпускает projectile в случайном направлении; если одновременно создаётся несколько projectiles, направление каждого определяется независимо. Визуально projectile может быть случайным мелким предметом из набора мусора, без обязательных gameplay-различий между предметами.
-База: 1 projectile, 2.8 damage (было 4; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 0.35 с; initial projectile speed 8.0 world units/s; скорость линейно снижается до 0 примерно за 1.4 с. Как только скорость достигает 0, projectile сразу исчезает.
+База: 1 projectile, 2.8 damage (было 4; ×0.7 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), cooldown 0.35 с; initial projectile speed 8.0 world units/s; скорость линейно снижается до 0 за 0.7 с (путь 2.8). Как только скорость достигает 0, projectile сразу исчезает.
 Knockback: 0.08 world units при попадании по направлению движения projectile.
-Уровни 1–6: L1 базовая версия; L2 время до полной остановки +20% и +20% projectile size; L3 2 projectiles за срабатывание и +15% damage; L4 каждый projectile пробивает 1 дополнительного врага и +20% initial projectile speed; L5 +35% action speed и +25% knockback; L6 3 projectiles за срабатывание, ещё +25% damage и +20% projectile size.
+Уровни 1–6: L1 stop time 0.7 с и путь 2.8; L2 stop time 1.4 с, путь 5.6 и +20% projectile size; L3 stop time 1.68 с, путь 6.72, 2 projectiles за срабатывание и +15% damage; L4 каждый projectile пробивает 1 дополнительного врага и +20% initial projectile speed; L5 +35% action speed и +25% knockback; L6 3 projectiles за срабатывание, ещё +25% damage и +20% projectile size.
 Взаимодействия: направления полностью случайны и не зависят от положения врагов или движения персонажа. Projectile постоянно замедляется на протяжении полёта, не переускоряется и исчезает при полной остановке. Одна цель может получать повторные попадания от разных projectiles без отдельного per-target cooldown. Сеты: SET-008, SET-015.
 
 ### Passive Items

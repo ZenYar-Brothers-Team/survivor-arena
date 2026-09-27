@@ -56,6 +56,8 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 
 Ранние вееры и первый враг ([DECISION-0077](../decisions/0077-early-projectile-growth-and-enemy001-speed.md)): projectile counts SKILL-002 теперь 3/4/5/7/9/11, SKILL-013 — 4/5/6/7/9/13; прежние финальные 11/13 сохранены. ENEMY-001 «Селянин с вилами» замедлен ровно на 20%, 1.20 → 0.96. Static validators PASS; Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T191226-569482Z`). Ручная оценка ранней силы и давления открыта. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 
+Общая ранняя прогрессия active skills ([DECISION-0078](../decisions/0078-active-skill-early-progression.md)): принцип слабого L1 и возврата прежнего L3 распространён на SKILL-001…016; L4–L6 и финальные значения сохранены. Камень ослаблен мягче, 14 → 9.33 damage (÷1.5); у остальных уменьшены основной count/radius/range/duration/targets с ростом через L2–L3. Static validators PASS; targeted production catalogs 16/16 PASS; Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T193313-833849Z`). Ручная оценка L1–L3 открыта. [Evidence](evidence/2026-09-27-active-skill-early-progression.md).
+
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
 оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —
@@ -471,6 +473,7 @@ Data packet 2026-09-26: [late-skills-passives-v1](../balance/late-skills-passive
 World art 2026-09-26: пользователь утвердил SKILL-009/011/015/016; immutable masters, provenance, runtime PNG и typed references подключены. Unity full PASS 769/769 EditMode + 27/27 PlayMode, manifest 108/108; gameplay-scale review остаётся открытым. [Evidence](evidence/2026-09-26-late-skill-world-art.md).
 Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
 Balance follow-up 2026-09-27: SKILL-002/013 получили постепенный projectile-count growth с прежними финальными caps; production data и all-level assertions синхронизированы, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
+Catalog-wide follow-up 2026-09-27: SKILL-001…016 получили общий L1→L3 ramp без изменения L4–L6; all-level primary curves проверены targeted 16/16 и full 870/870 + 30/30. [Evidence](evidence/2026-09-27-active-skill-early-progression.md).
 Target implementation evidence: F1-01 subset и поздние SKILL-008/009/011/012/015/016; см. evidence выше.
 Target verification evidence: автоматические проверки PASS 2026-09-26; ручная visual acceptance не проведена.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).

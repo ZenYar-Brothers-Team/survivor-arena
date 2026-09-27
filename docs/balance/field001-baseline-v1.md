@@ -92,16 +92,16 @@ body contact врагов измеряется отдельно по утвер�
 
 | ID | Дополнение к канонической карточке L1 | Существенные границы |
 |---|---|---|
-| SKILL-001 | targeting/range 5; speed 10; radius 0.16; ricochet search 3 | L3 speed 11.5 без роста дальности; L4 retention 0.8 damage/KB; нет возврата в уже поражённую цель |
+| SKILL-001 | damage L1–L3: 9.33/14/18.2; targeting/range 5; speed 10; radius 0.16; ricochet search 3 | Count L1–L6: 1/1/2/2/2/3; L3 speed 11.5; L4 retention 0.8 damage/KB; нет возврата в уже поражённую цель |
 | SKILL-002 | targeting 6; range 4; speed 9; radius 0.07; count L1–L6: 3/4/5/7/9/11 | L6 range 5.4; 11 игл, каждая максимум 2 цели |
-| SKILL-003 | вращение 120°/s; per-blade/per-target hit interval 0.6 | Непрерывная орбита; L6 4 клинка, 180°/s, orbit radius 2.25, blade radius 0.496 |
-| SKILL-004 | расширение от 0 до полного radius за 0.25 s | Каждая волна hit-once, не моментальный урон всему диску; вторая через 0.35 s |
-| SKILL-005 | range 6; speed 12; half-width/collision radius 0.12 | 3 цели означает 2 дополнительных пробивания; L6 unlimited только до expiry |
-| SKILL-006 | baseline: targeting 6; outbound range 4; speed 6; radius 0.22; lifetime 4. Текущие числа после отзыва: targeting 4.5; range 3.2, radius 0.16 ([DECISION-0069](../decisions/0069-field001-feedback-tuning.md)) | L4 два под углом 20°; общий target cooldown 1 s для всех бумерангов данного skill |
-| SKILL-007 | targeting 6; jump range 2.5; L1–L3 damage 22/22/27.5 после [DECISION-0071](../decisions/0071-early-chain-lightning-damage.md) | L6 range 3.375 и damage 33.6: последний уровень добавляет damage, не range |
-| SKILL-010 | targeting 8; следующие telegraphs стартуют с шагом 0.3 s | Каждая точка фиксируется при начале своего telegraph; цели только на экране, нет другой цели — случайная точка экрана в radius; область — эллипс radius × 0.7 по вертикали ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)) |
+| SKILL-003 | 1 клинок; вращение 120°/s; per-blade/per-target hit interval 0.6 | Count L1–L6: 1/1/2/3/3/4; L2 объединяет прежние stat-прибавки L2/L3; L6 4 клинка, 180°/s, orbit radius 2.25, blade radius 0.496 |
+| SKILL-004 | radius L1–L3: 1.25/2.5/3.125; расширение от 0 до полного radius за 0.25 s | Каждая волна hit-once, не моментальный урон всему диску; вторая через 0.35 s |
+| SKILL-005 | targets L1–L3: 1/3/5; range 6; speed 12; half-width/collision radius 0.12 | 3 цели означает 2 дополнительных пробивания; L6 unlimited только до expiry |
+| SKILL-006 | targeting 4.5; outbound range L1–L3: 1.6/3.2/4.16; speed 6; radius 0.16 ([DECISION-0069](../decisions/0069-field001-feedback-tuning.md)) | L4 два под углом 20°; общий target cooldown 1 s для всех бумерангов данного skill |
+| SKILL-007 | targets L1–L3: 2/3/4; targeting 6; jump range 2.5; L1–L3 damage 15.4/15.4/19.25 | L6 range 3.375 и damage 23.52: последний уровень добавляет damage, не range |
+| SKILL-010 | targeting 8; radius L1–L3: 0.8/1.6/2.24; следующие telegraphs стартуют с шагом 0.3 s | Каждая точка фиксируется при начале своего telegraph; цели только на экране, нет другой цели — случайная точка экрана в radius; область — эллипс radius × 0.7 по вертикали ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)) |
 | SKILL-013 | targeting 6; range 4; speed 8; radius 0.10; count L1–L6: 4/5/6/7/9/13 | L6 radius 0.135: +15% и +20% от базы складываются; slow 30% на 2 s |
-| SKILL-014 | speed 3; lifetime 1.8; range 5.4; radius 0.22 | L4 меняет size, не speed; L6 impact первой цели, взрыв при второй либо expiry |
+| SKILL-014 | explosion radius L1–L3: 0.65/1.3/1.69; speed 3; lifetime 1.8; range 5.4; projectile radius 0.22 | L4 меняет size, не speed; L6 impact первой цели, взрыв при второй либо expiry |
 
 Общий nonzero knockback duration 0.12 s. Нулевой knockback не создаёт impulse.
 Направления и resistance — по карточкам/GDD; slow не складывается аддитивно.

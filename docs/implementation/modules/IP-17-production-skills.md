@@ -21,6 +21,7 @@ Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-di
 Параметры SKILL-006 после пользовательского отзыва пересмотрены в [DECISION-0069](../../decisions/0069-field001-feedback-tuning.md).
 Урон SKILL-007 на L1–L3 после следующего отзыва пересмотрен в [DECISION-0071](../../decisions/0071-early-chain-lightning-damage.md).
 Раннее количество снарядов SKILL-002/013 и их постепенный рост пересмотрены в [DECISION-0077](../../decisions/0077-early-projectile-growth-and-enemy001-speed.md), финальные 11/13 сохранены.
+Общий принцип слабого L1 и возврата прежней силы к L3 распространён на все 16 активных умений в [DECISION-0078](../../decisions/0078-active-skill-early-progression.md); L4–L6 не изменены.
 Остаток SKILL-008/009/011/012/015/016: [данные v1](../../balance/late-skills-passives-v1.md) (статус approval — в STATUS).
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.

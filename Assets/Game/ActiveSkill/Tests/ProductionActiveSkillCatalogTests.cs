@@ -35,11 +35,15 @@ namespace Game.ActiveSkill.Tests
         public void Stone_LevelsKeepCardSemantics()
         {
             var l1 = Skill("SKILL-001").GetLevel(1);
-            Assert.AreEqual(14f, l1.BaseDamage, 1e-4f, "DECISION-0073: 20 × 0.7.");
+            Assert.AreEqual(9.33f, l1.BaseDamage, 1e-4f, "DECISION-0078: former 14 / 1.5.");
             Assert.AreEqual(1.2f, l1.CooldownSeconds, 1e-5f);
             Assert.AreEqual(5f, l1.Targeting.Radius);
             Assert.AreEqual(0.35f, l1.Waves[0].Controls.KnockbackDistance, 1e-5f);
             Assert.AreEqual(0.12f, l1.Waves[0].Controls.KnockbackSeconds, 1e-5f);
+            CollectionAssert.AreEqual(new[] { 1, 1, 2, 2, 2, 3 }, Enumerable.Range(1, 6)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-001", level).ProjectileCount));
+            CollectionAssert.AreEqual(new[] { 9.33f, 14f, 18.2f }, Enumerable.Range(1, 3)
+                .Select(level => Skill("SKILL-001").GetLevel(level).BaseDamage));
             var l4 = Effect<ProjectileBurstEffect>("SKILL-001", 4);
             Assert.AreEqual(2, l4.ProjectileCount);
             Assert.AreEqual(1, l4.Behavior.RicochetCount);
@@ -61,8 +65,8 @@ namespace Game.ActiveSkill.Tests
                 .Select(level => Effect<ProjectileBurstEffect>("SKILL-002", level).ProjectileCount));
             Assert.AreEqual(1, Effect<ProjectileBurstEffect>("SKILL-002", 6).PierceCount);
             Assert.AreEqual(90f, Effect<ProjectileBurstEffect>("SKILL-002", 6).SpreadDegrees);
-            Assert.AreEqual(2, Effect<ProjectileBurstEffect>("SKILL-005", 1).PierceCount);
-            Assert.AreEqual(4, Effect<ProjectileBurstEffect>("SKILL-005", 3).PierceCount);
+            CollectionAssert.AreEqual(new[] { 0, 2, 4 }, Enumerable.Range(1, 3)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-005", level).PierceCount));
             Assert.IsTrue(Effect<ProjectileBurstEffect>("SKILL-005", 6).Behavior.UnlimitedPierce);
             Assert.AreEqual(ActiveSkillTargetingMode.MovementDirection, Skill("SKILL-005").GetLevel(1).TargetingMode);
             CollectionAssert.AreEqual(new[] { 4, 5, 6, 7, 9, 13 }, Enumerable.Range(1, 6)
@@ -78,6 +82,12 @@ namespace Game.ActiveSkill.Tests
         {
             for (var level = 1; level <= 6; level++)
                 Assert.IsTrue(Effect<OrbitEffect>("SKILL-003", level).Persistent);
+            CollectionAssert.AreEqual(new[] { 1, 1, 2, 3, 3, 4 }, Enumerable.Range(1, 6)
+                .Select(level => Effect<OrbitEffect>("SKILL-003", level).BladeCount));
+            var l2 = Skill("SKILL-003").GetLevel(2);
+            Assert.AreEqual(12.25f, l2.BaseDamage, 1e-5f);
+            Assert.AreEqual(0.368f, ((OrbitEffect)l2.Waves[0].Effects[0]).BladeHitboxRadius, 1e-5f);
+            Assert.AreEqual(138f, ((OrbitEffect)l2.Waves[0].Effects[0]).AngularSpeedDegrees, 1e-5f);
             var l6 = Effect<OrbitEffect>("SKILL-003", 6);
             Assert.AreEqual(4, l6.BladeCount);
             Assert.AreEqual(2.25f, l6.Radius, 1e-5f);
@@ -91,6 +101,8 @@ namespace Game.ActiveSkill.Tests
         [Test]
         public void PulseWave_ExpandsAndAddsHalfDamageSecondWaveFromLevelFour()
         {
+            CollectionAssert.AreEqual(new[] { 1.25f, 2.5f, 3.125f }, Enumerable.Range(1, 3)
+                .Select(level => ((AreaEffect)Skill("SKILL-004").GetLevel(level).Waves[0].Effects[0]).Radius));
             var l3 = Skill("SKILL-004").GetLevel(3);
             Assert.AreEqual(1, l3.Waves.Count);
             Assert.AreEqual(0.25f, ((AreaEffect)l3.Waves[0].Effects[0]).ExpansionSeconds, 1e-5f);
@@ -112,6 +124,8 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(ActiveSkillTargetingMode.RandomEnemy, l1.TargetingMode);
             Assert.AreEqual(8f, l1.Targeting.Radius);
             Assert.IsTrue(l1.Targeting.RandomSeed.HasValue);
+            CollectionAssert.AreEqual(new[] { 0.8f, 1.6f, 2.24f, 2.24f, 2.24f, 2.24f }, Enumerable.Range(1, 6)
+                .Select(level => ((StrikeEffect)Skill("SKILL-010").GetLevel(level).Waves[0].Effects[0]).Radius));
             Assert.AreEqual(0.6f, ((StrikeEffect)l1.Waves[0].Effects[0]).TelegraphSeconds, 1e-5f);
             var l6 = Skill("SKILL-010").GetLevel(6);
             CollectionAssert.AreEqual(new[] { 0f, 0.3f, 0.6f }, l6.Waves.Select(w => (float)System.Math.Round(w.DelaySeconds, 4)));
@@ -127,13 +141,16 @@ namespace Game.ActiveSkill.Tests
         {
             Assert.AreEqual(11.2f, Skill("SKILL-006").GetLevel(1).BaseDamage, 1e-4f);
             Assert.AreEqual(14f, Skill("SKILL-006").GetLevel(6).BaseDamage, 1e-4f);
-            Assert.AreEqual(3.2f, Effect<BoomerangEffect>("SKILL-006", 1).Range, 1e-5f);
+            CollectionAssert.AreEqual(new[] { 1.6f, 3.2f, 4.16f }, Enumerable.Range(1, 3)
+                .Select(level => Effect<BoomerangEffect>("SKILL-006", level).Range));
             Assert.AreEqual(4.16f, Effect<BoomerangEffect>("SKILL-006", 6).Range, 1e-5f);
             Assert.AreEqual(0.16f, Effect<BoomerangEffect>("SKILL-006", 1).CollisionRadius, 1e-5f);
             Assert.AreEqual(0.192f, Effect<BoomerangEffect>("SKILL-006", 6).CollisionRadius, 1e-5f);
             Assert.AreEqual(1.75f, Effect<BoomerangEffect>("SKILL-006", 6).ReturnDamageMultiplier, 1e-5f);
             Assert.AreEqual(1f, Effect<BoomerangEffect>("SKILL-006", 1).HitCooldownSeconds, 1e-5f);
             Assert.AreEqual(8, Effect<ChainEffect>("SKILL-007", 6).TargetCount);
+            CollectionAssert.AreEqual(new[] { 2, 3, 4 }, Enumerable.Range(1, 3)
+                .Select(level => Effect<ChainEffect>("SKILL-007", level).TargetCount));
             Assert.AreEqual(15.4f, Skill("SKILL-007").GetLevel(1).BaseDamage, 1e-4f);
             Assert.AreEqual(15.4f, Skill("SKILL-007").GetLevel(2).BaseDamage, 1e-4f);
             Assert.AreEqual(19.25f, Skill("SKILL-007").GetLevel(3).BaseDamage, 1e-4f);
@@ -142,6 +159,8 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(2.86f, Skill("SKILL-007").GetLevel(1).CooldownSeconds, 1e-5f, "User nerf 2026-09-26: cooldown +30%.");
             Assert.AreEqual(0f, Skill("SKILL-007").GetLevel(1).Waves[0].Controls.KnockbackDistance);
             var spheres = Effect<ProjectileBurstEffect>("SKILL-014", 6);
+            CollectionAssert.AreEqual(new[] { 0.65f, 1.3f, 1.69f }, Enumerable.Range(1, 3)
+                .Select(level => Effect<ProjectileBurstEffect>("SKILL-014", level).ImpactAreaRadius));
             Assert.AreEqual(ProjectileLayout.IndependentRandom, spheres.Layout);
             Assert.AreEqual(23.66f / 15.12f, spheres.Behavior.ExplosionDamageMultiplier, 1e-4f);
             Assert.AreEqual(18.2f / 12.6f, Effect<ProjectileBurstEffect>("SKILL-014", 1).Behavior.ExplosionDamageMultiplier, 1e-4f, "User nerf 2026-09-26: L1 explosion 26.");

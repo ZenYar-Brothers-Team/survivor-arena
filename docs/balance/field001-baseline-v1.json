@@ -231,7 +231,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 14,
+          "damage": 9.33,
           "count": 1,
           "speed": 10,
           "collisionRadius": 0.16,
@@ -243,7 +243,7 @@
         },
         {
           "level": 2,
-          "damage": 18.2,
+          "damage": 14,
           "count": 1,
           "speed": 10,
           "collisionRadius": 0.16,
@@ -412,7 +412,7 @@
         {
           "level": 1,
           "damage": 9.8,
-          "count": 2,
+          "count": 1,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.32,
           "angularSpeedDegrees": 120,
@@ -421,16 +421,16 @@
         {
           "level": 2,
           "damage": 12.25,
-          "count": 2,
+          "count": 1,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.368,
-          "angularSpeedDegrees": 120,
+          "angularSpeedDegrees": 138,
           "knockback": 0.18
         },
         {
           "level": 3,
           "damage": 12.25,
-          "count": 3,
+          "count": 2,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.368,
           "angularSpeedDegrees": 138,
@@ -480,7 +480,7 @@
         {
           "level": 1,
           "damage": 6.4,
-          "radius": 2.5,
+          "radius": 1.25,
           "knockback": 1.6,
           "actionSpeedBonus": 0,
           "waveCount": 1,
@@ -492,7 +492,7 @@
         {
           "level": 2,
           "damage": 6.4,
-          "radius": 3.125,
+          "radius": 2.5,
           "knockback": 1.84,
           "actionSpeedBonus": 0,
           "waveCount": 1,
@@ -565,7 +565,7 @@
         {
           "level": 1,
           "damage": 32.3,
-          "maxHitTargets": 3,
+          "maxHitTargets": 1,
           "range": 6,
           "speed": 12,
           "collisionRadius": 0.12,
@@ -650,7 +650,7 @@
           "damage": 11.2,
           "count": 1,
           "spreadDegrees": 0,
-          "range": 3.2,
+          "range": 1.6,
           "speed": 6,
           "collisionRadius": 0.16,
           "knockback": 0.3,
@@ -741,7 +741,7 @@
         {
           "level": 1,
           "damage": 15.4,
-          "targetCount": 3,
+          "targetCount": 2,
           "jumpRange": 2.5,
           "damageRetentionPerJump": 0.85,
           "actionSpeedBonus": 0
@@ -749,7 +749,7 @@
         {
           "level": 2,
           "damage": 15.4,
-          "targetCount": 4,
+          "targetCount": 3,
           "jumpRange": 2.875,
           "damageRetentionPerJump": 0.85,
           "actionSpeedBonus": 0
@@ -807,7 +807,7 @@
         {
           "level": 1,
           "damage": 24.75,
-          "radius": 1.6,
+          "radius": 0.8,
           "knockback": 0.45,
           "actionSpeedBonus": 0,
           "strikeCount": 1,
@@ -818,7 +818,7 @@
         {
           "level": 2,
           "damage": 24.75,
-          "radius": 2,
+          "radius": 1.6,
           "knockback": 0.54,
           "actionSpeedBonus": 0,
           "strikeCount": 1,
@@ -992,7 +992,7 @@
           "explosionDamage": 18.2,
           "count": 1,
           "collisionRadius": 0.22,
-          "explosionRadius": 1.3,
+          "explosionRadius": 0.65,
           "impactKnockback": 0.25,
           "explosionKnockback": 0.75,
           "actionSpeedBonus": 0,
@@ -1004,7 +1004,7 @@
           "explosionDamage": 18.2,
           "count": 1,
           "collisionRadius": 0.22,
-          "explosionRadius": 1.69,
+          "explosionRadius": 1.3,
           "impactKnockback": 0.25,
           "explosionKnockback": 0.9,
           "actionSpeedBonus": 0,
