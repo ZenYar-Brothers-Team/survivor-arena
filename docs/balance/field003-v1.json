@@ -1,0 +1,1928 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "field003-v1",
+ "approval": "Proposed 2026-09-27 (DECISION-0067)",
+ "runtimeImportable": false,
+ "reference": [
+  "field001-baseline-v1",
+  "field002-v1",
+  "enemies-v1",
+  "bosses-v1"
+ ],
+ "fieldPressure": {
+  "field": 3,
+  "healthMultiplier": 1.24,
+  "damageMultiplier": 1.16,
+  "densityFactor": 1.2,
+  "restDensityFactor": 1.25,
+  "capFactor": 1.2,
+  "aliveCapLimit": 220,
+  "burstCountFactor": 1.3,
+  "earlyPeakBurstFactor": 1.5,
+  "pressurePhaseIntervalFactor": 0.85
+ },
+ "enemyPool": [
+  "ENEMY-001",
+  "ENEMY-002",
+  "ENEMY-003",
+  "ENEMY-004",
+  "ENEMY-005",
+  "ENEMY-007",
+  "ENEMY-008",
+  "ENEMY-009",
+  "ENEMY-006",
+  "ENEMY-010"
+ ],
+ "newEnemiesInFirstWave": [
+  "ENEMY-010"
+ ],
+ "cardChanges": [
+  {
+   "id": "ENEMY-010",
+   "field": "Контексты",
+   "before": "FIELD-004…008",
+   "proposed": "FIELD-003…008",
+   "reason": "user choice 2026-09-27: FIELD-003 needs a new first-wave type (DECISION-0063)"
+  }
+ ],
+ "rangedTypes": [
+  "ENEMY-004",
+  "ENEMY-005",
+  "ENEMY-006",
+  "ENEMY-010"
+ ],
+ "extraPressurePhases": [
+  "P06",
+  "P10"
+ ],
+ "earlyPeakBursts": [
+  "P03",
+  "P07"
+ ],
+ "nominal": {
+  "FIELD-001": {
+   "spawns": 1741,
+   "health": 90105,
+   "experience": 2893,
+   "rangedShare": 0.119
+  },
+  "FIELD-002": {
+   "spawns": 1949,
+   "health": 161664,
+   "experience": 4666,
+   "rangedShare": 0.16
+  },
+  "FIELD-003": {
+   "spawns": 2218,
+   "health": 225175,
+   "experience": 6320,
+   "rangedShare": 0.284
+  }
+ },
+ "travelers": {
+  "pool": "global: all implemented Travelers",
+  "selection": "count 0-3 by the shared probabilities, then types one by one uniformly among unselected types whose role is not used yet",
+  "implementedNow": [
+   "TRAVELER-001",
+   "TRAVELER-002",
+   "TRAVELER-005"
+  ],
+  "fieldScaling": "K r=3 (existing formula)"
+ },
+ "bosses": {
+  "finalBossId": "BOSS-003",
+  "midBossId": "MIDBOSS-003",
+  "source": "bosses-v1 (DECISION-0066)"
+ },
+ "field": {
+  "id": "FIELD-003",
+  "thumbnailVisualId": "FIELD-003-VISUAL-BACKGROUND",
+  "difficulty": 2,
+  "durationSeconds": 900,
+  "arenaSideScreenHeights": 20,
+  "referenceScreenHeight": 10,
+  "arenaWidth": 200,
+  "arenaHeight": 200,
+  "wallThickness": 1,
+  "spawnPoint": [
+   0,
+   0
+  ],
+  "spawnRadius": 12,
+  "openingSpawn": {
+   "durationSeconds": 20,
+   "screenMargin": 1
+  },
+  "obstaclesBlock": "player-only",
+  "sceneName": "Gameplay",
+  "spawnPointName": "PlayerSpawn",
+  "timelineId": "FIELD-003-TIMELINE",
+  "environmentId": "FIELD-003-ENVIRONMENT",
+  "travelerScheduleId": "FIELD-003-TRAVELERS",
+  "finalBossId": "BOSS-003",
+  "midBossId": "MIDBOSS-003",
+  "thumbnailPlaceholder": "Пограничные руины",
+  "unlockDescription": "Пройдите «Королевский тракт»",
+  "obstacleClusters": {
+   "count": 16,
+   "centralClusters": 6,
+   "centralRing": [
+    14,
+    36
+   ],
+   "minClusterSpacing": 20,
+   "startClearRadius": 10,
+   "seed": 20260927
+  },
+  "obstacles": [
+   {
+    "id": "FIELD-003-O001",
+    "kind": "Wall",
+    "cluster": 1,
+    "x": 20.53,
+    "y": -13.74,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O002",
+    "kind": "Wall",
+    "cluster": 1,
+    "x": 24.37,
+    "y": -13.74,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O003",
+    "kind": "Wall",
+    "cluster": 1,
+    "x": 18.77,
+    "y": -16.78,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O004",
+    "kind": "Wall",
+    "cluster": 1,
+    "x": 26.13,
+    "y": -16.78,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O005",
+    "kind": "Rubble",
+    "cluster": 1,
+    "x": 21.51,
+    "y": -10.43,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O006",
+    "kind": "Rubble",
+    "cluster": 1,
+    "x": 23.02,
+    "y": -8.29,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O007",
+    "kind": "Rubble",
+    "cluster": 1,
+    "x": 19.2,
+    "y": -10.59,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O008",
+    "kind": "Wall",
+    "cluster": 2,
+    "x": -35.21,
+    "y": 1.08,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O009",
+    "kind": "Wall",
+    "cluster": 2,
+    "x": -35.21,
+    "y": 4.92,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O010",
+    "kind": "Wall",
+    "cluster": 2,
+    "x": -33.45,
+    "y": 7.48,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O011",
+    "kind": "Rubble",
+    "cluster": 2,
+    "x": -31.69,
+    "y": 4.84,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O012",
+    "kind": "Rubble",
+    "cluster": 2,
+    "x": -41.06,
+    "y": -3.54,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O013",
+    "kind": "Rubble",
+    "cluster": 2,
+    "x": -32.7,
+    "y": 0.15,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O014",
+    "kind": "Wall",
+    "cluster": 3,
+    "x": -8.68,
+    "y": -18.95,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O015",
+    "kind": "Wall",
+    "cluster": 3,
+    "x": -8.68,
+    "y": -15.11,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O016",
+    "kind": "Wall",
+    "cluster": 3,
+    "x": -10.44,
+    "y": -12.55,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O017",
+    "kind": "Rubble",
+    "cluster": 3,
+    "x": -7.67,
+    "y": -22.15,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O018",
+    "kind": "Rubble",
+    "cluster": 3,
+    "x": -4.31,
+    "y": -19.41,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O019",
+    "kind": "Rubble",
+    "cluster": 3,
+    "x": -10.3,
+    "y": -23.37,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O020",
+    "kind": "Wall",
+    "cluster": 4,
+    "x": 11.36,
+    "y": 26.26,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O021",
+    "kind": "Wall",
+    "cluster": 4,
+    "x": 15.2,
+    "y": 26.26,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O022",
+    "kind": "Wall",
+    "cluster": 4,
+    "x": 19.04,
+    "y": 26.26,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O023",
+    "kind": "Rubble",
+    "cluster": 4,
+    "x": 11.42,
+    "y": 29.53,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O024",
+    "kind": "Rubble",
+    "cluster": 4,
+    "x": 10.83,
+    "y": 32.2,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O025",
+    "kind": "Rubble",
+    "cluster": 4,
+    "x": 7.01,
+    "y": 23.36,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O026",
+    "kind": "Wall",
+    "cluster": 5,
+    "x": -15.35,
+    "y": 20.79,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O027",
+    "kind": "Wall",
+    "cluster": 5,
+    "x": -19.19,
+    "y": 20.79,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O028",
+    "kind": "Wall",
+    "cluster": 5,
+    "x": -13.59,
+    "y": 17.75,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O029",
+    "kind": "Wall",
+    "cluster": 5,
+    "x": -13.59,
+    "y": 13.91,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O030",
+    "kind": "Rubble",
+    "cluster": 5,
+    "x": -10.17,
+    "y": 25.88,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O031",
+    "kind": "Rubble",
+    "cluster": 5,
+    "x": -17.28,
+    "y": 25.74,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O032",
+    "kind": "Rubble",
+    "cluster": 5,
+    "x": -11.47,
+    "y": 22.68,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O033",
+    "kind": "Rubble",
+    "cluster": 5,
+    "x": -17.04,
+    "y": 15.47,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O034",
+    "kind": "Wall",
+    "cluster": 6,
+    "x": 35.19,
+    "y": 6.39,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O035",
+    "kind": "Wall",
+    "cluster": 6,
+    "x": 39.03,
+    "y": 6.39,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O036",
+    "kind": "Wall",
+    "cluster": 6,
+    "x": 33.43,
+    "y": 3.35,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O037",
+    "kind": "Wall",
+    "cluster": 6,
+    "x": 40.79,
+    "y": 3.35,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O038",
+    "kind": "Rubble",
+    "cluster": 6,
+    "x": 30.53,
+    "y": 6.2,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O039",
+    "kind": "Rubble",
+    "cluster": 6,
+    "x": 37.02,
+    "y": 3.31,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O040",
+    "kind": "Wall",
+    "cluster": 7,
+    "x": -64.45,
+    "y": -65.61,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O041",
+    "kind": "Wall",
+    "cluster": 7,
+    "x": -68.29,
+    "y": -65.61,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O042",
+    "kind": "Wall",
+    "cluster": 7,
+    "x": -62.69,
+    "y": -68.65,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O043",
+    "kind": "Wall",
+    "cluster": 7,
+    "x": -70.05,
+    "y": -68.65,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O044",
+    "kind": "Rubble",
+    "cluster": 7,
+    "x": -62.67,
+    "y": -61.63,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O045",
+    "kind": "Rubble",
+    "cluster": 7,
+    "x": -59.92,
+    "y": -66.78,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O046",
+    "kind": "Rubble",
+    "cluster": 7,
+    "x": -67.91,
+    "y": -63.28,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O047",
+    "kind": "Wall",
+    "cluster": 8,
+    "x": -60.6,
+    "y": 4.87,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O048",
+    "kind": "Wall",
+    "cluster": 8,
+    "x": -60.6,
+    "y": 8.71,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O049",
+    "kind": "Wall",
+    "cluster": 8,
+    "x": -58.84,
+    "y": 11.27,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O050",
+    "kind": "Rubble",
+    "cluster": 8,
+    "x": -58.02,
+    "y": -1.06,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O051",
+    "kind": "Rubble",
+    "cluster": 8,
+    "x": -55.79,
+    "y": 0.68,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O052",
+    "kind": "Rubble",
+    "cluster": 8,
+    "x": -63.53,
+    "y": 2.17,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O053",
+    "kind": "Rubble",
+    "cluster": 8,
+    "x": -55.7,
+    "y": 7.41,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O054",
+    "kind": "Wall",
+    "cluster": 9,
+    "x": -80.65,
+    "y": 67.72,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O055",
+    "kind": "Wall",
+    "cluster": 9,
+    "x": -80.65,
+    "y": 71.56,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O056",
+    "kind": "Wall",
+    "cluster": 9,
+    "x": -82.41,
+    "y": 74.12,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O057",
+    "kind": "Rubble",
+    "cluster": 9,
+    "x": -79.58,
+    "y": 63.65,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O058",
+    "kind": "Rubble",
+    "cluster": 9,
+    "x": -76.92,
+    "y": 70.47,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O059",
+    "kind": "Rubble",
+    "cluster": 9,
+    "x": -74.92,
+    "y": 61.74,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O060",
+    "kind": "Rubble",
+    "cluster": 9,
+    "x": -76.07,
+    "y": 67.13,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O061",
+    "kind": "Wall",
+    "cluster": 10,
+    "x": -73.85,
+    "y": 23.56,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O062",
+    "kind": "Wall",
+    "cluster": 10,
+    "x": -77.69,
+    "y": 23.56,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O063",
+    "kind": "Wall",
+    "cluster": 10,
+    "x": -72.09,
+    "y": 20.52,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O064",
+    "kind": "Wall",
+    "cluster": 10,
+    "x": -72.09,
+    "y": 16.68,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O065",
+    "kind": "Rubble",
+    "cluster": 10,
+    "x": -75.01,
+    "y": 18.93,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O066",
+    "kind": "Rubble",
+    "cluster": 10,
+    "x": -76.24,
+    "y": 21.62,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O067",
+    "kind": "Wall",
+    "cluster": 11,
+    "x": -83.05,
+    "y": -34.23,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O068",
+    "kind": "Wall",
+    "cluster": 11,
+    "x": -86.89,
+    "y": -34.23,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O069",
+    "kind": "Wall",
+    "cluster": 11,
+    "x": -81.29,
+    "y": -37.27,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O070",
+    "kind": "Wall",
+    "cluster": 11,
+    "x": -81.29,
+    "y": -41.11,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O071",
+    "kind": "Rubble",
+    "cluster": 11,
+    "x": -78.51,
+    "y": -28.27,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O072",
+    "kind": "Rubble",
+    "cluster": 11,
+    "x": -85.53,
+    "y": -30.81,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O073",
+    "kind": "Rubble",
+    "cluster": 11,
+    "x": -83.19,
+    "y": -39.72,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O074",
+    "kind": "Rubble",
+    "cluster": 11,
+    "x": -78.74,
+    "y": -31.45,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O075",
+    "kind": "Wall",
+    "cluster": 12,
+    "x": -54.33,
+    "y": 56.98,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O076",
+    "kind": "Wall",
+    "cluster": 12,
+    "x": -50.49,
+    "y": 56.98,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O077",
+    "kind": "Wall",
+    "cluster": 12,
+    "x": -46.65,
+    "y": 56.98,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O078",
+    "kind": "Rubble",
+    "cluster": 12,
+    "x": -50.55,
+    "y": 52.81,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O079",
+    "kind": "Rubble",
+    "cluster": 12,
+    "x": -51.7,
+    "y": 61.8,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O080",
+    "kind": "Rubble",
+    "cluster": 12,
+    "x": -58.14,
+    "y": 62.02,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O081",
+    "kind": "Rubble",
+    "cluster": 12,
+    "x": -53.14,
+    "y": 54.86,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O082",
+    "kind": "Wall",
+    "cluster": 13,
+    "x": 12.32,
+    "y": 73.69,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O083",
+    "kind": "Wall",
+    "cluster": 13,
+    "x": 12.32,
+    "y": 77.53,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O084",
+    "kind": "Wall",
+    "cluster": 13,
+    "x": 10.56,
+    "y": 80.09,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O085",
+    "kind": "Rubble",
+    "cluster": 13,
+    "x": 16.9,
+    "y": 74.59,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O086",
+    "kind": "Rubble",
+    "cluster": 13,
+    "x": 12.46,
+    "y": 69.17,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O087",
+    "kind": "Rubble",
+    "cluster": 13,
+    "x": 14.34,
+    "y": 77.95,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O088",
+    "kind": "Wall",
+    "cluster": 14,
+    "x": -84.86,
+    "y": 47.49,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O089",
+    "kind": "Wall",
+    "cluster": 14,
+    "x": -81.02,
+    "y": 47.49,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O090",
+    "kind": "Wall",
+    "cluster": 14,
+    "x": -86.62,
+    "y": 44.45,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O091",
+    "kind": "Wall",
+    "cluster": 14,
+    "x": -79.26,
+    "y": 44.45,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O092",
+    "kind": "Rubble",
+    "cluster": 14,
+    "x": -90.82,
+    "y": 51.16,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O093",
+    "kind": "Rubble",
+    "cluster": 14,
+    "x": -84.42,
+    "y": 50.69,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O094",
+    "kind": "Rubble",
+    "cluster": 14,
+    "x": -87.55,
+    "y": 51.38,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O095",
+    "kind": "Rubble",
+    "cluster": 14,
+    "x": -79.72,
+    "y": 53.14,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O096",
+    "kind": "Wall",
+    "cluster": 15,
+    "x": 83.39,
+    "y": -3.44,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O097",
+    "kind": "Wall",
+    "cluster": 15,
+    "x": 83.39,
+    "y": 0.4,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O098",
+    "kind": "Wall",
+    "cluster": 15,
+    "x": 85.15,
+    "y": 2.96,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O099",
+    "kind": "Rubble",
+    "cluster": 15,
+    "x": 83.45,
+    "y": -7.33,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O100",
+    "kind": "Rubble",
+    "cluster": 15,
+    "x": 81.17,
+    "y": -5.75,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O101",
+    "kind": "Wall",
+    "cluster": 16,
+    "x": -3.56,
+    "y": -40.67,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O102",
+    "kind": "Wall",
+    "cluster": 16,
+    "x": 0.28,
+    "y": -40.67,
+    "width": 3.2,
+    "height": 0.8,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O103",
+    "kind": "Wall",
+    "cluster": 16,
+    "x": -5.32,
+    "y": -43.71,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O104",
+    "kind": "Wall",
+    "cluster": 16,
+    "x": -5.32,
+    "y": -47.55,
+    "width": 0.8,
+    "height": 3.2,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O105",
+    "kind": "Rubble",
+    "cluster": 16,
+    "x": -1.37,
+    "y": -36.81,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O106",
+    "kind": "Rubble",
+    "cluster": 16,
+    "x": -4.15,
+    "y": -38.32,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   },
+   {
+    "id": "FIELD-003-O107",
+    "kind": "Rubble",
+    "cluster": 16,
+    "x": 1.14,
+    "y": -44.89,
+    "width": 1.4,
+    "height": 1.1,
+    "rotationDegrees": 0
+   }
+  ],
+  "waterDecor": {
+   "blocksMovement": false,
+   "patches": 12,
+   "seed": 20260928,
+   "note": "визуальные участки воды (ров, лужи у обломков моста); по карточке не меняют движение"
+  }
+ },
+ "timeline": {
+  "id": "FIELD-003-TIMELINE",
+  "hooks": [
+   {
+    "kind": "MidBoss",
+    "timeSeconds": 450
+   },
+   {
+    "kind": "FinalBoss",
+    "timeSeconds": 810
+   }
+  ],
+  "phases": [
+   {
+    "id": "FIELD-003-P01",
+    "startSeconds": 0,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 1.042,
+    "maxAliveEnemies": 48,
+    "composition": {
+     "ENEMY-001": 69,
+     "ENEMY-002": 10,
+     "ENEMY-003": 5,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0,
+     "ENEMY-010": 6
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P02",
+    "startSeconds": 60,
+    "durationSeconds": 55,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.75,
+    "maxAliveEnemies": 72,
+    "composition": {
+     "ENEMY-001": 49,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0,
+     "ENEMY-010": 6
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P03",
+    "startSeconds": 115,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 72,
+    "composition": {
+     "ENEMY-001": 49,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0,
+     "ENEMY-010": 6
+    },
+    "burst": {
+     "count": 24,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P04",
+    "startSeconds": 120,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.6,
+    "maxAliveEnemies": 54,
+    "composition": {
+     "ENEMY-001": 49,
+     "ENEMY-002": 25,
+     "ENEMY-003": 10,
+     "ENEMY-004": 0,
+     "ENEMY-005": 0,
+     "ENEMY-007": 0,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 0,
+     "ENEMY-010": 6
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P05",
+    "startSeconds": 150,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.542,
+    "maxAliveEnemies": 108,
+    "composition": {
+     "ENEMY-001": 13,
+     "ENEMY-002": 25,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P06",
+    "startSeconds": 210,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.39,
+    "maxAliveEnemies": 132,
+    "composition": {
+     "ENEMY-001": 14,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P07",
+    "startSeconds": 270,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 132,
+    "composition": {
+     "ENEMY-001": 14,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": {
+     "count": 36,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P08",
+    "startSeconds": 275,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.467,
+    "maxAliveEnemies": 96,
+    "composition": {
+     "ENEMY-001": 14,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 10,
+     "ENEMY-009": 0,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P09",
+    "startSeconds": 300,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.417,
+    "maxAliveEnemies": 144,
+    "composition": {
+     "ENEMY-001": 13,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 6,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 0,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P10",
+    "startSeconds": 360,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.319,
+    "maxAliveEnemies": 168,
+    "composition": {
+     "ENEMY-001": 7,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P11",
+    "startSeconds": 420,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 168,
+    "composition": {
+     "ENEMY-001": 7,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": {
+     "count": 24,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P12",
+    "startSeconds": 425,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.2,
+    "maxAliveEnemies": 120,
+    "composition": {
+     "ENEMY-001": 15,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P13",
+    "startSeconds": 450,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Ordinary",
+    "spawnIntervalSeconds": 0.5,
+    "maxAliveEnemies": 144,
+    "composition": {
+     "ENEMY-001": 12,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 7,
+     "ENEMY-005": 6,
+     "ENEMY-007": 7,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P14",
+    "startSeconds": 510,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.317,
+    "maxAliveEnemies": 192,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 22,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P15",
+    "startSeconds": 570,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 192,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 22,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 8,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": {
+     "count": 32,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P16",
+    "startSeconds": 575,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 1.067,
+    "maxAliveEnemies": 132,
+    "composition": {
+     "ENEMY-001": 15,
+     "ENEMY-002": 20,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 5,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P17",
+    "startSeconds": 600,
+    "durationSeconds": 90,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.283,
+    "maxAliveEnemies": 216,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 18,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 9,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 5,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P18",
+    "startSeconds": 690,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 216,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 16,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 9,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": {
+     "count": 32,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P19",
+    "startSeconds": 695,
+    "durationSeconds": 25,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 0.933,
+    "maxAliveEnemies": 156,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 22,
+     "ENEMY-003": 23,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P20",
+    "startSeconds": 720,
+    "durationSeconds": 60,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.25,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 15,
+     "ENEMY-003": 21,
+     "ENEMY-004": 8,
+     "ENEMY-005": 8,
+     "ENEMY-007": 10,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P21",
+    "startSeconds": 780,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 0.8,
+    "maxAliveEnemies": 168,
+    "composition": {
+     "ENEMY-001": 8,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 5,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P22",
+    "startSeconds": 810,
+    "durationSeconds": 30,
+    "spawnMode": "Continuous",
+    "tag": "Rest",
+    "spawnIntervalSeconds": 0.433,
+    "maxAliveEnemies": 192,
+    "composition": {
+     "ENEMY-001": 6,
+     "ENEMY-002": 22,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 7,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P23",
+    "startSeconds": 840,
+    "durationSeconds": 55,
+    "spawnMode": "Continuous",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 0.233,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 5,
+     "ENEMY-002": 17,
+     "ENEMY-003": 20,
+     "ENEMY-004": 8,
+     "ENEMY-005": 7,
+     "ENEMY-007": 10,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": null,
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   },
+   {
+    "id": "FIELD-003-P24",
+    "startSeconds": 895,
+    "durationSeconds": 5,
+    "spawnMode": "Burst",
+    "tag": "Pressure",
+    "spawnIntervalSeconds": 1,
+    "maxAliveEnemies": 220,
+    "composition": {
+     "ENEMY-001": 7,
+     "ENEMY-002": 25,
+     "ENEMY-003": 20,
+     "ENEMY-004": 6,
+     "ENEMY-005": 6,
+     "ENEMY-007": 3,
+     "ENEMY-008": 8,
+     "ENEMY-009": 8,
+     "ENEMY-006": 7,
+     "ENEMY-010": 10
+    },
+    "burst": {
+     "count": 26,
+     "offsetSeconds": 0,
+     "windowSeconds": 1
+    },
+    "modifiers": {
+     "healthMultiplier": 1.24,
+     "speedMultiplier": 1,
+     "contactDamageMultiplier": 1.16,
+     "attackDamageMultiplier": 1.16
+    }
+   }
+  ]
+ }
+}
