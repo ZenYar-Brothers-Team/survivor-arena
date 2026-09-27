@@ -2,16 +2,17 @@
 
 \#\# Назначение
 
-Этот таб — production inventory для визуальной части Survival Arena.
+Этот документ — production inventory для визуальной части Survival Arena.
 
-Он отвечает не на вопрос \*\*«как должна выглядеть игра»\*\* — это задаёт \`Art Direction v2\`, — а на вопрос:
+Он отвечает не на вопрос \*\*«как должна выглядеть игра»\*\* — это задаёт [Art Direction](ART_DIRECTION.md), — а на вопрос:
 
 \> \*\*какие конкретно визуальные ассеты и procedural-эффекты ещё нужны, каким способом их делать и в каком они состоянии.\*\*
 
-Источники:  
-\- \`Content Design v2\` — список и механика игровых сущностей;  
-\- \`Art Direction v2\` — общий визуальный язык и правила production;  
-\- этот таб — operational checklist.
+Источники:
+\- [Content Design](../Content_design.md) — список и механика игровых сущностей;
+\- [Art Direction](ART_DIRECTION.md) — общий визуальный язык и правила production;
+\- [Asset Pipeline](ASSET_PIPELINE.md) — подготовка, provenance, импорт, binding и approval gates;
+\- этот документ — visual inventory и operational checklist.
 
 Цель — не забыть ни отдельные картинки, ни VFX, ни UI, ни эффекты, которые должны делаться непосредственно в Unity.
 
@@ -23,9 +24,22 @@
 \- \`GENERATED\` — есть первая сгенерированная версия.  
 \- \`REVIEW\` — идёт визуальный review / нужны правки.  
 \- \`APPROVED\` — визуал принят.  
+\- \`PREPARED\` — утверждённый runtime-ассет и его provenance подготовлены, но production owner ещё не использует его.
+\- \`BOUND\` / \`INTEGRATED\` — ассет связан с production ID; итоговый gameplay-scale review ещё может быть открыт.
 \- \`IN GAME\` — ассет импортирован и реально используется в Unity.
+\- \`DEFERRED\` — отдельный ассет сейчас не требуется; возвращаться к нему только при появлении указанного UI/gameplay need.
 
 \`APPROVED\` и \`IN GAME\` — разные состояния.
+
+Статусы в этом документе описывают только visual inventory. Execution order, готовность IP и открытые gates определяет только [Implementation Status](../implementation/STATUS.md). Подготовленный или подключённый арт не закрывает production binding, gameplay-scale review или ручной прогон автоматически.
+
+### Текущий срез — 2026-09-27
+
+- Обязательный raster-каталог для уже реализованных gameplay owners подготовлен: тела, world-art, pickups, UI-иконки, thumbnails, ground textures и obstacle props имеют source/master/provenance/runtime records по своим пакетам.
+- Основной незакрытый слой — production bindings для ещё не собранных owners и ручная проверка на реальном масштабе/скорости. Это не backlog повторной генерации изображений.
+- FIELD-004…010 уже имеют утверждённые thumbnails, ground textures и по шесть obstacle props. Их production definitions, layouts и bindings принадлежат IP-23/IP-24.
+- Отдельные Character Select portraits, meta currency art, meta-upgrade icons и pickup UI icons не входят в обязательный backlog, пока существующий body/world sprite либо обычный UI достаточно хорошо выполняет роль.
+- Store/marketing art остаётся отдельным поздним слоем и не считается недостающим gameplay art.
 
 \---
 
@@ -92,7 +106,7 @@ Procedural motion / material / VFX behavior
 IN GAME  
 \`\`\`
 
-Длинные generation prompts в этом табе не хранятся. Здесь остаются только brief, production method и status.
+Длинные generation prompts в этом документе не хранятся. Здесь остаются только brief, production method и status.
 
 \---
 
@@ -104,8 +118,8 @@ IN GAME
 
 | ID | Character | Asset | Method | Status | Notes |  
 |---|---|---|---|---|---|  
-| CHAR-001 | Клёпка | Body sprite | Generate via GPT | APPROVED | Концепт = fixture goblin v002: связь подтверждена пользователем 2026-09-21 в asset-record. Runtime интегрирован как FIXTURE-CHARACTER-AGILE; production binding CHAR-001 относится к IP-22 |
-| CHAR-001 | Клёпка | Character Select image | Reuse body sprite first | NOT STARTED | Crop/variant existing body; отдельный portrait только если понадобится |  
+| CHAR-001 | Клёпка | Body sprite | Generate via GPT | IN GAME — v002 | Концепт связан с fixture goblin; production CHAR-001 binding поставлен в F1-03, текущий вид принят 2026-09-24 |
+| CHAR-001…010 | Character Select image | Reuse body sprite first | Reuse/crop | DEFERRED | Использовать crop/variant соответствующего body sprite; отдельный portrait создавать только по результату target-scale UI review |
 | CHAR-002 | Бугор | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
 | CHAR-003 | Шепотка | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
 | CHAR-004 | Тётка Шмыга | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
@@ -134,8 +148,8 @@ IN GAME
 
 | ID | Enemy | Asset | Method | Status |  
 |---|---|---|---|---|  
-| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT + procedural motion | APPROVED — v002; runtime 256×256 импортирован и IN GAME у FIXTURE-ENEMY-SEEKER. [Provenance](../../Art/Source/Enemies/enemy-001/asset-record.json); production ENEMY-001 binding и пользовательский gameplay review отдельно |
-| ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT + procedural motion | REVIEW — v002; v001 отклонён как испуганный и слишком похожий на playable goblin, v002 переделан в уверенного человеческого преследователя; runtime 256×256 IN GAME у FIXTURE-ENEMY-FAN. [Provenance](../../Art/Source/Enemies/enemy-002/asset-record.json); production binding и пользовательский gameplay review отдельно |
+| ENEMY-001 | Селянин с вилами | Body sprite | Generate via GPT + procedural motion | IN GAME — v002, production binding и текущий вид приняты 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-001/asset-record.json) |
+| ENEMY-002 | Деревенский гонец | Body sprite | Generate via GPT + procedural motion | IN GAME — v002, production binding и текущий вид приняты 2026-09-24; v001 отклонён как испуганный и слишком похожий на playable goblin. [Provenance](../../Art/Source/Enemies/enemy-002/asset-record.json) |
 | ENEMY-003 | Дровосек | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-003/body/asset-record.json) |
 | ENEMY-004 | Пращник | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-004/body/asset-record.json) |
 | ENEMY-005 | Королевский лучник | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Enemies/enemy-005/body/asset-record.json) |
@@ -241,29 +255,29 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 
 | ID | Skill | World visual assets | Method | Status |  
 |---|---|---|---|---|  
-| SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | APPROVED — projectile v001; runtime 256×256 IN GAME у FIXTURE-SKILL-BOLT, лёгкое вращение 140°/s и общий flash + 3 земляные частицы. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json); production SKILL-001 binding остаётся IP-17 |
-| SKILL-002 | Веер игл | Needle projectile | Derived from approved icon \+ Unity fan pattern | PREPARED — v001 выделен из approved icon (DECISION-0054), production SKILL-002 binding F1-01; Unity import/in-game review pending |
-| SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
-| SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | PREPARED — процедурное кольцо `SkillWorldEffects.json` (DECISION-0054); in-game review pending |
-| SKILL-005 | Ветряное копьё | Wind spear projectile | Derived from approved icon \+ Unity motion | PREPARED — v001 из approved icon (DECISION-0054); Unity import/in-game review pending |
-| SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
-| SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | PREPARED — процедурные сегменты цепи (DECISION-0054); in-game review pending |
-| SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | IMAGE APPROVED — v001; world sprite подключён, gameplay-scale review pending |
-| SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | IMAGE APPROVED — v001; спрайт мины подключён, gameplay-scale review pending |
-| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | PREPARED — процедурные telegraph disc + impact flash (DECISION-0054), столб света за 0.15 s до вспышки и эллипс 0.7 для камеры 3/4 — совпадает с областью урона ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)); in-game review pending |
-| SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | IMAGE APPROVED — v001; одиночный осколок подключён, gameplay-scale review pending |
-| SKILL-012 | Пульсирующий луч | Beam base visual | Procedural in Unity | PREPARED — процедурная полоса (свечение по ширине попадания + яркое ядро) на каждый tick урона, `SkillWorldEffects.json`; выбор пользователя 2026-09-26 ([DECISION-0060](../decisions/0060-late-skills-passives-data-v1.md)); in-game review pending |
-| SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | PREPARED — v001 из approved icon (DECISION-0054); общий impact flash; Unity import/in-game review pending |
-| SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | IMAGE APPROVED — v001; world sprite и общий explosion presenter подключены, gameplay-scale review pending |
-| SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | IMAGE APPROVED — v001; одна режущая волна подключена, gameplay-scale review pending |
-| SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | IMAGE APPROVED — v001; одна крышка-снаряд подключена, gameplay-scale review pending |
+| SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | IN GAME — projectile v001, production binding, rotation и общий impact подключены. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json) |
+| SKILL-002 | Веер игл | Needle projectile | Derived from approved icon \+ Unity fan pattern | IN GAME — v001 выделен из approved icon и подключён к production fan pattern (DECISION-0054) |
+| SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | IN GAME — v001 и visual-only orbit подключены |
+| SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | IN GAME — процедурное кольцо подключено через `SkillWorldEffects.json` |
+| SKILL-005 | Ветряное копьё | Wind spear projectile | Derived from approved icon \+ Unity motion | IN GAME — v001 из approved icon подключён к production projectile |
+| SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | IN GAME — v001 и return presentation подключены |
+| SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | IN GAME — процедурные сегменты цепи подключены |
+| SKILL-008 | Рикошетный диск | Disk projectile | Generate via GPT \+ Unity ricochet | IN GAME — v001 и ricochet presentation подключены |
+| SKILL-009 | Магматическая мина | Mine sprite \+ explosion base | Hybrid | IN GAME — v001 и общий explosion presenter подключены; ручная проверка на реальной скорости открыта |
+| SKILL-010 | Небесный удар | Telegraph marker \+ strike/impact | Hybrid | IN GAME — telegraph disc, предварительный столб света и impact подключены по [DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md) |
+| SKILL-011 | Спираль осколков | Shard projectile | Generate via GPT \+ Unity spiral pattern | IN GAME — v001 подключён; ручная проверка на реальной скорости открыта |
+| SKILL-012 | Пульсирующий луч | Beam base visual | Procedural in Unity | IN GAME — процедурная полоса подключена через `SkillWorldEffects.json`; ручная проверка читаемости открыта |
+| SKILL-013 | Ледяные осколки | Ice shard projectile \+ optional ice impact | Hybrid | IN GAME — v001 из approved icon и общий impact подключены |
+| SKILL-014 | Взрывные сферы | Sphere projectile \+ explosion base | Hybrid | IN GAME — v001 и общий explosion presenter подключены |
+| SKILL-015 | Крест клинков | Blade/wave visual | Hybrid; cross pattern in Unity | IN GAME — v001 подключён; ручная проверка на реальной скорости открыта |
+| SKILL-016 | Разбрасыватель мусора | Small trash projectile set | Generate via GPT \+ Unity motion | IN GAME — v001 подключён; ручная проверка на реальной скорости открыта |
 
 \#\#\# Skill UI icons  
 Нужно 16 icons:  
 \`SKILL-001 ... SKILL-016\`
 
 Method: \`Generate via GPT\`    
-Status: \`IMAGE APPROVED — v001; 16 masters and runtime imports prepared; 13 mapped to matching fixture skills for draft/build review; production binding remains IP-17\`
+Status: \`IN GAME — v001; 16 masters/runtime imports и production bindings подключены; ручная проверка конкретных world visuals перечислена в IP-17\`
 
 \---
 
@@ -275,20 +289,20 @@ World sprite для passive item по умолчанию не нужен.
 
 | ID | Passive | Asset | Method | Status |  
 |---|---|---|---|---|  
-| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-002 | Собиратель | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-005 | Метроном | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | IMAGE APPROVED — v001 |
-| PASSIVE-014 | Упрямство | Icon | Generate via GPT | IMAGE APPROVED — v001 |
+| PASSIVE-001 | Крепкое сердце | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-002 | Собиратель | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-003 | Лёгкие сапоги | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-004 | Точильный камень | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-005 | Метроном | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-006 | Эхо памяти | Icon | Generate via GPT | IN GAME — v001; target-scale slot review открыт |
+| PASSIVE-007 | Магнит опыта | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-008 | Закалённая кожа | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-009 | Лечебная настойка | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-010 | Талисман ученика | Icon | Generate via GPT | IN GAME — v001; target-scale slot review открыт |
+| PASSIVE-011 | Тяжёлый пояс | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-012 | Широкий замах | Icon | Generate via GPT | IN GAME — v001 |
+| PASSIVE-013 | Длинные руки | Icon | Generate via GPT | IN GAME — v001; target-scale slot review открыт |
+| PASSIVE-014 | Упрямство | Icon | Generate via GPT | IN GAME — v001; target-scale slot review открыт |
 
 Постоянные world-aura для пассивок не создавать без отдельной gameplay/readability причины.
 
@@ -302,7 +316,7 @@ World sprite для passive item по умолчанию не нужен.
 \`SET-001 ... SET-020\`
 
 Method: \`Generate via GPT\`    
-Status: \`IMAGE APPROVED — v001; 20 masters and runtime imports prepared; 4 mapped to matching fixture sets for acquired-set review; production binding remains IP-19\`
+Status: \`IN GAME — v001; 20 masters/runtime imports и production bindings подключены; ручной обзор set-progress и сочетания 3–4 сетов остаётся\`
 
 \#\# Set world effects
 
@@ -339,10 +353,10 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID / Entity | Asset | Method | Status | Notes |  
 |---|---|---|---|---|  
-| XP pickup | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Один cyan crystal; gameplay-scale review открыт |
-| PICKUP-001 Healing Potion | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Зелёное зелье; production binding и gameplay-scale review открыты |
-| Traveler Book | World sprite | Generate via GPT + procedural bob/pulse | REVIEW — v001; runtime 256×256 IN GAME | Закрытая охристо-бордовая книга; открывает extra draft |
-| Meta currency | UI icon / optional world art | Generate via GPT | NOT STARTED | Точный presentation зависит от meta UI |
+| XP pickup | World sprite | Generate via GPT + procedural bob/pulse | IN GAME — v001 | Один cyan crystal; production pickup presentation подключён |
+| PICKUP-001 Healing Potion | World sprite | Generate via GPT + procedural bob/pulse | IN GAME — v001, текущий вид принят 2026-09-24 | Зелёное зелье; production binding подключён |
+| Traveler Book | World sprite | Generate via GPT + procedural bob/pulse | IN GAME — v001, текущий вид принят 2026-09-24 | Закрытая охристо-бордовая книга; production card/ID/параметры полного IP-30 остаются отдельным content gate |
+| Meta currency | UI icon / optional world art | Generate via GPT | DEFERRED | Использовать обычный UI до утверждения необходимости отдельного изображения; точный presentation зависит от meta UI |
 
 \---
 
@@ -354,21 +368,21 @@ Generic rule: set effects должны быть вторичным визуал�
 |---|---|---|---|  
 | Basic hit flash | Procedural in Unity | IN GAME (fixture player) | Existing player Health.Damaged → animator; generic adapter tested separately, not all production owners |
 | Basic impact spark | Procedural in Unity | IN GAME (fixture projectiles) | Общий короткий flash + material-colored particles; отдельный raster пока не нужен |
-| Slash impact | Hybrid | NOT STARTED | Для blade-type attacks |  
-| Generic explosion | Hybrid | NOT STARTED | Mine/sphere/set reuse |  
-| Lightning impact | Hybrid / Procedural | NOT STARTED | |  
-| Ice impact | Hybrid | NOT STARTED | |  
+| Slash impact | Hybrid | DEFERRED | Blade/wave world visuals уже подключены; отдельный generic impact добавлять только если gameplay review покажет нехватку feedback |
+| Generic explosion | Procedural in Unity | IN GAME | Общий `ExplosionBurstRuntime` переиспользуется sphere/mine/set projectiles; отдельный raster не нужен |
+| Lightning impact | Procedural in Unity | IN GAME / PER-OWNER | SKILL-007 использует процедурную цепь и hit presentation; отдельный generic raster не нужен |
+| Ice impact | Hybrid | DEFERRED | SKILL-013 использует общий impact; отдельный ice raster только по результату gameplay review |
 | Heal effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
 | Level-up effect | Hybrid / Procedural | QUESTIONABLE | Может не понадобиться; делать только после отдельного gameplay review |
-| Set activation effect | Hybrid | NOT STARTED | Общий accent |  
+| Set activation effect | Hybrid | PER-SET / REVIEW | Все 20 set effects реализованы; общий дополнительный accent не обязателен, нужна ручная проверка сочетания 3–4 сетов |
 | Enemy death effect | Procedural in Unity | IN GAME | Общий squash/fade + земляная пыль для ordinary/boss/Traveler |
-| Slow feedback | Procedural / Hybrid | NOT STARTED | Tint \+ optional overlay |  
-| Projectile trail | Procedural / Hybrid | NOT STARTED | Trail Renderer \+ optional texture |  
-| Beam base | Hybrid | NOT STARTED | Texture/style \+ Unity stretch |  
-| Aura base | Hybrid | NOT STARTED | Texture/style \+ Unity pulse/rotation |  
-| Telegraph marker | Hybrid / Procedural | NOT STARTED | Для strikes/dashes if needed |  
-| Screen shake | Procedural in Unity | NOT STARTED | No image |  
-| Damage numbers | Procedural UI/Text | NOT STARTED | No image |
+| Slow feedback | Procedural / Hybrid | OPEN POLISH | Gameplay slow работает; отдельный tint/overlay не заявлен как обязательный raster |
+| Projectile trail | Procedural / Hybrid | IN GAME / PER-OWNER | Enemy projectile trail и reset реализованы; дополнительные player/set trails добавляются только по необходимости читаемости |
+| Beam base | Procedural in Unity | IN GAME | SKILL-012 и boss beams используют procedural presentation; отдельная texture не требуется |
+| Aura base | Hybrid | OPEN POLISH | Защитные mechanics работают; дополнительная pulse/rotation presentation требует отдельного owning need |
+| Telegraph marker | Procedural in Unity | IN GAME | Skill strikes, enemy attacks/dashes, boss hazards и teleport используют procedural telegraphs |
+| Screen shake | Procedural in Unity | IN GAME | Runtime и пользовательская настройка подключены; отдельное изображение не требуется |
+| Damage numbers | Procedural UI/Text | OPEN POLISH | Отдельное изображение не требуется; добавлять только отдельным UI/presentation packet |
 
 \---
 
@@ -387,13 +401,15 @@ Generic rule: set effects должны быть вторичным визуал�
 | FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + бочка + переиспользованный камень FIELD-002 + куст/трава; production geometry и thumbnail | Generate via GPT / Hybrid | Thumbnail v001 IN GAME, принят 2026-09-24; плотность и бочка подготовлены по [DECISION-0069](../decisions/0069-field001-feedback-tuning.md), gameplay-scale review открыт. [Provenance thumbnail](../../Art/Source/Fields/field-001/background/asset-record.json), [бочка](../../Art/Source/Fields/field-001/barrel/asset-record.json) |
 | FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | Ground, boulder, колонна, святилище и thumbnail v001 подключены 2026-09-26; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-26-field002-art.md) |
 | FIELD-003 | Пограничные руины | Ground/background + ruined wall + rubble + visual-only water + thumbnail | Generate via GPT / Hybrid | IN GAME — v001 approved and connected 2026-09-27; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-27-field003-art-and-projectile-halo.md) |
-| FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-005 | Королевская столица | Ground/background \+ city decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-006 | Академия магов | Ground/background \+ magical decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-007 | Монастырские сады | Ground/background \+ garden/religious decor | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-008 | Цитадель короны | Ground/background \+ fortress decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-009 | Небесные врата | Ground/background \+ celestial decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; cool white-blue celestial palette; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| FIELD-010 | Чертог Спасения | Ground/background \+ final celestial/interior kit | Generate via GPT / Hybrid | Sunset thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+| FIELD-005 | Королевская столица | Ground/background \+ city decor/obstacles | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+| FIELD-006 | Академия магов | Ground/background \+ magical decor/obstacles | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+| FIELD-007 | Монастырские сады | Ground/background \+ garden/religious decor | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+| FIELD-008 | Цитадель короны | Ground/background \+ fortress decor/obstacles | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+| FIELD-009 | Небесные врата | Ground/background \+ celestial decor/obstacles | Generate via GPT / Hybrid | PREPARED — thumbnail, ground и 6 obstacle props v001 утверждены в cool white-blue palette; production definition/layout/binding и target-scale review открыты |
+| FIELD-010 | Чертог Спасения | Ground/background \+ final celestial/interior kit | Generate via GPT / Hybrid | PREPARED — sunset thumbnail, отдельный sunset ground и 6 obstacle props v001 утверждены; production definition/layout/binding и target-scale review открыты |
+
+Общие evidence подготовленных поздних полей: [thumbnails](../implementation/evidence/2026-09-27-field004-010-thumbnails.md), [obstacle props](../implementation/evidence/2026-09-27-field-obstacle-art.md), [ground textures](../implementation/evidence/2026-09-27-field004-010-ground-textures.md).
 
 \---
 
@@ -450,13 +466,13 @@ Method: \`Generate via GPT\`.
 
 | UI asset | Method | Status | Notes |  
 |---|---|---|---|  
-| 16 skill icons | Generate via GPT | IMAGE APPROVED — v001 | 16 masters/runtime imports; 13 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-17 binding remain |
-| 14 passive icons | Generate via GPT | IMAGE APPROVED — v001 | 14 masters/runtime imports; 9 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-18 binding remain |
-| 20 set icons | Generate via GPT | IMAGE APPROVED — v001 | 20 masters/runtime imports; 4 matching fixture mappings show for acquired sets; set-progress UI review and production IP-19 binding remain |
-| Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  
-| Field thumbnails | Generate / derive from field art | FIELD-001…003 IN GAME; FIELD-004…010 IMAGE APPROVED — v001, prepared | Все 10 thumbnails имеют runtime PNG и registered visual ID. FIELD-004…010 будут связаны с Field Select при реализации их production definitions; target-scale UI review остаётся. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| Meta-upgrade icons | Generate via GPT as content is defined | NOT STARTED | Только для реально реализованных permanent upgrades |  
-| Pickup icons if UI needs separate icon | Reuse world sprite / Generate if needed | NOT STARTED | Не создавать отдельный asset без необходимости |
+| 16 skill icons | Generate via GPT | IN GAME — v001 | 16 masters/runtime imports и production bindings; draft и Pause / Build используют полный каталог |
+| 14 passive icons | Generate via GPT | IN GAME — v001 | 14 masters/runtime imports и production bindings; для PASSIVE-006/010/013/014 открыт target-scale slot review |
+| 20 set icons | Generate via GPT | IN GAME — v001 | 20 masters/runtime imports и production bindings; открыт set-progress review и совместный обзор 3–4 сетов |
+| Character selection image | Reuse body sprite first | DEFERRED | Использовать crop/variant существующих 10 body sprites; отдельный portrait только если target-scale review выявит проблему |
+| Field thumbnails | Generate / derive from field art | FIELD-001…003 IN GAME; FIELD-004…010 PREPARED — v001 | Все 10 thumbnails имеют runtime PNG и registered visual ID. FIELD-004…010 будут связаны с Field Select при реализации production definitions; target-scale UI review остаётся. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| Meta-upgrade icons | Generate via GPT as content is defined | DEFERRED | Создавать только для утверждённых permanent upgrades, которым действительно нужен отдельный icon |
+| Pickup icons if UI needs separate icon | Reuse world sprite / Generate if needed | DEFERRED | Сначала переиспользовать world sprite; отдельный asset не создавать без доказанной UI-проблемы |
 
 \#\# Procedural / simple Unity UI required by approved UI
 
