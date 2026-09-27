@@ -3,9 +3,9 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
-Current active packet: нет; wave cap / FIELD-001 rhythm follow-up завершён, ручной плейтест открыт.
+Current active packet: нет; F1-09 balance follow-up по плейтесту 091d834e завершён, повторный ручной прогон открыт.
 Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md). Ручную приёмку эти проверки не заменяют.
+Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
@@ -57,6 +57,8 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 Ранние вееры и первый враг ([DECISION-0077](../decisions/0077-early-projectile-growth-and-enemy001-speed.md)): projectile counts SKILL-002 теперь 3/4/5/7/9/11, SKILL-013 — 4/5/6/7/9/13; прежние финальные 11/13 сохранены. ENEMY-001 «Селянин с вилами» замедлен ровно на 20%, 1.20 → 0.96. Static validators PASS; Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T191226-569482Z`). Ручная оценка ранней силы и давления открыта. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 
 Общая ранняя прогрессия active skills ([DECISION-0078](../decisions/0078-active-skill-early-progression.md)): принцип слабого L1 и возврата прежнего L3 распространён на SKILL-001…016; L4–L6 и финальные значения сохранены. Камень ослаблен мягче, 14 → 9.33 damage (÷1.5); у остальных уменьшены основной count/radius/range/duration/targets с ростом через L2–L3. Static validators PASS; targeted production catalogs 16/16 PASS; Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T193313-833849Z`). Ручная оценка L1–L3 открыта. [Evidence](evidence/2026-09-27-active-skill-early-progression.md).
+
+Плейтест `091d834e` и tuning ([DECISION-0079](../decisions/0079-playtest-sky-strike-radius-and-xp-curve.md)): radius SKILL-010 L1–L6 теперь `0.8/1.3/1.8/1.8/1.8/1.8`, третий удар L6 `×1.35`; первые десять XP thresholds дешевле ровно на 20%, сумма до L40 сохранена на 1257 XP. Generation/static validators и Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T204517-509733Z`). Ручная оценка темпа/радиуса открыта; лаги около 5-й/10-й минут диагностированы отдельно и не считаются исправленными. [Evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md), [playtest review](../playtests/2026-09-27_091d834e.md).
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
@@ -227,6 +229,7 @@ Remaining gates: Нет дополнительных product gaps для ука�
 Remaining acceptance / IDs: none.
 Target implementation evidence: [Подробности](evidence/design-sync-R2-2026-09-21.md#ip-06).
 Target verification evidence: 2026-09-20, Unity 6000.6.0f1: Game.* EditMode 320/320, PlayMode 1/1 passed; coverage/условия — по ссылке выше.
+Production tuning 2026-09-27: XP thresholds обновлены по DECISION-0079; первые 10 стоят 160 вместо 200 XP, сумма до L40 остаётся 1257. Generation/static validators и Unity full PASS 870/870 + 30/30; [evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md).
 Documentation impact: IP-06 units/producer contract и fixture rationale; DECISION-0018 Proposed для архитектурного ревью реализации принятого scope. Product formulas PASSIVE-006/007/010 не изменены; G-01/G-03 позднее закрыты DECISION-0019/0020 в IP-07. IP-07 добавил atomic LevelsEarned range перед legacy per-level events, чтобы одна XP награда ставила requests подряд.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-06).
 
@@ -306,12 +309,12 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-31)
 
 Status: Verified
 Dependencies: IP-31
-Current packet: Checklist/review templates, реальный fixture review OBS-01 (insufficient-evidence / no-change) и synthetic accept/apply/rollback exercise.
+Current packet: Workflow verified; latest applied cycle — плейтест 091d834e и DECISION-0079.
 Remaining gates: Нет для workflow scope; BG-01 и explicit approval сохраняются для будущего применения конкретных чисел/механик.
-Remaining acceptance / IDs: Нет для workflow scope. OBS-01 остаётся открытым; диагностика и реальный follow-up описаны в review, исправление не заявлено.
-Target implementation evidence: [IP-32 evidence](evidence/design-sync-R2-2026-09-21-ip32.md#ip-32), [реальный review](../balance/balance-progression-2026-09-21.md), [checklist](../playtests/CHECKLIST.md).
-Target verification evidence: 2026-09-21, Python exercise exit 0: source hashes/arithmetic, 8 отказов, partial approval, apply/rollback/drift, Content JSON unchanged. Markdown links/diff checks. Unity не запускалась: runtime/config не менялись.
-Documentation impact: BALANCE_WORKFLOW, playtest templates/review/OBS, IP-32 и readiness; GDD/CD без изменений, tuning не применён.
+Remaining acceptance / IDs: Нет для workflow scope. Для latest cycle OBS-01 performance и ручная перепроверка OBS-02/03 остаются открытыми; реализация workflow от этого не становится незавершённой.
+Target implementation evidence: [IP-32 evidence](evidence/design-sync-R2-2026-09-21-ip32.md#ip-32), [latest review](../playtests/2026-09-27_091d834e.md), [latest change evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md), [checklist](../playtests/CHECKLIST.md).
+Target verification evidence: latest cycle — source report сохранён byte-identical, 23/23 config snapshots verified; generation/static validators PASS; Unity 6000.6.0f1 full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped. Ручной повторный прогон открыт.
+Documentation impact: baseline/CD, DECISION-0079, playtest review/OBS, IP-06/IP-17/IP-32 и generated production catalogs синхронизированы; GDD не менялся.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-32).
 
 ### IP-11 — Set recipes, priority draft policy и effect families
@@ -474,6 +477,7 @@ World art 2026-09-26: пользователь утвердил SKILL-009/011/01
 Startup subset F1-01: SKILL-001…007/010/013/014 Implemented 2026-09-24 — [evidence](evidence/field001-f1-01-2026-09-24.md).
 Balance follow-up 2026-09-27: SKILL-002/013 получили постепенный projectile-count growth с прежними финальными caps; production data и all-level assertions синхронизированы, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
 Catalog-wide follow-up 2026-09-27: SKILL-001…016 получили общий L1→L3 ramp без изменения L4–L6; all-level primary curves проверены targeted 16/16 и full 870/870 + 30/30. [Evidence](evidence/2026-09-27-active-skill-early-progression.md).
+SKILL-010 follow-up 2026-09-27: radius curve уменьшена до `0.8/1.3/1.8/1.8/1.8/1.8`, L6 third strike `×1.35`; production data и assertions синхронизированы, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md).
 Target implementation evidence: F1-01 subset и поздние SKILL-008/009/011/012/015/016; см. evidence выше.
 Target verification evidence: автоматические проверки PASS 2026-09-26; ручная visual acceptance не проведена.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-17).

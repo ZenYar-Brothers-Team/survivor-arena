@@ -5,7 +5,7 @@ Date: 2026-09-27
 Related IP: IP-08, IP-17, IP-27, IP-32
 Related content IDs: SKILL-001…016
 Extends: DECISION-0077 для SKILL-002/013; пользовательские уточнения для SKILL-003/010
-Supersedes: ранние L1–L3 primary-параметры из DECISION-0053/0060; L4–L6 и финальные значения не меняет
+Supersedes: ранние L1–L3 primary-параметры из DECISION-0053/0060; L4–L6 и финальные значения не меняет. SKILL-010 radius позднее пересмотрен DECISION-0079.
 
 ## Основание
 

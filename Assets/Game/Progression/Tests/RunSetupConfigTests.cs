@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Game.Content;
 using NUnit.Framework;
 
@@ -23,13 +24,14 @@ namespace Game.Progression.Tests
         }
 
         [Test]
-        public void ProductionSetup_SlowsEarlyLevelsAndScalesHostileDamage()
+        public void ProductionSetup_ReducesFirstTenCostsAndPreservesCostToLevelForty()
         {
-            // DECISION-0075: early levels cost 3x, the cumulative cost to L40 stays ~1258; hostile damage x0.7.
+            // DECISION-0079: L1-L10 cost 20% less than DECISION-0075, while cumulative cost to L40 stays 1257.
             var setup = FixtureRunSetupCatalog.Load("Content/Run/ProductionRunSetup");
             var thresholds = setup.Experience.LevelThresholds;
-            Assert.AreEqual(12f, thresholds[0]);
-            Assert.AreEqual(3f, thresholds[0] / 4f, 1e-5f, "L1 -> L2 costs three times the former 4 XP.");
+            CollectionAssert.AreEqual(new[] { 10f, 11f, 14f, 14f, 16f, 17f, 18f, 19f, 20f, 21f },
+                thresholds.Take(10));
+            Assert.AreEqual(160f, thresholds.Take(10).Sum(), "The first ten transitions must cost 20% less than the former 200 XP.");
             var toForty = 0f;
             for (var i = 0; i < 39; i++) toForty += thresholds[i];
             Assert.AreEqual(1257f, toForty);

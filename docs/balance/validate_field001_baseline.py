@@ -69,8 +69,10 @@ def main():
             "SKILL-013 projectile progression changed")
     require([row["count"] for row in skills["SKILL-003"]["levels"]] == [1, 1, 2, 3, 3, 4],
             "SKILL-003 blade progression changed")
-    require([row["radius"] for row in skills["SKILL-010"]["levels"]] == [0.8, 1.6, 2.24, 2.24, 2.24, 2.24],
+    require([row["radius"] for row in skills["SKILL-010"]["levels"]] == [0.8, 1.3, 1.8, 1.8, 1.8, 1.8],
             "SKILL-010 radius progression changed")
+    require(skills["SKILL-010"]["levels"][5]["thirdRadiusMultiplier"] == 1.35,
+            "SKILL-010 L6 third-strike radius progression changed")
     orbit_l2 = skills["SKILL-003"]["levels"][1]
     require(orbit_l2["damage"] == 12.25 and orbit_l2["bladeHitboxRadius"] == 0.368
             and orbit_l2["angularSpeedDegrees"] == 138,
@@ -116,14 +118,16 @@ def main():
     require(set(data["character"]["stats"]) == {p[0].lower() + p[1:] for p in properties},
             "Character stat matrix no longer covers every required DTO stat")
     costs = data["experience"]["levelThresholds"]
-    # DECISION-0075: C'(L) = round(C(L) * (0.8 + 2.2 * exp(-(L-1) / 7.64))), non-decreasing, where
-    # C(L) = 4 + floor(1.5 * (L - 1)); early levels cost 3x, the cumulative cost to L40 stays ~1258.
+    # DECISION-0079: the exponential starts 20% lower than DECISION-0075 and decays faster toward
+    # a slightly higher late multiplier. First-ten total is 160 instead of 200; L40 total stays 1257.
     expected, previous = [], 0
     for i in range(60):
-        value = max(previous, round((4 + math.floor(1.5 * i)) * (0.8 + 2.2 * math.exp(-i / 7.64))))
+        value = max(previous, round((4 + math.floor(1.5 * i)) * (0.92 + 1.48 * math.exp(-i / 5.5))))
         expected.append(value); previous = value
     require(costs == expected, "XP formula/array mismatch")
-    require(costs[0] == 12 and sum(costs[:39]) == 1257 and costs[-1] == 74, "XP example mismatch")
+    require(sum(costs[:10]) == 160,
+            "XP early-cost reduction must stay exactly 20%")
+    require(sum(costs[:39]) == 1257 and costs[-1] == 85, "XP example mismatch")
 
     enemies = {entry["id"]: entry for entry in data["enemies"]}
     require(math.isclose(enemies["ENEMY-001"]["movementSpeed"], 0.96),

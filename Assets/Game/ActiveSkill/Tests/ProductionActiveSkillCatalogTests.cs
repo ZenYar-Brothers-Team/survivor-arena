@@ -124,13 +124,13 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(ActiveSkillTargetingMode.RandomEnemy, l1.TargetingMode);
             Assert.AreEqual(8f, l1.Targeting.Radius);
             Assert.IsTrue(l1.Targeting.RandomSeed.HasValue);
-            CollectionAssert.AreEqual(new[] { 0.8f, 1.6f, 2.24f, 2.24f, 2.24f, 2.24f }, Enumerable.Range(1, 6)
+            CollectionAssert.AreEqual(new[] { 0.8f, 1.3f, 1.8f, 1.8f, 1.8f, 1.8f }, Enumerable.Range(1, 6)
                 .Select(level => ((StrikeEffect)Skill("SKILL-010").GetLevel(level).Waves[0].Effects[0]).Radius));
             Assert.AreEqual(0.6f, ((StrikeEffect)l1.Waves[0].Effects[0]).TelegraphSeconds, 1e-5f);
             var l6 = Skill("SKILL-010").GetLevel(6);
             CollectionAssert.AreEqual(new[] { 0f, 0.3f, 0.6f }, l6.Waves.Select(w => (float)System.Math.Round(w.DelaySeconds, 4)));
             Assert.AreEqual(0.45f, ((StrikeEffect)l6.Waves[0].Effects[0]).TelegraphSeconds, 1e-5f);
-            Assert.AreEqual(2.24f * 1.5f, ((StrikeEffect)l6.Waves[2].Effects[0]).Radius, 1e-4f);
+            Assert.AreEqual(1.8f * 1.35f, ((StrikeEffect)l6.Waves[2].Effects[0]).Radius, 1e-4f);
             Assert.AreEqual(0.54f * 1.5f, l6.Waves[2].Controls.KnockbackDistance, 1e-4f);
             Assert.IsTrue(Enumerable.Range(1, 6).SelectMany(level => Skill("SKILL-010").GetLevel(level).Waves)
                 .All(wave => ((StrikeEffect)wave.Effects[0]).VerticalScale == 0.7f), "DECISION-0058: flattened ground area.");

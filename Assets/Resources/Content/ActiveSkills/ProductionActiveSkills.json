@@ -1823,7 +1823,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 1.6,
+                "radius": 1.3,
                 "telegraphSeconds": 0.6,
                 "verticalScale": 0.7
               }
@@ -1851,7 +1851,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.6,
                 "verticalScale": 0.7
               }
@@ -1879,7 +1879,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.6,
                 "verticalScale": 0.7
               }
@@ -1896,7 +1896,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.6,
                 "verticalScale": 0.7
               }
@@ -1924,7 +1924,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.45,
                 "verticalScale": 0.7
               }
@@ -1941,7 +1941,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.45,
                 "verticalScale": 0.7
               }
@@ -1969,7 +1969,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.45,
                 "verticalScale": 0.7
               }
@@ -1986,7 +1986,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 2.24,
+                "radius": 1.8,
                 "telegraphSeconds": 0.45,
                 "verticalScale": 0.7
               }
@@ -2003,7 +2003,7 @@
             "effects": [
               {
                 "kind": "Strike",
-                "radius": 3.36,
+                "radius": 2.43,
                 "telegraphSeconds": 0.45,
                 "verticalScale": 0.7
               }
