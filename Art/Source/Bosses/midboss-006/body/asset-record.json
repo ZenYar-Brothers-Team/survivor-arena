@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "MIDBOSS-006",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: precise-object-edit. Edit only the arm pose and staff placement of the supplied MIDBOSS-006 Watcher Mage sprite. Remove the raised two-finger spell gesture entirely. Put BOTH hands on the existing short staff held HORIZONTALLY across the waist, as if calmly studying or measuring it, elbows bent and close to the body. Keep the hands visibly attached to the staff and leave the face unobstructed. No extra staff, spellbook, orb or gesture. Preserve the same character identity, face, hair, robe, palette, 3/4 top-down hand-drawn storybook cutout style, neutral animation-ready stance, level ground-contact line, transparent background and padding. Exactly two arms and hands. No VFX, background, shadow, text or action pose.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/midboss-006/midboss-006-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "f3244cc404cdd061bf46ac53038a0a66a610acf884a0c28e0f4ba64dd69a20f0",
+    "runtimeSha256": "83709c03e60f2bc88bb04f6e007649bb4c4f6214355531584c32f63d1ead0b9b",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

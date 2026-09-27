@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-004",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated human figure on genuinely transparent square canvas at least 1024px. Stylized hand-drawn 2D storybook cutout, 3/4 top-down orthographic gameplay view facing right and slightly toward viewer, neutral animation-ready stance, feet on one level ground-contact line. Strong compact readable silhouette, about 75% canvas height with generous padding, main body suitable for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour, matte flat colors, simple cel shading, subtle dry-brush paper texture. Do not resemble the existing broad blond bearded royal captain. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, motion blur, extra limbs, cropped items or very long protrusions. BOSS-004: Banner Knight: veteran dark-skinned bald human man with close gray beard and one white brow scar, confident and severe. Broad polished muted-steel armor with blue-burgundy surcoat and restrained gold trim. One hand grips a short royal banner staff upright at shoulder height, banner compact behind shoulder; other hand rests on short sword hilt. Distinctive royal military standard silhouette, not the existing blond captain.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-004/boss-004-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "b11bf37a651d148652739ebc9852d964671a9e419d66425d12d489a6cdf0b2df",
+    "runtimeSha256": "4e019e19c786abaa75b0c5f7e04cfb291cbbd5c028aa330eba799fc213637d30",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

@@ -28,6 +28,12 @@ def boss_teleport(teleport):
             "telegraphColor": teleport["telegraphColor"], "impactColor": teleport["impactColor"]}
 
 
+def boss_projectile_visual_id(content_id):
+    """Each field pair shares the approved projectile family owned by its final boss."""
+    field_number = int(content_id.rsplit("-", 1)[1])
+    return f"BOSS-{field_number:03d}-VISUAL-PROJECTILE"
+
+
 def bosses(baseline):
     names = {**content_design_names("BOSS"), **content_design_names("MIDBOSS")}
     boss, mid = baseline["boss"], baseline["midboss"]
@@ -82,13 +88,13 @@ def bosses(baseline):
     return [final, midboss] + field_two_bosses(baseline, names, body) + late_bosses(baseline, names, body)
 
 
-def dash_ring(ring, kb_seconds):
+def dash_ring(ring, kb_seconds, visual_id):
     if ring["trigger"] != "dash-end" or ring["spreadDegrees"] != 360:
         raise SystemExit("dash volley must be a full ring on dash end")
     return {"pattern": "Ring", "damage": ring["damage"], "cooldownSeconds": 1, "projectileSpeed": ring["projectileSpeed"],
             "projectileLifetimeSeconds": ring["projectileLifetimeSeconds"], "projectileCount": ring["projectileCount"],
             "projectileRadius": ring["projectileRadius"], "telegraphSeconds": ring["telegraphSeconds"],
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "projectileVisualId": visual_id,
             "controls": {"knockbackDistance": ring["knockback"], "knockbackSeconds": ring["knockbackSeconds"] or kb_seconds}}
 
 
@@ -101,7 +107,8 @@ def field_two_bosses(baseline, names, body):
         if move["kind"] != "TelegraphedDash" or move["firstDashDelaySeconds"] != move["dashCooldownSeconds"]:
             raise SystemExit(f"{entry['id']}: dash timing not expressible by the runtime")
         extra = {"dashContactControls": {"knockbackDistance": move["dashKnockback"], "knockbackSeconds": entry["knockbackSeconds"]},
-                 "dashEndAttack": dash_ring(entry["dashEndAttack"], entry["knockbackSeconds"])}
+                 "dashEndAttack": dash_ring(entry["dashEndAttack"], entry["knockbackSeconds"],
+                                             boss_projectile_visual_id(entry["id"]))}
         enrage = entry.get("enrage")
         if enrage:
             if enrage["thresholdComparison"] != "strictly-less":
@@ -148,12 +155,12 @@ def late_controls(entry):
     return ctrl
 
 
-def late_projectile(a):
+def late_projectile(a, visual_id):
     data = {"pattern": a["pattern"], "damage": a["damage"], "cooldownSeconds": a["cooldownSeconds"] or 1,
             "projectileSpeed": a["projectileSpeed"], "projectileLifetimeSeconds": a["projectileLifetimeSeconds"],
             "projectileCount": a["projectileCount"], "projectileRadius": a["projectileRadius"],
             "telegraphSeconds": a["telegraphSeconds"], "cadence": "WindupStartToStart", "controls": late_controls(a),
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"}
+            "projectileVisualId": visual_id}
     if a["pattern"] == "Fan" or (a["pattern"] == "Explosive" and a["projectileCount"] > 1):
         data["spreadDegrees"] = a["spreadDegrees"]
     if a["pattern"] == "Burst":
@@ -194,16 +201,16 @@ def late_summon(m):
             "telegraphSeconds": m["telegraphSeconds"], "markerColor": HAZARD_COLORS["summon"]}
 
 
-def late_step(step_id, a):
+def late_step(step_id, a, visual_id):
     if a["kind"] == "Projectile":
-        return {"id": step_id, "attack": late_projectile(a)}
+        return {"id": step_id, "attack": late_projectile(a, visual_id)}
     step = {"id": step_id, "cooldownSeconds": a["cooldownSeconds"]}
     step[{"Zone": "zone", "Beam": "beam", "Summon": "summon"}[a["kind"]]] = {
         "Zone": late_zone, "Beam": late_beam, "Summon": late_summon}[a["kind"]](a)
     return step
 
 
-def late_dash_entries(items):
+def late_dash_entries(items, visual_id):
     result = []
     for item in items:
         entry = {"delaySeconds": item["delaySeconds"], "orientation": ORIENTATIONS[item["orientation"]]}
@@ -211,7 +218,7 @@ def late_dash_entries(items):
         if a["kind"] == "Zone":
             entry["zone"] = late_zone(a)
         else:
-            entry["attack"] = late_projectile(a)
+            entry["attack"] = late_projectile(a, visual_id)
         result.append(entry)
     return result
 
@@ -240,6 +247,7 @@ def late_bosses(baseline, names, body):
     result = []
     for entry in baseline["lateBosses"]["encounters"]:
         eid = entry["id"]
+        projectile_visual_id = boss_projectile_visual_id(eid)
         extra = {}
         if entry["dashKnockback"] is not None:
             extra["dashContactControls"] = {"knockbackDistance": entry["dashKnockback"], "knockbackSeconds": entry["knockbackSeconds"]}
@@ -247,11 +255,11 @@ def late_bosses(baseline, names, body):
         if dash_end:
             if dash_end["firesAfter"] != "last-dash-of-series":
                 raise SystemExit(f"{eid}: dash-end timing not expressible by the runtime")
-            extra["dashEndAttacks"] = late_dash_entries(dash_end["attacks"])
+            extra["dashEndAttacks"] = late_dash_entries(dash_end["attacks"], projectile_visual_id)
             replacement = dash_end.get("belowHealthReplacement")
             if replacement:
                 extra["dashEndReplacement"] = {"belowHealthFraction": replacement["belowHealth"],
-                                               "attacks": late_dash_entries(replacement["attacks"])}
+                                               "attacks": late_dash_entries(replacement["attacks"], projectile_visual_id)}
         steps, phases = [], []
         for phase in entry["phases"]:
             if phase["thresholdComparison"] != "strictly-less":
@@ -259,7 +267,7 @@ def late_bosses(baseline, names, body):
             ids = []
             for a in phase["attacks"]:
                 step_id = f"{eid}-{phase['id']}-{a['id']}"
-                step = late_step(step_id, a)
+                step = late_step(step_id, a, projectile_visual_id)
                 emitted = next((known for known in steps if known["id"] == step_id), None)
                 if emitted is None:
                     steps.append(step)
@@ -273,7 +281,7 @@ def late_bosses(baseline, names, body):
         encounter = {"id": eid, "displayName": names[eid], "hook": entry["hook"],
                      "spawnOffsetX": entry["spawnOffset"][0], "spawnOffsetY": entry["spawnOffset"][1],
                      "keepAttackOrderOnPhaseChange": True, "strictHealthThreshold": True,
-                     "body": body(entry, late_movement(entry["movement"]), extra, art=False),
+                     "body": body(entry, late_movement(entry["movement"]), extra),
                      "attacks": steps, "phases": phases}
         if entry["holdRangedDuringDash"]:
             encounter["holdAttacksDuringDash"] = True

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "MIDBOSS-010",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: precise-object-edit. Edit supplied full-body transparent gameplay sprite. Preserve character identity, face, costume, palette, hand-drawn storybook cutout style, 3/4 top-down perspective, transparent background, full figure and level ground-contact line. Change primarily arm/hand pose as requested to diversify the roster while remaining neutral and animation-ready. Keep main silhouette compact, no long new protrusions. No background, shadows, VFX, text, extra limbs or new unrelated props. MIDBOSS-010: Cross the two short blades close in front of upper torso in a guarded neutral stance; do not extend arms widely, preserve folded wings and clear face.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/midboss-010/midboss-010-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "ab75df932df9215a316cea953cdb05e8dd87fda6ab153d609fddfbe561049d0a",
+    "runtimeSha256": "db2ae461107693a86f3545ce2af5f3a8b78639d64c303243e04dc32f9016248f",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

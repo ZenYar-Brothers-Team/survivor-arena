@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-008",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: precise-object-edit. Edit the supplied full-body transparent gameplay sprite. Preserve the same character identity, face, costume, palette, silhouette size, hand-drawn storybook cutout style, perspective, transparent background, and ground-contact line. Change ONLY the arm/hand pose and item placement as described. Keep the pose neutral and animation-ready, compact enough for one circular contact area. Do not add VFX, background, cast shadow, text, extra limbs or new props. BOSS-008: Move one arm to a confident hand-on-hip pose; the other hand loosely grips the short sheathed sword at waist. Retain existing armor and face, keep both hands visibly distinct.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-008/boss-008-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "bb57e627059716d16b5e48419eb289546917e52d0313c83fa0251c36b164adfc",
+    "runtimeSha256": "a67ca5e6bea7618069e282b4742d64d2aa2c33c6f7af559b4fbe95f4bdecfb79",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

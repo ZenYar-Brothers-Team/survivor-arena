@@ -5,7 +5,7 @@
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 Current active packet: нет; REPO-01 завершён в разрешённом scope.
 Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 857/857 EditMode + 30/30 PlayMode; generation/audio integrity и manifest 151 PASS; [evidence REPO-01](evidence/2026-09-27-project-structure.md). Ручную приёмку эти проверки не заменяют.
+Последний общий Unity smoke: 2026-09-27, 857/857 EditMode + 30/30 PlayMode; generation/audio integrity и manifest 176 PASS; [boss projectile art evidence](evidence/2026-09-27-boss-projectile-art.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
@@ -520,14 +520,16 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
-Blocked by: AG-01 — body/projectile art BOSS-003…010/MIDBOSS-003…010 (per-ID gates); их поля и волны (IP-23/IP-24) ещё не созданы, поэтому в забеге эти боссы не появляются. Данные и поведение всех 16 реализованы (bosses-v1).
-Remaining gates: AG-01 per-ID art поздних боссов; gameplay-scale review и живая проверка зон/лучей/призыва на своих полях.
-Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010 — арт тел и снарядов, ручная проверка в забеге; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
+Blocked by: поля FIELD-004…010 и их волны (IP-23/IP-24) ещё не созданы. FIELD-003 уже есть, но полный живой прогон поздних боссов на своих полях пока невозможен. Данные/поведение всех 16 реализованы (bosses-v1), body и projectile art подключены.
+Remaining gates: gameplay-scale body/projectile review и живая проверка зон/лучей/призыва на своих полях.
+Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale review; BOSS-003…010, MIDBOSS-003…010 — gameplay-scale review утверждённых тел/снарядов и ручная проверка в забеге; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md), [late boss body art](evidence/2026-09-27-boss-body-art.md), [projectile art](evidence/2026-09-27-boss-projectile-art.md).
 Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
 Data packet 2026-09-27: [bosses-v1](../balance/bosses-v1.md) — недостающие параметры BOSS-003…010/MIDBOSS-003…010 (урон как доля контакта, XP, тайминги, телепорт финальных), фирменные атаки каждому боссу на трёх новых семействах (зона, луч, призыв; редакция 2 по просьбе пользователя) и расширения схемы E1…E6; карточные числа без изменений; **Approved 2026-09-27** ([DECISION-0066](../decisions/0066-bosses-data-v1.md)); GDD (правило зон/лучей/призыва) и 16 карточек CD синхронизированы; static validator PASS. Следующая работа IP-21 — реализация F1…F3, E1…E6 и 16 encounters по пакету; автоматически не начинать.
 Packet bosses-v1 Implemented 2026-09-27: семейства зона/луч/призыв, расширения E1…E6 и 16 encounters из утверждённой таблицы; Unity 6000.6.0f1 full PASS — **EditMode 843/843, PlayMode 29/29, 0 skipped**, `TestResults/checks/20260927T080300-187440Z/summary.json`; [evidence](evidence/2026-09-27-ip21-bosses-v1.md).
-Target implementation evidence: F1-06 (BOSS-001/MIDBOSS-001), F2-02 (BOSS-002/MIDBOSS-002), bosses-v1 (остальные 16) — [evidence](evidence/2026-09-27-ip21-bosses-v1.md).
-Target verification evidence: bosses-v1 — Unity full PASS 2026-09-27 (843/843 + 29/29); живой прогон этих боссов невозможен до их полей.
+Body art packet 2026-09-27: пользователь утвердил 16 поз после правок разнообразия рук; BOSS-003…010/MIDBOSS-003…010 body v001 импортированы и подключены к production data. [Art evidence](evidence/2026-09-27-boss-body-art.md).
+Projectile art packet 2026-09-27: пользователь утвердил девять shared families FIELD-002…010; `BOSS-002…010-VISUAL-PROJECTILE` импортированы, соответствующие boss/midboss attacks переведены с fallback BOSS-001, зоны/лучи остаются procedural. [Art evidence](evidence/2026-09-27-boss-projectile-art.md).
+Target implementation evidence: F1-06 (BOSS-001/MIDBOSS-001), F2-02 (BOSS-002/MIDBOSS-002), bosses-v1 (остальные 16) — [encounters](evidence/2026-09-27-ip21-bosses-v1.md), [body art](evidence/2026-09-27-boss-body-art.md), [projectile art](evidence/2026-09-27-boss-projectile-art.md).
+Target verification evidence: boss art — Unity full PASS 2026-09-27 (**857/857 EditMode + 30/30 PlayMode**, 0 skipped), `TestResults/checks/20260927T125843-334689Z/summary.json`; art scope 50/50, manifest 176/176, `TestResults/checks/20260927T125557-368084Z/summary.json`; gameplay-scale review и живой прогон на своих полях открыты.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21).
 
 ### IP-22 — Production Characters CHAR-001…010

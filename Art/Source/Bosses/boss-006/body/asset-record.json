@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-006",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated human figure on genuinely transparent square canvas at least 1024px. Stylized hand-drawn 2D storybook cutout, 3/4 top-down orthographic gameplay view facing right and slightly toward viewer, neutral animation-ready stance, feet on one level ground-contact line. Strong compact readable silhouette, about 75% canvas height with generous padding, main body suitable for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour, matte flat colors, simple cel shading, subtle dry-brush paper texture. Do not resemble the existing broad blond bearded royal captain. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, motion blur, extra limbs, cropped items or very long protrusions. BOSS-006: Royal Archmage: older human woman with dark curly hair shot through with silver, sharp long face and composed expression. Broad angular royal-blue and burgundy robe over compact body, gold astrolabe collar, short staff close to left shoulder held in one hand, other hand raised near chest with two fingers extended in a quiet spell gesture. Distinct from the blond bearded captain and the hooded inquisitor; no baked magical glow.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-006/boss-006-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "478df0223b618e613413133fe72fc73cc54278b67c7d299ea80c9baef2866717",
+    "runtimeSha256": "cb94c1b775e78842eadeca183c93909edb7554ef71843598779a9ee864e8e174",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

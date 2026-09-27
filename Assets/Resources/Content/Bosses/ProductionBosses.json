@@ -237,7 +237,7 @@
         "projectileCount": 8,
         "projectileRadius": 0.15,
         "telegraphSeconds": 0,
-        "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+        "projectileVisualId": "BOSS-002-VISUAL-PROJECTILE",
         "controls": {
           "knockbackDistance": 0.25,
           "knockbackSeconds": 0.12
@@ -325,7 +325,7 @@
         "projectileCount": 6,
         "projectileRadius": 0.14,
         "telegraphSeconds": 0,
-        "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+        "projectileVisualId": "BOSS-002-VISUAL-PROJECTILE",
         "controls": {
           "knockbackDistance": 0.2,
           "knockbackSeconds": 0.12
@@ -365,7 +365,9 @@
         "kind": "KeepDistance",
         "preferredDistance": 4.5,
         "distanceTolerance": 0.5
-      }
+      },
+      "visualId": "BOSS-003-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -384,7 +386,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-003-VISUAL-PROJECTILE",
           "spreadDegrees": 30
         }
       },
@@ -404,7 +406,7 @@
             "knockbackDistance": 0.65,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-003-VISUAL-PROJECTILE"
         }
       },
       {
@@ -456,7 +458,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-003-VISUAL-PROJECTILE",
           "spreadDegrees": 30,
           "followUps": [
             {
@@ -482,7 +484,7 @@
             "knockbackDistance": 0.65,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-003-VISUAL-PROJECTILE"
         }
       },
       {
@@ -595,6 +597,8 @@
         "dashCount": 1,
         "showDashTelegraphLine": true
       },
+      "visualId": "BOSS-004-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1,
         "knockbackSeconds": 0.12
@@ -617,7 +621,7 @@
               "knockbackDistance": 0.25,
               "knockbackSeconds": 0.12
             },
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "projectileVisualId": "BOSS-004-VISUAL-PROJECTILE",
             "spreadDegrees": 60
           }
         },
@@ -724,7 +728,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "BOSS-005-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -743,7 +749,7 @@
             "knockbackDistance": 0.45,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-005-VISUAL-PROJECTILE"
         }
       },
       {
@@ -762,7 +768,7 @@
             "knockbackDistance": 0.3,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-005-VISUAL-PROJECTILE",
           "spreadDegrees": 60
         }
       },
@@ -814,7 +820,7 @@
             "knockbackDistance": 0.45,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-005-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.4,
@@ -839,7 +845,7 @@
             "knockbackDistance": 0.3,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-005-VISUAL-PROJECTILE",
           "spreadDegrees": 60
         }
       },
@@ -948,7 +954,9 @@
         "preferredDistance": 4,
         "distanceTolerance": 0.5,
         "lateralStrength": 0.9
-      }
+      },
+      "visualId": "BOSS-006-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -967,7 +975,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE",
           "spreadDegrees": 8,
           "burstIntervalSeconds": 0.15
         }
@@ -988,7 +996,7 @@
             "knockbackDistance": 0.35,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE"
         }
       },
       {
@@ -1038,7 +1046,7 @@
             "knockbackDistance": 0.25,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE",
           "spreadDegrees": 8,
           "burstIntervalSeconds": 0.15
         }
@@ -1059,7 +1067,7 @@
             "knockbackDistance": 0.35,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.3,
@@ -1176,6 +1184,8 @@
         "dashCount": 1,
         "showDashTelegraphLine": true
       },
+      "visualId": "BOSS-007-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1.4,
         "knockbackSeconds": 0.12
@@ -1198,7 +1208,7 @@
               "knockbackDistance": 0.9,
               "knockbackSeconds": 0.12
             },
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "projectileVisualId": "BOSS-007-VISUAL-PROJECTILE",
             "explosionRadius": 1.2
           }
         }
@@ -1223,7 +1233,7 @@
                 "knockbackDistance": 0.9,
                 "knockbackSeconds": 0.12
               },
-              "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+              "projectileVisualId": "BOSS-007-VISUAL-PROJECTILE",
               "spreadDegrees": 40,
               "explosionRadius": 1.2
             }
@@ -1357,7 +1367,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "BOSS-008-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -1376,7 +1388,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE",
           "spreadDegrees": 70
         }
       },
@@ -1396,7 +1408,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE"
         }
       },
       {
@@ -1415,7 +1427,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE"
         }
       },
       {
@@ -1451,7 +1463,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE",
           "spreadDegrees": 70
         }
       },
@@ -1471,7 +1483,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE"
         }
       },
       {
@@ -1490,7 +1502,7 @@
             "knockbackDistance": 0.4,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -1595,6 +1607,8 @@
         "dashCount": 1,
         "showDashTelegraphLine": true
       },
+      "visualId": "BOSS-009-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1.5,
         "knockbackSeconds": 0.12
@@ -1617,7 +1631,7 @@
             "knockbackDistance": 0.5,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "spreadDegrees": 50
         }
       },
@@ -1637,7 +1651,7 @@
             "knockbackDistance": 0.5,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -1695,7 +1709,7 @@
             "knockbackDistance": 0.5,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "spreadDegrees": 50
         }
       },
@@ -1715,7 +1729,7 @@
             "knockbackDistance": 0.5,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -1838,7 +1852,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "BOSS-010-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -1857,7 +1873,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -1882,7 +1898,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "spreadDegrees": 100
         }
       },
@@ -1902,7 +1918,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE"
         }
       },
       {
@@ -1952,7 +1968,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -1985,7 +2001,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "spreadDegrees": 100,
           "followUps": [
             {
@@ -2011,7 +2027,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.4,
@@ -2067,7 +2083,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.35,
@@ -2100,7 +2116,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "spreadDegrees": 100,
           "followUps": [
             {
@@ -2126,7 +2142,7 @@
             "knockbackDistance": 0.55,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
           "followUps": [
             {
               "delaySeconds": 0.4,
@@ -2250,7 +2266,9 @@
         "kind": "KeepDistance",
         "preferredDistance": 5.5,
         "distanceTolerance": 0.5
-      }
+      },
+      "visualId": "MIDBOSS-003-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -2269,7 +2287,7 @@
             "knockbackDistance": 0.3,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-003-VISUAL-PROJECTILE",
           "spreadDegrees": 50,
           "followUps": [
             {
@@ -2339,6 +2357,8 @@
         "showDashTelegraphLine": true,
         "followUpTelegraphSeconds": 0.3
       },
+      "visualId": "MIDBOSS-004-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 0.9,
         "knockbackSeconds": 0.12
@@ -2407,7 +2427,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "MIDBOSS-005-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -2426,7 +2448,7 @@
             "knockbackDistance": 0.3,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-005-VISUAL-PROJECTILE"
         }
       },
       {
@@ -2485,7 +2507,9 @@
         "preferredDistance": 4.5,
         "distanceTolerance": 0.5,
         "lateralStrength": 0.9
-      }
+      },
+      "visualId": "MIDBOSS-006-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -2504,7 +2528,7 @@
             "knockbackDistance": 0.35,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE"
         }
       },
       {
@@ -2523,7 +2547,7 @@
             "knockbackDistance": 0.45,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          "projectileVisualId": "BOSS-006-VISUAL-PROJECTILE"
         }
       },
       {
@@ -2600,6 +2624,8 @@
         "dashCount": 1,
         "showDashTelegraphLine": true
       },
+      "visualId": "MIDBOSS-007-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1.2,
         "knockbackSeconds": 0.12
@@ -2622,7 +2648,7 @@
               "knockbackDistance": 0.35,
               "knockbackSeconds": 0.12
             },
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "projectileVisualId": "BOSS-007-VISUAL-PROJECTILE",
             "spreadDegrees": 60
           }
         },
@@ -2691,7 +2717,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "MIDBOSS-008-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -2710,7 +2738,7 @@
             "knockbackDistance": 0.35,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-008-VISUAL-PROJECTILE",
           "spreadDegrees": 30
         }
       },
@@ -2778,7 +2806,9 @@
       },
       "movement": {
         "kind": "Seek"
-      }
+      },
+      "visualId": "MIDBOSS-009-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION"
     },
     "attacks": [
       {
@@ -2797,7 +2827,7 @@
             "knockbackDistance": 0.45,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "windupMovementMultiplier": 0.4
         }
       },
@@ -2817,7 +2847,7 @@
             "knockbackDistance": 0.45,
             "knockbackSeconds": 0.12
           },
-          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "projectileVisualId": "BOSS-009-VISUAL-PROJECTILE",
           "spreadDegrees": 90,
           "windupMovementMultiplier": 0.4
         }
@@ -2896,6 +2926,8 @@
         "dashCount": 1,
         "showDashTelegraphLine": true
       },
+      "visualId": "MIDBOSS-010-VISUAL-BODY",
+      "motionProfileId": "ENEMY-001-MOTION",
       "dashContactControls": {
         "knockbackDistance": 1.3,
         "knockbackSeconds": 0.12
@@ -2918,7 +2950,7 @@
               "knockbackDistance": 0.45,
               "knockbackSeconds": 0.12
             },
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+            "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE"
           }
         },
         {
@@ -2938,7 +2970,7 @@
               "knockbackDistance": 0.45,
               "knockbackSeconds": 0.12
             },
-            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+            "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE"
           }
         }
       ]

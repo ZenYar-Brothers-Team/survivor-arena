@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-010",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena hostile Projectile gameplay sprite candidate, shared within one boss/midboss field family, visible at roughly 20–32 px. Use supplied BOSS-001 projectile only as rendering/contrast reference; supplied body sprites only as thematic references. Style: ONE compact isolated object, stylized 2D storybook cutout, hand-painted, thick deep-plum outer contour, flat matte colors, simple cel shading, restrained dry-brush texture. Centered on square canvas with generous even safety padding, strong simple silhouette suitable for rotation, clean alpha, no directional baked light. Include a clear warm coral-red danger accent in the object edge, not a separate baked glow. Content IDs: BOSS-010 and MIDBOSS-010. Primary request: ultimate compact archangel judgement projectile for ring, fan and cross volleys: a bold four-point ivory-and-gold star blade around a deep burgundy faceted core, with four very short folded-feather facets between points. Majestic, severe, exceptionally readable, symmetrical for rotation, no humanoid or creature, no readable religious symbol, distinct from all earlier shield, seal, orb and mace silhouettes. Constraints: genuinely transparent background; no text or recognizable lettering/numbers, logo, watermark, frame, floor, background, cast shadow, particles, speed lines, motion blur, trail, photorealism, 3D render, pixel art, gore, cropped parts, tiny ornaments, extra objects.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-010/boss-010-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "fada09311cfd16430dda3f6d65d1ae152aed76c63dab4f41b64825871177ab56",
+    "runtimeSha256": "7261acd783af997165d580b1899ca90285b48c1dd40bd1c0e1ff7cda9e3f13a1",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

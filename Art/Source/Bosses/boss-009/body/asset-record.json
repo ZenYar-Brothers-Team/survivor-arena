@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-009",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: precise-object-edit. Edit only the arm pose and spear placement of the supplied BOSS-009 Seraphim War Commander sprite. Remove the raised open-palm gesture entirely. Put BOTH hands on one short ceremonial spear held diagonally across the LOWER torso, with one gauntlet gripping it near the chest and the other near the waist, like a disciplined commander at rest. The spear must remain compact, entirely within the existing canvas, and must not obscure the face or wings. Keep the same character identity, face, folded wings, armor, colors, 3/4 top-down storybook cutout style, neutral animation-ready stance, grounded feet, transparent background and padding. One spear only, exactly two arms and hands. No new effects, background, shadow, text or action pose.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-009/boss-009-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "57703fcb52f5fd4051b5e9c6b5f9f2142eba79b765f6d6dc1c6abfb75bb6e20a",
+    "runtimeSha256": "0c0d5d8e75c5dfa9d1a2c70390f2c180cdb76cceebfab18a85ecbfc2421e3793",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-007",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, lower body aligned to a clear level ground-contact line. Strong unique readable silhouette occupying about 75% height, generous padding, compact main mass suited for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading, restrained paper texture. Fairy-tale human order rising toward celestial ivory and gold. Avoid copying any existing character face or armor design. No background, ground shadow, glowing VFX, text, lettering, logo, frame, 3D render, photorealism, pixel art, gore, extreme action pose, long thin protrusions, extra limbs, cropped items. BOSS-007: Supreme Paladin: older stern human with close-cropped dark hair and square jaw, massive compact ivory-and-steel plate armor with broad rounded shoulders and gold sunburst chest plate, short war hammer held beside body, small burgundy cloth accents. Heavy relentless melee presence, more ecclesiastical than a royal knight.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "9405192b9b42d1234d37dc9a2e49e89d9824a45944ad48fb0bd61246ffd52e42",
+    "runtimeSha256": "03ded12d9c24d592a448e4e4392436c37c7fdf091175b5fb39d511b10dd5299c",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-002",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena hostile projectile gameplay sprite candidate shared by BOSS-002 and MIDBOSS-002, role Projectile, visible at roughly 20–32 px. Input images: existing BOSS-001 projectile is a rendering/contrast reference only; BOSS-002 and MIDBOSS-002 bodies are thematic references only. Primary request: Create ONE compact royal guard projectile for their post-dash circular volleys: a heavy rounded steel rivet or compact shield-boss missile with a bold burgundy enamel center and restrained brass rim. It must be clearly distinct from the spiked BOSS-001 mace-head, readable while moving and suitable for rotation. Style/medium: stylized 2D storybook cutout, hand-painted, thick deep-plum outer contour, flat matte colors, simple cel shading, restrained dry-brush texture. Composition/framing: centered nearly circular silhouette on a square canvas, even generous transparent safety padding, balanced for rotation, no directional baked lighting. Color palette: muted steel, burgundy, aged brass; strong warm coral-red danger accent at the outer edge without baked glow. Constraints: genuinely transparent background; single object only; clean alpha; no text, letters, numbers, logo, watermark, frame, floor, background, cast shadow, particles, speed lines, motion blur, long trail, photorealism, 3D render, pixel art, gore, cropped parts, tiny ornaments, extra objects.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-002/boss-002-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "e76090c61a355d2327b258a1075930117c8920f7c81e524aabe1400207e951fd",
+    "runtimeSha256": "41f56e9ac85ad1118ab5d31289facc40579503080af25fdb96b82f4f39ef778e",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

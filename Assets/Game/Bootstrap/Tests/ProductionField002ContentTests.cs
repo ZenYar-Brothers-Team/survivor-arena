@@ -59,7 +59,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(6000f, final.Body.MaxHealth);
             Assert.AreEqual(EnemyMovementKind.TelegraphedDash, final.Body.Movement.Kind);
             Assert.AreEqual(8, final.Body.DashVolley.Attack.ProjectileCount);
-            Assert.AreEqual("BOSS-001-VISUAL-PROJECTILE", final.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
+            Assert.AreEqual("BOSS-002-VISUAL-PROJECTILE", final.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(16f, final.Body.DashVolley.Attack.Damage);
             Assert.AreEqual(2, final.Body.DashVolley.RepeatEveryNthDash);
             Assert.AreEqual(0.5f, final.Body.DashVolley.RepeatBelowHealthFraction, 1e-5f);
@@ -68,7 +68,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(WaveHookKind.MidBoss, mid.Hook);
             Assert.AreEqual(1600f, mid.Body.MaxHealth);
             Assert.AreEqual(6, mid.Body.DashVolley.Attack.ProjectileCount);
-            Assert.AreEqual("BOSS-001-VISUAL-PROJECTILE", mid.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
+            Assert.AreEqual("BOSS-002-VISUAL-PROJECTILE", mid.Body.DashVolley.Attack.ProjectileVisual.Id.ToString());
             Assert.AreEqual(0, mid.Body.DashVolley.RepeatEveryNthDash);
         }
 

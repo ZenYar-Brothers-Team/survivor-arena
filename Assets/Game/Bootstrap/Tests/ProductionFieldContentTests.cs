@@ -40,16 +40,12 @@ namespace Game.Bootstrap.Tests
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
             var catalog = RuntimeContentCatalog.CreateProduction();
-            // FIELD-001/002 bosses have approved art. BOSS-003…010/MIDBOSS-003…010 (DECISION-0066) wait for their per-ID art
-            // gates and are explicit placeholders, including the FIELD-003 pair already bound to its field (DECISION-0067).
-            var approved = new[] { "BOSS-001", "MIDBOSS-001", "BOSS-002", "MIDBOSS-002" };
-            var bound = catalog.Bosses.Where(boss => approved.Contains(boss.Id.ToString())).ToArray();
-            Assert.AreEqual(4, bound.Length, "FIELD-001/002 final and mid bosses.");
-            foreach (var boss in catalog.Bosses.Where(boss => !approved.Contains(boss.Id.ToString())))
-                Assert.IsFalse(boss.Body.Visual.Id.IsValid, $"{boss.Id} has no approved art yet: explicit placeholder.");
+            // All twenty approved boss bodies now have per-ID art; later fields still gate live encounter review.
+            var bound = catalog.Bosses.ToArray();
+            Assert.AreEqual(20, bound.Length, "All final and mid bosses have approved body art.");
             var bodies = bound.Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
-            Assert.AreEqual(7, bodies.Length, "FIELD-001/002 bosses and the three implemented Travelers.");
+            Assert.AreEqual(23, bodies.Length, "Twenty bosses and the three implemented Travelers.");
             foreach (var body in bodies)
             {
                 var visual = EnemyBodyVisual.Resolve(body, catalog.Registry);
@@ -58,14 +54,20 @@ namespace Game.Bootstrap.Tests
                 StringAssert.EndsWith("-body", visual.Sprite.name, $"{body.Id} uses its approved body image");
             }
 
-            // Boss shots resolve through the registry the boss runtime now receives.
-            var bossAttacks = bound.SelectMany(boss => boss.OwnedAttacks).ToArray();
-            Assert.AreEqual(4, bossAttacks.Length, "BOSS-001 fan/ring, normal and enraged.");
-            foreach (var attack in bossAttacks)
+            // Projectile attacks share one approved visual family per field pair.
+            var bossAttacks = bound
+                .SelectMany(boss => boss.OwnedAttacks
+                    .Where(attack => attack.Attack != null)
+                    .Select(attack => (boss, attack)))
+                .ToArray();
+            Assert.Greater(bossAttacks.Length, 4, "Production bosses include the late projectile families.");
+            foreach (var (boss, attack) in bossAttacks)
             {
+                var expectedOwner = boss.Id.ToString().Replace("MIDBOSS", "BOSS");
+                Assert.AreEqual($"{expectedOwner}-VISUAL-PROJECTILE", attack.Attack.ProjectileVisual.Id.ToString(), boss.Id.ToString());
                 var projectile = attack.Attack.ProjectileVisual.Resolve(catalog.Registry);
                 Assert.AreEqual(SpriteRole.Projectile, projectile.Role, $"{attack.Id} projectile role");
-                Assert.AreEqual("boss-001-projectile", projectile.Sprite.name, $"{attack.Id} projectile image");
+                Assert.AreEqual($"{expectedOwner.ToLowerInvariant()}-projectile", projectile.Sprite.name, $"{attack.Id} projectile image");
             }
         }
 

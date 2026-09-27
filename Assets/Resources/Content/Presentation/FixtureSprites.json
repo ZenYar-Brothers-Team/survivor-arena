@@ -1190,5 +1190,396 @@
     "id": "FIELD-001-VISUAL-BARREL",
     "resourcePath": "Art/Sprites/Fields/field-001/field-001-barrel-prop",
     "role": "Prop"
+  },
+  {
+    "contactRadius": 0.608604,
+    "contactCenterY": 0.717769,
+    "id": "BOSS-003-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.582599,
+    "contactCenterY": 1.388635,
+    "id": "BOSS-004-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.735546,
+    "contactCenterY": 0.788408,
+    "id": "BOSS-005-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.638195,
+    "contactCenterY": 0.691109,
+    "id": "BOSS-006-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.9,
+    "contactCenterY": 1.094592,
+    "id": "BOSS-007-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.620085,
+    "contactCenterY": 0.764683,
+    "id": "BOSS-008-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.743384,
+    "contactCenterY": 0.812815,
+    "id": "BOSS-009-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.841599,
+    "contactCenterY": 0.970517,
+    "id": "BOSS-010-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.54908,
+    "contactCenterY": 0.708919,
+    "id": "MIDBOSS-003-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-003/midboss-003-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.490732,
+    "contactCenterY": 0.59979,
+    "id": "MIDBOSS-004-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-004/midboss-004-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.747748,
+    "contactCenterY": 0.768297,
+    "id": "MIDBOSS-005-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-005/midboss-005-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.403252,
+    "contactCenterY": 1.15982,
+    "id": "MIDBOSS-006-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-006/midboss-006-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.736738,
+    "contactCenterY": 0.781683,
+    "id": "MIDBOSS-007-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-007/midboss-007-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.437601,
+    "contactCenterY": 0.484859,
+    "id": "MIDBOSS-008-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-008/midboss-008-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.564465,
+    "contactCenterY": 1.036751,
+    "id": "MIDBOSS-009-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-009/midboss-009-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.550053,
+    "contactCenterY": 0.631201,
+    "id": "MIDBOSS-010-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Bosses/midboss-010/midboss-010-body",
+    "role": "Body"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-002-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 180.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-003-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-004-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-005-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 120.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-006-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.15,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-007-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-008-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-009-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.0,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.95,
+      "flashGreen": 0.5,
+      "flashBlue": 0.42,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.44,
+      "particleRed": 0.62,
+      "particleGreen": 0.42,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.8,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.95,
+        "green": 0.3,
+        "blue": 0.25,
+        "alpha": 0.55,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "BOSS-010-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-projectile",
+    "role": "Projectile"
   }
 ]

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-005",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "prompt": "Use case: precise-object-edit. Edit the supplied full-body transparent gameplay sprite. Preserve the same character identity, face, costume, palette, silhouette size, hand-drawn storybook cutout style, perspective, transparent background, and ground-contact line. Change ONLY the arm/hand pose and item placement as described. Keep the pose neutral and animation-ready, compact enough for one circular contact area. Do not add VFX, background, cast shadow, text, extra limbs or new props. BOSS-005: Bring the closed inquisitor's book from belt into one hand at chest height, with other hand braced against the lower edge; composed judgmental stance. Do not cover face or chest emblem.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "dcb2a72d79f740f7b80c9587189514525a53d71c02fccedd2a58789c87649ff9",
+    "runtimeSha256": "5223af7e6be3c7a56bb520b404cfa81f628830c1850b4f92f9e07e544f22c2f4",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

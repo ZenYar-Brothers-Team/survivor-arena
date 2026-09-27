@@ -180,16 +180,16 @@ IN GAME
 |---|---|---|---|---|  
 | BOSS-001 | Староста-герой | Body sprite | Generate via GPT | IN GAME — body/projectile v001, приняты 2026-09-24. [Body provenance](../../Art/Source/Bosses/boss-001/body/asset-record.json), [projectile provenance](../../Art/Source/Bosses/boss-001/projectile/asset-record.json) |
 | BOSS-002 | Капитан королевской стражи | Body sprite | Generate via GPT | IN GAME — body v001 утверждён и подключён 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-002/body/asset-record.json) |
-| BOSS-003 | Главный королевский ловчий | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-004 | Рыцарь знамени | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-005 | Великий инквизитор | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-006 | Королевский архимаг | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-007 | Верховный паладин | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-008 | Чемпион короны | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-009 | Серафим-полководец | Body sprite | Generate via GPT | NOT STARTED |  
-| BOSS-010 | Архангел Спасения | Body sprite | Generate via GPT | NOT STARTED |
+| BOSS-003 | Главный королевский ловчий | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-003/body/asset-record.json) |
+| BOSS-004 | Рыцарь знамени | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-004/body/asset-record.json) |
+| BOSS-005 | Великий инквизитор | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-005/body/asset-record.json) |
+| BOSS-006 | Королевский архимаг | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-006/body/asset-record.json) |
+| BOSS-007 | Верховный паладин | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-007/body/asset-record.json) |
+| BOSS-008 | Чемпион короны | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-008/body/asset-record.json) |
+| BOSS-009 | Серафим-полководец | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-009/body/asset-record.json) |
+| BOSS-010 | Архангел Спасения | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/boss-010/body/asset-record.json) |
 
-Boss attack VFX/projectiles создаются по конкретным attack patterns из Content Design и могут переиспользовать generic VFX families.
+Boss attack VFX/projectiles создаются по конкретным attack patterns из Content Design и могут переиспользовать generic VFX families. Девять shared projectile families FIELD-002…010 утверждены и подключены 2026-09-27: final boss владеет visual ID, соответствующий midboss поля переиспользует его; MIDBOSS-004 projectile не использует. Provenance: [002](../../Art/Source/Bosses/boss-002/projectile/asset-record.json), [003](../../Art/Source/Bosses/boss-003/projectile/asset-record.json), [004](../../Art/Source/Bosses/boss-004/projectile/asset-record.json), [005](../../Art/Source/Bosses/boss-005/projectile/asset-record.json), [006](../../Art/Source/Bosses/boss-006/projectile/asset-record.json), [007](../../Art/Source/Bosses/boss-007/projectile/asset-record.json), [008](../../Art/Source/Bosses/boss-008/projectile/asset-record.json), [009](../../Art/Source/Bosses/boss-009/projectile/asset-record.json), [010](../../Art/Source/Bosses/boss-010/projectile/asset-record.json). Зоны и лучи остаются процедурными; gameplay-scale review на owning fields открыт.
 
 \---
 
@@ -199,14 +199,14 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 |---|---|---|---|---|  
 | MIDBOSS-001 | Старший загонщик | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Bosses/midboss-001/body/asset-record.json) |
 | MIDBOSS-002 | Сержант стражи | Body sprite | Generate via GPT | IN GAME — body v001 утверждён и подключён 2026-09-26; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-002/body/asset-record.json) |
-| MIDBOSS-003 | Королевский следопыт | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-004 | Рыцарь-преследователь | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-005 | Капитан городской стражи | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-006 | Маг-наблюдатель | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-007 | Паладин авангарда | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-008 | Рыцарь короны | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-009 | Вестник небес | Body sprite | Generate via GPT | NOT STARTED |  
-| MIDBOSS-010 | Ангел-предвестник | Body sprite | Generate via GPT | NOT STARTED |
+| MIDBOSS-003 | Королевский следопыт | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-003/body/asset-record.json) |
+| MIDBOSS-004 | Рыцарь-преследователь | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-004/body/asset-record.json) |
+| MIDBOSS-005 | Капитан городской стражи | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-005/body/asset-record.json) |
+| MIDBOSS-006 | Маг-наблюдатель | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-006/body/asset-record.json) |
+| MIDBOSS-007 | Паладин авангарда | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-007/body/asset-record.json) |
+| MIDBOSS-008 | Рыцарь короны | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-008/body/asset-record.json) |
+| MIDBOSS-009 | Вестник небес | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-009/body/asset-record.json) |
+| MIDBOSS-010 | Ангел-предвестник | Body sprite | Generate via GPT | INTEGRATED — body v001 утверждён и подключён 2026-09-27; gameplay-scale review открыт. [Provenance](../../Art/Source/Bosses/midboss-010/body/asset-record.json) |
 
 \---
 

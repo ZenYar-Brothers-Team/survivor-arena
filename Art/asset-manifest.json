@@ -2588,6 +2588,431 @@
         "Пользователь 2026-09-27 поручил уплотнить FIELD-001 и разнообразить препятствия по миниатюре карты. Автономная подготовка и подключение арта без предварительного просмотра разрешены в docs/implementation/STATUS.md, раздел «Автономное продолжение FIELD-001»; художественная проверка остаётся пользовательским feedback после интеграции."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "BOSS-003",
+      "role": "body",
+      "visualId": "BOSS-003-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-003/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-003/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-003/boss-003-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-004",
+      "role": "body",
+      "visualId": "BOSS-004-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-004/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-004/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-004/boss-004-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-005",
+      "role": "body",
+      "visualId": "BOSS-005-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-005/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-005/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-006",
+      "role": "body",
+      "visualId": "BOSS-006-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-006/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-006/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-006/boss-006-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-007",
+      "role": "body",
+      "visualId": "BOSS-007-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-007/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-007/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-008",
+      "role": "body",
+      "visualId": "BOSS-008-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-008/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-008/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-008/boss-008-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-009",
+      "role": "body",
+      "visualId": "BOSS-009-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-009/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-009/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-009/boss-009-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-010",
+      "role": "body",
+      "visualId": "BOSS-010-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-010/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-010/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-010/boss-010-body.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-003",
+      "role": "body",
+      "visualId": "MIDBOSS-003-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-003/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-003/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-003/midboss-003-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-003/midboss-003-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-004",
+      "role": "body",
+      "visualId": "MIDBOSS-004-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-004/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-004/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-004/midboss-004-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-004/midboss-004-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-005",
+      "role": "body",
+      "visualId": "MIDBOSS-005-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-005/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-005/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-005/midboss-005-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-005/midboss-005-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-006",
+      "role": "body",
+      "visualId": "MIDBOSS-006-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-006/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-006/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-006/midboss-006-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-006/midboss-006-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-007",
+      "role": "body",
+      "visualId": "MIDBOSS-007-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-007/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-007/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-007/midboss-007-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-007/midboss-007-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-008",
+      "role": "body",
+      "visualId": "MIDBOSS-008-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-008/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-008/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-008/midboss-008-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-008/midboss-008-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-009",
+      "role": "body",
+      "visualId": "MIDBOSS-009-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-009/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-009/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-009/midboss-009-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-009/midboss-009-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "MIDBOSS-010",
+      "role": "body",
+      "visualId": "MIDBOSS-010-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/midboss-010/body/selected-master.png",
+      "provenance": "Art/Source/Bosses/midboss-010/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-010/midboss-010-body.png",
+      "resourcePath": "Art/Sprites/Bosses/midboss-010/midboss-010-body",
+      "stage": "Integrated",
+      "evidence": [
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
+      ],
+      "missing": "Gameplay-scale visual review remains."
+    },
+    {
+      "owner": "BOSS-002",
+      "role": "projectile",
+      "visualId": "BOSS-002-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-002/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-002/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-002/boss-002-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-003",
+      "role": "projectile",
+      "visualId": "BOSS-003-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-003/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-003/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-003/boss-003-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-004",
+      "role": "projectile",
+      "visualId": "BOSS-004-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-004/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-004/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-004/boss-004-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-005",
+      "role": "projectile",
+      "visualId": "BOSS-005-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-005/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-005/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-006",
+      "role": "projectile",
+      "visualId": "BOSS-006-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-006/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-006/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-006/boss-006-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-007",
+      "role": "projectile",
+      "visualId": "BOSS-007-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-007/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-007/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-008",
+      "role": "projectile",
+      "visualId": "BOSS-008-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-008/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-008/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-008/boss-008-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-009",
+      "role": "projectile",
+      "visualId": "BOSS-009-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-009/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-009/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-009/boss-009-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "BOSS-010",
+      "role": "projectile",
+      "visualId": "BOSS-010-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-21",
+      "source": "Art/Source/Bosses/boss-010/projectile/selected-master.png",
+      "provenance": "Art/Source/Bosses/boss-010/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-010/boss-010-projectile.png",
+      "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-projectile",
+      "stage": "Integrated",
+      "evidence": [
+        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
+      ],
+      "missing": "Target-scale gameplay review on the owning field."
     }
   ]
 }

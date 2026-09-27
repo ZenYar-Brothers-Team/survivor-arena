@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-09-27",
+  "approvalEvidence": "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+  "assets": [
+    {
+      "owner": "BOSS-003",
+      "role": "body",
+      "visualId": "BOSS-003-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-003-body-candidate-01.png",
+      "sha256": "d5512d37f595b3cf1474fdc70899239df27706189026569b4a3fecbd1d008fae",
+      "sourceDirectory": "Art/Source/Bosses/boss-003/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-003/boss-003-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena boss body gameplay sprite candidate, BOSS-003 Главный королевский ловчий (chief royal huntsman). Use the supplied BOSS-002 art strictly as rendering-style reference, not as character design. Make ONE full-body human chief huntsman: compact broad fur-trimmed forest-green and burgundy hunting coat over practical leather armor, confident disciplined face, short crossbow held close across torso, a few large trap-shaped metal fittings at belt. Clearly distinguish from the armored royal captain: hood or short fur collar, leather rather than plate armor, angular hunter silhouette, woodland palette. Stylized 2D storybook cutout, hand-drawn, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, feet on one level ground-contact line. Strong readable silhouette, thick slightly irregular deep charcoal-plum outer contour, simple cel shading, flat matte colors, 3-5 major shape masses and subtle dry-brush texture. Compact mass suitable for one inscribed contact circle, no very long weapon or protrusions. Square canvas at least 1024 px, silhouette ~75% high with generous transparent padding. Genuinely transparent background. No ground plane, cast shadow, particles, effects, text, letters, logos, frame, photorealism, 3D, pixel art, gore, extra limbs, tiny ornaments or cropped accessories.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.608604,
+        "contactCenterY": 0.717769
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.051,
+        "reason": "BOSS-003 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-004",
+      "role": "body",
+      "visualId": "BOSS-004-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-004-body-candidate-03.png",
+      "sha256": "b11bf37a651d148652739ebc9852d964671a9e419d66425d12d489a6cdf0b2df",
+      "sourceDirectory": "Art/Source/Bosses/boss-004/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-004/boss-004-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated human figure on genuinely transparent square canvas at least 1024px. Stylized hand-drawn 2D storybook cutout, 3/4 top-down orthographic gameplay view facing right and slightly toward viewer, neutral animation-ready stance, feet on one level ground-contact line. Strong compact readable silhouette, about 75% canvas height with generous padding, main body suitable for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour, matte flat colors, simple cel shading, subtle dry-brush paper texture. Do not resemble the existing broad blond bearded royal captain. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, motion blur, extra limbs, cropped items or very long protrusions. BOSS-004: Banner Knight: veteran dark-skinned bald human man with close gray beard and one white brow scar, confident and severe. Broad polished muted-steel armor with blue-burgundy surcoat and restrained gold trim. One hand grips a short royal banner staff upright at shoulder height, banner compact behind shoulder; other hand rests on short sword hilt. Distinctive royal military standard silhouette, not the existing blond captain.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.582599,
+        "contactCenterY": 1.388635
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.031,
+        "reason": "BOSS-004 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-005",
+      "role": "body",
+      "visualId": "BOSS-005-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-005-body-candidate-02.png",
+      "sha256": "dcb2a72d79f740f7b80c9587189514525a53d71c02fccedd2a58789c87649ff9",
+      "sourceDirectory": "Art/Source/Bosses/boss-005/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-body.png",
+      "prompt": "Use case: precise-object-edit. Edit the supplied full-body transparent gameplay sprite. Preserve the same character identity, face, costume, palette, silhouette size, hand-drawn storybook cutout style, perspective, transparent background, and ground-contact line. Change ONLY the arm/hand pose and item placement as described. Keep the pose neutral and animation-ready, compact enough for one circular contact area. Do not add VFX, background, cast shadow, text, extra limbs or new props. BOSS-005: Bring the closed inquisitor's book from belt into one hand at chest height, with other hand braced against the lower edge; composed judgmental stance. Do not cover face or chest emblem.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.735546,
+        "contactCenterY": 0.788408
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.041,
+        "reason": "BOSS-005 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-006",
+      "role": "body",
+      "visualId": "BOSS-006-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-006-body-candidate-02.png",
+      "sha256": "478df0223b618e613413133fe72fc73cc54278b67c7d299ea80c9baef2866717",
+      "sourceDirectory": "Art/Source/Bosses/boss-006/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-006/boss-006-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated human figure on genuinely transparent square canvas at least 1024px. Stylized hand-drawn 2D storybook cutout, 3/4 top-down orthographic gameplay view facing right and slightly toward viewer, neutral animation-ready stance, feet on one level ground-contact line. Strong compact readable silhouette, about 75% canvas height with generous padding, main body suitable for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour, matte flat colors, simple cel shading, subtle dry-brush paper texture. Do not resemble the existing broad blond bearded royal captain. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, motion blur, extra limbs, cropped items or very long protrusions. BOSS-006: Royal Archmage: older human woman with dark curly hair shot through with silver, sharp long face and composed expression. Broad angular royal-blue and burgundy robe over compact body, gold astrolabe collar, short staff close to left shoulder held in one hand, other hand raised near chest with two fingers extended in a quiet spell gesture. Distinct from the blond bearded captain and the hooded inquisitor; no baked magical glow.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.638195,
+        "contactCenterY": 0.691109
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.029,
+        "reason": "BOSS-006 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-007",
+      "role": "body",
+      "visualId": "BOSS-007-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-007-body-candidate-01.png",
+      "sha256": "9405192b9b42d1234d37dc9a2e49e89d9824a45944ad48fb0bd61246ffd52e42",
+      "sourceDirectory": "Art/Source/Bosses/boss-007/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body boss gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, lower body aligned to a clear level ground-contact line. Strong unique readable silhouette occupying about 75% height, generous padding, compact main mass suited for one inscribed contact circle. Thick slightly irregular deep charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading, restrained paper texture. Fairy-tale human order rising toward celestial ivory and gold. Avoid copying any existing character face or armor design. No background, ground shadow, glowing VFX, text, lettering, logo, frame, 3D render, photorealism, pixel art, gore, extreme action pose, long thin protrusions, extra limbs, cropped items. BOSS-007: Supreme Paladin: older stern human with close-cropped dark hair and square jaw, massive compact ivory-and-steel plate armor with broad rounded shoulders and gold sunburst chest plate, short war hammer held beside body, small burgundy cloth accents. Heavy relentless melee presence, more ecclesiastical than a royal knight.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.9,
+        "contactCenterY": 1.094592
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.029,
+        "reason": "BOSS-007 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-008",
+      "role": "body",
+      "visualId": "BOSS-008-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-008-body-candidate-02.png",
+      "sha256": "bb57e627059716d16b5e48419eb289546917e52d0313c83fa0251c36b164adfc",
+      "sourceDirectory": "Art/Source/Bosses/boss-008/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-008/boss-008-body.png",
+      "prompt": "Use case: precise-object-edit. Edit the supplied full-body transparent gameplay sprite. Preserve the same character identity, face, costume, palette, silhouette size, hand-drawn storybook cutout style, perspective, transparent background, and ground-contact line. Change ONLY the arm/hand pose and item placement as described. Keep the pose neutral and animation-ready, compact enough for one circular contact area. Do not add VFX, background, cast shadow, text, extra limbs or new props. BOSS-008: Move one arm to a confident hand-on-hip pose; the other hand loosely grips the short sheathed sword at waist. Retain existing armor and face, keep both hands visibly distinct.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.620085,
+        "contactCenterY": 0.764683
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.033,
+        "reason": "BOSS-008 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-009",
+      "role": "body",
+      "visualId": "BOSS-009-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-009-body-candidate-03.png",
+      "sha256": "57703fcb52f5fd4051b5e9c6b5f9f2142eba79b765f6d6dc1c6abfb75bb6e20a",
+      "sourceDirectory": "Art/Source/Bosses/boss-009/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-009/boss-009-body.png",
+      "prompt": "Use case: precise-object-edit. Edit only the arm pose and spear placement of the supplied BOSS-009 Seraphim War Commander sprite. Remove the raised open-palm gesture entirely. Put BOTH hands on one short ceremonial spear held diagonally across the LOWER torso, with one gauntlet gripping it near the chest and the other near the waist, like a disciplined commander at rest. The spear must remain compact, entirely within the existing canvas, and must not obscure the face or wings. Keep the same character identity, face, folded wings, armor, colors, 3/4 top-down storybook cutout style, neutral animation-ready stance, grounded feet, transparent background and padding. One spear only, exactly two arms and hands. No new effects, background, shadow, text or action pose.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.743384,
+        "contactCenterY": 0.812815
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.041,
+        "reason": "BOSS-009 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "BOSS-010",
+      "role": "body",
+      "visualId": "BOSS-010-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/boss-010-body-candidate-02.png",
+      "sha256": "13c7bc796d5b41db94e5795deda6052a9da41ecad7ff07648b74d786f33989a8",
+      "sourceDirectory": "Art/Source/Bosses/boss-010/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/boss-010/boss-010-body.png",
+      "prompt": "Use case: precise-object-edit. Edit supplied full-body transparent gameplay sprite. Preserve character identity, face, costume, palette, hand-drawn storybook cutout style, 3/4 top-down perspective, transparent background, full figure and level ground-contact line. Change primarily arm/hand pose as requested to diversify the roster while remaining neutral and animation-ready. Keep main silhouette compact, no long new protrusions. No background, shadows, VFX, text, extra limbs or new unrelated props. BOSS-010: Raise the free armored hand to chest height, open palm angled forward in a calm judging gesture; the short sword remains down near the hip in the other hand. Keep wings folded and face unobstructed.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.841599,
+        "contactCenterY": 0.970517
+      },
+      "importProfile": {
+        "pixelsPerUnit": 200,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.025,
+        "reason": "BOSS-010 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-003",
+      "role": "body",
+      "visualId": "MIDBOSS-003-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-003-body-candidate-01.png",
+      "sha256": "297940412a5534f544a599d5c8af70f8147020c4b8d4f0b83bc2a742fbe4e1c6",
+      "sourceDirectory": "Art/Source/Bosses/midboss-003/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-003/midboss-003-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body MIDBOSS gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, both feet or lower body on a clear level ground-contact line. Strong unique readable silhouette occupying ~75% height, generous transparent padding, compact main mass for one inscribed contact circle. Thick slightly irregular charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading and restrained paper texture. Human pursuer with disciplined confident expression, visually less grand than a final boss. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, extreme action pose, very long weapons, cropped items, extra limbs or duplicate objects. MIDBOSS-003: Royal tracker from border ruins: lean weathered woman in practical forest-green hood, burgundy scarf and leather jerkin, compact shortbow across torso, fur-lined cloak, alert focused eyes. A professional hunter, visually subordinate to the chief royal huntsman; not an armored knight.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.54908,
+        "contactCenterY": 0.708919
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.037,
+        "reason": "MIDBOSS-003 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-004",
+      "role": "body",
+      "visualId": "MIDBOSS-004-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-004-body-candidate-02.png",
+      "sha256": "80448088e4523fdc198d3b7203ca6c4f59fdf2d293091d1418fa708384ae2842",
+      "sourceDirectory": "Art/Source/Bosses/midboss-004/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-004/midboss-004-body.png",
+      "prompt": "Use case: precise-object-edit. Edit supplied full-body transparent gameplay sprite. Preserve character identity, face, costume, palette, hand-drawn storybook cutout style, 3/4 top-down perspective, transparent background, full figure and level ground-contact line. Change primarily arm/hand pose as requested to diversify the roster while remaining neutral and animation-ready. Keep main silhouette compact, no long new protrusions. No background, shadows, VFX, text, extra limbs or new unrelated props. MIDBOSS-004: Keep short sword low but bend the free arm across the torso with fist at the chest, a ready-to-dash stance rather than two dangling arms. No action blur or attack swing.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.490732,
+        "contactCenterY": 0.59979
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.049,
+        "reason": "MIDBOSS-004 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-005",
+      "role": "body",
+      "visualId": "MIDBOSS-005-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-005-body-candidate-01.png",
+      "sha256": "1cf1441aab9c6b09ef03eac358d7f467456cb1835fadcc11e89980d74f6a4358",
+      "sourceDirectory": "Art/Source/Bosses/midboss-005/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-005/midboss-005-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body MIDBOSS gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, both feet or lower body on a clear level ground-contact line. Strong unique readable silhouette occupying ~75% height, generous transparent padding, compact main mass for one inscribed contact circle. Thick slightly irregular charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading and restrained paper texture. Human pursuer with disciplined confident expression, visually less grand than a final boss. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, extreme action pose, very long weapons, cropped items, extra limbs or duplicate objects. MIDBOSS-005: City guard captain: older broad human woman in practical dark steel armor and burgundy-blue city tabard, squared shield held close in front, short mace, stern disciplined face under open helmet. Urban authority, heavy frontline defender, less ornate than Grand Inquisitor.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.747748,
+        "contactCenterY": 0.768297
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.039,
+        "reason": "MIDBOSS-005 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-006",
+      "role": "body",
+      "visualId": "MIDBOSS-006-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-006-body-candidate-03.png",
+      "sha256": "f3244cc404cdd061bf46ac53038a0a66a610acf884a0c28e0f4ba64dd69a20f0",
+      "sourceDirectory": "Art/Source/Bosses/midboss-006/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-006/midboss-006-body.png",
+      "prompt": "Use case: precise-object-edit. Edit only the arm pose and staff placement of the supplied MIDBOSS-006 Watcher Mage sprite. Remove the raised two-finger spell gesture entirely. Put BOTH hands on the existing short staff held HORIZONTALLY across the waist, as if calmly studying or measuring it, elbows bent and close to the body. Keep the hands visibly attached to the staff and leave the face unobstructed. No extra staff, spellbook, orb or gesture. Preserve the same character identity, face, hair, robe, palette, 3/4 top-down hand-drawn storybook cutout style, neutral animation-ready stance, level ground-contact line, transparent background and padding. Exactly two arms and hands. No VFX, background, shadow, text or action pose.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.403252,
+        "contactCenterY": 1.15982
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.031,
+        "reason": "MIDBOSS-006 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-007",
+      "role": "body",
+      "visualId": "MIDBOSS-007-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-007-body-candidate-01.png",
+      "sha256": "a7ba0d900e1579a83e9aa522bcce64386cfb90cbd862645e511c501c37a1db1a",
+      "sourceDirectory": "Art/Source/Bosses/midboss-007/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-007/midboss-007-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body MIDBOSS gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, lower body on a clear level ground-contact line. Strong unique readable silhouette occupying ~75% height, generous transparent padding, compact main mass for one inscribed contact circle. Thick slightly irregular charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading and restrained paper texture. Disciplined pursuer, visibly less grand than a final boss. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, extreme action pose, very long weapons, cropped items, extra limbs or duplicate objects. MIDBOSS-007: Vanguard Paladin: heavy melee human man with shaved head and stern face, broad ivory and steel armor, pale-gold sun motifs, compact thick mace in one hand, burgundy sash, strong forward-leaning armored body. Simpler less monumental than the Supreme Paladin; no wings.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.736738,
+        "contactCenterY": 0.781683
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.074,
+        "reason": "MIDBOSS-007 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-008",
+      "role": "body",
+      "visualId": "MIDBOSS-008-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-008-body-candidate-01.png",
+      "sha256": "834f485cc065d4e8bfac10303d6036956dac757b94d05edd5bac693ebe9a6143",
+      "sourceDirectory": "Art/Source/Bosses/midboss-008/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-008/midboss-008-body.png",
+      "prompt": "Use case: stylized-concept. Asset type: Survivor Arena full-body MIDBOSS gameplay sprite candidate. ONE isolated figure on genuinely transparent square canvas at least 1024px. Stylized 2D storybook cutout hand-drawn illustration, 3/4 top-down orthographic gameplay view, facing right and slightly toward viewer, neutral animation-ready stance, lower body on a clear level ground-contact line. Strong unique readable silhouette occupying ~75% height, generous transparent padding, compact main mass for one inscribed contact circle. Thick slightly irregular charcoal-plum outer contour (#241B2B), matte flat colors, simple cel shading and restrained paper texture. Disciplined pursuer, visibly less grand than a final boss. No background, ground shadow, VFX, text, logo, frame, photorealism, 3D, pixel art, gore, extreme action pose, very long weapons, cropped items, extra limbs or duplicate objects. MIDBOSS-008: Crown Knight: human woman with short auburn hair, controlled expression, polished silver armor and royal-blue tabard, modest gold crown crest on compact helm carried at belt, short sword held near body. Steady relentless swordswoman, narrower than Champion of the Crown.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.437601,
+        "contactCenterY": 0.484859
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.049,
+        "reason": "MIDBOSS-008 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-009",
+      "role": "body",
+      "visualId": "MIDBOSS-009-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-009-body-candidate-02.png",
+      "sha256": "fab8a4bc2296466fa46e047e6ace0ce5c14552cd892ff82fbc5a9d28106612af",
+      "sourceDirectory": "Art/Source/Bosses/midboss-009/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-009/midboss-009-body.png",
+      "prompt": "Use case: precise-object-edit. Edit supplied full-body transparent gameplay sprite. Preserve character identity, face, costume, palette, hand-drawn storybook cutout style, 3/4 top-down perspective, transparent background, full figure and level ground-contact line. Change primarily arm/hand pose as requested to diversify the roster while remaining neutral and animation-ready. Keep main silhouette compact, no long new protrusions. No background, shadows, VFX, text, extra limbs or new unrelated props. MIDBOSS-009: Bring the compact herald's horn up near mouth as if about to sound it, other arm relaxed but bent at belt. Preserve folded wings and clear face.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.564465,
+        "contactCenterY": 1.036751
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.031,
+        "reason": "MIDBOSS-009 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    },
+    {
+      "owner": "MIDBOSS-010",
+      "role": "body",
+      "visualId": "MIDBOSS-010-VISUAL-BODY",
+      "owningIp": "IP-21",
+      "input": "Art/Candidates/bosses-2026-09-27/midboss-010-body-candidate-02.png",
+      "sha256": "ab75df932df9215a316cea953cdb05e8dd87fda6ab153d609fddfbe561049d0a",
+      "sourceDirectory": "Art/Source/Bosses/midboss-010/body",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Bosses/midboss-010/midboss-010-body.png",
+      "prompt": "Use case: precise-object-edit. Edit supplied full-body transparent gameplay sprite. Preserve character identity, face, costume, palette, hand-drawn storybook cutout style, 3/4 top-down perspective, transparent background, full figure and level ground-contact line. Change primarily arm/hand pose as requested to diversify the roster while remaining neutral and animation-ready. Keep main silhouette compact, no long new protrusions. No background, shadows, VFX, text, extra limbs or new unrelated props. MIDBOSS-010: Cross the two short blades close in front of upper torso in a guarded neutral stance; do not extend arms widely, preserve folded wings and clear face.",
+      "generator": "OpenAI built-in image generation and image editing",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "transparent background",
+        "no baked shadow",
+        "animation-ready stance",
+        "user-selected candidate"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 8,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "contactRadius": 0.550053,
+        "contactCenterY": 0.631201
+      },
+      "importProfile": {
+        "pixelsPerUnit": 240,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.02,
+        "reason": "MIDBOSS-010 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative."
+      }
+    }
+  ]
+}

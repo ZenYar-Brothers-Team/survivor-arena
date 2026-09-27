@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-007",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena hostile Projectile gameplay sprite candidate, shared within one boss/midboss field family, visible at roughly 20–32 px. Use supplied BOSS-001 projectile only as rendering/contrast reference; supplied body sprites only as thematic references. Style: ONE compact isolated object, stylized 2D storybook cutout, hand-painted, thick deep-plum outer contour, flat matte colors, simple cel shading, restrained dry-brush texture. Centered on square canvas with generous even safety padding, strong simple silhouette suitable for rotation, clean alpha, no directional baked light. Include a clear warm coral-red danger accent in the object edge, not a separate baked glow. Content IDs: BOSS-007 and MIDBOSS-007. Primary request: large explosive holy charge projectile: a compact squat ivory-and-steel hammer-head shaped mass seen front-on, rounded shoulders, one bold gold sunburst boss in center, burgundy cracks or bindings. Heavy and blunt, not a long-handled hammer, no handle; readable as a powerful explosive charge and distinct from circular shields. Constraints: genuinely transparent background; no text or recognizable lettering/numbers, logo, watermark, frame, floor, background, cast shadow, particles, speed lines, motion blur, trail, photorealism, 3D render, pixel art, gore, cropped parts, tiny ornaments, extra objects.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "fe36fb12190dd693e4abddfaa4ad517a62a5673dbc651573954de9bc6a81ef46",
+    "runtimeSha256": "ef2f289bae4353761002c4e0e4b3afc3971f87a68521625bd1d4ed2368a2e703",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

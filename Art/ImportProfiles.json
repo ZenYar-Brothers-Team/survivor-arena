@@ -534,5 +534,133 @@
     "pivotY": 0.5,
     "reason": "FIELD-001 compact obstacle prop; 256px / 160 PPU matches the existing stump and keeps collider dimensions authored in layout JSON.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-barrel-prop.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.051,
+    "reason": "BOSS-003 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-003/boss-003-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.031,
+    "reason": "BOSS-004 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-004/boss-004-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.041,
+    "reason": "BOSS-005 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.029,
+    "reason": "BOSS-006 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-006/boss-006-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.029,
+    "reason": "BOSS-007 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-007/boss-007-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.033,
+    "reason": "BOSS-008 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-008/boss-008-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.041,
+    "reason": "BOSS-009 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-009/boss-009-body.png"
+  },
+  {
+    "pixelsPerUnit": 200,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.025,
+    "reason": "BOSS-010 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/boss-010/boss-010-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.037,
+    "reason": "MIDBOSS-003 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-003/midboss-003-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.049,
+    "reason": "MIDBOSS-004 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-004/midboss-004-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.039,
+    "reason": "MIDBOSS-005 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-005/midboss-005-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.031,
+    "reason": "MIDBOSS-006 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-006/midboss-006-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.074,
+    "reason": "MIDBOSS-007 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-007/midboss-007-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.049,
+    "reason": "MIDBOSS-008 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-008/midboss-008-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.031,
+    "reason": "MIDBOSS-009 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-009/midboss-009-body.png"
+  },
+  {
+    "pixelsPerUnit": 240,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.02,
+    "reason": "MIDBOSS-010 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
+    "key": "Assets/Resources/Art/Sprites/Bosses/midboss-010/midboss-010-body.png"
   }
 ]

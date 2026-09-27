@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "BOSS-005",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: Survivor Arena hostile Projectile gameplay sprite candidate, visible at roughly 20–32 px. Use the supplied BOSS-001 projectile only as rendering and contrast reference; supplied boss bodies only as thematic references. Style: ONE compact isolated object, stylized 2D storybook cutout, hand-painted, thick deep-plum contour, flat matte colors, simple cel shading, restrained dry-brush texture. Centered on square canvas with generous even safety padding, strong silhouette suitable for rotation, clean alpha and no directional baked light. Threat readability: a clear warm coral-red edge accent, but no baked halo or particles. Content IDs: shared attack family for BOSS-005 and MIDBOSS-005. Primary request: a compact inquisitorial seal projectile for cross and fan volleys: chunky closed wax-and-metal reliquary token with four broad cardinal points, dark burgundy wax center, ivory parchment-like inset and aged gold clamps. Ominous ecclesiastical silhouette, no readable symbol or writing, distinct from shields and the BOSS-001 mace-head. Constraints: genuinely transparent background; no text, letters, numbers, logo, watermark, frame, floor, background, cast shadow, particles, speed lines, motion blur, long trail, photorealism, 3D render, pixel art, gore, cropped parts, tiny ornaments, extra objects.",
+  "constraints": [
+    "transparent background",
+    "single object",
+    "no baked motion",
+    "no text",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Bosses/boss-005/boss-005-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "e7187d0e6348389474d146a452bc124ef1f572186cca5492fed5979121d47789",
+    "runtimeSha256": "bcb6b6c9d2d80e5e42f9d885cf4068d27ccb8fcebca24fe2ad4bdbc137cb5014",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}
