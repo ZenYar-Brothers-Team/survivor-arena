@@ -2,7 +2,7 @@
  "format": "late-content-review-data",
  "formatVersion": 1,
  "revision": "bosses-v1",
- "approval": "Proposed 2026-09-27, редакция 2 (DECISION-0066)",
+ "approval": "Approved 2026-09-27, редакция 2 (DECISION-0066)",
  "runtimeImportable": false,
  "units": {
   "distance": "world units",
@@ -90,7 +90,7 @@
   {
    "id": "F3",
    "name": "Summon",
-   "summary": "призыв обычных врагов поля по кругу вокруг игрока с метками telegraph; не больше maxAlive живых призванных; призванные — обычные враги (XP, лут), смерть босса их не убирает",
+   "summary": "призыв обычных врагов поля по кругу вокруг игрока с метками telegraph; не больше maxAlive живых призванных; призванные — обычные враги (XP, лут), не занимают лимит обычных врагов, смерть босса их не убирает",
    "users": [
     "BOSS-008",
     "MIDBOSS-003",
