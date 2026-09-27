@@ -692,6 +692,7 @@ Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
 Remaining acceptance / IDs: FIELD-002 gameplay-scale review; FIELD-003…010 geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-08: FIELD-001 geometry/obstacles/metadata/environment Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
+Data packet 2026-09-27: [field003-v1](../balance/field003-v1.md) — FIELD-003 «Пограничные руины»: волны на каркасе FIELD-001 (HP ×1.24, урон ×1.16, частота +20%, стрелки 28%, лимит ≤220), 16 кластеров руин (107 кусков), ENEMY-010 с первой волны (карточка FIELD-003…008 по выбору пользователя); Proposed ([DECISION-0067](../decisions/0067-field003-v1.md)); static validator PASS.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-23).
