@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-005-STONE-PLANTER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "prompt": "Approved small obstacle candidate for FIELD-005: Stone Planter. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+  "constraints": [
+    "approved FIELD-005 obstacle candidate",
+    "small obstacle tier",
+    "transparent background",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-005/field-005-stone-planter-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "fb7ba509aededa5fc874c8d46fbd892fb20d5a041c33ff5fb178947c3a7c9b9b",
+    "runtimeSha256": "e1fa503eb83995328cf13904f70cd932d08d23027de63df2d0907ab4f97125b7",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

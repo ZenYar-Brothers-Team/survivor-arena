@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-HERB-PLANTER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "prompt": "Approved small obstacle candidate for FIELD-007: Herb Planter. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+  "constraints": [
+    "approved FIELD-007 obstacle candidate",
+    "small obstacle tier",
+    "transparent background",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-007/field-007-herb-planter-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "112f26484a9481ee14766312f5e1f75e10922e1387f0e5ce3064128611a83a4f",
+    "runtimeSha256": "8c15ad808af337003ebb625c7bb72ec51a852a02b8d7c6b537ecf28c1007cfdb",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

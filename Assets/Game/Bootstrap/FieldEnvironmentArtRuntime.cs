@@ -64,7 +64,8 @@ namespace Game.Bootstrap
                     Obstacles = definition.ObstacleLayout == null ? definition.ExplicitObstacles
                         : FieldObstacleLayoutGenerator.Generate(definition.ObstacleLayout, sideLength, spawn.position,
                             layoutSeed ?? definition.ObstacleLayout.ReferenceSeed, definition.EnvironmentId.ToString());
-                    interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column, barrel, rock);
+                    interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column, barrel, rock,
+                        registry);
                 }
                 else
                 {
@@ -227,7 +228,7 @@ namespace Game.Bootstrap
         // Authored rectangles are the player-only collision boxes; sprites are scaled to the rectangle width.
         private IReadOnlyList<Vector2> CreateAuthoredObstacles(FieldEnvironmentPresentationDefinition definition,
             IReadOnlyList<FieldObstacleDefinition> obstacles, Sprite fence, Sprite stump, Sprite column,
-            Sprite barrel, Sprite rock)
+            Sprite barrel, Sprite rock, ContentRegistry registry)
         {
             using var guard = PerfGuard.Measure("FieldEnvironment.CreateObstacles", 100f);
             var playerLayer = LayerMask.NameToLayer("Player");
@@ -236,7 +237,9 @@ namespace Game.Bootstrap
             foreach (var obstacle in obstacles)
             {
                 var isFence = obstacle.Kind == FieldObstacleKind.Fence;
-                var sprite = obstacle.Kind switch
+                var sprite = obstacle.VisualId.IsValid
+                    ? Resolve(new ContentRef<SpriteDefinition>(obstacle.VisualId), registry, SpriteRole.Prop)
+                    : obstacle.Kind switch
                 {
                     FieldObstacleKind.Fence => fence,
                     FieldObstacleKind.Column => column,

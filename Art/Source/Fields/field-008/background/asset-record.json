@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-008",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: Survival Arena field-selection thumbnail. Primary request: the fortified heart of the royal citadel combining an inner courtyard, ceremonial halls, and armored passageways. Scene/backdrop: monumental stone walls, heavy columns, vaulted galleries, portcullis passages and royal banners without readable emblems. Subject: constrained routes with fewer open safe zones, alternating a stern courtyard and covered ceremonial corridors; a massive crown-shaped gate silhouette as landmark without literal text. Style/medium: polished hand-drawn stylized storybook cutout environment illustration; flat 2D shapes, thick slightly irregular ink outlines, matte colors, simple cel shading, subtle paper texture; warm ironic fairy-tale danger; not pixel art, not photorealistic, not 3D. Composition/framing: landscape 3:2, readable 3/4 top-down overview, clear traversable routes and obstacle rhythm, one strong environmental focal landmark, foreground framing kept subtle, works when center-cropped and downscaled to a 170-pixel-high UI card. Lighting/mood: austere late-afternoon light with controlled dramatic shadows, still fully readable. Color palette: cool gray stone, deep navy, muted crimson, aged gold. Constraints: environment only; no characters, enemies, creatures, UI, text, letters, numbers, logos, watermark; no close-up object; no map labels; preserve broad open gameplay space. Avoid: ruined castle, battlefield debris, gothic horror, excessively dark interiors.",
+  "constraints": [
+    "approved FIELD-008 candidate",
+    "small-card readability",
+    "no baked UI frame",
+    "no text or characters"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-008/field-008-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "a5baeec13112011ea20b8acede0492f19cfd8f7e816c3f23cba13e29ef42f140",
+    "runtimeSha256": "a5baeec13112011ea20b8acede0492f19cfd8f7e816c3f23cba13e29ef42f140",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

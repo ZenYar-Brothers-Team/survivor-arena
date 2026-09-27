@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation edit",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27).",
+  "prompt": "Use case: lighting-weather. Asset type: Survival Arena FIELD-010 field-selection thumbnail. Input image: the supplied FIELD-010 candidate is the edit target. Primary request: change only the time of day, lighting, atmosphere, and color palette to a dramatic warm celestial sunset. Lighting/mood: low amber sun near the horizon; peach, coral, rose, and muted magenta clouds; rich amber-gold highlights on white stone and gilded architecture; long soft violet and deep blue shadows; majestic serene finale with a slightly ominous dusk undertone. Color palette: warm ivory stone, burnt gold, peach-orange sky, rose clouds, lavender-violet shadow, deep navy banner accents. Constraints: preserve the exact architecture, camera angle, framing, pathways, platforms, columns, bridges, banners, vegetation, cloud geometry, and all object placement; do not redesign or add structures; retain the hand-drawn storybook cutout rendering and clear 3/4 top-down gameplay readability; keep highlights controlled so paths remain readable; no characters, angels, creatures, text, logos, watermark. Avoid: daytime blue-sky palette, pale white washout, night scene, red inferno, fire, lava, storm, silhouette-only foreground.",
+  "constraints": [
+    "approved sunset FIELD-010 candidate",
+    "small-card readability",
+    "no baked UI frame",
+    "no text or characters"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-010/field-010-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "983ab0f2b88676c019f56973003c101c4e3542bc55da34894b590cca458fc30e",
+    "runtimeSha256": "983ab0f2b88676c019f56973003c101c4e3542bc55da34894b590cca458fc30e",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

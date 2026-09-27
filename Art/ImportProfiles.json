@@ -662,5 +662,517 @@
     "pivotY": 0.02,
     "reason": "MIDBOSS-010 approved 512px body; foot pivot and maximal contact circle measured on the runtime derivative.",
     "key": "Assets/Resources/Art/Sprites/Bosses/midboss-010/midboss-010-body.png"
+  },
+  {
+    "pixelsPerUnit": 64,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 wall uses a broad 2.67-unit prop canvas; collider dimensions and rotations remain authored by field layout.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-wall-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 rubble uses a compact 1.6-unit prop canvas; circular obstacle geometry remains authored in field data.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-rubble-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 visual-only water decor covers a broad four-unit patch; no collider is derived from pixels.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-water-prop.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-background.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 field-select thumbnail; UI layout sets rendered card size.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-background.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-village-handcart-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-hay-bales-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-broken-wagon-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-road-barricade-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-bench-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-002 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ruined-arch-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-collapsed-well-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-broken-urns-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-003 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-palisade-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-tent-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-cart-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-brazier-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-crate-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-training-dummy-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-market-stall-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-street-barricade-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-fountain-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-goods-crate-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-stone-planter-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-water-barrels-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-astrolabe-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-laboratory-table-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-footbridge-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-mass-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-hedge-block-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-cistern-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-herb-planter-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-stump-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-column-cluster-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-statue-plinth-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-armory-crate-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-brazier-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-shield-rack-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-arch-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-column-cluster-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-arch-fragment-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-stone-fragment-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-balustrade-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-column-cluster-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-celestial-basin-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-golden-brazier-prop.png"
   }
 ]

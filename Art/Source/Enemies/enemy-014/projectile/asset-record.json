@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "ENEMY-014",
+  "role": "projectile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: Unity gameplay projectile preview, ENEMY-014-VISUAL-PROJECTILE, hostile explosive siege-magic orb. One large slow arcane bombardment projectile that promises an explosion, genuinely transparent background. Compact heavy dark-violet stone-and-magic sphere with three broad cracked ochre-orange seams and one blunt iron band, dense and weighty rather than fiery. Stylized 2D storybook cutout, thick deep-plum contour, flat matte colors, simple cel shading and paper texture. No baked external glow, flames, smoke, particles, trail, impact, text, logo, ground, watermark, player fireball, neon, photorealism, 3D render, pixel art, runes or bomb fuse.",
+  "constraints": [
+    "transparent background",
+    "heavy radial silhouette",
+    "no baked halo",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Enemies/enemy-014/enemy-014-projectile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1312x1199",
+    "sourceSha256": "5fb678b4d887cb6f610790633aa8ad55785d117f6e6569f9c155b31bcb8dadbc",
+    "runtimeSha256": "c17f40fdcdbdad059cab95003c6924504ef1f5740c91325a9da09ca976c22cbc",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

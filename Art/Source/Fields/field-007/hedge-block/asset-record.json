@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-HEDGE-BLOCK",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "prompt": "Approved medium obstacle candidate for FIELD-007: Hedge Block. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+  "constraints": [
+    "approved FIELD-007 obstacle candidate",
+    "medium obstacle tier",
+    "transparent background",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-007/field-007-hedge-block-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "da9e86656254ae01249e009300dfc717d727bdae4d8092918c20e86d568521f6",
+    "runtimeSha256": "e4c20d956d4e01837b0cfb366f4228f4935f557d1bfe567e81c21fc3a14f6601",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

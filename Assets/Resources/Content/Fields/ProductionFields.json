@@ -94,6 +94,7 @@
       "description": "повышает требования к позиционированию среди разорванной геометрии.",
       "thumbnailPlaceholder": "Пограничные руины",
       "difficulty": 2,
+      "thumbnailVisualId": "FIELD-003-VISUAL-BACKGROUND",
       "unlockDescription": "Пройдите «Королевский тракт»",
       "environmentId": "FIELD-003-ENVIRONMENT",
       "timelineId": "FIELD-003-TIMELINE",

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-008-COLUMN-CLUSTER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "prompt": "Approved large obstacle candidate for FIELD-008: Column Cluster. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+  "constraints": [
+    "approved FIELD-008 obstacle candidate",
+    "large obstacle tier",
+    "transparent background",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-008/field-008-column-cluster-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "b3effe1a03b23c71d14bd6efd8c00063ea1c7a3778dd63b0413386a9cdde04b9",
+    "runtimeSha256": "4c982185a67d9d737ab0b124cfeb1b8e998e6511e7c5e769a240f557e60839ea",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

@@ -72,15 +72,33 @@ namespace Game.Presentation.Tests
         [Test]
         public void Rotation_TurnsPositionsAndSwapsSize()
         {
-            var piece = new FieldObstaclePiece(FieldObstacleKind.Fence, 2f, 1f, 3.2f, .8f);
+            var piece = new FieldObstaclePiece(FieldObstacleKind.Fence, 2f, 1f, 3.2f, .8f,
+                "FIELD-TEST-VISUAL-PROP");
             var turned = piece.Rotated(90);
             Assert.AreEqual(-1f, turned.X, 1e-5f);
             Assert.AreEqual(2f, turned.Y, 1e-5f);
             Assert.AreEqual(.8f, turned.Width, 1e-5f);
             Assert.AreEqual(3.2f, turned.Height, 1e-5f);
+            Assert.AreEqual("FIELD-TEST-VISUAL-PROP", turned.VisualId.ToString());
             var back = piece.Rotated(360 - 90).Rotated(90);
             Assert.AreEqual(piece.X, back.X, 1e-5f);
             Assert.AreEqual(piece.Y, back.Y, 1e-5f);
+        }
+
+        [Test]
+        public void Generate_PieceVisualOverride_IsCarriedToEveryGeneratedObstacle()
+        {
+            var pattern = new FieldObstaclePattern("OVERRIDE", 1f, new[] { 0, 90 }, new[]
+            {
+                new FieldObstaclePiece(FieldObstacleKind.Stump, 0f, 0f, 1f, 1f, "FIELD-TEST-VISUAL-PROP")
+            });
+            var layout = new FieldObstacleLayoutDefinition(48f, 1, 4f, 3f, 8f, 4f, 30, 1,
+                new[] { pattern });
+
+            var obstacles = Generate(layout, 17);
+
+            Assert.IsNotEmpty(obstacles);
+            Assert.IsTrue(obstacles.All(item => item.VisualId.ToString() == "FIELD-TEST-VISUAL-PROP"));
         }
 
         [Test]

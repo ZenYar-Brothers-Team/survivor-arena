@@ -167,10 +167,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -568,10 +568,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.8,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -599,10 +599,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 3.2,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -707,10 +707,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1322,10 +1322,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1353,10 +1353,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1384,10 +1384,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1415,10 +1415,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1446,10 +1446,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1477,10 +1477,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1508,10 +1508,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1539,10 +1539,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1570,10 +1570,10 @@
       "particleAlpha": 0.8,
       "threatHalo": {
         "scale": 2.6,
-        "red": 0.95,
-        "green": 0.3,
-        "blue": 0.25,
-        "alpha": 0.55,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
         "pulseSeconds": 0.35,
         "pulseAmplitude": 0.18
       }
@@ -1581,5 +1581,557 @@
     "id": "BOSS-010-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-projectile",
     "role": "Projectile"
+  },
+  {
+    "id": "FIELD-003-VISUAL-GROUND",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-ground-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-003-VISUAL-WALL",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-wall-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-RUBBLE",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-rubble-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-WATER",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-water-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-background",
+    "role": "Background"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.18,
+      "flashRed": 0.86,
+      "flashGreen": 0.35,
+      "flashBlue": 0.28,
+      "flashAlpha": 0.7,
+      "particleCount": 3,
+      "particleSize": 0.04,
+      "particleSpeed": 0.5,
+      "particleRed": 0.5,
+      "particleGreen": 0.38,
+      "particleBlue": 0.3,
+      "particleAlpha": 0.75,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-010-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.6,
+      "spinDegreesPerSecond": 90.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.2,
+      "flashRed": 0.95,
+      "flashGreen": 0.78,
+      "flashBlue": 0.35,
+      "flashAlpha": 0.72,
+      "particleCount": 4,
+      "particleSize": 0.045,
+      "particleSpeed": 0.38,
+      "particleRed": 0.85,
+      "particleGreen": 0.67,
+      "particleBlue": 0.3,
+      "particleAlpha": 0.75,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-011-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 2.4,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.12,
+      "flashSize": 0.22,
+      "flashRed": 0.9,
+      "flashGreen": 0.52,
+      "flashBlue": 0.34,
+      "flashAlpha": 0.72,
+      "particleCount": 3,
+      "particleSize": 0.045,
+      "particleSpeed": 0.58,
+      "particleRed": 0.52,
+      "particleGreen": 0.44,
+      "particleBlue": 0.36,
+      "particleAlpha": 0.75,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-012-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.4,
+      "spinDegreesPerSecond": 75.0,
+      "impactDurationSeconds": 0.2,
+      "flashSize": 0.32,
+      "flashRed": 1.0,
+      "flashGreen": 0.38,
+      "flashBlue": 0.12,
+      "flashAlpha": 0.8,
+      "particleCount": 4,
+      "particleSize": 0.075,
+      "particleSpeed": 0.62,
+      "particleRed": 0.82,
+      "particleGreen": 0.3,
+      "particleBlue": 0.12,
+      "particleAlpha": 0.82,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      },
+      "explosion": {
+        "durationSeconds": 0.24,
+        "flashSizeMultiplier": 2.0,
+        "flashRed": 1.0,
+        "flashGreen": 0.38,
+        "flashBlue": 0.12,
+        "flashAlpha": 0.8,
+        "particleCount": 9,
+        "particleSizeMultiplier": 0.09,
+        "particleSpeedMultiplier": 4.2,
+        "particleRed": 0.82,
+        "particleGreen": 0.3,
+        "particleBlue": 0.12,
+        "particleAlpha": 0.82
+      }
+    },
+    "id": "ENEMY-014-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.22,
+      "flashRed": 0.98,
+      "flashGreen": 0.75,
+      "flashBlue": 0.32,
+      "flashAlpha": 0.74,
+      "particleCount": 4,
+      "particleSize": 0.045,
+      "particleSpeed": 0.46,
+      "particleRed": 0.82,
+      "particleGreen": 0.62,
+      "particleBlue": 0.26,
+      "particleAlpha": 0.75,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-015-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.14,
+      "flashSize": 0.22,
+      "flashRed": 0.62,
+      "flashGreen": 0.38,
+      "flashBlue": 0.88,
+      "flashAlpha": 0.74,
+      "particleCount": 4,
+      "particleSize": 0.05,
+      "particleSpeed": 0.44,
+      "particleRed": 0.46,
+      "particleGreen": 0.34,
+      "particleBlue": 0.7,
+      "particleAlpha": 0.75,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-018-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-projectile",
+    "role": "Projectile"
+  },
+  {
+    "projectile": {
+      "visualScale": 1.8,
+      "spinDegreesPerSecond": 0.0,
+      "impactDurationSeconds": 0.15,
+      "flashSize": 0.24,
+      "flashRed": 0.98,
+      "flashGreen": 0.72,
+      "flashBlue": 0.28,
+      "flashAlpha": 0.76,
+      "particleCount": 4,
+      "particleSize": 0.055,
+      "particleSpeed": 0.5,
+      "particleRed": 0.82,
+      "particleGreen": 0.62,
+      "particleBlue": 0.24,
+      "particleAlpha": 0.78,
+      "threatHalo": {
+        "scale": 2.6,
+        "red": 0.7,
+        "green": 0.18,
+        "blue": 0.16,
+        "alpha": 0.32,
+        "pulseSeconds": 0.35,
+        "pulseAmplitude": 0.18
+      }
+    },
+    "id": "ENEMY-019-VISUAL-PROJECTILE",
+    "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-projectile",
+    "role": "Projectile"
+  },
+  {
+    "id": "FIELD-004-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-005-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-006-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-007-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-008-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-009-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-010-VISUAL-BACKGROUND",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-background",
+    "role": "Background"
+  },
+  {
+    "id": "FIELD-001-VISUAL-VILLAGE-HANDCART",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-village-handcart-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-001-VISUAL-HAY-BALES",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-hay-bales-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-BROKEN-WAGON",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-broken-wagon-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-ROAD-BARRICADE",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-road-barricade-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-ROADSIDE-BENCH",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-bench-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-RUINED-ARCH",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-ruined-arch-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-COLLAPSED-WELL",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-collapsed-well-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-BROKEN-URNS",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-broken-urns-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-PALISADE",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-palisade-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-TENT",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-tent-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-SUPPLY-CART",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-cart-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-BRAZIER",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-brazier-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-SUPPLY-CRATE",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-crate-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-004-VISUAL-TRAINING-DUMMY",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-training-dummy-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-MARKET-STALL",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-market-stall-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-STREET-BARRICADE",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-street-barricade-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-FOUNTAIN",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-fountain-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-GOODS-CRATE",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-goods-crate-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-STONE-PLANTER",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-stone-planter-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-005-VISUAL-WATER-BARRELS",
+    "resourcePath": "Art/Sprites/Fields/field-005/field-005-water-barrels-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-ASTROLABE",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-astrolabe-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-LABORATORY-TABLE",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-laboratory-table-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-BRASS-MECHANISM",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+    "resourcePath": "Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-FOOTBRIDGE",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-footbridge-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-ROOT-MASS",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-mass-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-HEDGE-BLOCK",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-hedge-block-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-CISTERN",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-cistern-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-HERB-PLANTER",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-herb-planter-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-VISUAL-ROOT-STUMP",
+    "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-stump-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-COLUMN-CLUSTER",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-column-cluster-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-CORRIDOR-BARRICADE",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-STATUE-PLINTH",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-statue-plinth-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-ARMORY-CRATE",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-armory-crate-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-BRAZIER",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-brazier-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-008-VISUAL-SHIELD-RACK",
+    "resourcePath": "Art/Sprites/Fields/field-008/field-008-shield-rack-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-CELESTIAL-ARCH",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-arch-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-COLUMN-CLUSTER",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-column-cluster-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-ARCH-FRAGMENT",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-arch-fragment-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-CELESTIAL-LANTERN",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-CELESTIAL-PEDESTAL",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-VISUAL-STONE-FRAGMENT",
+    "resourcePath": "Art/Sprites/Fields/field-009/field-009-stone-fragment-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-BALUSTRADE",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-balustrade-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-COLUMN-CLUSTER",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-column-cluster-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-GILDED-COLUMN-BASE",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-CELESTIAL-BASIN",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-celestial-basin-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-CEREMONIAL-PEDESTAL",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-010-VISUAL-GOLDEN-BRAZIER",
+    "resourcePath": "Art/Sprites/Fields/field-010/field-010-golden-brazier-prop",
+    "role": "Prop"
   }
 ]

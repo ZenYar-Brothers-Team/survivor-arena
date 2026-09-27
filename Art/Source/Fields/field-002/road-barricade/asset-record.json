@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-002-ROAD-BARRICADE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "prompt": "Approved large obstacle candidate for FIELD-002: Road Barricade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+  "constraints": [
+    "approved FIELD-002 obstacle candidate",
+    "large obstacle tier",
+    "transparent background",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-002/field-002-road-barricade-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "25f511a6e915dc08ba472f88c7a64f505b7178cea3f69de1318ebc7c50eb716b",
+    "runtimeSha256": "c41d809b76f830739f0d935a49fa8e879f298b5bb6eeadf8f9b32b09fa041727",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

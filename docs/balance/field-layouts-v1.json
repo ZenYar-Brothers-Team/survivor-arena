@@ -37,7 +37,7 @@
    "patterns": [
     {
      "id": "STUMP",
-     "weight": 35,
+     "weight": 25,
      "rotations": [
       0
      ],
@@ -53,7 +53,7 @@
     },
     {
      "id": "FENCE",
-     "weight": 25,
+     "weight": 15,
      "rotations": [
       0
      ],
@@ -78,6 +78,18 @@
      "weight": 20,
      "rotations": [0],
      "pieces": [{"kind": "Rock", "x": 0, "y": 0, "width": 1.5, "height": 1.1}]
+    },
+    {
+     "id": "HAY-BALES",
+     "weight": 10,
+     "rotations": [0],
+     "pieces": [{"kind": "Stump", "visualId": "FIELD-001-VISUAL-HAY-BALES", "x": 0, "y": 0, "width": 1.2, "height": 1.0}]
+    },
+    {
+     "id": "VILLAGE-HANDCART",
+     "weight": 10,
+     "rotations": [0],
+     "pieces": [{"kind": "Fence", "visualId": "FIELD-001-VISUAL-VILLAGE-HANDCART", "x": 0, "y": 0, "width": 2.4, "height": 0.5}]
     }
    ],
    "source": "DECISION-0069: 12×12 ячеек, 2 компактных препятствия в каждой; пни, плетни, бочки и камни"
@@ -104,6 +116,7 @@
      "pieces": [
       {
        "kind": "Stump",
+       "visualId": "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
        "x": -2.2,
        "y": 0.0,
        "width": 1.6,
@@ -118,6 +131,7 @@
       },
       {
        "kind": "Stump",
+       "visualId": "FIELD-002-VISUAL-ROADSIDE-BENCH",
        "x": 2.2,
        "y": 0.0,
        "width": 1.6,
@@ -135,6 +149,7 @@
      "pieces": [
       {
        "kind": "Stump",
+       "visualId": "FIELD-002-VISUAL-BROKEN-WAGON",
        "x": -3.3,
        "y": 0.0,
        "width": 1.6,
@@ -156,6 +171,7 @@
       },
       {
        "kind": "Stump",
+       "visualId": "FIELD-002-VISUAL-ROAD-BARRICADE",
        "x": 3.3,
        "y": 0.0,
        "width": 1.6,
@@ -349,6 +365,7 @@
      "pieces": [
       {
        "kind": "Fence",
+       "visualId": "FIELD-003-VISUAL-RUINED-ARCH",
        "x": -0.07,
        "y": 4.67,
        "width": 3.2,
@@ -377,6 +394,7 @@
       },
       {
        "kind": "Stump",
+       "visualId": "FIELD-003-VISUAL-BROKEN-URNS",
        "x": 1.53,
        "y": 1.67,
        "width": 1.4,
@@ -384,6 +402,7 @@
       },
       {
        "kind": "Stump",
+       "visualId": "FIELD-003-VISUAL-FALLEN-CAPSTONE",
        "x": 4.33,
        "y": 2.27,
        "width": 1.4,
@@ -391,6 +410,7 @@
       },
       {
        "kind": "Stump",
+       "visualId": "FIELD-003-VISUAL-COLLAPSED-WELL",
        "x": -4.67,
        "y": -4.52,
        "width": 1.4,

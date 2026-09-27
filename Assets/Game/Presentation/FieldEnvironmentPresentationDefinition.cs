@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Content;
 using Game.Presentation.Json;
 
@@ -94,7 +95,7 @@ namespace Game.Presentation
                 if (item == null) throw new ArgumentException("Field obstacles cannot contain null.");
                 var obstacle = new FieldObstacleDefinition(item.Id, item.Kind ?? throw new ArgumentException("Obstacle kind is required."),
                     Required(item.X, "obstacle x"), Required(item.Y, "obstacle y"), Required(item.Width, "obstacle width"),
-                    Required(item.Height, "obstacle height"));
+                    Required(item.Height, "obstacle height"), item.VisualId);
                 if (!obstacleIds.Add(obstacle.Id)) throw new ArgumentException($"Duplicate field obstacle '{obstacle.Id}'.");
                 obstacles.Add(obstacle);
             }
@@ -156,6 +157,13 @@ namespace Game.Presentation
             if (Barrel.Id.IsValid) yield return Barrel.ToReference();
             if (Rock.Id.IsValid) yield return Rock.ToReference();
             if (Shrine.Id.IsValid) yield return Shrine.ToReference();
+            foreach (var obstacle in ExplicitObstacles)
+                if (obstacle.VisualId.IsValid)
+                    yield return new ContentReference(obstacle.VisualId, typeof(SpriteDefinition));
+            if (ObstacleLayout != null)
+                foreach (var visualId in ObstacleLayout.Patterns.SelectMany(pattern => pattern.Pieces)
+                             .Select(piece => piece.VisualId).Where(id => id.IsValid).Distinct())
+                    yield return new ContentReference(visualId, typeof(SpriteDefinition));
         }
 
         private static FieldObstacleLayoutDefinition ToLayout(FieldObstacleLayoutData data)
@@ -173,7 +181,7 @@ namespace Game.Presentation
                     if (piece == null) throw new ArgumentException($"Pattern {pattern.Id} has an empty piece.");
                     pieces.Add(new FieldObstaclePiece(piece.Kind ?? throw new ArgumentException("Piece kind is required."),
                         Required(piece.X, "piece x"), Required(piece.Y, "piece y"), Required(piece.Width, "piece width"),
-                        Required(piece.Height, "piece height")));
+                        Required(piece.Height, "piece height"), piece.VisualId));
                 }
                 patterns.Add(new FieldObstaclePattern(pattern.Id, Required(pattern.Weight, "pattern weight"), pattern.Rotations, pieces));
             }

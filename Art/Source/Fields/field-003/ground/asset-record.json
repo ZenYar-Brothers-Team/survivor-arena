@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: preview candidate for Unity game environment, content ID FIELD-003, role Ground Tile. A seamless square ground tile for Border Ruins: desaturated packed earth mixed with broad worn grey-brown stone paving fragments and muted moss stains. Exact top-down orthographic terrain, stylized 2D storybook cutout texture, matte paper/dry-brush feel, flat large shapes, simple cel-shaded values, low visual noise and no focal prop. Soft neutral-warm ambient light; muted warm grey, dusty umber and faded olive. No border, large prop, collision-implying deep cracks, text, logo, watermark, photorealism, 3D render, perspective, horizon, baked shadows or high-frequency gravel.",
+  "constraints": [
+    "approved FIELD-003 candidate",
+    "opaque low-contrast ground",
+    "no baked gameplay effects"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ground-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "512x512",
+    "sourceSha256": "9a7b80529de82e920394d912ea7fc45b1e62c05245a4a9927bcdbfa72dd0cdd5",
+    "runtimeSha256": "9a7b80529de82e920394d912ea7fc45b1e62c05245a4a9927bcdbfa72dd0cdd5",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

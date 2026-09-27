@@ -3013,6 +3013,1142 @@
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
+    },
+    {
+      "owner": "FIELD-003",
+      "role": "tile",
+      "visualId": "FIELD-003-VISUAL-GROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/ground/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/ground/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ground-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-ground-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-WALL",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-WALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/wall/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/wall/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-wall-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-wall-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-RUBBLE",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-RUBBLE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/rubble/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/rubble/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-rubble-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-rubble-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-WATER",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-WATER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/water/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/water/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-water-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-water-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003",
+      "role": "background",
+      "visualId": "FIELD-003-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-010",
+      "role": "projectile",
+      "visualId": "ENEMY-010-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-010/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-010/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-010/enemy-010-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-011",
+      "role": "projectile",
+      "visualId": "ENEMY-011-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-011/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-011/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-011/enemy-011-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-012",
+      "role": "projectile",
+      "visualId": "ENEMY-012-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-012/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-012/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-012/enemy-012-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-014",
+      "role": "projectile",
+      "visualId": "ENEMY-014-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-014/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-014/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-014/enemy-014-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-015",
+      "role": "projectile",
+      "visualId": "ENEMY-015-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-015/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-015/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-015/enemy-015-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-018",
+      "role": "projectile",
+      "visualId": "ENEMY-018-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-018/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-018/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-018/enemy-018-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "ENEMY-019",
+      "role": "projectile",
+      "visualId": "ENEMY-019-VISUAL-PROJECTILE",
+      "method": "Generate",
+      "owningIp": "IP-20",
+      "source": "Art/Source/Enemies/enemy-019/projectile/selected-master.png",
+      "provenance": "Art/Source/Enemies/enemy-019/projectile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Enemies/enemy-019/enemy-019-projectile.png",
+      "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-projectile",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004",
+      "role": "background",
+      "visualId": "FIELD-004-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005",
+      "role": "background",
+      "visualId": "FIELD-005-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006",
+      "role": "background",
+      "visualId": "FIELD-006-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007",
+      "role": "background",
+      "visualId": "FIELD-007-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008",
+      "role": "background",
+      "visualId": "FIELD-008-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009",
+      "role": "background",
+      "visualId": "FIELD-009-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010",
+      "role": "background",
+      "visualId": "FIELD-010-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/background/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/background/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-background.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-background",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-001-VILLAGE-HANDCART",
+      "role": "prop",
+      "visualId": "FIELD-001-VISUAL-VILLAGE-HANDCART",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/village-handcart/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/village-handcart/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-village-handcart-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-village-handcart-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-001-HAY-BALES",
+      "role": "prop",
+      "visualId": "FIELD-001-VISUAL-HAY-BALES",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/hay-bales/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/hay-bales/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-hay-bales-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-hay-bales-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-002-BROKEN-WAGON",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-BROKEN-WAGON",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/broken-wagon/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/broken-wagon/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-broken-wagon-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-broken-wagon-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-002-ROAD-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROAD-BARRICADE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/road-barricade/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/road-barricade/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-road-barricade-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-road-barricade-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-002-ROADSIDE-BENCH",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROADSIDE-BENCH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/roadside-bench/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/roadside-bench/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-bench-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-bench-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-002-ROADSIDE-MILESTONE",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-002/roadside-milestone/selected-master.png",
+      "provenance": "Art/Source/Fields/field-002/roadside-milestone/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-RUINED-ARCH",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-RUINED-ARCH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/ruined-arch/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/ruined-arch/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ruined-arch-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-ruined-arch-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-COLLAPSED-WELL",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-COLLAPSED-WELL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/collapsed-well/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/collapsed-well/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-collapsed-well-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-collapsed-well-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-BROKEN-URNS",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-BROKEN-URNS",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/broken-urns/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/broken-urns/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-broken-urns-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-broken-urns-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-FALLEN-CAPSTONE",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003/fallen-capstone/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003/fallen-capstone/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-PALISADE",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-PALISADE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/palisade/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/palisade/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-palisade-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-palisade-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TENT",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-TENT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/tent/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/tent/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-tent-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-tent-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-SUPPLY-CART",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-SUPPLY-CART",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/supply-cart/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/supply-cart/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-cart-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-cart-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-BRAZIER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/brazier/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/brazier/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-brazier-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-brazier-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-SUPPLY-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-SUPPLY-CRATE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/supply-crate/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/supply-crate/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-crate-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-crate-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TRAINING-DUMMY",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-TRAINING-DUMMY",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-004/training-dummy/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004/training-dummy/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-training-dummy-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-training-dummy-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-MARKET-STALL",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-MARKET-STALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/market-stall/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/market-stall/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-market-stall-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-market-stall-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-STREET-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-STREET-BARRICADE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/street-barricade/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/street-barricade/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-street-barricade-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-street-barricade-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-FOUNTAIN",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-FOUNTAIN",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/fountain/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/fountain/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-fountain-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-fountain-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-GOODS-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-GOODS-CRATE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/goods-crate/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/goods-crate/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-goods-crate-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-goods-crate-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-STONE-PLANTER",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-STONE-PLANTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/stone-planter/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/stone-planter/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-stone-planter-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-stone-planter-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-005-WATER-BARRELS",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-WATER-BARRELS",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-005/water-barrels/selected-master.png",
+      "provenance": "Art/Source/Fields/field-005/water-barrels/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-water-barrels-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-005/field-005-water-barrels-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-ASTROLABE",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-ASTROLABE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/astrolabe/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/astrolabe/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-astrolabe-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-astrolabe-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-COLONNADE-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/colonnade-fragment/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/colonnade-fragment/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-LABORATORY-TABLE",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/laboratory-table/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/laboratory-table/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-laboratory-table-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-laboratory-table-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-ARCANE-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/arcane-pedestal/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/arcane-pedestal/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-BRASS-MECHANISM",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/brass-mechanism/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/brass-mechanism/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-CRYSTAL-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-006/crystal-cluster/selected-master.png",
+      "provenance": "Art/Source/Fields/field-006/crystal-cluster/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-FOOTBRIDGE",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-FOOTBRIDGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/footbridge/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/footbridge/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-footbridge-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-footbridge-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ROOT-MASS",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-ROOT-MASS",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/root-mass/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/root-mass/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-mass-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-mass-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-HEDGE-BLOCK",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-HEDGE-BLOCK",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/hedge-block/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/hedge-block/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-hedge-block-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-hedge-block-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-CISTERN",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-CISTERN",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/cistern/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/cistern/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-cistern-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-cistern-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-HERB-PLANTER",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-HERB-PLANTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/herb-planter/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/herb-planter/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-herb-planter-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-herb-planter-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ROOT-STUMP",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-ROOT-STUMP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-007/root-stump/selected-master.png",
+      "provenance": "Art/Source/Fields/field-007/root-stump/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-stump-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-stump-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-COLUMN-CLUSTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/column-cluster/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/column-cluster/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-column-cluster-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-column-cluster-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-CORRIDOR-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-CORRIDOR-BARRICADE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/corridor-barricade/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/corridor-barricade/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-STATUE-PLINTH",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-STATUE-PLINTH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/statue-plinth/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/statue-plinth/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-statue-plinth-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-statue-plinth-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-ARMORY-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-ARMORY-CRATE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/armory-crate/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/armory-crate/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-armory-crate-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-armory-crate-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-BRAZIER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/brazier/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/brazier/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-brazier-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-brazier-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-008-SHIELD-RACK",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-SHIELD-RACK",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-008/shield-rack/selected-master.png",
+      "provenance": "Art/Source/Fields/field-008/shield-rack/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-shield-rack-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-008/field-008-shield-rack-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-ARCH",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-ARCH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/celestial-arch/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/celestial-arch/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-arch-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-arch-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-COLUMN-CLUSTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/column-cluster/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/column-cluster/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-column-cluster-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-column-cluster-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-ARCH-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-ARCH-FRAGMENT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/arch-fragment/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/arch-fragment/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-arch-fragment-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-arch-fragment-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-LANTERN",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-LANTERN",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/celestial-lantern/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/celestial-lantern/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-PEDESTAL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/celestial-pedestal/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/celestial-pedestal/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-STONE-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-STONE-FRAGMENT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009/stone-fragment/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009/stone-fragment/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-stone-fragment-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-009/field-009-stone-fragment-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-BALUSTRADE",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-BALUSTRADE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/balustrade/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/balustrade/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-balustrade-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-balustrade-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-COLUMN-CLUSTER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/column-cluster/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/column-cluster/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-column-cluster-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-column-cluster-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-GILDED-COLUMN-BASE",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-GILDED-COLUMN-BASE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/gilded-column-base/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/gilded-column-base/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-CELESTIAL-BASIN",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-CELESTIAL-BASIN",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/celestial-basin/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/celestial-basin/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-celestial-basin-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-celestial-basin-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-CEREMONIAL-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-CEREMONIAL-PEDESTAL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/ceremonial-pedestal/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/ceremonial-pedestal/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-GOLDEN-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-GOLDEN-BRAZIER",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-010/golden-brazier/selected-master.png",
+      "provenance": "Art/Source/Fields/field-010/golden-brazier/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-golden-brazier-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-010/field-010-golden-brazier-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

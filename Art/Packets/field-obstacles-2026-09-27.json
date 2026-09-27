@@ -1,0 +1,1880 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-09-27",
+  "approvalEvidence": "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27).",
+  "assets": [
+    {
+      "owner": "FIELD-001-VILLAGE-HANDCART",
+      "role": "prop",
+      "visualId": "FIELD-001-VISUAL-VILLAGE-HANDCART",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-001/large-village-handcart-candidate-01.png",
+      "sha256": "a653eeca63731892aa1e4f443b5e25c9985e58054505936d91db22c21ae90aba",
+      "sourceDirectory": "Art/Source/Fields/field-001/village-handcart",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-village-handcart-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-001: Village Handcart. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-001 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-001 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-001-HAY-BALES",
+      "role": "prop",
+      "visualId": "FIELD-001-VISUAL-HAY-BALES",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-001/medium-hay-bales-candidate-01.png",
+      "sha256": "a17e11bd85a6fdefc769a7967351cbbb167d6344c525d91d8f29ee25024299fe",
+      "sourceDirectory": "Art/Source/Fields/field-001/hay-bales",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-hay-bales-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-001: Hay Bales. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-001 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-001 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-002-BROKEN-WAGON",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-BROKEN-WAGON",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-002/large-broken-wagon-candidate-01.png",
+      "sha256": "4efa9fbe9e230fd4c042b0c1bd70db2cf5020e8fae6f02aa0d9124b03b4407a2",
+      "sourceDirectory": "Art/Source/Fields/field-002/broken-wagon",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-broken-wagon-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-002: Broken Wagon. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-002 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-002 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-002-ROAD-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROAD-BARRICADE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-002/large-road-barricade-candidate-01.png",
+      "sha256": "25f511a6e915dc08ba472f88c7a64f505b7178cea3f69de1318ebc7c50eb716b",
+      "sourceDirectory": "Art/Source/Fields/field-002/road-barricade",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-road-barricade-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-002: Road Barricade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-002 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-002 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-002-ROADSIDE-BENCH",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROADSIDE-BENCH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-002/medium-roadside-bench-candidate-01.png",
+      "sha256": "10a01c27e1f2b5b7eeb0ce1f8312ea0ca4008f4d5fc375663087b19095b91fa2",
+      "sourceDirectory": "Art/Source/Fields/field-002/roadside-bench",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-bench-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-002: Roadside Bench. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-002 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-002 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-002-ROADSIDE-MILESTONE",
+      "role": "prop",
+      "visualId": "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-002/small-roadside-milestone-candidate-01.png",
+      "sha256": "67e18f01231acbc24c4613ae38ebf332d7d50d9237e9f2155d82ae57556a2526",
+      "sourceDirectory": "Art/Source/Fields/field-002/roadside-milestone",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-002: Roadside Milestone. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-002 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-002 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-003-RUINED-ARCH",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-RUINED-ARCH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-003/large-ruined-arch-candidate-01.png",
+      "sha256": "a53cfd33d85d9c9c7ef0dba73583b4804c520eb6898f6309c8b8fd02b7f919e0",
+      "sourceDirectory": "Art/Source/Fields/field-003/ruined-arch",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-ruined-arch-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-003: Ruined Arch. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-003 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-003 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-003-COLLAPSED-WELL",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-COLLAPSED-WELL",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-003/medium-collapsed-well-candidate-01.png",
+      "sha256": "0b6cd52d9ff94dde755a75dae71a2b5097965e3d72725259ca6cae422eea2488",
+      "sourceDirectory": "Art/Source/Fields/field-003/collapsed-well",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-collapsed-well-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-003: Collapsed Well. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-003 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-003 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-003-BROKEN-URNS",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-BROKEN-URNS",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-003/small-broken-urns-candidate-01.png",
+      "sha256": "834cb774092fb9a393a31834834e71caa1cddfa614e729b07d50ee26778f4a71",
+      "sourceDirectory": "Art/Source/Fields/field-003/broken-urns",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-broken-urns-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-003: Broken Urns. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-003 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-003 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-003-FALLEN-CAPSTONE",
+      "role": "prop",
+      "visualId": "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-003/small-fallen-capstone-candidate-01.png",
+      "sha256": "4825ddce522ff41f6e3aa85bb69f66bc5c3e71993a7c8bf976020a9da0d53820",
+      "sourceDirectory": "Art/Source/Fields/field-003/fallen-capstone",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-003: Fallen Capstone. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-003 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-003 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-PALISADE",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-PALISADE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/large-palisade-candidate-01.png",
+      "sha256": "b3abf26e489d9e4316f2a1f2205788ae8e5e5ee7da68c8b37e64ea705b1283d7",
+      "sourceDirectory": "Art/Source/Fields/field-004/palisade",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-palisade-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-004: Palisade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-TENT",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-TENT",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/large-tent-candidate-01.png",
+      "sha256": "9c4f47f53204285310e4012be8e82f4152436c3ac145fd5c76ea6ff58456ffb2",
+      "sourceDirectory": "Art/Source/Fields/field-004/tent",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-tent-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-004: Tent. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-SUPPLY-CART",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-SUPPLY-CART",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/medium-supply-cart-candidate-01.png",
+      "sha256": "dc1a87e18e106f965741afa8a57c4c73f7f962349a4dc2879afc0f5ded59ae7e",
+      "sourceDirectory": "Art/Source/Fields/field-004/supply-cart",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-cart-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-004: Supply Cart. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-BRAZIER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/small-brazier-candidate-01.png",
+      "sha256": "92ae44c8d2165c7e1030328d91cd46185702ca9972dc6460f2dd6a9c63d283a0",
+      "sourceDirectory": "Art/Source/Fields/field-004/brazier",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-brazier-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-004: Brazier. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-SUPPLY-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-SUPPLY-CRATE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/small-supply-crate-candidate-01.png",
+      "sha256": "91bf997caad8f24c862f0180d2b9b77fe859846d3b1f3800c29ef73b0ecf2088",
+      "sourceDirectory": "Art/Source/Fields/field-004/supply-crate",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-supply-crate-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-004: Supply Crate. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-004-TRAINING-DUMMY",
+      "role": "prop",
+      "visualId": "FIELD-004-VISUAL-TRAINING-DUMMY",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-004/small-training-dummy-candidate-01.png",
+      "sha256": "6fce027ca9d0f4c124c4448c853cc8309d1797a77e8db2f160f5232901a08756",
+      "sourceDirectory": "Art/Source/Fields/field-004/training-dummy",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-training-dummy-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-004: Training Dummy. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-004 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-004 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-MARKET-STALL",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-MARKET-STALL",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/large-market-stall-candidate-01.png",
+      "sha256": "2128bffdd06dbd19622cd1d3ef213cada914b9db4ca14aeb5241ebf330a567e1",
+      "sourceDirectory": "Art/Source/Fields/field-005/market-stall",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-market-stall-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-005: Market Stall. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-STREET-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-STREET-BARRICADE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/large-street-barricade-candidate-01.png",
+      "sha256": "6e7781c0d688fcedb96fabd84f3fb4d8bfb77d5ba28284b8479063e4953ccb21",
+      "sourceDirectory": "Art/Source/Fields/field-005/street-barricade",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-street-barricade-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-005: Street Barricade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-FOUNTAIN",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-FOUNTAIN",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/medium-fountain-candidate-01.png",
+      "sha256": "ec1587861ad0534abe177bda3c0cbd501cc10ba24be806dfed0d9158b956c710",
+      "sourceDirectory": "Art/Source/Fields/field-005/fountain",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-fountain-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-005: Fountain. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-GOODS-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-GOODS-CRATE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/small-goods-crate-candidate-01.png",
+      "sha256": "cf2abf87a5d3cfc0fc519decf4dffd5a2b32157b305e1557c0bbf97d3f47ba6d",
+      "sourceDirectory": "Art/Source/Fields/field-005/goods-crate",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-goods-crate-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-005: Goods Crate. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-STONE-PLANTER",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-STONE-PLANTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/small-stone-planter-candidate-01.png",
+      "sha256": "fb7ba509aededa5fc874c8d46fbd892fb20d5a041c33ff5fb178947c3a7c9b9b",
+      "sourceDirectory": "Art/Source/Fields/field-005/stone-planter",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-stone-planter-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-005: Stone Planter. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-005-WATER-BARRELS",
+      "role": "prop",
+      "visualId": "FIELD-005-VISUAL-WATER-BARRELS",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-005/small-water-barrels-candidate-01.png",
+      "sha256": "2068216fb1d8fcee4fa566fd19f820b699aa92358a05060f2f0e94d252842d18",
+      "sourceDirectory": "Art/Source/Fields/field-005/water-barrels",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-005/field-005-water-barrels-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-005: Water Barrels. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-005 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-005 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-ASTROLABE",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-ASTROLABE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/large-astrolabe-candidate-01.png",
+      "sha256": "11d92bfe162ee3e676bcd6ba4345b8e3507766f47a4485f5ce7b46cc9250e7cd",
+      "sourceDirectory": "Art/Source/Fields/field-006/astrolabe",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-astrolabe-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-006: Astrolabe. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-COLONNADE-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/large-colonnade-fragment-candidate-01.png",
+      "sha256": "fcff7ddba03b3a83dc1e5192ce8740bb9d08fbda09c7926ed7a73f11f2f1aa5f",
+      "sourceDirectory": "Art/Source/Fields/field-006/colonnade-fragment",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-006: Colonnade Fragment. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-LABORATORY-TABLE",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/medium-laboratory-table-candidate-01.png",
+      "sha256": "af04b406750dbed9b4ff28ff047a1329b68601f20eca2beed0ee59cc799acd1d",
+      "sourceDirectory": "Art/Source/Fields/field-006/laboratory-table",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-laboratory-table-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-006: Laboratory Table. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-ARCANE-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/small-arcane-pedestal-candidate-01.png",
+      "sha256": "f2dce0d26b04c2a916d55f5cd1dc828750dbf2d7bed478ebee4e80f26a7e88d7",
+      "sourceDirectory": "Art/Source/Fields/field-006/arcane-pedestal",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-006: Arcane Pedestal. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-BRASS-MECHANISM",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/small-brass-mechanism-candidate-01.png",
+      "sha256": "3650f8955cbe77b2f79db551c887066050319f6d7e9f8be0d3f8dff5534f85b9",
+      "sourceDirectory": "Art/Source/Fields/field-006/brass-mechanism",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-006: Brass Mechanism. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-006-CRYSTAL-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-006/small-crystal-cluster-candidate-01.png",
+      "sha256": "ac34a238aeebd6514a89fe28e8729e0c861b57209ef687b0783fea8b57f34ee2",
+      "sourceDirectory": "Art/Source/Fields/field-006/crystal-cluster",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-006: Crystal Cluster. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-006 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-006 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-FOOTBRIDGE",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-FOOTBRIDGE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/large-footbridge-candidate-01.png",
+      "sha256": "2c2ce1f79fc54f4a2e14e08204063e38274dff265f529a73787eb3f781184bba",
+      "sourceDirectory": "Art/Source/Fields/field-007/footbridge",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-footbridge-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-007: Footbridge. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-ROOT-MASS",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-ROOT-MASS",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/large-root-mass-candidate-01.png",
+      "sha256": "5d1b6cd7ed9907881aef2c99174d9b79c6190069d65245e48a51e1b4717d8b3f",
+      "sourceDirectory": "Art/Source/Fields/field-007/root-mass",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-mass-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-007: Root Mass. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-HEDGE-BLOCK",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-HEDGE-BLOCK",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/medium-hedge-block-candidate-01.png",
+      "sha256": "da9e86656254ae01249e009300dfc717d727bdae4d8092918c20e86d568521f6",
+      "sourceDirectory": "Art/Source/Fields/field-007/hedge-block",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-hedge-block-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-007: Hedge Block. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-CISTERN",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-CISTERN",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/small-cistern-candidate-01.png",
+      "sha256": "104fd7c31e3bde2994ea18bc1c227cfb449f235d0def5282e85bdad2860c4281",
+      "sourceDirectory": "Art/Source/Fields/field-007/cistern",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-cistern-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-007: Cistern. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-HERB-PLANTER",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-HERB-PLANTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/small-herb-planter-candidate-01.png",
+      "sha256": "112f26484a9481ee14766312f5e1f75e10922e1387f0e5ce3064128611a83a4f",
+      "sourceDirectory": "Art/Source/Fields/field-007/herb-planter",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-herb-planter-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-007: Herb Planter. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-007-ROOT-STUMP",
+      "role": "prop",
+      "visualId": "FIELD-007-VISUAL-ROOT-STUMP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-007/small-root-stump-candidate-01.png",
+      "sha256": "480978f2bde14f0ff18bb270576aaf93eebb4828c1a17b884a0fc02bfe85a57a",
+      "sourceDirectory": "Art/Source/Fields/field-007/root-stump",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-root-stump-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-007: Root Stump. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-COLUMN-CLUSTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/large-column-cluster-candidate-01.png",
+      "sha256": "b3effe1a03b23c71d14bd6efd8c00063ea1c7a3778dd63b0413386a9cdde04b9",
+      "sourceDirectory": "Art/Source/Fields/field-008/column-cluster",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-column-cluster-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-008: Column Cluster. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-CORRIDOR-BARRICADE",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-CORRIDOR-BARRICADE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/large-corridor-barricade-candidate-01.png",
+      "sha256": "838de947ed6afe25f071a415d381f0550663021b8523dd0d0d428a92443886b7",
+      "sourceDirectory": "Art/Source/Fields/field-008/corridor-barricade",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-008: Corridor Barricade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-STATUE-PLINTH",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-STATUE-PLINTH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/medium-statue-plinth-candidate-01.png",
+      "sha256": "4f55a62cf9d0035a207e23aaac316b05bfacd717d2b15421ba94598e41359268",
+      "sourceDirectory": "Art/Source/Fields/field-008/statue-plinth",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-statue-plinth-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-008: Statue Plinth. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-ARMORY-CRATE",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-ARMORY-CRATE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/small-armory-crate-candidate-01.png",
+      "sha256": "039ec2d8c216ecc344af9c33d9a79f406f433f705a054c477cad39794a94a9c0",
+      "sourceDirectory": "Art/Source/Fields/field-008/armory-crate",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-armory-crate-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-008: Armory Crate. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-BRAZIER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/small-brazier-candidate-01.png",
+      "sha256": "27854c2e77aa2ea84fd53fa02a8e9da30ac44e66afc7426d6f149ae74e96880d",
+      "sourceDirectory": "Art/Source/Fields/field-008/brazier",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-brazier-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-008: Brazier. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-008-SHIELD-RACK",
+      "role": "prop",
+      "visualId": "FIELD-008-VISUAL-SHIELD-RACK",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-008/small-shield-rack-candidate-01.png",
+      "sha256": "5d2bad5e81939c78e97c8f1bebc064babbb9e0e81d606ced8408846725b7f225",
+      "sourceDirectory": "Art/Source/Fields/field-008/shield-rack",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-008/field-008-shield-rack-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-008: Shield Rack. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-008 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-008 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-ARCH",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-ARCH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/large-celestial-arch-candidate-01.png",
+      "sha256": "ba743b1fba6f97b045dc5ed2c19c3404ab8ee111bf47cc22284a5f27a4a8ba9f",
+      "sourceDirectory": "Art/Source/Fields/field-009/celestial-arch",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-arch-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-009: Celestial Arch. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-COLUMN-CLUSTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/large-column-cluster-candidate-01.png",
+      "sha256": "e1fcad3cd3b035b52aafa9be9c28fde1f18bcfc6d1208ca1cfcb21c139d1fdd7",
+      "sourceDirectory": "Art/Source/Fields/field-009/column-cluster",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-column-cluster-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-009: Column Cluster. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-ARCH-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-ARCH-FRAGMENT",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/medium-arch-fragment-candidate-01.png",
+      "sha256": "c9f789be25b2a43fa9497c03452941e66a9c90633c5b0063734d9efc22243274",
+      "sourceDirectory": "Art/Source/Fields/field-009/arch-fragment",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-arch-fragment-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-009: Arch Fragment. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-LANTERN",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-LANTERN",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/small-celestial-lantern-candidate-01.png",
+      "sha256": "ca8d0d8d453f2cb96dcad9dabce41b915b0aeaf86a6dd27c89f866278e50237b",
+      "sourceDirectory": "Art/Source/Fields/field-009/celestial-lantern",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-009: Celestial Lantern. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-CELESTIAL-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-CELESTIAL-PEDESTAL",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/small-celestial-pedestal-candidate-01.png",
+      "sha256": "d3a5ddd1a113a02dae94f7a5456daf571d1c13ed9874449c97f9db8dec5661db",
+      "sourceDirectory": "Art/Source/Fields/field-009/celestial-pedestal",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-009: Celestial Pedestal. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-009-STONE-FRAGMENT",
+      "role": "prop",
+      "visualId": "FIELD-009-VISUAL-STONE-FRAGMENT",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-009/small-stone-fragment-candidate-01.png",
+      "sha256": "26f77addd7e3801e5e68b925ba3da2a765da2b67ac7f1e05acc988ff67a5322a",
+      "sourceDirectory": "Art/Source/Fields/field-009/stone-fragment",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009/field-009-stone-fragment-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-009: Stone Fragment. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-009 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-009 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-BALUSTRADE",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-BALUSTRADE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/large-balustrade-candidate-01.png",
+      "sha256": "daad3f1943310ea514c2ae63d961a4a7ca9bb5d06b7f48b939852d8c9a76673c",
+      "sourceDirectory": "Art/Source/Fields/field-010/balustrade",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-balustrade-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-010: Balustrade. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-COLUMN-CLUSTER",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-COLUMN-CLUSTER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/large-column-cluster-candidate-01.png",
+      "sha256": "c5d28b17f2f4ca3577dc88dcab8d480f8d7172c30fef3c92c3422c4b3a1af168",
+      "sourceDirectory": "Art/Source/Fields/field-010/column-cluster",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-column-cluster-prop.png",
+      "prompt": "Approved large obstacle candidate for FIELD-010: Column Cluster. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "large obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 large obstacle prop uses a 2.67-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-GILDED-COLUMN-BASE",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-GILDED-COLUMN-BASE",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/medium-gilded-column-base-candidate-01.png",
+      "sha256": "908b9b6180bdc0bb5affeae1fc554593465406e6ec8880483c75bea4d72977ca",
+      "sourceDirectory": "Art/Source/Fields/field-010/gilded-column-base",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop.png",
+      "prompt": "Approved medium obstacle candidate for FIELD-010: Gilded Column Base. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "medium obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 medium obstacle prop uses a 2.0-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-CELESTIAL-BASIN",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-CELESTIAL-BASIN",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/small-celestial-basin-candidate-01.png",
+      "sha256": "aa0e17d2bbaf7bbd94f647bffc3f69441413aed3fe1588b7fdbbe443f9ea7fe5",
+      "sourceDirectory": "Art/Source/Fields/field-010/celestial-basin",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-celestial-basin-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-010: Celestial Basin. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-CEREMONIAL-PEDESTAL",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-CEREMONIAL-PEDESTAL",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/small-ceremonial-pedestal-candidate-01.png",
+      "sha256": "862705e1d6f93b769d9672bc56a1e6880feb29cc4414ddb1112fee7ee18a6aa6",
+      "sourceDirectory": "Art/Source/Fields/field-010/ceremonial-pedestal",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-010: Ceremonial Pedestal. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    },
+    {
+      "owner": "FIELD-010-GOLDEN-BRAZIER",
+      "role": "prop",
+      "visualId": "FIELD-010-VISUAL-GOLDEN-BRAZIER",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-obstacles-2026-09-27/field-010/small-golden-brazier-candidate-01.png",
+      "sha256": "f2870c9038dbf60b669da501b960133b6312895e11c5e9c11ce0f0c575c7f959",
+      "sourceDirectory": "Art/Source/Fields/field-010/golden-brazier",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-golden-brazier-prop.png",
+      "prompt": "Approved small obstacle candidate for FIELD-010: Golden Brazier. Generated with the shared storybook-cutout direction recorded in Art/Candidates/field-obstacles-2026-09-27/PROMPTS.md. The exact transient generation prompt was not retained verbatim; this provenance note is intentionally not presented as a reconstructed quote.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-010 obstacle candidate",
+        "small obstacle tier",
+        "transparent background",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 8,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 160,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-010 small obstacle prop uses a 1.6-unit presentation canvas; collider geometry remains authored separately."
+      }
+    }
+  ]
+}

@@ -276,6 +276,7 @@
         "knockbackDistance": 0.15,
         "knockbackSeconds": 0.12
       },
+      "projectileVisualId": "ENEMY-010-VISUAL-PROJECTILE",
       "burstIntervalSeconds": 0.15,
       "spreadDegrees": 0
     }
@@ -313,7 +314,8 @@
       "controls": {
         "knockbackDistance": 0.25,
         "knockbackSeconds": 0.12
-      }
+      },
+      "projectileVisualId": "ENEMY-011-VISUAL-PROJECTILE"
     }
   },
   {
@@ -349,7 +351,8 @@
       "controls": {
         "knockbackDistance": 0.65,
         "knockbackSeconds": 0.12
-      }
+      },
+      "projectileVisualId": "ENEMY-012-VISUAL-PROJECTILE"
     }
   },
   {
@@ -406,6 +409,7 @@
         "knockbackDistance": 0.8,
         "knockbackSeconds": 0.12
       },
+      "projectileVisualId": "ENEMY-014-VISUAL-PROJECTILE",
       "explosionRadius": 1
     }
   },
@@ -442,7 +446,8 @@
       "controls": {
         "knockbackDistance": 0.35,
         "knockbackSeconds": 0.12
-      }
+      },
+      "projectileVisualId": "ENEMY-015-VISUAL-PROJECTILE"
     }
   },
   {
@@ -528,6 +533,7 @@
         "knockbackDistance": 0.3,
         "knockbackSeconds": 0.12
       },
+      "projectileVisualId": "ENEMY-018-VISUAL-PROJECTILE",
       "rotationStepDegrees": 18
     }
   },
@@ -563,6 +569,7 @@
         "knockbackDistance": 0.4,
         "knockbackSeconds": 0.12
       },
+      "projectileVisualId": "ENEMY-019-VISUAL-PROJECTILE",
       "spreadDegrees": 50
     }
   },

@@ -45,7 +45,7 @@
       "patterns": [
         {
           "id": "STUMP",
-          "weight": 35,
+          "weight": 25,
           "rotations": [
             0
           ],
@@ -61,7 +61,7 @@
         },
         {
           "id": "FENCE",
-          "weight": 25,
+          "weight": 15,
           "rotations": [
             0
           ],
@@ -104,6 +104,40 @@
               "y": 0,
               "width": 1.5,
               "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "HAY-BALES",
+          "weight": 10,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.2,
+              "height": 1,
+              "visualId": "FIELD-001-VISUAL-HAY-BALES"
+            }
+          ]
+        },
+        {
+          "id": "VILLAGE-HANDCART",
+          "weight": 10,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 2.4,
+              "height": 0.5,
+              "visualId": "FIELD-001-VISUAL-VILLAGE-HANDCART"
             }
           ]
         }
@@ -180,7 +214,8 @@
               "x": -2.2,
               "y": 0,
               "width": 1.6,
-              "height": 1.2
+              "height": 1.2,
+              "visualId": "FIELD-002-VISUAL-ROADSIDE-MILESTONE"
             },
             {
               "kind": "Stump",
@@ -194,7 +229,8 @@
               "x": 2.2,
               "y": 0,
               "width": 1.6,
-              "height": 1.2
+              "height": 1.2,
+              "visualId": "FIELD-002-VISUAL-ROADSIDE-BENCH"
             }
           ]
         },
@@ -211,7 +247,8 @@
               "x": -3.3,
               "y": 0,
               "width": 1.6,
-              "height": 1.2
+              "height": 1.2,
+              "visualId": "FIELD-002-VISUAL-BROKEN-WAGON"
             },
             {
               "kind": "Stump",
@@ -232,7 +269,8 @@
               "x": 3.3,
               "y": 0,
               "width": 1.6,
-              "height": 1.2
+              "height": 1.2,
+              "visualId": "FIELD-002-VISUAL-ROAD-BARRICADE"
             }
           ]
         },
@@ -401,10 +439,10 @@
   {
     "id": "FIELD-003-PRESENTATION",
     "environmentId": "FIELD-003-ENVIRONMENT",
-    "groundVisualId": "FIELD-001-VISUAL-GROUND",
-    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
-    "obstacleVisualId": "FIELD-002-VISUAL-BOULDER",
-    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "groundVisualId": "FIELD-003-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-003-VISUAL-WALL",
+    "obstacleVisualId": "FIELD-003-VISUAL-RUBBLE",
+    "bushVisualId": "FIELD-003-VISUAL-WATER",
     "grassVisualId": "FIELD-001-VISUAL-GRASS",
     "obstacleName": "Obstacle_Fixture",
     "fenceHeight": 1.35,
@@ -455,7 +493,8 @@
               "x": -0.07,
               "y": 4.67,
               "width": 3.2,
-              "height": 0.8
+              "height": 0.8,
+              "visualId": "FIELD-003-VISUAL-RUINED-ARCH"
             },
             {
               "kind": "Fence",
@@ -483,21 +522,24 @@
               "x": 1.53,
               "y": 1.67,
               "width": 1.4,
-              "height": 1.1
+              "height": 1.1,
+              "visualId": "FIELD-003-VISUAL-BROKEN-URNS"
             },
             {
               "kind": "Stump",
               "x": 4.33,
               "y": 2.27,
               "width": 1.4,
-              "height": 1.1
+              "height": 1.1,
+              "visualId": "FIELD-003-VISUAL-FALLEN-CAPSTONE"
             },
             {
               "kind": "Stump",
               "x": -4.67,
               "y": -4.52,
               "width": 1.4,
-              "height": 1.1
+              "height": 1.1,
+              "visualId": "FIELD-003-VISUAL-COLLAPSED-WELL"
             }
           ]
         },

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: FIELD-003 field-select Background/Thumbnail. A square establishing image of Border Ruins: broken stone wall clusters forming readable lanes, broad rubble heaps, shallow muted water channels and worn earth-and-stone ground, no characters. Stylized 2D storybook cutout environment illustration, hand-painted matte large shapes, deep-plum contour accents, simple cel shading and light paper texture. Soft neutral-warm daylight, warm grey stone, dusty umber, faded olive and desaturated slate-blue water. Readable at small UI size, no UI frame, text, logos, photorealism, 3D render, tiny clutter, active VFX or dramatic darkness.",
+  "constraints": [
+    "approved FIELD-003 candidate",
+    "small-card readability",
+    "no baked UI frame"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003/field-003-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "bb45f81d58c1c03cef737979a50da3549f01c61c39dd30fd0ff593d4ca01e6ed",
+    "runtimeSha256": "bb45f81d58c1c03cef737979a50da3549f01c61c39dd30fd0ff593d4ca01e6ed",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

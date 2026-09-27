@@ -4,6 +4,7 @@ namespace Game.Presentation.Json
     public sealed class FieldObstaclePieceData
     {
         public FieldObstacleKind? Kind { get; set; }
+        public string VisualId { get; set; }
         public float? X { get; set; }
         public float? Y { get; set; }
         public float? Width { get; set; }

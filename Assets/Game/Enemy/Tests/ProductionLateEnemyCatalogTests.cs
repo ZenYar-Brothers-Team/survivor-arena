@@ -135,14 +135,14 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void LateEnemies_UseApprovedBodies_AndUnapprovedProjectilesRemainUnbound()
+        public void LateEnemies_UseApprovedBodiesAndProjectiles()
         {
-            // Approved body art is bound; separate projectile art still has a per-ID gate (IP-20).
             foreach (var enemy in ProductionEnemyCatalog.Create().Where(e => int.Parse(e.Id.ToString().Substring(6)) >= 10))
             {
                 Assert.AreEqual(enemy.Id.ToString() + "-VISUAL-BODY", enemy.Visual.Id.ToString());
                 Assert.IsTrue(enemy.MotionProfile.Id.IsValid, enemy.Id.ToString());
-                if (enemy.Attack != null) Assert.IsFalse(enemy.Attack.ProjectileVisual.Id.IsValid, enemy.Id.ToString());
+                if (enemy.Attack != null)
+                    Assert.AreEqual(enemy.Id.ToString() + "-VISUAL-PROJECTILE", enemy.Attack.ProjectileVisual.Id.ToString());
             }
             var crossbow = ProductionEnemyCatalog.Create().Single(e => e.Id.ToString() == "ENEMY-006");
             Assert.AreEqual("ENEMY-005-VISUAL-PROJECTILE", crossbow.Attack.ProjectileVisual.Id.ToString());

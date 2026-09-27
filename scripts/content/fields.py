@@ -34,9 +34,9 @@ def fields(baseline):
                     "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
                     "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
                     "enemyIds": baseline["field002"]["enemyPool"]},
-                   # FIELD-003 (field003-v1, DECISION-0067): no approved thumbnail yet, the selection card shows its text.
                    {"id": three["id"], "displayName": names[three["id"]], "description": card_field(three["id"], "Роль"),
                     "thumbnailPlaceholder": three["thumbnailPlaceholder"], "difficulty": three["difficulty"],
+                    "thumbnailVisualId": three["thumbnailVisualId"],
                     "unlockDescription": three["unlockDescription"], "environmentId": three["environmentId"],
                     "timelineId": three["timelineId"], "travelerScheduleId": three["travelerScheduleId"],
                     "finalBossId": three["finalBossId"], "midBossId": three["midBossId"],
@@ -46,6 +46,13 @@ def fields(baseline):
 
 def field_presentation(baseline):
     """Accepted field art/decor values plus per-run obstacle layouts."""
+    def layout_piece(piece):
+        result = {"kind": piece["kind"], "x": piece["x"], "y": piece["y"],
+                  "width": piece["width"], "height": piece["height"]}
+        if "visualId" in piece:
+            result["visualId"] = piece["visualId"]
+        return result
+
     fixture = json.loads((ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json")
                          .read_text(encoding="utf-8-sig"))[0]
     field = baseline["field"]
@@ -80,7 +87,8 @@ def field_presentation(baseline):
     if three["waterDecor"]["blocksMovement"]:
         raise SystemExit("FIELD-003 water must stay visual")
     third = dict(data, id="FIELD-003-PRESENTATION", environmentId=three["environmentId"],
-                 obstacleVisualId="FIELD-002-VISUAL-BOULDER",
+                 groundVisualId="FIELD-003-VISUAL-GROUND", fenceVisualId="FIELD-003-VISUAL-WALL",
+                 obstacleVisualId="FIELD-003-VISUAL-RUBBLE", bushVisualId="FIELD-003-VISUAL-WATER",
                  seed=data["seed"] + 2000, obstacleSeed=data["obstacleSeed"] + 2000,
                  interiorObstacleCount=len(three["obstacles"]),
                  nearObstacleCount=sum(1 for o in three["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
@@ -102,8 +110,7 @@ def field_presentation(baseline):
             "startClearRadius": layout["startClearRadius"], "minPatternGap": layout["minPatternGap"],
             "placementAttempts": layout["placementAttempts"], "referenceSeed": layout["referenceSeed"],
             "patterns": [{"id": pattern["id"], "weight": pattern["weight"], "rotations": pattern["rotations"],
-                          "pieces": [{"kind": piece["kind"], "x": piece["x"], "y": piece["y"], "width": piece["width"],
-                                      "height": piece["height"]} for piece in pattern["pieces"]]}
+                          "pieces": [layout_piece(piece) for piece in pattern["pieces"]]}
                          for pattern in layout["patterns"]]}
         if "startScreen" in layout:
             presentation["obstacleLayout"]["startScreen"] = layout["startScreen"]

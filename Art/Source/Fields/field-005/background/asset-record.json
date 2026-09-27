@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-005",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: Survival Arena field-selection thumbnail. Primary request: the lower streets and plazas of a medieval royal capital hastily converted into a goblin manhunt zone. Scene/backdrop: stone townhouses, gatehouse, market square, walls and hurried wooden barricades. Subject: several readable street corridors feeding into open plazas, with narrow chokepoints but no dead ends; a grand fortified city gate as landmark. Style/medium: polished hand-drawn stylized storybook cutout environment illustration; flat 2D shapes, thick slightly irregular ink outlines, matte colors, simple cel shading, subtle paper texture; warm ironic fairy-tale danger; not pixel art, not photorealistic, not 3D. Composition/framing: landscape 3:2, readable 3/4 top-down overview, clear traversable routes and obstacle rhythm, one strong environmental focal landmark, foreground framing kept subtle, works when center-cropped and downscaled to a 170-pixel-high UI card. Lighting/mood: clear readable daylight, controlled contrast. Color palette: warm limestone, slate roofs, muted burgundy and royal blue accents. Constraints: environment only; no characters, enemies, creatures, UI, text, letters, numbers, logos, watermark; no close-up object; no map labels; preserve broad open gameplay space. Avoid: modern city elements, fully enclosed alleys, active crowds, extreme darkness.",
+  "constraints": [
+    "approved FIELD-005 candidate",
+    "small-card readability",
+    "no baked UI frame",
+    "no text or characters"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-005/field-005-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "4089cdb2818340ae66493e34162f100ef32a245e5511700503faf39259a018a6",
+    "runtimeSha256": "4089cdb2818340ae66493e34162f100ef32a245e5511700503faf39259a018a6",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

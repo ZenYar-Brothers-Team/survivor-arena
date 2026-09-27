@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-WATER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: FIELD-003-WATER visual-only Decor. One shallow stagnant water patch seen exact top-down: irregular broad muted slate-blue water masses, soft muddy rim and two subtle reflected-light shapes. Stylized 2D storybook cutout, flat matte colors, simple cel shading, subdued deep-plum edge and light paper texture. Low contrast and clearly safe-looking, genuinely transparent background with generous padding. No baked shadow, text, logo, ocean waves, foam, bright cyan glow, deep chasm, bridge, character, objects, photorealism or 3D render.",
+  "constraints": [
+    "approved FIELD-003 candidate",
+    "transparent background",
+    "visual-only non-colliding water"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003/field-003-water-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "5958de66bd6dbd3776696354d27cb5aa9f6eba9eff474fda111761074cd99a4b",
+    "runtimeSha256": "237f3b9e14b449070a4c496e3f62741a78d13c2c0fd23a9156debc5cca5f98fd",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

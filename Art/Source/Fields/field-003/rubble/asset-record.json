@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-RUBBLE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: FIELD-003-RUBBLE Prop. One squat broad heap of collapsed frontier-fort masonry with large broken stones and two short timber remnants, no intact wall. Stylized 2D storybook cutout in 3/4 top-down gameplay view, strong compact rounded silhouette, thick deep-plum outline, flat matte colors, simple cel shading and light paper texture. Warm grey stone, dusty timber and tiny faded moss. Genuine transparent background, generous padding, no ground plane, baked shadow, character, text, logo, scattered tiny debris, tall silhouette, spikes, long beams, photorealism, 3D render or pixel art.",
+  "constraints": [
+    "approved FIELD-003 candidate",
+    "transparent background",
+    "compact rubble obstacle"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003/field-003-rubble-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "ffaebc1cbcfce9e65c12bd8d7783dcb8ee2df2aaa730516504d5b366ca2d05b8",
+    "runtimeSha256": "5220e208242a8eff4029b1fafbe26d35afa153769c826ecd8eff2757117dc2b8",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

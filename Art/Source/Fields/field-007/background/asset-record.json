@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: Survival Arena field-selection thumbnail. Primary request: old monastery gardens transformed into a hazardous pursuit ground. Scene/backdrop: narrow water channels, tangled roots, clipped hedges, small stone islands, herb plots, weathered cloisters and modest utility sheds. Subject: many small irregular obstacles fragmenting space into winding but passable routes; an old bell pavilion and garden canal crossing as landmark. Style/medium: polished hand-drawn stylized storybook cutout environment illustration; flat 2D shapes, thick slightly irregular ink outlines, matte colors, simple cel shading, subtle paper texture; warm ironic fairy-tale danger; not pixel art, not photorealistic, not 3D. Composition/framing: landscape 3:2, readable 3/4 top-down overview, clear traversable routes and obstacle rhythm, one strong environmental focal landmark, foreground framing kept subtle, works when center-cropped and downscaled to a 170-pixel-high UI card. Lighting/mood: clear readable daylight, controlled contrast. Color palette: moss green, muted herbs and flowers, pale weathered stone, soft water blue, restrained amber. Constraints: environment only; no characters, enemies, creatures, UI, text, letters, numbers, logos, watermark; no close-up object; no map labels; preserve broad open gameplay space. Avoid: pristine palace garden, dense impassable hedge maze, tropical vegetation, crowds.",
+  "constraints": [
+    "approved FIELD-007 candidate",
+    "small-card readability",
+    "no baked UI frame",
+    "no text or characters"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-007/field-007-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "a968e2ab05060bd2cf390cf89b180d4fa1026854a1a050b4e72140119f5f8356",
+    "runtimeSha256": "a968e2ab05060bd2cf390cf89b180d4fa1026854a1a050b4e72140119f5f8356",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

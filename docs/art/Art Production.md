@@ -166,9 +166,11 @@ IN GAME
 
 Не создавать уникальный projectile для каждого врага, если визуально допустим reuse.
 
+Пакет поздних ranged enemies утверждён и подключён 2026-09-27: `ENEMY-010/011/012/014/015/018/019-VISUAL-PROJECTILE`, все v001. Отдельные силуэты покрывают arrow, holy orb, javelin, explosive orb, crossfire bolt, spiral token и seraph fan shot; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-27-enemy-projectile-art.md).
+
 **Правило читаемости вражеских снарядов** ([DECISION-0055](../decisions/0055-playtest-2026-09-24-fixes.md), плейтест 2026-09-24 OBS-06): каждый hostile projectile (обычные враги, боссы, Путники) обязан читаться на поле с первого взгляда и отличаться от снарядов игрока минимум двумя признаками (Art Direction §12):
 
-- под спрайтом — пульсирующий coral-red ореол (`projectile.threatHalo` в `FixtureSprites.json`), диаметр не меньше ≈2.5× collision diameter;
+- под спрайтом — приглушённый пульсирующий coral-red ореол (`projectile.threatHalo` в `FixtureSprites.json`), диаметр не меньше ≈2.5× collision diameter; sprite остаётся выше ореола по sorting order;
 - тёмный или мелкий снаряд без ореола не допускается; если снаряд теряется даже с ореолом, увеличить `visualScale` (так камень пращи 1.9 → 2.4);
 - при добавлении нового hostile projectile проверить его в игре на траве FIELD-001 среди skill-эффектов; тест `HostileProjectiles_AllHaveThreatHalo` требует ореол у всех назначенных врагам visual.
 
@@ -384,14 +386,14 @@ Generic rule: set effects должны быть вторичным визуал�
 |---|---|---|---|---|  
 | FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + бочка + переиспользованный камень FIELD-002 + куст/трава; production geometry и thumbnail | Generate via GPT / Hybrid | Thumbnail v001 IN GAME, принят 2026-09-24; плотность и бочка подготовлены по [DECISION-0069](../decisions/0069-field001-feedback-tuning.md), gameplay-scale review открыт. [Provenance thumbnail](../../Art/Source/Fields/field-001/background/asset-record.json), [бочка](../../Art/Source/Fields/field-001/barrel/asset-record.json) |
 | FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | Ground, boulder, колонна, святилище и thumbnail v001 подключены 2026-09-26; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-26-field002-art.md) |
-| FIELD-003 | Пограничные руины | Ground/background \+ ruins/walls/bridge-style props | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-005 | Королевская столица | Ground/background \+ city decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-006 | Академия магов | Ground/background \+ magical decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-007 | Монастырские сады | Ground/background \+ garden/religious decor | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-008 | Цитадель короны | Ground/background \+ fortress decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-009 | Небесные врата | Ground/background \+ celestial decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  
-| FIELD-010 | Чертог Спасения | Ground/background \+ final celestial/interior kit | Generate via GPT / Hybrid | NOT STARTED |
+| FIELD-003 | Пограничные руины | Ground/background + ruined wall + rubble + visual-only water + thumbnail | Generate via GPT / Hybrid | IN GAME — v001 approved and connected 2026-09-27; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-27-field003-art-and-projectile-halo.md) |
+| FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-005 | Королевская столица | Ground/background \+ city decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-006 | Академия магов | Ground/background \+ magical decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-007 | Монастырские сады | Ground/background \+ garden/religious decor | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-008 | Цитадель короны | Ground/background \+ fortress decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-009 | Небесные врата | Ground/background \+ celestial decor/obstacles | Generate via GPT / Hybrid | Thumbnail v001 approved/prepared; cool white-blue celestial palette; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
+| FIELD-010 | Чертог Спасения | Ground/background \+ final celestial/interior kit | Generate via GPT / Hybrid | Sunset thumbnail v001 approved/prepared; environment kit NOT STARTED. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
 
 \---
 
@@ -452,7 +454,7 @@ Method: \`Generate via GPT\`.
 | 14 passive icons | Generate via GPT | IMAGE APPROVED — v001 | 14 masters/runtime imports; 9 matching fixture mappings show in draft and Pause / Build; slot readability review and production IP-18 binding remain |
 | 20 set icons | Generate via GPT | IMAGE APPROVED — v001 | 20 masters/runtime imports; 4 matching fixture mappings show for acquired sets; set-progress UI review and production IP-19 binding remain |
 | Character selection image | Reuse body sprite first | NOT STARTED | Сначала использовать crop/variant existing body sprite; отдельный portrait генерировать только если выглядит плохо |  
-| Field thumbnails | Generate / derive from field art | FIELD-001 IN GAME, принят; FIELD-002 IN GAME, gameplay-scale review открыт; FIELD-003…010 NOT STARTED | FIELD-001 и FIELD-002 показывают отдельные картинки в Field Select. Остальные поля получают thumbnail при реализации. |
+| Field thumbnails | Generate / derive from field art | FIELD-001…003 IN GAME; FIELD-004…010 IMAGE APPROVED — v001, prepared | Все 10 thumbnails имеют runtime PNG и registered visual ID. FIELD-004…010 будут связаны с Field Select при реализации их production definitions; target-scale UI review остаётся. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
 | Meta-upgrade icons | Generate via GPT as content is defined | NOT STARTED | Только для реально реализованных permanent upgrades |  
 | Pickup icons if UI needs separate icon | Reuse world sprite / Generate if needed | NOT STARTED | Не создавать отдельный asset без необходимости |
 
@@ -657,3 +659,14 @@ art scope включает шесть обычных врагов: ENEMY-001…0
 подходящие общие роли; отдельный raster для каждого эффекта не обязателен.
 Существующие inventory IDs и per-image gates сохраняются; новые изображения
 этим решением не объявляются созданными или approved.
+
+## FIELD-001…010 obstacle props — 2026-09-27
+
+Утверждён и подготовлен единый пакет из 52 obstacle props: недостающие роли
+FIELD-001…003 и полные наборы 3 small / 1 medium / 2 large для FIELD-004…010.
+Все варианты имеют отдельные source/master/provenance/runtime records и роль
+`SpriteRole.Prop`; small/medium/large используют 160/128/96 PPU при runtime 256×256.
+FIELD-001…003 применяют approved additions через optional per-piece visual override,
+не выводя collider из sprite. FIELD-004…010 entries зарегистрированы без ложных
+production bindings до появления данных полей. Подробности и проверки:
+[evidence](../implementation/evidence/2026-09-27-field-obstacle-art.md).

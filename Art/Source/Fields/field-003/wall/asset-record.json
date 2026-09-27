@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-WALL",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27).",
+  "prompt": "Use case: stylized-concept. Asset type: FIELD-003-WALL Prop. One compact low broken frontier-fort masonry wall in 3/4 top-down gameplay view: broad chipped grey-brown stones, uneven broken top, one short collapsed end and sparse muted moss. Stylized 2D storybook cutout, strong readable silhouette, thick deep-plum outline, flat matte colors, simple cel shading and light paper texture. Horizontal connected mass centered with generous genuine transparency, no ground plane, baked shadow, doorway, character, text, logo, long thin protrusions, photorealism, 3D render, pixel art or loose tiny stones.",
+  "constraints": [
+    "approved FIELD-003 candidate",
+    "transparent background",
+    "compact horizontal obstacle"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003/field-003-wall-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1536x1024",
+    "sourceSha256": "57b765e806ad4a65d5bd283dec70aa0c2fc5c5563ea5143fea10207ab8a997be",
+    "runtimeSha256": "3cdb89c9e30af9abeb286a08b40ea1ba090e9ba8cd034284d954344b5e312a93",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

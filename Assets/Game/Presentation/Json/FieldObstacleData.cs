@@ -4,6 +4,7 @@ namespace Game.Presentation.Json
     {
         public string Id { get; set; }
         public FieldObstacleKind? Kind { get; set; }
+        public string VisualId { get; set; }
         public float? X { get; set; }
         public float? Y { get; set; }
         public float? Width { get; set; }

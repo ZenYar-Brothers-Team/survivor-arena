@@ -28,7 +28,7 @@ namespace Game.Bootstrap.Tests
             CollectionAssert.AreEquivalent(new[] { "BOSS-003", "MIDBOSS-003" }, configuration.Bosses.Select(b => b.Id.ToString()));
             Assert.AreEqual(3, ((TravelerScheduleDefinition)configuration.Travelers).FieldRank, "Traveler K uses r = 3.");
             Assert.AreEqual(2, configuration.Field.Difficulty, "Card: difficulty 2/5.");
-            Assert.IsFalse(configuration.Field.Thumbnail.HasValue, "No approved thumbnail yet: the card shows its text.");
+            Assert.AreEqual("FIELD-003-VISUAL-BACKGROUND", configuration.Field.Thumbnail.Value.Id.ToString());
         }
 
         [Test]
@@ -67,8 +67,15 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
                     new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 10f - 1e-3f),
                 "Start circle of 10 units stays free.");
-            Assert.AreEqual("FIELD-001-VISUAL-FENCE", presentation.Fence.Id.ToString(), "Approved fence art until the ruins art.");
-            Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
+            Assert.AreEqual("FIELD-003-VISUAL-GROUND", presentation.Ground.Id.ToString());
+            Assert.AreEqual("FIELD-003-VISUAL-WALL", presentation.Fence.Id.ToString());
+            Assert.AreEqual("FIELD-003-VISUAL-RUBBLE", presentation.Obstacle.Id.ToString());
+            Assert.AreEqual("FIELD-003-VISUAL-WATER", presentation.Bush.Id.ToString());
+            CollectionAssert.IsSubsetOf(new[] { "FIELD-003-VISUAL-RUINED-ARCH", "FIELD-003-VISUAL-BROKEN-URNS",
+                "FIELD-003-VISUAL-FALLEN-CAPSTONE", "FIELD-003-VISUAL-COLLAPSED-WELL" },
+                obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId.ToString()).Distinct().ToArray());
+            Assert.AreEqual(4, obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId).Distinct().Count(),
+                "All four approved FIELD-003 additions participate in the ruin clusters.");
         }
 
         [Test]

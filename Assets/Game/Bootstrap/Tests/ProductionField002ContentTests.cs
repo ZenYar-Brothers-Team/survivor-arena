@@ -91,6 +91,11 @@ namespace Game.Bootstrap.Tests
             Assert.Greater(presentation.ShrineChance, 0f);
             Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Column));
             Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Stump));
+            CollectionAssert.IsSubsetOf(new[] { "FIELD-002-VISUAL-ROADSIDE-MILESTONE", "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON", "FIELD-002-VISUAL-ROAD-BARRICADE" },
+                obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId.ToString()).Distinct().ToArray());
+            Assert.AreEqual(4, obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId).Distinct().Count(),
+                "All four approved FIELD-002 additions participate in the rows.");
         }
 
         [Test]

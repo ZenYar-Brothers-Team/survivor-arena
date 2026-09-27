@@ -53,7 +53,14 @@ ENEMY_VISUALS = {  # Imported FIELD-001 body references; motion profiles remain 
 
 
 ENEMY_PROJECTILE_VISUALS = {"ENEMY-004": "ENEMY-004-VISUAL-PROJECTILE", "ENEMY-005": "ENEMY-005-VISUAL-PROJECTILE",
-                            "ENEMY-006": "ENEMY-005-VISUAL-PROJECTILE"}
+                            "ENEMY-006": "ENEMY-005-VISUAL-PROJECTILE",
+                            "ENEMY-010": "ENEMY-010-VISUAL-PROJECTILE",
+                            "ENEMY-011": "ENEMY-011-VISUAL-PROJECTILE",
+                            "ENEMY-012": "ENEMY-012-VISUAL-PROJECTILE",
+                            "ENEMY-014": "ENEMY-014-VISUAL-PROJECTILE",
+                            "ENEMY-015": "ENEMY-015-VISUAL-PROJECTILE",
+                            "ENEMY-018": "ENEMY-018-VISUAL-PROJECTILE",
+                            "ENEMY-019": "ENEMY-019-VISUAL-PROJECTILE"}
 
 
 CADENCES = {"windup-start-to-windup-start": "WindupStartToStart"}

@@ -102,6 +102,10 @@ namespace Game.Bootstrap.Tests
                 CollectionAssert.IsSubsetOf(new[] { FieldObstacleKind.Stump, FieldObstacleKind.Fence,
                     FieldObstacleKind.Barrel, FieldObstacleKind.Rock }, obstacles.Select(item => item.Kind).Distinct().ToArray());
                 Assert.AreEqual(4, obstacles.Select(item => item.Kind).Distinct().Count(), "All four thumbnail-based prop types appear.");
+                CollectionAssert.IsSubsetOf(new[] { "FIELD-001-VISUAL-HAY-BALES", "FIELD-001-VISUAL-VILLAGE-HANDCART" },
+                    obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId.ToString()).Distinct().ToArray());
+                Assert.AreEqual(2, obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId).Distinct().Count(),
+                    "Both approved FIELD-001 additions participate in the layout.");
                 foreach (var obstacle in obstacles)
                 {
                     Assert.LessOrEqual(System.Math.Abs(obstacle.X) + obstacle.Width / 2, 99f);

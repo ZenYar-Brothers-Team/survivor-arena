@@ -30,6 +30,7 @@ namespace Game.Presentation
             var inCell = new List<Rect>();
             var candidate = new List<Rect>();
             var kinds = new List<FieldObstacleKind>();
+            var visualIds = new List<ContentId>();
             for (var row = 0; row < cells; row++)
                 for (var column = 0; column < cells; column++)
                 {
@@ -49,11 +50,13 @@ namespace Game.Presentation
                             var y = Range(random, cellMin.y - bounds.yMin, cellMax.y - bounds.yMax);
                             candidate.Clear();
                             kinds.Clear();
+                            visualIds.Clear();
                             foreach (var piece in pieces)
                             {
                                 candidate.Add(new Rect(x + piece.X - piece.Width * .5f, y + piece.Y - piece.Height * .5f,
                                     piece.Width, piece.Height));
                                 kinds.Add(piece.Kind);
+                                visualIds.Add(piece.VisualId);
                             }
                             if (candidate.Any(r => Distance(r, start) < layout.StartClearRadius)) continue;
                             if (candidate.Any(a => inCell.Any(b => Gap(a, b) < layout.MinPatternGap))) continue;
@@ -61,7 +64,7 @@ namespace Game.Presentation
                             {
                                 var r = candidate[i];
                                 result.Add(new FieldObstacleDefinition($"{idPrefix}-O{result.Count + 1:000}", kinds[i],
-                                    r.center.x, r.center.y, r.width, r.height));
+                                    r.center.x, r.center.y, r.width, r.height, visualIds[i].ToString()));
                             }
                             inCell.AddRange(candidate);
                             break;
@@ -96,7 +99,7 @@ namespace Game.Presentation
                     Distance(rect, start) < layout.StartClearRadius || !reserved.TryAdd(row * cells + column, rect))
                     throw new InvalidOperationException("Start-screen obstacle configuration does not fit its clear layout cell.");
                 result.Add(new FieldObstacleDefinition($"{idPrefix}-O{result.Count + 1:000}", piece.Kind,
-                    x, y, piece.Width, piece.Height));
+                    x, y, piece.Width, piece.Height, piece.VisualId.ToString()));
             }
             return reserved;
         }
