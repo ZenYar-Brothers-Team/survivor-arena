@@ -40,7 +40,17 @@ namespace Game.Bootstrap.Tests
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
-            var bodies = catalog.Bosses.Select(boss => boss.Body)
+            // Bosses bound to a production field need approved art; BOSS-003…010/MIDBOSS-003…010 (DECISION-0066) wait for
+            // their fields and per-ID art gates and are explicit placeholders until then.
+            var fields = FixtureFieldCatalog.FromJson(JsonContentFile.ReadText(FixtureRuntimeContentCatalog.ProductionFieldsPath));
+            var fieldBosses = fields.Roster.AllFields
+                .SelectMany(f => f.MidBoss.HasValue ? new[] { f.FinalBoss.Id, f.MidBoss.Value.Id } : new[] { f.FinalBoss.Id })
+                .ToHashSet();
+            var bound = catalog.Bosses.Where(boss => fieldBosses.Contains(boss.Id)).ToArray();
+            Assert.AreEqual(4, bound.Length, "FIELD-001/002 final and mid bosses.");
+            foreach (var boss in catalog.Bosses.Where(boss => !fieldBosses.Contains(boss.Id)))
+                Assert.IsFalse(boss.Body.Visual.Id.IsValid, $"{boss.Id} has no field yet and no approved art: explicit placeholder.");
+            var bodies = bound.Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
             Assert.AreEqual(7, bodies.Length, "FIELD-001/002 bosses and the three implemented Travelers.");
             foreach (var body in bodies)
@@ -52,7 +62,7 @@ namespace Game.Bootstrap.Tests
             }
 
             // Boss shots resolve through the registry the boss runtime now receives.
-            var bossAttacks = catalog.Bosses.SelectMany(boss => boss.OwnedAttacks).ToArray();
+            var bossAttacks = bound.SelectMany(boss => boss.OwnedAttacks).ToArray();
             Assert.AreEqual(4, bossAttacks.Length, "BOSS-001 fan/ring, normal and enraged.");
             foreach (var attack in bossAttacks)
             {

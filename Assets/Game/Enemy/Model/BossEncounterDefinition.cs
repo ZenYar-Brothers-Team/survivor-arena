@@ -22,11 +22,13 @@ namespace Game.Enemy
         public IReadOnlyList<EnemyDefinition> OwnedAttacks { get; }
         /// <summary>Teleport-slam against a player who keeps away from the boss; null when the boss has none (DECISION-0059).</summary>
         public BossTeleportProfile Teleport { get; }
+        /// <summary>The attack sequence waits while the boss telegraphs or performs a dash (DECISION-0066, E5).</summary>
+        public bool HoldAttacksDuringDash { get; }
 
         public BossEncounterDefinition(ContentId id, string displayName, WaveHookKind hook,
             EnemyDefinition body, float spawnOffsetX, float spawnOffsetY, IEnumerable<BossPhaseDefinition> phases,
             bool keepAttackOrderOnPhaseChange = false, bool strictHealthThreshold = false, IEnumerable<EnemyDefinition> ownedAttacks = null,
-            BossTeleportProfile teleport = null)
+            BossTeleportProfile teleport = null, bool holdAttacksDuringDash = false)
         {
             if (!id.IsValid) throw new ArgumentException("Encounter id is required.", nameof(id));
             if (string.IsNullOrWhiteSpace(displayName)) throw new ArgumentException("Boss name is required.", nameof(displayName));
@@ -51,6 +53,13 @@ namespace Game.Enemy
             StrictHealthThreshold = strictHealthThreshold;
             OwnedAttacks = new List<EnemyDefinition>(ownedAttacks ?? Array.Empty<EnemyDefinition>()).AsReadOnly();
             Teleport = teleport;
+            foreach (var phase in copy)
+                if (phase.MovementOverride != null && (phase.MovementOverride.Kind != EnemyMovementKind.TelegraphedDash ||
+                                                       Body.Movement.Kind != EnemyMovementKind.TelegraphedDash))
+                    throw new ArgumentException("A phase may only change the dash series of a dashing boss.", nameof(phases));
+            if (holdAttacksDuringDash && Body.Movement.Kind != EnemyMovementKind.TelegraphedDash)
+                throw new ArgumentException("Only a dashing boss can hold attacks during dashes.", nameof(holdAttacksDuringDash));
+            HoldAttacksDuringDash = holdAttacksDuringDash;
         }
 
         public IEnumerable<ContentReference> GetReferencedContent()

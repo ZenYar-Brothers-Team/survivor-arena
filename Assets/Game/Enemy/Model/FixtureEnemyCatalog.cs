@@ -57,6 +57,16 @@ namespace Game.Enemy
 
         private static EnemyDashVolleyProfile ToDashVolley(EnemyDefinitionData data)
         {
+            if (data.DashEndAttacks != null)
+            {
+                if (data.DashEndAttack != null || data.DashEndRepeat != null)
+                    throw new InvalidOperationException($"Enemy {data.Id} dashEndAttacks excludes dashEndAttack/dashEndRepeat.");
+                var replacement = data.DashEndReplacement;
+                return new EnemyDashVolleyProfile(ToDashEntries(data.Id, data.DashEndAttacks, "dashEndAttacks"),
+                    replacement == null ? 0f : Require(replacement.BelowHealthFraction, $"Enemy {data.Id} dashEndReplacement.belowHealthFraction"),
+                    replacement == null ? null : ToDashEntries(data.Id, replacement.Attacks, "dashEndReplacement.attacks"));
+            }
+            if (data.DashEndReplacement != null) throw new InvalidOperationException($"Enemy {data.Id} dashEndReplacement needs dashEndAttacks.");
             if (data.DashEndAttack == null)
             {
                 if (data.DashEndRepeat != null) throw new InvalidOperationException($"Enemy {data.Id} dashEndRepeat needs dashEndAttack.");
@@ -70,6 +80,26 @@ namespace Game.Enemy
                 Require(repeat.DelaySeconds, $"Enemy {data.Id} dashEndRepeat.delaySeconds"),
                 Require(repeat.RotationDegrees, $"Enemy {data.Id} dashEndRepeat.rotationDegrees"));
         }
+
+        private static EnemyDashVolleyEntry[] ToDashEntries(string enemyId, EnemyDashVolleyEntryData[] entries, string field)
+        {
+            if (entries == null) throw new InvalidOperationException($"Enemy {enemyId} {field} must be set in config.");
+            var result = new EnemyDashVolleyEntry[entries.Length];
+            for (var i = 0; i < entries.Length; i++)
+            {
+                var entry = entries[i] ?? throw new InvalidOperationException($"Enemy {enemyId} {field}[{i}] is empty.");
+                var owner = $"Enemy {enemyId} {field}[{i}]";
+                if (!Enum.TryParse(entry.Orientation, false, out EnemyDashVolleyOrientation orientation) ||
+                    !Enum.IsDefined(typeof(EnemyDashVolleyOrientation), orientation))
+                    throw new InvalidOperationException($"{owner}.orientation '{entry.Orientation}' is not a known orientation.");
+                result[i] = new EnemyDashVolleyEntry(Require(entry.DelaySeconds, $"{owner}.delaySeconds"), orientation,
+                    ToAttack(enemyId, entry.Attack), entry.Zone == null ? null : BossSpecialCatalog.ToZone(entry.Zone, $"{owner}.zone"));
+            }
+            return result;
+        }
+
+        /// <summary>Movement authoring shared with boss phase overrides (DECISION-0066, E3).</summary>
+        public static EnemyMovementProfile ToMovementProfile(string ownerId, EnemyMovementProfileData data) => ToMovement(ownerId, data);
 
         // Every field the kind actually reads must be explicit in config; fields it never
         // reads fall back to the domain profile's neutral values and cannot affect behavior.
@@ -118,10 +148,18 @@ namespace Game.Enemy
             var projectileCount = Require(data.ProjectileCount, Owner(nameof(data.ProjectileCount)));
             var projectileRadius = Require(data.ProjectileRadius, Owner(nameof(data.ProjectileRadius)));
 
+            var fanSpread = pattern == EnemyProjectilePattern.Fan || (pattern == EnemyProjectilePattern.Explosive && projectileCount > 1);
+            var followUps = new List<EnemyAttackFollowUp>();
+            foreach (var followUp in data.FollowUps ?? Array.Empty<EnemyAttackFollowUpData>())
+            {
+                if (followUp == null) throw new InvalidOperationException($"{Owner(nameof(data.FollowUps))} entries cannot be empty.");
+                followUps.Add(new EnemyAttackFollowUp(Require(followUp.DelaySeconds, Owner("followUps.delaySeconds")),
+                    Require(followUp.RotationDegrees, Owner("followUps.rotationDegrees"))));
+            }
             return new EnemyAttackProfile(
                 pattern, data.Damage, data.CooldownSeconds, data.ProjectileSpeed, data.ProjectileLifetimeSeconds,
                 projectileCount,
-                Pick(data.SpreadDegrees, pattern == EnemyProjectilePattern.Fan, 0f, Owner(nameof(data.SpreadDegrees))),
+                Pick(data.SpreadDegrees, fanSpread, 0f, Owner(nameof(data.SpreadDegrees))),
                 pattern == EnemyProjectilePattern.Burst ? Require(data.BurstIntervalSeconds, Owner(nameof(data.BurstIntervalSeconds))) : 1f,
                 projectileRadius,
                 Pick(data.ExplosionRadius, pattern == EnemyProjectilePattern.Explosive, 0f, Owner(nameof(data.ExplosionRadius))),
@@ -131,7 +169,9 @@ namespace Game.Enemy
                 string.IsNullOrWhiteSpace(data.ProjectileVisualId)
                     ? default : new ContentRef<Game.Presentation.SpriteDefinition>(data.ProjectileVisualId),
                 ParseCadence(data.Cadence, Owner(nameof(data.Cadence))),
-                data.FixedOrientation ?? false);
+                data.FixedOrientation ?? false,
+                followUps,
+                data.WindupMovementMultiplier ?? 1f);
         }
 
         private static EnemyAttackCadence ParseCadence(string cadence, string owner)

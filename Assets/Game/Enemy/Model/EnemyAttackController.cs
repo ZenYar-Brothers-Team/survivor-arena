@@ -16,9 +16,15 @@ namespace Game.Enemy
         private float _rotationDegrees;
         private float _telegraphRemaining;
         private bool _hasFired;
-        // Boss sequence owner advances only after the whole burst and its cooldown, never during wind-up.
+        // Follow-up volleys (DECISION-0066, E1): index of the next one, time since the main shot and its snapshot.
+        private int _nextFollowUp = -1;
+        private float _sinceMainShot;
+        private Vector2 _followUpAim;
+        private float _followUpRotation;
+        // Boss sequence owner advances only after the whole burst, its follow-ups and its cooldown, never during wind-up.
         public bool CycleCompletesWithin(float deltaTime) => _hasFired && Phase == EnemyAttackPhase.Cooldown &&
-            _burstShotsRemaining == 0 && _cooldownRemaining <= deltaTime;
+            _burstShotsRemaining == 0 && _nextFollowUp < 0 && _cooldownRemaining <= deltaTime;
+        public bool FollowUpPending => _nextFollowUp >= 0;
         public EnemyAttackPhase Phase { get; private set; }
         public int BurstShotsRemaining => _burstShotsRemaining;
         public float PhaseRemaining => Phase == EnemyAttackPhase.Telegraphing ? _telegraphRemaining :
@@ -46,6 +52,7 @@ namespace Game.Enemy
             _burstRemaining = 0;
             _burstShotsRemaining = 0;
             _telegraphRemaining = 0;
+            _nextFollowUp = -1;
             Phase = EnemyAttackPhase.Cooldown;
         }
 
@@ -59,12 +66,14 @@ namespace Game.Enemy
             if (aimDirection.sqrMagnitude > Mathf.Epsilon && !(WindupCadence && Phase == EnemyAttackPhase.Telegraphing))
                 AimDirection = aimDirection.normalized;
             var shots = new List<EnemyShotCommand>();
+            TickFollowUps(deltaTime, shots);
             if (Phase == EnemyAttackPhase.Telegraphing)
             {
                 if (WindupCadence) _cooldownRemaining -= deltaTime;
                 _telegraphRemaining = Mathf.Max(0f, _telegraphRemaining - deltaTime);
                 if (_telegraphRemaining > 0f) return Array.Empty<EnemyShotCommand>();
                 Fire(shots);
+                TickFollowUps(0f, shots);
                 return shots.ToArray();
             }
             _cooldownRemaining -= deltaTime;
@@ -90,15 +99,40 @@ namespace Game.Enemy
                     Phase = EnemyAttackPhase.Telegraphing;
                     _telegraphRemaining = _profile.TelegraphSeconds;
                 }
-                else Fire(shots);
+                else
+                {
+                    Fire(shots);
+                    TickFollowUps(0f, shots);
+                }
             }
             return shots.ToArray();
+        }
+
+        private void TickFollowUps(float deltaTime, List<EnemyShotCommand> shots)
+        {
+            if (_nextFollowUp < 0) return;
+            _sinceMainShot += deltaTime;
+            var followUps = _profile.FollowUps;
+            while (_nextFollowUp < followUps.Count && _sinceMainShot >= followUps[_nextFollowUp].DelaySeconds)
+            {
+                shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, _followUpAim,
+                    _followUpRotation + followUps[_nextFollowUp].RotationDegrees));
+                _nextFollowUp++;
+            }
+            if (_nextFollowUp >= followUps.Count) _nextFollowUp = -1;
         }
 
         private void Fire(List<EnemyShotCommand> shots)
         {
             _hasFired = true;
             shots.AddRange(EnemyProjectilePatternGenerator.Create(_profile, AimDirection, _rotationDegrees, NextJitter()));
+            if (_profile.FollowUps.Count > 0)
+            {
+                _nextFollowUp = 0;
+                _sinceMainShot = 0f;
+                _followUpAim = AimDirection;
+                _followUpRotation = _rotationDegrees;
+            }
             if (_profile.Pattern == EnemyProjectilePattern.Burst)
             {
                 _burstShotsRemaining = _profile.ProjectileCount - 1;

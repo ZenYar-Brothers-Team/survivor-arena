@@ -44,6 +44,9 @@ namespace Game.Enemy
         private EnemyMovementController _movementController;
         private EnemyAttackController _attackController;
         private EnemyDashVolleyController _dashVolley;
+        // Body movement, or the active boss phase's dash override (DECISION-0066, E3).
+        private EnemyMovementProfile _movementProfile;
+        private bool _holdAttacksDuringDash;
         public BossCombatController BossCombat { get; private set; }
         private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
@@ -83,6 +86,10 @@ namespace Game.Enemy
 
         public event Action<EnemyRuntime> Died;
         public event Action<EnemyRuntime> Despawned;
+        /// <summary>A boss step or dash end started a zone, beam or summon (DECISION-0066); the encounter owner runs it.</summary>
+        public event Action<EnemyRuntime, BossSpecialRequest> SpecialRequested;
+        /// <summary>Movement profile in effect (body movement or the boss phase override).</summary>
+        public EnemyMovementProfile CurrentMovement => _movementProfile ?? Definition?.Movement;
         public event Action<EnemyLifeEvent> LifeEvent;
 
         private void Awake()
@@ -174,6 +181,8 @@ namespace Game.Enemy
             _renderer.flipX = false;
             _renderer.color = visual != null ? Color.white : new Color(0.85f, 0.2f, 0.2f, 1f);
 
+            _movementProfile = definition.Movement;
+            _holdAttacksDuringDash = false;
             _movementController = new EnemyMovementController(definition.Movement);
             _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
@@ -208,26 +217,35 @@ namespace Game.Enemy
                                !Health.IsDead;
             var control = Controls.Tick(Time.fixedDeltaTime, isSimulating);
             Protection.Tick(_runController.Model?.Elapsed ?? 0f);
-            var movement = _movementDriver != null ? _movementDriver.Tick(_body.position, _target.position,
-                Definition.MovementSpeed * control.MovementMultiplier, Time.fixedDeltaTime, isSimulating) : _movementController.Tick(
-                _body.position,
-                _target.position,
-                Definition.MovementSpeed * control.MovementMultiplier,
-                Time.fixedDeltaTime,
-                isSimulating);
+            // MIDBOSS-009 slows down while winding up (DECISION-0066, E6).
+            var windup = _attackController?.Phase == EnemyAttackPhase.Telegraphing && CurrentAttack != null
+                ? CurrentAttack.WindupMovementMultiplier : 1f;
+            var speed = Definition.MovementSpeed * control.MovementMultiplier * windup;
+            var movement = _movementDriver != null
+                ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
+                : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
             _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
-            if (_dashVolley != null) FireDashVolley(movement.Phase, isSimulating);
-            if (!isSimulating || _attackController == null)
+            if (_dashVolley != null) FireDashVolley(movement, isSimulating);
+            if (!isSimulating || (_attackController == null && BossCombat == null))
             {
                 RenderTelegraph(movement);
                 return;
             }
             var aim = (Vector2)_target.position - _body.position;
-            var shots = BossCombat != null
-                ? BossCombat.Tick(Time.fixedDeltaTime, isSimulating, Health.CurrentHealth / Health.MaxHealth, aim)
-                : _attackController.Tick(Time.fixedDeltaTime, isSimulating, aim);
-            if (BossCombat != null) _attackController = BossCombat.Attack;
+            var dashing = movement.Phase == EnemyMovementPhase.Dashing || movement.Phase == EnemyMovementPhase.TelegraphingDash;
+            // DECISION-0066 E5: the sequence waits, as in pause, while the boss telegraphs or performs a dash.
+            var attacking = !(_holdAttacksDuringDash && dashing);
+            EnemyShotCommand[] shots;
+            if (BossCombat != null)
+            {
+                shots = BossCombat.Tick(Time.fixedDeltaTime, attacking, Health.CurrentHealth / Health.MaxHealth, aim);
+                _attackController = BossCombat.Attack;
+                if (BossCombat.TriggeredSpecial != null)
+                    SpecialRequested?.Invoke(this, BossCombat.TriggeredSpecial.ToRequest(BossCombat.TriggeredSpecialId));
+                ApplyPhaseMovement(dashing);
+            }
+            else shots = _attackController.Tick(Time.fixedDeltaTime, true, aim);
             RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
@@ -245,18 +263,30 @@ namespace Game.Enemy
             }
         }
 
-        // DECISION-0063: the ring leaves the moment the dash stops; the dash telegraph is its warning.
-        private void FireDashVolley(EnemyMovementPhase phase, bool isSimulating)
+        // Swap the dash series only between dashes, so a running dash is never cut short (DECISION-0066, E3).
+        private void ApplyPhaseMovement(bool dashing)
         {
-            var shots = _dashVolley.Tick(phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime, isSimulating,
-                (Vector2)_target.position - _body.position);
+            var wanted = BossCombat.Phase.MovementOverride ?? Definition.Movement;
+            if (dashing || ReferenceEquals(wanted, _movementProfile)) return;
+            _movementProfile = wanted;
+            _movementController = new EnemyMovementController(wanted);
+        }
+
+        // DECISION-0063/0066: dash-end volleys leave the moment the dash series stops; the dash telegraph is their warning.
+        private void FireDashVolley(EnemyMovementFrame movement, bool isSimulating)
+        {
+            var shots = _dashVolley.Tick(movement.Phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime, isSimulating,
+                (Vector2)_target.position - _body.position, movement.TelegraphDirection);
+            foreach (var zone in _dashVolley.TriggeredZones)
+                SpecialRequested?.Invoke(this, BossSpecialRequest.ForZone(zone, Definition.Id));
             if (shots.Length == 0) return;
-            var attack = Definition.DashVolley.Attack;
-            var visual = ResolveProjectileVisual(attack);
             LastProjectileSource = new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile);
             for (var i = 0; i < shots.Length; i++)
+            {
+                var attack = shots[i].Attack ?? Definition.DashVolley.Attack;
                 EnemyProjectileFactory.Spawn(attack, _body.position, shots[i].Direction, _projectileTarget, _runController,
-                    transform.parent, _projectilePool, LastProjectileSource, visual);
+                    transform.parent, _projectilePool, LastProjectileSource, ResolveProjectileVisual(attack));
+            }
         }
 
         private SpriteDefinition ResolveProjectileVisual(EnemyAttackProfile attack)
@@ -281,6 +311,7 @@ namespace Game.Enemy
                 throw new InvalidOperationException("Boss combat requires the matching active boss life.");
             BossCombat = new BossCombatController(encounter);
             _attackController = BossCombat.Attack;
+            _holdAttacksDuringDash = encounter.HoldAttacksDuringDash;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -408,6 +439,7 @@ namespace Game.Enemy
                 Despawned = null;
                 LifeEvent = null;
                 CombatResolved = null;
+                SpecialRequested = null;
                 _lifecycleSink = null;
                 if (releaseObject) ReleaseObject();
             }
@@ -555,13 +587,13 @@ namespace Game.Enemy
 
         private void RenderTelegraph(EnemyMovementFrame movement)
         {
-            var attackTelegraph = _attackController?.Phase == EnemyAttackPhase.Telegraphing;
-            var dashLine = movement.IsTelegraphing && Definition.Movement.ShowDashTelegraphLine;
+            var move = CurrentMovement;
+            var attackTelegraph = _attackController?.Phase == EnemyAttackPhase.Telegraphing && CurrentAttack != null;
+            var dashLine = movement.IsTelegraphing && move.ShowDashTelegraphLine;
             _telegraph.enabled = dashLine || attackTelegraph;
             if (!_telegraph.enabled) return;
             var start = (Vector3)_body.position;
-            var length = Mathf.Max(2f, Definition.MovementSpeed * Definition.Movement.DashSpeedMultiplier *
-                Definition.Movement.DashDurationSeconds);
+            var length = Mathf.Max(2f, Definition.MovementSpeed * move.DashSpeedMultiplier * move.DashDurationSeconds);
             var direction = dashLine ? movement.TelegraphDirection : _attackController.AimDirection;
             if (!dashLine) length = CurrentAttack.ProjectileSpeed * CurrentAttack.TelegraphSeconds;
             _telegraph.SetPosition(0, start);

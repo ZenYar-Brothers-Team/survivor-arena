@@ -15,5 +15,7 @@ namespace Game.Enemy.Json
         public bool? StrictHealthThreshold { get; set; }
         /// <summary>Optional teleport-slam; absent means the boss never teleports (DECISION-0059).</summary>
         public BossTeleportData Teleport { get; set; }
+        /// <summary>Optional; true = the attack sequence waits during dash telegraphs and dashes (DECISION-0066, E5).</summary>
+        public bool? HoldAttacksDuringDash { get; set; }
     }
 }

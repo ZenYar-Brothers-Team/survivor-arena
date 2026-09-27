@@ -339,5 +339,2655 @@
         "attackEnemyIds": []
       }
     ]
+  },
+  {
+    "id": "BOSS-003",
+    "displayName": "Главный королевский ловчий",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-003",
+      "maxHealth": 7200,
+      "collisionSize": 2.5,
+      "movementSpeed": 0.8,
+      "contactDamage": 32,
+      "contactDamageInterval": 1,
+      "experienceReward": 210,
+      "knockbackResistance": 0.6,
+      "contactControls": {
+        "knockbackDistance": 0.55,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "KeepDistance",
+        "preferredDistance": 4.5,
+        "distanceTolerance": 0.5
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-003-P1-FAN3",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 18,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 3,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 30
+        }
+      },
+      {
+        "id": "BOSS-003-P1-HEAVY",
+        "attack": {
+          "pattern": "Single",
+          "damage": 22,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 2.6,
+          "projectileLifetimeSeconds": 4.5,
+          "projectileCount": 1,
+          "projectileRadius": 0.32,
+          "telegraphSeconds": 0.8,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.65,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-003-P1-TRAPS3",
+        "cooldownSeconds": 3.4,
+        "zone": {
+          "placement": "AroundPlayer",
+          "count": 3,
+          "radius": 1.2,
+          "fillSeconds": 1.2,
+          "damage": 26,
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12,
+            "slowFraction": 0.5,
+            "slowSeconds": 1.5
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ],
+          "scatterRadius": 3,
+          "minSpacing": 1.8
+        }
+      },
+      {
+        "id": "BOSS-003-P2-FAN3",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 18,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 3,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 30,
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 15
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-003-P2-HEAVY",
+        "attack": {
+          "pattern": "Single",
+          "damage": 22,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 2.6,
+          "projectileLifetimeSeconds": 4.5,
+          "projectileCount": 1,
+          "projectileRadius": 0.32,
+          "telegraphSeconds": 0.8,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.65,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-003-P2-TRAPS5",
+        "cooldownSeconds": 3.4,
+        "zone": {
+          "placement": "AroundPlayer",
+          "count": 5,
+          "radius": 1.2,
+          "fillSeconds": 1.2,
+          "damage": 26,
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12,
+            "slowFraction": 0.5,
+            "slowSeconds": 1.5
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ],
+          "scatterRadius": 3,
+          "minSpacing": 1.8
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-003-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-003-P1-FAN3",
+          "BOSS-003-P1-HEAVY",
+          "BOSS-003-P1-TRAPS3"
+        ]
+      },
+      {
+        "id": "BOSS-003-P2",
+        "healthThreshold": 0.45,
+        "attackEnemyIds": [
+          "BOSS-003-P2-FAN3",
+          "BOSS-003-P2-HEAVY",
+          "BOSS-003-P2-TRAPS5"
+        ]
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 22,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-004",
+    "displayName": "Рыцарь знамени",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-004",
+      "maxHealth": 8500,
+      "collisionSize": 2.6,
+      "movementSpeed": 1,
+      "contactDamage": 38,
+      "contactDamageInterval": 1,
+      "experienceReward": 240,
+      "knockbackResistance": 0.7,
+      "contactControls": {
+        "knockbackDistance": 0.75,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.6,
+        "dashDurationSeconds": 0.45,
+        "dashCooldownSeconds": 3.5,
+        "dashSpeedMultiplier": 5,
+        "dashCount": 1,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttacks": [
+        {
+          "delaySeconds": 0,
+          "orientation": "TowardPlayer",
+          "attack": {
+            "pattern": "Fan",
+            "damage": 21,
+            "cooldownSeconds": 1,
+            "projectileSpeed": 5.2,
+            "projectileLifetimeSeconds": 3,
+            "projectileCount": 6,
+            "projectileRadius": 0.14,
+            "telegraphSeconds": 0,
+            "cadence": "WindupStartToStart",
+            "controls": {
+              "knockbackDistance": 0.25,
+              "knockbackSeconds": 0.12
+            },
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "spreadDegrees": 60
+          }
+        },
+        {
+          "delaySeconds": 0,
+          "orientation": "Self",
+          "zone": {
+            "placement": "AroundSelf",
+            "count": 1,
+            "radius": 3,
+            "fillSeconds": 0.6,
+            "damage": 30,
+            "controls": {
+              "knockbackDistance": 1,
+              "knockbackSeconds": 0.12
+            },
+            "lingerSeconds": 0,
+            "impactEffectSeconds": 0.45,
+            "telegraphColor": [
+              1,
+              0.35,
+              0.15,
+              0.85
+            ],
+            "impactColor": [
+              1,
+              0.8,
+              0.45,
+              0.95
+            ]
+          }
+        }
+      ]
+    },
+    "attacks": [],
+    "phases": [
+      {
+        "id": "BOSS-004-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      },
+      {
+        "id": "BOSS-004-P2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [],
+        "movement": {
+          "kind": "TelegraphedDash",
+          "dashTelegraphSeconds": 0.6,
+          "dashDurationSeconds": 0.45,
+          "dashCooldownSeconds": 3.5,
+          "dashSpeedMultiplier": 5,
+          "dashCount": 2,
+          "showDashTelegraphLine": true,
+          "followUpTelegraphSeconds": 0.35
+        }
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 24,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-005",
+    "displayName": "Великий инквизитор",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-005",
+      "maxHealth": 10000,
+      "collisionSize": 3.2,
+      "movementSpeed": 0.6,
+      "contactDamage": 42,
+      "contactDamageInterval": 1,
+      "experienceReward": 270,
+      "knockbackResistance": 0.8,
+      "contactControls": {
+        "knockbackDistance": 0.75,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-005-P1-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 23,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 4.5,
+          "projectileLifetimeSeconds": 4,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.75,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.45,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-005-P1-FAN5",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 23,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 5,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 60
+        }
+      },
+      {
+        "id": "BOSS-005-P1-BONFIRES",
+        "cooldownSeconds": 3.4,
+        "zone": {
+          "placement": "Trail",
+          "count": 4,
+          "radius": 1.4,
+          "fillSeconds": 1,
+          "damage": 34,
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 3,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.5,
+            0.15,
+            0.9
+          ],
+          "intervalSeconds": 0.5,
+          "lingerDamagePerSecond": 13,
+          "lingerTickSeconds": 0.5
+        }
+      },
+      {
+        "id": "BOSS-005-P2-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 23,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 4.5,
+          "projectileLifetimeSeconds": 4,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.75,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.45,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 45
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-005-P2-FAN5",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 23,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 5,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 60
+        }
+      },
+      {
+        "id": "BOSS-005-P2-BONFIRES",
+        "cooldownSeconds": 3.4,
+        "zone": {
+          "placement": "Trail",
+          "count": 4,
+          "radius": 1.4,
+          "fillSeconds": 1,
+          "damage": 34,
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 3,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.5,
+            0.15,
+            0.9
+          ],
+          "intervalSeconds": 0.5,
+          "lingerDamagePerSecond": 13,
+          "lingerTickSeconds": 0.5
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-005-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-005-P1-CROSS",
+          "BOSS-005-P1-FAN5",
+          "BOSS-005-P1-BONFIRES"
+        ]
+      },
+      {
+        "id": "BOSS-005-P2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [
+          "BOSS-005-P2-CROSS",
+          "BOSS-005-P2-FAN5",
+          "BOSS-005-P2-BONFIRES"
+        ]
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 26,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-006",
+    "displayName": "Королевский архимаг",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-006",
+      "maxHealth": 12000,
+      "collisionSize": 2.7,
+      "movementSpeed": 0.9,
+      "contactDamage": 40,
+      "contactDamageInterval": 1,
+      "experienceReward": 300,
+      "knockbackResistance": 0.75,
+      "contactControls": {
+        "knockbackDistance": 0.6,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Orbit",
+        "preferredDistance": 4,
+        "distanceTolerance": 0.5,
+        "lateralStrength": 0.9
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-006-P1-BURST4",
+        "attack": {
+          "pattern": "Burst",
+          "damage": 22,
+          "cooldownSeconds": 3.2,
+          "projectileSpeed": 7,
+          "projectileLifetimeSeconds": 2,
+          "projectileCount": 4,
+          "projectileRadius": 0.12,
+          "telegraphSeconds": 0.6,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 8,
+          "burstIntervalSeconds": 0.15
+        }
+      },
+      {
+        "id": "BOSS-006-P1-RING12",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 18,
+          "cooldownSeconds": 3.2,
+          "projectileSpeed": 4,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 12,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.35,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-006-P1-BEAM",
+        "cooldownSeconds": 3.2,
+        "beam": {
+          "anglesDegrees": [
+            0
+          ],
+          "length": 24,
+          "width": 1.2,
+          "telegraphSeconds": 1,
+          "activeSeconds": 0.5,
+          "sweepDegrees": 0,
+          "damage": 36,
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      },
+      {
+        "id": "BOSS-006-P2-BURST4",
+        "attack": {
+          "pattern": "Burst",
+          "damage": 22,
+          "cooldownSeconds": 3.2,
+          "projectileSpeed": 7,
+          "projectileLifetimeSeconds": 2,
+          "projectileCount": 4,
+          "projectileRadius": 0.12,
+          "telegraphSeconds": 0.6,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.25,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 8,
+          "burstIntervalSeconds": 0.15
+        }
+      },
+      {
+        "id": "BOSS-006-P2-RING12",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 18,
+          "cooldownSeconds": 3.2,
+          "projectileSpeed": 4,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 12,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.35,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.3,
+              "rotationDegrees": 15
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-006-P2-BEAM-SWEEP",
+        "cooldownSeconds": 3.2,
+        "beam": {
+          "anglesDegrees": [
+            0
+          ],
+          "length": 24,
+          "width": 1.2,
+          "telegraphSeconds": 1,
+          "activeSeconds": 1,
+          "sweepDegrees": 60,
+          "damage": 36,
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-006-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-006-P1-BURST4",
+          "BOSS-006-P1-RING12",
+          "BOSS-006-P1-BEAM"
+        ]
+      },
+      {
+        "id": "BOSS-006-P2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [
+          "BOSS-006-P2-BURST4",
+          "BOSS-006-P2-RING12",
+          "BOSS-006-P2-BEAM-SWEEP"
+        ]
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 28,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-007",
+    "displayName": "Верховный паладин",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-007",
+      "maxHealth": 14500,
+      "collisionSize": 3.1,
+      "movementSpeed": 0.8,
+      "contactDamage": 46,
+      "contactDamageInterval": 1,
+      "experienceReward": 330,
+      "knockbackResistance": 0.85,
+      "contactControls": {
+        "knockbackDistance": 1,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 1,
+        "dashDurationSeconds": 1,
+        "dashCooldownSeconds": 4.5,
+        "dashSpeedMultiplier": 4,
+        "dashCount": 1,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1.4,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttacks": [
+        {
+          "delaySeconds": 0,
+          "orientation": "TowardPlayer",
+          "attack": {
+            "pattern": "Explosive",
+            "damage": 32,
+            "cooldownSeconds": 1,
+            "projectileSpeed": 3.2,
+            "projectileLifetimeSeconds": 3,
+            "projectileCount": 1,
+            "projectileRadius": 0.3,
+            "telegraphSeconds": 0,
+            "cadence": "WindupStartToStart",
+            "controls": {
+              "knockbackDistance": 0.9,
+              "knockbackSeconds": 0.12
+            },
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "explosionRadius": 1.2
+          }
+        }
+      ],
+      "dashEndReplacement": {
+        "belowHealthFraction": 0.45,
+        "attacks": [
+          {
+            "delaySeconds": 0,
+            "orientation": "TowardPlayer",
+            "attack": {
+              "pattern": "Explosive",
+              "damage": 32,
+              "cooldownSeconds": 1,
+              "projectileSpeed": 3.2,
+              "projectileLifetimeSeconds": 3,
+              "projectileCount": 3,
+              "projectileRadius": 0.3,
+              "telegraphSeconds": 0,
+              "cadence": "WindupStartToStart",
+              "controls": {
+                "knockbackDistance": 0.9,
+                "knockbackSeconds": 0.12
+              },
+              "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+              "spreadDegrees": 40,
+              "explosionRadius": 1.2
+            }
+          }
+        ]
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-007-P1-SKY-HAMMER",
+        "cooldownSeconds": 6,
+        "zone": {
+          "placement": "AtPlayer",
+          "count": 1,
+          "radius": 2.5,
+          "fillSeconds": 1.4,
+          "damage": 37,
+          "controls": {
+            "knockbackDistance": 1.2,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ]
+        }
+      },
+      {
+        "id": "BOSS-007-P2-SKY-HAMMER",
+        "cooldownSeconds": 6,
+        "zone": {
+          "placement": "AtPlayer",
+          "count": 1,
+          "radius": 2.5,
+          "fillSeconds": 1.4,
+          "damage": 37,
+          "controls": {
+            "knockbackDistance": 1.2,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-007-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-007-P1-SKY-HAMMER"
+        ]
+      },
+      {
+        "id": "BOSS-007-P2",
+        "healthThreshold": 0.45,
+        "attackEnemyIds": [
+          "BOSS-007-P2-SKY-HAMMER"
+        ]
+      }
+    ],
+    "holdAttacksDuringDash": true,
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 30,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-008",
+    "displayName": "Чемпион короны",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-008",
+      "maxHealth": 17500,
+      "collisionSize": 3,
+      "movementSpeed": 0.7,
+      "contactDamage": 50,
+      "contactDamageInterval": 1,
+      "experienceReward": 360,
+      "knockbackResistance": 0.85,
+      "contactControls": {
+        "knockbackDistance": 0.95,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-008-P1-FAN7",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 28,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 5.4,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 7,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 70
+        }
+      },
+      {
+        "id": "BOSS-008-P1-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 28,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 5,
+          "projectileLifetimeSeconds": 3.5,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-008-P1-RING14",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 23,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 14,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-008-P1-CALL-DUELISTS",
+        "cooldownSeconds": 3,
+        "summon": {
+          "enemyId": "ENEMY-017",
+          "count": 4,
+          "spawnDistance": 6,
+          "maxAlive": 8,
+          "telegraphSeconds": 0.8,
+          "markerColor": [
+            0.9,
+            0.3,
+            0.25,
+            0.9
+          ]
+        }
+      },
+      {
+        "id": "BOSS-008-P2-FAN7",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 28,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 5.4,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 7,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 70
+        }
+      },
+      {
+        "id": "BOSS-008-P2-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 28,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 5,
+          "projectileLifetimeSeconds": 3.5,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-008-P2-RING14",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 23,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 14,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 12.86
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-008-P2-CALL-DUELISTS",
+        "cooldownSeconds": 3,
+        "summon": {
+          "enemyId": "ENEMY-017",
+          "count": 4,
+          "spawnDistance": 6,
+          "maxAlive": 8,
+          "telegraphSeconds": 0.8,
+          "markerColor": [
+            0.9,
+            0.3,
+            0.25,
+            0.9
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-008-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-008-P1-FAN7",
+          "BOSS-008-P1-CROSS",
+          "BOSS-008-P1-RING14",
+          "BOSS-008-P1-CALL-DUELISTS"
+        ]
+      },
+      {
+        "id": "BOSS-008-P2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [
+          "BOSS-008-P2-FAN7",
+          "BOSS-008-P2-CROSS",
+          "BOSS-008-P2-RING14",
+          "BOSS-008-P2-CALL-DUELISTS"
+        ]
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 32,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-009",
+    "displayName": "Серафим-полководец",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-009",
+      "maxHealth": 21000,
+      "collisionSize": 3.1,
+      "movementSpeed": 0.9,
+      "contactDamage": 56,
+      "contactDamageInterval": 1,
+      "experienceReward": 390,
+      "knockbackResistance": 0.9,
+      "contactControls": {
+        "knockbackDistance": 1.1,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.8,
+        "dashDurationSeconds": 1,
+        "dashCooldownSeconds": 5,
+        "dashSpeedMultiplier": 5,
+        "dashCount": 1,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1.5,
+        "knockbackSeconds": 0.12
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-009-P1-FAN5",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 31,
+          "cooldownSeconds": 2.9,
+          "projectileSpeed": 6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.6,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 50
+        }
+      },
+      {
+        "id": "BOSS-009-P1-RING12",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 25,
+          "cooldownSeconds": 2.9,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 12,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 15
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-009-P1-SPEARS3",
+        "cooldownSeconds": 2.9,
+        "beam": {
+          "anglesDegrees": [
+            -30,
+            0,
+            30
+          ],
+          "length": 24,
+          "width": 0.9,
+          "telegraphSeconds": 0.9,
+          "activeSeconds": 0.4,
+          "sweepDegrees": 0,
+          "damage": 50,
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      },
+      {
+        "id": "BOSS-009-P2-FAN5",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 31,
+          "cooldownSeconds": 2.2,
+          "projectileSpeed": 6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 5,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.6,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 50
+        }
+      },
+      {
+        "id": "BOSS-009-P2-RING12",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 25,
+          "cooldownSeconds": 2.2,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 12,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 15
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-009-P2-SPEARS3",
+        "cooldownSeconds": 2.2,
+        "beam": {
+          "anglesDegrees": [
+            -30,
+            0,
+            30
+          ],
+          "length": 24,
+          "width": 0.9,
+          "telegraphSeconds": 0.9,
+          "activeSeconds": 0.4,
+          "sweepDegrees": 0,
+          "damage": 50,
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-009-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-009-P1-FAN5",
+          "BOSS-009-P1-RING12",
+          "BOSS-009-P1-SPEARS3"
+        ]
+      },
+      {
+        "id": "BOSS-009-P2",
+        "healthThreshold": 0.5,
+        "attackEnemyIds": [
+          "BOSS-009-P2-FAN5",
+          "BOSS-009-P2-RING12",
+          "BOSS-009-P2-SPEARS3"
+        ],
+        "movement": {
+          "kind": "TelegraphedDash",
+          "dashTelegraphSeconds": 0.8,
+          "dashDurationSeconds": 1,
+          "dashCooldownSeconds": 5,
+          "dashSpeedMultiplier": 5,
+          "dashCount": 2,
+          "showDashTelegraphLine": true,
+          "followUpTelegraphSeconds": 0.4
+        }
+      }
+    ],
+    "holdAttacksDuringDash": true,
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 34,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "BOSS-010",
+    "displayName": "Архангел Спасения",
+    "hook": "FinalBoss",
+    "spawnOffsetX": 8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "BOSS-010",
+      "maxHealth": 26000,
+      "collisionSize": 3.5,
+      "movementSpeed": 0.8,
+      "contactDamage": 62,
+      "contactDamageInterval": 1,
+      "experienceReward": 420,
+      "knockbackResistance": 0.95,
+      "contactControls": {
+        "knockbackDistance": 1.25,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "BOSS-010-P1-RING16",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 28,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 16,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 11.25
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P1-FAN9",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 34,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 5.6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 9,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 100
+        }
+      },
+      {
+        "id": "BOSS-010-P1-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 34,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3.5,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "BOSS-010-P1-JUDGEMENT",
+        "cooldownSeconds": 2.8,
+        "zone": {
+          "placement": "SafeCircles",
+          "count": 2,
+          "radius": 1.8,
+          "fillSeconds": 2,
+          "damage": 50,
+          "controls": {
+            "knockbackDistance": 0.6,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.92,
+            0.6,
+            0.75
+          ],
+          "impactColor": [
+            0.55,
+            0.95,
+            1,
+            1
+          ],
+          "scatterRadius": 4.5,
+          "minSpacing": 4
+        }
+      },
+      {
+        "id": "BOSS-010-P2-RING16",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 28,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 16,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 11.25
+            },
+            {
+              "delaySeconds": 0.75,
+              "rotationDegrees": 0
+            },
+            {
+              "delaySeconds": 1.1,
+              "rotationDegrees": 11.25
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P2-FAN9",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 34,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 5.6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 9,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 100,
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P2-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 34,
+          "cooldownSeconds": 2.8,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3.5,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P2-JUDGEMENT",
+        "cooldownSeconds": 2.8,
+        "zone": {
+          "placement": "SafeCircles",
+          "count": 2,
+          "radius": 1.8,
+          "fillSeconds": 2,
+          "damage": 50,
+          "controls": {
+            "knockbackDistance": 0.6,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.92,
+            0.6,
+            0.75
+          ],
+          "impactColor": [
+            0.55,
+            0.95,
+            1,
+            1
+          ],
+          "scatterRadius": 4.5,
+          "minSpacing": 4
+        }
+      },
+      {
+        "id": "BOSS-010-P3-RING16",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 28,
+          "cooldownSeconds": 2.24,
+          "projectileSpeed": 4.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 16,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.35,
+              "rotationDegrees": 11.25
+            },
+            {
+              "delaySeconds": 0.75,
+              "rotationDegrees": 0
+            },
+            {
+              "delaySeconds": 1.1,
+              "rotationDegrees": 11.25
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P3-FAN9",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 34,
+          "cooldownSeconds": 2.24,
+          "projectileSpeed": 5.6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 9,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 100,
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P3-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 34,
+          "cooldownSeconds": 2.24,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3.5,
+          "projectileCount": 4,
+          "projectileRadius": 0.16,
+          "telegraphSeconds": 0.65,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.55,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 0
+            }
+          ]
+        }
+      },
+      {
+        "id": "BOSS-010-P3-JUDGEMENT",
+        "cooldownSeconds": 2.24,
+        "zone": {
+          "placement": "SafeCircles",
+          "count": 2,
+          "radius": 1.8,
+          "fillSeconds": 2,
+          "damage": 50,
+          "controls": {
+            "knockbackDistance": 0.6,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.92,
+            0.6,
+            0.75
+          ],
+          "impactColor": [
+            0.55,
+            0.95,
+            1,
+            1
+          ],
+          "scatterRadius": 4.5,
+          "minSpacing": 4
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "BOSS-010-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "BOSS-010-P1-RING16",
+          "BOSS-010-P1-FAN9",
+          "BOSS-010-P1-CROSS",
+          "BOSS-010-P1-JUDGEMENT"
+        ]
+      },
+      {
+        "id": "BOSS-010-P2",
+        "healthThreshold": 0.6,
+        "attackEnemyIds": [
+          "BOSS-010-P2-RING16",
+          "BOSS-010-P2-FAN9",
+          "BOSS-010-P2-CROSS",
+          "BOSS-010-P2-JUDGEMENT"
+        ]
+      },
+      {
+        "id": "BOSS-010-P3",
+        "healthThreshold": 0.3,
+        "attackEnemyIds": [
+          "BOSS-010-P3-RING16",
+          "BOSS-010-P3-FAN9",
+          "BOSS-010-P3-CROSS",
+          "BOSS-010-P3-JUDGEMENT"
+        ]
+      }
+    ],
+    "teleport": {
+      "farDistance": 5,
+      "farSeconds": 2,
+      "landingDistance": 1.5,
+      "telegraphSeconds": 0.6,
+      "impactRadius": 3.5,
+      "impactDamage": 36,
+      "impactControls": {
+        "knockbackDistance": 0.5,
+        "knockbackSeconds": 0.12
+      },
+      "impactEffectSeconds": 0.45,
+      "telegraphColor": [
+        1,
+        0.35,
+        0.15,
+        0.85
+      ],
+      "impactColor": [
+        1,
+        0.8,
+        0.45,
+        0.95
+      ]
+    }
+  },
+  {
+    "id": "MIDBOSS-003",
+    "displayName": "Королевский следопыт",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-003",
+      "maxHealth": 1900,
+      "collisionSize": 1.7,
+      "movementSpeed": 0.9,
+      "contactDamage": 24,
+      "contactDamageInterval": 1,
+      "experienceReward": 90,
+      "knockbackResistance": 0.35,
+      "contactControls": {
+        "knockbackDistance": 0.4,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "KeepDistance",
+        "preferredDistance": 5.5,
+        "distanceTolerance": 0.5
+      }
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-003-P1-FAN5x2",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 13,
+          "cooldownSeconds": 3.4,
+          "projectileSpeed": 5,
+          "projectileLifetimeSeconds": 2.5,
+          "projectileCount": 5,
+          "projectileRadius": 0.13,
+          "telegraphSeconds": 0.6,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 50,
+          "followUps": [
+            {
+              "delaySeconds": 0.4,
+              "rotationDegrees": 6.25
+            }
+          ]
+        }
+      },
+      {
+        "id": "MIDBOSS-003-P1-RELEASE-HOUNDS",
+        "cooldownSeconds": 3.4,
+        "summon": {
+          "enemyId": "ENEMY-007",
+          "count": 2,
+          "spawnDistance": 6,
+          "maxAlive": 4,
+          "telegraphSeconds": 0.8,
+          "markerColor": [
+            0.9,
+            0.3,
+            0.25,
+            0.9
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-003-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-003-P1-FAN5x2",
+          "MIDBOSS-003-P1-RELEASE-HOUNDS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-004",
+    "displayName": "Рыцарь-преследователь",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-004",
+      "maxHealth": 2300,
+      "collisionSize": 1.8,
+      "movementSpeed": 1.3,
+      "contactDamage": 30,
+      "contactDamageInterval": 1,
+      "experienceReward": 105,
+      "knockbackResistance": 0.4,
+      "contactControls": {
+        "knockbackDistance": 0.65,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.6,
+        "dashDurationSeconds": 0.4,
+        "dashCooldownSeconds": 4,
+        "dashSpeedMultiplier": 4,
+        "dashCount": 3,
+        "showDashTelegraphLine": true,
+        "followUpTelegraphSeconds": 0.3
+      },
+      "dashContactControls": {
+        "knockbackDistance": 0.9,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttacks": [
+        {
+          "delaySeconds": 0,
+          "orientation": "Self",
+          "zone": {
+            "placement": "AroundSelf",
+            "count": 1,
+            "radius": 2,
+            "fillSeconds": 0.5,
+            "damage": 24,
+            "controls": {
+              "knockbackDistance": 0.9,
+              "knockbackSeconds": 0.12
+            },
+            "lingerSeconds": 0,
+            "impactEffectSeconds": 0.45,
+            "telegraphColor": [
+              1,
+              0.35,
+              0.15,
+              0.85
+            ],
+            "impactColor": [
+              1,
+              0.8,
+              0.45,
+              0.95
+            ]
+          }
+        }
+      ]
+    },
+    "attacks": [],
+    "phases": [
+      {
+        "id": "MIDBOSS-004-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-005",
+    "displayName": "Капитан городской стражи",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-005",
+      "maxHealth": 2800,
+      "collisionSize": 2.2,
+      "movementSpeed": 0.75,
+      "contactDamage": 32,
+      "contactDamageInterval": 1,
+      "experienceReward": 120,
+      "knockbackResistance": 0.55,
+      "contactControls": {
+        "knockbackDistance": 0.7,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-005-P1-CROSS",
+        "attack": {
+          "pattern": "Cross",
+          "damage": 18,
+          "cooldownSeconds": 3.2,
+          "projectileSpeed": 4.6,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 4,
+          "projectileRadius": 0.15,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "MIDBOSS-005-P1-CALL-SHIELDS",
+        "cooldownSeconds": 3.2,
+        "summon": {
+          "enemyId": "ENEMY-009",
+          "count": 3,
+          "spawnDistance": 6,
+          "maxAlive": 6,
+          "telegraphSeconds": 0.8,
+          "markerColor": [
+            0.9,
+            0.3,
+            0.25,
+            0.9
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-005-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-005-P1-CROSS",
+          "MIDBOSS-005-P1-CROSS",
+          "MIDBOSS-005-P1-CALL-SHIELDS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-006",
+    "displayName": "Маг-наблюдатель",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-006",
+      "maxHealth": 3300,
+      "collisionSize": 1.9,
+      "movementSpeed": 1,
+      "contactDamage": 30,
+      "contactDamageInterval": 1,
+      "experienceReward": 135,
+      "knockbackResistance": 0.45,
+      "contactControls": {
+        "knockbackDistance": 0.45,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Orbit",
+        "preferredDistance": 4.5,
+        "distanceTolerance": 0.5,
+        "lateralStrength": 0.9
+      }
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-006-P1-RING10",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 14,
+          "cooldownSeconds": 1.2,
+          "projectileSpeed": 3.8,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 10,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.35,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "MIDBOSS-006-P1-BOLT",
+        "attack": {
+          "pattern": "Single",
+          "damage": 21,
+          "cooldownSeconds": 3.6,
+          "projectileSpeed": 8,
+          "projectileLifetimeSeconds": 1.5,
+          "projectileCount": 1,
+          "projectileRadius": 0.12,
+          "telegraphSeconds": 0.5,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.45,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+        }
+      },
+      {
+        "id": "MIDBOSS-006-P1-METEORS",
+        "cooldownSeconds": 3,
+        "zone": {
+          "placement": "AroundPlayer",
+          "count": 3,
+          "radius": 1.3,
+          "fillSeconds": 1.2,
+          "damage": 24,
+          "controls": {
+            "knockbackDistance": 0.3,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ],
+          "scatterRadius": 3,
+          "minSpacing": 1.8
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-006-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-006-P1-RING10",
+          "MIDBOSS-006-P1-BOLT",
+          "MIDBOSS-006-P1-METEORS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-007",
+    "displayName": "Паладин авангарда",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-007",
+      "maxHealth": 3900,
+      "collisionSize": 2.3,
+      "movementSpeed": 0.8,
+      "contactDamage": 38,
+      "contactDamageInterval": 1,
+      "experienceReward": 150,
+      "knockbackResistance": 0.65,
+      "contactControls": {
+        "knockbackDistance": 0.85,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.8,
+        "dashDurationSeconds": 0.9,
+        "dashCooldownSeconds": 5,
+        "dashSpeedMultiplier": 5,
+        "dashCount": 1,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1.2,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttacks": [
+        {
+          "delaySeconds": 0,
+          "orientation": "AwayFromDash",
+          "attack": {
+            "pattern": "Fan",
+            "damage": 21,
+            "cooldownSeconds": 1,
+            "projectileSpeed": 4.5,
+            "projectileLifetimeSeconds": 3,
+            "projectileCount": 5,
+            "projectileRadius": 0.14,
+            "telegraphSeconds": 0,
+            "cadence": "WindupStartToStart",
+            "controls": {
+              "knockbackDistance": 0.35,
+              "knockbackSeconds": 0.12
+            },
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+            "spreadDegrees": 60
+          }
+        },
+        {
+          "delaySeconds": 0,
+          "orientation": "Self",
+          "zone": {
+            "placement": "AroundSelf",
+            "count": 1,
+            "radius": 2,
+            "fillSeconds": 0.5,
+            "damage": 30,
+            "controls": {
+              "knockbackDistance": 0.3,
+              "knockbackSeconds": 0.12
+            },
+            "lingerSeconds": 3,
+            "impactEffectSeconds": 0.45,
+            "telegraphColor": [
+              1,
+              0.35,
+              0.15,
+              0.85
+            ],
+            "impactColor": [
+              1,
+              0.5,
+              0.15,
+              0.9
+            ],
+            "lingerDamagePerSecond": 11,
+            "lingerTickSeconds": 0.5
+          }
+        }
+      ]
+    },
+    "attacks": [],
+    "phases": [
+      {
+        "id": "MIDBOSS-007-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": []
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-008",
+    "displayName": "Рыцарь короны",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-008",
+      "maxHealth": 4600,
+      "collisionSize": 2.1,
+      "movementSpeed": 0.95,
+      "contactDamage": 42,
+      "contactDamageInterval": 1,
+      "experienceReward": 165,
+      "knockbackResistance": 0.6,
+      "contactControls": {
+        "knockbackDistance": 0.8,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-008-P1-FAN3",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 23,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 7,
+          "projectileLifetimeSeconds": 2,
+          "projectileCount": 3,
+          "projectileRadius": 0.13,
+          "telegraphSeconds": 0.55,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.35,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 30
+        }
+      },
+      {
+        "id": "MIDBOSS-008-P1-SHOCKWAVE",
+        "cooldownSeconds": 3,
+        "zone": {
+          "placement": "AroundSelf",
+          "count": 1,
+          "radius": 3,
+          "fillSeconds": 0.8,
+          "damage": 34,
+          "controls": {
+            "knockbackDistance": 0.8,
+            "knockbackSeconds": 0.12
+          },
+          "lingerSeconds": 0,
+          "impactEffectSeconds": 0.45,
+          "telegraphColor": [
+            1,
+            0.35,
+            0.15,
+            0.85
+          ],
+          "impactColor": [
+            1,
+            0.8,
+            0.45,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-008-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-008-P1-FAN3",
+          "MIDBOSS-008-P1-SHOCKWAVE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-009",
+    "displayName": "Вестник небес",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-009",
+      "maxHealth": 5400,
+      "collisionSize": 2.2,
+      "movementSpeed": 0.9,
+      "contactDamage": 46,
+      "contactDamageInterval": 1,
+      "experienceReward": 180,
+      "knockbackResistance": 0.65,
+      "contactControls": {
+        "knockbackDistance": 0.85,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "Seek"
+      }
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-009-P1-RING12",
+        "attack": {
+          "pattern": "Ring",
+          "damage": 21,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 4,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 12,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.45,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "windupMovementMultiplier": 0.4
+        }
+      },
+      {
+        "id": "MIDBOSS-009-P1-FAN7",
+        "attack": {
+          "pattern": "Fan",
+          "damage": 25,
+          "cooldownSeconds": 3,
+          "projectileSpeed": 5.2,
+          "projectileLifetimeSeconds": 3,
+          "projectileCount": 7,
+          "projectileRadius": 0.14,
+          "telegraphSeconds": 0.7,
+          "cadence": "WindupStartToStart",
+          "controls": {
+            "knockbackDistance": 0.45,
+            "knockbackSeconds": 0.12
+          },
+          "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE",
+          "spreadDegrees": 90,
+          "windupMovementMultiplier": 0.4
+        }
+      },
+      {
+        "id": "MIDBOSS-009-P1-BEAM",
+        "cooldownSeconds": 3,
+        "beam": {
+          "anglesDegrees": [
+            0
+          ],
+          "length": 24,
+          "width": 1,
+          "telegraphSeconds": 0.9,
+          "activeSeconds": 0.4,
+          "sweepDegrees": 0,
+          "damage": 41,
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-009-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-009-P1-RING12",
+          "MIDBOSS-009-P1-FAN7",
+          "MIDBOSS-009-P1-BEAM"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "MIDBOSS-010",
+    "displayName": "Ангел-предвестник",
+    "hook": "MidBoss",
+    "spawnOffsetX": -8,
+    "spawnOffsetY": 0,
+    "keepAttackOrderOnPhaseChange": true,
+    "strictHealthThreshold": true,
+    "body": {
+      "id": "MIDBOSS-010",
+      "maxHealth": 6500,
+      "collisionSize": 2.5,
+      "movementSpeed": 1,
+      "contactDamage": 50,
+      "contactDamageInterval": 1,
+      "experienceReward": 195,
+      "knockbackResistance": 0.7,
+      "contactControls": {
+        "knockbackDistance": 0.95,
+        "knockbackSeconds": 0.12
+      },
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.6,
+        "dashDurationSeconds": 0.6,
+        "dashCooldownSeconds": 4.5,
+        "dashSpeedMultiplier": 5.5,
+        "dashCount": 1,
+        "showDashTelegraphLine": true
+      },
+      "dashContactControls": {
+        "knockbackDistance": 1.3,
+        "knockbackSeconds": 0.12
+      },
+      "dashEndAttacks": [
+        {
+          "delaySeconds": 0,
+          "orientation": "TowardPlayer",
+          "attack": {
+            "pattern": "Ring",
+            "damage": 23,
+            "cooldownSeconds": 1,
+            "projectileSpeed": 4.2,
+            "projectileLifetimeSeconds": 3,
+            "projectileCount": 8,
+            "projectileRadius": 0.14,
+            "telegraphSeconds": 0,
+            "cadence": "WindupStartToStart",
+            "controls": {
+              "knockbackDistance": 0.45,
+              "knockbackSeconds": 0.12
+            },
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          }
+        },
+        {
+          "delaySeconds": 0.4,
+          "orientation": "TowardPlayer",
+          "attack": {
+            "pattern": "Cross",
+            "damage": 28,
+            "cooldownSeconds": 1,
+            "projectileSpeed": 5,
+            "projectileLifetimeSeconds": 3,
+            "projectileCount": 4,
+            "projectileRadius": 0.15,
+            "telegraphSeconds": 0,
+            "cadence": "WindupStartToStart",
+            "controls": {
+              "knockbackDistance": 0.45,
+              "knockbackSeconds": 0.12
+            },
+            "projectileVisualId": "BOSS-001-VISUAL-PROJECTILE"
+          }
+        }
+      ]
+    },
+    "attacks": [
+      {
+        "id": "MIDBOSS-010-P1-BEAM-CROSS",
+        "cooldownSeconds": 4.5,
+        "beam": {
+          "anglesDegrees": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "length": 24,
+          "width": 0.9,
+          "telegraphSeconds": 1,
+          "activeSeconds": 0.4,
+          "sweepDegrees": 0,
+          "damage": 45,
+          "controls": {
+            "knockbackDistance": 0.4,
+            "knockbackSeconds": 0.12
+          },
+          "telegraphColor": [
+            1,
+            0.9,
+            0.5,
+            0.8
+          ],
+          "beamColor": [
+            1,
+            0.97,
+            0.8,
+            0.95
+          ]
+        }
+      }
+    ],
+    "phases": [
+      {
+        "id": "MIDBOSS-010-P1",
+        "healthThreshold": 1,
+        "attackEnemyIds": [
+          "MIDBOSS-010-P1-BEAM-CROSS"
+        ]
+      }
+    ],
+    "holdAttacksDuringDash": true
   }
 ]

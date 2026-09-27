@@ -32,10 +32,16 @@ namespace Game.Enemy
                 if (entry.Body?.Id != entry.Id) throw new ArgumentException("Body identity must match encounter identity.", nameof(data));
                 var owned = new List<EnemyDefinition>();
                 var available = new Dictionary<ContentId, EnemyDefinition>(byId);
+                var specials = new Dictionary<ContentId, BossSpecialAttack>();
                 foreach (var inline in entry.Attacks ?? Array.Empty<BossAttackData>())
                 {
-                    if (inline?.Attack == null || string.IsNullOrWhiteSpace(inline.Id))
-                        throw new ArgumentException("Inline boss attacks need an id and an attack.", nameof(data));
+                    if (inline == null || string.IsNullOrWhiteSpace(inline.Id))
+                        throw new ArgumentException("Inline boss attacks need an id.", nameof(data));
+                    var special = BossSpecialCatalog.IsSpecial(inline);
+                    if (special == (inline.Attack != null))
+                        throw new ArgumentException($"Boss step '{inline.Id}' is exactly one of attack, zone, beam or summon.", nameof(data));
+                    if (!special && inline.CooldownSeconds != null)
+                        throw new ArgumentException($"Boss step '{inline.Id}' takes its cooldown from the attack.", nameof(data));
                     var carrier = FixtureEnemyCatalog.ToDefinition(new EnemyDefinitionData
                     {
                         Id = inline.Id, KnockbackResistance = entry.Body.KnockbackResistance, ContactControls = entry.Body.ContactControls,
@@ -46,6 +52,9 @@ namespace Game.Enemy
                     if (available.ContainsKey(carrier.Id)) throw new ArgumentException($"Duplicate boss attack '{inline.Id}'.", nameof(data));
                     available.Add(carrier.Id, carrier);
                     owned.Add(carrier);
+                    if (special)
+                        specials.Add(carrier.Id, BossSpecialCatalog.ToSpecial(inline, $"Boss {entry.Id} step {inline.Id}",
+                            id => byId.TryGetValue(new ContentId(id), out var enemy) ? enemy : null));
                 }
                 var phases = new List<BossPhaseDefinition>();
                 foreach (var phase in entry.Phases)
@@ -53,18 +62,21 @@ namespace Game.Enemy
                     if (phase?.HealthThreshold == null || phase.AttackEnemyIds == null)
                         throw new ArgumentException("Phase threshold and attacks must be explicit.", nameof(data));
                     var attacks = new List<EnemyDefinition>();
+                    var phaseSpecials = new List<BossSpecialAttack>();
                     foreach (var id in phase.AttackEnemyIds)
                     {
                         if (!available.TryGetValue(new ContentId(id), out var attack))
                             throw new ArgumentException($"Unknown boss attack enemy '{id}'.", nameof(data));
                         attacks.Add(attack);
+                        phaseSpecials.Add(specials.TryGetValue(attack.Id, out var special) ? special : null);
                     }
-                    phases.Add(new BossPhaseDefinition(phase.Id, phase.HealthThreshold.Value, attacks));
+                    phases.Add(new BossPhaseDefinition(phase.Id, phase.HealthThreshold.Value, attacks, phaseSpecials,
+                        phase.Movement == null ? null : FixtureEnemyCatalog.ToMovementProfile($"{entry.Id} {phase.Id}", phase.Movement)));
                 }
                 definitions.Add(new BossEncounterDefinition(entry.Id, entry.DisplayName, hook,
                     FixtureEnemyCatalog.ToDefinition(entry.Body), entry.SpawnOffsetX.Value, entry.SpawnOffsetY.Value, phases,
                     entry.KeepAttackOrderOnPhaseChange ?? false, entry.StrictHealthThreshold ?? false, owned,
-                    BossTeleportProfile.FromData(entry.Teleport, $"Boss {entry.Id}")));
+                    BossTeleportProfile.FromData(entry.Teleport, $"Boss {entry.Id}"), entry.HoldAttacksDuringDash ?? false));
             }
             if (definitions.All(d => d.Hook != WaveHookKind.FinalBoss)) throw new ArgumentException("Final boss definition is required.", nameof(data));
             return definitions.AsReadOnly();

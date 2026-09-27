@@ -2,10 +2,10 @@
 
 Единственный источник execution status и Execution order; краткое evidence и ссылки на подробные записи. Спецификации и файлы evidence не содержат текущих статусов.
 
-Last repository audit: 2026-09-26 (body art ENEMY-010…020 подключён; Unity 804/804 EditMode + 28/28 PlayMode, manifest 138/138; ранее арт FIELD-002 и срез DECISION-0063)
+Last repository audit: 2026-09-27 (IP-21 bosses-v1: Unity 843/843 EditMode + 29/29 PlayMode, manifest 150; ранее body art ENEMY-010…020, арт FIELD-002 и срез DECISION-0063)
 Plan revision: design-sync-R2; selected startup packets: field-001-start-R1
 Current active packet: нет исполнимого без Unity — F1-09 ждёт ручных прогонов и приёмки пользователя; IP-12A gameplay density review остаётся открытым
-Next Ready packet: IP-21 — реализация пакета [bosses-v1](../balance/bosses-v1.md) (DECISION-0066 Approved 2026-09-27); начинать по команде пользователя. Срез FIELD-002 F2-01…05 Implemented 2026-09-26; F2-06 ждёт ручного прогона FIELD-002 ([очередь](#field002-execution)). IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
+Next Ready packet: нет. IP-21 bosses-v1 Implemented 2026-09-27 (16 боссов ждут арта и своих полей IP-23/IP-24). Срез FIELD-002 F2-01…05 Implemented 2026-09-26; F2-06 ждёт ручного прогона FIELD-002 ([очередь](#field002-execution)). IP-17…20 ждут ручной проверки/арта; F1-09 Blocked до ручных прогонов и приёмки пользователя.
 
 M-01: зарегистрирован принятый план и выполнена полная замена трёх design bodies без архивных копий старых документов; [DECISION-0015](../decisions/0015-design-sync-r2.md). Код не изменён. Исторические tests не подтверждают новые требования. Все пять источников/121 target card approved; реальные missing data/semantics/assets gates сохраняются.
 
@@ -554,7 +554,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 ### IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Status: Ready
+Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-03 — новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
@@ -658,13 +658,14 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
-Blocked by: нет для реализации bosses-v1: G-14 для BOSS-003…010/MIDBOSS-003…010 закрыт DECISION-0066, IP-15 Verified, IP-12A Implemented. Body/projectile art — per-ID gates; до них явные placeholders (как у IP-20).
-Remaining gates: AG-01 per-ID body/projectile art поздних боссов; gameplay-scale review.
-Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
+Blocked by: AG-01 — body/projectile art BOSS-003…010/MIDBOSS-003…010 (per-ID gates); их поля и волны (IP-23/IP-24) ещё не созданы, поэтому в забеге эти боссы не появляются. Данные и поведение всех 16 реализованы (bosses-v1).
+Remaining gates: AG-01 per-ID art поздних боссов; gameplay-scale review и живая проверка зон/лучей/призыва на своих полях.
+Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010 — арт тел и снарядов, ручная проверка в забеге; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
 Data packet 2026-09-27: [bosses-v1](../balance/bosses-v1.md) — недостающие параметры BOSS-003…010/MIDBOSS-003…010 (урон как доля контакта, XP, тайминги, телепорт финальных), фирменные атаки каждому боссу на трёх новых семействах (зона, луч, призыв; редакция 2 по просьбе пользователя) и расширения схемы E1…E6; карточные числа без изменений; **Approved 2026-09-27** ([DECISION-0066](../decisions/0066-bosses-data-v1.md)); GDD (правило зон/лучей/призыва) и 16 карточек CD синхронизированы; static validator PASS. Следующая работа IP-21 — реализация F1…F3, E1…E6 и 16 encounters по пакету; автоматически не начинать.
-Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Packet bosses-v1 Implemented 2026-09-27: семейства зона/луч/призыв, расширения E1…E6 и 16 encounters из утверждённой таблицы; Unity 6000.6.0f1 full PASS — **EditMode 843/843, PlayMode 29/29, 0 skipped**, `TestResults/checks/20260927T080300-187440Z/summary.json`; [evidence](evidence/2026-09-27-ip21-bosses-v1.md).
+Target implementation evidence: F1-06 (BOSS-001/MIDBOSS-001), F2-02 (BOSS-002/MIDBOSS-002), bosses-v1 (остальные 16) — [evidence](evidence/2026-09-27-ip21-bosses-v1.md).
+Target verification evidence: bosses-v1 — Unity full PASS 2026-09-27 (843/843 + 29/29); живой прогон этих боссов невозможен до их полей.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21).
 
 ### IP-22 — Production Characters CHAR-001…010

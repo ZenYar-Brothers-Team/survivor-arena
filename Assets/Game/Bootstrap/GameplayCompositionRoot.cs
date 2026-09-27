@@ -470,7 +470,8 @@ namespace Game.Bootstrap
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();
                 BossEncounters.Initialize(waveDirector, runController, player.transform, configuration.Bosses,
                     new EnemyExperienceDropSink(experienceRuntime, runController), Catalog.EnemyDeathPresentation,
-                    Catalog.GroundShadowPresentation, Catalog.Registry);
+                    Catalog.GroundShadowPresentation, Catalog.Registry,
+                    new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups));
                 initializedSubsystems.Add(BossEncounters.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)

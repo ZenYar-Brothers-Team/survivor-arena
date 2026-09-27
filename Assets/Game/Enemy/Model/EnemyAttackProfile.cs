@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.Content;
 using Game.Combat;
 using Game.Presentation;
@@ -24,6 +25,10 @@ namespace Game.Enemy
         public EnemyAttackCadence Cadence { get; }
         /// <summary>Pattern starts at 0° (world +X) instead of the aim direction, e.g. BOSS-001 ring.</summary>
         public bool FixedOrientation { get; }
+        /// <summary>Extra volleys of the same pattern after each main shot, by ascending delay (DECISION-0066, E1).</summary>
+        public IReadOnlyList<EnemyAttackFollowUp> FollowUps { get; }
+        /// <summary>Movement speed factor while this attack winds up; 1 = unchanged (MIDBOSS-009, DECISION-0066, E6).</summary>
+        public float WindupMovementMultiplier { get; }
 
         public EnemyAttackProfile(
             EnemyProjectilePattern pattern,
@@ -41,7 +46,9 @@ namespace Game.Enemy
             float telegraphSeconds = 0f,
             ContentRef<SpriteDefinition> projectileVisual = default,
             EnemyAttackCadence cadence = EnemyAttackCadence.CooldownAfterShot,
-            bool fixedOrientation = false)
+            bool fixedOrientation = false,
+            IEnumerable<EnemyAttackFollowUp> followUps = null,
+            float windupMovementMultiplier = 1f)
         {
             if (!Enum.IsDefined(typeof(EnemyAttackCadence), cadence))
                 throw new ArgumentOutOfRangeException(nameof(cadence));
@@ -62,8 +69,21 @@ namespace Game.Enemy
 
             NumericValidation.ValidateNonNegative(telegraphSeconds, nameof(telegraphSeconds));
             TelegraphSeconds = telegraphSeconds;
-            if ((pattern == EnemyProjectilePattern.Single || pattern == EnemyProjectilePattern.Explosive) && projectileCount != 1)
-                throw new ArgumentException("Single/explosive patterns require one projectile.", nameof(projectileCount));
+            if (pattern == EnemyProjectilePattern.Single && projectileCount != 1)
+                throw new ArgumentException("Single pattern requires one projectile.", nameof(projectileCount));
+            // Several explosives leave as a fan (BOSS-007, DECISION-0066, E2).
+            if (pattern == EnemyProjectilePattern.Explosive && projectileCount > 1 && spreadDegrees <= 0f)
+                throw new ArgumentException("Several explosives need a fan spread.", nameof(spreadDegrees));
+            var copy = new List<EnemyAttackFollowUp>(followUps ?? Array.Empty<EnemyAttackFollowUp>());
+            for (var i = 1; i < copy.Count; i++)
+                if (copy[i].DelaySeconds <= copy[i - 1].DelaySeconds)
+                    throw new ArgumentException("Follow-up delays must strictly increase.", nameof(followUps));
+            if (copy.Count > 0 && pattern == EnemyProjectilePattern.Burst)
+                throw new ArgumentException("A burst already repeats; follow-ups are not supported for it.", nameof(followUps));
+            NumericValidation.ValidatePositive(windupMovementMultiplier, nameof(windupMovementMultiplier));
+            NumericValidation.ValidateRange(windupMovementMultiplier, 0f, 1f, nameof(windupMovementMultiplier));
+            FollowUps = copy.AsReadOnly();
+            WindupMovementMultiplier = windupMovementMultiplier;
             if (pattern == EnemyProjectilePattern.Cross && projectileCount != 4)
                 throw new ArgumentException("Cross requires four projectiles.", nameof(projectileCount));
             Controls = controls ?? CombatControlProfile.None;

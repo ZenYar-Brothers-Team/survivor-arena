@@ -23,5 +23,9 @@ namespace Game.Enemy.Json
         public string Cadence { get; set; }
         /// <summary>Optional; true = pattern starts at world 0° regardless of aim.</summary>
         public bool? FixedOrientation { get; set; }
+        /// <summary>Optional extra volleys after the main shot (DECISION-0066, E1); absent = none.</summary>
+        public EnemyAttackFollowUpData[] FollowUps { get; set; }
+        /// <summary>Optional movement factor while winding up (DECISION-0066, E6); absent = 1 (unchanged).</summary>
+        public float? WindupMovementMultiplier { get; set; }
     }
 }

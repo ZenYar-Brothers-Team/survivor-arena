@@ -23,5 +23,8 @@ namespace Game.Enemy.Json
         /// <summary>Optional ring on dash end; requires TelegraphedDash movement (DECISION-0063).</summary>
         public EnemyAttackProfileData DashEndAttack { get; set; }
         public EnemyDashVolleyRepeatData DashEndRepeat { get; set; }
+        /// <summary>Optional several dash-end actions (DECISION-0066, E4); excludes dashEndAttack/dashEndRepeat.</summary>
+        public EnemyDashVolleyEntryData[] DashEndAttacks { get; set; }
+        public EnemyDashVolleyReplacementData DashEndReplacement { get; set; }
     }
 }

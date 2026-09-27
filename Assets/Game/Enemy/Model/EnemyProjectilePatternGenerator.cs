@@ -15,10 +15,11 @@ namespace Game.Enemy
                 aimDirection = Vector2.right;
 
             var count = profile.Pattern == EnemyProjectilePattern.Cross ? 4 : profile.ProjectileCount;
-            if (profile.Pattern == EnemyProjectilePattern.Single ||
-                profile.Pattern == EnemyProjectilePattern.Burst ||
-                profile.Pattern == EnemyProjectilePattern.Explosive)
+            if (profile.Pattern == EnemyProjectilePattern.Single || profile.Pattern == EnemyProjectilePattern.Burst)
                 count = 1;
+            // Several explosives leave as a fan (BOSS-007, DECISION-0066, E2); one explosive flies straight.
+            var fanLayout = profile.Pattern == EnemyProjectilePattern.Fan ||
+                            (profile.Pattern == EnemyProjectilePattern.Explosive && count > 1);
 
             var baseAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg + rotationDegrees + aimJitterDegrees;
             var commands = new EnemyShotCommand[count];
@@ -28,6 +29,7 @@ namespace Game.Enemy
                 switch (profile.Pattern)
                 {
                     case EnemyProjectilePattern.Fan:
+                    case EnemyProjectilePattern.Explosive when fanLayout:
                         angle = count == 1
                             ? baseAngle
                             : baseAngle - profile.SpreadDegrees * 0.5f + profile.SpreadDegrees * i / (count - 1);

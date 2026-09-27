@@ -16,6 +16,7 @@
 | Wave Director: фазы, хуки, лимиты, состав | `WaveDefinitionTests`, `WaveDirectorTests` | EditMode | OK |
 | Спавн/деспавн врагов, пул, `EnemyRegistry` | `WaveSpawnerTests`, `EnemyRuntimeLifecycleTests`, `EnemySpawnerSceneIntegrationTests` | EditMode | OK |
 | Паттерны движения/атаки врагов | `EnemyPatternTests`, `EnemyMovementAndContactTests` | EditMode | OK |
+| Особые атаки боссов (зоны, лучи, призыв), повтор залпа, атаки после рывка, фазовые рывки (DECISION-0066) | `BossHazardFieldTests`, `BossHazardRuntimeTests`, `BossSpecialStepTests`, `EnemyAttackFollowUpTests`, `EnemyDashEndAttacksTests`, `ProductionLateBossCatalogTests`, `BossHazardSmokeTests` | EditMode / PlayMode | OK |
 | Пул `GameObjectPool<T>` | `GameObjectPoolTests` | EditMode | OK (добавлено в ревью) |
 | Общий валидатор чисел | `NumericValidationTests` | EditMode | OK (добавлено в ревью) |
 | Загрузка контента: реестр, ссылки, каталоги | `ContentRegistryTests`, `FixtureRuntimeContentCatalogTests`, `FixtureCharacterCatalogTests` | EditMode | OK |

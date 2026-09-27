@@ -32,8 +32,7 @@ namespace Game.Enemy
         }
 
         private static EnemyDashVolleyProfile ScaleDashVolley(EnemyDashVolleyProfile volley, float damageMultiplier) =>
-            volley == null ? null : new EnemyDashVolleyProfile(ScaleAttack(volley.Attack, damageMultiplier), volley.RepeatEveryNthDash,
-                volley.RepeatBelowHealthFraction, volley.RepeatDelaySeconds, volley.RepeatRotationDegrees);
+            volley?.MapAttacks(attack => ScaleAttack(attack, damageMultiplier));
 
         private static EnemyAttackProfile ScaleAttack(EnemyAttackProfile attack, float damageMultiplier)
         {
@@ -52,7 +51,8 @@ namespace Game.Enemy
                 attack.ProjectileRadius,
                 attack.ExplosionRadius,
                 attack.RotationStepDegrees,
-                attack.Controls, attack.TelegraphSeconds, attack.ProjectileVisual);
+                attack.Controls, attack.TelegraphSeconds, attack.ProjectileVisual,
+                followUps: attack.FollowUps, windupMovementMultiplier: attack.WindupMovementMultiplier);
         }
     }
 }

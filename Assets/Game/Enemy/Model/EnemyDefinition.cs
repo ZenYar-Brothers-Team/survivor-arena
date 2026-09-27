@@ -21,7 +21,7 @@ namespace Game.Enemy
         public EnemyAttackProfile Attack { get; }
         public float KnockbackResistance { get; }
         public CombatControlProfile DashContactControls { get; }
-        /// <summary>Optional ring fired when a dash ends (BOSS-002/MIDBOSS-002, DECISION-0063).</summary>
+        /// <summary>Optional actions when a dash series ends (BOSS-002/MIDBOSS-002, DECISION-0063; DECISION-0066 E4).</summary>
         public EnemyDashVolleyProfile DashVolley { get; }
         public CombatControlProfile ContactControls { get; }
 
@@ -84,8 +84,10 @@ namespace Game.Enemy
                 yield return MotionProfile.ToReference();
             if (Attack?.ProjectileVisual.Id.IsValid == true)
                 yield return Attack.ProjectileVisual.ToReference();
-            if (DashVolley?.Attack.ProjectileVisual.Id.IsValid == true)
-                yield return DashVolley.Attack.ProjectileVisual.ToReference();
+            if (DashVolley != null)
+                foreach (var attack in DashVolley.Attacks)
+                    if (attack.ProjectileVisual.Id.IsValid)
+                        yield return attack.ProjectileVisual.ToReference();
         }
     }
 }
