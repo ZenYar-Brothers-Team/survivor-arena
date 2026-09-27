@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-007",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates.",
+  "prompt": "Edit this exact transparent full-body 2D storybook cutout of CHAR-007 Ded Vertun. Follow the user's correction: KEEP his original tall, thin, wiry old runner build and long legs; do not make him stocky or short. Preserve his elderly goblin face, white hair and beard, olive skin, blue-teal scarf, rust travel clothing, old boots, small secured satchel, right-facing 3/4 top-down view and hand-drawn deep-plum contour. Change his arm pose and add ONE simple thick weathered wooden walking stick held horizontally across the FRONT of his upper abdomen with BOTH hands, elbows bent outward; the stick's two ends remain close to the outer edges of his elbows and do not project far past the body. The two hands must clearly grip the same continuous stick, anatomically correct; no other props. The broad scarf/shoulder cloth and crosswise arm/stick bar should make the central silhouette visually wider and grounded while preserving an unmistakably lean agile grandfather. Neutral animation-ready pose; exactly two arms/hands and two feet; compact enough for a single central contact circle despite the lean legs. Keep whole figure, staff and generous clear padding inside truly transparent square canvas. No floor, shadow, scenery, text, magic, action pose, extra limbs, duplicated stick or long protrusions.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-007/char-007-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "aadead8bb4b02818b51856c956e1cf5665bec4ba2b8ced4dc94bcdbcecb01bac",
+    "runtimeSha256": "f8c7e6f4af3107e0097f5a9d6a9e212771536fb003bdf1cf4dbc82c3303b7a8d",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 50,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

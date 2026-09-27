@@ -11,6 +11,7 @@ namespace Game.Presentation.Json
         public float? MinPatternGap { get; set; }
         public int? PlacementAttempts { get; set; }
         public int? ReferenceSeed { get; set; }
+        public FieldStartScreenData StartScreen { get; set; }
         public FieldObstaclePatternData[] Patterns { get; set; }
     }
 }

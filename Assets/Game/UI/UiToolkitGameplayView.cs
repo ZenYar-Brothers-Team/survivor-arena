@@ -218,8 +218,8 @@ namespace Game.UI
             _experienceBar.value = state.ExperienceProgress01 * 100f;
             _experienceBar.title = $"XP {MathF.Round(state.ExperienceProgress01 * 100f)}%";
             _levelLabel.text = $"LV {state.Level}";
-            var elapsed = Math.Max(0, (int)Math.Floor(state.ElapsedSeconds));
-            _timerLabel.text = $"{elapsed / 60:00}:{elapsed % 60:00}";
+            var remaining = Math.Max(0, (int)Math.Ceiling(state.RunDurationSeconds - state.ElapsedSeconds));
+            _timerLabel.text = $"{remaining / 60:00}:{remaining % 60:00}";
             RenderWave(state.Wave);
             if (state.Stats != null)
                 _characterStats = $"Action speed +{state.Stats.ActionSpeedBonus:P0} · Pickup radius {state.Stats.PickupRadius:0.##}";

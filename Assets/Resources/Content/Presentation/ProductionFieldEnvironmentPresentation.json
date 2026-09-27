@@ -22,7 +22,7 @@
     "bushScaleMax": 0.68,
     "seed": 1001,
     "obstacleSeed": 1002,
-    "interiorObstacleCount": 64,
+    "interiorObstacleCount": 288,
     "nearObstacleCount": 16,
     "obstaclePlacementAttempts": 80,
     "nearObstacleRadius": 22,
@@ -31,9 +31,11 @@
     "fenceColliderWidth": 3,
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
+    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
+    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
     "obstacleLayout": {
-      "cellSize": 24,
-      "patternsPerCell": 1,
+      "cellSize": 16,
+      "patternsPerCell": 2,
       "edgeMargin": 4,
       "cellMargin": 2,
       "startClearRadius": 6,
@@ -43,7 +45,7 @@
       "patterns": [
         {
           "id": "STUMP",
-          "weight": 65,
+          "weight": 35,
           "rotations": [
             0
           ],
@@ -59,7 +61,7 @@
         },
         {
           "id": "FENCE",
-          "weight": 35,
+          "weight": 25,
           "rotations": [
             0
           ],
@@ -72,8 +74,52 @@
               "height": 0.5
             }
           ]
+        },
+        {
+          "id": "BARREL",
+          "weight": 20,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Barrel",
+              "x": 0,
+              "y": 0,
+              "width": 1.1,
+              "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "ROCK",
+          "weight": 20,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Rock",
+              "x": 0,
+              "y": 0,
+              "width": 1.5,
+              "height": 1.1
+            }
+          ]
         }
-      ]
+      ],
+      "startScreen": {
+        "halfWidth": 6.5,
+        "halfHeight": 4.4,
+        "minAbsX": 5.65,
+        "maxAbsX": 5.85,
+        "minAbsY": 3.75,
+        "maxAbsY": 3.85,
+        "patternIds": [
+          "STUMP",
+          "BARREL"
+        ]
+      }
     }
   },
   {

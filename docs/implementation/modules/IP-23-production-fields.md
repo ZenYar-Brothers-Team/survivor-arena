@@ -18,6 +18,8 @@ F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) сод�
 200×200 geometry, 64 obstacle rects и metadata.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
+Плотность и набор препятствий FIELD-001 после пользовательского отзыва пересмотрены в [DECISION-0069](../../decisions/0069-field001-feedback-tuning.md).
+Гарантия двух удалённых от spawn объектов в стартовом кадре FIELD-001 — [DECISION-0070](../../decisions/0070-field001-opening-screen-obstacles.md).
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 

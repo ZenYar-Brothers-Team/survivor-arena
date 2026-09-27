@@ -26,6 +26,7 @@ namespace Game.Presentation
             var origin = -cells * layout.CellSize * .5f;
             var totalWeight = layout.Patterns.Sum(p => p.Weight);
             var result = new List<FieldObstacleDefinition>();
+            var reserved = ReserveStartScreen(layout, start, idPrefix, random, cells, origin, result);
             var inCell = new List<Rect>();
             var candidate = new List<Rect>();
             var kinds = new List<FieldObstacleKind>();
@@ -33,10 +34,11 @@ namespace Game.Presentation
                 for (var column = 0; column < cells; column++)
                 {
                     inCell.Clear();
+                    if (reserved.TryGetValue(row * cells + column, out var startRect)) inCell.Add(startRect);
                     var cellMin = new Vector2(origin + column * layout.CellSize + layout.CellMargin,
                         origin + row * layout.CellSize + layout.CellMargin);
                     var cellMax = cellMin + Vector2.one * (layout.CellSize - 2f * layout.CellMargin);
-                    for (var placed = 0; placed < layout.PatternsPerCell; placed++)
+                    for (var placed = inCell.Count; placed < layout.PatternsPerCell; placed++)
                         for (var attempt = 0; attempt < layout.PlacementAttempts; attempt++)
                         {
                             var pattern = Pick(layout.Patterns, totalWeight, random);
@@ -66,6 +68,37 @@ namespace Game.Presentation
                         }
                 }
             return result.AsReadOnly();
+        }
+
+        private static Dictionary<int, Rect> ReserveStartScreen(FieldObstacleLayoutDefinition layout, Vector2 start,
+            string idPrefix, System.Random random, int cells, float origin, List<FieldObstacleDefinition> result)
+        {
+            var reserved = new Dictionary<int, Rect>();
+            var config = layout.StartScreen;
+            if (config == null) return reserved;
+            var diagonal = random.Next(2) == 0 ? 1 : -1;
+            for (var index = 0; index < 2; index++)
+            {
+                var signX = index == 0 ? -1 : 1;
+                var signY = index == 0 ? diagonal : -diagonal;
+                var id = config.PatternIds[random.Next(config.PatternIds.Count)];
+                var piece = layout.Patterns.First(pattern => pattern.Id == id).Pieces[0];
+                var x = start.x + signX * Range(random, config.MinAbsX, config.MaxAbsX);
+                var y = start.y + signY * Range(random, config.MinAbsY, config.MaxAbsY);
+                var rect = new Rect(x - piece.Width * .5f, y - piece.Height * .5f, piece.Width, piece.Height);
+                var column = Mathf.FloorToInt((x - origin) / layout.CellSize);
+                var row = Mathf.FloorToInt((y - origin) / layout.CellSize);
+                var cellMin = new Vector2(origin + column * layout.CellSize + layout.CellMargin,
+                    origin + row * layout.CellSize + layout.CellMargin);
+                var cellMax = cellMin + Vector2.one * (layout.CellSize - 2f * layout.CellMargin);
+                if (column < 0 || column >= cells || row < 0 || row >= cells ||
+                    rect.xMin < cellMin.x || rect.yMin < cellMin.y || rect.xMax > cellMax.x || rect.yMax > cellMax.y ||
+                    Distance(rect, start) < layout.StartClearRadius || !reserved.TryAdd(row * cells + column, rect))
+                    throw new InvalidOperationException("Start-screen obstacle configuration does not fit its clear layout cell.");
+                result.Add(new FieldObstacleDefinition($"{idPrefix}-O{result.Count + 1:000}", piece.Kind,
+                    x, y, piece.Width, piece.Height));
+            }
+            return reserved;
         }
 
         private static FieldObstaclePattern Pick(IReadOnlyList<FieldObstaclePattern> patterns, float totalWeight, System.Random random)

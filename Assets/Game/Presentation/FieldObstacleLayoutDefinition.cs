@@ -25,9 +25,11 @@ namespace Game.Presentation
         /// <summary>Seed used by tests and reference runs; normal runs draw a fresh seed.</summary>
         public int ReferenceSeed { get; }
         public IReadOnlyList<FieldObstaclePattern> Patterns { get; }
+        public FieldStartScreenDefinition StartScreen { get; }
 
         public FieldObstacleLayoutDefinition(float cellSize, int patternsPerCell, float edgeMargin, float cellMargin,
-            float startClearRadius, float minPatternGap, int placementAttempts, int referenceSeed, IEnumerable<FieldObstaclePattern> patterns)
+            float startClearRadius, float minPatternGap, int placementAttempts, int referenceSeed,
+            IEnumerable<FieldObstaclePattern> patterns, FieldStartScreenDefinition startScreen = null)
         {
             NumericValidation.ValidatePositive(cellSize, nameof(cellSize));
             NumericValidation.ValidateCount(patternsPerCell, nameof(patternsPerCell));
@@ -49,6 +51,23 @@ namespace Game.Presentation
                     if (bounds.width > interior || bounds.height > interior)
                         throw new ArgumentException($"Pattern {pattern.Id} does not fit inside a cell.", nameof(patterns));
                 }
+            if (startScreen != null)
+            {
+                foreach (var id in startScreen.PatternIds)
+                {
+                    var pattern = copy.FirstOrDefault(item => item.Id == id);
+                    if (pattern == null || pattern.Pieces.Count != 1 || pattern.Rotations.Count != 1 || pattern.Rotations[0] != 0)
+                        throw new ArgumentException($"Start-screen pattern {id} must be a single unrotated piece.", nameof(startScreen));
+                    var piece = pattern.Pieces[0];
+                    if (piece.X != 0f || piece.Y != 0f ||
+                        startScreen.MaxAbsX + piece.Width * .5f > startScreen.HalfWidth ||
+                        startScreen.MaxAbsY + piece.Height * .5f > startScreen.HalfHeight ||
+                        FieldObstacleLayoutGenerator.Distance(new UnityEngine.Rect(startScreen.MinAbsX - piece.Width * .5f,
+                            startScreen.MinAbsY - piece.Height * .5f, piece.Width, piece.Height), UnityEngine.Vector2.zero)
+                            < startClearRadius)
+                        throw new ArgumentException($"Start-screen pattern {id} must fit the view outside spawn clearance.", nameof(startScreen));
+                }
+            }
             CellSize = cellSize;
             PatternsPerCell = patternsPerCell;
             EdgeMargin = edgeMargin;
@@ -58,6 +77,7 @@ namespace Game.Presentation
             PlacementAttempts = placementAttempts;
             ReferenceSeed = referenceSeed;
             Patterns = copy.AsReadOnly();
+            StartScreen = startScreen;
         }
 
         public bool UsesKind(FieldObstacleKind kind) => Patterns.Any(p => p.Pieces.Any(piece => piece.Kind == kind));

@@ -1,10 +1,12 @@
 namespace Game.Presentation
 {
-    /// <summary>Authored FIELD obstacle families (baseline v1: stump 1.2×1.0, short fence 2.4×0.5).</summary>
+    /// <summary>Authored FIELD obstacle families.</summary>
     public enum FieldObstacleKind
     {
         Stump,
         Fence,
-        Column
+        Column,
+        Barrel,
+        Rock
     }
 }

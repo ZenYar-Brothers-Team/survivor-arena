@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-006",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates.",
+  "prompt": "Use case: stylized-concept. Asset type: second preview variant of a transparent full-body 2D gameplay body sprite for CHAR-006 Grom, the playable ogre fugitive in Survival Arena. Use the same approved brief as variant 1, changing only the clothing expression: make the ogre look like a practical gentle runaway with a broad patchwork traveling apron over a simple teal-gray tunic, one visible large cream cloth repair, and a warm amber scarf tied short at the neck; no hanging pouches or long accessories. One single character centered on a square actually transparent canvas. 3/4 top-down gameplay view, facing right and slightly toward viewer. Unmistakably different from small green goblins: huge compact barrel torso, very broad shoulders, enormous forearms and hands, comparatively small head, short sturdy legs and large grounded feet. Kind but determined expression. Muted slate-mauve skin, clearly separate from goblin green and human enemies. Strong readable silhouette with 3–5 large masses, compact around torso for one inscribed circular contact area. Neutral animation-ready stance, arms separated from torso, exactly two hands and two feet. Stylized 2D storybook cutout with thick lively deep-plum outer contour, thinner interior lines, matte flat color masses, simple cel shading, subtle dry-brush paper texture. Soft warm top/front light, horizontal-flip-safe. Silhouette 70–78% of canvas height, at least 12% side margins, 14% top and 8–10% bottom. No floor, baked shadow, text, letters, logo, frame, 3D, pixel art, photorealism, gore, magical effects, particles, motion blur, long weapon, tiny ornaments, extra limbs or duplicated accessories.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-006/char-006-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "c598b8a57fd925abac794027178f81c2525ffbfcd3104d77904911f5801e949e",
+    "runtimeSha256": "f58bbfd4fed12c8e2ffa97e341443b56f4c871bdd2bd0ba815686b9b328d89d3",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 50,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

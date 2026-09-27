@@ -2380,6 +2380,214 @@
         "User approved ENEMY-020 candidate-05 and requested the complete ENEMY-010…020 set integrated: «отлично, встраивай набор в игру» (2026-09-26)."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-006",
+      "role": "body",
+      "visualId": "CHAR-006-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-006/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-006/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-006/char-006-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-007",
+      "role": "body",
+      "visualId": "CHAR-007-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-007/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-007/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-007/char-007-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-008",
+      "role": "body",
+      "visualId": "CHAR-008-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-008/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-008/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-008/char-008-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-009",
+      "role": "body",
+      "visualId": "CHAR-009-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-009/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-009/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-009/char-009-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "CHAR-010",
+      "role": "body",
+      "visualId": "CHAR-010-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-22",
+      "source": "Art/Source/Characters/char-010/body/selected-master.png",
+      "provenance": "Art/Source/Characters/char-010/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Characters/char-010/char-010-body.png",
+      "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-003",
+      "role": "body",
+      "visualId": "TRAVELER-003-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-003/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-003/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-003/traveler-003-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-003/traveler-003-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-004",
+      "role": "body",
+      "visualId": "TRAVELER-004-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-004/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-004/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-004/traveler-004-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-004/traveler-004-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-006",
+      "role": "body",
+      "visualId": "TRAVELER-006-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-006/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-006/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-006/traveler-006-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-006/traveler-006-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-007",
+      "role": "body",
+      "visualId": "TRAVELER-007-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-007/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-007/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-007/traveler-007-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-008",
+      "role": "body",
+      "visualId": "TRAVELER-008-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-008/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-008/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-008/traveler-008-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-008/traveler-008-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-009",
+      "role": "body",
+      "visualId": "TRAVELER-009-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-009/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-009/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "TRAVELER-010",
+      "role": "body",
+      "visualId": "TRAVELER-010-VISUAL-BODY",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-010/body/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-010/body/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-010/traveler-010-body.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-010/traveler-010-body",
+      "stage": "Prepared",
+      "evidence": [
+        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-001",
+      "role": "prop",
+      "visualId": "FIELD-001-VISUAL-BARREL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-001/barrel/selected-master.png",
+      "provenance": "Art/Source/Fields/field-001/barrel/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-barrel-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-001/field-001-barrel-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь 2026-09-27 поручил уплотнить FIELD-001 и разнообразить препятствия по миниатюре карты. Автономная подготовка и подключение арта без предварительного просмотра разрешены в docs/implementation/STATUS.md, раздел «Автономное продолжение FIELD-001»; художественная проверка остаётся пользовательским feedback после интеграции."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

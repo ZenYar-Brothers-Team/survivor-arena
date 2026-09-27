@@ -430,5 +430,109 @@
     "pivotY": 0.144531,
     "reason": "ENEMY-020 256px body; ground-contact pivot measured from approved angel silhouette; 128 PPU large late-enemy canvas.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-020/enemy-020-body.png"
+  },
+  {
+    "pixelsPerUnit": 210,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.139,
+    "reason": "CHAR-006 ogre body uses 210 PPU for approximately 1.5x goblin screen size; foot line and contact circle authored on the final 512px derivative.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-006/char-006-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.141,
+    "reason": "CHAR-007 authored foot contact on 512px body derivative; 320 PPU player-body contract; foot line and contact circle authored on the final 512px derivative.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-007/char-007-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.125,
+    "reason": "CHAR-008 authored foot contact on 512px body derivative; 320 PPU player-body contract; foot line and contact circle authored on the final 512px derivative.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-008/char-008-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.143,
+    "reason": "CHAR-009 authored foot contact on 512px body derivative; 320 PPU player-body contract; foot line and contact circle authored on the final 512px derivative.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-009/char-009-body.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.119,
+    "reason": "CHAR-010 authored foot contact on 512px body derivative; 320 PPU player-body contract; foot line and contact circle authored on the final 512px derivative.",
+    "key": "Assets/Resources/Art/Sprites/Characters/char-010/char-010-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.152,
+    "reason": "TRAVELER-003 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-003/traveler-003-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.16,
+    "reason": "TRAVELER-004 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-004/traveler-004-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.152,
+    "reason": "TRAVELER-006 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-006/traveler-006-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.141,
+    "reason": "TRAVELER-007 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-007/traveler-007-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.145,
+    "reason": "TRAVELER-008 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-008/traveler-008-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.141,
+    "reason": "TRAVELER-009 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.125,
+    "reason": "TRAVELER-010 authored foot contact on 256px derivative; 160 PPU matches existing Traveler bodies; contact circle fitted to final silhouette.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-010/traveler-010-body.png"
+  },
+  {
+    "pixelsPerUnit": 160,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-001 compact obstacle prop; 256px / 160 PPU matches the existing stump and keeps collider dimensions authored in layout JSON.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-barrel-prop.png"
   }
 ]

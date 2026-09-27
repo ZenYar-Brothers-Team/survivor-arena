@@ -69,7 +69,7 @@
     "resourcePath": "Art/Sprites/Skills/skill-006/skill-006-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.8,
+      "visualScale": 1.4,
       "spinDegreesPerSecond": 720.0,
       "impactDurationSeconds": 0.14,
       "flashSize": 0.2,
@@ -116,11 +116,11 @@
       "visualScale": 1.9,
       "spinDegreesPerSecond": 120.0,
       "impactDurationSeconds": 0.14,
-      "flashSize": 0.22,
-      "flashRed": 1.0,
-      "flashGreen": 0.48,
-      "flashBlue": 0.08,
-      "flashAlpha": 0.76,
+      "flashSize": 0.18,
+      "flashRed": 0.72,
+      "flashGreen": 0.36,
+      "flashBlue": 0.22,
+      "flashAlpha": 0.42,
       "particleCount": 4,
       "particleSize": 0.055,
       "particleSpeed": 0.5,
@@ -130,18 +130,18 @@
       "particleAlpha": 0.84,
       "explosion": {
         "durationSeconds": 0.22,
-        "flashSizeMultiplier": 2.1,
-        "flashRed": 1.0,
-        "flashGreen": 0.62,
-        "flashBlue": 0.12,
-        "flashAlpha": 0.68,
+        "flashSizeMultiplier": 1.5,
+        "flashRed": 0.72,
+        "flashGreen": 0.42,
+        "flashBlue": 0.28,
+        "flashAlpha": 0.35,
         "particleCount": 8,
         "particleSizeMultiplier": 0.12,
         "particleSpeedMultiplier": 4.0,
         "particleRed": 0.58,
         "particleGreen": 0.18,
         "particleBlue": 0.68,
-        "particleAlpha": 0.82
+        "particleAlpha": 0.6
       }
     }
   },
@@ -1101,5 +1101,94 @@
     "id": "ENEMY-020-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-020/enemy-020-body",
     "role": "Body"
+  },
+  {
+    "contactRadius": 0.755947,
+    "contactCenterY": 0.787881,
+    "id": "CHAR-006-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.274067,
+    "contactCenterY": 0.623531,
+    "id": "CHAR-007-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.304311,
+    "contactCenterY": 0.397763,
+    "id": "CHAR-008-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.262649,
+    "contactCenterY": 0.568167,
+    "id": "CHAR-009-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.400199,
+    "contactCenterY": 0.486664,
+    "id": "CHAR-010-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.281704,
+    "contactCenterY": 0.616728,
+    "id": "TRAVELER-003-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-003/traveler-003-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.326594,
+    "contactCenterY": 0.372938,
+    "id": "TRAVELER-004-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-004/traveler-004-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.290441,
+    "contactCenterY": 0.432969,
+    "id": "TRAVELER-006-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-006/traveler-006-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.272804,
+    "contactCenterY": 0.711727,
+    "id": "TRAVELER-007-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.323061,
+    "contactCenterY": 0.421556,
+    "id": "TRAVELER-008-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-008/traveler-008-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.286271,
+    "contactCenterY": 0.567844,
+    "id": "TRAVELER-009-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-body",
+    "role": "Body"
+  },
+  {
+    "contactRadius": 0.248774,
+    "contactCenterY": 0.372188,
+    "id": "TRAVELER-010-VISUAL-BODY",
+    "resourcePath": "Art/Sprites/Travelers/traveler-010/traveler-010-body",
+    "role": "Body"
+  },
+  {
+    "id": "FIELD-001-VISUAL-BARREL",
+    "resourcePath": "Art/Sprites/Fields/field-001/field-001-barrel-prop",
+    "role": "Prop"
   }
 ]

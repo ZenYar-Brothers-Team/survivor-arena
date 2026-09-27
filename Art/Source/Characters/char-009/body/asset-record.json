@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-009",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates.",
+  "prompt": "Edit this exact transparent full-body illustration of CHAR-009 Igolka, the teenage goblin hunter. Follow the user's correction: KEEP the original lean, angular, relatively long-legged teenage body instead of shortening or broadening it. Preserve her serious face, spiky hair, olive skin, broad ears, rust patched jacket, teal scarf, boots, and the single compact ice-shard quiver high behind one shoulder. Change ONLY the arm pose: bend both elbows and hold both arms naturally out to either side at waist-to-lower-chest height, with open hands visible and separated from the torso, giving the central silhouette a wider readable shape without an extreme T-pose. Hands and elbows stay within the shoulder-and-hip footprint, no long protrusions. Neutral animation-ready posture in 3/4 top-down right-facing view, exactly two arms, two hands and two feet. Strong stylized 2D storybook cutout with deep-plum contour, matte colors, simple cel shading. Retain transparent square canvas and ample clear padding. No weapon in hands, no extra quiver, no magic, no action pose, no floor, baked shadow, background, text or extra limbs.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-009/char-009-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "14d535910af16aa0db8e1ece7d34e7aba5a35f034c27322fe11605591a677d0e",
+    "runtimeSha256": "8b3f5820606bb16d789cc4cbffaa12e1b0eb7b2072a8e51e3dc12cf3e8855158",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 50,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

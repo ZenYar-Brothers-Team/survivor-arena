@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Content;
+using Game.Diagnostics;
 using Game.Field;
 using Game.Movement;
 using Game.Presentation;
@@ -40,6 +41,8 @@ namespace Game.Bootstrap
             var bush = Resolve(definition.Bush, registry, SpriteRole.Prop);
             var grass = Resolve(definition.Grass, registry, SpriteRole.Prop);
             var column = definition.Column.Id.IsValid ? Resolve(definition.Column, registry, SpriteRole.Prop) : null;
+            var barrel = definition.Barrel.Id.IsValid ? Resolve(definition.Barrel, registry, SpriteRole.Prop) : null;
+            var rock = definition.Rock.Id.IsValid ? Resolve(definition.Rock, registry, SpriteRole.Prop) : null;
             var shrine = definition.Shrine.Id.IsValid ? Resolve(definition.Shrine, registry, SpriteRole.Prop) : null;
             var transforms = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true)).ToList();
             var spawn = RequireUnique(transforms, environment.SpawnPointName);
@@ -61,7 +64,7 @@ namespace Game.Bootstrap
                     Obstacles = definition.ObstacleLayout == null ? definition.ExplicitObstacles
                         : FieldObstacleLayoutGenerator.Generate(definition.ObstacleLayout, sideLength, spawn.position,
                             layoutSeed ?? definition.ObstacleLayout.ReferenceSeed, definition.EnvironmentId.ToString());
-                    interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column);
+                    interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column, barrel, rock);
                 }
                 else
                 {
@@ -122,6 +125,7 @@ namespace Game.Bootstrap
         private void CreateDecor(FieldEnvironmentPresentationDefinition definition, Sprite bush, Sprite grass, Sprite shrine,
             Vector2 spawn, Vector2 obstacle, IReadOnlyList<Vector2> interiorObstacles, float sideLength)
         {
+            using var guard = PerfGuard.Measure("FieldEnvironment.CreateDecor", 100f);
             var random = new Random(definition.Seed);
             var half = sideLength * .5f - definition.DecorationMargin;
             for (var y = -half; y <= half; y += definition.DecorationSpacing)
@@ -222,15 +226,24 @@ namespace Game.Bootstrap
 
         // Authored rectangles are the player-only collision boxes; sprites are scaled to the rectangle width.
         private IReadOnlyList<Vector2> CreateAuthoredObstacles(FieldEnvironmentPresentationDefinition definition,
-            IReadOnlyList<FieldObstacleDefinition> obstacles, Sprite fence, Sprite stump, Sprite column)
+            IReadOnlyList<FieldObstacleDefinition> obstacles, Sprite fence, Sprite stump, Sprite column,
+            Sprite barrel, Sprite rock)
         {
+            using var guard = PerfGuard.Measure("FieldEnvironment.CreateObstacles", 100f);
             var playerLayer = LayerMask.NameToLayer("Player");
             if (playerLayer < 0) throw new InvalidOperationException("Player layer is missing.");
             var positions = new List<Vector2>(obstacles.Count);
             foreach (var obstacle in obstacles)
             {
                 var isFence = obstacle.Kind == FieldObstacleKind.Fence;
-                var sprite = obstacle.Kind == FieldObstacleKind.Column ? column : isFence ? fence : stump;
+                var sprite = obstacle.Kind switch
+                {
+                    FieldObstacleKind.Fence => fence,
+                    FieldObstacleKind.Column => column,
+                    FieldObstacleKind.Barrel => barrel,
+                    FieldObstacleKind.Rock => rock,
+                    _ => stump
+                };
                 var position = new Vector2(obstacle.X, obstacle.Y);
                 // A tall fence rectangle (FIELD-003 vertical wall) turns the horizontal fence sprite by 90°.
                 var upright = isFence && obstacle.Height > obstacle.Width;

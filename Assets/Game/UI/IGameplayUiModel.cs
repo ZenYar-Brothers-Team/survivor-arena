@@ -18,6 +18,7 @@ namespace Game.UI
         float ExperienceProgress01 { get; }
         int Level { get; }
         float ElapsedSeconds { get; }
+        float RunDurationSeconds { get; }
         CharacterStatsViewState Stats { get; }
         RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }

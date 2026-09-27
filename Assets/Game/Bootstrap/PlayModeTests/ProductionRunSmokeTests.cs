@@ -37,8 +37,22 @@ namespace Game.Bootstrap.PlayModeTests
                 var run = Object.FindAnyObjectByType<RunController>();
                 Assert.AreEqual("CHAR-001", run.Model.Selection.CharacterId.ToString());
                 Assert.AreEqual("FIELD-001", run.Model.Selection.FieldId.ToString());
+                var runAudio = GameObject.Find("Run audio");
+                Assert.IsNotNull(runAudio, "Production run must compose its audio event binding.");
+                Assert.AreEqual(0f, AudioListener.volume, "Automated runs must not play through the computer speakers.");
+                Assert.AreEqual(13, runAudio.GetComponents<AudioSource>().Length,
+                    "Eight routine voices, two important voices, two UI voices and one ambience loop.");
                 var fieldArt = GameObject.Find("FieldEnvironmentArt");
-                Assert.AreEqual(64, fieldArt.GetComponentsInChildren<Collider2D>().Length);
+                var obstacles = fieldArt.GetComponentsInChildren<Collider2D>();
+                Assert.AreEqual(288, obstacles.Length);
+                var camera = Camera.main;
+                var inView = obstacles.Count(item =>
+                {
+                    var minimum = camera.WorldToViewportPoint(item.bounds.min);
+                    var maximum = camera.WorldToViewportPoint(item.bounds.max);
+                    return minimum.x >= 0f && minimum.y >= 0f && maximum.x <= 1f && maximum.y <= 1f;
+                });
+                Assert.GreaterOrEqual(inView, 2, "Two obstacles must be fully visible on the opening screen.");
                 Assert.IsFalse(GameObject.Find("Obstacle_Fixture").GetComponent<Collider2D>().enabled,
                     "The prototype scene obstacle is not part of the authored FIELD-001 layout.");
                 for (var i = 0; i < 180; i++) yield return new WaitForFixedUpdate();

@@ -1026,12 +1026,12 @@
     "visualId": "SKILL-006-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 22,
+        "baseDamage": 16,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1043,8 +1043,8 @@
                 "projectileCount": 1,
                 "spreadDegrees": 0,
                 "speed": 6,
-                "range": 4,
-                "collisionRadius": 0.22,
+                "range": 3.2,
+                "collisionRadius": 0.16,
                 "returnDamageMultiplier": 1,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1,
@@ -1059,12 +1059,12 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 20,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1076,8 +1076,8 @@
                 "projectileCount": 1,
                 "spreadDegrees": 0,
                 "speed": 6,
-                "range": 4,
-                "collisionRadius": 0.22,
+                "range": 3.2,
+                "collisionRadius": 0.16,
                 "returnDamageMultiplier": 1,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1,
@@ -1092,12 +1092,12 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 20,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1109,8 +1109,8 @@
                 "projectileCount": 1,
                 "spreadDegrees": 0,
                 "speed": 6,
-                "range": 5.2,
-                "collisionRadius": 0.264,
+                "range": 4.16,
+                "collisionRadius": 0.192,
                 "returnDamageMultiplier": 1,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1,
@@ -1125,12 +1125,12 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 20,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1142,8 +1142,8 @@
                 "projectileCount": 2,
                 "spreadDegrees": 20,
                 "speed": 6.9,
-                "range": 5.2,
-                "collisionRadius": 0.264,
+                "range": 4.16,
+                "collisionRadius": 0.192,
                 "returnDamageMultiplier": 1,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1,
@@ -1158,12 +1158,12 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 20,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1175,8 +1175,8 @@
                 "projectileCount": 2,
                 "spreadDegrees": 20,
                 "speed": 6.9,
-                "range": 5.2,
-                "collisionRadius": 0.264,
+                "range": 4.16,
+                "collisionRadius": 0.192,
                 "returnDamageMultiplier": 1,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1,
@@ -1191,12 +1191,12 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 20,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
         "targetingMode": "NearestEnemy",
-        "targetingRadius": 6,
+        "targetingRadius": 4.5,
         "waves": [
           {
             "delaySeconds": 0,
@@ -1208,8 +1208,8 @@
                 "projectileCount": 2,
                 "spreadDegrees": 20,
                 "speed": 6.9,
-                "range": 5.2,
-                "collisionRadius": 0.264,
+                "range": 4.16,
+                "collisionRadius": 0.192,
                 "returnDamageMultiplier": 1.75,
                 "hitCooldownSeconds": 1,
                 "returnKnockbackMultiplier": 1.5,
@@ -1231,7 +1231,7 @@
     "iconVisualId": "SKILL-007-VISUAL-ICON",
     "levels": [
       {
-        "baseDamage": 24,
+        "baseDamage": 22,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1254,7 +1254,7 @@
         ]
       },
       {
-        "baseDamage": 24,
+        "baseDamage": 22,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1277,7 +1277,7 @@
         ]
       },
       {
-        "baseDamage": 30,
+        "baseDamage": 27.5,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,

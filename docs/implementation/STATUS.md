@@ -194,6 +194,12 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Verified | 2026-09-24: FIELD-001 (поле, 900-s timeline, 64 authored player-only obstacles), production composition без fixture fallback, production профиль `profile-v1.json`; Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-08-2026-09-24.md), [DECISION-0054 §9](../decisions/0054-field001-autonomous-execution.md#9-конкретизации-f1-08) |
 | 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08 автопроверки PASS; новые изображения приняты 2026-09-24. 2026-09-25: отзывы двух прогонов 2026-09-24 обработаны — 9 OBS исправлено, 2 ждут повторной проверки, 1 отложен; изменены PASSIVE-007/ENEMY-005/ENEMY-007 ([DECISION-0055](../decisions/0055-playtest-2026-09-24-fixes.md), [evidence](evidence/field001-f1-09-playtest-fixes-2026-09-25.md)); Unity full PASS 2026-09-25 (EditMode 718/718, PlayMode 27/27); нужен повторный прогон для визуальной проверки. 2026-09-25: критический bugfix — исключение в `FixedUpdate` при взрыве снаряда после попадания (два `ParticleSystem` на одном root), [evidence](evidence/2026-09-25-projectile-particles-crash.md), Unity full PASS (EditMode 727/727, PlayMode 27/27); в игре пользователь подтвердил исчезновение просадки («кажется пофиксилось»), без FPS-замеров. 2026-09-25: perf-фикс `Pickup.ReachablePlacement`/orbit area damage ([evidence](evidence/2026-09-25-perf-placement-orbit.md)); слой врагов — [DECISION-0056](../decisions/0056-enemy-physics-layer.md), см. ниже; Unity full PASS (EditMode 726/726, PlayMode 27/27), время в игре ещё не перепроверено. 2026-09-25: пять замечаний прогона `5233a664` исправлены — стартовый спавн у края экрана, свежие draft и wave seeds на run, иконка сета в паузе, опыт 45 s, без линии рывка гончей; боссы и путники снова получают свой арт вместо цветных квадратов ([DECISION-0057](../decisions/0057-playtest-2026-09-25-fixes.md)); Unity full PASS 2026-09-25 (EditMode 741/741, PlayMode 27/27, `TestResults/checks/20260925T183434-473761Z/summary.json`); «опыт стреляет» (`108ff5b3` OBS-01) не воспроизводится по словам пользователя; нужен повторный прогон. 2026-09-25: атаки игрока выбирают цели/точки только на экране, без цели — предыдущее направление или случайная точка экрана; удар с небес — столб света раньше вспышки, круг и область урона сжаты по вертикали до 0.7 ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)); Unity full PASS (EditMode 749/749, PlayMode 27/27, `TestResults/checks/20260925T194642-943680Z/summary.json`). 2026-09-25: путник-призрак (исключение при спавне из-за потери арта в `TravelerDefinition.Scale`) исправлен, PASSIVE-007 L3–L6 ослаблен (L6 1.665 units вместо 2.5), BOSS-001 телепортируется с telegraph и ударом, если игрок 5 s дальше 5 units ([DECISION-0059](../decisions/0059-playtest-2026-09-25-evening-fixes.md)); приземление — случайная точка окружности вокруг игрока; Unity full PASS 2026-09-25 (EditMode 755/755, PlayMode 27/27, `TestResults/checks/20260925T204529-715654Z/summary.json`). 2026-09-26: DECISION-0056 утверждён пользователем — враги на отдельном физическом слое `Enemy`, пять area-запросов урона/ауры фильтруют только его (XP, снаряды, pickups и стены больше не проходят через поиск компонентов); Unity full PASS (EditMode 757/757, PlayMode 27/27, `TestResults/checks/20260926T062226-949358Z/summary.json`); в игре пользователь проверил: «проверил, всё хорошо» (2026-09-26), без замеров времени/FPS. 2026-09-26: пользователь прошёл быстрый забег без замечаний («проверил быстрым забегом, но мы можем идти дальше»); экспорт не сохранён, матрица этим не закрыта, приёмки F1-09 нет; пользователь разрешил идти дальше по плану, F1-09 остаётся открытым. 2026-09-26: по отзыву пользователя телепорт финального босса (BOSS-001 и BOSS-002) срабатывает через 2 s вместо 5, приземление 1.5 units от игрока, круг удара 3.5 — от удара нельзя уклониться на базовой скорости ([DECISION-0059](../decisions/0059-playtest-2026-09-25-evening-fixes.md), пересмотр 2026-09-26); лечение регенерацией в телеметрии помечено источником `Regeneration` вместо `unknown`; EditMode затронутых тестов PASS 33/33 (`TestResults/checks/20260926T194450-704495Z/summary.json`); Unity full PASS (EditMode 806/806, PlayMode 28/28, `TestResults/checks/20260926T194552-432817Z/summary.json`); в игре не проверено. 2026-09-26: по отзыву пользователя ослаблены SKILL-014 (взрыв L1–L2 32 → 26, L3–L6 41.6 → 33.8) и SKILL-007 (cooldown 2.2 → 2.86 s) ([DECISION-0065](../decisions/0065-skill-014-explosion-nerf.md)); Unity full PASS (EditMode 812/812, PlayMode 28/28, `TestResults/checks/20260926T203114-698286Z/summary.json`); в игре не проверено. Остаются реальные прогоны по матрице, performance bounds и приёмка ощущения карты. [Подготовка/матрица NOT RUN](evidence/field001-f1-09-2026-09-24.md), [art review](../playtests/2026-09-24_field001-art-acceptance.md) |
 
+### Пользовательские правки FIELD-001 — 2026-09-27
+
+По [DECISION-0069](../decisions/0069-field001-feedback-tuning.md) заменён и приглушён level-up cue, ослаблены damage/range/size SKILL-006, смягчена оранжевая вспышка SKILL-014, поле уплотнено до 288 препятствий четырёх типов по миниатюре, HUD показывает обратный отсчёт 15:00 → 00:00. Runtime, исходные данные генератора, арт-пакет и документы синхронизированы. EditMode 855/855 и PlayMode 30/30 PASS; art scope 50/50 и 151 provenance record PASS; audio integrity 28/28, layouts 200 сидов PASS. Художественный review и игровой баланс после изменений ждут пользовательского прогона. [Evidence](evidence/2026-09-27-field001-feedback-tuning.md).
+
+Дополнительный отзыв 2026-09-27: на стартовом экране FIELD-001 гарантированы два видимых объекта вне свободного круга радиуса 6 ([DECISION-0070](../decisions/0070-field001-opening-screen-obstacles.md)); SKILL-007 L1–L3 слегка ослаблен до 22/22/27.5 damage ([DECISION-0071](../decisions/0071-early-chain-lightning-damage.md)). Safe full check: EditMode 856/856, PlayMode 30/30, art provenance 151/151 PASS; layout validator 200 сидов PASS. Игровой баланс ждёт ручного прогона. [Evidence](evidence/2026-09-27-opening-screen-and-lightning.md).
+
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
 оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —
@@ -255,6 +261,7 @@ implementation/verification evidence: none. F1-00 разрешён только 
 | 33 | [IP-30](modules/IP-30-production-travelers.md) |
 | 34 | [IP-24](modules/IP-24-production-waves.md) |
 | 35 | [IP-27](modules/IP-27-integration.md) |
+| 36 | [IP-33](modules/IP-33-production-audio.md) |
 
 ## Scope revisions и готовность
 
@@ -676,10 +683,10 @@ Startup packet: F1-03 — CHAR-001; поздние character IDs только un
 Dependencies: IP-12, IP-17, IP-12A
 Blocked by: IP-17 (Blocked, target scope).
 Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
-Remaining acceptance / IDs: CHAR-002…010 production bindings, gameplay-scale body review и Unity verification CHAR-001. Утверждённые body CHAR-002…005 подготовлены как visual assets 2026-09-26 — [evidence](evidence/2026-09-26-character-body-art.md).
+Remaining acceptance / IDs: CHAR-002…010 production bindings, gameplay-scale body review и Unity verification CHAR-001. Утверждённые body CHAR-002…005 подготовлены как visual assets 2026-09-26 — [evidence](evidence/2026-09-26-character-body-art.md). Body CHAR-006…010 подготовлены единым art packet 2026-09-27: runtime imports и contact profiles зарегистрированы, Unity art scope 44/44 EditMode, manifest 143/143, global contact fit PASS; production binding и gameplay-scale review открыты — [evidence](evidence/2026-09-27-character-body-art.md).
 Startup subset F1-03: CHAR-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
 Target implementation evidence: F1-03 subset only.
-Target verification evidence: Новые checks не запускались.
+Target verification evidence: Art-prep CHAR-006…010: Unity 6000.6.0f1, 44/44 Game.* EditMode, zero skipped, manifest 143/143 (`TestResults/checks/20260927T071305-197020Z/summary.json`); полный IP-22 не проверен.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).
 
 ### IP-23 — Production Fields FIELD-001…010
@@ -705,12 +712,12 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-07 — TRAVELER-001/002/005 и production Book. Required packets: F1-00/01/02/04/05; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-29, IP-12A
-Blocked by: production Book card/ID/параметры, required Traveler/support/XP/presence data и per-ID art gates; prerequisite IP-29 выполнен.
-Remaining gates: G-03/G-10 semantics закрыты DECISION-0020/0033 и IP-28; G-11/G-12/scaling semantics — DECISION-0035. G-14/G-17, production Book card/ID/параметры, complete Traveler/support data и конкретные images. Designs TRAVELER-001…010 уже approved.
-Remaining acceptance / IDs: TRAVELER-003/004/006…010; startup body art принят 2026-09-24.
+Blocked by: production Book card/ID/параметры, required Traveler/support/XP/presence data, production bindings и gameplay-scale art review; prerequisite IP-29 выполнен.
+Remaining gates: G-03/G-10 semantics закрыты DECISION-0020/0033 и IP-28; G-11/G-12/scaling semantics — DECISION-0035. G-14/G-17, production Book card/ID/параметры, complete Traveler/support data, production bindings и gameplay-scale review. Designs TRAVELER-001…010 уже approved; body images для всех десяти подготовлены.
+Remaining acceptance / IDs: TRAVELER-003/004/006…010 production content и bindings; startup body art принят 2026-09-24. Body для остальных семи IDs утверждены пользователем и подготовлены единым art packet 2026-09-27 — [evidence](evidence/2026-09-27-traveler-body-art.md). Поздний стабильный Unity art scope: 50/50 EditMode, manifest 151/151, global contact fit и общий runner PASS.
 Startup subset F1-07: TRAVELER-001/002/005, FIELD-001 schedule, PICKUP-002 Implemented 2026-09-24 — [evidence](evidence/field001-f1-07-2026-09-24.md).
 Target implementation evidence: Нет для новых требований.
-Target verification evidence: Новые checks не запускались.
+Target verification evidence: Production checks новых требований не запускались; art-preparation checks — [evidence](evidence/2026-09-27-traveler-body-art.md), общий PASS `TestResults/checks/20260927T103139-228226Z/summary.json`.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-30).
 
 ### IP-24 — Canonical Wave / Encounter Content и field bindings
@@ -740,6 +747,15 @@ Remaining acceptance / IDs: Все criteria/IDs из [спецификации](
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-27).
+
+### IP-33 — Production audio, общий звуковой язык
+
+Status: Implemented
+Scope revision: audio-first-pass-R1, явное поручение пользователя 2026-09-27 вне заблокированной F1-09 очереди.
+Dependencies: F1-03 settings subset (DECISION-0038), F1-01/04/06/07/08 event and composition subsets — выполнены для FIELD-001.
+Remaining acceptance: прослушивание обычной/плотной волны, босса, паузы и 5×; возможная корректировка громкости/тембров. Специальный low-HP и attack-telegraph contract остаются за пределами первого среза.
+Target implementation evidence: 28 CC0-клипов, один общий boss track, 15 семейств событий, ограниченные голоса и real-time cooldown; [подробности](evidence/2026-09-27-production-audio.md).
+Target verification evidence: audio integrity 28/28; финальные фокусные Unity EditMode 2/2 и PlayMode 3/3 PASS (`TestResults/checks/20260927T091845-825005Z/summary.json`), автоматические PlayMode-прогоны без вывода звука на динамики. Общий прогон до postprocessor: EditMode 848/848, PlayMode 29/30 — failure в FIELD-003 geometry, не в audio. Художественный review не выполнен.
 
 ## Status maintenance rule
 

@@ -46,6 +46,7 @@ namespace Game.UI
         public int Level => _experience.Progression.Level;
         public RunExperienceSnapshot ExperienceTotals => _experience.Totals;
         public float ElapsedSeconds => _run.Model.Elapsed;
+        public float RunDurationSeconds => _run.Model.Duration;
         public CharacterStatsViewState Stats => new CharacterStatsViewState(_player.Stats, _player.Controls);
         public RunState RunState => _run.Model.State;
         public int SpeedMultiplier => _run.Model.SpeedMultiplier;

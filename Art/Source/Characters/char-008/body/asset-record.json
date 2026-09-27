@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-008",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body gameplay body sprite preview for CHAR-008 Tetushka Svetlyak, an adult female goblin playable fugitive and careful keeper of stolen relics in Survival Arena. One single character on truly transparent square canvas. Approved identity: calm, composed mature woman, orderly and nearly ritualistic presentation, distinct from chaotic tinkerer Tetka Shmyga. A compact bundle of two short lanterns or stolen holy relics secured close to upper torso, one prominent lens medallion near collar; restrained warm amber glow only inside relic glass, no spell beams or particles. Balanced symmetrical layered ceremonial cloak in muted plum and dusty teal with ochre accents, simple secured waist, no long hanging accessories. Moss/olive goblin skin, broad lateral ears, mature focused expression; poised, resourceful fugitive, not a priest or human enemy. Readable rounded compact silhouette, sturdy short legs, head roughly goblin proportion, all parts close enough for one inscribed contact circle. 3/4 top-down gameplay view facing right/slightly toward viewer, neutral animation-ready pose with exactly two arms, two hands and two feet clearly visible and separated. Stylized 2D storybook cutout; thick organic deep-plum outer outline, flatter matte colors, simple cel shading, a little dry-brush paper texture, 3–5 big shapes, soft warm front/top illumination flip-safe. Silhouette 70–78% canvas height, at least 12% empty side margins, 14% top, 8–10% bottom. No floor, shadow, scenery, text, symbols with legible lettering, logo, frame, photorealism, 3D, pixel art, gore, action pose, long staff, large halo, duplicated relics, tiny details, extra limbs.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-008/char-008-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "9bcf62cca1646e4bfb5c3fa59f6aee06aafee2b311e682d8dcd7a1a2b164497e",
+    "runtimeSha256": "6c927c5331d3ab2293f1e3804d569d318fe01de0914e99842364994cc5a4f664",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 50,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

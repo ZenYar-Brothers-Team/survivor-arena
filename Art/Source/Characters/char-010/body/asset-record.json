@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "CHAR-010",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; CHAR-006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body 2D gameplay body sprite preview for CHAR-010 Starshoy Nochka, an older male goblin fugitive and veteran family leader in Survival Arena. One character only, square actually transparent canvas. Approved card: not the largest male, but unmistakably the most seasoned: a few broad readable scars, mismatched scavenged old armor pieces, one trophy secured high at shoulder, heavy short cloak collar. Silhouette communicates veteran and family authority, rather than generic battle goblin: compact sturdy torso, slightly forward seasoned posture, broad cloak collar, one heavy armor shoulder and one patched fabric shoulder, weathered composed expression and quiet protective confidence. Olive/moss goblin skin, lateral ears, shorter graying hair, practical boots. Mismatched matte rust, dusty teal, clay and muted ochre clothing/armor, no human royal uniform. Distinct from agile young CHAR-001 and huge ogre CHAR-006. 3/4 top-down gameplay view facing right and slightly toward viewer, neutral animation-ready stance, two visible separate arms/hands and two feet; short secured cloak, no long weapon or dangling trinkets. Compact body mass compatible with one inscribed circular contact circle. Stylized 2D storybook cutout, strong silhouette, 3–5 large shape/color masses, thick lively deep-plum outer contour, thin interior lines, flat matte colors, simple cel shading, subtle paper texture, gentle top/front light flip-safe. Body 70–78% canvas height, 12% side margins, 14% top and 8–10% bottom. No floor, baked shadow, background, text, logo, UI frame, photorealism, 3D, pixel art, gore, combat pose, oversized sword, magic, particles, speed lines, extra limbs or duplicated armor.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-selected candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Characters/char-010/char-010-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "d694614a3bbff037b4aedd18dda2f8842ae126c9c877ae9d441d6047e6746a9b",
+    "runtimeSha256": "bc2ffea5ea5f4d6af1087d2c3cc87e7736a65e85146c2578f458dfe4a8d189c4",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 50,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

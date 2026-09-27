@@ -10,6 +10,7 @@ namespace Game.UI
         public float ExperienceProgress01 { get; }
         public int Level { get; }
         public float ElapsedSeconds { get; }
+        public float RunDurationSeconds { get; }
         public WaveViewState Wave { get; }
         public CharacterStatsViewState Stats { get; }
         public RunExperienceSnapshot ExperienceTotals { get; }
@@ -27,13 +28,14 @@ namespace Game.UI
             WaveViewState wave,
             CharacterStatsViewState stats = null,
             RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default,
-            int speedMultiplier = 1, bool canChangeSpeed = false)
+            int speedMultiplier = 1, bool canChangeSpeed = false, float runDurationSeconds = 0f)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
             ExperienceProgress01 = experienceProgress01;
             Level = level;
             ElapsedSeconds = elapsedSeconds;
+            RunDurationSeconds = runDurationSeconds;
             Wave = wave ?? throw new ArgumentNullException(nameof(wave));
             Stats = stats;
             ExperienceTotals = experienceTotals;

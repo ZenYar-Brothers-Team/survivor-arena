@@ -110,11 +110,11 @@ IN GAME
 | CHAR-003 | Шепотка | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
 | CHAR-004 | Тётка Шмыга | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
 | CHAR-005 | Бабка Искра | Body sprite | Generate via GPT | APPROVED | Утверждён 2026-09-26; master и runtime подготовлены, production binding и gameplay-scale review ожидают IP-22 |
-| CHAR-006 | Гром | Body sprite | Generate via GPT | NOT STARTED | Огр; отдельный крупный силуэт |  
-| CHAR-007 | Дед Вертун | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-008 | Тётушка Светляк | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-009 | Иголка | Body sprite | Generate via GPT | NOT STARTED | |  
-| CHAR-010 | Старшой Ночка | Body sprite | Generate via GPT | NOT STARTED | |
+| CHAR-006 | Гром | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Огр; отдельный крупный силуэт, 210 PPU; production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-007 | Дед Вертун | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Худой пожилой бегун с короткой палкой поперёк корпуса; production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-008 | Тётушка Светляк | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Два компактных фонаря; production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-009 | Иголка | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Подростковый силуэт с разведёнными руками; production binding и gameplay-scale review ожидают IP-22 |
+| CHAR-010 | Старшой Ночка | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Ветеран в разномастной броне; production binding и gameplay-scale review ожидают IP-22 |
 
 \#\#\# Procedural character presentation  
 Для всех playable-персонажей по умолчанию:  
@@ -216,14 +216,14 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 |---|---|---|---|---|  
 | TRAVELER-001 | Дорожный громила | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Travelers/traveler-001/body/asset-record.json) |
 | TRAVELER-002 | Бродячий стрелок | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Travelers/traveler-002/body/asset-record.json) |
-| TRAVELER-003 | Странствующий копейщик | Body sprite | Generate via GPT | NOT STARTED |  
-| TRAVELER-004 | Наёмный дуэлянт | Body sprite | Generate via GPT | NOT STARTED |  
+| TRAVELER-003 | Странствующий копейщик | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Компактное копьё поперёк корпуса; production binding и gameplay-scale review ожидают IP-30 |
+| TRAVELER-004 | Наёмный дуэлянт | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Production binding и gameplay-scale review ожидают IP-30 |
 | TRAVELER-005 | Паломник со щитом | Body sprite | Generate via GPT | IN GAME — v001, принят 2026-09-24. [Provenance](../../Art/Source/Travelers/traveler-005/body/asset-record.json) |
-| TRAVELER-006 | Дорожный маг | Body sprite | Generate via GPT | NOT STARTED |  
-| TRAVELER-007 | Путевой инквизитор | Body sprite | Generate via GPT | NOT STARTED |  
-| TRAVELER-008 | Рыцарь-странник | Body sprite | Generate via GPT | NOT STARTED |  
-| TRAVELER-009 | Небесный паломник | Body sprite | Generate via GPT | NOT STARTED |  
-| TRAVELER-010 | Ангел-скиталец | Body sprite | Generate via GPT | NOT STARTED |
+| TRAVELER-006 | Дорожный маг | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Production binding и gameplay-scale review ожидают IP-30 |
+| TRAVELER-007 | Путевой инквизитор | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Production binding и gameplay-scale review ожидают IP-30 |
+| TRAVELER-008 | Рыцарь-странник | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Production binding и gameplay-scale review ожидают IP-30 |
+| TRAVELER-009 | Небесный паломник | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Production binding и gameplay-scale review ожидают IP-30 |
+| TRAVELER-010 | Ангел-скиталец | Body sprite | Generate via GPT | APPROVED — v001; master/runtime подготовлены 2026-09-27 | Сложенная пара крыльев; production binding и gameplay-scale review ожидают IP-30 |
 
 Дополнительно:  
 \- off-screen direction arrow — Procedural/simple UI;  
@@ -382,7 +382,7 @@ Generic rule: set effects должны быть вторичным визуал�
 
 | ID | Field | Needed art | Method | Status |  
 |---|---|---|---|---|  
-| FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + куст/трава; production geometry и thumbnail | Generate via GPT / Hybrid | Thumbnail v001 IN GAME, принят 2026-09-24; geometry и полный run оцениваются отдельно. [Provenance](../../Art/Source/Fields/field-001/background/asset-record.json) |
+| FIELD-001 | Деревенская окраина | Ground tile + плетень + пень + бочка + переиспользованный камень FIELD-002 + куст/трава; production geometry и thumbnail | Generate via GPT / Hybrid | Thumbnail v001 IN GAME, принят 2026-09-24; плотность и бочка подготовлены по [DECISION-0069](../decisions/0069-field001-feedback-tuning.md), gameplay-scale review открыт. [Provenance thumbnail](../../Art/Source/Fields/field-001/background/asset-record.json), [бочка](../../Art/Source/Fields/field-001/barrel/asset-record.json) |
 | FIELD-002 | Королевский тракт | Ground/background \+ decor pack \+ obstacle pack | Generate via GPT / Hybrid | Ground, boulder, колонна, святилище и thumbnail v001 подключены 2026-09-26; gameplay-scale review открыт. [Evidence](../implementation/evidence/2026-09-26-field002-art.md) |
 | FIELD-003 | Пограничные руины | Ground/background \+ ruins/walls/bridge-style props | Generate via GPT / Hybrid | NOT STARTED |  
 | FIELD-004 | Рыцарский лагерь | Ground/background \+ camp decor/obstacles | Generate via GPT / Hybrid | NOT STARTED |  

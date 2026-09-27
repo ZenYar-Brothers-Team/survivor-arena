@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-007",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body gameplay body sprite preview for TRAVELER-007, the Wayfaring Inquisitor, a human protector traveler in Survival Arena. One adult human support figure who stays with ordinary enemies and gives them short protective shields; he does not attack the player. Show a self-directed pilgrim-inquisitor rather than a royal officer: weathered off-white and muted burgundy short travel robes, practical leather boots, a broad modest dark hood or shoulder mantle, one compact round reliquary strapped high to chest, one gloved hand resting over it and the other open at his side. Focused stern expression, restrained authority, no cruelty. Distinct from green goblin players and from pure white/gold heavenly paladins: human proportions, worn cloth, dusty road details, no uniform insignia. Compact broad shoulder/torso silhouette suitable for one conservative contact circle, no long hanging sleeves or props. 3/4 top-down gameplay view generally facing right and slightly toward viewer, neutral animation-ready stance, both feet visible. Stylized 2D storybook cutout with thick lively deep-plum outer outline, matte large color masses, simple cel shading, light dry-brush paper texture, warm top/front flip-safe lighting. Real transparent square RGBA canvas with generous clear margins, body about 74% image height. No floor, shadow, background, text, letters, logos, card frame, active shield VFX, magic rays, weapon, photorealism, 3D, pixel art, gore, extra limbs or duplicate reliquaries.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-007/traveler-007-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "5e4ecbd8fb8eb247653631b8be83440b4b842438b5730385e71245befb969dac",
+    "runtimeSha256": "374a97a21d80d14b8b9078f214bc9bbbee8f9ce5520789eb100bf0f42693d2ec",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

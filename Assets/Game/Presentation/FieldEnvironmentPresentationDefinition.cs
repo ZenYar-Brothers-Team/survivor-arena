@@ -15,6 +15,8 @@ namespace Game.Presentation
         public ContentRef<SpriteDefinition> Bush { get; }
         public ContentRef<SpriteDefinition> Grass { get; }
         public ContentRef<SpriteDefinition> Column { get; }
+        public ContentRef<SpriteDefinition> Barrel { get; }
+        public ContentRef<SpriteDefinition> Rock { get; }
         public ContentRef<SpriteDefinition> Shrine { get; }
         public float ShrineChance { get; }
         public string ObstacleName { get; }
@@ -57,6 +59,8 @@ namespace Game.Presentation
             Bush = new ContentRef<SpriteDefinition>(data.BushVisualId);
             Grass = new ContentRef<SpriteDefinition>(data.GrassVisualId);
             if (!string.IsNullOrWhiteSpace(data.ColumnVisualId)) Column = new ContentRef<SpriteDefinition>(data.ColumnVisualId);
+            if (!string.IsNullOrWhiteSpace(data.BarrelVisualId)) Barrel = new ContentRef<SpriteDefinition>(data.BarrelVisualId);
+            if (!string.IsNullOrWhiteSpace(data.RockVisualId)) Rock = new ContentRef<SpriteDefinition>(data.RockVisualId);
             if (!string.IsNullOrWhiteSpace(data.ShrineVisualId)) Shrine = new ContentRef<SpriteDefinition>(data.ShrineVisualId);
             ShrineChance = data.ShrineChance ?? 0f;
             ObstacleName = data.ObstacleName;
@@ -116,6 +120,12 @@ namespace Game.Presentation
             if ((obstacles.Exists(item => item.Kind == FieldObstacleKind.Column) ||
                  ObstacleLayout?.UsesKind(FieldObstacleKind.Column) == true) && !Column.Id.IsValid)
                 throw new ArgumentException("columnVisualId is required for column obstacles.");
+            if ((obstacles.Exists(item => item.Kind == FieldObstacleKind.Barrel) ||
+                 ObstacleLayout?.UsesKind(FieldObstacleKind.Barrel) == true) && !Barrel.Id.IsValid)
+                throw new ArgumentException("barrelVisualId is required for barrel obstacles.");
+            if ((obstacles.Exists(item => item.Kind == FieldObstacleKind.Rock) ||
+                 ObstacleLayout?.UsesKind(FieldObstacleKind.Rock) == true) && !Rock.Id.IsValid)
+                throw new ArgumentException("rockVisualId is required for rock obstacles.");
             NumericValidation.ValidateNonNegative(DecorationMargin, nameof(DecorationMargin));
             NumericValidation.ValidateNonNegative(SafeRadius, nameof(SafeRadius));
             ValidateScaleRange(GrassScaleMin, GrassScaleMax, "grass");
@@ -143,6 +153,8 @@ namespace Game.Presentation
             yield return Bush.ToReference();
             yield return Grass.ToReference();
             if (Column.Id.IsValid) yield return Column.ToReference();
+            if (Barrel.Id.IsValid) yield return Barrel.ToReference();
+            if (Rock.Id.IsValid) yield return Rock.ToReference();
             if (Shrine.Id.IsValid) yield return Shrine.ToReference();
         }
 
@@ -171,7 +183,15 @@ namespace Game.Presentation
                 Required(data.StartClearRadius, "obstacleLayout.startClearRadius"),
                 Required(data.MinPatternGap, "obstacleLayout.minPatternGap"),
                 data.PlacementAttempts ?? throw new ArgumentException("obstacleLayout.placementAttempts is required."),
-                data.ReferenceSeed ?? throw new ArgumentException("obstacleLayout.referenceSeed is required."), patterns);
+                data.ReferenceSeed ?? throw new ArgumentException("obstacleLayout.referenceSeed is required."), patterns,
+                data.StartScreen == null ? null : new FieldStartScreenDefinition(
+                    Required(data.StartScreen.HalfWidth, "obstacleLayout.startScreen.halfWidth"),
+                    Required(data.StartScreen.HalfHeight, "obstacleLayout.startScreen.halfHeight"),
+                    Required(data.StartScreen.MinAbsX, "obstacleLayout.startScreen.minAbsX"),
+                    Required(data.StartScreen.MaxAbsX, "obstacleLayout.startScreen.maxAbsX"),
+                    Required(data.StartScreen.MinAbsY, "obstacleLayout.startScreen.minAbsY"),
+                    Required(data.StartScreen.MaxAbsY, "obstacleLayout.startScreen.maxAbsY"),
+                    data.StartScreen.PatternIds));
         }
 
         private static float Required(float? value, string name) =>

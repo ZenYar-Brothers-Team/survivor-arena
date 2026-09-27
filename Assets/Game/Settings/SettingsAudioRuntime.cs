@@ -22,7 +22,7 @@ namespace Game.Settings
             _musicPreview.clip = _musicClip; _sfxPreview.clip = _sfxClip;
             settings.Changed += Refresh; Refresh();
         }
-        private AudioSource Source() { var s = _owner.AddComponent<AudioSource>(); s.playOnAwake = false; s.spatialBlend = 0; s.ignoreListenerPause = true; return s; }
+        private AudioSource Source() { var s = _owner.AddComponent<AudioSource>(); s.playOnAwake = false; s.spatialBlend = 0; s.ignoreListenerPause = true; s.mute = Application.isBatchMode; return s; }
         private AudioClip Tone(float hz)
         {
             var samples = new float[(int)(_config.PreviewSeconds * _config.PreviewSampleRate)];
@@ -31,7 +31,17 @@ namespace Game.Settings
         }
         public void Bind(RunModel run) { if (_run != null) _run.StateChanged -= State; _sfx.Stop(); _run = run; if (run != null) { run.StateChanged += State; State(run.State); } }
         private void State(RunState state) { if (state == RunState.Paused) _sfx.Pause(); else if (state == RunState.Running) _sfx.UnPause(); else _sfx.Stop(); }
-        public void PlayMusic(AudioClip clip, float sourceGain = 1) { _musicGain = sourceGain; Refresh(); _music.clip = clip; _music.Play(); }
+        public void PlayMusic(AudioClip clip, float sourceGain = 1, bool loop = true)
+        {
+            _musicGain = sourceGain; Refresh(); _music.Stop(); _music.clip = clip; _music.loop = loop;
+            if (clip != null) _music.Play();
+        }
+        public void StopMusic() => _music.Stop();
+        public void PlayMenuSfx(AudioClip clip, float sourceGain = 1)
+        {
+            if (_run != null || clip == null) return;
+            _sfxGain = sourceGain; Refresh(); _sfx.Stop(); _sfx.clip = clip; _sfx.Play();
+        }
         public void PlayGameplaySfx(AudioClip clip, float sourceGain = 1) { if (_run?.State != RunState.Running) return; _sfxGain = sourceGain; Refresh(); _sfx.clip = clip; _sfx.Play(); }
         public void Preview(bool music) { var source = music ? _musicPreview : _sfxPreview; source.Stop(); source.Play(); }
         public void StopPreviews() { _musicPreview.Stop(); _sfxPreview.Stop(); }

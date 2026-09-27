@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-004",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body gameplay body sprite preview for TRAVELER-004, the Mercenary Duelist, a combat human traveler and simple mini-boss in Survival Arena. Single adult human with a confident, focused expression and agile fighter stance that is neutral enough for procedural walking and horizontal flip. Distinct from royal knights and goblin player: a self-employed road mercenary in asymmetrical weathered burgundy/umber coat, one compact steel shoulder guard, lean athletic human proportions, narrow dueling blade held low close to the near thigh, not lunging. Suggest speed and short curved sidesteps by light forward weight and one offset foot, no speed lines. Medium compact silhouette with broad central coat mass and no long weapon protrusion; both hands and feet anatomically clear. 3/4 top-down gameplay view, generally facing right and slightly viewerward. Strong readable stylized 2D storybook cutout, thick organic deep-plum outer contour, simple matte colors and cel shading, subtle paper texture, soft warm top/front light flip-safe. True transparent square RGBA canvas, full body occupies roughly 74% canvas height with ample side/top/bottom transparent padding, shared foot contact line. No floor, baked shadow, scenery, frame, text, logo, uniform royal crest, photorealism, 3D, pixel art, gore, motion blur, extreme action pose, extra limbs or duplicate swords.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-004/traveler-004-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "e45defc2224edd3709e4d5af04eae87b9b2a8af6131eeabdf6913d3168feee82",
+    "runtimeSha256": "7ef77a6bde05c1af8e50b173013e760a3d58083106610057b002266f4f54f601",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

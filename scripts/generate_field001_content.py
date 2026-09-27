@@ -1029,7 +1029,7 @@ def fields(baseline):
 
 
 def field_presentation(baseline):
-    """Accepted FIELD-001 art/decor values from the fixture arena; obstacles are the 64 authored baseline rects."""
+    """Accepted field art/decor values plus per-run obstacle layouts."""
     fixture = json.loads((ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json")
                          .read_text(encoding="utf-8-sig"))[0]
     field = baseline["field"]
@@ -1071,6 +1071,10 @@ def field_presentation(baseline):
     third["obstacles"] = [{"id": o["id"], "kind": ruin_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                            "height": o["height"]} for o in three["obstacles"]]
     presentations = [data, second, third]
+    # DECISION-0069: the denser village outskirts reuses the FIELD-002 rock and adds a barrel.
+    data["barrelVisualId"] = "FIELD-001-VISUAL-BARREL"
+    data["rockVisualId"] = "FIELD-002-VISUAL-BOULDER"
+    data["interiorObstacleCount"] = 288
     # DECISION-0068: the first three fields generate their obstacles every run from patterns instead of a fixed list.
     wall = baseline["field"]["wallThickness"]
     for presentation in presentations:
@@ -1085,6 +1089,8 @@ def field_presentation(baseline):
                           "pieces": [{"kind": piece["kind"], "x": piece["x"], "y": piece["y"], "width": piece["width"],
                                       "height": piece["height"]} for piece in pattern["pieces"]]}
                          for pattern in layout["patterns"]]}
+        if "startScreen" in layout:
+            presentation["obstacleLayout"]["startScreen"] = layout["startScreen"]
     return presentations
 
 

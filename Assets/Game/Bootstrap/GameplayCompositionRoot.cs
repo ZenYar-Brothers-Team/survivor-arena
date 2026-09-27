@@ -20,6 +20,7 @@ using Game.Run;
 using Game.UI;
 using UnityEngine;
 using Game.Telemetry;
+using Game.Bootstrap.Audio;
 
 namespace Game.Bootstrap
 {
@@ -104,6 +105,8 @@ namespace Game.Bootstrap
         private AppShellScreen _shellScreen;
         private AppShellPresenter _shellPresenter;
         private SettingsAudioRuntime _audio;
+        private ProductionAudioCatalog _audioCatalog;
+        private RunAudioRuntime _runAudio;
         private SettingsConfig _settingsConfig;
         private CameraShakeRuntime _shake;
         private GroundShadowRuntime _playerGroundShadow;
@@ -128,6 +131,8 @@ namespace Game.Bootstrap
             _notifications.Changed += NotifyNavigation;
             foreach (var rule in Profile.Catalog.Unlocks.Values) if (Profile.IsUnlocked(rule.Id)) _knownUnlocks.Add(rule.Id);
             _audio = new SettingsAudioRuntime(transform, Settings, _settingsConfig);
+            _audioCatalog = ProductionAudioCatalog.Load();
+            _audio.PlayMusic(_audioCatalog.MenuMusic);
             _shellScreen = new AppShellScreen(transform);
             _shellPresenter = new AppShellPresenter(this, Settings, _audio, _shellScreen);
             Profile.Changed += ProfileChanged;
@@ -146,7 +151,12 @@ namespace Game.Bootstrap
             NotifyNavigation();
         }
         private void NotifyNavigation() => NavigationChanged?.Invoke();
-        public void Play() { if (CanPlay && AtMainMenu) OpenCharacterSelection(); }
+        private void PlayMenuCue(string id)
+        {
+            if (_audioCatalog != null && _audioCatalog.TryGet(id, out var cue, out var clips))
+                _audio?.PlayMenuSfx(clips[0], cue.Gain.Value);
+        }
+        public void Play() { if (CanPlay && AtMainMenu) { PlayMenuCue("ui.confirm"); OpenCharacterSelection(); } }
         public void MainMenu()
         {
             if (!CanPlay) return;
@@ -157,9 +167,11 @@ namespace Game.Bootstrap
                 _fieldScreen?.Dispose(); _fieldScreen = null;
                 Selection = null; FieldSelection = null;
             }
-            _metaPresenter.ClearResult(); AtMainMenu = true; NotifyNavigation();
+            _metaPresenter.ClearResult(); AtMainMenu = true;
+            if (_audioCatalog != null) _audio?.PlayMusic(_audioCatalog.MenuMusic);
+            NotifyNavigation();
         }
-        public void Meta() { if (!AtMainMenu || !CanPlay) return; AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation(); }
+        public void Meta() { if (!AtMainMenu || !CanPlay) return; PlayMenuCue("ui.confirm"); AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation(); }
         public void QuitRun() => QuitProfileRun();
         public void Exit() => Application.Quit();
         public bool DevelopmentTools => Application.isEditor || Debug.isDebugBuild;
@@ -265,6 +277,7 @@ namespace Game.Bootstrap
         public bool TryStartCharacter(ContentId id)
         {
             if (IsInitialized || _selectionScreen == null || Selection == null || !Selection.Roster.TrySelect(id, out _)) return false;
+            PlayMenuCue("ui.confirm");
             _pendingCharacterId = id;
             var previousField = FieldSelection?.SelectedId ?? Catalog.Fields.DefaultFieldId;
             FieldSelection = new FieldSelectionSession(_fieldRoster, previousField, this);
@@ -278,6 +291,7 @@ namespace Game.Bootstrap
         public void BackToCharacters()
         {
             if (IsInitialized || _fieldScreen == null) return;
+            PlayMenuCue("ui.back");
             _fieldScreen.Dispose();
             _fieldScreen = null;
             Selection = new CharacterSelectionSession(Selection.Roster, _pendingCharacterId, this);
@@ -289,6 +303,7 @@ namespace Game.Bootstrap
         {
             if (IsInitialized || _fieldScreen == null || FieldSelection == null ||
                 !FieldSelection.Roster.TrySelect(id, out _) || !Selection.Roster.TrySelect(_pendingCharacterId, out _)) return false;
+            PlayMenuCue("ui.confirm");
             Initialize(_pendingCharacterId, Selection.Roster, id, FieldSelection.Roster);
             _fieldScreen.Dispose();
             _fieldScreen = null;
@@ -516,6 +531,14 @@ namespace Game.Bootstrap
                 _notificationsBinding = new RunNotificationBinding(runController.Model, experienceRuntime, draftRuntime,
                     BossEncounters, Travelers, Catalog.Sets, _notifications);
                 initializedSubsystems.Add(_notificationsBinding.Dispose);
+                if (_audioCatalog != null && _audio != null)
+                {
+                    _runAudio = new RunAudioRuntime(transform, _audioCatalog, Settings, _audio,
+                        runController.Model, player.Health, experienceRuntime, draftRuntime,
+                        activeSkillRuntime, Pickups, enemySpawner, BossEncounters,
+                        selectedField.Id.ToString() == "FIELD-001");
+                    initializedSubsystems.Add(() => { _runAudio?.Dispose(); _runAudio = null; });
+                }
                 runController.Model.Completed += ShowProfileResult;
             }
             catch
@@ -584,6 +607,7 @@ namespace Game.Bootstrap
             runController.Model.StateChanged -= ShellRunStateChanged;
             runController.Model.PauseChanged -= ShellPauseChanged;
             _audio?.Bind(null);
+            _runAudio?.Dispose(); _runAudio = null;
             if (_shake != null) { _shake.Shutdown(); Destroy(_shake); _shake = null; }
             // Capture required Results while every contributor is still alive, then diagnostics.
             runController.Shutdown();

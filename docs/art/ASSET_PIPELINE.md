@@ -858,6 +858,8 @@ Ground derivative может использовать зеркальную сб�
 
 Acceptance: typed references разрешаются через общий registry; import profiles соответствуют Tile/Prop; boundary совпадает с physics; каждый внутренний пень/плетень имеет ровно один player-only collider; pickup/Traveler placement учитывает его bounds; decor не имеет physics components; одинаковые seeds дают одинаковую раскладку; cleanup не оставляет второй ground, obstacles или decor root. Исходный visual-only проход описан [DECISION-0044](../decisions/0044-field-environment-art-is-presentation-only.md), действующая плотность и obstacle contract — [DECISION-0045](../decisions/0045-field-density-and-200-enemy-cap.md).
 
+По [DECISION-0069](../decisions/0069-field001-feedback-tuning.md) production FIELD-001 использует четыре компактных obstacle props: пень, горизонтальный плетень, бочку и камень из FIELD-002. Бочка проходит обычный `art_pipeline.py` с отдельным source/master/provenance/runtime record; камень переиспользуется по существующему visual ID. Коллайдеры каждого типа задаются размерами в obstacle layout, а не границами изображения. Раскладка: 12×12 ячеек, два объекта на ячейку, свободный круг у spawn и проходы между ячейками. Две позиции пня или бочки резервируются внутри стартового кадра вне свободного круга по [DECISION-0070](../decisions/0070-field001-opening-screen-obstacles.md).
+
 ## 28. Пакет UI-иконок навыков
 
 Skill icon производится отдельной ролью `icon`, даже если для того же навыка уже существует projectile или VFX raster. Для каждого `SKILL-XXX` сохраняются `icon/vNNN/concept-NN.png`, `icon/selected-master.png` и отдельный `icon/asset-record.json`; world-art record в корне skill folder не переиспользуется как provenance иконки.

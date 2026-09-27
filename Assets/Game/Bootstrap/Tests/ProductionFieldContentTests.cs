@@ -85,9 +85,9 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_GeneratesSixtyFourSingleObstaclesPerRun_OnePerCell_WithFreeStart()
+        public void Presentation_GeneratesDenseMixedObstaclesPerRun_WithFreeStart()
         {
-            // DECISION-0068: the layout is generated every run from patterns; 8×8 cells, one stump or fence each.
+            // DECISION-0069: 12×12 cells, two compact obstacles in each, with clear inter-cell passages.
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
                 .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
             Assert.AreEqual(0, presentation.ExplicitObstacles.Count);
@@ -96,14 +96,46 @@ namespace Game.Bootstrap.Tests
             {
                 var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero, seed,
                     "FIELD-001-ENVIRONMENT");
-                Assert.AreEqual(64, obstacles.Count, $"seed {seed}");
+                Assert.AreEqual(288, obstacles.Count, $"seed {seed}");
+                CollectionAssert.IsSubsetOf(new[] { FieldObstacleKind.Stump, FieldObstacleKind.Fence,
+                    FieldObstacleKind.Barrel, FieldObstacleKind.Rock }, obstacles.Select(item => item.Kind).Distinct().ToArray());
+                Assert.AreEqual(4, obstacles.Select(item => item.Kind).Distinct().Count(), "All four thumbnail-based prop types appear.");
                 foreach (var obstacle in obstacles)
                 {
                     Assert.LessOrEqual(System.Math.Abs(obstacle.X) + obstacle.Width / 2, 99f);
                     Assert.LessOrEqual(System.Math.Abs(obstacle.Y) + obstacle.Height / 2, 99f);
                     Assert.Greater(obstacle.X * obstacle.X + obstacle.Y * obstacle.Y, 36f, "Start area stays free.");
-                    Assert.IsTrue(obstacle.Kind == FieldObstacleKind.Stump || (obstacle.Kind == FieldObstacleKind.Fence && obstacle.Width > obstacle.Height),
-                        "Single stumps or horizontal fences (DECISION-0046).");
+                    Assert.IsTrue(obstacle.Kind != FieldObstacleKind.Fence || obstacle.Width > obstacle.Height,
+                        "Fences remain horizontal (DECISION-0046).");
+                }
+            }
+        }
+
+        [Test]
+        public void Presentation_AlwaysShowsTwoSeparatedObstaclesOnTheOpeningScreen()
+        {
+            var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(FixtureRuntimeContentCatalog.ProductionFieldPresentationPath).Values
+                .Single(p => p.Id.ToString() == "FIELD-001-PRESENTATION");
+            var screen = presentation.ObstacleLayout.StartScreen;
+            Assert.IsNotNull(screen);
+            for (var seed = 0; seed < 100; seed++)
+            {
+                var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f,
+                    UnityEngine.Vector2.zero, seed, "FIELD-001-ENVIRONMENT");
+                var visible = obstacles.Where(item =>
+                    System.Math.Abs(item.X) + item.Width * .5f <= screen.HalfWidth &&
+                    System.Math.Abs(item.Y) + item.Height * .5f <= screen.HalfHeight).ToArray();
+                Assert.GreaterOrEqual(visible.Length, 2, $"seed {seed}: two obstacles must be fully in view");
+                Assert.IsTrue(visible.Any(item => item.X < 0 && System.Math.Abs(item.X) >= screen.MinAbsX),
+                    $"seed {seed}: left-hand opening obstacle");
+                Assert.IsTrue(visible.Any(item => item.X > 0 && System.Math.Abs(item.X) >= screen.MinAbsX),
+                    $"seed {seed}: right-hand opening obstacle");
+                foreach (var item in visible)
+                {
+                    var rect = new UnityEngine.Rect(item.X - item.Width * .5f, item.Y - item.Height * .5f,
+                        item.Width, item.Height);
+                    Assert.GreaterOrEqual(FieldObstacleLayoutGenerator.Distance(rect, UnityEngine.Vector2.zero), 6f - 1e-3f,
+                        $"seed {seed}: obstacle touches the player start");
                 }
             }
         }

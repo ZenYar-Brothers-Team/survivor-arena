@@ -17,18 +17,27 @@
   {
    "fieldId": "FIELD-001",
    "presentationId": "FIELD-001-PRESENTATION",
-   "cellSize": 24,
-   "patternsPerCell": 1,
+   "cellSize": 16,
+   "patternsPerCell": 2,
    "edgeMargin": 3,
    "cellMargin": 2,
    "startClearRadius": 6,
    "minPatternGap": 3,
    "placementAttempts": 30,
    "referenceSeed": 1002,
+   "startScreen": {
+    "halfWidth": 6.5,
+    "halfHeight": 4.4,
+    "minAbsX": 5.65,
+    "maxAbsX": 5.85,
+    "minAbsY": 3.75,
+    "maxAbsY": 3.85,
+    "patternIds": ["STUMP", "BARREL"]
+   },
    "patterns": [
     {
      "id": "STUMP",
-     "weight": 65,
+     "weight": 35,
      "rotations": [
       0
      ],
@@ -44,7 +53,7 @@
     },
     {
      "id": "FENCE",
-     "weight": 35,
+     "weight": 25,
      "rotations": [
       0
      ],
@@ -57,9 +66,21 @@
        "height": 0.5
       }
      ]
+    },
+    {
+     "id": "BARREL",
+     "weight": 20,
+     "rotations": [0],
+     "pieces": [{"kind": "Barrel", "x": 0, "y": 0, "width": 1.1, "height": 1.1}]
+    },
+    {
+     "id": "ROCK",
+     "weight": 20,
+     "rotations": [0],
+     "pieces": [{"kind": "Rock", "x": 0, "y": 0, "width": 1.5, "height": 1.1}]
     }
    ],
-   "source": "baseline v1: 64 одиночных препятствия (42 пня 1.2×1.0, 22 плетня 2.4×0.5)"
+   "source": "DECISION-0069: 12×12 ячеек, 2 компактных препятствия в каждой; пни, плетни, бочки и камни"
   },
   {
    "fieldId": "FIELD-002",

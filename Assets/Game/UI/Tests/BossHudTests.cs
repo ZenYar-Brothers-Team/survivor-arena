@@ -16,7 +16,7 @@ namespace Game.UI.Tests
             view.SetDevelopmentControlsVisible(false);
             var boss = new BossViewState(Guid.NewGuid(), "Commander", 150, 500);
             HudViewState Hud(float elapsed, BossViewState state) => new HudViewState(80, 100, .5f, 1, elapsed,
-                new WaveViewState(1, 1, "Final", WavePhaseTag.Elite), boss: state);
+                new WaveViewState(1, 1, "Final", WavePhaseTag.Elite), boss: state, runDurationSeconds: 900f);
             view.RenderHud(Hud(800, boss));
             var bar = root.Q<ProgressBar>(GameplayUiElementIds.BossBar);
             var notification = root.Q<Label>(GameplayUiElementIds.Notification);
@@ -30,7 +30,11 @@ namespace Game.UI.Tests
             Assert.AreEqual(DisplayStyle.None, notification.style.display.value);
             view.RenderHud(Hud(805, default));
             Assert.AreEqual(DisplayStyle.None, bar.style.display.value);
-            Assert.AreEqual("13:25", root.Q<Label>(GameplayUiElementIds.TimerLabel).text);
+            Assert.AreEqual("01:35", root.Q<Label>(GameplayUiElementIds.TimerLabel).text);
+            view.RenderHud(Hud(900, default));
+            Assert.AreEqual("00:00", root.Q<Label>(GameplayUiElementIds.TimerLabel).text);
+            view.RenderHud(Hud(901, default));
+            Assert.AreEqual("00:00", root.Q<Label>(GameplayUiElementIds.TimerLabel).text);
         }
     }
 }

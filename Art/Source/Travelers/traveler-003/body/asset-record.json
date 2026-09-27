@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-003",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Edit this exact transparent full-body illustration of TRAVELER-003 Wandering Spearman. Preserve the same human face, beard, hair, clothing, blue scarf, brown ragged cloak, boots, posture, two gripping hands, palette, 3/4 right-facing storybook cutout style and transparent background. Change ONLY the spear's length and placement: make it a compact thick travel spear held transversely across his waist and belly, approximately the width of his shoulders plus forearms, with a modest spearhead that ends near the outer edge of his right elbow/shoulder silhouette. The butt end stays near his left elbow; neither end projects far outside the body. Keep one continuous shaft gripped by both hands and a small unmistakable spear tip. No other change, no extra weapon, extra fingers, floor, baked shadow, scenery, text or effects.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-003/traveler-003-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "d144a4ae4f6619ab0c9a4a3bd19f72ef6b8d24d5b125d114f1ab33fa853623be",
+    "runtimeSha256": "7cfc5517fe20f6e930a84adb51f57e34b9e1cee70a4fd35f66c03fcbd4cd4811",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

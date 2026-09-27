@@ -93,8 +93,8 @@ body contact врагов измеряется отдельно по утвер�
 | SKILL-003 | вращение 120°/s; per-blade/per-target hit interval 0.6 | Непрерывная орбита; L6 4 клинка, 180°/s, orbit radius 2.25, blade radius 0.496 |
 | SKILL-004 | расширение от 0 до полного radius за 0.25 s | Каждая волна hit-once, не моментальный урон всему диску; вторая через 0.35 s |
 | SKILL-005 | range 6; speed 12; half-width/collision radius 0.12 | 3 цели означает 2 дополнительных пробивания; L6 unlimited только до expiry |
-| SKILL-006 | targeting 6; outbound range 4; speed 6; radius 0.22; lifetime 4 | L4 два под углом 20°; общий target cooldown 1 s для всех бумерангов данного skill |
-| SKILL-007 | targeting 6; jump range 2.5 | L6 range 3.375 и damage 33.6: последний уровень добавляет damage, не range |
+| SKILL-006 | baseline: targeting 6; outbound range 4; speed 6; radius 0.22; lifetime 4. Текущие числа после отзыва: targeting 4.5; range 3.2, radius 0.16 ([DECISION-0069](../decisions/0069-field001-feedback-tuning.md)) | L4 два под углом 20°; общий target cooldown 1 s для всех бумерангов данного skill |
+| SKILL-007 | targeting 6; jump range 2.5; L1–L3 damage 22/22/27.5 после [DECISION-0071](../decisions/0071-early-chain-lightning-damage.md) | L6 range 3.375 и damage 33.6: последний уровень добавляет damage, не range |
 | SKILL-010 | targeting 8; следующие telegraphs стартуют с шагом 0.3 s | Каждая точка фиксируется при начале своего telegraph; цели только на экране, нет другой цели — случайная точка экрана в radius; область — эллипс radius × 0.7 по вертикали ([DECISION-0058](../decisions/0058-on-screen-targeting-and-strike-visual.md)) |
 | SKILL-013 | targeting 6; range 4; speed 8; radius 0.10 | L6 radius 0.135: +15% и +20% от базы складываются; slow 30% на 2 s |
 | SKILL-014 | speed 3; lifetime 1.8; range 5.4; radius 0.22 | L4 меняет size, не speed; L6 impact первой цели, взрыв при второй либо expiry |
@@ -272,7 +272,7 @@ height 10 (20 высот на сторону), wall thickness 1, старт (0,0
 препятствия: 16 в центральной области ±20, остальные вне центрального квадрата ±22;
 минимум 3 units между AABB. Типы: пень 1.2×1.0 и короткий плетень 2.4×0.5,
 без поворота. Центры и габариты всех 64 записаны в JSON, а не оставлены на случайный
-runtime генератор. **С 2026-09-27 расстановка генерируется каждый забег из тех же пня и плетня, 64 штуки равномерно по ячейкам — [DECISION-0068](../decisions/0068-per-run-obstacle-layouts.md); список в JSON только исторический.** Вокруг старта свободная область; стены/объекты блокируют только
+runtime генератор. **С 2026-09-27 расстановка генерируется каждый забег по [DECISION-0068](../decisions/0068-per-run-obstacle-layouts.md); после отзыва пользователя плотность увеличена до 288 объектов четырёх типов по [DECISION-0069](../decisions/0069-field001-feedback-tuning.md). Список в JSON — исторический.** Вокруг старта свободная область; стены/объекты блокируют только
 игрока. Враги и pickups не получают новых collision exceptions.
 
 Ordinary spawn radius 12, uniform angle по отдельному RNG. Первые 20 s (`field.openingSpawn`) ordinary враги появляются по тому же углу сразу за краем видимой камеры — прямоугольник обзора плюс 1 unit — чтобы первые враги были видны почти сразу ([DECISION-0057](../decisions/0057-playtest-2026-09-25-fixes.md)). Геометрия размещения

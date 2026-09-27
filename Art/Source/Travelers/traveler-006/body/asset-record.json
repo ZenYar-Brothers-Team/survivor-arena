@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-006",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body gameplay body sprite preview for TRAVELER-006, the Road Mage, a nonaggressive human wandering traveler in Survival Arena. One middle-aged human mage who slowly roams, pauses, and avoids the player rather than attacking. Show calm watchful curiosity, slightly weary face, compact travel hood and layered dusty blue-gray cloak with muted plum inner tunic, practical satchel close to torso, one closed spellbook tucked under an arm or strapped high, and a short walking staff resting close at the side. No casting pose, active spells, hostile halo or projectile. Clearly distinct from green goblin playable characters and organized royal court mages: human face and height, irregular road-worn clothing, modest materials, relaxed wandering posture. 3/4 top-down gameplay view facing right and a little toward viewer, neutral animation-ready stance, both feet on same contact line, exactly two hands and arms. Strong compact central body mass; no extremely thin tower silhouette or long staff protrusions. Stylized 2D storybook cutout, thick deep-plum slightly organic outline, 3–5 large matte color masses, simple cel shading, subtle dry-brush paper grain, warm top/front flip-safe light. Square RGBA sprite with true transparent background and generous clear padding; body around 74% of canvas height. No floor, baked shadow, scenery, frame, text, lettering on book, logo, photorealism, 3D, pixel art, gore, motion blur, extra limbs or duplicated staff/book.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-006/traveler-006-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "c38960785bbfd4d29cfcca48fca7b03187a74d5876e5f9366820c55d384f1a25",
+    "runtimeSha256": "94e0c4cb11f8c424306b7abbb1cb4132473559829b37a739c7acdb6a132dfcdf",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

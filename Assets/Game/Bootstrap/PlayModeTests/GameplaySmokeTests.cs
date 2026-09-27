@@ -75,7 +75,9 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(presentation);
             Assert.IsTrue(gameplayUi.IsInitialized);
             var timer = gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.TimerLabel);
-            Assert.AreEqual("00:00", timer.text);
+            Assert.AreEqual(900f, run.Model.Duration);
+            yield return new WaitForSecondsRealtime(.15f); // HUD refreshes at 0.1 s intervals.
+            Assert.AreEqual("15:00", timer.text);
             Assert.IsTrue(presentation.IsInitialized);
             var fieldArt = GameObject.Find("FieldEnvironmentArt");
             Assert.IsNotNull(fieldArt);
@@ -267,7 +269,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.GreaterOrEqual(run.Model.Outcome.Contributions["draft"].DraftTotals.Selections, 4);
             Assert.IsNotNull(enemySpawner.LastLifeEvent);
             Assert.AreNotEqual(System.Guid.Empty, enemySpawner.LastLifeEvent.LifeId);
-            Assert.AreEqual("15:00", timer.text);
+            Assert.AreEqual("00:00", timer.text);
             var completedRun = run.Model.Outcome;
             yield return null;
             Assert.AreSame(completedRun, run.Model.Outcome);

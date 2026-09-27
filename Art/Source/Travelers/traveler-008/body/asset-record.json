@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-008",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body gameplay body sprite preview for TRAVELER-008, the Wandering Knight, a heavy combat human traveler and simple mini-boss in Survival Arena. One seasoned knight on the road, not a formal royal guard: battered asymmetrical dark steel armor, patched travel cloak in muted blue and clay, dust and repair straps, closed compact helmet with face partly visible and determined human eyes. He is a heavy melee pursuer with occasional straight dash; broad compact torso and shoulder armor imply mass, but pose is neutral animation-ready, feet planted on common line, shieldless and sword held low close to the side. Strong readable silhouette distinct from playable green goblins and from the polished symmetric royal knight enemies. 3/4 top-down gameplay view facing right and slightly toward viewer; exactly two hands, two arms and two feet visible. One compact short sword, no long protrusion, no horse. Stylized 2D storybook cutout, thick deep-plum irregular outer contour, large matte color masses and simple cel shading, slight dry-brush paper texture, soft warm top/front flip-safe light. True transparent RGBA square with body around 74% of canvas height and ample clear margins. No floor, baked shadow, backdrop, UI frame, text, crest, logo, realistic gore, photorealism, 3D, pixel art, motion blur, dash trail, action lunge, extra limbs or duplicated weapon.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-008/traveler-008-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "a126d10a7fdffc93f84977b26065c1e699a26dcbb2035840e71a7ffef0410ad8",
+    "runtimeSha256": "f00b4d7f983bf247bca5bb1ab51cc2f65bca9df7c3d9ffb3e3ace73a05a33761",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

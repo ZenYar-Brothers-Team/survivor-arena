@@ -430,6 +430,7 @@ namespace Game.UI.Tests
                 ExperienceProgress01 = 0.4f,
                 Level = 3,
                 ElapsedSeconds = 125f,
+                RunDurationSeconds = 900f,
                 RunState = RunState.Paused,
                 IsDraftOpen = true,
                 RemainingRerolls = 2,
@@ -453,6 +454,7 @@ namespace Game.UI.Tests
             public float ExperienceProgress01 { get; set; }
             public int Level { get; set; }
             public float ElapsedSeconds { get; set; }
+            public float RunDurationSeconds { get; set; }
             public CharacterStatsViewState Stats { get; set; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
             public int SpeedMultiplier { get; private set; } = 1;

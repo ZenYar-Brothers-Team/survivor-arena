@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 PATH = ROOT / "docs/balance/field-layouts-v1.json"
 SIDE, WALL, SEEDS = 200.0, 1.0, 200
-PACKET_COUNTS = {"FIELD-001": 64, "FIELD-002": 100, "FIELD-003": 107}
+PACKET_COUNTS = {"FIELD-001": 288, "FIELD-002": 100, "FIELD-003": 107}
 
 
 def require(condition, message):
@@ -52,14 +52,28 @@ def generate(layout, seed):
     origin = -cells * layout["cellSize"] / 2
     weights = [p["weight"] for p in layout["patterns"]]
     placed = []
+    reserved = {}
+    if "startScreen" in layout:
+        screen = layout["startScreen"]
+        diagonal = rng.choice((-1, 1))
+        for index in range(2):
+            sx = -1 if index == 0 else 1
+            sy = diagonal if index == 0 else -diagonal
+            pattern_id = rng.choice(screen["patternIds"])
+            pattern = next(p for p in layout["patterns"] if p["id"] == pattern_id)
+            piece = pattern["pieces"][0]
+            x = sx * rng.uniform(screen["minAbsX"], screen["maxAbsX"])
+            y = sy * rng.uniform(screen["minAbsY"], screen["maxAbsY"])
+            cell = (int((y - origin) // layout["cellSize"]), int((x - origin) // layout["cellSize"]))
+            reserved[cell] = [dict(piece, x=x, y=y, cell=cell, guaranteed=True)]
     for row in range(cells):
         for col in range(cells):
             x0 = origin + col * layout["cellSize"] + layout["cellMargin"]
             y0 = origin + row * layout["cellSize"] + layout["cellMargin"]
             x1 = x0 + layout["cellSize"] - 2 * layout["cellMargin"]
             y1 = y0 + layout["cellSize"] - 2 * layout["cellMargin"]
-            in_cell = []
-            for _ in range(layout["patternsPerCell"]):
+            in_cell = list(reserved.get((row, col), []))
+            for _ in range(layout["patternsPerCell"] - len(in_cell)):
                 for _attempt in range(layout["placementAttempts"]):
                     pattern = rng.choices(layout["patterns"], weights)[0]
                     pieces = rotate(pattern["pieces"], rng.choice(pattern["rotations"]))
@@ -83,6 +97,16 @@ def main():
     require([f["fieldId"] for f in data["fields"]] == ["FIELD-001", "FIELD-002", "FIELD-003"], "Layouts for the first three fields")
     for layout in data["fields"]:
         fid = layout["fieldId"]
+        if "startScreen" in layout:
+            screen = layout["startScreen"]
+            for pattern in (p for p in layout["patterns"] if p["id"] in screen["patternIds"]):
+                require(len(pattern["pieces"]) == 1 and pattern["rotations"] == [0], f"{fid}: start pattern is not compact")
+                piece = pattern["pieces"][0]
+                require(screen["maxAbsX"] + piece["width"] / 2 <= screen["halfWidth"] and
+                        screen["maxAbsY"] + piece["height"] / 2 <= screen["halfHeight"],
+                        f"{fid}: start pattern is outside the opening view")
+                require(point_distance(dict(piece, x=screen["minAbsX"], y=screen["minAbsY"]), 0, 0) >= layout["startClearRadius"],
+                        f"{fid}: start pattern is too close to the player")
         interior = layout["cellSize"] - 2 * layout["cellMargin"]
         require(layout["patternsPerCell"] >= 1 and layout["placementAttempts"] >= 1 and layout["startClearRadius"] > 0, f"{fid}: parameters")
         for pattern in layout["patterns"]:
@@ -100,6 +124,9 @@ def main():
             placed, cells = generate(layout, seed)
             counts.append(len(placed))
             occupied = {p["cell"] for p in placed}
+            if "startScreen" in layout:
+                require(sum(bool(p.get("guaranteed")) for p in placed) == 2,
+                        f"{fid} seed {seed}: opening view needs two reserved props")
             empty_cells = max(empty_cells, cells * cells - len(occupied))
             for p in placed:
                 require(abs(p["x"]) + p["width"] / 2 <= SIDE / 2 - WALL and abs(p["y"]) + p["height"] / 2 <= SIDE / 2 - WALL,

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-010",
+  "role": "body",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-22; TRAVELER-003/004/006…010 review 2026-09-27",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation and image editing",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-27",
+  "approvedBy": "user",
+  "approvalEvidence": "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation).",
+  "prompt": "Edit this exact transparent body sprite of TRAVELER-010 Wandering Angel. Preserve the same stern face, silver armor, patched ivory and blue travel mantle, stance, hands, boots, storybook cutout rendering and transparent square canvas. Change ONLY the wings: replace the one very long left wing with one anatomically coherent PAIR of short folded feathered wings attached behind both shoulders, each close to the upper back and no lower than the waist. In the 3/4 view the far wing can be partly obscured, but its visible upper feathers should confirm a pair. Make the overall silhouette more compact and balanced so the wings do not dominate the body. No halo, projectiles, new symbols, extra arms, extra wings, floor, shadow, text or background.",
+  "constraints": [
+    "transparent background",
+    "no baked shadow",
+    "animation-ready stance",
+    "user-approved candidate"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-010/traveler-010-body.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "3880e7628d4ff2c4a1cd70f513d1a21a26e27bb22c37e596f7c7243566754421",
+    "runtimeSha256": "abb8fded38fa0476f40245183d32dfa78f02e849404eef153fc88085fec850af",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 28,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}
