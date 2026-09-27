@@ -658,10 +658,11 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
-Blocked by: G-14 production attack payload/rewards/timings и per-ID asset packet readiness.
+Blocked by: G-14 production attack payload/rewards/timings (data packet bosses-v1 Proposed, ждёт approval) и per-ID asset packet readiness.
 Remaining gates: G-14: точные attack timings/phase payload, rewards и required fields каждой карточки.
 Remaining acceptance / IDs: BOSS-002/MIDBOSS-002 gameplay-scale body review; BOSS-003…010, MIDBOSS-003…010; startup body/projectile art принят 2026-09-24. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-06: BOSS-001, MIDBOSS-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-06-2026-09-24.md).
+Data packet 2026-09-27: [bosses-v1](../balance/bosses-v1.md) — недостающие параметры BOSS-003…010/MIDBOSS-003…010 (урон как доля контакта, XP, тайминги, телепорт финальных) и шесть расширений схемы E1…E6 для поведения из карточек; карточные числа без изменений; Proposed ([DECISION-0066](../decisions/0066-bosses-data-v1.md)); static validator PASS. G-14 не закрыт до approval.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21).
