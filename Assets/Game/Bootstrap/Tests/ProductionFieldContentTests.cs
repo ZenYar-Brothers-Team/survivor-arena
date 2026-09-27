@@ -40,16 +40,13 @@ namespace Game.Bootstrap.Tests
         {
             // DECISION-0057: bosses and Travelers were spawned without their body art (placeholder squares).
             var catalog = FixtureRuntimeContentCatalog.CreateProduction();
-            // Bosses bound to a production field need approved art; BOSS-003…010/MIDBOSS-003…010 (DECISION-0066) wait for
-            // their fields and per-ID art gates and are explicit placeholders until then.
-            var fields = FixtureFieldCatalog.FromJson(JsonContentFile.ReadText(FixtureRuntimeContentCatalog.ProductionFieldsPath));
-            var fieldBosses = fields.Roster.AllFields
-                .SelectMany(f => f.MidBoss.HasValue ? new[] { f.FinalBoss.Id, f.MidBoss.Value.Id } : new[] { f.FinalBoss.Id })
-                .ToHashSet();
-            var bound = catalog.Bosses.Where(boss => fieldBosses.Contains(boss.Id)).ToArray();
+            // FIELD-001/002 bosses have approved art. BOSS-003…010/MIDBOSS-003…010 (DECISION-0066) wait for their per-ID art
+            // gates and are explicit placeholders, including the FIELD-003 pair already bound to its field (DECISION-0067).
+            var approved = new[] { "BOSS-001", "MIDBOSS-001", "BOSS-002", "MIDBOSS-002" };
+            var bound = catalog.Bosses.Where(boss => approved.Contains(boss.Id.ToString())).ToArray();
             Assert.AreEqual(4, bound.Length, "FIELD-001/002 final and mid bosses.");
-            foreach (var boss in catalog.Bosses.Where(boss => !fieldBosses.Contains(boss.Id)))
-                Assert.IsFalse(boss.Body.Visual.Id.IsValid, $"{boss.Id} has no field yet and no approved art: explicit placeholder.");
+            foreach (var boss in catalog.Bosses.Where(boss => !approved.Contains(boss.Id.ToString())))
+                Assert.IsFalse(boss.Body.Visual.Id.IsValid, $"{boss.Id} has no approved art yet: explicit placeholder.");
             var bodies = bound.Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
             Assert.AreEqual(7, bodies.Length, "FIELD-001/002 bosses and the three implemented Travelers.");
@@ -116,7 +113,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(0.5f, catalog.RunSetup.Draft.SetDraftChance);
             Assert.AreEqual(45f, catalog.RunSetup.Experience.BaseDropLifetimeSeconds,
                 "DECISION-0057: dropped XP disappears after 45 s (playtest 2026-09-25_5233a664 OBS-04).");
-            CollectionAssert.AreEqual(new[] { "FIELD-001", "FIELD-002" }, catalog.Fields.Roster.AllFields.Select(f => f.Id.ToString()));
+            CollectionAssert.AreEqual(new[] { "FIELD-001", "FIELD-002", "FIELD-003" },
+                catalog.Fields.Roster.AllFields.Select(f => f.Id.ToString()));
             var configuration = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry);
             Assert.AreEqual(SpriteRole.Background,
                 configuration.Field.Thumbnail.Value.Resolve(catalog.Registry).Role);

@@ -24,6 +24,7 @@ SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
 ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
 FIELD002_PACKET = ROOT / "docs/balance/field002-v1.json"
 BOSSES_PACKET = ROOT / "docs/balance/bosses-v1.json"
+FIELD003_PACKET = ROOT / "docs/balance/field003-v1.json"
 
 
 def load_baseline():
@@ -50,6 +51,10 @@ def load_baseline():
     if not str(late_bosses_packet.get("approval", "")).startswith("Approved"):
         raise SystemExit("Bosses packet is not Approved; production content cannot be generated.")
     data["lateBosses"] = late_bosses_packet
+    field_three = json.loads(FIELD003_PACKET.read_text(encoding="utf-8"))
+    if not str(field_three.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-003 packet is not Approved; production content cannot be generated.")
+    data["field003"] = field_three
     return data
 
 
@@ -969,10 +974,12 @@ def travelers(baseline):
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
                 "timeGrowth": schedule["timeGrowth"]}
-    if not baseline["field002"]["travelers"]["pool"].startswith("global"):
-        raise SystemExit("FIELD-002 Traveler pool must be the global pool")
+    for key in ("field002", "field003"):
+        if not baseline[key]["travelers"]["pool"].startswith("global"):
+            raise SystemExit(f"{key} Traveler pool must be the global pool")
     return {"travelers": result, "schedules": [entry(schedule["id"], seeds["travelers"], schedule["fieldRank"]),
-                                               entry("FIELD-002-TRAVELERS", seeds["travelers"] + 1000, 2)]}
+                                               entry("FIELD-002-TRAVELERS", seeds["travelers"] + 1000, 2),
+                                               entry("FIELD-003-TRAVELERS", seeds["travelers"] + 2000, 3)]}
 
 
 def fields(baseline):
@@ -981,13 +988,16 @@ def fields(baseline):
     if field["obstaclesBlock"] != "player-only" or field["spawnPoint"] != [0, 0]:
         raise SystemExit("FIELD-001 geometry policy not expressible by the runtime")
     two = baseline["field002"]["field"]
+    three = baseline["field003"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"]],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"]],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": "FIELD-002-ENVIRONMENT", "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": walls},
+                         {"id": three["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
@@ -1002,7 +1012,14 @@ def fields(baseline):
                     "unlockDescription": "Пройдите «Деревенскую окраину»", "environmentId": "FIELD-002-ENVIRONMENT",
                     "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
                     "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
-                    "enemyIds": baseline["field002"]["enemyPool"]}],
+                    "enemyIds": baseline["field002"]["enemyPool"]},
+                   # FIELD-003 (field003-v1, DECISION-0067): no approved thumbnail yet, the selection card shows its text.
+                   {"id": three["id"], "displayName": names[three["id"]], "description": card_field(three["id"], "Роль"),
+                    "thumbnailPlaceholder": three["thumbnailPlaceholder"], "difficulty": three["difficulty"],
+                    "unlockDescription": three["unlockDescription"], "environmentId": three["environmentId"],
+                    "timelineId": three["timelineId"], "travelerScheduleId": three["travelerScheduleId"],
+                    "finalBossId": three["finalBossId"], "midBossId": three["midBossId"],
+                    "enemyIds": baseline["field003"]["enemyPool"]}],
     }
 
 
@@ -1034,7 +1051,21 @@ def field_presentation(baseline):
                   nearObstacleCount=sum(1 for o in two["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
     second["obstacles"] = [{"id": o["id"], "kind": obstacle_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                             "height": o["height"]} for o in two["obstacles"]]
-    return [data, second]
+    three = baseline["field003"]["field"]
+    ruin_kinds = {"Wall": "Fence", "Rubble": "Stump"}
+    for o in three["obstacles"]:
+        if o["rotationDegrees"] != 0 or o["kind"] not in ruin_kinds:
+            raise SystemExit(f"{o['id']}: unsupported obstacle")
+    if three["waterDecor"]["blocksMovement"]:
+        raise SystemExit("FIELD-003 water must stay visual")
+    third = dict(data, id="FIELD-003-PRESENTATION", environmentId=three["environmentId"],
+                 obstacleVisualId="FIELD-002-VISUAL-BOULDER",
+                 seed=data["seed"] + 2000, obstacleSeed=data["obstacleSeed"] + 2000,
+                 interiorObstacleCount=len(three["obstacles"]),
+                 nearObstacleCount=sum(1 for o in three["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
+    third["obstacles"] = [{"id": o["id"], "kind": ruin_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
+                           "height": o["height"]} for o in three["obstacles"]]
+    return [data, second, third]
 
 
 def minutes(seconds):
@@ -1047,6 +1078,11 @@ def timeline(baseline):
 
 def timeline_field002(baseline):
     return field_timeline(baseline["field002"]["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"] + 1000,
+                          False)
+
+
+def timeline_field003(baseline):
+    return field_timeline(baseline["field003"]["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"] + 2000,
                           False)
 
 
@@ -1097,6 +1133,7 @@ TARGETS = {
     "Assets/Resources/Content/Presentation/ProductionFieldEnvironmentPresentation.json": field_presentation,
     "Assets/Resources/Content/Waves/ProductionWaveTimeline.json": timeline,
     "Assets/Resources/Content/Waves/ProductionWaveTimelineField002.json": timeline_field002,
+    "Assets/Resources/Content/Waves/ProductionWaveTimelineField003.json": timeline_field003,
     "Assets/Resources/Content/Run/ProductionRunSetup.json": run_setup,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }

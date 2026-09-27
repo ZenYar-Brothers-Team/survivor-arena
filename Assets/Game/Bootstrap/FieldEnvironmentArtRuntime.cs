@@ -225,10 +225,14 @@ namespace Game.Bootstrap
                 var isFence = obstacle.Kind == FieldObstacleKind.Fence;
                 var sprite = obstacle.Kind == FieldObstacleKind.Column ? column : isFence ? fence : stump;
                 var position = new Vector2(obstacle.X, obstacle.Y);
-                var scale = obstacle.Width / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
-                var renderer = CreateSprite(obstacle.Id, sprite, position, scale, 0f, -2, _root.transform);
+                // A tall fence rectangle (FIELD-003 vertical wall) turns the horizontal fence sprite by 90°.
+                var upright = isFence && obstacle.Height > obstacle.Width;
+                var length = upright ? obstacle.Height : obstacle.Width;
+                var thickness = upright ? obstacle.Width : obstacle.Height;
+                var scale = length / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
+                var renderer = CreateSprite(obstacle.Id, sprite, position, scale, upright ? 90f : 0f, -2, _root.transform);
                 var box = renderer.gameObject.AddComponent<BoxCollider2D>();
-                box.size = new Vector2(obstacle.Width / scale, obstacle.Height / scale);
+                box.size = new Vector2(length / scale, thickness / scale);
                 box.excludeLayers = ~(1 << playerLayer);
                 _obstacleColliders.Add(box);
                 positions.Add(position);

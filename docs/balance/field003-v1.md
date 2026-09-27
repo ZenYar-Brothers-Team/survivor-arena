@@ -1,8 +1,7 @@
 # FIELD-003 «Пограничные руины» — данные v1
 
-Ревизия: `field003-v1`, 2026-09-27. **Proposed** — ждёт approval пользователя
-([DECISION-0067](../decisions/0067-field003-v1.md)). Это данные для утверждения, не production JSON и не проверенный в
-игре баланс. Текущее исполнение — только [STATUS](../implementation/STATUS.md). Таблица —
+Ревизия: `field003-v1`, 2026-09-27. **Approved 2026-09-27** пользователем
+([DECISION-0067](../decisions/0067-field003-v1.md)). Это production data, не проверенный в игре баланс. Текущее исполнение — только [STATUS](../implementation/STATUS.md). Таблица —
 [field003-v1.json](field003-v1.json), проверка: `python -X utf8 docs/balance/validate_field003_v1.py`.
 
 Основа — [FIELD-002](field002-v1.md) (утверждён), враги [enemies-v1](enemies-v1.md), боссы [bosses-v1](bosses-v1.md).

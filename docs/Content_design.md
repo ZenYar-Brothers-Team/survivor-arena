@@ -950,7 +950,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Ranged / особое: серия из 3 projectiles по 9 damage с интервалом 0.15 с; cooldown серии 3.2 с.
 
-### XP reward: 5. Контексты: FIELD-004…008.
+### XP reward: 5. Контексты: FIELD-003…008 (FIELD-003 — с первой волны, [DECISION-0067](decisions/0067-field003-v1.md)).
 
 ###
 
@@ -1695,6 +1695,8 @@ Geometry / obstacles: несколько крупных кластеров ст�
 Enemy profile: смешанные отряды ополчения, охотников и королевской стражи; выше число врагов, способных атаковать из-за других противников.<br>
 Wave pressure: заметные пики давления появляются раньше; элитные фазы встречаются чаще.
 Boss / mid-boss: BOSS-003 / MIDBOSS-003.
+Enemy pool ([DECISION-0067](decisions/0067-field003-v1.md)): девять типов FIELD-002 и новый ENEMY-010 с первой волны; волны, геометрия и числа — [field003-v1](balance/field003-v1.md).
+Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=3.
 Unlock: завершить FIELD-002.
 
 #### FIELD-004 — Рыцарский лагерь

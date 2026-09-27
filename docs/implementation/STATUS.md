@@ -690,9 +690,10 @@ Startup packet: F1-08 — FIELD-001 geometry/environment/metadata/thumbnail. Req
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
-Remaining acceptance / IDs: FIELD-002 gameplay-scale review; FIELD-003…010 geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
+Remaining acceptance / IDs: FIELD-002 gameplay-scale review; FIELD-003 ручной прогон и арт (руины, вода, миниатюра); FIELD-004…010 geometry/metadata/kits/thumbnails; FIELD-001 thumbnail image и Unity verification. [FIELD-002 art](evidence/2026-09-26-field002-art.md).
 Startup subset F1-08: FIELD-001 geometry/obstacles/metadata/environment Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
 Data packet 2026-09-27: [field003-v1](../balance/field003-v1.md) — FIELD-003 «Пограничные руины»: волны на каркасе FIELD-001 (HP ×1.24, урон ×1.16, частота +20%, стрелки 28%, лимит ≤220), 16 кластеров руин (107 кусков), ENEMY-010 с первой волны (карточка FIELD-003…008 по выбору пользователя); Proposed ([DECISION-0067](../decisions/0067-field003-v1.md)); static validator PASS.
+FIELD-003 Implemented 2026-09-27: поле, окружение (107 авторских препятствий, вертикальные стены повёрнуты), FIELD-003-TIMELINE и FIELD-003-TRAVELERS из утверждённого пакета; арт руин, воды и миниатюры — per-ID gates, до них плетень/валун прежних полей; Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md).
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-23).
@@ -719,8 +720,9 @@ Startup packet: F1-08 — FIELD-001 900-second schedule и startup bindings. Req
 Dependencies: IP-14, IP-20, IP-21, IP-23, IP-29, IP-30
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-23 (Blocked, target scope), IP-30 (Blocked, target scope).
 Remaining gates: CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон.
-Remaining acceptance / IDs: Полные production encounter schedules и bindings полей 002…010; CG-02/CG-04; Unity verification FIELD-001.
+Remaining acceptance / IDs: Полные production encounter schedules и bindings полей 004…010 (002/003 реализованы, ручные прогоны открыты); CG-02/CG-04; Unity verification FIELD-001.
 Startup subset F1-08: FIELD-001-TIMELINE (900 s, hooks 450/810) и startup bindings Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
+FIELD-003-TIMELINE Implemented 2026-09-27 по field003-v1 (DECISION-0067): 24 фазы, HP ×1.24, урон ×1.16, ENEMY-010 с первой волны, лимит со всплеском ≤ 250; Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md). Ручной прогон не выполнен.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-24).

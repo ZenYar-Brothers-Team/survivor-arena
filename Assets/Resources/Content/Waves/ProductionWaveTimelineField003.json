@@ -1,0 +1,1319 @@
+{
+  "id": "FIELD-003-TIMELINE",
+  "seed": 232924,
+  "spawnRadius": 12,
+  "openingSpawn": {
+    "durationSeconds": 20,
+    "screenMargin": 1
+  },
+  "phases": [
+    {
+      "id": "FIELD-003-P01",
+      "displayName": "0:00–1:00",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 1.042,
+      "maxAliveEnemies": 48,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 69
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 6
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P02",
+      "displayName": "1:00–1:55",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 55,
+      "spawnIntervalSeconds": 0.75,
+      "maxAliveEnemies": 72,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 49
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 25
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 6
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P03",
+      "displayName": "1:55–2:00",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 72,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 49
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 25
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 6
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 24,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    },
+    {
+      "id": "FIELD-003-P04",
+      "displayName": "2:00–2:30",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 30,
+      "spawnIntervalSeconds": 1.6,
+      "maxAliveEnemies": 54,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 49
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 25
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 6
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P05",
+      "displayName": "2:30–3:30",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.542,
+      "maxAliveEnemies": 108,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 13
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 25
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P06",
+      "displayName": "3:30–4:30",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.39,
+      "maxAliveEnemies": 132,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 14
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P07",
+      "displayName": "4:30–4:35",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 132,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 14
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 36,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    },
+    {
+      "id": "FIELD-003-P08",
+      "displayName": "4:35–5:00",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 25,
+      "spawnIntervalSeconds": 1.467,
+      "maxAliveEnemies": 96,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 14
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P09",
+      "displayName": "5:00–6:00",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.417,
+      "maxAliveEnemies": 144,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 13
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P10",
+      "displayName": "6:00–7:00",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.319,
+      "maxAliveEnemies": 168,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P11",
+      "displayName": "7:00–7:05",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 168,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 24,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    },
+    {
+      "id": "FIELD-003-P12",
+      "displayName": "7:05–7:30",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 25,
+      "spawnIntervalSeconds": 1.2,
+      "maxAliveEnemies": 120,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 15
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P13",
+      "displayName": "7:30–8:30",
+      "tag": "Ordinary",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.5,
+      "maxAliveEnemies": 144,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 12
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P14",
+      "displayName": "8:30–9:30",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.317,
+      "maxAliveEnemies": 192,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 21
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P15",
+      "displayName": "9:30–9:35",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 192,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 21
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 32,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    },
+    {
+      "id": "FIELD-003-P16",
+      "displayName": "9:35–10:00",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 25,
+      "spawnIntervalSeconds": 1.067,
+      "maxAliveEnemies": 132,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 15
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P17",
+      "displayName": "10:00–11:30",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 90,
+      "spawnIntervalSeconds": 0.283,
+      "maxAliveEnemies": 216,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 18
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 21
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 9
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P18",
+      "displayName": "11:30–11:35",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 216,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 16
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 21
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 9
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 32,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    },
+    {
+      "id": "FIELD-003-P19",
+      "displayName": "11:35–12:00",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 25,
+      "spawnIntervalSeconds": 0.933,
+      "maxAliveEnemies": 156,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 23
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P20",
+      "displayName": "12:00–13:00",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 60,
+      "spawnIntervalSeconds": 0.25,
+      "maxAliveEnemies": 220,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 15
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 21
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P21",
+      "displayName": "13:00–13:30",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 30,
+      "spawnIntervalSeconds": 0.8,
+      "maxAliveEnemies": 168,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P22",
+      "displayName": "13:30–14:00",
+      "tag": "Rest",
+      "spawnMode": "Continuous",
+      "durationSeconds": 30,
+      "spawnIntervalSeconds": 0.433,
+      "maxAliveEnemies": 192,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 22
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P23",
+      "displayName": "14:00–14:55",
+      "tag": "Pressure",
+      "spawnMode": "Continuous",
+      "durationSeconds": 55,
+      "spawnIntervalSeconds": 0.233,
+      "maxAliveEnemies": 220,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 5
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 17
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 10
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      }
+    },
+    {
+      "id": "FIELD-003-P24",
+      "displayName": "14:55–15:00",
+      "tag": "Pressure",
+      "spawnMode": "Burst",
+      "durationSeconds": 5,
+      "spawnIntervalSeconds": 1,
+      "maxAliveEnemies": 220,
+      "composition": [
+        {
+          "enemyId": "ENEMY-001",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-002",
+          "weight": 25
+        },
+        {
+          "enemyId": "ENEMY-003",
+          "weight": 20
+        },
+        {
+          "enemyId": "ENEMY-004",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-005",
+          "weight": 6
+        },
+        {
+          "enemyId": "ENEMY-007",
+          "weight": 3
+        },
+        {
+          "enemyId": "ENEMY-008",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-009",
+          "weight": 8
+        },
+        {
+          "enemyId": "ENEMY-006",
+          "weight": 7
+        },
+        {
+          "enemyId": "ENEMY-010",
+          "weight": 10
+        }
+      ],
+      "modifiers": {
+        "healthMultiplier": 1.24,
+        "speedMultiplier": 1,
+        "contactDamageMultiplier": 1.16,
+        "attackDamageMultiplier": 1.16
+      },
+      "burst": {
+        "count": 26,
+        "offsetSeconds": 0,
+        "windowSeconds": 1
+      }
+    }
+  ],
+  "hooks": [
+    {
+      "kind": "MidBoss",
+      "timeSeconds": 450
+    },
+    {
+      "kind": "FinalBoss",
+      "timeSeconds": 810
+    }
+  ]
+}
