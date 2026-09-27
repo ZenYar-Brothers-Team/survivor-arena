@@ -194,6 +194,8 @@ def editor_processes(root=ROOT):
         line = row.get("CommandLine")
         if not line:
             raise NotRun("A Unity process has an unreadable command line; cannot safely launch batch mode.")
+        if re.search(r'"?-parentPid"?\s', line, re.I) and re.search(r"AssetImportWorker", line):
+            continue  # Import worker child of an interactive Editor; the Editor row itself is matched.
         match = re.search(r'-projectPath\s+(?:"([^"]+)"|(\S+))', line, re.I)
         if not match:
             raise NotRun("Unity process has no identifiable project path; confirm the Editor state manually.")
