@@ -71,11 +71,16 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("FIELD-003-VISUAL-WALL", presentation.Fence.Id.ToString());
             Assert.AreEqual("FIELD-003-VISUAL-RUBBLE", presentation.Obstacle.Id.ToString());
             Assert.AreEqual("FIELD-003-VISUAL-WATER", presentation.Bush.Id.ToString());
-            CollectionAssert.IsSubsetOf(new[] { "FIELD-003-VISUAL-RUINED-ARCH", "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE", "FIELD-003-VISUAL-COLLAPSED-WELL" },
-                obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId.ToString()).Distinct().ToArray());
-            Assert.AreEqual(4, obstacles.Where(item => item.VisualId.IsValid).Select(item => item.VisualId).Distinct().Count(),
-                "All four approved FIELD-003 additions participate in the ruin clusters.");
+            var props = new[] { "FIELD-003-VISUAL-WALL", "FIELD-003-VISUAL-RUINED-ARCH", "FIELD-003-VISUAL-RUBBLE",
+                "FIELD-003-VISUAL-BROKEN-URNS", "FIELD-003-VISUAL-FALLEN-CAPSTONE", "FIELD-003-VISUAL-COLLAPSED-WELL" };
+            for (var seed = 0; seed < 20; seed++)
+            {
+                var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
+                    seed, "FIELD-003-ENVIRONMENT");
+                CollectionAssert.AreEquivalent(props, run.Where(item => item.VisualId.IsValid)
+                    .Select(item => item.VisualId.ToString()).Distinct().ToArray(),
+                    $"DECISION-0073: every approved FIELD-003 ruin prop appears in each run (seed {seed}).");
+            }
         }
 
         [Test]

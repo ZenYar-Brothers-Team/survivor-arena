@@ -19,7 +19,7 @@ namespace Game.ActiveSkill.Tests
         public void RicochetDisk_HitCountsFollowTheCard_AndTravelBudgetCoversEveryHop()
         {
             var l1 = Skill("SKILL-008").GetLevel(1);
-            Assert.AreEqual(18f, l1.BaseDamage);
+            Assert.AreEqual(12.6f, l1.BaseDamage, 1e-4f, "DECISION-0073: 18 × 0.7.");
             Assert.AreEqual(2f, l1.CooldownSeconds);
             Assert.AreEqual(ActiveSkillTargetingMode.NearestEnemy, l1.TargetingMode);
             CollectionAssert.AreEqual(new[] { 2, 3, 3, 5, 5, 7 },
@@ -28,7 +28,7 @@ namespace Game.ActiveSkill.Tests
             Assert.IsTrue(l6.Behavior.RepeatRicochetTargets, "Repeats a target only when no other valid target exists.");
             Assert.AreEqual(27f, l6.Speed * l6.LifetimeSeconds, 1e-3f, "Travel budget 6 + 3 x 7 ricochets.");
             Assert.AreEqual(0.24f, l6.CollisionRadius, 1e-5f);
-            Assert.AreEqual(23.4f, Skill("SKILL-008").GetLevel(3).BaseDamage, 1e-4f);
+            Assert.AreEqual(16.38f, Skill("SKILL-008").GetLevel(3).BaseDamage, 1e-4f);
             Assert.AreEqual(0.3625f, Skill("SKILL-008").GetLevel(5).Waves[0].Controls.KnockbackDistance, 1e-5f);
         }
 
@@ -36,7 +36,7 @@ namespace Game.ActiveSkill.Tests
         public void MagmaMine_CapGrowsAtL4_AndL6AddsTheSecondaryBlast()
         {
             var l1 = Effect<MineEffect>("SKILL-009", 1);
-            Assert.AreEqual(40f, Skill("SKILL-009").GetLevel(1).BaseDamage);
+            Assert.AreEqual(24f, Skill("SKILL-009").GetLevel(1).BaseDamage, 1e-4f);
             Assert.AreEqual(1.5f, l1.BlastRadius, 1e-5f);
             Assert.AreEqual(4, l1.MaxConcurrent);
             Assert.AreEqual(6f, l1.LifetimeSeconds, 1e-5f);
@@ -73,7 +73,7 @@ namespace Game.ActiveSkill.Tests
         public void PulseBeam_TicksEveryFifthOfASecond_AndOnlyL6TracksTheTarget()
         {
             var l1 = Effect<BeamEffect>("SKILL-012", 1);
-            Assert.AreEqual(10f, Skill("SKILL-012").GetLevel(1).BaseDamage);
+            Assert.AreEqual(7.5f, Skill("SKILL-012").GetLevel(1).BaseDamage, 1e-4f);
             Assert.AreEqual(0.2f, l1.TickIntervalSeconds, 1e-5f);
             Assert.AreEqual(0.8f, l1.DurationSeconds, 1e-5f);
             Assert.AreEqual(6f, l1.Range, 1e-5f);
@@ -117,7 +117,7 @@ namespace Game.ActiveSkill.Tests
             CollectionAssert.AreEqual(new[] { 1, 1, 2, 2, 2, 3 },
                 Enumerable.Range(1, 6).Select(level => Effect<ProjectileBurstEffect>("SKILL-016", level).ProjectileCount));
             Assert.AreEqual(1, Effect<ProjectileBurstEffect>("SKILL-016", 4).PierceCount);
-            Assert.AreEqual(5.6f, Skill("SKILL-016").GetLevel(6).BaseDamage, 1e-4f);
+            Assert.AreEqual(3.92f, Skill("SKILL-016").GetLevel(6).BaseDamage, 1e-4f);
         }
     }
 }

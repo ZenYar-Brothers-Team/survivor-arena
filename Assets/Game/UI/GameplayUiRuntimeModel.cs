@@ -37,6 +37,8 @@ namespace Game.UI
             }
         }
         private readonly List<BuildEntry> _buildEntries = new List<BuildEntry>();
+        // UI/UX Design «Стартовая прогрессия»: only meta-unlocked sets (this run's draft pool) are shown.
+        private readonly List<SetDefinition> _availableSets = new List<SetDefinition>();
 
         public event Action Changed;
 
@@ -60,7 +62,8 @@ namespace Game.UI
         public int RemainingBanishes => _draft.RemainingBanishes;
         public IReadOnlyList<DraftOption> DraftOptions => _draft.IsDraftOpen ? _draft.CurrentDraft.Options : NoDraftOptions;
         public IReadOnlyList<BuildEntry> BuildEntries => _buildEntries;
-        public IReadOnlyList<SetDefinition> SetDefinitions => _draft.SetDefinitions;
+        public IReadOnlyList<SetDefinition> SetDefinitions => _availableSets;
+        public bool CanStillFulfillSet(SetDefinition set) => _draft.CanStillFulfillSet(set);
         public string FindBuildEntryName(ContentId id) => _draft.FindDisplayName(id);
         public CharacterDefinition SelectedCharacter => _draft.Character;
         public IReadOnlyList<CharacterDefinition> UnlockedCharacters => _unlockedCharacters;
@@ -115,6 +118,7 @@ namespace Game.UI
             if (_enemySpawner != null)
                 _enemySpawner.SpawnResolved += HandleSpawnResolved;
             RefreshBuildEntries();
+            RefreshAvailableSets();
         }
 
         public bool SelectDraftOption(ContentId id, Guid revision) => _draft.Select(id, revision);
@@ -147,7 +151,18 @@ namespace Game.UI
         private void HandleBossChanged() => Changed?.Invoke();
         private void HandleExperienceChanged(float _, float __) => Changed?.Invoke();
         private void HandleLevelUp(int _) => Changed?.Invoke();
-        private void HandleDraftChanged() => Changed?.Invoke();
+        private void HandleDraftChanged()
+        {
+            RefreshAvailableSets();
+            Changed?.Invoke();
+        }
+
+        private void RefreshAvailableSets()
+        {
+            _availableSets.Clear();
+            foreach (var set in _draft.SetDefinitions)
+                if (_draft.IsInDraftPool(set.Id)) _availableSets.Add(set);
+        }
         private void HandleSelectionApplied(BuildSelectionResult _)
         {
             RefreshBuildEntries();

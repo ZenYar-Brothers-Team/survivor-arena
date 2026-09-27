@@ -25,7 +25,7 @@
    "levels": [
     {
      "level": 1,
-     "damage": 18,
+     "damage": 12.6,
      "maxHits": 3,
      "ricochetCount": 2,
      "speed": 9,
@@ -37,7 +37,7 @@
     },
     {
      "level": 2,
-     "damage": 18,
+     "damage": 12.6,
      "maxHits": 4,
      "ricochetCount": 3,
      "speed": 10.35,
@@ -49,7 +49,7 @@
     },
     {
      "level": 3,
-     "damage": 23.4,
+     "damage": 16.38,
      "maxHits": 4,
      "ricochetCount": 3,
      "speed": 10.35,
@@ -61,7 +61,7 @@
     },
     {
      "level": 4,
-     "damage": 23.4,
+     "damage": 16.38,
      "maxHits": 6,
      "ricochetCount": 5,
      "speed": 11.7,
@@ -73,7 +73,7 @@
     },
     {
      "level": 5,
-     "damage": 23.4,
+     "damage": 16.38,
      "maxHits": 6,
      "ricochetCount": 5,
      "speed": 11.7,
@@ -85,7 +85,7 @@
     },
     {
      "level": 6,
-     "damage": 23.4,
+     "damage": 16.38,
      "maxHits": 8,
      "ricochetCount": 7,
      "speed": 13.95,
@@ -111,7 +111,7 @@
    "levels": [
     {
      "level": 1,
-     "damage": 40,
+     "damage": 24.0,
      "blastRadius": 1.5,
      "knockback": 0.7,
      "maxConcurrent": 4,
@@ -124,7 +124,7 @@
     },
     {
      "level": 2,
-     "damage": 40,
+     "damage": 24.0,
      "blastRadius": 1.875,
      "knockback": 0.84,
      "maxConcurrent": 4,
@@ -137,7 +137,7 @@
     },
     {
      "level": 3,
-     "damage": 52.0,
+     "damage": 31.2,
      "blastRadius": 1.875,
      "knockback": 0.98,
      "maxConcurrent": 4,
@@ -150,7 +150,7 @@
     },
     {
      "level": 4,
-     "damage": 52.0,
+     "damage": 31.2,
      "blastRadius": 1.875,
      "knockback": 0.98,
      "maxConcurrent": 6,
@@ -163,7 +163,7 @@
     },
     {
      "level": 5,
-     "damage": 52.0,
+     "damage": 31.2,
      "blastRadius": 2.1,
      "knockback": 0.98,
      "maxConcurrent": 6,
@@ -176,7 +176,7 @@
     },
     {
      "level": 6,
-     "damage": 52.0,
+     "damage": 31.2,
      "blastRadius": 2.1,
      "knockback": 0.98,
      "maxConcurrent": 6,
@@ -203,7 +203,7 @@
    "levels": [
     {
      "level": 1,
-     "damage": 12,
+     "damage": 8.4,
      "count": 8,
      "range": 4.5,
      "speed": 8,
@@ -217,7 +217,7 @@
     },
     {
      "level": 2,
-     "damage": 12,
+     "damage": 8.4,
      "count": 10,
      "range": 5.175,
      "speed": 8,
@@ -231,7 +231,7 @@
     },
     {
      "level": 3,
-     "damage": 15.0,
+     "damage": 10.5,
      "count": 10,
      "range": 5.175,
      "speed": 8,
@@ -245,7 +245,7 @@
     },
     {
      "level": 4,
-     "damage": 15.0,
+     "damage": 10.5,
      "count": 12,
      "range": 5.175,
      "speed": 9.6,
@@ -259,7 +259,7 @@
     },
     {
      "level": 5,
-     "damage": 15.0,
+     "damage": 10.5,
      "count": 12,
      "range": 5.175,
      "speed": 9.6,
@@ -273,7 +273,7 @@
     },
     {
      "level": 6,
-     "damage": 15.0,
+     "damage": 10.5,
      "count": 12,
      "range": 5.85,
      "speed": 9.6,
@@ -301,7 +301,7 @@
    "levels": [
     {
      "level": 1,
-     "damagePerTick": 10,
+     "damagePerTick": 7.5,
      "durationSeconds": 0.8,
      "width": 0.4,
      "length": 6,
@@ -311,7 +311,7 @@
     },
     {
      "level": 2,
-     "damagePerTick": 10,
+     "damagePerTick": 7.5,
      "durationSeconds": 1.1,
      "width": 0.46,
      "length": 6,
@@ -321,7 +321,7 @@
     },
     {
      "level": 3,
-     "damagePerTick": 12.5,
+     "damagePerTick": 9.375,
      "durationSeconds": 1.1,
      "width": 0.46,
      "length": 6,
@@ -331,7 +331,7 @@
     },
     {
      "level": 4,
-     "damagePerTick": 12.5,
+     "damagePerTick": 9.375,
      "durationSeconds": 1.1,
      "width": 0.62,
      "length": 7.2,
@@ -341,7 +341,7 @@
     },
     {
      "level": 5,
-     "damagePerTick": 12.5,
+     "damagePerTick": 9.375,
      "durationSeconds": 1.1,
      "width": 0.62,
      "length": 7.2,
@@ -351,7 +351,7 @@
     },
     {
      "level": 6,
-     "damagePerTick": 12.5,
+     "damagePerTick": 9.375,
      "durationSeconds": 1.5,
      "width": 0.68,
      "length": 7.2,
@@ -376,7 +376,7 @@
    "levels": [
     {
      "level": 1,
-     "damage": 30,
+     "damage": 13.5,
      "count": 4,
      "range": 4,
      "speed": 10,
@@ -392,7 +392,7 @@
     },
     {
      "level": 2,
-     "damage": 30,
+     "damage": 13.5,
      "count": 4,
      "range": 5.2,
      "speed": 10,
@@ -408,7 +408,7 @@
     },
     {
      "level": 3,
-     "damage": 39.0,
+     "damage": 17.55,
      "count": 4,
      "range": 5.2,
      "speed": 10,
@@ -424,7 +424,7 @@
     },
     {
      "level": 4,
-     "damage": 39.0,
+     "damage": 17.55,
      "count": 8,
      "range": 5.8,
      "speed": 10,
@@ -440,7 +440,7 @@
     },
     {
      "level": 5,
-     "damage": 39.0,
+     "damage": 17.55,
      "count": 8,
      "range": 5.8,
      "speed": 10,
@@ -456,7 +456,7 @@
     },
     {
      "level": 6,
-     "damage": 39.0,
+     "damage": 17.55,
      "count": 8,
      "range": 5.8,
      "speed": 10,
@@ -486,7 +486,7 @@
    "levels": [
     {
      "level": 1,
-     "damage": 4,
+     "damage": 2.8,
      "count": 1,
      "initialSpeed": 8,
      "stopAfterSeconds": 1.4,
@@ -499,7 +499,7 @@
     },
     {
      "level": 2,
-     "damage": 4,
+     "damage": 2.8,
      "count": 1,
      "initialSpeed": 8,
      "stopAfterSeconds": 1.68,
@@ -512,7 +512,7 @@
     },
     {
      "level": 3,
-     "damage": 4.6,
+     "damage": 3.22,
      "count": 2,
      "initialSpeed": 8,
      "stopAfterSeconds": 1.68,
@@ -525,7 +525,7 @@
     },
     {
      "level": 4,
-     "damage": 4.6,
+     "damage": 3.22,
      "count": 2,
      "initialSpeed": 9.6,
      "stopAfterSeconds": 1.68,
@@ -538,7 +538,7 @@
     },
     {
      "level": 5,
-     "damage": 4.6,
+     "damage": 3.22,
      "count": 2,
      "initialSpeed": 9.6,
      "stopAfterSeconds": 1.68,
@@ -551,7 +551,7 @@
     },
     {
      "level": 6,
-     "damage": 5.6,
+     "damage": 3.92,
      "count": 3,
      "initialSpeed": 9.6,
      "stopAfterSeconds": 1.68,

@@ -5,6 +5,8 @@ namespace Game.Presentation.Json
     {
         public FieldObstacleKind? Kind { get; set; }
         public string VisualId { get; set; }
+        /// <summary>Optional sprite alternatives picked per placed copy (DECISION-0073).</summary>
+        public string[] VisualIds { get; set; }
         public float? X { get; set; }
         public float? Y { get; set; }
         public float? Width { get; set; }

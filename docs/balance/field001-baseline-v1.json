@@ -224,7 +224,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 20,
+          "damage": 14,
           "count": 1,
           "speed": 10,
           "collisionRadius": 0.16,
@@ -236,7 +236,7 @@
         },
         {
           "level": 2,
-          "damage": 26,
+          "damage": 18.2,
           "count": 1,
           "speed": 10,
           "collisionRadius": 0.16,
@@ -248,7 +248,7 @@
         },
         {
           "level": 3,
-          "damage": 26,
+          "damage": 18.2,
           "count": 2,
           "speed": 11.5,
           "collisionRadius": 0.16,
@@ -260,7 +260,7 @@
         },
         {
           "level": 4,
-          "damage": 26,
+          "damage": 18.2,
           "count": 2,
           "speed": 11.5,
           "collisionRadius": 0.16,
@@ -272,7 +272,7 @@
         },
         {
           "level": 5,
-          "damage": 26,
+          "damage": 18.2,
           "count": 2,
           "speed": 11.5,
           "collisionRadius": 0.16,
@@ -284,7 +284,7 @@
         },
         {
           "level": 6,
-          "damage": 31,
+          "damage": 21.7,
           "count": 3,
           "speed": 11.5,
           "collisionRadius": 0.192,
@@ -310,7 +310,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 9,
+          "damage": 7.56,
           "count": 5,
           "spreadDegrees": 60,
           "range": 4,
@@ -323,7 +323,7 @@
         },
         {
           "level": 2,
-          "damage": 9,
+          "damage": 7.56,
           "count": 7,
           "spreadDegrees": 60,
           "range": 4.6,
@@ -336,7 +336,7 @@
         },
         {
           "level": 3,
-          "damage": 11.25,
+          "damage": 9.45,
           "count": 7,
           "spreadDegrees": 60,
           "range": 4.6,
@@ -349,7 +349,7 @@
         },
         {
           "level": 4,
-          "damage": 11.25,
+          "damage": 9.45,
           "count": 9,
           "spreadDegrees": 90,
           "range": 4.6,
@@ -362,7 +362,7 @@
         },
         {
           "level": 5,
-          "damage": 11.25,
+          "damage": 9.45,
           "count": 9,
           "spreadDegrees": 90,
           "range": 4.6,
@@ -375,7 +375,7 @@
         },
         {
           "level": 6,
-          "damage": 11.25,
+          "damage": 9.45,
           "count": 11,
           "spreadDegrees": 90,
           "range": 5.4,
@@ -404,7 +404,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 14,
+          "damage": 9.8,
           "count": 2,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.32,
@@ -413,7 +413,7 @@
         },
         {
           "level": 2,
-          "damage": 17.5,
+          "damage": 12.25,
           "count": 2,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.368,
@@ -422,7 +422,7 @@
         },
         {
           "level": 3,
-          "damage": 17.5,
+          "damage": 12.25,
           "count": 3,
           "orbitRadius": 1.8,
           "bladeHitboxRadius": 0.368,
@@ -431,7 +431,7 @@
         },
         {
           "level": 4,
-          "damage": 17.5,
+          "damage": 12.25,
           "count": 3,
           "orbitRadius": 2.25,
           "bladeHitboxRadius": 0.448,
@@ -440,7 +440,7 @@
         },
         {
           "level": 5,
-          "damage": 17.5,
+          "damage": 12.25,
           "count": 3,
           "orbitRadius": 2.25,
           "bladeHitboxRadius": 0.448,
@@ -449,7 +449,7 @@
         },
         {
           "level": 6,
-          "damage": 20.3,
+          "damage": 14.21,
           "count": 4,
           "orbitRadius": 2.25,
           "bladeHitboxRadius": 0.496,
@@ -472,7 +472,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 8,
+          "damage": 6.4,
           "radius": 2.5,
           "knockback": 1.6,
           "actionSpeedBonus": 0,
@@ -484,7 +484,7 @@
         },
         {
           "level": 2,
-          "damage": 8,
+          "damage": 6.4,
           "radius": 3.125,
           "knockback": 1.84,
           "actionSpeedBonus": 0,
@@ -496,7 +496,7 @@
         },
         {
           "level": 3,
-          "damage": 10,
+          "damage": 8,
           "radius": 3.125,
           "knockback": 2.4,
           "actionSpeedBonus": 0,
@@ -508,7 +508,7 @@
         },
         {
           "level": 4,
-          "damage": 10,
+          "damage": 8,
           "radius": 3.125,
           "knockback": 2.4,
           "actionSpeedBonus": 0,
@@ -520,7 +520,7 @@
         },
         {
           "level": 5,
-          "damage": 10,
+          "damage": 8,
           "radius": 3.5,
           "knockback": 2.4,
           "actionSpeedBonus": 0.33,
@@ -532,7 +532,7 @@
         },
         {
           "level": 6,
-          "damage": 10,
+          "damage": 8,
           "radius": 3.5,
           "knockback": 2.72,
           "actionSpeedBonus": 0.33,
@@ -557,7 +557,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 34,
+          "damage": 32.3,
           "maxHitTargets": 3,
           "range": 6,
           "speed": 12,
@@ -568,7 +568,7 @@
         },
         {
           "level": 2,
-          "damage": 42.5,
+          "damage": 40.375,
           "maxHitTargets": 3,
           "range": 6,
           "speed": 12,
@@ -579,7 +579,7 @@
         },
         {
           "level": 3,
-          "damage": 42.5,
+          "damage": 40.375,
           "maxHitTargets": 5,
           "range": 7.2,
           "speed": 12,
@@ -590,7 +590,7 @@
         },
         {
           "level": 4,
-          "damage": 42.5,
+          "damage": 40.375,
           "maxHitTargets": 5,
           "range": 7.2,
           "speed": 12,
@@ -601,7 +601,7 @@
         },
         {
           "level": 5,
-          "damage": 42.5,
+          "damage": 40.375,
           "maxHitTargets": 5,
           "range": 7.2,
           "speed": 14.4,
@@ -612,7 +612,7 @@
         },
         {
           "level": 6,
-          "damage": 51,
+          "damage": 48.45,
           "maxHitTargets": null,
           "range": 7.2,
           "speed": 14.4,
@@ -640,7 +640,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 16,
+          "damage": 11.2,
           "count": 1,
           "spreadDegrees": 0,
           "range": 3.2,
@@ -653,7 +653,7 @@
         },
         {
           "level": 2,
-          "damage": 20,
+          "damage": 14,
           "count": 1,
           "spreadDegrees": 0,
           "range": 3.2,
@@ -666,7 +666,7 @@
         },
         {
           "level": 3,
-          "damage": 20,
+          "damage": 14,
           "count": 1,
           "spreadDegrees": 0,
           "range": 4.16,
@@ -679,7 +679,7 @@
         },
         {
           "level": 4,
-          "damage": 20,
+          "damage": 14,
           "count": 2,
           "spreadDegrees": 20,
           "range": 4.16,
@@ -692,7 +692,7 @@
         },
         {
           "level": 5,
-          "damage": 20,
+          "damage": 14,
           "count": 2,
           "spreadDegrees": 20,
           "range": 4.16,
@@ -705,7 +705,7 @@
         },
         {
           "level": 6,
-          "damage": 20,
+          "damage": 14,
           "count": 2,
           "spreadDegrees": 20,
           "range": 4.16,
@@ -733,7 +733,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 22,
+          "damage": 15.4,
           "targetCount": 3,
           "jumpRange": 2.5,
           "damageRetentionPerJump": 0.85,
@@ -741,7 +741,7 @@
         },
         {
           "level": 2,
-          "damage": 22,
+          "damage": 15.4,
           "targetCount": 4,
           "jumpRange": 2.875,
           "damageRetentionPerJump": 0.85,
@@ -749,7 +749,7 @@
         },
         {
           "level": 3,
-          "damage": 27.5,
+          "damage": 19.25,
           "targetCount": 4,
           "jumpRange": 2.875,
           "damageRetentionPerJump": 0.88,
@@ -757,7 +757,7 @@
         },
         {
           "level": 4,
-          "damage": 30,
+          "damage": 21,
           "targetCount": 6,
           "jumpRange": 3.375,
           "damageRetentionPerJump": 0.88,
@@ -765,7 +765,7 @@
         },
         {
           "level": 5,
-          "damage": 30,
+          "damage": 21,
           "targetCount": 6,
           "jumpRange": 3.375,
           "damageRetentionPerJump": 0.9,
@@ -773,7 +773,7 @@
         },
         {
           "level": 6,
-          "damage": 33.6,
+          "damage": 23.52,
           "targetCount": 8,
           "jumpRange": 3.375,
           "damageRetentionPerJump": 0.95,
@@ -799,7 +799,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 55,
+          "damage": 24.75,
           "radius": 1.6,
           "knockback": 0.45,
           "actionSpeedBonus": 0,
@@ -810,7 +810,7 @@
         },
         {
           "level": 2,
-          "damage": 55,
+          "damage": 24.75,
           "radius": 2,
           "knockback": 0.54,
           "actionSpeedBonus": 0,
@@ -821,7 +821,7 @@
         },
         {
           "level": 3,
-          "damage": 71.5,
+          "damage": 32.175,
           "radius": 2.24,
           "knockback": 0.54,
           "actionSpeedBonus": 0,
@@ -832,7 +832,7 @@
         },
         {
           "level": 4,
-          "damage": 71.5,
+          "damage": 32.175,
           "radius": 2.24,
           "knockback": 0.54,
           "actionSpeedBonus": 0,
@@ -843,7 +843,7 @@
         },
         {
           "level": 5,
-          "damage": 71.5,
+          "damage": 32.175,
           "radius": 2.24,
           "knockback": 0.54,
           "actionSpeedBonus": 0.33,
@@ -854,7 +854,7 @@
         },
         {
           "level": 6,
-          "damage": 71.5,
+          "damage": 32.175,
           "radius": 2.24,
           "knockback": 0.54,
           "actionSpeedBonus": 0.33,
@@ -880,7 +880,7 @@
       "levels": [
         {
           "level": 1,
-          "damage": 8,
+          "damage": 7.2,
           "count": 7,
           "spreadDegrees": 70,
           "range": 4,
@@ -894,7 +894,7 @@
         },
         {
           "level": 2,
-          "damage": 8,
+          "damage": 7.2,
           "count": 9,
           "spreadDegrees": 70,
           "range": 4,
@@ -908,7 +908,7 @@
         },
         {
           "level": 3,
-          "damage": 9.6,
+          "damage": 8.64,
           "count": 9,
           "spreadDegrees": 70,
           "range": 4,
@@ -922,7 +922,7 @@
         },
         {
           "level": 4,
-          "damage": 9.6,
+          "damage": 8.64,
           "count": 9,
           "spreadDegrees": 85,
           "range": 4.8,
@@ -936,7 +936,7 @@
         },
         {
           "level": 5,
-          "damage": 9.6,
+          "damage": 8.64,
           "count": 9,
           "spreadDegrees": 85,
           "range": 4.8,
@@ -950,7 +950,7 @@
         },
         {
           "level": 6,
-          "damage": 9.6,
+          "damage": 8.64,
           "count": 13,
           "spreadDegrees": 100,
           "range": 4.8,
@@ -981,8 +981,8 @@
       "levels": [
         {
           "level": 1,
-          "impactDamage": 18,
-          "explosionDamage": 26,
+          "impactDamage": 12.6,
+          "explosionDamage": 18.2,
           "count": 1,
           "collisionRadius": 0.22,
           "explosionRadius": 1.3,
@@ -993,8 +993,8 @@
         },
         {
           "level": 2,
-          "impactDamage": 18,
-          "explosionDamage": 26,
+          "impactDamage": 12.6,
+          "explosionDamage": 18.2,
           "count": 1,
           "collisionRadius": 0.22,
           "explosionRadius": 1.69,
@@ -1005,8 +1005,8 @@
         },
         {
           "level": 3,
-          "impactDamage": 21.6,
-          "explosionDamage": 33.8,
+          "impactDamage": 15.12,
+          "explosionDamage": 23.66,
           "count": 1,
           "collisionRadius": 0.22,
           "explosionRadius": 1.69,
@@ -1017,8 +1017,8 @@
         },
         {
           "level": 4,
-          "impactDamage": 21.6,
-          "explosionDamage": 33.8,
+          "impactDamage": 15.12,
+          "explosionDamage": 23.66,
           "count": 2,
           "collisionRadius": 0.253,
           "explosionRadius": 1.69,
@@ -1029,8 +1029,8 @@
         },
         {
           "level": 5,
-          "impactDamage": 21.6,
-          "explosionDamage": 33.8,
+          "impactDamage": 15.12,
+          "explosionDamage": 23.66,
           "count": 2,
           "collisionRadius": 0.253,
           "explosionRadius": 1.69,
@@ -1041,8 +1041,8 @@
         },
         {
           "level": 6,
-          "impactDamage": 21.6,
-          "explosionDamage": 33.8,
+          "impactDamage": 15.12,
+          "explosionDamage": 23.66,
           "count": 2,
           "collisionRadius": 0.253,
           "explosionRadius": 1.885,
@@ -1690,7 +1690,7 @@
     "cadence": "windup-start-to-windup-start",
     "aimSnapshot": "windup-start",
     "teleport": {
-      "farDistance": 5,
+      "farDistance": 6.25,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,

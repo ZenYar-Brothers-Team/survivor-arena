@@ -20,13 +20,16 @@ namespace Game.Presentation
             NumericValidation.ValidatePositive(sideLength, nameof(sideLength));
             if (string.IsNullOrWhiteSpace(idPrefix)) throw new ArgumentException("Obstacle id prefix is required.", nameof(idPrefix));
             var random = new System.Random(seed);
+            // DECISION-0073: visual variants use their own stream so geometry for a seed stays unchanged.
+            var visualRandom = new System.Random(unchecked(seed * 31 + 17));
             var inner = sideLength * .5f - layout.EdgeMargin;
             var cells = Mathf.FloorToInt(2f * inner / layout.CellSize + 1e-4f);
             if (cells < 1) throw new ArgumentException("The arena is smaller than one layout cell.", nameof(sideLength));
             var origin = -cells * layout.CellSize * .5f;
             var totalWeight = layout.Patterns.Sum(p => p.Weight);
             var result = new List<FieldObstacleDefinition>();
-            var reserved = ReserveStartScreen(layout, start, idPrefix, random, cells, origin, result);
+            var variantSources = new List<IReadOnlyList<ContentId>>();
+            var reserved = ReserveStartScreen(layout, start, idPrefix, random, visualRandom, cells, origin, result, variantSources);
             var inCell = new List<Rect>();
             var candidate = new List<Rect>();
             var kinds = new List<FieldObstacleKind>();
@@ -56,25 +59,62 @@ namespace Game.Presentation
                                 candidate.Add(new Rect(x + piece.X - piece.Width * .5f, y + piece.Y - piece.Height * .5f,
                                     piece.Width, piece.Height));
                                 kinds.Add(piece.Kind);
-                                visualIds.Add(piece.VisualId);
+                                visualIds.Add(default);
                             }
                             if (candidate.Any(r => Distance(r, start) < layout.StartClearRadius)) continue;
                             if (candidate.Any(a => inCell.Any(b => Gap(a, b) < layout.MinPatternGap))) continue;
                             for (var i = 0; i < candidate.Count; i++)
                             {
                                 var r = candidate[i];
+                                visualIds[i] = PickVisual(pieces[i], visualRandom);
                                 result.Add(new FieldObstacleDefinition($"{idPrefix}-O{result.Count + 1:000}", kinds[i],
                                     r.center.x, r.center.y, r.width, r.height, visualIds[i].ToString()));
+                                variantSources.Add(pieces[i].VisualVariants);
                             }
                             inCell.AddRange(candidate);
                             break;
                         }
                 }
+            EnsureEveryVariantAppears(result, variantSources, visualRandom);
             return result.AsReadOnly();
         }
 
+        /// <summary>
+        /// DECISION-0073: every approved visual variant appears at least once per run. A missing variant replaces the
+        /// visual of a random obstacle that allows it and whose current visual is repeated elsewhere; geometry is kept.
+        /// </summary>
+        private static void EnsureEveryVariantAppears(List<FieldObstacleDefinition> result,
+            List<IReadOnlyList<ContentId>> variantSources, System.Random visualRandom)
+        {
+            var counts = new Dictionary<ContentId, int>();
+            var required = new List<ContentId>();
+            for (var i = 0; i < result.Count; i++)
+            {
+                if (variantSources[i].Count == 0) continue;
+                counts[result[i].VisualId] = counts.TryGetValue(result[i].VisualId, out var count) ? count + 1 : 1;
+                foreach (var variant in variantSources[i])
+                    if (!required.Contains(variant)) required.Add(variant);
+            }
+            var candidates = new List<int>();
+            foreach (var variant in required)
+            {
+                if (counts.ContainsKey(variant)) continue;
+                candidates.Clear();
+                for (var i = 0; i < result.Count; i++)
+                    if (variantSources[i].Contains(variant) && counts.TryGetValue(result[i].VisualId, out var shared) && shared > 1)
+                        candidates.Add(i);
+                if (candidates.Count == 0) continue;
+                var index = candidates[visualRandom.Next(candidates.Count)];
+                var old = result[index];
+                counts[old.VisualId]--;
+                counts[variant] = 1;
+                result[index] = new FieldObstacleDefinition(old.Id, old.Kind, old.X, old.Y, old.Width, old.Height, variant.ToString());
+            }
+        }
+
         private static Dictionary<int, Rect> ReserveStartScreen(FieldObstacleLayoutDefinition layout, Vector2 start,
-            string idPrefix, System.Random random, int cells, float origin, List<FieldObstacleDefinition> result)
+            string idPrefix, System.Random random, System.Random visualRandom, int cells, float origin,
+            List<FieldObstacleDefinition> result, List<IReadOnlyList<ContentId>> variantSources)
         {
             var reserved = new Dictionary<int, Rect>();
             var config = layout.StartScreen;
@@ -99,10 +139,14 @@ namespace Game.Presentation
                     Distance(rect, start) < layout.StartClearRadius || !reserved.TryAdd(row * cells + column, rect))
                     throw new InvalidOperationException("Start-screen obstacle configuration does not fit its clear layout cell.");
                 result.Add(new FieldObstacleDefinition($"{idPrefix}-O{result.Count + 1:000}", piece.Kind,
-                    x, y, piece.Width, piece.Height, piece.VisualId.ToString()));
+                    x, y, piece.Width, piece.Height, PickVisual(piece, visualRandom).ToString()));
+                variantSources.Add(piece.VisualVariants);
             }
             return reserved;
         }
+
+        private static ContentId PickVisual(FieldObstaclePiece piece, System.Random visualRandom) =>
+            piece.VisualVariants.Count == 0 ? piece.VisualId : piece.VisualVariants[visualRandom.Next(piece.VisualVariants.Count)];
 
         private static FieldObstaclePattern Pick(IReadOnlyList<FieldObstaclePattern> patterns, float totalWeight, System.Random random)
         {

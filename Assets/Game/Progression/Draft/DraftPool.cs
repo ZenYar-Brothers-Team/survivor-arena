@@ -65,6 +65,13 @@ namespace Game.Progression
             return definition != null;
         }
 
+        /// <summary>True when the pool can ever offer this id: it is in the pool and has a positive draft weight.</summary>
+        public bool CanOffer(ContentId id)
+        {
+            var definition = _definitions.Find(item => item.Id == id);
+            return definition != null && GetDraftWeight(definition) > 0f;
+        }
+
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount, int offset = 0) =>
             CreateOptions(build, offerCount, new SeededDraftRandom(offset));
 

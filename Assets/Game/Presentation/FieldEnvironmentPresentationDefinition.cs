@@ -162,7 +162,7 @@ namespace Game.Presentation
                     yield return new ContentReference(obstacle.VisualId, typeof(SpriteDefinition));
             if (ObstacleLayout != null)
                 foreach (var visualId in ObstacleLayout.Patterns.SelectMany(pattern => pattern.Pieces)
-                             .Select(piece => piece.VisualId).Where(id => id.IsValid).Distinct())
+                             .SelectMany(piece => piece.VisualVariants.Append(piece.VisualId)).Where(id => id.IsValid).Distinct())
                     yield return new ContentReference(visualId, typeof(SpriteDefinition));
         }
 
@@ -181,7 +181,7 @@ namespace Game.Presentation
                     if (piece == null) throw new ArgumentException($"Pattern {pattern.Id} has an empty piece.");
                     pieces.Add(new FieldObstaclePiece(piece.Kind ?? throw new ArgumentException("Piece kind is required."),
                         Required(piece.X, "piece x"), Required(piece.Y, "piece y"), Required(piece.Width, "piece width"),
-                        Required(piece.Height, "piece height"), piece.VisualId));
+                        Required(piece.Height, "piece height"), piece.VisualId, piece.VisualIds));
                 }
                 patterns.Add(new FieldObstaclePattern(pattern.Id, Required(pattern.Weight, "pattern weight"), pattern.Rotations, pieces));
             }

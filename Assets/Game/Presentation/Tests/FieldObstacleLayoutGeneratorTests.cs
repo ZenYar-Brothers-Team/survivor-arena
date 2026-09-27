@@ -102,6 +102,32 @@ namespace Game.Presentation.Tests
         }
 
         [Test]
+        public void Generate_VisualVariants_EveryVariantAppearsAndGeometryMatchesTheSingleVisualLayout()
+        {
+            var variants = new[] { "FIELD-TEST-VISUAL-A", "FIELD-TEST-VISUAL-B", "FIELD-TEST-VISUAL-C" };
+            FieldObstacleLayoutDefinition SinglePieceLayout(FieldObstaclePiece piece) => new FieldObstacleLayoutDefinition(48f, 1, 4f, 3f, 8f,
+                4f, 30, 1, new[] { new FieldObstaclePattern("VARIANTS", 1f, new[] { 0, 90 }, new[] { piece }) });
+            var withVariants = SinglePieceLayout(new FieldObstaclePiece(FieldObstacleKind.Stump, 0f, 0f, 1f, 1f, visualVariants: variants));
+            var single = SinglePieceLayout(new FieldObstaclePiece(FieldObstacleKind.Stump, 0f, 0f, 1f, 1f, "FIELD-TEST-VISUAL-PROP"));
+
+            for (var seed = 0; seed < 10; seed++)
+            {
+                var obstacles = Generate(withVariants, seed);
+                var reference = Generate(single, seed);
+                CollectionAssert.AreEquivalent(variants, obstacles.Select(item => item.VisualId.ToString()).Distinct().ToArray(),
+                    "DECISION-0073: every variant appears in each run.");
+                Assert.AreEqual(reference.Count, obstacles.Count);
+                for (var i = 0; i < obstacles.Count; i++)
+                {
+                    Assert.AreEqual(reference[i].X, obstacles[i].X, 1e-5f, "Visual choice does not change geometry.");
+                    Assert.AreEqual(reference[i].Y, obstacles[i].Y, 1e-5f);
+                }
+            }
+            Assert.Throws<ArgumentException>(() =>
+                new FieldObstaclePiece(FieldObstacleKind.Stump, 0f, 0f, 1f, 1f, "FIELD-TEST-VISUAL-PROP", variants));
+        }
+
+        [Test]
         public void Definitions_RejectPatternsThatDoNotFitOverlapOrTurnOddly()
         {
             Assert.Throws<ArgumentException>(() => new FieldObstacleLayoutDefinition(10f, 1, 4f, 3f, 5f, 2f, 10, 1,

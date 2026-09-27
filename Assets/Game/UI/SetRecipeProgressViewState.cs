@@ -17,6 +17,8 @@ namespace Game.UI
         public string Components { get; }
         /// <summary>Approved set icon, also before acquisition (playtest 2026-09-25_5233a664 OBS-03).</summary>
         public Sprite Icon { get; }
+        /// <summary>DECISION-0073: the recipe can no longer be fulfilled in this run; shown last, under «missed sets».</summary>
+        public bool IsMissed { get; }
 
         public SetRecipeProgressViewState(
             string title,
@@ -24,7 +26,7 @@ namespace Game.UI
             int requiredComponents,
             bool isEligible,
             bool isAcquired, string detail = "", bool? hasProgress = null, int? ownedComponents = null, string components = "",
-            Sprite icon = null)
+            Sprite icon = null, bool isMissed = false)
         {
             Detail = detail ?? string.Empty;
             Title = title ?? string.Empty;
@@ -37,6 +39,7 @@ namespace Game.UI
             OwnedComponents = ownedComponents ?? fulfilledComponents;
             Components = components ?? string.Empty;
             Icon = icon;
+            IsMissed = isMissed;
         }
     }
 }

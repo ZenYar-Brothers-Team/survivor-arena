@@ -13,10 +13,11 @@
 | Драфт: офферы, reroll, banish, очередь, сеты | `LevelUpDraftRuntimeTests`, `PlayerBuildAndDraftTests`, `SetFrameworkTests`, `PassiveFrameworkTests` | EditMode | OK |
 | Откат `PlayerActiveSkillSetRuntime`/`PlayerPassiveSetRuntime` при сбое Initialize; passive повторный Initialize и Shutdown→Initialize без stale catalog/stacking | `PlayerActiveSkillSetRuntimeRollbackTests`, `PlayerPassiveSetRuntimeRollbackTests` | EditMode | OK (добавлено в ревью) |
 | Активные навыки: срабатывание, кулдаун, эффекты, мины | `PlayerActiveSkillSetRuntimeTests`, `ActiveSkillTimingTests`, `ProjectileAndAreaTests`, `SceneActiveSkillEffectExecutorTests`, `ActiveSkillProgressionFrameworkTests` | EditMode | OK |
+| Видимость сетов по мета-открытиям и упущенные сеты (DECISION-0073) | `SetReachabilityTests`, `GameplayUiPresenterTests.SetProgress_MissedSetsAreListedLast` | EditMode | OK; фильтр draft pool в `GameplayUiRuntimeModel` без прямого теста (TD-040) |
 | Wave Director: фазы, хуки, лимиты, состав | `WaveDefinitionTests`, `WaveDirectorTests` | EditMode | OK |
 | Спавн/деспавн врагов, пул, `EnemyRegistry` | `WaveSpawnerTests`, `EnemyRuntimeLifecycleTests`, `EnemySpawnerSceneIntegrationTests` | EditMode | OK |
 | Паттерны движения/атаки врагов | `EnemyPatternTests`, `EnemyMovementAndContactTests` | EditMode | OK |
-| Раскладка препятствий полей каждый забег: равномерность по ячейкам, свободный старт, проходы, сид (DECISION-0068) | `FieldObstacleLayoutGeneratorTests`, `ProductionFieldContentTests`, `ProductionField002ContentTests`, `ProductionField003ContentTests`, `ProductionField002SmokeTests`, `ProductionField003SmokeTests` | EditMode / PlayMode | OK |
+| Раскладка препятствий полей каждый забег: равномерность по ячейкам, свободный старт, проходы, сид (DECISION-0068); все визуальные варианты в каждом забеге (DECISION-0073) | `FieldObstacleLayoutGeneratorTests`, `ProductionFieldContentTests`, `ProductionField002ContentTests`, `ProductionField003ContentTests`, `ProductionField002SmokeTests`, `ProductionField003SmokeTests` | EditMode / PlayMode | OK |
 | Особые атаки боссов (зоны, лучи, призыв), повтор залпа, атаки после рывка, фазовые рывки (DECISION-0066) | `BossHazardFieldTests`, `BossHazardRuntimeTests`, `BossSpecialStepTests`, `EnemyAttackFollowUpTests`, `EnemyDashEndAttacksTests`, `ProductionLateBossCatalogTests`, `BossHazardSmokeTests` | EditMode / PlayMode | OK |
 | Пул `GameObjectPool<T>` | `GameObjectPoolTests` | EditMode | OK (добавлено в ревью) |
 | Общий валидатор чисел | `NumericValidationTests` | EditMode | OK (добавлено в ревью) |

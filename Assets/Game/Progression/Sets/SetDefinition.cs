@@ -53,6 +53,30 @@ namespace Game.Progression
             return GetFulfilledComponentCount(build) == _recipe.Length;
         }
 
+        /// <summary>
+        /// False when the recipe can no longer be fulfilled in this run (DECISION-0073): a missing component cannot be
+        /// offered any more (banished, locked, zero weight) or the free active/passive slots cannot hold the missing
+        /// components. Owned components below their threshold stay reachable through upgrades.
+        /// </summary>
+        public bool CanStillBeFulfilled(PlayerBuild build, Func<ContentId, bool> canBeOffered)
+        {
+            if (build == null) throw new ArgumentNullException(nameof(build));
+            if (canBeOffered == null) throw new ArgumentNullException(nameof(canBeOffered));
+            var missingActive = 0;
+            var missingPassive = 0;
+            for (var i = 0; i < _recipe.Length; i++)
+            {
+                var component = _recipe[i];
+                if (component.IsFulfilled(build)) continue;
+                if (!canBeOffered(component.Id)) return false;
+                if (build.TryGetEntry(component.Id, out _)) continue;
+                if (component.Kind == BuildEntryKind.ActiveSkill) missingActive++;
+                else missingPassive++;
+            }
+            return missingActive <= PlayerBuild.ActiveSlotCapacity - build.ActiveCount &&
+                   missingPassive <= PlayerBuild.PassiveSlotCapacity - build.PassiveCount;
+        }
+
         public int GetFulfilledComponentCount(PlayerBuild build)
         {
             if (build == null)

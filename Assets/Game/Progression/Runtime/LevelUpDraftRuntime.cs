@@ -53,6 +53,17 @@ namespace Game.Progression
         /// <summary>Display name of any build entry this run can offer; null when unknown or not initialized.</summary>
         public string FindDisplayName(ContentId id) =>
             _pool != null && _pool.TryGetDefinition(id, out var definition) ? definition.DisplayName : null;
+        /// <summary>True when this run's draft pool contains the id (meta-unlocked or added by a development command).</summary>
+        public bool IsInDraftPool(ContentId id) => _pool != null && _pool.TryGetDefinition(id, out _);
+
+        /// <summary>DECISION-0073: false when the set recipe can no longer be fulfilled in this run.</summary>
+        public bool CanStillFulfillSet(SetDefinition set)
+        {
+            if (set == null) throw new ArgumentNullException(nameof(set));
+            if (_pool == null || Build == null) return false;
+            return set.CanStillBeFulfilled(Build, id => _pool.CanOffer(id) && !Controls.IsBanished(id));
+        }
+
         public PlayerSetRuntime Sets { get; private set; }
         public int RemainingRerolls => Controls?.RemainingRerolls ?? 0;
         public int RemainingBanishes => Controls?.RemainingBanishes ?? 0;

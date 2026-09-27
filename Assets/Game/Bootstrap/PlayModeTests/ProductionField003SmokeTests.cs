@@ -63,6 +63,9 @@ namespace Game.Bootstrap.PlayModeTests
                 Physics2D.SyncTransforms();
                 Assert.AreEqual(vertical.Width, wall.bounds.size.x, 0.02f, "A vertical wall keeps its authored width.");
                 Assert.AreEqual(vertical.Height, wall.bounds.size.y, 0.02f, "A vertical wall keeps its authored height.");
+                // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-003 after the
+                // DECISION-0073 skill nerf, so health is locked as with the development toggle.
+                Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 for (var i = 0; i < 600; i++) yield return new WaitForFixedUpdate();
                 Assert.AreEqual(RunState.Running, run.Model.State);
                 var enemies = Object.FindObjectsByType<EnemyRuntime>(FindObjectsSortMode.None);

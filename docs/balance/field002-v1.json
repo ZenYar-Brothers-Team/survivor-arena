@@ -1867,7 +1867,7 @@
    "extraVolleyRotationDegrees": 22.5
   },
   "teleport": {
-   "farDistance": 5,
+   "farDistance": 6.25,
    "farSeconds": 2,
    "landingDistance": 1.5,
    "telegraphSeconds": 0.6,

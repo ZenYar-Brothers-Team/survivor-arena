@@ -35,7 +35,7 @@ namespace Game.ActiveSkill.Tests
         public void Stone_LevelsKeepCardSemantics()
         {
             var l1 = Skill("SKILL-001").GetLevel(1);
-            Assert.AreEqual(20f, l1.BaseDamage);
+            Assert.AreEqual(14f, l1.BaseDamage, 1e-4f, "DECISION-0073: 20 × 0.7.");
             Assert.AreEqual(1.2f, l1.CooldownSeconds, 1e-5f);
             Assert.AreEqual(5f, l1.Targeting.Radius);
             Assert.AreEqual(0.35f, l1.Waves[0].Controls.KnockbackDistance, 1e-5f);
@@ -47,7 +47,7 @@ namespace Game.ActiveSkill.Tests
             Assert.IsFalse(l4.Behavior.RepeatRicochetTargets);
             Assert.IsTrue(l4.Behavior.DistinctNearestTargets);
             var l6 = Skill("SKILL-001").GetLevel(6);
-            Assert.AreEqual(31f, l6.BaseDamage, 1e-4f);
+            Assert.AreEqual(21.7f, l6.BaseDamage, 1e-4f);
             Assert.AreEqual(0.33f, l6.Targeting.ActionSpeedBonus, 1e-5f);
             Assert.AreEqual(3, ((ProjectileBurstEffect)l6.Waves[0].Effects[0]).ProjectileCount);
             Assert.AreEqual(0.192f, ((ProjectileBurstEffect)l6.Waves[0].Effects[0]).CollisionRadius, 1e-5f);
@@ -123,8 +123,8 @@ namespace Game.ActiveSkill.Tests
         [Test]
         public void BoomerangChainAndSpheres_KeepReturnChainAndExplosionRatios()
         {
-            Assert.AreEqual(16f, Skill("SKILL-006").GetLevel(1).BaseDamage, 1e-5f);
-            Assert.AreEqual(20f, Skill("SKILL-006").GetLevel(6).BaseDamage, 1e-5f);
+            Assert.AreEqual(11.2f, Skill("SKILL-006").GetLevel(1).BaseDamage, 1e-4f);
+            Assert.AreEqual(14f, Skill("SKILL-006").GetLevel(6).BaseDamage, 1e-4f);
             Assert.AreEqual(3.2f, Effect<BoomerangEffect>("SKILL-006", 1).Range, 1e-5f);
             Assert.AreEqual(4.16f, Effect<BoomerangEffect>("SKILL-006", 6).Range, 1e-5f);
             Assert.AreEqual(0.16f, Effect<BoomerangEffect>("SKILL-006", 1).CollisionRadius, 1e-5f);
@@ -132,17 +132,17 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(1.75f, Effect<BoomerangEffect>("SKILL-006", 6).ReturnDamageMultiplier, 1e-5f);
             Assert.AreEqual(1f, Effect<BoomerangEffect>("SKILL-006", 1).HitCooldownSeconds, 1e-5f);
             Assert.AreEqual(8, Effect<ChainEffect>("SKILL-007", 6).TargetCount);
-            Assert.AreEqual(22f, Skill("SKILL-007").GetLevel(1).BaseDamage, 1e-5f);
-            Assert.AreEqual(22f, Skill("SKILL-007").GetLevel(2).BaseDamage, 1e-5f);
-            Assert.AreEqual(27.5f, Skill("SKILL-007").GetLevel(3).BaseDamage, 1e-5f);
-            Assert.AreEqual(30f, Skill("SKILL-007").GetLevel(4).BaseDamage, 1e-5f);
+            Assert.AreEqual(15.4f, Skill("SKILL-007").GetLevel(1).BaseDamage, 1e-4f);
+            Assert.AreEqual(15.4f, Skill("SKILL-007").GetLevel(2).BaseDamage, 1e-4f);
+            Assert.AreEqual(19.25f, Skill("SKILL-007").GetLevel(3).BaseDamage, 1e-4f);
+            Assert.AreEqual(21f, Skill("SKILL-007").GetLevel(4).BaseDamage, 1e-4f);
             Assert.AreEqual(0.95f, Effect<ChainEffect>("SKILL-007", 6).DamageRetentionPerJump, 1e-5f);
             Assert.AreEqual(2.86f, Skill("SKILL-007").GetLevel(1).CooldownSeconds, 1e-5f, "User nerf 2026-09-26: cooldown +30%.");
             Assert.AreEqual(0f, Skill("SKILL-007").GetLevel(1).Waves[0].Controls.KnockbackDistance);
             var spheres = Effect<ProjectileBurstEffect>("SKILL-014", 6);
             Assert.AreEqual(ProjectileLayout.IndependentRandom, spheres.Layout);
-            Assert.AreEqual(33.8f / 21.6f, spheres.Behavior.ExplosionDamageMultiplier, 1e-4f);
-            Assert.AreEqual(26f / 18f, Effect<ProjectileBurstEffect>("SKILL-014", 1).Behavior.ExplosionDamageMultiplier, 1e-4f, "User nerf 2026-09-26: L1 explosion 26.");
+            Assert.AreEqual(23.66f / 15.12f, spheres.Behavior.ExplosionDamageMultiplier, 1e-4f);
+            Assert.AreEqual(18.2f / 12.6f, Effect<ProjectileBurstEffect>("SKILL-014", 1).Behavior.ExplosionDamageMultiplier, 1e-4f, "User nerf 2026-09-26: L1 explosion 26.");
             Assert.AreEqual(1.05f / 0.25f, spheres.Behavior.ExplosionKnockbackMultiplier, 1e-4f);
             Assert.IsTrue(spheres.Behavior.ExplodeOnExpiry);
             Assert.AreEqual(1, spheres.PierceCount, "L6 passes the first target and explodes on the second.");

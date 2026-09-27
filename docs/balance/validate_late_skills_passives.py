@@ -11,14 +11,14 @@ SKILLS = ["SKILL-008", "SKILL-009", "SKILL-011", "SKILL-012", "SKILL-015", "SKIL
 PASSIVES = ["PASSIVE-006", "PASSIVE-010", "PASSIVE-013", "PASSIVE-014"]
 CHANNELS = {"PASSIVE-006": "disappearingXpRecoveryBonus", "PASSIVE-010": "pickedUpXpMultiplierBonus",
             "PASSIVE-013": "effectRangeMultiplierBonus", "PASSIVE-014": "lowHealthDamageMaxBonus"}
-# Card L1 numbers (Content_design.md) that the table must keep: (field, value).
+# Card L1 numbers (Content_design.md) that the table must keep: (field, value). Damage after DECISION-0073.
 CARD_L1 = {
-    "SKILL-008": [("damage", 18), ("maxHits", 3), ("cooldownSeconds", 2.0), ("knockback", 0.25)],
-    "SKILL-009": [("damage", 40), ("blastRadius", 1.5), ("cooldownSeconds", 3.0), ("maxConcurrent", 4), ("knockback", 0.7)],
-    "SKILL-011": [("damage", 12), ("count", 8), ("cooldownSeconds", 2.4), ("knockback", 0.12)],
-    "SKILL-012": [("damagePerTick", 10), ("tickIntervalSeconds", 0.2), ("durationSeconds", 0.8), ("cooldownSeconds", 3.0), ("knockbackPerTick", 0.04)],
-    "SKILL-015": [("damage", 30), ("count", 4), ("cooldownSeconds", 3.5), ("knockback", 0.3)],
-    "SKILL-016": [("damage", 4), ("count", 1), ("cooldownSeconds", 0.35), ("initialSpeed", 8.0), ("stopAfterSeconds", 1.4), ("knockback", 0.08)],
+    "SKILL-008": [("damage", 12.6), ("maxHits", 3), ("cooldownSeconds", 2.0), ("knockback", 0.25)],
+    "SKILL-009": [("damage", 24), ("blastRadius", 1.5), ("cooldownSeconds", 3.0), ("maxConcurrent", 4), ("knockback", 0.7)],
+    "SKILL-011": [("damage", 8.4), ("count", 8), ("cooldownSeconds", 2.4), ("knockback", 0.12)],
+    "SKILL-012": [("damagePerTick", 7.5), ("tickIntervalSeconds", 0.2), ("durationSeconds", 0.8), ("cooldownSeconds", 3.0), ("knockbackPerTick", 0.04)],
+    "SKILL-015": [("damage", 13.5), ("count", 4), ("cooldownSeconds", 3.5), ("knockback", 0.3)],
+    "SKILL-016": [("damage", 2.8), ("count", 1), ("cooldownSeconds", 0.35), ("initialSpeed", 8.0), ("stopAfterSeconds", 1.4), ("knockback", 0.08)],
 }
 # Card qualitative level counts that must appear exactly.
 CARD_COUNTS = {

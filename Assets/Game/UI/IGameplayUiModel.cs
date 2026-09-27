@@ -33,7 +33,10 @@ namespace Game.UI
         int RemainingBanishes { get; }
         IReadOnlyList<DraftOption> DraftOptions { get; }
         IReadOnlyList<BuildEntry> BuildEntries { get; }
+        /// <summary>Sets available in this run's draft pool (meta-unlocked or added by a development command).</summary>
         IReadOnlyList<SetDefinition> SetDefinitions { get; }
+        /// <summary>DECISION-0073: false when the recipe can no longer be fulfilled (slots, banish, unavailable component).</summary>
+        bool CanStillFulfillSet(SetDefinition set);
         /// <summary>Display name of a draftable build entry (owned or not); null when unknown.</summary>
         string FindBuildEntryName(ContentId id);
         CharacterDefinition SelectedCharacter { get; }

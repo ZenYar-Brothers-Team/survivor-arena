@@ -134,6 +134,7 @@ namespace Game.UI
             FillEmptySlots(passive, PlayerBuild.PassiveSlotCapacity);
 
             var progress = new List<SetRecipeProgressViewState>(_model.SetDefinitions.Count);
+            var missed = new List<SetRecipeProgressViewState>();
             for (var i = 0; i < _model.SetDefinitions.Count; i++)
             {
                 var definition = _model.SetDefinitions[i];
@@ -147,15 +148,18 @@ namespace Game.UI
                     }
                 }
                 var fulfilled = CountFulfilledComponents(definition);
-                progress.Add(new SetRecipeProgressViewState(
+                var isMissed = !isAcquired && !_model.CanStillFulfillSet(definition);
+                (isMissed ? missed : progress).Add(new SetRecipeProgressViewState(
                     definition.DisplayName,
                     fulfilled,
                     definition.Recipe.Count,
                     fulfilled == definition.Recipe.Count && !isAcquired,
                     isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition),
                     CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null)),
-                    ResolveIcon(definition)));
+                    ResolveIcon(definition), isMissed));
             }
+            // DECISION-0073: sets that can no longer be completed go to the bottom.
+            progress.AddRange(missed);
 
             return new BuildViewState(active, passive, sets, progress);
         }

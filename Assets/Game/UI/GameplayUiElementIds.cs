@@ -100,6 +100,7 @@ namespace Game.UI
         public const string PassiveSlots = "build-passive-slots";
         public const string Sets = "build-sets";
         public const string SetRecipeProgress = "development-set-recipes";
+        public const string MissedSetsHeader = "development-missed-sets";
         public const string DraftOverlay = "draft-overlay";
         public const string DraftHeading = "draft-heading";
         public const string DraftQueue = "draft-queue";

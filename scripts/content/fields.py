@@ -51,6 +51,8 @@ def field_presentation(baseline):
                   "width": piece["width"], "height": piece["height"]}
         if "visualId" in piece:
             result["visualId"] = piece["visualId"]
+        if "visualIds" in piece:
+            result["visualIds"] = piece["visualIds"]
         return result
 
     fixture = json.loads((ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json")

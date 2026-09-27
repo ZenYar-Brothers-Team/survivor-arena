@@ -407,6 +407,30 @@ namespace Game.UI.Tests
             }
         }
 
+        [Test]
+        public void SetProgress_MissedSetsAreListedLast()
+        {
+            var active = new BuildEntryDefinition("FIXTURE-A", BuildEntryKind.ActiveSkill, "Active");
+            SetDefinition Set(string id) => new SetDefinition(id, id, new SetRecipeComponent(active.Id, active.Kind, 1),
+                new SetRecipeComponent("FIXTURE-P1", BuildEntryKind.PassiveItem, 1),
+                new SetRecipeComponent("FIXTURE-P2", BuildEntryKind.PassiveItem, 1));
+            var model = CreateModel();
+            model.SetDefinitions = new[] { Set("FIXTURE-SET-1"), Set("FIXTURE-SET-2"), Set("FIXTURE-SET-3") };
+            model.BuildEntries = new List<BuildEntry>(new PlayerBuild(active).Entries);
+            model.MissedSets.Add("FIXTURE-SET-1");
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+
+            var progress = view.Build.SetRecipeProgress;
+            Assert.AreEqual(3, progress.Count);
+            Assert.AreEqual("FIXTURE-SET-2", progress[0].Title);
+            Assert.AreEqual("FIXTURE-SET-3", progress[1].Title);
+            Assert.AreEqual("FIXTURE-SET-1", progress[2].Title, "DECISION-0073: a set that cannot be completed goes last.");
+            Assert.IsTrue(progress[2].IsMissed);
+            Assert.IsFalse(progress[0].IsMissed);
+        }
+
         private static FakeModel CreateModel()
         {
             var definition = new BuildEntryDefinition("FIXTURE-PASSIVE-UI", BuildEntryKind.PassiveItem, "Fixture Passive");
@@ -472,6 +496,8 @@ namespace Game.UI.Tests
             public IReadOnlyList<DraftOption> DraftOptions { get; set; }
             public IReadOnlyList<BuildEntry> BuildEntries { get; set; }
             public IReadOnlyList<SetDefinition> SetDefinitions { get; set; }
+            public HashSet<ContentId> MissedSets { get; } = new HashSet<ContentId>();
+            public bool CanStillFulfillSet(SetDefinition set) => !MissedSets.Contains(set.Id);
             public Dictionary<ContentId, string> Names { get; } = new Dictionary<ContentId, string>();
             public string FindBuildEntryName(ContentId id) => Names.TryGetValue(id, out var name) ? name : null;
             public CharacterDefinition SelectedCharacter { get; set; }

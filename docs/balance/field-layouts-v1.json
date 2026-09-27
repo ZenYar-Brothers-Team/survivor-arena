@@ -116,7 +116,13 @@
      "pieces": [
       {
        "kind": "Stump",
-       "visualId": "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": -2.2,
        "y": 0.0,
        "width": 1.6,
@@ -124,6 +130,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": 0.0,
        "y": 0.0,
        "width": 1.6,
@@ -131,7 +142,13 @@
       },
       {
        "kind": "Stump",
-       "visualId": "FIELD-002-VISUAL-ROADSIDE-BENCH",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": 2.2,
        "y": 0.0,
        "width": 1.6,
@@ -149,7 +166,13 @@
      "pieces": [
       {
        "kind": "Stump",
-       "visualId": "FIELD-002-VISUAL-BROKEN-WAGON",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": -3.3,
        "y": 0.0,
        "width": 1.6,
@@ -157,6 +180,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": -1.1,
        "y": 0.0,
        "width": 1.6,
@@ -164,6 +192,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": 1.1,
        "y": 0.0,
        "width": 1.6,
@@ -171,7 +204,13 @@
       },
       {
        "kind": "Stump",
-       "visualId": "FIELD-002-VISUAL-ROAD-BARRICADE",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": 3.3,
        "y": 0.0,
        "width": 1.6,
@@ -189,6 +228,13 @@
      "pieces": [
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": -4.4,
        "y": 0.0,
        "width": 1.6,
@@ -196,6 +242,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": -2.2,
        "y": 0.0,
        "width": 1.6,
@@ -203,6 +254,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": 0.0,
        "y": 0.0,
        "width": 1.6,
@@ -210,6 +266,11 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH"
+       ],
        "x": 2.2,
        "y": 0.0,
        "width": 1.6,
@@ -217,6 +278,13 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-002-VISUAL-BOULDER",
+        "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+        "FIELD-002-VISUAL-ROADSIDE-BENCH",
+        "FIELD-002-VISUAL-BROKEN-WAGON",
+        "FIELD-002-VISUAL-ROAD-BARRICADE"
+       ],
        "x": 4.4,
        "y": 0.0,
        "width": 1.6,
@@ -365,7 +433,10 @@
      "pieces": [
       {
        "kind": "Fence",
-       "visualId": "FIELD-003-VISUAL-RUINED-ARCH",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -0.07,
        "y": 4.67,
        "width": 3.2,
@@ -373,6 +444,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 3.77,
        "y": 4.67,
        "width": 3.2,
@@ -380,6 +455,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -1.83,
        "y": 1.63,
        "width": 0.8,
@@ -387,6 +466,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -1.83,
        "y": -2.21,
        "width": 0.8,
@@ -394,7 +477,12 @@
       },
       {
        "kind": "Stump",
-       "visualId": "FIELD-003-VISUAL-BROKEN-URNS",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 1.53,
        "y": 1.67,
        "width": 1.4,
@@ -402,7 +490,12 @@
       },
       {
        "kind": "Stump",
-       "visualId": "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 4.33,
        "y": 2.27,
        "width": 1.4,
@@ -410,7 +503,12 @@
       },
       {
        "kind": "Stump",
-       "visualId": "FIELD-003-VISUAL-COLLAPSED-WELL",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -4.67,
        "y": -4.52,
        "width": 1.4,
@@ -430,6 +528,10 @@
      "pieces": [
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -3.47,
        "y": 2.1,
        "width": 3.2,
@@ -437,6 +539,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 0.37,
        "y": 2.1,
        "width": 3.2,
@@ -444,6 +550,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -5.23,
        "y": -0.94,
        "width": 0.8,
@@ -451,6 +561,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 2.13,
        "y": -0.94,
        "width": 0.8,
@@ -458,6 +572,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -1.57,
        "y": -1.5,
        "width": 1.4,
@@ -465,6 +585,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -3.27,
        "y": -4.3,
        "width": 1.4,
@@ -472,6 +598,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 4.93,
        "y": 4.3,
        "width": 1.4,
@@ -491,6 +623,10 @@
      "pieces": [
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -3.1,
        "y": -0.1,
        "width": 3.2,
@@ -498,6 +634,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 0.74,
        "y": -0.1,
        "width": 3.2,
@@ -505,6 +645,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 4.58,
        "y": -0.1,
        "width": 3.2,
@@ -512,6 +656,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -1.2,
        "y": 1.9,
        "width": 1.4,
@@ -519,6 +669,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 2.7,
        "y": -2.1,
        "width": 1.4,
@@ -526,6 +682,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 6.5,
        "y": 2.1,
        "width": 1.4,
@@ -533,6 +695,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -6.5,
        "y": -1.9,
        "width": 1.4,
@@ -552,6 +720,10 @@
      "pieces": [
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -1.4,
        "y": -2.6,
        "width": 0.8,
@@ -559,6 +731,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": -1.4,
        "y": 1.24,
        "width": 0.8,
@@ -566,6 +742,10 @@
       },
       {
        "kind": "Fence",
+       "visualIds": [
+        "FIELD-003-VISUAL-WALL",
+        "FIELD-003-VISUAL-RUINED-ARCH"
+       ],
        "x": 0.36,
        "y": 3.8,
        "width": 3.2,
@@ -573,6 +753,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 1.0,
        "y": -1.4,
        "width": 1.4,
@@ -580,6 +766,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": -3.8,
        "y": 2.0,
        "width": 1.4,
@@ -587,6 +779,12 @@
       },
       {
        "kind": "Stump",
+       "visualIds": [
+        "FIELD-003-VISUAL-RUBBLE",
+        "FIELD-003-VISUAL-BROKEN-URNS",
+        "FIELD-003-VISUAL-FALLEN-CAPSTONE",
+        "FIELD-003-VISUAL-COLLAPSED-WELL"
+       ],
        "x": 3.8,
        "y": 1.0,
        "width": 1.4,

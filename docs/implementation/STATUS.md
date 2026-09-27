@@ -5,7 +5,7 @@
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 Current active packet: нет; REPO-01 завершён в разрешённом scope.
 Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 857/857 EditMode + 30/30 PlayMode; generation/audio integrity и manifest 188 PASS; [enemy projectile art evidence](evidence/2026-09-27-enemy-projectile-art.md). Ручную приёмку эти проверки не заменяют.
+Последний общий Unity smoke: 2026-09-27, 866/866 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
@@ -46,6 +46,7 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 По [DECISION-0069](../decisions/0069-field001-feedback-tuning.md) заменён и приглушён level-up cue, ослаблены damage/range/size SKILL-006, смягчена оранжевая вспышка SKILL-014, поле уплотнено до 288 препятствий четырёх типов по миниатюре, HUD показывает обратный отсчёт 15:00 → 00:00. Runtime, исходные данные генератора, арт-пакет и документы синхронизированы. EditMode 855/855 и PlayMode 30/30 PASS; art scope 50/50 и 151 provenance record PASS; audio integrity 28/28, layouts 200 сидов PASS. Художественный review и игровой баланс после изменений ждут пользовательского прогона. [Evidence](evidence/2026-09-27-field001-feedback-tuning.md).
 
 Дополнительный отзыв 2026-09-27: на стартовом экране FIELD-001 гарантированы два видимых объекта вне свободного круга радиуса 6 ([DECISION-0070](../decisions/0070-field001-opening-screen-obstacles.md)); SKILL-007 L1–L3 слегка ослаблен до 22/22/27.5 damage ([DECISION-0071](../decisions/0071-early-chain-lightning-damage.md)). Safe full check: EditMode 856/856, PlayMode 30/30, art provenance 151/151 PASS; layout validator 200 сидов PASS. Игровой баланс ждёт ручного прогона. [Evidence](evidence/2026-09-27-opening-screen-and-lightning.md).
+Плейтест 2026-09-27 (вечер), [DECISION-0073](../decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md): в списке сетов только meta-открытые, упущенные сеты внизу; порог прыжка боссов 6.25 units (+25%); все пропсы FIELD-002/003 появляются в каждом забеге как варианты кусков паттернов; урон умений выровнен и снижен (медиана ×0.7). EditMode 866/866, PlayMode 30/30 PASS. Сложность ждёт ручного прогона. [Evidence](evidence/2026-09-27-playtest-sets-boss-fields-balance.md).
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его

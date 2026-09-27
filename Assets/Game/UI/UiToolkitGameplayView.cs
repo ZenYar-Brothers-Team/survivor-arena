@@ -319,15 +319,25 @@ namespace Game.UI
             }
 
             _setRecipeProgress.Clear();
+            var missedHeaderShown = false;
             for (var i = 0; i < state.SetRecipeProgress.Count; i++)
             {
                 var recipe = state.SetRecipeProgress[i];
-                var status = recipe.IsAcquired ? "acquired" : recipe.IsEligible ? "eligible" : "locked";
+                // DECISION-0073: the presenter orders missed sets last; one header separates them.
+                if (recipe.IsMissed && !missedHeaderShown)
+                {
+                    missedHeaderShown = true;
+                    var header = new Label("MISSED SETS") { name = GameplayUiElementIds.MissedSetsHeader };
+                    header.AddToClassList("set-recipe-missed-header");
+                    _setRecipeProgress.Add(header);
+                }
+                var status = recipe.IsAcquired ? "acquired" : recipe.IsMissed ? "missed" : recipe.IsEligible ? "eligible" : "locked";
                 var label = new Label($"{recipe.Title}: {recipe.FulfilledComponents}/{recipe.RequiredComponents} ({status})")
                 {
                     name = GameplayUiElementIds.SetRecipeEntry(i)
                 };
                 label.AddToClassList("set-recipe-progress");
+                if (recipe.IsMissed) label.AddToClassList("set-recipe-missed");
                 _setRecipeProgress.Add(label);
             }
         }
@@ -405,12 +415,21 @@ namespace Game.UI
             _pauseBuild.Add(new Label("SET PROGRESS"));
             foreach (var recipe in state.SetRecipeProgress)
             {
-                if (recipe.IsAcquired || !recipe.HasProgress) continue;
+                if (recipe.IsAcquired || recipe.IsMissed || !recipe.HasProgress) continue;
                 var status = recipe.IsEligible ? "Recipe fulfilled · not acquired" :
                     $"Levels met {recipe.FulfilledComponents}/{recipe.RequiredComponents}";
                 _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
                     $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail,
                     icon: recipe.Icon)));
+            }
+            var missedLabelAdded = false;
+            foreach (var recipe in state.SetRecipeProgress)
+            {
+                if (!recipe.IsMissed) continue;
+                if (!missedLabelAdded) { _pauseBuild.Add(new Label("MISSED SETS")); missedLabelAdded = true; }
+                _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
+                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · cannot be completed\n{recipe.Components}",
+                    recipe.Detail, icon: recipe.Icon, isEnabled: false)));
             }
         }
 

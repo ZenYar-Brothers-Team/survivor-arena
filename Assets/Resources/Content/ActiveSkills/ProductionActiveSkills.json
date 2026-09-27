@@ -6,7 +6,7 @@
     "visualId": "SKILL-001-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -44,7 +44,7 @@
         ]
       },
       {
-        "baseDamage": 26,
+        "baseDamage": 18.2,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -82,7 +82,7 @@
         ]
       },
       {
-        "baseDamage": 26,
+        "baseDamage": 18.2,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -120,7 +120,7 @@
         ]
       },
       {
-        "baseDamage": 26,
+        "baseDamage": 18.2,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -158,7 +158,7 @@
         ]
       },
       {
-        "baseDamage": 26,
+        "baseDamage": 18.2,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -196,7 +196,7 @@
         ]
       },
       {
-        "baseDamage": 31,
+        "baseDamage": 21.7,
         "cooldownSeconds": 1.2,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -242,7 +242,7 @@
     "visualId": "SKILL-002-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 9,
+        "baseDamage": 7.56,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -273,7 +273,7 @@
         ]
       },
       {
-        "baseDamage": 9,
+        "baseDamage": 7.56,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -304,7 +304,7 @@
         ]
       },
       {
-        "baseDamage": 11.25,
+        "baseDamage": 9.45,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -335,7 +335,7 @@
         ]
       },
       {
-        "baseDamage": 11.25,
+        "baseDamage": 9.45,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -366,7 +366,7 @@
         ]
       },
       {
-        "baseDamage": 11.25,
+        "baseDamage": 9.45,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -397,7 +397,7 @@
         ]
       },
       {
-        "baseDamage": 11.25,
+        "baseDamage": 9.45,
         "cooldownSeconds": 1.8,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -436,7 +436,7 @@
     "visualId": "SKILL-003-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 14,
+        "baseDamage": 9.8,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -466,7 +466,7 @@
         ]
       },
       {
-        "baseDamage": 17.5,
+        "baseDamage": 12.25,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -496,7 +496,7 @@
         ]
       },
       {
-        "baseDamage": 17.5,
+        "baseDamage": 12.25,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -526,7 +526,7 @@
         ]
       },
       {
-        "baseDamage": 17.5,
+        "baseDamage": 12.25,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -556,7 +556,7 @@
         ]
       },
       {
-        "baseDamage": 17.5,
+        "baseDamage": 12.25,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -586,7 +586,7 @@
         ]
       },
       {
-        "baseDamage": 20.3,
+        "baseDamage": 14.21,
         "cooldownSeconds": 0.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -623,7 +623,7 @@
     "iconVisualId": "SKILL-004-VISUAL-ICON",
     "levels": [
       {
-        "baseDamage": 8,
+        "baseDamage": 6.4,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -648,7 +648,7 @@
         ]
       },
       {
-        "baseDamage": 8,
+        "baseDamage": 6.4,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -673,7 +673,7 @@
         ]
       },
       {
-        "baseDamage": 10,
+        "baseDamage": 8,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -698,7 +698,7 @@
         ]
       },
       {
-        "baseDamage": 10,
+        "baseDamage": 8,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -739,7 +739,7 @@
         ]
       },
       {
-        "baseDamage": 10,
+        "baseDamage": 8,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -780,7 +780,7 @@
         ]
       },
       {
-        "baseDamage": 10,
+        "baseDamage": 8,
         "cooldownSeconds": 4,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -829,7 +829,7 @@
     "visualId": "SKILL-005-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 34,
+        "baseDamage": 32.3,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -860,7 +860,7 @@
         ]
       },
       {
-        "baseDamage": 42.5,
+        "baseDamage": 40.375,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -891,7 +891,7 @@
         ]
       },
       {
-        "baseDamage": 42.5,
+        "baseDamage": 40.375,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -922,7 +922,7 @@
         ]
       },
       {
-        "baseDamage": 42.5,
+        "baseDamage": 40.375,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -953,7 +953,7 @@
         ]
       },
       {
-        "baseDamage": 42.5,
+        "baseDamage": 40.375,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -984,7 +984,7 @@
         ]
       },
       {
-        "baseDamage": 51,
+        "baseDamage": 48.45,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -1026,7 +1026,7 @@
     "visualId": "SKILL-006-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 16,
+        "baseDamage": 11.2,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1059,7 +1059,7 @@
         ]
       },
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1092,7 +1092,7 @@
         ]
       },
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1125,7 +1125,7 @@
         ]
       },
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1158,7 +1158,7 @@
         ]
       },
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -1191,7 +1191,7 @@
         ]
       },
       {
-        "baseDamage": 20,
+        "baseDamage": 14,
         "cooldownSeconds": 2.8,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -1231,7 +1231,7 @@
     "iconVisualId": "SKILL-007-VISUAL-ICON",
     "levels": [
       {
-        "baseDamage": 22,
+        "baseDamage": 15.4,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1254,7 +1254,7 @@
         ]
       },
       {
-        "baseDamage": 22,
+        "baseDamage": 15.4,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1277,7 +1277,7 @@
         ]
       },
       {
-        "baseDamage": 27.5,
+        "baseDamage": 19.25,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1300,7 +1300,7 @@
         ]
       },
       {
-        "baseDamage": 30,
+        "baseDamage": 21,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1323,7 +1323,7 @@
         ]
       },
       {
-        "baseDamage": 30,
+        "baseDamage": 21,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -1346,7 +1346,7 @@
         ]
       },
       {
-        "baseDamage": 33.6,
+        "baseDamage": 23.52,
         "cooldownSeconds": 2.86,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -1377,7 +1377,7 @@
     "visualId": "SKILL-008-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 18,
+        "baseDamage": 12.6,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1414,7 +1414,7 @@
         ]
       },
       {
-        "baseDamage": 18,
+        "baseDamage": 12.6,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1451,7 +1451,7 @@
         ]
       },
       {
-        "baseDamage": 23.4,
+        "baseDamage": 16.38,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1488,7 +1488,7 @@
         ]
       },
       {
-        "baseDamage": 23.4,
+        "baseDamage": 16.38,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1525,7 +1525,7 @@
         ]
       },
       {
-        "baseDamage": 23.4,
+        "baseDamage": 16.38,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -1562,7 +1562,7 @@
         ]
       },
       {
-        "baseDamage": 23.4,
+        "baseDamage": 16.38,
         "cooldownSeconds": 2,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -1607,7 +1607,7 @@
     "visualId": "SKILL-009-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 40,
+        "baseDamage": 24,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1634,7 +1634,7 @@
         ]
       },
       {
-        "baseDamage": 40,
+        "baseDamage": 24,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1661,7 +1661,7 @@
         ]
       },
       {
-        "baseDamage": 52,
+        "baseDamage": 31.2,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1688,7 +1688,7 @@
         ]
       },
       {
-        "baseDamage": 52,
+        "baseDamage": 31.2,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1715,7 +1715,7 @@
         ]
       },
       {
-        "baseDamage": 52,
+        "baseDamage": 31.2,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -1742,7 +1742,7 @@
         ]
       },
       {
-        "baseDamage": 52,
+        "baseDamage": 31.2,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -1780,7 +1780,7 @@
     "iconVisualId": "SKILL-010-VISUAL-ICON",
     "levels": [
       {
-        "baseDamage": 55,
+        "baseDamage": 24.75,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1808,7 +1808,7 @@
         ]
       },
       {
-        "baseDamage": 55,
+        "baseDamage": 24.75,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1836,7 +1836,7 @@
         ]
       },
       {
-        "baseDamage": 71.5,
+        "baseDamage": 32.175,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1864,7 +1864,7 @@
         ]
       },
       {
-        "baseDamage": 71.5,
+        "baseDamage": 32.175,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -1909,7 +1909,7 @@
         ]
       },
       {
-        "baseDamage": 71.5,
+        "baseDamage": 32.175,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -1954,7 +1954,7 @@
         ]
       },
       {
-        "baseDamage": 71.5,
+        "baseDamage": 32.175,
         "cooldownSeconds": 4.5,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -2024,7 +2024,7 @@
     "visualId": "SKILL-011-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 12,
+        "baseDamage": 8.4,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 15,
@@ -2055,7 +2055,7 @@
         ]
       },
       {
-        "baseDamage": 12,
+        "baseDamage": 8.4,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 15,
@@ -2086,7 +2086,7 @@
         ]
       },
       {
-        "baseDamage": 15,
+        "baseDamage": 10.5,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 15,
@@ -2117,7 +2117,7 @@
         ]
       },
       {
-        "baseDamage": 15,
+        "baseDamage": 10.5,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 15,
@@ -2148,7 +2148,7 @@
         ]
       },
       {
-        "baseDamage": 15,
+        "baseDamage": 10.5,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 15,
@@ -2179,7 +2179,7 @@
         ]
       },
       {
-        "baseDamage": 15,
+        "baseDamage": 10.5,
         "cooldownSeconds": 2.4,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 15,
@@ -2238,7 +2238,7 @@
     "iconVisualId": "SKILL-012-VISUAL-ICON",
     "levels": [
       {
-        "baseDamage": 10,
+        "baseDamage": 7.5,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2267,7 +2267,7 @@
         ]
       },
       {
-        "baseDamage": 10,
+        "baseDamage": 7.5,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2296,7 +2296,7 @@
         ]
       },
       {
-        "baseDamage": 12.5,
+        "baseDamage": 9.375,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2325,7 +2325,7 @@
         ]
       },
       {
-        "baseDamage": 12.5,
+        "baseDamage": 9.375,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2354,7 +2354,7 @@
         ]
       },
       {
-        "baseDamage": 12.5,
+        "baseDamage": 9.375,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -2383,7 +2383,7 @@
         ]
       },
       {
-        "baseDamage": 12.5,
+        "baseDamage": 9.375,
         "cooldownSeconds": 3,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -2420,7 +2420,7 @@
     "visualId": "SKILL-013-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 8,
+        "baseDamage": 7.2,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2453,7 +2453,7 @@
         ]
       },
       {
-        "baseDamage": 8,
+        "baseDamage": 7.2,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2486,7 +2486,7 @@
         ]
       },
       {
-        "baseDamage": 9.6,
+        "baseDamage": 8.64,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2519,7 +2519,7 @@
         ]
       },
       {
-        "baseDamage": 9.6,
+        "baseDamage": 8.64,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2552,7 +2552,7 @@
         ]
       },
       {
-        "baseDamage": 9.6,
+        "baseDamage": 8.64,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -2585,7 +2585,7 @@
         ]
       },
       {
-        "baseDamage": 9.6,
+        "baseDamage": 8.64,
         "cooldownSeconds": 2.5,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -2626,7 +2626,7 @@
     "visualId": "SKILL-014-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 18,
+        "baseDamage": 12.6,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2663,7 +2663,7 @@
         ]
       },
       {
-        "baseDamage": 18,
+        "baseDamage": 12.6,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2700,7 +2700,7 @@
         ]
       },
       {
-        "baseDamage": 21.6,
+        "baseDamage": 15.12,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2737,7 +2737,7 @@
         ]
       },
       {
-        "baseDamage": 21.6,
+        "baseDamage": 15.12,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2774,7 +2774,7 @@
         ]
       },
       {
-        "baseDamage": 21.6,
+        "baseDamage": 15.12,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -2811,7 +2811,7 @@
         ]
       },
       {
-        "baseDamage": 21.6,
+        "baseDamage": 15.12,
         "cooldownSeconds": 3.2,
         "actionSpeedBonus": 0.25,
         "rotationPerActivationDegrees": 0,
@@ -2856,7 +2856,7 @@
     "visualId": "SKILL-015-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 30,
+        "baseDamage": 13.5,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2890,7 +2890,7 @@
         ]
       },
       {
-        "baseDamage": 30,
+        "baseDamage": 13.5,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2924,7 +2924,7 @@
         ]
       },
       {
-        "baseDamage": 39,
+        "baseDamage": 17.55,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2958,7 +2958,7 @@
         ]
       },
       {
-        "baseDamage": 39,
+        "baseDamage": 17.55,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -2992,7 +2992,7 @@
         ]
       },
       {
-        "baseDamage": 39,
+        "baseDamage": 17.55,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -3026,7 +3026,7 @@
         ]
       },
       {
-        "baseDamage": 39,
+        "baseDamage": 17.55,
         "cooldownSeconds": 3.5,
         "actionSpeedBonus": 0.33,
         "rotationPerActivationDegrees": 0,
@@ -3092,7 +3092,7 @@
     "visualId": "SKILL-016-VISUAL-PROJECTILE",
     "levels": [
       {
-        "baseDamage": 4,
+        "baseDamage": 2.8,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -3126,7 +3126,7 @@
         ]
       },
       {
-        "baseDamage": 4,
+        "baseDamage": 2.8,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -3160,7 +3160,7 @@
         ]
       },
       {
-        "baseDamage": 4.6,
+        "baseDamage": 3.22,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -3194,7 +3194,7 @@
         ]
       },
       {
-        "baseDamage": 4.6,
+        "baseDamage": 3.22,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0,
         "rotationPerActivationDegrees": 0,
@@ -3228,7 +3228,7 @@
         ]
       },
       {
-        "baseDamage": 4.6,
+        "baseDamage": 3.22,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0.35,
         "rotationPerActivationDegrees": 0,
@@ -3262,7 +3262,7 @@
         ]
       },
       {
-        "baseDamage": 5.6,
+        "baseDamage": 3.92,
         "cooldownSeconds": 0.35,
         "actionSpeedBonus": 0.35,
         "rotationPerActivationDegrees": 0,
