@@ -67,7 +67,7 @@ namespace Game.Traveler
             var attack = a == null ? null : new EnemyAttackProfile(a.Pattern, a.Damage * multiplier, a.CooldownSeconds,
                 a.ProjectileSpeed, a.ProjectileLifetimeSeconds, a.ProjectileCount, a.SpreadDegrees, a.BurstIntervalSeconds,
                 a.ProjectileRadius, a.ExplosionRadius, a.RotationStepDegrees, a.Controls, a.TelegraphSeconds,
-                a.ProjectileVisual);
+                a.ProjectileVisual, a.Cadence, a.FixedOrientation, a.FollowUps, a.WindupMovementMultiplier);
             // Art references stay: the runtime builds the animated body from them (a scaled body without
             // them threw mid-spawn and left an unregistered, invulnerable Traveler, DECISION-0059).
             return new EnemyDefinition(Id, Body.MaxHealth * multiplier, Body.CollisionSize, Body.MovementSpeed,

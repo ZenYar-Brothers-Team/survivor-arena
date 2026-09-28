@@ -134,6 +134,347 @@
         1,
         1
       ]
+    },
+    {
+      "id": "TRAVELER-003",
+      "name": "Странствующий копейщик",
+      "marker": "LONG-WANDER",
+      "role": "Wanderer",
+      "body": {
+        "id": "TRAVELER-003",
+        "knockbackResistance": 0.25,
+        "maxHealth": 620,
+        "visualId": "TRAVELER-003-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.1,
+        "movementSpeed": 0.9,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 10,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 75,
+      "wanderSeconds": 5,
+      "restSeconds": 0,
+      "avoidRadius": 3,
+      "avoidSeconds": 0.8,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-004",
+      "name": "Наёмный дуэлянт",
+      "marker": "DUELIST",
+      "role": "Offensive",
+      "body": {
+        "id": "TRAVELER-004",
+        "knockbackResistance": 0.2,
+        "maxHealth": 500,
+        "visualId": "TRAVELER-004-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.15,
+        "movementSpeed": 1.15,
+        "contactDamage": 16,
+        "contactDamageInterval": 1,
+        "experienceReward": 12,
+        "movement": {
+          "kind": "Zigzag",
+          "lateralStrength": 0.6,
+          "cycleSeconds": 2
+        },
+        "contactControls": {
+          "knockbackDistance": 0.45,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-006",
+      "name": "Дорожный маг",
+      "marker": "REST",
+      "role": "Wanderer",
+      "body": {
+        "id": "TRAVELER-006",
+        "knockbackResistance": 0.3,
+        "maxHealth": 520,
+        "visualId": "TRAVELER-006-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.1,
+        "movementSpeed": 0.85,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 10,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 75,
+      "wanderSeconds": 3,
+      "restSeconds": 1,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-007",
+      "name": "Путевой инквизитор",
+      "marker": "SHIELD",
+      "role": "Protector",
+      "body": {
+        "id": "TRAVELER-007",
+        "knockbackResistance": 0.4,
+        "maxHealth": 950,
+        "visualId": "TRAVELER-007-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.2,
+        "movementSpeed": 0.8,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 18,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "Shield",
+      "supportRadius": 4,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 35,
+      "shieldSeconds": 4,
+      "supportCooldown": 6,
+      "supportTargets": 4,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-008",
+      "name": "Рыцарь-странник",
+      "marker": "DASH",
+      "role": "Offensive",
+      "body": {
+        "id": "TRAVELER-008",
+        "knockbackResistance": 0.5,
+        "maxHealth": 800,
+        "visualId": "TRAVELER-008-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.45,
+        "movementSpeed": 0.65,
+        "contactDamage": 24,
+        "contactDamageInterval": 1,
+        "experienceReward": 12,
+        "movement": {
+          "kind": "TelegraphedDash",
+          "dashTelegraphSeconds": 0.7,
+          "dashDurationSeconds": 0.5,
+          "dashCooldownSeconds": 4,
+          "dashSpeedMultiplier": 4
+        },
+        "contactControls": {
+          "knockbackDistance": 0.8,
+          "knockbackSeconds": 0.12
+        },
+        "dashContactControls": {
+          "knockbackDistance": 1.1,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-009",
+      "name": "Небесный паломник",
+      "marker": "AURA",
+      "role": "Protector",
+      "body": {
+        "id": "TRAVELER-009",
+        "knockbackResistance": 0.55,
+        "maxHealth": 1050,
+        "visualId": "TRAVELER-009-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.3,
+        "movementSpeed": 0.75,
+        "contactDamage": 0,
+        "contactDamageInterval": 1,
+        "experienceReward": 18,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.12
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "Aura",
+      "supportRadius": 3,
+      "reduction": 0.1,
+      "resistance": 0.4,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "TRAVELER-010",
+      "name": "Ангел-скиталец",
+      "marker": "CROSS",
+      "role": "Offensive",
+      "body": {
+        "id": "TRAVELER-010",
+        "knockbackResistance": 0.4,
+        "maxHealth": 600,
+        "visualId": "TRAVELER-010-VISUAL-BODY",
+        "motionProfileId": "ENEMY-001-MOTION",
+        "collisionSize": 1.3,
+        "movementSpeed": 0.85,
+        "contactDamage": 18,
+        "contactDamageInterval": 1,
+        "experienceReward": 12,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0.65,
+          "knockbackSeconds": 0.12
+        },
+        "attack": {
+          "pattern": "Cross",
+          "damage": 10,
+          "cooldownSeconds": 2.6,
+          "projectileSpeed": 6,
+          "projectileLifetimeSeconds": 1.8,
+          "projectileCount": 4,
+          "projectileRadius": 0.13,
+          "telegraphSeconds": 0.5,
+          "cadence": "WindupStartToStart",
+          "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE",
+          "controls": {
+            "knockbackDistance": 0.5,
+            "knockbackSeconds": 0.12
+          }
+        }
+      },
+      "presenceSeconds": 90,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 1,
+      "support": "None",
+      "supportRadius": 0,
+      "reduction": 0,
+      "resistance": 0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 1,
+      "supportTargets": 1,
+      "color": [
+        1,
+        0.6,
+        0.15,
+        1
+      ]
     }
   ],
   "schedules": [
@@ -142,7 +483,14 @@
       "travelerIds": [
         "TRAVELER-001",
         "TRAVELER-002",
-        "TRAVELER-005"
+        "TRAVELER-003",
+        "TRAVELER-004",
+        "TRAVELER-005",
+        "TRAVELER-006",
+        "TRAVELER-007",
+        "TRAVELER-008",
+        "TRAVELER-009",
+        "TRAVELER-010"
       ],
       "countProbabilities": [
         0.15,
@@ -163,7 +511,14 @@
       "travelerIds": [
         "TRAVELER-001",
         "TRAVELER-002",
-        "TRAVELER-005"
+        "TRAVELER-003",
+        "TRAVELER-004",
+        "TRAVELER-005",
+        "TRAVELER-006",
+        "TRAVELER-007",
+        "TRAVELER-008",
+        "TRAVELER-009",
+        "TRAVELER-010"
       ],
       "countProbabilities": [
         0.15,
@@ -184,7 +539,14 @@
       "travelerIds": [
         "TRAVELER-001",
         "TRAVELER-002",
-        "TRAVELER-005"
+        "TRAVELER-003",
+        "TRAVELER-004",
+        "TRAVELER-005",
+        "TRAVELER-006",
+        "TRAVELER-007",
+        "TRAVELER-008",
+        "TRAVELER-009",
+        "TRAVELER-010"
       ],
       "countProbabilities": [
         0.15,

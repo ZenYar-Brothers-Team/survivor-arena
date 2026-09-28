@@ -33,6 +33,9 @@ LAYOUTS_PACKET = ROOT / "docs/balance/field-layouts-v1.json"
 CHARACTERS_PACKET = ROOT / "docs/balance/characters-v1.json"
 
 
+TRAVELERS_PACKET = ROOT / "docs/balance/travelers-v1.json"
+
+
 def load_baseline():
     data = json.loads(BASELINE.read_text(encoding="utf-8"))
     if data.get("approval") != "Approved":
@@ -69,6 +72,10 @@ def load_baseline():
     if not str(roster.get("approval", "")).startswith("Approved"):
         raise SystemExit("Characters packet is not Approved; production content cannot be generated.")
     data["lateCharacters"] = roster
+    late_travelers = json.loads(TRAVELERS_PACKET.read_text(encoding="utf-8"))
+    if not str(late_travelers.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Travelers packet is not Approved; production content cannot be generated.")
+    data["lateTravelers"] = late_travelers
     return data
 
 
@@ -90,7 +97,7 @@ def card_field(card_id, field):
 # Complete input set for generation and check_project's reusable evidence fingerprint.
 SOURCE_PATHS = tuple(str(path.relative_to(ROOT)).replace("\\", "/") for path in (
     BASELINE, LATE_PACKET, SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
-    BOSSES_PACKET, FIELD003_PACKET, LAYOUTS_PACKET, CHARACTERS_PACKET,
+    BOSSES_PACKET, FIELD003_PACKET, LAYOUTS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET,
     ROOT / "docs/Content_design.md",
     ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json",
 ))

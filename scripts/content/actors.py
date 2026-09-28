@@ -195,6 +195,36 @@ def pickups(baseline):
     }
 
 
+ROLE_COLORS = {"Offensive": [1, 0.6, 0.15, 1], "Wanderer": [0.3, 0.85, 1, 1], "Protector": [0.65, 0.4, 1, 1]}
+
+
+def late_traveler(t, baseline):
+    """TRAVELER-003/004/006…010 from travelers-v1 (DECISION-0088): one progression tier with the FIELD-001 peers."""
+    knockback_seconds = baseline["controls"]["nonzeroKnockbackSeconds"]
+    body = {"id": t["id"], "knockbackResistance": t["knockbackResistance"], "maxHealth": t["maxHealth"],
+            "visualId": f"{t['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
+            "collisionSize": t["collisionSize"], "movementSpeed": t["movementSpeed"],
+            "contactDamage": t["contactDamage"], "contactDamageInterval": 1,
+            "experienceReward": t["experienceReward"], "movement": t["movement"],
+            "contactControls": {"knockbackDistance": t["contactKnockback"], "knockbackSeconds": knockback_seconds}}
+    if t["dashContactKnockback"] is not None:
+        body["dashContactControls"] = {"knockbackDistance": t["dashContactKnockback"], "knockbackSeconds": knockback_seconds}
+    if t["attack"] is not None:
+        attack = dict(t["attack"])
+        attack["controls"] = {"knockbackDistance": attack.pop("knockbackDistance"), "knockbackSeconds": knockback_seconds}
+        body["attack"] = attack
+    support = t["support"]
+    return {
+        "id": t["id"], "name": content_design_names("TRAVELER")[t["id"]], "marker": t["marker"], "role": t["role"],
+        "body": body, "presenceSeconds": t["presenceSeconds"], "wanderSeconds": t["wanderSeconds"],
+        "restSeconds": t["restSeconds"], "avoidRadius": t["avoidRadius"], "avoidSeconds": t["avoidSeconds"],
+        "guardOffset": 1, "support": support["kind"], "supportRadius": support["radius"],
+        "reduction": support["reduction"], "resistance": support["resistance"], "shieldHp": support["shieldHp"],
+        "shieldSeconds": support["shieldSeconds"], "supportCooldown": support["cooldownSeconds"],
+        "supportTargets": support["supportTargets"], "color": ROLE_COLORS[t["role"]],
+    }
+
+
 def travelers(baseline):
     schedule = baseline["travelerSchedule"]
     seeds = baseline["randomness"]["referenceSeeds"]
@@ -221,9 +251,12 @@ def travelers(baseline):
             "resistance": support["resistance"], "shieldHp": support["shieldHp"], "shieldSeconds": support["shieldSeconds"],
             "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
         })
+    result += [late_traveler(t, baseline) for t in baseline["lateTravelers"]["travelers"]]
+    pool = sorted(t["id"] for t in result)
+
     def entry(schedule_id, seed, rank):
         # DECISION-0063: every field draws from the global pool of implemented Travelers, roles never repeat.
-        return {"id": schedule_id, "travelerIds": [t["id"] for t in baseline["travelers"]],
+        return {"id": schedule_id, "travelerIds": pool,
                 "countProbabilities": schedule["countProbabilities"], "seed": seed, "fieldRank": rank,
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],

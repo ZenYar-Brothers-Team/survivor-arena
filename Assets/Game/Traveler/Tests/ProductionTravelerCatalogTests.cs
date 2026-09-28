@@ -6,7 +6,10 @@ using NUnit.Framework;
 
 namespace Game.Traveler.Tests
 {
-    /// <summary>F1-07: TRAVELER-001/002/005 and the FIELD-001 Traveler schedule (baseline v1).</summary>
+    /// <summary>
+    /// F1-07: TRAVELER-001/002/005 and the FIELD-001 Traveler schedule (baseline v1); TRAVELER-003/004/006…010 from
+    /// travelers-v1 (DECISION-0088) on the same progression tier.
+    /// </summary>
     public sealed class ProductionTravelerCatalogTests
     {
         private static TravelerDefinition Traveler(string id) =>
@@ -16,7 +19,7 @@ namespace Game.Traveler.Tests
         public void ThreeRoles_UseApprovedProfilesPresenceAndXp()
         {
             var catalog = FixtureTravelerCatalog.CreateProduction();
-            CollectionAssert.AreEquivalent(new[] { "TRAVELER-001", "TRAVELER-002", "TRAVELER-005" },
+            CollectionAssert.AreEquivalent(Enumerable.Range(1, 10).Select(i => $"TRAVELER-{i:000}"),
                 catalog.Definitions.Keys.Select(k => k.ToString()));
             var bruiser = Traveler("TRAVELER-001");
             Assert.AreEqual(TravelerRole.Offensive, bruiser.Role);
@@ -40,6 +43,85 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(0.2f, guard.Reduction, 1e-5f);
             Assert.AreEqual(0.65f, guard.Body.KnockbackResistance, 1e-5f);
             Assert.AreEqual(18f, guard.Body.ExperienceReward);
+        }
+
+        [TestCase("TRAVELER-003", TravelerRole.Wanderer, 620f, 0.9f, 0f, 10f, 75f)]
+        [TestCase("TRAVELER-004", TravelerRole.Offensive, 500f, 1.15f, 16f, 12f, 90f)]
+        [TestCase("TRAVELER-006", TravelerRole.Wanderer, 520f, 0.85f, 0f, 10f, 75f)]
+        [TestCase("TRAVELER-007", TravelerRole.Protector, 950f, 0.8f, 0f, 18f, 90f)]
+        [TestCase("TRAVELER-008", TravelerRole.Offensive, 800f, 0.65f, 24f, 12f, 90f)]
+        [TestCase("TRAVELER-009", TravelerRole.Protector, 1050f, 0.75f, 0f, 18f, 90f)]
+        [TestCase("TRAVELER-010", TravelerRole.Offensive, 600f, 0.85f, 18f, 12f, 90f)]
+        public void LateTravelers_ShareTheFieldOneTierOfTheirRole(
+            string id, TravelerRole role, float health, float speed, float contact, float xp, float presence)
+        {
+            var traveler = Traveler(id);
+            Assert.AreEqual(role, traveler.Role);
+            Assert.AreEqual(health, traveler.Body.MaxHealth, 1e-3f);
+            Assert.AreEqual(speed, traveler.Body.MovementSpeed, 1e-5f);
+            Assert.AreEqual(contact, traveler.Body.ContactDamage, 1e-5f);
+            Assert.AreEqual(xp, traveler.Body.ExperienceReward);
+            Assert.AreEqual(presence, traveler.PresenceSeconds);
+            Assert.AreEqual($"{id}-VISUAL-BODY", traveler.Body.Visual.Id.ToString());
+        }
+
+        [Test]
+        public void LateTravelers_UseCardBehaviourFamilies()
+        {
+            Assert.AreEqual(Game.Enemy.EnemyMovementKind.Zigzag, Traveler("TRAVELER-004").Body.Movement.Kind);
+            var knight = Traveler("TRAVELER-008").Body;
+            Assert.AreEqual(Game.Enemy.EnemyMovementKind.TelegraphedDash, knight.Movement.Kind);
+            Assert.AreEqual(4f, knight.Movement.DashCooldownSeconds, 1e-5f, "Card: one long dash about every 4 s.");
+            Assert.IsNotNull(knight.DashContactControls);
+            var angel = Traveler("TRAVELER-010").Body.Attack;
+            Assert.AreEqual(Game.Enemy.EnemyProjectilePattern.Cross, angel.Pattern);
+            Assert.AreEqual(4, angel.ProjectileCount);
+            Assert.AreEqual(10f, angel.Damage, 1e-5f);
+            Assert.AreEqual(2.6f, angel.CooldownSeconds, 1e-5f);
+            Assert.AreEqual("BOSS-010-VISUAL-PROJECTILE", angel.ProjectileVisual.Id.ToString());
+            var inquisitor = Traveler("TRAVELER-007");
+            Assert.AreEqual(TravelerSupportKind.Shield, inquisitor.Support);
+            Assert.AreEqual(35f, inquisitor.ShieldHp);
+            Assert.AreEqual(4f, inquisitor.ShieldSeconds);
+            Assert.AreEqual(6f, inquisitor.SupportCooldown);
+            Assert.AreEqual(4, inquisitor.SupportTargets);
+            var pilgrim = Traveler("TRAVELER-009");
+            Assert.AreEqual(TravelerSupportKind.Aura, pilgrim.Support);
+            Assert.AreEqual(0.1f, pilgrim.Reduction, 1e-5f);
+            Assert.AreEqual(0.4f, pilgrim.Resistance, 1e-5f);
+            Assert.AreEqual(5f, Traveler("TRAVELER-003").WanderSeconds, "Long straight segments.");
+            Assert.AreEqual(0f, Traveler("TRAVELER-003").RestSeconds);
+            Assert.AreEqual(1f, Traveler("TRAVELER-006").RestSeconds, "Stops for a while between walks.");
+        }
+
+        [Test]
+        public void Scale_KeepsTheWholeAttackProfile()
+        {
+            var angel = Traveler("TRAVELER-010");
+            var scaled = angel.Scale(1.5f).Attack;
+            Assert.AreEqual(15f, scaled.Damage, 1e-4f, "Projectile damage scales like contact damage.");
+            Assert.AreEqual(angel.Body.Attack.Cadence, scaled.Cadence);
+            Assert.AreEqual(angel.Body.Attack.TelegraphSeconds, scaled.TelegraphSeconds, 1e-5f);
+            Assert.AreEqual(angel.Body.Attack.ProjectileVisual.Id, scaled.ProjectileVisual.Id);
+            Assert.AreEqual(angel.Body.Attack.WindupMovementMultiplier, scaled.WindupMovementMultiplier, 1e-5f);
+        }
+
+        [Test]
+        public void EveryFieldDrawsFromAllTenTravelers_WithoutRepeatingRoles()
+        {
+            var catalog = FixtureTravelerCatalog.CreateProduction();
+            foreach (var schedule in catalog.Schedules.Cast<TravelerScheduleDefinition>())
+            {
+                Assert.AreEqual(10, schedule.TravelerIds.Count, schedule.Id.ToString());
+                var seen = new HashSet<ContentId>();
+                for (var seed = 0; seed < 300; seed++)
+                {
+                    var entries = schedule.Draw(900f, new Random(seed), id => catalog.Definitions[id].Role);
+                    Assert.AreEqual(entries.Count, entries.Select(e => catalog.Definitions[e.Id].Role).Distinct().Count());
+                    foreach (var entry in entries) seen.Add(entry.Id);
+                }
+                Assert.AreEqual(10, seen.Count, $"{schedule.Id}: every Traveler can appear");
+            }
         }
 
         [Test]
