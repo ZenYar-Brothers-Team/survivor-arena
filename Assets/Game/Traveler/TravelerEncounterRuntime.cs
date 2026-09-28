@@ -73,10 +73,9 @@ namespace Game.Traveler
             foreach (var life in _lives.ToArray())
             {
                 if (_model.Elapsed >= life.Deadline) { life.Actor.Despawn(EnemyLifeReason.Escaped); continue; }
-                var projected = _placement.ProjectFrom(life.LastReachablePosition, life.Actor.Position);
-                life.LastReachablePosition = projected;
-                if ((projected - life.Actor.Position).sqrMagnitude > .000001f)
-                    life.Actor.GetComponent<Rigidbody2D>().position = projected;
+                var bounded = _placement.ClampToBounds(life.Actor.Position);
+                if ((bounded - life.Actor.Position).sqrMagnitude > .000001f)
+                    life.Actor.GetComponent<Rigidbody2D>().position = bounded;
             }
             while (_next < Schedule.Count && _model.State == RunState.Running && Schedule[_next].Time <= _model.Elapsed)
             {
@@ -92,7 +91,7 @@ namespace Game.Traveler
             if (_model == null || _model.State != RunState.Running) return null;
             var definition = _definitions[id];
             if (!_placement.TrySpawn(_player.position, _camera.orthographicSize * 2 * _schedule.SpawnScreenHeights,
-                _schedule.PlacementAttempts, _random, out var position)) throw new InvalidOperationException("Traveler spawn circle has no sampled reachable point; field geometry/config invalid.");
+                _schedule.PlacementAttempts, _random, out var position)) throw new InvalidOperationException("Traveler spawn circle has no valid point inside the field and outside obstacles; field geometry/config invalid.");
             // Art comes from the unscaled body: Scale() rebuilds stats only (DECISION-0057).
             var body = EnemyBodyVisual.Resolve(definition.Body, _contentRegistry);
             var actor = EnemyFactory.Spawn(definition.Scale(scale), position, _player, _run, transform,

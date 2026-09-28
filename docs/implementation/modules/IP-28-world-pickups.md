@@ -26,11 +26,12 @@ Typed pickup definitions/rewards, death-drop hook для обычных враг
 
 [DECISION-0033](../../decisions/0033-world-pickup-rules.md): full-HP зелье расходуется
 с actual heal 0 и pickup effects; contact pickup независим от XP radius; по умолчанию
-нет timed expiry, configured lifetime идёт только в running-time; недоступный drop
-после небольшого seeded-разброса переносится в ближайшую доступную игроку точку. Chance выбирается enemy → field →
+нет timed expiry, configured lifetime идёт только в running-time; drop после небольшого
+seeded-разброса ограничивается границами арены и может остаться внутри player-only
+obstacle. Chance выбирается enemy → field →
 global, затем relative multiplier и cap 100%. Одновременные pickup intents имеют
 стабильный порядок; Book pause откладывает оставшиеся, terminal не даёт новых наград.
-Реализация документирует технический ключ порядка и reachable-point adapter.
+Реализация документирует технический ключ порядка и простое размещение по границам.
 Tests покрывают каждый пункт; production числа для этого framework не требуются.
 
 ## Out of Scope
@@ -94,10 +95,12 @@ drop roll выполняется один раз на ordinary enemy life. Book 
 возрастающего spawn sequence; для каждого drop expiry проверяется перед contact.
 После Book pause обработка остальных ждёт Running; terminal отменяет свободные drops.
 
-`IPickupPlacement` — boundary геометрии. Fixture adapter берёт axis-aligned стены
-и obstacle существующей Gameplay scene, сужает арену/расширяет obstacle на player
-footprint + skin и выбирает ближайшую точку в связной со spawn области. Другая
-геометрия требует своего adapter; алгоритм не объявляет production navigation готовой.
+`BoxPickupPlacement` хранит axis-aligned границы и obstacle существующей Gameplay
+scene. `Contains` используется только при выборе точки появления: точка должна быть
+внутри суженной арены и вне расширенных obstacle. `ClampToBounds` для движения и
+выпавших pickup ограничивает только арену; поиск связной области и навигация не нужны
+([DECISION-0075](../../decisions/0075-world-pickup-no-obstacle-relocation.md),
+[DECISION-0082](../../decisions/0082-simple-traveler-protector-targeting.md)).
 
 `IPickupRuntime` отдаёт immutable `PickupSnapshot`, Changed/Resolved и dev spawn intent.
 `PickupPresenter`/`UiToolkitPickupView` показывают краткий HUD feedback, а fixture

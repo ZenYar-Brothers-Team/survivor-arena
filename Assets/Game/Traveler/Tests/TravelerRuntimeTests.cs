@@ -32,8 +32,8 @@ namespace Game.Traveler.Tests
             var target=new GameObject("player"); target.transform.SetParent(_root.transform); target.AddComponent<BoxCollider2D>();
             _player=target.AddComponent<PlayerCharacterRuntime>(); _player.Initialize(new CharacterBaseStats(100,3),_run);
             var camera=new GameObject("camera"); camera.transform.SetParent(_root.transform); _camera=camera.AddComponent<Camera>(); _camera.orthographic=true; _camera.orthographicSize=5;
-            var reachable=new BoxPickupPlacement(new Rect(-100,-100,200,200),Array.Empty<Rect>(),Vector2.one*.7f,Vector2.zero,.01f);
-            _placement=new TravelerPlacement(reachable); _pickupCatalog=FixturePickupCatalog.Create();
+            var placement=new BoxPickupPlacement(new Rect(-100,-100,200,200),Array.Empty<Rect>(),Vector2.one*.7f,Vector2.zero,.01f);
+            _placement=new TravelerPlacement(placement); _pickupCatalog=FixturePickupCatalog.Create();
             _pickups=_root.AddComponent<WorldPickupRuntime>(); _pickups.Initialize(_pickupCatalog,_run.Model,_player,new TravelerTestRewardTarget(),new Rect(-100,-100,200,200),"FIXTURE-FIELD");
             _catalog=FixtureTravelerCatalog.Create(); _travelers=_root.AddComponent<TravelerEncounterRuntime>(); Initialize();
             _travelers.LifeEvent+=_events.Add; _run.Model.Start();
@@ -127,6 +127,47 @@ namespace Game.Traveler.Tests
             var motion=driver.Tick(Vector2.right,Vector2.zero,2,.1f,true);
             Assert.Greater(motion.Velocity.x,0); Assert.AreEqual(Vector2.zero,driver.Tick(Vector2.right,Vector2.zero,2,10,false).Velocity);
             for(var i=0;i<100;i++) Assert.IsTrue(_placement.Contains(Vector2.right+driver.Tick(Vector2.right,Vector2.zero,2,.1f,true).Velocity*.1f));
+        }
+
+        [Test]
+        public void MovementClamp_IgnoresPlayerOnlyObstacles_ButKeepsArenaBounds()
+        {
+            var placement = new TravelerPlacement(new BoxPickupPlacement(new Rect(-10, -10, 20, 20),
+                new[] { new Rect(-2, -2, 4, 4) }, Vector2.one * .5f, new Vector2(-5, 0), .01f));
+
+            Assert.AreEqual(Vector2.zero, placement.ClampToBounds(Vector2.zero),
+                "Travelers pass through player-only field obstacles.");
+            var bounded = placement.ClampToBounds(new Vector2(20, 0));
+            Assert.Less(bounded.x, 10f);
+            Assert.Greater(bounded.x, 9f);
+        }
+
+        [Test]
+        public void Protector_PicksDensestOfFourNearest_AndRetargetsWhenTargetIsLost()
+        {
+            var definition = _catalog.Definitions["FIXTURE-TRAVELER-GUARD"];
+            var driver = new TravelerMovementDriver(definition, _placement, _run.Model.RunId, 1);
+            var solitary = EnemyFactory.Spawn(new EnemyDefinition("TEST-SOLITARY", 100, 1, 0, 0, 1),
+                new Vector2(10, 0), _player.transform, _run, _root.transform);
+            var groupA = EnemyFactory.Spawn(new EnemyDefinition("TEST-GROUP-A", 100, 1, 0, 0, 1),
+                new Vector2(-12, 0), _player.transform, _run, _root.transform);
+            var groupB = EnemyFactory.Spawn(new EnemyDefinition("TEST-GROUP-B", 100, 1, 0, 0, 1),
+                new Vector2(-13, 0), _player.transform, _run, _root.transform);
+            var groupC = EnemyFactory.Spawn(new EnemyDefinition("TEST-GROUP-C", 100, 1, 0, 0, 1),
+                new Vector2(-12, 1), _player.transform, _run, _root.transform);
+
+            var movement = driver.Tick(Vector2.zero, Vector2.zero, 2, .1f, true);
+            Assert.Less(movement.Velocity.x, 0, "The denser candidate group wins over the nearest solitary enemy.");
+            Assert.AreEqual(0f, movement.Velocity.y, 1e-4f,
+                "Equal-density candidates are resolved by distance to the player.");
+
+            groupA.Despawn();
+            groupB.Despawn();
+            groupC.Despawn();
+            movement = driver.Tick(Vector2.zero, Vector2.zero, 2, .1f, true);
+
+            Assert.Greater(movement.Velocity.x, 0, "A lost group target triggers an immediate retarget.");
+            solitary.Despawn();
         }
     }
 }

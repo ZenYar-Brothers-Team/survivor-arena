@@ -21,6 +21,7 @@
     "Game.Settings",
     "Game.Movement",
     "Game.Diagnostics",
+    "Game.Pooling",
     "Unity.InputSystem",
     "Game.Audio"
   ],

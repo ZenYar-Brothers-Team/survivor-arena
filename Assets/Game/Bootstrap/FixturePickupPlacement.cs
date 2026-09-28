@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Game.Bootstrap
 {
-    /// <summary>Adapter for the IP-16 axis-aligned fixture arena; production geometry supplies its own IPickupPlacement.</summary>
+    /// <summary>Builds the cheap axis-aligned Traveler spawn/movement area from field geometry.</summary>
     public static class FixturePickupPlacement
     {
         /// <summary>Inner rectangle between the four boundary walls (world pickups clamp into it, DECISION-0075).</summary>
@@ -22,7 +22,7 @@ namespace Game.Bootstrap
                 walls["Wall_Right"].min.x, walls["Wall_Top"].min.y);
         }
 
-        public static IPickupPlacement Create(FieldEnvironmentDefinition environment, Scene scene, Collider2D player,
+        public static BoxPickupPlacement Create(FieldEnvironmentDefinition environment, Scene scene, Collider2D player,
             float skin, float minimumHalfSize = 0, IEnumerable<Collider2D> additionalObstacles = null)
         {
             var spawn = FieldEnvironmentBinding.Validate(environment, scene);

@@ -86,7 +86,7 @@ namespace Game.Pickup
             // DECISION-0075: the drop stays exactly where it fell (plus scatter), even inside an obstacle; no reachability
             // search runs. A drop the player cannot touch simply stays on the ground (user decision 2026-09-27).
             var skin = _catalog.PlacementSkin;
-            var reachable = new Vector2(Mathf.Clamp(scattered.x, _fieldBounds.xMin + skin, _fieldBounds.xMax - skin),
+            var placed = new Vector2(Mathf.Clamp(scattered.x, _fieldBounds.xMin + skin, _fieldBounds.xMax - skin),
                 Mathf.Clamp(scattered.y, _fieldBounds.yMin + skin, _fieldBounds.yMax - skin));
             var identity = new PickupIdentity(Guid.NewGuid(), _run.RunId, _sequence++, sourceLifeId, sourceContentId);
             var life = new PickupLife(definition, identity);
@@ -99,9 +99,9 @@ namespace Game.Pickup
                     throw new InvalidOperationException($"Pickup '{definition.Id}' is missing its resolved visual.");
                 sprite?.RequireRole(SpriteRole.Pickup);
             }
-            visual.Initialize(life, reachable, sprite);
+            visual.Initialize(life, placed, sprite);
             _active.Add(visual); _spawned++;
-            Spawned?.Invoke(new PickupEvent(life, reachable)); Changed?.Invoke();
+            Spawned?.Invoke(new PickupEvent(life, placed)); Changed?.Invoke();
             return visual;
         }
         public void OnEnemyLifeEvent(EnemyLifeEvent snapshot)

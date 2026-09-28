@@ -47,12 +47,14 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void FinalBoss_TeleportImpactGrowsTwoPerField_AndStaysUnavoidable()
+        public void FinalBoss_TeleportImpactUsesApprovedReducedCurve_AndStaysUnavoidable()
         {
             for (var n = 3; n <= 10; n++)
             {
                 var teleport = Catalog[$"BOSS-{n:000}"].Teleport;
-                Assert.AreEqual(20 + 2 * (n - 2), teleport.ImpactDamage, 1e-5f);
+                var originalDamage = 20f + 2f * (n - 2);
+                Assert.AreEqual(originalDamage / 1.5f, teleport.ImpactDamage, 1e-5f,
+                    $"BOSS-{n:000}: DECISION-0080 reduces the original curve by exactly 1.5x.");
                 Assert.Less(teleport.LandingDistance + 3f * teleport.TelegraphSeconds, teleport.ImpactRadius);
             }
         }

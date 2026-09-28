@@ -3,14 +3,14 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
-Current active packet: нет; F1-09 balance follow-up по плейтесту 091d834e завершён, повторный ручной прогон открыт.
-Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют ручные/data/art gates ниже.
-Последний общий Unity smoke: 2026-09-27, 870/870 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS; [evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md). Ручную приёмку эти проверки не заменяют.
+Current active packet: нет; F1-09 полностью проверен 2026-09-28.
+Next Ready packet: нет; F2-06 и каталоги сохраняют ручные/data/art gates ниже.
+Последний общий Unity smoke: 2026-09-28, 865/865 EditMode + 30/30 PlayMode; generation/audio integrity и provenance 254 PASS (`TestResults/checks/20260928T083714-133823Z/summary.json`); [performance evidence](evidence/2026-09-28-field001-performance.md). Ручную приёмку эти проверки не заменяют.
 
 ## Действующие границы
 
 - Дизайн `design-sync-R2` и 121 исходная карточка утверждены (DECISION-0015); оставшиеся TBD и новые proposals не получают approval автоматически.
-- FIELD-001: baseline и F1-00…08 выполнены; F1-09 ждёт ручной матрицы, performance bounds и пользовательской приёмки. Пользователь 2026-09-26 разрешил идти дальше, не закрывая эту приёмку. Автоматического перехода через data/art/manual gates нет.
+- FIELD-001: F1-00…09 Verified; полный ручной прогон и пользовательская приёмка закрыты 2026-09-28, exact stress-performance и restart audit PASS. Автоматического перехода к следующему полю нет.
 - FIELD-002: F2-01…05 поставлены; F2-06 ждёт ручного прогона. IP-12A gameplay density review остаётся отдельным открытым gate.
 - Поздние каталоги и поля сохраняют свои prerequisites/остатки в записях IP. Ни approval арта, ни пройденные автоматические тесты не заменяют gameplay-scale review.
 - IP-33 разрешён отдельным поручением вне F1-09; прослушивание остаётся открытым. REPO-01 разрешает только предложенный структурный рефакторинг и его проверки, без изменения баланса и без запуска следующего IP.
@@ -39,7 +39,7 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 | 7 | [F1-06 — boss/mid-boss](milestones/FIELD-001-start.md#f1-06); IP-21 | Verified | BOSS-001/MIDBOSS-001; тела и общий снаряд веера/кольца подключены, Unity 709/709 + 26/26; текущий вид принят пользователем 2026-09-24. [Art review](../playtests/2026-09-24_field001-art-acceptance.md), [art evidence](evidence/field001-art-integration-2026-09-24.md), [packet evidence](evidence/field001-f1-06-2026-09-24.md) |
 | 8 | [F1-07 — 3 Travelers/Book](milestones/FIELD-001-start.md#f1-07); IP-30 | Verified | TRAVELER-001/002/005 + FIELD-001 schedule, PICKUP-002; три тела подключены, Unity 709/709 + 26/26; текущий вид принят пользователем 2026-09-24. [Art review](../playtests/2026-09-24_field001-art-acceptance.md), [art evidence](evidence/field001-art-integration-2026-09-24.md), [packet evidence](evidence/field001-f1-07-2026-09-24.md) |
 | 9 | [F1-08 — production field/run](milestones/FIELD-001-start.md#f1-08); IP-23/24/25/26 | Verified | 2026-09-24: FIELD-001 (поле, 900-s timeline, 64 authored player-only obstacles), production composition без fixture fallback, production профиль `profile-v1.json`; Unity full PASS 2026-09-24 ([Unity 709/709 + 26/26](evidence/field001-f1-08-2026-09-24.md#unity-full-pass)); [evidence](evidence/field001-f1-08-2026-09-24.md), [DECISION-0054 §9](../decisions/0054-field001-autonomous-execution.md#9-конкретизации-f1-08) |
-| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Blocked | F1-00…08 проверены; пользователь разрешил дальнейшие отдельные работы 2026-09-26, но приёмку F1-09 не закрыл. Нужны реальные прогоны по матрице, performance bounds и приёмка ощущения карты. Последние правки/проверки — ниже; [матрица](evidence/field001-f1-09-2026-09-24.md), [история исправлений](evidence/2026-09-27-execution-history.md#field-001-follow-ups) |
+| 10 | [F1-09 — доведение/приёмка](milestones/FIELD-001-start.md#f1-09); IP-27/12A/31/32 | Verified | Полный ручной прогон и ощущение карты приняты пользователем 2026-09-28. Performance после DECISION-0082: load, minute-5/minute-10, exact final stress `250 + 2 bosses + 3 Travelers` (`p95 16.673 ms`, `p99 16.680 ms`) и 10 restarts PASS; [performance evidence](evidence/2026-09-28-field001-performance.md), [матрица](evidence/field001-f1-09-2026-09-24.md) |
 
 ### Пользовательские правки FIELD-001 — 2026-09-27
 
@@ -60,7 +60,9 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 
 Плейтест `091d834e` и tuning ([DECISION-0079](../decisions/0079-playtest-sky-strike-radius-and-xp-curve.md)): radius SKILL-010 L1–L6 теперь `0.8/1.3/1.8/1.8/1.8/1.8`, третий удар L6 `×1.35`; первые десять XP thresholds дешевле ровно на 20%, сумма до L40 сохранена на 1257 XP. Generation/static validators и Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T204517-509733Z`). Ручная оценка темпа/радиуса открыта; лаги около 5-й/10-й минут диагностированы отдельно и не считаются исправленными. [Evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md), [playtest review](../playtests/2026-09-27_091d834e.md).
 
-Урон прыжка/телепорт-удара BOSS-001…010 уменьшен ровно в 1.5 раза ([DECISION-0080](../decisions/0080-boss-teleport-damage-reduction.md)): диапазон теперь 13.333333…24 вместо 20…36. Авторинговые balance-данные, Content Design и production catalog синхронизированы; по прямому указанию пользователя тесты не запускались. Ручная оценка урона открыта.
+Урон прыжка/телепорт-удара BOSS-001…010 уменьшен ровно в 1.5 раза ([DECISION-0080](../decisions/0080-boss-teleport-damage-reduction.md)): диапазон теперь 13.333333…24 вместо 20…36. Авторинговые balance-данные, Content Design, production catalog и ожидания catalog tests синхронизированы; Unity full PASS 870/870 + 30/30 (`TestResults/checks/20260928T074750-421217Z`). Ручная оценка урона закрыта общей пользовательской приёмкой FIELD-001 2026-09-28.
+
+Пользовательский прогон 2026-09-28: FIELD-001 полностью принят. После CPU-профилирования и [DECISION-0082](../decisions/0082-simple-traveler-protector-targeting.md) standalone benchmark полностью PASS: scene/run load, minute-5, minute-10, 10 restart и exact final stress `250 ordinary + 2 bosses + 3 Travelers` (`p95 16.673 ms`, `p99 16.680 ms`, max `37.367 ms`, GPU p95 `2.262 ms`). F1-09 Verified. [Evidence](evidence/2026-09-28-field001-performance.md).
 
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его

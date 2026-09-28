@@ -6,16 +6,10 @@ namespace Game.Traveler
 {
     public sealed class TravelerPlacement
     {
-        private readonly IPickupPlacement _reachable;
-        public TravelerPlacement(IPickupPlacement reachable) { _reachable = reachable ?? throw new ArgumentNullException(nameof(reachable)); }
-        public Vector2 Project(Vector2 point) => _reachable.TryPlace(point, out var result) ? result : throw new InvalidOperationException("No reachable Traveler point.");
-        public Vector2 ProjectFrom(Vector2 knownReachable, Vector2 point)
-        {
-            if (_reachable is BoxPickupPlacement box)
-                return box.TryPlaceFrom(knownReachable, point, out var result) ? result : throw new InvalidOperationException("No reachable Traveler point.");
-            return Project(point);
-        }
-        public bool Contains(Vector2 point) => (Project(point) - point).sqrMagnitude < .000001f;
+        private readonly BoxPickupPlacement _placement;
+        public TravelerPlacement(BoxPickupPlacement placement) { _placement = placement ?? throw new ArgumentNullException(nameof(placement)); }
+        public Vector2 ClampToBounds(Vector2 point) => _placement.ClampToBounds(point);
+        public bool Contains(Vector2 point) => _placement.Contains(point);
         public bool TrySpawn(Vector2 player, float distance, int attempts, System.Random random, out Vector2 point)
         {
             using var guard = PerfGuard.Measure("Traveler.Placement", 5f);

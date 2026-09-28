@@ -45,7 +45,8 @@ namespace Game.Enemy.Tests
             const float baseMovementSpeed = 3f;
             Assert.Less(teleport.LandingDistance + baseMovementSpeed * teleport.TelegraphSeconds, teleport.ImpactRadius,
                 "A base-speed player cannot leave the slam circle during the telegraph.");
-            Assert.AreEqual(20f, teleport.ImpactDamage, 1e-5f);
+            Assert.AreEqual(20f / 1.5f, teleport.ImpactDamage, 1e-5f,
+                "DECISION-0080: teleport impact damage is reduced by exactly 1.5x.");
 
             var mid = Encounter("MIDBOSS-001");
             Assert.AreEqual(WaveHookKind.MidBoss, mid.Hook);

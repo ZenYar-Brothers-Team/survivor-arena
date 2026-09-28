@@ -83,10 +83,10 @@ Bootstrap создаёт Audio. Gameplay и UI не зависят от Audio; �
 
 ## Телеметрия и ручные прогоны
 
-- entryPoints: [Telemetry](../Assets/Game/Telemetry), [PlaytestComposition](../Assets/Game/Bootstrap/PlaytestComposition.cs).
+- entryPoints: [Telemetry](../Assets/Game/Telemetry), [PlaytestComposition](../Assets/Game/Bootstrap/PlaytestComposition.cs), [FIELD-001 performance harness](../Assets/Game/Bootstrap/Diagnostics/Field001PerformanceBenchmark.cs), [standalone benchmark builder](../Assets/Game/Bootstrap/Editor/Field001PerformanceBuild.cs).
 - designRefs: [BALANCE_WORKFLOW](implementation/BALANCE_WORKFLOW.md), [playtests/README](playtests/README.md).
 - authoringSources: выбранные run reports и исходные отзывы в [playtests](playtests); approved balance deltas затем в owning source JSON.
-- checks: Telemetry Tests, соответствующий PlayMode smoke; пользовательские matrix/density/performance gates остаются в STATUS.
+- checks: Telemetry Tests, соответствующий PlayMode smoke; воспроизводимый standalone benchmark пишет ignored raw report в `TestResults/performance/`, а принятый итог — в implementation evidence; пользовательские matrix/density/performance gates остаются в STATUS.
 
 ## Поддержка карты
 

@@ -844,7 +844,7 @@ XP, Зелье и Traveler Book используют отдельные 256×256
 
 Один `PickupSpritePresentation` создаёт дочерний `VisualRoot` и применяет небольшой bob/pulse только в running-time. Root, trigger и authoritative position не двигаются и не масштабируются. Shutdown/pool return выключает renderer, очищает sprite/tint и возвращает transform baseline; отдельные raster frames, shadow и particle emitter не требуются.
 
-Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book проходят обычный reachable-point adapter. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md).
+Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book лишь ограничиваются внутренними границами арены и могут остаться внутри player-only obstacle. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md), пересмотр размещения: [DECISION-0075](../decisions/0075-progression-specialization-and-survivability.md).
 
 Acceptance: три sprites зарегистрированы как Pickup и имеют source/provenance/runtime records; визуальная анимация замораживается на pause и не влияет на collider; последовательные drops из одной source point получают разные позиции внутри radius; pool reuse не сохраняет фазу/scale/tint; финальный gameplay-scale review остаётся пользовательским gate.
 
