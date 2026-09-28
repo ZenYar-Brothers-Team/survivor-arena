@@ -123,3 +123,11 @@ Regression: `UiFoundationTests.PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeep
 `UiLayoutR2SmokeTests.DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit`
 проверяет неначатый рецепт, общий scroll и справку в 720p/1080p.
 Результаты проверки — [runtime evidence](../implementation/evidence/2026-09-28-ui-layout-r2-runtime.md#неначатые-рецепты-на-паузе).
+
+## Итоговая приёмка
+
+2026-09-28, после коммита `40cab02`: «Приемка, считай сделана, я уже посмотрел,
+интерфейс нормальный». Пользователь принял исправленный игровой UI и поручил
+подготовить следующий композиционный срез Main Menu/Character Select/Field Select.
+Предыдущие записи об открытой приёмке описывают момент соответствующего review;
+итог исполнения — только в STATUS. Новый runtime прогон здесь не заявляется.

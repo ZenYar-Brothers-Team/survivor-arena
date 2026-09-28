@@ -520,8 +520,9 @@ Method: \`Generate via GPT\`.
 \#\# UI-specific production rules
 
 \- Character portraits \*\*не входят в обязательный generation backlog\*\*: сначала использовать crop/variant body sprite.  
+\- Неполученный playable body показывается одноцветным силуэтом в каталоге и крупном просмотре; отдельный PNG не нужен. Цветной body раскрывается после получения, не просто выполнения условия покупки (DECISION-0087).
 \- Character Select показывает только значимые stat modifiers; отдельные art assets под полный stat table не нужны.  
-\- Pause / Build показывает set recipes только с текущим progress; отдельный full-set-compendium UI/art для MVP не нужен.  
+\- Pause / Build показывает все meta-открытые достижимые recipes, включая `0/N`, по UI §10/DECISION-0086; acquired/missed отдельно. Новый full-set-compendium UI/art не нужен.
 \- Traveler HP bar является обязательным procedural UI для всех Travelers.  
 \- Retry — обычная кнопка; отдельного confirmation screen/art нет. Нажатие сразу запускает новый run с теми же character и field.  
 \- Reroll/Banish могут быть обычными текстовыми кнопками с простым icon только при необходимости; отдельные generated icons не обязательны.  

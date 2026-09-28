@@ -3,10 +3,10 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
-Current active packet: UI layout R2 / IP-10A — Implemented: утверждённая композиция HUD → Draft/Book → Pause перенесена в Unity, включая последнее увеличение области персонажа. Production captures и автоматические проверки — [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Пользовательская visual acceptance игрового варианта ещё открыта; HTML approval её не заменяет.
-Next Ready packet: пользовательская приёмка игрового UI layout R2 / IP-10A совместно с IP-26; затем согласовать следующий срез остальных экранов. F2-06 и каталоги сохраняют свои gates ниже.
+Current active packet: UI entry R1 / IP-26 — пользователь принял текущий browser-макет 2026-09-28: «отлично, всё принимается». Выбран Menu E с Шепоткой v002, parallax, светом и средней пылью; [approval и hashes](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28), [evidence](evidence/2026-09-28-ui-entry-r1-mockups.md). Силуэты/сетка полей — Approved DECISION-0087. Чистовая отделка кнопок, production art preparation и Unity-перенос ещё не выполнены.
+Next Ready packet: тематический проход и Unity-перенос принятого [UI entry R1](proposals/2026-09-28-ui-entry-r1.md) с подготовкой выбранного menu art через art pipeline и отдельной runtime/visual verification. В turn приёмки только зафиксировано approval; реализация не начата. UI layout R2 / IP-10A Verified; F2-06 и каталоги сохраняют свои gates ниже.
 Последний общий Unity smoke: 2026-09-28, 887/887 EditMode + 34/34 PlayMode с graphics, 0 skipped; generation/audio integrity и provenance 254 PASS (`TestResults/checks/20260928T141812-824606Z/summary.json`); [UI runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Ручную приёмку эти проверки не заменяют.
-После игрового отзыва исправлены [OBS-01…07](../playtests/2026-09-28_ui-card-layout.md): более крупный icon/type/level header без pill, recipe icons, owned count отдельно от thresholds, зелёный текущий уровень с ✓/○ presence, короткая очередь и целые проценты с корректным пересчётом скорости. Полный smoke выше включает эти правки; повторная пользовательская приёмка открыта.
+После игрового отзыва исправлены [OBS-01…07](../playtests/2026-09-28_ui-card-layout.md): более крупный icon/type/level header без pill, recipe icons, owned count отдельно от thresholds, зелёный текущий уровень с ✓/○ presence, короткая очередь и целые проценты с корректным пересчётом скорости. Полный smoke выше включает эти правки; пользовательская приёмка закрыта 2026-09-28.
 Последующая дельта [OBS-08](../playtests/2026-09-28_ui-card-layout.md): Pause показывает все meta-открытые достижимые рецепты, включая `0/N · Не начат`. Новый scoped UI graphics PASS: 84/84 EditMode + 4/4 PlayMode, 0 failed/skipped (`TestResults/checks/20260928T144429-015728Z/summary.json`); [условия](evidence/2026-09-28-ui-layout-r2-runtime.md#неначатые-рецепты-на-паузе). Общий smoke выше предшествует этой дельте.
 
 ## Действующие границы
@@ -24,8 +24,10 @@ Next Ready packet: пользовательская приёмка игрово�
   увеличенные compact missed, 3/2 колонки Pause и baseline speed.
   Пользователь принял HTML-композицию и разрешил следующий шаг: runtime-срез
   HUD → Draft/Book → Pause реализован, область персонажа 100×96 / 140×120 px.
-  Есть новые Unity captures и regression; это ещё не пользовательская приёмка
-  игрового варианта. Остальные экраны и каталоги в этот проход не входят.
+  Есть Unity captures и regression; 2026-09-28 пользователь явно принял
+  игровой вариант: «Приемка, считай сделана, я уже посмотрел, интерфейс нормальный».
+  Разрешён следующий композиционный шаг Main Menu/Character Select/Field Select.
+  Его HTML требует отдельного approval; остальные экраны и каталоги не входят.
 - История поручений и оснований: [датированный архив](evidence/2026-09-27-execution-history.md). При выборе работы читать эту шапку, очередь и нужные записи; архив — только при необходимости.
 
 ## Execution order
@@ -300,14 +302,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-10)
 
 ### IP-10A — UI Foundation, reusable cards, HUD и test harness
 
-Status: Implemented
+Status: Verified
 Scope revision: design-sync-R2 + ui-layout-R2. Прежний foundation scope Verified; новая visual delta отдельно.
 Dependencies: IP-01, IP-03, IP-06, IP-07, IP-10
 Remaining gates: Product contract выбран по DECISION-0086; G-01/G-03 foundation закрыты. Свежие prerequisite checks перед переносом: 301/301 EditMode PASS. Recipe/character semantics остаются у IP-11/IP-12.
-Remaining acceptance / IDs: Пользовательская visual acceptance production-среза 1920×1080/1280×720 вместе с IP-26: читаемость в живом бою, HP возле героя при camera shake, физические mouse/keyboard shortcuts и новый inspect/confirm. Автоматическая geometry/input/anchor/retry regression выполнена; HTML approval не закрывает этот ручной gate.
+Remaining acceptance / IDs: Нет для UI layout R2. Пользователь явно принял игровой интерфейс 2026-09-28; точные условия его ручного просмотра не домысливаются. Автоматическая geometry/input/anchor/retry regression и scoped OBS-08 проверки указаны ниже.
 Target implementation evidence: [UI layout R2 runtime](evidence/2026-09-28-ui-layout-r2-runtime.md): HP-anchor, DEV-only speed, HUD density, inspect/confirm, reachable recipe inspector, один общий Pause scroll, compact acquired/missed с popup, увеличенный персонаж, baseline speed и существующие Settings/Quit в фиксированном footer.
-Target verification evidence: Unity production scene captures в 720p/1080p; synthetic 10/20 recipe stress отдельно от production. Полный graphics smoke и browser matrix 38 captures — [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Результат ещё не означает пользовательскую приёмку нового игрового вида.
-Latest review delta: [OBS-01…07](../playtests/2026-09-28_ui-card-layout.md) — увеличенный header, recipe icons, owned/threshold semantics, queue copy и whole-percent/speed formatter. Scoped PASS 83/83 + 4/4, затем full PASS 887/887 + 34/34; fresh captures 720p/1080p просмотрены агентом. Повторная пользовательская приёмка открыта.
+Target verification evidence: Unity production scene captures в 720p/1080p; synthetic 10/20 recipe stress отдельно от production. Полный graphics smoke и browser matrix 38 captures — [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Ручная приёмка закрыта прямым подтверждением пользователя, а не HTML/tests.
+Latest review delta: [OBS-01…07](../playtests/2026-09-28_ui-card-layout.md) — увеличенный header, recipe icons, owned/threshold semantics, queue copy и whole-percent/speed formatter. Scoped PASS 83/83 + 4/4, затем full PASS 887/887 + 34/34; fresh captures 720p/1080p просмотрены агентом. Пользовательская приёмка получена 2026-09-28.
 Follow-up OBS-08: zero-owned достижимые рецепты больше не скрываются; acquired/missed отдельно. Новый scoped PASS 84/84 + 4/4 и просмотренные synthetic captures 720p/1080p — [evidence](evidence/2026-09-28-ui-layout-r2-runtime.md#неначатые-рецепты-на-паузе). UI/UX §10/23, DECISION-0086, IP-10A/IP-11 и regression-map синхронизированы; gameplay gates не менялись.
 Prior foundation evidence: Reusable cards/projections/HUD/notifications — [IP-10A](evidence/design-sync-R2-2026-09-21-ip10a.md#ip-10a); 2026-09-21 Unity 6000.6.0f1: 383/383 EditMode + 3/3 PlayMode, 0 skipped. Это evidence прежнего принятого scope, не новой visual delta.
 2026-09-24 HUD speed extension по прямому запросу пользователя: 1×/2×/3×/5× через RunModel/RunController и UI presenter, выбор сохраняется через паузу, `Time.timeScale` сбрасывается при завершении/выходе. [DECISION-0054](../decisions/0054-run-speed-controls.md); Unity 6000.6.0f1: 711/711 Game.* EditMode, 27/27 PlayMode, 0 skipped, geometry 1920×1080/1280×720; [summary](../../TestResults/checks/20260924T180701-450922Z/summary.json). Визуальная проверка подтверждена пользователем 2026-09-24: «всё хорошо, проверено».
@@ -469,13 +471,15 @@ Target verification evidence: none для field-001-start-R1 delta; прежни
 ### IP-26 — Functional UI и полный player flow
 
 Status: Blocked
-Scope revision: design-sync-R2 + field-001-start-R1 + ui-layout-R2.
+Scope revision: design-sync-R2 + field-001-start-R1 + ui-layout-R2 + ui-entry-R1 proposal.
 Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Current packet: UI layout R2 по DECISION-0086 перенесён в Unity в границах HUD/Draft/Book/Pause; реальная composition включает прежних владельцев Settings/Quit, input guard и retry teardown. Captures production scene и synthetic density разделены в [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). F1-03/F1-08 уже Verified в startup queue и не открываются заново этой ревизией.
+Current packet: UI entry R1 — [макет Main Menu/Character Select/Field Select](proposals/2026-09-28-ui-entry-r1.md) принят пользователем 2026-09-28; выбран Menu E / Shepotka v002 с текущим движением. Силуэты и компактная сетка — DECISION-0087. Чистовая тема кнопок, art preparation и Unity-перенос ещё не выполнены. Предыдущий UI layout R2 принят; F1-03/F1-08 не открываются заново.
+Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
+Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; Unity не затронута.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.
-Remaining gates: IP-10A Implemented; production visual acceptance первого среза, затем согласованный проход остальных экранов. Выбор product contract закрыт DECISION-0086. F1-00/01/02 как prerequisites стартового UI уже выполнены.
-Remaining acceptance / IDs: Ручная приёмка нового UI layout R2 в 1080p/720p, затем чистовая переработка остальных экранов. Затронутые Results/save/retry/settings пути прошли новую автоматическую regression; прежняя приёмка F1-09 не отменена. F1-08 production integration — [evidence](evidence/field001-f1-08-2026-09-24.md); F1-03 roster/lock reasons — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Remaining gates: IP-10A Verified; визуальный выбор текущего UI entry R1 / Menu E и его движения закрыт приёмкой 2026-09-28. Остались чистовая отделка кнопок, production art preparation, Unity-перенос и runtime acceptance. Новые production characters/fields не входят в UI packet. Results/Meta/Settings — следующие согласованные срезы; F1-00/01/02 выполнены.
+Remaining acceptance / IDs: Перенести принятые три стартовых экрана, затем выполнить их runtime/visual acceptance. UI layout R2 принят; прежняя приёмка F1-09 не отменена. F1-08 — [evidence](evidence/field001-f1-08-2026-09-24.md); F1-03 — [evidence](evidence/field001-f1-03-2026-09-24.md).
 Prior implementation evidence (design-sync-R2): Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: 2026-09-28 стиль «Полевой фолиант» подтверждён, первый проход — стилевой прототип: fixture UI 65/65 + PlayMode 1/1 не доказывают production layout. DECISION-0086 уточняет UI/UX и IP-10A/26/27: длинное описание заменено recipe inspector, клик не подтверждает, missed компактны, скорость от общего baseline. [Первый проход](evidence/2026-09-28-field-folio-ui-vertical-slice.md), [layout R2](proposals/2026-09-28-ui-layout-r2.md).
 Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
@@ -643,10 +647,10 @@ Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-09 — полный стартовый run и приёмка FIELD-001 только initial content. Required packets: F1-00…08; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-00, IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07, IP-08, IP-09, IP-10, IP-10A, IP-11, IP-12, IP-12A, IP-13, IP-14, IP-15, IP-16, IP-17, IP-18, IP-19, IP-20, IP-21, IP-22, IP-23, IP-24, IP-25, IP-26, IP-28, IP-29, IP-30, IP-31, IP-32
-Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, field-001-start-R1 delta), IP-10A (Implemented, ui-layout-R2 visual acceptance) / IP-26 (Blocked, ui-layout-R2 и остальные экраны), IP-30 (Blocked, target scope).
+Blocked by: IP-17 (Blocked, target scope), IP-18 (Blocked, target scope), IP-19 (Blocked, target scope), IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-22 (Blocked, target scope), IP-23 (Blocked, target scope), IP-24 (Blocked, target scope), IP-25 (Blocked, field-001-start-R1 delta), IP-26 (Blocked, ui-entry-R1 и остальные экраны), IP-30 (Blocked, target scope).
 Remaining gates: Только реальные missing required contracts/data/asset checks полного scope этого плана. Уменьшение каталога возможно лишь как отдельное явное изменение плана; один smoke не закрывает content-complete verification.
 Remaining acceptance / IDs: Все criteria/IDs из [спецификации](modules/IP-27-integration.md).
-UI review delta 2026-09-28: Production composition первого ui-layout-R2 среза поставлена и проверена автоматически — [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md); пользовательская приёмка нового игрового вида и чистовая переработка остальных экранов остаются открыты. Принятый F1-09 не отменён.
+UI review delta 2026-09-28: Production composition первого ui-layout-R2 среза поставлена, проверена и принята пользователем — [runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md#пользовательская-приёмка-игрового-интерфейса). IP-10A больше не блокирует integration; ui-entry-R1 и остальные экраны остаются в IP-26. Принятый F1-09 не отменён.
 Target implementation evidence: Нет для новых требований.
 Target verification evidence: Новые checks не запускались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-27).

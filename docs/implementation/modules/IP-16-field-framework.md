@@ -40,7 +40,13 @@ production geometry/картинки/расписания всех полей, �
 
 ## UI / observability
 
-функциональный field selection slice с lock reason, description и difficulty; placeholder thumbnail допустим до image approval, выбранный ID виден в run snapshot.
+Функциональный field selection slice с lock reason, thumbnail и difficulty;
+по [DECISION-0087](../../decisions/0087-character-silhouettes-and-field-grid.md)
+description остаётся metadata, но не выводится в выборе поля. IP-26 размещает
+десять карточек в одной компактной сетке без большой detail-панели, с отдельным
+Start Run и фиксированным footer. Проверять десять карточек без scroll в 720p/1080p,
+lock reason выбранной карточки и scroll при расширении каталога. Placeholder
+thumbnail допустим до image approval, выбранный ID виден в run snapshot.
 
 ## Проверки
 

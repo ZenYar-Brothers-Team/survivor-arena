@@ -34,6 +34,11 @@ Production10 characters/art, финальные prices/unlocks/weights если 
 
 ## UI / observability
 
+По [DECISION-0087](../../decisions/0087-character-silhouettes-and-field-grid.md)
+IP-26 показывает неполученный body только силуэтом в каталоге и крупном просмотре;
+выполненный unlock до покупки не раскрывает цветной sprite. Access provider и
+starting loadout не меняются. Проверять closed / unlocked-unpurchased / owned.
+
 Player-facing selection fixture со starting skill/role/crop/modifiers и lock condition, без ожидания full navigation IP-26.
 
 Переиспользовать `ContentCardViewState` / `ContentCard` IP-10A: resolved icon, concise summary/details, locked/selected/enabled. Baseline-relative modifier summary и lock condition поставляет IP-12; renderer не выбирает baseline.

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Стартовые экраны · Полевой фолиант · R1</title>
+  <link rel="stylesheet" href="/docs/implementation/proposals/ui-entry-r1/preview.css">
+</head>
+<body>
+  <div class="review-tools" aria-label="Управление макетом">
+    <strong>МАКЕТ R1 · НЕ ИГРА</strong>
+    <nav aria-label="Экраны макета">
+      <button data-screen="menu">Главное меню</button>
+      <button data-screen="characters">Персонажи</button>
+      <button data-screen="fields">Поля</button>
+    </nav>
+    <label>Размер <select id="resolution"><option value="1920">1920 × 1080</option><option value="1280">1280 × 720</option></select></label>
+    <label>Пример <select id="profile"><option value="new">Новый профиль</option><option value="earned">Пройдена окраина</option><option value="owned">Бугор куплен</option></select></label>
+    <label><input type="checkbox" id="dense"> Стресс: 10 героев / 15 полей</label>
+  </div>
+  <div class="review-note">Макет композиции, не финальная отделка кнопок. Профили постановочные. Бугор и поздние поля — preview approved-контента, не новое runtime-подключение.</div>
+  <div id="menu-review" class="review-variants" aria-label="Варианты главного меню">
+    <span>Стартовый экран</span>
+    <button data-menu-variant="A">A · Исходный</button>
+    <button data-menu-variant="B">B · Только пейзаж</button>
+    <button data-menu-variant="C">C · Только герой</button>
+    <button data-menu-variant="D">D · Сцена побега</button>
+    <button data-menu-variant="E">E · Объём и свет</button>
+    <label id="motion-control" hidden><input type="checkbox" id="menu-motion" checked> Оживление иллюстрации</label>
+    <span id="variant-note"></span>
+  </div>
+  <div id="stage"><main id="viewport" aria-label="Игровой экран макета"></main></div>
+  <p id="review-message" role="status">Выберите экран или пройдите путь через «Играть».</p>
+  <script src="/docs/implementation/proposals/ui-entry-r1/preview.js"></script>
+</body>
+</html>

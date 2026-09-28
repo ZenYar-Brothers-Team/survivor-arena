@@ -111,6 +111,24 @@ defaults. Layout, DEV-only скорость и player HP уточняются
 Это checklist scope, не вторая execution queue. Текущая работа, gates и порядок
 исполнения находятся в [STATUS](../STATUS.md).
 
+Композиционный reference — [UI entry R1](../proposals/2026-09-28-ui-entry-r1.md):
+Main Menu/Character Select/Field Select, короткие детали, крупное изображение и
+раздельные inspect/confirm. Пользователь принял текущий макет 2026-09-28;
+Main Menu использует выбранную послойную иллюстрацию E с Шепоткой v002
+([approval](../proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28)).
+Её более взрослый образ и свитки относятся только к иллюстрации, не к canonical
+CHAR-003. Approval не разрешает подключать недостающие production characters/fields
+и не заменяет runtime verification. Исполнение Unity-переноса — по STATUS.
+
+Уточнение [DECISION-0087](../../decisions/0087-character-silhouettes-and-field-grid.md):
+неполученные герои — силуэты в каталоге и крупном просмотре; поля — компактная
+сетка десяти карточек без описаний окружения и большой правой detail-панели.
+Metadata/access owners IP-12/IP-16 не меняются. Проверить переход силуэт→body после
+покупки, вместимость десяти полей в 720p/1080p и сохранение отдельного confirm.
+HTML фиксирует композицию, но не считается финальной отделкой кнопок: после
+выбора layout отдельный тематический проход применяет Art Direction §12.2
+(матовые поверхности, тонкий контур/фактура, полная state matrix), без тяжёлого bevel.
+
 ## Потребители
 
 [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

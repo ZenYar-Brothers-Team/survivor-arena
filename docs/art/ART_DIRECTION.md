@@ -322,6 +322,11 @@ Disabled, Locked и Error. Focus использует явную двойную 
 Locked сохраняет различимый visual и всегда показывает причину. Recipe-completing
 получает золото и один мягкий pulse, но не danger language.
 
+Для неполученного playable character visual — только одноцветный силуэт без
+деталей внешности (включая выполненный unlock до покупки), как в каталоге, так
+и в крупном просмотре. Поля сохраняют приглушённую thumbnail. Основание —
+[DECISION-0087](../decisions/0087-character-silhouettes-and-field-grid.md).
+
 Существующие production-иконки не получают baked frame и не перерисовываются.
 Рамка, type marker, hover/selected/disabled treatment и icon well принадлежат UI.
 Ориентиры экранного размера: HUD `42–48 px`, компактная строка `56–64 px`, Draft
