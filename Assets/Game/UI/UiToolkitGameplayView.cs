@@ -2,18 +2,27 @@ using System;
 using Game.Content;
 using Game.Enemy;
 using Game.Presentation;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Game.UI
 {
     public sealed class UiToolkitGameplayView : IGameplayUiView, IDisposable
     {
-        private readonly Label _draftDetails;
+        private readonly VisualElement _draftDetails;
+        private readonly VisualElement _root;
+        private readonly PauseBuildPanel _pause;
+        private readonly VisualElement _recipeInspector;
+        private readonly ScrollView _recipeList;
+        private readonly Label _recipeTitle;
+        private readonly Label _recipeEffect;
+        private DraftViewState _draftState;
+        private int _inspectedCard = -1;
         private readonly Label _pauseCharacter;
         private readonly VisualElement _pauseBuild;
         private readonly UiNotification _notification;
         private string _characterName = "";
-        private string _characterStats = "";
+        private string _healthText = "";
         private float _previousElapsed;
         private int _previousLevel;
         private BuildViewState? _renderedBuild;
@@ -25,7 +34,6 @@ namespace Game.UI
         private readonly Label _levelLabel;
         private readonly Label _timerLabel;
         private readonly Label _waveLabel;
-        private readonly Button _pauseButton;
         private readonly Button _speedNormalButton;
         private readonly Button _speedDoubleButton;
         private readonly Button _speedTripleButton;
@@ -102,24 +110,35 @@ namespace Game.UI
             if (root == null)
                 throw new ArgumentNullException(nameof(root));
 
-            _draftDetails = Require<Label>(root, GameplayUiElementIds.DraftDetails);
+            _root = root;
+            _root.EnableInClassList("ui-compact", root.layout.width > 0 && root.layout.width < 1600);
+            _pause = new PauseBuildPanel(root);
+            _root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            _recipeInspector = Require<VisualElement>(root, GameplayUiElementIds.DraftRecipeInspector);
+            _recipeList = Require<ScrollView>(root, GameplayUiElementIds.DraftRecipeList);
+            _recipeTitle = Require<Label>(root, GameplayUiElementIds.DraftRecipeTitle);
+            _recipeEffect = Require<Label>(root, GameplayUiElementIds.DraftRecipeEffect);
+            _draftDetails = Require<VisualElement>(root, GameplayUiElementIds.DraftDetails);
             _pauseCharacter = Require<Label>(root, GameplayUiElementIds.PauseCharacter);
             _pauseBuild = Require<VisualElement>(root, GameplayUiElementIds.PauseBuild);
             _notification = new UiNotification(Require<Label>(root, GameplayUiElementIds.Notification));
             _healthBar = Require<ProgressBar>(root, GameplayUiElementIds.HealthBar);
+            SetVisible(_healthBar, false); // The world anchor reveals it only after valid projection.
             _bossBar = Require<ProgressBar>(root, GameplayUiElementIds.BossBar);
             SetVisible(_bossBar, false);
             _experienceBar = Require<ProgressBar>(root, GameplayUiElementIds.ExperienceBar);
             _levelLabel = Require<Label>(root, GameplayUiElementIds.LevelLabel);
             _timerLabel = Require<Label>(root, GameplayUiElementIds.TimerLabel);
             _waveLabel = Require<Label>(root, GameplayUiElementIds.WaveLabel);
-            _pauseButton = Require<Button>(root, GameplayUiElementIds.PauseButton);
             _speedNormalButton = Require<Button>(root, GameplayUiElementIds.SpeedNormalButton);
             _speedDoubleButton = Require<Button>(root, GameplayUiElementIds.SpeedDoubleButton);
             _speedTripleButton = Require<Button>(root, GameplayUiElementIds.SpeedTripleButton);
             _speedQuintupleButton = Require<Button>(root, GameplayUiElementIds.SpeedQuintupleButton);
             _activeSlots = Require<VisualElement>(root, GameplayUiElementIds.ActiveSlots);
             _passiveSlots = Require<VisualElement>(root, GameplayUiElementIds.PassiveSlots);
+            _activeSlots.pickingMode = _passiveSlots.pickingMode = PickingMode.Ignore;
+            _healthBar.Query<VisualElement>().ForEach(element => element.pickingMode = PickingMode.Ignore);
+            _experienceBar.Query<VisualElement>().ForEach(element => element.pickingMode = PickingMode.Ignore);
             _sets = Require<VisualElement>(root, GameplayUiElementIds.Sets);
             _setRecipeProgress = Require<VisualElement>(root, GameplayUiElementIds.SetRecipeProgress);
             _draftOverlay = Require<VisualElement>(root, GameplayUiElementIds.DraftOverlay);
@@ -165,7 +184,6 @@ namespace Game.UI
             _presentationResetButton = Require<Button>(root, GameplayUiElementIds.PresentationResetButton);
             _characterSelection = Require<VisualElement>(root, GameplayUiElementIds.CharacterSelection);
 
-            _pauseButton.clicked += HandlePauseClicked;
             _speedNormalButton.clicked += HandleNormalSpeedClicked;
             _speedDoubleButton.clicked += HandleDoubleSpeedClicked;
             _speedTripleButton.clicked += HandleTripleSpeedClicked;
@@ -204,31 +222,40 @@ namespace Game.UI
             RenderSpeedButton(_speedQuintupleButton, 5, state);
             _notification.Tick(Math.Max(0f, state.ElapsedSeconds - _previousElapsed));
             _previousElapsed = state.ElapsedSeconds;
-            if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("LEVEL UP");
+            if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("Новый уровень");
             _previousLevel = state.Level;
             SetVisible(_bossBar, state.Boss.Visible);
             if (state.Boss.Visible)
             {
-                if (_bossLife != state.Boss.LifeId) _notification.Show("BOSS INCOMING");
+                if (_bossLife != state.Boss.LifeId) _notification.Show("Приближается босс");
                 _bossBar.value = 100f * state.Boss.CurrentHealth / state.Boss.MaxHealth;
                 _bossBar.title = $"{state.Boss.Name} · {MathF.Ceiling(state.Boss.CurrentHealth)}/{MathF.Ceiling(state.Boss.MaxHealth)}";
             }
             _bossLife = state.Boss.Visible ? state.Boss.LifeId : Guid.Empty;
-            _bookCurrency.text = $"Book currency: +{state.BookCurrency}";
+            _bookCurrency.text = $"Из книг: +{state.BookCurrency}";
             SetVisible(_bookCurrency, state.BookCurrency > 0);
             var health01 = state.MaxHealth > 0f ? state.CurrentHealth / state.MaxHealth : 0f;
             _healthBar.value = health01 * 100f;
-            _healthBar.title = $"HP {MathF.Ceiling(state.CurrentHealth)}/{MathF.Ceiling(state.MaxHealth)}";
+            _healthBar.title = "";
+            _healthText = $"Здоровье {MathF.Ceiling(state.CurrentHealth)}/{MathF.Ceiling(state.MaxHealth)}";
             _experienceBar.value = state.ExperienceProgress01 * 100f;
-            _experienceBar.title = $"XP {MathF.Round(state.ExperienceProgress01 * 100f)}%";
-            _levelLabel.text = $"LV {state.Level}";
+            _experienceBar.title = "";
+            _levelLabel.text = $"Ур. {state.Level}";
             var remaining = Math.Max(0, (int)Math.Ceiling(state.RunDurationSeconds - state.ElapsedSeconds));
             _timerLabel.text = $"{remaining / 60:00}:{remaining % 60:00}";
             RenderWave(state.Wave);
             _healthLockButton.text = state.IsHealthLocked ? "HP locked" : "Lock HP";
             _healthLockButton.EnableInClassList("development-lock-active", state.IsHealthLocked);
+            if (!string.IsNullOrEmpty(state.CharacterName)) _characterName = state.CharacterName;
+            _root.Q<Image>(GameplayUiElementIds.PausePortrait).sprite = state.CharacterPortrait;
             if (state.Stats != null)
-                _characterStats = $"Action speed +{state.Stats.ActionSpeedBonus:P0} · Pickup radius {state.Stats.PickupRadius:0.##}";
+            {
+                var speed = state.BaselineMovementSpeed.HasValue
+                    ? $"{MathF.Round(100 * state.Stats.MovementSpeed / state.BaselineMovementSpeed.Value):0}%" : "—";
+                _root.Q<Label>(GameplayUiElementIds.PauseStats).text = $"Скорость   {speed}   ·   Темп   +{state.Stats.ActionSpeedBonus:P0}\n" +
+                    $"Регенерация   {state.Stats.Regeneration:0.##}/с   ·   Защита   {1 - state.Stats.IncomingDamageMultiplier:P0}";
+            }
+            _pauseCharacter.text = $"{_characterName}\n{_healthText}\n{_levelLabel.text}";
             if (_developmentControlsAvailable && state.ExperienceTotals != null)
             {
                 var xp = state.ExperienceTotals;
@@ -258,9 +285,10 @@ namespace Game.UI
         public void RenderDraft(DraftViewState state)
         {
             SetVisible(_draftOverlay, state.IsVisible);
+            if (state.IsVisible) _pause.Close(false);
             _draftHeading.text = state.Heading;
             _draftQueue.text = state.QueueDetail;
-            _draftOverlay.EnableInClassList("draft-book", state.Heading == "TRAVELER BOOK");
+            _draftOverlay.EnableInClassList("draft-book", state.Heading == "Книга странника");
             if (!state.IsVisible)
             {
                 _draftOptions.Clear();
@@ -268,48 +296,119 @@ namespace Game.UI
                 return;
             }
 
-            _rerollButton.text = $"Reroll ({state.RemainingRerolls})";
+            _rerollButton.text = $"Обновить · {state.RemainingRerolls}";
             _rerollButton.SetEnabled(state.CanReroll);
-            _banishModeButton.text = state.IsBanishMode ? "Cancel banish" : "Banish";
+            _banishModeButton.text = state.IsBanishMode ? "Отмена исключения" : "Исключить";
             _banishModeButton.SetEnabled(state.CanBanish);
-            _draftControlHint.text = state.ControlHint;
+            _draftControlHint.text = "";
             _draftOverlay.EnableInClassList("draft-banish-mode", state.IsBanishMode);
-            _banishCount.text = $"Banish: {state.RemainingBanishes}";
+            _banishCount.text = $"Исключений: {state.RemainingBanishes}";
             if (state.Revision != Guid.Empty && _renderedDraftRevision == state.Revision && _renderedBanishMode == state.IsBanishMode) return;
             _renderedDraftRevision = state.Revision;
             _renderedBanishMode = state.IsBanishMode;
+            _draftState = state;
             _draftOptions.Clear();
-            _draftDetails.text = "Hover or focus a card for details. Select a card to continue.";
+            _inspectedCard = -1;
+            _recipeInspector.style.visibility = Visibility.Hidden;
             for (var i = 0; i < 3; i++)
             {
                 var option = i < state.Options.Count ? state.Options[i] :
-                    new DraftOptionViewState(default, "No available option", "", false);
-                var select = new DraftCard(option, () => DraftOptionSelected?.Invoke(option.Id, state.Revision))
+                    new DraftOptionViewState(default, "Нет варианта", "", false);
+                var index = i;
+                var select = new DraftCard(option, () => InspectDraft(index), () =>
                 {
-                    name = GameplayUiElementIds.DraftSelectButton(i)
-                };
-                select.RegisterCallback<MouseEnterEvent>(_ => _draftDetails.text = select.Details);
-                select.RegisterCallback<FocusInEvent>(_ => _draftDetails.text = select.Details);
+                    if (_inspectedCard == index && _renderedDraftRevision == state.Revision)
+                        DraftOptionSelected?.Invoke(option.Id, state.Revision);
+                });
+                select.InspectButton.name = GameplayUiElementIds.DraftSelectButton(i);
+                select.ConfirmButton.name = GameplayUiElementIds.DraftConfirmButton(i);
                 _draftOptions.Add(select);
             }
+            for (var i = 0; i < state.Options.Count; i++)
+                if (state.Options[i].IsEnabled) { InspectDraft(i); break; }
         }
+
+        private void InspectDraft(int index)
+        {
+            _inspectedCard = index;
+            for (var i = 0; i < _draftOptions.childCount; i++)
+                ((DraftCard)_draftOptions[i]).SetInspected(i == index, _renderedBanishMode);
+            var recipes = _draftState.Options[index].Recipes;
+            _recipeList.Clear();
+            _recipeInspector.style.visibility = recipes.Count > 0 ? Visibility.Visible : Visibility.Hidden;
+            _recipeTitle.text = _recipeEffect.text = "";
+            _draftDetails.Clear();
+            for (var i = 0; i < recipes.Count; i++)
+            {
+                var recipe = recipes[i];
+                var button = new Button { name = GameplayUiElementIds.DraftRecipeButton(i) };
+                button.AddToClassList("recipe-list-item");
+                var icon = new Image { sprite = recipe.Icon, name = GameplayUiElementIds.CardIcon, pickingMode = PickingMode.Ignore };
+                icon.AddToClassList("recipe-list-icon");
+                button.Add(icon);
+                var title = new Label(recipe.Title) { name = GameplayUiElementIds.CardTitle, pickingMode = PickingMode.Ignore };
+                title.AddToClassList("recipe-list-name");
+                button.Add(title);
+                var progress = new Label(recipe.Progress) { name = GameplayUiElementIds.CardStatus, pickingMode = PickingMode.Ignore };
+                progress.AddToClassList("recipe-list-progress");
+                button.Add(progress);
+                button.clicked += () => InspectRecipe(recipe, button);
+                _recipeList.Add(button);
+            }
+            if (recipes.Count > 0) InspectRecipe(recipes[0], (Button)_recipeList[0]);
+        }
+
+        private void InspectRecipe(RecipeProjectionViewState recipe, Button selected)
+        {
+            foreach (var child in _recipeList.Children()) child.EnableInClassList("recipe-selected", child == selected);
+            _recipeTitle.text = recipe.Title + " · " + recipe.Status;
+            _recipeEffect.text = recipe.Effect;
+            _draftDetails.Clear();
+            if (recipe.ComponentStates.Count > 0)
+            {
+                foreach (var component in recipe.ComponentStates)
+                {
+                    var label = new Label(component.Text + (component.IsLevelMet ? " · Уровень набран" : ""))
+                        { pickingMode = PickingMode.Ignore };
+                    label.AddToClassList("draft-component");
+                    label.EnableInClassList("draft-component-met", component.IsLevelMet);
+                    _draftDetails.Add(label);
+                }
+            }
+            else
+            {
+                foreach (var text in recipe.Components)
+                {
+                    var label = new Label(text) { pickingMode = PickingMode.Ignore };
+                    label.AddToClassList("draft-component");
+                    _draftDetails.Add(label);
+                }
+            }
+        }
+
+        private void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+            _root.EnableInClassList("ui-compact", evt.newRect.width < 1600);
+        }
+
+        public bool ConsumePauseShortcut(bool space) => _pause.ConsumePauseShortcut(space);
 
         public void RenderBuild(BuildViewState state)
         {
             if (_renderedBuild.HasValue && SameBuild(_renderedBuild.Value, state)) return;
             var previousSetCount = _renderedBuild?.Sets.Count ?? state.Sets.Count;
             _renderedBuild = state;
-            if (state.Sets.Count > previousSetCount) _notification.Show("SET ACQUIRED");
+            if (state.Sets.Count > previousSetCount) _notification.Show("Сет получен");
             RenderPauseBuild(state);
             RenderSlots(_activeSlots, state.ActiveSlots, true);
             RenderSlots(_passiveSlots, state.PassiveSlots, false);
             _sets.Clear();
             for (var i = 0; i < state.Sets.Count; i++)
             {
-                var label = new Label("S")
+                var label = new Label(state.Sets[i].Icon != null ? "" : "S")
                 {
                     name = GameplayUiElementIds.SetEntry(i),
-                    tooltip = state.Sets[i].Title,
+                    pickingMode = PickingMode.Ignore,
                     focusable = false
                 };
                 label.AddToClassList("build-slot");
@@ -377,12 +476,12 @@ namespace Game.UI
             {
                 var slot = slots[i];
                 var occupiedText = slot.Icon != null
-                    ? $"Lv.{slot.Level}"
+                    ? $"{slot.Level}"
                     : $"{slot.Title.Substring(0, Math.Min(2, slot.Title.Length))}\n{slot.Level}";
                 var label = new Label(slot.IsOccupied ? occupiedText : "—")
                 {
                     name = active ? GameplayUiElementIds.ActiveSlot(i) : GameplayUiElementIds.PassiveSlot(i),
-                    tooltip = slot.IsOccupied ? $"{slot.Title} · Lv.{slot.Level}" : "Empty",
+                    pickingMode = PickingMode.Ignore,
                     focusable = false
                 };
                 label.AddToClassList("build-slot");
@@ -409,67 +508,7 @@ namespace Game.UI
 
         private void RenderPauseBuild(BuildViewState state)
         {
-            _pauseBuild.Clear();
-            AddPauseSectionTitle("ACTIVE SKILLS");
-            AddBuildDetails(state.ActiveSlots, "pause-build-grid-active");
-            AddPauseSectionTitle("PASSIVES");
-            AddBuildDetails(state.PassiveSlots, "pause-build-grid-passive");
-            AddPauseSectionTitle("ACQUIRED SETS");
-            foreach (var set in state.Sets)
-            {
-                var card = new ContentCard(new ContentCardViewState(set.Title, set.Detail, icon: set.Icon));
-                card.AddToClassList("pause-set-card");
-                _pauseBuild.Add(card);
-            }
-            AddPauseSectionTitle("SET PROGRESS");
-            foreach (var recipe in state.SetRecipeProgress)
-            {
-                if (recipe.IsAcquired || recipe.IsMissed || !recipe.HasProgress) continue;
-                var status = recipe.IsEligible ? "Recipe fulfilled · not acquired" :
-                    $"Levels met {recipe.FulfilledComponents}/{recipe.RequiredComponents}";
-                var card = new ContentCard(new ContentCardViewState(recipe.Title,
-                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail,
-                    icon: recipe.Icon));
-                card.AddToClassList("pause-recipe-card");
-                _pauseBuild.Add(card);
-            }
-            var missedLabelAdded = false;
-            foreach (var recipe in state.SetRecipeProgress)
-            {
-                if (!recipe.IsMissed) continue;
-                if (!missedLabelAdded)
-                {
-                    AddPauseSectionTitle("MISSED SETS", "pause-section-title-missed");
-                    missedLabelAdded = true;
-                }
-                var card = new ContentCard(new ContentCardViewState(recipe.Title,
-                    $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · cannot be completed\n{recipe.Components}",
-                    recipe.Detail, icon: recipe.Icon, isEnabled: false));
-                card.AddToClassList("pause-recipe-card");
-                card.AddToClassList("pause-missed-card");
-                _pauseBuild.Add(card);
-            }
-        }
-
-        private void AddPauseSectionTitle(string text, string extraClass = null)
-        {
-            var label = new Label(text);
-            label.AddToClassList("pause-section-title");
-            if (!string.IsNullOrWhiteSpace(extraClass)) label.AddToClassList(extraClass);
-            _pauseBuild.Add(label);
-        }
-
-        private void AddBuildDetails(
-            System.Collections.Generic.IReadOnlyList<BuildSlotViewState> slots,
-            string gridClass)
-        {
-            var grid = new VisualElement();
-            grid.AddToClassList("pause-build-grid");
-            grid.AddToClassList(gridClass);
-            _pauseBuild.Add(grid);
-            foreach (var slot in slots)
-                grid.Add(new ContentCard(new ContentCardViewState(slot.Title,
-                    slot.IsOccupied ? $"Lv.{slot.Level}\n{slot.Detail}" : "Empty", icon: slot.Icon, isEnabled: slot.IsOccupied)));
+            _pause.Render(state);
         }
 
         public void RenderRunOverlay(RunOverlayViewState state)
@@ -479,9 +518,9 @@ namespace Game.UI
             SetVisible(_runOverlayResumeButton, state.CanResume);
             SetVisible(_pauseBuild, state.CanResume);
             SetVisible(_pauseCharacter, state.CanResume);
-            if (state.CanResume)
-                _pauseCharacter.text = _characterName + " · " + _healthBar.title + " · " + _levelLabel.text + "\n" + _characterStats;
-
+            SetVisible(_root.Q(className: "pause-columns"), state.CanResume);
+            if (!state.IsVisible || !state.CanResume) _pause.Close(false);
+            if (!state.IsVisible && _root.panel?.focusController.focusedElement is VisualElement focus && _runOverlay.Contains(focus)) focus.Blur();
         }
 
         public void RenderSkillObservability(SkillObservabilityViewState state) => _skillObservation.text = state.Summary;
@@ -550,7 +589,7 @@ namespace Game.UI
             _developmentToggleButton.text = _developmentPanelExpanded ? "DEV ×" : "DEV";
         }
 
-        private void HandlePauseClicked() => PauseRequested?.Invoke();
+        private void HandlePauseClicked() { _pause.MarkShortcutConsumed(); PauseRequested?.Invoke(); }
         private void HandleNormalSpeedClicked() => SpeedRequested?.Invoke(1);
         private void HandleDoubleSpeedClicked() => SpeedRequested?.Invoke(2);
         private void HandleTripleSpeedClicked() => SpeedRequested?.Invoke(3);
@@ -594,7 +633,8 @@ namespace Game.UI
 
         public void Dispose()
         {
-            _pauseButton.clicked -= HandlePauseClicked;
+            _root.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            _pause.Dispose();
             _speedNormalButton.clicked -= HandleNormalSpeedClicked;
             _speedDoubleButton.clicked -= HandleDoubleSpeedClicked;
             _speedTripleButton.clicked -= HandleTripleSpeedClicked;

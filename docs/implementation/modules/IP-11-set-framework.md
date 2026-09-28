@@ -38,6 +38,20 @@ Draft set card, per-option recipe projection и completes/progress/already-enoug
 
 Rendering API IP-10A: `DraftOptionViewState.Recipes` принимает ordered `RecipeProjectionViewState` с ready component/threshold strings; `SetRecipeProgressViewState.HasProgress` отделяет partial possession от fulfilled count. Producer IP-11 вычисляет и сортирует эти данные, renderer не выводит eligibility из текста.
 
+В Draft/Book `OwnedComponents` — число уже имеющихся компонентов независимо от
+уровня (numerator списка). Current/Projected threshold counts остаются отдельными
+данными для ready/completes статусов. Typed RecipeComponentViewState различает
+✓/○ presence и текущий достигнутый уровень (зелёный + «Уровень набран»);
+preview сам по себе не делает строку зелёной. Gameplay eligibility не меняется.
+
+Consumer UI/UX §8 и [DECISION-0086](../../decisions/0086-ui-review-density-and-inspection.md)
+требуют исключать недостижимые, acquired и meta-closed сеты из Draft/Book
+related-list и счётчика. Использовать существующую достижимость DECISION-0073,
+не менять gameplay pool/eligibility. Готовый, но ещё не полученный рецепт
+сохраняется; при нуле связанных inspector скрывается. Pause сохраняет missed
+отдельно, включая не начатые упущенные рецепты. Проверить нехватку слотов каждого
+типа, недоступный отсутствующий компонент и доступный owned ниже threshold.
+
 ## Проверки
 
 Recipe truth tables/thresholds, global chance/order/short pool/uniform backfill без повторов, fake Book policy, reroll/banish, shared recipes, proc source/counters/multiwave, fixed cooldown, buff expiry/remove/rollback; PlayMode several simultaneous sets and queued choices. Per-ID production correctness — IP-19.

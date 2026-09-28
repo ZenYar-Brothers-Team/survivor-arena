@@ -8,6 +8,7 @@ using Game.Presentation;
 using Game.Run;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Rendering;
 using Game.Telemetry;
 using Game.Pickup;
 using Game.Content;
@@ -33,9 +34,13 @@ namespace Game.UI
         private UiToolkitPickupView _pickupView;
         private float _hudRefreshRemaining;
         private bool _initialized;
+        private Camera _anchorCamera;
+        private SpriteRenderer _playerBody;
 
         public UIDocument Document => _document;
         public bool IsInitialized => _initialized;
+        public VisualElement PauseFooter => _document?.rootVisualElement.Q(GameplayUiElementIds.PauseFooter);
+        public bool ConsumePauseShortcut(bool space) => _view?.ConsumePauseShortcut(space) == true;
 
         private void Start()
         {
@@ -68,7 +73,7 @@ namespace Game.UI
 
             _panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
             _panelSettings.name = "Runtime Gameplay UI Panel Settings";
-            _panelSettings.scaleMode = PanelScaleMode.ScaleWithScreenSize;
+            _panelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
             _panelSettings.referenceResolution = new Vector2Int(1920, 1080);
             _panelSettings.screenMatchMode = PanelScreenMatchMode.MatchWidthOrHeight;
             _panelSettings.match = 0.5f;
@@ -85,6 +90,7 @@ namespace Game.UI
             _document.rootVisualElement.styleSheets.Add(styleSheet);
 
             _view = new UiToolkitGameplayView(_document.rootVisualElement);
+            _playerBody = presentation.GetComponent<SpritePresentationRig>().BodyRenderer;
             _model = new GameplayUiRuntimeModel(
                 player,
                 experience,
@@ -105,6 +111,35 @@ namespace Game.UI
             _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
                 position => camera != null ? camera.WorldToViewportPoint(position) : Vector3.zero, Debug.isDebugBuild || Application.isEditor);
             _initialized = true;
+            BindHealthAnchor(camera);
+        }
+
+        // Rebind after render-only camera effects so projection observes the actual
+        // presentation pose without leaking shake into gameplay coordinates.
+        public void BindHealthAnchor(Camera camera)
+        {
+            RenderPipelineManager.beginCameraRendering -= OnCameraRendering;
+            _anchorCamera = camera;
+            RenderPipelineManager.beginCameraRendering += OnCameraRendering;
+        }
+
+        private void LateUpdate() => RefreshHealthAnchor();
+        private void OnCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            if (camera == _anchorCamera) RefreshHealthAnchor();
+        }
+
+        public void RefreshHealthAnchor()
+        {
+            if (!_initialized || _document?.rootVisualElement.panel == null || _anchorCamera == null || _playerBody == null) return;
+            var root = _document.rootVisualElement;
+            var bar = root.Q<ProgressBar>(GameplayUiElementIds.HealthBar);
+            var bounds = _playerBody.bounds;
+            var screen = _anchorCamera.WorldToViewportPoint(new Vector3(bounds.center.x, bounds.max.y, bounds.center.z));
+            bar.style.display = _playerBody.enabled && screen.z > 0 && screen.x >= 0 && screen.x <= 1 && screen.y >= 0 && screen.y <= 1
+                ? DisplayStyle.Flex : DisplayStyle.None;
+            bar.style.left = screen.x * root.layout.width - 32;
+            bar.style.top = (1 - screen.y) * root.layout.height - 18;
         }
 
         private void Update()
@@ -122,6 +157,8 @@ namespace Game.UI
 
         public void Shutdown()
         {
+            RenderPipelineManager.beginCameraRendering -= OnCameraRendering;
+            _anchorCamera = null; _playerBody = null;
             if (!_initialized)
                 return;
 
@@ -155,6 +192,7 @@ namespace Game.UI
 
         private void OnDestroy()
         {
+            RenderPipelineManager.beginCameraRendering -= OnCameraRendering;
             _travelerPresenter?.Dispose(); _travelerView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();

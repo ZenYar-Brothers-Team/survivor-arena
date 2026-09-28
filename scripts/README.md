@@ -77,6 +77,12 @@ python scripts/check_project.py --scope docs --paths docs/implementation/WORKFLO
 
 У UnitySkills literal class/namespace filter, поэтому runner отдельно переводит стандартные scopes и простые anchored namespaces. Непереводимое regex-выражение не расширяется до всех тестов молча. Server mode/grant restrictions сохраняются.
 
+Для capture-тестов UI/camera добавить `--graphics`: закрытый Editor запускается
+в batch с рендерингом (без `-nographics`). Те же process/lock/REST safety checks
+сохраняются. Флаг записывается в receipt и cache key; обычный headless PASS не
+переиспользуется как графическая проверка. Снимки нужно отдельно осмотреть;
+геометрические assertions сами по себе не являются visual acceptance.
+
 Ожидание ограничено `--timeout 300` секунд на platform/group. По timeout останавливается только собственный batch process. REST job автоматически не перезапускается: его ID сообщается для проверки завершения. Повтор не запускается до разбора ошибки. Каждый запуск сохраняет XML/JSON, log, counts и краткий `summary.json` в `TestResults/checks/<timestamp>/`. Нулевой набор, failures, skipped/inconclusive или несогласованная версия не дают PASS. Exit 0 означает успех заявленного scope, exit 1 — ошибку проверок.
 
 ```powershell

@@ -17,7 +17,8 @@
       <button data-screen="settings" aria-pressed="false">Управление</button>
     </nav>
     <label>Размер <select id="resolution"><option value="1280">1280 × 720</option><option value="1920">1920 × 1080</option></select></label>
-    <label>Билд <select id="loadout"><option value="full">Заполненный 6 + 6</option><option value="start">Начальный</option></select></label>
+    <label>Билд <select id="loadout"><option value="full">Заполненный 6 + 6</option><option value="mid">Развивающийся 5 + 4</option><option value="start">Начальный</option></select></label>
+    <label>Рецепты <select id="recipe-density"><option value="normal">Игровой пример</option><option value="stress">10 / 20 — тест плотности</option></select></label>
     <button id="density" aria-pressed="false">Плотный фон</button>
   </header>
   <main>
@@ -30,7 +31,7 @@
     </section></div>
     <section class="review-notes">
       <div><h1 id="review-heading">Поле остаётся главным</h1><p id="review-description"></p></div>
-      <aside><strong>Как смотреть</strong><p>Переключайте экраны и размеры сверху. В выборе наведите мышь или перейдите Tab на карточку. Подробности открываются кнопкой «Рецепты». В бою ПКМ, пробел и Esc открывают паузу.</p><p>Это HTML-макет, не Unity. Иконки, фон и шрифты — из проекта. Числа состояния постановочные; механики и рецепты взяты из канона. Настройка мыши меняет только макет и не сохраняется в игре.</p></aside>
+      <aside><strong>Как смотреть</strong><p>Клик по карточке открывает её сеты; отдельная кнопка «Выбрать» подтверждает действие. Внизу нажмите на нужный рецепт: справа его эффект и компоненты. В паузе нажмите на любой сет для краткой справки; попробуйте развивающийся билд или тест плотности. В бою ПКМ, пробел и Esc открывают паузу.</p><p>Это HTML-макет, не Unity. Иконки, фон и шрифты — из проекта. Режим «10 / 20» использует явно тестовые рецепты только для проверки вместимости. Настройки и игровые действия не меняют настоящую игру.</p></aside>
     </section>
   </main>
   <script src="preview.js"></script>

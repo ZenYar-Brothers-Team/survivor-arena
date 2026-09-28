@@ -28,8 +28,10 @@ presenter intent и run owner. Выбор действует только во �
 забеге. Non-development UI не показывает controls и не принимает speed intents.
 
 Layout и информационная иерархия проектируются отдельно от темы. Поддержать
-краткую основную подачу и полный доступ к подробностям; существующая нижняя
-scroll area и размеры карточек не являются обязательной геометрией.
+краткую основную подачу и доступ к компонентам рецептов по
+[DECISION-0086](../../decisions/0086-ui-review-density-and-inspection.md):
+inspect отдельно от confirm, список связанных сетов и выбранный рецепт снизу,
+компактный билд и расширенные рецепты Pause. Старые размеры не являются контрактом.
 
 ## Out of Scope
 
@@ -46,7 +48,24 @@ Player HP следует за персонажем при движении/camer
 значимые числа/единицы/изменения и доступ к полным рецептам.
 Исключение presentation по DECISION-0085: абсолютный базовый damage не выводится
 в карточках/details; прибавки урона — в процентах. Сохранённый процент урона
-рикошета не превращается в bonus. Числа модели/баланс остаются прежними.
+рикошета не превращается в bonus, его точное значение заменено качественным
+текстом по DECISION-0086. Числа модели/баланс остаются прежними.
+
+HUD без wave/инструкций и без кнопки Pause (Escape/Space/ПКМ сохраняются); размеры слотов и XP-блока уменьшены
+примерно на 40% только в 720p, acquired slots того же размера. Скорость в Pause —
+процент текущей скорости от общего CHARACTER-BASELINE-001, не от текущего героя.
+Inspect/recipe scroll не отправляют selection; только фиксированная отдельная
+кнопка в закреплённой карточке подтверждает один intent, включая Banish.
+Проверить 10 связанных / 20 общих рецептов, 3 колонки Pause в 1080p / 2 в 720p
+и общий правый scroll для «Получены» / рецептов / «Упущены»; полученные и
+упущенные — только icon/name с разными разделителями. Увеличенная область
+изображения персонажа не скрывает 6+6 слотов. Любой сет Pause открывает краткую
+справку по click/keyboard; закрытие не отправляет gameplay intent/Resume,
+возвращает фокус. Проверить bounds у края, scroll/resize cleanup и пустые группы.
+Тот же краткий эффект в Draft / Book виден рядом с уровнями компонентов.
+В Draft недостижимые/acquired/закрытые сеты исключены из списка и счётчика,
+пустой результат скрывает inspector. Eligibility приходит от IP-11; готовый,
+но не полученный рецепт остаётся видимым. Полный контракт — UI §§6–10.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -71,15 +90,39 @@ Component/state/semantic contracts, approved UI section links, dependency consum
 ### Контракт компонентов
 
 - `ContentCardViewState` / `ContentCard`: title, summary, details, optional resolved Sprite, enabled/selected/locked. Без icon используется shape placeholder; production icons поставляют owning content IP.
-- `DraftOptionViewState` / `DraftCard`: effect/current→next text, set marker/free slot и immutable ordered `RecipeProjectionViewState`. Producer задаёт current/projected/required, completes/acquired и готовые component/threshold строки с выделением текущего option. Renderer показывает первые два рецепта, `+N more` и полный список в details; сортировка и gameplay projection принадлежат IP-11.
+- `DraftOptionViewState` / `DraftCard`: effect/current→next text, set marker/free slot и immutable ordered `RecipeProjectionViewState`. Producer задаёт current/projected/required, completes/acquired и готовые component/threshold строки с выделением текущего option. Карточка показывает число связанных сетов; закреплённый inspector — список всех связанных, краткий эффект и компоненты выбранного рецепта. Сортировка и gameplay projection принадлежат IP-11.
+- Шапка DraftCard по DECISION-0086: иконка слева от типа/уровня, название ниже
+  по левому краю. `card-header` / `card-level` — локальные semantic IDs;
+  «Активное» / «Пассивное» / «Сет» — крупный цветной текст без pill.
+  Каждый элемент recipe list использует переданный `RecipeProjectionViewState.Icon`,
+  не теряя имя/числовой прогресс и поведение inspect-only.
+- `RecipeProjectionViewState.OwnedComponents` задаёт numerator в списке; прежние
+  Current/Projected остаются threshold counts для статусов. Typed
+  `RecipeComponentViewState` задаёт presence/levels; view не выводит их из строк.
+  `draft-details` — контейнер строк: ✓/○ по наличию, зелёный + «Уровень набран»
+  только по текущему threshold. Заголовок draft не показывает уровни забега;
+  очередь — только число оставшихся выборов. Проценты и reciprocal cooldown
+  форматируются по UI §7 без изменения model/config.
 - `BuildSlotViewState` / `SetBuildViewState`: compact HUD references и подробности Pause/Build. `SetRecipeProgressViewState.HasProgress` позволяет показывать owned component ниже threshold даже при `FulfilledComponents == 0`; IP-11 supplies semantics. Acquired list отделён от progressed unacquired recipes.
 - `UiNotification`: один nonblocking slot с заменой сообщения и expiry по pause-aware delta. Event selection — producer; foundation связывает level-up/set acquisition и проверяет остальные тексты fake events.
 - Build/character snapshots сохраняют элементы при неизменных данных. Draft revision остаётся authority для пересборки карточек; Banish mode обновляет их в рамках той же revision.
-- HUD slots не focusable. Подробности Draft доступны по hover/keyboard focus,
-  не скрывают варианты и actions; точную геометрию задаёт UI/UX, а не старый harness.
+- HUD slots не focusable. Тело Draft-card по click/keyboard activation только
+  закрепляет просмотр; hover/focus не меняют его. Отдельная кнопка подтверждает.
+  Inspector не скрывает варианты/actions; точную геометрию задаёт UI/UX.
   Pause/Build отображает 6+6 и sets; его полная композиция включает Resume и
   feature-owned Settings/Quit IP-26, с действиями вне scroll.
 - Новые semantic IDs: `card-icon/title/summary/status/more`, `card-recipe-{index}` (локальны внутри card), `draft-details`, `pause-build`, `pause-character`, `hud-notification`. Прежние draft/slot/control IDs сохранены. USS resource — `UI/GameplayUiStyles`, чтобы не выбирать встроенный StyleSheet subasset `GameplayUi.uxml`.
+- R2: `draft-option-{index}` теперь inspect-button, соседний
+  `draft-option-{index}-confirm` — единственный commit-action. `draft-recipe-list`
+  и `draft-recipe-{index}` переключают краткий эффект/компоненты без gameplay intent.
+  `pause-slots` отделён от общего `pause-build` ScrollView;
+  `pause-received-sets`, `pause-recipes`, `pause-missed-sets` находятся внутри него.
+  `set-popup` — overlay, `pause-footer` — фиксированный host feature-owned actions.
+  Удалён `hud-pause`; прежние speed/wave IDs сохранены только внутри DEV.
+- `PauseBuildPanel` отвечает за read-only группировку и popup/focus lifecycle;
+  `GameplayUiCopy` — за короткий UI-текст и проценты из preview, без балансных значений.
+  `GameplayUiRoot` проецирует HP по bounds текущего sprite и actual render camera;
+  геометрический профиль `ui-compact` выбирается по ширине pixel panel.
 - `UiFoundationTests` и `UiFoundationSmokeTests` — fake-state harness для 0/1/2/3, empty/max/long labels, Book/set/projection/locked/selected. Проверка layout выполняется при 1920×1080 и 1280×720; последний — lower test viewport, не новый product minimum.
 - Production acceptance выполняется вместе с IP-26: реальные иконки и type labels,
   правдивый timer, обычный level-up отдельно от Book, заполненный билд и полный

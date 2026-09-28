@@ -19,6 +19,7 @@ namespace Game.UI
         public Sprite Icon { get; }
         /// <summary>DECISION-0073: the recipe can no longer be fulfilled in this run; shown last, under «missed sets».</summary>
         public bool IsMissed { get; }
+        public string Effect { get; }
 
         public SetRecipeProgressViewState(
             string title,
@@ -26,8 +27,9 @@ namespace Game.UI
             int requiredComponents,
             bool isEligible,
             bool isAcquired, string detail = "", bool? hasProgress = null, int? ownedComponents = null, string components = "",
-            Sprite icon = null, bool isMissed = false)
+            Sprite icon = null, bool isMissed = false, string effect = "")
         {
+            Effect = effect ?? string.Empty;
             Detail = detail ?? string.Empty;
             Title = title ?? string.Empty;
             FulfilledComponents = fulfilledComponents;

@@ -33,11 +33,12 @@ namespace Game.UI.Tests
             var option = new DraftOptionViewState(new ContentId("FIXTURE-PROJECTION"), "Fixture", "Lv.3 → 4", recipes: recipes);
             components.Clear(); recipes.Clear();
             var card = new DraftCard(option, null);
-            StringAssert.Contains("1/2 → 2/2", card.Details);
-            StringAssert.Contains("not yet acquired", card.Details);
-            StringAssert.Contains("required Lv.4", card.Details);
-            Assert.AreEqual("+1 more", card.Q<Label>(GameplayUiElementIds.CardMore).text);
-            Assert.IsTrue(card.ClassListContains("draft-card-completing"));
+            StringAssert.Contains("1/2", recipe.Summary);
+            StringAssert.DoesNotContain("→", recipe.Progress);
+            Assert.AreEqual("Завершит рецепт", recipe.Status);
+            StringAssert.Contains("required Lv.4", recipe.Detail);
+            Assert.AreEqual("Связанных сетов: 3", card.Q<Label>(GameplayUiElementIds.CardMore).text);
+            Assert.IsFalse(card.ConfirmButton.enabledSelf);
             Assert.IsFalse(recipe.IsAcquired);
             Assert.AreEqual(1, recipe.Current);
         }
@@ -52,7 +53,18 @@ namespace Game.UI.Tests
             var set = new DraftCard(new DraftOptionViewState(
                 new ContentId("FIXTURE-SET"), "Set fixture", "New", isSet: true, typeLabel: "Set"), null);
 
-            Assert.AreEqual("ACTIVE", active.Q<Label>(GameplayUiElementIds.CardType).text);
+            Assert.AreEqual("Активное", active.Q<Label>(GameplayUiElementIds.CardType).text);
+            Assert.AreEqual("Пассивное", passive.Q<Label>(GameplayUiElementIds.CardType).text);
+            Assert.AreEqual("Сет", set.Q<Label>(GameplayUiElementIds.CardType).text);
+            foreach (var card in new[] { active, passive, set })
+            {
+                var header = card.Q(GameplayUiElementIds.CardHeader);
+                Assert.IsNotNull(header);
+                Assert.IsTrue(header.Contains(card.Q<Image>(GameplayUiElementIds.CardIcon)));
+                Assert.IsTrue(header.Contains(card.Q<Label>(GameplayUiElementIds.CardType)));
+                Assert.IsTrue(header.Contains(card.Q<Label>(GameplayUiElementIds.CardLevel)));
+                Assert.IsFalse(header.Contains(card.Q<Label>(GameplayUiElementIds.CardTitle)));
+            }
             Assert.IsTrue(active.ClassListContains("draft-type-active"));
             Assert.IsTrue(passive.ClassListContains("draft-type-passive"));
             Assert.IsTrue(set.ClassListContains("draft-type-set"));
@@ -91,9 +103,11 @@ namespace Game.UI.Tests
             Assert.IsTrue(titles.Exists(label => label.text == "Partial threshold"));
             Assert.IsFalse(titles.Exists(label => label.text == "No progress" || label.text == "Acquired"));
             var pauseBuild = root.Q(GameplayUiElementIds.PauseBuild);
-            Assert.AreEqual(4, pauseBuild.Query<Label>(className: "pause-section-title").ToList().Count);
-            Assert.IsNotNull(pauseBuild.Q(className: "pause-build-grid-active"));
-            Assert.IsNotNull(pauseBuild.Q(className: "pause-build-grid-passive"));
+            Assert.AreEqual(3, pauseBuild.Query<Label>(className: "pause-section-title").ToList().Count);
+            Assert.IsNotNull(root.Q(GameplayUiElementIds.PauseSlots).Q(className: "pause-build-grid-active"));
+            Assert.IsNotNull(root.Q(GameplayUiElementIds.PauseSlots).Q(className: "pause-build-grid-passive"));
+            Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.ReceivedSets).parent.style.display.value);
+            Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.MissedSets).parent.style.display.value);
         }
 
         [Test]

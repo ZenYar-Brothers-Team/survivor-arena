@@ -43,10 +43,9 @@ namespace Game.Bootstrap.PlayModeTests
                     yield return null;
                     var speedNormal = root.Q<Button>(GameplayUiElementIds.SpeedNormalButton);
                     var speedQuintuple = root.Q<Button>(GameplayUiElementIds.SpeedQuintupleButton);
-                    var pauseButton = root.Q<Button>(GameplayUiElementIds.PauseButton);
-                    Assert.GreaterOrEqual(speedNormal.worldBound.xMin, 0);
-                    Assert.LessOrEqual(speedQuintuple.worldBound.xMax, pauseButton.worldBound.xMin);
-                    Assert.LessOrEqual(pauseButton.worldBound.xMax, size.x);
+                    Assert.IsNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
+                    Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(speedNormal));
+                    Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.DevelopmentPanel).resolvedStyle.display);
                     Assert.IsTrue(speedQuintuple.ClassListContains("speed-button--selected"));
                     Capture(target, $"hud-speed-{size.x}x{size.y}");
                     view.SetDevelopmentControlsVisible(true);
@@ -72,12 +71,14 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.IsFalse(last.enabledSelf);
                     card.Focus();
                     yield return null;
-                    StringAssert.Contains("not yet acquired", root.Q<Label>(GameplayUiElementIds.DraftDetails).text);
+                    StringAssert.Contains("Завершит рецепт", root.Q<Label>(GameplayUiElementIds.DraftRecipeTitle).text);
                     Capture(target, $"ip10a-draft-{size.x}x{size.y}");
                     Submit(card);
+                    Assert.AreEqual(0, intents);
+                    Submit(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
                     Assert.AreEqual(1, intents);
                     // A details scroll must remain below all choices, not cover them.
-                    Assert.GreaterOrEqual(root.Q<Label>(GameplayUiElementIds.DraftDetails).worldBound.yMin, card.worldBound.yMax);
+                    Assert.GreaterOrEqual(root.Q(GameplayUiElementIds.DraftDetails).worldBound.yMin, card.worldBound.yMax);
                     view.RenderDraft(new DraftViewState(false, 0, 0, Array.Empty<DraftOptionViewState>()));
                     var slots = new BuildSlotViewState[6];
                     for (var i = 0; i < slots.Length; i++)
@@ -87,11 +88,14 @@ namespace Game.Bootstrap.PlayModeTests
                         new[] { new SetRecipeProgressViewState("Partial threshold", 0, 2, false, false,
                             "Component Lv.2 / required Lv.4", true) }));
                     view.RenderRunOverlay(new RunOverlayViewState(true, "PAUSED", true));
-                    root.Q(GameplayUiElementIds.PauseBuild).Add(new ContentCard(
-                        new ContentCardViewState("Locked fixture", "Unlock condition", isLocked: true)));
                     yield return null;
                     yield return null;
                     Assert.LessOrEqual(root.Q<Button>(GameplayUiElementIds.RunOverlayResumeButton).worldBound.yMax, size.y);
+                    var portrait = root.Q<Image>(GameplayUiElementIds.PausePortrait).worldBound;
+                    Assert.AreEqual(size.x == 1280 ? 100 : 140, portrait.width, 1);
+                    Assert.AreEqual(size.x == 1280 ? 96 : 120, portrait.height, 1);
+                    Assert.AreEqual(12, root.Q(GameplayUiElementIds.PauseSlots).Query(className: "pause-slot").ToList().Count);
+                    Assert.AreEqual(size.x == 1280 ? 30 : 50, root.Q(GameplayUiElementIds.ActiveSlot(0)).worldBound.width, 1);
                     Capture(target, $"ip10a-pause-{size.x}x{size.y}");
                     var buildScroll = root.Q<ScrollView>(GameplayUiElementIds.PauseBuild);
                     buildScroll.scrollOffset = new Vector2(0, buildScroll.verticalScroller.highValue);
@@ -131,14 +135,14 @@ namespace Game.Bootstrap.PlayModeTests
                 }
             }
         }
-        private static void Submit(Button button)
+        internal static void Submit(Button button)
         {
             using var submit = NavigationSubmitEvent.GetPooled();
             submit.target = button;
             button.SendEvent(submit);
         }
 
-        private static void Capture(RenderTexture target, string name)
+        internal static void Capture(RenderTexture target, string name)
         {
             if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null) return;
             var previous = RenderTexture.active;

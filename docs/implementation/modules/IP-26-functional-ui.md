@@ -10,6 +10,13 @@ Functional shell объединяет существующие feature-owned э�
 прототипа не является принятой композицией: layout, пропорции, плотность текста
 и presentation variants пересматриваются по UI/UX и DECISION-0083.
 
+Draft/Book используют один DraftCard IP-10A: шапку icon + type/level из макета,
+крупные подписи «Активное»/«Пассивное»/«Сет» без овальных плашек и иконки
+в списке связанных сетов по уточнению DECISION-0086 после просмотра игры.
+Очередь показывает только число следующих выборов, не уровни забега; inspector
+различает количество owned компонентов и выполненные thresholds. Проценты целые,
+скорость использования пересчитывается из интервала по UI §7.
+
 ## Зависимости
 
 [IP-01](IP-01-run-lifecycle.md), [IP-10A](IP-10A-ui-foundation.md), [IP-11](IP-11-set-framework.md), [IP-12](IP-12-character-framework.md), [IP-15](IP-15-boss-framework.md), [IP-16](IP-16-field-framework.md), [IP-25](IP-25-meta-progression.md), [IP-28](IP-28-world-pickups.md), [IP-29](IP-29-traveler-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
@@ -56,6 +63,21 @@ production composition. Проверять отдельные hover/focus/presse
 состояния, кириллицу и читаемость; один статичный кадр не доказывает всю матрицу.
 По DECISION-0085 в player-facing карточках/подробностях нет абсолютного базового
 урона; damage upgrades показываются процентами без изменения gameplay values.
+По [DECISION-0086](../../decisions/0086-ui-review-density-and-inspection.md):
+HUD без wave/инструкций/кнопки Pause и с компактным масштабом только в 720p; Draft/Book
+разделяют inspect и отдельный confirm, включая Banish. Список связанных сетов
+со scroll не подтверждает карточку. Pause отводит больше места рецептам,
+показывает компактные acquired/missed icon/name в общем правом scroll,
+оставляет все 6+6 слотов и footer видимыми при увеличенной области персонажа.
+Любой сет Pause открывает краткий эффект; тот же текст в Draft / Book рядом с
+component levels. Закрытие справки через крестик/outside click/Escape/ПКМ не
+вызывает Resume/Quit и не снимает чужие pause reasons; проверить возврат фокуса,
+keyboard activation, bounds и cleanup при scroll/resize/смене экрана.
+Рецепты Pause — 3 колонки в 1080p / 2 в 720p. В Draft недостижимые/acquired/закрытые
+сеты не входят ни в список, ни в счётчик; существующая eligibility — у IP-11.
+Скорость сравнивается с общим baseline, не со стартом выбранного персонажа.
+Проверить 10 связанных/20 общих рецептов и быстрый стартовый герой = 120%,
+без повторного pause/submit по Space и без изменений DECISION-0084 routing.
 
 ## Документационные изменения
 
@@ -69,8 +91,9 @@ UI visual language resolved по [DECISION-0081](../../decisions/0081-field-foli
 «Полевой фолиант», умеренная декоративность, утверждённые palette/type/state/motion
 defaults. Layout, DEV-only скорость и player HP уточняются
 [DECISION-0083](../../decisions/0083-player-ui-layout-and-dev-boundary.md).
-Постоянное длинное поле описания не является утверждённым обязательным элементом;
-замена контекстной подачей предложена в [layout R2](../proposals/2026-09-28-ui-layout-r2.md).
+Замена длинного описания, отдельное подтверждение и компактные recipe states
+утверждены в DECISION-0086; композиционная проработка —
+[layout R2](../proposals/2026-09-28-ui-layout-r2.md).
 Выполнение и применимость evidence определяет только STATUS.
 
 ### Последовательность чистового UI-прохода
@@ -159,6 +182,13 @@ Character Select либо переключает только manual pause в з
 Semantic IDs — `GameplayUiElementIds.Shell*`/`Settings*`, assets —
 `UI/AppShell.uxml` и `UI/AppShellStyles.uss`. Результаты используют IP-25 Meta IDs;
 `MetaSelection` теперь означает Main Menu, standalone launchers скрыты.
+
+В игровом срезе Settings/Quit принадлежат прежнему `AppShellScreen`, но его
+существующий `ShellPause` reparented в `GameplayUiRoot.PauseFooter`. Дублирования
+кнопок/intent нет. При shutdown/rollback host возвращается в shell до очистки
+gameplay tree. Global pause routing сначала учитывает закрытие popup и Space
+на отображаемом UI control; закрытие справки или Resume не переключает pause
+повторно в том же кадре. Скрытые controls не удерживают игровой shortcut.
 
 `Game.Audio.AudioRoutingRuntime` владеет Music/menu SFX и двумя preview sources
 (перенос из Settings — [DECISION-0072](../../decisions/0072-project-structure-and-audio-ownership.md));

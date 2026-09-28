@@ -23,7 +23,14 @@ namespace Game.UI.Tests
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.ExperienceObservation));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.StatsObservation));
             Assert.IsNotNull(root.Q<Label>(GameplayUiElementIds.SkillObservation));
-            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
+            Assert.IsNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
+            Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(root.Q(GameplayUiElementIds.WaveLabel)));
+            Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(root.Q(GameplayUiElementIds.SpeedNormalButton)));
+            Assert.IsNotNull(root.Q<ScrollView>(GameplayUiElementIds.DraftRecipeList));
+            Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DraftDetails));
+            Assert.IsFalse(root.Q(GameplayUiElementIds.DraftDetails) is Label);
+            Assert.IsNotNull(root.Q<Image>(GameplayUiElementIds.PausePortrait));
+            Assert.IsNotNull(root.Q(GameplayUiElementIds.PauseFooter));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedNormalButton));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedDoubleButton));
             Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
@@ -90,9 +97,9 @@ namespace Game.UI.Tests
             view.RenderDraft(new DraftViewState(true, 1, 1, options, revision));
             view.RenderDraft(new DraftViewState(true, 1, 1, options, revision, isBanishMode: true));
             Assert.IsTrue(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));
-            Assert.AreEqual("Cancel banish", root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).text);
+            Assert.AreEqual("Отмена исключения", root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).text);
             Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftRerollButton).enabledSelf);
-            StringAssert.Contains("Choose a card to banish", root.Q<Label>(GameplayUiElementIds.DraftControlHint).text);
+            Assert.AreEqual("Исключить", root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)).text);
             view.RenderDraft(new DraftViewState(true, 0, 0, options, revision));
             Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).enabledSelf);
             Assert.IsFalse(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));

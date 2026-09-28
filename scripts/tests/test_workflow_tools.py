@@ -210,7 +210,26 @@ class CheckRunnerTests(unittest.TestCase):
              patch.object(checks.subprocess, "Popen") as launch:
             with self.assertRaises(checks.NotRun):
                 checks.run_batch("EditMode", "^Game\\.", Path("unused"), 1)
+            with self.assertRaises(checks.NotRun):
+                checks.run_batch("PlayMode", "^Game\\.", Path("unused"), 1, graphics=True)
             launch.assert_not_called()
+
+    def test_graphics_batch_keeps_safety_checks_and_records_rendering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output / "PlayMode.xml").write_text('<test-run result="Passed"><test-case fullname="Game.Capture" result="Passed"/></test-run>')
+            with patch.object(checks, "editor_processes", return_value=[]), \
+                 patch.object(checks, "ensure_unlocked") as unlocked, \
+                 patch.object(checks, "find_unity", return_value=Path("Unity.exe")), \
+                 patch.object(checks.subprocess, "Popen") as launch:
+                launch.return_value.__enter__.return_value.wait.return_value = 0
+                result = checks.run_batch("PlayMode", "^Game\\.", output, 1, graphics=True)
+                unlocked.assert_called_once()
+                self.assertNotIn("-nographics", launch.call_args.args[0])
+                self.assertIn("-batchmode", launch.call_args.args[0])
+                self.assertTrue(result["graphics"])
+                checks.run_batch("PlayMode", "^Game\\.", output, 1)
+                self.assertIn("-nographics", launch.call_args.args[0])
 
     def test_process_matching_does_not_confuse_sibling_projects(self):
         rows = [{"ProcessId": 1, "CommandLine": 'Unity.exe -projectPath "D:/GitHub/survivor-arena-other"'},

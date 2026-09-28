@@ -25,7 +25,7 @@ namespace Game.UI
             int remainingRerolls,
             int remainingBanishes,
             IReadOnlyList<DraftOptionViewState> options, Guid revision = default,
-            string heading = "LEVEL UP", string queueDetail = "", bool isBanishMode = false)
+            string heading = "Выбери улучшение", string queueDetail = "", bool isBanishMode = false)
         {
             IsVisible = isVisible;
             IsBanishMode = isBanishMode;

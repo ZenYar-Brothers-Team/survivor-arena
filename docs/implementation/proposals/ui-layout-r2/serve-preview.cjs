@@ -5,7 +5,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '../../../..');
 const port = Number(process.env.UI_PREVIEW_PORT || 4179);
 const mime = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.png':'image/png','.ttf':'font/ttf'};
-const allowed = ['docs/implementation/proposals/ui-layout-r2/', 'Assets/Resources/Art/', 'Assets/Resources/Content/ActiveSkills/', 'Assets/Resources/Content/Passives/', 'Assets/Resources/Content/Sets/', 'Assets/Game/UI/Fonts/'];
+const allowed = ['docs/implementation/proposals/ui-layout-r2/', 'Assets/Resources/Art/', 'Assets/Resources/Content/ActiveSkills/', 'Assets/Resources/Content/Passives/', 'Assets/Resources/Content/Sets/', 'Assets/Resources/Content/Characters/', 'Assets/Game/UI/Fonts/'];
 http.createServer((req,res)=>{
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405);return res.end();}
   let relative;

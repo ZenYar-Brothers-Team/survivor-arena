@@ -24,7 +24,7 @@ namespace Game.Bootstrap.PlayModeTests
                 var baseHp=player.Stats.MaxHealth;
                 xp.AddInterventionExperience(300);var level=xp.Progression.Level;
                 run.Model.Pause();
-                Submit(root.ShellDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.ShellQuit));
+                Submit(Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement.Q<Button>(GameplayUiElementIds.ShellQuit));
                 yield return null;
                 Assert.AreEqual(5L*level,root.Profile.Currency);Assert.IsTrue(root.Profile.CanStart);
                 StringAssert.Contains("Level reward",root.ProfileDocument.rootVisualElement.Q<Label>(GameplayUiElementIds.MetaSummary).text);

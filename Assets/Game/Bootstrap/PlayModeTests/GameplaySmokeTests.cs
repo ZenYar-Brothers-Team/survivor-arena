@@ -69,6 +69,7 @@ namespace Game.Bootstrap.PlayModeTests
             try
             {
                 var hud = ui.Document.rootVisualElement;
+                Submit(hud.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
                 Submit(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
                 Assert.AreEqual(3, run.Model.SpeedMultiplier);
                 Assert.AreEqual(3f, Time.timeScale);
@@ -240,7 +241,7 @@ namespace Game.Bootstrap.PlayModeTests
             var xpBeforeBook = experience.Progression.CurrentExperience;
             var levelBeforeBook = experience.Progression.Level;
             Assert.IsTrue(draft.RequestBook(System.Guid.NewGuid(), run.Model.RunId, new Game.Content.ContentId("FIXTURE-BOOK")));
-            Assert.AreEqual("TRAVELER BOOK", gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.DraftHeading).text);
+            Assert.AreEqual("Книга странника", gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.DraftHeading).text);
             experience.AddInterventionExperience(10f);
             Assert.IsNotEmpty(gameplayUi.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.DraftQueue).text);
             var bookRevision = draft.Revision;
@@ -253,7 +254,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(xpBeforeBook, experience.Progression.CurrentExperience, 0.0001f);
             Assert.GreaterOrEqual(Object.FindAnyObjectByType<PlayerPassiveSetRuntime>().PassiveCount, 1);
             Assert.AreNotEqual("вЂ”", passiveSlots[0].Q<Label>().text);
-            Assert.IsNotEmpty(passiveSlots[0].Q<Label>().tooltip);
+            Assert.AreEqual(PickingMode.Ignore, passiveSlots[0].Q<Label>().pickingMode);
 
             experience.AddPickedUpExperience(15f);
             Assert.IsTrue(draft.IsDraftOpen);
@@ -263,14 +264,16 @@ namespace Game.Bootstrap.PlayModeTests
             var banishedId = draft.CurrentDraft.Options[0].Definition.Id;
             var banishButton = uiTree.Q<Button>(GameplayUiElementIds.DraftBanishModeButton);
             Submit(banishButton);
-            Assert.AreEqual("Cancel banish", banishButton.text);
+            Assert.AreEqual("Отмена исключения", banishButton.text);
             Assert.IsFalse(uiTree.Q<Button>(GameplayUiElementIds.DraftRerollButton).enabledSelf);
             Submit(banishButton); // Cancel does not spend or banish.
             Assert.AreEqual(2, draft.RemainingBanishes);
             Assert.IsFalse(draft.Controls.IsBanished(banishedId));
             Submit(banishButton);
             Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)));
-            Assert.AreEqual("Banish", banishButton.text);
+            Assert.AreEqual(2, draft.RemainingBanishes, "Inspect is not a banish intent.");
+            Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
+            Assert.AreEqual("Исключить", banishButton.text);
             Assert.AreEqual(1, draft.RemainingBanishes);
             foreach (var option in draft.CurrentDraft.Options)
                 Assert.AreNotEqual(banishedId, option.Definition.Id);
@@ -285,7 +288,7 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
             player.Heal(player.Health.MaxHealth);
             var fullHealthDetail = BuildDetail(gameplayUi.Document.rootVisualElement, lowHealth.DisplayName);
-            StringAssert.Contains("Current low-HP damage: x1", fullHealthDetail);
+            StringAssert.Contains("Сейчас урон +0%", fullHealthDetail);
             player.TakeDamage(player.Health.MaxHealth * 0.9f / player.Stats.IncomingDamageMultiplier);
             var lowHealthDetail = BuildDetail(gameplayUi.Document.rootVisualElement, lowHealth.DisplayName);
             Assert.AreNotEqual(fullHealthDetail, lowHealthDetail);
@@ -314,9 +317,9 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(run.Model.Duration, run.Model.Elapsed);
         }
         private static string BuildDetail(VisualElement root, string title) =>
-            root.Q(GameplayUiElementIds.PauseBuild).Query<ContentCard>().ToList()
+            root.Q(GameplayUiElementIds.PauseSlots).Query(className: "pause-slot").ToList()
                 .Single(card => card.Q<Label>(GameplayUiElementIds.CardTitle).text == title)
-                .Q<Label>(GameplayUiElementIds.CardSummary).text;
+                .tooltip;
 
         private static void Submit(Button button)
         {

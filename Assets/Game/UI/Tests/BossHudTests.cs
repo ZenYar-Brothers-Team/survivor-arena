@@ -23,7 +23,7 @@ namespace Game.UI.Tests
             Assert.AreEqual(DisplayStyle.Flex, bar.style.display.value);
             Assert.AreEqual(30, bar.value);
             StringAssert.Contains("Commander", bar.title);
-            Assert.AreEqual("BOSS INCOMING", notification.text);
+            Assert.AreEqual("Приближается босс", notification.text);
             view.RenderHud(Hud(800, boss));
             Assert.AreEqual(DisplayStyle.Flex, notification.style.display.value, "Pause keeps notification.");
             view.RenderHud(Hud(804, boss));

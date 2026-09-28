@@ -43,6 +43,18 @@ full semantic UI contracts, export/save-error feedback telemetry, latest run sum
 проверку состояний и layout acceptance на production composition.
 Damage presentation по DECISION-0085: базовые абсолютные числа не появляются
 в cards/details, upgrades остаются процентными; модель/баланс не меняются.
+DECISION-0086 добавляет HUD без wave/инструкций/кнопки Pause, compact 720p без уменьшения
+1080p, Draft inspect→отдельный confirm, recipe list/scroll без selection intent,
+расширенную Pause recipe area (3 колонки 1080p / 2 колонки 720p) и увеличенные
+acquired/missed icon/name в общем правом scroll. Проверить увеличенную область
+персонажа и краткий эффект возле component levels Draft / Book. Любой сет Pause
+открывает справку; close/outside/Escape/ПКМ только закрывают её, не вызывают
+Resume/Quit/selection. Нужны keyboard/focus return, edge bounds и scroll/resize
+cleanup. В Draft проверить исключение недостижимых/acquired/закрытых
+сетов из списка и счётчика, включая нулевой результат. Проверить все 12 слотов,
+10 связанных/20 общих рецептов, неподвижный footer, скорость от общего baseline
+(100%/120%), Banish и отсутствие двойного keyboard submit/pause. Synthetic
+stress отделять от actual-content captures; HTML receipt не заменяет Unity.
 
 ## Проверки
 

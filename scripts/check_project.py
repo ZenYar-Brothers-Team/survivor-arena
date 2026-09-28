@@ -247,13 +247,13 @@ def xml_result(path):
     return {"Game": counts, "thirdParty": len(cases) - len(project), "xml": str(path)}
 
 
-def run_batch(platform, test_filter, output, timeout, root=ROOT, unity_path=None):
+def run_batch(platform, test_filter, output, timeout, root=ROOT, unity_path=None, graphics=False):
     if editor_processes(root):
         raise NotRun("Unity opened before batch launch; rerun to select the Editor runner.")
     ensure_unlocked(root)
     unity = find_unity(root, unity_path)
     xml, log = output / (platform + ".xml"), output / (platform + ".log")
-    args = [str(unity), "-batchmode", "-nographics", "-projectPath", str(root),
+    args = [str(unity), "-batchmode", *([] if graphics else ["-nographics"]), "-projectPath", str(root),
             "-runTests", "-testPlatform", platform, "-testFilter", test_filter,
             "-testResults", str(xml), "-logFile", str(log)]
     start = time.monotonic()
@@ -271,7 +271,7 @@ def run_batch(platform, test_filter, output, timeout, root=ROOT, unity_path=None
     result = xml_result(xml)
     if code:
         raise ValueError(f"Unity exited {code}; inspect {log}")
-    return dict(result, platform=platform, runner="batch", seconds=round(time.monotonic() - start, 2), log=str(log))
+    return dict(result, platform=platform, runner="batch", graphics=graphics, seconds=round(time.monotonic() - start, 2), log=str(log))
 
 
 def request(url, payload=None):
@@ -362,6 +362,7 @@ def main():
     parser.add_argument("--unity-path")
     parser.add_argument("--unity-url", default="http://127.0.0.1:8090")
     parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument("--graphics", action="store_true", help="Enable batch rendering for UI/camera capture tests; all safety preflights still apply")
     parser.add_argument("--plan", action="store_true")
     parser.add_argument("--reuse", action="store_true", help="Reuse matching successful batch receipt; reports original date")
     args = parser.parse_args()
@@ -399,7 +400,7 @@ def main():
         before = fingerprint()
         data_results = run_data_checks(validators)
         before_assets = {p.relative_to(ROOT).as_posix() for p in (ROOT / "Assets").rglob("*")}
-        key = sha(json_bytes({"fingerprint": before, "platforms": platforms, "filter": test_filter, "scope": scope}))
+        key = sha(json_bytes({"fingerprint": before, "platforms": platforms, "filter": test_filter, "scope": scope, "graphics": args.graphics}))
         receipt_path = ROOT / "TestResults/checks" / (key + ".json")
         if args.reuse and not processes and receipt_path.exists():
             receipt = read_json(receipt_path)
@@ -420,7 +421,7 @@ def main():
             if any(p["batch"] for p in current):
                 raise NotRun("A concurrent batch run started; no second test run launched")
             result = (run_editor(platform, test_filter, output, args.timeout, args.unity_url) if current else
-                      run_batch(platform, test_filter, output, args.timeout, unity_path=args.unity_path))
+                      run_batch(platform, test_filter, output, args.timeout, unity_path=args.unity_path, graphics=args.graphics))
             results.append(result)
             print(json.dumps(result, ensure_ascii=False), flush=True)
         if scope in ("art", "full"):
@@ -431,12 +432,12 @@ def main():
             raise NotRun("Inputs changed during checks. Results saved; no reusable PASS recorded.")
         hashes = {r.get("xml", r.get("resultFile")): sha(Path(r.get("xml", r.get("resultFile"))).read_bytes()) for r in results}
         receipt = {"verdict": "PASS", "scope": scope, "checkedAt": stamp, "fingerprint": after,
-                   "filter": test_filter, "results": results, "dataChecks": data_results, "evidenceHashes": hashes,
+                   "filter": test_filter, "graphicsRequested": args.graphics, "results": results, "dataChecks": data_results, "evidenceHashes": hashes,
                    "createdImportMetadata": imported_meta,
                    "unityVersion": (ROOT / "ProjectSettings/ProjectVersion.txt").read_text().strip()}
         # Only a fresh closed-Editor run is reusable; memory/unsaved scenes are not fingerprinted.
         if all(r["runner"] == "batch" for r in results):
-            key = sha(json_bytes({"fingerprint": after, "platforms": platforms, "filter": test_filter, "scope": scope}))
+            key = sha(json_bytes({"fingerprint": after, "platforms": platforms, "filter": test_filter, "scope": scope, "graphics": args.graphics}))
             receipt_path = ROOT / "TestResults/checks" / (key + ".json")
             receipt_path.write_bytes(json_bytes(receipt))
         (output / "summary.json").write_bytes(json_bytes(receipt))

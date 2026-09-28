@@ -59,7 +59,7 @@ namespace Game.Bootstrap.PlayModeTests
                 var deferredId = deferred.Life.Identity.DropId;
                 yield return null;
                 Assert.IsTrue(draft.IsDraftOpen); Assert.AreEqual(bookId, draft.CurrentRequest.PickupId);
-                StringAssert.Contains("BOOK", ui.Q<Label>(GameplayUiElementIds.DraftHeading).text);
+                StringAssert.Contains("Книга", ui.Q<Label>(GameplayUiElementIds.DraftHeading).text);
                 Assert.AreEqual(RunState.Paused, run.Model.State); Assert.AreEqual(level, xp.Progression.Level);
                 Assert.IsFalse(root.Pickups.TryCollect(deferred, deferredId));
                 var collected = root.Pickups.Snapshot.Collected;

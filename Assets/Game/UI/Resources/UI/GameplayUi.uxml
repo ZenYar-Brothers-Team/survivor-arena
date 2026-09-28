@@ -1,58 +1,66 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement name="gameplay-ui-root" class="gameplay-root" picking-mode="Ignore">
         <ui:VisualElement name="traveler-overlay" class="traveler-overlay" picking-mode="Ignore" />
-        <ui:Label name="hud-timer" text="00:00" class="hud-timer" />
-        <ui:VisualElement class="hud-row field-folio-panel">
-            <ui:ProgressBar name="hud-health-bar" title="HP" low-value="0" high-value="100" class="hud-bar hud-health-bar" />
-            <ui:Label name="hud-level" text="LV 1" class="hud-label" />
-            <ui:Label name="hud-wave" text="WAVE —" class="hud-wave" />
-            <ui:ProgressBar name="hud-xp-bar" title="XP" low-value="0" high-value="100" class="hud-bar hud-xp-bar" />
-            <ui:VisualElement class="hud-speed-controls">
-                <ui:Button name="hud-speed-1" text="1×" class="speed-button" tooltip="Normal speed" />
-                <ui:Button name="hud-speed-2" text="2×" class="speed-button" tooltip="Double speed" />
-                <ui:Button name="hud-speed-3" text="3×" class="speed-button" tooltip="Triple speed" />
-                <ui:Button name="hud-speed-5" text="5×" class="speed-button" tooltip="Five times speed" />
-            </ui:VisualElement>
-            <ui:Button name="hud-pause" text="Pause" class="compact-button folio-button" />
-        </ui:VisualElement>
+        <ui:Label name="hud-timer" text="00:00" class="hud-timer" picking-mode="Ignore" />
+        <ui:ProgressBar name="hud-health-bar" title="" low-value="0" high-value="100" class="hud-bar hud-health-bar player-health-anchor" picking-mode="Ignore" />
 
         <ui:ProgressBar name="hud-boss-bar" title="" low-value="0" high-value="100" class="boss-bar" picking-mode="Ignore" />
         <ui:Label name="hud-notification" class="hud-notification" picking-mode="Ignore" />
         <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
         <ui:Label name="hud-pickup-feedback" class="pickup-feedback" picking-mode="Ignore" />
 
-        <ui:VisualElement name="build-panel" class="build-panel field-folio-panel">
-            <ui:Label text="ACTIVE SKILLS" class="build-title" />
+        <ui:VisualElement name="build-panel" class="build-panel" picking-mode="Ignore">
             <ui:VisualElement name="build-active-slots" />
-            <ui:Label text="PASSIVES" class="build-title build-passive-title" />
             <ui:VisualElement name="build-passive-slots" />
-            <ui:Label text="SETS" class="build-title build-passive-title" />
-            <ui:VisualElement name="build-sets" />
+            <ui:VisualElement class="hud-xp-row" picking-mode="Ignore">
+                <ui:Label name="hud-level" text="Ур. 1" class="hud-label" picking-mode="Ignore" />
+                <ui:ProgressBar name="hud-xp-bar" title="" low-value="0" high-value="100" class="hud-bar hud-xp-bar" picking-mode="Ignore" />
+            </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="build-sets" class="hud-sets" picking-mode="Ignore" />
 
         <ui:VisualElement name="draft-overlay" class="fullscreen-overlay">
-            <ui:VisualElement class="dialog-panel draft-panel field-folio-panel">
-                <ui:Label name="draft-heading" text="LEVEL UP" class="dialog-title" />
+            <ui:VisualElement class="draft-panel">
+                <ui:Label name="draft-heading" text="Выбери улучшение" class="dialog-title" />
                 <ui:Label name="draft-queue" class="draft-queue" />
+                <ui:VisualElement name="draft-options" class="draft-options" />
+                <ui:VisualElement name="draft-recipe-inspector" class="recipe-inspector field-folio-panel">
+                    <ui:ScrollView name="draft-recipe-list" class="recipe-list" mode="Vertical" />
+                    <ui:ScrollView class="recipe-inspection" mode="Vertical">
+                        <ui:Label name="draft-recipe-title" class="recipe-title" />
+                        <ui:Label name="draft-recipe-effect" class="recipe-effect" />
+                        <ui:VisualElement name="draft-details" class="draft-details" picking-mode="Ignore" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
                 <ui:VisualElement class="draft-controls">
                     <ui:Button name="draft-reroll" text="Reroll" class="compact-button folio-button draft-action" />
                     <ui:Button name="draft-banish-mode" text="Banish" class="compact-button folio-button draft-action" />
                     <ui:Label name="draft-banish-count" text="Banish: 0" class="hud-label" />
                 </ui:VisualElement>
                 <ui:Label name="draft-control-hint" class="draft-control-hint" />
-                <ui:VisualElement name="draft-options" class="draft-options" />
-                <ui:ScrollView class="draft-details-scroll">
-                    <ui:Label name="draft-details" class="draft-details" picking-mode="Ignore" />
-                </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
 
         <ui:VisualElement name="run-overlay" class="fullscreen-overlay">
-            <ui:VisualElement class="dialog-panel result-panel pause-panel field-folio-panel">
-                <ui:Label name="run-overlay-title" text="PAUSED" class="dialog-title" />
-                <ui:Label name="pause-character" class="pause-character" />
-                <ui:ScrollView name="pause-build" class="pause-build" />
-                <ui:Button name="run-overlay-resume" text="Resume" class="primary-button folio-button folio-button-primary" />
+            <ui:VisualElement class="pause-panel">
+                <ui:Label name="run-overlay-title" text="Передышка" class="dialog-title" />
+                <ui:VisualElement class="pause-columns">
+                    <ui:VisualElement class="pause-left field-folio-panel">
+                        <ui:VisualElement class="pause-character-row">
+                            <ui:Image name="pause-portrait" class="pause-portrait" picking-mode="Ignore" />
+                            <ui:Label name="pause-character" class="pause-character" />
+                        </ui:VisualElement>
+                        <ui:Label name="pause-stats" class="pause-stats" />
+                        <ui:VisualElement name="pause-slots" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="pause-right field-folio-panel">
+                        <ui:Label text="Сеты" class="recipe-title" />
+                        <ui:ScrollView name="pause-build" class="pause-build" mode="Vertical" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="pause-footer" class="pause-footer">
+                    <ui:Button name="run-overlay-resume" text="Продолжить" class="primary-button folio-button folio-button-primary" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 
@@ -70,6 +78,13 @@
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
+                <ui:VisualElement class="hud-speed-controls">
+                    <ui:Button name="hud-speed-1" text="1×" class="speed-button" />
+                    <ui:Button name="hud-speed-2" text="2×" class="speed-button" />
+                    <ui:Button name="hud-speed-3" text="3×" class="speed-button" />
+                    <ui:Button name="hud-speed-5" text="5×" class="speed-button" />
+                </ui:VisualElement>
+                <ui:Label name="hud-wave" class="hud-wave" />
                 <ui:VisualElement class="development-button-row">
                     <ui:Button name="development-add-xp" text="+5 XP" class="compact-button" />
                     <ui:Button name="development-add-xp-100" text="+100 XP" class="compact-button" />
@@ -110,7 +125,7 @@
                     <ui:Button name="development-presentation-right" text="Right" class="compact-button showcase-button" />
                     <ui:Button name="development-presentation-reset" text="Reset" class="compact-button showcase-button" />
                 </ui:VisualElement>
-                <ui:Label text="Use -10 HP on the Run tab for hit reaction. Pause from the HUD." class="development-help" />
+                <ui:Label text="Use -10 HP on the Run tab for hit reaction. Escape / Space / RMB to pause." class="development-help" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-playtest" class="development-pane development-scroll">
                 <ui:Label text="LOCAL PLAYTEST" class="development-section-title" />

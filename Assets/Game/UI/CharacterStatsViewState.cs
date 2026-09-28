@@ -17,10 +17,16 @@ namespace Game.UI
         public float PotionDropMultiplier { get; }
         public float LowHealthDamageMultiplier { get; }
         public float KnockbackRemaining { get; }
+        public float MovementSpeed { get; }
+        public float Regeneration { get; }
+        public float IncomingDamageMultiplier { get; }
 
         public CharacterStatsViewState(CharacterStats stats, CombatControlState controls = null)
         {
             if (stats == null) throw new ArgumentNullException(nameof(stats));
+            MovementSpeed = stats.MovementSpeed;
+            Regeneration = stats.HealthRegenerationPerSecond;
+            IncomingDamageMultiplier = stats.IncomingDamageMultiplier;
             KnockbackRemaining = controls?.KnockbackRemaining ?? 0f;
             ActionSpeedBonus = stats.ActionSpeedBonus;
             ActiveSkillCooldownMultiplier = stats.ActiveSkillCooldownMultiplier;

@@ -11,7 +11,8 @@ namespace Game.Bootstrap.PlayModeTests
     {
         private static void Click(GameplayCompositionRoot root,string id)
         {
-            var button=root.ShellDocument.rootVisualElement.Q<Button>(id); Assert.IsNotNull(button); Assert.IsTrue(button.enabledInHierarchy);
+            var button=root.ShellDocument.rootVisualElement.Q<Button>(id) ?? Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement.Q<Button>(id);
+            Assert.IsNotNull(button); Assert.IsTrue(button.enabledInHierarchy);
             using var submit=NavigationSubmitEvent.GetPooled();submit.target=button;button.SendEvent(submit);
         }
         [UnityTest] public IEnumerator Menu_Settings_RunPause_Settings_Quit_Results_Retry()

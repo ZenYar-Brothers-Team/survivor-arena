@@ -11,6 +11,8 @@ namespace Game.UI
         private readonly PanelSettings _panel;
         private AppShellViewState _state;
         private bool _disposed;
+        private readonly VisualElement _pauseActions;
+        private readonly VisualElement _pauseHome;
         public UIDocument Document { get; }
         public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         public event Action<float,float,float> Audio;
@@ -33,6 +35,10 @@ namespace Game.UI
             Hook(GameplayUiElementIds.ShellDevelopmentUnlockAll,()=>DevelopmentUnlockAll?.Invoke());
             Hook(GameplayUiElementIds.ShellDevelopmentReset,()=>DevelopmentReset?.Invoke());
             Hook(GameplayUiElementIds.ShellBack,()=>MainMenu?.Invoke()); Hook(GameplayUiElementIds.ShellPauseSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellQuit,()=>Quit?.Invoke());
+            _pauseActions = Q<VisualElement>(GameplayUiElementIds.ShellPause);
+            _pauseHome = _pauseActions.parent;
+            Q<Button>(GameplayUiElementIds.ShellPauseSettings).text = "Настройки";
+            Q<Button>(GameplayUiElementIds.ShellQuit).text = "Завершить забег";
             Hook(GameplayUiElementIds.SettingsBack,()=>Back?.Invoke()); Hook(GameplayUiElementIds.SettingsApply,()=>Apply?.Invoke());
             Hook(GameplayUiElementIds.SettingsKeep,()=>Keep?.Invoke()); Hook(GameplayUiElementIds.SettingsRevert,()=>Revert?.Invoke()); Hook(GameplayUiElementIds.SettingsSave,()=>Save?.Invoke());
             Hook(GameplayUiElementIds.SettingsMusicPreview,()=>Preview?.Invoke(true)); Hook(GameplayUiElementIds.SettingsSfxPreview,()=>Preview?.Invoke(false));
@@ -45,7 +51,8 @@ namespace Game.UI
             Q<DropdownField>(GameplayUiElementIds.SettingsResolution).RegisterValueChangedCallback(e=> { var mode=_state.Modes.FirstOrDefault(m=>m.ToString()==e.newValue); if(mode!=null)Video?.Invoke(mode); });
         }
         private void Hook(string id,Action action) => Q<Button>(id).clicked+=action;
-        private void Visible(string id,bool visible) => Q<VisualElement>(id).style.display=visible?DisplayStyle.Flex:DisplayStyle.None;
+        public void AttachPauseActions(VisualElement footer) => (footer ?? _pauseHome).Add(_pauseActions);
+        private void Visible(string id,bool visible) => (id == GameplayUiElementIds.ShellPause ? _pauseActions : Q<VisualElement>(id)).style.display=visible?DisplayStyle.Flex:DisplayStyle.None;
         public void Render(AppShellViewState state)
         {
             if(_disposed||Document==null)return; _state=state;

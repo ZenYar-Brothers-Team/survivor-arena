@@ -785,24 +785,18 @@
 
 .content-card-type {
     align-self: flex-start;
-    min-width: 82px;
-    margin-bottom: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    border-radius: 99px;
-    background-color: var(--folio-leather-rust);
-    color: var(--folio-parchment);
-    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: #A9C2D0;
+    font-size: 24px;
     -unity-font-style: bold;
     -unity-font-definition: url("../../Fonts/AlegreyaSans-Medium.ttf");
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
 }
 
-.draft-type-passive .content-card-type { background-color: var(--folio-moss); }
-.draft-type-set .content-card-type { background-color: var(--folio-gold); color: var(--folio-deep-plum); }
-.draft-type-other .content-card-type { background-color: var(--folio-violet); }
+.draft-type-passive .content-card-type { color: #A3B986; }
+.draft-type-set .content-card-type { color: var(--folio-gold); }
+.draft-type-other .content-card-type { color: var(--folio-muted-parchment); }
 
 .draft-option-select {
     min-height: 310px;
@@ -812,21 +806,17 @@
 }
 
 .draft-option-select .content-card-icon {
-    width: 96px;
-    height: 96px;
-    align-self: center;
-    margin-bottom: 10px;
-    background-color: var(--folio-deep-plum);
-    border-radius: 10px;
+    margin: 0 18px 0 0;
+    background-color: transparent;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .draft-option-select .content-card-title {
-    margin-bottom: 7px;
+    margin: 10px 0 7px 0;
     color: var(--folio-parchment);
-    font-size: 22px;
+    font-size: 26px;
     -unity-font-definition: url("../../Fonts/AlegreyaSans-Medium.ttf");
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
 }
 
 .draft-option-select .content-card-summary {
@@ -1010,3 +1000,172 @@
 
 .boss-bar .unity-progress-bar__background { background-color: var(--folio-deep-plum); }
 .boss-bar .unity-progress-bar__progress { background-color: var(--folio-coral); }
+
+/* DECISION-0086: approved R2 composition. Physical-pixel compact profile is
+   selected from panel geometry; no CSS media queries or scaled tiny type. */
+.gameplay-root { font-size: 18px; }
+.gameplay-root #hud-timer {
+    left: 50%; right: auto; top: 18px; width: 108px; height: 40px;
+    margin-left: -54px; font-size: 27px;
+    background-color: rgba(48, 41, 54, 0.92); border-radius: 10px; -unity-text-outline-width: 0;
+}
+.player-health-anchor {
+    position: absolute; width: 64px; height: 10px; min-height: 10px; max-height: 10px; margin: 0; padding: 0;
+}
+.player-health-anchor .unity-progress-bar__container { height: 10px; min-height: 0; max-height: 10px; margin: 0; padding: 0; }
+.player-health-anchor .unity-progress-bar__title { display: none; }
+.player-health-anchor .unity-progress-bar__background { height: 10px; min-height: 0; margin: 0; padding: 0; }
+.player-health-anchor .unity-progress-bar__progress { height: 10px; min-height: 0; }
+.build-panel {
+    top: auto; right: auto; bottom: 22px; left: 24px; width: 328px;
+    padding: 0; background-color: transparent;
+}
+.build-slot { width: 50px; height: 50px; margin: 0 4px 4px 0; font-size: 13px; }
+.hud-xp-row { flex-direction: row; align-items: center; margin-top: 3px; }
+.hud-xp-row .hud-label { width: 44px; margin-right: 8px; }
+.hud-xp-row .hud-xp-bar { flex-grow: 1; width: auto; height: 10px; margin: 0 4px 0 0; }
+.hud-xp-bar .unity-progress-bar__background, .hud-xp-bar .unity-progress-bar__progress { height: 10px; min-height: 0; margin: 0; padding: 0; }
+.hud-xp-bar, .hud-xp-bar .unity-progress-bar__container { min-height: 0; max-height: 10px; height: 10px; margin: 0; padding: 0; }
+.hud-sets { position: absolute; right: 24px; bottom: 22px; max-width: 340px; justify-content: flex-end; }
+.development-toggle { bottom: auto; top: 16px; left: 16px; }
+.development-panel { bottom: auto; top: 56px; left: 16px; }
+.draft-panel { width: 84%; max-width: 1340px; height: 850px; max-height: 94%; }
+.draft-options { flex-direction: row; flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-height: 0; }
+.draft-card { width: 33.333%; height: 100%; padding: 0 7px; min-width: 0; min-height: 0; border-width: 0; }
+.draft-card .draft-option-select {
+    width: 100%; height: auto; min-height: 0; flex-grow: 1; flex-shrink: 1; flex-basis: 0;
+    margin: 0; padding: 18px; align-items: stretch;
+}
+.draft-card .content-card-icon { width: 112px; height: 112px; flex-shrink: 0; }
+.draft-card-header { flex-direction: row; align-items: center; flex-shrink: 0; }
+.draft-card-meta { flex-grow: 1; min-width: 0; }
+.draft-card .content-card-summary { white-space: normal; flex-shrink: 1; font-size: 19px; }
+.draft-summary-scroll { flex-grow: 1; flex-shrink: 1; min-height: 36px; margin: 2px 0; }
+.draft-summary-scroll .content-card-summary { flex-shrink: 0; overflow: visible; }
+.draft-card .card-level { color: var(--folio-muted-parchment); margin: 6px 0 0 0; font-size: 21px; white-space: normal; -unity-text-align: middle-left; }
+.draft-card .card-recipe { margin-top: auto; padding-top: 8px; }
+.draft-confirm { height: 44px; flex-shrink: 0; margin: 8px 0 0 0; font-size: 18px; }
+.draft-card-inspected .draft-option-select { border-color: var(--folio-leather-rust); }
+.draft-card-inspected .draft-confirm { background-color: var(--folio-leather-rust); }
+.draft-card-set .draft-option-select { border-bottom-color: var(--folio-gold); }
+.recipe-inspector { height: 228px; flex-shrink: 0; flex-direction: row; margin: 14px 7px; padding: 16px; }
+.recipe-list { width: 34%; flex-shrink: 0; margin-right: 18px; }
+.recipe-list-item {
+    min-height: 38px; margin: 0 4px 6px 0; padding: 6px 10px; white-space: normal;
+    flex-direction: row; align-items: center; flex-shrink: 0;
+    background-color: var(--folio-deep-plum); color: var(--folio-parchment); border-width: 1px;
+    border-color: var(--folio-raised-panel); border-radius: 6px; -unity-text-align: middle-left;
+}
+.recipe-list-icon { width: 28px; height: 28px; margin-right: 8px; flex-shrink: 0; }
+.recipe-list-name { flex-grow: 1; flex-shrink: 1; min-width: 0; margin: 0; padding: 0; white-space: normal; }
+.recipe-list-progress { flex-shrink: 0; margin-left: 8px; font-size: 14px; color: var(--folio-muted-parchment); }
+.recipe-list-item.recipe-selected { border-color: var(--folio-gold); }
+.recipe-list-item:focus { border-color: var(--folio-parchment); }
+.recipe-inspection { flex-grow: 1; min-width: 0; }
+.recipe-title { font-size: 24px; color: var(--folio-gold); white-space: normal; -unity-font-definition: url("../../Fonts/AlegreyaSans-Medium.ttf"); }
+.recipe-effect { white-space: normal; font-size: 18px; color: var(--folio-parchment); margin: 6px 0 10px 0; }
+.draft-details { white-space: normal; font-size: 18px; }
+.draft-component { white-space: normal; margin: 1px 0; padding: 0; color: var(--folio-muted-parchment); }
+.draft-component-met { color: #A3B986; }
+.draft-controls { flex-shrink: 0; margin: 0 7px; justify-content: center; }
+.draft-control-hint { display: none; }
+.pause-panel { width: 90%; max-width: 1560px; height: 840px; max-height: 92%; }
+.pause-columns { flex-direction: row; flex-grow: 1; min-height: 0; }
+.pause-left { width: 34%; margin-right: 18px; padding: 18px; }
+.pause-right { flex-grow: 1; min-width: 0; padding: 18px; }
+.pause-character-row { flex-direction: row; align-items: center; flex-shrink: 0; }
+.pause-portrait { width: 140px; height: 120px; flex-shrink: 0; margin-right: 16px; -unity-background-scale-mode: scale-to-fit; }
+.pause-character { flex-grow: 1; font-size: 21px; margin: 0; padding: 0; background-color: transparent; -unity-text-align: middle-left; }
+.pause-stats { white-space: normal; margin: 16px 0 10px 0; font-size: 18px; }
+.pause-section-title { margin-top: 10px; margin-bottom: 6px; padding-bottom: 4px; font-size: 19px; }
+.pause-build { height: auto; flex-grow: 1; min-height: 0; padding: 0; }
+.pause-slot { width: 50%; min-width: 0; height: 48px; flex-direction: row; align-items: center; padding: 4px; font-size: 16px; }
+.pause-slot-icon { width: 34px; height: 34px; flex-shrink: 0; margin-right: 6px; }
+.pause-slot-name { flex-grow: 1; min-width: 0; white-space: normal; }
+.pause-slot-empty { opacity: 0.4; }
+.set-group-items { flex-direction: row; flex-wrap: wrap; }
+.set-group-received, .set-group-missed { border-left-width: 3px; padding-left: 10px; margin-bottom: 10px; }
+.set-group-received { border-left-color: var(--folio-gold); }
+.set-group-missed { border-left-color: var(--folio-muted-parchment); }
+.set-group-progress { margin-bottom: 10px; }
+.pause-set-chip, .pause-recipe-card {
+    color: var(--folio-parchment); background-color: var(--folio-raised-panel); border-color: var(--folio-deep-plum);
+    border-width: 1px; border-radius: 6px; white-space: normal; -unity-text-align: upper-left;
+}
+.pause-set-chip { margin: 3px 8px 3px 0; padding: 5px 8px; max-width: 100%; }
+.set-name-row { flex-direction: row; align-items: center; }
+.set-icon { width: 32px; height: 32px; flex-shrink: 0; margin-right: 7px; }
+.set-name { white-space: normal; font-size: 18px; flex-shrink: 1; }
+.pause-recipe-card { width: 32%; min-width: 0; min-height: 0; margin: 4px 1% 5px 0; padding: 10px; }
+.pause-recipe-card .set-name { font-size: 19px; }
+.recipe-progress { font-size: 15px; color: var(--folio-gold); margin: 8px 0 5px 0; white-space: normal; }
+.recipe-components { white-space: normal; font-size: 15px; color: var(--folio-muted-parchment); }
+.pause-set-chip:hover, .pause-recipe-card:hover { background-color: #55485C; }
+.pause-set-chip:focus, .pause-recipe-card:focus { border-color: var(--folio-parchment); }
+.pause-footer { flex-direction: row; justify-content: center; align-items: center; flex-shrink: 0; height: 70px; }
+.pause-footer .shell-pause { flex-direction: row; }
+.pause-footer .unity-button {
+    height: 46px; width: 220px; margin: 12px 5px 0 5px; font-size: 18px;
+    color: var(--folio-parchment); background-color: var(--folio-raised-panel); border-color: var(--folio-deep-plum); border-radius: 8px;
+}
+.pause-footer .primary-button { background-color: var(--folio-leather-rust); }
+.pause-footer .unity-button:hover { background-color: #55485C; }
+.pause-footer .unity-button:focus { border-color: var(--folio-parchment); }
+.set-popup {
+    -unity-font-definition: url("../../Fonts/PTSans-Regular.ttf");
+    position: absolute; height: 170px; padding: 18px; padding-right: 42px;
+    background-color: var(--folio-deep-plum); color: var(--folio-parchment);
+    border-width: 2px; border-color: var(--folio-gold); border-radius: 10px;
+}
+.set-popup .recipe-title { font-size: 22px; }
+.set-popup .recipe-effect { font-size: 16px; }
+.set-popup-close { position: absolute; right: 6px; top: 6px; width: 28px; height: 28px; background-color: var(--folio-raised-panel); color: var(--folio-parchment); border-width: 1px; border-color: var(--folio-gold); border-radius: 4px; }
+.hud-notification { -unity-text-outline-width: 0; }
+.gameplay-root .unity-scroller--vertical { width: 10px; margin-left: 5px; }
+.gameplay-root .unity-scroller__low-button, .gameplay-root .unity-scroller__high-button { display: none; }
+.gameplay-root .unity-scroller .unity-base-slider__tracker { background-color: var(--folio-deep-plum); border-width: 0; border-radius: 4px; }
+.gameplay-root .unity-scroller .unity-base-slider__dragger { background-color: var(--folio-muted-parchment); border-width: 0; border-radius: 4px; min-height: 24px; }
+.gameplay-root .unity-scroller--vertical .unity-base-slider__dragger { width: 6px; min-width: 6px; max-width: 6px; left: 1px; }
+.gameplay-root .unity-scroll-view__horizontal-scroller { display: none; }
+
+.ui-compact .gameplay-root { font-size: 16px; }
+.ui-compact .build-panel { left: 16px; bottom: 16px; width: 208px; }
+.ui-compact .build-slot { width: 30px; height: 30px; font-size: 12px; border-radius: 5px; padding: 0 1px 0 0; }
+.ui-compact .hud-sets { right: 16px; bottom: 16px; max-width: 210px; }
+.ui-compact .hud-xp-row .hud-xp-bar { height: 7px; }
+.ui-compact .hud-xp-bar .unity-progress-bar__background, .ui-compact .hud-xp-bar .unity-progress-bar__progress { height: 7px; }
+.ui-compact .hud-xp-bar, .ui-compact .hud-xp-bar .unity-progress-bar__container { height: 7px; max-height: 7px; }
+.ui-compact .hud-label { font-size: 15px; }
+.ui-compact #hud-timer { width: 88px; height: 32px; margin-left: -44px; top: 12px; font-size: 23px; }
+.ui-compact .draft-panel { width: 84%; height: 636px; }
+.ui-compact .dialog-title { font-size: 28px; margin-bottom: 6px; }
+.ui-compact .draft-queue { min-height: 18px; margin-bottom: 6px; font-size: 14px; }
+.ui-compact .draft-card .draft-option-select { padding: 12px; }
+.ui-compact .draft-card .content-card-icon { width: 88px; height: 88px; margin-right: 14px; }
+.ui-compact .draft-card .content-card-type { font-size: 21px; }
+.ui-compact .draft-card .card-level { font-size: 18px; }
+.ui-compact .draft-card .content-card-title { font-size: 23px; }
+.ui-compact .draft-card .content-card-summary { font-size: 16px; }
+.ui-compact .draft-confirm { height: 36px; font-size: 16px; margin-top: 6px; }
+.ui-compact .recipe-inspector { height: 172px; margin-top: 10px; margin-bottom: 8px; padding: 10px; }
+.ui-compact .recipe-title { font-size: 21px; }
+.ui-compact .recipe-effect, .ui-compact .draft-details { font-size: 15px; }
+.ui-compact .recipe-list-item { font-size: 15px; min-height: 32px; }
+.ui-compact .recipe-list-icon { width: 24px; height: 24px; margin-right: 6px; }
+.ui-compact .recipe-list-progress { font-size: 12px; margin-left: 6px; }
+.ui-compact .pause-panel { width: 92%; height: 630px; }
+.ui-compact .pause-left { padding: 12px; margin-right: 12px; }
+.ui-compact .pause-right { padding: 12px; }
+.ui-compact .pause-portrait { width: 100px; height: 96px; margin-right: 12px; }
+.ui-compact .pause-character { font-size: 18px; }
+.ui-compact .pause-stats { font-size: 15px; margin-top: 10px; margin-bottom: 6px; }
+.ui-compact .pause-section-title { font-size: 17px; margin-top: 7px; }
+.ui-compact .pause-slot { height: 41px; font-size: 14px; padding: 3px; }
+.ui-compact .pause-slot-icon { width: 28px; height: 28px; margin-right: 4px; }
+.ui-compact .pause-recipe-card { width: 48%; margin-right: 2%; padding: 9px; }
+.ui-compact .pause-recipe-card .set-name { font-size: 17px; }
+.ui-compact .set-icon { width: 28px; height: 28px; }
+.ui-compact .set-name { font-size: 16px; }
+.ui-compact .recipe-components, .ui-compact .recipe-progress { font-size: 14px; }
+.ui-compact .pause-footer { height: 58px; }
+.ui-compact .pause-footer .unity-button { height: 40px; width: 184px; font-size: 16px; }

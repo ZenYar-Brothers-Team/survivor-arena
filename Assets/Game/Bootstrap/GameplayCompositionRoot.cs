@@ -531,6 +531,8 @@ namespace Game.Bootstrap
                     BossEncounters, Pickups, Travelers,
                     Catalog.BuildEntries); // development "unlock all" draws from the whole catalog, never the save
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
+                _shellScreen?.AttachPauseActions(gameplayUiRoot.PauseFooter);
+                initializedSubsystems.Add(() => _shellScreen?.AttachPauseActions(null));
                 _profileBinding = new ProfileRunBinding(runController.Model, Profile);
                 initializedSubsystems.Add(_profileBinding.Dispose);
                 _notifications?.Clear();
@@ -566,6 +568,7 @@ namespace Game.Bootstrap
                 _shake = gameObject.AddComponent<CameraShakeRuntime>();
                 _shake.Initialize(Camera.main, player.Health, runController.Model, Settings, _settingsConfig);
             }
+            gameplayUiRoot.BindHealthAnchor(Camera.main);
             NotifyNavigation();
         }
 
@@ -590,11 +593,12 @@ namespace Game.Bootstrap
             {
                 if (_shellPresenter?.SettingsOpen == true) { _shellPresenter.Back(); return; }
                 if (AtCharacterSelection) { MainMenu(); return; }
-                ToggleManualPauseFromShortcut();
+                if (gameplayUiRoot == null || !gameplayUiRoot.ConsumePauseShortcut(false)) ToggleManualPauseFromShortcut();
                 return;
             }
             if (Keyboard.current?.spaceKey.wasPressedThisFrame == true || Mouse.current?.rightButton.wasPressedThisFrame == true)
-                ToggleManualPauseFromShortcut();
+                if (gameplayUiRoot == null || !gameplayUiRoot.ConsumePauseShortcut(Keyboard.current?.spaceKey.wasPressedThisFrame == true))
+                    ToggleManualPauseFromShortcut();
         }
 
         private void ToggleManualPauseFromShortcut()
@@ -628,6 +632,7 @@ namespace Game.Bootstrap
             runController.Model.Completed -= ShowProfileResult;
             _profileBinding?.Dispose();
             _notificationsBinding?.Dispose(); _notificationsBinding = null;
+            _shellScreen?.AttachPauseActions(null);
             gameplayUiRoot.Shutdown();
             if (Playtest is PlaytestSession session) session.Dispose();
             BossEncounters?.Shutdown();

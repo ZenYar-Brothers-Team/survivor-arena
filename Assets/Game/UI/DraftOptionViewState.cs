@@ -14,11 +14,13 @@ namespace Game.UI
         public Sprite Icon { get; }
         public bool IsSet { get; }
         public string TypeLabel { get; }
+        public string LevelLabel { get; }
         public IReadOnlyList<RecipeProjectionViewState> Recipes { get; }
 
         public DraftOptionViewState(ContentId id, string title, string detail, bool isEnabled = true, Sprite icon = null, bool isSet = false,
-            IReadOnlyList<RecipeProjectionViewState> recipes = null, string typeLabel = "")
+            IReadOnlyList<RecipeProjectionViewState> recipes = null, string typeLabel = "", string levelLabel = "")
         {
+            LevelLabel = levelLabel ?? string.Empty;
             Id = id;
             Icon = icon;
             IsSet = isSet;

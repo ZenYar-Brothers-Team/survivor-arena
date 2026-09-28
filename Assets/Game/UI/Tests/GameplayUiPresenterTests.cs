@@ -245,6 +245,9 @@ namespace Game.UI.Tests
             {
                 presenter.Start();
                 Assert.IsFalse(view.DevelopmentVisible);
+                model.RunState = RunState.Running;
+                view.RaiseSpeed(5);
+                Assert.AreEqual(1, model.SpeedMultiplier, "Release rejects even injected DEV speed intents.");
             }
         }
 
@@ -277,8 +280,8 @@ namespace Game.UI.Tests
             var view = new FakeView();
             using var presenter = new GameplayUiPresenter(model, view);
             presenter.Start();
-            Assert.AreEqual("TRAVELER BOOK", view.Draft.Heading);
-            StringAssert.Contains("Level 4", view.Draft.QueueDetail);
+            Assert.AreEqual("Книга странника", view.Draft.Heading);
+            Assert.AreEqual("Ещё улучшений: 1", view.Draft.QueueDetail);
             Assert.AreEqual(model.DraftRevision, view.Draft.Revision);
             Assert.AreEqual(7, view.Hud.BookCurrency);
             view.RaiseSelect(model.DraftOptions[0].Definition.Id);
@@ -288,6 +291,23 @@ namespace Game.UI.Tests
             model.DevelopmentCommandsEnabled = false;
             view.RaiseBook();
             Assert.AreEqual(1, model.BookCalls);
+        }
+
+        [TestCase(1, "")]
+        [TestCase(5, "Ещё улучшений: 4")]
+        public void LevelDraftHeading_OmitsEarnedAndNextLevels_KeepingOnlyQueueCount(int pending, string queue)
+        {
+            var model = CreateModel();
+            var run = Guid.NewGuid();
+            model.CurrentDraftRequest = DraftRequest.ForLevel(run, 18);
+            model.NextDraftRequest = pending > 1 ? DraftRequest.ForLevel(run, 19) : null;
+            model.PendingDraftCount = pending;
+            var view = new FakeView();
+            using var presenter = new GameplayUiPresenter(model, view);
+            presenter.Start();
+            Assert.AreEqual("Выбери улучшение", view.Draft.Heading);
+            Assert.AreEqual(queue, view.Draft.QueueDetail);
+            Assert.IsNotEmpty(view.Draft.Options[0].LevelLabel, "The upgrade card's own level remains visible.");
         }
 
         [Test]
@@ -307,12 +327,12 @@ namespace Game.UI.Tests
             {
                 presenter.Start();
                 var previous = view.Build.PassiveSlots[0];
-                StringAssert.Contains("Max low-HP damage: 15%", previous.Detail);
-                StringAssert.Contains("Current low-HP damage: x1", previous.Detail);
+                StringAssert.Contains("Урон при низком HP: до +15%", previous.Detail);
+                StringAssert.Contains("Сейчас урон +0%", previous.Detail);
                 stats.UpdateHealthRatio(0.1f);
                 model.Stats = new CharacterStatsViewState(stats);
                 presenter.RefreshAll();
-                StringAssert.Contains("Current low-HP damage: x1.15", view.Build.PassiveSlots[0].Detail);
+                StringAssert.Contains("Сейчас урон +15%", view.Build.PassiveSlots[0].Detail);
                 Assert.AreNotEqual(previous.Detail, view.Build.PassiveSlots[0].Detail);
                 Assert.AreEqual(6, view.Build.PassiveSlots.Count);
             }
@@ -335,19 +355,27 @@ namespace Game.UI.Tests
             presenter.Start();
             Assert.IsTrue(view.Build.SetRecipeProgress[0].HasProgress);
             Assert.AreEqual(0, view.Build.SetRecipeProgress[0].FulfilledComponents);
+            Assert.AreEqual(1, view.Draft.Options[0].Recipes[0].OwnedComponents);
+            Assert.AreEqual("1/3", view.Draft.Options[0].Recipes[0].Progress);
+            Assert.IsTrue(view.Draft.Options[0].Recipes[0].ComponentStates[0].IsOwned);
+            Assert.IsFalse(view.Draft.Options[0].Recipes[0].ComponentStates[0].IsLevelMet, "Projected completion must not color an unmet current level green.");
+            Assert.IsFalse(view.Draft.Options[0].Recipes[0].ComponentStates[1].IsOwned);
             Assert.AreEqual(1, view.Draft.Options[0].Recipes[0].Projected);
             Assert.IsFalse(view.Draft.Options[0].Recipes[0].CompletesRecipe);
-            StringAssert.Contains("required Lv.2", view.Draft.Options[0].Recipes[0].Detail);
+            StringAssert.Contains("1→2/2", view.Draft.Options[0].Recipes[0].Detail);
             build.Apply(p1); build.Apply(p2); model.BuildEntries = new List<BuildEntry>(build.Entries);
             presenter.RefreshAll();
             Assert.IsTrue(view.Draft.Options[0].Recipes[0].CompletesRecipe);
+            Assert.AreEqual("3/3", view.Draft.Options[0].Recipes[0].Progress, "All components owned, though the selected one still needs a level.");
+            Assert.AreNotEqual("Рецепт готов", view.Draft.Options[0].Recipes[0].Status);
+            Assert.IsTrue(view.Draft.Options[0].Recipes[0].ComponentStates[1].IsLevelMet);
             Assert.AreEqual(0, view.Build.Sets.Count, "Completing a recipe does not acquire the set.");
             build.Apply(active); model.BuildEntries = new List<BuildEntry>(build.Entries);
             model.DraftOptions = new[] { new DraftOption(active, true, 3) }; presenter.RefreshAll();
             Assert.IsFalse(view.Draft.Options[0].Recipes[0].CompletesRecipe);
-            StringAssert.Contains("requirement unchanged", view.Draft.Options[0].Recipes[0].Summary);
+            Assert.AreEqual("Рецепт готов", view.Draft.Options[0].Recipes[0].Status);
             build.Apply(set); model.BuildEntries = new List<BuildEntry>(build.Entries); presenter.RefreshAll();
-            Assert.IsTrue(view.Draft.Options[0].Recipes[0].IsAcquired);
+            Assert.IsEmpty(view.Draft.Options[0].Recipes, "Acquired sets are not related draft candidates.");
         }
 
         [Test]
@@ -371,9 +399,9 @@ namespace Game.UI.Tests
             var progress = view.Build.SetRecipeProgress[0];
             Assert.AreEqual(0, progress.FulfilledComponents, "No level requirement is met yet.");
             Assert.AreEqual(2, progress.OwnedComponents, "Both owned components count regardless of level.");
-            StringAssert.Contains("✓ Active Lv.1 / required Lv.3", progress.Components);
-            StringAssert.Contains("✓ Owned passive Lv.1 / required Lv.2", progress.Components);
-            StringAssert.Contains("○ Missing passive not owned / required Lv.1", progress.Components);
+            StringAssert.Contains("✓ Active  1/3", progress.Components);
+            StringAssert.Contains("✓ Owned passive  1/2", progress.Components);
+            StringAssert.Contains("○ Missing passive  0/1", progress.Components);
         }
 
         [Test]
@@ -429,6 +457,10 @@ namespace Game.UI.Tests
             Assert.AreEqual("FIXTURE-SET-1", progress[2].Title, "DECISION-0073: a set that cannot be completed goes last.");
             Assert.IsTrue(progress[2].IsMissed);
             Assert.IsFalse(progress[0].IsMissed);
+            model.DraftOptions = new[] { new DraftOption(active, true, 2) };
+            presenter.RefreshAll();
+            Assert.AreEqual(2, view.Draft.Options[0].Recipes.Count);
+            Assert.IsFalse(view.Draft.Options[0].Recipes.Any(r => r.Title == "FIXTURE-SET-1"));
         }
 
         private static FakeModel CreateModel()

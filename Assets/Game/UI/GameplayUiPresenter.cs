@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using Game.Presentation;
 using Game.Progression;
 using Game.Run;
@@ -68,7 +66,12 @@ namespace Game.UI
                 _model.Stats,
                 _model.DevelopmentCommandsEnabled ? _model.ExperienceTotals : null, _model.BookCurrency, _model.Boss,
                 _model.SpeedMultiplier, _model.RunState == RunState.Running, _model.RunDurationSeconds,
-                _model.DevelopmentCommandsEnabled && _model.IsHealthLocked));
+                _model.DevelopmentCommandsEnabled && _model.IsHealthLocked,
+                _model.SelectedCharacter?.DisplayName,
+                _registry != null && _model.SelectedCharacter?.Presentation != null
+                    ? _model.SelectedCharacter.Presentation.Crop.Resolve(_registry).Sprite : null,
+                _registry != null && _model.SelectedCharacter?.Presentation != null
+                    ? _model.SelectedCharacter.Presentation.Baseline.Resolve(_registry).Stats.MovementSpeed : (float?)null));
             // The summaries allocate (string building) and only feed the development
             // panel, which is not shown outside development builds — skip the work there.
             if (!_model.DevelopmentCommandsEnabled)
@@ -119,7 +122,7 @@ namespace Game.UI
                 if (entry.Definition.Kind == BuildEntryKind.Set)
                 {
                     sets.Add(new SetBuildViewState(entry.Definition.DisplayName,
-                        (entry.Definition as SetDefinition)?.Description, ResolveIcon(entry.Definition)));
+                        GameplayUiCopy.SetEffect(entry.Definition as SetDefinition), ResolveIcon(entry.Definition)));
                     continue;
                 }
                 var slot = new BuildSlotViewState(entry.Definition.DisplayName, entry.Level, true,
@@ -156,7 +159,7 @@ namespace Game.UI
                     fulfilled == definition.Recipe.Count && !isAcquired,
                     isAcquired, string.Join("\n", ComponentDetails(definition, null)), HasPossession(definition),
                     CountOwnedComponents(definition), string.Join("\n", ComponentDetails(definition, null)),
-                    ResolveIcon(definition), isMissed));
+                    ResolveIcon(definition), isMissed, GameplayUiCopy.SetEffect(definition)));
             }
             // DECISION-0073: sets that can no longer be completed go to the bottom.
             progress.AddRange(missed);
@@ -166,18 +169,10 @@ namespace Game.UI
 
         private string BuildPassiveDetail(BuildEntry entry)
         {
-            var definition = entry.Definition;
-            var detail = new StringBuilder();
-            foreach (var value in definition.CreateDraftPreview(0, entry.Level).Values)
-            {
-                if (detail.Length > 0) detail.Append("\n");
-                detail.Append(value.Label).Append(": ")
-                    .Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
-            }
-            if (definition is PassiveProgressionDefinition passive && passive.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0f && _model.Stats != null)
-                detail.Append("\nCurrent low-HP damage: x")
-                    .Append(_model.Stats.LowHealthDamageMultiplier.ToString("0.##", CultureInfo.InvariantCulture));
-            return detail.ToString();
+            var text = GameplayUiCopy.DraftEffect(entry.Definition, entry.Definition.CreateDraftPreview(0, entry.Level));
+            if (entry.Definition is PassiveProgressionDefinition passive && passive.GetLevel(entry.Level).LowHealthDamageMaxBonus > 0 && _model.Stats != null)
+                text += $"\nСейчас урон {GameplayUiCopy.SignedPercent((_model.Stats.LowHealthDamageMultiplier - 1) * 100)}%";
+            return text;
         }
 
         private int CountFulfilledComponents(SetDefinition definition)
@@ -230,7 +225,12 @@ namespace Game.UI
 
         private List<string> ComponentDetails(SetDefinition set, DraftOption? option)
         {
-            var details = new List<string>();
+            return ComponentStates(set, option).ConvertAll(component => component.Text);
+        }
+
+        private List<RecipeComponentViewState> ComponentStates(SetDefinition set, DraftOption? option)
+        {
+            var details = new List<RecipeComponentViewState>();
             foreach (var component in set.Recipe)
             {
                 var current = ComponentLevel(component);
@@ -239,11 +239,7 @@ namespace Game.UI
                 var name = _model.FindBuildEntryName(component.Id) ?? component.Id.ToString();
                 foreach (var entry in _model.BuildEntries) if (entry.Definition.Id == component.Id) name = entry.Definition.DisplayName;
                 if (selected) name = option.Value.Definition.DisplayName;
-                // Owned components are marked by presence; the level requirement is shown separately.
-                var mark = current > 0 ? "✓" : "○";
-                var level = current > 0 ? $" Lv.{current}" : " not owned";
-                details.Add($"{mark} {name}{level}" + (selected ? $" → {projected} [THIS OPTION]" : "") +
-                    $" / required Lv.{component.MinimumLevel}" + (current >= component.MinimumLevel ? " (met)" : ""));
+                details.Add(new RecipeComponentViewState(name, current, projected, component.MinimumLevel, selected));
             }
             return details;
         }
@@ -253,6 +249,7 @@ namespace Game.UI
             var related = new List<SetDefinition>();
             foreach (var set in _model.SetDefinitions)
             {
+                if (IsAcquired(set) || !_model.CanStillFulfillSet(set)) continue;
                 var includes = set.Id == option.Definition.Id;
                 foreach (var component in set.Recipe) includes |= component.Id == option.Definition.Id;
                 if (includes) related.Add(set);
@@ -272,7 +269,8 @@ namespace Game.UI
                 var projected = ProjectedCount(set, option);
                 result.Add(new RecipeProjectionViewState(set.DisplayName, current, projected, set.Recipe.Count,
                     !IsAcquired(set) && current < set.Recipe.Count && projected == set.Recipe.Count,
-                    IsAcquired(set), ComponentDetails(set, option)));
+                    IsAcquired(set), ComponentDetails(set, option), GameplayUiCopy.SetEffect(set), ResolveIcon(set),
+                    CountOwnedComponents(set), ComponentStates(set, option)));
             }
             return result.AsReadOnly();
         }
@@ -328,26 +326,19 @@ namespace Game.UI
                     BuildEntryKind.Set => "Set",
                     _ => "Unknown"
                 };
-                var detail = new StringBuilder(option.IsUpgrade
-                    ? $"{type} · level {option.Preview.CurrentLevel} → {option.Preview.NextLevel}"
-                    : $"{type} · new");
-                foreach (var value in option.Preview.Values)
-                    detail.Append("\n").Append(value.Label).Append(": ")
-                        .Append(value.Current.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit)
-                        .Append(" → ").Append(value.Next.ToString("0.##", CultureInfo.InvariantCulture)).Append(value.Unit);
-                if (option.Definition is SetDefinition set) detail.Append("\n").Append(set.Description);
-                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(),
+                options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName,
+                    GameplayUiCopy.DraftEffect(option.Definition, option.Preview),
                     icon: ResolveIcon(option.Definition), isSet: option.Definition.Kind == BuildEntryKind.Set,
-                    recipes: ProjectRecipes(option), typeLabel: type);
+                    recipes: ProjectRecipes(option), typeLabel: type,
+                    levelLabel: option.Definition.Kind == BuildEntryKind.Set ? "" : option.IsUpgrade
+                        ? $"Уровень {option.Preview.CurrentLevel} → {option.Preview.NextLevel}" : "Новое · уровень 1");
             }
 
             for (var i = source.Count; i < options.Length; i++)
-                options[i] = new DraftOptionViewState(default, "No available option", "", false);
+                options[i] = new DraftOptionViewState(default, "Нет варианта", "", false);
             var request = _model.CurrentDraftRequest;
-            var heading = request?.Origin == DraftOrigin.Book ? "TRAVELER BOOK" :
-                request?.EarnedLevel != null ? $"LEVEL UP · {request.EarnedLevel}" : "LEVEL UP";
-            var next = _model.NextDraftRequest;
-            var queue = next == null ? "" : $"Next: {(next.Origin == DraftOrigin.Book ? "Traveler Book" : $"Level {next.EarnedLevel}")} · {_model.PendingDraftCount - 1} queued";
+            var heading = request?.Origin == DraftOrigin.Book ? "Книга странника" : "Выбери улучшение";
+            var queue = _model.PendingDraftCount > 1 ? $"Ещё улучшений: {_model.PendingDraftCount - 1}" : "";
             return new DraftViewState(true, _model.RemainingRerolls, _model.RemainingBanishes,
                 options, _model.DraftRevision, heading, queue, _banishRevision != Guid.Empty);
         }
@@ -359,7 +350,7 @@ namespace Game.UI
             if (_model.RunState == RunState.Lost)
                 return new RunOverlayViewState(true, "RUN FAILED", false);
             if (_model.RunState == RunState.Paused && !_model.IsDraftOpen)
-                return new RunOverlayViewState(true, "PAUSED", true);
+                return new RunOverlayViewState(true, "Передышка", true);
             return new RunOverlayViewState(false, string.Empty, false);
         }
 
@@ -396,7 +387,7 @@ namespace Game.UI
 
         private void HandleSpeedRequested(int multiplier)
         {
-            if (_model.RunState != RunState.Running) return;
+            if (!_model.DevelopmentCommandsEnabled || _model.RunState != RunState.Running) return;
             if (_model.SetSpeed(multiplier)) RefreshHud();
         }
 

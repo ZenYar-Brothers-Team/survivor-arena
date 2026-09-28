@@ -72,6 +72,13 @@ Bootstrap создаёт Audio. Gameplay и UI не зависят от Audio; �
 - designRefs: [UI/UX Design](UI%20%20UX%20Design.md), [IP-26](implementation/modules/IP-26-functional-ui.md), [UI rules](../.claude/rules/ui-code.md).
 - authoringSources: [MetaEconomy.json](../Assets/Resources/Content/Meta/MetaEconomy.json), [SettingsDefaults.json](../Assets/Resources/Content/Settings/SettingsDefaults.json); UI resources по ссылке выше.
 - checks: UI/Meta/Settings Tests, затем требуемый integration smoke. Development UI подчиняется тем же scoped rules.
+- R2 HUD/Draft/Pause: [GameplayUiPresenter](../Assets/Game/UI/GameplayUiPresenter.cs)
+  готовит данные, [GameplayUiCopy](../Assets/Game/UI/GameplayUiCopy.cs) сокращает текст,
+  [RecipeComponentViewState](../Assets/Game/UI/RecipeComponentViewState.cs) разделяет
+  наличие компонента, текущий/projected и требуемый уровни без разбора текста,
+  [PauseBuildPanel](../Assets/Game/UI/PauseBuildPanel.cs) группирует сеты/показывает справку.
+  [ProductionUiR2SmokeTests](../Assets/Game/Bootstrap/PlayModeTests/ProductionUiR2SmokeTests.cs)
+  проверяет production composition; `check_project.py --graphics` включает capture.
 
 ## Арт и визуальная подача
 

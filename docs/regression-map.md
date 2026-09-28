@@ -106,6 +106,21 @@ composition → spawner → pooled enemy в Gameplay. Evidence: [enemy art](impl
 
 ## IP-26 — regression guards
 
+UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layout.md):
+`UiFoundationTests.DraftCard_TypeLabel_UsesSemanticElementAndVisualClass` охраняет
+подписи и icon/type/level header; `UiLayoutR2Tests.DraftRecipes_RenderProjectedIconTitleAndProgress`
+— projection icon/name/progress (включая null icon). `ProductionUiR2SmokeTests.Production_HudDraftPause_AnchorsAndRetry_WithTwoResolutionCaptures`
+проверяет production sprites, горизонтальную геометрию шапки, крупные type labels
+без pill и левое выравнивание в 720p/1080p. Без исправления новые assertions падают.
+
+Тот же review OBS-04…07: `GameplayUiPresenterTests.RecipeProjection_PartialThresholdCompletesAndAlreadyEnoughAreDistinct`
+охраняет owned count независимо от thresholds; `UiLayoutR2Tests.DraftComponents_PresenceAndCurrentLevelMet_AreIndependent`
+— ✓/○ и зелёный текущий threshold, не projected. `LevelDraftHeading_OmitsEarnedAndNextLevels_KeepingOnlyQueueCount`
+— отсутствие уровней в шапке при сохранённом числе выборов. `CooldownCopy_UsesReciprocalFrequency`
+и `PercentCopy_RoundsToWholeWithoutNegativeZero` — math/rounding;
+`ProductionUiR2SmokeTests.StoneCopy_HidesDerivedFlightLifetime_ButPreservesTrueLifetimeChanges`
+— фактический SKILL-001 и сохранение содержательного lifetime change.
+
 | Риск | Тесты | Вид | Evidence |
 |---|---|---|---|
 | Первый Main Menu завершает ещё не начатый run | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean`, `FieldSelectionSmokeTests.Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration` | PlayMode | IP-26 в STATUS |
