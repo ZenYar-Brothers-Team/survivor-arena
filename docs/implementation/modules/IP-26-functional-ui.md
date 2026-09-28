@@ -53,6 +53,11 @@ complete UI flow и semantic IDs; явно разграничить IP-10A/IP-26
 
 G-15 resolved по DECISION-0037: Quit→Results, reward/save/error ordering. G-16/G-20 resolved по [DECISION-0038](../../decisions/0038-settings-and-field-difficulty.md): defaults, persistence/failure, audio routing, video rollback, camera offset и difficulty 1–5. Retry same character/field immediate уже утверждён. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
+UI visual language resolved по [DECISION-0081](../../decisions/0081-field-folio-ui-visual-language.md):
+«Полевой фолиант», умеренная декоративность, утверждённые palette/type/state/motion
+defaults. Реализация и ручная приёмка vertical slice HUD → Draft → Pause / Build
+остаются отдельным production gate и не закрыты одним approval документа.
+
 ## Потребители
 
 [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

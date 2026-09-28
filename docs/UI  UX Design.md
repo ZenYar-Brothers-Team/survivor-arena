@@ -740,6 +740,32 @@ Settings доступны:
 \- selected/hover states;  
 \- Traveler arrow.
 
+Утверждённый общий visual language — **«Полевой фолиант»** из
+[Art Direction §12.2](art/ART_DIRECTION.md#122-визуальный-язык-ui--полевой-фолиант)
+и [DECISION-0081](decisions/0081-field-folio-ui-visual-language.md). Это современная
+функциональная структура в классическом сказочном оформлении: матовый
+угольно-сливовый каркас, кожа, тёплый пергамент, ржавчина, приглушённая зелень и
+дозированное золото. Главными цветными объектами остаются персонажи, thumbnails и
+production-иконки; отдельные raster-рамки и декоративные фоны не обязательны.
+
+Экранное применение:
+
+\- Main Menu — поле с тёмной сливовой виньеткой и компактная колонка действий;
+\- Character Select — крупный body crop, роль, starting skill и 2–4 отличия;
+\- Field Select — thumbnail как главный visual, difficulty и lock condition;
+\- HUD — наиболее сдержанные панели, HP green, XP azure, boss coral/burgundy;
+\- Draft — эталонные три карточки с type marker, effect и recipe block;
+\- Pause / Build — character/stats, build и recipe progress как три ясные зоны;
+\- Results — outcome, run facts, rewards и unlocks с явной иерархией;
+\- Meta — permanent upgrades и unlocks визуально разделены;
+\- Settings — нейтральные стандартные controls в общей теме без декоративной
+  имитации механических рычагов.
+
+Целевой вертикальный visual slice для утверждения реализации:
+`HUD → Level-up Draft → Pause / Build`. Он обязан сначала доказать тему,
+типографику, состояния, читаемость production-иконок и layout при `1920×1080` и
+`1280×720`; только затем язык переносится на остальные экраны.
+
 \---
 
 \# 23\. Resolved review decisions
@@ -751,6 +777,8 @@ Settings доступны:
 3\. Pause / Build показывает только sets, по которым уже есть текущий progress.  
 4\. HP bar показывается для всех Travelers.  
 5\. Retry немедленно перезапускает run с теми же character и field без дополнительных кликов.
+6\. Общий UI visual language — «Полевой фолиант» с умеренной декоративностью и
+современной функциональной структурой (DECISION-0081).
 
 Других открытых решений в этой секции сейчас нет.
 

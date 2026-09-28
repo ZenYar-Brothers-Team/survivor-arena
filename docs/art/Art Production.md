@@ -40,6 +40,11 @@
 - FIELD-004…010 уже имеют утверждённые thumbnails, ground textures и по шесть obstacle props. Их production definitions, layouts и bindings принадлежат IP-23/IP-24.
 - Отдельные Character Select portraits, meta currency art, meta-upgrade icons и pickup UI icons не входят в обязательный backlog, пока существующий body/world sprite либо обычный UI достаточно хорошо выполняет роль.
 - Store/marketing art остаётся отдельным поздним слоем и не считается недостающим gameplay art.
+- UI visual language «Полевой фолиант» утверждён в DECISION-0081. Его первый
+  production pass собирается темой UI Toolkit, типографикой, формами и уже
+  подготовленными иконками; он не открывает автоматический backlog raster-рамок,
+  portraits или декоративных menu backgrounds. Целевой review slice —
+  HUD → Draft → Pause / Build.
 
 \---
 
