@@ -313,6 +313,7 @@ namespace Game.UI
                     focusable = false
                 };
                 label.AddToClassList("build-slot");
+                label.AddToClassList("build-slot-set");
                 if (state.Sets[i].Icon != null)
                     label.style.backgroundImage = new StyleBackground(state.Sets[i].Icon);
                 _sets.Add(label);
@@ -375,7 +376,10 @@ namespace Game.UI
             for (var i = 0; i < slots.Count; i++)
             {
                 var slot = slots[i];
-                var label = new Label(slot.IsOccupied ? $"{slot.Title.Substring(0, Math.Min(2, slot.Title.Length))}\n{slot.Level}" : "—")
+                var occupiedText = slot.Icon != null
+                    ? $"Lv.{slot.Level}"
+                    : $"{slot.Title.Substring(0, Math.Min(2, slot.Title.Length))}\n{slot.Level}";
+                var label = new Label(slot.IsOccupied ? occupiedText : "—")
                 {
                     name = active ? GameplayUiElementIds.ActiveSlot(i) : GameplayUiElementIds.PassiveSlot(i),
                     tooltip = slot.IsOccupied ? $"{slot.Title} · Lv.{slot.Level}" : "Empty",
@@ -406,37 +410,62 @@ namespace Game.UI
         private void RenderPauseBuild(BuildViewState state)
         {
             _pauseBuild.Clear();
-            _pauseBuild.Add(new Label("ACTIVE SKILLS"));
-            AddBuildDetails(state.ActiveSlots);
-            _pauseBuild.Add(new Label("PASSIVES"));
-            AddBuildDetails(state.PassiveSlots);
-            _pauseBuild.Add(new Label("ACQUIRED SETS"));
-            foreach (var set in state.Sets) _pauseBuild.Add(new ContentCard(new ContentCardViewState(set.Title, set.Detail, icon: set.Icon)));
-            _pauseBuild.Add(new Label("SET PROGRESS"));
+            AddPauseSectionTitle("ACTIVE SKILLS");
+            AddBuildDetails(state.ActiveSlots, "pause-build-grid-active");
+            AddPauseSectionTitle("PASSIVES");
+            AddBuildDetails(state.PassiveSlots, "pause-build-grid-passive");
+            AddPauseSectionTitle("ACQUIRED SETS");
+            foreach (var set in state.Sets)
+            {
+                var card = new ContentCard(new ContentCardViewState(set.Title, set.Detail, icon: set.Icon));
+                card.AddToClassList("pause-set-card");
+                _pauseBuild.Add(card);
+            }
+            AddPauseSectionTitle("SET PROGRESS");
             foreach (var recipe in state.SetRecipeProgress)
             {
                 if (recipe.IsAcquired || recipe.IsMissed || !recipe.HasProgress) continue;
                 var status = recipe.IsEligible ? "Recipe fulfilled · not acquired" :
                     $"Levels met {recipe.FulfilledComponents}/{recipe.RequiredComponents}";
-                _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
+                var card = new ContentCard(new ContentCardViewState(recipe.Title,
                     $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · {status}\n{recipe.Components}", recipe.Detail,
-                    icon: recipe.Icon)));
+                    icon: recipe.Icon));
+                card.AddToClassList("pause-recipe-card");
+                _pauseBuild.Add(card);
             }
             var missedLabelAdded = false;
             foreach (var recipe in state.SetRecipeProgress)
             {
                 if (!recipe.IsMissed) continue;
-                if (!missedLabelAdded) { _pauseBuild.Add(new Label("MISSED SETS")); missedLabelAdded = true; }
-                _pauseBuild.Add(new ContentCard(new ContentCardViewState(recipe.Title,
+                if (!missedLabelAdded)
+                {
+                    AddPauseSectionTitle("MISSED SETS", "pause-section-title-missed");
+                    missedLabelAdded = true;
+                }
+                var card = new ContentCard(new ContentCardViewState(recipe.Title,
                     $"Owned {recipe.OwnedComponents}/{recipe.RequiredComponents} · cannot be completed\n{recipe.Components}",
-                    recipe.Detail, icon: recipe.Icon, isEnabled: false)));
+                    recipe.Detail, icon: recipe.Icon, isEnabled: false));
+                card.AddToClassList("pause-recipe-card");
+                card.AddToClassList("pause-missed-card");
+                _pauseBuild.Add(card);
             }
         }
 
-        private void AddBuildDetails(System.Collections.Generic.IReadOnlyList<BuildSlotViewState> slots)
+        private void AddPauseSectionTitle(string text, string extraClass = null)
+        {
+            var label = new Label(text);
+            label.AddToClassList("pause-section-title");
+            if (!string.IsNullOrWhiteSpace(extraClass)) label.AddToClassList(extraClass);
+            _pauseBuild.Add(label);
+        }
+
+        private void AddBuildDetails(
+            System.Collections.Generic.IReadOnlyList<BuildSlotViewState> slots,
+            string gridClass)
         {
             var grid = new VisualElement();
             grid.AddToClassList("pause-build-grid");
+            grid.AddToClassList(gridClass);
             _pauseBuild.Add(grid);
             foreach (var slot in slots)
                 grid.Add(new ContentCard(new ContentCardViewState(slot.Title,

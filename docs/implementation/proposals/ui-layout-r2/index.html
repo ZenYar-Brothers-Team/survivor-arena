@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Полевой фолиант — макет R2</title>
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <header class="review-bar">
+    <div class="review-title">Полевой фолиант <span>КОМПОЗИЦИЯ R2</span></div>
+    <nav aria-label="Экраны макета">
+      <button data-screen="hud" aria-pressed="true">Бой</button>
+      <button data-screen="draft" aria-pressed="false">Улучшение</button>
+      <button data-screen="book" aria-pressed="false">Книга</button>
+      <button data-screen="pause" aria-pressed="false">Пауза / билд</button>
+      <button data-screen="settings" aria-pressed="false">Управление</button>
+    </nav>
+    <label>Размер <select id="resolution"><option value="1280">1280 × 720</option><option value="1920">1920 × 1080</option></select></label>
+    <label>Билд <select id="loadout"><option value="full">Заполненный 6 + 6</option><option value="start">Начальный</option></select></label>
+    <button id="density" aria-pressed="false">Плотный фон</button>
+  </header>
+  <main>
+    <div id="viewport"><section id="stage" aria-label="Макет интерфейса" data-screen="hud" data-resolution="1280">
+      <div id="world" aria-hidden="true"></div>
+      <div id="hero" aria-label="Персонаж с полосой здоровья"><div class="hero-hp" role="meter" aria-label="Здоровье персонажа" aria-valuemin="0" aria-valuemax="116" aria-valuenow="84"><i></i></div><img alt="Клёпка" src="../../../../Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png"></div>
+      <div id="hud"></div>
+      <div id="overlay" hidden></div>
+      <div class="preview-stamp">МАКЕТ · production-арт · постановочная сцена · DEV скрыт</div>
+    </section></div>
+    <section class="review-notes">
+      <div><h1 id="review-heading">Поле остаётся главным</h1><p id="review-description"></p></div>
+      <aside><strong>Как смотреть</strong><p>Переключайте экраны и размеры сверху. В выборе наведите мышь или перейдите Tab на карточку. Подробности открываются кнопкой «Рецепты». В бою ПКМ, пробел и Esc открывают паузу.</p><p>Это HTML-макет, не Unity. Иконки, фон и шрифты — из проекта. Числа состояния постановочные; механики и рецепты взяты из канона. Настройка мыши меняет только макет и не сохраняется в игре.</p></aside>
+    </section>
+  </main>
+  <script src="preview.js"></script>
+</body>
+</html>

@@ -338,7 +338,7 @@ namespace Game.UI
                 if (option.Definition is SetDefinition set) detail.Append("\n").Append(set.Description);
                 options[i] = new DraftOptionViewState(option.Definition.Id, option.Definition.DisplayName, detail.ToString(),
                     icon: ResolveIcon(option.Definition), isSet: option.Definition.Kind == BuildEntryKind.Set,
-                    recipes: ProjectRecipes(option));
+                    recipes: ProjectRecipes(option), typeLabel: type);
             }
 
             for (var i = source.Count; i < options.Length; i++)

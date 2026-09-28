@@ -60,8 +60,9 @@ namespace Game.Settings
             if(!await Video.TryApplyAsync(Video.SafeWindow)) throw new InvalidOperationException("Safe window could not be applied.");
             Current=Current.WithVideo(Video.Current);_revision++;
         }
-        public void SetAudio(float master,float music,float sfx) => Update(new SettingsSnapshot(master,music,sfx,Current.Shake,Current.Video));
-        public void SetShake(bool enabled) => Update(new SettingsSnapshot(Current.Master,Current.Music,Current.Sfx,enabled,Current.Video));
+        public void SetAudio(float master,float music,float sfx) => Update(new SettingsSnapshot(master,music,sfx,Current.Shake,Current.Video,Current.MouseMovement));
+        public void SetShake(bool enabled) => Update(new SettingsSnapshot(Current.Master,Current.Music,Current.Sfx,enabled,Current.Video,Current.MouseMovement));
+        public void SetMouseMovement(bool enabled) => Update(new SettingsSnapshot(Current.Master,Current.Music,Current.Sfx,Current.Shake,Current.Video,enabled));
         public void SetCandidate(VideoMode mode)
         { if(PreviewState!=VideoPreviewState.Idle)return;Candidate=mode??throw new ArgumentNullException(nameof(mode));Notify(); }
         public Task ApplyVideoAsync()

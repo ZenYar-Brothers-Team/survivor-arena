@@ -7,16 +7,17 @@ namespace Game.Settings
         public float Music { get; }
         public float Sfx { get; }
         public bool Shake { get; }
+        public bool MouseMovement { get; }
         public VideoMode Video { get; }
-        public SettingsSnapshot(float master, float music, float sfx, bool shake, VideoMode video)
+        public SettingsSnapshot(float master, float music, float sfx, bool shake, VideoMode video, bool mouseMovement = false)
         {
             NumericValidation.ValidateRange(master, 0, 1, nameof(master));
             NumericValidation.ValidateRange(music, 0, 1, nameof(music));
             NumericValidation.ValidateRange(sfx, 0, 1, nameof(sfx));
-            Master = master; Music = music; Sfx = sfx; Shake = shake;
+            Master = master; Music = music; Sfx = sfx; Shake = shake; MouseMovement = mouseMovement;
             Video = video ?? throw new System.ArgumentNullException(nameof(video));
         }
-        public SettingsSnapshot WithVideo(VideoMode mode) => new SettingsSnapshot(Master, Music, Sfx, Shake, mode);
+        public SettingsSnapshot WithVideo(VideoMode mode) => new SettingsSnapshot(Master, Music, Sfx, Shake, mode, MouseMovement);
         public float Gain(bool music, float sourceGain = 1)
         { NumericValidation.ValidateRange(sourceGain, 0, 1, nameof(sourceGain)); return Master * (music ? Music : Sfx) * sourceGain; }
     }

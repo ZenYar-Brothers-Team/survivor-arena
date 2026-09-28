@@ -7,6 +7,7 @@ using Game.Presentation;
 using Game.Progression;
 using Game.Run;
 using Game.UI;
+using Game.Movement;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,43 @@ namespace Game.Bootstrap.PlayModeTests
 {
     public sealed class GameplaySmokeTests
     {
+        [UnityTest]
+        public IEnumerator GameplayInput_MouseMovementAndManualPauseToggle_Work()
+        {
+            ProfileSmokeScene.Load();
+            yield return null;
+            yield return null;
+            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            CharacterSelectionSmokeDriver.StartDefault(root);
+            yield return null;
+            var run = Object.FindAnyObjectByType<RunController>();
+            var player = Object.FindAnyObjectByType<PlayerCharacterRuntime>();
+            var pointerScreen = Vector2.zero;
+            try
+            {
+                root.SendMessage("ToggleManualPauseFromShortcut");
+                Assert.IsTrue(run.Model.IsPausedBy(RunPauseReasons.Manual));
+                root.SendMessage("ToggleManualPauseFromShortcut");
+                Assert.AreEqual(RunState.Running, run.Model.State);
+
+                root.Settings.SetMouseMovement(true);
+                var playerScreen = Camera.main.WorldToScreenPoint(player.transform.position);
+                pointerScreen = new Vector2(playerScreen.x + 300f, playerScreen.y);
+                player.GetComponent<PlayerMover>().ConfigureMouseMovement(() => true, Camera.main, 1f, () => pointerScreen);
+                yield return new WaitForFixedUpdate();
+                Assert.Greater(player.GetComponent<Rigidbody2D>().linearVelocity.x, 0f);
+
+                playerScreen = Camera.main.WorldToScreenPoint(player.transform.position);
+                pointerScreen = new Vector2(playerScreen.x, playerScreen.y);
+                yield return new WaitForFixedUpdate();
+                Assert.AreEqual(Vector2.zero, player.GetComponent<Rigidbody2D>().linearVelocity);
+            }
+            finally
+            {
+                if (run != null && run.IsInitialized) run.Shutdown();
+            }
+        }
+
         [UnityTest]
         public IEnumerator HudSpeed_PauseAndEnd_RestoresUnityTimeScale()
         {

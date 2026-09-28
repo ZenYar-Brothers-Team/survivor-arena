@@ -3,6 +3,8 @@
   "music": 0.6,
   "sfx": 0.8,
   "shake": true,
+  "mouseMovement": false,
+  "mouseDeadzoneWorldUnits": 1.0,
   "safeWidth": 1280,
   "safeHeight": 720,
   "confirmSeconds": 10,

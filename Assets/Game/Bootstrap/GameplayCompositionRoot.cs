@@ -359,6 +359,11 @@ namespace Game.Bootstrap
             // Shutdown() before the exception propagates, so a failed composition
             // never leaves some subsystems live-subscribed and others untouched.
             if (!runController.IsInitialized) runController.Initialize();
+            if (Settings != null)
+            {
+                _settingsConfig ??= SettingsConfig.Load();
+                player.GetComponent<PlayerMover>()?.ConfigureMouseMovement(() => Settings.Current.MouseMovement, Camera.main, _settingsConfig.MouseDeadzoneWorldUnits);
+            }
             var initializedSubsystems = new List<Action>();
             try
             {
@@ -581,14 +586,22 @@ namespace Game.Bootstrap
             if (Playtest is PlaytestSession session) session.Tick();
             Settings?.Tick(Time.realtimeSinceStartupAsDouble);
             _notifications?.Tick(Time.unscaledDeltaTime, IsInitialized && runController.Model.State == RunState.Paused);
-            if (Keyboard.current?.escapeKey.wasPressedThisFrame != true) return;
-            if (_shellPresenter?.SettingsOpen == true) { _shellPresenter.Back(); return; }
-            if (AtCharacterSelection) { MainMenu(); return; }
-            if (IsInitialized)
+            if (Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             {
-                if (AtManualPause) runController.Model.Resume();
-                else if (runController.Model.State == RunState.Running) runController.Model.Pause();
+                if (_shellPresenter?.SettingsOpen == true) { _shellPresenter.Back(); return; }
+                if (AtCharacterSelection) { MainMenu(); return; }
+                ToggleManualPauseFromShortcut();
+                return;
             }
+            if (Keyboard.current?.spaceKey.wasPressedThisFrame == true || Mouse.current?.rightButton.wasPressedThisFrame == true)
+                ToggleManualPauseFromShortcut();
+        }
+
+        private void ToggleManualPauseFromShortcut()
+        {
+            if (!IsInitialized || _shellPresenter?.SettingsOpen == true) return;
+            if (runController.Model.State == RunState.Running || AtManualPause)
+                runController.TogglePause();
         }
 
         /// <summary>Captures the run, then unwinds consumers before their producers. Idempotent.</summary>

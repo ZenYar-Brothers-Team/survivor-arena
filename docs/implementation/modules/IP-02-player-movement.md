@@ -4,7 +4,7 @@
 
 ## Существующая база и характер изменения
 
-Сохранить текущие movement/camera/player-only collision contracts. Новые механики не требуют повторно проектировать движение.
+Сохранить текущие movement/camera/player-only collision contracts. [DECISION-0084](../../decisions/0084-mouse-movement-and-pause-shortcuts.md) добавляет опциональный pointer input без изменения скорости, физики и collision ownership.
 
 Разрешённый опыт [DECISION-0039](../../decisions/0039-conservative-body-contact-circles.md) заменяет player box кругом внутри текущего goblin body. Root остаётся authoritative центром движения/физики; IP-12A смещает visual относительно него. Проверки и границы: [evidence](../evidence/2026-09-22-body-contact-circles.md).
 
@@ -22,7 +22,7 @@ GDD «Управление, бой и выживание», «Поля»; Conten
 
 ## Scope
 
-Movement input, configurable speed, spawn, field bounds и ordinary obstacles только для player; orthographic follow без задержки и screen offset. Предоставлять authoritative movement/direction новым skills; forced displacement исполняется через согласованный motion boundary IP-05, не через sprite pose.
+Keyboard input остаётся default. При включённой сохраняемой настройке mouse input — нормализованное направление player→pointer вне круглой deadzone 1 world unit, ноль внутри/на границе; distance не масштабирует скорость. Далее общий configurable speed, spawn, field bounds и ordinary obstacles только для player; orthographic follow без задержки и screen offset. Предоставлять authoritative movement/direction новым skills; forced displacement исполняется через согласованный motion boundary IP-05, не через sprite pose.
 
 ## Out of Scope
 
@@ -30,7 +30,7 @@ Production layouts, character collider resizing по изображению, cam
 
 ## Acceptance criteria
 
-Направления и скорость корректны; pause/end прекращают движение; camera сохраняет depth и центр player. Enemy/projectile/XP проходят ordinary geometry. Подключение knockback не меняет этот collision contract.
+Keyboard и mouse направления/скорость корректны; pointer deadzone останавливает; pause/end прекращают input movement; camera сохраняет depth и центр player. Enemy/projectile/XP проходят ordinary geometry. Подключение knockback не меняет этот collision contract.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -40,7 +40,7 @@ Gameplay fixture, player position/direction и camera observations; отдель
 
 ## Проверки
 
-Сохранить existing movement/bounds/camera tests; cross-check forced displacement в IP-05 и camera presentation в IP-26. Текстовые ссылки сами по себе не требуют повторной полной верификации.
+Сохранить existing movement/bounds/camera tests; добавить deadzone/direction unit tests и composed PlayMode mouse-input regression; cross-check forced displacement в IP-05 и camera presentation в IP-26.
 
 ## Документационные изменения
 

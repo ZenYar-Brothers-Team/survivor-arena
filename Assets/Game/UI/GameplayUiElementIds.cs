@@ -20,6 +20,7 @@ namespace Game.UI
         public const string SettingsMusic = "SettingsMusic";
         public const string SettingsSfx = "SettingsSfx";
         public const string SettingsShake = "SettingsShake";
+        public const string SettingsMouseMovement = "SettingsMouseMovement";
         public const string SettingsWindow = "SettingsWindow";
         public const string SettingsResolution = "SettingsResolution";
         public const string SettingsApply = "SettingsApply";
@@ -75,6 +76,7 @@ namespace Game.UI
         public const string PlaytestMarker = "playtest-marker";
         public const string PlaytestExport = "playtest-export";
         public const string CardIcon = "card-icon";
+        public const string CardType = "card-type";
         public const string CardTitle = "card-title";
         public const string CardSummary = "card-summary";
         public const string CardStatus = "card-status";

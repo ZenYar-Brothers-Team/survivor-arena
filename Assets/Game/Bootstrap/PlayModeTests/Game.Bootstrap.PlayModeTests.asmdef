@@ -20,7 +20,8 @@
     "Game.Telemetry",
     "Newtonsoft.Json",
     "Game.Meta",
-    "Game.Settings"
+    "Game.Settings",
+    "Game.Movement"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

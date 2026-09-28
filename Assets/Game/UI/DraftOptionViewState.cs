@@ -13,10 +13,11 @@ namespace Game.UI
         public bool IsEnabled { get; }
         public Sprite Icon { get; }
         public bool IsSet { get; }
+        public string TypeLabel { get; }
         public IReadOnlyList<RecipeProjectionViewState> Recipes { get; }
 
         public DraftOptionViewState(ContentId id, string title, string detail, bool isEnabled = true, Sprite icon = null, bool isSet = false,
-            IReadOnlyList<RecipeProjectionViewState> recipes = null)
+            IReadOnlyList<RecipeProjectionViewState> recipes = null, string typeLabel = "")
         {
             Id = id;
             Icon = icon;
@@ -25,6 +26,7 @@ namespace Game.UI
             IsEnabled = isEnabled;
             Title = title ?? throw new ArgumentNullException(nameof(title));
             Detail = detail ?? throw new ArgumentNullException(nameof(detail));
+            TypeLabel = typeLabel ?? string.Empty;
         }
     }
 }

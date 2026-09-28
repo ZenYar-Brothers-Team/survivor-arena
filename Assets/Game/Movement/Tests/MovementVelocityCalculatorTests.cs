@@ -48,5 +48,19 @@ namespace Game.Movement.Tests
             Assert.AreEqual(3f, normal.magnitude, 0.0001f);
             Assert.AreEqual(4.5f, modified.magnitude, 0.0001f);
         }
+
+        [Test]
+        public void DirectionFromPointer_InsideDeadzone_ReturnsZero()
+        {
+            Assert.AreEqual(Vector2.zero, MovementVelocityCalculator.DirectionFromPointer(new Vector2(2f, 3f), new Vector2(2.5f, 3f), 1f));
+        }
+
+        [Test]
+        public void DirectionFromPointer_OutsideDeadzone_ReturnsNormalizedDirection()
+        {
+            var direction = MovementVelocityCalculator.DirectionFromPointer(Vector2.zero, new Vector2(3f, 4f), 1f);
+
+            Assert.AreEqual(new Vector2(.6f, .8f), direction);
+        }
     }
 }

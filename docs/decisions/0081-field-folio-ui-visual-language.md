@@ -38,3 +38,7 @@ Supersedes: простые placeholder/shapes как целевое оформл
   capture-matrix или manual visual acceptance gates IP-26/IP-27.
 - Общие визуальные правила принадлежат Art Direction; screen composition — UI/UX;
   execution status остаётся только в STATUS.
+- Review 2026-09-28 подтвердил стиль, но не геометрию первого прохода. Текущая
+  UXML/USS-раскладка не становится эталоном; player/DEV и расположение HP уточнены
+  в [DECISION-0083](0083-player-ui-layout-and-dev-boundary.md). Стилевой проход
+  на fixture-кадрах не закрывает production-layout acceptance.

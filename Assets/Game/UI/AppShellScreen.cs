@@ -14,7 +14,7 @@ namespace Game.UI
         public UIDocument Document { get; }
         public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         public event Action<float,float,float> Audio;
-        public event Action<bool> Shake, Preview;
+        public event Action<bool> Shake, MouseMovement, Preview;
         public event Action<VideoMode> Video;
         private T Q<T>(string id) where T:VisualElement => Document.rootVisualElement.Q<T>(id);
         public AppShellScreen(Transform parent)
@@ -39,6 +39,7 @@ namespace Game.UI
             foreach(var id in new[]{GameplayUiElementIds.SettingsMaster,GameplayUiElementIds.SettingsMusic,GameplayUiElementIds.SettingsSfx})
                 Q<Slider>(id).RegisterValueChangedCallback(_=>Audio?.Invoke(Q<Slider>(GameplayUiElementIds.SettingsMaster).value/100,Q<Slider>(GameplayUiElementIds.SettingsMusic).value/100,Q<Slider>(GameplayUiElementIds.SettingsSfx).value/100));
             Q<Toggle>(GameplayUiElementIds.SettingsShake).RegisterValueChangedCallback(e=>Shake?.Invoke(e.newValue));
+            Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).RegisterValueChangedCallback(e=>MouseMovement?.Invoke(e.newValue));
             Q<Toggle>(GameplayUiElementIds.SettingsWindow).RegisterValueChangedCallback(e=>
                 Video?.Invoke(e.newValue?_state.SafeWindow:_state.Desktop));
             Q<DropdownField>(GameplayUiElementIds.SettingsResolution).RegisterValueChangedCallback(e=> { var mode=_state.Modes.FirstOrDefault(m=>m.ToString()==e.newValue); if(mode!=null)Video?.Invoke(mode); });
@@ -57,6 +58,7 @@ namespace Game.UI
             Q<Slider>(GameplayUiElementIds.SettingsMusic).SetValueWithoutNotify(state.Values.Music*100);
             Q<Slider>(GameplayUiElementIds.SettingsSfx).SetValueWithoutNotify(state.Values.Sfx*100);
             Q<Toggle>(GameplayUiElementIds.SettingsShake).SetValueWithoutNotify(state.Values.Shake);
+            Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).SetValueWithoutNotify(state.Values.MouseMovement);
             Q<Toggle>(GameplayUiElementIds.SettingsWindow).SetValueWithoutNotify(!state.Candidate.Borderless);
             var resolution=Q<DropdownField>(GameplayUiElementIds.SettingsResolution); resolution.choices=state.Modes.Select(m=>m.ToString()).ToList(); resolution.SetValueWithoutNotify(state.Candidate.ToString()); resolution.SetEnabled(!state.Candidate.Borderless&&!state.Busy&&!state.Confirming);
             Q<Toggle>(GameplayUiElementIds.SettingsWindow).SetEnabled(!state.Busy&&!state.Confirming);
@@ -65,7 +67,7 @@ namespace Game.UI
             Visible(GameplayUiElementIds.SettingsKeep,state.Confirming); Visible(GameplayUiElementIds.SettingsRevert,state.Confirming);
             Q<Label>(GameplayUiElementIds.ShellNotification).text=state.Notification;
             Visible(GameplayUiElementIds.ShellNotification,!string.IsNullOrEmpty(state.Notification)&&!state.Settings);
-            Q<Label>(GameplayUiElementIds.SettingsMessage).text=state.Message; Q<Label>(GameplayUiElementIds.SettingsBindings).text="Movement: "+state.Bindings;
+            Q<Label>(GameplayUiElementIds.SettingsMessage).text=state.Message; Q<Label>(GameplayUiElementIds.SettingsBindings).text="Movement: "+state.Bindings+"\nPause: Escape, Space, Right Mouse Button";
             Q<Label>(GameplayUiElementIds.SettingsVideoStatus).text=state.VideoStatus;
         }
         public void Dispose()

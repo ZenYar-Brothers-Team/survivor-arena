@@ -16,6 +16,7 @@
     <ui:Slider name="SettingsSfx" label="SFX" low-value="0" high-value="100" show-input-field="true" />
     <ui:VisualElement class="shell-row"><ui:Button name="SettingsMusicPreview" text="Test Music" /><ui:Button name="SettingsSfxPreview" text="Test SFX" /></ui:VisualElement>
     <ui:Toggle name="SettingsShake" label="Screen Shake" />
+    <ui:Toggle name="SettingsMouseMovement" label="Mouse movement" />
     <ui:Label name="SettingsBindings" />
     <ui:Toggle name="SettingsWindow" label="Windowed (off: borderless desktop)" />
     <ui:DropdownField name="SettingsResolution" label="Resolution" />

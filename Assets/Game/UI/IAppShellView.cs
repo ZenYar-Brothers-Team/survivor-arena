@@ -6,7 +6,7 @@ namespace Game.UI
     {
         event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         event Action<float, float, float> Audio;
-        event Action<bool> Shake, Preview;
+        event Action<bool> Shake, MouseMovement, Preview;
         event Action<VideoMode> Video;
         void Render(AppShellViewState state);
     }

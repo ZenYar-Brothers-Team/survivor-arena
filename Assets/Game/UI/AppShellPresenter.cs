@@ -16,7 +16,7 @@ namespace Game.UI
             navigation.NavigationChanged+=Refresh; settings.Changed+=Refresh;
             view.Play+=Play; view.Meta+=Meta; view.Settings+=Open; view.Exit+=Exit; view.MainMenu+=Menu; view.Quit+=Quit;
             view.Back+=Back; view.Apply+=Apply; view.Keep+=Keep; view.Revert+=Revert; view.Save+=Save;
-            view.Audio+=Audio; view.Shake+=Shake; view.Preview+=Preview; view.Video+=Video; view.DevelopmentUnlockAll+=UnlockAll; view.DevelopmentReset+=ResetProgress;
+            view.Audio+=Audio; view.Shake+=Shake; view.MouseMovement+=MouseMovement; view.Preview+=Preview; view.Video+=Video; view.DevelopmentUnlockAll+=UnlockAll; view.DevelopmentReset+=ResetProgress;
             Refresh();
         }
         private void Play() { if(!SettingsOpen&&_navigation.CanPlay)_navigation.Play(); }
@@ -47,6 +47,7 @@ namespace Game.UI
         private async void Save() => await _settings.SaveAsync();
         private void Audio(float master,float music,float sfx) => _settings.SetAudio(master,music,sfx);
         private void Shake(bool enabled) => _settings.SetShake(enabled);
+        private void MouseMovement(bool enabled) => _settings.SetMouseMovement(enabled);
         private void Preview(bool music) => _audio.Preview(music);
         private void Video(VideoMode mode) => _settings.SetCandidate(mode);
         public void Refresh()
@@ -65,7 +66,7 @@ namespace Game.UI
             _audio.StopPreviews(); _navigation.NavigationChanged-=Refresh; _settings.Changed-=Refresh;
             _view.Play-=Play; _view.Meta-=Meta; _view.Settings-=Open; _view.Exit-=Exit; _view.MainMenu-=Menu; _view.Quit-=Quit;
             _view.Back-=Back; _view.Apply-=Apply; _view.Keep-=Keep; _view.Revert-=Revert; _view.Save-=Save;
-            _view.Audio-=Audio; _view.Shake-=Shake; _view.Preview-=Preview; _view.Video-=Video; _view.DevelopmentUnlockAll-=UnlockAll; _view.DevelopmentReset-=ResetProgress;
+            _view.Audio-=Audio; _view.Shake-=Shake; _view.MouseMovement-=MouseMovement; _view.Preview-=Preview; _view.Video-=Video; _view.DevelopmentUnlockAll-=UnlockAll; _view.DevelopmentReset-=ResetProgress;
         }
     }
 }

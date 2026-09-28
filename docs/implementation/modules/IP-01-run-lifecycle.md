@@ -22,6 +22,8 @@ GDD «Структура забега и условия завершения», 
 
 Start/running/pause/resume/won/lost, pause reasons, simulation clock; immutable run identity/terminal snapshot и приём вкладов владельцев kills/XP/build в минимальный RunOutcome. Contract reset/teardown для следующего run; aborted/retry/error — причины завершения session report, не новые gameplay victories и не правила наград. Producer contracts не требуют dependencies на gameplay consumers или exporter.
 
+Manual input по [DECISION-0084](../../decisions/0084-mouse-movement-and-pause-shortcuts.md): Escape, Space и right mouse переключают только reason `manual`; draft/system ownership shortcut не снимает.
+
 ## Out of Scope
 
 Rewards/economy, full navigation, diagnostic file export, deterministic replay, право на награду за Quit.

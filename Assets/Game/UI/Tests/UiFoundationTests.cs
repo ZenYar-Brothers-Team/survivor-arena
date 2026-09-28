@@ -43,6 +43,22 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void DraftCard_TypeLabel_UsesSemanticElementAndVisualClass()
+        {
+            var active = new DraftCard(new DraftOptionViewState(
+                new ContentId("FIXTURE-ACTIVE"), "Active fixture", "New", typeLabel: "Active"), null);
+            var passive = new DraftCard(new DraftOptionViewState(
+                new ContentId("FIXTURE-PASSIVE"), "Passive fixture", "New", typeLabel: "Passive"), null);
+            var set = new DraftCard(new DraftOptionViewState(
+                new ContentId("FIXTURE-SET"), "Set fixture", "New", isSet: true, typeLabel: "Set"), null);
+
+            Assert.AreEqual("ACTIVE", active.Q<Label>(GameplayUiElementIds.CardType).text);
+            Assert.IsTrue(active.ClassListContains("draft-type-active"));
+            Assert.IsTrue(passive.ClassListContains("draft-type-passive"));
+            Assert.IsTrue(set.ClassListContains("draft-type-set"));
+        }
+
+        [Test]
         public void ContentCard_LockedSelected_UsesIndependentStates()
         {
             var card = new ContentCard(new ContentCardViewState("Fixture", "Unlock condition", isSelected: true, isLocked: true));
@@ -74,6 +90,10 @@ namespace Game.UI.Tests
             Assert.IsTrue(titles.Exists(label => label.text == "Fulfilled"));
             Assert.IsTrue(titles.Exists(label => label.text == "Partial threshold"));
             Assert.IsFalse(titles.Exists(label => label.text == "No progress" || label.text == "Acquired"));
+            var pauseBuild = root.Q(GameplayUiElementIds.PauseBuild);
+            Assert.AreEqual(4, pauseBuild.Query<Label>(className: "pause-section-title").ToList().Count);
+            Assert.IsNotNull(pauseBuild.Q(className: "pause-build-grid-active"));
+            Assert.IsNotNull(pauseBuild.Q(className: "pause-build-grid-passive"));
         }
 
         [Test]

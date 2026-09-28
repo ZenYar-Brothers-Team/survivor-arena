@@ -41,7 +41,8 @@
 - Отдельные Character Select portraits, meta currency art, meta-upgrade icons и pickup UI icons не входят в обязательный backlog, пока существующий body/world sprite либо обычный UI достаточно хорошо выполняет роль.
 - Store/marketing art остаётся отдельным поздним слоем и не считается недостающим gameplay art.
 - UI visual language «Полевой фолиант» утверждён в DECISION-0081. Его первый
-  production pass собирается темой UI Toolkit, типографикой, формами и уже
+  production pass начинается с композиции и информационной иерархии по UI/UX,
+  затем собирается темой UI Toolkit, типографикой, формами и уже
   подготовленными иконками; он не открывает автоматический backlog raster-рамок,
   portraits или декоративных menu backgrounds. Целевой review slice —
   HUD → Draft → Pause / Build.
@@ -525,6 +526,13 @@ Method: \`Generate via GPT\`.
 \- Retry — обычная кнопка; отдельного confirmation screen/art нет. Нажатие сразу запускает новый run с теми же character и field.  
 \- Reroll/Banish могут быть обычными текстовыми кнопками с простым icon только при необходимости; отдельные generated icons не обязательны.  
 \- Set recipe readability строится прежде всего на существующих skill/passive/set icons \+ text/checkmarks, а не на дополнительных уникальных картинках.
+
+По [DECISION-0083](../decisions/0083-player-ui-layout-and-dev-boundary.md) style
+approval не утверждает временный layout. Чистовой review использует production
+иконки, настоящий текст и игровое поле; отдельный fixture long-text capture
+не заменяет review. Player HP расположен возле персонажа, speed controls
+исключены из player-facing композиции. Планы работ — в IP-10A/IP-26, статус —
+только в STATUS.
 
 \---
 

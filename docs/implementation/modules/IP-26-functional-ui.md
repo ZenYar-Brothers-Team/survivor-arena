@@ -6,6 +6,10 @@
 
 Functional shell объединяет существующие feature-owned экраны и результаты IP-25. Production content/art остаются у catalog IP; fixture flow использует те же runtime boundaries.
 
+Существующие действия и переходы сохраняются при чистовом проходе. Геометрия
+прототипа не является принятой композицией: layout, пропорции, плотность текста
+и presentation variants пересматриваются по UI/UX и DECISION-0083.
+
 ## Зависимости
 
 [IP-01](IP-01-run-lifecycle.md), [IP-10A](IP-10A-ui-foundation.md), [IP-11](IP-11-set-framework.md), [IP-12](IP-12-character-framework.md), [IP-15](IP-15-boss-framework.md), [IP-16](IP-16-field-framework.md), [IP-25](IP-25-meta-progression.md), [IP-28](IP-28-world-pickups.md), [IP-29](IP-29-traveler-framework.md), [IP-12A](IP-12A-visual-presentation-foundation.md).
@@ -21,11 +25,11 @@ Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-di
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-UI §§1–5,11–23 полностью; новые GDD core loop/run/XP/build/sets/fields/characters/meta/Travelers; только отображаемые production cards и profile metadata; DECISION-0005. IP-10A owns reusable cards/HUD/build, IP-26 owns settings, feature modules own boss/Traveler/Book state.
+UI §§1–5,11–23 полностью и §§6–10 для совместного layout review с IP-10A; новые GDD core loop/run/XP/build/sets/fields/characters/meta/Travelers; только отображаемые production cards и profile metadata; DECISION-0005/0081/0083. IP-10A owns reusable cards/HUD/build, IP-26 owns settings, feature modules own boss/Traveler/Book state.
 
 ## Scope
 
-Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-up/Book drafts; Pause/Build→Resume/Settings/Quit; Victory/Defeat→Results; Retry немедленно с теми же character/field, Main Menu, meta purchases. Results: outcome/time/level/kills/currency/sets/unlocks; top-3 skills by damage только при доступной корректной attribution IP-31, без обязательного отдельного analytics screen. В этом же IP находятся basic Settings: persisted Master/Music/SFX, resolution/window mode, current movement keys, Screen Shake toggle. Поставить минимальные рабочие audio routing endpoints/preview и presentation consumer shake, не декоративные controls. Внутренние этапы shell→settings→full navigation являются checklist одного IP, не отдельными execution statuses.
+Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-up/Book drafts; Pause/Build→Resume/Settings/Quit; Victory/Defeat→Results; Retry немедленно с теми же character/field, Main Menu, meta purchases. Results: outcome/time/level/kills/currency/sets/unlocks; top-3 skills by damage только при доступной корректной attribution IP-31, без обязательного отдельного analytics screen. В этом же IP находятся basic Settings: persisted Master/Music/SFX, resolution/window mode, current movement keys, Screen Shake toggle и Mouse movement toggle (default Off). Поставить минимальные рабочие audio routing endpoints/preview и presentation consumer shake, не декоративные controls. Escape/Space/right mouse переключают только manual pause по [DECISION-0084](../../decisions/0084-mouse-movement-and-pause-shortcuts.md). Внутренние этапы shell→settings→full navigation являются checklist одного IP, не отдельными execution statuses.
 
 ## Out of Scope
 
@@ -45,6 +49,14 @@ Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-
 
 fresh/existing profile happy/death/level-up/Book/pause/settings/quit/retry/unlock/purchase paths, double-click/idempotency, long text/empty lists, alternate supported resolution; PlayMode full flow плюс ручной 1920×1080 review. Preference validation/fake store, channel isolation, input binding display, manual video apply/revert/fullscreen/audio/shake; release/no-recorder Results.
 
+Visual acceptance первого среза: production поле/иконки/текст, HUD с HP возле
+героя без speed controls, level-up и Book, Pause со всеми Resume/Settings/Quit,
+начальный и заполненный билд, 1920×1080 и 1280×720. Fixture harness не заменяет
+production composition. Проверять отдельные hover/focus/pressed/disabled/selected
+состояния, кириллицу и читаемость; один статичный кадр не доказывает всю матрицу.
+По DECISION-0085 в player-facing карточках/подробностях нет абсолютного базового
+урона; damage upgrades показываются процентами без изменения gameplay values.
+
 ## Документационные изменения
 
 complete UI flow и semantic IDs; явно разграничить IP-10A/IP-26/feature-owned slices, обязательный art binding и отложенный polish. Старый blanket Out of Scope «audio/settings» не скрывает утверждённый Settings scope — его реализует IP-26. Settings persistence и service ownership документируются здесь; production soundtrack/SFX library не добавляется.
@@ -55,8 +67,26 @@ G-15 resolved по DECISION-0037: Quit→Results, reward/save/error ordering. G-
 
 UI visual language resolved по [DECISION-0081](../../decisions/0081-field-folio-ui-visual-language.md):
 «Полевой фолиант», умеренная декоративность, утверждённые palette/type/state/motion
-defaults. Реализация и ручная приёмка vertical slice HUD → Draft → Pause / Build
-остаются отдельным production gate и не закрыты одним approval документа.
+defaults. Layout, DEV-only скорость и player HP уточняются
+[DECISION-0083](../../decisions/0083-player-ui-layout-and-dev-boundary.md).
+Постоянное длинное поле описания не является утверждённым обязательным элементом;
+замена контекстной подачей предложена в [layout R2](../proposals/2026-09-28-ui-layout-r2.md).
+Выполнение и применимость evidence определяет только STATUS.
+
+### Последовательность чистового UI-прохода
+
+1. Определить player/DEV и primary/secondary information на реальном контенте.
+2. Подготовить композицию HUD → Draft → Pause / Build в двух целевых разрешениях;
+   layout не выводится из существующих размеров UXML/USS.
+3. Реализовать выбранную композицию и контекстные details в границах View/presenter,
+   затем применить общую тему; учесть совместный footer Pause и AppShell.
+4. Проверить production screenshots и input/state/release матрицу вместе с IP-10A/IP-27.
+5. После visual acceptance среза переработать Main Menu/selection, Results/Meta,
+   Settings: для каждого сначала композиция, затем тема. Общие CSS-подобные селекторы
+   не должны случайно менять ещё не переработанные экраны.
+
+Это checklist scope, не вторая execution queue. Текущая работа, gates и порядок
+исполнения находятся в [STATUS](../STATUS.md).
 
 ## Потребители
 

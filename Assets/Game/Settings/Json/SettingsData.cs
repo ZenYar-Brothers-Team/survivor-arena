@@ -1,6 +1,6 @@
 namespace Game.Settings
 {
-    /// <summary>Persisted schema v1. Nullable fields reject incomplete documents rather than silently using defaults.</summary>
+    /// <summary>Persisted schema v2. Nullable fields reject incomplete documents rather than silently using defaults.</summary>
     public sealed class SettingsData
     {
         public int? SchemaVersion { get; set; }
@@ -8,6 +8,7 @@ namespace Game.Settings
         public float? Music { get; set; }
         public float? Sfx { get; set; }
         public bool? Shake { get; set; }
+        public bool? MouseMovement { get; set; }
         public int? Width { get; set; }
         public int? Height { get; set; }
         public bool? Borderless { get; set; }

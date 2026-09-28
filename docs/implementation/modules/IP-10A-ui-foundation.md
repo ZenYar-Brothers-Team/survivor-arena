@@ -16,13 +16,20 @@
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
-UI §§1,6–10,14,19–23; GDD только отображаемые run/HP/XP/build/draft rules; DECISION-0005; GameplayUiPresenter/ViewState/UXML/USS, semantic ID tests.
+UI §§1,6–10,14,19–23; GDD только отображаемые run/HP/XP/build/draft rules; DECISION-0005/0081/0083; GameplayUiPresenter/ViewState/UXML/USS, semantic ID tests. Для layout review — [предложение R2](../proposals/2026-09-28-ui-layout-r2.md), не источник новых утверждённых product rules.
 
 ## Scope
 
-Reusable DraftCard/ContentCard/details, icon references, current→next-level/effect text, recipe projection rendering contract, normal/hover/pressed/disabled/selected/locked states. Elapsed HUD 00:00→15:00, compact 6+6 icons/acquired sets, Pause/Build layout, nonblocking notifications. Fixture states including Book/sets/locked do not require full feature implementation. Preserve bounded collapsed DEV and lightweight changed-state rebuild.
+Reusable DraftCard/ContentCard/details, icon references, current→next-level/effect text, recipe projection rendering contract, normal/hover/focus/pressed/disabled/selected/locked states. HUD countdown 15:00→00:00 по DECISION-0069, player HP возле персонажа по DECISION-0083, compact 6+6 icons/acquired sets, Pause/Build layout, nonblocking notifications. Fixture states including Book/sets/locked do not require full feature implementation. Preserve bounded collapsed DEV and lightweight changed-state rebuild.
 
-HUD предоставляет игроку выбор скорости 1×/2×/3×/5× через presenter intent и run owner. Выбор действует только во время Running, сохраняется через pause, возвращается к 1× после завершения/выхода и при новом забеге. Активная скорость видна в HUD.
+Скорость 1×/2×/3×/5× — только DEV drawer в Editor/Development Build, через
+presenter intent и run owner. Выбор действует только во время Running,
+сохраняется через pause, возвращается к 1× после завершения/выхода и при новом
+забеге. Non-development UI не показывает controls и не принимает speed intents.
+
+Layout и информационная иерархия проектируются отдельно от темы. Поддержать
+краткую основную подачу и полный доступ к подробностям; существующая нижняя
+scroll area и размеры карточек не являются обязательной геометрией.
 
 ## Out of Scope
 
@@ -32,6 +39,15 @@ Gameplay rule ownership, final image generation, settings services/full navigati
 
 View не вычисляет gameplay eligibility/recipes. Renderer корректен для 0/1/2/3 cards, empty/max/long-text states; projected≠current и fulfilled≠acquired различаются. Click не выдаёт два intent. HUD tooltip не перехватывает movement input; в Draft/Build действует обычная pause policy. Детали не скрывают обязательный выбор. Semantic IDs стабильны или мигрированы вместе с assets/tests. DEV gated и bounds≤25%×45% reference viewport.
 
+Player HP следует за персонажем при движении/camera follow/shake; нет отдельного
+постоянного HP bar по краю экрана. Pause сохраняет current/max HP. Death/retry
+не оставляют anchor старого персонажа. Release UI не вызывает speed changes.
+Краткий текст содержит существенный эффект выбора; сокращение не теряет
+значимые числа/единицы/изменения и доступ к полным рецептам.
+Исключение presentation по DECISION-0085: абсолютный базовый damage не выводится
+в карточках/details; прибавки урона — в процентах. Сохранённый процент урона
+рикошета не превращается в bonus. Числа модели/баланс остаются прежними.
+
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
 ## UI / observability
@@ -40,7 +56,11 @@ View не вычисляет gameplay eligibility/recipes. Renderer коррек
 
 ## Проверки
 
-Presenter fake model/view, UXML/USS IDs, PlayMode geometry/focus/queued drafts; manual 1920×1080 и минимальный поддерживаемый resolution/long labels. Projections не меняют build.
+Presenter fake model/view, UXML/USS IDs, PlayMode geometry/focus/queued drafts;
+release visibility/DEV intent gating, player HP anchoring/lifecycle; manual
+1920×1080 и 1280×720 с production-текстом, иконками и игровым фоном. Projections
+не меняют build. Long-text/empty-icon fixtures остаются стресс-проверкой;
+assertions не закрепляют старые координаты или обязательное расположение details снизу.
 
 ## Документационные изменения
 
@@ -55,9 +75,15 @@ Component/state/semantic contracts, approved UI section links, dependency consum
 - `BuildSlotViewState` / `SetBuildViewState`: compact HUD references и подробности Pause/Build. `SetRecipeProgressViewState.HasProgress` позволяет показывать owned component ниже threshold даже при `FulfilledComponents == 0`; IP-11 supplies semantics. Acquired list отделён от progressed unacquired recipes.
 - `UiNotification`: один nonblocking slot с заменой сообщения и expiry по pause-aware delta. Event selection — producer; foundation связывает level-up/set acquisition и проверяет остальные тексты fake events.
 - Build/character snapshots сохраняют элементы при неизменных данных. Draft revision остаётся authority для пересборки карточек; Banish mode обновляет их в рамках той же revision.
-- HUD slots не focusable. Детали draft находятся под тремя позициями в отдельной scroll area; Pause/Build — grid 6+6 внутри scroll с отдельной Resume.
+- HUD slots не focusable. Подробности Draft доступны по hover/keyboard focus,
+  не скрывают варианты и actions; точную геометрию задаёт UI/UX, а не старый harness.
+  Pause/Build отображает 6+6 и sets; его полная композиция включает Resume и
+  feature-owned Settings/Quit IP-26, с действиями вне scroll.
 - Новые semantic IDs: `card-icon/title/summary/status/more`, `card-recipe-{index}` (локальны внутри card), `draft-details`, `pause-build`, `pause-character`, `hud-notification`. Прежние draft/slot/control IDs сохранены. USS resource — `UI/GameplayUiStyles`, чтобы не выбирать встроенный StyleSheet subasset `GameplayUi.uxml`.
 - `UiFoundationTests` и `UiFoundationSmokeTests` — fake-state harness для 0/1/2/3, empty/max/long labels, Book/set/projection/locked/selected. Проверка layout выполняется при 1920×1080 и 1280×720; последний — lower test viewport, не новый product minimum.
+- Production acceptance выполняется вместе с IP-26: реальные иконки и type labels,
+  правдивый timer, обычный level-up отдельно от Book, заполненный билд и полный
+  AppShell. Синтетические captures не подтверждают этот контракт.
 
 ## Gates и недостающие решения
 

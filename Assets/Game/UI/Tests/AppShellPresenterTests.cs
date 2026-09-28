@@ -48,5 +48,12 @@ namespace Game.UI.Tests
                 if(field.Name.StartsWith("Shell")||field.Name.StartsWith("Settings"))Assert.IsNotNull(tree.Q((string)field.GetValue(null)),field.Name);
             Assert.IsNotNull(Resources.Load<StyleSheet>("UI/AppShellStyles"));
         }
+        [Test] public async Task Settings_MouseMovementToggle_UpdatesPersistedPreference()
+        {
+            var view=new FakeAppShellView();var settings=new SettingsService(SettingsConfig.Load(),new MemorySettingsStore(),new FakeVideoDevice());await settings.LoadAsync();
+            using var presenter=new AppShellPresenter(new FakeAppNavigation(),settings,new FakeAudioPreview(),view);
+            view.OpenSettings();view.SetMouseMovement(true);
+            Assert.IsTrue(settings.Current.MouseMovement);Assert.IsTrue(view.State.Values.MouseMovement);
+        }
     }
 }

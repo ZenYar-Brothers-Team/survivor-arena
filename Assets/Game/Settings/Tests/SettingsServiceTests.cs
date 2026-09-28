@@ -60,5 +60,17 @@ namespace Game.Settings.Tests
             Assert.Throws<ArgumentOutOfRangeException>(()=>new SettingsSnapshot(float.NaN,1,1,true,new VideoMode(1,1,false)));
             Assert.Throws<ArgumentOutOfRangeException>(()=>new VideoMode(0,1,false));
         }
+        [Test] public async Task MouseMovement_DefaultsOff_AndPersistsWhenEnabled()
+        {
+            var store=new MemorySettingsStore();var settings=new SettingsService(SettingsConfig.Load(),store,new FakeVideoDevice());await settings.LoadAsync();
+            Assert.IsFalse(settings.Current.MouseMovement);
+            settings.SetMouseMovement(true);await settings.SaveAsync();
+            Assert.IsTrue(SettingsCodec.Decode(store.Text).MouseMovement);
+        }
+        [Test] public void Decode_VersionOne_MigratesMouseMovementToOff()
+        {
+            const string versionOne="{\"schemaVersion\":1,\"master\":0.8,\"music\":0.6,\"sfx\":0.8,\"shake\":true,\"width\":1920,\"height\":1080,\"borderless\":true}";
+            Assert.IsFalse(SettingsCodec.Decode(versionOne).MouseMovement);
+        }
     }
 }

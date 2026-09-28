@@ -36,6 +36,14 @@ selection→15:00/win и defeat→results/retry работают; boss death н�
 
 full semantic UI contracts, export/save-error feedback telemetry, latest run summary; release build не показывает test controls/log internals.
 
+Совместный visual contract IP-10A/IP-26 по DECISION-0081/0083: player HP возле
+персонажа, speed только в DEV, полная Pause-композиция со всеми actions;
+настоящие тексты/иконки/игровой фон при 1920×1080 и 1280×720. Для каждого capture
+явно указать production или fixture. Успех geometry smoke не заменяет читаемость,
+проверку состояний и layout acceptance на production composition.
+Damage presentation по DECISION-0085: базовые абсолютные числа не появляются
+в cards/details, upgrades остаются процентными; модель/баланс не меняются.
+
 ## Проверки
 
 relevant automated suites, validated imports/references, real 15-minute manual run и targeted density/boss/Traveler/multi-set cases, retry/persistence, metrics sanity и balance diff traceability. Hardware/build и measured budgets записаны рядом с performance evidence.

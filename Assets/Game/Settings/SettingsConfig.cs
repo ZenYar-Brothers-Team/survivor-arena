@@ -11,6 +11,8 @@ namespace Game.Settings
         public float Music { get; }
         public float Sfx { get; }
         public bool Shake { get; }
+        public bool MouseMovement { get; }
+        public float MouseDeadzoneWorldUnits { get; }
         public int SafeWidth { get; }
         public int SafeHeight { get; }
         public float ConfirmSeconds { get; }
@@ -30,6 +32,7 @@ namespace Game.Settings
             NotificationSeconds=Required(d.NotificationSeconds,nameof(d.NotificationSeconds));
             NumericValidation.ValidatePositive(NotificationSeconds,nameof(NotificationSeconds));
             Master=Required(d.Master,nameof(d.Master));Music=Required(d.Music,nameof(d.Music));Sfx=Required(d.Sfx,nameof(d.Sfx));Shake=Required(d.Shake,nameof(d.Shake));
+            MouseMovement=Required(d.MouseMovement,nameof(d.MouseMovement));MouseDeadzoneWorldUnits=Required(d.MouseDeadzoneWorldUnits,nameof(d.MouseDeadzoneWorldUnits));
             SafeWidth=Required(d.SafeWidth,nameof(d.SafeWidth));SafeHeight=Required(d.SafeHeight,nameof(d.SafeHeight));
             ConfirmSeconds=Required(d.ConfirmSeconds,nameof(d.ConfirmSeconds));ApplyWaitSeconds=Required(d.ApplyWaitSeconds,nameof(d.ApplyWaitSeconds));
             ShakeFraction=Required(d.ShakeFraction,nameof(d.ShakeFraction));ShakeSeconds=Required(d.ShakeSeconds,nameof(d.ShakeSeconds));ShakeFrequency=Required(d.ShakeFrequency,nameof(d.ShakeFrequency));
@@ -37,11 +40,12 @@ namespace Game.Settings
             MusicPreviewHz=Required(d.MusicPreviewHz,nameof(d.MusicPreviewHz));SfxPreviewHz=Required(d.SfxPreviewHz,nameof(d.SfxPreviewHz));PreviewGain=Required(d.PreviewGain,nameof(d.PreviewGain));
             _ = Defaults(new VideoMode(SafeWidth,SafeHeight,false));
             NumericValidation.ValidatePositive(ConfirmSeconds,nameof(ConfirmSeconds));NumericValidation.ValidatePositive(ApplyWaitSeconds,nameof(ApplyWaitSeconds));
+            NumericValidation.ValidateRange(MouseDeadzoneWorldUnits,.25f,2f,nameof(MouseDeadzoneWorldUnits));
             NumericValidation.ValidateRange(ShakeFraction,0,.01f,nameof(ShakeFraction));NumericValidation.ValidateRange(ShakeSeconds,.05f,.25f,nameof(ShakeSeconds));NumericValidation.ValidateRange(ShakeFrequency,10,40,nameof(ShakeFrequency));
             NumericValidation.ValidateRange(PreviewSeconds,.05f,2,nameof(PreviewSeconds));NumericValidation.ValidateRange(PreviewSampleRate,8000,48000,nameof(PreviewSampleRate));
             NumericValidation.ValidateRange(MusicPreviewHz,20,PreviewSampleRate/2f,nameof(MusicPreviewHz));NumericValidation.ValidateRange(SfxPreviewHz,20,PreviewSampleRate/2f,nameof(SfxPreviewHz));NumericValidation.ValidateRange(PreviewGain,0,1,nameof(PreviewGain));
         }
-        public SettingsSnapshot Defaults(VideoMode desktop) => new SettingsSnapshot(Master,Music,Sfx,Shake,desktop);
+        public SettingsSnapshot Defaults(VideoMode desktop) => new SettingsSnapshot(Master,Music,Sfx,Shake,desktop,MouseMovement);
         public static SettingsConfig Load() => new SettingsConfig(JsonContentFile.Load<SettingsConfigData>("Content/Settings/SettingsDefaults"));
     }
 }

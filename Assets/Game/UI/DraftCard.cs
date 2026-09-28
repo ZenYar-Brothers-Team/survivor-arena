@@ -13,6 +13,24 @@ namespace Game.UI
             AddToClassList("draft-option-select");
             EnableInClassList("draft-card-set", option.IsSet);
             EnableInClassList("draft-card-related", option.Recipes.Count > 0);
+            if (!string.IsNullOrWhiteSpace(option.TypeLabel))
+            {
+                var typeClass = option.TypeLabel.ToLowerInvariant() switch
+                {
+                    "active" => "draft-type-active",
+                    "passive" => "draft-type-passive",
+                    "set" => "draft-type-set",
+                    _ => "draft-type-other"
+                };
+                AddToClassList(typeClass);
+                var typeLabel = new Label(option.TypeLabel.ToUpperInvariant())
+                {
+                    name = GameplayUiElementIds.CardType,
+                    pickingMode = PickingMode.Ignore
+                };
+                typeLabel.AddToClassList("content-card-type");
+                Insert(0, typeLabel);
+            }
             var detail = new StringBuilder(option.Detail);
             if (option.IsSet) AddText("SET · FREE SET SLOT", GameplayUiElementIds.CardStatus, "content-card-status");
             var completes = false;

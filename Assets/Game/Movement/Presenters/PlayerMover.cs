@@ -24,6 +24,20 @@ namespace Game.Movement
         private Rigidbody2D _rigidbody;
         private IMovementSpeedSource _speedSource;
         private IAdditionalMovementSource _additionalMovement;
+        private System.Func<bool> _mouseMovementEnabled;
+        private System.Func<Vector2?> _pointerScreenPosition;
+        private Camera _inputCamera;
+        private float _mouseDeadzoneWorldUnits;
+
+        public void ConfigureMouseMovement(System.Func<bool> mouseMovementEnabled, Camera inputCamera, float deadzoneWorldUnits,
+            System.Func<Vector2?> pointerScreenPosition = null)
+        {
+            _mouseMovementEnabled = mouseMovementEnabled ?? throw new System.ArgumentNullException(nameof(mouseMovementEnabled));
+            _inputCamera = inputCamera ?? throw new System.ArgumentNullException(nameof(inputCamera));
+            if (deadzoneWorldUnits < 0f) throw new System.ArgumentOutOfRangeException(nameof(deadzoneWorldUnits));
+            _mouseDeadzoneWorldUnits = deadzoneWorldUnits;
+            _pointerScreenPosition = pointerScreenPosition ?? (() => Mouse.current == null ? (Vector2?)null : Mouse.current.position.ReadValue());
+        }
 
         private void Awake()
         {
@@ -48,13 +62,24 @@ namespace Game.Movement
 
         private void FixedUpdate()
         {
-            var rawInput = moveAction.action.ReadValue<Vector2>();
+            var rawInput = ReadMovementInput();
             var isRunning = runController.Model.State == RunState.Running;
             MovementDirection = isRunning ? rawInput.normalized : Vector2.zero;
             var speed = _speedSource != null ? _speedSource.MovementSpeed : 0f;
 
             var additional = _additionalMovement?.TickAdditionalMovement(Time.fixedDeltaTime, isRunning) ?? Vector2.zero;
             _rigidbody.linearVelocity = MovementVelocityCalculator.Calculate(rawInput, speed, isRunning) + additional;
+        }
+
+        private Vector2 ReadMovementInput()
+        {
+            var screenPosition = _pointerScreenPosition?.Invoke();
+            if (_mouseMovementEnabled?.Invoke() != true || !screenPosition.HasValue || _inputCamera == null)
+                return moveAction.action.ReadValue<Vector2>();
+
+            var playerScreenDepth = _inputCamera.WorldToScreenPoint(transform.position).z;
+            var pointerWorldPosition = _inputCamera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, playerScreenDepth));
+            return MovementVelocityCalculator.DirectionFromPointer(transform.position, pointerWorldPosition, _mouseDeadzoneWorldUnits);
         }
     }
 }
