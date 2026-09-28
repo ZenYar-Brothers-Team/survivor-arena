@@ -1450,7 +1450,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Travelers / Путники
 
-Пул Путников общий для всех полей ([DECISION-0063](decisions/0063-field002-slice-v1.md)): все реализованные Путники, в забеге без повторов типов и ролей. Фиксированная тройка DECISION-0050 для FIELD-001 — TRAVELER-001 / TRAVELER-002 / TRAVELER-005, по одному представителю боевой, неагрессивной и защитной роли, — была тестовым ограничением; пока реализованы только они, общий пул с ней совпадает. «Контекст» в карточках ниже — тематическая рекомендация, а не ограничение пула. Это три возможных типа, не обязательные три появления. Число 0–3, выбор без повторов, timing/scaling и награда Книга сохраняются. Остальные семь ID остаются для последующих полей; параметры HP/speed/damage существующих карточек этим пакетом не меняются. Presence/XP/support values FIELD-001 заданы baseline v1 (DECISION-0053).
+Пул Путников общий для всех полей ([DECISION-0063](decisions/0063-field002-slice-v1.md)): все реализованные Путники, в забеге без повторов типов и ролей. Фиксированная тройка DECISION-0050 для FIELD-001 — TRAVELER-001 / TRAVELER-002 / TRAVELER-005, по одному представителю боевой, неагрессивной и защитной роли, — была тестовым ограничением. «Контекст» в карточках ниже — тематическая рекомендация, а не ограничение пула. Число 0–3, выбор без повторов, timing/scaling и награда Книга сохраняются. С 2026-09-28 в пуле все десять ([DECISION-0088](decisions/0088-travelers-v1.md)): путники одного уровня прогрессии, профили поздних карточек выровнены под стартового путника своей роли, XP и время присутствия едины внутри роли; различие полей даёт только общее масштабирование K. Presence/XP/support values FIELD-001 заданы baseline v1 (DECISION-0053).
 
 Все десять Путников ниже имеют статус Approved. Путник — временная специальная цель, а не единый тип мини-босса. В текущем пуле используются три роли: 4 боевых Путника, которые атакуют игрока и по ощущению близки к простым mini-boss encounters; 3 неагрессивных Путника, которые в основном блуждают/избегают игрока; 3 Путника-защитника, которые сами не охотятся на игрока, а помогают обычным врагам и стараются держаться рядом с ними. Для движения защитник рассматривает четырёх ближайших живых обычных врагов, выбирает среди них кандидата с наиболее плотным окружением, а при равенстве — ближайшего к игроку, и занимает позицию рядом с ним со стороны игрока; цель пересчитывается раз в 10 секунд либо после её потери ([DECISION-0082](decisions/0082-simple-traveler-protector-targeting.md)). Если любой Путник убит до ухода, он роняет Книгу. Подбор Книги немедленно открывает внеочередной draft из 3 предложений; Книга не даёт XP и не повышает уровень. Число Путников на забег задаётся системным правилом GDD: выбирается 0–3 по настраиваемому дискретному распределению вероятностей. Для каждого выбранного Путника время появления независимо выбирается равномерно по интервалу 0:00–13:00 для 15-минутного забега; тип выбирается из пула поля случайно без повторов. Базовые профили утверждены; только HP и ненулевой damage масштабируются полем и моментом появления. Скорость и support strength не масштабируются. Формула K=(1+0.10×(r−1))×(1+0.50×u), r=1…10 — ступень поля, u=t/(T−120) в пределах [0,1], t/T — running seconds, T>120; coefficients задаются JSON. При r=5, T=900, t=390: K=1.75. Spawn — две полные высоты gameplay viewport от игрока внутри доступного поля. [DECISION-0035](decisions/0035-traveler-encounter-rules.md) задаёт timing, scaling и единые support rules. Окна присутствия, обычный XP reward, production field pools и per-ID support числа остаются balance/encounter-data.
 
@@ -1476,19 +1476,19 @@ Knockback: contact 0; ranged/other 0. Knockback resistance 15%.
 Статус: Approved.
 Роль: неагрессивный блуждающий Путник.
 Контекст: FIELD-003.
-Профиль: 700 HP; speed 0.90; contact damage 0.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 620 HP; speed 0.90; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 25%.
 Поведение: спокойно перемещается по полю длинными прямыми отрезками и иногда меняет направление. Не пытается сближаться с игроком и не использует копьё как атаку; при близком приближении игрока слегка отклоняет маршрут в сторону от него.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 10, время присутствия 75 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-004 — Наёмный дуэлянт
 Статус: Approved.
 Роль: боевой Путник / простой mini-boss.
 Контекст: FIELD-004.
-Профиль: 900 HP; speed 1.20; contact damage 24.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 500 HP; speed 1.15; contact damage 16.
 Knockback: contact 0.45; ranged/other 0. Knockback resistance 20%.
 Поведение: быстрый melee-Путник с невысокой живучестью для своей стадии. Постоянно сокращает дистанцию и периодически смещается по короткой дуге в сторону движения игрока.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 12, время присутствия 90 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-005 — Паломник со щитом
 Статус: Approved.
@@ -1503,46 +1503,46 @@ Knockback: contact 0; ranged/other 0. Knockback resistance 65%.
 Статус: Approved.
 Роль: неагрессивный блуждающий Путник.
 Контекст: FIELD-006.
-Профиль: 850 HP; speed 0.85; contact damage 0.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 520 HP; speed 0.85; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 30%.
 Поведение: не атакует игрока и не пытается держать боевую дистанцию. Медленно блуждает по полю, иногда ненадолго останавливается, после чего выбирает новое направление. При близком приближении игрока предпочитает уйти в сторону или отступить.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 10, время присутствия 75 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-007 — Путевой инквизитор
 Статус: Approved.
 Роль: Путник-защитник обычных врагов.
 Контекст: FIELD-007.
-Профиль: 1050 HP; speed 0.80; contact damage 0.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 950 HP; speed 0.80; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 40%.
 Поведение: не атакует игрока. Держится рядом с обычными врагами и с фиксированным cooldown накладывает краткий защитный shield на несколько ближайших обычных врагов. На цели максимум один Traveler shield: равный или более сильный cast обновляет shield HP и duration, более слабый игнорируется. Сначала damage reduction, затем поглощение shield, затем Health; shield не меняет knockback. Shield снимается при уходе/смерти источника или expiry. Точные число целей, radius, shield HP, duration и cooldown — balance-data.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 18, время присутствия 90 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-008 — Рыцарь-странник
 Статус: Approved.
 Роль: боевой Путник / простой mini-boss.
 Контекст: FIELD-008.
-Профиль: 1750 HP; speed 0.80; contact damage 34.
-Knockback: contact 0.80; dash contact 1.10. Knockback resistance 65%.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 800 HP; speed 0.65; contact damage 24.
+Knockback: contact 0.80; dash contact 1.10. Knockback resistance 50%.
 Поведение: тяжёлый melee-Путник. Обычно идёт прямо к игроку; примерно раз в 4 с делает один длинный прямой рывок в сторону позиции игрока, зафиксированной в момент старта.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 12, время присутствия 90 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-009 — Небесный паломник
 Статус: Approved.
 Роль: Путник-защитник обычных врагов.
 Контекст: FIELD-009.
-Профиль: 1500 HP; speed 0.75; contact damage 0.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 1050 HP; speed 0.75; contact damage 0.
 Knockback: contact 0; ranged/other 0. Knockback resistance 55%.
 Поведение: не атакует игрока. Держится рядом с выбранным представителем локально плотной группы обычных врагов и создаёт вокруг себя постоянную небольшую защитную ауру: обычные враги внутри неё получают повышенный knockback resistance и небольшое снижение входящего damage. Одноимённые Traveler aura bonuses не суммируются: для reduction и resistance берётся максимальный активный bonus, итоговый resistance ограничен 100%. Только живые ordinary enemies являются целями; выход из radius или уход источника снимает ауру. Точные значения radius/resistance/reduction — balance-data.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Награда: Книга. XP reward 18, время присутствия 90 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 #### TRAVELER-010 — Ангел-скиталец
 Статус: Approved.
 Роль: боевой Путник / простой mini-boss.
 Контекст: FIELD-010.
-Профиль: 2400 HP; speed 1.00; contact damage 40.
-Knockback: contact 0.65; projectile 0.50. Knockback resistance 60%.
-Поведение: поздний универсальный боевой Путник без отдельной boss-фазы. Чередует простое преследование и один крест из 4 быстрых projectiles по 20 damage; cooldown ranged-атаки 2.6 с.
-Награда: Книга. Обычный XP reward и время присутствия — TBD.
+Профиль ([DECISION-0088](decisions/0088-travelers-v1.md)): 600 HP; speed 0.85; contact damage 18.
+Knockback: contact 0.65; projectile 0.50. Knockback resistance 40%.
+Поведение: поздний универсальный боевой Путник без отдельной boss-фазы. Чередует простое преследование и один крест из 4 быстрых projectiles по 10 damage; cooldown ranged-атаки 2.6 с.
+Награда: Книга. XP reward 12, время присутствия 90 s ([DECISION-0088](decisions/0088-travelers-v1.md)).
 
 ### Characters
 
@@ -1566,10 +1566,10 @@ Unlock: доступен с начала игры.
 Архетип: взрослый мужчина-гоблин; коренастый работяга/выживальщик.
 Визуальная идея: коренастый, широкий в плечах и заметно старше Клёпки; тяжёлые руки, рабочая одежда, ремни, заплаты, инструменты или куски защитного снаряжения. Должен выглядеть как человек, который привык таскать тяжести и прикрывать остальных, а не как просто «медленный молодой гоблин».
 Gameplay-роль: прочный персонаж ближней зоны, которому выгодно держать преследователей рядом.
-Базовые характеристики: 120 HP; movement 92%; active damage 105%; cooldown duration 100%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 150 HP; movement 85%; active damage 100%; cooldown duration 115%; disappearing-XP recovery 0%; incoming damage 85%.
 Стартовое умение: SKILL-003 «Орбитальные клинки».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-003 +60% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-015; пониженные — SKILL-010, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-015, PASSIVE-001, PASSIVE-008, PASSIVE-011; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-005, PASSIVE-006; остальные ×1.
 Unlock (DECISION-0050): покупка за 100 после первого прохождения FIELD-001; простой Quit или поражение не выполняет условие.
 
 #### CHAR-003 — Шепотка
@@ -1577,10 +1577,10 @@ Unlock (DECISION-0050): покупка за 100 после первого про
 Архетип: молодая девушка-гоблин; юная разведчица.
 Визуальная идея: заметно более тонкий и лёгкий силуэт, чем у Клёпки; длинные уши, лёгкая одежда, небольшой походный мешок, плащ или другие детали разведчика. Молодая, но визуально явно другой персонаж, а не женская перекраска CHAR-001.
 Gameplay-роль: хрупкая осторожная разведчица с акцентом на сильные направленные projectiles.
-Базовые характеристики: 90 HP; movement 108%; active damage 110%; cooldown duration 105%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 65 HP; movement 115%; active damage 135%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-005 «Ветряное копьё».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-005 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-012, SKILL-013; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-012, SKILL-013, PASSIVE-003, PASSIVE-004, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-008, PASSIVE-014; остальные ×1.
 Unlock: завершить FIELD-002.
 
 #### CHAR-004 — Тётка Шмыга
@@ -1588,10 +1588,10 @@ Unlock: завершить FIELD-002.
 Архетип: женщина-гоблин среднего возраста; мастерица/сапёр.
 Визуальная идея: взрослая, жилистая, практичная; пояс с инструментами, сумки, проволока, бутылки, детали ловушек и слегка безумный инженерный вид. Силуэт должен считываться через экипировку и возраст, а не только через скорость персонажа.
 Gameplay-роль: мобильный сапёр для билдов через мины, взрывы и постоянное изменение маршрута.
-Базовые характеристики: 95 HP; movement 110%; active damage 95%; cooldown duration 92%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 80 HP; movement 115%; active damage 85%; cooldown duration 75%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-009 «Магматическая мина».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-009 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-014; пониженные — SKILL-010, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-014, PASSIVE-003, PASSIVE-005, PASSIVE-012; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-001, PASSIVE-014; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-003; цена 300.
 
 #### CHAR-005 — Бабка Искра
@@ -1599,10 +1599,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: пожилая женщина-гоблин; маленькая старая ведьма/знахарка.
 Визуальная идея: очень небольшой рост, заметно пожилое лицо, согнутая или пружинистая осанка, растрёпанные седые волосы, амулеты, мешочки, украденные магические безделушки. Несмотря на возраст, должна выглядеть живой и опасно любопытной, а не беспомощной.
 Gameplay-роль: магически ориентированный персонаж для частых цепных и многоцелевых атак.
-Базовые характеристики: 85 HP; movement 105%; active damage 108%; cooldown duration 95%; disappearing-XP recovery 10%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 60 HP; movement 95%; active damage 140%; cooldown duration 100%; disappearing-XP recovery 25%.
 Стартовое умение: SKILL-007 «Цепная молния».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-007 +45% damage и +40% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-008, SKILL-011; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-008, SKILL-011, PASSIVE-005, PASSIVE-010, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-001, PASSIVE-003; остальные ×1.
 Unlock: завершить FIELD-004.
 
 #### CHAR-006 — Гром
@@ -1610,10 +1610,10 @@ Unlock: завершить FIELD-004.
 Архетип: крупный огр-беглец.
 Визуальная идея: персонаж, который принципиально ломает гоблинский силуэт — примерно в полтора-два раза массивнее большинства текущего roster, огромные руки и корпус, маленькая относительно тела голова, простая грубая одежда и добродушно-тяжёлый образ. Он должен мгновенно читаться как другой вид существа, но оставаться частью того же визуального мира через материалы, импровизированное снаряжение и общий стиль.
 Gameplay-роль: очень крупный и медленный персонаж с редкими, но мощными AoE-атаками.
-Базовые характеристики: 130 HP; movement 90%; active damage 112%; cooldown duration 110%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 170 HP; movement 80%; active damage 100%; cooldown duration 130%; disappearing-XP recovery 0%; effect size 140%; knockback resistance 50%.
 Стартовое умение: SKILL-010 «Небесный удар».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-010 +45% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-014, SKILL-015; пониженные — SKILL-006, SKILL-008; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-014, SKILL-015, PASSIVE-001, PASSIVE-011, PASSIVE-012; 0 (не выпадают) — SKILL-006, SKILL-008, PASSIVE-006, PASSIVE-013; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-005; цена 500.
 
 #### CHAR-007 — Дед Вертун
@@ -1621,10 +1621,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: дедушка-гоблин; сухой, жилистый старый бегун/охотник.
 Визуальная идея: высокий для гоблина, очень худой и сутулый, длинные руки и ноги, седая борода или усы, старое походное снаряжение. Его возраст должен быть очевиден, но он выглядит неожиданно подвижным — тот самый дед, который всю жизнь бегал по лесам и до сих пор обгоняет молодых.
 Gameplay-роль: самый мобильный персонаж, предпочитающий атаки, хорошо работающие во время постоянного бегства.
-Базовые характеристики: 85 HP; movement 118%; active damage 95%; cooldown duration 90%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 70 HP; movement 130%; active damage 85%; cooldown duration 100%; disappearing-XP recovery 0%; XP pickup radius 160%.
 Стартовое умение: SKILL-006 «Бумеранг».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-006 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-002, SKILL-008, SKILL-013; пониженные — SKILL-009, SKILL-010; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-002, SKILL-008, SKILL-013, PASSIVE-002, PASSIVE-003, PASSIVE-007; 0 (не выпадают) — SKILL-009, SKILL-010, PASSIVE-009, PASSIVE-012; остальные ×1.
 Unlock: завершить FIELD-006.
 
 #### CHAR-008 — Тётушка Светляк
@@ -1632,10 +1632,10 @@ Unlock: завершить FIELD-006.
 Архетип: взрослая женщина-гоблин; хранительница трофеев/реликвий.
 Визуальная идея: более спокойная и собранная взрослая фигура; связка фонарей, украденных святых символов, линз или светящихся реликвий. Отличается от Тётки Шмыги не инженерным хаосом, а аккуратностью, симметрией и «ритуальным» видом.
 Gameplay-роль: персонаж с ворованным световым фокусом для частых дальних атак и направленного покрытия пространства.
-Базовые характеристики: 95 HP; movement 100%; active damage 105%; cooldown duration 90%; disappearing-XP recovery 5%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 80 HP; movement 90%; active damage 100%; cooldown duration 85%; disappearing-XP recovery 5%; effect range 140%.
 Стартовое умение: SKILL-012 «Пульсирующий луч».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-012 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-005, SKILL-007; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-005, SKILL-007, PASSIVE-004, PASSIVE-005, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-002, PASSIVE-003; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-007; цена 700.
 
 #### CHAR-009 — Иголка
@@ -1643,10 +1643,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: подросток-гоблин; старшая сестра/юная охотница.
 Визуальная идея: подростковая, угловатая фигура, колючая причёска, самодельные колчаны/иглы, слишком серьёзный для своего возраста вид. Должна заметно отличаться и от более молодой Шепотки, и от взрослых женских персонажей roster: более подростковая, резкая, демонстративно «крутая».
 Gameplay-роль: стрелок, предпочитающий вееры, пробивание и плотный фронтальный урон.
-Базовые характеристики: 100 HP; movement 105%; active damage 107%; cooldown duration 100%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 75 HP; movement 100%; active damage 130%; cooldown duration 90%; disappearing-XP recovery 0%; XP pickup radius 80%.
 Стартовое умение: SKILL-013 «Ледяные осколки».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-013 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-002, SKILL-005, SKILL-015; пониженные — SKILL-004, SKILL-010; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-002, SKILL-005, SKILL-015, PASSIVE-004, PASSIVE-011, PASSIVE-013; 0 (не выпадают) — SKILL-004, SKILL-010, PASSIVE-005, PASSIVE-010; остальные ×1.
 Unlock: завершить FIELD-008.
 
 #### CHAR-010 — Старшой Ночка
@@ -1654,10 +1654,10 @@ Unlock: завершить FIELD-008.
 Архетип: мужчина-гоблин среднего/старшего возраста; бывалый ветеран/старшой.
 Визуальная идея: не самый крупный, но самый «бывалый» взрослый мужчина: шрамы, старая броня из разномастных частей, трофеи, тяжёлый плащ или воротник. Силуэт должен говорить «ветеран и семейный авторитет», а не просто очередной боевой гоблин.
 Gameplay-роль: опытный персонаж поздней прогрессии для билдов на круговое покрытие и одновременную работу по множеству направлений.
-Базовые характеристики: 110 HP; movement 95%; active damage 108%; cooldown duration 100%; disappearing-XP recovery 5%.
+Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 130 HP; movement 90%; active damage 90%; cooldown duration 100%; disappearing-XP recovery 5%; effect range 125%; regeneration 0.4 HP/s.
 Стартовое умение: SKILL-015 «Крест клинков».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-015 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-003, SKILL-004, SKILL-011; пониженные — SKILL-001, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-003, SKILL-004, SKILL-011, PASSIVE-001, PASSIVE-009, PASSIVE-014; 0 (не выпадают) — SKILL-001, SKILL-012, PASSIVE-006, PASSIVE-007; остальные ×1.
 Unlock: завершить FIELD-009.
 
 ### Fields

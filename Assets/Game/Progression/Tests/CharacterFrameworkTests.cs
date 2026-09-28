@@ -109,6 +109,45 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void PassiveWeights_ExcludeZeroAndFavorBoosted()
+        {
+            // DECISION-0089: character weights apply to passive items as well as active skills.
+            var starting = Active("FIXTURE-ACTIVE-START");
+            var blocked = Passive("FIXTURE-PASSIVE-ZERO");
+            var favored = Passive("FIXTURE-PASSIVE-FAVORED");
+            var plain = Passive("FIXTURE-PASSIVE-PLAIN");
+            var character = Character(
+                "FIXTURE-CHARACTER",
+                starting.Id,
+                new CharacterDraftWeight(starting.Id, 0f),
+                new CharacterDraftWeight(blocked.Id, 0f),
+                new CharacterDraftWeight(favored.Id, 10f));
+            var pool = new DraftPool(new[] { starting, blocked, favored, plain }, character);
+            var build = new PlayerBuild(starting);
+
+            Assert.IsFalse(pool.CanOffer(blocked.Id));
+            Assert.IsTrue(pool.CanOffer(favored.Id));
+            Assert.IsTrue(pool.CanOffer(plain.Id));
+            // Weights 10 : 1 over [favored, plain]; a roll of 0.5 × 11 = 5.5 lands on the favored passive.
+            var single = pool.CreateOptions(build, 1, new FixedDraftRandom(0.5f));
+            Assert.AreEqual(favored.Id, single[0].Definition.Id);
+            for (var seed = 0; seed < 50; seed++)
+                foreach (var option in pool.CreateOptions(build, 3, new SeededDraftRandom(seed)))
+                    Assert.AreNotEqual(blocked.Id, option.Definition.Id);
+        }
+
+        [Test]
+        public void DraftWeightReferences_AcceptPassivesAndRejectOtherKinds()
+        {
+            var starting = Active("FIXTURE-ACTIVE-START");
+            var passive = Passive("FIXTURE-PASSIVE");
+            var withPassive = Character("FIXTURE-CHARACTER", starting.Id, new CharacterDraftWeight(passive.Id, 0f));
+            var registry = ContentRegistry.BuildFrom(new IContentDefinition[] { starting, passive, withPassive });
+
+            Assert.DoesNotThrow(() => withPassive.ValidateDraftSkillReferences(registry));
+        }
+
+        [Test]
         public void DifferentCharacterWeights_ChangeDeterministicDraftResult()
         {
             var starting = Active("FIXTURE-ACTIVE-START");

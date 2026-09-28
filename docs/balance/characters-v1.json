@@ -1,0 +1,485 @@
+{
+  "format": "late-content-review-data",
+  "formatVersion": 1,
+  "revision": "characters-v1",
+  "approval": "Approved 2026-09-28 (DECISION-0089)",
+  "runtimeImportable": false,
+  "reference": "CHAR-001 baseline v1 (docs/balance/field001-baseline-v1.json)",
+  "weightRule": {
+    "boosted": 1.35,
+    "blocked": 0,
+    "default": 1,
+    "note": "boosted = card 'повышенные' actives + three thematic passives; blocked = card 'пониженные' actives + two passives per character"
+  },
+  "characters": [
+    {
+      "id": "CHAR-002",
+      "startingSkill": "SKILL-003",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "effectSizeMultiplierBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 150,
+        "movementSpeed": 2.55,
+        "activeSkillDamageMultiplier": 1,
+        "activeSkillCooldownMultiplier": 1.15,
+        "incomingDamageMultiplier": 0.85,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "maxHealth",
+        "incomingDamageMultiplier",
+        "movementSpeed",
+        "activeSkillCooldownMultiplier"
+      ],
+      "boostedSkills": [
+        "SKILL-004",
+        "SKILL-006",
+        "SKILL-015"
+      ],
+      "blockedSkills": [
+        "SKILL-010",
+        "SKILL-012"
+      ],
+      "boostedPassives": [
+        "PASSIVE-001",
+        "PASSIVE-008",
+        "PASSIVE-011"
+      ],
+      "blockedPassives": [
+        "PASSIVE-005",
+        "PASSIVE-006"
+      ],
+      "role": "Начинает с Орбитальных клинков · Очень прочный, но медленный"
+    },
+    {
+      "id": "CHAR-003",
+      "startingSkill": "SKILL-005",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "actionSpeedBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 65,
+        "movementSpeed": 3.45,
+        "activeSkillDamageMultiplier": 1.35,
+        "activeSkillCooldownMultiplier": 1,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "movementSpeed",
+        "maxHealth"
+      ],
+      "boostedSkills": [
+        "SKILL-001",
+        "SKILL-012",
+        "SKILL-013"
+      ],
+      "blockedSkills": [
+        "SKILL-003",
+        "SKILL-009"
+      ],
+      "boostedPassives": [
+        "PASSIVE-003",
+        "PASSIVE-004",
+        "PASSIVE-013"
+      ],
+      "blockedPassives": [
+        "PASSIVE-008",
+        "PASSIVE-014"
+      ],
+      "role": "Начинает с Ветряного копья · Сильные и быстрые атаки, но очень хрупкая"
+    },
+    {
+      "id": "CHAR-004",
+      "startingSkill": "SKILL-009",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "actionSpeedBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 80,
+        "movementSpeed": 3.45,
+        "activeSkillDamageMultiplier": 0.85,
+        "activeSkillCooldownMultiplier": 0.75,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "activeSkillCooldownMultiplier",
+        "movementSpeed",
+        "maxHealth",
+        "activeSkillDamageMultiplier"
+      ],
+      "boostedSkills": [
+        "SKILL-004",
+        "SKILL-006",
+        "SKILL-014"
+      ],
+      "blockedSkills": [
+        "SKILL-010",
+        "SKILL-012"
+      ],
+      "boostedPassives": [
+        "PASSIVE-003",
+        "PASSIVE-005",
+        "PASSIVE-012"
+      ],
+      "blockedPassives": [
+        "PASSIVE-001",
+        "PASSIVE-014"
+      ],
+      "role": "Начинает с Магматической мины · Частые атаки и быстрый шаг, но слабее бьёт"
+    },
+    {
+      "id": "CHAR-005",
+      "startingSkill": "SKILL-007",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.45,
+        "actionSpeedBonus": 0.4
+      },
+      "stats": {
+        "maxHealth": 60,
+        "movementSpeed": 2.85,
+        "activeSkillDamageMultiplier": 1.4,
+        "activeSkillCooldownMultiplier": 1,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0.25,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "disappearingXpRecovery",
+        "maxHealth",
+        "movementSpeed"
+      ],
+      "boostedSkills": [
+        "SKILL-001",
+        "SKILL-008",
+        "SKILL-011"
+      ],
+      "blockedSkills": [
+        "SKILL-003",
+        "SKILL-009"
+      ],
+      "boostedPassives": [
+        "PASSIVE-005",
+        "PASSIVE-010",
+        "PASSIVE-013"
+      ],
+      "blockedPassives": [
+        "PASSIVE-001",
+        "PASSIVE-003"
+      ],
+      "role": "Начинает с Цепной молнии · Самый сильный урон, но самая хрупкая"
+    },
+    {
+      "id": "CHAR-006",
+      "startingSkill": "SKILL-010",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.45,
+        "effectSizeMultiplierBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 170,
+        "movementSpeed": 2.4,
+        "activeSkillDamageMultiplier": 1,
+        "activeSkillCooldownMultiplier": 1.3,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0.5,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1.4,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "maxHealth",
+        "effectSizeMultiplier",
+        "knockbackResistance",
+        "movementSpeed",
+        "activeSkillCooldownMultiplier"
+      ],
+      "boostedSkills": [
+        "SKILL-004",
+        "SKILL-014",
+        "SKILL-015"
+      ],
+      "blockedSkills": [
+        "SKILL-006",
+        "SKILL-008"
+      ],
+      "boostedPassives": [
+        "PASSIVE-001",
+        "PASSIVE-011",
+        "PASSIVE-012"
+      ],
+      "blockedPassives": [
+        "PASSIVE-006",
+        "PASSIVE-013"
+      ],
+      "role": "Начинает с Небесного удара · Огромный запас здоровья и большие атаки, но медленный и редко бьёт"
+    },
+    {
+      "id": "CHAR-007",
+      "startingSkill": "SKILL-006",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "actionSpeedBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 70,
+        "movementSpeed": 3.9,
+        "activeSkillDamageMultiplier": 0.85,
+        "activeSkillCooldownMultiplier": 1,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.8,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "movementSpeed",
+        "pickupRadius",
+        "maxHealth",
+        "activeSkillDamageMultiplier"
+      ],
+      "boostedSkills": [
+        "SKILL-002",
+        "SKILL-008",
+        "SKILL-013"
+      ],
+      "blockedSkills": [
+        "SKILL-009",
+        "SKILL-010"
+      ],
+      "boostedPassives": [
+        "PASSIVE-002",
+        "PASSIVE-003",
+        "PASSIVE-007"
+      ],
+      "blockedPassives": [
+        "PASSIVE-009",
+        "PASSIVE-012"
+      ],
+      "role": "Начинает с Бумеранга · Самый быстрый и далеко собирает опыт, но хрупкий"
+    },
+    {
+      "id": "CHAR-008",
+      "startingSkill": "SKILL-012",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "effectRangeMultiplierBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 80,
+        "movementSpeed": 2.7,
+        "activeSkillDamageMultiplier": 1,
+        "activeSkillCooldownMultiplier": 0.85,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0.05,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1.4,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "effectRangeMultiplier",
+        "activeSkillCooldownMultiplier",
+        "maxHealth",
+        "movementSpeed"
+      ],
+      "boostedSkills": [
+        "SKILL-001",
+        "SKILL-005",
+        "SKILL-007"
+      ],
+      "blockedSkills": [
+        "SKILL-003",
+        "SKILL-009"
+      ],
+      "boostedPassives": [
+        "PASSIVE-004",
+        "PASSIVE-005",
+        "PASSIVE-013"
+      ],
+      "blockedPassives": [
+        "PASSIVE-002",
+        "PASSIVE-003"
+      ],
+      "role": "Начинает с Пульсирующего луча · Дальние и частые атаки, но медленная"
+    },
+    {
+      "id": "CHAR-009",
+      "startingSkill": "SKILL-013",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "actionSpeedBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 75,
+        "movementSpeed": 3,
+        "activeSkillDamageMultiplier": 1.3,
+        "activeSkillCooldownMultiplier": 0.9,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0,
+        "disappearingXpRecovery": 0,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.4,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "activeSkillCooldownMultiplier",
+        "maxHealth",
+        "pickupRadius"
+      ],
+      "boostedSkills": [
+        "SKILL-002",
+        "SKILL-005",
+        "SKILL-015"
+      ],
+      "blockedSkills": [
+        "SKILL-004",
+        "SKILL-010"
+      ],
+      "boostedPassives": [
+        "PASSIVE-004",
+        "PASSIVE-011",
+        "PASSIVE-013"
+      ],
+      "blockedPassives": [
+        "PASSIVE-005",
+        "PASSIVE-010"
+      ],
+      "role": "Начинает с Ледяных осколков · Сильный фронтальный урон, но хрупкая"
+    },
+    {
+      "id": "CHAR-010",
+      "startingSkill": "SKILL-015",
+      "startingSkillBoost": {
+        "activeSkillDamageMultiplierBonus": 0.6,
+        "effectRangeMultiplierBonus": 0.25
+      },
+      "stats": {
+        "maxHealth": 130,
+        "movementSpeed": 2.7,
+        "activeSkillDamageMultiplier": 0.9,
+        "activeSkillCooldownMultiplier": 1,
+        "incomingDamageMultiplier": 1,
+        "healthRestorationMultiplier": 1,
+        "healthRegenerationPerSecond": 0.4,
+        "disappearingXpRecovery": 0.05,
+        "pickedUpXpMultiplier": 1,
+        "xpDropLifetimeBonusSeconds": 0,
+        "pickupRadius": 0.5,
+        "knockbackResistance": 0,
+        "outgoingKnockbackBonus": 0,
+        "effectSizeMultiplier": 1,
+        "effectRangeMultiplier": 1.25,
+        "potionDropMultiplier": 1,
+        "lowHealthDamageMaxBonus": 0
+      },
+      "highlights": [
+        "maxHealth",
+        "effectRangeMultiplier",
+        "healthRegenerationPerSecond",
+        "movementSpeed",
+        "activeSkillDamageMultiplier"
+      ],
+      "boostedSkills": [
+        "SKILL-003",
+        "SKILL-004",
+        "SKILL-011"
+      ],
+      "blockedSkills": [
+        "SKILL-001",
+        "SKILL-012"
+      ],
+      "boostedPassives": [
+        "PASSIVE-001",
+        "PASSIVE-009",
+        "PASSIVE-014"
+      ],
+      "blockedPassives": [
+        "PASSIVE-006",
+        "PASSIVE-007"
+      ],
+      "role": "Начинает с Креста клинков · Прочный и восстанавливает здоровье, но медленнее и слабее бьёт"
+    }
+  ]
+}

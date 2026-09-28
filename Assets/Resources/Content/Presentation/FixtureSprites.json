@@ -820,11 +820,31 @@
     "role": "Body"
   },
   {
+    "id": "CHAR-002-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-002-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
+    "role": "Icon"
+  },
+  {
     "contactRadius": 0.325532,
     "contactCenterY": 0.864593,
     "id": "CHAR-003-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
     "role": "Body"
+  },
+  {
+    "id": "CHAR-003-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-003-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
+    "role": "Icon"
   },
   {
     "contactRadius": 0.267831,
@@ -834,11 +854,31 @@
     "role": "Body"
   },
   {
+    "id": "CHAR-004-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-004-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
+    "role": "Icon"
+  },
+  {
     "contactRadius": 0.365678,
     "contactCenterY": 0.701864,
     "id": "CHAR-005-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
     "role": "Body"
+  },
+  {
+    "id": "CHAR-005-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-005-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
+    "role": "Icon"
   },
   {
     "projectile": {
@@ -1110,11 +1150,31 @@
     "role": "Body"
   },
   {
+    "id": "CHAR-006-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-006-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
+    "role": "Icon"
+  },
+  {
     "contactRadius": 0.274067,
     "contactCenterY": 0.623531,
     "id": "CHAR-007-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
     "role": "Body"
+  },
+  {
+    "id": "CHAR-007-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-007-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
+    "role": "Icon"
   },
   {
     "contactRadius": 0.304311,
@@ -1124,6 +1184,16 @@
     "role": "Body"
   },
   {
+    "id": "CHAR-008-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-008-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
+    "role": "Icon"
+  },
+  {
     "contactRadius": 0.262649,
     "contactCenterY": 0.568167,
     "id": "CHAR-009-VISUAL-BODY",
@@ -1131,11 +1201,31 @@
     "role": "Body"
   },
   {
+    "id": "CHAR-009-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-009-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
+    "role": "Icon"
+  },
+  {
     "contactRadius": 0.400199,
     "contactCenterY": 0.486664,
     "id": "CHAR-010-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
     "role": "Body"
+  },
+  {
+    "id": "CHAR-010-VISUAL-PORTRAIT",
+    "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
+    "role": "Portrait"
+  },
+  {
+    "id": "CHAR-010-VISUAL-ICON",
+    "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
+    "role": "Icon"
   },
   {
     "contactRadius": 0.281704,

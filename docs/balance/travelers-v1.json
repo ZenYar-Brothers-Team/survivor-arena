@@ -1,0 +1,310 @@
+{
+  "format": "late-content-review-data",
+  "formatVersion": 1,
+  "revision": "travelers-v1",
+  "approval": "Approved 2026-09-28 (DECISION-0088)",
+  "runtimeImportable": false,
+  "reference": "TRAVELER-001/002/005 baseline v1 (docs/balance/field001-baseline-v1.json) — unchanged",
+  "rule": "All travelers are one progression tier: card profiles are normalised to the FIELD-001 peers of the same role; the common pool (DECISION-0063) and the shared field/time scaling K (DECISION-0035) stay unchanged.",
+  "roleRewards": {
+    "Offensive": {
+      "experienceReward": 12,
+      "presenceSeconds": 90
+    },
+    "Wanderer": {
+      "experienceReward": 10,
+      "presenceSeconds": 75
+    },
+    "Protector": {
+      "experienceReward": 18,
+      "presenceSeconds": 90
+    }
+  },
+  "travelers": [
+    {
+      "id": "TRAVELER-003",
+      "role": "Wanderer",
+      "marker": "LONG-WANDER",
+      "maxHealth": 620,
+      "movementSpeed": 0.9,
+      "knockbackResistance": 0.25,
+      "collisionSize": 1.1,
+      "contactDamage": 0,
+      "contactKnockback": 0,
+      "dashContactKnockback": null,
+      "experienceReward": 10,
+      "presenceSeconds": 75,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null,
+      "wanderSeconds": 5,
+      "restSeconds": 0,
+      "avoidRadius": 3,
+      "avoidSeconds": 0.8,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 700,
+        "movementSpeed": 0.9,
+        "contactDamage": 0,
+        "knockbackResistance": 0.25
+      }
+    },
+    {
+      "id": "TRAVELER-004",
+      "role": "Offensive",
+      "marker": "DUELIST",
+      "maxHealth": 500,
+      "movementSpeed": 1.15,
+      "knockbackResistance": 0.2,
+      "collisionSize": 1.15,
+      "contactDamage": 16,
+      "contactKnockback": 0.45,
+      "dashContactKnockback": null,
+      "experienceReward": 12,
+      "presenceSeconds": 90,
+      "movement": {
+        "kind": "Zigzag",
+        "lateralStrength": 0.6,
+        "cycleSeconds": 2.0
+      },
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 900,
+        "movementSpeed": 1.2,
+        "contactDamage": 24,
+        "knockbackResistance": 0.2
+      }
+    },
+    {
+      "id": "TRAVELER-006",
+      "role": "Wanderer",
+      "marker": "REST",
+      "maxHealth": 520,
+      "movementSpeed": 0.85,
+      "knockbackResistance": 0.3,
+      "collisionSize": 1.1,
+      "contactDamage": 0,
+      "contactKnockback": 0,
+      "dashContactKnockback": null,
+      "experienceReward": 10,
+      "presenceSeconds": 75,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 1.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 850,
+        "movementSpeed": 0.85,
+        "contactDamage": 0,
+        "knockbackResistance": 0.3
+      }
+    },
+    {
+      "id": "TRAVELER-007",
+      "role": "Protector",
+      "marker": "SHIELD",
+      "maxHealth": 950,
+      "movementSpeed": 0.8,
+      "knockbackResistance": 0.4,
+      "collisionSize": 1.2,
+      "contactDamage": 0,
+      "contactKnockback": 0,
+      "dashContactKnockback": null,
+      "experienceReward": 18,
+      "presenceSeconds": 90,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "Shield",
+        "radius": 4,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 35,
+        "shieldSeconds": 4,
+        "cooldownSeconds": 6,
+        "supportTargets": 4
+      },
+      "cardProfile": {
+        "maxHealth": 1050,
+        "movementSpeed": 0.8,
+        "contactDamage": 0,
+        "knockbackResistance": 0.4
+      }
+    },
+    {
+      "id": "TRAVELER-008",
+      "role": "Offensive",
+      "marker": "DASH",
+      "maxHealth": 800,
+      "movementSpeed": 0.65,
+      "knockbackResistance": 0.5,
+      "collisionSize": 1.45,
+      "contactDamage": 24,
+      "contactKnockback": 0.8,
+      "dashContactKnockback": 1.1,
+      "experienceReward": 12,
+      "presenceSeconds": 90,
+      "movement": {
+        "kind": "TelegraphedDash",
+        "dashTelegraphSeconds": 0.7,
+        "dashDurationSeconds": 0.5,
+        "dashCooldownSeconds": 4,
+        "dashSpeedMultiplier": 4
+      },
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 1750,
+        "movementSpeed": 0.8,
+        "contactDamage": 34,
+        "knockbackResistance": 0.65
+      }
+    },
+    {
+      "id": "TRAVELER-009",
+      "role": "Protector",
+      "marker": "AURA",
+      "maxHealth": 1050,
+      "movementSpeed": 0.75,
+      "knockbackResistance": 0.55,
+      "collisionSize": 1.3,
+      "contactDamage": 0,
+      "contactKnockback": 0,
+      "dashContactKnockback": null,
+      "experienceReward": 18,
+      "presenceSeconds": 90,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": null,
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "Aura",
+        "radius": 3,
+        "reduction": 0.1,
+        "resistance": 0.4,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 1500,
+        "movementSpeed": 0.75,
+        "contactDamage": 0,
+        "knockbackResistance": 0.55
+      }
+    },
+    {
+      "id": "TRAVELER-010",
+      "role": "Offensive",
+      "marker": "CROSS",
+      "maxHealth": 600,
+      "movementSpeed": 0.85,
+      "knockbackResistance": 0.4,
+      "collisionSize": 1.3,
+      "contactDamage": 18,
+      "contactKnockback": 0.65,
+      "dashContactKnockback": null,
+      "experienceReward": 12,
+      "presenceSeconds": 90,
+      "movement": {
+        "kind": "Seek"
+      },
+      "attack": {
+        "pattern": "Cross",
+        "damage": 10,
+        "cooldownSeconds": 2.6,
+        "projectileSpeed": 6,
+        "projectileLifetimeSeconds": 1.8,
+        "projectileCount": 4,
+        "projectileRadius": 0.13,
+        "telegraphSeconds": 0.5,
+        "cadence": "WindupStartToStart",
+        "knockbackDistance": 0.5,
+        "projectileVisualId": "BOSS-010-VISUAL-PROJECTILE"
+      },
+      "wanderSeconds": 3,
+      "restSeconds": 0.5,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "support": {
+        "kind": "None",
+        "radius": 0,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "cardProfile": {
+        "maxHealth": 2400,
+        "movementSpeed": 1.0,
+        "contactDamage": 40,
+        "knockbackResistance": 0.6,
+        "projectileDamage": 20
+      }
+    }
+  ]
+}

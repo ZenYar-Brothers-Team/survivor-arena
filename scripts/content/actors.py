@@ -6,7 +6,9 @@ CHARACTER_BASELINE_ID = "CHARACTER-BASELINE-001"
 
 
 def characters(baseline):
-    """CHAR-001 only: draft weights for every implemented skill; locked ones are filtered by profile access."""
+    """CHAR-001 from baseline v1 plus CHAR-002…010 from characters-v1 (DECISION-0089).
+
+    Draft weights cover every implemented skill; locked ones are filtered by profile access."""
     character = baseline["character"]
     implemented = set(baseline["initialRoster"]["actives"]) | {skill["id"] for skill in baseline["late"]["skills"]}
     late_weights = baseline["late"]["draftWeights"][character["id"]]
@@ -22,7 +24,36 @@ def characters(baseline):
         "presentation": {"role": " · ".join(character["highlights"]), "baselineId": CHARACTER_BASELINE_ID,
                          "cropId": f"{character['id']}-VISUAL-PORTRAIT", "iconId": f"{character['id']}-VISUAL-ICON",
                          "highlights": []},
-    }]
+    }] + [late_character(entry, implemented, names) for entry in baseline["lateCharacters"]["characters"]]
+
+
+# Later characters share CHAR-001's approved motion profile until a per-character profile is authored.
+SHARED_CHARACTER_MOTION = "CHAR-001-MOTION"
+
+
+def late_character(entry, implemented_skills, names):
+    boosted, blocked = set(entry["boostedSkills"]), set(entry["blockedSkills"])
+    boosted_passives, blocked_passives = set(entry["boostedPassives"]), set(entry["blockedPassives"])
+
+    def weight(entry_id, up, down):
+        return 1.35 if entry_id in up else 0 if entry_id in down else 1
+
+    passive_ids = [f"PASSIVE-{i:03d}" for i in range(1, 15)]
+    character_id = entry["id"]
+    return {
+        "id": character_id, "displayName": names[character_id],
+        "initiallyUnlocked": False, "startingActiveSkillId": entry["startingSkill"],
+        "visualId": f"{character_id}-VISUAL-BODY", "motionProfileId": SHARED_CHARACTER_MOTION,
+        "baseStats": entry["stats"],
+        "draftWeights": [{"skillId": skill, "weight": weight(skill, boosted, blocked)}
+                         for skill in sorted(implemented_skills)],
+        "passiveDraftWeights": [{"passiveId": passive, "weight": weight(passive, boosted_passives, blocked_passives)}
+                                for passive in passive_ids],
+        "startingSkillBoost": entry["startingSkillBoost"],
+        "presentation": {"role": entry["role"], "baselineId": CHARACTER_BASELINE_ID,
+                         "cropId": f"{character_id}-VISUAL-PORTRAIT", "iconId": f"{character_id}-VISUAL-ICON",
+                         "highlights": entry["highlights"]},
+    }
 
 
 def character_baseline(baseline):
@@ -164,6 +195,36 @@ def pickups(baseline):
     }
 
 
+ROLE_COLORS = {"Offensive": [1, 0.6, 0.15, 1], "Wanderer": [0.3, 0.85, 1, 1], "Protector": [0.65, 0.4, 1, 1]}
+
+
+def late_traveler(t, baseline):
+    """TRAVELER-003/004/006…010 from travelers-v1 (DECISION-0088): one progression tier with the FIELD-001 peers."""
+    knockback_seconds = baseline["controls"]["nonzeroKnockbackSeconds"]
+    body = {"id": t["id"], "knockbackResistance": t["knockbackResistance"], "maxHealth": t["maxHealth"],
+            "visualId": f"{t['id']}-VISUAL-BODY", "motionProfileId": "ENEMY-001-MOTION",
+            "collisionSize": t["collisionSize"], "movementSpeed": t["movementSpeed"],
+            "contactDamage": t["contactDamage"], "contactDamageInterval": 1,
+            "experienceReward": t["experienceReward"], "movement": t["movement"],
+            "contactControls": {"knockbackDistance": t["contactKnockback"], "knockbackSeconds": knockback_seconds}}
+    if t["dashContactKnockback"] is not None:
+        body["dashContactControls"] = {"knockbackDistance": t["dashContactKnockback"], "knockbackSeconds": knockback_seconds}
+    if t["attack"] is not None:
+        attack = dict(t["attack"])
+        attack["controls"] = {"knockbackDistance": attack.pop("knockbackDistance"), "knockbackSeconds": knockback_seconds}
+        body["attack"] = attack
+    support = t["support"]
+    return {
+        "id": t["id"], "name": content_design_names("TRAVELER")[t["id"]], "marker": t["marker"], "role": t["role"],
+        "body": body, "presenceSeconds": t["presenceSeconds"], "wanderSeconds": t["wanderSeconds"],
+        "restSeconds": t["restSeconds"], "avoidRadius": t["avoidRadius"], "avoidSeconds": t["avoidSeconds"],
+        "guardOffset": 1, "support": support["kind"], "supportRadius": support["radius"],
+        "reduction": support["reduction"], "resistance": support["resistance"], "shieldHp": support["shieldHp"],
+        "shieldSeconds": support["shieldSeconds"], "supportCooldown": support["cooldownSeconds"],
+        "supportTargets": support["supportTargets"], "color": ROLE_COLORS[t["role"]],
+    }
+
+
 def travelers(baseline):
     schedule = baseline["travelerSchedule"]
     seeds = baseline["randomness"]["referenceSeeds"]
@@ -190,9 +251,12 @@ def travelers(baseline):
             "resistance": support["resistance"], "shieldHp": support["shieldHp"], "shieldSeconds": support["shieldSeconds"],
             "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
         })
+    result += [late_traveler(t, baseline) for t in baseline["lateTravelers"]["travelers"]]
+    pool = sorted(t["id"] for t in result)
+
     def entry(schedule_id, seed, rank):
         # DECISION-0063: every field draws from the global pool of implemented Travelers, roles never repeat.
-        return {"id": schedule_id, "travelerIds": [t["id"] for t in baseline["travelers"]],
+        return {"id": schedule_id, "travelerIds": pool,
                 "countProbabilities": schedule["countProbabilities"], "seed": seed, "fieldRank": rank,
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],

@@ -51,7 +51,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(20, bound.Length, "All final and mid bosses have approved body art.");
             var bodies = bound.Select(boss => boss.Body)
                 .Concat(catalog.Travelers.Definitions.Values.Select(traveler => traveler.Body)).ToArray();
-            Assert.AreEqual(23, bodies.Length, "Twenty bosses and the three implemented Travelers.");
+            Assert.AreEqual(30, bodies.Length, "Twenty bosses and all ten Travelers (DECISION-0088).");
             foreach (var body in bodies)
             {
                 var visual = EnemyBodyVisual.Resolve(body, catalog.Registry);
