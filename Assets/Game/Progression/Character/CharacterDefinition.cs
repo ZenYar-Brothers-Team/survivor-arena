@@ -98,14 +98,14 @@ namespace Game.Progression
             for (var i = 0; i < draftWeights.Length; i++)
             {
                 var weight = draftWeights[i];
-                if (!_draftWeights.TryAdd(weight.SkillId, weight.Weight))
-                    throw new ArgumentException($"Duplicate draft weight for skill '{weight.SkillId}'.", nameof(draftWeights));
+                if (!_draftWeights.TryAdd(weight.EntryId, weight.Weight))
+                    throw new ArgumentException($"Duplicate draft weight for entry '{weight.EntryId}'.", nameof(draftWeights));
             }
         }
 
-        public float GetDraftWeight(ContentId skillId)
+        public float GetDraftWeight(ContentId entryId)
         {
-            return _draftWeights.TryGetValue(skillId, out var weight) ? weight : 1f;
+            return _draftWeights.TryGetValue(entryId, out var weight) ? weight : 1f;
         }
 
         public BuildEntryDefinition ResolveStartingActiveSkill(ContentRegistry registry)
@@ -128,9 +128,9 @@ namespace Game.Progression
             foreach (var id in _draftWeights.Keys)
             {
                 var definition = registry.Get<BuildEntryDefinition>(id);
-                if (definition.Kind != BuildEntryKind.ActiveSkill)
+                if (definition.Kind != BuildEntryKind.ActiveSkill && definition.Kind != BuildEntryKind.PassiveItem)
                     throw new InvalidOperationException(
-                        $"Character '{Id}' draft weight entry '{id}' is not an active skill.");
+                        $"Character '{Id}' draft weight entry '{id}' is not an active skill or passive item.");
             }
         }
 

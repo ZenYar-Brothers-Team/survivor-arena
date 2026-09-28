@@ -6,7 +6,9 @@ CHARACTER_BASELINE_ID = "CHARACTER-BASELINE-001"
 
 
 def characters(baseline):
-    """CHAR-001 only: draft weights for every implemented skill; locked ones are filtered by profile access."""
+    """CHAR-001 from baseline v1 plus CHAR-002…010 from characters-v1 (DECISION-0087).
+
+    Draft weights cover every implemented skill; locked ones are filtered by profile access."""
     character = baseline["character"]
     implemented = set(baseline["initialRoster"]["actives"]) | {skill["id"] for skill in baseline["late"]["skills"]}
     late_weights = baseline["late"]["draftWeights"][character["id"]]
@@ -22,7 +24,36 @@ def characters(baseline):
         "presentation": {"role": " · ".join(character["highlights"]), "baselineId": CHARACTER_BASELINE_ID,
                          "cropId": f"{character['id']}-VISUAL-PORTRAIT", "iconId": f"{character['id']}-VISUAL-ICON",
                          "highlights": []},
-    }]
+    }] + [late_character(entry, implemented, names) for entry in baseline["lateCharacters"]["characters"]]
+
+
+# Later characters share CHAR-001's approved motion profile until a per-character profile is authored.
+SHARED_CHARACTER_MOTION = "CHAR-001-MOTION"
+
+
+def late_character(entry, implemented_skills, names):
+    boosted, blocked = set(entry["boostedSkills"]), set(entry["blockedSkills"])
+    boosted_passives, blocked_passives = set(entry["boostedPassives"]), set(entry["blockedPassives"])
+
+    def weight(entry_id, up, down):
+        return 1.35 if entry_id in up else 0 if entry_id in down else 1
+
+    passive_ids = [f"PASSIVE-{i:03d}" for i in range(1, 15)]
+    character_id = entry["id"]
+    return {
+        "id": character_id, "displayName": names[character_id],
+        "initiallyUnlocked": False, "startingActiveSkillId": entry["startingSkill"],
+        "visualId": f"{character_id}-VISUAL-BODY", "motionProfileId": SHARED_CHARACTER_MOTION,
+        "baseStats": entry["stats"],
+        "draftWeights": [{"skillId": skill, "weight": weight(skill, boosted, blocked)}
+                         for skill in sorted(implemented_skills)],
+        "passiveDraftWeights": [{"passiveId": passive, "weight": weight(passive, boosted_passives, blocked_passives)}
+                                for passive in passive_ids],
+        "startingSkillBoost": entry["startingSkillBoost"],
+        "presentation": {"role": entry["role"], "baselineId": CHARACTER_BASELINE_ID,
+                         "cropId": f"{character_id}-VISUAL-PORTRAIT", "iconId": f"{character_id}-VISUAL-ICON",
+                         "highlights": entry["highlights"]},
+    }
 
 
 def character_baseline(baseline):

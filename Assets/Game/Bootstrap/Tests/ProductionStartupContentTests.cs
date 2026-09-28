@@ -29,9 +29,14 @@ namespace Game.Bootstrap.Tests
             definitions.AddRange(FixtureSpriteCatalog.CreateFor(visuals));
             var registry = ContentRegistry.BuildFrom(definitions);
 
-            var klepka = characters.Single();
+            var klepka = characters.Single(c => c.Id.ToString() == "CHAR-001");
             Assert.AreEqual("SKILL-001", klepka.ResolveStartingActiveSkill(registry).Id.ToString());
-            klepka.ValidateDraftSkillReferences(registry);
+            // DECISION-0087: every character's skill and passive weights resolve against production entries.
+            foreach (var character in characters)
+            {
+                character.ResolveStartingActiveSkill(registry);
+                character.ValidateDraftSkillReferences(registry);
+            }
 
             var profile = new ProfileService(MetaCatalog.Load(), new MemoryProfileStore());
             profile.LoadAsync().GetAwaiter().GetResult();

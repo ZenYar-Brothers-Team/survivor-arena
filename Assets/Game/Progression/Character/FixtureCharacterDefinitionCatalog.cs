@@ -68,9 +68,12 @@ namespace Game.Progression
 
             var stats = data.BaseStats;
             var weightsData = data.DraftWeights ?? Array.Empty<CharacterDraftWeightData>();
-            var weights = new CharacterDraftWeight[weightsData.Length];
-            for (var i = 0; i < weights.Length; i++)
+            var passiveWeightsData = data.PassiveDraftWeights ?? Array.Empty<CharacterPassiveDraftWeightData>();
+            var weights = new CharacterDraftWeight[weightsData.Length + passiveWeightsData.Length];
+            for (var i = 0; i < weightsData.Length; i++)
                 weights[i] = new CharacterDraftWeight(weightsData[i].SkillId, weightsData[i].Weight);
+            for (var i = 0; i < passiveWeightsData.Length; i++)
+                weights[weightsData.Length + i] = new CharacterDraftWeight(passiveWeightsData[i].PassiveId, passiveWeightsData[i].Weight);
 
             return new CharacterDefinition(
                 data.Id,

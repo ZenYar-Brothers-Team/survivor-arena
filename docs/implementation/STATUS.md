@@ -574,14 +574,16 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-21)
 
 ### IP-22 — Production Characters CHAR-001…010
 
-Status: Blocked
+Status: Implemented
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-03 — CHAR-001; поздние character IDs только unlock metadata. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-12, IP-17, IP-12A
-Blocked by: IP-17 (Blocked, target scope).
-Remaining gates: G-14: weights; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
-Remaining acceptance / IDs: CHAR-002…010 production bindings, gameplay-scale body review и Unity verification CHAR-001. Утверждённые body CHAR-002…005 подготовлены как visual assets 2026-09-26 — [evidence](evidence/2026-09-26-character-body-art.md). Body CHAR-006…010 подготовлены единым art packet 2026-09-27: runtime imports и contact profiles зарегистрированы, Unity art scope 44/44 EditMode, manifest 143/143, global contact fit PASS; production binding и gameplay-scale review открыты — [evidence](evidence/2026-09-27-character-body-art.md).
+Blocked by: нет для реализации; данные, веса и visual bindings всех 10 ID подключены.
+Remaining gates: G-14 weights закрыт DECISION-0087; G-15 resolved по DECISION-0037, unlock metadata определены; concept/master identity подтверждена DECISION-0029, production runtime binding/art review остаются per-ID. CHAR-006 огр и прочие approved roster choices не переутверждаются.
+Remaining acceptance / IDs: ручной прогон CHAR-002…010 (ощущение характеристик и блокировок), gameplay-scale body review и чистовые portrait/icon при недостаточной читаемости crop; CHAR-005/006/007/008/009/010 честно открываются только после FIELD-004…009. Утверждённые body CHAR-002…005 подготовлены как visual assets 2026-09-26 — [evidence](evidence/2026-09-26-character-body-art.md). Body CHAR-006…010 подготовлены единым art packet 2026-09-27: runtime imports и contact profiles зарегистрированы, Unity art scope 44/44 EditMode, manifest 143/143, global contact fit PASS; production binding и gameplay-scale review открыты — [evidence](evidence/2026-09-27-character-body-art.md).
 Startup subset F1-03: CHAR-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Data packet 2026-09-28: [characters-v1](../balance/characters-v1.md) — CHAR-002…010: заметные характеристики (±30…50%) со слабыми сторонами, веса драфта ×1.35/0 для активных и пассивок: по три повышенных и по два заблокированных каждого типа (6–8 недоступных сетов у каждого, разные наборы); веса начинают действовать на пассивки. **Approved 2026-09-28** ([DECISION-0087](../decisions/0087-characters-v1.md)); static validator PASS.
+CHAR-002…010 Implemented 2026-09-28: generator из characters-v1, `passiveDraftWeights` в JSON/DTO, `DraftPool` применяет вес персонажа к пассивкам, portrait/icon — body crop как у CHAR-001, motion — общий `CHAR-001-MOTION`; GDD и карточки синхронизированы. Unity 6000.6.0f1: EditMode 911/911 (`TestResults/checks/20260928T153347-522756Z`), PlayMode 34/34 с graphics (`TestResults/checks/20260928T153929-023270Z/summary.json`), 0 skipped. Первый PlayMode без graphics упал в рендере batch-процесса (crash handler) и не считается результатом. В игре не проверено.
 Target implementation evidence: F1-03 subset only.
 Target verification evidence: Art-prep CHAR-006…010: Unity 6000.6.0f1, 44/44 Game.* EditMode, zero skipped, manifest 143/143 (`TestResults/checks/20260927T071305-197020Z/summary.json`); полный IP-22 не проверен.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).

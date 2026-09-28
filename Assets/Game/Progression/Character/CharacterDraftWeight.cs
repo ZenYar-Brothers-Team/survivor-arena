@@ -3,18 +3,19 @@ using Game.Content;
 
 namespace Game.Progression
 {
+    /// <summary>Draft weight of one active skill or passive item (DECISION-0087); 0 excludes the entry.</summary>
     public readonly struct CharacterDraftWeight
     {
-        public ContentId SkillId { get; }
+        public ContentId EntryId { get; }
         public float Weight { get; }
 
-        public CharacterDraftWeight(ContentId skillId, float weight)
+        public CharacterDraftWeight(ContentId entryId, float weight)
         {
-            if (!skillId.IsValid)
-                throw new ArgumentException("Character draft weight requires a valid skill id.", nameof(skillId));
+            if (!entryId.IsValid)
+                throw new ArgumentException("Character draft weight requires a valid entry id.", nameof(entryId));
             NumericValidation.ValidateNonNegative(weight, nameof(weight));
 
-            SkillId = skillId;
+            EntryId = entryId;
             Weight = weight;
         }
     }

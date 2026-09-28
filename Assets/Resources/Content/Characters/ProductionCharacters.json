@@ -102,5 +102,1509 @@
       "iconId": "CHAR-001-VISUAL-ICON",
       "highlights": []
     }
+  },
+  {
+    "id": "CHAR-002",
+    "displayName": "Бугор",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-003",
+    "visualId": "CHAR-002-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 150,
+      "movementSpeed": 2.55,
+      "activeSkillDamageMultiplier": 1,
+      "activeSkillCooldownMultiplier": 1.15,
+      "incomingDamageMultiplier": 0.85,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "effectSizeMultiplierBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Орбитальных клинков · Очень прочный, но медленный",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-002-VISUAL-PORTRAIT",
+      "iconId": "CHAR-002-VISUAL-ICON",
+      "highlights": [
+        "maxHealth",
+        "incomingDamageMultiplier",
+        "movementSpeed",
+        "activeSkillCooldownMultiplier"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-003",
+    "displayName": "Шепотка",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-005",
+    "visualId": "CHAR-003-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 65,
+      "movementSpeed": 3.45,
+      "activeSkillDamageMultiplier": 1.35,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 0
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "actionSpeedBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Ветряного копья · Сильные и быстрые атаки, но очень хрупкая",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-003-VISUAL-PORTRAIT",
+      "iconId": "CHAR-003-VISUAL-ICON",
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "movementSpeed",
+        "maxHealth"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-004",
+    "displayName": "Тётка Шмыга",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-009",
+    "visualId": "CHAR-004-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 80,
+      "movementSpeed": 3.45,
+      "activeSkillDamageMultiplier": 0.85,
+      "activeSkillCooldownMultiplier": 0.75,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 0
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "actionSpeedBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Магматической мины · Частые атаки и быстрый шаг, но слабее бьёт",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-004-VISUAL-PORTRAIT",
+      "iconId": "CHAR-004-VISUAL-ICON",
+      "highlights": [
+        "activeSkillCooldownMultiplier",
+        "movementSpeed",
+        "maxHealth",
+        "activeSkillDamageMultiplier"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-005",
+    "displayName": "Бабка Искра",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-007",
+    "visualId": "CHAR-005-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 60,
+      "movementSpeed": 2.85,
+      "activeSkillDamageMultiplier": 1.4,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0.25,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.45,
+      "actionSpeedBonus": 0.4
+    },
+    "presentation": {
+      "role": "Начинает с Цепной молнии · Самый сильный урон, но самая хрупкая",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-005-VISUAL-PORTRAIT",
+      "iconId": "CHAR-005-VISUAL-ICON",
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "disappearingXpRecovery",
+        "maxHealth",
+        "movementSpeed"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-006",
+    "displayName": "Гром",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-010",
+    "visualId": "CHAR-006-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 170,
+      "movementSpeed": 2.4,
+      "activeSkillDamageMultiplier": 1,
+      "activeSkillCooldownMultiplier": 1.3,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0.5,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1.4,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.45,
+      "effectSizeMultiplierBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Небесного удара · Огромный запас здоровья и большие атаки, но медленный и редко бьёт",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-006-VISUAL-PORTRAIT",
+      "iconId": "CHAR-006-VISUAL-ICON",
+      "highlights": [
+        "maxHealth",
+        "effectSizeMultiplier",
+        "knockbackResistance",
+        "movementSpeed",
+        "activeSkillCooldownMultiplier"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-007",
+    "displayName": "Дед Вертун",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-006",
+    "visualId": "CHAR-007-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 70,
+      "movementSpeed": 3.9,
+      "activeSkillDamageMultiplier": 0.85,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.8,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "actionSpeedBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Бумеранга · Самый быстрый и далеко собирает опыт, но хрупкий",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-007-VISUAL-PORTRAIT",
+      "iconId": "CHAR-007-VISUAL-ICON",
+      "highlights": [
+        "movementSpeed",
+        "pickupRadius",
+        "maxHealth",
+        "activeSkillDamageMultiplier"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-008",
+    "displayName": "Тётушка Светляк",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-012",
+    "visualId": "CHAR-008-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 80,
+      "movementSpeed": 2.7,
+      "activeSkillDamageMultiplier": 1,
+      "activeSkillCooldownMultiplier": 0.85,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0.05,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1.4,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "effectRangeMultiplierBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Пульсирующего луча · Дальние и частые атаки, но медленная",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-008-VISUAL-PORTRAIT",
+      "iconId": "CHAR-008-VISUAL-ICON",
+      "highlights": [
+        "effectRangeMultiplier",
+        "activeSkillCooldownMultiplier",
+        "maxHealth",
+        "movementSpeed"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-009",
+    "displayName": "Иголка",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-013",
+    "visualId": "CHAR-009-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 75,
+      "movementSpeed": 3,
+      "activeSkillDamageMultiplier": 1.3,
+      "activeSkillCooldownMultiplier": 0.9,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0,
+      "disappearingXpRecovery": 0,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.4,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "actionSpeedBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Ледяных осколков · Сильный фронтальный урон, но хрупкая",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-009-VISUAL-PORTRAIT",
+      "iconId": "CHAR-009-VISUAL-ICON",
+      "highlights": [
+        "activeSkillDamageMultiplier",
+        "activeSkillCooldownMultiplier",
+        "maxHealth",
+        "pickupRadius"
+      ]
+    }
+  },
+  {
+    "id": "CHAR-010",
+    "displayName": "Старшой Ночка",
+    "initiallyUnlocked": false,
+    "startingActiveSkillId": "SKILL-015",
+    "visualId": "CHAR-010-VISUAL-BODY",
+    "motionProfileId": "CHAR-001-MOTION",
+    "baseStats": {
+      "maxHealth": 130,
+      "movementSpeed": 2.7,
+      "activeSkillDamageMultiplier": 0.9,
+      "activeSkillCooldownMultiplier": 1,
+      "incomingDamageMultiplier": 1,
+      "healthRestorationMultiplier": 1,
+      "healthRegenerationPerSecond": 0.4,
+      "disappearingXpRecovery": 0.05,
+      "pickedUpXpMultiplier": 1,
+      "xpDropLifetimeBonusSeconds": 0,
+      "pickupRadius": 0.5,
+      "knockbackResistance": 0,
+      "outgoingKnockbackBonus": 0,
+      "effectSizeMultiplier": 1,
+      "effectRangeMultiplier": 1.25,
+      "potionDropMultiplier": 1,
+      "lowHealthDamageMaxBonus": 0
+    },
+    "draftWeights": [
+      {
+        "skillId": "SKILL-001",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-002",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-003",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-004",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-005",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-006",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-007",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-008",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-009",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-010",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-011",
+        "weight": 1.35
+      },
+      {
+        "skillId": "SKILL-012",
+        "weight": 0
+      },
+      {
+        "skillId": "SKILL-013",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-014",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-015",
+        "weight": 1
+      },
+      {
+        "skillId": "SKILL-016",
+        "weight": 1
+      }
+    ],
+    "passiveDraftWeights": [
+      {
+        "passiveId": "PASSIVE-001",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-002",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-003",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-004",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-005",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-006",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-007",
+        "weight": 0
+      },
+      {
+        "passiveId": "PASSIVE-008",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-009",
+        "weight": 1.35
+      },
+      {
+        "passiveId": "PASSIVE-010",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-011",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-012",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-013",
+        "weight": 1
+      },
+      {
+        "passiveId": "PASSIVE-014",
+        "weight": 1.35
+      }
+    ],
+    "startingSkillBoost": {
+      "activeSkillDamageMultiplierBonus": 0.6,
+      "effectRangeMultiplierBonus": 0.25
+    },
+    "presentation": {
+      "role": "Начинает с Креста клинков · Прочный и восстанавливает здоровье, но медленнее и слабее бьёт",
+      "baselineId": "CHARACTER-BASELINE-001",
+      "cropId": "CHAR-010-VISUAL-PORTRAIT",
+      "iconId": "CHAR-010-VISUAL-ICON",
+      "highlights": [
+        "maxHealth",
+        "effectRangeMultiplier",
+        "healthRegenerationPerSecond",
+        "movementSpeed",
+        "activeSkillDamageMultiplier"
+      ]
+    }
   }
 ]

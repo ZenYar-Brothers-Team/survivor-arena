@@ -1566,10 +1566,10 @@ Unlock: доступен с начала игры.
 Архетип: взрослый мужчина-гоблин; коренастый работяга/выживальщик.
 Визуальная идея: коренастый, широкий в плечах и заметно старше Клёпки; тяжёлые руки, рабочая одежда, ремни, заплаты, инструменты или куски защитного снаряжения. Должен выглядеть как человек, который привык таскать тяжести и прикрывать остальных, а не как просто «медленный молодой гоблин».
 Gameplay-роль: прочный персонаж ближней зоны, которому выгодно держать преследователей рядом.
-Базовые характеристики: 120 HP; movement 92%; active damage 105%; cooldown duration 100%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 150 HP; movement 85%; active damage 100%; cooldown duration 115%; disappearing-XP recovery 0%; incoming damage 85%.
 Стартовое умение: SKILL-003 «Орбитальные клинки».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-003 +60% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-015; пониженные — SKILL-010, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-015, PASSIVE-001, PASSIVE-008, PASSIVE-011; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-005, PASSIVE-006; остальные ×1.
 Unlock (DECISION-0050): покупка за 100 после первого прохождения FIELD-001; простой Quit или поражение не выполняет условие.
 
 #### CHAR-003 — Шепотка
@@ -1577,10 +1577,10 @@ Unlock (DECISION-0050): покупка за 100 после первого про
 Архетип: молодая девушка-гоблин; юная разведчица.
 Визуальная идея: заметно более тонкий и лёгкий силуэт, чем у Клёпки; длинные уши, лёгкая одежда, небольшой походный мешок, плащ или другие детали разведчика. Молодая, но визуально явно другой персонаж, а не женская перекраска CHAR-001.
 Gameplay-роль: хрупкая осторожная разведчица с акцентом на сильные направленные projectiles.
-Базовые характеристики: 90 HP; movement 108%; active damage 110%; cooldown duration 105%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 65 HP; movement 115%; active damage 135%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-005 «Ветряное копьё».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-005 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-012, SKILL-013; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-001, SKILL-012, SKILL-013, PASSIVE-003, PASSIVE-004, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-008, PASSIVE-014; остальные ×1.
 Unlock: завершить FIELD-002.
 
 #### CHAR-004 — Тётка Шмыга
@@ -1588,10 +1588,10 @@ Unlock: завершить FIELD-002.
 Архетип: женщина-гоблин среднего возраста; мастерица/сапёр.
 Визуальная идея: взрослая, жилистая, практичная; пояс с инструментами, сумки, проволока, бутылки, детали ловушек и слегка безумный инженерный вид. Силуэт должен считываться через экипировку и возраст, а не только через скорость персонажа.
 Gameplay-роль: мобильный сапёр для билдов через мины, взрывы и постоянное изменение маршрута.
-Базовые характеристики: 95 HP; movement 110%; active damage 95%; cooldown duration 92%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 80 HP; movement 115%; active damage 85%; cooldown duration 75%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-009 «Магматическая мина».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-009 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-006, SKILL-014; пониженные — SKILL-010, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-014, PASSIVE-003, PASSIVE-005, PASSIVE-012; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-001, PASSIVE-014; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-003; цена 300.
 
 #### CHAR-005 — Бабка Искра
@@ -1599,10 +1599,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: пожилая женщина-гоблин; маленькая старая ведьма/знахарка.
 Визуальная идея: очень небольшой рост, заметно пожилое лицо, согнутая или пружинистая осанка, растрёпанные седые волосы, амулеты, мешочки, украденные магические безделушки. Несмотря на возраст, должна выглядеть живой и опасно любопытной, а не беспомощной.
 Gameplay-роль: магически ориентированный персонаж для частых цепных и многоцелевых атак.
-Базовые характеристики: 85 HP; movement 105%; active damage 108%; cooldown duration 95%; disappearing-XP recovery 10%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 60 HP; movement 95%; active damage 140%; cooldown duration 100%; disappearing-XP recovery 25%.
 Стартовое умение: SKILL-007 «Цепная молния».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-007 +45% damage и +40% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-008, SKILL-011; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-001, SKILL-008, SKILL-011, PASSIVE-005, PASSIVE-010, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-001, PASSIVE-003; остальные ×1.
 Unlock: завершить FIELD-004.
 
 #### CHAR-006 — Гром
@@ -1610,10 +1610,10 @@ Unlock: завершить FIELD-004.
 Архетип: крупный огр-беглец.
 Визуальная идея: персонаж, который принципиально ломает гоблинский силуэт — примерно в полтора-два раза массивнее большинства текущего roster, огромные руки и корпус, маленькая относительно тела голова, простая грубая одежда и добродушно-тяжёлый образ. Он должен мгновенно читаться как другой вид существа, но оставаться частью того же визуального мира через материалы, импровизированное снаряжение и общий стиль.
 Gameplay-роль: очень крупный и медленный персонаж с редкими, но мощными AoE-атаками.
-Базовые характеристики: 130 HP; movement 90%; active damage 112%; cooldown duration 110%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 170 HP; movement 80%; active damage 100%; cooldown duration 130%; disappearing-XP recovery 0%; effect size 140%; knockback resistance 50%.
 Стартовое умение: SKILL-010 «Небесный удар».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-010 +45% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-004, SKILL-014, SKILL-015; пониженные — SKILL-006, SKILL-008; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-004, SKILL-014, SKILL-015, PASSIVE-001, PASSIVE-011, PASSIVE-012; 0 (не выпадают) — SKILL-006, SKILL-008, PASSIVE-006, PASSIVE-013; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-005; цена 500.
 
 #### CHAR-007 — Дед Вертун
@@ -1621,10 +1621,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: дедушка-гоблин; сухой, жилистый старый бегун/охотник.
 Визуальная идея: высокий для гоблина, очень худой и сутулый, длинные руки и ноги, седая борода или усы, старое походное снаряжение. Его возраст должен быть очевиден, но он выглядит неожиданно подвижным — тот самый дед, который всю жизнь бегал по лесам и до сих пор обгоняет молодых.
 Gameplay-роль: самый мобильный персонаж, предпочитающий атаки, хорошо работающие во время постоянного бегства.
-Базовые характеристики: 85 HP; movement 118%; active damage 95%; cooldown duration 90%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 70 HP; movement 130%; active damage 85%; cooldown duration 100%; disappearing-XP recovery 0%; XP pickup radius 160%.
 Стартовое умение: SKILL-006 «Бумеранг».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-006 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-002, SKILL-008, SKILL-013; пониженные — SKILL-009, SKILL-010; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-002, SKILL-008, SKILL-013, PASSIVE-002, PASSIVE-003, PASSIVE-007; 0 (не выпадают) — SKILL-009, SKILL-010, PASSIVE-009, PASSIVE-012; остальные ×1.
 Unlock: завершить FIELD-006.
 
 #### CHAR-008 — Тётушка Светляк
@@ -1632,10 +1632,10 @@ Unlock: завершить FIELD-006.
 Архетип: взрослая женщина-гоблин; хранительница трофеев/реликвий.
 Визуальная идея: более спокойная и собранная взрослая фигура; связка фонарей, украденных святых символов, линз или светящихся реликвий. Отличается от Тётки Шмыги не инженерным хаосом, а аккуратностью, симметрией и «ритуальным» видом.
 Gameplay-роль: персонаж с ворованным световым фокусом для частых дальних атак и направленного покрытия пространства.
-Базовые характеристики: 95 HP; movement 100%; active damage 105%; cooldown duration 90%; disappearing-XP recovery 5%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 80 HP; movement 90%; active damage 100%; cooldown duration 85%; disappearing-XP recovery 5%; effect range 140%.
 Стартовое умение: SKILL-012 «Пульсирующий луч».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-012 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-001, SKILL-005, SKILL-007; пониженные — SKILL-003, SKILL-009; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-001, SKILL-005, SKILL-007, PASSIVE-004, PASSIVE-005, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-002, PASSIVE-003; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-007; цена 700.
 
 #### CHAR-009 — Иголка
@@ -1643,10 +1643,10 @@ Unlock: покупка за мета-валюту после открытия FI
 Архетип: подросток-гоблин; старшая сестра/юная охотница.
 Визуальная идея: подростковая, угловатая фигура, колючая причёска, самодельные колчаны/иглы, слишком серьёзный для своего возраста вид. Должна заметно отличаться и от более молодой Шепотки, и от взрослых женских персонажей roster: более подростковая, резкая, демонстративно «крутая».
 Gameplay-роль: стрелок, предпочитающий вееры, пробивание и плотный фронтальный урон.
-Базовые характеристики: 100 HP; movement 105%; active damage 107%; cooldown duration 100%; disappearing-XP recovery 0%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 75 HP; movement 100%; active damage 130%; cooldown duration 90%; disappearing-XP recovery 0%; XP pickup radius 80%.
 Стартовое умение: SKILL-013 «Ледяные осколки».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-013 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-002, SKILL-005, SKILL-015; пониженные — SKILL-004, SKILL-010; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-002, SKILL-005, SKILL-015, PASSIVE-004, PASSIVE-011, PASSIVE-013; 0 (не выпадают) — SKILL-004, SKILL-010, PASSIVE-005, PASSIVE-010; остальные ×1.
 Unlock: завершить FIELD-008.
 
 #### CHAR-010 — Старшой Ночка
@@ -1654,10 +1654,10 @@ Unlock: завершить FIELD-008.
 Архетип: мужчина-гоблин среднего/старшего возраста; бывалый ветеран/старшой.
 Визуальная идея: не самый крупный, но самый «бывалый» взрослый мужчина: шрамы, старая броня из разномастных частей, трофеи, тяжёлый плащ или воротник. Силуэт должен говорить «ветеран и семейный авторитет», а не просто очередной боевой гоблин.
 Gameplay-роль: опытный персонаж поздней прогрессии для билдов на круговое покрытие и одновременную работу по множеству направлений.
-Базовые характеристики: 110 HP; movement 95%; active damage 108%; cooldown duration 100%; disappearing-XP recovery 5%.
+Базовые характеристики ([DECISION-0087](decisions/0087-characters-v1.md)): 130 HP; movement 90%; active damage 90%; cooldown duration 100%; disappearing-XP recovery 5%; effect range 125%; regeneration 0.4 HP/s.
 Стартовое умение: SKILL-015 «Крест клинков».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-015 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
-Draft weights: повышенные — SKILL-003, SKILL-004, SKILL-011; пониженные — SKILL-001, SKILL-012; остальные стандартные.
+Draft weights ([DECISION-0087](decisions/0087-characters-v1.md)): ×1.35 — SKILL-003, SKILL-004, SKILL-011, PASSIVE-001, PASSIVE-009, PASSIVE-014; 0 (не выпадают) — SKILL-001, SKILL-012, PASSIVE-006, PASSIVE-007; остальные ×1.
 Unlock: завершить FIELD-009.
 
 ### Fields

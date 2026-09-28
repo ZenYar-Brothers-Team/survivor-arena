@@ -197,7 +197,9 @@ namespace Game.Progression
 
         private float GetDraftWeight(BuildEntryDefinition definition)
         {
-            if (_character == null || definition.Kind != BuildEntryKind.ActiveSkill)
+            // DECISION-0087: character weights apply to active skills and passive items; sets keep weight 1.
+            if (_character == null ||
+                definition.Kind != BuildEntryKind.ActiveSkill && definition.Kind != BuildEntryKind.PassiveItem)
                 return 1f;
             return _character.GetDraftWeight(definition.Id);
         }
