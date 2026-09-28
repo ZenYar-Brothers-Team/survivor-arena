@@ -7,6 +7,18 @@ namespace Game.Presentation.Tests
 {
     public sealed class SpriteAssetImportTests
     {
+        [TestCase("ui-menu-back-background")]
+        [TestCase("ui-menu-front-background")]
+        public void MenuLayer_PreservesWholeCanvas(string name)
+        {
+            var path = "Assets/Resources/Art/UI/Menu/" + name + ".png";
+            var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+            Assert.AreEqual(SpriteImportMode.Single, importer.spriteImportMode);
+            Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            Assert.AreEqual(sprite.texture.width, sprite.rect.width);
+            Assert.AreEqual(sprite.texture.height, sprite.rect.height);
+        }
         private const string AssetPath =
             "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png";
         private const string ResourcePath =

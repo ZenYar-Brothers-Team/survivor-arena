@@ -10,6 +10,8 @@ namespace Game.Meta
     {
         public long RewardPerLevel { get; }
         public long EmptyBookReward { get; }
+        public int BookUpgradeReward { get; }
+        public long RefundFee { get; }
         public float FieldClearSeconds { get; }
         public IReadOnlyDictionary<string, MetaUpgrade> Upgrades { get; }
         public IReadOnlyDictionary<string, MetaUnlock> Unlocks { get; }
@@ -19,8 +21,12 @@ namespace Game.Meta
         {
             IsFixture = isFixture;
             if (data == null) throw new ArgumentNullException(nameof(data));
+            RefundFee = data.RefundFee ?? throw new ArgumentException("refundFee required.");
+            NumericValidation.ValidateNonNegative(RefundFee, nameof(RefundFee));
             RewardPerLevel = data.RewardPerLevel ?? throw new ArgumentException("rewardPerLevel required.");
             EmptyBookReward = data.EmptyBookReward ?? throw new ArgumentException("emptyBookReward required.");
+            BookUpgradeReward = data.BookUpgradeReward ?? throw new ArgumentException("bookUpgradeReward required.");
+            NumericValidation.ValidateNonNegative(BookUpgradeReward, nameof(BookUpgradeReward));
             FieldClearSeconds = data.FieldClearSeconds ?? throw new ArgumentException("fieldClearSeconds required.");
             NumericValidation.ValidateNonNegative(RewardPerLevel, nameof(RewardPerLevel));
             NumericValidation.ValidateNonNegative(EmptyBookReward, nameof(EmptyBookReward));

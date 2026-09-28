@@ -472,6 +472,7 @@ Method: \`Generate via GPT\`.
 
 | UI asset | Method | Status | Notes |  
 |---|---|---|---|  
+| Menu E background + adult Shepotka foreground | Approved generated layers, UI parallax | IN GAME | `Art/Packets/ui-entry-r1.json`; two full-canvas sprites, procedural light/dust; approval in menu-shepotka-review. Runtime visual acceptance tracked only in STATUS. No CHAR-003 redesign. |
 | 16 skill icons | Generate via GPT | IN GAME — v001 | 16 masters/runtime imports и production bindings; draft и Pause / Build используют полный каталог |
 | 14 passive icons | Generate via GPT | IN GAME — v001 | 14 masters/runtime imports и production bindings; для PASSIVE-006/010/013/014 открыт target-scale slot review |
 | 20 set icons | Generate via GPT | IN GAME — v001 | 20 masters/runtime imports и production bindings; открыт set-progress review и совместный обзор 3–4 сетов |

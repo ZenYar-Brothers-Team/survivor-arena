@@ -15,6 +15,19 @@ from content.read_card import cards
 
 
 class ArtPacketTests(unittest.TestCase):
+    def test_opaque_rgba_preserves_rgb_and_dimensions(self):
+        from PIL import Image
+        source = io.BytesIO()
+        Image.new("RGB", (19, 11), (31, 72, 145)).save(source, format="PNG")
+        prepared, dimensions = art.prepare_png(source.getvalue(), {"mode": "opaque-rgba"})
+        with Image.open(io.BytesIO(prepared)) as result:
+            self.assertEqual("RGBA", result.mode)
+            self.assertEqual((19, 11), result.size)
+            self.assertEqual((31, 72, 145, 255), result.getpixel((0, 0)))
+        self.assertEqual("19x11", dimensions)
+        with self.assertRaises(ValueError):
+            art.prepare_png(source.getvalue(), {"mode": "copy"})
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)

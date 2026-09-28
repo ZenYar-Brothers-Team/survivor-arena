@@ -13,8 +13,9 @@ namespace Game.Meta.Tests
         [SetUp] public void Setup() { _catalog = MetaCatalog.Load(); }
         [Test] public void ProductionCatalog_ApprovedValuesAndReferences_AreComplete()
         {
-            Assert.AreEqual(70,_catalog.Unlocks.Count); Assert.AreEqual(4,_catalog.Upgrades.Count);
+            Assert.AreEqual(70,_catalog.Unlocks.Count); Assert.AreEqual(12,_catalog.Upgrades.Count);
             Assert.AreEqual(5,_catalog.RewardPerLevel); Assert.AreEqual(50,_catalog.EmptyBookReward);
+            Assert.AreEqual(20,_catalog.BookUpgradeReward);
             Assert.AreEqual(900,_catalog.FieldClearSeconds);
             Assert.AreEqual(100,_catalog.Unlocks["CHAR-002"].Price);
             Assert.AreEqual(300,_catalog.Unlocks["CHAR-004"].Price);
@@ -68,12 +69,12 @@ namespace Game.Meta.Tests
         [Test] public async Task DevelopmentReset_ReturnsToNewProfile_PreservingPreviousFiles()
         {
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
-            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
-            Assert.IsTrue(await profile.PurchaseAsync("META-001",0));Assert.IsTrue(await profile.SetUpgradesDisabledAsync(true));
+            var run=MetaTestData.Run(1999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+            Assert.IsTrue(await profile.PurchaseAsync("META-003",0,"CHAR-001"));Assert.IsTrue(await profile.SetUpgradesDisabledAsync(true));
             Assert.IsTrue(await profile.UnlockAllForDevelopmentAsync("character","field"));
             var fresh=new ProfileService(_catalog,new MemoryProfileStore());await fresh.LoadAsync();
             Assert.IsTrue(await profile.ResetForDevelopmentAsync());
-            Assert.AreEqual(1,store.Preserved);Assert.AreEqual(0,profile.Currency);Assert.AreEqual(0,profile.Level("META-001"));
+            Assert.AreEqual(1,store.Preserved);Assert.AreEqual(0,profile.Currency);Assert.AreEqual(0,profile.Level("META-003","CHAR-001"));
             Assert.IsFalse(profile.UpgradesDisabled);Assert.IsNull(profile.LastReceipt);
             foreach(var rule in _catalog.Unlocks.Values)Assert.AreEqual(fresh.IsUnlocked(rule.Id),profile.IsUnlocked(rule.Id),rule.Id);
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(0,loaded.Currency);Assert.IsFalse(loaded.IsUnlocked("CHAR-008"));
@@ -94,27 +95,27 @@ namespace Game.Meta.Tests
         [Test] public async Task Purchase_InsufficientLockedDuplicateAndCap_DoNotOverspend()
         {
             var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
-            Assert.IsFalse(await profile.PurchaseAsync("META-001",0));Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-002"));
+            Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-002"));
             var lost=MetaTestData.Run(1,0);lost.Start();lost.Stop();await profile.ApplyAsync(lost.Outcome,true);
             Assert.IsFalse(await profile.PurchaseAsync("CHAR-002",0),"A finished run no longer opens CHAR-002 (DECISION-0050).");
-            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+            var run=MetaTestData.Run(1999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
             Assert.IsTrue(await profile.PurchaseAsync("CHAR-002",0));Assert.IsFalse(await profile.PurchaseAsync("CHAR-002",0));
-            for(var n=0;n<5;n++)Assert.IsTrue(await profile.PurchaseAsync("META-001",n));
-            Assert.IsFalse(await profile.PurchaseAsync("META-001",4));Assert.IsFalse(await profile.PurchaseAsync("META-001",5));
-            Assert.AreEqual(3400,profile.Currency);
-            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(5,loaded.Level("META-001"));Assert.IsTrue(loaded.IsUnlocked("CHAR-002"));
+            for(var n=0;n<10;n++)Assert.IsTrue(await profile.PurchaseAsync("META-003",n,"CHAR-001"));
+            Assert.IsFalse(await profile.PurchaseAsync("META-003",9,"CHAR-001"));Assert.IsFalse(await profile.PurchaseAsync("META-003",10,"CHAR-001"));
+            Assert.AreEqual(4400,profile.Currency);
+            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(10,loaded.Level("META-003","CHAR-001"));Assert.IsTrue(loaded.IsUnlocked("CHAR-002"));
         }
         [Test] public async Task UpgradesDisabled_RemovesBonusWithoutRefund_PersistsAndRestores()
         {
             // DECISION-0064: "play from scratch" switch, not a reset.
             var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
-            var run=MetaTestData.Run(999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
-            Assert.IsTrue(await profile.PurchaseAsync("META-001",0));
+            var run=MetaTestData.Run(1999,0);run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);
+            Assert.IsTrue(await profile.PurchaseAsync("META-003",0,"CHAR-001"));
             var currency=profile.Currency;var bonus=profile.Modifier("CHAR-001");
             Assert.Greater(bonus.MaxHealthMultiplierBonus,0f);
             Assert.IsTrue(await profile.SetUpgradesDisabledAsync(true));
             Assert.IsTrue(profile.UpgradesDisabled);Assert.AreEqual(default(CharacterStatModifier),profile.Modifier("CHAR-001"));
-            Assert.AreEqual(1,profile.Level("META-001"),"Purchased levels are kept.");Assert.AreEqual(currency,profile.Currency,"No refund.");
+            Assert.AreEqual(1,profile.Level("META-003","CHAR-001"),"Purchased levels are kept.");Assert.AreEqual(currency,profile.Currency,"No refund.");
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();
             Assert.IsTrue(loaded.UpgradesDisabled);Assert.AreEqual(default(CharacterStatModifier),loaded.Modifier("CHAR-001"));
             Assert.IsTrue(await loaded.SetUpgradesDisabledAsync(false));Assert.AreEqual(bonus,loaded.Modifier("CHAR-001"));
@@ -172,25 +173,25 @@ namespace Game.Meta.Tests
             Assert.AreEqual(42,profile.Currency);Assert.AreEqual(1,store.Writes,"Migrated unlocks are persisted once.");
             var again=new ProfileService(_catalog,store);await again.LoadAsync();Assert.AreEqual(1,store.Writes);
         }
-        [Test] public async Task Modifiers_GlobalAndPersonal_AddWithoutMutatingPreviousRun()
+        [Test] public async Task Modifiers_PersonalLevels_DoNotMutateOtherHeroOrPreviousRun()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run(1000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
             var prior=profile.Modifier("CHAR-001");
-            await profile.PurchaseAsync("META-001",0);await profile.PurchaseAsync("META-003",0,"CHAR-001");
+            await profile.PurchaseAsync("META-003",0,"CHAR-001");await profile.PurchaseAsync("META-003",1,"CHAR-001");
             Assert.AreEqual(0,prior.MaxHealthMultiplierBonus);Assert.AreEqual(.10f,profile.Modifier("CHAR-001").MaxHealthMultiplierBonus,.0001);
-            Assert.AreEqual(.05f,profile.Modifier("CHAR-002").MaxHealthMultiplierBonus,.0001);
-            profile.SetRunActive(true);Assert.IsFalse(await profile.PurchaseAsync("META-001",1));profile.SetRunActive(false);
+            Assert.AreEqual(0,profile.Modifier("CHAR-002").MaxHealthMultiplierBonus,.0001);
+            profile.SetRunActive(true);Assert.IsFalse(await profile.PurchaseAsync("META-003",1,"CHAR-001"));profile.SetRunActive(false);
         }
-        [Test] public async Task DamageUpgrades_BothCaps_TotalThirtyPercentAndCorrectPrice()
+        [Test] public async Task DamageUpgrades_PersonalCap_TotalThirtyPercentAndCorrectPrice()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
-            var run=MetaTestData.Run(1000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
-            for(var n=0;n<5;n++) { Assert.IsTrue(await profile.PurchaseAsync("META-002",n)); Assert.IsTrue(await profile.PurchaseAsync("META-004",n,"CHAR-001")); }
+            var run=MetaTestData.Run(2000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
+            for(var n=0;n<10;n++) Assert.IsTrue(await profile.PurchaseAsync("META-004",n,"CHAR-001"));
             Assert.AreEqual(.30f,profile.Modifier("CHAR-001").ActiveSkillDamageMultiplierBonus,.0001);
-            Assert.AreEqual(.15f,profile.Modifier("CHAR-002").ActiveSkillDamageMultiplierBonus,.0001);
-            Assert.AreEqual(2750,profile.Currency);
-            Assert.IsFalse(await profile.PurchaseAsync("META-004",5,"CHAR-001"));
+            Assert.AreEqual(0,profile.Modifier("CHAR-002").ActiveSkillDamageMultiplierBonus,.0001);
+            Assert.AreEqual(4500,profile.Currency);
+            Assert.IsFalse(await profile.PurchaseAsync("META-004",10,"CHAR-001"));
         }
         [Test] public async Task FieldChain_AllCharacterConditionsAndPurchasesResolve()
         {
@@ -209,21 +210,34 @@ namespace Game.Meta.Tests
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();store.Fail=true;
             var run=MetaTestData.Run();run.Start();run.Stop();Assert.IsFalse(await profile.ApplyAsync(run.Outcome,true));
             Assert.AreEqual(ProfileState.PendingResult,profile.State);Assert.IsFalse(profile.CanStart);Assert.AreEqual(0,profile.Currency);
-            Assert.IsFalse(await profile.PurchaseAsync("META-001",0));store.Fail=false;Assert.IsTrue(await profile.RetrySaveAsync());
+            Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));store.Fail=false;Assert.IsTrue(await profile.RetrySaveAsync());
             Assert.AreEqual(200,profile.Currency);await profile.ApplyAsync(run.Outcome,true);Assert.AreEqual(2,store.Writes);
+        }
+        [Test] public async Task MixedBookRewards_SaveRetryAndReload_PreserveExactReceipt()
+        {
+            var store = new FailingProfileStore(); var profile = new ProfileService(_catalog, store);
+            await profile.LoadAsync(); store.Fail = true;
+            var run = MetaTestData.Run(20, 3 * _catalog.BookUpgradeReward + 2 * _catalog.EmptyBookReward);
+            run.Start(); run.Stop();
+            Assert.IsFalse(await profile.ApplyAsync(run.Outcome, true)); Assert.IsNull(profile.LastReceipt);
+            store.Fail = false; Assert.IsTrue(await profile.RetrySaveAsync());
+            Assert.AreEqual(260, profile.Currency); Assert.AreEqual(160, profile.LastReceipt.BookReward);
+            var reloaded = new ProfileService(_catalog, store); await reloaded.LoadAsync();
+            Assert.IsTrue(await reloaded.ApplyAsync(run.Outcome, true));
+            Assert.AreEqual(260, reloaded.Currency); Assert.AreEqual(160, reloaded.LastReceipt.BookReward);
         }
         [Test] public async Task PurchaseFailure_RollsBackBalanceAndLevel()
         {
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);store.Fail=true;
-            Assert.IsFalse(await profile.PurchaseAsync("META-001",0));Assert.AreEqual(200,profile.Currency);Assert.AreEqual(0,profile.Level("META-001"));
+            Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));Assert.AreEqual(200,profile.Currency);Assert.AreEqual(0,profile.Level("META-003","CHAR-001"));
         }
         [Test] public async Task InFlightSave_RejectsSecondIntent()
         {
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
-            store.Gate=new TaskCompletionSource<bool>();var first=profile.PurchaseAsync("META-001",0);
-            Assert.AreEqual(ProfileState.Saving,profile.State);Assert.IsFalse(await profile.PurchaseAsync("META-001",0));
+            store.Gate=new TaskCompletionSource<bool>();var first=profile.PurchaseAsync("META-003",0,"CHAR-001");
+            Assert.AreEqual(ProfileState.Saving,profile.State);Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));
             store.Gate.SetResult(true);Assert.IsTrue(await first);Assert.AreEqual(100,profile.Currency);
         }
         [Test] public async Task IncompleteOutcome_IsNotAZeroPayout()

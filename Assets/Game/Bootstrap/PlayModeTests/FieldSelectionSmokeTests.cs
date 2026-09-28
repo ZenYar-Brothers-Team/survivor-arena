@@ -59,11 +59,13 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(RunState.NotStarted, run.Model.State);
                 Assert.AreEqual(0, run.Model.Elapsed);
                 var ui = root.FieldSelectionDocument.rootVisualElement;
-                Assert.IsFalse(ui.Q<Button>(GameplayUiElementIds.FieldSelectCard("FIXTURE-FIELD-FOCUSED")).enabledSelf);
+                Assert.IsTrue(ui.Q<Button>(GameplayUiElementIds.FieldSelectCard("FIXTURE-FIELD-FOCUSED")).enabledSelf);
+                Submit(ui.Q<Button>(GameplayUiElementIds.FieldSelectCard("FIXTURE-FIELD-FOCUSED")));
+                Assert.IsFalse(ui.Q<Button>(GameplayUiElementIds.FieldSelectStart).enabledSelf);
                 Assert.IsFalse(root.TryStartField("FIXTURE-FIELD-FOCUSED"));
                 Assert.IsNull(player.Stats);
                 Assert.Greater(ui.Q<Button>(GameplayUiElementIds.FieldSelectStart).resolvedStyle.width, 0);
-                Assert.Greater(ui.Q<Label>(GameplayUiElementIds.FieldSelectThumbnail).resolvedStyle.height, 0);
+                Assert.Greater(ui.Q<Image>(GameplayUiElementIds.FieldSelectThumbnail).resolvedStyle.height, 0);
                 Submit(ui.Q<Button>(GameplayUiElementIds.FieldSelectBack));
                 Assert.AreEqual(root.Catalog.RunSetup.StartingCharacterId, root.Selection.SelectedId);
 

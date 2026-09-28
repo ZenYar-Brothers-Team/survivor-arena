@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 namespace Game.UI
 {
-    /// <summary>Player-facing pre-run fixture; later navigation can reuse its presenter.</summary>
+    /// <summary>Pre-run roster with read-only locked-hero inspection and explicit confirmation.</summary>
     public sealed class CharacterSelectScreen : ICharacterSelectView, IDisposable
     {
         private readonly GameObject _owner;
@@ -14,6 +14,11 @@ namespace Game.UI
         private readonly VisualElement _cards;
         private readonly Button _start;
         private readonly CharacterSelectPresenter _presenter;
+        private readonly Dictionary<ContentId, Button> _choices = new Dictionary<ContentId, Button>();
+        private readonly Image _portrait;
+        private readonly Image _skillIcon;
+        private readonly VisualElement _detail;
+        private readonly Label _name, _role, _skill, _boost, _highlights, _permanent, _lock, _selection;
         public UIDocument Document { get; }
         public event Action<ContentId> Selected;
         public event Action StartRequested;
@@ -34,39 +39,81 @@ namespace Game.UI
             _panel.sortingOrder = Document.sortingOrder;
             var root = Document.rootVisualElement;
             root.name = GameplayUiElementIds.CharacterSelectScreen;
-            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/GameplayUiStyles"));
-            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/CharacterSelectStyles"));
-            root.AddToClassList("character-select-screen");
-            var title = new Label("Choose your character");
-            title.AddToClassList("character-select-title");
-            root.Add(title);
-            var subtitle = new Label("Fixture roster • portrait and icon placeholders");
-            subtitle.AddToClassList("character-select-subtitle");
-            root.Add(subtitle);
+            EntryUi.Configure(root, _panel);
+            root.AddToClassList("entry-page");
+            var header = EntryUi.Box("entry-header");
+            header.Add(EntryUi.Label("Выбери персонажа", "entry-title"));
+            header.Add(EntryUi.Label("1 · Персонаж    —    2 · Поле", "entry-steps"));
+            root.Add(header);
+            var workspace = EntryUi.Box("entry-workspace"); root.Add(workspace);
             var scroll = new ScrollView(ScrollViewMode.Vertical);
-            scroll.AddToClassList("character-select-scroll");
+            scroll.AddToClassList("entry-roster");
             _cards = new VisualElement { name = GameplayUiElementIds.CharacterSelectCards };
-            _cards.AddToClassList("character-select-cards");
+            _cards.AddToClassList("entry-character-grid");
             scroll.Add(_cards);
-            root.Add(scroll);
-            _start = new Button(() => StartRequested?.Invoke()) { text = "Choose field", name = GameplayUiElementIds.CharacterSelectStart };
-            _start.AddToClassList("character-select-start");
-            root.Add(_start);
+            workspace.Add(scroll);
+            var detail = EntryUi.Box("entry-character-detail"); workspace.Add(detail);
+            _detail = detail;
+            var body = EntryUi.Box("entry-hero-well"); detail.Add(body);
+            _portrait = EntryUi.Image(null, "entry-hero-image", GameplayUiElementIds.EntryPortrait); body.Add(_portrait);
+            _lock = EntryUi.Label("", "entry-lock", GameplayUiElementIds.EntryLock); body.Add(_lock);
+            var copy = new ScrollView(ScrollViewMode.Vertical); copy.AddToClassList("entry-character-copy"); detail.Add(copy);
+            _name = EntryUi.Label("", "entry-name"); copy.Add(_name);
+            _role = EntryUi.Label("", "entry-role"); copy.Add(_role);
+            copy.Add(EntryUi.Label("СТАРТОВОЕ УМЕНИЕ", "entry-eyebrow"));
+            var skillHeading = EntryUi.Box("entry-skill-heading"); copy.Add(skillHeading);
+            _skillIcon = EntryUi.Image(null, "entry-skill-icon"); skillHeading.Add(_skillIcon);
+            _skill = EntryUi.Label("", "entry-skill"); skillHeading.Add(_skill);
+            _boost = EntryUi.Label("", "entry-copy"); copy.Add(_boost);
+            _highlights = EntryUi.Label("", "entry-highlights"); copy.Add(_highlights);
+            _permanent = EntryUi.Label("", "entry-muted"); copy.Add(_permanent);
+            var footer = EntryUi.Box("entry-footer"); root.Add(footer);
+            // The shell owns Main Menu routing and draws Back in this reserved space.
+            footer.Add(EntryUi.Box("entry-back-space"));
+            _selection = EntryUi.Label("", "entry-footer-detail"); footer.Add(_selection);
+            _start = new Button(() => StartRequested?.Invoke()) { text = "Выбрать поле →", name = GameplayUiElementIds.CharacterSelectStart };
+            _start.AddToClassList("entry-action"); _start.AddToClassList("entry-primary"); footer.Add(_start);
             _presenter = new CharacterSelectPresenter(session, registry, this, permanentSummary);
         }
         public void Render(IReadOnlyList<CharacterSelectCardViewState> cards, bool canStart)
         {
-            _cards.Clear();
+            var current = new HashSet<ContentId>();
+            foreach (var state in cards) current.Add(state.Id);
+            foreach (var id in new List<ContentId>(_choices.Keys))
+                if (!current.Contains(id)) { _choices[id].RemoveFromHierarchy(); _choices.Remove(id); }
             foreach (var state in cards)
             {
-                var card = new ContentCard(state.Card, () => Selected?.Invoke(state.Id))
-                    { name = GameplayUiElementIds.CharacterSelectCard(state.Id.ToString()) };
-                card.AddToClassList("character-select-card");
-                var crop = new Image { sprite = state.Crop, name = GameplayUiElementIds.CharacterSelectCrop, scaleMode = ScaleMode.ScaleToFit };
-                crop.AddToClassList("character-select-crop");
-                card.Insert(0, crop);
-                _cards.Add(card);
+                if (!_choices.TryGetValue(state.Id, out var card))
+                {
+                    var id = state.Id;
+                    card = new Button(() => Selected?.Invoke(id)) { name = GameplayUiElementIds.CharacterSelectCard(id.ToString()) };
+                    card.AddToClassList("entry-choice"); card.AddToClassList("entry-character-choice");
+                    card.Add(EntryUi.Image(state.Crop, "entry-character-crop", GameplayUiElementIds.CharacterSelectCrop));
+                    card.Add(EntryUi.Label(state.Card.Title, "entry-choice-name"));
+                    card.Add(EntryUi.Label("", "entry-choice-state", GameplayUiElementIds.CardStatus));
+                    _choices.Add(id, card); _cards.Add(card);
+                }
+                EntryUi.Choice(card, state.Card);
+                card.Q<Label>(className: "entry-choice-name").text = state.Card.IsLocked ? "?" : state.Card.Title;
+                card.Q<Image>().tintColor = state.Card.IsLocked ? Color.black : Color.white;
+                card.Q<Label>(GameplayUiElementIds.CardStatus).text = state.Card.IsLocked ? "" : state.Card.IsSelected ? "Выбран" : "Доступен";
+                if (!state.Card.IsSelected) continue;
+                _detail.EnableInClassList("entry-mystery", state.Card.IsLocked);
+                _portrait.sprite = state.Crop; _portrait.tintColor = state.Card.IsLocked ? Color.black : Color.white;
+                if (state.Card.IsLocked)
+                {
+                    _name.text = _role.text = _skill.text = _boost.text = _highlights.text = _permanent.text = _selection.text = "";
+                    _skillIcon.sprite = null;
+                    _lock.text = "?";
+                    continue;
+                }
+                _name.text = state.Card.Title; _role.text = state.Role; _skill.text = state.Skill;
+                _skillIcon.sprite = state.SkillIcon;
+                _boost.text = EntryUi.Readable(state.Boost); _highlights.text = EntryUi.Readable(state.Highlights);
+                _permanent.text = EntryUi.Readable(state.Permanent); _lock.text = EntryUi.Readable(state.LockReason);
+                _selection.text = state.Card.Title;
             }
+            if (cards.Count == 0) _selection.text = "Не удалось загрузить персонажей";
             _start.SetEnabled(canStart);
         }
         public void Dispose()

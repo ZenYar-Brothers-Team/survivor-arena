@@ -13,6 +13,7 @@ namespace Game.UI
         private bool _disposed;
         private readonly VisualElement _pauseActions;
         private readonly VisualElement _pauseHome;
+        private readonly MenuIllustration _illustration;
         public UIDocument Document { get; }
         public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         public event Action<float,float,float> Audio;
@@ -30,6 +31,9 @@ namespace Game.UI
             Document.rootVisualElement.pickingMode=PickingMode.Ignore;
             Resources.Load<VisualTreeAsset>("UI/AppShell").CloneTree(Document.rootVisualElement);
             Document.rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>("UI/AppShellStyles"));
+            EntryUi.Configure(Document.rootVisualElement, _panel);
+            _illustration = new MenuIllustration(Q<VisualElement>(GameplayUiElementIds.ShellMenu));
+            Hook(GameplayUiElementIds.EntryDevelopmentToggle, () => Q<VisualElement>(GameplayUiElementIds.ShellDevelopment).ToggleInClassList("entry-dev-open"));
             Hook(GameplayUiElementIds.ShellPlay,()=>Play?.Invoke()); Hook(GameplayUiElementIds.ShellMeta,()=>Meta?.Invoke());
             Hook(GameplayUiElementIds.ShellSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellExit,()=>Exit?.Invoke());
             Hook(GameplayUiElementIds.ShellDevelopmentUnlockAll,()=>DevelopmentUnlockAll?.Invoke());
@@ -56,6 +60,8 @@ namespace Game.UI
         public void Render(AppShellViewState state)
         {
             if(_disposed||Document==null)return; _state=state;
+            _panel.scaleMode = state.Menu || state.CharacterBack ? PanelScaleMode.ConstantPixelSize : PanelScaleMode.ScaleWithScreenSize;
+            _illustration.SetVisible(state.Menu);
             Visible(GameplayUiElementIds.ShellMenu,state.Menu); Visible(GameplayUiElementIds.ShellBack,state.CharacterBack);
             Visible(GameplayUiElementIds.ShellPause,state.PauseActions); Visible(GameplayUiElementIds.ShellDevelopment,state.DevelopmentUnlock);
             Q<Button>(GameplayUiElementIds.ShellDevelopmentReset).text=state.DevelopmentResetArmed?"DEV: click again to reset ALL progression":"DEV: reset all progression";
@@ -80,6 +86,7 @@ namespace Game.UI
         public void Dispose()
         {
             if(_disposed)return; _disposed=true;
+            _illustration.Dispose();
             if(Document!=null) { Document.rootVisualElement?.Clear(); Document.enabled=false; }
             if(Application.isPlaying) { UnityEngine.Object.Destroy(_owner); UnityEngine.Object.Destroy(_panel); }
             else { UnityEngine.Object.DestroyImmediate(_owner); UnityEngine.Object.DestroyImmediate(_panel); }

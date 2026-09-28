@@ -3,9 +3,13 @@
 Status: Approved
 Owner: IP-12A — Visual Presentation Foundation
 Depends on: [`ART_DIRECTION.md`](ART_DIRECTION.md)
-Last updated: 2026-09-16
-Approved by: user, 2026-09-16
+Last updated: 2026-09-28
+Approved by: user, 2026-09-16; Menu E artwork approval 2026-09-28
 Related architecture: [DECISION-0013](../decisions/0013-procedural-sprite-presentation.md)
+
+## UI entry R1 — full-screen layers
+
+Menu E использует два approved слоя из `Art/Packets/ui-entry-r1.json`: opaque background и прозрачный foreground Шепотки v002. Runtime: `Assets/Resources/Art/UI/Menu/`; оба имеют роль `background`, Single / FullRect / Bilinear / Clamp / без mipmaps / Uncompressed, maxSize 2048, PPU 100, pivot 0.5/0.5. Canvas сохраняется целиком: автоматическая нарезка по альфа-островам недопустима. `opaque-rgba` добавляет alpha=255 к RGB-фону, не изменяя цвет/размеры; foreground копируется byte-identical. Мастер и prompt сохраняет pipeline. Художественное approval: `docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md`. Пыль и лучи — отдельные UI-слои, не перекраска растра; численные настройки в `MenuArtProfile.json`. Более взрослая Шепотка относится только к меню.
 
 ## 1. Назначение
 

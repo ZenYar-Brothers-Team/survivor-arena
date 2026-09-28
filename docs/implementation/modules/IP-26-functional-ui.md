@@ -34,6 +34,20 @@ Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-di
 
 UI §§1–5,11–23 полностью и §§6–10 для совместного layout review с IP-10A; новые GDD core loop/run/XP/build/sets/fields/characters/meta/Travelers; только отображаемые production cards и profile metadata; DECISION-0005/0081/0083. IP-10A owns reusable cards/HUD/build, IP-26 owns settings, feature modules own boss/Traveler/Book state.
 
+## Meta R1 — delta 2026-09-29
+
+[DECISION-0091](../../decisions/0091-personal-meta-upgrades-and-refund.md) и
+[композиция](../proposals/2026-09-29-ui-meta-r1.md): только карточки выбранного героя,
+без global-блока, расширенный список с прокруткой и подтверждаемый платный возврат.
+IP-25 владеет ценами/уровнями/транзакцией и фактическими затратами; экран не вычисляет экономику.
+Числа и область возврата утверждены: выбранный герой, комиссия 1000, доступность
+при баланс + возврат >= 1000. Равенство даёт 0, меньшая сумма — disabled с причиной.
+Проверить cap/недостаток золота/pending/
+error/выключенные бонусы, смену героя, scroll/focus и 1080p/720p.
+Выбор героя — прокручиваемая сетка миниатюр под портретом, не dropdown.
+Карточки улучшений компактные, только текст, без иконок сетов/предметов.
+Дорелизная экономика использует отдельный профиль без миграции старых покупок.
+
 ## Scope
 
 Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-up/Book drafts; Pause/Build→Resume/Settings/Quit; Victory/Defeat→Results; Retry немедленно с теми же character/field, Main Menu, meta purchases. Results: outcome/time/level/kills/currency/sets/unlocks; top-3 skills by damage только при доступной корректной attribution IP-31, без обязательного отдельного analytics screen. В этом же IP находятся basic Settings: persisted Master/Music/SFX, resolution/window mode, current movement keys, Screen Shake toggle и Mouse movement toggle (default Off). Поставить минимальные рабочие audio routing endpoints/preview и presentation consumer shake, не декоративные controls. Escape/Space/right mouse переключают только manual pause по [DECISION-0084](../../decisions/0084-mouse-movement-and-pause-shortcuts.md). Внутренние этапы shell→settings→full navigation являются checklist одного IP, не отдельными execution statuses.
@@ -98,6 +112,13 @@ defaults. Layout, DEV-only скорость и player HP уточняются
 
 ### Последовательность чистового UI-прохода
 
+Композиционный reference следующего экрана: [UI Results R1](../proposals/2026-09-28-ui-results-r1.md).
+Принятый Results R1 и явный запрос +20 за Book upgrade закреплены
+[DECISION-0090](../../decisions/0090-results-r1-and-book-upgrade-gold.md).
+Исполнение и gates определяются STATUS. Typed Results projection получает saved
+receipt данного RunId; новые открытия выше сетов, общая прокрутка коллекции,
+награда и кнопки вне scroll. Никакого парсинга summary или начисления во View.
+
 1. Определить player/DEV и primary/secondary information на реальном контенте.
 2. Подготовить композицию HUD → Draft → Pause / Build в двух целевых разрешениях;
    layout не выводится из существующих размеров UXML/USS.
@@ -125,6 +146,21 @@ CHAR-003. Approval не разрешает подключать недостаю
 сетка десяти карточек без описаний окружения и большой правой detail-панели.
 Metadata/access owners IP-12/IP-16 не меняются. Проверить переход силуэт→body после
 покупки, вместимость десяти полей в 720p/1080p и сохранение отдельного confirm.
+На полях числовая дробь сложности заменяется пятью мечами: заполнены N из пяти
+по actual difficulty, остальные контурные. Проверять число слотов и заполнение
+в обоих разрешениях; новые raster assets для этих простых UI shapes не нужны.
+Закрытые карточки доступны для просмотра, но не для запуска; UI не раскрывает
+имя/роль/умение/stats/lock reason и выводит
+только силуэт и «?» во всех областях Character Select (уточнение DECISION-0087).
+При этом presenter хранит
+inspected ID отдельно от допустимого session selection; подтверждение проверяет
+их совпадение и актуальный access. Список строится только из runtime-каталога;
+тест десяти/двадцати полей использует fixture cards, не новые production definitions.
+Main Menu: слои Menu E имеют общий landscape canvas, интерфейс не двигается
+вместе с иллюстрацией. При скрытии меню/потере фокуса часы декорации останавливаются.
+Unity использует смещение двух слоёв и отдельные Painter2D rays/dust; это не
+перенос CSS 3D perspective и не изменение исходной картинки. Theme entry-* локальна
+этим трём экранам; Settings/Meta/Results и принятый HUD/Draft/Pause не переоформляются.
 HTML фиксирует композицию, но не считается финальной отделкой кнопок: после
 выбора layout отдельный тематический проход применяет Art Direction §12.2
 (матовые поверхности, тонкий контур/фактура, полная state matrix), без тяжёлого bevel.

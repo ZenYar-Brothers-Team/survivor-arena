@@ -78,6 +78,40 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void BookUpgrade_AppliedOnce_EmptyAndCancelledChoicesDoNotAddBonus()
+        {
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, new[] { _active }, _active, 3,
+                emptyBookCurrency: 50, bookUpgradeCurrency: 20);
+            var pickup = Guid.NewGuid();
+            Assert.IsTrue(Book(pickup));
+            var revision = _draft.Revision;
+            Assert.AreEqual(0, _draft.BookCurrency);
+            Assert.IsTrue(_draft.Select(_active.Id, revision));
+            Assert.AreEqual(20, _draft.BookCurrency);
+            Assert.IsFalse(Book(pickup));
+            Assert.IsFalse(_draft.Select(_active.Id, revision));
+            _xp.AddPickedUpExperience(5);
+            _draft.Select(_active.Id, _draft.Revision);
+            Assert.AreEqual(20, _draft.BookCurrency, "Ordinary level-up has no Book bonus.");
+            UpgradeTo(6);
+            Assert.IsTrue(Book());
+            Assert.AreEqual(70, _draft.BookCurrency, "Empty Book adds 50, not 70.");
+            Assert.AreEqual(70, _draft.Capture().DraftTotals.BookCurrency);
+        }
+
+        [Test]
+        public void BookUpgrade_CancelledAtTerminal_DoesNotEarnBonus()
+        {
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, new[] { _active }, _active, 3,
+                emptyBookCurrency: 50, bookUpgradeCurrency: 20);
+            Assert.IsTrue(Book());
+            _run.Model.Stop();
+            Assert.AreEqual(0, _run.Model.Outcome.Contributions["draft"].DraftTotals.BookCurrency);
+        }
+
+        [Test]
         public void Requests_FollowAcceptedOrder_AndBookPreservesXpAndSharedControls()
         {
             _xp.AddPickedUpExperience(10f);

@@ -3,6 +3,7 @@
   "rootNamespace": "Game.UI",
   "references": [
     "Game.Content",
+    "Game.Content.Json",
     "Game.Pickup",
     "Game.Traveler",
     "Game.Field",

@@ -2258,5 +2258,15 @@
     "id": "FIELD-010-VISUAL-GROUND",
     "resourcePath": "Art/Sprites/Fields/field-010/field-010-ground-tile",
     "role": "Tile"
+  },
+  {
+    "id": "UI-MENU-BACK-VISUAL-BACKGROUND",
+    "resourcePath": "Art/UI/Menu/ui-menu-back-background",
+    "role": "Background"
+  },
+  {
+    "id": "UI-MENU-FRONT-VISUAL-BACKGROUND",
+    "resourcePath": "Art/UI/Menu/ui-menu-front-background",
+    "role": "Background"
   }
 ]

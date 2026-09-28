@@ -4261,6 +4261,38 @@
         "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "UI-MENU-BACK",
+      "role": "background",
+      "visualId": "UI-MENU-BACK-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/ui-menu-back/selected-master.png",
+      "provenance": "Art/Source/UI/ui-menu-back/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Menu/ui-menu-back-background.png",
+      "resourcePath": "Art/UI/Menu/ui-menu-back-background",
+      "stage": "Prepared",
+      "evidence": [
+        "docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28"
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "UI-MENU-FRONT",
+      "role": "background",
+      "visualId": "UI-MENU-FRONT-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/ui-menu-front/selected-master.png",
+      "provenance": "Art/Source/UI/ui-menu-front/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Menu/ui-menu-front-background.png",
+      "resourcePath": "Art/UI/Menu/ui-menu-front-background",
+      "stage": "Prepared",
+      "evidence": [
+        "docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28"
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

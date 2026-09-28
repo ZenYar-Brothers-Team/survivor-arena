@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="results-content" class="results-content">
+        <ui:VisualElement class="results-header">
+            <ui:Label text="ИТОГИ ЗАБЕГА" class="results-eyebrow" />
+            <ui:Label name="results-outcome" class="results-outcome" />
+            <ui:Label name="results-selection" class="results-selection" />
+        </ui:VisualElement>
+        <ui:VisualElement class="results-main">
+            <ui:VisualElement class="results-summary">
+                <ui:VisualElement class="results-facts">
+                    <ui:VisualElement class="results-fact"><ui:Label name="results-time" class="results-value" /><ui:Label text="Время" class="results-caption" /></ui:VisualElement>
+                    <ui:VisualElement class="results-fact"><ui:Label name="results-level" class="results-value" /><ui:Label text="Уровень" class="results-caption" /></ui:VisualElement>
+                    <ui:VisualElement class="results-fact"><ui:Label name="results-kills" class="results-value" /><ui:Label text="Врагов побеждено" class="results-caption" /></ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="results-reward-caption" class="results-reward-caption" />
+                <ui:Label name="results-total" class="results-total" />
+                <ui:VisualElement class="results-breakdown"><ui:Label text="За уровень" /><ui:Label name="results-level-reward" /></ui:VisualElement>
+                <ui:VisualElement class="results-breakdown"><ui:Label text="За книги" /><ui:Label name="results-book-reward" /></ui:VisualElement>
+            </ui:VisualElement>
+            <ui:ScrollView name="results-collection" class="results-collection" horizontal-scroller-visibility="Hidden">
+                <ui:VisualElement name="results-unlocks-group" class="results-unlocks-group">
+                    <ui:Label text="Новые открытия" class="results-heading results-gold" />
+                    <ui:VisualElement name="results-unlocks" class="results-list" />
+                </ui:VisualElement>
+                <ui:Label text="Собранные сеты" class="results-heading" />
+                <ui:VisualElement name="results-sets" class="results-list" />
+                <ui:Label name="results-empty" text="Сеты не получены" class="results-caption" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

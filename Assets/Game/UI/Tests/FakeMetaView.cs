@@ -8,6 +8,10 @@ namespace Game.UI.Tests
         public event Action<string> CharacterRequested;
         public event Action<MetaCardViewState> PurchaseRequested;
         public event Action<bool> UpgradesDisabledRequested;
+        public event Action RefundRequested, RefundConfirmed, RefundCancelled;
+        public void Refund() => RefundRequested?.Invoke();
+        public void ConfirmRefund() => RefundConfirmed?.Invoke();
+        public void CancelRefund() => RefundCancelled?.Invoke();
         public void Render(MetaViewState state) => State = state;
         public void Shop() => ShopRequested?.Invoke();
         public void Buy(MetaCardViewState card) => PurchaseRequested?.Invoke(card);

@@ -23,6 +23,18 @@ Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-di
 
 новый GDD «Мета-прогрессия»; только unlock/economy поля выбранных CHAR/FIELD/SKILL/SET и meta definitions; UI §§16–17; run identity/RunOutcome contract IP-01 и producer events IP-04/IP-06/IP-07/IP-11.
 
+## Персональная прокачка и возврат — delta 2026-09-29
+
+[DECISION-0091](../../decisions/0091-personal-meta-upgrades-and-refund.md) заменяет
+global+personal и запрет возврата ниже. IP-25 владеет новым каталогом, независимыми
+ценами, фактическими затратами и возвратом; IP-26 — выбором героя, карточками и подтверждением.
+Числа и сброс утверждены в CD/DECISION-0091. Миграция отменена пользователем;
+новая экономика использует `profile-meta-r1.json`, старые тестовые файлы не меняются.
+Сброс выбранного героя требует W + S >= 1000,
+при равенстве итог 0; профиль повторно проверяет условие и атомарно сохраняет результат.
+Нужны проверки изоляции героев/типов, startup bonuses и draft counters, атомарного
+возврата, ошибок/повторных запросов и повторной загрузки после возврата.
+
 ## Scope
 
 versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. `RunOutcome.Contributions["draft"].DraftTotals.BookCurrency` — уже начисленная при подборе пустых Книг валюта (DECISION-0020); перенос в профиль не создаёт повторную награду. DTO snapshot находится в Run, прямой dependency на Progression не требуется. Failure/abort handling, награды и сохранение — DECISION-0037; суммы/каталог — раздел «Мета-экономика» Content Design.
@@ -68,7 +80,11 @@ Profile adapter реализует `ICharacterAccessProvider.GetLockReason(Conte
 ## Конкретный economy / persistence packet
 
 Читать [DECISION-0037](../../decisions/0037-meta-economy-and-persistence.md) полностью и
-раздел «Мета-экономика» CD. Scope включает JSON reward 5×L, Book 50, четыре META
+раздел «Мета-экономика» CD. DECISION-0090 добавляет 20 за успешный Book-выбор
+в `DraftTotals.BookCurrency`, отдельно от 50 за пустую при подборе Книгу.
+Перенос сохранённой суммы в профиль остаётся идемпотентным; старые receipts
+не пересчитываются. Проверить L20 + 3 Book upgrades + 2 empty Books = 260.
+Scope включает JSON reward 5×L, Book 50/20, четыре META
 upgrades, character purchase prices и полный unlock mapping. Production gameplay
 не требуется запускать до его catalog IP: integration использует synthetic IDs,
 а ссылки economy проверяются против approved content manifest.
@@ -76,7 +92,7 @@ upgrades, character purchase prices и полный unlock mapping. Production g
 Проверить L1→Quit=5; L20+2 Books=200 без второго начисления Book; startup failure=0;
 первый terminal wins; field clear только при 900s живым, пауза исключена. Сохранение
 RunId/reward/unlocks атомарно; retries/duplicate purchase intents идемпотентны.
-Покрыть caps, additive global+personal bonuses, применение до Health init следующего
+Покрыть caps, личные бонусы (legacy global+personal только fixture), применение до Health init следующего
 run, corrupted/backup/future-version/known-migration cases и pending save failure UI.
 Hard-crash checkpoint/recovery и gameplay resume вне scope по условию пользователя.
 
@@ -87,14 +103,18 @@ terminal outcome; `ProfileService` владеет состояниями NotLoad
 PendingResult/LoadError. `ProfileRunBinding` наблюдает только RunModel, без recorder.
 `ProfileAccessProvider` реализует character/field access; build entries фильтруются
 по IsUnlocked до создания draft. `Modifier(characterId)` даёт один source-owned
-вклад global+personal stats; composition применяет его до Health init.
+вклад персональных stats; composition применяет его до Health init. `ExtraRerolls`
+и `ExtraBanishes` добавляются к базовому лимиту ровно при инициализации забега.
+`Invested` / `RefundLockReason` / `RefundAsync(character, expectedInvestment)`
+владеют расчётом и атомарным сбросом выбранного героя.
 
 `ProfileCodec` schemaVersion=2: currency, firstRun, upgradesDisabled, upgrades (stable keys META-ID
-или META-ID:CharacterId), unlocked, clearedFields, runs (RunId→receipt). Регистр ID
+или META-ID:CharacterId), upgradeSpending (те же ключи → фактические затраты),
+unlocked, clearedFields, runs (RunId→receipt). Регистр ID
 сохраняется. IProfileMigration — явный шаг версии; неизвестная версия блокируется.
 Встроенный шаг `ProfileMigrationV1ToV2` добавляет `upgradesDisabled=false` (улучшения активны).
 `SetUpgradesDisabledAsync(bool)` ([DECISION-0064](../../decisions/0064-disable-permanent-upgrades.md)) —
-только в Ready и вне run; при `true` `Modifier` возвращает нулевой вклад, уровни и валюта не меняются.
+только в Ready и вне run; при `true` `Modifier` и дополнительные draft counters возвращают нулевой вклад, уровни и валюта не меняются.
 `MetaCatalogData`, `MetaUpgradeData`, `MetaUnlockData` задают JSON schema required
 fields; unknown properties запрещены. Production/fixture catalogs разделены.
 

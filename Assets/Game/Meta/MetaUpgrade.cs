@@ -17,14 +17,17 @@ namespace Game.Meta
             Name = !string.IsNullOrWhiteSpace(data.Name) ? data.Name : throw new ArgumentException("Upgrade name required.");
             Personal = data.Personal ?? throw new ArgumentException("personal required.");
             Stat = data.Stat;
-            if (Stat != "health" && Stat != "damage") throw new ArgumentException("Unknown meta stat.");
+            if (Array.IndexOf(new[] { "health", "damage", "size", "actionSpeed", "regeneration", "movement",
+                "rerolls", "banishes", "pickupRadius", "experience", "damageReduction", "healing" }, Stat) < 0)
+                throw new ArgumentException("Unknown meta stat.");
             Cap = data.Cap ?? throw new ArgumentException("cap required.");
             PriceCoefficient = data.PriceCoefficient ?? throw new ArgumentException("priceCoefficient required.");
             Bonus = data.Bonus ?? throw new ArgumentException("bonus required.");
             NumericValidation.ValidateCount(Cap, nameof(Cap));
             NumericValidation.ValidateCount(PriceCoefficient, nameof(PriceCoefficient));
             NumericValidation.ValidateNonNegativeFinite(Bonus, nameof(Bonus));
-            if (Cap > 5 || Bonus > (Stat == "health" ? .05f : .03f)) throw new ArgumentException("Meta upgrade outside approved tuning range.");
+            if ((Stat == "rerolls" || Stat == "banishes") && (Bonus != Math.Floor(Bonus) || Bonus * Cap > int.MaxValue))
+                throw new ArgumentException("Draft control bonuses must be representable whole counts.");
         }
         public long Price(int currentLevel) => checked((long)PriceCoefficient * (currentLevel + 1));
         public string Key(string character) => Personal ? Id + ":" + new ContentId(character) : Id;

@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="meta-shop" class="shop-content">
+        <ui:VisualElement class="shop-header">
+            <ui:Label text="Развитие" class="shop-title" />
+            <ui:Label name="meta-wallet" class="shop-wallet" />
+        </ui:VisualElement>
+        <ui:VisualElement class="shop-tabs">
+            <ui:Button name="meta-tab-upgrades" text="Улучшения" />
+            <ui:Button name="meta-tab-unlocks" text="Открытия" />
+        </ui:VisualElement>
+        <ui:VisualElement class="shop-main">
+            <ui:VisualElement name="meta-hero-pane" class="shop-hero">
+                <ui:Label name="meta-hero-name" class="shop-hero-name" />
+                <ui:Image name="meta-portrait" class="shop-portrait" />
+                <ui:ScrollView name="meta-roster" class="shop-roster" horizontal-scroller-visibility="Hidden" />
+                <ui:Label name="meta-invested" class="shop-invested" />
+            </ui:VisualElement>
+            <ui:VisualElement name="meta-upgrade-pane" class="shop-upgrade-pane">
+                <ui:Toggle name="meta-shop-toggle" label="Без постоянных улучшений" class="shop-toggle" />
+                <ui:ScrollView name="meta-upgrade-list" class="shop-list" horizontal-scroller-visibility="Hidden" />
+            </ui:VisualElement>
+            <ui:ScrollView name="meta-unlock-list" class="shop-unlocks shop-hidden" horizontal-scroller-visibility="Hidden" />
+        </ui:VisualElement>
+        <ui:VisualElement class="shop-footer">
+            <ui:Label name="meta-refund-reason" class="shop-refund-reason" />
+            <ui:Button name="meta-refund" text="Вернуть вложения" />
+        </ui:VisualElement>
+        <ui:VisualElement name="meta-refund-modal" class="shop-modal shop-hidden">
+            <ui:VisualElement class="shop-dialog">
+                <ui:Label text="Вернуть вложения?" class="shop-dialog-title" />
+                <ui:Label name="meta-refund-detail" class="shop-dialog-detail" />
+                <ui:VisualElement class="shop-dialog-actions">
+                    <ui:Button name="meta-refund-cancel" text="Отмена" />
+                    <ui:Button name="meta-refund-confirm" text="Сбросить улучшения" class="shop-primary" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

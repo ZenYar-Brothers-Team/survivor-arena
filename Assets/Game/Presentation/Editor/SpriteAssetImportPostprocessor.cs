@@ -6,6 +6,7 @@ namespace Game.Presentation.Editor
 {
     public sealed class SpriteAssetImportPostprocessor : AssetPostprocessor
     {
+        public override uint GetVersion() => 1;
         private void OnPreprocessTexture()
         {
             if (!assetPath.StartsWith(SpriteImportProfileCatalog.Root, StringComparison.Ordinal)) return;

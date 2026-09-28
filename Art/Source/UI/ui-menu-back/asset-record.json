@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "contentId": "UI-MENU-BACK",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-28",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-28",
+  "approvedBy": "user",
+  "approvalEvidence": "docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28",
+  "prompt": "Use case: precise-object-edit. Asset type: backplate for subtle 2.5D menu parallax. Input image 1 is the exact edit target. Remove ONLY the TWO large foreground goblins completely, including their clothing, scarf, bags, boots and shadows. Seamlessly reconstruct the dirt path, small grass and village scenery behind their silhouettes, matching the adjacent marks, perspective, color and ink-paper drawing style. Preserve the THREE chasing knights exactly where they are, in the same running poses. Preserve the village, houses, fence, tree, foliage, sky, warm light and full dark empty LEFT 38 percent menu area. Exact same original 16:9 framing, proportions, composition and resolution; do not crop, zoom, shift, restyle or recompose. This is the background layer of the SAME image, not a new illustration. NO goblins, substitute characters, silhouettes, kettle, thrown objects, text or UI. Opaque output.",
+  "constraints": [
+    "Approved Menu E layers; keep illustration identity and full landscape canvas",
+    "No gameplay character redesign; no raster recoloring"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Menu/ui-menu-back-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1672x941",
+    "sourceSha256": "426e9c8993c2ef0b3bb3a02d28d2a201efb9990ee278ebdd45f5940a3a43ece5",
+    "runtimeSha256": "0bb9a9fbaa7e5c772bc6358564b7a86595dcc235c0d78c308f1450ea37351259",
+    "recipe": {
+      "mode": "opaque-rgba"
+    }
+  }
+}

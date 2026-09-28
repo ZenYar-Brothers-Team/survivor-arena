@@ -1,0 +1,21 @@
+{
+  "backgroundId": "UI-MENU-BACK-VISUAL-BACKGROUND",
+  "foregroundId": "UI-MENU-FRONT-VISUAL-BACKGROUND",
+  "driftSeconds": 40,
+  "backgroundDrift": 0.002,
+  "foregroundDrift": 0.005,
+  "backgroundPointer": 0.003,
+  "foregroundPointer": 0.008,
+  "pointerResponse": 5,
+  "rayAngle": 3,
+  "raySpeed": 0.7,
+  "dustSpeed": 0.2,
+  "dustDriftX": 0.38,
+  "dustDriftY": -0.12,
+  "dustWander": 0.018,
+  "dustWanderSeconds": 36,
+  "dustCount": 18,
+  "dustMinSize": 7.5,
+  "dustMaxSize": 16.8,
+  "dustOpacity": 0.46
+}

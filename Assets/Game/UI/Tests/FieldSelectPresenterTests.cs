@@ -24,14 +24,18 @@ namespace Game.UI.Tests
         [Test]
         public void Presenter_AuthoredMetadataAndLockReason_AreVisible()
         {
-            StringAssert.Contains("Authored description", _harness.Cards[0].Card.Summary);
-            StringAssert.Contains("Difficulty: 2/", _harness.Cards[0].Card.Summary);
-            StringAssert.Contains("Difficulty: 1/", _harness.Cards[1].Card.Summary);
+            StringAssert.DoesNotContain("Authored description", _harness.Cards[0].Card.Summary);
+            StringAssert.Contains("Сложность: 2/", _harness.Cards[0].Card.Summary);
+            StringAssert.Contains("Сложность: 1/", _harness.Cards[1].Card.Summary);
             StringAssert.Contains("Fixture access required", _harness.Cards[1].Card.Summary);
             Assert.AreEqual("Preview pending", _harness.Cards[0].ThumbnailPlaceholder);
             Assert.IsTrue(_harness.Cards[1].Card.IsLocked);
             _harness.Select("FIXTURE-B");
             Assert.AreEqual(new ContentId("FIXTURE-A"), _session.SelectedId);
+            Assert.IsTrue(_harness.Cards[1].Card.IsSelected);
+            Assert.IsFalse(_harness.CanStart);
+            _harness.Start();
+            Assert.AreEqual(0, _harness.Starts);
         }
         [Test]
         public void Start_AccessRevokedAfterSelection_DoesNotLaunch()

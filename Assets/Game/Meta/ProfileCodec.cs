@@ -51,6 +51,12 @@ namespace Game.Meta
         {
             if (data == null || data.SchemaVersion != CurrentVersion || data.Upgrades == null || data.Unlocked == null || data.ClearedFields == null || data.Runs == null) throw new ArgumentException("Incomplete profile.");
             NumericValidation.ValidateNonNegative(data.Currency, nameof(data.Currency));
+            if (data.UpgradeSpending == null) throw new ArgumentException("Missing upgrade spending.");
+            foreach (var spending in data.UpgradeSpending)
+            {
+                if (!data.Upgrades.ContainsKey(spending.Key)) throw new ArgumentException("Spending without upgrade.");
+                NumericValidation.ValidateNonNegative(spending.Value, nameof(data.UpgradeSpending));
+            }
             foreach (var id in data.Unlocked) if (!_catalog.Unlocks.ContainsKey(id)) throw new ArgumentException("Unknown unlocked ID: " + id);
             foreach (var id in data.ClearedFields) if (!_catalog.Unlocks.TryGetValue(id, out var field) || field.Kind != "field") throw new ArgumentException("Unknown cleared field.");
             foreach (var pair in data.Upgrades)

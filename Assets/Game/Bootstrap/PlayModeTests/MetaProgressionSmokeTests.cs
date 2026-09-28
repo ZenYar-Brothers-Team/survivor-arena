@@ -27,7 +27,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Submit(Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement.Q<Button>(GameplayUiElementIds.ShellQuit));
                 yield return null;
                 Assert.AreEqual(5L*level,root.Profile.Currency);Assert.IsTrue(root.Profile.CanStart);
-                StringAssert.Contains("Level reward",root.ProfileDocument.rootVisualElement.Q<Label>(GameplayUiElementIds.MetaSummary).text);
+                Assert.AreEqual(root.Profile.LastReceipt.LevelReward.ToString("N0"),root.ProfileDocument.rootVisualElement.Q<Label>(GameplayUiElementIds.ResultsLevelReward).text);
                 Submit(root.ProfileDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.MetaRetry));yield return null;
                 Assert.AreNotEqual(previous,run.Model.RunId);Assert.AreEqual(character,run.Model.Selection.CharacterId);Assert.AreEqual(field,run.Model.Selection.FieldId);
                 run.Model.Stop();yield return null;

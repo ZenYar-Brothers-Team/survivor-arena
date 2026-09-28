@@ -14,8 +14,8 @@
             <ui:Button name="meta-save" text="Retry Save / Load" />
             <ui:Button name="meta-reset" text="Reset damaged profile (preserve files)" />
             <ui:Button name="meta-close" text="Back" />
-            <ui:Button name="meta-retry" text="Retry Run" />
             <ui:Button name="meta-selection" text="Main Menu" />
+            <ui:Button name="meta-retry" text="Retry Run" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

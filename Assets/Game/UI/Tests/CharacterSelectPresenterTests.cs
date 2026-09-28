@@ -59,6 +59,10 @@ namespace Game.UI.Tests
             Assert.AreSame(_sprite, card.Crop);
             _harness.Select(_b.Id);
             Assert.AreEqual(_a.Id, _session.SelectedId);
+            Assert.IsTrue(_harness.Cards[1].Card.IsSelected);
+            Assert.IsFalse(_harness.CanStart);
+            _harness.Start();
+            Assert.AreEqual(0, _harness.Starts);
         }
         [Test]
         public void Highlights_KeepOrderAndDeriveNumbersFromExplicitBaseline()

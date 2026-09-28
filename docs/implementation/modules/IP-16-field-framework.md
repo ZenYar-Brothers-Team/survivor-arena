@@ -41,12 +41,18 @@ production geometry/картинки/расписания всех полей, �
 ## UI / observability
 
 Функциональный field selection slice с lock reason, thumbnail и difficulty;
+UI шкала difficulty — пять мечей, N заполнены, 5−N приглушены, без дроби N/5
+(уточнение DECISION-0087 от 2026-09-28); численные данные сложности не меняются.
 по [DECISION-0087](../../decisions/0087-character-silhouettes-and-field-grid.md)
 description остаётся metadata, но не выводится в выборе поля. IP-26 размещает
 десять карточек в одной компактной сетке без большой detail-панели, с отдельным
 Start Run и фиксированным footer. Проверять десять карточек без scroll в 720p/1080p,
 lock reason выбранной карточки и scroll при расширении каталога. Placeholder
 thumbnail допустим до image approval, выбранный ID виден в run snapshot.
+Закрытая карточка доступна для просмотра причины, но не для запуска: IP-26
+разделяет inspected ID и допустимый session selection; Start повторно проверяет
+access. Footer показывает выбранного героя; каталог не дополняется отсутствующими
+production definitions ради заполнения сетки.
 
 ## Проверки
 

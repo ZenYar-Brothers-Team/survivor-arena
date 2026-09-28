@@ -1,43 +1,116 @@
 {
   "rewardPerLevel": 5,
   "emptyBookReward": 50,
+  "bookUpgradeReward": 20,
   "fieldClearSeconds": 900,
   "upgrades": [
     {
-      "id": "META-001",
-      "name": "Общее здоровье",
-      "personal": false,
-      "stat": "health",
-      "cap": 5,
-      "priceCoefficient": 100,
-      "bonus": 0.05
-    },
-    {
-      "id": "META-002",
-      "name": "Общий урон",
-      "personal": false,
-      "stat": "damage",
-      "cap": 5,
-      "priceCoefficient": 100,
-      "bonus": 0.03
-    },
-    {
       "id": "META-003",
-      "name": "Здоровье персонажа",
+      "name": "Здоровье",
       "personal": true,
       "stat": "health",
-      "cap": 5,
-      "priceCoefficient": 50,
+      "cap": 10,
+      "priceCoefficient": 100,
       "bonus": 0.05
     },
     {
       "id": "META-004",
-      "name": "Урон персонажа",
+      "name": "Урон",
       "personal": true,
       "stat": "damage",
-      "cap": 5,
-      "priceCoefficient": 50,
+      "cap": 10,
+      "priceCoefficient": 100,
       "bonus": 0.03
+    },
+    {
+      "id": "META-005",
+      "name": "Размер предметов",
+      "personal": true,
+      "stat": "size",
+      "cap": 10,
+      "priceCoefficient": 150,
+      "bonus": 0.04
+    },
+    {
+      "id": "META-006",
+      "name": "Скорость действий",
+      "personal": true,
+      "stat": "actionSpeed",
+      "cap": 10,
+      "priceCoefficient": 200,
+      "bonus": 0.03
+    },
+    {
+      "id": "META-007",
+      "name": "Регенерация",
+      "personal": true,
+      "stat": "regeneration",
+      "cap": 10,
+      "priceCoefficient": 200,
+      "bonus": 0.05
+    },
+    {
+      "id": "META-008",
+      "name": "Скорость движения",
+      "personal": true,
+      "stat": "movement",
+      "cap": 10,
+      "priceCoefficient": 150,
+      "bonus": 0.03
+    },
+    {
+      "id": "META-009",
+      "name": "Перебросы",
+      "personal": true,
+      "stat": "rerolls",
+      "cap": 6,
+      "priceCoefficient": 400,
+      "bonus": 1
+    },
+    {
+      "id": "META-010",
+      "name": "Исключения",
+      "personal": true,
+      "stat": "banishes",
+      "cap": 6,
+      "priceCoefficient": 300,
+      "bonus": 1
+    },
+    {
+      "id": "META-011",
+      "name": "Радиус подбора опыта",
+      "personal": true,
+      "stat": "pickupRadius",
+      "cap": 10,
+      "priceCoefficient": 100,
+      "bonus": 0.1
+    },
+    {
+      "id": "META-012",
+      "name": "Опыт при подборе",
+      "personal": true,
+      "stat": "experience",
+      "cap": 10,
+      "priceCoefficient": 200,
+      "bonus": 0.03
+    },
+    {
+      "id": "META-013",
+      "name": "Снижение урона",
+      "personal": true,
+      "stat": "damageReduction",
+      "cap": 10,
+      "priceCoefficient": 200,
+      "bonus": 0.02
+    },
+    {
+      "id": "META-014",
+      "name": "Эффективность лечения",
+      "personal": true,
+      "stat": "healing",
+      "cap": 10,
+      "priceCoefficient": 100,
+      "bonus": 0.05
     }
   ],
   "unlocks": [
@@ -574,5 +647,6 @@
       "price": 0,
       "requiredId": "FIELD-003"
     }
-  ]
+  ],
+  "refundFee": 1000
 }

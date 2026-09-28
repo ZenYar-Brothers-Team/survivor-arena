@@ -13,7 +13,7 @@ namespace Game.UI.Tests
             var profile=new ProfileService(MetaCatalog.Load(),new MemoryProfileStore());await profile.LoadAsync();
             var view=new FakeMetaView();var navigation=new FakeProfileNavigation();using var presenter=new MetaPresenter(profile,view,navigation);
             Assert.IsFalse(view.State.Visible);view.Shop();Assert.IsTrue(view.State.Visible);
-            var health=view.State.Cards.Single(c=>c.Id=="META-001");StringAssert.Contains("100 currency",health.Detail);Assert.IsFalse(health.CanBuy);
+            var health=view.State.Cards.Single(c=>c.Id=="META-003");Assert.AreEqual(100,health.Price);Assert.IsFalse(health.CanBuy);
             var condition=view.State.Cards.Single(c=>c.Id=="SKILL-016");StringAssert.Contains("15:00",condition.Detail);Assert.IsFalse(condition.CanBuy);
             view.Close();Assert.AreEqual(1,navigation.Selections);Assert.IsFalse(view.State.Visible);
             presenter.Dispose();view.Shop();Assert.IsFalse(view.State.Visible);
@@ -26,10 +26,10 @@ namespace Game.UI.Tests
             view.Shop();Assert.IsTrue(view.State.ShowUpgradesToggle);Assert.IsTrue(view.State.CanToggleUpgrades);Assert.IsFalse(view.State.UpgradesDisabled);
             view.DisableUpgrades(true);await Task.Yield();
             Assert.IsTrue(profile.UpgradesDisabled);Assert.IsTrue(view.State.UpgradesDisabled);
-            StringAssert.Contains("inactive",view.State.Cards.Single(c=>c.Id=="META-001").Text);
+            Assert.IsNotNull(view.State.Shop); Assert.AreEqual(12,view.State.Cards.Count(c=>c.Cap>0));
             StringAssert.Contains("without meta bonuses",view.State.Summary);
             view.DisableUpgrades(false);await Task.Yield();
-            Assert.IsFalse(profile.UpgradesDisabled);StringAssert.DoesNotContain("inactive",view.State.Cards.Single(c=>c.Id=="META-001").Text);
+            Assert.IsFalse(profile.UpgradesDisabled);Assert.AreEqual("Здоровье",view.State.Cards.Single(c=>c.Id=="META-003").Text);
         }
         [Test] public void Uxml_AllSemanticElementsExist()
         {

@@ -38,6 +38,12 @@ Production10 characters/art, финальные prices/unlocks/weights если 
 IP-26 показывает неполученный body только силуэтом в каталоге и крупном просмотре;
 выполненный unlock до покупки не раскрывает цветной sprite. Access provider и
 starting loadout не меняются. Проверять closed / unlocked-unpurchased / owned.
+Locked card остаётся доступной для read-only inspection без раскрытия информации:
+до получения только силуэт и «?», без имени/умения/stats/lock reason
+(уточнение DECISION-0087 от 2026-09-28). Отдельный confirm
+отключён, пока inspected ID не совпадает с допустимым session selection.
+Выход из просмотра не меняет authoritative roster/access; TryStart повторно
+проверяет access. Композиция/тематическая отделка принадлежат IP-26.
 
 Player-facing selection fixture со starting skill/role/crop/modifiers и lock condition, без ожидания full navigation IP-26.
 

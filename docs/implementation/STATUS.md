@@ -3,10 +3,13 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
+UI entry R1 feedback закрыт пользователем 2026-09-28: «Отлично», «Все, идем дальше». Запрет тестов на время фидбека завершён. Финальные правки: мечи сложности, закрытые герои только силуэт/«?», медленная диагональная пыль и замедленный свет.
 Worktree integration 2026-09-28: `develop-evg-wt` (`3d557ea`, `9e0c51f`) перенесена в текущую линию с сохранением UI entry R1; [merge evidence](evidence/2026-09-28-worktree-integration.md). Свежий полный smoke Unity 6000.6.0f1 с graphics: 921/921 EditMode + 34/34 PlayMode, 0 failed/skipped, generation/audio/art 254 PASS (`TestResults/checks/20260928T184120-318706Z/summary.json`). Персонажи/путники остаются Implemented до ручной приёмки; текущий UI packet и его порядок ниже сохраняются.
-Current active packet: UI entry R1 / IP-26 — пользователь принял текущий browser-макет 2026-09-28: «отлично, всё принимается». Выбран Menu E с Шепоткой v002, parallax, светом и средней пылью; [approval и hashes](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28), [evidence](evidence/2026-09-28-ui-entry-r1-mockups.md). Силуэты/сетка полей — Approved DECISION-0087. Чистовая отделка кнопок, production art preparation и Unity-перенос ещё не выполнены.
-Next Ready packet: тематический проход и Unity-перенос принятого [UI entry R1](proposals/2026-09-28-ui-entry-r1.md) с подготовкой выбранного menu art через art pipeline и отдельной runtime/visual verification. В turn приёмки только зафиксировано approval; реализация не начата. UI layout R2 / IP-10A Verified; F2-06 и каталоги сохраняют свои gates ниже.
-Последний общий Unity smoke: 2026-09-28, 887/887 EditMode + 34/34 PlayMode с graphics, 0 skipped; generation/audio integrity и provenance 254 PASS (`TestResults/checks/20260928T141812-824606Z/summary.json`); [UI runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Ручную приёмку эти проверки не заменяют.
+Current UI checkpoint: UI entry R1 — Verified в границах трёх стартовых экранов, с финальным feedback пользователя и fresh checks ниже. Приёмка не распространяется на Results/Meta/Settings или новые gameplay-каталоги.
+Results R1 feedback 2026-09-28: «Новые открытия» расширены в макете до смешанной коллекции сетов, умений, персонажей и карт; изображение + название + тип. Новые открытия расположены выше собранных сетов в общей прокручиваемой области. Состав и условия открытия не меняются; перенос ниже.
+UI Results R1 runtime packet: Verified — пользователь принял результат словами «Отлично, идем дальше». Композиция и +20 за успешный Book upgrade перенесены в Unity (DECISION-0090). Full graphics PASS перед приёмкой: 936/936 EditMode + 36/36 PlayMode, 0 failed/skipped; generation/audio/art 256 PASS. [Evidence](evidence/2026-09-28-ui-results-r1-runtime.md), `TestResults/checks/20260928T205143-284843Z/summary.json`. Нового прогона при фиксации приёмки не было.
+Active execution: Meta R1 — Implemented в границах персональной прокачки, ожидает ручной приёмки Unity. Full graphics PASS 944/944 EditMode + 37/37 PlayMode; после визуальной правки галочки targeted PlayMode PASS 1/1, 0 failed/skipped. [Evidence](evidence/2026-09-29-ui-meta-r1-runtime.md). Миграция отменена пользователем: profile-meta-r1.json, старые тестовые файлы не изменяются. Полная вкладка «Открытия» не принята; после Meta — Settings, без автоматического перехода к gameplay-IP.
+Исторический общий Unity smoke до entry R1: 2026-09-28, 887/887 EditMode + 34/34 PlayMode с graphics, 0 skipped; generation/audio integrity и provenance 254 PASS (`TestResults/checks/20260928T141812-824606Z/summary.json`); [UI runtime evidence](evidence/2026-09-28-ui-layout-r2-runtime.md). Ручную приёмку эти проверки не заменяют.
 После игрового отзыва исправлены [OBS-01…07](../playtests/2026-09-28_ui-card-layout.md): более крупный icon/type/level header без pill, recipe icons, owned count отдельно от thresholds, зелёный текущий уровень с ✓/○ presence, короткая очередь и целые проценты с корректным пересчётом скорости. Полный smoke выше включает эти правки; пользовательская приёмка закрыта 2026-09-28.
 Последующая дельта [OBS-08](../playtests/2026-09-28_ui-card-layout.md): Pause показывает все meta-открытые достижимые рецепты, включая `0/N · Не начат`. Новый scoped UI graphics PASS: 84/84 EditMode + 4/4 PlayMode, 0 failed/skipped (`TestResults/checks/20260928T144429-015728Z/summary.json`); [условия](evidence/2026-09-28-ui-layout-r2-runtime.md#неначатые-рецепты-на-паузе). Общий smoke выше предшествует этой дельте.
 
@@ -454,40 +457,40 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-29)
 
 ### IP-25 — Persistent profile, meta currency, unlocks и permanent progression
 
-Status: Blocked
+Status: Implemented
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-03 — новый production profile 10/10/5 и DECISION-0050 unlock metadata; terminal integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-03, IP-12, IP-16, IP-10A
-Current packet: F1-03 по DECISION-0050/0051, затем F1-08 integration. Поздний gameplay не включён.
-Remaining gates: F1-00/01/02; ещё не проверены новые production unlock/UI contracts и startup bindings.
-Remaining acceptance / IDs: Unity verification; terminal/save/retry на production профиле — F1-09 matrix. F1-08: production `profile-v1.json` и composition по экономике профиля Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md). F1-03 subset (10/10/5, DECISION-0050 mapping, load-time migration) Implemented 2026-09-24 — [evidence](evidence/field001-f1-03-2026-09-24.md). 2026-09-26: галочка «Disable permanent upgrades» на экране Meta Progression — отключает все постоянные улучшения без возврата, уровни/валюта/unlocks сохраняются; профиль schemaVersion 2 с миграцией v1 ([DECISION-0064](../decisions/0064-disable-permanent-upgrades.md)); EditMode Meta/UI/Bootstrap/Character PASS 169/169 (`TestResults/checks/20260926T195542-249877Z/summary.json`); Unity full PASS (EditMode 810/810, PlayMode 28/28, `TestResults/checks/20260926T195615-348234Z/summary.json`); в игре не проверено. 2026-09-26: DEV-кнопка «reset all progression» рядом с DEV-открытием персонажей/полей (только Editor/Development build, главное меню, подтверждение вторым кликом) — заменяет профиль новым, прежние файлы сохраняются как `.preserved-*`; Unity full PASS (EditMode 812/812, PlayMode 28/28, `TestResults/checks/20260926T200344-388646Z/summary.json`); в игре не проверено.
+Current packet: Meta R1 — персональные улучшения и возврат по DECISION-0091. F1-03/F1-08/F1-09 приняты и заново не открываются.
+Remaining gates: ручная приёмка Meta R1. Автоматические проверки пройдены; миграция отменена пользователем.
+Remaining acceptance / IDs: пользовательская приёмка игрового экрана персональной прокачки. F1-03/F1-08/F1-09 остаются принятыми; исторические проверки — в startup queue и evidence.
 Prior implementation evidence (design-sync-R2): [IP-25 evidence](evidence/design-sync-R2-2026-09-21-ip25.md#implementation), [runtime/schema](modules/IP-25-meta-progression.md#runtime-api--schema--reset).
 Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1: **624/624 Game.* EditMode, 18/18 PlayMode, 0 skipped**; [coverage/results](evidence/design-sync-R2-2026-09-21-ip25.md#checks).
 Documentation impact: IP-25 API/schema/save/reset и IP-26 consumers, regression map; GDD/CD правила DECISION-0037 сохранены. Fixture Book=50, новые raster assets не создавались.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25).
 
-Target implementation evidence: none для field-001-start-R1 delta.
-Target verification evidence: none для field-001-start-R1 delta; прежние smoke не переносятся автоматически.
+Target implementation evidence: [Meta R1 runtime](evidence/2026-09-29-ui-meta-r1-runtime.md); принятые прежние UI/startup packets сохраняются.
+Target verification evidence: full graphics 944/944 EditMode + 37/37 PlayMode PASS; последующая правка галочки — targeted PlayMode 1/1 PASS. Результаты, пути, screenshots и ограничения в Meta R1 evidence; ручной приёмки нового экрана нет.
 
 ### IP-26 — Functional UI и полный player flow
 
-Status: Blocked
-Scope revision: design-sync-R2 + field-001-start-R1 + ui-layout-R2 + ui-entry-R1 proposal.
+Status: In progress
+Scope revision: design-sync-R2 + field-001-start-R1 + ui-layout-R2 + ui-entry-R1.
 Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
-Current packet: UI entry R1 — [макет Main Menu/Character Select/Field Select](proposals/2026-09-28-ui-entry-r1.md) принят пользователем 2026-09-28; выбран Menu E / Shepotka v002 с текущим движением. Силуэты и компактная сетка — DECISION-0087. Чистовая тема кнопок, art preparation и Unity-перенос ещё не выполнены. Предыдущий UI layout R2 принят; F1-03/F1-08 не открываются заново.
+Current packet: Meta R1 — персональная прокачка перенесена в Unity и автоматически проверена; ждёт ручного отзыва. Остальная вкладка «Открытия» и Settings требуют отдельного UI-прохода.
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
-Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; Unity не затронута.
+Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.
-Remaining gates: IP-10A Verified; визуальный выбор текущего UI entry R1 / Menu E и его движения закрыт приёмкой 2026-09-28. Остались чистовая отделка кнопок, production art preparation, Unity-перенос и runtime acceptance. Новые production characters/fields не входят в UI packet. Results/Meta/Settings — следующие согласованные срезы; F1-00/01/02 выполнены.
-Remaining acceptance / IDs: Перенести принятые три стартовых экрана, затем выполнить их runtime/visual acceptance. UI layout R2 принят; прежняя приёмка F1-09 не отменена. F1-08 — [evidence](evidence/field001-f1-08-2026-09-24.md); F1-03 — [evidence](evidence/field001-f1-03-2026-09-24.md).
+Remaining gates: ручная приёмка Unity Meta, полная вкладка открытий и Settings. Новые production characters/fields не входят в UI packet.
+Remaining acceptance / IDs: макет персональных улучшений принят 2026-09-29. Осталась Unity-приёмка Meta. Миграция глобальных покупок отменена пользователем. Results R1, Entry R1, UI layout R2 и F1-09 остаются принятыми.
 Prior implementation evidence (design-sync-R2): Main Menu/full navigation, settings persistence/video rollback/audio routing/shake, notifications, result sets/special kills и permanent modifier display; [IP-26 evidence](evidence/design-sync-R2-2026-09-21-ip26.md#ip-26).
 Documentation impact: 2026-09-28 стиль «Полевой фолиант» подтверждён, первый проход — стилевой прототип: fixture UI 65/65 + PlayMode 1/1 не доказывают production layout. DECISION-0086 уточняет UI/UX и IP-10A/26/27: длинное описание заменено recipe inspector, клик не подтверждает, missed компактны, скорость от общего baseline. [Первый проход](evidence/2026-09-28-field-folio-ui-vertical-slice.md), [layout R2](proposals/2026-09-28-ui-layout-r2.md).
 Prior verification evidence (design-sync-R2): 2026-09-21, Unity 6000.6.0f1, **637/637 Game.* EditMode, 22/22 PlayMode, 0 skipped**, Windows release build exit 0. Interactive menu/settings/contrast checked at native 2560×1440; Пользователь сообщил «всё в порядке», кроме недоступного Retry после поражения; [OBS-01](../playtests/2026-09-21_defeat-ui.md#obs-01--после-поражения-нельзя-перезапустить-забег) воспроизведён и исправлен с failing-before/passing-after regression. После отчёта об исправлении пользователь явно поручил «ставь верифайд и комить»: оставшиеся manual acceptance gates закрыты его приёмкой. Новые измерения 1920×1080 или повторный ручной прогон не заявляются; см. evidence/DECISION-0038.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-26).
 
-Target implementation evidence: F1-03/F1-08 — ссылки в startup queue; новый [UI runtime-срез](evidence/2026-09-28-ui-layout-r2-runtime.md). DECISION-0084 Settings toggle/input shortcuts сохранены; popup/inspect input guard не даёт тому же событию возобновить игру.
-Target verification evidence: Новый полный graphics smoke — ссылка в шапке; production scene captures HUD/Book/Pause/set info, Pause→Settings→Pause→Resume и defeat→Retry проверены. Synthetic density не выдаётся за production gameplay или ручную приёмку.
+Target implementation evidence: [Meta R1 runtime](evidence/2026-09-29-ui-meta-r1-runtime.md); принятые прежние UI/startup packets сохраняются.
+Target verification evidence: full graphics 944/944 EditMode + 37/37 PlayMode PASS; последующая правка галочки — targeted PlayMode 1/1 PASS. Результаты, пути, screenshots и ограничения в Meta R1 evidence; ручной приёмки нового экрана нет.
 
 ### IP-17 — Production Active Skills SKILL-001…016
 

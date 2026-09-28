@@ -10,6 +10,7 @@ namespace Game.Meta
         /// <summary>DECISION-0064: purchased upgrade levels are kept but grant no bonus while true.</summary>
         public bool UpgradesDisabled { get; set; }
         public Dictionary<string, int> Upgrades { get; set; }
+        public Dictionary<string, long> UpgradeSpending { get; set; } = new Dictionary<string, long>();
         public HashSet<string> Unlocked { get; set; }
         public HashSet<string> ClearedFields { get; set; }
         public Dictionary<string, MetaRunReceipt> Runs { get; set; }

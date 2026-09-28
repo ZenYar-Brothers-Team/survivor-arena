@@ -26,6 +26,11 @@ namespace Game.Meta
         string UpgradesToggleLockReason { get; }
         Task<bool> SetUpgradesDisabledAsync(bool disabled);
         CharacterStatModifier Modifier(string character);
+        int ExtraRerolls(string character);
+        int ExtraBanishes(string character);
+        long Invested(string character);
+        string RefundLockReason(string character);
+        Task<bool> RefundAsync(string character, long expectedInvestment);
         Task LoadAsync();
         Task ResetAsync();
         Task<bool> PurchaseAsync(string id, int expectedLevel, string character = null);

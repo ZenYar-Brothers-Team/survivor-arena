@@ -31,7 +31,9 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(0, run.Model.Elapsed);
                 Assert.IsNull(player.Stats);
                 var locked = root.SelectionDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.CharacterSelectCard("FIXTURE-CHARACTER-STURDY"));
-                Assert.IsFalse(locked.enabledSelf);
+                Assert.IsTrue(locked.enabledSelf); // Locked heroes may be inspected, never started.
+                Submit(locked);
+                Assert.IsFalse(root.SelectionDocument.rootVisualElement.Q<Button>(GameplayUiElementIds.CharacterSelectStart).enabledSelf);
                 Assert.IsFalse(root.TryStartCharacter("FIXTURE-CHARACTER-STURDY"));
                 Assert.IsNull(draft.Build);
 

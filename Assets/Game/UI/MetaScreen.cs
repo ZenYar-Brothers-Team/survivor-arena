@@ -14,11 +14,14 @@ namespace Game.UI
         private readonly ScrollView _cards;
         private readonly DropdownField _characters;
         private readonly Toggle _upgradesDisabled;
+        private readonly RunResultsPanel _results;
+        private readonly MetaShopPanel _shop;
         public UIDocument Document { get; }
         public event Action ShopRequested, CloseRequested, RetryRequested, SelectionRequested, QuitRequested, SaveRequested, ResetRequested;
         public event Action<string> CharacterRequested;
         public event Action<MetaCardViewState> PurchaseRequested;
         public event Action<bool> UpgradesDisabledRequested;
+        public event Action RefundRequested, RefundConfirmed, RefundCancelled;
         public MetaScreen(Transform parent)
         {
             _owner = new GameObject("Profile UI");
@@ -32,7 +35,17 @@ namespace Game.UI
             var root = Document.rootVisualElement; root.pickingMode = PickingMode.Ignore;
             Resources.Load<VisualTreeAsset>("UI/MetaScreen").CloneTree(root);
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/MetaScreenStyles"));
+            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/RunResultsStyles"));
+            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/MetaShopStyles"));
             _body = root.Q(GameplayUiElementIds.MetaBody); _cards = root.Q<ScrollView>(GameplayUiElementIds.MetaCards);
+            _results = new RunResultsPanel(); _body.Insert(0, _results.Root);
+            _shop = new MetaShopPanel(id => CharacterRequested?.Invoke(id), card => PurchaseRequested?.Invoke(card),
+                disabled => UpgradesDisabledRequested?.Invoke(disabled), () => RefundRequested?.Invoke(),
+                () => RefundConfirmed?.Invoke(), () => RefundCancelled?.Invoke());
+            _body.Insert(0, _shop.Root);
+            root.RegisterCallback<GeometryChangedEvent>(e => _body.EnableInClassList("results-compact", e.newRect.width < 1500));
+            var save = root.Q<Button>(GameplayUiElementIds.MetaSave);
+            save.RemoveFromHierarchy(); _body.Insert(_body.childCount - 1, save);
             _characters = root.Q<DropdownField>(GameplayUiElementIds.MetaCharacter);
             _characters.RegisterValueChangedCallback(e => CharacterRequested?.Invoke(e.newValue));
             _upgradesDisabled = root.Q<Toggle>(GameplayUiElementIds.MetaUpgradesDisabled);
@@ -49,22 +62,40 @@ namespace Game.UI
         {
             if (_disposed || Document == null || Document.rootVisualElement == null) return;
             var root = Document.rootVisualElement;
+            var results = state.IsResults && state.Result != null;
+            var shop = state.Shop != null;
+            _panel.scaleMode = results || shop ? PanelScaleMode.ConstantPixelSize : PanelScaleMode.ScaleWithScreenSize;
+            _body.EnableInClassList("shop-mode", shop);
+            _shop.Render(state);
+            _body.EnableInClassList("results-mode", results);
+            _body.EnableInClassList("results-defeat", results && !state.Result.IsVictory);
+            _body.EnableInClassList("results-pending", results && !state.Result.Total.HasValue);
+            _results.Render(results ? state.Result : null);
+            root.Q(GameplayUiElementIds.MetaTitle).EnableInClassList("results-hidden", results || shop);
+            root.Q(GameplayUiElementIds.MetaSummary).EnableInClassList("results-hidden", results || shop);
+            _cards.EnableInClassList("results-hidden", results || shop);
             _body.style.display = state.Visible ? DisplayStyle.Flex : DisplayStyle.None;
             root.Q<Label>(GameplayUiElementIds.MetaTitle).text = state.Title;
             root.Q<Label>(GameplayUiElementIds.MetaSummary).text = state.Summary;
-            root.Q<Label>(GameplayUiElementIds.MetaMessage).text = state.Message;
+            root.Q<Label>(GameplayUiElementIds.MetaMessage).text = results ? state.Result.SaveStatus : state.Message;
+            root.Q(GameplayUiElementIds.MetaMessage).EnableInClassList("results-hidden", results ? string.IsNullOrEmpty(state.Result.SaveStatus) : string.IsNullOrEmpty(state.Message));
+            root.Q<Button>(GameplayUiElementIds.MetaClose).text = shop ? "В меню" : "Back";
+            root.Q<Button>(GameplayUiElementIds.MetaRetry).text = results ? "Ещё забег" : "Retry Run";
+            root.Q<Button>(GameplayUiElementIds.MetaSelection).text = results ? "В меню" : "Main Menu";
+            root.Q<Button>(GameplayUiElementIds.MetaSave).text = results ? "Повторить сохранение" : "Retry Save / Load";
             Button(GameplayUiElementIds.MetaOpen, false);
             Button(GameplayUiElementIds.MetaQuit, false);
-            Button(GameplayUiElementIds.MetaClose, state.Cards.Count > 0, state.CanContinue);
+            Button(GameplayUiElementIds.MetaClose, state.Cards.Count > 0, state.CanContinue && state.Shop?.ConfirmRefund != true);
             Button(GameplayUiElementIds.MetaRetry, state.IsResults, state.CanContinue);
             Button(GameplayUiElementIds.MetaSelection, state.IsResults, state.CanContinue);
-            Button(GameplayUiElementIds.MetaSave, state.IsError || state.IsResults && !state.CanContinue);
+            Button(GameplayUiElementIds.MetaSave, results ? state.Result.CanRetrySave : state.IsError || state.IsResults && !state.CanContinue);
             Button(GameplayUiElementIds.MetaReset, state.CanReset);
-            _characters.style.display = state.Cards.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            _characters.style.display = !shop && state.Cards.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             _characters.choices = new List<string>(state.Characters); _characters.SetValueWithoutNotify(state.SelectedCharacter);
-            _upgradesDisabled.style.display = state.ShowUpgradesToggle ? DisplayStyle.Flex : DisplayStyle.None;
+            _upgradesDisabled.style.display = !shop && state.ShowUpgradesToggle ? DisplayStyle.Flex : DisplayStyle.None;
             _upgradesDisabled.SetValueWithoutNotify(state.UpgradesDisabled); _upgradesDisabled.SetEnabled(state.CanToggleUpgrades);
             _cards.Clear();
+            if (shop) return;
             foreach (var stateCard in state.Cards)
             {
                 var row = new VisualElement { name = GameplayUiElementIds.MetaCard(stateCard.Id) }; row.AddToClassList("meta-card");

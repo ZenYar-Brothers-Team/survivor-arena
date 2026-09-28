@@ -1230,5 +1230,21 @@
     "pivotY": 0.5,
     "reason": "FIELD-010 ground tile covers eight world units per repeat; low-contrast sunset terrain preserves combat readability.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-010/field-010-ground-tile.png"
+  },
+  {
+    "pixelsPerUnit": 100,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Full-screen 16:9 menu layer; preserve source aspect, no upscale; about 6 MiB per RGBA layer",
+    "key": "Assets/Resources/Art/UI/Menu/ui-menu-back-background.png"
+  },
+  {
+    "pixelsPerUnit": 100,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Full-screen 16:9 menu layer; preserve source aspect, no upscale; about 6 MiB per RGBA layer",
+    "key": "Assets/Resources/Art/UI/Menu/ui-menu-front-background.png"
   }
 ]

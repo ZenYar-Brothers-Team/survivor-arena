@@ -23,6 +23,7 @@ namespace Game.Progression
         private readonly HashSet<Guid> _bookPickups = new HashSet<Guid>();
         private RunModel _owner;
         private int? _emptyBookCurrency;
+        private int _bookUpgradeCurrency;
         private bool _pumping;
         private bool _resolving;
         private int _acceptedBooks, _selections, _emptyRequests, _cancelled;
@@ -103,7 +104,7 @@ namespace Game.Progression
             IEnumerable<SetDefinition> setDefinitions = null,
             ISetExtraAbilityFactory setAbilityFactory = null,
             int? emptyBookCurrency = null,
-            ISetDraftOfferProvider setOffers = null)
+            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0)
         {
             InitializeCore(
                 experience,
@@ -116,7 +117,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory, emptyBookCurrency, setOffers);
+                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency);
         }
 
         public void Initialize(
@@ -132,7 +133,7 @@ namespace Game.Progression
             IEnumerable<SetDefinition> setDefinitions = null,
             ISetExtraAbilityFactory setAbilityFactory = null,
             int? emptyBookCurrency = null,
-            ISetDraftOfferProvider setOffers = null)
+            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0)
         {
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
@@ -152,7 +153,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory, emptyBookCurrency, setOffers);
+                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency);
         }
 
         private void InitializeCore(
@@ -166,7 +167,7 @@ namespace Game.Progression
             int initialRerolls,
             int initialBanishes,
             IEnumerable<SetDefinition> setDefinitions,
-            ISetExtraAbilityFactory setAbilityFactory, int? emptyBookCurrency, ISetDraftOfferProvider setOffers)
+            ISetExtraAbilityFactory setAbilityFactory, int? emptyBookCurrency, ISetDraftOfferProvider setOffers, int bookUpgradeCurrency)
         {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
@@ -179,6 +180,8 @@ namespace Game.Progression
             _pool = new DraftPool(definitions, character, setOffers ??
                 new FixtureSetDraftOfferProvider(FixtureRunSetupCatalog.Create().Draft.SetDraftChance));
             _emptyBookCurrency = emptyBookCurrency;
+            NumericValidation.ValidateNonNegative(bookUpgradeCurrency, nameof(bookUpgradeCurrency));
+            _bookUpgradeCurrency = bookUpgradeCurrency;
             _draftRandom = draftRandom ?? new SeededDraftRandom(0);
             _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
@@ -225,6 +228,8 @@ namespace Game.Progression
             var request = _requests.Dequeue();
             CurrentDraft = null;
             _selections++;
+            // DECISION-0090: only an applied Book choice earns the extra reward, once.
+            if (request.Origin == DraftOrigin.Book) _bookCurrency = checked(_bookCurrency + _bookUpgradeCurrency);
             try
             {
                 Sets.Synchronize(Build);
@@ -430,6 +435,7 @@ namespace Game.Progression
             _acceptedBooks = _selections = _emptyRequests = _cancelled = 0;
             _bookCurrency = 0;
             _emptyBookCurrency = null;
+            _bookUpgradeCurrency = 0;
             _pumping = _resolving = false;
             DraftOpened = null;
             SelectionApplied = null;

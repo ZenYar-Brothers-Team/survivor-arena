@@ -1,0 +1,66 @@
+.meta-body.results-mode { left: 8.3%; right: 8.3%; top: 7.4%; bottom: 7.4%; padding: 52px 64px 40px; background-color: #302936; color: #e8d8b8; border-width: 2px; border-color: #514454; border-top-color: #78616f; border-radius: 16px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/PTSans-Regular.ttf"); }
+.results-hidden { display: none; }
+.results-content { flex-grow: 1; min-height: 0; }
+.results-mode Label { white-space: normal; margin: 0; padding: 0; }
+.results-header { flex-shrink: 0; padding-bottom: 30px; border-bottom-width: 1px; border-bottom-color: #574759; }
+.results-eyebrow { font-size: 18px; color: #bfaf95; }
+.results-mode .results-outcome { font-size: 76px; color: #d5a84a; margin-top: 8px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.results-mode.results-defeat .results-outcome { color: #cb947d; }
+.results-mode .results-selection { margin-top: 12px; font-size: 22px; color: #bfaf95; }
+.results-main { flex-direction: row; flex-grow: 1; min-height: 0; padding-top: 34px; padding-bottom: 34px; }
+.results-summary { width: 42%; margin-right: 62px; flex-shrink: 0; }
+.results-facts { flex-direction: row; padding-bottom: 34px; border-bottom-width: 1px; border-bottom-color: #574759; }
+.results-fact { flex-grow: 1; flex-basis: 0; margin-right: 16px; }
+.results-value { font-size: 44px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.results-mode .results-caption { font-size: 20px; color: #bfaf95; margin-top: 8px; }
+.results-mode .results-reward-caption { font-size: 24px; color: #bfaf95; margin-top: 34px; }
+.results-mode .results-total { font-size: 94px; color: #d5a84a; margin: 8px 0 18px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.results-breakdown { flex-direction: row; justify-content: space-between; max-width: 390px; margin-top: 9px; font-size: 22px; color: #bfaf95; }
+.results-collection { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; }
+.results-collection .unity-scroll-view__content-container { padding-right: 16px; }
+.results-collection .unity-scroller { width: 12px; }
+.results-collection .unity-scroller__low-button, .results-collection .unity-scroller__high-button { display: none; }
+.results-collection .unity-base-slider__tracker { background-color: #241b2b; }
+.results-collection .unity-base-slider__dragger { background-color: #78657b; border-radius: 5px; }
+.results-mode .results-heading { font-size: 29px; margin-bottom: 20px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.results-gold { color: #d5a84a; }
+.results-list { flex-direction: row; flex-wrap: wrap; }
+.results-item { width: 50%; flex-direction: row; align-items: center; min-height: 66px; padding-right: 20px; margin-bottom: 12px; }
+.results-icon { width: 58px; height: 58px; flex-shrink: 0; margin-right: 14px; }
+.results-item-copy { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.results-item-name { font-size: 23px; }
+.results-mode .results-item-kind { font-size: 17px; color: #bfaf95; margin-top: 3px; }
+.results-unlocks-group { margin-bottom: 30px; padding-bottom: 24px; border-bottom-width: 1px; border-bottom-color: #574759; }
+.results-mode .meta-actions { justify-content: space-between; flex-wrap: nowrap; flex-shrink: 0; padding-top: 24px; border-top-width: 1px; border-top-color: #574759; }
+.results-mode .meta-actions Button { margin: 0; min-width: 235px; min-height: 70px; padding: 12px 32px; font-size: 29px; background-color: #403746; color: #e8d8b8; border-width: 2px; border-color: #241b2b; border-top-color: #75616a; border-radius: 9px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.results-mode #meta-retry { min-width: 320px; background-color: #a65f43; border-top-color: #be8468; }
+.results-mode Button:hover { border-color: #bfaf95; }
+.results-mode Button:focus { border-color: #e8d8b8; }
+.results-mode Button:active { background-color: #302936; }
+.results-mode Button:disabled { background-color: #403746; color: #9d8e9e; opacity: 0.65; }
+.results-mode .meta-message { font-size: 21px; color: #bfaf95; flex-shrink: 0; }
+.results-mode #meta-save { align-self: flex-start; font-size: 20px; margin-top: 8px; padding: 8px 15px; flex-shrink: 0; background-color: #493d43; color: #e8d8b8; border-width: 1px; border-color: #b78869; border-radius: 5px; }
+.results-mode.results-pending .results-total { color: #bfaf95; }
+.results-compact.results-mode { left: 4.7%; right: 4.7%; top: 4.8%; bottom: 4.8%; padding: 28px 40px 24px; }
+.results-compact .results-header { padding-bottom: 20px; }
+.results-compact .results-eyebrow { font-size: 14px; }
+.results-compact .results-outcome { font-size: 53px; }
+.results-compact .results-selection { font-size: 17px; margin-top: 8px; }
+.results-compact .results-main { padding: 24px 0; }
+.results-compact .results-summary { margin-right: 34px; }
+.results-compact .results-facts { padding-bottom: 22px; }
+.results-compact .results-value { font-size: 32px; }
+.results-compact .results-caption { font-size: 16px; margin-top: 5px; }
+.results-compact .results-reward-caption { font-size: 20px; margin-top: 20px; }
+.results-compact .results-total { font-size: 68px; margin: 4px 0 8px; }
+.results-compact .results-breakdown { font-size: 18px; }
+.results-compact .results-heading { font-size: 24px; margin-bottom: 12px; }
+.results-compact .results-item { min-height: 50px; padding-right: 14px; margin-bottom: 8px; }
+.results-compact .results-icon { width: 44px; height: 44px; margin-right: 10px; }
+.results-compact .results-item-name { font-size: 19px; }
+.results-compact .results-item-kind { font-size: 15px; }
+.results-compact .results-unlocks-group { margin-bottom: 22px; padding-bottom: 18px; }
+.results-compact .meta-actions { padding-top: 18px; }
+.results-compact .meta-actions Button { min-width: 180px; min-height: 54px; font-size: 24px; padding: 9px 24px; }
+.results-compact #meta-retry { min-width: 245px; }
+.results-compact .meta-message, .results-compact #meta-save { font-size: 17px; }

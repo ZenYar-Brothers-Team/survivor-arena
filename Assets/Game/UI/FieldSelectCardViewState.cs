@@ -8,7 +8,10 @@ namespace Game.UI
         public ContentCardViewState Card { get; }
         public string ThumbnailPlaceholder { get; }
         public Sprite Thumbnail { get; }
-        public FieldSelectCardViewState(ContentId id, ContentCardViewState card, string thumbnailPlaceholder, Sprite thumbnail = null)
-        { Id = id; Card = card; ThumbnailPlaceholder = thumbnailPlaceholder; Thumbnail = thumbnail; }
+        public int Difficulty { get; }
+        public string LockReason { get; }
+        public FieldSelectCardViewState(ContentId id, ContentCardViewState card, string thumbnailPlaceholder, Sprite thumbnail = null,
+            int difficulty = 1, string lockReason = null)
+        { Id = id; Card = card; ThumbnailPlaceholder = thumbnailPlaceholder; Thumbnail = thumbnail; Difficulty = difficulty; LockReason = lockReason; }
     }
 }

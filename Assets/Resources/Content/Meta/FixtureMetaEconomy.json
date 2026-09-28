@@ -1,6 +1,8 @@
 {
   "rewardPerLevel": 5,
   "emptyBookReward": 50,
+  "bookUpgradeReward": 0,
+  "refundFee": 1000,
   "fieldClearSeconds": 900,
   "upgrades": [
     {

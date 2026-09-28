@@ -10,32 +10,53 @@ namespace Game.UI
         private readonly IProfileService _profile;
         private readonly IMetaView _view;
         private readonly IProfileNavigation _navigation;
+        private readonly Func<Game.Content.ContentRegistry> _registry;
         private bool _shop;
         private bool _disposed;
         private string _character;
         private RunOutcome _result;
-        public MetaPresenter(IProfileService profile, IMetaView view, IProfileNavigation navigation)
+        private string _refundCharacter;
+        private long _refundInvestment;
+        public MetaPresenter(IProfileService profile, IMetaView view, IProfileNavigation navigation, Func<Game.Content.ContentRegistry> registry = null)
         {
             _profile = profile; _view = view; _navigation = navigation;
+            _registry = registry;
             profile.Changed += Refresh;
             view.ShopRequested += Shop; view.CloseRequested += Close; view.RetryRequested += Retry;
             view.SelectionRequested += Selection; view.QuitRequested += Quit; view.SaveRequested += Save;
             view.ResetRequested += Reset; view.CharacterRequested += Character; view.PurchaseRequested += Purchase;
             view.UpgradesDisabledRequested += UpgradesDisabled;
+            view.RefundRequested += RequestRefund; view.RefundConfirmed += ConfirmRefund; view.RefundCancelled += CancelRefund;
             Refresh();
         }
-        public void ShowResult(RunOutcome outcome) { _result = outcome; _shop = false; Refresh(); }
-        public void ClearResult() { _result = null; _shop = false; Refresh(); }
+        public void ShowResult(RunOutcome outcome) { _result = outcome; _shop = false; _refundCharacter = null; Refresh(); }
+        public void ClearResult() { _result = null; _shop = false; _refundCharacter = null; Refresh(); }
         public void OpenShop() => Shop();
         private void Shop() { if (_profile.CanStart) { _shop = true; Refresh(); } }
-        private void Close() { _shop = false; if (_result == null && _profile.CanStart) _navigation.ReturnToProfileSelection(); Refresh(); }
+        private void Close() { if (!_profile.CanStart) return; _shop = false; _refundCharacter = null; if (_result == null) _navigation.ReturnToProfileSelection(); Refresh(); }
         private void Retry() { if (_profile.CanStart && _result != null) _navigation.RetryProfileRun(); }
         private void Selection() { if (_profile.CanStart) _navigation.ReturnToProfileSelection(); }
         private void Quit() { if (_profile.RunActive) _navigation.QuitProfileRun(); }
         private async void Save() { if (_profile.State == ProfileState.LoadError) await _profile.LoadAsync(); else await _profile.RetrySaveAsync(); if (!_disposed && _result == null && _profile.CanStart) _navigation.ReturnToProfileSelection(); }
         private async void Reset() { await _profile.ResetAsync(); if (!_disposed && _profile.CanStart) _navigation.ReturnToProfileSelection(); }
-        private void Character(string id) { if (_profile.IsUnlocked(id)) { _character = id; Refresh(); } }
-        private async void Purchase(MetaCardViewState card) { await _profile.PurchaseAsync(card.Id, card.Level, card.Character); }
+        private void Character(string id) { if (_refundCharacter == null && _profile.CanStart && _profile.Catalog.Unlocks.TryGetValue(id, out var rule) && rule.Kind == "character" && _profile.IsUnlocked(id)) { _character = id; Refresh(); } }
+        private async void Purchase(MetaCardViewState card)
+        {
+            if (!_shop || _refundCharacter != null || (card.Character != null && card.Character != _character)) return;
+            await _profile.PurchaseAsync(card.Id, card.Level, card.Character);
+        }
+        private void RequestRefund()
+        {
+            if (!_shop || _profile.RefundLockReason(_character) != null) return;
+            _refundCharacter = _character; _refundInvestment = _profile.Invested(_character); Refresh();
+        }
+        private void CancelRefund() { _refundCharacter = null; Refresh(); }
+        private async void ConfirmRefund()
+        {
+            if (_refundCharacter == null) return;
+            var owner = _refundCharacter; var spent = _refundInvestment; _refundCharacter = null;
+            await _profile.RefundAsync(owner, spent); Refresh();
+        }
         // A refused change still re-renders so the view toggle snaps back to the profile value.
         private async void UpgradesDisabled(bool disabled) { if (!await _profile.SetUpgradesDisabledAsync(disabled)) Refresh(); }
         private void Refresh()
@@ -51,41 +72,37 @@ namespace Game.UI
                     var owner = upgrade.Personal ? _character : null;
                     var level = _profile.Level(upgrade.Id, owner);
                     var reason = _profile.PurchaseLockReason(upgrade.Id, owner);
-                    var icon = upgrade.Stat == "health" ? "HP" : "DMG";
                     cards.Add(new MetaCardViewState(upgrade.Id, owner, level,
-                        icon + " · " + upgrade.Name + " · " + level + "/" + upgrade.Cap + (_profile.UpgradesDisabled ? " · inactive" : ""),
-                        "+" + (upgrade.Bonus * 100).ToString("0") + "% per level · " +
-                        (level >= upgrade.Cap ? "MAX" : upgrade.Price(level) + " currency") + "\n" + (reason ?? "Buy"), reason == null));
+                        upgrade.Name, MetaShopProjection.Reason(reason) ?? (_profile.UpgradesDisabled ? "Не действует" : ""),
+                        reason == null, upgrade.Cap, level < upgrade.Cap ? upgrade.Price(level) : 0,
+                        MetaShopProjection.Bonus(upgrade, level), level < upgrade.Cap ? MetaShopProjection.Bonus(upgrade, level + 1) : null));
                 }
                 foreach (var rule in _profile.Catalog.Unlocks.Values.Where(r => r.Condition != "initial"))
                 {
                     var reason = _profile.PurchaseLockReason(rule.Id);
-                    cards.Add(new MetaCardViewState(rule.Id, null, 0, rule.Name,
-                        _profile.IsUnlocked(rule.Id) ? "Unlocked" : rule.Description + (rule.Price > 0 ? " · " + rule.Price + " currency" : "") + "\n" + reason,
-                        rule.Price > 0 && reason == null));
+                    var content = RunResultsProjection.Content(rule.Id, _profile.Catalog, _registry?.Invoke());
+                    var hidden = rule.Kind == "character" && !_profile.IsUnlocked(rule.Id);
+                    var group = rule.Kind == "character" ? "Персонажи" : rule.Kind == "field" ? "Карты" :
+                        rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "Умения и сеты · " + field.Name : "Умения и сеты";
+                    cards.Add(new MetaCardViewState(rule.Id, null, 0, hidden ? "?" : content.Name,
+                        _profile.IsUnlocked(rule.Id) ? "Открыто" : MetaShopProjection.Condition(rule, _profile.Catalog) +
+                        (reason == "Not enough currency" ? " · Не хватает золота" : ""),
+                        rule.Price > 0 && reason == null, price: _profile.IsUnlocked(rule.Id) ? 0 : rule.Price,
+                        group: group, icon: content.Icon, hiddenCharacter: hidden));
                 }
             }
             var summary = "Currency: " + _profile.Currency;
             if (_shop && _profile.UpgradesDisabled) summary += "\nPermanent upgrades are disabled: runs start without meta bonuses.";
-            if (_result != null && !_shop)
-            {
-                _result.Contributions.TryGetValue("experience", out var xp);
-                _result.Contributions.TryGetValue("ordinary-enemy-kills", out var enemies);
-                var receipt = _profile.LastReceipt;
-                summary = (_result.Reason == RunCompletionReason.Victory ? "Victory" : _result.Reason == RunCompletionReason.Defeat ? "Defeat" : _result.Reason == RunCompletionReason.Error ? "Run stopped" : "Run interrupted") + " · " + TimeSpan.FromSeconds(_result.ElapsedSeconds).ToString(@"mm\:ss") +
-                    " · Level " + (xp?.Level?.ToString() ?? "unavailable") + " · Kills " + _result.Contributions.Values.Sum(c => c.Kills ?? 0).ToString() + "\n" + summary;
-                var sets = _result.Contributions.Values.Where(c => c.Sets != null).SelectMany(c => c.Sets).Select(e => e.ContentId).ToArray();
-                summary += "\nSets: " + (sets.Length == 0 ? "None" : string.Join(", ", sets));
-                if (receipt != null && receipt.RunId == _result.RunId.ToString())
-                    summary += "\nLevel reward: " + receipt.LevelReward + " · Books: " + receipt.BookReward + " · Total: " + receipt.Total +
-                        (receipt.NewUnlocks.Count > 0 ? "\nNew unlocks: " + string.Join(", ", receipt.NewUnlocks) : "");
-            }
             var error = _profile.State == ProfileState.LoadError;
             _view.Render(new MetaViewState(_shop || _result != null || error || _profile.State == ProfileState.Loading || _profile.State == ProfileState.NotLoaded,
                 error ? "Profile unavailable" : _shop ? "Meta progression" : _result != null ? "Run results" : "Loading profile",
                 summary, _profile.Message ?? (_profile.State == ProfileState.Saving ? "Saving…" : ""),
                 _profile.CanStart, _profile.CanStart, _result != null && !_shop, error, _profile.CanReset, _profile.RunActive,
-                cards, characters, _character, _shop, _profile.UpgradesDisabled, _shop && _profile.UpgradesToggleLockReason == null));
+                cards, characters, _character, _shop, _profile.UpgradesDisabled, _shop && _profile.UpgradesToggleLockReason == null,
+                _result != null && !_shop ? RunResultsProjection.Create(_result, _profile, _registry?.Invoke()) : null,
+                _shop ? new MetaShopViewState(_profile.Currency, _profile.Invested(_character), _profile.Catalog.RefundFee,
+                    _profile.RefundLockReason(_character), _refundCharacter != null && _profile.RefundLockReason(_refundCharacter) == null,
+                    characters.Select(id => RunResultsProjection.Content(id, _profile.Catalog, _registry?.Invoke()))) : null));
         }
         public void Dispose()
         {
@@ -94,6 +111,7 @@ namespace Game.UI
             _view.SelectionRequested -= Selection; _view.QuitRequested -= Quit; _view.SaveRequested -= Save;
             _view.ResetRequested -= Reset; _view.CharacterRequested -= Character; _view.PurchaseRequested -= Purchase;
             _view.UpgradesDisabledRequested -= UpgradesDisabled;
+            _view.RefundRequested -= RequestRefund; _view.RefundConfirmed -= ConfirmRefund; _view.RefundCancelled -= CancelRefund;
         }
     }
 }

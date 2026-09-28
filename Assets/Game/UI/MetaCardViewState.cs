@@ -8,7 +8,17 @@ namespace Game.UI
         public string Text { get; }
         public string Detail { get; }
         public bool CanBuy { get; }
-        public MetaCardViewState(string id, string character, int level, string text, string detail, bool canBuy)
-        { Id = id; Character = character; Level = level; Text = text; Detail = detail; CanBuy = canBuy; }
+        public int Cap { get; }
+        public long Price { get; }
+        public string Bonus { get; }
+        public string NextBonus { get; }
+        public string Group { get; }
+        public UnityEngine.Sprite Icon { get; }
+        public bool HiddenCharacter { get; }
+        public MetaCardViewState(string id, string character, int level, string text, string detail, bool canBuy,
+            int cap = 0, long price = 0, string bonus = null, string nextBonus = null, string group = null,
+            UnityEngine.Sprite icon = null, bool hiddenCharacter = false)
+        { Id = id; Character = character; Level = level; Text = text; Detail = detail; CanBuy = canBuy;
+            Cap = cap; Price = price; Bonus = bonus; NextBonus = nextBonus; Group = group; Icon = icon; HiddenCharacter = hiddenCharacter; }
     }
 }

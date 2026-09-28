@@ -1,5 +1,9 @@
 # IP-29 — Traveler encounter framework
 
+DECISION-0090: награда выпавшей Книги дополнена 20 монетами за успешный Book-выбор
+в draft runtime. Выпадение одной Книги на life, Traveler stats и XP не меняются;
+пустая Книга по-прежнему даёт только 50. Persistence и Results — IP-25/26.
+
 Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).
 
 ## Существующая база и характер изменения

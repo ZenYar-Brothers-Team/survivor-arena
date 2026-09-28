@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-09-28",
+  "approvalEvidence": "docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28",
+  "assets": [
+    {
+      "owner": "UI-MENU-BACK",
+      "role": "background",
+      "visualId": "UI-MENU-BACK-VISUAL-BACKGROUND",
+      "owningIp": "IP-26",
+      "input": "docs/implementation/proposals/ui-entry-r1/assets/menu-depth-background-v001.png",
+      "sha256": "426e9c8993c2ef0b3bb3a02d28d2a201efb9990ee278ebdd45f5940a3a43ece5",
+      "sourceDirectory": "Art/Source/UI/ui-menu-back",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/UI/Menu/ui-menu-back-background.png",
+      "prompt": "Use case: precise-object-edit. Asset type: backplate for subtle 2.5D menu parallax. Input image 1 is the exact edit target. Remove ONLY the TWO large foreground goblins completely, including their clothing, scarf, bags, boots and shadows. Seamlessly reconstruct the dirt path, small grass and village scenery behind their silhouettes, matching the adjacent marks, perspective, color and ink-paper drawing style. Preserve the THREE chasing knights exactly where they are, in the same running poses. Preserve the village, houses, fence, tree, foliage, sky, warm light and full dark empty LEFT 38 percent menu area. Exact same original 16:9 framing, proportions, composition and resolution; do not crop, zoom, shift, restyle or recompose. This is the background layer of the SAME image, not a new illustration. NO goblins, substitute characters, silhouettes, kettle, thrown objects, text or UI. Opaque output.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-09-28",
+      "constraints": [
+        "Approved Menu E layers; keep illustration identity and full landscape canvas",
+        "No gameplay character redesign; no raster recoloring"
+      ],
+      "preparation": {
+        "mode": "opaque-rgba"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 100,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Full-screen 16:9 menu layer; preserve source aspect, no upscale; about 6 MiB per RGBA layer"
+      },
+      "sprite": {}
+    },
+    {
+      "owner": "UI-MENU-FRONT",
+      "role": "background",
+      "visualId": "UI-MENU-FRONT-VISUAL-BACKGROUND",
+      "owningIp": "IP-26",
+      "input": "docs/implementation/proposals/ui-entry-r1/assets/menu-depth-foreground-shepotka-v002.png",
+      "sha256": "5137a189537ef1bff279b4c962da2199467376556f5b9ca680d1d4188ba3461a",
+      "sourceDirectory": "Art/Source/UI/ui-menu-front",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/UI/Menu/ui-menu-front-background.png",
+      "prompt": "Use case: precise-object-edit.\nAsset type: transparent foreground layer of an existing fantasy main-menu illustration, preview only.\nInput image 1: edit target, 1672x941 RGBA landscape canvas with two running goblins. Change ONLY the female goblin on the RIGHT.\nPrimary request: make the right-hand Shepotka clearly a young ADULT goblin woman, visually in her mid-to-late twenties, rather than a child or teenager. This is a scene-specific illustration variant, not a redesign of the game character. Keep her recognizable patched dusty-teal hood/cape, dark brown hair, long pointed ears, olive skin, cream tunic and brown boots.\nAge cues: visibly less round face, longer facial proportions and a defined jaw and cheekbones, smaller eyes relative to the face, a more mature alert expression, a slightly smaller head relative to a lean adult torso and limbs. Modestly lengthen her adult proportions within her existing placement; remain a small goblin and same storybook rendering. Do not make her elderly, glamorous, sexualized or photorealistic. Her expression is focused, capable and determined; not smiling, bruised, injured or helpless.\nAccessory change: REMOVE her brown cross-body satchel completely, including the diagonal satchel strap. Replace it with a small distinctive bundle of two rolled parchment maps tied with a dusty-teal cord to her waist belt at the hip, clearly rolled scroll silhouettes rather than another bag. No readable writing. Both hands remain free in a natural running pose.\nInvariants: preserve the LEFT goblin as faithfully as possible, his age, face, red scarf, teal shirt, brown satchel, running pose, proportions, size and location. Preserve right Shepotka's running direction, companion-facing gaze, approximate location and foot baseline. Keep landscape framing, generous transparent area on the left/top, existing scale and camera angle. No recentering or enlargement of the whole group.\nStyle: same hand-painted 2D storybook cutout, matte colors, dark-plum outlines, cel shading, restrained paper texture, warm existing light.\nOutput: genuinely transparent RGBA, same 1672x941 landscape canvas. NO background, knights, ground, shadows, particles, light rays, UI, text, watermark, extra characters or objects. No cropped ears, hood, hands or feet. Do not alter anything except the right character's adult appearance and requested accessory replacement.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-09-28",
+      "constraints": [
+        "Approved Menu E layers; keep illustration identity and full landscape canvas",
+        "No gameplay character redesign; no raster recoloring"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 100,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Full-screen 16:9 menu layer; preserve source aspect, no upscale; about 6 MiB per RGBA layer"
+      },
+      "sprite": {}
+    }
+  ]
+}

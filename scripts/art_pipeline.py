@@ -117,6 +117,10 @@ class WritePlan:
 def prepare_png(data, recipe):
     from PIL import Image
     with Image.open(io.BytesIO(data)) as source:
+        if source.format == "PNG" and source.mode == "RGB" and recipe.get("mode") == "opaque-rgba":
+            output = io.BytesIO()
+            source.convert("RGBA").save(output, format="PNG")
+            return output.getvalue(), f"{source.width}x{source.height}"
         if source.format != "PNG" or source.mode != "RGBA":
             raise ValueError("Approved input must be RGBA PNG")
         source.load()

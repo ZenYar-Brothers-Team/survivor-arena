@@ -114,6 +114,8 @@ namespace Game.Meta
                 if (current != expectedLevel) return false;
                 next.Currency = checked(next.Currency - upgrade.Price(current));
                 next.Upgrades[upgrade.Key(character)] = current + 1;
+                next.UpgradeSpending.TryGetValue(upgrade.Key(character), out var spent);
+                next.UpgradeSpending[upgrade.Key(character)] = checked(spent + upgrade.Price(current));
             }
             else
             {
@@ -155,13 +157,55 @@ namespace Game.Meta
         public CharacterStatModifier Modifier(string character)
         {
             if (UpgradesDisabled) return default;
-            float hp = 0, damage = 0;
+            return new CharacterStatModifier(maxHealthMultiplierBonus: Bonus(character, "health"),
+                activeSkillDamageMultiplierBonus: Bonus(character, "damage"),
+                effectSizeMultiplierBonus: Bonus(character, "size"), actionSpeedBonus: Bonus(character, "actionSpeed"),
+                healthRegenerationPerSecondBonus: Bonus(character, "regeneration"),
+                movementSpeedMultiplierBonus: Bonus(character, "movement"), pickupRadiusMultiplierBonus: Bonus(character, "pickupRadius"),
+                pickedUpXpMultiplierBonus: Bonus(character, "experience"), incomingDamageReductionBonus: Bonus(character, "damageReduction"),
+                healthRestorationMultiplierBonus: Bonus(character, "healing"));
+        }
+        private float Bonus(string character, string stat)
+        {
+            if (UpgradesDisabled) return 0;
+            float result = 0;
             foreach (var upgrade in Catalog.Upgrades.Values)
-            {
-                var bonus = upgrade.Bonus * Level(upgrade.Id, character);
-                if (upgrade.Stat == "health") hp += bonus; else damage += bonus;
-            }
-            return new CharacterStatModifier(maxHealthMultiplierBonus: hp, activeSkillDamageMultiplierBonus: damage);
+                if (upgrade.Stat == stat) result += upgrade.Bonus * Level(upgrade.Id, character);
+            return result;
+        }
+        public int ExtraRerolls(string character) => checked((int)Bonus(character, "rerolls"));
+        public int ExtraBanishes(string character) => checked((int)Bonus(character, "banishes"));
+        public long Invested(string character)
+        {
+            if (_data == null || character == null) return 0;
+            long total = 0;
+            foreach (var upgrade in Catalog.Upgrades.Values)
+                if (upgrade.Personal && _data.UpgradeSpending.TryGetValue(upgrade.Key(character), out var amount))
+                    total = checked(total + amount);
+            return total;
+        }
+        public string RefundLockReason(string character)
+        {
+            if (State != ProfileState.Ready) return "Дождитесь сохранения";
+            if (RunActive) return "Доступно между забегами";
+            if (character == null || !Catalog.Unlocks.TryGetValue(character, out var owner) || owner.Kind != "character" || !IsUnlocked(character))
+                return "Выберите открытого героя";
+            var spent = Invested(character);
+            if (spent == 0) return "Нет вложений";
+            if (Currency > long.MaxValue - spent) return "Превышен предел баланса";
+            return Currency + spent < Catalog.RefundFee ? "Золота и возврата недостаточно" : null;
+        }
+        /// <summary>DECISION-0091: one atomic refund of the selected hero, actual cost less a fixed fee.</summary>
+        public async Task<bool> RefundAsync(string character, long expectedInvestment)
+        {
+            if (RefundLockReason(character) != null || Invested(character) != expectedInvestment) return false;
+            var next = _codec.Copy(_data);
+            next.Currency = checked(next.Currency + expectedInvestment - Catalog.RefundFee);
+            foreach (var upgrade in Catalog.Upgrades.Values)
+                if (upgrade.Personal) { next.Upgrades.Remove(upgrade.Key(character)); next.UpgradeSpending.Remove(upgrade.Key(character)); }
+            Publish(ProfileState.Saving);
+            try { await _store.WriteAsync(_codec.Encode(next)); _data = next; Publish(ProfileState.Ready, "Вложения возвращены"); return true; }
+            catch (Exception error) { Publish(ProfileState.Ready, "Сброс не сохранён: " + error.Message); return false; }
         }
         public void SetRunActive(bool active)
         {

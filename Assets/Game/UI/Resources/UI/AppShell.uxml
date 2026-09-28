@@ -1,13 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-  <ui:VisualElement name="ShellMenu" class="shell-page"><ui:VisualElement class="shell-panel">
-    <ui:Label text="SURVIVOR ARENA" class="shell-title" />
-    <ui:Button name="ShellPlay" text="Play" /><ui:Button name="ShellMeta" text="Meta progression" /><ui:Button name="ShellSettings" text="Settings" /><ui:Button name="ShellExit" text="Exit" />
+  <ui:VisualElement name="ShellMenu" class="entry-menu"><ui:VisualElement class="entry-menu-controls">
+    <ui:Label text="SURVIVOR&#10;ARENA" class="entry-menu-title" />
+    <ui:Button name="ShellPlay" text="Играть" class="entry-action entry-primary" /><ui:Button name="ShellMeta" text="Развитие" class="entry-action" /><ui:Button name="ShellSettings" text="Настройки" class="entry-action" /><ui:Button name="ShellExit" text="Выйти" class="entry-action entry-quiet" />
   </ui:VisualElement></ui:VisualElement>
   <ui:VisualElement name="ShellDevelopment" class="shell-dev-row" picking-mode="Ignore">
+    <ui:Button name="EntryDevelopmentToggle" text="DEV" class="shell-dev" />
+    <ui:VisualElement class="entry-dev-actions">
     <ui:Button name="ShellDevelopmentUnlockAll" text="DEV: unlock all characters &amp; fields" class="shell-dev" />
     <ui:Button name="ShellDevelopmentReset" text="DEV: reset all progression" class="shell-dev shell-dev-danger" />
+    </ui:VisualElement>
   </ui:VisualElement>
-  <ui:Button name="ShellBack" text="Main Menu" class="shell-back" />
+  <ui:Button name="ShellBack" text="← Назад" class="shell-back entry-action" />
   <ui:VisualElement name="ShellPause" class="shell-pause"><ui:Button name="ShellPauseSettings" text="Settings" /><ui:Button name="ShellQuit" text="Quit Run" /></ui:VisualElement>
   <ui:VisualElement name="SettingsBody" class="shell-page"><ui:ScrollView class="shell-panel settings-panel">
     <ui:Label text="Settings" class="shell-title" />

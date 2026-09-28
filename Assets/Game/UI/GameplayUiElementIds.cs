@@ -2,6 +2,33 @@ namespace Game.UI
 {
     public static class GameplayUiElementIds
     {
+        public const string MetaShop = "meta-shop", MetaWallet = "meta-wallet", MetaTabUpgrades = "meta-tab-upgrades", MetaTabUnlocks = "meta-tab-unlocks";
+        public const string MetaHeroPane = "meta-hero-pane", MetaHeroName = "meta-hero-name", MetaPortrait = "meta-portrait", MetaRoster = "meta-roster", MetaInvested = "meta-invested";
+        public const string MetaUpgradePane = "meta-upgrade-pane", MetaShopToggle = "meta-shop-toggle", MetaUpgradeList = "meta-upgrade-list", MetaUnlockList = "meta-unlock-list";
+        public const string MetaRefund = "meta-refund", MetaRefundReason = "meta-refund-reason", MetaRefundModal = "meta-refund-modal", MetaRefundDetail = "meta-refund-detail";
+        public const string MetaRefundCancel = "meta-refund-cancel", MetaRefundConfirm = "meta-refund-confirm";
+        public static string MetaHero(string id) => "meta-hero-" + id;
+        public const string ResultsOutcome = "results-outcome";
+        public const string ResultsSelection = "results-selection";
+        public const string ResultsTime = "results-time";
+        public const string ResultsLevel = "results-level";
+        public const string ResultsKills = "results-kills";
+        public const string ResultsRewardCaption = "results-reward-caption";
+        public const string ResultsTotal = "results-total";
+        public const string ResultsLevelReward = "results-level-reward";
+        public const string ResultsBookReward = "results-book-reward";
+        public const string ResultsCollection = "results-collection";
+        public const string ResultsUnlocksGroup = "results-unlocks-group";
+        public const string ResultsUnlocks = "results-unlocks";
+        public const string ResultsSets = "results-sets";
+        public const string ResultsEmpty = "results-empty";
+        public const string EntryPortrait = "entry-portrait";
+        public const string EntryLock = "entry-lock";
+        public const string EntryFieldDetail = "entry-field-detail";
+        public const string EntryMenuArt = "entry-menu-art";
+        public const string EntryFieldHero = "entry-field-hero";
+        public const string EntryFieldDifficulty = "entry-field-difficulty";
+        public const string EntryDevelopmentToggle = "EntryDevelopmentToggle";
         public const string ShellNotification = "ShellNotification";
         public const string ShellMenu = "ShellMenu";
         public const string ShellPlay = "ShellPlay";

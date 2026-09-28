@@ -16,9 +16,10 @@ python scripts/check_project.py --scope art
 
 Команда сохраняет immutable `vNNN/concept-01.png`, `selected-master.png`, provenance, runtime PNG, запись manifest и `FixtureSprites.json`. Существующий GUID сохраняется: `.meta` никогда не создаётся и не редактируется скриптом. Повтор того же пакета не переписывает совпадающие файлы. Перед каждой записью сверяются исходные bytes; при ошибке собственные завершённые записи откатываются, чужие изменения сохраняются. Это защита от обычных ошибок записи, не транзакция на случай отключения питания. Импортировать пакет следует между проверками, без параллельного редактирования тех же файлов.
 
-`preparation` имеет два режима:
+`preparation` имеет три режима:
 
 - `copy`: byte-identical PNG; действующий Unity import profile задаёт импортное разрешение. Для body нужен заранее подготовленный approved input с правильной ground-contact line.
+- `opaque-rgba`: RGB PNG непрозрачного фона переводится в RGBA с alpha=255 без изменения RGB и размеров; не подходит для вырезания объектов. Исходный approved master сохраняется неизменным.
 - `fit`: только технический downscale без увеличения силуэта, прозрачный квадратный canvas и центрирование. `size`, `padding` и `cropAlpha` задаются явно; необязательный `alphaNoiseCutoff` (0–32) обнуляет случайные слабые alpha-пиксели до уменьшения. Для body допустим только `cropAlpha: false`: полный авторский canvas, включая ground-contact line, масштабируется как единое целое; `pivot` и contact profile задаются по итоговому runtime PNG.
 
 Новые import overrides задаются полным `importProfile` с `pixelsPerUnit`, `maxSize`, `pivotX`, `pivotY`, `reason`. Для body нужны точный profile и явно подготовленные `sprite.contactRadius` / `contactCenterY`. Для projectile нужен полный `sprite.projectile`. Существующие sprite/import profiles должны совпадать: смена gameplay geometry или поведения не является пакетной заменой картинки.

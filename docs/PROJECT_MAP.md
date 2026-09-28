@@ -68,6 +68,14 @@ Bootstrap создаёт Audio. Gameplay и UI не зависят от Audio; �
 
 ## UI, профиль и настройки
 
+- Results R1: `RunResultsProjection` / `RunResultsViewState`, `RunResultsPanel`, `UI/RunResults.uxml`
+  и `RunResultsStyles.uss`; MetaPresenter/MetaScreen сохраняют ownership навигации и profile intents.
+  Book upgrade gold: `MetaEconomy.json` → MetaCatalog → LevelUpDraftRuntime → DraftTotals.BookCurrency → saved receipt.
+  Checks: `RunResultsTests`, `RunResultsSmokeTests`, `DraftRequestTests`, `MetaProfileTests`.
+
+- Entry R1: `Assets/Game/UI/EntryUi.cs`, `Resources/UI/EntryStyles.uss`, Character/FieldSelectScreen и AppShellScreen; декорация `MenuIllustration` / `MenuAtmosphereElement`, настройки `Assets/Resources/Content/Presentation/MenuArtProfile.json`. Утверждённые слои готовятся пакетом `Art/Packets/ui-entry-r1.json`; проверки `UiEntrySmokeTests`, `MenuArtProfileTests`, `SpriteAssetImportTests`.
+
+- Personal Meta R1: `MetaShopPanel` / `MetaShopProjection` / `UI/MetaShop.uxml` / `UI/MetaShopStyles.uss`; `ProfileService` owns purchases/refund and `ProfileData.UpgradeSpending` records actual cost. Production profile: `profile-meta-r1.json` (old test files untouched). Checks: `PersonalMetaTests`, `MetaShopTests`, `MetaShopSmokeTests`.
 - entryPoints: [GameplayUiRoot](../Assets/Game/UI/GameplayUiRoot.cs), [UI resources](../Assets/Game/UI/Resources/UI), [Meta](../Assets/Game/Meta), [Settings](../Assets/Game/Settings).
 - designRefs: [UI/UX Design](UI%20%20UX%20Design.md), [IP-26](implementation/modules/IP-26-functional-ui.md), [UI rules](../.claude/rules/ui-code.md).
 - authoringSources: [MetaEconomy.json](../Assets/Resources/Content/Meta/MetaEconomy.json), [SettingsDefaults.json](../Assets/Resources/Content/Settings/SettingsDefaults.json); UI resources по ссылке выше.

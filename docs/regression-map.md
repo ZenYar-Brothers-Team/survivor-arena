@@ -1,10 +1,24 @@
 # Regression map
 
+Personal Meta R1 (DECISION-0091): `PersonalMetaTests` проверяет 12 каналов, личное
+владение, независимые цены/пределы, отключение бонусов, возврат 999/1000/1001,
+ошибку записи, stale/double intent и reload. `MetaShopTests` — подтверждение/отмена
+и semantic IDs. `MetaShopSmokeTests` — production 1080p/720p, scroll, выбор героя,
+покупка/возврат и стартовые счётчики перебросов/исключений. Scope/evidence — STATUS.
+
+Results R1 / Book upgrade reward: `RunResultsTests`, `RunResultsSmokeTests`,
+`DraftRequestTests.BookUpgrade_*`, `MetaProfileTests.MixedBookRewards_SaveRetryAndReload_PreserveExactReceipt`:
+typed receipt/run identity, mixed unlock kinds, two viewport sizes/scroll, same-selection Retry,
+20/50 alternatives, duplicate/cancel boundaries and persistence without double credit.
+
+Menu atmosphere motion: `MenuArtProfileTests` проверяет уменьшенную скорость, криволинейный подъём, разные траектории частиц, повторяемость координат и неизменную амплитуду лучей; результат запуска — в STATUS.
+
 Индекс **уже существующих** тестов, которые охраняют критические пути. Не заменяет evidence в `docs/implementation/STATUS.md`. Поддерживается скилом `/regression-map` (`update` / `check` / `bug`).
 Составлено 2026-09-20 по `Assets/Game/**/Tests` и `PlayModeTests`; наличие классов проверено поиском, результаты прогона тут не фиксируются (см. `/smoke-check`).
 
 | Критический путь | Охраняющие тесты (класс) | Вид | Статус |
 |------------------|--------------------------|-----|--------|
+| Entry UI: locked inspection vs confirmation, two viewport sizes, 10-field grid and overflow, approved full-canvas menu imports | `UiEntrySmokeTests`, `CharacterSelectPresenterTests`, `FieldSelectPresenterTests`, `MenuArtProfileTests`, `SpriteAssetImportTests` | EditMode + PlayMode graphics | Covered |
 | Жизненный цикл забега, пауза, конец | `Game.Run.Tests` (`RunModelTests`) | EditMode | OK |
 | Движение игрока, границы | `Game.Movement.Tests` (`MovementVelocityCalculatorTests`, `GameplaySceneIntegrationTests`, `PlayerObstacleCollisionTests`) | EditMode | OK |
 | Урон → смерть → конец забега | `CharacterRunBindingTests`, `CharacterHealthIntegrationTests`, `Game.Combat.Tests` (`HealthTests`) | EditMode | OK |

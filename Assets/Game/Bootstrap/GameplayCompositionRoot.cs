@@ -81,7 +81,7 @@ namespace Game.Bootstrap
 
         public RuntimeContentCatalog Catalog { get; private set; }
         /// <summary>Production save file; independent from the prototype fixture profile (DECISION-0050).</summary>
-        public const string ProductionProfileFileName = "profile-v1.json";
+        public const string ProductionProfileFileName = "profile-meta-r1.json";
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
         public BossEncounterRuntime BossEncounters { get; private set; }
@@ -219,7 +219,7 @@ namespace Game.Bootstrap
             }
             if (_metaScreen != null) return;
             _metaScreen = new MetaScreen(transform);
-            _metaPresenter = new MetaPresenter(Profile, _metaScreen, this);
+            _metaPresenter = new MetaPresenter(Profile, _metaScreen, this, () => Catalog?.Registry);
         }
         private void SuspendForSelection()
         {
@@ -278,12 +278,12 @@ namespace Game.Bootstrap
 
         public bool TryStartCharacter(ContentId id)
         {
-            if (IsInitialized || _selectionScreen == null || Selection == null || !Selection.Roster.TrySelect(id, out _)) return false;
+            if (IsInitialized || _selectionScreen == null || Selection == null || !Selection.Roster.TrySelect(id, out var selectedCharacter)) return false;
             PlayMenuCue("ui.confirm");
             _pendingCharacterId = id;
             var previousField = FieldSelection?.SelectedId ?? Catalog.Fields.DefaultFieldId;
             FieldSelection = new FieldSelectionSession(_fieldRoster, previousField, this);
-            _fieldScreen = new FieldSelectScreen(transform, FieldSelection, Catalog.Registry);
+            _fieldScreen = new FieldSelectScreen(transform, FieldSelection, Catalog.Registry, selectedCharacter);
             _selectionScreen?.Dispose();
             _selectionScreen = null;
             NotifyNavigation();
@@ -433,12 +433,12 @@ namespace Game.Bootstrap
                     Catalog.Registry,
                     setup.Draft.OfferCount,
                     new SeededDraftRandom(DraftSeed = UseReferenceSeeds ? setup.Draft.Seed : FreshRunSeed.Next()),
-                    setup.Draft.InitialRerolls,
-                    setup.Draft.InitialBanishes,
+                    checked(setup.Draft.InitialRerolls + Profile.ExtraRerolls(selectedCharacter.Id.ToString())),
+                    checked(setup.Draft.InitialBanishes + Profile.ExtraBanishes(selectedCharacter.Id.ToString())),
                     Catalog.Sets,
                     new SetEffectAbilityFactory(_setEffects),
                     checked((int)Profile.Catalog.EmptyBookReward),
-                    new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance));
+                    new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance), Profile.Catalog.BookUpgradeReward);
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 // The executor owns a scene GameObject (mine pool root); it is registered for

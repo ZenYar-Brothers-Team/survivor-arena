@@ -38,9 +38,10 @@ namespace Game.Presentation.Editor
                 throw new InvalidOperationException("Runtime art filenames require lowercase kebab-case.");
             if (path.StartsWith(Root + "UI/", StringComparison.Ordinal))
             {
+                if (file.EndsWith("-background", StringComparison.Ordinal)) return "background";
                 if (file.EndsWith("-portrait", StringComparison.Ordinal)) return "portrait";
                 if (file.EndsWith("-icon", StringComparison.Ordinal)) return "icon";
-                throw new InvalidOperationException("UI art requires portrait or icon role.");
+                throw new InvalidOperationException("UI art requires portrait, icon or background role.");
             }
             foreach (var role in new[] { "body", "shadow", "projectile", "pickup", "telegraph", "impact", "mask", "weapon", "background", "tile", "prop" })
                 if (file.EndsWith("-" + role, StringComparison.Ordinal)) return role;
