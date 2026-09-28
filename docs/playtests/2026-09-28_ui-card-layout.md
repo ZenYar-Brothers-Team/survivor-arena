@@ -105,3 +105,21 @@ graphics 720p/1080p (`TestResults/checks/20260928T141619-446369Z/summary.json`).
 Снимки просмотрены агентом; повторной пользовательской приёмки ещё нет.
 Итоговый общий smoke после правок: 887/887 EditMode + 34/34 PlayMode, graphics,
 0 failed/skipped (`TestResults/checks/20260928T141812-824606Z/summary.json`).
+
+## OBS-08 — достижимые сеты без взятых компонентов скрыты
+
+Цитата: «сет еще не собран, он при этом не упущен, но он и не начал собираться»;
+«По идее надо, как бы с нулями»; «он может нацелиться на него, хотя даже у него
+ничего не собрано».
+
+Диагностика: presenter уже передавал все meta-открытые сеты, но PauseBuildPanel
+отбрасывал `!HasProgress`. Это соответствовало прежнему ограничению UI §10;
+пользователь уточнил контракт. Фильтр снят: все достижимые unacquired видны,
+без компонентов — `0/N · Не начат`. Состав, уровни и просмотр эффекта сохранены.
+Meta-closed скрыты прежним producer; acquired/missed остаются отдельно.
+Draft/Book filtering, thresholds, slot attainability и баланс не меняются.
+
+Regression: `UiFoundationTests.PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeepsAcquiredAndMissedSeparate`;
+`UiLayoutR2SmokeTests.DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit`
+проверяет неначатый рецепт, общий scroll и справку в 720p/1080p.
+Результаты проверки — [runtime evidence](../implementation/evidence/2026-09-28-ui-layout-r2-runtime.md#неначатые-рецепты-на-паузе).

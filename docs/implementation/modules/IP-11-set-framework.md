@@ -34,7 +34,7 @@ Chance 0/1 и 0/1/2/3/>3 successes дают согласованный сост�
 
 ## UI / observability
 
-Draft set card, per-option recipe projection и completes/progress/already-enough states; Pause только progressed unacquired recipes, acquired list отдельно. Краткий acquisition feedback, world VFX вторичны; DEV proc/source counters.
+Draft set card, per-option recipe projection и completes/progress/already-enough states; Pause показывает все meta-открытые достижимые unacquired recipes, включая неначатые с `0/N`. Acquired и missed — отдельно. Краткий acquisition feedback, world VFX вторичны; DEV proc/source counters.
 
 Rendering API IP-10A: `DraftOptionViewState.Recipes` принимает ordered `RecipeProjectionViewState` с ready component/threshold strings; `SetRecipeProgressViewState.HasProgress` отделяет partial possession от fulfilled count. Producer IP-11 вычисляет и сортирует эти данные, renderer не выводит eligibility из текста.
 

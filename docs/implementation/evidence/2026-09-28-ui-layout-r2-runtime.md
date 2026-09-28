@@ -153,3 +153,28 @@ Bootstrap PlayMode test assembly, без расширения production depende
 `TestResults/checks/20260928T141812-824606Z/summary.json`.
 Generation UP TO DATE; audio integrity 28 files/15 cues PASS;
 art manifest 254 owner/role records PASS. Этот receipt включает все OBS-01…07.
+
+## Неначатые рецепты на паузе
+
+[OBS-08](../../playtests/2026-09-28_ui-card-layout.md), 2026-09-28:
+PauseBuildPanel больше не исключает `!HasProgress`. Все meta-открытые достижимые
+ещё не полученные сеты видны; ноль взятых компонентов — `0/N · Не начат`.
+Presenter/model уже передавали эти рецепты, их eligibility/meta gates и
+счётчики не менялись. Acquired/missed остаются в отдельных разделах общего
+scroll. Draft/Book filtering и gameplay не изменены.
+
+Scoped verification (не новый полный smoke):
+`python scripts/check_project.py --scope code --graphics --filter '^Game\.(UI\.Tests\.|Bootstrap\.PlayModeTests\.(UiFoundationSmokeTests|UiLayoutR2SmokeTests|ProductionUiR2SmokeTests))' --timeout 300`.
+Unity 6000.6.0f1, fresh process/lock preflight, закрытый Editor → batch с graphics:
+84/84 EditMode + 4/4 PlayMode, 0 failed/skipped, third-party 0;
+`TestResults/checks/20260928T144429-015728Z/summary.json`.
+Проверены zero-owned card/count/components, разделение acquired/missed,
+popup/focus без Resume/selection и сохранение общей прокрутки/фиксированного
+footer при 12 достижимых + 4 полученных + 4 упущенных сетах.
+
+Просмотрены `TestResults/r2-density-zero-progress-1280.png` и
+`TestResults/r2-density-zero-progress-1920.png`: неначатый рецепт читаем,
+состав виден, две/три колонки и footer сохранены. Это synthetic density fixture
+без production icons/персонажа, не реальный игровой билд и не ручная приёмка.
+Общий smoke выше относится к OBS-01…07 до этой дельты; он не заявляется свежей
+проверкой OBS-08. Изменение ограничено view, поэтому выбран UI-scoped regression.

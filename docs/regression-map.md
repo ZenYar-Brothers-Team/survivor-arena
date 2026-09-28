@@ -121,6 +121,12 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 `ProductionUiR2SmokeTests.StoneCopy_HidesDerivedFlightLifetime_ButPreservesTrueLifetimeChanges`
 — фактический SKILL-001 и сохранение содержательного lifetime change.
 
+Тот же review OBS-08: `UiFoundationTests.PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeepsAcquiredAndMissedSeparate`
+защищает видимость достижимого рецепта с `0/N` и отдельные acquired/missed;
+`UiLayoutR2SmokeTests.DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit`
+проверяет 12 достижимых рецептов, в том числе неначатый, общий scroll и popup
+без Resume/selection в 720p/1080p. Старый фильтр `!HasProgress` ломает оба теста.
+
 | Риск | Тесты | Вид | Evidence |
 |---|---|---|---|
 | Первый Main Menu завершает ещё не начатый run | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean`, `FieldSelectionSmokeTests.Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration` | PlayMode | IP-26 в STATUS |

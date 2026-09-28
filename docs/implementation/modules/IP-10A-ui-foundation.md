@@ -62,6 +62,8 @@ Inspect/recipe scroll не отправляют selection; только фикс
 изображения персонажа не скрывает 6+6 слотов. Любой сет Pause открывает краткую
 справку по click/keyboard; закрытие не отправляет gameplay intent/Resume,
 возвращает фокус. Проверить bounds у края, scroll/resize cleanup и пустые группы.
+Все meta-открытые достижимые unacquired рецепты видны, включая `0/N · Не начат`
+без взятых компонентов; acquired/missed не дублируются в этой группе.
 Тот же краткий эффект в Draft / Book виден рядом с уровнями компонентов.
 В Draft недостижимые/acquired/закрытые сеты исключены из списка и счётчика,
 пустой результат скрывает inspector. Eligibility приходит от IP-11; готовый,
@@ -103,7 +105,7 @@ Component/state/semantic contracts, approved UI section links, dependency consum
   только по текущему threshold. Заголовок draft не показывает уровни забега;
   очередь — только число оставшихся выборов. Проценты и reciprocal cooldown
   форматируются по UI §7 без изменения model/config.
-- `BuildSlotViewState` / `SetBuildViewState`: compact HUD references и подробности Pause/Build. `SetRecipeProgressViewState.HasProgress` позволяет показывать owned component ниже threshold даже при `FulfilledComponents == 0`; IP-11 supplies semantics. Acquired list отделён от progressed unacquired recipes.
+- `BuildSlotViewState` / `SetBuildViewState`: compact HUD references и подробности Pause/Build. `SetRecipeProgressViewState.HasProgress` отличает «Не начат» от «В процессе», включая owned ниже threshold, но не фильтрует видимость. IP-11 supplies semantics; все достижимые meta-открытые unacquired рецепты видны, acquired/missed отдельно.
 - `UiNotification`: один nonblocking slot с заменой сообщения и expiry по pause-aware delta. Event selection — producer; foundation связывает level-up/set acquisition и проверяет остальные тексты fake events.
 - Build/character snapshots сохраняют элементы при неизменных данных. Draft revision остаётся authority для пересборки карточек; Banish mode обновляет их в рамках той же revision.
 - HUD slots не focusable. Тело Draft-card по click/keyboard activation только

@@ -37,6 +37,10 @@ namespace Game.Bootstrap.PlayModeTests
                     var components = string.Join("\n", Enumerable.Range(1, 6).Select(i => $"✓ Компонент {i}  2/3"));
                     var recipes = Enumerable.Range(0, 16).Select(i => new SetRecipeProgressViewState($"Тестовый сет {i}", 1, 6,
                         false, false, hasProgress: true, components: components, isMissed: i >= 12, effect: $"Краткий эффект {i}.")).ToArray();
+                    recipes[0] = new SetRecipeProgressViewState("Неначатый сет", 0, 6, false, false,
+                        hasProgress: false, ownedComponents: 0,
+                        components: string.Join("\n", Enumerable.Range(1, 6).Select(i => $"○ Компонент {i}  0/3")),
+                        effect: "Краткий эффект неначатого сета.");
                     var received = Enumerable.Range(0, 4).Select(i => new SetBuildViewState($"Полученный {i}", $"Полученный эффект {i}.")).ToArray();
                     view.RenderBuild(new BuildViewState(slots, slots, received, recipes));
                     view.RenderRunOverlay(new RunOverlayViewState(true, "Передышка", true));
@@ -47,6 +51,9 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.IsTrue(scroll.Contains(root.Q(GameplayUiElementIds.MissedSets)));
                     Assert.AreEqual(1, scroll.Query<ScrollView>().ToList().Count, "No nested set-section scrolls.");
                     var cards = root.Q(GameplayUiElementIds.PauseRecipes).Children().ToArray();
+                    Assert.AreEqual(12, cards.Length, "Attainable recipes include zero-owned sets.");
+                    Assert.AreEqual("Неначатый сет", cards[0].Q<Label>(GameplayUiElementIds.CardTitle).text);
+                    Assert.AreEqual("0/6 · Не начат", cards[0].Q<Label>(className: "recipe-progress").text);
                     var columns = size.x == 1920 ? 3 : 2;
                     Assert.AreEqual(cards[0].worldBound.yMin, cards[columns - 1].worldBound.yMin, 1);
                     Assert.Greater(cards[columns].worldBound.yMin, cards[0].worldBound.yMin);
@@ -74,6 +81,14 @@ namespace Game.Bootstrap.PlayModeTests
                     UiFoundationSmokeTests.Capture(target, $"r2-density-bottom-{size.x}");
                     scroll.scrollOffset = Vector2.zero; yield return null;
                     Assert.AreEqual(DisplayStyle.None, popup.resolvedStyle.display);
+                    UiFoundationSmokeTests.Capture(target, $"r2-density-zero-progress-{size.x}");
+                    UiFoundationSmokeTests.Submit((Button)cards[0]); yield return null;
+                    Assert.AreEqual(DisplayStyle.Flex, popup.resolvedStyle.display);
+                    Assert.AreEqual("Краткий эффект неначатого сета.", root.Q<Label>(GameplayUiElementIds.SetPopupEffect).text);
+                    Assert.IsTrue(view.ConsumePauseShortcut(false));
+                    Assert.AreSame(cards[0], root.panel.focusController.focusedElement);
+                    Assert.AreEqual(0, choices);
+                    Assert.AreEqual(0, resumes);
                     view.RenderRunOverlay(new RunOverlayViewState(false, "", false));
                     yield return null;
                     Assert.IsFalse(view.ConsumePauseShortcut(true), "Hidden pause controls cannot swallow the next gameplay Space.");

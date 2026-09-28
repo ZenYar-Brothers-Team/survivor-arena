@@ -101,13 +101,41 @@ namespace Game.UI.Tests
             var titles = root.Q(GameplayUiElementIds.PauseBuild).Query<Label>(GameplayUiElementIds.CardTitle).ToList();
             Assert.IsTrue(titles.Exists(label => label.text == "Fulfilled"));
             Assert.IsTrue(titles.Exists(label => label.text == "Partial threshold"));
-            Assert.IsFalse(titles.Exists(label => label.text == "No progress" || label.text == "Acquired"));
+            Assert.IsTrue(titles.Exists(label => label.text == "No progress"));
+            Assert.IsFalse(titles.Exists(label => label.text == "Acquired"));
             var pauseBuild = root.Q(GameplayUiElementIds.PauseBuild);
             Assert.AreEqual(3, pauseBuild.Query<Label>(className: "pause-section-title").ToList().Count);
             Assert.IsNotNull(root.Q(GameplayUiElementIds.PauseSlots).Q(className: "pause-build-grid-active"));
             Assert.IsNotNull(root.Q(GameplayUiElementIds.PauseSlots).Q(className: "pause-build-grid-passive"));
             Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.ReceivedSets).parent.style.display.value);
             Assert.AreEqual(DisplayStyle.None, root.Q(GameplayUiElementIds.MissedSets).parent.style.display.value);
+        }
+
+        [Test]
+        public void PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeepsAcquiredAndMissedSeparate()
+        {
+            var root = CreateRoot();
+            using var view = new UiToolkitGameplayView(root);
+            var recipes = new[] {
+                new SetRecipeProgressViewState("Not started", 0, 3, false, false,
+                    hasProgress: false, ownedComponents: 0, components: "○ First 0/3"),
+                new SetRecipeProgressViewState("Acquired", 3, 3, false, true),
+                new SetRecipeProgressViewState("Missed without progress", 0, 3, false, false,
+                    hasProgress: false, isMissed: true) };
+            view.RenderBuild(new BuildViewState(Array.Empty<BuildSlotViewState>(), Array.Empty<BuildSlotViewState>(),
+                new[] { new SetBuildViewState("Acquired", "Acquired effect") }, recipes));
+
+            var available = root.Q(GameplayUiElementIds.PauseRecipes);
+            Assert.AreEqual(1, available.childCount);
+            Assert.AreEqual("Not started", available.Q<Label>(GameplayUiElementIds.CardTitle).text);
+            Assert.AreEqual("0/3 · Не начат", available.Q<Label>(className: "recipe-progress").text);
+            Assert.AreEqual("○ First 0/3", available.Q<Label>(className: "recipe-components").text);
+            var received = root.Q(GameplayUiElementIds.ReceivedSets);
+            Assert.AreEqual(1, received.childCount);
+            Assert.AreEqual("Acquired", received.Q<Label>(GameplayUiElementIds.CardTitle).text);
+            var missed = root.Q(GameplayUiElementIds.MissedSets);
+            Assert.AreEqual(1, missed.childCount);
+            Assert.AreEqual("Missed without progress", missed.Q<Label>(GameplayUiElementIds.CardTitle).text);
         }
 
         [Test]

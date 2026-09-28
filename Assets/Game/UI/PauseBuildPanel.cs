@@ -70,10 +70,10 @@ namespace Game.UI
             var recipes = Group("Собираются", GameplayUiElementIds.PauseRecipes, "set-group-progress");
             foreach (var recipe in state.SetRecipeProgress)
             {
-                if (recipe.IsAcquired || recipe.IsMissed || !recipe.HasProgress) continue;
+                if (recipe.IsAcquired || recipe.IsMissed) continue;
                 var card = SetButton(recipe.Title, recipe.Icon, recipe.Effect, "pause-recipe-card");
                 var progress = new Label($"{recipe.FulfilledComponents}/{recipe.RequiredComponents} · " +
-                    (recipe.IsEligible ? "Рецепт готов" : "В процессе")) { pickingMode = PickingMode.Ignore };
+                    (recipe.IsEligible ? "Рецепт готов" : recipe.HasProgress ? "В процессе" : "Не начат")) { pickingMode = PickingMode.Ignore };
                 progress.AddToClassList("recipe-progress"); card.Add(progress);
                 var components = new Label(recipe.Components) { pickingMode = PickingMode.Ignore };
                 components.AddToClassList("recipe-components"); card.Add(components); recipes.Add(card);
