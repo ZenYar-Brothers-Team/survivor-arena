@@ -60,6 +60,8 @@ Next Ready packet: нет; F1-09/F2-06 и каталоги сохраняют р
 
 Плейтест `091d834e` и tuning ([DECISION-0079](../decisions/0079-playtest-sky-strike-radius-and-xp-curve.md)): radius SKILL-010 L1–L6 теперь `0.8/1.3/1.8/1.8/1.8/1.8`, третий удар L6 `×1.35`; первые десять XP thresholds дешевле ровно на 20%, сумма до L40 сохранена на 1257 XP. Generation/static validators и Unity full PASS 870/870 EditMode + 30/30 PlayMode, 0 skipped (`TestResults/checks/20260927T204517-509733Z`). Ручная оценка темпа/радиуса открыта; лаги около 5-й/10-й минут диагностированы отдельно и не считаются исправленными. [Evidence](evidence/2026-09-27-sky-strike-radius-and-xp-curve.md), [playtest review](../playtests/2026-09-27_091d834e.md).
 
+Урон прыжка/телепорт-удара BOSS-001…010 уменьшен ровно в 1.5 раза ([DECISION-0080](../decisions/0080-boss-teleport-damage-reduction.md)): диапазон теперь 13.333333…24 вместо 20…36. Авторинговые balance-данные, Content Design и production catalog синхронизированы; по прямому указанию пользователя тесты не запускались. Ручная оценка урона открыта.
+
 При завершении добавлять сюда completed IDs, дату/revision и evidence ссылку,
 пересчитывать downstream. Успех стартового packet не закрывает весь IP; его
 оставшиеся ID перечислены в записи владельца. Принятые baseline frameworks —

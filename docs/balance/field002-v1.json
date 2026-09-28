@@ -1849,7 +1849,7 @@
    "landingDistance": 1.5,
    "telegraphSeconds": 0.6,
    "impactRadius": 3.5,
-   "impactDamage": 20,
+   "impactDamage": 13.333333,
    "impactKnockback": 0.5,
    "impactKnockbackSeconds": 0.12,
    "impactEffectSeconds": 0.45,

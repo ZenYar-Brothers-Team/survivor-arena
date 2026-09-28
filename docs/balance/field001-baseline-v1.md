@@ -239,7 +239,7 @@ ring начинается с 0°, шаг 36°, без скрытого вращ�
 windup не ускоряется, очередь fan/ring не сбрасывается. Все KB duration 0.12 s.
 Телепорт ([DECISION-0059](../decisions/0059-playtest-2026-09-25-evening-fixes.md), пересмотр 2026-09-26, [DECISION-0073](../decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)): игрок непрерывно дальше 6.25 units 2 s →
 telegraph 0.6 s в случайной точке окружности 1.5 units вокруг игрока → перенос и удар радиусом 3.5:
-20 damage, KB 0.5; эффект удара 0.45 s; таймер заново после удара, пауза его не двигает.
+13.333333 damage (DECISION-0080), KB 0.5; эффект удара 0.45 s; таймер заново после удара, пауза его не двигает.
 
 Boss offsets от игрока: mid (−8,0), final (+8,0); reachable/clamped placement по
 действующему field contract. Убийство любого босса не завершает run, не даёт Книгу

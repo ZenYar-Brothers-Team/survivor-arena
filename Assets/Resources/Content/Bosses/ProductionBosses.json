@@ -114,7 +114,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 20,
+      "impactDamage": 13.333333,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -263,7 +263,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 20,
+      "impactDamage": 13.333333,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -547,7 +547,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 22,
+      "impactDamage": 14.666667,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -685,7 +685,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 24,
+      "impactDamage": 16,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -908,7 +908,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 26,
+      "impactDamage": 17.333333,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -1134,7 +1134,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 28,
+      "impactDamage": 18.666667,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -1324,7 +1324,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 30,
+      "impactDamage": 20,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -1557,7 +1557,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 32,
+      "impactDamage": 21.333333,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -1809,7 +1809,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 34,
+      "impactDamage": 22.666667,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
@@ -2221,7 +2221,7 @@
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
       "impactRadius": 3.5,
-      "impactDamage": 36,
+      "impactDamage": 24,
       "impactControls": {
         "knockbackDistance": 0.5,
         "knockbackSeconds": 0.12
