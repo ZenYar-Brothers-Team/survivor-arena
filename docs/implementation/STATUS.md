@@ -26,7 +26,11 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 `activeFirst15/v1` и возврат скорости на 1× после нажатия speed-кнопки.
 Первый human сеанс завершился incomplete (`humanSpeedChanged`) и не является
 данными для обучения. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
-Свежий player собран и сверен по хешам; ручной плейтест ещё не выполнен.
+Player `f5fd816` собран и сверен по хешам; ручной плейтест выполнен на этой версии.
+Human session 2026-09-30: три завершённых забега/14 016 валидных samples,
+четвёртый пустой `.partial` исключён; пользователь не заметил проблем со
+спавном/исчезновением. [Запись](evidence/2026-09-30-human-demonstration-session.md),
+[выбранный report и отзыв](../playtests/2026-09-29_8dde1f80.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -34,7 +38,7 @@ AB-14 — recorder Verified: full graphics 1043/1043 + 56/56, Python 25/25,
 новый player и тихий bot-labelled pilot (191 samples), 17 обычных profile/settings файлов неизменны;
 worktree перенесён на D:; активные сохранения безопасно возвращены на C: после
 проверки несовместимости LocalLow junction, полная копия на D: сохранена.
-Реальная человеческая запись требует отдельного явного запуска; обучения ещё не было.
+Реальная человеческая запись проведена 2026-09-30; обучения ещё не было.
 AB-13 проверен как ограниченный эксперимент с поиском траекторий, но качество
 бота для балансных прогонов не достигнуто (три ранних поражения)
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
@@ -174,7 +178,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 11 | [AB-11 — заманивание кучи и возврат за XP](modules/IP-34-automated-balance-runs.md#ab-11) | Verified | Режимы и telemetry, Unity 996/996 + 52/52, Python 18/18, два тихих пилота с низким XP; [evidence](evidence/2026-09-29-ip34-herd-bot.md). |
 | 12 | [AB-12 — диагностический трек и адаптивный обход](modules/IP-34-automated-balance-runs.md#ab-12) | Verified | Отдельный ID, ограниченный трек; Unity 999/999 + 52/52, Python 18/18, две тихие серии по три забега; [evidence](evidence/2026-09-29-ip34-adaptive-herd-bot.md). |
 | 13 | [AB-13 — поиск траекторий с моделью преследования](modules/IP-34-automated-balance-runs.md#ab-13) | Verified | Эксперимент: closed-loop сценарии, Unity 1013/1013 + 52/52, Python 18/18; production 3/3 ранних поражения, пригодность бота не установлена; [evidence](evidence/2026-09-29-ip34-trajectory-bot.md). |
-| 14 | [AB-14 — запись демонстраций управления](modules/IP-34-automated-balance-runs.md#ab-14) | Verified | Python 25/25; final full graphics 1043/1043 + 56/56; отдельный player, тихий bot-labelled pilot 191 samples, validator PASS, 17 обычных profile/settings файлов неизменны. Human session/training не проводились. [Evidence](evidence/2026-09-29-ip34-demonstration-recording.md). |
+| 14 | [AB-14 — запись демонстраций управления](modules/IP-34-automated-balance-runs.md#ab-14) | Verified | Python 25/25; final full graphics 1043/1043 + 56/56; отдельный player, тихий bot-labelled pilot 191 samples, validator PASS, 17 обычных profile/settings файлов неизменны. Human session: 3 завершённых забега/14 016 samples; training не проводилось. [Implementation evidence](evidence/2026-09-29-ip34-demonstration-recording.md), [human evidence](evidence/2026-09-30-human-demonstration-session.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -844,13 +848,13 @@ Current packet: AB-01…14 закрыты в пределах scoped приём�
 Follow-up 2026-09-30 — Implemented: human template использует `activeFirst15/v1`,
 скорость записи возвращается на 1×. Затронутые EditMode 44/44, full graphics
 1051/1051 + 57/57 PASS; player по `f5fd816` собран, хеши совпали;
-человеческая запись ещё ожидается.
+человеческая запись выполнена: 3 завершённых забега/14 016 samples.
 [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
-Current gate: player для ручного прогона собран по `f5fd816` и сверен по хешам;
-запись ждёт участия пользователя. Перед сборкой full graphics 1051/1051 + 57/57,
-Python 25/25 PASS ([current evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md)).
-Реальная человеческая запись только по следующему явному запросу;
-выбор/обучение новой policy — отдельный scope. Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
+Current gate: human session на player `f5fd816` завершена, три записи валидны,
+четвёртая пустая `.partial` исключена. Перед сборкой full graphics 1051/1051 + 57/57,
+Python 25/25 PASS ([build evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md),
+[session evidence](evidence/2026-09-30-human-demonstration-session.md)).
+Выбор/обучение новой policy — отдельный scope. Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные
 15992 файла сверены SHA-256; [relocation evidence](evidence/2026-09-29-project-disk-relocation.md).
