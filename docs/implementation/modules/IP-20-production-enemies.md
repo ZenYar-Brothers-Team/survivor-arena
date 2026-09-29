@@ -18,6 +18,7 @@ F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) сод�
 before→proposed параметры шести врагов, ranged timing/reposition и Зелье.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
+ENEMY-005 стреляет двумя стрелами на всех полях по [DECISION-0106](../../decisions/0106-archer-two-arrow-volley.md).
 Скорость ENEMY-001 снижена с 1.20 до 0.96 по пользовательскому отзыву в [DECISION-0077](../../decisions/0077-early-projectile-growth-and-enemy001-speed.md), затем увеличена на 10% до 1.056 в [DECISION-0099](../../decisions/0099-anti-blob-enemy-movement.md). Текущий пробный rollout при спавне: 75% усиленный BlockedSidestep и по 5% Seek, OffsetPursuit, CommittedPursuit, ArcPassPursuit, InertialPursuit. Подбор и его ограничения — в [evidence](../evidence/2026-09-29-anti-blob-sweep.md).
 
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.

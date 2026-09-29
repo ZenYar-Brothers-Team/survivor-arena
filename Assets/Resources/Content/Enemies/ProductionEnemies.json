@@ -172,7 +172,7 @@
       "cooldownSeconds": 2,
       "projectileSpeed": 6.5,
       "projectileLifetimeSeconds": 1.5,
-      "projectileCount": 3,
+      "projectileCount": 2,
       "projectileRadius": 0.1,
       "telegraphSeconds": 0.45,
       "cadence": "WindupStartToStart",

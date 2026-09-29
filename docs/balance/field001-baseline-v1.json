@@ -1642,7 +1642,7 @@
         "projectileSpeed": 6.5,
         "projectileLifetimeSeconds": 1.5,
         "projectileRadius": 0.1,
-        "projectileCount": 3,
+        "projectileCount": 2,
         "spreadDegrees": 12,
         "burstIntervalSeconds": 0.18,
         "explosionRadius": 0,

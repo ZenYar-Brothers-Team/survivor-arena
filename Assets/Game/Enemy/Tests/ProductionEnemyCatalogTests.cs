@@ -77,7 +77,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(1f, archer.Movement.RepositionSeconds);
             Assert.AreEqual(0.5f, archer.Movement.LateralStrength);
             Assert.AreEqual(EnemyProjectilePattern.Burst, archer.Attack.Pattern);
-            Assert.AreEqual(3, archer.Attack.ProjectileCount);
+            Assert.AreEqual(2, archer.Attack.ProjectileCount);
             Assert.AreEqual(7f, archer.Attack.Damage);
             Assert.AreEqual(0.18f, archer.Attack.BurstIntervalSeconds, 1e-5f);
             Assert.AreEqual(12f, archer.Attack.SpreadDegrees, 1e-5f);
@@ -130,22 +130,21 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void ArcherVolley_FiresThreeSequentialArrows_EachWithinTheSpreadWindow()
+        public void ArcherVolley_FiresTwoSequentialArrows_EachWithinTheSpreadWindow()
         {
             var attack = Enemy("ENEMY-005").Attack;
             var controller = new EnemyAttackController(attack, random: new System.Random(5));
             var shots = new System.Collections.Generic.List<EnemyShotCommand>();
             var times = new System.Collections.Generic.List<float>();
             var time = 0f;
-            for (var i = 0; i < 400 && shots.Count < 3; i++)
+            for (var i = 0; i < 400 && time < 3.5f; i++)
             {
                 time += 0.01f;
                 var fired = controller.Tick(0.01f, true, Vector2.right);
                 foreach (var shot in fired) { shots.Add(shot); times.Add(time); }
             }
-            Assert.AreEqual(3, shots.Count);
+            Assert.AreEqual(2, shots.Count);
             Assert.AreEqual(times[0] + 0.18f, times[1], 0.011f, "Arrows follow one after another.");
-            Assert.AreEqual(times[1] + 0.18f, times[2], 0.011f);
             var angles = new System.Collections.Generic.HashSet<float>();
             foreach (var shot in shots)
             {

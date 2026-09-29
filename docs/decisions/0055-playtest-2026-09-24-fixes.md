@@ -1,6 +1,7 @@
 # DECISION-0055 — Исправления по плейтестам 2026-09-24
 
 Status: Approved (поручение пользователя 2026-09-25 «прочитать фидбэки и поправить проблемы»; числа выбраны исполнителем, пересмотр — обычной правкой)
+ENEMY-005 volley count later superseded by [DECISION-0106](0106-archer-two-arrow-volley.md); other changes remain in force.
 Date: 2026-09-25
 Related IP: IP-17, IP-18, IP-20, IP-11/IP-26 (UI), IP-12A
 Related content IDs: SKILL-010, SKILL-014, PASSIVE-007, ENEMY-004, ENEMY-005, ENEMY-007, BOSS-001
