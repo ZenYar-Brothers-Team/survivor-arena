@@ -39,7 +39,9 @@ namespace Game.Bootstrap.Automation
             if (_closed || Error != null) return;
             try
             {
-                if (_clock.Advance(stepSeconds))
+                var periodic = _clock.Advance(stepSeconds);
+                var actionChanged = (action - _previousAction).sqrMagnitude > 0.0000000001f;
+                if (periodic || actionChanged)
                 {
                     var observation = _observation.Capture();
                     if (!_observation.CoverageComplete) _incompleteSamples++;
@@ -49,6 +51,9 @@ namespace Game.Bootstrap.Automation
                         ["physicsStep"] = _clock.StepIndex, ["physicsSeconds"] = _clock.StepStartSeconds,
                         ["runSeconds"] = _bindings.Run.Model.Elapsed, ["stepSeconds"] = stepSeconds,
                         ["runSpeed"] = _bindings.Run.Model.SpeedMultiplier,
+                        ["captureReason"] = periodic
+                            ? actionChanged ? "periodicAndActionChange" : "periodic"
+                            : "actionChange",
                         ["previousAction"] = new JArray(_previousAction.x, _previousAction.y),
                         ["action"] = new JArray(action.x, action.y), ["observation"] = observation
                     });

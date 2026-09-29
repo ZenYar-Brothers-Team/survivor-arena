@@ -91,6 +91,14 @@ def validate(path: Path) -> dict:
             vector(item["previousAction"], "previousAction")
             if any(sum(v * v for v in item[key]) > 1.00001 for key in ("action", "previousAction")):
                 raise ValueError("Action is outside the unit circle")
+            if header.get("samplingPolicy") == "periodicOrActionChange/v1":
+                reason = item.get("captureReason")
+                changed = sum((a - b) ** 2 for a, b in zip(item["action"], item["previousAction"])) > 1e-10
+                if reason not in ("periodic", "actionChange", "periodicAndActionChange") or \
+                        (reason == "periodic" and changed) or (reason != "periodic" and not changed):
+                    raise ValueError("Invalid action-change capture reason")
+            elif header.get("samplingPolicy") is not None:
+                raise ValueError("Unsupported sampling policy")
             observation = item["observation"]
             player = observation["player"]
             vector(player["position"], "player position")

@@ -11,6 +11,10 @@ limits, flush/footer, I/O failure и atomic promotion без overwrite.
 initial/preserved pause, analog pre-physics pairs, overflow и drain перед Finished
 при повторном stop (campaign/window callbacks не перезапускают ожидание);
 fixture input не считается человеческой демонстрацией.
+`DemonstrationRecordingTests.ActionChange_BetweenPeriodicSamples_RecordsExactPhysicsStep`
+защищает запись смены направления до следующего планового sample;
+`DemonstrationTests.test_action_change_sampling_accepts_transition_and_rejects_false_reason`
+отклоняет неверную метку при сохранении совместимости старых файлов.
 `AutomationRunHostTests.Host_ExperimentWallBudget_DoesNotRestartSaveWaitEveryFrame`
 защищает завершение экспорта после общего wall budget.
 `scripts/balance/test_demonstration.py` проверяет isolation launcher и rejection

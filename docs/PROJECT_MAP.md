@@ -109,6 +109,8 @@ Bootstrap создаёт Audio. Gameplay и UI не зависят от Audio; �
   [build/run/analyze и human record launcher](../scripts/balance/README.md).
   JSONL `demonstration-observation-v1` пишет `DemonstrationRecordingSession` перед
   physics через read-only `PlayerMover.MovementIntentApplied`; проверяет `scripts/balance/validate_demonstration.py`.
+  Исследовательское offline обучение и сравнение с baseline — `scripts/balance/train_imitation.py`;
+  результаты под `TestResults/imitation-*` не загружаются в игру.
 - entryPoints: [Telemetry](../Assets/Game/Telemetry), [PlaytestComposition](../Assets/Game/Bootstrap/PlaytestComposition.cs), [FIELD-001 performance harness](../Assets/Game/Bootstrap/Diagnostics/Field001PerformanceBenchmark.cs), [standalone benchmark builder](../Assets/Game/Bootstrap/Editor/Field001PerformanceBuild.cs).
 - designRefs: [BALANCE_WORKFLOW](implementation/BALANCE_WORKFLOW.md), [playtests/README](playtests/README.md).
 - authoringSources: выбранные run reports и исходные отзывы в [playtests](playtests); approved balance deltas затем в owning source JSON.

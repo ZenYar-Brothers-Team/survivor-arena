@@ -152,7 +152,8 @@ it is `demonstration.jsonl.partial`; only a clean non-empty stream is promoted.
 seeds, outcomes and profile snapshots remain alongside it. Bot runs may opt into
 the same recorder for technical tests and are explicitly labeled `controller=bot`.
 
-Samples are taken before running physics steps (default roughly 10 Hz): player
+Samples are taken before running physics steps (default every 0.2 simulation s,
+plus every movement-intent change): player
 state/stats, current skill levels and remaining cooldowns, threats, pickups,
 obstacles, beams, enemy movement/attack phase, build and camera/arena bounds.
 `action` is clamped world-space analog movement intent, not displacement or
@@ -161,6 +162,10 @@ knockback. It applies for `stepSeconds`, **not** until the next sampled frame.
 `physicsSeconds` count running physics separately from render-updated `runSeconds`.
 Paused frames are omitted; idle actions while running are retained. This sparse
 dataset cannot reconstruct every intervening input and is not a replay.
+The new header has `samplingPolicy=periodicOrActionChange/v1`; each sample's
+`captureReason` marks an interval sample, a direction change, or both. Older
+recordings without those fields remain valid. The revised example allows
+40,000 samples and 512 MiB per run; those are failure limits, not targets.
 
 The explicit `demonstration` limits bound samples, UTF-8 file size (MiB), queue
 length and each entity collection. Queue/file/sample exhaustion fails the run
@@ -170,6 +175,25 @@ footer. The validator reports them without claiming completeness or expert skill
 Validate and inspect real human recordings before dataset selection/training;
 automated fixtures and bot pilots are **not** human demonstrations. No learner,
 ML package or balance change is installed by this recording feature.
+
+## Offline movement imitation experiment
+
+`train_imitation.py` fits a research MLP on clean, complete human JSONL only.
+It requires NumPy and scikit-learn in the local Python environment. Pass at
+least three distinct completed `demonstration.jsonl` files and an ignored
+output directory, for example:
+
+```powershell
+python scripts/balance/train_imitation.py <run1.jsonl> <run2.jsonl> <run3.jsonl> --output TestResults/imitation-human-v1
+```
+
+The script validates every stream, rejects bot/partial/truncated/incomplete
+recordings and duplicate run IDs, then holds out each entire run in turn.
+`evaluation.json` compares nine-direction action accuracy, macro F1 and
+direction-change accuracy against repeating the previous action. `model.json`
+contains the fitted network and input hashes for reproducibility. The model is
+**not** loaded by the game or selected as a bot policy: offline action matching
+does not establish closed-loop survival, XP collection or balance quality.
 
 ## Analyze experiments
 

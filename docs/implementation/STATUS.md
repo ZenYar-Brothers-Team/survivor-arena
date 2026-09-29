@@ -31,6 +31,11 @@ Human session 2026-09-30: три завершённых забега/14 016 ва
 четвёртый пустой `.partial` исключён; пользователь не заметил проблем со
 спавном/исчезновением. [Запись](evidence/2026-09-30-human-demonstration-session.md),
 [выбранный report и отзыв](../playtests/2026-09-29_8dde1f80.md).
+Offline imitation candidate обучен на трёх human runs: на каждом held-out run
+хуже повторения предыдущей команды, в игру не подключён. [Evidence](evidence/2026-09-30-human-imitation-candidate.md).
+Recorder теперь фиксирует каждый шаг смены движения между плановыми samples;
+полный graphics smoke 1051/1051 + 58/58 PASS. Обновлённая сборка и новый human
+сеанс ещё открыты. [Evidence](evidence/2026-09-30-action-change-recorder.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -38,7 +43,8 @@ AB-14 — recorder Verified: full graphics 1043/1043 + 56/56, Python 25/25,
 новый player и тихий bot-labelled pilot (191 samples), 17 обычных profile/settings файлов неизменны;
 worktree перенесён на D:; активные сохранения безопасно возвращены на C: после
 проверки несовместимости LocalLow junction, полная копия на D: сохранена.
-Реальная человеческая запись проведена 2026-09-30; обучения ещё не было.
+Реальная человеческая запись проведена 2026-09-30; offline кандидат обучен,
+но в игру не выбран.
 AB-13 проверен как ограниченный эксперимент с поиском траекторий, но качество
 бота для балансных прогонов не достигнуто (три ранних поражения)
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
@@ -178,7 +184,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 11 | [AB-11 — заманивание кучи и возврат за XP](modules/IP-34-automated-balance-runs.md#ab-11) | Verified | Режимы и telemetry, Unity 996/996 + 52/52, Python 18/18, два тихих пилота с низким XP; [evidence](evidence/2026-09-29-ip34-herd-bot.md). |
 | 12 | [AB-12 — диагностический трек и адаптивный обход](modules/IP-34-automated-balance-runs.md#ab-12) | Verified | Отдельный ID, ограниченный трек; Unity 999/999 + 52/52, Python 18/18, две тихие серии по три забега; [evidence](evidence/2026-09-29-ip34-adaptive-herd-bot.md). |
 | 13 | [AB-13 — поиск траекторий с моделью преследования](modules/IP-34-automated-balance-runs.md#ab-13) | Verified | Эксперимент: closed-loop сценарии, Unity 1013/1013 + 52/52, Python 18/18; production 3/3 ранних поражения, пригодность бота не установлена; [evidence](evidence/2026-09-29-ip34-trajectory-bot.md). |
-| 14 | [AB-14 — запись демонстраций управления](modules/IP-34-automated-balance-runs.md#ab-14) | Verified | Python 25/25; final full graphics 1043/1043 + 56/56; отдельный player, тихий bot-labelled pilot 191 samples, validator PASS, 17 обычных profile/settings файлов неизменны. Human session: 3 завершённых забега/14 016 samples; training не проводилось. [Implementation evidence](evidence/2026-09-29-ip34-demonstration-recording.md), [human evidence](evidence/2026-09-30-human-demonstration-session.md). |
+| 14 | [AB-14 — запись демонстраций управления](modules/IP-34-automated-balance-runs.md#ab-14) | Verified | Python 25/25; final full graphics 1043/1043 + 56/56; отдельный player, тихий bot-labelled pilot 191 samples, validator PASS, 17 обычных profile/settings файлов неизменны. Human session: 3 завершённых забега/14 016 samples; offline кандидат обучен позднее, в игру не выбран. [Implementation evidence](evidence/2026-09-29-ip34-demonstration-recording.md), [human evidence](evidence/2026-09-30-human-demonstration-session.md), [training evidence](evidence/2026-09-30-human-imitation-candidate.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -854,7 +860,13 @@ Current gate: human session на player `f5fd816` завершена, три з�
 четвёртая пустая `.partial` исключена. Перед сборкой full graphics 1051/1051 + 57/57,
 Python 25/25 PASS ([build evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md),
 [session evidence](evidence/2026-09-30-human-demonstration-session.md)).
-Выбор/обучение новой policy — отдельный scope. Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
+Offline обучение кандидата проведено, но он не выбран новой policy: held-out
+accuracy ниже baseline на всех трёх забегах; closed-loop проверки нет
+([evidence](evidence/2026-09-30-human-imitation-candidate.md)).
+Recorder follow-up: снимки при смене направления между periodic samples,
+старые JSONL совместимы; full graphics 1051/1051 + 58/58 PASS.
+[Evidence](evidence/2026-09-30-action-change-recorder.md).
+Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные
 15992 файла сверены SHA-256; [relocation evidence](evidence/2026-09-29-project-disk-relocation.md).
@@ -910,8 +922,8 @@ Native human input/паузы, bounded async JSONL, validator и оконный 
 final full graphics 1043/1043 + 56/56 PASS после последней lifecycle delta,
 Python 25/25. Новый player собран; тихий bot-labelled pilot дал чистую запись
 191 samples, остановку по wall budget без зачёта поражения и неизменность
-17 обычных profile/settings файлов. Новая модель не обучалась; реальные
-человеческие записи потребуют отдельного явного запуска с участием пользователя.
+17 обычных profile/settings файлов. Это исторический итог AB-14 до human session;
+позднейшие запись и offline кандидат — в evidence выше.
 
 ## Status maintenance rule
 

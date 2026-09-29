@@ -593,7 +593,7 @@ Legacy movement settings всё ещё проходят schema validation, но 
 `schemaVersion=1`, `sampleIntervalSeconds` 0.02…0.5 simulation s,
 `maxSamples` 1…1000000, `maxFileMegabytes` 1…2048 MiB,
 `queueCapacity` 1…1024 сериализованных frames,
-`maxEntitiesPerCollection` 1…2048. Пример: 0.1 s / 20000 / 256 MiB / 128 / 512.
+`maxEntitiesPerCollection` 1…2048. Актуальный пример: 0.2 s / 40000 / 512 MiB / 128 / 512.
 Это пределы инструмента, не gameplay tuning; файл ограничен header + samples + footer.
 
 Owner движения публикует текущий clamped analog intent непосредственно перед
@@ -601,10 +601,16 @@ Owner движения публикует текущий clamped analog intent �
 «состояние перед физикой / действие этого шага»; action duration = fixedDeltaTime,
 а не расстояние между редкими записями. Отдельные physics step/time и run elapsed
 сохраняются: run clock может не меняться между несколькими fixed steps одного frame.
-При 0.02 s physics и 0.1 s sampling первые samples на 0, 0.1, 0.2 physics seconds.
+При 0.02 s physics и 0.1 s sampling первые плановые samples на 0, 0.1, 0.2 physics seconds.
 Фактические timestamps важнее номинального интервала. Предыдущее действие, HP,
 XP/level, сборка, remaining cooldown, позиции/скорости угроз, XP, препятствия и
 viewport входят в raw versioned JSONL; скрытые будущие RNG/spawns не читаются.
+После анализа первых человеческих записей добавлен `samplingPolicy=
+periodicOrActionChange/v1`: кроме планового интервала, sample фиксируется на
+физическом шаге смены clamped movement intent. `captureReason` различает
+`periodic`, `actionChange` и совпадение обоих. Старые файлы без policy остаются
+валидными; новый validator проверяет соответствие reason прежнему/текущему
+действию. Это уточнение наблюдений, не изменение управления или gameplay.
 
 Сериализованные строки идут через ограниченную очередь в background file writer;
 он не обращается к Unity objects. Переполнение samples/bytes/очереди и I/O error

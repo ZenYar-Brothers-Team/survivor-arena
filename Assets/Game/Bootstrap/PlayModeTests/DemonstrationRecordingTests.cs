@@ -35,6 +35,8 @@ namespace Game.Bootstrap.PlayModeTests
             var path = Path.GetFullPath(Path.Combine(Application.dataPath, "../scripts/balance/examples/human-demonstration.json"));
             var data = JObject.Parse(File.ReadAllText(path));
             data["demonstration"]["sampleIntervalSeconds"] = 0.02f;
+            if (TestContext.CurrentContext.Test.Name.Contains("ActionChange"))
+                data["demonstration"]["sampleIntervalSeconds"] = 0.5f;
             if (TestContext.CurrentContext.Test.Name.Contains("Overflow")) data["demonstration"]["maxSamples"] = 1;
             var output = Path.Combine(Application.temporaryCachePath, "demonstration-fixture-" + Guid.NewGuid().ToString("N"));
             _config = new ExperimentConfigLoader(MetaCatalog.Load(), new[] { "FIELD-001" }, output)
@@ -59,6 +61,31 @@ namespace Game.Bootstrap.PlayModeTests
         }
 
         private string Folder => Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs", _run.Model.RunId.ToString("N"));
+
+        [UnityTest]
+        public IEnumerator ActionChange_BetweenPeriodicSamples_RecordsExactPhysicsStep()
+        {
+            var mover = Object.FindAnyObjectByType<PlayerMover>();
+            var input = new BotDirectionSource();
+            input.SetDirection(Vector2.right);
+            mover.ConfigureInputSource(input);
+            _run.Model.ReleasePause(RunPauseReasons.Manual);
+            for (var i = 0; i < 4; i++) yield return new WaitForFixedUpdate();
+            input.SetDirection(Vector2.up);
+            for (var i = 0; i < 4; i++) yield return new WaitForFixedUpdate();
+            _run.Model.RequestPause(RunPauseReasons.Manual);
+            _run.Model.ReleasePause(RunPauseReasons.Manual);
+            _run.Model.Kill();
+            for (var i = 0; i < 100 && !_host.IsFinished; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Completed, _host.State, _host.TerminalReason);
+            var rows = File.ReadAllLines(Path.Combine(Folder, "demonstration.jsonl")).Select(JObject.Parse).ToArray();
+            Assert.AreEqual("periodicOrActionChange/v1", (string)rows[0]["samplingPolicy"]);
+            var transitions = rows.Where(row => (string)row["captureReason"] == "actionChange").ToArray();
+            Assert.AreEqual(1, transitions.Length);
+            Assert.AreEqual(0f, (float)transitions[0]["previousAction"][1]);
+            Assert.AreEqual(1f, (float)transitions[0]["action"][1]);
+            Assert.Less((double)transitions[0]["physicsSeconds"], 0.5);
+        }
 
         [UnityTest]
         public IEnumerator Human_LeavesNativeInputAndPauseUntouched_RecordsAlignedAnalogAndFlushes()

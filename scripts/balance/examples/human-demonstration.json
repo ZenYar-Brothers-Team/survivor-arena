@@ -13,8 +13,8 @@
     "predictionSeconds": 0.5, "obstaclePadding": 0.1, "stuckSeconds": 3
   },
   "demonstration": {
-    "schemaVersion": 1, "sampleIntervalSeconds": 0.1,
-    "maxSamples": 20000, "maxFileMegabytes": 256,
+    "schemaVersion": 1, "sampleIntervalSeconds": 0.2,
+    "maxSamples": 40000, "maxFileMegabytes": 512,
     "queueCapacity": 128, "maxEntitiesPerCollection": 512
   },
   "draftPolicy": {"id": "activeFirst15", "version": 1},

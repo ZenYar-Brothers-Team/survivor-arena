@@ -170,7 +170,8 @@ namespace Game.Bootstrap.Automation
                     ["configSha256"] = TelemetryProvenance.Hash(_config.ToString()),
                     ["config"] = JObject.Parse(_config.ToString()), ["build"] = metadata?["build"]?.DeepClone(),
                     ["startedUtc"] = _runStartedUtc.ToString("O"),
-                    ["alignment"] = "observation before physics; action applies for stepSeconds, not until next sample" };
+                    ["alignment"] = "observation before physics; action applies for stepSeconds, not until next sample",
+                    ["samplingPolicy"] = "periodicOrActionChange/v1" };
                 _demonstration = new DemonstrationRecordingSession(_bindings, _settings.Demonstration,
                     _settings.MovementPolicy.ObservationRadius.Value, Path.Combine(_runFolder, "demonstration.jsonl"), header);
             }

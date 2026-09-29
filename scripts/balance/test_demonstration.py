@@ -129,6 +129,15 @@ class DemonstrationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "clock"):
             recording.validate(self.write_rows(rows))
 
+    def test_action_change_sampling_accepts_transition_and_rejects_false_reason(self):
+        rows = self.rows()
+        rows[0]["samplingPolicy"] = "periodicOrActionChange/v1"
+        rows[1]["captureReason"] = "periodicAndActionChange"
+        self.assertEqual(1, recording.validate(self.write_rows(rows))["samples"])
+        rows[1]["captureReason"] = "periodic"
+        with self.assertRaisesRegex(ValueError, "capture reason"):
+            recording.validate(self.write_rows(rows))
+
 
 if __name__ == "__main__":
     unittest.main()
