@@ -23,6 +23,8 @@ namespace Game.ActiveSkill
         public ActiveSkillProgressionDefinition Definition { get; }
         public int Level { get; private set; } = 1;
         public int TriggerCount { get; private set; }
+        /// <summary>AB-14 read-only observation; sampling does not advance or consume cooldown.</summary>
+        public float CooldownRemainingSeconds => _cooldown.RemainingSeconds;
 
         public ActiveSkillInstance(ActiveSkillProgressionDefinition definition)
         {

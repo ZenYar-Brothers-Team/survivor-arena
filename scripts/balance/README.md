@@ -114,6 +114,61 @@ to export the current censored run and its chain summary. A hung worker is then
 terminated; the manifest records actual elapsed wall time, including this grace.
 No new chain starts after the configured limit.
 
+## Record human movement demonstrations (AB-14)
+
+This records **raw state/action pairs**, not video, deterministic replay, or a
+trained bot. Use an up-to-date isolated development player. Launch explicitly:
+
+```powershell
+python scripts/balance/record.py --player TestResults/balance-build-demonstration/balance.exe
+python scripts/balance/validate_demonstration.py TestResults/demonstrations/<human-experiment>
+```
+
+The launcher copies [`examples/human-demonstration.json`](examples/human-demonstration.json)
+to a unique config/output folder under `TestResults/demonstrations`. It opens a
+windowed, muted 1× player. Add `--audio` only if wanted. Each run starts paused:
+Space, Escape or Continue resumes normal keyboard/mouse movement. Losing focus
+pauses again. Draft choices are automatic `randomLegal`; this first recorder is
+for movement, not human build decisions. The example allows up to five runs in
+one isolated fresh profile history and **no automatic meta purchases**. It never
+reads/writes your regular profile or settings. To record another starting
+progression, pass `--template` with a validated `preset` human config.
+
+Close the game window to end the session cleanly; normal in-game exits are
+recorded as administrative aborts, not defeats. The game flushes its recording
+before reporting completion. Ctrl+C in the runner or forced process termination
+can leave `.partial` data; keep it for diagnostics, not unqualified training.
+Manual pauses have no short bot timeout, but the example's 30-minute wall budget
+still includes paused time. Every new run waits for you to resume it.
+
+Each run adds `demonstration.jsonl`: header with controller/config/build/profile
+provenance, ordered samples, and one terminal footer. While open or incomplete
+it is `demonstration.jsonl.partial`; only a clean non-empty stream is promoted.
+`automation.json` contains a recording summary; normal telemetry, draft history,
+seeds, outcomes and profile snapshots remain alongside it. Bot runs may opt into
+the same recorder for technical tests and are explicitly labeled `controller=bot`.
+
+Samples are taken before running physics steps (default roughly 10 Hz): player
+state/stats, current skill levels and remaining cooldowns, threats, pickups,
+obstacles, beams, enemy movement/attack phase, build and camera/arena bounds.
+`action` is clamped world-space analog movement intent, not displacement or
+knockback. It applies for `stepSeconds`, **not** until the next sampled frame.
+`previousAction` means the preceding running physics step; `physicsStep` and
+`physicsSeconds` count running physics separately from render-updated `runSeconds`.
+Paused frames are omitted; idle actions while running are retained. This sparse
+dataset cannot reconstruct every intervening input and is not a replay.
+
+The explicit `demonstration` limits bound samples, UTF-8 file size (MiB), queue
+length and each entity collection. Queue/file/sample exhaustion fails the run
+and keeps a partial file instead of silently dropping samples. Entity caps and
+known unsupported hazard observations are flagged per sample and counted in the
+footer. The validator reports them without claiming completeness or expert skill.
+Validate and inspect real human recordings before dataset selection/training;
+automated fixtures and bot pilots are **not** human demonstrations. No learner,
+ML package or balance change is installed by this recording feature.
+
+## Analyze experiments
+
 Analyze any finished or partial experiment without filtering away inconvenient
 runs. Outputs `analysis.json`, `runs.csv`, `chains.csv`, and `summary.md` in the
 experiment directory. A comparison prints Markdown and refuses mismatched

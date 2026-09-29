@@ -21,6 +21,9 @@ namespace Game.Movement
 
         public Vector2 MovementDirection { get; private set; }
 
+        /// <summary>AB-14: applied analog intent and step duration, before physics, only while Running. Read-only observers must not throw.</summary>
+        public event System.Action<Vector2, float> MovementIntentApplied;
+
         private Rigidbody2D _rigidbody;
         private IMovementSpeedSource _speedSource;
         private IAdditionalMovementSource _additionalMovement;
@@ -72,6 +75,7 @@ namespace Game.Movement
             var speed = _speedSource != null ? _speedSource.MovementSpeed : 0f;
 
             var additional = _additionalMovement?.TickAdditionalMovement(Time.fixedDeltaTime, isRunning) ?? Vector2.zero;
+            if (isRunning) MovementIntentApplied?.Invoke(Vector2.ClampMagnitude(rawInput, 1f), Time.fixedDeltaTime);
             _rigidbody.linearVelocity = MovementVelocityCalculator.Calculate(rawInput, speed, isRunning) + additional;
         }
 

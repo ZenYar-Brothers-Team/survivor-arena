@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -63,7 +64,7 @@ def validate(experiment: Path, player: Path, output: Path) -> tuple[dict, dict, 
                 "characterId", "fieldRoute", "movementPolicy", "draftPolicy", "purchasePolicy",
                 "stopAfterRouteClear", "maxExperimentWallSeconds", "runWallTimeoutSeconds",
                 "transitionTimeoutSeconds", "outputDirectory"}
-    if set(config) - (required | {"initialProfilePath"}) or required - set(config):
+    if set(config) - (required | {"initialProfilePath", "demonstration"}) or required - set(config):
         raise ValueError("Experiment has missing or unknown top-level fields")
     if config["schemaVersion"] != 1 or config["template"] not in ("fresh", "preset"):
         raise ValueError("Unsupported experiment schema or template")
@@ -72,6 +73,7 @@ def validate(experiment: Path, player: Path, output: Path) -> tuple[dict, dict, 
         raise ValueError("chains and maxRunsPerChain must be positive integers")
     if config["runSpeed"] not in (1, 2, 3, 5):
         raise ValueError("runSpeed must be 1, 2, 3 or 5")
+    validate_recording(config)
     if not isinstance(config["maxExperimentWallSeconds"], (int, float)) or config["maxExperimentWallSeconds"] <= 0:
         raise ValueError("maxExperimentWallSeconds must be positive")
     if output.name != config["outputDirectory"]:
@@ -96,6 +98,25 @@ def validate(experiment: Path, player: Path, output: Path) -> tuple[dict, dict, 
     if digest_tree(data_folder) != build.get("dataSha256"):
         raise ValueError("Player data hash differs from build manifest")
     return config, build, hashlib.sha256(raw).hexdigest(), preset_hash
+
+
+def validate_recording(config: dict) -> None:
+    recording = config.get("demonstration")
+    if config["movementPolicy"]["id"] == "human" and (
+            recording is None or config["runSpeed"] != 1 or config["chains"] != 1):
+        raise ValueError("human requires demonstration settings, runSpeed 1 and one chain")
+    if recording is None:
+        return
+    limits = {"sampleIntervalSeconds": (0.02, 0.5), "maxSamples": (1, 1000000),
+              "maxFileMegabytes": (1, 2048), "queueCapacity": (1, 1024),
+              "maxEntitiesPerCollection": (1, 2048)}
+    if not isinstance(recording, dict) or set(recording) != set(limits) | {"schemaVersion"} or recording["schemaVersion"] != 1:
+        raise ValueError("All version-1 demonstration settings are required")
+    for name, (minimum, maximum) in limits.items():
+        value = recording[name]
+        allowed = (int, float) if name == "sampleIntervalSeconds" else (int,)
+        if isinstance(value, bool) or not isinstance(value, allowed) or not math.isfinite(value) or not minimum <= value <= maximum:
+            raise ValueError(f"demonstration.{name} out of range")
 
 
 def child_command(player: Path, experiment: Path, output: Path, chain_id: str, log: Path,
@@ -176,6 +197,8 @@ def run(experiment: Path, player: Path, output: Path, visual: bool = False, audi
     if audio and not visual:
         raise ValueError("--audio requires --visual")
     config, build, config_hash, preset_hash = validate(experiment, player, output)
+    if config["movementPolicy"]["id"] == "human" and not visual:
+        raise ValueError("Human demonstration requires --visual")
     output.mkdir(parents=True, exist_ok=False)
     write_json(output / "experiment.json", {"schemaVersion": 1, "config": config,
                "sourceConfigSha256": config_hash, "presetSha256": preset_hash,

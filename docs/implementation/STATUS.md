@@ -21,7 +21,9 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 ## Действующие границы
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
-`automated-runs-v6`: AB-01…13 реализованы и проверены в пределах scoped приёмки;
+`automated-runs-v7`: AB-01…13 реализованы и проверены в пределах scoped приёмки;
+AB-14 — запись человеческих демонстраций, In progress: код подготовлен;
+финальные runtime checks/build/pilot ожидают восстановления ресурсов (C: ~220 MiB).
 AB-13 проверен как ограниченный эксперимент с поиском траекторий, но качество
 бота для балансных прогонов не достигнуто (три ранних поражения)
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
@@ -135,7 +137,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 <a id="automated-runs-execution"></a>
 ### IP-34 — автоматические прогоны, scoped очередь
 
-Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v6`;
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v7`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
 Поручение пользователя охватывает AB-01…08 последовательно, AB-09…13 отдельно; общий backlog не
 возобновляется.
@@ -155,6 +157,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 11 | [AB-11 — заманивание кучи и возврат за XP](modules/IP-34-automated-balance-runs.md#ab-11) | Verified | Режимы и telemetry, Unity 996/996 + 52/52, Python 18/18, два тихих пилота с низким XP; [evidence](evidence/2026-09-29-ip34-herd-bot.md). |
 | 12 | [AB-12 — диагностический трек и адаптивный обход](modules/IP-34-automated-balance-runs.md#ab-12) | Verified | Отдельный ID, ограниченный трек; Unity 999/999 + 52/52, Python 18/18, две тихие серии по три забега; [evidence](evidence/2026-09-29-ip34-adaptive-herd-bot.md). |
 | 13 | [AB-13 — поиск траекторий с моделью преследования](modules/IP-34-automated-balance-runs.md#ab-13) | Verified | Эксперимент: closed-loop сценарии, Unity 1013/1013 + 52/52, Python 18/18; production 3/3 ранних поражения, пригодность бота не установлена; [evidence](evidence/2026-09-29-ip34-trajectory-bot.md). |
+| 14 | [AB-14 — запись демонстраций управления](modules/IP-34-automated-balance-runs.md#ab-14) | In progress | Код и Python 25/25; full 1043/1043 + 56/56 до последней lifecycle delta, затем PlayMode startup crashes. C: ~220 MiB; final build/pilot NOT RUN. [Evidence](evidence/2026-09-29-ip34-demonstration-recording.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -807,11 +810,14 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
-Status: Verified
-Scope revision: automated-runs-v6, расширение по поручению 2026-09-29.
+Status: In progress
+Scope revision: automated-runs-v7, расширение по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: нет; подтверждения AB-01…13 в scoped очереди выше.
-Authorization: AB-01…08 и новые bot-профили AB-09…13 по поручениям пользователя 2026-09-29.
+Current packet: AB-14; подтверждения AB-01…13 в scoped очереди выше.
+Current gate: ресурсный блокер C: ~220 MiB, два Unity startup crashes без PlayMode XML;
+финальная lifecycle delta требует нового smoke, затем отдельного build и bot-labelled
+recorder pilot. Перенос ~4 GiB старых сборок на D: предложен, но не разрешён/не выполнен.
+Authorization: AB-01…08, bot-профили AB-09…13 и AB-14 recorder по поручениям пользователя 2026-09-29.
 Acceptance: заманивание толпы, обход и возврат к XP при большой куче;
 локальный сбор без кучи, HP-aware уклонение, mode telemetry, smoke и pilot
 проверены как механика. AB-13 дополнительно проверяет поиск маршрутов с
@@ -857,6 +863,13 @@ Unity 1013/1013 EditMode + 52/52 PlayMode, Python 18/18; финальные тр
 пилота 3/3 natural losses: 84.1/91.7/112.0 simulation s, 14/7/11 XP.
 Модель решает контролируемый обход, но не обеспечивает полноценный забег.
 Профиль остаётся экспериментальным; GDD/CD и gameplay balance не менялись.
+
+AB-14 evidence: [demonstration recording](evidence/2026-09-29-ip34-demonstration-recording.md).
+Native human input/паузы, bounded async JSONL, validator и оконный launcher подготовлены;
+до последней lifecycle delta full graphics 1043/1043 + 56/56 PASS, Python 25/25.
+Текущая версия: EditMode 1043/1043, финальный PlayMode NOT RUN (Editor crashes),
+build/pilot NOT RUN. Новая модель не обучалась; реальные человеческие записи
+потребуют отдельного явного запуска с участием пользователя.
 
 ## Status maintenance rule
 

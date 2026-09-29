@@ -15,6 +15,7 @@ namespace Game.Automation
         public string CharacterId { get; set; }
         public List<string> FieldRoute { get; set; }
         public MovementPolicyData MovementPolicy { get; set; }
+        public DemonstrationConfigData Demonstration { get; set; }
         public DraftPolicyData DraftPolicy { get; set; }
         public PurchasePolicyData PurchasePolicy { get; set; }
         public bool? StopAfterRouteClear { get; set; }

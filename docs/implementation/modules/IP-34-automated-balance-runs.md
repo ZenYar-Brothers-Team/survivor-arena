@@ -1,6 +1,6 @@
 # IP-34 — Автоматические прогоны баланса и прогрессии
 
-Ревизия `automated-runs-v6`: базовая поставка по [DECISION-0097](../../decisions/0097-automated-balance-runs-v1.md),
+Ревизия `automated-runs-v7`: базовая поставка по [DECISION-0097](../../decisions/0097-automated-balance-runs-v1.md),
 дополнительные XP-focused, дуговой и herd-loop профили и диагностическая итерация — по поручениям пользователя 2026-09-29.
 Текущий packet, его status, порядок и evidence — только в [STATUS](../STATUS.md#automated-runs-execution).
 Этот файл — план реализации; описанные ниже новые файлы, API и команды являются целевыми, а не существующими возможностями.
@@ -565,6 +565,66 @@ XP, risk, число кандидатов, linear coverage и elapsed wall ms п
 Полный Unity smoke, Python checks, отдельный player и тихая production серия;
 записать XP/смерти/expired XP и стоимость планирования. Если перенос плох,
 зафиксировать пределы эксперимента, не называть его хорошим балансным ботом.
+
+<a id="ab-14"></a>
+### AB-14 — запись человеческих демонстраций движения
+
+Поручение 2026-09-29: после интеграции `develop-evg` подготовить запись игры
+человека. Обучение/ML-Agents, новая policy, видео и deterministic replay не входят
+в этот packet. Context: AB-01/03/04/06, GDD «Управление, бой и выживание», «Опыт
+и level-up», `PlayerMover`, active skill cooldown, run pause/outcome и существующие
+observation/profile/export adapters; карточки примера CHAR-001 и FIELD-001.
+
+`movementPolicy.id=human`, version 1, сохраняет штатный keyboard/mouse input;
+остальные IDs сохраняют прежнее управление. Human требует 1×, одну chain и
+`demonstration` config. Наличие config у bot разрешено для технических проверок,
+но `controller=bot` в файлах исключает выдачу таких данных за человеческие.
+Legacy movement settings всё ещё проходят schema validation, но в human не
+управляют движением. Draft остаётся `randomLegal`; пример не покупает meta upgrades.
+Профиль и settings изолированы существующим standalone bootstrap.
+
+Опциональный `demonstration` отключает запись при отсутствии. Обязательные поля:
+`schemaVersion=1`, `sampleIntervalSeconds` 0.02…0.5 simulation s,
+`maxSamples` 1…1000000, `maxFileMegabytes` 1…2048 MiB,
+`queueCapacity` 1…1024 сериализованных frames,
+`maxEntitiesPerCollection` 1…2048. Пример: 0.1 s / 20000 / 256 MiB / 128 / 512.
+Это пределы инструмента, не gameplay tuning; файл ограничен header + samples + footer.
+
+Owner движения публикует текущий clamped analog intent непосредственно перед
+применением velocity в FixedUpdate, только при Running. Recorder получает пару
+«состояние перед физикой / действие этого шага»; action duration = fixedDeltaTime,
+а не расстояние между редкими записями. Отдельные physics step/time и run elapsed
+сохраняются: run clock может не меняться между несколькими fixed steps одного frame.
+При 0.02 s physics и 0.1 s sampling первые samples на 0, 0.1, 0.2 physics seconds.
+Фактические timestamps важнее номинального интервала. Предыдущее действие, HP,
+XP/level, сборка, remaining cooldown, позиции/скорости угроз, XP, препятствия и
+viewport входят в raw versioned JSONL; скрытые будущие RNG/spawns не читаются.
+
+Сериализованные строки идут через ограниченную очередь в background file writer;
+он не обращается к Unity objects. Переполнение samples/bytes/очереди и I/O error
+не блокируют physics: фиксируют ошибку, прекращают запись и приводят host к
+контролируемой остановке. Усечение списков и неполное hazard coverage помечаются
+в sample; их нельзя молча использовать как полное наблюдение.
+`demonstration.jsonl.partial` остаётся при сбое/оборванном процессе; чистый footer
+и flush/close предшествуют переименованию в `demonstration.jsonl`.
+Полнота записи не означает победу, экспертное качество или полный replay.
+
+UI/observability: отдельный recorder launcher явно открывает SafeWindow без
+звука (audio opt-in). Каждый human run стартует на штатной manual pause;
+Space/Escape/«Продолжить» начинает движение. Manual pause и потеря фокуса не
+записываются; фокус не снимает manual pause автоматически. Общий wall budget
+действует и во время ожидания. Human не имеет короткого bot manual-pause timeout.
+Закрытие окна запрашивает штатный stop и ожидает export; жёсткое убийство процесса
+может оставить partial. При death/end запись отписывается, writer завершается;
+host не объявляет экспорт завершённым до окончания writer. Новый HUD не нужен.
+
+Приёмка: strict config и backward compatibility; pure recorder clock/writer
+tests (ordering, limits, Unicode bytes, queue/I/O failure, idempotent completion);
+PlayMode real movement intent, старт/пауза/end/cleanup без подмены обычного input;
+Python validator/launcher tests; full graphics smoke, отдельный player, короткий
+headless bot-labelled recording pilot и проверка JSONL. Реальная человеческая
+демонстрация требует следующего явного запуска с участием пользователя и не
+подменяется автоматическим smoke. Канон и баланс не изменяются.
 
 ## 7. Артефакты, метрики и корректное сравнение
 

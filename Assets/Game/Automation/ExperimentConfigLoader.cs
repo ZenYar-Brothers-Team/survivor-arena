@@ -105,8 +105,11 @@ namespace Game.Automation
             var movement = data.MovementPolicy ?? throw new ArgumentException("movementPolicy required.");
             if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused" &&
                 movement.Id != "orbitExperience" && movement.Id != "herdLoop" &&
-                movement.Id != "herdLoopAdaptive" && movement.Id != "trajectorySearch")
+                movement.Id != "herdLoopAdaptive" && movement.Id != "trajectorySearch" && movement.Id != "human")
                 throw new ArgumentException("Unknown movement policy/version.");
+            data.Demonstration?.Validate();
+            if (movement.Id == "human" && (data.Demonstration == null || data.RunSpeed != 1 || data.Chains != 1))
+                throw new ArgumentException("human requires demonstration settings, runSpeed 1 and one chain.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
             Range(movement.PredictionSeconds, 0.05f, 3f, "predictionSeconds");

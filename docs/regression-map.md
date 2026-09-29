@@ -1,5 +1,17 @@
 # Regression map
 
+IP-34 AB-14: `DemonstrationTests` проверяет clocks, bounded queue, UTF-8 byte/sample
+limits, flush/footer, I/O failure и atomic promotion без overwrite.
+`ExperimentConfigTests.Load_Human_RequiresRecordingOneChainAndNormalSpeed` защищает
+выбор отдельного native-input режима. `DemonstrationRecordingTests` проверяет
+initial/preserved pause, analog pre-physics pairs, overflow и drain перед Finished
+при повторном stop (campaign/window callbacks не перезапускают ожидание);
+fixture input не считается человеческой демонстрацией.
+`AutomationRunHostTests.Host_ExperimentWallBudget_DoesNotRestartSaveWaitEveryFrame`
+защищает завершение экспорта после общего wall budget.
+`scripts/balance/test_demonstration.py` проверяет isolation launcher и rejection
+partial/nonfinite/unordered records; оценка качества игрока остаётся вне validator.
+
 IP-34 / DECISION-0098 integration: `AutomationRunHostTests.Host_FixtureVictory_UsesAuthoritativeOutcomeAndSavedReceipt`
 and `AutomationCampaignHostTests.TwoLosses_UseOneProfileAndPurchaseStrengthensSecondRun`
 expect no gold for the starting L1; existing fixture purchases use initial currency.

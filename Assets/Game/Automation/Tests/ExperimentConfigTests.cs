@@ -149,6 +149,30 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Load_Human_RequiresRecordingOneChainAndNormalSpeed()
+        {
+            var value = Fresh();
+            value["movementPolicy"]["id"] = "human";
+            value["chains"] = 1;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["demonstration"] = JObject.Parse(@"{'schemaVersion':1,'sampleIntervalSeconds':0.1,
+                'maxSamples':100,'maxFileMegabytes':1,'queueCapacity':16,'maxEntitiesPerCollection':32}");
+            Assert.AreEqual("human", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["runSpeed"] = 5;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["runSpeed"] = 1;
+            value["chains"] = 2;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["id"] = "safePickup";
+            Assert.IsNotNull(_loader.Parse(value.ToString(), _root).Data.Demonstration);
+            value["demonstration"]["queueCapacity"] = 0;
+            Assert.Throws<ArgumentOutOfRangeException>(() => _loader.Parse(value.ToString(), _root));
+            value["demonstration"]["queueCapacity"] = 16;
+            value["demonstration"]["unknown"] = true;
+            Assert.Throws<Newtonsoft.Json.JsonSerializationException>(() => _loader.Parse(value.ToString(), _root));
+        }
+
+        [Test]
         public void Preset_InvalidPersonalLevelsAndOwner_AreRejected()
         {
             var builder = new PresetProfileBuilder(_catalog);

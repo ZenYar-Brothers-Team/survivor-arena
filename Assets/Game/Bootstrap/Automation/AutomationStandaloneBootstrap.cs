@@ -43,6 +43,8 @@ namespace Game.Bootstrap.Automation
                 var fields = RuntimeContentCatalog.CreateProduction().Fields.Roster.AllFields.Select(item => item.Id.ToString());
                 _config = new ExperimentConfigLoader(_catalog, fields, outputRoot, allowExistingOutput: true)
                     .LoadFile(configPath);
+                if (_config.Data.MovementPolicy.Id == "human" && (!_visual || Application.isBatchMode))
+                    throw new InvalidOperationException("Human demonstration requires an explicit visual, non-batch launch.");
                 var marker = JObject.Parse(File.ReadAllText(Path.Combine(_config.OutputDirectory, "experiment.json")));
                 if ((string)marker["sourceConfigSha256"] != TelemetryProvenance.Hash(File.ReadAllText(configPath)))
                     throw new InvalidOperationException("Experiment configuration changed after runner validation.");

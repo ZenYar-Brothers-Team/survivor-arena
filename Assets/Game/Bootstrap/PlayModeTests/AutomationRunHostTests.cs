@@ -38,6 +38,8 @@ namespace Game.Bootstrap.PlayModeTests
             var data = JObject.Parse(File.ReadAllText(path));
             if (TestContext.CurrentContext.Test.Name.Contains("ManualPauseTimeout"))
                 data["transitionTimeoutSeconds"] = 0.2f;
+            if (TestContext.CurrentContext.Test.Name.Contains("ExperimentWallBudget"))
+                data["maxExperimentWallSeconds"] = 0.5f;
             var outputRoot = Path.Combine(Application.temporaryCachePath, "automation-host-" + Guid.NewGuid().ToString("N"));
             _config = new ExperimentConfigLoader(MetaCatalog.Load(), new[] { "FIELD-001" }, outputRoot)
                 .Parse(data.ToString(), Path.GetDirectoryName(path));
@@ -147,6 +149,18 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(AutomationRunState.Stopped, _host.State, _host.TerminalReason);
             Assert.AreEqual("manualPauseTimeout", _host.TerminalReason);
             Assert.AreEqual(RunCompletionReason.Aborted, _host.Outcome.Reason);
+        }
+
+        [UnityTest]
+        public IEnumerator Host_ExperimentWallBudget_DoesNotRestartSaveWaitEveryFrame()
+        {
+            for (var i = 0; i < 20 && _host.State != AutomationRunState.Running; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Running, _host.State, _host.TerminalReason);
+            yield return new WaitForSecondsRealtime(0.6f);
+            for (var i = 0; i < 100 && !_host.IsFinished; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Stopped, _host.State, _host.TerminalReason);
+            Assert.AreEqual("experimentWallBudget", _host.TerminalReason);
+            Assert.IsNotNull(_host.Receipt);
         }
 
         [UnityTest]

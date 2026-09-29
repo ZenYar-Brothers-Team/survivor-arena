@@ -10,15 +10,17 @@ namespace Game.Automation
         public bool IsExperience { get; }
         public float Value { get; }
         public float RemainingSeconds { get; }
+        public string ContentId { get; }
 
         public BotPickup(Vector2 position, float priority, bool isExperience = true,
-            float? value = null, float remainingSeconds = float.PositiveInfinity)
+            float? value = null, float remainingSeconds = float.PositiveInfinity, string contentId = null)
         {
             Position = position;
             Priority = priority;
             IsExperience = isExperience;
             Value = value ?? priority;
             RemainingSeconds = remainingSeconds;
+            ContentId = contentId;
         }
     }
 }

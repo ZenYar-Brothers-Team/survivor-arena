@@ -87,7 +87,8 @@ namespace Game.Bootstrap.Automation
             _worldPickups.CopyActiveTo(_pickups);
             foreach (var pickup in _pickups)
                 if (((Vector2)pickup.transform.position - position).sqrMagnitude <= radiusSquared)
-                    _collectibles.Add(new BotPickup(pickup.transform.position, 2f, isExperience: false));
+                    _collectibles.Add(new BotPickup(pickup.transform.position, 2f, isExperience: false,
+                        contentId: pickup.Life.Definition.Id.ToString()));
 
             foreach (var collider in _obstacleColliders)
             {

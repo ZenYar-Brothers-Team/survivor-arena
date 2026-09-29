@@ -104,8 +104,11 @@ Bootstrap создаёт Audio. Gameplay и UI не зависят от Audio; �
 ## Телеметрия и ручные прогоны
 
 - automated runs design: [IP-34](implementation/modules/IP-34-automated-balance-runs.md)
-  содержит точки подключения бота, двух campaign templates, standalone runner и
-  статистики; целевые новые пути обозначены в плане, не являются текущими entryPoints.
+  описывает bot policies, campaign templates, standalone runner и human recorder.
+- automation entryPoints: [Automation](../Assets/Game/Automation), [runtime adapters](../Assets/Game/Bootstrap/Automation),
+  [build/run/analyze и human record launcher](../scripts/balance/README.md).
+  JSONL `demonstration-observation-v1` пишет `DemonstrationRecordingSession` перед
+  physics через read-only `PlayerMover.MovementIntentApplied`; проверяет `scripts/balance/validate_demonstration.py`.
 - entryPoints: [Telemetry](../Assets/Game/Telemetry), [PlaytestComposition](../Assets/Game/Bootstrap/PlaytestComposition.cs), [FIELD-001 performance harness](../Assets/Game/Bootstrap/Diagnostics/Field001PerformanceBenchmark.cs), [standalone benchmark builder](../Assets/Game/Bootstrap/Editor/Field001PerformanceBuild.cs).
 - designRefs: [BALANCE_WORKFLOW](implementation/BALANCE_WORKFLOW.md), [playtests/README](playtests/README.md).
 - authoringSources: выбранные run reports и исходные отзывы в [playtests](playtests); approved balance deltas затем в owning source JSON.

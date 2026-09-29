@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "human-demonstration-example",
+  "template": "fresh",
+  "chains": 1,
+  "maxRunsPerChain": 5,
+  "runSpeed": 1,
+  "characterId": "CHAR-001",
+  "fieldRoute": ["FIELD-001"],
+  "movementPolicy": {
+    "id": "human", "version": 1,
+    "decisionIntervalSeconds": 0.2, "observationRadius": 12,
+    "predictionSeconds": 0.5, "obstaclePadding": 0.1, "stuckSeconds": 3
+  },
+  "demonstration": {
+    "schemaVersion": 1, "sampleIntervalSeconds": 0.1,
+    "maxSamples": 20000, "maxFileMegabytes": 256,
+    "queueCapacity": 128, "maxEntitiesPerCollection": 512
+  },
+  "draftPolicy": {"id": "randomLegal", "version": 1},
+  "purchasePolicy": {
+    "id": "cheapestPersonalUpgrade", "version": 1,
+    "allowedUpgradeIds": [], "maxPurchasesPerIntermission": 0
+  },
+  "stopAfterRouteClear": false,
+  "maxExperimentWallSeconds": 1800,
+  "runWallTimeoutSeconds": 1800,
+  "transitionTimeoutSeconds": 30,
+  "outputDirectory": "human-demonstration-example"
+}

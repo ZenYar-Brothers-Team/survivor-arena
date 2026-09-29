@@ -43,6 +43,10 @@ namespace Game.Bootstrap.Automation
         private float _nextMovementTraceAt;
         private BotHerdMode? _lastMovementTraceMode;
         private int _movementTraceDropped;
+        private DemonstrationRecordingSession _demonstration;
+        private string _pendingFailure;
+        private bool HumanControlled => _settings?.MovementPolicy.Id == "human";
+        public int DemonstrationSamples => _demonstration?.Samples ?? 0;
 
         public AutomationRunState State { get; private set; }
         public string TerminalReason { get; private set; }
@@ -70,7 +74,10 @@ namespace Game.Bootstrap.Automation
             _runIndex = runIndex;
             _fieldId = fieldId ?? _settings.FieldRoute[0];
             if (!_settings.FieldRoute.Contains(_fieldId)) throw new ArgumentException("Field is outside configured route.");
-            _movement = new BotMovementPolicy(_settings.MovementPolicy);
+            if (_settings.Demonstration != null && _profileStore == null)
+                throw new InvalidOperationException("Demonstrations require isolated profile/export storage.");
+            _movement = HumanControlled ? null : new BotMovementPolicy(_settings.MovementPolicy);
+            if (_settings.Demonstration != null) Application.wantsToQuit += WantsToQuit;
             _movementModeDecisions.Clear();
             _movementTrace.Clear();
             _nextMovementTraceAt = 0f;
@@ -88,7 +95,8 @@ namespace Game.Bootstrap.Automation
             try
             {
                 var now = Time.realtimeSinceStartupAsDouble;
-                if (now - _experimentStartedAt >= _settings.MaxExperimentWallSeconds.Value)
+                if (!_requestedStop && _pendingFailure == null &&
+                    now - _experimentStartedAt >= _settings.MaxExperimentWallSeconds.Value)
                 {
                     RequestStop("experimentWallBudget");
                     return;
@@ -138,9 +146,31 @@ namespace Game.Bootstrap.Automation
             _run.Completed += HandleCompleted;
             _recorder = new AutomationRunRecorder(_run, _bindings.Draft, _bindings.Player,
                 _bindings.Experience, _bindings.Spawner.Director);
-            _direction = new BotDirectionSource();
-            _bindings.Mover.ConfigureInputSource(_direction);
+            if (!HumanControlled)
+            {
+                _direction = new BotDirectionSource();
+                _bindings.Mover.ConfigureInputSource(_direction);
+            }
             if (!_bindings.Run.SetSpeed(_settings.RunSpeed.Value)) { Fail("runSpeedRejected"); return; }
+            if (_settings.Demonstration != null)
+            {
+                var metadataPath = Path.Combine(_config.OutputDirectory, "experiment.json");
+                var metadata = File.Exists(metadataPath) ? JObject.Parse(File.ReadAllText(metadataPath)) : null;
+                var header = new JObject { ["type"] = "header", ["schemaVersion"] = 1,
+                    ["observationSchema"] = "demonstration-observation-v1", ["actionSchema"] = "world-movement-intent-v1",
+                    ["controller"] = HumanControlled ? "human" : "bot", ["movementPolicyId"] = _settings.MovementPolicy.Id,
+                    ["experimentId"] = _config.ExperimentId, ["chainId"] = _chainId, ["runId"] = _run.RunId.ToString("N"),
+                    ["characterId"] = _settings.CharacterId, ["fieldId"] = _fieldId,
+                    ["initialProfileSha256"] = _config.InitialProfileSha256,
+                    ["profileBeforeSha256"] = TelemetryProvenance.Hash(_profileBefore),
+                    ["configSha256"] = TelemetryProvenance.Hash(_config.ToString()),
+                    ["config"] = JObject.Parse(_config.ToString()), ["build"] = metadata?["build"]?.DeepClone(),
+                    ["startedUtc"] = _runStartedUtc.ToString("O"),
+                    ["alignment"] = "observation before physics; action applies for stepSeconds, not until next sample" };
+                _demonstration = new DemonstrationRecordingSession(_bindings, _settings.Demonstration,
+                    _settings.MovementPolicy.ObservationRadius.Value, Path.Combine(_runFolder, "demonstration.jsonl"), header);
+            }
+            if (HumanControlled) _run.RequestPause(RunPauseReasons.Manual);
             _runStartedAt = now;
             _nextMovementAt = 0f;
             Transition(AutomationRunState.Running);
@@ -149,11 +179,12 @@ namespace Game.Bootstrap.Automation
         private void DriveRun(double now)
         {
             if (_run == null || _bindings == null) { Fail("runBindingsMissing"); return; }
+            if (_demonstration?.Error != null) { Fail("demonstration: " + _demonstration.Error); return; }
             if (Outcome != null || _run.Outcome != null || _run.State == RunState.Won ||
                 _run.State == RunState.Lost || _run.State == RunState.Stopped)
             {
                 Outcome ??= _run.Outcome;
-                _direction.Clear();
+                _direction?.Clear();
                 Transition(AutomationRunState.AwaitResultSave);
                 return;
             }
@@ -164,14 +195,15 @@ namespace Game.Bootstrap.Automation
             }
             if (_bindings.Draft.IsDraftOpen)
             {
-                _direction.Clear();
+                _direction?.Clear();
                 if (State != AutomationRunState.ResolveDraft) Transition(AutomationRunState.ResolveDraft);
                 ResolveOneDraft();
                 return;
             }
             if (_run.State != RunState.Running)
             {
-                _direction.Clear();
+                _direction?.Clear();
+                if (HumanControlled) return; // Waiting for the person is bounded only by the experiment/run wall budget.
                 if (_manualPauseStartedAt <= 0) _manualPauseStartedAt = now;
                 if (now - _manualPauseStartedAt >= _settings.TransitionTimeoutSeconds.Value)
                     RequestStop(_run.IsPausedBy(RunPauseReasons.Manual) ? "manualPauseTimeout" : "unresolvedPauseTimeout");
@@ -179,6 +211,11 @@ namespace Game.Bootstrap.Automation
             }
             _manualPauseStartedAt = 0;
             if (State == AutomationRunState.ResolveDraft) Transition(AutomationRunState.Running);
+            if (HumanControlled)
+            {
+                if (_run.SpeedMultiplier != 1) Fail("humanSpeedChanged");
+                return; // Do not read or replace native keyboard/mouse input.
+            }
             if (_run.Elapsed < _nextMovementAt) return;
             var observation = _bindings.Observation.Capture();
             var decision = _movement.Decide(observation, _settings.MovementPolicy.DecisionIntervalSeconds.Value);
@@ -277,6 +314,13 @@ namespace Game.Bootstrap.Automation
 
         private void AwaitSave(double now)
         {
+            if (_demonstration != null && !_demonstration.Completion.IsCompleted)
+            {
+                if (StateTimedOut(now)) FinalizeFailure("demonstrationFlushTimeout");
+                return;
+            }
+            if (_pendingFailure != null) { FinalizeFailure(_pendingFailure); return; }
+            if (_demonstration?.Error != null) { FinalizeFailure("demonstration: " + _demonstration.Error); return; }
             if (Outcome == null) { Fail("missingAuthoritativeOutcome"); return; }
             var save = _root.ProfileSaveTask;
             if (!save.IsCompleted)
@@ -309,7 +353,8 @@ namespace Game.Bootstrap.Automation
 
         public void RequestStop(string reason)
         {
-            if (IsFinished) return;
+            // Campaign/watchdog/window callbacks may repeat while asynchronous exports drain.
+            if (IsFinished || _requestedStop || _pendingFailure != null) return;
             _requestedStop = true;
             TerminalReason = reason ?? "requestedStop";
             _direction?.Clear();
@@ -327,15 +372,46 @@ namespace Game.Bootstrap.Automation
             else Transition(AutomationRunState.Stopped, TerminalReason);
         }
 
-        private void HandleCompleted(RunOutcome outcome) => Outcome = outcome;
+        private void HandleCompleted(RunOutcome outcome)
+        {
+            Outcome = outcome;
+            _demonstration?.Complete(TerminalReason ?? outcome.Reason.ToString(), outcome.Reason.ToString());
+        }
+
+        private bool WantsToQuit()
+        {
+            if (_demonstration == null || IsFinished) return true;
+            RequestStop("windowClose");
+            return false;
+        }
+
+        private void OnApplicationFocus(bool focused)
+        {
+            if (!focused && !Application.isEditor && HumanControlled && _run?.Outcome == null)
+                _run?.RequestPause(RunPauseReasons.Manual);
+        }
 
         private bool StateTimedOut(double now) => now - _stateStartedAt >= _settings.TransitionTimeoutSeconds.Value;
 
         private void Fail(string reason)
         {
             if (IsFinished) return;
+            _pendingFailure = reason;
+            TerminalReason = reason;
             _direction?.Clear();
+            _demonstration?.SetError(reason);
             if (_run != null && _run.Outcome == null) _root?.QuitProfileRun();
+            _demonstration?.Complete(reason, _run?.Outcome?.Reason.ToString());
+            if (_demonstration != null && !_demonstration.Completion.IsCompleted)
+            {
+                Transition(AutomationRunState.AwaitResultSave, reason);
+                return;
+            }
+            FinalizeFailure(reason);
+        }
+
+        private void FinalizeFailure(string reason)
+        {
             if (_profileStore != null && _runFolder != null)
             {
                 try { WriteReport(false, reason); }
@@ -375,6 +451,8 @@ namespace Game.Bootstrap.Automation
                 ["movementModeDecisions"] = JObject.FromObject(_movementModeDecisions),
                 ["movementTrace"] = _movementTrace,
                 ["movementTraceDropped"] = _movementTraceDropped,
+                ["controller"] = HumanControlled ? "human" : "bot",
+                ["demonstration"] = _demonstration?.Summary(),
                 ["recorder"] = recorder, ["stopReason"] = _requestedStop ? TerminalReason : null,
                 ["error"] = error,
                 ["capabilities"] = new JObject { ["damageAndHealing"] = _root.Playtest is PlaytestSession,
@@ -394,6 +472,8 @@ namespace Game.Bootstrap.Automation
 
         private void OnDestroy()
         {
+            Application.wantsToQuit -= WantsToQuit;
+            _demonstration?.Dispose();
             if (_run != null) _run.Completed -= HandleCompleted;
             _recorder?.Dispose();
             if (_bindings?.Mover != null) _bindings.Mover.ConfigureInputSource(null);
