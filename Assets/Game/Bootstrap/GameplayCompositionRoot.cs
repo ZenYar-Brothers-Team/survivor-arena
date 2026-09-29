@@ -112,6 +112,14 @@ namespace Game.Bootstrap
                 _fieldEnvironmentArt.ObstacleColliders,
                 FixturePickupPlacement.ArenaBounds(FieldConfiguration.Environment, gameObject.scene), observationRadius);
         }
+        /// <summary>Creates explicit development-only bindings for one current run; invalid after Shutdown.</summary>
+        public AutomationRuntimeBindings CreateAutomationRuntimeBindings(float observationRadius)
+        {
+            if (!DevelopmentTools || !IsInitialized)
+                throw new InvalidOperationException("Automation bindings require an active development run.");
+            return new AutomationRuntimeBindings(runController, draftRuntime, player.GetComponent<PlayerMover>(),
+                CreateAutomationObservationAdapter(observationRadius));
+        }
         public ISettingsService Settings { get; private set; }
         public UnityEngine.UIElements.UIDocument ShellDocument => _shellScreen?.Document;
         private AppShellScreen _shellScreen;

@@ -49,3 +49,23 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   held Git LFS pointers. Cached runtime audio/art LFS objects were checked out
   into this worktree only; no production content changed. No completed natural
   balance run is claimed for AB-02.
+
+## AB-03
+
+- `AutomationRunHost` is attached explicitly in development, chooses an unlocked
+  hero/field through normal launchers, sets an existing run speed, observes
+  actual offered draft options with captured revision and a separate policy RNG,
+  and waits for `ProfileSaveTask` plus matching receipt. It never grants a
+  build/XP, moves a transform, locks HP or synthesizes an outcome.
+- Explicit states include profile wait, selection, running/draft, result save,
+  completed/stopped/failed. Manual pause, draft, wall and save timeouts are
+  bounded. Stop remains incomplete even if the normal profile binding saves a
+  legitimate administrative-stop reward.
+- Checks: Automation EditMode 13/13 PASS,
+  `TestResults/checks/20260929T102500-805369Z/summary.json`; fixture
+  PlayMode 6/6 PASS, `TestResults/checks/20260929T102809-096738Z/summary.json`.
+  Fixtures cover authoritative victory/defeat/stop, queued Books and stale
+  revision, manual pause timeout, save failure and teardown. The fixture win
+  advances the model clock only in a test; it is not a natural production run.
+- Remaining verification: one naturally completed FIELD-001 production run
+  after AB-04 sidecar exists; this is not yet counted as done.
