@@ -4,6 +4,13 @@
 
 ## Первая поставка
 
+Отдельное расширение процесса — [IP-34](modules/IP-34-automated-balance-runs.md),
+[DECISION-0097](../decisions/0097-automated-balance-runs-v1.md): случайные
+автоматические campaign-прогоны с нового/заданного профиля и статистическое сравнение.
+Его runtime/schema packets принадлежат IP-34; обязательный replay не требуется.
+Описанный здесь ручной цикл IP-31/IP-32 сохраняется, применение конкретных чисел
+по-прежнему требует согласованного diff. Отчёт бота не является отзывом человека.
+
 Формат v1, metric dictionary, output/retention и инструкция tester-у: [PLAYTEST_REPORT](PLAYTEST_REPORT.md).
 
 Достаточно локального набора из `run.json`, краткого `summary.md` и `feedback.md`. Тестировщик прикладывает их к задаче AI или указывает локальные пути. После обработки отзыва долговременная запись хранится в [docs/playtests](../playtests/README.md): один Markdown на прогон, отдельные OBS-NN, выбранные raw reports рядом. Использовать [шаблон записи](../playtests/TEMPLATE.md); после переноса обновлять эту запись с сохранением исходных цитат. Не нужны backend, бот, online dashboard, LLM API, автоматическая загрузка, optimizer, Google Sheets или игровой чат с AI.

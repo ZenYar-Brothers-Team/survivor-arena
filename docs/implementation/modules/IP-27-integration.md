@@ -70,6 +70,11 @@ coverage matrix и manual checklist, evidence по новым требовани
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) использует production composition именно
+FIELD-001 subset F1-09 как prerequisite первых прогонов. Его бот/статистика не
+закрывают content-complete или ручную приёмку полного IP-27; остальной каталог не
+становится обязательным prerequisite первой автоматической серии.
+
 Прямых модульных потребителей нет; результаты завершают план. Статус и evidence остаются в STATUS.
 
 ## World pickup integration boundary

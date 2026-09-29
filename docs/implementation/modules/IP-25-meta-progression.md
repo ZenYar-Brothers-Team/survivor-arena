@@ -70,6 +70,11 @@ CG-03/G-15 resolved по [DECISION-0037](../../decisions/0037-meta-economy-and-p
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) использует изолированные fresh/preset stores,
+штатное применение результата и PurchaseAsync для межзабеговой прогрессии. Политика
+покупок принадлежит эксперименту; цены, caps, personal ownership и unlocks остаются
+за IP-25. Production save/settings не используются автоматическими сериями.
+
 [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
 
 ## Character access boundary

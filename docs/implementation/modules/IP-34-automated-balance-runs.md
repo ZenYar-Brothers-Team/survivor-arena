@@ -1,0 +1,483 @@
+# IP-34 — Автоматические прогоны баланса и прогрессии
+
+Ревизия `automated-runs-v1`. Основание — [DECISION-0097](../../decisions/0097-automated-balance-runs-v1.md).
+Текущий packet, его status, порядок и evidence — только в [STATUS](../STATUS.md#automated-runs-execution).
+Этот файл — план реализации; описанные ниже новые файлы, API и команды являются целевыми, а не существующими возможностями.
+
+## 1. Результат и границы первой поставки
+
+Одна команда запускает несколько независимых историй профиля. В каждой истории бот
+проходит последовательность обычных случайных забегов, получает штатные награды,
+покупает улучшения и переходит по доступным картам. На выходе — машинные отчёты и
+читаемая сводка: победы/поражения, достигнутые волны, развитие билда, попытки до
+открытий и изменение профиля. Вторая конфигурация может быть сравнена с первой.
+
+Два обязательных шаблона:
+
+- `freshCampaign`: начать каждую независимую историю с нового production-профиля.
+- `presetCampaign`: начать каждую историю с отдельной копии заданного профиля;
+  дальше награды, покупки и открытия также сохраняются между забегами этой истории.
+
+Первая версия использует обычную production-сцену и Unity player loop с графикой.
+В конфигурации явно выбирается существующая скорость `1`, `2`, `3` или `5`;
+первый smoke — на `1`, массовые серии могут использовать `5`. Нового ускорения,
+ручного `Physics2D.Simulate`, переписывания clocks и обхода Update/FixedUpdate нет.
+Одинаковые скорости сравниваются отдельно; 5× не объявляется эквивалентом 1× без проверки.
+Запуск последовательный, один standalone player; Editor служит для разработки и smoke.
+
+Каждый gameplay-run получает свежую случайность существующим способом.
+`UseReferenceSeeds=false`; доступные фактические seeds сохраняются как диагностика.
+Нет требования deterministic replay или переделки RNG от GUID ради первой поставки.
+Seeded fake RNG в unit tests обязателен и не противоречит случайным production-прогонам.
+
+### Out of scope v1
+
+Автоматическое изменение баланса, целевой win rate, настройка экономики, новый игровой
+контент/карты, нейросетевой игрок, обучение, сетевые LLM API, автоматический upload,
+видеозапись/vision review, полноценный UI-бот, distributed/headless workers, параллельные
+процессы, replay, продолжение оборванного забега, автоматическое исправление найденных
+багов. Оптимизатор и визуальный ревьюер описаны как последующие поставки в §10.
+
+## 2. Зависимости, Context и чтение перед packet
+
+Обязательные framework dependencies: [IP-01](IP-01-run-lifecycle.md),
+[IP-02](IP-02-player-movement.md), [IP-07](IP-07-level-up-draft.md),
+[IP-16](IP-16-field-framework.md), [IP-25](IP-25-meta-progression.md),
+[IP-31](IP-31-manual-run-telemetry.md).
+Production prerequisite — именно FIELD-001 subset F1-09 из
+[IP-27](IP-27-integration.md), не весь каталог IP-27.
+Дополнительное поле включать только при наличии его production definition, environment,
+timeline и encounter bindings; доступ в meta-каталоге сам по себе не доказывает готовность поля.
+
+При начале: AGENTS → WORKFLOW → запись IP-34/packet в STATUS → этот файл.
+Затем читать только Context выбранного packet и необходимые исходники.
+Не запускать другие IP, не сканировать архив evidence или vendored skills.
+
+| Packet | Дополнительный Context |
+|---|---|
+| AB-01 | IP-25; GDD «Мета-прогрессия», «Стартовая прогрессия»; `ProfileCodec`, `ProfileService`, `IProfileStore`, `MemoryProfileStore`; content-json rules |
+| AB-02 | IP-02; GDD «Управление, бой и выживание»; `PlayerMover`, `EnemyRuntime`, `EnemyProjectileRuntime`, obstacle/XP/pickup queries; gameplay/foundation rules |
+| AB-03 | IP-01/07/16; GDD «Структура забега», «Опыт и level-up», «Сеты», «World pickups», «Поля»; composition root, draft runtime, run outcome |
+| AB-04 | IP-31, PLAYTEST_REPORT и BALANCE_WORKFLOW; recorder/session/provenance; phase/build/profile producers |
+| AB-05 | IP-25 и GDD meta/starting progression; `ProfileRunBinding`, `MetaCatalog`, цены/условия только из каталога; карточки выбранных CHAR/FIELD/META |
+| AB-06 | `scripts/README.md`, standalone performance builder/runner как пример доставки, smoke-check safety |
+| AB-07 | §7 этого файла; IP-32/BALANCE_WORKFLOW; отчётный schema и test fixtures AB-04 |
+| AB-08 | Acceptance предыдущих packets, STATUS, smoke-check; полные карточки реально включённых в пилот CHAR/FIELD и необходимые связанные карточки |
+
+Для любых C# изменений прочитать csharp-code и профильные правила из AGENTS,
+для тестов — unity-tests. Перед каждым Unity test/build запуском — repo smoke-check.
+Новые игровые правила или missing content не заполнять настройками бота.
+
+### Проверенные точки входа, которые следует переиспользовать
+
+- `Assets/Game/Bootstrap/GameplayCompositionRoot.cs`: `ConfigureProfile`, `Play`,
+  `TryStartCharacter`, `TryStartField`, `ProfileSaveTask`, `ReturnToProfileSelection`.
+- `Assets/Game/Movement/Presenters/PlayerMover.cs`: общий расчёт движения/физики.
+- `Assets/Game/Progression/Runtime/LevelUpDraftRuntime.cs`: `Select(id, revision)`,
+  `Reroll(revision)`, `Banish(id, revision)`, events открытий/выборов/очереди.
+- `Assets/Game/Meta/`: `ProfileCodec.Create/Decode/Encode`, `ProfileService`,
+  `IProfileService.PurchaseAsync`, `ProfileRunBinding`, `MemoryProfileStore`.
+- `Assets/Game/Telemetry/`: `PlaytestSession`, `RunTelemetryRecorder`, existing bounded
+  aggregates; `Bootstrap/PlaytestComposition.cs` создаёт recorder только в development.
+- `Assets/Game/Bootstrap/Diagnostics/Field001PerformanceBenchmark.cs` и
+  `Bootstrap/Editor/Field001PerformanceBuild.cs`: пример CLI/build/profile isolation.
+  Бессмертие, принудительная выдача билда и transform-перемещение этого benchmark
+  запрещены в балансных сериях; существующий benchmark сохраняет своё назначение.
+
+Известные ограничения для учёта в реализации: `setDetails` в telemetry unsupported;
+часть боевой случайности привязана к `LifeId` GUID; standalone provenance сейчас не
+получает commit через Editor-only Git path. AB-04/06 должны фиксировать реальные
+coverage/build metadata, не обещая полного replay или per-set attribution.
+
+## 3. Минимальная архитектура и ownership
+
+| Слой | Ответственность и целевое расположение |
+|---|---|
+| Pure C# policies/contracts | `Assets/Game/Automation/`: experiment validation, observation DTOs, movement/draft/purchase decisions, campaign state machine. Один type на файл; отдельный asmdef, без зависимости на Bootstrap/UI |
+| Unity adapters/composition | `Assets/Game/Bootstrap/Automation/`: read-only observation adapters, binding штатных commands, session lifecycle. Bootstrap зависит от Automation, обратной зависимости нет |
+| Game-owned extension points | Минимальный источник движения в Movement и read-only snapshots/events у владельцев. Владельцы не зависят от Automation; Diagnostics остаётся foundation |
+| Export/analysis | Существующий Telemetry + versioned automation sidecar. `scripts/balance/`: локальный запуск, сбор и сравнение. Python не моделирует бой и не начисляет награды |
+
+Experiment JSON — внешний конфиг инструмента, образцы в `scripts/balance/examples/`.
+Gameplay balance по-прежнему берётся из production catalogs; новые игровые numbers
+не попадают в experiment или C#. Bot policy параметры — явно технические параметры
+эксперимента, с units/ranges и resolved snapshot. Они не меняют характеристики игрока.
+
+Автоматизация включается только явным флагом в отдельной development-сборке.
+До normal profile/settings initialization подставляются изолированные stores;
+если изоляцию не удалось установить, завершить запуск, не fallback-иться на player save.
+Настройки окна/управления/звука также не должны переписывать пользовательские настройки.
+В обычном запуске нет нового bot host, подписок и записи файлов.
+Initialize/Shutdown симметричны, partial init откатывается в обратном порядке.
+
+## 4. Контракт эксперимента и профиля
+
+Обязательные группы config (точные DTO и schema examples поставляет AB-01):
+
+| Поле | Семантика / validation |
+|---|---|
+| `schemaVersion`, `experimentId` | Версия формата; непустой ID. Неизвестная версия/поле — ошибка до запуска |
+| `template`, `initialProfilePath` | Два template из §1; path обязателен только для preset, для fresh запрещён |
+| `chains`, `maxRunsPerChain` | Положительные целые. N всегда уточняется: число историй профиля или забегов |
+| `runSpeed` | Только 1/2/3/5; применение через RunController после Start каждого забега |
+| `characterId`, `fieldRoute` | Один фиксированный герой в v1; ordered distinct field IDs. Герой доступен в начальном профиле, первое поле доступно и playable. Позднее закрытое поле допустимо в маршруте |
+| `movementPolicy`, `draftPolicy`, `purchasePolicy` | ID, version и явные параметры; независимая случайность решений бота |
+| `stopAfterRouteClear` | Явный bool; при false после завершения маршрута повторять последнее поле до лимита |
+| `maxExperimentWallSeconds`, `runWallTimeoutSeconds`, `transitionTimeoutSeconds` | Конечные положительные wall seconds. Слишком малый budget разрешён как ограничение, но остановленный run отмечается incomplete, не loss |
+| `outputDirectory` | Уникальный каталог внутри выделенного experiment root; не Assets/Resources, не player save. Существующие результаты не перезаписывать |
+
+Новый профиль создаётся через `ProfileCodec.Create()` с реальными initial unlocks.
+Не использовать `UnlockAllForDevelopmentAsync` в fresh. Preset — валидный serialized
+`ProfileData`, прошедший `ProfileCodec.Decode`; копируется до каждой цепочки и больше
+не меняет исходник. В AB-01 дать документированный локальный генератор preset из
+декларативных starting currency/upgrades/unlocks/clearedFields, валидирующий каталог,
+caps, personal ownership и стоимость уже купленных уровней для UpgradeSpending.
+Не генерировать fake RunReceipt или выдавать эти grants за заработанную прогрессию.
+Это лабораторная начальная точка; её hash и отличия от fresh обязательны в отчёте.
+
+После каждого run сохраняются profile-before, terminal outcome, применённый receipt,
+profile-after-reward и profile-after-purchases. Следующий run использует последний.
+Другой chain начинает с исходного template, не с результата предыдущего chain.
+Фиксированный профиль с восстановлением перед каждым run — возможная следующая опция,
+не замена обязательной прогрессии двух campaign templates.
+
+### Стратегии v1 — настройки бота, не продуктовые правила
+
+- Драфт: `randomLegal` равновероятно выбирает только реально предложенные активные
+  options; использует текущую captured revision. Никакой выдачи произвольного ID,
+  изменения весов персонажа, unlocks, set thresholds или гарантированного сета.
+  Базовый профиль не тратит reroll/banish: это явно записано. Поддержку их штатных
+  commands проверить тестами; более умные стратегии не обязательны для первого MVP.
+- Покупки: `cheapestPersonalUpgrade` после штатного сохранения результата покупает
+  самый дешёвый доступный следующий уровень из явно заданного `allowedUpgradeIds`
+  для выбранного героя; equal price → ordinal ID. После каждого успеха перечитать
+  состояние/цену/expectedLevel. Остановиться при отсутствии доступных покупок или
+  достижении явного `maxPurchasesPerIntermission` (целое >=0). Пустой список означает
+  копить валюту. Не делать refunds, не покупать/менять героев автоматически.
+- Карты: до победы повторять текущую карту; после победы перейти к следующей в
+  `fieldRoute`, только если профиль открыл её и runtime умеет её запускать.
+  Уже пройденные карты preset не заставляют пропускать первый элемент route:
+  стартовая точка задаётся самим маршрутом. Недоступность следующей карты даёт
+  `routeBlocked` с ID и причиной, не поражение и не скрытый возврат на другое поле.
+
+Таким образом первые серии измеряют прогрессию одного фиксированного героя и явно
+заданной стратегии расходов. Это ограничение отчёта; оно не представляет все стили игроков.
+
+## 5. Контракт управления и lifecycle
+
+Движение выдаётся как направление в общий PlayerMover до штатного расчёта скорости,
+knockback и Rigidbody2D. Никаких transform teleport, изменённых colliders, immunity,
+принудительного XP/draft/Book или изменения run duration в production-серии.
+Обычные keyboard/mouse modes сохраняют поведение при отсутствии bot input source.
+
+Первый movement bot — ограниченная эвристика: проверяет конечный набор направлений
+и stop, отбрасывает пересечение player-only препятствий/границ, предпочитает меньшую
+ближайшую угрозу и достижимый XP/полезный pickup, с hysteresis против дрожания.
+Нужны enemy/projectile positions, радиусы/скорости, текущие видимые зоны угроз и
+pickups в пределах наблюдения; hidden future RNG/будущие draft offers недоступны.
+Не делать новый универсальный pathfinding. Для stuck — ограниченная смена направления,
+затем запись botStuck; недоступный pickup пропускается (он может быть легален по GDD).
+Радиусы, частота решений, горизонт предсказания и stuck timeout задаются в bot config.
+AB-02 обязан документировать формулу оценки, units, допустимые диапазоны и пример;
+выбрать проверяемые технические значения, не выдавать их за модель человека.
+Период движения отсчитывается в simulation seconds; draft/intermission — wall time,
+чтобы бот мог отвечать при gameplay pause. Никаких per-frame scene-wide FindObjects.
+
+Campaign state machine:
+
+`PrepareProfile → SelectRun → Running ↔ ResolveDraft → AwaitResultSave → Purchase → SelectRun`.
+
+Любое состояние может завершиться `Completed`, `Stopped`, `Failed`; terminal reason
+и потерянные данные записываются. `Completed` означает завершение задания по лимиту
+или маршруту, не обязательную победу. Ручную/неизвестную паузу бот не снимает молча:
+ждёт до transition timeout и пишет причину. Во время draft он не двигается.
+
+Границы:
+
+- Открытые/queued Book и XP drafts обрабатываются существующей очередью. 0 options
+  разрешается владельцем; 1–2 options выбираются без создания дубликатов.
+- Устаревший request/revision не повторять бесконечно: перечитать текущую сессию.
+  После terminal outcome новые choices запрещены; результаты получает только RunModel.
+- При смерти в последнем tick бот не определяет win/loss сам; читает authoritative
+  `RunOutcome`. Награду применяет `ProfileRunBinding`, не automation второй раз.
+- AwaitResultSave ждёт `ProfileSaveTask` и проверяет успешность/receipt. Ошибка сохранения
+  останавливает chain; нельзя продолжать с придуманным балансом валюты.
+- Stop, watchdog, crash и wall-budget не становятся loss. Даже если штатный Stop
+  законно начислил награду, chain после такого run заканчивается и помечается truncated.
+- На crash частичный пакет сохраняется; автоматического повтора того же run/chain нет.
+  Так не исчезают неудобные результаты. Новый явный запуск имеет новый experiment ID.
+- Между runs все подписки/пулы проходят штатный teardown. Новая цепочка не наследует
+  профиль, RNG политики, movement intent и runtime state предыдущей.
+
+## 6. Пакеты реализации
+
+Зависимости в таблице описывают состав работ, не дублируют текущую очередь STATUS.
+Один packet — самостоятельная задача для следующей модели. Не объединять packets
+в большой переписывающий refactor. Сначала сверить актуальный код: существующие API
+могли расшириться после записи этого плана.
+
+<a id="ab-01"></a>
+### AB-01 — Конфигурация эксперимента и изолированные профили
+
+**Вход:** IP-25 и этот контракт. **Выход:** Automation contracts, строгая загрузка
+experiment JSON, два examples и preset preparation; фабрика fresh/preset isolated
+stores и immutable resolved config. Пока без бота и запуска серии.
+
+**Приёмка:** malformed config, неизвестный ID, invalid personal levels, locked
+starting character/field и output collision отвергаются до игры; two chains не
+разделяют mutable profile; fresh равен текущему канону; preset исходник неизменен;
+тестовый sentinel production save/settings не читается/не записывается.
+**Checks:** Automation/Meta EditMode, schema fixtures, profile copy/round-trip.
+
+<a id="ab-02"></a>
+### AB-02 — Наблюдение и движение бота
+
+**Вход:** AB-01. **Выход:** небольшой input seam в Movement, read-only observation
+adapters и movement policy из §5; явный diagnostics-only coverage snapshot.
+Если угрозу нельзя наблюдать, добавить минимальный snapshot у владельца; не читать
+private fields reflection и не принимать отсутствие наблюдения за отсутствие угрозы.
+
+**Приёмка:** бот собирает достижимый XP в prepared scene, обходит препятствие,
+выбирает безопасное направление перед известным projectile, корректно останавливается
+на паузе/конце; stuck detection воспроизводится; обычное keyboard/mouse управление
+проходит регрессию. Изменение observer/policy не потребляет gameplay RNG.
+**Checks:** pure policy tests + Movement/Automation PlayMode fixtures; полный smoke
+для реально изменённых общих movement/combat/lifecycle contracts по WORKFLOW §9.
+
+<a id="ab-03"></a>
+### AB-03 — Один автономный забег
+
+**Вход:** AB-01/02. **Выход:** development host, randomLegal draft, выбор героя/поля
+через существующие launchers, run state machine до результата и сохранения.
+Проверочный запуск внутри Editor допускается через тестовый harness, не новую UI-панель.
+
+**Приёмка:** fixture win/loss/stop, Book chain, short/empty draft, stale revision,
+manual pause timeout, save failure и teardown; ни одного debug grant/health lock.
+Один production FIELD-001 run заканчивается своим естественным исходом с доступной
+телеметрией; победа не является критерием качества реализации бота.
+**Checks:** Automation + Draft + Meta targeted tests; composed production smoke.
+
+<a id="ab-04"></a>
+### AB-04 — Отчёт о забеге и развитии
+
+**Вход:** AB-03 и IP-31. **Выход:** schema §7, typed automation sidecar, provenance,
+profile snapshots и фактическая история drafts/build/phases. Переиспользовать
+измеренные counters telemetry; не парсить human-readable summary ради данных.
+Новые adapters/events остаются у владельца, recorder только потребитель.
+
+**Приёмка:** known fixture totals, damage vs healing/rescale, phase at death,
+offered vs selected, позднее получение skill/set, неполное покрытие, переполнение
+буфера, duplicate finalization, сбой экспорта; unavailable остаётся null/unsupported.
+Частичный файл не считается complete; запись не выполняется в combat callback.
+**Checks:** Telemetry/Automation unit tests, export integration и composed smoke.
+
+<a id="ab-05"></a>
+### AB-05 — Цепочки профиля и прогрессия по картам
+
+**Вход:** AB-03/04. **Выход:** оба campaign templates, purchase/route policies §4,
+межзабеговое сохранение и независимые chains, лимиты и причины остановки.
+
+**Приёмка:** fixture loss даёт ровно штатную награду; покупка расходует её один раз
+и усиливает следующий run; победа открывает следующее поле через обычный профиль;
+запрещённая/не реализованная карта даёт routeBlocked; next chain сбрасывается к
+начальному template; preset копируется; interrupted chain не продолжается автоматически.
+**Checks:** Meta/Automation integration, повторный result callback, max caps,
+недостаток валюты, отсутствие покупок, terminal route и два независимых chains.
+
+<a id="ab-06"></a>
+### AB-06 — Standalone delivery и локальный runner
+
+**Вход:** AB-05. **Выход:** отдельный development build/flag, Python validate/run
+commands, progress manifest/heartbeat, log/exit contract, worker=1, output isolation.
+Целевой интерфейс (появится после packet):
+
+```text
+python scripts/balance/run.py --experiment <json> --player <exe> --output <new-directory>
+python scripts/balance/analyze.py <experiment-directory>
+python scripts/balance/compare.py <baseline-directory> <candidate-directory>
+```
+
+`analyze`/`compare` реализует AB-07, run не должен вызывать заглушки как готовый анализ.
+Standalone получает build manifest (commit, dirty, Unity, executable/data hashes),
+не пытается получить commit через несуществующий Editor Git path. Версию фиксируем
+один раз на experiment; изменённые входные файлы требуют нового запуска.
+Новый builder — сосед performance builder; не переписывать существующий benchmark.
+Запуск helper-процесса на Windows — скрытый, без popup shell.
+
+**Приёмка:** child success/crash/nonzero/hang, истечение wall budget, cancellation,
+невалидный exe/config, повторный output path; результаты уже завершённых runs целы.
+Плановая остановка с partial manifest отличается от execution failure. Runner
+останавливает только собственный child, не закрывает Editor/другую игру. Нет silent retries.
+**Checks:** Python unittest с fake executable/process adapter, отдельный настоящий
+standalone smoke. Build/tests — по smoke-check; batch Editor не запускается поверх
+открытого Editor. Использовать поддержанный безопасный путь или честно сообщить blocker.
+
+<a id="ab-07"></a>
+### AB-07 — Статистика и сравнение серий
+
+**Вход:** schema AB-04 и outputs AB-06. **Выход:** Markdown summary + CSV/JSON таблицы,
+проверка совместимости условий, агрегаты §7. Python standard library достаточно для
+v1; dashboard/новая БД/ML dependencies не требуются.
+
+**Приёмка:** exact fixture totals и denominators, empty/all-incomplete набор,
+разные длительности/поля/профили, отсутствие побед, short chains, повреждённый report,
+разные версии политики, разные скорости, incomplete milestones. Любой исключённый
+run указан с причиной; favorable-only filtering запрещён.
+**Checks:** Python unit tests на малых hand-calculated наборах; trace строки сводки
+до experiment/chain/run ID. Сравнение не меняет config, код или production balance.
+
+<a id="ab-08"></a>
+### AB-08 — Пилот, измерение скорости и передача
+
+**Вход:** AB-01…07. **Выход:** инструкция в `scripts/balance/README.md`, примеры двух
+templates, инструкция запуска/остановки/чтения отчёта; evidence в implementation/evidence.
+
+**Приёмка:** не менее двух independent chains по два естественно завершённых runs
+на каждый template, с реальными output IDs. Итого минимум восемь production runs;
+раннее поражение допустимо. Начинать с доступного FIELD-001, включать другие только
+при валидных prerequisites; нулевая частота побед не скрывается и не запускает nerf.
+Fixture acceptance AB-05 отдельно доказывает межкарточный переход, если production
+бот пока не победил. В evidence различать эти два вида данных.
+
+Проверить хотя бы один естественный production run на 1× и серию на выбранной
+штатной скорости. При разных результатах не объявлять эффект скорости доказанным
+по одной паре; проверить механические regressions и записать ограничение.
+Провести отдельное измерение wall window 600 s на выбранном режиме: completed W/L,
+incomplete/error, суммарные simulation seconds, затраты переходов и hardware/build.
+Текущий незавершённый run после лимита остаётся censored; не терять его из отчёта.
+
+**Checks:** полный `python scripts/check_project.py --scope full --graphics` после
+стабилизации runtime и все Python tests; безопасная процедура Unity обязательна.
+Production series не заменяют tests; зелёные tests не утверждают хороший баланс.
+Сравнить production save/settings sentinels до/после; повторный обычный запуск
+работает без automation. Записать ограничения бота и фактическую пропускную способность.
+
+## 7. Артефакты, метрики и корректное сравнение
+
+```text
+TestResults/balance/<experiment-id>/
+  experiment.json          # resolved config + build/bot/schema metadata
+  manifest.json            # все начатые chains/runs и их terminal/partial state
+  summary.md, runs.csv, chains.csv
+  chains/<chain-id>/
+    initial-profile.json
+    runs/<run-id>/
+      run.json             # existing telemetry format, если доступен
+      automation.json      # typed progression/choices/phase/profile metadata
+      profile-before.json
+      profile-after-reward.json
+      profile-after-purchases.json
+      player.log
+```
+
+Raw outputs не коммитятся автоматически; малые synthetic fixtures — в tests,
+избранные результаты — по existing playtest/evidence process. Output root явный,
+без auto-delete/retention. Final manifest записывается атомарно после flush данных.
+Large histories — bounded/chunked; dropped counters и I/O errors обязательны.
+Агрегаты сохраняются отдельно от timeline, чтобы overflow истории не скрывал totals.
+
+Обязательные данные:
+
+- experiment/chain/run IDs, run index в chain, template/policy versions; build,
+  content/config/preset hashes, explicit overrides, available seeds и RNG coverage.
+- character, field, timeline, runSpeed; start/terminal wall timestamps, running
+  simulation seconds, pause/transition durations; outcome отдельно от completion reason.
+- profile до/после, actual purchases/currency/receipts/unlocks и причины отказов.
+- reached/death phase ID и index; phase-entry events, HP/level/XP на переходах;
+  phase index сравним только внутри одного field/timeline.
+- offered/selected IDs с levels, request origin/revision, timestamp; build changes
+  и acquisition time сетов; сбор XP и applied damage/healing из поддержанных adapters.
+- completeness/capabilities, errors, timeouts, botStuck. Неполный set-damage attribution
+  не блокирует run/outcome/build metrics и не превращается в нулевой урон сета.
+
+Сводка обязательно разделяет:
+
+1. **Забеги:** W/L, duration/level/phase distributions по карте, герою, номеру попытки,
+   template и starting upgrade state. Глобальное среднее выводить только с составом групп.
+   Для каждой волны показывать reached, deaths и число runs с доступным наблюдением;
+   уровень/HP на поздних минутах относится только к дожившим, с явным размером выборки.
+2. **Истории профиля:** попытки и накопленное игровое время до первой победы/открытия
+   каждого поля; расходы, уровни меты, потолок достигнутого маршрута. Недостигнутое
+   событие — censored/не достигнуто к лимиту, не 0 и не бесконечность.
+3. **Работу инструмента:** requested/started/completed counts, errors, incomplete,
+   running time vs wall time, причины остановки. Быстрая серия ранних смертей не
+   доказывает высокую скорость расчёта полных забегов.
+
+Формулы (counts целые >=0, секунды >=0):
+
+- `winRate = W / (W + L)` при `W+L>0`, иначе unavailable. W/L — только естественные
+  wins/losses. Пример: 8 W, 12 L, 2 timeout → 40%, denominator 20; timeout=2 виден рядом.
+- `effectiveSpeed = sum(runningSimulationSeconds) / experimentWallSeconds` при
+  положительном wall denominator, учитывая и partial runs. Пример: 1800 игровых
+  секунд за 600 wall seconds → 3×, независимо от выбранных 5×.
+- `completedRunsPer10Minutes = 600 * completedRuns / experimentWallSeconds` при
+  положительном denominator. Пример: 4 завершения за 600 s → 4; дополнительно дать
+  среднюю игровую длительность, чтобы показатель не маскировал ранние смерти.
+
+Runs одной campaign зависимы из-за общей меты. Их нельзя считать независимыми
+наблюдениями для доверительного интервала общего win rate. V1 выдаёт описательные
+распределения и число independent chains, без p-value/заявлений значимости.
+При малом N вывод — предварительная статистика. Интервалы/cluster bootstrap возможны
+позже по историям профиля, а не по всем runs как независимым.
+
+Для baseline/candidate требуются одинаковые template, initial profile, route,
+character, bot policy/version, budgets и runSpeed. Build/content hashes могут
+различаться как предмет эксперимента и показываются явно. Случайные серии независимы;
+paired-seed comparison не требуется. Финальные профили закономерно могут различаться.
+Разные starting conditions/policies → отдельные группы, не скрытое объединение.
+Сравнение skill damage/pick rate — описательная связь, не доказательство причинности:
+учитывать exposure/time acquired, уровень и доступность предложения.
+
+## 8. UI / observability
+
+Нового player-facing UI нет. Progress — stdout и manifest: chain/run/field,
+simulation time, profile stage, completed/error counts, output path. Существующий
+UI может отрисовываться, но commands вызываются через игровые launchers/runtime;
+это не black-box проверка кликов, layouts или читаемости.
+В policy/observer/hot-path нет I/O, неограниченных списков и per-frame string formatting.
+Scale-sensitive loops используют PerfGuard; наблюдение имеет ограниченный scope.
+
+## 9. Работа следующей модели и завершение
+
+1. Проверить STATUS и git diff; выбрать только названный packet или первый Ready
+   в IP-34 очереди после разрешения на реализацию. В этом запросе поручена запись плана.
+2. Прочитать packet + его Context, объявить scope и tests; перевести только его
+   status в In progress. Не создавать заново уже существующие contracts.
+3. Реализовать packet, выполнить checks, обновить STATUS/evidence и потребителей.
+   Технические решения в рамках этого плана не требуют нового продуктового approval.
+   Не переключать модель/effort автоматически: их выбирает пользователь.
+4. При единичном поручении на packet остановиться после него; серию packets выполнять
+   только если пользователь разрешил её явно. Никаких дополнительных agents по умолчанию.
+5. После AB-08 не запускать оптимизатор, новые поля или LLM API автоматически.
+
+Documentation impact: GDD/CD и игровые балансные значения не изменяются. Новые API,
+политики бота, schema и инструкции — в owning code и `scripts/balance/README.md`.
+STATUS остаётся единственным execution registry; этот файл не получает текущие statuses.
+Завершение каждого packet не закрывает остальные acceptance IP-34.
+
+Стартовый запрос для передачи:
+
+> Реализуй IP-34 packet AB-01 по docs/implementation/modules/IP-34-automated-balance-runs.md.
+> Сначала проверь STATUS и WORKFLOW. Только AB-01, без ускоренного симулятора,
+> deterministic replay, изменения production balance и запуска следующих packets.
+
+## 10. Последующие поставки и gates
+
+- **Улучшение бота/покрытия:** structured draft strategies, reroll/banish policies,
+  разные герои, reset-per-run режим, калибровка по человеческим прогонам. Сначала
+  измерить bot failure и доступность угроз; слабый бот не является поводом облегчать игру.
+- **Поиск багов:** scenario/fuzz policies и доказуемые инварианты с reproducible fixture,
+  deduplication. V1 уже сохраняет exceptions/stuck/incomplete, но не обещает полный QA.
+- **Подбор чисел:** отдельный implementation packet после v1. До его начала нужны
+  целевые метрики/диапазоны, allowlist authoring paths и bounds, бюджет эксперимента,
+  held-out случайные серии и процесс принятия. Candidate sources изолированы;
+  генератор выпускает их outputs. Production apply — конкретный согласованный diff
+  по BALANCE_WORKFLOW; не редактировать generated JSON и не переписывать механику.
+- **Vision reviewer:** отдельный packet на кадры/клипы, sample/storage budget,
+  модель/стоимость/передачу данных. Real-time rendered sessions, timestamps + telemetry,
+  hypotheses отдельно от подтверждённых багов; AI не становится контроллером движения.
+- **Скорость:** сначала измерения AB-08. Headless, parallel workers и fastest-possible
+  simulation рассматриваются отдельно; результаты не обещаются исходя из числа CPU cores.
+
+Отсутствие целевого win rate, поздних полей или внешнего AI не блокирует измерительный
+v1. Неполная production-прогрессия должна отражаться в route scope и отчёте.

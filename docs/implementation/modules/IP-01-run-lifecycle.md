@@ -62,4 +62,8 @@ HUD получает `ElapsedSeconds` через immutable `HudViewState` и п�
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) использует authoritative RunOutcome,
+pause/terminal lifecycle и штатные скорости для автоматических прогонов. Stop/timeout
+в отчёте инструмента не становится поражением; gameplay/reward semantics сохраняются.
+
 [IP-02](IP-02-player-movement.md), [IP-03](IP-03-character-stats.md), [IP-07](IP-07-level-up-draft.md), [IP-10A](IP-10A-ui-foundation.md), [IP-15](IP-15-boss-framework.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

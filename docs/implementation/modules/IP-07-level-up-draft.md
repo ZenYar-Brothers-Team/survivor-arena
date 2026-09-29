@@ -52,6 +52,10 @@ G-01/G-03 для fixture draft contract закрыты DECISION-0019/0020. Produ
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) выбирает только реальные предложения через
+revision-aware commands, включая queued Book drafts. Его randomLegal policy не
+меняет gameplay RNG, веса, unlocks, thresholds или выдачу наград.
+
 [IP-08](IP-08-active-skill-framework.md), [IP-09](IP-09-passive-framework.md), [IP-10](IP-10-reroll-banish.md), [IP-10A](IP-10A-ui-foundation.md), [IP-11](IP-11-set-framework.md), [IP-12](IP-12-character-framework.md), [IP-25](IP-25-meta-progression.md) через RunOutcome без прямой зависимости на Progression, [IP-27](IP-27-integration.md), [IP-28](IP-28-world-pickups.md), [IP-31](IP-31-manual-run-telemetry.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
 
 ## Контракт реализации framework

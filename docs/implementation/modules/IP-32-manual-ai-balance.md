@@ -31,6 +31,12 @@ checklist ручного сценария, шаблоны tester notes, AI analy
 
 auto-tuning, automatic balance deploy, Google Sheets как новый source of truth, оптимизация под AI player, финальный баланс всего каталога.
 
+Автоматический сбор случайных серий и сравнение — отдельный
+[IP-34](IP-34-automated-balance-runs.md) по DECISION-0097. Его отчёты могут быть
+входом этого review-процесса; bot observations не приписываются человеку. Применение
+балансных изменений сохраняет existing approval/diff contract; автоматический
+оптимизатор не добавляется в scope IP-32.
+
 ## Acceptance criteria
 
 trace report IDs/config hashes → observation → hypothesis → exact proposed values/rule → explicit approval → applied diff → checks → follow-up observations. AI может ответить «данных недостаточно». Нет автоматического принятия suggestion или target win rate. Fixture results помечены fixture; нет ложного сравнения разных fields/meta profiles/test conditions. Rejected/deferred proposals не попадают в JSON.

@@ -56,6 +56,11 @@ Run-report schema/metric dictionary, local output/retention, capability/version 
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) переиспользует recorder/aggregates и добавляет
+typed experiment/chain/progression sidecar у себя. Новые нужные producers проверяются
+в его packets; исходный scope IP-31 не получает задним числом бота, replay, LLM API
+или обещание полного set-damage coverage.
+
 [IP-27](IP-27-integration.md), [IP-32](IP-32-manual-ai-balance.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
 
 

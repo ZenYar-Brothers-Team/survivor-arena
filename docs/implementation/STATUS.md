@@ -20,6 +20,13 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Автоматические прогоны 2026-09-29 — поручена **подготовка плана**
+[IP-34](modules/IP-34-automated-balance-runs.md), `automated-runs-v1`
+([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md)). Runtime-реализацию
+в этой задаче не начинать. После отдельного поручения реализовывать IP-34 выбирать
+packet по [его scoped очереди](#automated-runs-execution); Ready означает готовность,
+а не отмену этой границы. Остальные UI/gameplay поручения и паузы сохраняются.
+
 UI Folio polish 2026-09-29 — Implemented: по явному поручению пользователя
 выполняется отложенная чистовая отделка кнопок и фоновых поверхностей из
 DECISION-0081. Общий процедурный фон и полная button state matrix применены к
@@ -96,6 +103,28 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 - История поручений и оснований: [датированный архив](evidence/2026-09-27-execution-history.md). При выборе работы читать эту шапку, очередь и нужные записи; архив — только при необходимости.
 
 ## Execution order
+
+<a id="automated-runs-execution"></a>
+### IP-34 — автоматические прогоны, scoped очередь
+
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v1`;
+спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
+Текущая задача заканчивается записью плана. После одного packet следующий начинается
+только в пределах данного пользователем разрешения; общий backlog не возобновляется.
+
+| Порядок | Packet | Status | Prerequisite / следующий шаг |
+|---:|---|---|---|
+| 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Ready | IP-25 profile/catalog APIs есть; первый implementation packet после команды пользователя |
+| 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | Blocked | AB-01 |
+| 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Blocked | AB-01/02 |
+| 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Blocked | AB-03; IP-31 adapters расширять только под заявленные метрики |
+| 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Blocked | AB-03/04 |
+| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Blocked | AB-05 |
+| 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Blocked | AB-04/06 |
+| 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Blocked | AB-01…07 |
+
+Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
+в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
 
 При разрешении на исполнение выбирать первый Ready packet активного этапа ниже,
 если пользователь не назвал другой scope. Пока этап активен, поздний backlog
@@ -732,6 +761,28 @@ Dependencies: F1-03 settings subset (DECISION-0038), F1-01/04/06/07/08 event and
 Remaining acceptance: прослушивание обычной/плотной волны, босса, паузы и 5×; возможная корректировка громкости/тембров. Специальный low-HP и attack-telegraph contract остаются за пределами первого среза.
 Target implementation evidence: 28 CC0-клипов, один общий boss track, 15 семейств событий, ограниченные голоса и real-time cooldown; [подробности](evidence/2026-09-27-production-audio.md).
 Target verification evidence: audio integrity 28/28; после REPO-01 Unity 6000.6.0f1 EditMode 857/857 (включая 3 Audio tests) + PlayMode 30/30, 0 skipped; [evidence](evidence/2026-09-27-project-structure.md). Автоматические PlayMode-прогоны без вывода звука на динамики; художественный review остаётся открытым. Предыдущие прогоны — в исходном audio evidence.
+
+### IP-34 — Автоматические прогоны баланса и прогрессии
+
+Status: Ready
+Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
+Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
+Current packet: AB-01; готовность остальных — в scoped очереди выше.
+Authorization: сейчас только запись плана; runtime после отдельного поручения пользователя.
+Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
+случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.
+Prerequisite audit 2026-09-29: проверены текущие `ProfileCodec/MemoryProfileStore`,
+`IProfileService.PurchaseAsync`, launchers/ProfileSaveTask composition root,
+revision-aware draft commands, PlayerMover и telemetry. Для полного v1 нужны
+новые input/observation/report adapters, а не повторная реализация gameplay.
+Content boundary: базовый пилот использует FIELD-001; дополнительные поля только
+с готовыми production bindings. FIELD-004…010 не становятся доступными этим планом.
+Target implementation evidence: нет; зарегистрированы спецификация и DECISION-0097.
+Target verification evidence: 2026-09-29 `python scripts/check_project.py --scope docs`
+STATIC PASS; 10 локальных ссылок нового плана/решения, 8 packet anchors и code fences
+проверены. Новые Unity tests, bot runs и throughput measurements не запускались.
+Documentation impact: GDD/CD и production balance без изменений; связаны owning IP,
+BALANCE_WORKFLOW, каталог модулей и PROJECT_MAP.
 
 ## Status maintenance rule
 

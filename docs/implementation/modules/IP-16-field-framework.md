@@ -72,6 +72,10 @@ G-20 resolved: [DECISION-0038](../../decisions/0038-settings-and-field-difficult
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) использует штатные selection/launchers и
+resolved field/timeline. Маршрут бота требует и meta-доступа, и готовых production
+bindings; непоставленное поле отражается как routeBlocked, без fallback/fixture подмены.
+
 [IP-23](IP-23-production-fields.md), [IP-25](IP-25-meta-progression.md), [IP-26](IP-26-functional-ui.md), [IP-27](IP-27-integration.md), [IP-29](IP-29-traveler-framework.md). Полный порядок и готовность определяет STATUS, не расположение файлов.
 
 ## Boss encounter binding

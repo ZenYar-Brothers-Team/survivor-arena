@@ -52,4 +52,8 @@ Gameplay fixture, player position/direction и camera observations; отдель
 
 ## Потребители
 
+[IP-34](IP-34-automated-balance-runs.md) планирует опциональный источник bot direction
+перед общим расчётом PlayerMover. Обычные keyboard/mouse, скорость, knockback и
+physics/collision contract сохраняются; transform teleport не является вводом бота.
+
 [IP-03](IP-03-character-stats.md), [IP-04](IP-04-enemy-core.md), [IP-12A](IP-12A-visual-presentation-foundation.md), [IP-16](IP-16-field-framework.md), [IP-27](IP-27-integration.md). Полный порядок и готовность определяет STATUS, не расположение файлов.

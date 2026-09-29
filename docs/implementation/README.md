@@ -13,6 +13,9 @@
 
 ## Источники и authority
 
+- [IP-34 — автоматические прогоны](modules/IP-34-automated-balance-runs.md) — отдельный
+  план случайных campaign-прогонов с нового/заданного профиля; обычный Unity loop,
+  scoped packets и handoff. Границы исполнения и порядок — только в STATUS.
 - [PROJECT_MAP](../PROJECT_MAP.md) — навигация по owning code, authoring sources, generated outputs и checks; без копий дизайна или статусов.
 - [Game Design](../Game_design.md) — общие игровые правила.
 - [Content Design](../Content_design.md) — конкретные сущности, behavior и balance data; 121 target card уже утверждена.
@@ -106,6 +109,7 @@ Gate относится только к зависимому packet/ID. Не т�
 - [IP-30 — Production Travelers TRAVELER-001…010 и Book](modules/IP-30-production-travelers.md)
 - [IP-31 — Локальная телеметрия ручных прогонов](modules/IP-31-manual-run-telemetry.md)
 - [IP-32 — Ручные прогоны и AI-assisted balance review](modules/IP-32-manual-ai-balance.md)
+- [IP-34 — Автоматические прогоны баланса и прогрессии](modules/IP-34-automated-balance-runs.md)
 
 ## Проверка и документация
 
