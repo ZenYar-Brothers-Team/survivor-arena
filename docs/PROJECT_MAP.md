@@ -19,7 +19,7 @@ acceptance IP и [WORKFLOW §9](implementation/WORKFLOW.md#9-завершени�
 
 ## Запуск, сборка систем и lifecycle
 
-- entryPoints: [GameplayCompositionRoot](../Assets/Game/Bootstrap/GameplayCompositionRoot.cs), [RuntimeContentCatalog](../Assets/Game/Bootstrap/RuntimeContentCatalog.cs), [Gameplay scene](../Assets/Scenes/Gameplay.unity).
+- entryPoints: [GameplayCompositionRoot](../Assets/Game/Bootstrap/GameplayCompositionRoot.cs), [RuntimeContentCatalog](../Assets/Game/Bootstrap/RuntimeContentCatalog.cs), [Gameplay scene](../Assets/Scenes/Gameplay.unity), [Editor startup scene](../Assets/Game/Bootstrap/Editor/GameplaySceneStartup.cs).
 - designRefs: [Game Design](Game_design.md), [IP-01](implementation/modules/IP-01-run-lifecycle.md), [rollback](decisions/0010-composition-root-rollback.md).
 - authoringSources: параметры запуска в [FIELD-001 baseline](balance/field001-baseline-v1.json); fixture-конфигурации в [Content/Run](../Assets/Resources/Content/Run).
 - generatedOutputs: [ProductionRunSetup.json](../Assets/Resources/Content/Run/ProductionRunSetup.json).
@@ -27,6 +27,8 @@ acceptance IP и [WORKFLOW §9](implementation/WORKFLOW.md#9-завершени�
 
 Bootstrap связывает модули. `CreateFixture()` и `CreateProduction()` явно выбирают набор данных;
 слово Fixture в существующем gameplay-классе не доказывает, что класс используется только в прототипе.
+В интерактивном Unity Editor `GameplaySceneStartup` один раз за сессию открывает
+`Gameplay.unity` и назначает её стартовой сценой кнопки Play; batch-запуски не затрагивает.
 
 ## Контент и генерация
 

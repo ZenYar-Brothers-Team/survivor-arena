@@ -28,7 +28,8 @@ namespace Game.Enemy
                 ScaleAttack(definition.Attack, modifiers.AttackDamageMultiplier),
                 definition.KnockbackResistance,
                 definition.ContactControls, definition.DashContactControls, definition.MotionProfile,
-                ScaleDashVolley(definition.DashVolley, modifiers.AttackDamageMultiplier));
+                ScaleDashVolley(definition.DashVolley, modifiers.AttackDamageMultiplier),
+                definition.MovementVariants);
         }
 
         private static EnemyDashVolleyProfile ScaleDashVolley(EnemyDashVolleyProfile volley, float damageMultiplier) =>

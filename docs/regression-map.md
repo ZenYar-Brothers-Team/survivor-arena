@@ -1,5 +1,13 @@
 # Regression map
 
+DECISION-0099: `EnemyPatternTests` проверяет OffsetPursuit, CommittedPursuit,
+BlockedSidestep (включая малое замедление и срабатывание рядом при полной
+скорости), ArcPassPursuit, InertialPursuit и
+weighted fallback; `EnemyPatternSchemaTests` — обязательные поля и сумму chances;
+`WaveDirectorTests.MovementSelection_IsSeededAndDoesNotChangeCompositionOrGeometryStreams`
+защищает независимость seeded-потоков; `ProductionEnemyCatalogTests` фиксирует
+ENEMY-001: 75% BlockedSidestep / по 5% Seek, OffsetPursuit, CommittedPursuit, ArcPassPursuit, InertialPursuit; усиленные параметры и скорость 1.056.
+
 DECISION-0098: `MetaProfileTests.LevelReward_ExcludesStartingLevel_PreservesBookGold`
 проверяет L1=0, L2=5 и независимую Book-награду; terminal reasons на L1
 покрывает `Exit_StartedAtLevelOne_PaysNoLevelGold`, а сохранение/Retry —

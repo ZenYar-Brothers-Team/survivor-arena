@@ -8,6 +8,11 @@ namespace Game.Enemy
         Zigzag,
         ApproachRetreat,
         TelegraphedDash,
-        DistanceReposition
+        DistanceReposition,
+        OffsetPursuit,
+        CommittedPursuit,
+        BlockedSidestep,
+        ArcPassPursuit,
+        InertialPursuit
     }
 }

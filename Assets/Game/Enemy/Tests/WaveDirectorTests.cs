@@ -156,6 +156,28 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void MovementSelection_IsSeededAndDoesNotChangeCompositionOrGeometryStreams()
+        {
+            var offset = new EnemyMovementProfile(EnemyMovementKind.OffsetPursuit, 1f, .5f,
+                cycleSeconds: 2f, directPursuitSeconds: 1f);
+            var definition = new EnemyDefinition("FIXTURE-MOVEMENT-MIX", 1f, 1f, 1f, 1f, 1f,
+                movementVariants: new[] { new EnemyMovementVariant(.5f, offset) });
+            var first = CreateDirector(42);
+            var sameSeed = CreateDirector(42);
+            var untouched = CreateDirector(42);
+
+            for (var i = 0; i < 20; i++)
+            {
+                Assert.AreEqual(first.SelectMovement(definition).Kind, sameSeed.SelectMovement(definition).Kind);
+                Assert.AreEqual(first.SelectMovementSeed(), sameSeed.SelectMovementSeed());
+                Assert.AreEqual(untouched.SelectEnemy().Id, first.SelectEnemy().Id,
+                    "Movement rolls use a stream independent from composition.");
+                Assert.AreEqual(untouched.SelectSpawnAngle(), first.SelectSpawnAngle(),
+                    "Movement rolls use a stream independent from spawn geometry.");
+            }
+        }
+
+        [Test]
         public void RunSeed_ReplacesTheReferenceSeed_ForCompositionAndAngles()
         {
             var timeline = WaveTestData.ThreePhaseTimeline(seed: 7);

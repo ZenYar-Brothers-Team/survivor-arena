@@ -117,30 +117,54 @@ def enemies(baseline):
         }
         if enemy["id"] in ENEMY_VISUALS:
             entry["visualId"], entry["motionProfileId"] = ENEMY_VISUALS[enemy["id"]]
+        def to_runtime_movement(source):
+            kind = source["kind"]
+            runtime = {"kind": kind}
+            if kind in ("KeepDistance", "DistanceReposition", "Orbit", "OffsetPursuit"):
+                runtime.update(preferredDistance=source["preferredDistance"], distanceTolerance=source["distanceTolerance"])
+            if kind in ("BlockedSidestep", "ArcPassPursuit"):
+                runtime["preferredDistance"] = source["preferredDistance"]
+            if kind in ("Orbit", "Zigzag", "BlockedSidestep", "ArcPassPursuit"):
+                runtime["lateralStrength"] = source["lateralStrength"]
+            if kind in ("Zigzag", "ApproachRetreat", "CommittedPursuit", "OffsetPursuit", "ArcPassPursuit"):
+                runtime["cycleSeconds"] = source["cycleSeconds"]
+            if kind in ("OffsetPursuit", "ArcPassPursuit"):
+                runtime["directPursuitSeconds"] = source["directPursuitSeconds"]
+            if kind == "BlockedSidestep":
+                runtime.update(blockedTriggerSeconds=source["blockedTriggerSeconds"],
+                               blockedProgressFraction=source["blockedProgressFraction"],
+                               sidestepSeconds=source["sidestepSeconds"],
+                               sidestepCooldownSeconds=source["sidestepCooldownSeconds"],
+                               sidestepNearDistance=source["sidestepNearDistance"],
+                               sidestepNearSeconds=source["sidestepNearSeconds"])
+            if kind == "InertialPursuit":
+                runtime["turnResponseSeconds"] = source["turnResponseSeconds"]
+            if kind == "DistanceReposition":
+                if source["cycleSeconds"] != source["holdingSeconds"] + source["repositionSeconds"] or not source["alternateLateralDirection"]:
+                    raise SystemExit(f"{enemy['id']}: unsupported reposition cycle")
+                runtime.update(lateralStrength=source["lateralStrength"], cycleSeconds=source["cycleSeconds"],
+                               repositionSeconds=source["repositionSeconds"])
+            if kind == "TelegraphedDash":
+                if source["direction"] != "snapshot-at-telegraph-start":
+                    raise SystemExit(f"{enemy['id']}: unsupported dash direction policy")
+                runtime.update(dashTelegraphSeconds=source["dashTelegraphSeconds"],
+                               dashDurationSeconds=source["dashDurationSeconds"],
+                               dashCooldownSeconds=source["dashCooldownSeconds"],
+                               dashSpeedMultiplier=source["dashSpeedMultiplier"])
+                if "showDashTelegraphLine" in source:
+                    runtime["showDashTelegraphLine"] = source["showDashTelegraphLine"]
+            return runtime
+
         kind = movement["kind"]
-        runtime_movement = {"kind": kind}
-        if kind in ("KeepDistance", "DistanceReposition", "Orbit"):
-            runtime_movement.update(preferredDistance=movement["preferredDistance"], distanceTolerance=movement["distanceTolerance"])
-        if kind in ("Orbit", "Zigzag"):
-            runtime_movement["lateralStrength"] = movement["lateralStrength"]
-        if kind in ("Zigzag", "ApproachRetreat"):
-            runtime_movement["cycleSeconds"] = movement["cycleSeconds"]
-        if kind == "DistanceReposition":
-            if movement["cycleSeconds"] != movement["holdingSeconds"] + movement["repositionSeconds"] or not movement["alternateLateralDirection"]:
-                raise SystemExit(f"{enemy['id']}: unsupported reposition cycle")
-            runtime_movement.update(lateralStrength=movement["lateralStrength"], cycleSeconds=movement["cycleSeconds"],
-                                    repositionSeconds=movement["repositionSeconds"])
+        runtime_movement = to_runtime_movement(movement)
         if kind == "TelegraphedDash":
-            if movement["direction"] != "snapshot-at-telegraph-start":
-                raise SystemExit(f"{enemy['id']}: unsupported dash direction policy")
-            runtime_movement.update(dashTelegraphSeconds=movement["dashTelegraphSeconds"],
-                                    dashDurationSeconds=movement["dashDurationSeconds"],
-                                    dashCooldownSeconds=movement["dashCooldownSeconds"],
-                                    dashSpeedMultiplier=movement["dashSpeedMultiplier"])
-            if "showDashTelegraphLine" in movement:
-                runtime_movement["showDashTelegraphLine"] = movement["showDashTelegraphLine"]
             entry["dashContactControls"] = {"knockbackDistance": movement["dashKnockback"], "knockbackSeconds": kb_seconds}
         entry["movement"] = runtime_movement
+        if "movementVariants" in enemy:
+            entry["movementVariants"] = [
+                {"chance": variant["chance"], "movement": to_runtime_movement(variant["movement"])}
+                for variant in enemy["movementVariants"]
+            ]
         attack = enemy["attack"]
         if attack:
             if attack["initialDelaySeconds"] != attack["cooldownSeconds"] or attack["aimSnapshot"] != "windup-start":

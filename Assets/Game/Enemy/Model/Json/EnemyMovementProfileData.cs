@@ -10,6 +10,14 @@ namespace Game.Enemy.Json
         public float? DistanceTolerance { get; set; }
         public float? LateralStrength { get; set; }
         public float? CycleSeconds { get; set; }
+        public float? DirectPursuitSeconds { get; set; }
+        public float? BlockedTriggerSeconds { get; set; }
+        public float? BlockedProgressFraction { get; set; }
+        public float? SidestepSeconds { get; set; }
+        public float? SidestepCooldownSeconds { get; set; }
+        public float? SidestepNearDistance { get; set; }
+        public float? SidestepNearSeconds { get; set; }
+        public float? TurnResponseSeconds { get; set; }
         public float? DashTelegraphSeconds { get; set; }
         public float? DashDurationSeconds { get; set; }
         public float? DashCooldownSeconds { get; set; }

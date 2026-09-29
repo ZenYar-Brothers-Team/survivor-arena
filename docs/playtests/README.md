@@ -32,6 +32,7 @@ execution order и не заменяет [STATUS](../implementation/STATUS.md).
 
 ## Прогоны
 
+- [2026-09-29 — первый просмотр anti-blob движения; без raw report](2026-09-29_anti-blob-movement.md).
 - [2026-09-29 — видимость фактуры, Pause и награда за стартовый уровень; без raw report](2026-09-29_ui-material-and-reward.md).
 - [2026-09-29 — стартовый кадр, folio-декор, стабильность Meta и фильтры Unlocks; без raw report](2026-09-29_ui-folio-followup.md).
 - [2026-09-29 — развитие: иконки, порядок улучшений, стабильность строк и начальные открытия; без raw report](2026-09-29_meta-feedback.md).

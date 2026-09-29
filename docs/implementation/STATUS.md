@@ -497,14 +497,14 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-12a
 
 ### IP-13 — Enemy movement/attack patterns и control integration
 
-Status: Verified
+Status: Implemented
 Dependencies: IP-03, IP-04, IP-05
-Current packet: Fixture movement/attack/control integration, explicit per-kind JSON и category-neutral projectile lifecycle.
+Current packet: Пользовательская дельта 2026-09-29 — пять лёгких anti-blob movement kinds, per-spawn weighted movement variants и ENEMY-001 rollout; прежний fixture movement/attack/control scope сохраняется.
 Remaining gates: Нет для fixture framework. G-07 закрыт DECISION-0017. G-14 остаётся для production cards; новые wind-up/control values — synthetic fixtures.
-Remaining acceptance / IDs: none for the fixture framework packet.
-Target implementation evidence: [IP-13 evidence](evidence/design-sync-R2-2026-09-21-ip13.md#ip-13), [schema/compatibility matrix](modules/IP-13-enemy-patterns.md#schema-и-runtime-contract).
-Target verification evidence: 2026-09-21 — Unity 6000.6.0f1, **467/467 Game.* EditMode, 7/7 PlayMode, 0 skipped**. Все семь attack families, dash+slow+knockback, source после смерти/reuse стрелка, pool/terminal cleanup и representative physics smoke; [details](evidence/design-sync-R2-2026-09-21-ip13.md#coverage-and-verification).
-Documentation impact: IP-13/IP-15/IP-20/IP-21/IP-29 contracts, DECISION-0028 (Proposed technical record), regression guards и consumer readiness. GDD/CD production values не изменены.
+Remaining acceptance / IDs: прежний BlockedSidestep немного помог по пользовательскому просмотру, но blob остался. Новая пробная смесь 75% усиленный BlockedSidestep / по 5% остальных пяти шаблонов ждёт ручного просмотра ENEMY-001. Enemy EditMode 207/207 после настройки; PlayMode предыдущей итерации завершался повторяемым Unity render-loop crash. Прежний fixture framework packet закрыт.
+Target implementation evidence: [Anti-blob delta](evidence/2026-09-29-anti-blob-enemy-movement.md), [IP-13 evidence](evidence/design-sync-R2-2026-09-21-ip13.md#ip-13), [schema/compatibility matrix](modules/IP-13-enemy-patterns.md#schema-и-runtime-contract).
+Target verification evidence: предыдущая настройка 2026-09-29 — targeted Enemy EditMode **200/200**, full EditMode **973/973**, 0 failed/skipped; generation PASS. Эти результаты не проверяют текущую корректировку; новые тесты ожидают пользовательского просмотра. PlayMode дважды завершился в Unity RenderPipelineManager до result XML, поэтому delta не Verified. [Details](evidence/2026-09-29-anti-blob-enemy-movement.md#automated-checks). Прежняя база: 2026-09-21 — 467/467 EditMode, 7/7 PlayMode.
+Documentation impact: GDD/CD, IP-13/IP-20, DECISION-0099, authoring baseline, generated catalog и regression map синхронизированы.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13).
 
 ### IP-14 — Wave Director: continuous и burst timeline
@@ -676,6 +676,7 @@ Data packet 2026-09-26: [enemies-v1](../balance/enemies-v1.md) — недост�
 Late IDs 2026-09-26: ENEMY-006, 008…020 Implemented (production JSON, per-ID тесты); ENEMY-006/008/009 body art — [FIELD-002 evidence](evidence/2026-09-26-field002-enemy-art.md), ENEMY-010…020 body art — [late-art evidence](evidence/2026-09-26-late-enemy-body-art.md). Projectile v001 для ENEMY-010/011/012/014/015/018/019 утверждены и подключены 2026-09-27; полный PASS 857/857 EditMode + 30/30 PlayMode, manifest 188/188. Открыт только ручной gameplay-scale review. [Projectile art evidence](evidence/2026-09-27-enemy-projectile-art.md).
 Startup subset F1-04: ENEMY-001…005/007 + PICKUP-001 Implemented 2026-09-24 — [evidence](evidence/field001-f1-04-2026-09-24.md).
 Balance follow-up 2026-09-27: ENEMY-001 speed 1.20 → 0.96 (−20%); прочие параметры и Seek-поведение сохранены, Unity full PASS 870/870 + 30/30. [Evidence](evidence/2026-09-27-early-projectile-growth-and-enemy001-speed.md).
+Anti-blob follow-up 2026-09-29: ENEMY-001 speed 0.96 → 1.056 (+10%); текущий пробный rollout — 75% усиленный BlockedSidestep и по 5% Seek, OffsetPursuit, CommittedPursuit, ArcPassPursuit, InertialPursuit. Сравнение 534 Physics2D-прогонов выявило этот компромисс между плотностью и близостью к игроку; игровые спавны/бой и визуальное качество им не подтверждены. Enemy EditMode 207/207, generation `UP TO DATE`; ручной просмотр открыт. Две альтернативы зафиксированы в [OBS-07](../playtests/2026-09-29_anti-blob-movement.md#obs-07--две-гипотезы-для-следующего-anti-blob-эксперимента). [Движение](evidence/2026-09-29-anti-blob-enemy-movement.md), [проба](evidence/2026-09-29-anti-blob-sweep.md).
 ENEMY-007 body contact refit to its approved half-size v002 sprite: radius 0.266696, centerY 0.299833; global contact fit PASS, Unity full smoke 784/784 EditMode и 27/27 PlayMode, zero skipped — [evidence](evidence/2026-09-26-enemy007-contact-refit.md). Остальные gates и статус IP-20 не изменились.
 Target implementation evidence: ENEMY-001 v002 принят пользователем; runtime 256×256 импортирован и подключён как body существующего FIXTURE-ENEMY-SEEKER с отдельным motion profile/child rig. Fixture ID, баланс и collider сохранены. Production ENEMY-001 binding не выполнен; G-14 и пользовательский gameplay/density review остаются. [Art integration evidence](evidence/2026-09-21-enemy001-art.md).
 Target verification evidence: 2026-09-21, Unity 6000.6.0f1: 641/641 Game.* EditMode и 23/23 PlayMode, 0 skipped. Import/reimport GUID, registry refs, child-only motion, hit/pause, death/mixed-pool reuse и Gameplay spawner. [Условия и ограничения](evidence/2026-09-21-enemy001-art.md#verification).

@@ -841,10 +841,10 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Роль: простая базовая melee-угроза.
 
-### Размер / collision: 0.8. HP: 32. Speed: 0.96. Contact damage: 10.
+### Размер / collision: 0.8. HP: 32. Speed: 1.056. Contact damage: 10.
 ### Knockback: contact 0.25; ranged/other 0. Knockback resistance 0%.
 
-### Поведение: участник первой стихийной облавы; идёт прямо к гоблину без специальных манёвров.
+### Поведение: участник первой стихийной облавы; при появлении ENEMY-001 получает `BlockedSidestep` (75%) либо один из пяти других шаблонов с вероятностью 5% каждый: `Seek`, `OffsetPursuit`, `CommittedPursuit`, `ArcPassPursuit`, `InertialPursuit`. Выбор сохраняется на всю жизнь врага. `BlockedSidestep` обходит при продвижении менее 95% в течение 0.2 секунды или после 0.8 секунды в радиусе 3 единиц: боковая составляющая ×4, проход 2.4 секунды, cooldown 1 секунда. `OffsetPursuit`: личная точка 3.5, arrival 0.25, цикл 3 секунды с последними 1.2 секунды прямой погони. `CommittedPursuit`: курс обновляется каждые 6 секунд. `ArcPassPursuit`: дуга внутри 4 единиц с боковой составляющей ×2, цикл 2.5 секунды с последними 0.6 секунды прямой погони. `InertialPursuit`: время отклика поворота 2 секунды. Это пробная настройка после автоматического сравнения; игровой результат ещё ждёт просмотра. Основание: [DECISION-0099](decisions/0099-anti-blob-enemy-movement.md), [эксперимент](implementation/evidence/2026-09-29-anti-blob-sweep.md) и [отзыв](playtests/2026-09-29_anti-blob-movement.md).
 
 ### Ranged / особое: нет.
 

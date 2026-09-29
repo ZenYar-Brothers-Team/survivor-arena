@@ -14,6 +14,7 @@ namespace Game.Enemy
         private readonly EnemyDefinition[][] _phaseEnemies;
         private readonly float[] _phaseStarts;
         private readonly Random _random;
+        private readonly Random _movementRandom;
         private ContinuousSpawnTimer _spawnTimer;
         private int _nextHookIndex;
         private bool _burstConsumed;
@@ -77,6 +78,7 @@ namespace Game.Enemy
             Seed = seed ?? timeline.Seed;
             _random = new Random(Seed);
             _geometryRandom = new Random(Seed);
+            _movementRandom = new Random(unchecked(Seed * 486187739 + 104729));
             _spawnTimer = new ContinuousSpawnTimer(CurrentPhase.SpawnIntervalSeconds);
         }
 
@@ -173,5 +175,15 @@ namespace Game.Enemy
             }
             return enemies[enemies.Length - 1];
         }
+
+        /// <summary>Resolves a per-life movement variant on a stream independent from composition and geometry.</summary>
+        public EnemyMovementProfile SelectMovement(EnemyDefinition definition)
+        {
+            if (definition == null) throw new ArgumentNullException(nameof(definition));
+            return definition.SelectMovement((float)_movementRandom.NextDouble());
+        }
+
+        /// <summary>Seeds per-life movement state such as a personal offset or initial retarget interval.</summary>
+        public int SelectMovementSeed() => _movementRandom.Next();
     }
 }

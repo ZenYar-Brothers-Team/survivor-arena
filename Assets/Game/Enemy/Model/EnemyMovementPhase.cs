@@ -10,6 +10,11 @@ namespace Game.Enemy
         Retreating,
         TelegraphingDash,
         Dashing,
-        Repositioning
+        Repositioning,
+        OffsetPursuit,
+        CommittedPursuit,
+        Sidestepping,
+        ArcPassing,
+        InertialPursuit
     }
 }

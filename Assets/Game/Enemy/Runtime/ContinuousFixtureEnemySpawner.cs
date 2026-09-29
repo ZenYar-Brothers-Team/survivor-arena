@@ -56,7 +56,7 @@ namespace Game.Enemy
                 if (_aliveEnemies.Count > 0 && _aliveEnemies[0] != null)
                 {
                     var enemy = _aliveEnemies[0];
-                    return $"{enemy.Definition.Id} · life {enemy.LifeId:N} · {enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"} · {enemy.AttackPhase?.ToString() ?? "No attack"} {enemy.AttackPhaseRemaining:0.##} s · burst left {enemy.BurstShotsRemaining} · shot {enemy.LastProjectileSource.ContentId?.ToString() ?? "none"}/{enemy.LastProjectileSource.Owner.LifeId:N} · slow sources {enemy.Controls.SlowSourceCount} · movement x{enemy.Controls.MovementMultiplier:0.##} · knockback {enemy.Controls.KnockbackRemaining:0.##} s";
+                    return $"{enemy.Definition.Id} · life {enemy.LifeId:N} · {enemy.CurrentMovement.Kind}/{enemy.MovementPhase} · {enemy.AttackPattern?.ToString() ?? "Melee"} · {enemy.AttackPhase?.ToString() ?? "No attack"} {enemy.AttackPhaseRemaining:0.##} s · burst left {enemy.BurstShotsRemaining} · shot {enemy.LastProjectileSource.ContentId?.ToString() ?? "none"}/{enemy.LastProjectileSource.Owner.LifeId:N} · slow sources {enemy.Controls.SlowSourceCount} · movement x{enemy.Controls.MovementMultiplier:0.##} · knockback {enemy.Controls.KnockbackRemaining:0.##} s";
                 }
                 if (LastLifeEvent != null)
                     return $"{LastLifeEvent.ContentId} · life {LastLifeEvent.LifeId:N} · {LastLifeEvent.Reason}";
@@ -144,6 +144,8 @@ namespace Game.Enemy
             var direction = new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle));
 
             var definition = _director.SelectEnemy();
+            var movement = _director.SelectMovement(definition);
+            var movementSeed = _director.SelectMovementSeed();
             var visual = _visuals != null && _visuals.TryGetValue(definition.Id, out var sprite) ? sprite : null;
             var motion = _motions != null && _motions.TryGetValue(definition.Id, out var profile) ? profile : null;
             var contact = _contacts != null && _contacts.TryGetValue(definition.Id, out var fitted) ? fitted : null;
@@ -162,7 +164,9 @@ namespace Game.Enemy
                 contact: contact,
                 deathPresentation: _deathPresentation,
                 groundShadowPresentation: _groundShadowPresentation,
-                contentRegistry: _contentRegistry);
+                contentRegistry: _contentRegistry,
+                movement: movement,
+                movementSeed: movementSeed);
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);

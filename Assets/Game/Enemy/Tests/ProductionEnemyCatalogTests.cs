@@ -18,7 +18,7 @@ namespace Game.Enemy.Tests
                 "Late fourteen from enemies-v1 (DECISION-0062); ProductionLateEnemyCatalogTests covers them.");
             var expected = new (string id, float hp, float speed, float contact, float xp)[]
             {
-                ("ENEMY-001", 32, 0.96f, 10, 1), ("ENEMY-002", 24, 2.25f, 8, 1), ("ENEMY-003", 150, 0.8f, 20, 3),
+                ("ENEMY-001", 32, 1.056f, 10, 1), ("ENEMY-002", 24, 2.25f, 8, 1), ("ENEMY-003", 150, 0.8f, 20, 3),
                 ("ENEMY-004", 48, 0.95f, 8, 2), ("ENEMY-005", 56, 1.1f, 9, 3), ("ENEMY-007", 64, 1.55f, 14, 4)
             };
             foreach (var row in expected)
@@ -32,6 +32,29 @@ namespace Game.Enemy.Tests
             }
             Assert.AreEqual(0.2f, Enemy("ENEMY-003").KnockbackResistance, 1e-4f);
             Assert.IsNull(Enemy("ENEMY-002").Attack, "Courier is fast melee, never the fixture letter shooter.");
+            var firstEnemy = Enemy("ENEMY-001");
+            Assert.AreEqual(EnemyMovementKind.ArcPassPursuit, firstEnemy.Movement.Kind);
+            Assert.AreEqual(4f, firstEnemy.Movement.PreferredDistance, 1e-4f);
+            Assert.AreEqual(2f, firstEnemy.Movement.LateralStrength, 1e-4f);
+            Assert.AreEqual(2.5f, firstEnemy.Movement.CycleSeconds, 1e-4f);
+            Assert.AreEqual(0.6f, firstEnemy.Movement.DirectPursuitSeconds, 1e-4f);
+            Assert.AreEqual(5, firstEnemy.MovementVariants.Count);
+            for (var i = 0; i < firstEnemy.MovementVariants.Count; i++)
+                Assert.AreEqual(i == 3 ? 0.75f : 0.05f, firstEnemy.MovementVariants[i].Chance, 1e-4f);
+            Assert.AreEqual(EnemyMovementKind.Seek, firstEnemy.MovementVariants[0].Movement.Kind);
+            Assert.AreEqual(EnemyMovementKind.CommittedPursuit, firstEnemy.MovementVariants[1].Movement.Kind);
+            Assert.AreEqual(6f, firstEnemy.MovementVariants[1].Movement.CycleSeconds, 1e-4f);
+            Assert.AreEqual(EnemyMovementKind.OffsetPursuit, firstEnemy.MovementVariants[2].Movement.Kind);
+            Assert.AreEqual(3.5f, firstEnemy.MovementVariants[2].Movement.PreferredDistance, 1e-4f);
+            Assert.AreEqual(1.2f, firstEnemy.MovementVariants[2].Movement.DirectPursuitSeconds, 1e-4f);
+            Assert.AreEqual(EnemyMovementKind.BlockedSidestep, firstEnemy.MovementVariants[3].Movement.Kind);
+            Assert.AreEqual(0.2f, firstEnemy.MovementVariants[3].Movement.BlockedTriggerSeconds, 1e-4f);
+            Assert.AreEqual(0.95f, firstEnemy.MovementVariants[3].Movement.BlockedProgressFraction, 1e-4f);
+            Assert.AreEqual(4f, firstEnemy.MovementVariants[3].Movement.LateralStrength, 1e-4f);
+            Assert.AreEqual(2.4f, firstEnemy.MovementVariants[3].Movement.SidestepSeconds, 1e-4f);
+            Assert.AreEqual(3f, firstEnemy.MovementVariants[3].Movement.SidestepNearDistance, 1e-4f);
+            Assert.AreEqual(EnemyMovementKind.InertialPursuit, firstEnemy.MovementVariants[4].Movement.Kind);
+            Assert.AreEqual(2f, firstEnemy.MovementVariants[4].Movement.TurnResponseSeconds, 1e-4f);
         }
 
         [Test]

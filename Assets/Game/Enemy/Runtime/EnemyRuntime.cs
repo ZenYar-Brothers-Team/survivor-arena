@@ -46,12 +46,14 @@ namespace Game.Enemy
         private EnemyDashVolleyController _dashVolley;
         // Body movement, or the active boss phase's dash override (DECISION-0066, E3).
         private EnemyMovementProfile _movementProfile;
+        private EnemyMovementProfile _spawnMovementProfile;
         private bool _holdAttacksDuringDash;
         public BossCombatController BossCombat { get; private set; }
         private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
         private bool _despawned;
         private IEnemyMovementDriver _movementDriver;
+        private System.Random _movementRandom;
         private Func<bool> _damageAllowed;
         private ContentRegistry _contentRegistry;
         public EnemyProtection Protection { get; } = new EnemyProtection();
@@ -111,7 +113,9 @@ namespace Game.Enemy
             SpriteContactProfile contact = null,
             EnemyDeathPresentationProfile deathPresentation = null,
             GroundShadowPresentationProfile groundShadowPresentation = null,
-            ContentRegistry contentRegistry = null)
+            ContentRegistry contentRegistry = null,
+            EnemyMovementProfile movement = null,
+            int? movementSeed = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
             if (definition == null) throw new ArgumentNullException(nameof(definition));
@@ -181,9 +185,11 @@ namespace Game.Enemy
             _renderer.flipX = false;
             _renderer.color = visual != null ? Color.white : new Color(0.85f, 0.2f, 0.2f, 1f);
 
-            _movementProfile = definition.Movement;
+            _movementRandom = new System.Random(movementSeed ?? LifeId.GetHashCode());
+            _spawnMovementProfile = movement ?? definition.SelectMovement((float)_movementRandom.NextDouble());
+            _movementProfile = _spawnMovementProfile;
             _holdAttacksDuringDash = false;
-            _movementController = new EnemyMovementController(definition.Movement);
+            _movementController = new EnemyMovementController(_movementProfile, _movementRandom);
             _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
@@ -266,10 +272,10 @@ namespace Game.Enemy
         // Swap the dash series only between dashes, so a running dash is never cut short (DECISION-0066, E3).
         private void ApplyPhaseMovement(bool dashing)
         {
-            var wanted = BossCombat.Phase.MovementOverride ?? Definition.Movement;
+            var wanted = BossCombat.Phase.MovementOverride ?? _spawnMovementProfile;
             if (dashing || ReferenceEquals(wanted, _movementProfile)) return;
             _movementProfile = wanted;
-            _movementController = new EnemyMovementController(wanted);
+            _movementController = new EnemyMovementController(wanted, _movementRandom);
         }
 
         // DECISION-0063/0066: dash-end volleys leave the moment the dash series stops; the dash telegraph is their warning.

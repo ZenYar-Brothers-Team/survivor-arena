@@ -18,6 +18,7 @@ namespace Game.Enemy
         public ContentRef<SpriteDefinition> Visual { get; }
         public ContentRef<SpriteMotionProfile> MotionProfile { get; }
         public EnemyMovementProfile Movement { get; }
+        public IReadOnlyList<EnemyMovementVariant> MovementVariants { get; }
         public EnemyAttackProfile Attack { get; }
         public float KnockbackResistance { get; }
         public CombatControlProfile DashContactControls { get; }
@@ -40,7 +41,8 @@ namespace Game.Enemy
             CombatControlProfile contactControls = null,
             CombatControlProfile dashContactControls = null,
             ContentRef<SpriteMotionProfile> motionProfile = default,
-            EnemyDashVolleyProfile dashVolley = null)
+            EnemyDashVolleyProfile dashVolley = null,
+            IReadOnlyList<EnemyMovementVariant> movementVariants = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Enemy definition requires a valid content id.", nameof(id));
@@ -64,6 +66,18 @@ namespace Game.Enemy
                 throw new ArgumentException("Enemy motion requires a body visual.", nameof(motionProfile));
             MotionProfile = motionProfile;
             Movement = movement ?? EnemyMovementProfile.Seek;
+            var variants = movementVariants ?? Array.Empty<EnemyMovementVariant>();
+            var chance = 0f;
+            for (var i = 0; i < variants.Count; i++)
+            {
+                if (variants[i] == null) throw new ArgumentException("Movement variants cannot contain null.", nameof(movementVariants));
+                chance += variants[i].Chance;
+            }
+            if (chance > 1f + 0.00001f)
+                throw new ArgumentException("Movement variant chances cannot total more than 1.", nameof(movementVariants));
+            var movementVariantCopy = new EnemyMovementVariant[variants.Count];
+            for (var i = 0; i < variants.Count; i++) movementVariantCopy[i] = variants[i];
+            MovementVariants = movementVariantCopy;
             Attack = attack;
             NumericValidation.ValidateRange(knockbackResistance, 0f, 1f, nameof(knockbackResistance));
             KnockbackResistance = knockbackResistance;
@@ -72,6 +86,17 @@ namespace Game.Enemy
             if (dashVolley != null && Movement.Kind != EnemyMovementKind.TelegraphedDash)
                 throw new ArgumentException("A dash volley needs dash movement.", nameof(dashVolley));
             DashVolley = dashVolley;
+        }
+
+        public EnemyMovementProfile SelectMovement(float roll)
+        {
+            NumericValidation.ValidateRange(roll, 0f, 1f, nameof(roll));
+            for (var i = 0; i < MovementVariants.Count; i++)
+            {
+                roll -= MovementVariants[i].Chance;
+                if (roll < 0f) return MovementVariants[i].Movement;
+            }
+            return Movement;
         }
 
         // Visual is optional: content authored without art yet (e.g. fixtures) simply
