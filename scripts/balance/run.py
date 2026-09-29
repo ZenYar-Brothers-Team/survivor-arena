@@ -90,10 +90,14 @@ def validate(experiment: Path, player: Path, output: Path) -> tuple[dict, dict, 
     return config, build, hashlib.sha256(raw).hexdigest(), preset_hash
 
 
-def child_command(player: Path, experiment: Path, output: Path, chain_id: str, log: Path) -> list[str]:
-    return [str(player), "-logFile", str(log), "-screen-width", "640", "-screen-height", "360",
-            "-screen-fullscreen", "0", f"--balance-experiment={experiment}",
-            f"--balance-output-root={output.parent}", f"--balance-chain={chain_id}"]
+def child_command(player: Path, experiment: Path, output: Path, chain_id: str, log: Path,
+                  visual: bool = False, audio: bool = False) -> list[str]:
+    if audio and not visual:
+        raise ValueError("--audio requires --visual")
+    return [str(player), *([] if visual else ["-batchmode"]), "-logFile", str(log),
+            "-screen-width", "640", "-screen-height", "360", "-screen-fullscreen", "0",
+            f"--balance-experiment={experiment}", f"--balance-output-root={output.parent}",
+            f"--balance-chain={chain_id}", *(["--balance-audio"] if audio else [])]
 
 
 def launch(command: list[str]) -> subprocess.Popen:
@@ -159,16 +163,20 @@ def load_progress(output: Path, chain: dict) -> None:
             pass
 
 
-def run(experiment: Path, player: Path, output: Path) -> int:
+def run(experiment: Path, player: Path, output: Path, visual: bool = False, audio: bool = False) -> int:
+    if audio and not visual:
+        raise ValueError("--audio requires --visual")
     config, build, config_hash, preset_hash = validate(experiment, player, output)
     output.mkdir(parents=True, exist_ok=False)
     write_json(output / "experiment.json", {"schemaVersion": 1, "config": config,
                "sourceConfigSha256": config_hash, "presetSha256": preset_hash,
-               "build": build, "startedUtc": utc_now()})
+               "build": build, "startedUtc": utc_now(),
+               "presentation": {"visual": visual, "audio": audio}})
     started = time.monotonic()
     manifest = {"schemaVersion": 1, "experimentId": config["experimentId"],
                 "requestedChains": config["chains"], "requestedRuns": config["chains"] * config["maxRunsPerChain"],
-                "workerCount": 1, "startedUtc": utc_now(), "chains": [], "state": "running"}
+                "workerCount": 1, "startedUtc": utc_now(), "chains": [], "state": "running",
+                "presentation": {"visual": visual, "audio": audio}}
     write_json(output / "manifest.json", manifest)
     for index in range(1, config["chains"] + 1):
         chain_id = f"chain-{index:04d}"
@@ -188,7 +196,7 @@ def run(experiment: Path, player: Path, output: Path) -> int:
         log = output / f"{chain_id}-player.log"
         child = None
         try:
-            child = launch(child_command(player, experiment, output, chain_id, log))
+            child = launch(child_command(player, experiment, output, chain_id, log, visual, audio))
             chain["state"] = "running"
             chain["pid"] = child.pid
             while child.poll() is None:
@@ -253,14 +261,18 @@ def main() -> int:
     parser.add_argument("--player", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--validate-only", action="store_true")
+    parser.add_argument("--visual", action="store_true", help="Show this run's game window")
+    parser.add_argument("--audio", action="store_true", help="Enable game sound; requires --visual")
     args = parser.parse_args()
     try:
+        if args.audio and not args.visual:
+            raise ValueError("--audio requires --visual")
         experiment, player, output = (value.resolve() for value in (args.experiment, args.player, args.output))
         if args.validate_only:
             validate(experiment, player, output)
             print("VALID")
             return 0
-        return run(experiment, player, output)
+        return run(experiment, player, output, args.visual, args.audio)
     except (OSError, ValueError, json.JSONDecodeError) as error:
         print(f"Balance runner: {error}", file=sys.stderr)
         return 2

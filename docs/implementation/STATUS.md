@@ -119,7 +119,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Implemented | 13/13 EditMode + 6/6 fixture PlayMode; natural FIELD-001 run pending report integration, [evidence](evidence/2026-09-29-ip34-automation.md#ab-03) |
 | 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Implemented | 6/6 composed PlayMode; natural-run, overflow/export-failure and purchase snapshots pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-04) |
 | 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Implemented | 15/15 Automation EditMode + 2/2 composed PlayMode; [evidence](evidence/2026-09-29-ip34-automation.md#ab-05) |
-| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Implemented | 9/9 Python + real standalone partial smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-06) |
+| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Implemented | 10/10 Python + real headless standalone partial smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-06) |
 | 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | In progress | AB-04/06 implementation |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Blocked | AB-01…07 |
 

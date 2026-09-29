@@ -49,6 +49,12 @@ child player per independent chain and never touches the production profile or
 settings. All profile and settings state stays in memory; only experiment
 artifacts are written under `--output`.
 
+By default the worker runs with Unity's `-batchmode` (no visible Player window
+or user input) and mutes its own audio listener before scene load. For one
+specific experiment add `--visual` to show the game window; it stays silent
+unless you also add `--audio`. Neither switch affects your normal game or
+system audio. The selected mode is recorded in the experiment and manifest.
+
 `manifest.json` is atomically refreshed during execution. `experiment.json`
 captures the requested config and build fingerprint. Each chain has an initial
 profile, progress heartbeat and summary. Each run has existing telemetry

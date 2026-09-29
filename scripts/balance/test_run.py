@@ -69,6 +69,20 @@ class BalanceRunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "new directory"):
             balance_run.validate(self.experiment, self.player, self.output)
 
+    def test_visual_is_opt_in_and_audio_is_separate(self):
+        hidden = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log")
+        visual = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
+                                           visual=True)
+        audible = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
+                                            visual=True, audio=True)
+        self.assertIn("-batchmode", hidden)
+        self.assertNotIn("-batchmode", visual)
+        self.assertNotIn("--balance-audio", visual)
+        self.assertIn("--balance-audio", audible)
+        with self.assertRaisesRegex(ValueError, "requires --visual"):
+            balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
+                                      audio=True)
+
     def test_two_chains_are_sequential_and_manifest_preserves_runs(self):
         launches = []
 

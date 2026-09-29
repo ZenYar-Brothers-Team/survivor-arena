@@ -28,6 +28,7 @@ namespace Game.Bootstrap.Automation
             var args = Environment.GetCommandLineArgs();
             var configPath = Value(args, "--balance-experiment=");
             if (configPath == null) return;
+            if (Array.IndexOf(args, "--balance-audio") < 0) AudioListener.volume = 0f;
             SceneManager.sceneLoaded += Configure;
             try
             {

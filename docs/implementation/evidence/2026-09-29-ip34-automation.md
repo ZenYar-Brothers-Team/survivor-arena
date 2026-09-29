@@ -139,3 +139,12 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
 - Pending for Verified: fresh standalone natural W/L, completed multi-chain
   series and full required regression smoke. The current player must be rebuilt
   after subsequent source changes before AB-08.
+- User requested that automation not appear on screen or play sound by default.
+  Runner now uses Unity `-batchmode` by default and mutes the automation Player's
+  listener before scene load. `--visual` opts one launch into a visible window;
+  `--audio` additionally opts into sound (invalid without `--visual`). Python
+  10/10 PASS. Rebuilt player at `TestResults/balance-build-headless/balance.exe`;
+  real `TestResults/balance-headless-check/manifest.json` shows one bounded
+  12.37 s `visual=false, audio=false` run, exit 0, planned partial timeout,
+  with its own run ID and complete output packet. The runner recorded the mode;
+  absence of a window/sound relies on Unity batch mode and the early mute path.
