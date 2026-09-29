@@ -3,7 +3,7 @@
   "seed": 231924,
   "maxAliveEnemies": 200,
   "spawnRadius": 10,
-  "spawnOppositeBias": 0.8,
+  "spawnOppositeBias": 1,
   "openingSpawn": {
     "durationSeconds": 20,
     "screenMargin": 1

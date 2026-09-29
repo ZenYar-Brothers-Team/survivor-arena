@@ -3,7 +3,7 @@
   "seed": 230924,
   "maxAliveEnemies": 200,
   "spawnRadius": 10,
-  "spawnOppositeBias": 0.8,
+  "spawnOppositeBias": 1,
   "openingSpawn": {
     "durationSeconds": 20,
     "screenMargin": 1
@@ -465,5 +465,9 @@
       "kind": "FinalBoss",
       "timeSeconds": 810
     }
-  ]
+  ],
+  "openingIntensity": {
+    "durationSeconds": 30,
+    "rateMultiplier": 0.6
+  }
 }

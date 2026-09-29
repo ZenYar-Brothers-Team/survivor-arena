@@ -54,6 +54,8 @@ namespace Game.Enemy.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 0, new[] { phase }));
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 3, new[] { phase }, spawnOppositeBias: -0.1f));
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveTimelineDefinition("FIXTURE-T", 1, WaveTestData.SpawnRadius, 3, new[] { phase }, spawnOppositeBias: 1.1f));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveOpeningIntensityDefinition(0f, 0.6f));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveOpeningIntensityDefinition(30f, 1.1f));
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveHookDefinition(WaveHookKind.FinalBoss, -1f));
         }
 

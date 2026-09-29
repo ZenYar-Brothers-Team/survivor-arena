@@ -143,6 +143,16 @@ namespace Game.Enemy
 
             // A skip must not charge time spent in old phases to the new cadence.
             var phaseDelta = changed ? Math.Min(deltaTime, Elapsed - _phaseStarts[CurrentPhaseIndex]) : deltaTime;
+            var openingIntensity = _timeline.OpeningIntensity;
+            if (openingIntensity != null && phaseDelta > 0f)
+            {
+                // Charge only the part of this tick inside the opening window at its reduced rate.
+                // Splitting at the boundary preserves accumulated progress without an extra timer reset.
+                var tickStart = Elapsed - phaseDelta;
+                var openingSeconds = Math.Max(0f, Math.Min(Elapsed, openingIntensity.DurationSeconds) -
+                    Math.Max(tickStart, 0f));
+                phaseDelta -= openingSeconds * (1f - openingIntensity.RateMultiplier);
+            }
             var due = _spawnTimer.Tick(phaseDelta, true);
             var capacity = Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
             var allowed = Math.Min(due, capacity);

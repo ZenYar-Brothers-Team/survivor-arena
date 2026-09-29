@@ -10,5 +10,6 @@ namespace Game.Enemy.Json
         public WavePhaseData[] Phases { get; set; }
         public WaveHookData[] Hooks { get; set; }
         public WaveOpeningSpawnData OpeningSpawn { get; set; }
+        public WaveOpeningIntensityData OpeningIntensity { get; set; }
     }
 }

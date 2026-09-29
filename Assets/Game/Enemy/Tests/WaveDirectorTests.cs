@@ -230,6 +230,22 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void Advance_OpeningIntensity_ChargesReducedTimeThenReturnsToNormalAcrossBoundary()
+        {
+            var timeline = new WaveTimelineDefinition("FIXTURE-OPENING-RATE", 3, WaveTestData.SpawnRadius, 20,
+                new[] { WaveTestData.Phase("FIXTURE-P", WavePhaseTag.Ordinary, 10f, 1f, null,
+                    WaveTestData.Entry("FIXTURE-ENEMY-A")) },
+                openingIntensity: new WaveOpeningIntensityDefinition(2f, 0.5f));
+            var director = new WaveDirector(timeline, WaveTestData.TestEnemies(), 10f);
+
+            Assert.AreEqual(0, director.Advance(1f, 1f, false, 0), "Pause must not charge the opening timer.");
+            Assert.AreEqual(0, director.Advance(1.5f, 1.5f, true, 0));
+            Assert.AreEqual(1, director.Advance(2.5f, 1f, true, 0), "This tick crosses the 2-second boundary.");
+            Assert.AreEqual(1, director.Advance(3f, 0.5f, true, 0));
+            Assert.AreEqual(1, director.Advance(4f, 1f, true, 0));
+        }
+
+        [Test]
         public void Hooks_FireOnceInTimeOrderAndOnlyWhileRunning()
         {
             var director = CreateDirector();

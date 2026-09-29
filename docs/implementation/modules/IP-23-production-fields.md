@@ -42,6 +42,9 @@ explicit difficulty 1–5 из CD; автоматического mapping по I
 
 selected field загружает correct geometry/environment; ordinary boundaries/obstacles блокируют только игрока; references валидны. Difficulty 1–5 задана явно; thumbnail отражает поле; безопасное направление движения читается, props не маскируют опасности. Неполная geometry/size/card data отмечена per-field.
 
+По DECISION-0102 внешний периметр физически ограничивает игрока, но не рисует
+сплошной забор; внутренние obstacle props сохраняют собственный арт и коллайдеры.
+
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
 ## UI / observability

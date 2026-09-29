@@ -61,9 +61,11 @@ Fixture groups 18/26/34 и spawn-only load bound не задают production ч
 
 versioned encounter data и rationale принятого баланса, field bindings, run evidence; отделить proposal чисел от утверждённого config.
 
-Проба DECISION-0100 задаёт `spawnRadius = 10` и `spawnOppositeBias = 0.8`
+Проба DECISION-0100 задаёт `spawnRadius = 10` и `spawnOppositeBias = 1.0`
 в authoring balance JSON FIELD-001/002/003; 20-секундное стартовое появление
 у края экрана сохраняется. Числа требуют игрового просмотра.
+По DECISION-0103 только FIELD-001 в первые 30 s использует 0.6 обычной
+continuous частоты; геометрия первых 20 s не меняется.
 
 ## Gates и недостающие решения
 

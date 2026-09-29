@@ -79,6 +79,9 @@ Spawner владеет только ordinary enemies, включая spawned bur
 центра массы живых обычных врагов, сохраняя полное кольцо (DECISION-0100).
 Spawner оценивает направление по не более чем 16 врагам только при спавне;
 при пустой или уравновешенной выборке угол равномерный.
+Optional `openingIntensity` временно масштабирует накопление времени continuous
+spawn timer; при пересечении границы окна tick делится по времени без сброса
+прогресса (DECISION-0103). Burst count не масштабируется.
 Это воспроизводимость решений, а не физики/движения игрока.
 
 `WaveDirector.LastDecision` — requested/allowed/suppressed/expired/deferred;

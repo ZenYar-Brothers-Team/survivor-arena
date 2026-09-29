@@ -21,7 +21,6 @@ namespace Game.Presentation
         public ContentRef<SpriteDefinition> Shrine { get; }
         public float ShrineChance { get; }
         public string ObstacleName { get; }
-        public float FenceHeight { get; }
         public float ObstacleScale { get; }
         public float DecorationSpacing { get; }
         public float DecorationJitter { get; }
@@ -65,7 +64,6 @@ namespace Game.Presentation
             if (!string.IsNullOrWhiteSpace(data.ShrineVisualId)) Shrine = new ContentRef<SpriteDefinition>(data.ShrineVisualId);
             ShrineChance = data.ShrineChance ?? 0f;
             ObstacleName = data.ObstacleName;
-            FenceHeight = Required(data.FenceHeight, nameof(data.FenceHeight));
             ObstacleScale = Required(data.ObstacleScale, nameof(data.ObstacleScale));
             DecorationSpacing = Required(data.DecorationSpacing, nameof(data.DecorationSpacing));
             DecorationJitter = Required(data.DecorationJitter, nameof(data.DecorationJitter));
@@ -109,7 +107,6 @@ namespace Game.Presentation
             if (!Id.IsValid || !EnvironmentId.IsValid || !Ground.Id.IsValid || !Fence.Id.IsValid ||
                 !Obstacle.Id.IsValid || !Bush.Id.IsValid || !Grass.Id.IsValid || string.IsNullOrWhiteSpace(ObstacleName))
                 throw new ArgumentException("Field presentation requires valid IDs and an obstacle name.");
-            NumericValidation.ValidatePositive(FenceHeight, nameof(FenceHeight));
             NumericValidation.ValidatePositive(ObstacleScale, nameof(ObstacleScale));
             NumericValidation.ValidatePositive(DecorationSpacing, nameof(DecorationSpacing));
             NumericValidation.ValidateNonNegative(DecorationJitter, nameof(DecorationJitter));

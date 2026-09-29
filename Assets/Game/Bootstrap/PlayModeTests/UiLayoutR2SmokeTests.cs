@@ -14,6 +14,39 @@ namespace Game.Bootstrap.PlayModeTests
     public sealed class UiLayoutR2SmokeTests
     {
         [UnityTest]
+        public IEnumerator GameplaySpace_WhenDevelopmentButtonHasFocus_IsNotConsumedByPausePanel()
+        {
+            var host = new GameObject("Pause shortcut focus harness");
+            var panel = ScriptableObject.CreateInstance<PanelSettings>();
+            var target = new RenderTexture(1280, 720, 0);
+            UiToolkitGameplayView view = null;
+            try
+            {
+                panel.targetTexture = target;
+                panel.themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
+                var doc = host.AddComponent<UIDocument>();
+                doc.panelSettings = panel;
+                doc.visualTreeAsset = Resources.Load<VisualTreeAsset>("UI/GameplayUi");
+                yield return null;
+                view = new UiToolkitGameplayView(doc.rootVisualElement);
+                view.SetDevelopmentControlsVisible(true);
+                view.RenderRunOverlay(new RunOverlayViewState(false, "", false));
+                var developmentButton = doc.rootVisualElement.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton);
+                developmentButton.Focus();
+                yield return null;
+                Assert.AreSame(developmentButton, doc.rootVisualElement.panel.focusController.focusedElement);
+                Assert.IsFalse(view.ConsumePauseShortcut(true), "A focused gameplay control cannot block Space pause.");
+            }
+            finally
+            {
+                view?.Dispose();
+                Object.DestroyImmediate(host);
+                Object.DestroyImmediate(panel);
+                Object.DestroyImmediate(target);
+            }
+        }
+
+        [UnityTest]
         public IEnumerator DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit()
         {
             foreach (var size in new[] { new Vector2Int(1920, 1080), new Vector2Int(1280, 720) })
