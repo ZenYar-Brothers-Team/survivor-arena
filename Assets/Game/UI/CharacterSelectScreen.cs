@@ -41,6 +41,7 @@ namespace Game.UI
             root.name = GameplayUiElementIds.CharacterSelectScreen;
             EntryUi.Configure(root, _panel);
             root.AddToClassList("entry-page");
+            FolioBackdrop.Attach(root);
             var header = EntryUi.Box("entry-header");
             header.Add(EntryUi.Label("Выбери персонажа", "entry-title"));
             header.Add(EntryUi.Label("1 · Персонаж    —    2 · Поле", "entry-steps"));
@@ -53,6 +54,7 @@ namespace Game.UI
             scroll.Add(_cards);
             workspace.Add(scroll);
             var detail = EntryUi.Box("entry-character-detail"); workspace.Add(detail);
+            FolioPanelTexture.Attach(detail);
             _detail = detail;
             var body = EntryUi.Box("entry-hero-well"); detail.Add(body);
             _portrait = EntryUi.Image(null, "entry-hero-image", GameplayUiElementIds.EntryPortrait); body.Add(_portrait);

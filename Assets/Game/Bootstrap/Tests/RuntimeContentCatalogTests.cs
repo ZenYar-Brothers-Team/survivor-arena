@@ -10,6 +10,34 @@ namespace Game.Bootstrap.Tests
     public class RuntimeContentCatalogTests
     {
         [Test]
+        public void ProductionCatalog_ContainsCollectionArtForAllTenFields()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            var meta = Game.Meta.MetaCatalog.Load();
+            var fields = meta.Unlocks.Values.Where(rule => rule.Kind == "field").ToArray();
+            Assert.AreEqual(10, fields.Length);
+            foreach (var field in fields)
+            {
+                var background = catalog.Registry.Get<SpriteDefinition>(field.Id + "-VISUAL-BACKGROUND");
+                Assert.AreEqual(SpriteRole.Background, background.Role, field.Id);
+                Assert.IsNotNull(background.Sprite, field.Id);
+                Assert.AreSame(background.Sprite, Game.UI.RunResultsProjection.Content(field.Id, meta, catalog.Registry).Icon, field.Id);
+            }
+        }
+
+        [Test]
+        public void ProductionCatalog_ContainsEveryPersonalUpgradeIcon()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            foreach (var id in Game.Meta.MetaCatalog.Load().Upgrades.Keys)
+            {
+                var icon = catalog.Registry.Get<SpriteDefinition>(id + "-VISUAL-ICON");
+                Assert.AreEqual(SpriteRole.Icon, icon.Role, id);
+                Assert.IsNotNull(icon.Sprite, id);
+            }
+        }
+
+        [Test]
         public void Create_BuildsOneValidatedRegistryForEveryRuntimeDefinition()
         {
             var catalog = RuntimeContentCatalog.CreateFixture();

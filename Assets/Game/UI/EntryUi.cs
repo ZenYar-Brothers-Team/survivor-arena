@@ -8,6 +8,7 @@ namespace Game.UI
         public static void Configure(VisualElement root, PanelSettings panel)
         {
             panel.scaleMode = PanelScaleMode.ConstantPixelSize;
+            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/FolioChromeStyles"));
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/EntryStyles"));
             root.AddToClassList("entry-root");
             root.RegisterCallback<GeometryChangedEvent>(e => root.EnableInClassList("entry-compact", e.newRect.width < 1500));

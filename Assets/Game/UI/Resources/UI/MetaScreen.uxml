@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="meta-backdrop" class="meta-backdrop" />
     <ui:VisualElement name="meta-launcher" class="meta-launcher" picking-mode="Ignore">
         <ui:Button name="meta-open" text="Meta progression" />
         <ui:Button name="meta-quit" text="Quit Run" />

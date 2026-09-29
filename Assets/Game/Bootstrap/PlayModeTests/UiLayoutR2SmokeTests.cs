@@ -45,6 +45,7 @@ namespace Game.Bootstrap.PlayModeTests
                     view.RenderBuild(new BuildViewState(slots, slots, received, recipes));
                     view.RenderRunOverlay(new RunOverlayViewState(true, "Передышка", true));
                     yield return null; yield return null;
+                    Assert.IsNotNull(root.Q(className: "pause-panel").Q(className: "folio-panel-texture"));
                     var scroll = root.Q<ScrollView>(GameplayUiElementIds.PauseBuild);
                     Assert.Greater(scroll.verticalScroller.highValue, 0);
                     Assert.IsTrue(scroll.Contains(root.Q(GameplayUiElementIds.ReceivedSets)));
@@ -97,6 +98,7 @@ namespace Game.Bootstrap.PlayModeTests
                     var options = new[] { new DraftOptionViewState(new ContentId("TEST-A"), "Умение A", "+1 рикошет. Повторный удар слабее", recipes: projections),
                         new DraftOptionViewState(new ContentId("TEST-B"), "Умение B", "Урон +20%", recipes: projections) };
                     view.RenderDraft(new DraftViewState(true, 1, 1, options, Guid.NewGuid())); yield return null; yield return null;
+                    Assert.IsNotNull(root.Q(className: "draft-panel").Q(className: "folio-panel-texture"));
                     var inspectB = root.Q<Button>(GameplayUiElementIds.DraftSelectButton(1));
                     inspectB.Focus(); yield return null;
                     Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(1)).enabledSelf);

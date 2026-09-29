@@ -8,6 +8,8 @@ namespace Game.UI
         public const string MetaRefund = "meta-refund", MetaRefundReason = "meta-refund-reason", MetaRefundModal = "meta-refund-modal", MetaRefundDetail = "meta-refund-detail";
         public const string MetaRefundCancel = "meta-refund-cancel", MetaRefundConfirm = "meta-refund-confirm";
         public static string MetaHero(string id) => "meta-hero-" + id;
+        public const string MetaUnlockPane = "meta-unlock-pane", MetaUnlockFilters = "meta-unlock-filters", MetaUnlockState = "meta-unlock-state", MetaUnlockTotal = "meta-unlock-total";
+        public static string MetaUnlockType(string kind) => "meta-unlock-type-" + kind;
         public const string ResultsOutcome = "results-outcome";
         public const string ResultsSelection = "results-selection";
         public const string ResultsTime = "results-time";
@@ -60,8 +62,12 @@ namespace Game.UI
         public const string SettingsMessage = "SettingsMessage";
         public const string SettingsBindings = "SettingsBindings";
         public const string SettingsVideoStatus = "SettingsVideoStatus";
+        public const string SettingsHeader = "SettingsHeader", SettingsOrigin = "SettingsOrigin", SettingsScroll = "SettingsScroll", SettingsContent = "SettingsContent", SettingsFooter = "SettingsFooter";
+        public const string SettingsMasterValue = "SettingsMasterValue", SettingsMusicValue = "SettingsMusicValue", SettingsSfxValue = "SettingsSfxValue";
+        public const string SettingsModal = "SettingsModal", SettingsConfirmStatus = "SettingsConfirmStatus";
 
         public const string MetaBody = "meta-body";
+        public const string MetaBackdrop = "meta-backdrop";
         public const string MetaCards = "meta-cards";
         public const string MetaCharacter = "meta-character";
         public const string MetaUpgradesDisabled = "meta-upgrades-disabled";
@@ -76,6 +82,7 @@ namespace Game.UI
         public const string MetaSummary = "meta-summary";
         public const string MetaMessage = "meta-message";
         public static string MetaCard(string id) => "meta-card-" + id;
+        public static string MetaUpgradeIcon(string id) => "meta-upgrade-icon-" + id;
         public static string MetaBuy(string id) => "meta-buy-" + id;
         public const string TravelerOverlay = "traveler-overlay";
         public const string TravelerObservation = "development-traveler-observation";

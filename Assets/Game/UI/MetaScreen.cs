@@ -37,12 +37,15 @@ namespace Game.UI
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/MetaScreenStyles"));
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/RunResultsStyles"));
             root.styleSheets.Add(Resources.Load<StyleSheet>("UI/MetaShopStyles"));
+            root.styleSheets.Add(Resources.Load<StyleSheet>("UI/FolioChromeStyles"));
+            FolioBackdrop.Attach(root.Q(GameplayUiElementIds.MetaBackdrop));
             _body = root.Q(GameplayUiElementIds.MetaBody); _cards = root.Q<ScrollView>(GameplayUiElementIds.MetaCards);
             _results = new RunResultsPanel(); _body.Insert(0, _results.Root);
             _shop = new MetaShopPanel(id => CharacterRequested?.Invoke(id), card => PurchaseRequested?.Invoke(card),
                 disabled => UpgradesDisabledRequested?.Invoke(disabled), () => RefundRequested?.Invoke(),
                 () => RefundConfirmed?.Invoke(), () => RefundCancelled?.Invoke());
             _body.Insert(0, _shop.Root);
+            FolioPanelTexture.Attach(_body);
             root.RegisterCallback<GeometryChangedEvent>(e => _body.EnableInClassList("results-compact", e.newRect.width < 1500));
             var save = root.Q<Button>(GameplayUiElementIds.MetaSave);
             save.RemoveFromHierarchy(); _body.Insert(_body.childCount - 1, save);
@@ -75,10 +78,12 @@ namespace Game.UI
             root.Q(GameplayUiElementIds.MetaSummary).EnableInClassList("results-hidden", results || shop);
             _cards.EnableInClassList("results-hidden", results || shop);
             _body.style.display = state.Visible ? DisplayStyle.Flex : DisplayStyle.None;
+            root.Q(GameplayUiElementIds.MetaBackdrop).style.display = state.Visible ? DisplayStyle.Flex : DisplayStyle.None;
             root.Q<Label>(GameplayUiElementIds.MetaTitle).text = state.Title;
             root.Q<Label>(GameplayUiElementIds.MetaSummary).text = state.Summary;
-            root.Q<Label>(GameplayUiElementIds.MetaMessage).text = results ? state.Result.SaveStatus : state.Message;
-            root.Q(GameplayUiElementIds.MetaMessage).EnableInClassList("results-hidden", results ? string.IsNullOrEmpty(state.Result.SaveStatus) : string.IsNullOrEmpty(state.Message));
+            var message = results ? state.Result.SaveStatus : state.Message;
+            root.Q<Label>(GameplayUiElementIds.MetaMessage).text = shop && string.IsNullOrEmpty(message) ? " " : message;
+            root.Q(GameplayUiElementIds.MetaMessage).EnableInClassList("results-hidden", !shop && string.IsNullOrEmpty(message));
             root.Q<Button>(GameplayUiElementIds.MetaClose).text = shop ? "В меню" : "Back";
             root.Q<Button>(GameplayUiElementIds.MetaRetry).text = results ? "Ещё забег" : "Retry Run";
             root.Q<Button>(GameplayUiElementIds.MetaSelection).text = results ? "В меню" : "Main Menu";

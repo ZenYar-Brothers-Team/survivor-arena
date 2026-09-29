@@ -32,12 +32,12 @@
 .results-mode .results-item-kind { font-size: 17px; color: #bfaf95; margin-top: 3px; }
 .results-unlocks-group { margin-bottom: 30px; padding-bottom: 24px; border-bottom-width: 1px; border-bottom-color: #574759; }
 .results-mode .meta-actions { justify-content: space-between; flex-wrap: nowrap; flex-shrink: 0; padding-top: 24px; border-top-width: 1px; border-top-color: #574759; }
-.results-mode .meta-actions Button { margin: 0; min-width: 235px; min-height: 70px; padding: 12px 32px; font-size: 29px; background-color: #403746; color: #e8d8b8; border-width: 2px; border-color: #241b2b; border-top-color: #75616a; border-radius: 9px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
-.results-mode #meta-retry { min-width: 320px; background-color: #a65f43; border-top-color: #be8468; }
-.results-mode Button:hover { border-color: #bfaf95; }
+.results-mode .meta-actions Button { margin: 0; min-width: 235px; min-height: 70px; padding: 12px 32px; font-size: 29px; background-color: #403746; color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #806d78; border-bottom-color: #1d1721; border-radius: 9px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.results-mode #meta-retry { min-width: 320px; background-color: #a65f43; border-top-color: #d08a69; border-bottom-color: #5a2f25; }
+.results-mode Button:hover { border-color: #d7c5a6; translate: 0 -2px; }
 .results-mode Button:focus { border-color: #e8d8b8; }
-.results-mode Button:active { background-color: #302936; }
-.results-mode Button:disabled { background-color: #403746; color: #9d8e9e; opacity: 0.65; }
+.results-mode Button:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
+.results-mode Button:disabled { background-color: #403746; color: #9d8e9e; opacity: 0.65; translate: 0 0; }
 .results-mode .meta-message { font-size: 21px; color: #bfaf95; flex-shrink: 0; }
 .results-mode #meta-save { align-self: flex-start; font-size: 20px; margin-top: 8px; padding: 8px 15px; flex-shrink: 0; background-color: #493d43; color: #e8d8b8; border-width: 1px; border-color: #b78869; border-radius: 5px; }
 .results-mode.results-pending .results-total { color: #bfaf95; }

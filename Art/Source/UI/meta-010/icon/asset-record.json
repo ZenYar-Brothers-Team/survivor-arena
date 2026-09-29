@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "META-010",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-28",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-29",
+  "approvedBy": "user",
+  "approvalEvidence": "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+  "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One warm-parchment small rectangular card crossed diagonally with a single thick muted coral-red slash. No circle, text or ornament. All colored shapes fully opaque inside outlines. Content owner: META-010, role: icon.",
+  "constraints": [
+    "Transparent exterior background; opaque icon shapes",
+    "No text or baked frame",
+    "32 px slot before upgrade title"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Meta/meta-010-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "60c60124f531d21d177bd3ce0b6d47618cb5b31077ca1096d1cfd131cfff89f6",
+    "runtimeSha256": "5ced619803e7a7a24e00e086415636161360b31c52f81d876c51819c058ed3a3",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true
+    }
+  }
+}

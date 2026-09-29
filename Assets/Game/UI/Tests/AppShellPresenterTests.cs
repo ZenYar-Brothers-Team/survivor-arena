@@ -47,6 +47,24 @@ namespace Game.UI.Tests
             foreach(var field in typeof(GameplayUiElementIds).GetFields())
                 if(field.Name.StartsWith("Shell")||field.Name.StartsWith("Settings"))Assert.IsNotNull(tree.Q((string)field.GetValue(null)),field.Name);
             Assert.IsNotNull(Resources.Load<StyleSheet>("UI/AppShellStyles"));
+            Assert.IsNotNull(Resources.Load<StyleSheet>("UI/SettingsStyles"));
+            Assert.IsNotNull(Resources.Load<StyleSheet>("UI/FolioChromeStyles"));
+            Assert.IsNotNull(tree.Q<DropdownField>(GameplayUiElementIds.SettingsWindow));
+        }
+        [Test] public async Task Settings_VideoConfirmation_UsesServiceCountdownAndReturnsToSettings()
+        {
+            var view = new FakeAppShellView(); var nav = new FakeAppNavigation();
+            var settings = new SettingsService(SettingsConfig.Load(), new MemorySettingsStore(), new FakeVideoDevice());
+            await settings.LoadAsync(); using var presenter = new AppShellPresenter(nav, settings, new FakeAudioPreview(), view);
+            view.OpenSettings(); Assert.IsFalse(view.State.CanApplyVideo);
+            settings.SetCandidate(settings.Video.SafeWindow); Assert.IsTrue(view.State.CanApplyVideo);
+            await settings.ApplyVideoAsync(); Assert.IsTrue(view.State.Confirming);
+            StringAssert.Contains("10 с.", view.State.VideoStatus); Assert.IsFalse(view.State.CanApplyVideo);
+            settings.Tick(4); StringAssert.Contains("6 с.", view.State.VideoStatus);
+            presenter.Back(); Assert.IsTrue(view.State.Settings); Assert.IsFalse(view.State.Confirming);
+            Assert.AreEqual(settings.Video.Desktop, settings.Video.Current);
+            nav.AtMainMenu = false; nav.AtManualPause = true; presenter.Refresh();
+            Assert.IsTrue(view.State.SettingsFromPause);
         }
         [Test] public async Task Settings_MouseMovementToggle_UpdatesPersistedPreference()
         {

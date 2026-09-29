@@ -2,13 +2,68 @@ using System.Collections;
 using Game.Character;
 using Game.Run;
 using Game.UI;
+using Game.Settings;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UIElements;
 namespace Game.Bootstrap.PlayModeTests
 {
     public sealed class SettingsPresentationSmokeTests
     {
+        [UnityTest] public IEnumerator SettingsFolio_TwoResolutions_ConfirmationAndFocus()
+        {
+            ProfileSmokeScene.Load(false); yield return null; yield return null;
+            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            RenderTexture target = null;
+            try
+            {
+                var document = root.ShellDocument; var ui = document.rootVisualElement;
+                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.ShellSettings)); yield return null;
+                foreach (var size in new[] { new Vector2Int(1920,1080), new Vector2Int(1280,720) })
+                {
+                    target = new RenderTexture(size.x,size.y,24); document.panelSettings.targetTexture = target;
+                    yield return null; yield return null;
+                    var backdrop = ui.Q(className: "folio-backdrop-visual");
+                    Assert.IsNotNull(backdrop);
+                    Assert.That(backdrop.worldBound.width, Is.EqualTo(size.x).Within(1));
+                    Assert.That(backdrop.worldBound.height, Is.EqualTo(size.y).Within(1));
+                    Assert.IsNotNull(ui.Q(className: "settings-folio").Q(className: "folio-panel-texture"));
+                    var scroll = ui.Q<ScrollView>(GameplayUiElementIds.SettingsScroll);
+                    Assert.LessOrEqual(scroll.verticalScroller.highValue, 1, "Settings should fit without scrolling.");
+                    Assert.GreaterOrEqual(ui.Q<DropdownField>(GameplayUiElementIds.SettingsWindow).Q(className: "unity-base-field__input").worldBound.width, 220);
+                    Assert.GreaterOrEqual(ui.Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).Q(className: "unity-toggle__input").worldBound.width, 22);
+                    foreach (var id in new[] { GameplayUiElementIds.SettingsBack, GameplayUiElementIds.SettingsMaster,
+                        GameplayUiElementIds.SettingsResolution, GameplayUiElementIds.SettingsBindings })
+                    {
+                        var bounds = ui.Q(id).worldBound;
+                        Assert.Greater(bounds.width, 0); Assert.GreaterOrEqual(bounds.xMin,0); Assert.GreaterOrEqual(bounds.yMin,0);
+                        Assert.LessOrEqual(bounds.xMax,size.x+1); Assert.LessOrEqual(bounds.yMax,size.y+1);
+                    }
+                    ui.Q<Slider>(GameplayUiElementIds.SettingsMaster).value = 25;
+                    Assert.AreEqual("25%",ui.Q<Label>(GameplayUiElementIds.SettingsMasterValue).text);
+                    Assert.IsFalse(ui.Q<Button>(GameplayUiElementIds.SettingsApply).enabledInHierarchy);
+                    UiFoundationSmokeTests.Capture(target,$"settings-r1-{size.x}x{size.y}");
+                    ui.Q<DropdownField>(GameplayUiElementIds.SettingsWindow).value = "В окне";
+                    Assert.IsTrue(ui.Q<Button>(GameplayUiElementIds.SettingsApply).enabledInHierarchy);
+                    UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.SettingsApply)); yield return null;
+                    Assert.AreEqual(VideoPreviewState.Confirming,root.Settings.PreviewState);
+                    Assert.IsFalse(ui.Q<Button>(GameplayUiElementIds.SettingsBack).enabledInHierarchy);
+                    Assert.AreSame(ui.Q<Button>(GameplayUiElementIds.SettingsRevert),ui.panel.focusController.focusedElement);
+                    UiFoundationSmokeTests.Capture(target,$"settings-r1-confirm-{size.x}x{size.y}");
+                    UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.SettingsRevert)); yield return null;
+                    Assert.AreEqual(VideoPreviewState.Idle,root.Settings.PreviewState);
+                    Assert.AreSame(ui.Q<DropdownField>(GameplayUiElementIds.SettingsWindow),ui.panel.focusController.focusedElement);
+                    document.panelSettings.targetTexture = null; Object.Destroy(target); target = null;
+                }
+            }
+            finally
+            {
+                if(root.ShellDocument != null)root.ShellDocument.panelSettings.targetTexture = null;
+                if(target != null)Object.Destroy(target);
+                root.Shutdown();
+            }
+        }
         [UnityTest] public IEnumerator Shake_Damage_PreservesCameraAnchorAndResetsOnPauseOffAndEnd()
         {
             ProfileSmokeScene.Load();yield return null;yield return null;

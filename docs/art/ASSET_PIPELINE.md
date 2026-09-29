@@ -13,6 +13,13 @@ Menu E использует два approved слоя из `Art/Packets/ui-entry-
 
 ## 1. Назначение
 
+Meta stat icons R1: утверждённый пакет `Art/Packets/ui-meta-stat-icons-r1.json`,
+META-003…014 с ролью Icon. Source `Art/Source/UI/meta-XXX/icon/`; runtime
+`Assets/Resources/Art/UI/Icons/Meta/meta-XXX-icon.png`. Fit 256×256, padding 16,
+cropAlpha true; обычный UI import profile. View slot 32 px перед title.
+RuntimeContentCatalog включает visual IDs по owner-role convention для каждого
+production MetaUpgrade, presenter проверяет Icon role. Нового gameplay payload нет.
+
 Этот документ определяет воспроизводимый путь растрового ассета от генерации и пользовательского review до стабильного Unity runtime-файла. Он является source of truth для структуры каталогов, naming, версий, provenance, технической подготовки PNG, import settings и безопасной замены изображений.
 
 Art Direction отвечает на вопрос «как ассет должен выглядеть». Asset Pipeline отвечает на вопрос «как он создаётся, утверждается, хранится, импортируется и заменяется».

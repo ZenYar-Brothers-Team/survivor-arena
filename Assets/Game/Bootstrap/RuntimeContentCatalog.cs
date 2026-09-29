@@ -276,6 +276,12 @@ namespace Game.Bootstrap
                 .Where(reference => reference.ExpectedType == typeof(SpriteDefinition))
                 .Select(reference => reference.Id);
             // Configured sprites only: a missing production visual fails here instead of using a placeholder.
+            var metaCatalog = Game.Meta.MetaCatalog.Load();
+            visualIds = visualIds.Concat(metaCatalog.Upgrades.Keys
+                .Select(id => new ContentId(id + "-VISUAL-ICON")));
+            // Collection art does not require a playable field definition.
+            visualIds = visualIds.Concat(metaCatalog.Unlocks.Values.Where(rule => rule.Kind == "field")
+                .Select(rule => new ContentId(rule.Id + "-VISUAL-BACKGROUND")));
             allDefinitions.AddRange(FixtureSpriteCatalog.CreateFor(visualIds));
 
             var registry = ContentRegistry.BuildFrom(allDefinitions);

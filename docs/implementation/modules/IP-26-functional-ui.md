@@ -48,6 +48,18 @@ error/выключенные бонусы, смену героя, scroll/focus �
 Карточки улучшений компактные, только текст, без иконок сетов/предметов.
 Дорелизная экономика использует отдельный профиль без миграции старых покупок.
 
+Полная вкладка «Открытия» — [DECISION-0092](../../decisions/0092-unlocks-collection-ui.md):
+все определения, включая начальные; фильтры типа и состояния; общая прокрутка
+сетки 3/2 колонки и закреплённые фильтры/счётчик/возврат. Проверить пустой фильтр,
+весь каталог, покупку и возврат фокуса, сохранение scroll при refresh, 1080p/720p.
+Силуэты остаются только у неоткрытых персонажей, условия и экономика не меняются.
+Коллекция показывает готовые иллюстрации всех десяти карт независимо от наличия
+playable field definition; это не открывает карту для запуска. Meta/results имеют
+полноэкранную непрозрачную подложку, скрываемую вместе с экраном.
+Проверка Meta должна включать первый вход из меню до Character Select: artwork
+registry уже доступен. Toggle бонусов не пересоздаёт upgrade rows/roster и не
+смещает scroll. Порядок типов — по UI/UX §17, перебросы/исключения последние.
+
 ## Scope
 
 Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-up/Book drafts; Pause/Build→Resume/Settings/Quit; Victory/Defeat→Results; Retry немедленно с теми же character/field, Main Menu, meta purchases. Results: outcome/time/level/kills/currency/sets/unlocks; top-3 skills by damage только при доступной корректной attribution IP-31, без обязательного отдельного analytics screen. В этом же IP находятся basic Settings: persisted Master/Music/SFX, resolution/window mode, current movement keys, Screen Shake toggle и Mouse movement toggle (default Off). Поставить минимальные рабочие audio routing endpoints/preview и presentation consumer shake, не декоративные controls. Escape/Space/right mouse переключают только manual pause по [DECISION-0084](../../decisions/0084-mouse-movement-and-pause-shortcuts.md). Внутренние этапы shell→settings→full navigation являются checklist одного IP, не отдельными execution statuses.
@@ -63,6 +75,11 @@ Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
 ## UI / observability
+
+Персональные Meta upgrades используют отдельные stat icons META-003…014-VISUAL-ICON,
+разрешённые через SpriteDefinition registry в presenter. Slot 32 px перед названием
+не увеличивает высоту; отсутствие registry в isolated fixtures оставляет текстовый
+вариант. Production smoke проверяет все 12 sprites и отсутствие перекрытия текста.
 
 целевой screen/state/intent map, keyboard+mouse input/focus, normal/hover/pressed/disabled/selected/locked, meaningful errors; все player-facing данные отдельно от DEV. Traveler HP у каждого, arrow исчезает при видимости/death/escape; countdown ухода не добавляется.
 
@@ -164,6 +181,9 @@ Unity использует смещение двух слоёв и отдель�
 HTML фиксирует композицию, но не считается финальной отделкой кнопок: после
 выбора layout отдельный тематический проход применяет Art Direction §12.2
 (матовые поверхности, тонкий контур/фактура, полная state matrix), без тяжёлого bevel.
+Тематический проход поручен пользователем 2026-09-29: общий процедурный фон без
+новых raster assets и единая state matrix кнопок распространяются на Entry,
+Settings, Meta и Results; layout, navigation и доступность контента не меняются.
 
 ## Потребители
 
@@ -218,6 +238,12 @@ graphics options вне текущего scope. Существующая camera 
 baseline; spatial gameplay queries не должны читать shake offset.
 
 ## Runtime / UI contract
+
+Чистовое Settings оформление по [DECISION-0093](../../decisions/0093-settings-folio-ui.md):
+`SettingsPanel` / `UI/SettingsStyles.uss` и shell UXML, две колонки, проценты,
+режим через dropdown, отдельный video confirmation. Служба Settings продолжает
+владеть отсчётом и rollback. Проверить обе геометрии, modal focus, Apply/Back,
+mouse/shake/audio, сохранение и возврат к исходному pause owner.
 
 `Game.Settings` — app-scoped `ISettingsService`/`SettingsService`, immutable snapshots,
 validated `SettingsConfig` из `Content/Settings/SettingsDefaults.json`. Файл

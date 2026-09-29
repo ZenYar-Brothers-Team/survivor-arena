@@ -39,6 +39,13 @@ namespace Game.Bootstrap.PlayModeTests
                     document.panelSettings.targetTexture = target;
                     yield return null; yield return null;
                     Bounded(ui.Q(GameplayUiElementIds.MetaRetry), size);
+                    var backdrop = ui.Q(GameplayUiElementIds.MetaBackdrop);
+                    Assert.AreEqual(DisplayStyle.Flex, backdrop.resolvedStyle.display);
+                    Assert.AreEqual(1f, backdrop.resolvedStyle.backgroundColor.a);
+                    Assert.That(backdrop.worldBound.width, Is.EqualTo(size.x).Within(1));
+                    Assert.That(backdrop.worldBound.height, Is.EqualTo(size.y).Within(1));
+                    Assert.IsNotNull(backdrop.Q(className: "folio-backdrop-visual"));
+                    Assert.IsNotNull(ui.Q(GameplayUiElementIds.MetaBody).Q(className: "folio-panel-texture"));
                     Bounded(ui.Q(GameplayUiElementIds.ResultsTotal), size);
                     UiFoundationSmokeTests.Capture(target, $"results-production-{size.x}x{size.y}");
                     var allSets = composition.Catalog.Sets.Select(s => RunResultsProjection.Content(s.Id.ToString(), composition.Profile.Catalog, composition.Catalog.Registry)).ToArray();
@@ -75,6 +82,7 @@ namespace Game.Bootstrap.PlayModeTests
                 var oldId = run.Model.RunId;
                 UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.MetaRetry)); yield return null;
                 Assert.AreNotEqual(oldId, run.Model.RunId);
+                Assert.AreEqual(DisplayStyle.None, ui.Q(GameplayUiElementIds.MetaBackdrop).resolvedStyle.display);
                 Assert.AreEqual("CHAR-001", run.Model.Selection.CharacterId.ToString());
                 Assert.AreEqual("FIELD-001", run.Model.Selection.FieldId.ToString());
             }

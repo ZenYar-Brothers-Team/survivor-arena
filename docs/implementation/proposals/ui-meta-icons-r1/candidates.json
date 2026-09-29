@@ -1,0 +1,116 @@
+{
+  "generator": "OpenAI built-in image generation",
+  "approval": "approval.md; user, 2026-09-29",
+  "role": "Approved candidates; runtime packet Art/Packets/ui-meta-stat-icons-r1.json",
+  "intendedSlotPixels": 32,
+  "assets": [
+    {
+      "owner": "META-004",
+      "title": "Урон",
+      "role": "icon",
+      "visualId": "META-004-VISUAL-ICON",
+      "candidate": "meta-004-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One short broad steel sword tilted diagonally, simple pale steel blade and muted coral-red grip. No second sword. Content owner: META-004, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-006",
+      "title": "Скорость действий",
+      "role": "icon",
+      "visualId": "META-006-VISUAL-ICON",
+      "candidate": "meta-006-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One chunky lightning bolt, warm ochre-gold. Bold extremely simple zigzag silhouette. Content owner: META-006, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-005",
+      "title": "Размер предметов",
+      "role": "icon",
+      "visualId": "META-005-VISUAL-ICON",
+      "candidate": "meta-005-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: Two short thick warm-parchment diagonal arrows pointing away from each other, lower-left and upper-right. Simple expansion pictogram. Content owner: META-005, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-003",
+      "title": "Здоровье",
+      "role": "icon",
+      "visualId": "META-003-VISUAL-ICON",
+      "candidate": "meta-003-candidate.png",
+      "prompt": "Edit this supplied regeneration icon into a plain health icon: remove the cream circular arrow entirely, and restore the simple pointed bottom-right edge of the green heart behind it. Keep the existing clean solid light sage-green heart fill and deep-plum outline, same thickness and palette. There must be one complete opaque heart, no hole or gradient or shadows in its interior, and truly transparent background outside. No other objects. Preserve the general size and centered placement. META-003 health icon.",
+      "reference": "meta-007-candidate.png"
+    },
+    {
+      "owner": "META-013",
+      "title": "Снижение урона",
+      "role": "icon",
+      "visualId": "META-013-VISUAL-ICON",
+      "candidate": "meta-013-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One simple broad shield, blue-grey steel with a single warm-parchment center stripe, no crest or ornament. All colored shapes must be fully opaque inside their outlines, no transparent holes or fading inside filled shapes. Content owner: META-013, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-007",
+      "title": "Регенерация",
+      "role": "icon",
+      "visualId": "META-007-VISUAL-ICON",
+      "candidate": "meta-007-candidate.png",
+      "prompt": "Edit target: the supplied icon. Fix ONLY the green heart fill: replace all its gradient, dark discoloration and transparent interior holes with completely solid opaque pale sage-green #A8BD78. Make the entire heart interior flat-filled with this one color. Preserve the outer deep-plum contour, silhouette, canvas, padding and any cream arrow or highlight exactly. No soft shading, no dark center, no holes, no translucent fill. Background outside the icon must remain truly transparent. This is a tiny fantasy UI stat icon META-007.",
+      "reference": "references/regeneration-before-alpha-fix.png"
+    },
+    {
+      "owner": "META-014",
+      "title": "Эффективность лечения",
+      "role": "icon",
+      "visualId": "META-014-VISUAL-ICON",
+      "candidate": "meta-014-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One stout green potion bottle, plain rounded silhouette, short cork neck, no label or bubbles. All colored shapes must be fully opaque inside their outlines, no transparent holes or fading inside filled shapes. Content owner: META-014, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-008",
+      "title": "Скорость движения",
+      "role": "icon",
+      "visualId": "META-008-VISUAL-ICON",
+      "candidate": "meta-008-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One chunky leather boot in side profile pointing right, muted rust leather and warm-parchment cuff, no laces. All colored shapes must be fully opaque inside their outlines, no transparent holes or fading inside filled shapes. Content owner: META-008, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-011",
+      "title": "Радиус подбора опыта",
+      "role": "icon",
+      "visualId": "META-011-VISUAL-ICON",
+      "candidate": "meta-011-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One stout horseshoe-shaped magnet facing upward, muted rust body and pale steel tips, no particles or extra symbols. All colored shapes fully opaque inside outlines. Content owner: META-011, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-012",
+      "title": "Опыт при подборе",
+      "role": "icon",
+      "visualId": "META-012-VISUAL-ICON",
+      "candidate": "meta-012-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One simple azure diamond crystal, broad geometric shape with only two large facets. All colored shapes fully opaque inside outlines. Content owner: META-012, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-009",
+      "title": "Перебросы",
+      "role": "icon",
+      "visualId": "META-009-VISUAL-ICON",
+      "candidate": "meta-009-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: Two chunky warm ochre-gold curved arrows forming a circular reroll symbol. No dice, letters or extra elements. All colored shapes fully opaque inside outlines. Content owner: META-009, role: icon.",
+      "reference": null
+    },
+    {
+      "owner": "META-010",
+      "title": "Исключения",
+      "role": "icon",
+      "visualId": "META-010-VISUAL-ICON",
+      "candidate": "meta-010-candidate.png",
+      "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One warm-parchment small rectangular card crossed diagonally with a single thick muted coral-red slash. No circle, text or ornament. All colored shapes fully opaque inside outlines. Content owner: META-010, role: icon.",
+      "reference": null
+    }
+  ]
+}

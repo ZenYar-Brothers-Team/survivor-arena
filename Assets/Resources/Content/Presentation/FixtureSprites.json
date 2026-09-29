@@ -2268,5 +2268,65 @@
     "id": "UI-MENU-FRONT-VISUAL-BACKGROUND",
     "resourcePath": "Art/UI/Menu/ui-menu-front-background",
     "role": "Background"
+  },
+  {
+    "id": "META-004-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-004-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-006-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-006-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-005-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-005-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-003-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-003-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-013-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-013-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-007-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-007-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-014-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-014-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-008-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-008-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-011-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-011-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-012-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-012-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-009-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-009-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "META-010-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Meta/meta-010-icon",
+    "role": "Icon"
   }
 ]

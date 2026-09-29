@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Game.Meta;
 using Game.Progression;
 using Game.UI;
@@ -22,11 +23,12 @@ namespace Game.Bootstrap.PlayModeTests
             var write = store.WriteAsync(codec.Encode(data));
             while (!write.IsCompleted) yield return null;
             Assert.IsFalse(write.IsFaulted);
-            ProductionSmokeScene.Load(store); yield return null; yield return null;
+            ProductionSmokeScene.Load(store, false); yield return null; yield return null;
             var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
             RenderTexture target = null;
             try
             {
+                Assert.IsNull(root.Catalog, "Must test opening Meta before character selection.");
                 root.ReturnToProfileSelection(); root.Meta(); yield return null;
                 var document = root.ProfileDocument; var ui = document.rootVisualElement;
                 foreach (var size in new[] { new Vector2Int(1920, 1080), new Vector2Int(1280, 720) })
@@ -34,7 +36,26 @@ namespace Game.Bootstrap.PlayModeTests
                     target = new RenderTexture(size.x, size.y, 24); document.panelSettings.targetTexture = target;
                     yield return null; yield return null;
                     var list = ui.Q<ScrollView>(GameplayUiElementIds.MetaUpgradeList);
+                    var backdrop = ui.Q(GameplayUiElementIds.MetaBackdrop);
+                    Assert.AreEqual(DisplayStyle.Flex, backdrop.resolvedStyle.display);
+                    Assert.AreEqual(1f, backdrop.resolvedStyle.backgroundColor.a);
+                    Assert.That(backdrop.worldBound.width, Is.EqualTo(size.x).Within(1));
+                    Assert.That(backdrop.worldBound.height, Is.EqualTo(size.y).Within(1));
+                    Assert.IsNotNull(backdrop.Q(className: "folio-backdrop-visual"));
+                    Assert.IsNotNull(ui.Q(GameplayUiElementIds.MetaBody).Q(className: "folio-panel-texture"));
                     Assert.AreEqual(12, list.contentContainer.childCount);
+                    foreach (var upgrade in catalog.Upgrades.Values)
+                    {
+                        var icon = list.Q<Image>(GameplayUiElementIds.MetaUpgradeIcon(upgrade.Id));
+                        Assert.IsNotNull(icon.sprite, upgrade.Id);
+                        Assert.AreEqual(32, icon.worldBound.width, 0.1f);
+                        var upgradeRow = list.Q(GameplayUiElementIds.MetaCard(upgrade.Id));
+                        var title = upgradeRow.Q<Label>(className: "shop-card-title");
+                        Assert.LessOrEqual(icon.worldBound.xMax, title.worldBound.xMin);
+                        Assert.LessOrEqual(title.worldBound.xMax, upgradeRow.Q(className: "shop-level").worldBound.xMin);
+                    }
+                    Assert.IsNotNull(ui.Q<Image>(GameplayUiElementIds.MetaPortrait).sprite);
+                    foreach (var portrait in ui.Q<ScrollView>(GameplayUiElementIds.MetaRoster).Query<Image>().ToList()) Assert.IsNotNull(portrait.sprite);
                     Bounded(ui.Q(GameplayUiElementIds.MetaClose), size);
                     Bounded(ui.Q(GameplayUiElementIds.MetaRefund), size);
                     Bounded(ui.Q(GameplayUiElementIds.MetaBuy("META-003")), size);
@@ -43,7 +64,14 @@ namespace Game.Bootstrap.PlayModeTests
                     if (size.x == 1280) Assert.Greater(list.verticalScroller.highValue, 0);
                     UiFoundationSmokeTests.Capture(target, $"meta-personal-{size.x}x{size.y}");
                     list.scrollOffset = new Vector2(0, list.verticalScroller.highValue); yield return null;
-                    Bounded(ui.Q(GameplayUiElementIds.MetaBuy("META-014")), size);
+                    Bounded(ui.Q(GameplayUiElementIds.MetaBuy("META-010")), size);
+                    var row = list.Q(GameplayUiElementIds.MetaCard("META-010"));
+                    var position = row.worldBound.position; var scrollPosition = list.scrollOffset;
+                    ui.Q<Toggle>(GameplayUiElementIds.MetaShopToggle).value = true; yield return null; yield return null;
+                    Assert.AreSame(row,list.Q(GameplayUiElementIds.MetaCard("META-010")),"Toggle must not rebuild rows.");
+                    Assert.AreEqual(scrollPosition,list.scrollOffset);
+                    Assert.Less(Vector2.Distance(position,row.worldBound.position),1);
+                    ui.Q<Toggle>(GameplayUiElementIds.MetaShopToggle).value = false; yield return null;
                     list.scrollOffset = Vector2.zero;
                     document.panelSettings.targetTexture = null; Object.Destroy(target); target = null;
                 }
@@ -66,7 +94,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Submit(ui, GameplayUiElementIds.MetaBuy("META-009")); Submit(ui, GameplayUiElementIds.MetaBuy("META-010")); yield return null;
                 Submit(ui, GameplayUiElementIds.MetaClose); root.Play(); CharacterSelectionSmokeDriver.StartDefault(root); yield return null;
                 var draft = Object.FindAnyObjectByType<LevelUpDraftRuntime>();
-                Assert.AreEqual(4, draft.RemainingRerolls); Assert.AreEqual(3, draft.RemainingBanishes);
+                Assert.AreEqual(2, draft.RemainingRerolls); Assert.AreEqual(2, draft.RemainingBanishes);
             }
             finally
             {
@@ -76,6 +104,65 @@ namespace Game.Bootstrap.PlayModeTests
             }
         }
         private static void Submit(VisualElement root, string id) => UiFoundationSmokeTests.Submit(root.Q<Button>(id));
+        [UnityTest]
+        public IEnumerator Unlocks_FiltersAndScroll_TwoResolutions()
+        {
+            ProductionSmokeScene.Load(new MemoryProfileStore(), false); yield return null; yield return null;
+            var root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
+            RenderTexture target = null;
+            try
+            {
+                root.ReturnToProfileSelection(); root.Meta(); yield return null;
+                var document = root.ProfileDocument; var ui = document.rootVisualElement;
+                Submit(ui, GameplayUiElementIds.MetaTabUnlocks); yield return null;
+                foreach (var size in new[] { new Vector2Int(1920, 1080), new Vector2Int(1280, 720) })
+                {
+                    target = new RenderTexture(size.x, size.y, 24); document.panelSettings.targetTexture = target;
+                    yield return null; yield return null;
+                    var list = ui.Q<ScrollView>(GameplayUiElementIds.MetaUnlockList);
+                    Submit(ui, GameplayUiElementIds.MetaUnlockType("all")); yield return null;
+                    Assert.AreEqual(70, list.Query(className: "shop-unlock").ToList().Count);
+                    Assert.AreEqual(0,list.Query(className:"shop-unknown").ToList().Count);
+                    Assert.AreEqual(70, list.Query<Image>().ToList().Count);
+                    foreach(var icon in list.Query<Image>().ToList()) Assert.IsNotNull(icon.sprite);
+                    Assert.Greater(list.verticalScroller.highValue, 0);
+                    Bounded(ui.Q(GameplayUiElementIds.MetaUnlockFilters), size);
+                    Bounded(ui.Q(GameplayUiElementIds.MetaUnlockTotal), size);
+                    Bounded(ui.Q(GameplayUiElementIds.MetaClose), size);
+                    UiFoundationSmokeTests.Capture(target, $"meta-unlocks-{size.x}x{size.y}");
+                    foreach (var kind in new[] { "character", "field", "ability", "set" })
+                    {
+                        Submit(ui, GameplayUiElementIds.MetaUnlockType(kind)); yield return null;
+                        Assert.AreEqual(kind == "ability" ? 30 : kind == "set" ? 20 : 10, list.Query(className: "shop-unlock").ToList().Count);
+                        if (kind == "field") Assert.AreEqual(10, list.Query<Image>().ToList().Count);
+                        if(kind == "ability")
+                        {
+                            var states = ui.Q<DropdownField>(GameplayUiElementIds.MetaUnlockState);
+                            Assert.Contains("Не открыто · 10",states.choices);
+                            states.index = 1; yield return null;
+                            Assert.AreEqual(10,list.Query(className:"shop-unlock").ToList().Count);
+                            states.index = 0; yield return null;
+                        }
+                        Assert.LessOrEqual(list.Query(className: "shop-unlock").ToList().Max(e => e.worldBound.xMax), size.x);
+                        UiFoundationSmokeTests.Capture(target, $"meta-unlocks-{kind}-{size.x}x{size.y}");
+                    }
+                    var filter = ui.Q<DropdownField>(GameplayUiElementIds.MetaUnlockState);
+                    filter.index = 2; yield return null;
+                    Assert.AreEqual(0, list.Query(className: "shop-unlock").ToList().Count);
+                    Assert.IsNotNull(list.Q(className: "shop-unlock-empty"));
+                    filter.index = 0; yield return null;
+                    list.scrollOffset = new Vector2(0, list.verticalScroller.highValue); yield return null;
+                    Bounded(list.Query(className: "shop-unlock").ToList().Last(), size);
+                    document.panelSettings.targetTexture = null; Object.Destroy(target); target = null;
+                }
+            }
+            finally
+            {
+                if (root.ProfileDocument != null) root.ProfileDocument.panelSettings.targetTexture = null;
+                if (target != null) Object.Destroy(target);
+                root.Shutdown();
+            }
+        }
         private static void Bounded(VisualElement element, Vector2Int size)
         {
             Assert.Greater(element.worldBound.width, 0); Assert.Greater(element.worldBound.height, 0);

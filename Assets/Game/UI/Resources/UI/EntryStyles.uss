@@ -1,17 +1,17 @@
 .entry-root { flex-grow: 1; }
 .entry-page, .entry-menu, .entry-root .shell-back { color: #e8d8b8; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/PTSans-Regular.ttf"); }
 .entry-page Label, .entry-menu Label { white-space: normal; }
-.entry-page { flex-grow: 1; padding: 48px 72px 38px; background-color: #302936; }
+.entry-page { flex-grow: 1; padding: 48px 72px 38px; background-color: #241f2b; }
 .entry-header { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-shrink: 0; }
 .entry-title { font-size: 46px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
 .entry-steps { font-size: 20px; color: #d5a84a; }
 .entry-workspace { flex-grow: 1; min-height: 0; flex-direction: row; }
 .entry-roster { width: 30%; margin-right: 30px; }
 .entry-character-grid { flex-direction: row; flex-wrap: wrap; }
-.entry-choice { background-color: #403746; color: #e8d8b8; border-width: 2px; border-color: #241b2b; border-top-color: #655569; border-radius: 10px; padding: 14px; margin: 0 12px 16px 0; white-space: normal; }
-.entry-choice:hover { background-color: #4a3e50; border-color: #bfaf95; }
-.entry-choice:active { background-color: #302936; translate: 0 1px; }
-.entry-choice.entry-selected { border-color: #d5a84a; background-color: #493d43; }
+.entry-choice { background-color: rgba(64,55,70,0.96); color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #75616a; border-bottom-color: #1d1721; border-radius: 10px; padding: 14px; margin: 0 12px 16px 0; white-space: normal; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.entry-choice:hover { background-color: #514452; border-color: #bfaf95; translate: 0 -2px; }
+.entry-choice:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
+.entry-choice.entry-selected { border-color: #d5a84a; border-top-color: #ead28e; border-bottom-color: #6f4727; background-color: #51423f; }
 .entry-choice:focus { border-color: #e8d8b8; border-width: 3px; }
 .entry-choice:disabled { color: #a99aaa; background-color: #352d3c; }
 .entry-choice-name { font-size: 27px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); margin-top: 8px; }
@@ -23,7 +23,7 @@
 .entry-page .unity-scroller__low-button, .entry-page .unity-scroller__high-button { display: none; }
 .entry-page .unity-base-slider__tracker { background-color: #241b2b; }
 .entry-page .unity-base-slider__dragger { background-color: #78657b; border-radius: 5px; }
-.entry-character-detail { flex-grow: 1; min-width: 0; flex-direction: row; background-color: #352d3c; border-width: 2px; border-color: #241b2b; border-top-color: #655569; border-radius: 12px; overflow: hidden; }
+.entry-character-detail { flex-grow: 1; min-width: 0; flex-direction: row; background-color: rgba(53,45,60,0.96); border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #75616a; border-bottom-color: #1d1721; border-radius: 12px; overflow: hidden; }
 .entry-hero-well { width: 46%; padding: 20px; background-color: #2d2633; justify-content: center; }
 .entry-hero-image { flex-grow: 1; min-height: 0; }
 .entry-mystery > .entry-character-copy { display: none; }
@@ -44,13 +44,13 @@
 .entry-footer { flex-direction: row; align-items: center; margin-top: 24px; min-height: 76px; flex-shrink: 0; }
 .entry-footer-detail { flex-grow: 1; font-size: 22px; color: #bfaf95; margin: 0 28px; }
 .entry-back-space { width: 190px; }
-.entry-action { min-width: 190px; min-height: 68px; padding: 12px 30px; margin: 0; font-size: 26px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); background-color: #403746; color: #e8d8b8; border-width: 2px; border-color: #241b2b; border-top-color: #75616a; border-radius: 9px; }
-.entry-action.entry-primary { min-width: 280px; background-color: #a65f43; border-top-color: #be8468; }
-.entry-action:hover { border-color: #bfaf95; background-color: #514452; }
-.entry-action.entry-primary:hover { background-color: #b66e50; }
-.entry-action:active { background-color: #302936; translate: 0 1px; }
+.entry-action { min-width: 190px; min-height: 68px; padding: 12px 30px; margin: 0; font-size: 26px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); background-color: #403746; color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #806d78; border-bottom-color: #1d1721; border-radius: 9px; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.entry-action.entry-primary { min-width: 280px; background-color: #a65f43; border-top-color: #d08a69; border-bottom-color: #5a2f25; }
+.entry-action:hover { border-color: #d7c5a6; background-color: #55485c; translate: 0 -2px; }
+.entry-action.entry-primary:hover { background-color: #b96e4f; border-top-color: #e1a07f; }
+.entry-action:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
 .entry-action:focus { border-color: #e8d8b8; border-width: 3px; }
-.entry-action:disabled { background-color: #403746; color: #9d8e9e; border-color: #574b5d; }
+.entry-action:disabled { background-color: #39313f; color: #9d8e9e; border-color: #574b5d; opacity: 0.58; translate: 0 0; }
 .entry-field-scroll { flex-grow: 1; min-height: 0; }
 .entry-field-grid { flex-direction: row; flex-wrap: wrap; }
 .entry-field-choice { width: 18.8%; height: 300px; }

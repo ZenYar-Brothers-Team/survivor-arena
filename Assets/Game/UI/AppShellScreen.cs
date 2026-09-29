@@ -14,6 +14,7 @@ namespace Game.UI
         private readonly VisualElement _pauseActions;
         private readonly VisualElement _pauseHome;
         private readonly MenuIllustration _illustration;
+        private readonly SettingsPanel _settingsPanel;
         public UIDocument Document { get; }
         public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
         public event Action<float,float,float> Audio;
@@ -32,6 +33,7 @@ namespace Game.UI
             Resources.Load<VisualTreeAsset>("UI/AppShell").CloneTree(Document.rootVisualElement);
             Document.rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>("UI/AppShellStyles"));
             EntryUi.Configure(Document.rootVisualElement, _panel);
+            _settingsPanel = new SettingsPanel(Document.rootVisualElement);
             _illustration = new MenuIllustration(Q<VisualElement>(GameplayUiElementIds.ShellMenu));
             Hook(GameplayUiElementIds.EntryDevelopmentToggle, () => Q<VisualElement>(GameplayUiElementIds.ShellDevelopment).ToggleInClassList("entry-dev-open"));
             Hook(GameplayUiElementIds.ShellPlay,()=>Play?.Invoke()); Hook(GameplayUiElementIds.ShellMeta,()=>Meta?.Invoke());
@@ -50,8 +52,9 @@ namespace Game.UI
                 Q<Slider>(id).RegisterValueChangedCallback(_=>Audio?.Invoke(Q<Slider>(GameplayUiElementIds.SettingsMaster).value/100,Q<Slider>(GameplayUiElementIds.SettingsMusic).value/100,Q<Slider>(GameplayUiElementIds.SettingsSfx).value/100));
             Q<Toggle>(GameplayUiElementIds.SettingsShake).RegisterValueChangedCallback(e=>Shake?.Invoke(e.newValue));
             Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).RegisterValueChangedCallback(e=>MouseMovement?.Invoke(e.newValue));
-            Q<Toggle>(GameplayUiElementIds.SettingsWindow).RegisterValueChangedCallback(e=>
-                Video?.Invoke(e.newValue?_state.SafeWindow:_state.Desktop));
+            Q<DropdownField>(GameplayUiElementIds.SettingsWindow).choices = new System.Collections.Generic.List<string> { "На весь экран", "В окне" };
+            Q<DropdownField>(GameplayUiElementIds.SettingsWindow).RegisterValueChangedCallback(e=>
+                Video?.Invoke(e.newValue == "В окне" ? _state.SafeWindow : _state.Desktop));
             Q<DropdownField>(GameplayUiElementIds.SettingsResolution).RegisterValueChangedCallback(e=> { var mode=_state.Modes.FirstOrDefault(m=>m.ToString()==e.newValue); if(mode!=null)Video?.Invoke(mode); });
         }
         private void Hook(string id,Action action) => Q<Button>(id).clicked+=action;
@@ -60,7 +63,7 @@ namespace Game.UI
         public void Render(AppShellViewState state)
         {
             if(_disposed||Document==null)return; _state=state;
-            _panel.scaleMode = state.Menu || state.CharacterBack ? PanelScaleMode.ConstantPixelSize : PanelScaleMode.ScaleWithScreenSize;
+            _panel.scaleMode = state.Menu || state.CharacterBack || state.Settings ? PanelScaleMode.ConstantPixelSize : PanelScaleMode.ScaleWithScreenSize;
             _illustration.SetVisible(state.Menu);
             Visible(GameplayUiElementIds.ShellMenu,state.Menu); Visible(GameplayUiElementIds.ShellBack,state.CharacterBack);
             Visible(GameplayUiElementIds.ShellPause,state.PauseActions); Visible(GameplayUiElementIds.ShellDevelopment,state.DevelopmentUnlock);
@@ -72,16 +75,14 @@ namespace Game.UI
             Q<Slider>(GameplayUiElementIds.SettingsSfx).SetValueWithoutNotify(state.Values.Sfx*100);
             Q<Toggle>(GameplayUiElementIds.SettingsShake).SetValueWithoutNotify(state.Values.Shake);
             Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).SetValueWithoutNotify(state.Values.MouseMovement);
-            Q<Toggle>(GameplayUiElementIds.SettingsWindow).SetValueWithoutNotify(!state.Candidate.Borderless);
+            Q<DropdownField>(GameplayUiElementIds.SettingsWindow).SetValueWithoutNotify(state.Candidate.Borderless ? "На весь экран" : "В окне");
             var resolution=Q<DropdownField>(GameplayUiElementIds.SettingsResolution); resolution.choices=state.Modes.Select(m=>m.ToString()).ToList(); resolution.SetValueWithoutNotify(state.Candidate.ToString()); resolution.SetEnabled(!state.Candidate.Borderless&&!state.Busy&&!state.Confirming);
-            Q<Toggle>(GameplayUiElementIds.SettingsWindow).SetEnabled(!state.Busy&&!state.Confirming);
-            Q<Button>(GameplayUiElementIds.SettingsApply).SetEnabled(!state.Busy&&!state.Confirming);
+            Q<DropdownField>(GameplayUiElementIds.SettingsWindow).SetEnabled(!state.Busy&&!state.Confirming);
+            Q<Button>(GameplayUiElementIds.SettingsApply).SetEnabled(state.CanApplyVideo);
             Q<Button>(GameplayUiElementIds.SettingsBack).SetEnabled(!state.Busy);
-            Visible(GameplayUiElementIds.SettingsKeep,state.Confirming); Visible(GameplayUiElementIds.SettingsRevert,state.Confirming);
             Q<Label>(GameplayUiElementIds.ShellNotification).text=state.Notification;
             Visible(GameplayUiElementIds.ShellNotification,!string.IsNullOrEmpty(state.Notification)&&!state.Settings);
-            Q<Label>(GameplayUiElementIds.SettingsMessage).text=state.Message; Q<Label>(GameplayUiElementIds.SettingsBindings).text="Movement: "+state.Bindings+"\nPause: Escape, Space, Right Mouse Button";
-            Q<Label>(GameplayUiElementIds.SettingsVideoStatus).text=state.VideoStatus;
+            _settingsPanel.Render(state);
         }
         public void Dispose()
         {

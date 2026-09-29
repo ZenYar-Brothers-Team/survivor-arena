@@ -67,7 +67,7 @@ namespace Game.UI
             var cards = new List<MetaCardViewState>();
             if (_shop)
             {
-                foreach (var upgrade in _profile.Catalog.Upgrades.Values)
+                foreach (var upgrade in _profile.Catalog.Upgrades.Values.OrderBy(u => MetaShopProjection.UpgradeOrder(u.Stat)).ThenBy(u => u.Id, StringComparer.Ordinal))
                 {
                     var owner = upgrade.Personal ? _character : null;
                     var level = _profile.Level(upgrade.Id, owner);
@@ -75,20 +75,21 @@ namespace Game.UI
                     cards.Add(new MetaCardViewState(upgrade.Id, owner, level,
                         upgrade.Name, MetaShopProjection.Reason(reason) ?? (_profile.UpgradesDisabled ? "Не действует" : ""),
                         reason == null, upgrade.Cap, level < upgrade.Cap ? upgrade.Price(level) : 0,
-                        MetaShopProjection.Bonus(upgrade, level), level < upgrade.Cap ? MetaShopProjection.Bonus(upgrade, level + 1) : null));
+                        MetaShopProjection.Bonus(upgrade, level), level < upgrade.Cap ? MetaShopProjection.Bonus(upgrade, level + 1) : null,
+                        icon: MetaShopProjection.UpgradeIcon(upgrade.Id, _registry?.Invoke())));
                 }
-                foreach (var rule in _profile.Catalog.Unlocks.Values.Where(r => r.Condition != "initial"))
+                foreach (var rule in _profile.Catalog.Unlocks.Values)
                 {
                     var reason = _profile.PurchaseLockReason(rule.Id);
                     var content = RunResultsProjection.Content(rule.Id, _profile.Catalog, _registry?.Invoke());
                     var hidden = rule.Kind == "character" && !_profile.IsUnlocked(rule.Id);
                     var group = rule.Kind == "character" ? "Персонажи" : rule.Kind == "field" ? "Карты" :
-                        rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "Умения и сеты · " + field.Name : "Умения и сеты";
+                        rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "За прохождение · " + field.Name : "Доступно с начала";
                     cards.Add(new MetaCardViewState(rule.Id, null, 0, hidden ? "?" : content.Name,
-                        _profile.IsUnlocked(rule.Id) ? "Открыто" : MetaShopProjection.Condition(rule, _profile.Catalog) +
+                        _profile.IsUnlocked(rule.Id) ? "✓ Открыто" : (reason == null ? "Можно открыть" : MetaShopProjection.Condition(rule, _profile.Catalog)) +
                         (reason == "Not enough currency" ? " · Не хватает золота" : ""),
                         rule.Price > 0 && reason == null, price: _profile.IsUnlocked(rule.Id) ? 0 : rule.Price,
-                        group: group, icon: content.Icon, hiddenCharacter: hidden));
+                        group: group, icon: content.Icon, hiddenCharacter: hidden, kind: rule.Kind, owned: _profile.IsUnlocked(rule.Id)));
                 }
             }
             var summary = "Currency: " + _profile.Currency;

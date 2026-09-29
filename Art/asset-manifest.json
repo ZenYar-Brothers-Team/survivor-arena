@@ -4293,6 +4293,210 @@
         "docs/implementation/proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28"
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "META-004",
+      "role": "icon",
+      "visualId": "META-004-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-004/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-004/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-004-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-004-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-006",
+      "role": "icon",
+      "visualId": "META-006-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-006/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-006/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-006-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-006-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-005",
+      "role": "icon",
+      "visualId": "META-005-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-005/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-005/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-005-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-005-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-003",
+      "role": "icon",
+      "visualId": "META-003-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-003/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-003/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-003-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-003-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-013",
+      "role": "icon",
+      "visualId": "META-013-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-013/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-013/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-013-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-013-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-007",
+      "role": "icon",
+      "visualId": "META-007-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-007/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-007/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-007-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-007-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-014",
+      "role": "icon",
+      "visualId": "META-014-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-014/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-014/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-014-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-014-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-008",
+      "role": "icon",
+      "visualId": "META-008-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-008/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-008/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-008-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-008-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-011",
+      "role": "icon",
+      "visualId": "META-011-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-011/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-011/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-011-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-011-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-012",
+      "role": "icon",
+      "visualId": "META-012-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-012/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-012/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-012-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-012-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-009",
+      "role": "icon",
+      "visualId": "META-009-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-009/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-009/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-009-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-009-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "META-010",
+      "role": "icon",
+      "visualId": "META-010-VISUAL-ICON",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/meta-010/icon/selected-master.png",
+      "provenance": "Art/Source/UI/meta-010/icon/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Icons/Meta/meta-010-icon.png",
+      "resourcePath": "Art/UI/Icons/Meta/meta-010-icon",
+      "stage": "Integrated",
+      "evidence": [
+        "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+        "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
+      ],
+      "missing": "User review of the integrated screen."
     }
   ]
 }

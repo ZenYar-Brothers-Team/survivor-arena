@@ -19,7 +19,13 @@
                 <ui:Toggle name="meta-shop-toggle" label="Без постоянных улучшений" class="shop-toggle" />
                 <ui:ScrollView name="meta-upgrade-list" class="shop-list" horizontal-scroller-visibility="Hidden" />
             </ui:VisualElement>
-            <ui:ScrollView name="meta-unlock-list" class="shop-unlocks shop-hidden" horizontal-scroller-visibility="Hidden" />
+            <ui:VisualElement name="meta-unlock-pane" class="shop-unlock-pane shop-hidden">
+                <ui:VisualElement name="meta-unlock-filters" class="shop-unlock-filters">
+                    <ui:DropdownField name="meta-unlock-state" class="shop-unlock-state" />
+                </ui:VisualElement>
+                <ui:ScrollView name="meta-unlock-list" class="shop-unlocks" horizontal-scroller-visibility="Hidden" focusable="true" />
+                <ui:Label name="meta-unlock-total" class="shop-unlock-total" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="shop-footer">
             <ui:Label name="meta-refund-reason" class="shop-refund-reason" />

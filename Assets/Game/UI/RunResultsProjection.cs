@@ -64,6 +64,12 @@ namespace Game.UI
                 }
                 if (icon.Id.IsValid) sprite = icon.Resolve(registry).Sprite;
             }
+            if (sprite == null && rule?.Kind == "field" && registry != null &&
+                registry.TryGet<SpriteDefinition>(new ContentId(id + "-VISUAL-BACKGROUND"), out var background))
+            {
+                background.RequireRole(SpriteRole.Background);
+                sprite = background.Sprite;
+            }
             return new ResultContentViewState(id, name, kind, sprite);
         }
     }

@@ -130,8 +130,8 @@
   "draft": {
     "offerCount": 3,
     "setDraftChance": 0.5,
-    "initialRerolls": 3,
-    "initialBanishes": 2,
+    "initialRerolls": 1,
+    "initialBanishes": 1,
     "emptyBookCurrency": 50,
     "activeSlots": 6,
     "passiveSlots": 6

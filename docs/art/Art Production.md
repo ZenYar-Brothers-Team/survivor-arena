@@ -478,7 +478,7 @@ Method: \`Generate via GPT\`.
 | 20 set icons | Generate via GPT | IN GAME — v001 | 20 masters/runtime imports и production bindings; открыт set-progress review и совместный обзор 3–4 сетов |
 | Character selection image | Reuse body sprite first | DEFERRED | Использовать crop/variant существующих 10 body sprites; отдельный portrait только если target-scale review выявит проблему |
 | Field thumbnails | Generate / derive from field art | FIELD-001…003 IN GAME; FIELD-004…010 PREPARED — v001 | Все 10 thumbnails имеют runtime PNG и registered visual ID. FIELD-004…010 будут связаны с Field Select при реализации production definitions; target-scale UI review остаётся. [Evidence](../implementation/evidence/2026-09-27-field004-010-thumbnails.md) |
-| Meta-upgrade icons | Generate via GPT as content is defined | DEFERRED | Создавать только для утверждённых permanent upgrades, которым действительно нужен отдельный icon |
+| Meta-upgrade icons | Generate via GPT | META-003…014, утверждённый пакет ui-meta-stat-icons-r1 | 12 простых значков перед названиями; исполнение и проверки — STATUS |
 | Pickup icons if UI needs separate icon | Reuse world sprite / Generate if needed | DEFERRED | Сначала переиспользовать world sprite; отдельный asset не создавать без доказанной UI-проблемы |
 
 \#\# Procedural / simple Unity UI required by approved UI

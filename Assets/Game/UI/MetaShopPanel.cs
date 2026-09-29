@@ -12,12 +12,14 @@ namespace Game.UI
         private readonly Action _cancel;
         private bool _unlocks;
         private bool _modal;
+        private readonly MetaUnlockPanel _collection;
         public MetaShopPanel(Action<string> select, Action<MetaCardViewState> buy, Action<bool> toggle,
             Action refund, Action confirm, Action cancel)
         {
             _select = select; _buy = buy; _cancel = cancel;
             Root = Resources.Load<VisualTreeAsset>("UI/MetaShop").CloneTree();
             Root.AddToClassList("shop-host");
+            _collection = new MetaUnlockPanel(Root, buy);
             Root.Q<Button>(GameplayUiElementIds.MetaTabUpgrades).clicked += () => Tab(false);
             Root.Q<Button>(GameplayUiElementIds.MetaTabUnlocks).clicked += () => Tab(true);
             Root.Q<Toggle>(GameplayUiElementIds.MetaShopToggle).RegisterValueChangedCallback(e => toggle(e.newValue));
@@ -39,7 +41,7 @@ namespace Game.UI
             _unlocks = unlocks;
             Hidden(Root.Q(GameplayUiElementIds.MetaHeroPane), unlocks);
             Hidden(Root.Q(GameplayUiElementIds.MetaUpgradePane), unlocks);
-            Hidden(Root.Q(GameplayUiElementIds.MetaUnlockList), !unlocks);
+            Hidden(Root.Q(GameplayUiElementIds.MetaUnlockPane), !unlocks);
             Hidden(Root.Q(GameplayUiElementIds.MetaRefund), unlocks);
             Hidden(Root.Q(GameplayUiElementIds.MetaRefundReason), unlocks);
             Root.Q(GameplayUiElementIds.MetaTabUpgrades).EnableInClassList("shop-selected", !unlocks);
@@ -57,52 +59,62 @@ namespace Game.UI
             Root.Q<Label>(GameplayUiElementIds.MetaHeroName).text = hero?.Name ?? "Нет открытых героев";
             Root.Q<Image>(GameplayUiElementIds.MetaPortrait).sprite = hero?.Icon;
             var roster = Root.Q<ScrollView>(GameplayUiElementIds.MetaRoster);
-            var rosterOffset = roster.scrollOffset; roster.Clear();
+            var rosterOffset = roster.scrollOffset;
+            var heroNames = shop.Heroes.Select(h => GameplayUiElementIds.MetaHero(h.Id)).ToArray();
+            if (!roster.contentContainer.Children().Select(e => e.name).SequenceEqual(heroNames)) roster.Clear();
             foreach (var item in shop.Heroes)
             {
-                var button = new Button(() => _select(item.Id)) { name = GameplayUiElementIds.MetaHero(item.Id), tooltip = item.Name };
-                button.AddToClassList("shop-hero-button"); button.EnableInClassList("shop-selected", item.Id == state.SelectedCharacter);
-                button.Add(new Image { sprite = item.Icon, pickingMode = PickingMode.Ignore });
-                if (item.Icon == null) button.Add(new Label(item.Name));
-                button.SetEnabled(state.CanContinue && !shop.ConfirmRefund); roster.Add(button);
+                var button = roster.Q<Button>(GameplayUiElementIds.MetaHero(item.Id));
+                if (button == null)
+                {
+                    button = new Button(() => _select(item.Id)) { name = GameplayUiElementIds.MetaHero(item.Id), tooltip = item.Name };
+                    button.AddToClassList("shop-hero-button");
+                    button.Add(new Image { pickingMode = PickingMode.Ignore }); roster.Add(button);
+                }
+                button.EnableInClassList("shop-selected", item.Id == state.SelectedCharacter);
+                button.Q<Image>().sprite = item.Icon;
+                button.SetEnabled(state.CanContinue && !shop.ConfirmRefund);
             }
             roster.scrollOffset = rosterOffset;
             var toggle = Root.Q<Toggle>(GameplayUiElementIds.MetaShopToggle);
             toggle.SetValueWithoutNotify(state.UpgradesDisabled); toggle.SetEnabled(state.CanToggleUpgrades && !shop.ConfirmRefund);
             var list = Root.Q<ScrollView>(GameplayUiElementIds.MetaUpgradeList);
-            var offset = list.scrollOffset; list.Clear();
-            foreach (var card in state.Cards.Where(c => c.Cap > 0))
+            var offset = list.scrollOffset;
+            var upgrades = state.Cards.Where(c => c.Cap > 0).ToArray();
+            if (!list.contentContainer.Children().Select(e => e.name).SequenceEqual(upgrades.Select(c => GameplayUiElementIds.MetaCard(c.Id)))) list.Clear();
+            foreach (var card in upgrades)
             {
-                var row = new VisualElement { name = GameplayUiElementIds.MetaCard(card.Id) }; row.AddToClassList("shop-card");
-                var heading = new VisualElement(); heading.AddToClassList("shop-card-heading");
-                heading.Add(Label(card.Text, "shop-card-title")); heading.Add(Label(card.Level + " / " + card.Cap, "shop-level")); row.Add(heading);
-                var bars = new VisualElement(); bars.AddToClassList("shop-bars");
-                for (var i = 0; i < card.Cap; i++) { var bar = new VisualElement(); bar.AddToClassList("shop-bar"); bar.EnableInClassList("shop-filled", i < card.Level); bars.Add(bar); }
-                row.Add(bars); row.Add(Label(card.Bonus + (card.NextBonus == null ? "" : " → " + card.NextBonus), "shop-bonus"));
-                var actions = new VisualElement(); actions.AddToClassList("shop-card-actions");
-                actions.Add(Label(card.Level == card.Cap ? "Максимум" : card.Price.ToString("N0") + " ◈", "shop-price"));
-                var buy = new Button(() => _buy(card)) { name = GameplayUiElementIds.MetaBuy(card.Id), text = "Улучшить" };
-                buy.AddToClassList("shop-primary"); buy.SetEnabled(card.CanBuy && !shop.ConfirmRefund); actions.Add(buy); row.Add(actions);
-                var detail = Label(card.Detail, "shop-reason"); Hidden(detail, string.IsNullOrEmpty(card.Detail)); row.Add(detail); list.Add(row);
+                var row = list.Q<VisualElement>(GameplayUiElementIds.MetaCard(card.Id));
+                if (row == null)
+                {
+                    row = new VisualElement { name = GameplayUiElementIds.MetaCard(card.Id) }; row.AddToClassList("shop-card");
+                    var heading = new VisualElement(); heading.AddToClassList("shop-card-heading");
+                    var icon = new Image { name = GameplayUiElementIds.MetaUpgradeIcon(card.Id), pickingMode = PickingMode.Ignore };
+                    icon.AddToClassList("shop-stat-icon"); heading.Add(icon);
+                    heading.Add(Label(card.Text, "shop-card-title")); heading.Add(Label("", "shop-level")); row.Add(heading);
+                    var bars = new VisualElement(); bars.AddToClassList("shop-bars");
+                    for (var i = 0; i < card.Cap; i++) { var bar = new VisualElement(); bar.AddToClassList("shop-bar"); bars.Add(bar); }
+                    row.Add(bars); row.Add(Label("", "shop-bonus"));
+                    var actions = new VisualElement(); actions.AddToClassList("shop-card-actions"); actions.Add(Label("", "shop-price"));
+                    var target = row;
+                    var buy = new Button(() => _buy((MetaCardViewState)target.userData)) { name = GameplayUiElementIds.MetaBuy(card.Id), text = "Улучшить" };
+                    buy.AddToClassList("shop-primary"); actions.Add(buy); row.Add(actions);
+                    row.Add(Label(" ", "shop-reason")); list.Add(row);
+                }
+                row.userData = card;
+                row.Q<Image>().sprite = card.Icon;
+                Hidden(row.Q<Image>(), card.Icon == null);
+                row.Q(className: "shop-card-heading").EnableInClassList("shop-has-stat-icon", card.Icon != null);
+                row.Q<Label>(className: "shop-level").text = card.Level + " / " + card.Cap;
+                var segments = row.Q(className: "shop-bars");
+                for (var i = 0; i < segments.childCount; i++) segments[i].EnableInClassList("shop-filled", i < card.Level);
+                row.Q<Label>(className: "shop-bonus").text = card.Bonus + (card.NextBonus == null ? "" : " → " + card.NextBonus);
+                row.Q<Label>(className: "shop-price").text = card.Level == card.Cap ? "Максимум" : card.Price.ToString("N0") + " ◈";
+                row.Q<Button>().SetEnabled(card.CanBuy && !shop.ConfirmRefund);
+                row.Q<Label>(className: "shop-reason").text = string.IsNullOrEmpty(card.Detail) ? " " : card.Detail;
             }
             list.scrollOffset = offset;
-            var collection = Root.Q<ScrollView>(GameplayUiElementIds.MetaUnlockList);
-            var collectionOffset = collection.scrollOffset; collection.Clear();
-            foreach (var group in state.Cards.Where(c => c.Cap == 0).GroupBy(c => c.Group))
-            {
-                collection.Add(Label(group.Key, "shop-group-title"));
-                foreach (var card in group)
-                {
-                    var row = new VisualElement(); row.AddToClassList("shop-unlock");
-                    var icon = new Image { sprite = card.Icon }; icon.AddToClassList("shop-unlock-icon");
-                    if (card.HiddenCharacter) icon.tintColor = Color.black;
-                    row.Add(icon); var copy = new VisualElement(); copy.AddToClassList("shop-unlock-copy");
-                    copy.Add(Label(card.Text, "shop-card-title")); copy.Add(Label(card.Detail, "shop-reason")); row.Add(copy);
-                    if (card.Price > 0) { var buy = new Button(() => _buy(card)) { text = "Открыть · " + card.Price, name = GameplayUiElementIds.MetaBuy(card.Id) }; buy.SetEnabled(card.CanBuy && !shop.ConfirmRefund); row.Add(buy); }
-                    collection.Add(row);
-                }
-            }
-            collection.scrollOffset = collectionOffset;
+            _collection.Render(state);
             Root.Q<Label>(GameplayUiElementIds.MetaRefundReason).text = shop.RefundReason ?? "Комиссия " + shop.RefundFee.ToString("N0") + " золота";
             Root.Q<Button>(GameplayUiElementIds.MetaRefund).SetEnabled(shop.RefundReason == null && !shop.ConfirmRefund);
             Root.Q<Button>(GameplayUiElementIds.MetaTabUpgrades).SetEnabled(!shop.ConfirmRefund);

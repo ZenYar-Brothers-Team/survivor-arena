@@ -12,21 +12,34 @@
   </ui:VisualElement>
   <ui:Button name="ShellBack" text="← Назад" class="shell-back entry-action" />
   <ui:VisualElement name="ShellPause" class="shell-pause"><ui:Button name="ShellPauseSettings" text="Settings" /><ui:Button name="ShellQuit" text="Quit Run" /></ui:VisualElement>
-  <ui:VisualElement name="SettingsBody" class="shell-page"><ui:ScrollView class="shell-panel settings-panel">
-    <ui:Label text="Settings" class="shell-title" />
-    <ui:Slider name="SettingsMaster" label="Master" low-value="0" high-value="100" show-input-field="true" />
-    <ui:Slider name="SettingsMusic" label="Music" low-value="0" high-value="100" show-input-field="true" />
-    <ui:Slider name="SettingsSfx" label="SFX" low-value="0" high-value="100" show-input-field="true" />
-    <ui:VisualElement class="shell-row"><ui:Button name="SettingsMusicPreview" text="Test Music" /><ui:Button name="SettingsSfxPreview" text="Test SFX" /></ui:VisualElement>
-    <ui:Toggle name="SettingsShake" label="Screen Shake" />
-    <ui:Toggle name="SettingsMouseMovement" label="Mouse movement" />
-    <ui:Label name="SettingsBindings" />
-    <ui:Toggle name="SettingsWindow" label="Windowed (off: borderless desktop)" />
-    <ui:DropdownField name="SettingsResolution" label="Resolution" />
-    <ui:Label name="SettingsVideoStatus" />
-    <ui:VisualElement class="shell-row"><ui:Button name="SettingsApply" text="Apply Video" /><ui:Button name="SettingsKeep" text="Keep" /><ui:Button name="SettingsRevert" text="Revert" /></ui:VisualElement>
-    <ui:Label name="SettingsMessage" class="shell-message" />
-    <ui:VisualElement class="shell-row"><ui:Button name="SettingsSave" text="Retry Save" /><ui:Button name="SettingsBack" text="Back" /></ui:VisualElement>
-  </ui:ScrollView></ui:VisualElement>
+  <ui:VisualElement name="SettingsBody" class="settings-page"><ui:VisualElement class="settings-folio">
+    <ui:VisualElement name="SettingsHeader" class="settings-header"><ui:Label text="Настройки" class="settings-title" /><ui:Label name="SettingsOrigin" class="settings-muted" /></ui:VisualElement>
+    <ui:ScrollView name="SettingsScroll" class="settings-scroll" horizontal-scroller-visibility="Hidden">
+      <ui:VisualElement name="SettingsContent" class="settings-columns">
+        <ui:VisualElement class="settings-column settings-audio">
+          <ui:Label text="Звук" class="settings-heading" />
+          <ui:VisualElement class="settings-volume"><ui:VisualElement class="settings-volume-label"><ui:Label text="Общая громкость" /><ui:Label name="SettingsMasterValue" class="settings-percent" /></ui:VisualElement><ui:Slider name="SettingsMaster" tooltip="Общая громкость" low-value="0" high-value="100" /></ui:VisualElement>
+          <ui:VisualElement class="settings-volume"><ui:VisualElement class="settings-volume-label"><ui:Label text="Музыка" /><ui:Label name="SettingsMusicValue" class="settings-percent" /></ui:VisualElement><ui:Slider name="SettingsMusic" tooltip="Музыка" low-value="0" high-value="100" /></ui:VisualElement>
+          <ui:VisualElement class="settings-volume"><ui:VisualElement class="settings-volume-label"><ui:Label text="Звуки" /><ui:Label name="SettingsSfxValue" class="settings-percent" /></ui:VisualElement><ui:Slider name="SettingsSfx" tooltip="Звуки" low-value="0" high-value="100" /></ui:VisualElement>
+          <ui:VisualElement class="settings-actions"><ui:Button name="SettingsMusicPreview" text="Проверить музыку" /><ui:Button name="SettingsSfxPreview" text="Проверить звуки" /></ui:VisualElement>
+          <ui:Label text="Громкость применяется сразу." class="settings-hint" />
+        </ui:VisualElement>
+        <ui:VisualElement class="settings-column settings-right">
+          <ui:Label text="Изображение" class="settings-heading" />
+          <ui:DropdownField name="SettingsWindow" label="Режим" class="settings-select" />
+          <ui:DropdownField name="SettingsResolution" label="Разрешение" class="settings-select" />
+          <ui:VisualElement class="settings-video-actions"><ui:Button name="SettingsApply" text="Применить" /><ui:Label name="SettingsVideoStatus" class="settings-muted" /></ui:VisualElement>
+          <ui:VisualElement class="settings-gameplay"><ui:Label text="Управление" class="settings-heading" />
+            <ui:Toggle name="SettingsMouseMovement" label="Управление мышью" />
+            <ui:Toggle name="SettingsShake" label="Дрожание камеры" />
+            <ui:Label name="SettingsBindings" class="settings-hint" />
+            <ui:Label text="Пауза    Esc · Пробел · ПКМ" class="settings-hint" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:ScrollView>
+    <ui:VisualElement name="SettingsFooter" class="settings-footer"><ui:Button name="SettingsBack" text="Назад" /><ui:Label name="SettingsMessage" class="settings-muted" /><ui:Button name="SettingsSave" text="Повторить сохранение" /></ui:VisualElement>
+    <ui:VisualElement name="SettingsModal" class="settings-modal settings-hidden"><ui:VisualElement class="settings-dialog"><ui:Label text="Оставить этот режим?" class="settings-heading" /><ui:Label name="SettingsConfirmStatus" /><ui:VisualElement class="settings-actions"><ui:Button name="SettingsRevert" text="Вернуть" /><ui:Button name="SettingsKeep" text="Оставить" class="settings-primary" /></ui:VisualElement></ui:VisualElement></ui:VisualElement>
+  </ui:VisualElement></ui:VisualElement>
 <ui:Label name="ShellNotification" class="shell-notification" picking-mode="Ignore" />
 </ui:UXML>

@@ -1,6 +1,7 @@
+.meta-backdrop { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: #241f2b; display: none; }
 .meta-launcher { position: absolute; right: 20px; top: 20px; flex-direction: row; }
 .meta-launcher Button { min-width: 150px; min-height: 38px; }
-.meta-body { position: absolute; left: 12%; right: 12%; top: 8%; bottom: 8%; background-color: rgb(25, 29, 36); color: rgb(237, 232, 212); padding: 28px; border-radius: 12px; }
+.meta-body { position: absolute; left: 12%; right: 12%; top: 8%; bottom: 8%; background-color: #302936; color: #e8d8b8; padding: 28px; border-width: 2px; border-bottom-width: 4px; border-color: #645263; border-top-color: #806a77; border-bottom-color: #1d1721; border-radius: 12px; }
 .meta-title { font-size: 32px; -unity-font-style: bold; margin-bottom: 12px; }
 .meta-summary { font-size: 22px; white-space: normal; }
 .meta-message { font-size: 18px; color: rgb(245, 195, 103); white-space: normal; margin-top: 12px; }
@@ -11,6 +12,7 @@
 .meta-card Button { width: 170px; min-height: 32px; margin-top: 8px; }
 .meta-actions { flex-direction: row; flex-wrap: wrap; margin-top: 12px; }
 .meta-actions Button { min-width: 160px; min-height: 40px; margin-right: 12px; }
-.meta-body Button, .meta-launcher Button { background-color: rgb(52, 60, 78); color: rgb(240, 243, 248); border-color: rgb(92, 104, 128); }
-.meta-body Button:hover, .meta-launcher Button:hover { background-color: rgb(66, 76, 98); }
+.meta-body Button, .meta-launcher Button { background-color: #493d4e; color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #806773; border-top-color: #9b7d89; border-bottom-color: #211925; border-radius: 7px; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.meta-body Button:hover, .meta-launcher Button:hover { background-color: #5c495b; border-color: #e8d8b8; translate: 0 -2px; }
+.meta-body Button:active, .meta-launcher Button:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
 .meta-body Button:disabled, .meta-launcher Button:disabled { opacity: 0.45; }

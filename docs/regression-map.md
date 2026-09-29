@@ -1,5 +1,28 @@
 # Regression map
 
+Meta stat icons R1: MetaShopSmokeTests проверяет 12 ненулевых sprites из registry,
+slot 32 px перед названием, отсутствие пересечения с title/level в 1080p и 720p.
+
+DECISION-0094: `RunSetupConfigTests.ProductionSetup_StartsWithOneRerollAndOneBanish`
+проверяет production-базу 1/1; `MetaShopSmokeTests` проверяет 2/2 после покупки +1.
+Расход, общий остаток XP/Book и reset покрывают существующие DraftRequestTests /
+LevelUpDraftRuntimeTests; isolated fixture 2/2 сохранён.
+
+Meta feedback 2026-09-29: `MetaShopSmokeTests` открывает Meta прямо из Main Menu,
+без предварительного Character Select, проверяет portrait/icon bindings, отсутствие
+дублированного «?» на silhouette и стабильность row identity/scroll/position при
+toggle. `MetaShopTests` проверяет точные стартовые 10/10/5 и presentation order.
+
+Settings R1 (DECISION-0093): `AppShellPresenterTests.Settings_VideoConfirmation_UsesServiceCountdownAndReturnsToSettings`
+проверяет projection service countdown/Apply и Back из подтверждения без закрытия Settings.
+`SettingsPresentationSmokeTests.SettingsFolio_TwoResolutions_ConfirmationAndFocus` —
+1080p/720p без прокрутки, проценты, modal input/focus и возврат к выбору режима.
+
+Unlocks R1 (DECISION-0092): `MetaShopTests.Unlocks_FreshProfile_IncludesInitialAndKeepsOnlyCharactersHidden`
+проверяет полный каталог, начальные открытия и фильтры без скрытия карт/сетов.
+`MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions` проверяет 70 карточек,
+фильтры, пустое состояние, конец scroll и закреплённые действия в 1080p/720p.
+
 Personal Meta R1 (DECISION-0091): `PersonalMetaTests` проверяет 12 каналов, личное
 владение, независимые цены/пределы, отключение бонусов, возврат 999/1000/1001,
 ошибку записи, stale/double intent и reload. `MetaShopTests` — подтверждение/отмена

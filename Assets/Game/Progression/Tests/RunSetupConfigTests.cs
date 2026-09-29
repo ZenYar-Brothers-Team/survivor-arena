@@ -24,6 +24,14 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void ProductionSetup_StartsWithOneRerollAndOneBanish()
+        {
+            var setup = FixtureRunSetupCatalog.Load("Content/Run/ProductionRunSetup");
+            Assert.AreEqual(1, setup.Draft.InitialRerolls);
+            Assert.AreEqual(1, setup.Draft.InitialBanishes);
+        }
+
+        [Test]
         public void ProductionSetup_ReducesFirstTenCostsAndPreservesCostToLevelForty()
         {
             // DECISION-0079: L1-L10 cost 20% less than DECISION-0075, while cumulative cost to L40 stays 1257.

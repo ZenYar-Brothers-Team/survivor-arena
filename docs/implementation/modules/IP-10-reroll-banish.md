@@ -20,11 +20,15 @@ GDD «Опыт и level-up», «Сеты»; UI §7 Banish/Reroll и §12 Book; d
 
 ## Scope
 
+Production-база утверждена DECISION-0094: 1 reroll / 1 banish на новый run,
+плюс персональные бонусы IP-25. Общий остаток XP/Book не восстанавливается
+при новом draft; fixture-сценарии сохраняют собственные config values.
+
 Reroll/rebuild по текущему request revision; Banish mode → select card → normal chooser; origin-aware policy/counters hooks; callback provider для set reroll semantics без reverse dependency на IP-11. Counters и recovery — config, no view-owned mutation.
 
 ## Out of Scope
 
-Final counts/recovery без data proposal, собственный duplicate Book runtime, set effect execution.
+Новые изменения counts/recovery без approval (действующая база — DECISION-0094), собственный duplicate Book runtime, set effect execution.
 
 ## Acceptance criteria
 
@@ -46,7 +50,7 @@ Origin/policy table с IP-07/IP-11/IP-28; Context/criteria/evidence revised.
 
 ## Gates и недостающие решения
 
-G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт DECISION-0020. G-02 закрыт DECISION-0022: ordinal content ID, reroll повторяет все checks, banish сохраняет результаты остальных сетов, включая не показанные успешные. Валюта не выдаётся повторно при исчерпании pool через controls. Численные counters остаются CG-04. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-03 Book ordinary pool/shared counters и empty-at-pickup currency закрыт DECISION-0020. G-02 закрыт DECISION-0022: ordinal content ID, reroll повторяет все checks, banish сохраняет результаты остальных сетов, включая не показанные успешные. Валюта не выдаётся повторно при исчерпании pool через controls. Production counters определены DECISION-0094; прежний CG-04 не блокирует базу 1/1. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

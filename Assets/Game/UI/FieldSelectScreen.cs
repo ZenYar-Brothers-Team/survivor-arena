@@ -37,6 +37,7 @@ namespace Game.UI
             EntryUi.Configure(root, _panel);
             var tree = Resources.Load<VisualTreeAsset>("UI/FieldSelect");
             tree.CloneTree(root);
+            FolioBackdrop.Attach(root.Q<VisualElement>(className: "entry-page"));
             _cards = root.Q<VisualElement>(GameplayUiElementIds.FieldSelectCards);
             _start = root.Q<Button>(GameplayUiElementIds.FieldSelectStart);
             _detail = root.Q<Label>(GameplayUiElementIds.EntryFieldDetail);

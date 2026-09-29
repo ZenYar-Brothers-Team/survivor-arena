@@ -24,6 +24,7 @@ namespace Game.Bootstrap.PlayModeTests
                     document.panelSettings.targetTexture = target;
                     yield return null; yield return null;
                     var start = document.rootVisualElement.Q<Button>(GameplayUiElementIds.CharacterSelectStart);
+                    AssertFolioBackdrop(document.rootVisualElement, size);
                     AssertBounded(start, size);
                     UiFoundationSmokeTests.Capture(target, $"ui-entry-character-{size.x}x{size.y}");
                     UiFoundationSmokeTests.Submit(document.rootVisualElement.Q<Button>(GameplayUiElementIds.CharacterSelectCard("CHAR-002")));
@@ -34,6 +35,7 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.AreEqual("?", mysteryCard.Q<Label>(className: "entry-choice-name").text);
                     Assert.IsEmpty(mysteryCard.Q<Label>(GameplayUiElementIds.CardStatus).text);
                     var detail = document.rootVisualElement.Q(className: "entry-character-detail");
+                    AssertPanelTexture(detail);
                     Assert.IsTrue(detail.ClassListContains("entry-mystery"));
                     Assert.AreEqual(DisplayStyle.None, detail.Q(className: "entry-character-copy").resolvedStyle.display);
                     Assert.IsEmpty(document.rootVisualElement.Q<Label>(className: "entry-footer-detail").text);
@@ -48,6 +50,7 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.IsNotNull(document);
                     document.panelSettings.targetTexture = target;
                     yield return null; yield return null;
+                    AssertFolioBackdrop(document.rootVisualElement, size);
                     AssertBounded(document.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectStart), size);
                     foreach (var card in document.rootVisualElement.Query<Button>(className: "entry-field-choice").ToList())
                     {
@@ -111,6 +114,22 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.GreaterOrEqual(element.worldBound.yMin, -1);
             Assert.LessOrEqual(element.worldBound.xMax, size.x + 1);
             Assert.LessOrEqual(element.worldBound.yMax, size.y + 1);
+        }
+
+        private static void AssertFolioBackdrop(VisualElement root, Vector2Int size)
+        {
+            var backdrop = root.Q(className: "folio-backdrop-visual");
+            Assert.IsNotNull(backdrop);
+            Assert.That(backdrop.worldBound.width, Is.EqualTo(size.x).Within(1));
+            Assert.That(backdrop.worldBound.height, Is.EqualTo(size.y).Within(1));
+        }
+
+        private static void AssertPanelTexture(VisualElement panel)
+        {
+            var texture = panel.Q(className: "folio-panel-texture");
+            Assert.IsNotNull(texture);
+            Assert.GreaterOrEqual(texture.worldBound.width, panel.worldBound.width * 0.9f);
+            Assert.GreaterOrEqual(texture.worldBound.height, panel.worldBound.height * 0.9f);
         }
     }
 }

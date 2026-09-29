@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "META-014",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-28",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-29",
+  "approvedBy": "user",
+  "approvalEvidence": "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+  "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: One stout green potion bottle, plain rounded silhouette, short cork neck, no label or bubbles. All colored shapes must be fully opaque inside their outlines, no transparent holes or fading inside filled shapes. Content owner: META-014, role: icon.",
+  "constraints": [
+    "Transparent exterior background; opaque icon shapes",
+    "No text or baked frame",
+    "32 px slot before upgrade title"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Meta/meta-014-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "a441f4f64c483798e45a847ffadbd97cf153163ec7203a5cedf81aab39c7190d",
+    "runtimeSha256": "7bc67bd3167ea11b315a2ed387df4b7abb467f2c330ac1f5e215b98d63778557",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true
+    }
+  }
+}

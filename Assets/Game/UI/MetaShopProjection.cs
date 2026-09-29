@@ -1,9 +1,30 @@
 using System.Globalization;
 using Game.Meta;
+using Game.Content;
+using Game.Presentation;
+using UnityEngine;
 namespace Game.UI
 {
     public static class MetaShopProjection
     {
+        public static Sprite UpgradeIcon(string ownerId, ContentRegistry registry)
+        {
+            if (registry == null || !registry.TryGet<SpriteDefinition>(new ContentId(ownerId + "-VISUAL-ICON"), out var icon)) return null;
+            icon.RequireRole(SpriteRole.Icon);
+            return icon.Sprite;
+        }
+        public static int UpgradeOrder(string stat) => stat switch
+        {
+            "damage" => 0, "actionSpeed" => 1, "size" => 2,
+            "health" => 3, "damageReduction" => 4, "regeneration" => 5, "healing" => 6,
+            "movement" => 7, "pickupRadius" => 8, "experience" => 9,
+            "rerolls" => 10, "banishes" => 11, _ => 12
+        };
+        public static string Kind(string kind) => kind switch
+        { "character" => "Персонаж", "field" => "Карта", "skill" => "Активное", "passive" => "Пассивное", "set" => "Сет", _ => "" };
+        public static bool MatchesUnlock(MetaCardViewState card, string kind, int state) =>
+            (kind == "all" || card.Kind == kind || kind == "ability" && (card.Kind == "skill" || card.Kind == "passive")) &&
+            (state == 0 || state == 1 && !card.Owned || state == 2 && card.CanBuy || state == 3 && card.Owned);
         public static string Bonus(MetaUpgrade upgrade, int level)
         {
             var amount = upgrade.Bonus * level;

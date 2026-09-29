@@ -4,8 +4,8 @@
     "offerCount": 3,
     "setDraftChance": 0.5,
     "seed": 230923,
-    "initialRerolls": 3,
-    "initialBanishes": 2,
+    "initialRerolls": 1,
+    "initialBanishes": 1,
     "emptyBookCurrency": 50
   },
   "experience": {

@@ -58,8 +58,10 @@ namespace Game.UI
                 _settings.PreviewState==VideoPreviewState.Applying||_settings.PreviewState==VideoPreviewState.Reverting,
                 _settings.PreviewState==VideoPreviewState.Confirming, _settings.Current, _settings.Candidate,
                 _settings.Video.Desktop, _settings.Video.WindowModes, _settings.Message??"", _navigation.MovementBindings,
-                _settings.Video.Current+(_settings.Video.Current.Borderless?" Borderless":" Windowed")+
-                    (_settings.PreviewState==VideoPreviewState.Confirming?" — Revert in "+Math.Ceiling(_settings.SecondsRemaining)+"s":""), _settings.Video.SafeWindow, _navigation.Notification, DevelopmentUnlockVisible, _resetArmed));
+                _settings.Video.Current+(_settings.Video.Current.Borderless?" · На весь экран":" · В окне")+
+                    (_settings.PreviewState==VideoPreviewState.Confirming?"\nВернём прежний через "+Math.Ceiling(_settings.SecondsRemaining)+" с.":""), _settings.Video.SafeWindow, _navigation.Notification, DevelopmentUnlockVisible, _resetArmed,
+                _navigation.AtManualPause, _settings.Loaded && _settings.PreviewState == VideoPreviewState.Idle && !_settings.Candidate.Equals(_settings.Current.Video),
+                _settings.Dirty && !string.IsNullOrEmpty(_settings.Message)));
         }
         public void Dispose()
         {

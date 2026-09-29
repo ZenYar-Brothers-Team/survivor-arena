@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "META-009",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-28",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-29",
+  "approvedBy": "user",
+  "approvalEvidence": "docs/implementation/proposals/ui-meta-icons-r1/approval.md",
+  "prompt": "Use case: stylized-concept. Asset type: single tiny stat icon for a fantasy game's permanent-upgrades menu, displayed at 28–32 pixels before a text title. Stylized 2D storybook cutout, extremely simple chunky flat symbol, thick deep-plum (#241B2B) outline, only two flat matte color masses and a small warm-parchment highlight, no texture or small detail. Frontal pictogram, centered on square transparent canvas, symbol occupies 75% of width/height, ample transparent padding. Must read instantly at 28px on charcoal-plum (#302936) UI. No letters, numbers, words, watermark, frame, badge, card, background, ground shadow, glow, particles, realistic shading, 3D or pixel art. Generate ONLY the one requested icon. Subject: Two chunky warm ochre-gold curved arrows forming a circular reroll symbol. No dice, letters or extra elements. All colored shapes fully opaque inside outlines. Content owner: META-009, role: icon.",
+  "constraints": [
+    "Transparent exterior background; opaque icon shapes",
+    "No text or baked frame",
+    "32 px slot before upgrade title"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Meta/meta-009-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "c1b34bfcf1356498ee8d00f76cf23d6cd53544420f7420034859d86f6a880da6",
+    "runtimeSha256": "192cc6414c9dbf4341645f595c744ef06e26a4866546b4889721318e08931b41",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true
+    }
+  }
+}

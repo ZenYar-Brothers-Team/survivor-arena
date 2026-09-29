@@ -1,0 +1,69 @@
+.settings-page { position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: #241f2b; color: #e8d8b8; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/PTSans-Regular.ttf"); font-size: 22px; }
+.settings-folio { width: 77%; height: 87%; padding: 38px 48px; background-color: rgba(48,41,54,0.97); border-width: 2px; border-bottom-width: 4px; border-color: #645263; border-top-color: #806a77; border-bottom-color: #1d1721; border-radius: 14px; }
+.settings-page Label { white-space: normal; margin: 0; padding: 0; }
+.settings-header { flex-direction: row; justify-content: space-between; align-items: center; border-bottom-width: 1px; border-bottom-color: #615065; padding-bottom: 22px; flex-shrink: 0; }
+.settings-title { font-size: 54px; color: #d5a84a; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.settings-muted { color: #bfaeaa; font-size: 18px; }
+.settings-scroll { flex-grow: 1; min-height: 0; margin: 28px 0; }
+.settings-columns { flex-direction: row; }
+.settings-column { width: 50%; min-width: 0; }
+.settings-audio { padding-right: 27px; }
+.settings-right { border-left-width: 1px; border-left-color: #615065; padding-left: 44px; }
+.settings-page .settings-heading { font-size: 34px; margin-bottom: 22px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.settings-volume { margin-bottom: 30px; }
+.settings-volume-label { flex-direction: row; justify-content: space-between; margin-bottom: 14px; }
+.settings-percent { color: #d5a84a; }
+.settings-page Slider { height: 24px; margin: 0; }
+.settings-page .unity-base-slider__tracker { height: 5px; background-color: #957d91; border-width: 0; }
+.settings-page .unity-base-slider__dragger { width: 17px; height: 17px; background-color: #d5a84a; border-width: 0; border-radius: 9px; }
+.settings-page Slider:focus .unity-base-slider__dragger { border-width: 2px; border-color: #e8d8b8; }
+.settings-page Button { background-color: #493d4e; color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #806773; border-top-color: #9b7d89; border-bottom-color: #211925; border-radius: 7px; padding: 10px 22px; margin: 0; font-size: 20px; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.settings-page Button:hover { background-color: #5c495b; border-color: #e8d8b8; translate: 0 -2px; }
+.settings-page Button:focus { border-color: #d5a84a; }
+.settings-page Button:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
+.settings-page Button:disabled { opacity: 0.45; translate: 0 0; }
+.settings-actions { flex-direction: row; }
+.settings-actions Button { margin-right: 14px; }
+.settings-page .settings-hint { color: #bfaeaa; font-size: 18px; margin-top: 18px; }
+.settings-select { flex-direction: row; justify-content: space-between; margin: 0 0 16px; }
+.settings-select .unity-base-field__label { width: 140px; min-width: 0; flex-grow: 1; flex-shrink: 1; color: #e8d8b8; }
+.settings-select .unity-base-field__input { width: 265px; min-width: 265px; flex-grow: 0; flex-shrink: 0; color: #e8d8b8; background-color: #403746; border-width: 1px; border-color: #806773; border-radius: 4px; padding: 9px 14px; }
+.settings-select:focus .unity-base-field__input { border-color: #d5a84a; }
+.settings-video-actions { flex-direction: row; align-items: center; margin: 4px 0 26px; }
+.settings-video-actions .settings-muted { margin-left: 20px; flex-shrink: 1; }
+.settings-gameplay { border-top-width: 1px; border-top-color: #615065; padding-top: 22px; }
+.settings-gameplay Toggle { margin: 0 0 16px; }
+.settings-gameplay .unity-toggle__label { min-width: 0; flex-grow: 1; flex-shrink: 1; color: #e8d8b8; }
+.settings-gameplay .unity-toggle__input { width: 24px; min-width: 24px; height: 24px; flex-grow: 0; flex-shrink: 0; background-color: #241b2b; border-width: 1px; border-color: #957d91; border-radius: 3px; }
+.settings-gameplay Toggle:checked .unity-toggle__input { background-color: #d5a84a; }
+.settings-gameplay .unity-toggle__checkmark { width: 22px; height: 22px; border-width: 1px; border-color: #957d91; border-radius: 3px; background-color: #241b2b; }
+.settings-gameplay Toggle:checked .unity-toggle__checkmark { background-color: #d5a84a; }
+.settings-gameplay Toggle:focus .unity-toggle__checkmark { border-color: #e8d8b8; border-width: 2px; }
+.settings-footer { flex-direction: row; align-items: center; border-top-width: 1px; border-top-color: #615065; padding-top: 20px; flex-shrink: 0; }
+.settings-footer .settings-muted { flex-grow: 1; flex-shrink: 1; margin: 0 24px; }
+.settings-modal { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(28,21,38,0.97); align-items: center; justify-content: center; border-radius: 12px; }
+.settings-dialog { width: 600px; padding: 32px; border-width: 2px; border-color: #957d91; border-radius: 12px; background-color: #39303f; }
+.settings-dialog .settings-heading { color: #d5a84a; }
+.settings-dialog .settings-actions { margin-top: 28px; justify-content: flex-end; }
+.settings-page .settings-primary { background-color: #a65f43; border-top-color: #d08a69; border-bottom-color: #5a2f25; }
+.settings-page .settings-primary:hover { background-color: #b96e4f; }
+.settings-hidden { display: none; }
+.entry-compact .settings-folio { width: 92%; height: 94.4%; padding: 20px 30px; }
+.entry-compact .settings-page { font-size: 19px; }
+.entry-compact .settings-title { font-size: 38px; }
+.entry-compact .settings-header { padding-bottom: 12px; }
+.entry-compact .settings-scroll { margin: 18px 0; }
+.entry-compact .settings-audio { padding-right: 20px; }
+.entry-compact .settings-right { padding-left: 28px; }
+.entry-compact .settings-heading { font-size: 28px; margin-bottom: 15px; }
+.entry-compact .settings-volume { margin-bottom: 20px; }
+.entry-compact .settings-volume-label { margin-bottom: 8px; }
+.entry-compact .settings-page Button { font-size: 17px; padding: 8px 14px; }
+.entry-compact .settings-hint, .entry-compact .settings-muted { font-size: 16px; }
+.entry-compact .settings-select { margin-bottom: 10px; }
+.entry-compact .settings-select .unity-base-field__input { width: 230px; min-width: 230px; padding: 6px 10px; }
+.entry-compact .settings-video-actions { margin: 2px 0 16px; }
+.entry-compact .settings-gameplay { padding-top: 14px; }
+.entry-compact .settings-gameplay Toggle { margin-bottom: 11px; }
+.entry-compact .settings-hint { margin-top: 14px; }
+.entry-compact .settings-footer { padding-top: 12px; }

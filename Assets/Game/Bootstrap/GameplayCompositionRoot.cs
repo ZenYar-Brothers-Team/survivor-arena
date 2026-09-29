@@ -173,7 +173,12 @@ namespace Game.Bootstrap
             if (_audioCatalog != null) _audio?.PlayMusic(_audioCatalog.MenuMusic);
             NotifyNavigation();
         }
-        public void Meta() { if (!AtMainMenu || !CanPlay) return; PlayMenuCue("ui.confirm"); AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation(); }
+        public void Meta()
+        {
+            if (!AtMainMenu || !CanPlay) return;
+            if (Catalog == null) Catalog = CreateCatalog();
+            PlayMenuCue("ui.confirm"); AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation();
+        }
         public void QuitRun() => QuitProfileRun();
         public void Exit() => Application.Quit();
         public bool DevelopmentTools => Application.isEditor || Debug.isDebugBuild;

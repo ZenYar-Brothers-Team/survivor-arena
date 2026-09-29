@@ -6,13 +6,14 @@
 .shop-title { font-size: 52px; color: #d5a84a; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
 .shop-wallet { font-size: 32px; color: #d5a84a; }
 .shop-tabs { flex-direction: row; border-bottom-width: 1px; border-bottom-color: #615065; margin-top: 4px; flex-shrink: 0; }
-.shop-mode Button { background-color: #493d4e; color: #e8d8b8; border-width: 1px; border-bottom-width: 3px; border-color: #806773; border-bottom-color: #211925; border-radius: 6px; padding: 7px 12px; font-size: 18px; margin: 0; }
-.shop-mode Button:hover { border-color: #e8d8b8; background-color: #5c495b; }
+.shop-mode Button { background-color: #493d4e; color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #806773; border-top-color: #9b7d89; border-bottom-color: #211925; border-radius: 7px; padding: 7px 12px; font-size: 18px; margin: 0; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.shop-mode Button:hover { border-color: #e8d8b8; background-color: #5c495b; translate: 0 -2px; }
 .shop-mode Button:focus { border-color: #d5a84a; }
-.shop-mode Button:active { background-color: #302936; }
-.shop-mode Button:disabled { opacity: 0.5; }
-.shop-mode .shop-primary { background-color: #a65f43; }
-.shop-tabs Button { border-width: 0; border-radius: 0; background-color: transparent; padding: 8px 0; font-size: 27px; margin-right: 36px; }
+.shop-mode Button:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
+.shop-mode Button:disabled { opacity: 0.5; translate: 0 0; }
+.shop-mode .shop-primary { background-color: #a65f43; border-top-color: #d08a69; border-bottom-color: #5a2f25; }
+.shop-mode .shop-primary:hover { background-color: #b96e4f; }
+.shop-tabs Button { border-width: 0; border-radius: 0; background-color: transparent; padding: 8px 0; font-size: 27px; margin-right: 36px; translate: 0 0; }
 .shop-tabs .shop-selected { border-bottom-width: 3px; border-bottom-color: #d5a84a; }
 .shop-main { flex-direction: row; flex-grow: 1; min-height: 0; padding: 16px 0; }
 .shop-hero { width: 270px; flex-shrink: 0; margin-right: 30px; padding-right: 25px; border-right-width: 1px; border-right-color: #615065; }
@@ -35,6 +36,8 @@
 .shop-list .unity-scroll-view__content-container { flex-direction: row; flex-wrap: wrap; padding-right: 12px; }
 .shop-card { width: 32.6%; margin-right: 0.7%; padding: 10px 12px; border-width: 1px; border-color: #645163; border-top-width: 2px; border-top-color: #806878; border-radius: 7px; background-color: #39303f; margin-bottom: 10px; }
 .shop-card-heading { flex-direction: row; align-items: center; justify-content: space-between; }
+.shop-has-stat-icon { padding-left: 38px; }
+.shop-stat-icon { position: absolute; left: 0; top: -2px; width: 32px; height: 32px; }
 .shop-card-title { font-size: 24px; flex-shrink: 1; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
 .shop-level { font-size: 14px; color: #bfaf95; margin-left: 8px; flex-shrink: 0; }
 .shop-bars { flex-direction: row; margin: 7px 0 8px; height: 5px; }
@@ -48,16 +51,35 @@
 .shop-refund-reason { font-size: 17px; color: #bfaf95; margin-right: 20px; }
 .shop-mode .meta-actions { flex-shrink: 0; margin-top: 10px; padding-top: 12px; border-top-width: 1px; border-top-color: #615065; }
 .shop-mode .meta-actions Button { font-size: 24px; min-height: 40px; }
-.shop-mode .meta-message { font-size: 18px; flex-shrink: 0; }
+.shop-mode .meta-message { font-size: 18px; min-height: 24px; flex-shrink: 0; }
 .shop-modal { position: absolute; left: -40px; right: -40px; top: -22px; bottom: -100px; background-color: rgba(20, 13, 25, 0.9); justify-content: center; align-items: center; }
 .shop-dialog { width: 560px; padding: 28px; background-color: #302936; border-width: 2px; border-color: #957d91; border-radius: 12px; }
 .shop-dialog-title { font-size: 34px; color: #d5a84a; }
 .shop-mode .shop-dialog-detail { font-size: 24px; margin: 20px 0; }
 .shop-dialog-actions { flex-direction: row; justify-content: space-between; }
 .shop-group-title { font-size: 28px; color: #d5a84a; margin-bottom: 12px; margin-top: 18px; }
-.shop-unlock { flex-direction: row; align-items: center; padding: 12px; margin-bottom: 8px; background-color: #39303f; }
-.shop-unlock-icon { width: 60px; height: 60px; margin-right: 14px; }
-.shop-unlock-copy { flex-grow: 1; flex-basis: 0; }
+.shop-unlock-pane { flex-grow: 1; min-width: 0; min-height: 0; }
+.shop-unlock-filters { flex-direction: row; align-items: center; margin-bottom: 18px; flex-shrink: 0; }
+.shop-mode .shop-type-filter { margin-right: 9px; background-color: transparent; border-color: transparent; }
+.shop-mode .shop-type-filter.shop-selected { background-color: #493d4e; border-color: #806773; }
+.shop-unlock-state { margin-left: auto; width: 220px; }
+.shop-unlock-state .unity-base-field__input { background-color: #403746; color: #e8d8b8; border-width: 1px; border-color: #806773; padding: 7px; font-size: 20px; }
+.shop-unlock-grid { flex-direction: row; flex-wrap: wrap; padding-right: 12px; margin-bottom: 16px; }
+.shop-unlock { width: 32.6%; margin-right: 0.7%; min-height: 124px; flex-direction: row; align-items: center; padding: 14px; margin-bottom: 10px; background-color: #39303f; border-width: 1px; border-color: #645163; border-radius: 7px; }
+.shop-unlock-available { border-color: #a98b50; background-color: #403739; }
+.shop-unlock-art { width: 82px; height: 82px; margin-right: 16px; flex-shrink: 0; justify-content: center; align-items: center; }
+.shop-unlock-icon { width: 100%; height: 100%; }
+.shop-map-number { width: 64px; height: 64px; border-width: 1px; border-color: #957d91; border-radius: 6px; font-size: 32px; color: #d5a84a; -unity-text-align: middle-center; }
+.shop-unknown { position: absolute; right: 2px; bottom: 0; font-size: 28px; }
+.shop-unlock-copy { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.shop-unlock-kind { font-size: 15px; color: #bfaf95; }
+.shop-unlock .shop-card-title { font-size: 26px; }
+.shop-mode .shop-unlock .shop-reason { font-size: 18px; }
+.shop-mode .shop-reason.shop-owned { color: #adc58e; }
+.shop-unlock-actions { flex-direction: row; align-items: center; flex-wrap: wrap; margin-top: 9px; }
+.shop-unlock-actions .shop-price { font-size: 18px; margin-right: 12px; }
+.shop-unlock-total { font-size: 19px; color: #bfaf95; -unity-text-align: middle-right; padding-top: 10px; flex-shrink: 0; }
+.shop-unlock-empty { font-size: 24px; color: #bfaf95; padding: 60px 10px; -unity-text-align: middle-center; }
 .shop-mode .unity-scroller__low-button, .shop-mode .unity-scroller__high-button { display: none; }
 .shop-mode .unity-scroller { width: 12px; }
 .shop-mode .unity-base-slider__tracker { background-color: #241b2b; }
@@ -83,4 +105,14 @@
 .results-compact .shop-card Button { font-size: 16px; padding: 6px 9px; }
 .results-compact .shop-reason { font-size: 13px; }
 .results-compact .shop-refund-reason { font-size: 14px; }
+.results-compact .shop-unlock { width: 49.2%; min-height: 100px; padding: 10px; margin-bottom: 8px; }
+.results-compact .shop-unlock-art { width: 62px; height: 62px; margin-right: 12px; }
+.results-compact .shop-unlock .shop-card-title { font-size: 23px; }
+.results-compact .shop-unlock .shop-reason { font-size: 16px; }
+.results-compact .shop-unlock-kind { font-size: 13px; }
+.results-compact .shop-unlock-filters { margin-bottom: 11px; }
+.results-compact .shop-type-filter { font-size: 17px; padding: 6px 12px; margin-right: 5px; }
+.results-compact .shop-unlock-state { width: 185px; }
+.results-compact .shop-unlock-state .unity-base-field__input { font-size: 17px; }
+.results-compact .shop-unlock-total { font-size: 16px; }
 .results-compact .shop-footer Button, .results-compact.shop-mode .meta-actions Button { font-size: 19px; }
