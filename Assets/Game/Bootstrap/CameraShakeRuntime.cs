@@ -2,6 +2,7 @@ using Game.Combat;
 using Game.Run;
 using Game.Settings;
 using Game.Presentation;
+using Game.Movement;
 using UnityEngine;
 using UnityEngine.Rendering;
 namespace Game.Bootstrap
@@ -10,6 +11,7 @@ namespace Game.Bootstrap
     public sealed class CameraShakeRuntime : MonoBehaviour
     {
         private Camera _camera;
+        private CameraFollowTarget _follow;
         private Health _health;
         private RunModel _run;
         private ISettingsService _settings;
@@ -21,7 +23,7 @@ namespace Game.Bootstrap
         public Vector2 Offset { get; private set; }
         public void Initialize(Camera camera, Health health, RunModel run, ISettingsService settings, SettingsConfig config)
         {
-            Shutdown(); _camera=camera; _health=health; _run=run; _settings=settings; _config=config;
+            Shutdown(); _camera=camera; _follow=camera.GetComponent<CameraFollowTarget>(); _health=health; _run=run; _settings=settings; _config=config;
             _gate=new ScreenShakeRequestGate(settings); _gate.Requested+=Requested;
             health.Damaged+=Damage; run.StateChanged+=State; settings.Changed+=Preference;
             RenderPipelineManager.beginCameraRendering+=Begin; RenderPipelineManager.endCameraRendering+=End;
@@ -47,7 +49,8 @@ namespace Game.Bootstrap
         {
             if(camera!=_camera||!_active||_rendering)return;
             _baseline=camera.transform.position; _rendering=true;
-            camera.transform.position=_baseline+(Vector3)Offset;
+            var desired=_baseline+(Vector3)Offset;
+            camera.transform.position=_follow!=null ? _follow.ClampPosition(desired) : desired;
         }
         private void End(ScriptableRenderContext context, Camera camera) { if(camera==_camera)Restore(); }
         private void Restore() { if(_rendering&&_camera!=null)_camera.transform.position=_baseline; _rendering=false; }
@@ -60,7 +63,7 @@ namespace Game.Bootstrap
             if(_run!=null)_run.StateChanged-=State;
             if(_settings!=null)_settings.Changed-=Preference;
             RenderPipelineManager.beginCameraRendering-=Begin; RenderPipelineManager.endCameraRendering-=End;
-            _health=null; _run=null; _settings=null; _camera=null;
+            _health=null; _run=null; _settings=null; _camera=null; _follow=null;
         }
         private void OnDisable() => Clear();
         private void OnDestroy() => Shutdown();

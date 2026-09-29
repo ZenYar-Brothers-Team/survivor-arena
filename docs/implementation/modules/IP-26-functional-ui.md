@@ -283,6 +283,8 @@ settings preferences и `IAudioPreview` остаются в Game.Settings, produ
 Offset ограничен JSON envelope; camera transform смещается только между URP
 begin/end-camera-render callbacks и немедленно восстанавливается. Gameplay Update,
 spawn/visibility и camera follow читают baseline. Disable/pause/off/end очищают effect.
+При границе поля render-only offset ограничивается теми же camera bounds
+по DECISION-0101, чтобы Shake не открывал место за текстурой поля.
 
 `NotificationQueue` показывает одно неблокирующее сообщение вне центра; остальные
 ждут в ограниченной очереди. UI-time при pause не идёт. `RunNotificationBinding`

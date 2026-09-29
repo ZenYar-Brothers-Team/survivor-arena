@@ -312,6 +312,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-01)
 Status: Verified
 Dependencies: IP-01
 Current packet: DECISION-0084 mouse movement delta реализована; keyboard остаётся default, pointer deadzone = 1 world unit.
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: камера останавливается так, чтобы видимая область не выходила за поле; игрок упирается в прежнюю физическую границу, follow возобновляется после отхода, Screen Shake тоже ограничен ([DECISION-0101](../decisions/0101-camera-field-edge.md), [OBS-01](../playtests/2026-09-29_camera-field-edge.md#obs-01--край-поля-остаётся-в-кадре)). Targeted Movement/Bootstrap EditMode **53/53 PASS**, 0 failed/skipped; PlayMode не дал result XML из-за падения Unity в render loop; [evidence](evidence/2026-09-29-camera-field-edge.md). Игровой визуальный результат ещё не принят.
 Remaining gates: Нет дополнительных product gaps для текущего packet.
 Remaining acceptance / IDs: Автоматизированный scope закрыт; ощущение deadzone в standalone остаётся ручной проверкой, не блокирует функциональный contract.
 Target implementation evidence: [DECISION-0084 delta](evidence/2026-09-28-mouse-movement-and-pause-shortcuts.md); прежняя база — [design-sync-R2](evidence/design-sync-R2-2026-09-21.md#ip-02).

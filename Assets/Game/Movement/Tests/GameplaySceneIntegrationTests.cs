@@ -122,6 +122,56 @@ namespace Game.Movement.Tests
             }
         }
 
+        [Test]
+        public void Camera_StopsAtEveryFieldEdge_ThenFollowsPlayerAgain()
+        {
+            var player = RequireObject("Player");
+            var cameraObject = RequireObject("Main Camera");
+            var camera = cameraObject.GetComponent<Camera>();
+            var follower = cameraObject.GetComponent<CameraFollowTarget>();
+            var playerStart = player.transform.position;
+            var cameraStart = cameraObject.transform.position;
+            var halfField = FixtureArenaGeometryCatalog.Create().SideLength * 0.5f;
+            var halfWidth = camera.orthographicSize * camera.aspect;
+            var halfHeight = camera.orthographicSize;
+
+            try
+            {
+                follower.ConfigureBounds(halfField * 2f);
+                player.transform.position = new Vector3(halfField, halfField, playerStart.z);
+                follower.CenterOnTarget();
+                Assert.AreEqual(halfField, cameraObject.transform.position.x + halfWidth, 0.0001f);
+                Assert.AreEqual(halfField, cameraObject.transform.position.y + halfHeight, 0.0001f);
+
+                var atCorner = cameraObject.transform.position;
+                player.transform.position = new Vector3(halfField - halfWidth * 0.5f,
+                    halfField - halfHeight * 0.5f, playerStart.z);
+                follower.CenterOnTarget();
+                Assert.AreEqual(atCorner.x, cameraObject.transform.position.x, 0.0001f);
+                Assert.AreEqual(atCorner.y, cameraObject.transform.position.y, 0.0001f);
+
+                player.transform.position = new Vector3(halfField - halfWidth - 2f,
+                    halfField - halfHeight - 2f, playerStart.z);
+                follower.CenterOnTarget();
+                Assert.AreEqual(player.transform.position.x, cameraObject.transform.position.x, 0.0001f);
+                Assert.AreEqual(player.transform.position.y, cameraObject.transform.position.y, 0.0001f);
+
+                player.transform.position = new Vector3(-halfField, -halfField, playerStart.z);
+                follower.CenterOnTarget();
+                Assert.AreEqual(-halfField, cameraObject.transform.position.x - halfWidth, 0.0001f);
+                Assert.AreEqual(-halfField, cameraObject.transform.position.y - halfHeight, 0.0001f);
+                var shaken = follower.ClampPosition(cameraObject.transform.position + new Vector3(-1f, -1f, 0f));
+                Assert.AreEqual(cameraObject.transform.position.x, shaken.x, 0.0001f);
+                Assert.AreEqual(cameraObject.transform.position.y, shaken.y, 0.0001f);
+            }
+            finally
+            {
+                follower.ClearBounds();
+                player.transform.position = playerStart;
+                cameraObject.transform.position = cameraStart;
+            }
+        }
+
         private static void InvokeAwake(MonoBehaviour behaviour)
         {
             behaviour.GetType()

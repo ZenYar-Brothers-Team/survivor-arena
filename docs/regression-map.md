@@ -1,5 +1,9 @@
 # Regression map
 
+DECISION-0101: `GameplaySceneIntegrationTests.Camera_StopsAtEveryFieldEdge_ThenFollowsPlayerAgain`
+проверяет обе оси у положительной и отрицательной границ, задержку камеры при
+первом шаге внутрь, возобновление follow и ограничение render-only offset.
+
 DECISION-0099: `EnemyPatternTests` проверяет OffsetPursuit, CommittedPursuit,
 BlockedSidestep (включая малое замедление и срабатывание рядом при полной
 скорости), ArcPassPursuit, InertialPursuit и
