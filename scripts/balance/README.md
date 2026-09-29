@@ -64,5 +64,17 @@ watchdog/route stop, not a loss; `failed` means process, input, export or save
 failure. Ctrl+C stops only this runner's current child, keeps completed files,
 and marks the manifest `cancelled`. There are no automatic retries or deletion.
 
-The statistical `analyze.py`/`compare.py` commands follow in AB-07. Do not infer
-balance quality from the speed or win rate of a single short smoke run.
+Analyze any finished or partial experiment without filtering away inconvenient
+runs. Outputs `analysis.json`, `runs.csv`, `chains.csv`, and `summary.md` in the
+experiment directory. A comparison prints Markdown and refuses mismatched
+starting profile, route, hero, policies, speed, or budgets:
+
+```powershell
+python scripts/balance/analyze.py TestResults/fresh-field001-example
+python scripts/balance/compare.py TestResults/baseline TestResults/candidate
+```
+
+Win rate uses only naturally completed W/L. Timeouts, crashes, missing/corrupt
+reports, and censored milestones remain visible. Runs in a profile chain are
+dependent; the v1 summaries are descriptive, with no p-values or paired-seed
+claims. Do not infer balance quality from one short smoke run.

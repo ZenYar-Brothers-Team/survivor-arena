@@ -148,3 +148,23 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   12.37 s `visual=false, audio=false` run, exit 0, planned partial timeout,
   with its own run ID and complete output packet. The runner recorded the mode;
   absence of a window/sound relies on Unity batch mode and the early mute path.
+
+## AB-07
+
+- `analyze.py` validates and includes every manifest/discovered run, recording
+  missing/corrupt/incomplete reports with exclusion reasons. Natural W/L alone
+  form the win-rate denominator. It emits typed JSON, runs/chains CSV and
+  Markdown with grouped duration/level/phase distributions, phase observation
+  counts, profile-chain milestones (including censoring), spend, errors,
+  effective speed and completed runs per ten wall minutes.
+- `compare.py` refuses mismatched template/initial preset, hero, route, bot
+  policies, budgets or speed; build fingerprints remain visible as candidate
+  differences. It makes no paired-seed, p-value or causal skill-damage claim.
+- Python 14/14 PASS (`python -m unittest discover -s scripts/balance -p 'test_*.py' -v`),
+  including hand-calculated 1 W / 1 L / 1 incomplete → 50% of 2, effective
+  speed 3.5×, empty/all-incomplete, corrupt/missing reports and incompatible
+  speed. The real `TestResults/balance-headless-check/summary.md` correctly
+  reports no available win rate, one incomplete run and ~3.21× effective
+  measured speed over its startup-including 12.37 s wall interval.
+- Pending for Verified: eight natural pilot runs, full regression smoke and
+  review of real-series group tables/denominators.

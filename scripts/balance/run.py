@@ -42,6 +42,12 @@ def write_json(path: Path, value: dict) -> None:
     os.replace(pending, path)
 
 
+def write_text(path: Path, value: str) -> None:
+    pending = path.with_name(path.name + ".pending")
+    pending.write_text(value, encoding="utf-8")
+    os.replace(pending, path)
+
+
 def validate(experiment: Path, player: Path, output: Path) -> tuple[dict, dict, str, str | None]:
     if not experiment.is_file():
         raise ValueError(f"Experiment file missing: {experiment}")
