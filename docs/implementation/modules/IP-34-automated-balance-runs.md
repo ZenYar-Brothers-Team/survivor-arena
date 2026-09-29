@@ -229,6 +229,14 @@ starting character/field и output collision отвергаются до игр�
 тестовый sentinel production save/settings не читается/не записывается.
 **Checks:** Automation/Meta EditMode, schema fixtures, profile copy/round-trip.
 
+Формат v1 и готовые конфигурации: [`scripts/balance/examples/fresh.json`](../../../scripts/balance/examples/fresh.json),
+[`preset.json`](../../../scripts/balance/examples/preset.json). Декларативная
+исходная точка создаётся [`prepare_preset.py`](../../../scripts/balance/prepare_preset.py)
+по [инструкции](../../../scripts/balance/README.md); результат повторно проходит
+`ProfileCodec` при загрузке. `ExperimentConfigLoader` фиксирует копию стартового
+профиля в момент валидации, так что изменение исходного файла после неё не меняет
+цепочки незаметно.
+
 <a id="ab-02"></a>
 ### AB-02 — Наблюдение и движение бота
 

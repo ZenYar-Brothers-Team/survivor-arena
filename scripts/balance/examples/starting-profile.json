@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "currency": 1000,
+  "firstRun": true,
+  "upgradesDisabled": false,
+  "upgrades": {
+    "META-003:CHAR-001": 2,
+    "META-004:CHAR-001": 1
+  },
+  "upgradeSpending": {
+    "META-003:CHAR-001": 300,
+    "META-004:CHAR-001": 100
+  },
+  "unlocked": [
+    "CHAR-001",
+    "FIELD-001",
+    "PASSIVE-001",
+    "PASSIVE-002",
+    "PASSIVE-003",
+    "PASSIVE-004",
+    "PASSIVE-005",
+    "PASSIVE-007",
+    "PASSIVE-008",
+    "PASSIVE-009",
+    "PASSIVE-011",
+    "PASSIVE-012",
+    "SET-001",
+    "SET-004",
+    "SET-006",
+    "SET-010",
+    "SET-017",
+    "SKILL-001",
+    "SKILL-002",
+    "SKILL-003",
+    "SKILL-004",
+    "SKILL-005",
+    "SKILL-006",
+    "SKILL-007",
+    "SKILL-010",
+    "SKILL-013",
+    "SKILL-014"
+  ],
+  "clearedFields": [],
+  "runs": {}
+}

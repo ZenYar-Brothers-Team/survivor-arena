@@ -20,12 +20,12 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
-Автоматические прогоны 2026-09-29 — поручена **подготовка плана**
+Автоматические прогоны 2026-09-29 — поручена реализация всей очереди AB-01…08
 [IP-34](modules/IP-34-automated-balance-runs.md), `automated-runs-v1`
-([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md)). Runtime-реализацию
-в этой задаче не начинать. После отдельного поручения реализовывать IP-34 выбирать
-packet по [его scoped очереди](#automated-runs-execution); Ready означает готовность,
-а не отмену этой границы. Остальные UI/gameplay поручения и паузы сохраняются.
+([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md)). Пользователь
+разрешил проходить [scoped очередь](#automated-runs-execution) последовательно,
+останавливаясь только для принципиальных решений. Остальные UI/gameplay поручения
+и паузы сохраняются.
 
 UI Folio polish 2026-09-29 — Implemented: по явному поручению пользователя
 выполняется отложенная чистовая отделка кнопок и фоновых поверхностей из
@@ -109,13 +109,13 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 
 Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v1`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
-Текущая задача заканчивается записью плана. После одного packet следующий начинается
-только в пределах данного пользователем разрешения; общий backlog не возобновляется.
+Поручение пользователя охватывает AB-01…08 последовательно; общий backlog не
+возобновляется.
 
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
 |---:|---|---|---|
-| 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Ready | IP-25 profile/catalog APIs есть; первый implementation packet после команды пользователя |
-| 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | Blocked | AB-01 |
+| 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Verified | 6/6 EditMode + 3/3 Python, [evidence](evidence/2026-09-29-ip34-automation.md#ab-01) |
+| 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | In progress | AB-01 Verified; bot input/observer |
 | 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Blocked | AB-01/02 |
 | 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Blocked | AB-03; IP-31 adapters расширять только под заявленные метрики |
 | 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Blocked | AB-03/04 |
@@ -764,11 +764,11 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
-Status: Ready
+Status: In progress
 Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-01; готовность остальных — в scoped очереди выше.
-Authorization: сейчас только запись плана; runtime после отдельного поручения пользователя.
+Current packet: AB-02; готовность остальных — в scoped очереди выше.
+Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
 Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
 случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.
 Prerequisite audit 2026-09-29: проверены текущие `ProfileCodec/MemoryProfileStore`,
@@ -777,10 +777,12 @@ revision-aware draft commands, PlayerMover и telemetry. Для полного v
 новые input/observation/report adapters, а не повторная реализация gameplay.
 Content boundary: базовый пилот использует FIELD-001; дополнительные поля только
 с готовыми production bindings. FIELD-004…010 не становятся доступными этим планом.
-Target implementation evidence: нет; зарегистрированы спецификация и DECISION-0097.
-Target verification evidence: 2026-09-29 `python scripts/check_project.py --scope docs`
-STATIC PASS; 10 локальных ссылок нового плана/решения, 8 packet anchors и code fences
-проверены. Новые Unity tests, bot runs и throughput measurements не запускались.
+Target implementation evidence: AB-01 — строгий config, preset preparation и
+изолированные profile/settings stores; [детали](evidence/2026-09-29-ip34-automation.md#ab-01).
+Target verification evidence: AB-01 Unity 6000.6.0f1 targeted EditMode 6/6,
+Python 3/3, docs STATIC PASS; дальнейшие packets и production pilot ещё не проверены.
+Documentation impact: IP-34 schema/examples и локальная инструкция AB-01 синхронизированы;
+Game/Content Design без изменений.
 Documentation impact: GDD/CD и production balance без изменений; связаны owning IP,
 BALANCE_WORKFLOW, каталог модулей и PROJECT_MAP.
 

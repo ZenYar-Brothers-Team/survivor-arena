@@ -1,0 +1,11 @@
+{
+  "currency": 1000,
+  "firstRun": true,
+  "upgradesDisabled": false,
+  "upgrades": {
+    "META-003:CHAR-001": 2,
+    "META-004:CHAR-001": 1
+  },
+  "unlocked": [],
+  "clearedFields": []
+}

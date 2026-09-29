@@ -1,0 +1,9 @@
+{
+  "name": "Game.Automation.Tests",
+  "rootNamespace": "Game.Automation.Tests",
+  "references": ["Game.Automation", "Game.Meta", "Game.Settings", "Game.Content", "Newtonsoft.Json", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+  "includePlatforms": ["Editor"],
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll", "Newtonsoft.Json.dll"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

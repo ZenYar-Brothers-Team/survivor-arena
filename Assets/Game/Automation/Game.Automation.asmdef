@@ -1,0 +1,6 @@
+{
+  "name": "Game.Automation",
+  "rootNamespace": "Game.Automation",
+  "references": ["Game.Content", "Game.Meta", "Game.Settings", "Newtonsoft.Json"],
+  "autoReferenced": true
+}
