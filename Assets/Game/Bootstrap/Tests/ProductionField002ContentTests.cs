@@ -44,9 +44,36 @@ namespace Game.Bootstrap.Tests
                 "DECISION-0063: a new enemy type is visible from the first wave.");
             foreach (var phase in configuration.Timeline.Phases)
             {
-                Assert.AreEqual(1.12f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
-                Assert.AreEqual(1.08f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.2f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.1f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1f, phase.Modifiers.SpeedMultiplier, 1e-5f, phase.Id.ToString());
+            }
+        }
+
+        [TestCase("FIELD-002", 1.1f)]
+        [TestCase("FIELD-003", 1.2f)]
+        public void Timeline_FollowsTheField001Rhythm_WithShorterRestsAndDenserSpawns(string fieldId, float density)
+        {
+            // DECISION-0092: same 16 phases and modes as FIELD-001; 15-s rests; spawn intervals divided by the field density.
+            var catalog = Catalog;
+            var reference = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry).Timeline;
+            var timeline = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == fieldId).Resolve(catalog.Registry).Timeline;
+            Assert.AreEqual(16, reference.Phases.Count);
+            Assert.AreEqual(reference.Phases.Count, timeline.Phases.Count);
+            Assert.AreEqual(reference.TotalDurationSeconds, timeline.TotalDurationSeconds, 1e-3f);
+            for (var i = 0; i < timeline.Phases.Count; i++)
+            {
+                var phase = timeline.Phases[i];
+                var baseline = reference.Phases[i];
+                Assert.AreEqual(baseline.SpawnMode, phase.SpawnMode, phase.Id.ToString());
+                if (baseline.Tag == WavePhaseTag.Rest)
+                    Assert.AreEqual(15f, phase.DurationSeconds, 1e-3f, phase.Id.ToString());
+                if (phase.SpawnMode == WaveSpawnMode.Burst)
+                    Assert.Greater(phase.Burst.Count, baseline.Burst.Count, phase.Id.ToString());
+                else
+                    Assert.LessOrEqual(phase.SpawnIntervalSeconds, baseline.SpawnIntervalSeconds / density + 1e-3f, phase.Id.ToString());
+                var types = phase.Composition.Count(c => c.Weight > 0);
+                Assert.That(types, Is.InRange(2, 7), phase.Id.ToString());
             }
         }
 

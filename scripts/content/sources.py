@@ -18,13 +18,13 @@ SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
 ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
 
 
-FIELD002_PACKET = ROOT / "docs/balance/field002-v1.json"
+FIELD002_PACKET = ROOT / "docs/balance/field002-v2.json"
 
 
 BOSSES_PACKET = ROOT / "docs/balance/bosses-v1.json"
 
 
-FIELD003_PACKET = ROOT / "docs/balance/field003-v1.json"
+FIELD003_PACKET = ROOT / "docs/balance/field003-v2.json"
 
 
 LAYOUTS_PACKET = ROOT / "docs/balance/field-layouts-v1.json"
