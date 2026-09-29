@@ -92,6 +92,24 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Load_OrbitExperience_RequiresBoundedArcOnlyForThatProfile()
+        {
+            var value = Fresh();
+            value["movementPolicy"]["id"] = "orbitExperience";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["arcOffsetWorldUnits"] = 6;
+            Assert.AreEqual("orbitExperience", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["arcOffsetWorldUnits"] = 11;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["arcOffsetWorldUnits"] = 6;
+            value["movementPolicy"]["version"] = 2;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["version"] = 1;
+            value["movementPolicy"]["id"] = "safePickup";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+        }
+
+        [Test]
         public void Preset_InvalidPersonalLevelsAndOwner_AreRejected()
         {
             var builder = new PresetProfileBuilder(_catalog);

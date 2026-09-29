@@ -10,5 +10,6 @@ namespace Game.Automation
         public float? PredictionSeconds { get; set; }
         public float? ObstaclePadding { get; set; }
         public float? StuckSeconds { get; set; }
+        public float? ArcOffsetWorldUnits { get; set; }
     }
 }

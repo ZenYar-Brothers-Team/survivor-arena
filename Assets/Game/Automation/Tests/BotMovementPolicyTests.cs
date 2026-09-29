@@ -11,6 +11,14 @@ namespace Game.Automation.Tests
             PredictionSeconds = 0.5f, ObstaclePadding = 0.15f, StuckSeconds = stuckSeconds
         };
 
+        private static MovementPolicyData OrbitSettings(float arcOffset = 6f)
+        {
+            var settings = Settings();
+            settings.Id = "orbitExperience";
+            settings.ArcOffsetWorldUnits = arcOffset;
+            return settings;
+        }
+
         private static BotObservation Observe(Vector2 position, BotThreat[] threats = null, BotPickup[] pickups = null,
             BotObstacle[] obstacles = null, BotBeam[] beams = null, bool complete = true) =>
             new BotObservation(position, 3f, 0.3f, Rect.MinMaxRect(-10, -10, 10, 10),
@@ -75,6 +83,80 @@ namespace Game.Automation.Tests
             var projectile = Observe(Vector2.zero,
                 threats: new[] { new BotThreat(new Vector2(2, 0), new Vector2(-2, 0), 0.25f, 10f) }, pickups: pickup);
             Assert.AreNotEqual(Vector2.right, new BotMovementPolicy(settings).Decide(projectile, 0.2f).Direction);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_BlockedDirectRouteTakesWideUpperArcThenReturnsToXp()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings());
+            var threat = new[] { new BotThreat(new Vector2(4, 0), Vector2.zero, 0.5f, 3f) };
+            var xp = new[] { new BotPickup(new Vector2(8, 0), 1f) };
+            var first = policy.Decide(Observe(Vector2.zero, threats: threat, pickups: xp), 0.2f);
+            Assert.Greater(first.Direction.y, 0f);
+            var afterWaypoint = policy.Decide(Observe(new Vector2(4, 5.5f), threats: threat, pickups: xp), 0.2f);
+            Assert.Greater(afterWaypoint.Direction.x, 0f);
+            Assert.Less(afterWaypoint.Direction.y, 0f);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_ChoosesSaferSideAndKeepsTarget()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings());
+            var threats = new[]
+            {
+                new BotThreat(new Vector2(4, 0), Vector2.zero, 0.5f, 3f),
+                new BotThreat(new Vector2(4, 5), Vector2.zero, 0.5f, 3f)
+            };
+            var xp = new[] { new BotPickup(new Vector2(8, 0), 1f) };
+            Assert.Less(policy.Decide(Observe(Vector2.zero, threats: threats, pickups: xp), 0.2f).Direction.y, 0f);
+            var addedCloserXp = new[] { xp[0], new BotPickup(new Vector2(-1, 0), 1f) };
+            var next = policy.Decide(Observe(new Vector2(1, -1), threats: threats, pickups: addedCloserXp), 0.2f);
+            Assert.Greater(next.Direction.x, 0f);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_NoLegalArcDoesNotRushXp()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings(10f));
+            var observation = Observe(Vector2.zero,
+                threats: new[] { new BotThreat(new Vector2(4, 0), Vector2.zero, 0.5f, 3f) },
+                pickups: new[] { new BotPickup(new Vector2(8, 0), 1f) });
+            Assert.AreNotEqual(Vector2.right, policy.Decide(observation, 0.2f).Direction);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_ObstacleOnUpperArcChoosesLowerArc()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings());
+            var observation = Observe(Vector2.zero,
+                threats: new[] { new BotThreat(new Vector2(4, 0), Vector2.zero, 0.5f, 3f) },
+                pickups: new[] { new BotPickup(new Vector2(8, 0), 1f) },
+                obstacles: new[] { new BotObstacle(Rect.MinMaxRect(2, 2, 5, 7)) });
+            Assert.Less(policy.Decide(observation, 0.2f).Direction.y, 0f);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_DisappearedXpClearsWaypoint()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings());
+            var threat = new[] { new BotThreat(new Vector2(4, 0), Vector2.zero, 0.5f, 3f) };
+            policy.Decide(Observe(Vector2.zero, threats: threat,
+                pickups: new[] { new BotPickup(new Vector2(8, 0), 1f) }), 0.2f);
+            Assert.AreEqual(Vector2.zero, policy.Decide(Observe(Vector2.zero), 0.2f).Direction);
+        }
+
+        [Test]
+        public void Decide_OrbitExperience_NearestXpInsideThreatChoosesOtherVisibleXp()
+        {
+            var policy = new BotMovementPolicy(OrbitSettings());
+            var observation = Observe(Vector2.zero,
+                threats: new[] { new BotThreat(new Vector2(3, 0), Vector2.zero, 0.8f, 3f) },
+                pickups: new[]
+                {
+                    new BotPickup(new Vector2(3, 0), 1f),
+                    new BotPickup(new Vector2(0, 6), 1f)
+                });
+            Assert.Greater(policy.Decide(observation, 0.2f).Direction.y, 0f);
         }
 
         [Test]

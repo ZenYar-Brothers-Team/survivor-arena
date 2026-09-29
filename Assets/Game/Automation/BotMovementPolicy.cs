@@ -18,6 +18,7 @@ namespace Game.Automation
         private readonly float _obstaclePadding;
         private readonly float _stuckSeconds;
         private readonly bool _experienceFocused;
+        private readonly BotOrbitPlanner _orbitPlanner;
         private Vector2 _previousDirection;
         private Vector2 _lastPosition;
         private bool _hasLastPosition;
@@ -28,12 +29,21 @@ namespace Game.Automation
         {
             if (settings == null || settings.PredictionSeconds == null || settings.ObstaclePadding == null ||
                 settings.StuckSeconds == null) throw new ArgumentException("Validated movement policy required.", nameof(settings));
-            if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused")
+            if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused" &&
+                settings.Id != "orbitExperience")
                 throw new ArgumentException("Unknown movement policy/version.", nameof(settings));
             _predictionSeconds = settings.PredictionSeconds.Value;
             _obstaclePadding = settings.ObstaclePadding.Value;
             _stuckSeconds = settings.StuckSeconds.Value;
             _experienceFocused = settings.Id == "experienceFocused";
+            if (settings.Id == "orbitExperience")
+            {
+                if (!settings.ArcOffsetWorldUnits.HasValue || settings.ArcOffsetWorldUnits.Value < 2f ||
+                    settings.ArcOffsetWorldUnits.Value > 10f)
+                    throw new ArgumentException("Validated arc offset required.", nameof(settings));
+                _orbitPlanner = new BotOrbitPlanner(settings.ArcOffsetWorldUnits.Value,
+                    _predictionSeconds, _obstaclePadding);
+            }
         }
 
         public BotMovementDecision Decide(BotObservation observation, float elapsedSimulationSeconds)
@@ -45,6 +55,7 @@ namespace Game.Automation
             if (!observation.CoverageComplete)
             {
                 _previousDirection = Vector2.zero;
+                _orbitPlanner?.Clear();
                 return new BotMovementDecision(Vector2.zero, coverageIncomplete: true);
             }
 
@@ -59,6 +70,9 @@ namespace Game.Automation
             _lastPosition = observation.Position;
             _hasLastPosition = true;
 
+            var orbitGoal = _orbitPlanner?.NextGoal(observation);
+            if (_orbitPlanner != null && !orbitGoal.HasValue) _previousDirection = Vector2.zero;
+
             var best = 0;
             var bestScore = float.NegativeInfinity;
             for (var i = 0; i < Directions.Length; i++)
@@ -67,12 +81,13 @@ namespace Game.Automation
                 if (_stationarySeconds >= _stuckSeconds && (direction == _previousDirection ||
                     _recoveryAttempts > 0 && direction == Vector2.zero)) continue;
                 if (!IsReachable(observation, direction)) continue;
-                var score = Score(observation, direction);
+                var score = Score(observation, direction, orbitGoal);
                 if (direction == _previousDirection) score += 0.1f;
                 if (score > bestScore) { bestScore = score; best = i; }
             }
             if (_stationarySeconds >= _stuckSeconds)
             {
+                _orbitPlanner?.Clear();
                 _recoveryAttempts++;
                 _stationarySeconds = 0f;
             }
@@ -99,7 +114,7 @@ namespace Game.Automation
             return true;
         }
 
-        private float Score(BotObservation observation, Vector2 direction)
+        private float Score(BotObservation observation, Vector2 direction, Vector2? orbitGoal)
         {
             var destination = observation.Position + direction * observation.MovementSpeed * _predictionSeconds;
             var danger = 0f;
@@ -119,8 +134,15 @@ namespace Game.Automation
                 danger += beam.Weight * exposure * exposure;
             }
             var attraction = 0f;
-            foreach (var pickup in observation.Pickups)
+            if (orbitGoal.HasValue)
             {
+                var oldDistance = Vector2.Distance(observation.Position, orbitGoal.Value);
+                var newDistance = Vector2.Distance(destination, orbitGoal.Value);
+                attraction = 6f * (oldDistance - newDistance) / Mathf.Max(1f, oldDistance);
+            }
+            else foreach (var pickup in observation.Pickups)
+            {
+                if (_orbitPlanner != null && pickup.IsExperience) continue;
                 var target = GuidanceTarget(observation, pickup.Position);
                 var oldDistance = Vector2.Distance(observation.Position, target);
                 var newDistance = Vector2.Distance(destination, target);
@@ -161,7 +183,7 @@ namespace Game.Automation
             return pickup;
         }
 
-        private static bool SegmentIntersectsRect(Vector2 start, Vector2 end, Rect rect)
+        internal static bool SegmentIntersectsRect(Vector2 start, Vector2 end, Rect rect)
         {
             var delta = end - start;
             var minimum = 0f;
@@ -187,7 +209,7 @@ namespace Game.Automation
             return true;
         }
 
-        private static float DistanceToSegment(Vector2 point, Vector2 start, Vector2 end)
+        internal static float DistanceToSegment(Vector2 point, Vector2 start, Vector2 end)
         {
             var segment = end - start;
             var lengthSquared = segment.sqrMagnitude;

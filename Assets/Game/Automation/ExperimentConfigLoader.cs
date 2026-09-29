@@ -103,13 +103,18 @@ namespace Game.Automation
         private void ValidatePolicies(ExperimentConfigData data)
         {
             var movement = data.MovementPolicy ?? throw new ArgumentException("movementPolicy required.");
-            if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused")
+            if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused" &&
+                movement.Id != "orbitExperience")
                 throw new ArgumentException("Unknown movement policy/version.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
             Range(movement.PredictionSeconds, 0.05f, 3f, "predictionSeconds");
             Range(movement.ObstaclePadding, 0f, 2f, "obstaclePadding");
             Range(movement.StuckSeconds, 0.5f, 30f, "stuckSeconds");
+            if (movement.Id == "orbitExperience")
+                Range(movement.ArcOffsetWorldUnits, 2f, 10f, "arcOffsetWorldUnits");
+            else if (movement.ArcOffsetWorldUnits.HasValue)
+                throw new ArgumentException("arcOffsetWorldUnits is only valid for orbitExperience.");
             if (data.DraftPolicy?.Id != "randomLegal" || data.DraftPolicy.Version != 1)
                 throw new ArgumentException("Unknown draft policy/version.");
             var purchase = data.PurchasePolicy ?? throw new ArgumentException("purchasePolicy required.");

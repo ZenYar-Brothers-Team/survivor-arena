@@ -3,9 +3,16 @@
 The experiment contract is versioned JSON. See [`examples/fresh.json`](examples/fresh.json)
 and [`examples/preset.json`](examples/preset.json). To select the XP-focused
 movement bot, set `movementPolicy.id` to `experienceFocused` (version 1); the
-original `safePickup` remains available. The two IDs are separate research
-profiles, not an in-game toggle. `chains` counts independent profile
-histories; `maxRunsPerChain` limits runs within each history. A fresh chain begins
+original `safePickup` remains available. The IDs are separate research
+profiles, not an in-game toggle. For a wide visible-XP detour use
+[`examples/fresh-orbit-experience.json`](examples/fresh-orbit-experience.json):
+`orbitExperience/v1` selects one XP target and, when the direct corridor is
+dangerous, keeps a waypoint on the safer side. `arcOffsetWorldUnits` is the
+sideways displacement (2–10 world units; 6 is roughly 0.6 of the Gameplay
+camera height). It is still a research bot profile, not a gameplay change.
+
+`chains` counts independent profile histories; `maxRunsPerChain` limits runs
+within each history. A fresh chain begins
 with the production `ProfileCodec.Create()` state. A preset chain starts from a
 copy of the referenced profile; completed runs and purchases alter only that copy.
 

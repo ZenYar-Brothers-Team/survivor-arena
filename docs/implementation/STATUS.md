@@ -21,7 +21,7 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 ## Действующие границы
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
-`automated-runs-v2`: очередь AB-01…09 реализована и проверена
+`automated-runs-v3`: очередь AB-01…10 реализована и проверена
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
 [DECISION-0098](../decisions/0098-balance-runner-presentation.md));
 [scoped очередь](#automated-runs-execution) содержит фактические проверки.
@@ -107,9 +107,9 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 <a id="automated-runs-execution"></a>
 ### IP-34 — автоматические прогоны, scoped очередь
 
-Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v2`;
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v3`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
-Поручение пользователя охватывает AB-01…08 последовательно и AB-09 отдельно; общий backlog не
+Поручение пользователя охватывает AB-01…08 последовательно, AB-09 и AB-10 отдельно; общий backlog не
 возобновляется.
 
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
@@ -123,6 +123,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Verified | 18/18 Python tests and real-series groups/censoring; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Verified | 8 natural template runs, separate 1× and 600 s window, full graphics 979/979 + 52/52; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 9 | [AB-09 — XP-focused bot profile](modules/IP-34-automated-balance-runs.md#ab-09) | Verified | Отдельный ID и пример; Unity 983/983 + 52/52, Python 18/18, тихий production pilot; [evidence](evidence/2026-09-29-ip34-xp-bot.md). |
+| 10 | [AB-10 — широкий обход за XP](modules/IP-34-automated-balance-runs.md#ab-10) | Verified | Дуга 6 world units и выбор безопасной XP-цели; Unity 990/990 + 52/52, Python 18/18, тихий pilot; [evidence](evidence/2026-09-29-ip34-orbit-bot.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -766,11 +767,11 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
 Status: Verified
-Scope revision: automated-runs-v2, расширение по поручению 2026-09-29.
+Scope revision: automated-runs-v3, расширение по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-01…09 завершены; подтверждения в scoped очереди выше.
-Authorization: AB-01…08 и отдельный XP-focused bot по поручению пользователя 2026-09-29.
-Remaining acceptance: в границах v2 нет. Целевой win rate, автоподбор и
+Current packet: AB-01…10 завершены; подтверждения в scoped очереди выше.
+Authorization: AB-01…08, XP-focused bot и широкий дуговой обход по поручениям пользователя 2026-09-29.
+Remaining acceptance: в границах v3 нет. Целевой win rate, автоподбор и
 визуальный reviewer остаются будущими отдельными решениями; `--visual` доступен
 по явному запросу, но не запускался на экране в финальном пилоте.
 Prerequisite audit 2026-09-29: проверены текущие `ProfileCodec/MemoryProfileStore`,
@@ -792,6 +793,9 @@ Documentation impact: IP-34 schema/examples, policy formula/limits,
 AB-09 evidence: [XP-focused profile](evidence/2026-09-29-ip34-xp-bot.md);
 пилот 1/1 natural loss (84.66 simulation s, 10 XP), без вывода об улучшении
 относительно safePickup. GDD/CD и gameplay balance не менялись.
+AB-10 evidence: [wide-arc XP profile](evidence/2026-09-29-ip34-orbit-bot.md);
+финальный пилот 1/1 natural loss (855.39 simulation s, 13 XP, 174 expired),
+без вывода о преимуществе. GDD/CD и gameplay balance не менялись.
 
 ## Status maintenance rule
 
