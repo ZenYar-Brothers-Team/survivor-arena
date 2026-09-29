@@ -21,8 +21,9 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 ## Действующие границы
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
-`automated-runs-v5`: AB-01…12 реализованы и проверены; адаптивный профиль
-остаётся исследовательским, улучшение сбора XP не доказано
+`automated-runs-v6`: AB-01…13 реализованы и проверены в пределах scoped приёмки;
+AB-13 проверен как ограниченный эксперимент с поиском траекторий, но качество
+бота для балансных прогонов не достигнуто (три ранних поражения)
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
 [DECISION-0098](../decisions/0098-balance-runner-presentation.md));
 [scoped очередь](#automated-runs-execution) содержит фактические проверки.
@@ -108,9 +109,9 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 <a id="automated-runs-execution"></a>
 ### IP-34 — автоматические прогоны, scoped очередь
 
-Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v5`;
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v6`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
-Поручение пользователя охватывает AB-01…08 последовательно, AB-09…12 отдельно; общий backlog не
+Поручение пользователя охватывает AB-01…08 последовательно, AB-09…13 отдельно; общий backlog не
 возобновляется.
 
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
@@ -127,6 +128,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 10 | [AB-10 — широкий обход за XP](modules/IP-34-automated-balance-runs.md#ab-10) | Verified | Дуга 6 world units и выбор безопасной XP-цели; Unity 990/990 + 52/52, Python 18/18, тихий pilot; [evidence](evidence/2026-09-29-ip34-orbit-bot.md). |
 | 11 | [AB-11 — заманивание кучи и возврат за XP](modules/IP-34-automated-balance-runs.md#ab-11) | Verified | Режимы и telemetry, Unity 996/996 + 52/52, Python 18/18, два тихих пилота с низким XP; [evidence](evidence/2026-09-29-ip34-herd-bot.md). |
 | 12 | [AB-12 — диагностический трек и адаптивный обход](modules/IP-34-automated-balance-runs.md#ab-12) | Verified | Отдельный ID, ограниченный трек; Unity 999/999 + 52/52, Python 18/18, две тихие серии по три забега; [evidence](evidence/2026-09-29-ip34-adaptive-herd-bot.md). |
+| 13 | [AB-13 — поиск траекторий с моделью преследования](modules/IP-34-automated-balance-runs.md#ab-13) | Verified | Эксперимент: closed-loop сценарии, Unity 1013/1013 + 52/52, Python 18/18; production 3/3 ранних поражения, пригодность бота не установлена; [evidence](evidence/2026-09-29-ip34-trajectory-bot.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -770,14 +772,17 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
 Status: Verified
-Scope revision: automated-runs-v5, расширение по поручению 2026-09-29.
+Scope revision: automated-runs-v6, расширение по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-12 завершён; подтверждения AB-01…12 в scoped очереди выше.
-Authorization: AB-01…08 и новые bot-профили AB-09…12 по поручениям пользователя 2026-09-29.
+Current packet: нет; подтверждения AB-01…13 в scoped очереди выше.
+Authorization: AB-01…08 и новые bot-профили AB-09…13 по поручениям пользователя 2026-09-29.
 Acceptance: заманивание толпы, обход и возврат к XP при большой куче;
 локальный сбор без кучи, HP-aware уклонение, mode telemetry, smoke и pilot
-проверены как механика. Улучшение XP/выживаемости не установлено: нужны
-сопоставимые многосидовые серии и дальнейшая настройка маршрута.
+проверены как механика. AB-13 дополнительно проверяет поиск маршрутов с
+моделью преследования: локальные сценарии проходят, три production забега
+закончились ранним поражением. Улучшение XP/выживаемости и пригодность для
+балансировки не установлены. Новый исследовательский подход/расширение модели
+и сопоставимые многосидовые серии — отдельный scope, не закрытый этим Verified.
 Целевой win rate, автоподбор и
 визуальный reviewer остаются будущими отдельными решениями; `--visual` доступен
 по явному запросу, но не запускался на экране в финальном пилоте.
@@ -811,6 +816,11 @@ AB-12 evidence: [adaptive herd profile](evidence/2026-09-29-ip34-adaptive-herd-b
 Unity 999/999 EditMode + 52/52 PlayMode, Python 18/18; финальные три тихих
 пилота 3/3 natural losses (7/15/31 XP), один дошёл до 812.6 simulation s.
 Трек работает; преимущество не установлено. GDD/CD и gameplay balance не менялись.
+AB-13 evidence: [trajectory-search experiment](evidence/2026-09-29-ip34-trajectory-bot.md);
+Unity 1013/1013 EditMode + 52/52 PlayMode, Python 18/18; финальные три тихих
+пилота 3/3 natural losses: 84.1/91.7/112.0 simulation s, 14/7/11 XP.
+Модель решает контролируемый обход, но не обеспечивает полноценный забег.
+Профиль остаётся экспериментальным; GDD/CD и gameplay balance не менялись.
 
 ## Status maintenance rule
 

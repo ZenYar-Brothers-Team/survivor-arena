@@ -190,6 +190,8 @@ namespace Game.Bootstrap.Automation
                 if (_run.Elapsed >= _nextMovementTraceAt || _lastMovementTraceMode != _movement.CurrentHerdMode)
                     RecordMovementTrace(observation, decision);
             }
+            if (_movement.CurrentTrajectoryPlan != null && _run.Elapsed >= _nextMovementTraceAt)
+                RecordTrajectoryTrace(observation, decision);
             _direction.SetDirection(decision.Direction);
             if (decision.Stuck) BotStuck = true;
             if (decision.CoverageIncomplete) CoverageIncomplete = true;
@@ -222,6 +224,41 @@ namespace Game.Bootstrap.Automation
                 _movementTraceDropped++;
             }
             _lastMovementTraceMode = _movement.CurrentHerdMode;
+            _nextMovementTraceAt = _run.Elapsed + 1f;
+        }
+
+        private void RecordTrajectoryTrace(BotObservation observation, BotMovementDecision decision)
+        {
+            var plan = _movement.CurrentTrajectoryPlan;
+            var path = new JArray();
+            var stride = Mathf.Max(1, Mathf.CeilToInt(plan.Path.Count / 12f));
+            for (var i = 0; i < plan.Path.Count; i += stride)
+                path.Add(new JArray(plan.Path[i].x, plan.Path[i].y));
+            if (plan.Path.Count > 0)
+            {
+                var end = plan.Path[plan.Path.Count - 1];
+                path.Add(new JArray(end.x, end.y));
+            }
+            _movementTrace.Add(new JObject
+            {
+                ["t"] = _run.Elapsed, ["mode"] = "trajectorySearch",
+                ["position"] = new JArray(observation.Position.x, observation.Position.y),
+                ["goal"] = plan.Target.HasValue ? new JArray(plan.Target.Value.x, plan.Target.Value.y) : null,
+                ["direction"] = new JArray(decision.Direction.x, decision.Direction.y),
+                ["hpFraction"] = observation.HealthFraction,
+                ["visiblePickups"] = observation.Pickups.Count,
+                ["score"] = plan.Score, ["predictedXp"] = plan.PredictedXp,
+                ["contactRiskSeconds"] = plan.ContactRiskSeconds,
+                ["evaluatedCandidates"] = plan.EvaluatedCandidates,
+                ["linearEnemyForecasts"] = plan.LinearEnemyForecasts,
+                ["planningMilliseconds"] = plan.CalculationMilliseconds,
+                ["predictedPath"] = path, ["stuck"] = decision.Stuck
+            });
+            if (_movementTrace.Count > 1024)
+            {
+                _movementTrace.RemoveAt(0);
+                _movementTraceDropped++;
+            }
             _nextMovementTraceAt = _run.Elapsed + 1f;
         }
 

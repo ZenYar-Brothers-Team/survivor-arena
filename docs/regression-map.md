@@ -1,5 +1,17 @@
 # Regression map
 
+IP-34 AB-13: `BotTrajectoryPlannerTests` runs reproducible closed loops using
+the production Seek controller for the test enemies: XP behind pursuing
+crowds in three orientations, a denser/faster crowd and an obstacle detour.
+It asserts collection plus no geometric contact, separately covers crossing
+projectiles, expiration, observation reset, deterministic policy search and a
+bounded 200-threat workload. These scenarios do not replace physics/combat
+acceptance; production pilot evidence is owned by STATUS.
+`Decide_NearbyXp_AllCandidatesUseTheFullHorizon` guards against evaluating
+XP routes only until pickup while escape routes pay the full future risk;
+`ClosedLoop_NoXpWithPursuers_UsesCurvedSearchAndSurvives` covers the empty-XP
+case with curved routes rather than only eight straight escape headings.
+
 IP-34 AB-12: `BotMovementPolicyTests.Decide_AdaptiveHerd_PrefersOpenXpRouteOverCloserBlockedXp`,
 `Decide_AdaptiveHerd_StillBlockedAfterSweepAbandonsBankAndSelectsOtherXp` и
 `Decide_AdaptiveHerd_OpenRouteAfterSweepReturnsToXp` охраняют выбор доступного

@@ -105,7 +105,7 @@ namespace Game.Automation
             var movement = data.MovementPolicy ?? throw new ArgumentException("movementPolicy required.");
             if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused" &&
                 movement.Id != "orbitExperience" && movement.Id != "herdLoop" &&
-                movement.Id != "herdLoopAdaptive")
+                movement.Id != "herdLoopAdaptive" && movement.Id != "trajectorySearch")
                 throw new ArgumentException("Unknown movement policy/version.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
@@ -129,6 +129,10 @@ namespace Game.Automation
             else if (movement.CrowdMinEnemies.HasValue || movement.CrowdRadius.HasValue ||
                 movement.LureSeconds.HasValue || movement.SweepSeconds.HasValue || movement.CollectSeconds.HasValue)
                 throw new ArgumentException("Herd settings are only valid for herdLoop profiles.");
+            if (movement.Id == "trajectorySearch")
+                (movement.Trajectory ?? throw new ArgumentException("trajectory required.")).Validate();
+            else if (movement.Trajectory != null)
+                throw new ArgumentException("trajectory settings are only valid for trajectorySearch.");
             if (data.DraftPolicy?.Id != "randomLegal" || data.DraftPolicy.Version != 1)
                 throw new ArgumentException("Unknown draft policy/version.");
             var purchase = data.PurchasePolicy ?? throw new ArgumentException("purchasePolicy required.");

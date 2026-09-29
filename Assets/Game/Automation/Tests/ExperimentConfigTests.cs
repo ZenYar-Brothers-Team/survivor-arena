@@ -133,6 +133,22 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Load_TrajectorySearch_RequiresBoundedSettingsForItsOwnProfile()
+        {
+            var value = Fresh();
+            value["movementPolicy"]["id"] = "trajectorySearch";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["trajectory"] = JObject.Parse(@"{'horizonSeconds':8,'stepSeconds':0.2,
+                'candidateCount':96,'contactPenalty':60,'clearance':0.25}");
+            Assert.AreEqual("trajectorySearch", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["trajectory"]["candidateCount"] = 10000;
+            Assert.Throws<ArgumentOutOfRangeException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["trajectory"]["candidateCount"] = 96;
+            value["movementPolicy"]["id"] = "safePickup";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+        }
+
+        [Test]
         public void Preset_InvalidPersonalLevelsAndOwner_AreRejected()
         {
             var builder = new PresetProfileBuilder(_catalog);

@@ -17,11 +17,12 @@ namespace Game.Automation
         public IReadOnlyList<BotBeam> Beams { get; }
         public bool CoverageComplete { get; }
         public float HealthFraction { get; }
+        public float PickupRadius { get; }
 
         public BotObservation(Vector2 position, float movementSpeed, float playerRadius, Rect arenaBounds,
             IReadOnlyList<BotThreat> threats, IReadOnlyList<BotPickup> pickups, IReadOnlyList<BotObstacle> obstacles,
             IReadOnlyList<BotBeam> beams,
-            bool coverageComplete, float healthFraction = 1f)
+            bool coverageComplete, float healthFraction = 1f, float? pickupRadius = null)
         {
             Position = position;
             MovementSpeed = movementSpeed;
@@ -33,6 +34,7 @@ namespace Game.Automation
             Beams = beams ?? throw new ArgumentNullException(nameof(beams));
             CoverageComplete = coverageComplete;
             HealthFraction = Mathf.Clamp01(healthFraction);
+            PickupRadius = pickupRadius ?? playerRadius;
         }
     }
 }

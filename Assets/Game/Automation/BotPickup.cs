@@ -8,12 +8,17 @@ namespace Game.Automation
         public Vector2 Position { get; }
         public float Priority { get; }
         public bool IsExperience { get; }
+        public float Value { get; }
+        public float RemainingSeconds { get; }
 
-        public BotPickup(Vector2 position, float priority, bool isExperience = true)
+        public BotPickup(Vector2 position, float priority, bool isExperience = true,
+            float? value = null, float remainingSeconds = float.PositiveInfinity)
         {
             Position = position;
             Priority = priority;
             IsExperience = isExperience;
+            Value = value ?? priority;
+            RemainingSeconds = remainingSeconds;
         }
     }
 }

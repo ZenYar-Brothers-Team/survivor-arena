@@ -25,6 +25,22 @@ herd profiles include a bounded `movementTrace` in each `automation.json`
 are taken roughly once per simulation second and at mode changes. This trace
 is diagnostic, not a replay or evidence of superior performance.
 
+For whole-trajectory prediction use
+[`examples/fresh-trajectory-search.json`](examples/fresh-trajectory-search.json):
+`trajectorySearch/v1` evaluates waypoint routes against a moving crowd, scores
+XP actually crossed by the predicted pickup radius, contact risk and an exit,
+then executes only the first direction. Seek/KeepDistance respond to the
+predicted player. Other enemy movement remains linear and is counted in the
+trace. Future spawns, attacks, deaths and control expiry are not simulated.
+The required `trajectory` settings bound horizon, integration step, candidate
+count, contact penalty and clearance; ranges and objective are in IP-34 AB-13.
+Trace entries include the selected predicted path, XP, contact-risk seconds,
+planning elapsed milliseconds and approximation coverage. Contact risk is not HP
+damage. This profile can be substantially more expensive than the heuristics;
+check measured throughput before launching large batches. The initial production
+pilot did not establish usable survival or superiority over other bots; see the
+[experiment evidence](../../docs/implementation/evidence/2026-09-29-ip34-trajectory-bot.md).
+
 `chains` counts independent profile histories; `maxRunsPerChain` limits runs
 within each history. A fresh chain begins
 with the production `ProfileCodec.Create()` state. A preset chain starts from a

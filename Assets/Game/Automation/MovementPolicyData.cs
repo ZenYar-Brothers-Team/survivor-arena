@@ -16,5 +16,6 @@ namespace Game.Automation
         public float? LureSeconds { get; set; }
         public float? SweepSeconds { get; set; }
         public float? CollectSeconds { get; set; }
+        public TrajectoryPolicyData Trajectory { get; set; }
     }
 }

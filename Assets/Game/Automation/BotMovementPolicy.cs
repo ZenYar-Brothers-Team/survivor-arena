@@ -20,6 +20,7 @@ namespace Game.Automation
         private readonly bool _experienceFocused;
         private readonly BotOrbitPlanner _orbitPlanner;
         private readonly BotHerdPlanner _herdPlanner;
+        private readonly BotTrajectoryPlanner _trajectoryPlanner;
         private Vector2 _previousDirection;
         private Vector2 _lastPosition;
         private bool _hasLastPosition;
@@ -32,6 +33,7 @@ namespace Game.Automation
         public int CurrentHerdBankRouteBlockers => _herdPlanner?.BankRouteBlockers ?? 0;
         public string CurrentHerdTransitionReason => _herdPlanner?.TransitionReason;
         public float CurrentHerdScore { get; private set; }
+        public BotTrajectoryPlan CurrentTrajectoryPlan { get; private set; }
 
         public BotMovementPolicy(MovementPolicyData settings)
         {
@@ -39,12 +41,13 @@ namespace Game.Automation
                 settings.StuckSeconds == null) throw new ArgumentException("Validated movement policy required.", nameof(settings));
             if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused" &&
                 settings.Id != "orbitExperience" && settings.Id != "herdLoop" &&
-                settings.Id != "herdLoopAdaptive")
+                settings.Id != "herdLoopAdaptive" && settings.Id != "trajectorySearch")
                 throw new ArgumentException("Unknown movement policy/version.", nameof(settings));
             _predictionSeconds = settings.PredictionSeconds.Value;
             _obstaclePadding = settings.ObstaclePadding.Value;
             _stuckSeconds = settings.StuckSeconds.Value;
             _experienceFocused = settings.Id == "experienceFocused";
+            if (settings.Id == "trajectorySearch") _trajectoryPlanner = new BotTrajectoryPlanner(settings);
             if (settings.Id == "orbitExperience")
             {
                 if (!settings.ArcOffsetWorldUnits.HasValue || settings.ArcOffsetWorldUnits.Value < 2f ||
@@ -74,6 +77,8 @@ namespace Game.Automation
                 _previousDirection = Vector2.zero;
                 _orbitPlanner?.Clear();
                 _herdPlanner?.Clear();
+                _trajectoryPlanner?.Clear();
+                CurrentTrajectoryPlan = null;
                 return new BotMovementDecision(Vector2.zero, coverageIncomplete: true);
             }
 
@@ -87,6 +92,19 @@ namespace Game.Automation
             }
             _lastPosition = observation.Position;
             _hasLastPosition = true;
+
+            if (_trajectoryPlanner != null)
+            {
+                if (_stationarySeconds >= _stuckSeconds)
+                {
+                    _trajectoryPlanner.Clear();
+                    _recoveryAttempts++;
+                    _stationarySeconds = 0f;
+                }
+                CurrentTrajectoryPlan = _trajectoryPlanner.Plan(observation);
+                _previousDirection = CurrentTrajectoryPlan.Direction;
+                return new BotMovementDecision(_previousDirection, stuck: _recoveryAttempts >= 8);
+            }
 
             var orbitGoal = _orbitPlanner?.NextGoal(observation);
             if (_orbitPlanner != null && !orbitGoal.HasValue) _previousDirection = Vector2.zero;

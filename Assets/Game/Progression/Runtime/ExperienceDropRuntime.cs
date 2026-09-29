@@ -25,6 +25,7 @@ namespace Game.Progression
         public ExperienceDropIdentity Identity { get; private set; }
         public float PickupRadius => _target != null && _target.IsInitialized ? _target.PickupRadius : 0f;
         public float Lifetime => _timer != null ? _timer.Lifetime : 0f;
+        public float RemainingSeconds => _timer != null ? Mathf.Max(0f, _timer.Lifetime - _timer.Elapsed) : 0f;
         public bool IsConsumed => _consumed;
 
         private void Awake()

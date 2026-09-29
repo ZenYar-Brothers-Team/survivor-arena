@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "fresh-trajectory-search-example",
+  "template": "fresh",
+  "chains": 3,
+  "maxRunsPerChain": 1,
+  "runSpeed": 5,
+  "characterId": "CHAR-001",
+  "fieldRoute": ["FIELD-001"],
+  "movementPolicy": {
+    "id": "trajectorySearch", "version": 1,
+    "decisionIntervalSeconds": 0.2, "observationRadius": 12,
+    "predictionSeconds": 0.5, "obstaclePadding": 0.1, "stuckSeconds": 3,
+    "trajectory": {
+      "horizonSeconds": 8, "stepSeconds": 0.2, "candidateCount": 96,
+      "contactPenalty": 60, "clearance": 0.25
+    }
+  },
+  "draftPolicy": {"id": "randomLegal", "version": 1},
+  "purchasePolicy": {
+    "id": "cheapestPersonalUpgrade", "version": 1,
+    "allowedUpgradeIds": ["META-003", "META-004", "META-008"],
+    "maxPurchasesPerIntermission": 3
+  },
+  "stopAfterRouteClear": false,
+  "maxExperimentWallSeconds": 1200,
+  "runWallTimeoutSeconds": 720,
+  "transitionTimeoutSeconds": 30,
+  "outputDirectory": "fresh-trajectory-search-example"
+}

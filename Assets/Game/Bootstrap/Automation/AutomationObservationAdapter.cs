@@ -59,8 +59,17 @@ namespace Game.Bootstrap.Automation
                 if ((enemy.Position - position).sqrMagnitude > radiusSquared) continue;
                 var body = enemy.GetComponent<Rigidbody2D>();
                 var collider = enemy.GetComponent<CircleCollider2D>();
+                var movement = enemy.CurrentMovement;
+                var motion = movement?.Kind == EnemyMovementKind.Seek ? BotThreatMotion.Seek :
+                    movement?.Kind == EnemyMovementKind.KeepDistance ? BotThreatMotion.KeepDistance : BotThreatMotion.Linear;
+                if (enemy.Category != EnemyCategory.Ordinary) motion = BotThreatMotion.Linear;
+                var enemyRadius = collider != null ? collider.radius *
+                    Mathf.Max(Mathf.Abs(enemy.transform.lossyScale.x), Mathf.Abs(enemy.transform.lossyScale.y)) : 0.5f;
                 _threats.Add(new BotThreat(enemy.Position, body != null ? body.linearVelocity : Vector2.zero,
-                    collider != null ? collider.radius : 0.5f, 3f, isEnemy: true));
+                    collider != null ? collider.radius : 0.5f, 3f, isEnemy: true, motion: motion,
+                    movementSpeed: enemy.Definition.MovementSpeed * enemy.Controls.MovementMultiplier,
+                    preferredDistance: movement?.PreferredDistance ?? 0f,
+                    distanceTolerance: movement?.DistanceTolerance ?? 0f, collisionRadius: enemyRadius));
             }
             EnemyProjectileRegistry.CopyActiveTo(_projectiles);
             foreach (var projectile in _projectiles)
@@ -73,7 +82,8 @@ namespace Game.Bootstrap.Automation
             _experience.CopyActiveDropsTo(_drops);
             foreach (var drop in _drops)
                 if (((Vector2)drop.transform.position - position).sqrMagnitude <= radiusSquared)
-                    _collectibles.Add(new BotPickup(drop.transform.position, 1f));
+                    _collectibles.Add(new BotPickup(drop.transform.position, 1f, value: drop.Amount,
+                        remainingSeconds: drop.RemainingSeconds));
             _worldPickups.CopyActiveTo(_pickups);
             foreach (var pickup in _pickups)
                 if (((Vector2)pickup.transform.position - position).sqrMagnitude <= radiusSquared)
@@ -126,7 +136,7 @@ namespace Game.Bootstrap.Automation
                 health.CurrentHealth / health.MaxHealth : 0f;
             return new BotObservation(position, _player.MovementSpeed, playerRadius, _arenaBounds,
                 _threats.ToArray(), _collectibles.ToArray(), _obstacles.ToArray(), _beams.ToArray(),
-                coverageComplete, healthFraction);
+                coverageComplete, healthFraction, _experience.PickupRadius);
         }
     }
 }
