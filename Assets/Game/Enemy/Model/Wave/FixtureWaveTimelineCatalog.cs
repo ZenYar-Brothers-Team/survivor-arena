@@ -36,7 +36,8 @@ namespace Game.Enemy
             return new WaveTimelineDefinition(data.Id,
                 data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius,
                 data.MaxAliveEnemies ?? throw new InvalidOperationException("Wave timeline requires maxAliveEnemies."), phases, hooks,
-                opening);
+                opening,
+                data.SpawnOppositeBias ?? throw new InvalidOperationException("Wave timeline requires spawnOppositeBias."));
         }
 
         private static WavePhaseDefinition ToPhase(WavePhaseData data)

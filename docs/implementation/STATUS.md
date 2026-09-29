@@ -512,6 +512,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 Status: Verified
 Dependencies: IP-04, IP-13
 Current packet: timeline-level technical cap 200 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076).
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=0.8` и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Targeted Enemy/Bootstrap EditMode **247/247 PASS**, 0 failed/skipped, генерация обновлена; [evidence](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
 Remaining gates: Нет для synthetic framework. W-01 обновлён по DECISION-0076; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
 Remaining acceptance / IDs: none for the fixture framework packet.
 Target implementation evidence: [DECISION-0076 follow-up](evidence/2026-09-27-wave-cap-and-field001-rhythm.md), [runtime/schema](modules/IP-14-wave-director.md#runtime-и-fixture-schema).

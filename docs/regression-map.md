@@ -120,6 +120,7 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 |---|---|---|---|---|
 | Actual spawn count при отсутствии target | `WaveSpawnerTests.Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Tick возвращает число созданных объектов; неисполненная группа отмечается unavailable и не повторяется. |
 | Continuous timer при перескоке между фазами | `WaveBurstTests.Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Время старой фазы не начисляется новой; suppressed заявки не накапливаются для последующего спавна. |
+| Противоположный спавн покрывает всё кольцо | `WaveDirectorTests.SelectSpawnAngle_BiasesOppositeCentroidButKeepsFullRing`, `SelectSpawnAngle_ZeroBiasMatchesUniformStream` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Проверяет смещение, ненулевой охват всех секторов и воспроизводимость; реальную форму толпы проверяет плейтест. |
 
 ## IP-15 — regression guards
 

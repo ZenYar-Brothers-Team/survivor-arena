@@ -124,20 +124,20 @@ def minutes(seconds):
 
 
 def timeline(baseline):
-    return field_timeline(baseline["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"], True)
+    return field_timeline(baseline["timeline"], baseline["field"], baseline["randomness"]["referenceSeeds"]["waves"], True)
 
 
 def timeline_field002(baseline):
-    return field_timeline(baseline["field002"]["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"] + 1000,
+    return field_timeline(baseline["field002"]["timeline"], baseline["field002"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 1000,
                           False)
 
 
 def timeline_field003(baseline):
-    return field_timeline(baseline["field003"]["timeline"], baseline, baseline["randomness"]["referenceSeeds"]["waves"] + 2000,
+    return field_timeline(baseline["field003"]["timeline"], baseline["field003"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 2000,
                           False)
 
 
-def field_timeline(t, baseline, seed, neutral_modifiers):
+def field_timeline(t, field, seed, neutral_modifiers):
     phases, clock = [], 0
     for p in t["phases"]:
         if p["startSeconds"] != clock:
@@ -154,10 +154,11 @@ def field_timeline(t, baseline, seed, neutral_modifiers):
         if p["burst"]:
             phase["burst"] = p["burst"]
         phases.append(phase)
-    if clock != baseline["field"]["durationSeconds"]:
+    if clock != field["durationSeconds"]:
         raise SystemExit("timeline must cover the whole field duration")
     return {"id": t["id"], "seed": seed, "maxAliveEnemies": t["maxAliveEnemies"],
-            "spawnRadius": baseline["field"]["spawnRadius"], "openingSpawn": baseline["field"]["openingSpawn"],
+            "spawnRadius": field["spawnRadius"], "spawnOppositeBias": field["spawnOppositeBias"],
+            "openingSpawn": field["openingSpawn"],
             "phases": phases, "hooks": t["hooks"]}
 
 

@@ -74,7 +74,11 @@ hooks догоняются; пропущенные burst windows отменяю�
 Spawner владеет только ordinary enemies, включая spawned burst: они учитываются
 при последующем continuous cap. Boss/Traveler owners используют отдельный lifecycle
 и не входят в этот счётчик. Seeded independent RNG streams выбирают composition и
-равномерный угол на окружности `spawnRadius` (world units) вокруг текущей позиции игрока.
+угол на окружности `spawnRadius` (world units) вокруг текущей позиции игрока.
+`spawnOppositeBias` в `[0, 1]` смещает вероятность напротив приблизительного
+центра массы живых обычных врагов, сохраняя полное кольцо (DECISION-0100).
+Spawner оценивает направление по не более чем 16 врагам только при спавне;
+при пустой или уравновешенной выборке угол равномерный.
 Это воспроизводимость решений, а не физики/движения игрока.
 
 `WaveDirector.LastDecision` — requested/allowed/suppressed/expired/deferred;

@@ -64,7 +64,7 @@ namespace Game.Enemy.Tests
         [Test]
         public void Catalog_ReadsOpening_AndRejectsMissingFieldsByName()
         {
-            const string template = "{{\"id\":\"FIXTURE-T\",\"seed\":1,\"spawnRadius\":6,\"maxAliveEnemies\":4,{0}\"phases\":[{{\"id\":\"FIXTURE-P\",\"displayName\":\"P\",\"tag\":\"Ordinary\",\"spawnMode\":\"Continuous\",\"durationSeconds\":10,\"spawnIntervalSeconds\":1,\"composition\":[{{\"enemyId\":\"FIXTURE-ENEMY-A\",\"weight\":1}}]}}]}}";
+            const string template = "{{\"id\":\"FIXTURE-T\",\"seed\":1,\"spawnRadius\":6,\"spawnOppositeBias\":0,\"maxAliveEnemies\":4,{0}\"phases\":[{{\"id\":\"FIXTURE-P\",\"displayName\":\"P\",\"tag\":\"Ordinary\",\"spawnMode\":\"Continuous\",\"durationSeconds\":10,\"spawnIntervalSeconds\":1,\"composition\":[{{\"enemyId\":\"FIXTURE-ENEMY-A\",\"weight\":1}}]}}]}}";
 
             var timeline = FixtureWaveTimelineCatalog.FromJson(string.Format(template, "\"openingSpawn\":{\"durationSeconds\":20,\"screenMargin\":1},"));
             Assert.AreEqual(20f, timeline.OpeningSpawn.DurationSeconds);

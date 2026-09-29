@@ -2,6 +2,7 @@
   "id": "FIXTURE-WAVE-TIMELINE",
   "seed": 24680,
   "spawnRadius": 8.0,
+  "spawnOppositeBias": 0,
   "maxAliveEnemies": 200,
   "phases": [
     {

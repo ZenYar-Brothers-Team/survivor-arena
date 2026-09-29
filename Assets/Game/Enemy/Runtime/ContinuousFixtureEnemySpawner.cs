@@ -119,11 +119,13 @@ namespace Game.Enemy
             using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.Tick", TickWarningMilliseconds);
             var wasRunning = runController != null && runController.Model != null && runController.Model.State == RunState.Running;
             var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count);
+            double oppositeAngle = 0d;
+            var hasCenter = spawnCount > 0 && TryGetOppositeMassAngle(out oppositeAngle);
             var actual = 0;
             for (var i = 0; i < spawnCount; i++)
             {
                 if (wasRunning && runController.Model.State != RunState.Running) break;
-                if (SpawnEnemy()) actual++;
+                if (SpawnEnemy(hasCenter, oppositeAngle)) actual++;
             }
             var decision = _director.LastDecision;
             if (decision.Requested > 0 || decision.Expired > 0)
@@ -135,12 +137,32 @@ namespace Game.Enemy
             return actual;
         }
 
-        private bool SpawnEnemy()
+        // At most 16 position reads per spawning tick, shared by a whole burst.
+        // Precision is deliberately low; the bias is a broad visual correction, not pathfinding.
+        private bool TryGetOppositeMassAngle(out double angle)
+        {
+            angle = 0d;
+            var count = _aliveEnemies.Count;
+            if (count == 0 || target == null) return false;
+            var stride = Mathf.Max(1, (count + 15) / 16);
+            var player = (Vector2)target.position;
+            var sum = Vector2.zero;
+            for (var i = 0; i < count; i += stride)
+            {
+                var enemy = _aliveEnemies[i];
+                if (enemy != null && enemy.IsAlive) sum += enemy.Position - player;
+            }
+            if (sum.sqrMagnitude <= 0.0001f) return false;
+            angle = System.Math.Atan2(-sum.y, -sum.x);
+            return true;
+        }
+
+        private bool SpawnEnemy(bool hasCenter, double oppositeAngle)
         {
             if (target == null || runController == null)
                 return false;
 
-            var angle = _director.SelectSpawnAngle();
+            var angle = hasCenter ? _director.SelectSpawnAngle(oppositeAngle) : _director.SelectSpawnAngle();
             var direction = new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle));
 
             var definition = _director.SelectEnemy();

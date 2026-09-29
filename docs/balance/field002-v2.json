@@ -48,7 +48,8 @@
       0,
       0
     ],
-    "spawnRadius": 12,
+    "spawnRadius": 10,
+    "spawnOppositeBias": 0.8,
     "openingSpawn": {
       "durationSeconds": 20,
       "screenMargin": 1

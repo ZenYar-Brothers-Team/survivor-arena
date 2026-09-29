@@ -198,6 +198,38 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void SelectSpawnAngle_BiasesOppositeCentroidButKeepsFullRing()
+        {
+            var source = WaveTestData.ThreePhaseTimeline(seed: 42);
+            var timeline = new WaveTimelineDefinition(source.Id, source.Seed, source.SpawnRadius,
+                source.MaxAliveEnemies, source.Phases, source.Hooks, spawnOppositeBias: 0.8f);
+            var first = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration);
+            var sameSeed = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration);
+            var sectors = new int[8];
+            var nearOpposite = 0;
+            for (var i = 0; i < 5000; i++)
+            {
+                var angle = first.SelectSpawnAngle(Math.PI);
+                Assert.AreEqual(angle, sameSeed.SelectSpawnAngle(Math.PI));
+                Assert.That(angle, Is.InRange(0d, Math.PI * 2d));
+                sectors[(int)(angle / (Math.PI * 2d) * sectors.Length) % sectors.Length]++;
+                if (Math.Abs(angle - Math.PI) <= Math.PI / 4d) nearOpposite++;
+            }
+            Assert.Greater(nearOpposite, 2000, "Bias should visibly favor the opposite quarter of the ring.");
+            Assert.IsTrue(sectors.All(count => count > 0), "Every sector of the ring must remain reachable.");
+        }
+
+        [Test]
+        public void SelectSpawnAngle_ZeroBiasMatchesUniformStream()
+        {
+            var ordinary = CreateDirector(42);
+            var centered = CreateDirector(42);
+            for (var i = 0; i < 32; i++)
+                Assert.AreEqual(ordinary.SelectSpawnAngle(), centered.SelectSpawnAngle(Math.PI));
+            Assert.Throws<ArgumentOutOfRangeException>(() => centered.SelectSpawnAngle(double.NaN));
+        }
+
+        [Test]
         public void Hooks_FireOnceInTimeOrderAndOnlyWhileRunning()
         {
             var director = CreateDirector();
