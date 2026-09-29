@@ -27,4 +27,20 @@ samples, 512 MiB; это пределы сохранения, а не целев
   повтор с графикой выявил ошибку тестового завершения во время ручной паузы.
   После исправления теста точечный PlayMode и полный smoke прошли.
 
-Новая запись человеком и оценка её влияния на модель ещё не проводились.
+Отдельный Development player собран из `e094afc`:
+`TestResults/balance-build-imitation-20260930/balance.exe`, manifest
+`build-manifest.json`, Unity 6000.6.0f1, executable SHA256
+`718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00`,
+data SHA256 `885fce4bcadd4d7c5b28d12bc1f36bd11872d604e8e91470d2ec696cd0f75c3f`.
+Manifest `dirty=true` из-за двух автоматически переписанных URP settings при
+сборке; после сверки этих изменений оба файла возвращены к Git версии.
+Сборка включает [DECISION-0106](../../decisions/0106-archer-two-arrow-volley.md).
+
+Короткий изолированный bot-labelled pilot
+`TestResults/pilot-imitation-recorder-20260930`, run
+`66ef2dc3ec1340cf82d371ebffc8094c`: 1141 samples, из них 832 periodic,
+267 actionChange и 42 periodicAndActionChange. Validator PASS, 0 truncated и
+0 incomplete. Запуск штатно остановлен `runWallTimeout` после 174.6 simulation s;
+это administrative abort и не считается поражением. Он проверяет файл, а не
+качество человеческой записи или модели. Новая запись человеком и оценка её
+влияния на модель ещё не проводились.

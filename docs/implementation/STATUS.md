@@ -34,8 +34,9 @@ Human session 2026-09-30: три завершённых забега/14 016 ва
 Offline imitation candidate обучен на трёх human runs: на каждом held-out run
 хуже повторения предыдущей команды, в игру не подключён. [Evidence](evidence/2026-09-30-human-imitation-candidate.md).
 Recorder теперь фиксирует каждый шаг смены движения между плановыми samples;
-полный graphics smoke 1051/1051 + 58/58 PASS. Обновлённая сборка и новый human
-сеанс ещё открыты. [Evidence](evidence/2026-09-30-action-change-recorder.md).
+полный graphics smoke 1051/1051 + 58/58 PASS. Новый player `e094afc` собран,
+bot-labelled pilot 1141 samples validator PASS; новый human сеанс ещё открыт.
+[Evidence](evidence/2026-09-30-action-change-recorder.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -864,7 +865,8 @@ Offline обучение кандидата проведено, но он не �
 accuracy ниже baseline на всех трёх забегах; closed-loop проверки нет
 ([evidence](evidence/2026-09-30-human-imitation-candidate.md)).
 Recorder follow-up: снимки при смене направления между periodic samples,
-старые JSONL совместимы; full graphics 1051/1051 + 58/58 PASS.
+старые JSONL совместимы; full graphics 1051/1051 + 58/58 PASS, новый player
+и bot-labelled pilot 1141 samples validator PASS. Новые human samples ещё нужны.
 [Evidence](evidence/2026-09-30-action-change-recorder.md).
 Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
