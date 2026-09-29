@@ -57,6 +57,9 @@ system audio. The selected mode is recorded in the experiment and manifest.
 For a single visible run, set `chains: 1` and `maxRunsPerChain: 1` in a new
 experiment config, use a new output directory, and invoke `run.py` with
 `--visual`. Add `--audio` only if sound is wanted for that run.
+The visible player uses an isolated windowed SafeWindow video setting
+(1280×720 on a desktop at least that large); the normal game's saved display
+mode is not read or changed.
 
 `manifest.json` is atomically refreshed during execution. `experiment.json`
 captures the requested config and build fingerprint. Each chain has an initial

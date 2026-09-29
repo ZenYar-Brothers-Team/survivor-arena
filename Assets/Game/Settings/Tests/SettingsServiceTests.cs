@@ -12,6 +12,17 @@ namespace Game.Settings.Tests
             Assert.IsTrue(s.Current.Shake); Assert.IsFalse(s.Dirty); Assert.AreEqual(s.Current.Video,SettingsCodec.Decode(store.Text).Video);
             s.SetAudio(0,1,1);Assert.AreEqual(0,s.Current.Gain(true));Assert.AreEqual(0,s.Current.Gain(false));
         }
+        [Test] public async Task Load_SeededAutomationWindow_AppliesWindowedModeWithoutRewriting()
+        {
+            var config=SettingsConfig.Load();var video=new FakeVideoDevice();
+            var initial=SettingsCodec.Encode(config.Defaults(video.SafeWindow));
+            var store=new MemorySettingsStore(initial);
+            var settings=new SettingsService(config,store,video);await settings.LoadAsync();
+            Assert.AreEqual(video.SafeWindow,video.Current);
+            Assert.IsFalse(settings.Current.Video.Borderless);
+            Assert.AreEqual(initial,store.Text);
+            Assert.IsFalse(settings.Dirty);
+        }
         [TestCase("{}")] [TestCase("{broken")] [TestCase("{\"schemaVersion\":99}")]
         public async Task Load_InvalidDocument_PreservesBeforeReplacing(string text)
         {

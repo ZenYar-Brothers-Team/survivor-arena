@@ -105,7 +105,8 @@ def child_command(player: Path, experiment: Path, output: Path, chain_id: str, l
     return [str(player), *([] if visual else ["-batchmode"]), "-logFile", str(log),
             "-screen-width", "640", "-screen-height", "360", "-screen-fullscreen", "0",
             f"--balance-experiment={experiment}", f"--balance-output-root={output.parent}",
-            f"--balance-chain={chain_id}", *(["--balance-audio"] if audio else [])]
+            *(["--balance-visual"] if visual else []), *(["--balance-audio"] if audio else []),
+            f"--balance-chain={chain_id}"]
 
 
 def launch(command: list[str]) -> subprocess.Popen:

@@ -244,8 +244,22 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   byte-identical. No user save was restored, deleted or edited to make the
   check pass.
 - The visual launch path removes both Unity `-batchmode` and Windows hidden-window
-  process flags; a Python regression test checks the launch arguments. Actual
-  on-screen presentation remains unobserved without an explicit user request.
+  process flags; a Python regression test checks the launch arguments. A later
+  explicitly requested visual run `3aa8bfa1120540218e610ac10107ffcc` completed
+  naturally (Defeat, 636.040 simulation s, 134.469 wall s), with
+  `visual=true`, `audio=false`; the user reported that it occupied the full
+  screen. The cause was the empty in-memory Settings store: `SettingsService`
+  applied its desktop borderless default after Unity's 640×360 command-line
+  window setting. Visual workers now seed only their own memory store with the
+  validated SafeWindow mode (1280×720 on this desktop), selected by an explicit
+  `--balance-visual` marker; silent batch workers remain unchanged. Regression:
+  `SettingsServiceTests.Load_SeededAutomationWindow_AppliesWindowedModeWithoutRewriting`
+  and Python runner tests. Full graphics check
+  `TestResults/checks/20260929T124850-830060Z/summary.json` PASS 980/980
+  EditMode + 52/52 PlayMode, 0 failed/skipped; Python 18/18 PASS. A new player
+  was built under `TestResults/balance-build-windowed/`. No additional visible
+  standalone was opened after the fix; on-screen window size awaits the next
+  user-requested visual run.
 - Limits: bot `safePickup` + `randomLegal` is not a human skill model; one hero,
   one field, no reroll/banish use, no set-damage attribution, no deterministic
   replay. All 9 required natural pilot runs lost; these small dependent samples

@@ -21,6 +21,7 @@ namespace Game.Bootstrap.Automation
         private static MemoryProfileStore _store;
         private static MetaCatalog _catalog;
         private static string _failure;
+        private static bool _visual;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
@@ -28,6 +29,7 @@ namespace Game.Bootstrap.Automation
             var args = Environment.GetCommandLineArgs();
             var configPath = Value(args, "--balance-experiment=");
             if (configPath == null) return;
+            _visual = Array.IndexOf(args, "--balance-visual") >= 0;
             if (Array.IndexOf(args, "--balance-audio") < 0) AudioListener.volume = 0f;
             SceneManager.sceneLoaded += Configure;
             try
@@ -64,7 +66,9 @@ namespace Game.Bootstrap.Automation
             try
             {
                 var settings = SettingsConfig.Load();
-                root.ConfigureSettings(new SettingsService(settings, new MemorySettingsStore(), new UnityVideoDevice(settings)));
+                var video = new UnityVideoDevice(settings);
+                var initialSettings = _visual ? SettingsCodec.Encode(settings.Defaults(video.SafeWindow)) : null;
+                root.ConfigureSettings(new SettingsService(settings, new MemorySettingsStore(initialSettings), video));
                 root.ConfigureProfile(new ProfileService(_catalog, _store));
                 var campaign = root.gameObject.AddComponent<AutomationCampaignHost>();
                 campaign.Initialize(root, _config, _store, _chainId);

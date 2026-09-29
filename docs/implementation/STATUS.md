@@ -119,7 +119,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Verified | 9 natural completions plus fixture lifecycle tests; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Verified | Natural sidecars/profile snapshots; overflow/export/duplicate tests in final 52/52 PlayMode; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Verified | Two independent chains per template, purchases in preset, fixture route advance; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
-| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Verified | Silent player, full multi-chain series, 600 s partial, final rebuild/smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Verified | Silent player, full multi-chain series, 600 s partial; visual SafeWindow fix and rebuilt player, next on-screen check pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Verified | 18/18 Python tests and real-series groups/censoring; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Verified | 8 natural template runs, separate 1× and 600 s window, full graphics 979/979 + 52/52; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 
@@ -779,7 +779,7 @@ revision-aware draft commands, PlayerMover и telemetry. Для полного v
 Content boundary: базовый пилот использует FIELD-001; дополнительные поля только
 с готовыми production bindings. FIELD-004…010 не становятся доступными этим планом.
 Implementation/verification evidence: [AB-01…08](evidence/2026-09-29-ip34-automation.md),
-финальный Unity 6000.6.0f1 full graphics 979/979 EditMode + 52/52 PlayMode,
+финальный Unity 6000.6.0f1 full graphics 980/980 EditMode + 52/52 PlayMode,
 0 failed/skipped, Python 18/18; 8 natural template runs, one natural 1× run,
 one 600 s window with 5 natural runs plus one censored. Live profile changed
 during overlapping local activity without matching automation run IDs; a

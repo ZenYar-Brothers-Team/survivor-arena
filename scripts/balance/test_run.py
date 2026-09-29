@@ -76,7 +76,9 @@ class BalanceRunnerTests(unittest.TestCase):
         audible = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
                                             visual=True, audio=True)
         self.assertIn("-batchmode", hidden)
+        self.assertNotIn("--balance-visual", hidden)
         self.assertNotIn("-batchmode", visual)
+        self.assertIn("--balance-visual", visual)
         self.assertNotIn("--balance-audio", visual)
         self.assertIn("--balance-audio", audible)
         with self.assertRaisesRegex(ValueError, "requires --visual"):
