@@ -72,8 +72,12 @@ namespace Game.UI
                     var owner = upgrade.Personal ? _character : null;
                     var level = _profile.Level(upgrade.Id, owner);
                     var reason = _profile.PurchaseLockReason(upgrade.Id, owner);
+                    var displayReason = reason;
+                    if (_profile.State == ProfileState.Saving && reason == "Save the profile first")
+                        displayReason = level >= upgrade.Cap ? "Maximum level" :
+                            _profile.Currency < upgrade.Price(level) ? "Not enough currency" : null;
                     cards.Add(new MetaCardViewState(upgrade.Id, owner, level,
-                        upgrade.Name, MetaShopProjection.Reason(reason) ?? (_profile.UpgradesDisabled ? "Не действует" : ""),
+                        upgrade.Name, MetaShopProjection.Reason(displayReason) ?? (_profile.UpgradesDisabled ? "Не действует" : ""),
                         reason == null, upgrade.Cap, level < upgrade.Cap ? upgrade.Price(level) : 0,
                         MetaShopProjection.Bonus(upgrade, level), level < upgrade.Cap ? MetaShopProjection.Bonus(upgrade, level + 1) : null,
                         icon: MetaShopProjection.UpgradeIcon(upgrade.Id, _registry?.Invoke())));

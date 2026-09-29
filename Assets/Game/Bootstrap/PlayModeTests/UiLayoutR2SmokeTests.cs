@@ -45,7 +45,13 @@ namespace Game.Bootstrap.PlayModeTests
                     view.RenderBuild(new BuildViewState(slots, slots, received, recipes));
                     view.RenderRunOverlay(new RunOverlayViewState(true, "Передышка", true));
                     yield return null; yield return null;
-                    Assert.IsNotNull(root.Q(className: "pause-panel").Q(className: "folio-panel-texture"));
+                    var pauseMaterial = root.Q(className: "pause-panel").Q(className: "folio-panel-texture");
+                    Assert.IsNotNull(pauseMaterial);
+                    Assert.AreEqual(Resources.Load<Sprite>("Art/UI/Folio/ui-folio-surface-background"),
+                        pauseMaterial.style.backgroundImage.value.sprite);
+                    Assert.AreEqual(0.48f, pauseMaterial.resolvedStyle.opacity, 0.001f);
+                    Assert.IsNotNull(root.Q(className: "pause-left").Q(className: "folio-panel-texture"));
+                    Assert.IsNotNull(root.Q(className: "pause-right").Q(className: "folio-panel-texture"));
                     var scroll = root.Q<ScrollView>(GameplayUiElementIds.PauseBuild);
                     Assert.Greater(scroll.verticalScroller.highValue, 0);
                     Assert.IsTrue(scroll.Contains(root.Q(GameplayUiElementIds.ReceivedSets)));

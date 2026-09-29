@@ -32,7 +32,8 @@ namespace Game.UI.Tests
             using var presenter = new MetaPresenter(profile, view, navigation);
             presenter.ShowResult(run.Outcome);
             var result = view.State.Result;
-            Assert.AreEqual(190, result.Total); Assert.AreEqual(90, result.BookReward);
+            Assert.AreEqual(185, result.Total); Assert.AreEqual(95, result.LevelReward);
+            Assert.AreEqual(90, result.BookReward);
             Assert.AreEqual(42, result.Kills); Assert.AreEqual(20, result.Level);
             Assert.AreEqual("Победа", result.Outcome);
             Assert.IsTrue(result.Unlocks.Any(c => c.Kind == "Карта"));

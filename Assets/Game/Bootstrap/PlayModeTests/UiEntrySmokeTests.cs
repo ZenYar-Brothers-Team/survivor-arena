@@ -130,6 +130,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(texture);
             Assert.GreaterOrEqual(texture.worldBound.width, panel.worldBound.width * 0.9f);
             Assert.GreaterOrEqual(texture.worldBound.height, panel.worldBound.height * 0.9f);
+            Assert.AreEqual(Resources.Load<Sprite>("Art/UI/Folio/ui-folio-surface-background"),
+                texture.style.backgroundImage.value.sprite);
         }
     }
 }

@@ -240,6 +240,7 @@ namespace Game.Bootstrap
             try
             {
                 if (IsInitialized) return;
+                PrepareStartupSurface();
                 ValidateSceneReferences();
                 SuspendForSelection();
                 // Real play uses the production economy and a separate save (F1-08); tests configure a fixture profile.
@@ -257,6 +258,15 @@ namespace Game.Bootstrap
                 Debug.LogError($"Gameplay composition failed: {exception}", this);
                 enabled = false;
             }
+        }
+
+        private static void PrepareStartupSurface()
+        {
+            var camera = Camera.main;
+            if (camera != null) camera.backgroundColor = new Color32(31, 25, 37, 255);
+            var fixture = GameObject.Find("Obstacle_Fixture");
+            var renderer = fixture != null ? fixture.GetComponent<SpriteRenderer>() : null;
+            if (renderer != null) renderer.enabled = false;
         }
 
         public void OpenCharacterSelection(ICharacterAccessProvider access = null, IFieldAccessProvider fieldAccess = null)

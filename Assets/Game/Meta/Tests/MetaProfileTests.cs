@@ -26,20 +26,36 @@ namespace Game.Meta.Tests
         {
             var store=new MemoryProfileStore(); var profile=new ProfileService(_catalog,store); await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Stop();
-            Assert.IsTrue(await profile.ApplyAsync(run.Outcome,true)); Assert.AreEqual(200,profile.Currency);
-            Assert.IsTrue(await profile.ApplyAsync(run.Outcome,true)); Assert.AreEqual(200,profile.Currency);
+            Assert.IsTrue(await profile.ApplyAsync(run.Outcome,true)); Assert.AreEqual(195,profile.Currency);
+            Assert.IsTrue(await profile.ApplyAsync(run.Outcome,true)); Assert.AreEqual(195,profile.Currency);
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();
-            Assert.IsTrue(await loaded.ApplyAsync(run.Outcome,true)); Assert.AreEqual(200,loaded.Currency);
+            Assert.IsTrue(await loaded.ApplyAsync(run.Outcome,true)); Assert.AreEqual(195,loaded.Currency);
             Assert.AreEqual(100,loaded.LastReceipt.BookReward);
             loaded.LastReceipt.NewUnlocks.Add("mutated"); Assert.IsFalse(loaded.LastReceipt.NewUnlocks.Contains("mutated"));
         }
         [TestCase(RunCompletionReason.Aborted)] [TestCase(RunCompletionReason.Retry)] [TestCase(RunCompletionReason.Error)]
-        public async Task Exit_StartedAtLevelOne_PaysFive(RunCompletionReason reason)
+        public async Task Exit_StartedAtLevelOne_PaysNoLevelGold(RunCompletionReason reason)
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run(1,0);using var binding=new ProfileRunBinding(run,profile);
             run.Start();run.Pause();run.Stop(reason);await binding.SaveTask;
-            Assert.AreEqual(5,profile.Currency); Assert.IsTrue(profile.CanStart);
+            Assert.AreEqual(0,profile.Currency); Assert.AreEqual(0,profile.LastReceipt.LevelReward); Assert.IsTrue(profile.CanStart);
+        }
+        [TestCase(1, 0, 0, 0)]
+        [TestCase(1, 20, 0, 20)]
+        [TestCase(2, 0, 5, 5)]
+        [TestCase(3, 20, 10, 30)]
+        public async Task LevelReward_ExcludesStartingLevel_PreservesBookGold(
+            int level, long bookGold, long levelGold, long total)
+        {
+            var profile = new ProfileService(_catalog, new MemoryProfileStore());
+            await profile.LoadAsync();
+            var run = MetaTestData.Run(level, bookGold);
+            run.Start(); run.Stop();
+            Assert.IsTrue(await profile.ApplyAsync(run.Outcome, true));
+            Assert.AreEqual(levelGold, profile.LastReceipt.LevelReward);
+            Assert.AreEqual(bookGold, profile.LastReceipt.BookReward);
+            Assert.AreEqual(total, profile.Currency);
         }
         [Test] public async Task Exit_NotStarted_DoesNotPayOrUnlockFirstRun()
         {
@@ -90,7 +106,7 @@ namespace Game.Meta.Tests
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Tick(899);run.Kill();run.Tick(1);run.Stop();await profile.ApplyAsync(run.Outcome,true);
-            Assert.AreEqual(RunCompletionReason.Defeat,run.Outcome.Reason);Assert.IsFalse(profile.IsUnlocked("FIELD-002"));Assert.AreEqual(200,profile.Currency);
+            Assert.AreEqual(RunCompletionReason.Defeat,run.Outcome.Reason);Assert.IsFalse(profile.IsUnlocked("FIELD-002"));Assert.AreEqual(195,profile.Currency);
         }
         [Test] public async Task Purchase_InsufficientLockedDuplicateAndCap_DoNotOverspend()
         {
@@ -102,7 +118,7 @@ namespace Game.Meta.Tests
             Assert.IsTrue(await profile.PurchaseAsync("CHAR-002",0));Assert.IsFalse(await profile.PurchaseAsync("CHAR-002",0));
             for(var n=0;n<10;n++)Assert.IsTrue(await profile.PurchaseAsync("META-003",n,"CHAR-001"));
             Assert.IsFalse(await profile.PurchaseAsync("META-003",9,"CHAR-001"));Assert.IsFalse(await profile.PurchaseAsync("META-003",10,"CHAR-001"));
-            Assert.AreEqual(4400,profile.Currency);
+            Assert.AreEqual(4390,profile.Currency);
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(10,loaded.Level("META-003","CHAR-001"));Assert.IsTrue(loaded.IsUnlocked("CHAR-002"));
         }
         [Test] public async Task UpgradesDisabled_RemovesBonusWithoutRefund_PersistsAndRestores()
@@ -190,7 +206,7 @@ namespace Game.Meta.Tests
             for(var n=0;n<10;n++) Assert.IsTrue(await profile.PurchaseAsync("META-004",n,"CHAR-001"));
             Assert.AreEqual(.45f,profile.Modifier("CHAR-001").ActiveSkillDamageMultiplierBonus,.0001);
             Assert.AreEqual(0,profile.Modifier("CHAR-002").ActiveSkillDamageMultiplierBonus,.0001);
-            Assert.AreEqual(4500,profile.Currency);
+            Assert.AreEqual(4495,profile.Currency);
             Assert.IsFalse(await profile.PurchaseAsync("META-004",10,"CHAR-001"));
         }
         [Test] public async Task FieldChain_AllCharacterConditionsAndPurchasesResolve()
@@ -211,7 +227,7 @@ namespace Game.Meta.Tests
             var run=MetaTestData.Run();run.Start();run.Stop();Assert.IsFalse(await profile.ApplyAsync(run.Outcome,true));
             Assert.AreEqual(ProfileState.PendingResult,profile.State);Assert.IsFalse(profile.CanStart);Assert.AreEqual(0,profile.Currency);
             Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));store.Fail=false;Assert.IsTrue(await profile.RetrySaveAsync());
-            Assert.AreEqual(200,profile.Currency);await profile.ApplyAsync(run.Outcome,true);Assert.AreEqual(2,store.Writes);
+            Assert.AreEqual(195,profile.Currency);await profile.ApplyAsync(run.Outcome,true);Assert.AreEqual(2,store.Writes);
         }
         [Test] public async Task MixedBookRewards_SaveRetryAndReload_PreserveExactReceipt()
         {
@@ -221,16 +237,16 @@ namespace Game.Meta.Tests
             run.Start(); run.Stop();
             Assert.IsFalse(await profile.ApplyAsync(run.Outcome, true)); Assert.IsNull(profile.LastReceipt);
             store.Fail = false; Assert.IsTrue(await profile.RetrySaveAsync());
-            Assert.AreEqual(260, profile.Currency); Assert.AreEqual(160, profile.LastReceipt.BookReward);
+            Assert.AreEqual(255, profile.Currency); Assert.AreEqual(160, profile.LastReceipt.BookReward);
             var reloaded = new ProfileService(_catalog, store); await reloaded.LoadAsync();
             Assert.IsTrue(await reloaded.ApplyAsync(run.Outcome, true));
-            Assert.AreEqual(260, reloaded.Currency); Assert.AreEqual(160, reloaded.LastReceipt.BookReward);
+            Assert.AreEqual(255, reloaded.Currency); Assert.AreEqual(160, reloaded.LastReceipt.BookReward);
         }
         [Test] public async Task PurchaseFailure_RollsBackBalanceAndLevel()
         {
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
             var run=MetaTestData.Run();run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);store.Fail=true;
-            Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));Assert.AreEqual(200,profile.Currency);Assert.AreEqual(0,profile.Level("META-003","CHAR-001"));
+            Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));Assert.AreEqual(195,profile.Currency);Assert.AreEqual(0,profile.Level("META-003","CHAR-001"));
         }
         [Test] public async Task InFlightSave_RejectsSecondIntent()
         {
@@ -238,7 +254,7 @@ namespace Game.Meta.Tests
             var run=MetaTestData.Run();run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
             store.Gate=new TaskCompletionSource<bool>();var first=profile.PurchaseAsync("META-003",0,"CHAR-001");
             Assert.AreEqual(ProfileState.Saving,profile.State);Assert.IsFalse(await profile.PurchaseAsync("META-003",0,"CHAR-001"));
-            store.Gate.SetResult(true);Assert.IsTrue(await first);Assert.AreEqual(100,profile.Currency);
+            store.Gate.SetResult(true);Assert.IsTrue(await first);Assert.AreEqual(95,profile.Currency);
         }
         [Test] public async Task IncompleteOutcome_IsNotAZeroPayout()
         {

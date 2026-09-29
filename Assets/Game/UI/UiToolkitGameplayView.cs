@@ -114,6 +114,8 @@ namespace Game.UI
             _root.styleSheets.Add(Resources.Load<StyleSheet>("UI/FolioChromeStyles"));
             FolioPanelTexture.Attach(root.Q(className: "draft-panel"));
             FolioPanelTexture.Attach(root.Q(className: "pause-panel"));
+            FolioPanelTexture.Attach(root.Q(className: "pause-left"));
+            FolioPanelTexture.Attach(root.Q(className: "pause-right"));
             _root.EnableInClassList("ui-compact", root.layout.width > 0 && root.layout.width < 1600);
             _pause = new PauseBuildPanel(root);
             _root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);

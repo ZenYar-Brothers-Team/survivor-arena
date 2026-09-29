@@ -1,5 +1,18 @@
 # Regression map
 
+DECISION-0098: `MetaProfileTests.LevelReward_ExcludesStartingLevel_PreservesBookGold`
+проверяет L1=0, L2=5 и независимую Book-награду; terminal reasons на L1
+покрывает `Exit_StartedAtLevelOne_PaysNoLevelGold`, а сохранение/Retry —
+`Apply_ResultDuplicateAndReload_PayExactlyOnce` и `MetaProgressionSmokeTests`.
+`UiLayoutR2SmokeTests` проверяет material sprite и видимость слоя в Pause.
+
+UI folio follow-up: `SettingsPresentationSmokeTests.SettingsFolio_TwoResolutions_ConfirmationAndFocus`
+проверяет folio-цвет стартовой камеры, скрытый `Obstacle_Fixture` и выключенное
+по умолчанию управление мышью в модели/Toggle. `MetaPresenterTests.UpgradesToggle_WhileSaving_KeepsPurchaseReasonStable`
+удерживает предметную причину покупки во время задержанной записи профиля.
+`MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions` проверяет segmented
+state controls и начальное `Закрыто` для умений/сетов в 1080p/720p.
+
 Meta stat icons R1: MetaShopSmokeTests проверяет 12 ненулевых sprites из registry,
 slot 32 px перед названием, отсутствие пересечения с title/level в 1080p и 720p.
 

@@ -42,6 +42,10 @@ global+personal и запрет возврата ниже. IP-25 владеет 
 
 versioned profile и миграция, currency/conditions/purchases/global+per-character upgrades; idempotent application завершённого run; один authoritative result для сохранения, UI и Retry. `RunOutcome.Contributions["draft"].DraftTotals.BookCurrency` — уже начисленная при подборе пустых Книг валюта (DECISION-0020); перенос в профиль не создаёт повторную награду. DTO snapshot находится в Run, прямой dependency на Progression не требуется. Failure/abort handling, награды и сохранение — DECISION-0037; суммы/каталог — раздел «Мета-экономика» Content Design.
 
+Поправка [DECISION-0098](../../decisions/0098-earned-level-run-reward.md): L1 не
+оплачивается, level reward равен `rewardPerLevel × (L − 1)` для нового receipt.
+Старые receipts не пересчитываются; BookCurrency сохраняется отдельно.
+
 ## Out of Scope
 
 выдуманные rewards/prices/upgrades, skill tree, cloud/online profile, превращение UI в владельца currency.
@@ -91,13 +95,13 @@ Profile adapter реализует `ICharacterAccessProvider.GetLockReason(Conte
 раздел «Мета-экономика» CD. DECISION-0090 добавляет 20 за успешный Book-выбор
 в `DraftTotals.BookCurrency`, отдельно от 50 за пустую при подборе Книгу.
 Перенос сохранённой суммы в профиль остаётся идемпотентным; старые receipts
-не пересчитываются. Проверить L20 + 3 Book upgrades + 2 empty Books = 260.
-Scope включает JSON reward 5×L, Book 50/20, четыре META
+не пересчитываются. По DECISION-0098 проверить L20 + 3 Book upgrades +
+2 empty Books = 255. Scope включает JSON reward 5×(L−1), Book 50/20, четыре META
 upgrades, character purchase prices и полный unlock mapping. Production gameplay
 не требуется запускать до его catalog IP: integration использует synthetic IDs,
 а ссылки economy проверяются против approved content manifest.
 
-Проверить L1→Quit=5; L20+2 Books=200 без второго начисления Book; startup failure=0;
+Проверить L1→Quit=0; L2→Quit=5; L20+2 Books=195 без второго начисления Book; startup failure=0;
 первый terminal wins; field clear только при 900s живым, пауза исключена. Сохранение
 RunId/reward/unlocks атомарно; retries/duplicate purchase intents идемпотентны.
 Покрыть caps, личные бонусы (legacy global+personal только fixture), применение до Health init следующего

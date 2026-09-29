@@ -34,12 +34,34 @@ Entry, Settings, Meta и Results без изменения layout/flow. Новы
 Full graphics PASS: 949/949 EditMode + 39/39 PlayMode, 0 failed/skipped,
 art 268 PASS. [Evidence](evidence/2026-09-29-ui-folio-polish.md).
 Пользователь принял visual review 2026-09-29: «Хорошо, что дальше?».
-Дополнительная panel-texture delta — Implemented, ожидает visual review пользователя:
-лёгкие процедурные волокна и неоднородность только на крупных окнах, не на
-маленьких карточках/кнопках и не вместо глобального фона. Первый слишком плотный
-вариант отклонён во внутреннем visual review и исправлен до передачи. Свежий full
-graphics PASS: 949/949 EditMode + 39/39 PlayMode, 0 failed/skipped, art 268 PASS
-(`TestResults/checks/20260929T082649-496005Z/summary.json`).
+UI follow-up 2026-09-29 — Implemented, ожидает visual review пользователя:
+[OBS-01…06](../playtests/2026-09-29_ui-folio-followup.md). Угловые рамки и
+линейные «бумажные» штрихи удалены; сохранены только тональные градиенты.
+Стартовый синий кадр/оранжевый fixture закрыты folio-цветом, production default
+управления мышью подтверждён выключенным, Meta purchase reason стабилен во время
+сохранения, а Unlocks использует сегментированные состояния и автоматически
+показывает только закрытые умения/сеты. Новая материальная фактура отложена до
+следующей визуальной итерации. Full graphics PASS: 964/964 EditMode + 39/39
+PlayMode, 0 failed/skipped, art 268 PASS
+(`TestResults/checks/20260929T094640-646705Z/summary.json`).
+
+UI Folio material 2026-09-29 — Implemented, ожидает visual review в Unity:
+пользователь выбрал третий образец (мягкие складки) и утвердил отдельный raster.
+Он подготовлен по art pipeline и подключён к крупным окнам с пониженной
+непрозрачностью; мелкие карточки не текстурируются. Full graphics PASS:
+965/965 EditMode + 39/39 PlayMode, 0 failed/skipped, art 269 PASS
+(`TestResults/checks/20260929T103847-651304Z/summary.json`).
+[Evidence](evidence/2026-09-29-ui-folio-material.md).
+
+Отзыв 2026-09-29 [OBS-01…03](../playtests/2026-09-29_ui-material-and-reward.md):
+материал больших панелей усилен до 0.48 opacity и добавлен в обе колонки Pause;
+стартовый L1 исключён из награды по [DECISION-0098](../decisions/0098-earned-level-run-reward.md).
+Изменения Implemented; visual review усиленной фактуры в игре и ручной повтор
+раннего выхода остаются за пользователем. Full graphics PASS: 969/969 EditMode +
+39/39 PlayMode, 0 failed/skipped, art 269 PASS
+(`TestResults/checks/20260929T110557-960511Z/summary.json`).
+[Reward evidence](evidence/2026-09-29-earned-level-reward.md),
+[UI evidence](evidence/2026-09-29-ui-folio-material.md).
 
 Meta backdrop / field collection feedback 2026-09-29 — Implemented: полноэкранная
 тёмная подложка Meta/results и все десять готовых иллюстраций карт в коллекции.
@@ -562,6 +584,10 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-25)
 Target implementation evidence: [Meta R1 runtime](evidence/2026-09-29-ui-meta-r1-runtime.md); принятые прежние UI/startup packets сохраняются.
 Target verification evidence: full graphics 944/944 EditMode + 37/37 PlayMode PASS; последующая правка галочки — targeted PlayMode 1/1 PASS. Результаты, пути, screenshots и ограничения в Meta R1 evidence; ручной приёмки нового экрана нет.
 
+Reward delta DECISION-0098: стартовый L1 больше не оплачивается, новые receipts
+получают `5 × (L−1)` при неизменной Book-награде; старые receipts сохранены.
+Full graphics 969/969 EditMode + 39/39 PlayMode PASS; [evidence](evidence/2026-09-29-earned-level-reward.md).
+
 ### IP-26 — Functional UI и полный player flow
 
 Status: In progress
@@ -569,6 +595,9 @@ Scope revision: design-sync-R2 + field-001-start-R1 + ui-layout-R2 + ui-entry-R1
 Startup packet: F1-03 — startup/locks/recipe UI; Results и actual-content integration в F1-08. Required packets: F1-00/01/02; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-01, IP-10A, IP-11, IP-12, IP-15, IP-16, IP-25, IP-28, IP-29, IP-12A
 Current packet: Meta R1 и «Открытия». Settings R1 по DECISION-0093 перенесён в Unity, автоматически проверен и принят пользователем 2026-09-29 («там всё принимается»).
+Results reward delta DECISION-0098 отображает сохранённую награду только за уровни
+после L1; новые Pause material surfaces подключены и проверены автоматически,
+ручной visual review усиленной фактуры остаётся открытым.
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
 Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.

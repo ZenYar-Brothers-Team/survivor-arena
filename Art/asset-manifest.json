@@ -4497,6 +4497,23 @@
         "docs/implementation/evidence/2026-09-29-meta-stat-icons.md"
       ],
       "missing": "User review of the integrated screen."
+    },
+    {
+      "owner": "UI-FOLIO-SURFACE",
+      "role": "background",
+      "visualId": "UI-FOLIO-SURFACE-VISUAL-BACKGROUND",
+      "method": "Generate",
+      "owningIp": "IP-26",
+      "source": "Art/Source/UI/ui-folio-surface/selected-master.png",
+      "provenance": "Art/Source/UI/ui-folio-surface/asset-record.json",
+      "runtime": "Assets/Resources/Art/UI/Folio/ui-folio-surface-background.png",
+      "resourcePath": "Art/UI/Folio/ui-folio-surface-background",
+      "stage": "Integrated",
+      "evidence": [
+        "User approved the standalone third folio texture in chat on 2026-09-29: «берем».",
+        "docs/implementation/evidence/2026-09-29-ui-folio-material.md"
+      ],
+      "missing": "User review of the integrated panels."
     }
   ]
 }

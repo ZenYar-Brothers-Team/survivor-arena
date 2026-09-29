@@ -222,11 +222,12 @@ namespace Game.Meta
             try
             {
                 if (outcome.Selection == null || !Catalog.Unlocks.ContainsKey(outcome.Selection.FieldId.ToString()) ||
-                    !outcome.Contributions.TryGetValue("experience", out var xp) || !xp.Level.HasValue ||
+                    !outcome.Contributions.TryGetValue("experience", out var xp) || !xp.Level.HasValue || xp.Level.Value < 1 ||
                     !outcome.Contributions.TryGetValue("draft", out var draft) || draft.DraftTotals == null)
                     throw new InvalidOperationException("Incomplete result; reward cannot be saved.");
                 var next = _codec.Copy(_data);
-                var receipt = new MetaRunReceipt { RunId = outcome.RunId.ToString(), LevelReward = checked(Catalog.RewardPerLevel * xp.Level.Value),
+                // The starting L1 is not an earned level (DECISION-0098).
+                var receipt = new MetaRunReceipt { RunId = outcome.RunId.ToString(), LevelReward = checked(Catalog.RewardPerLevel * (xp.Level.Value - 1)),
                     BookReward = draft.DraftTotals.BookCurrency, NewUnlocks = new List<string>() };
                 next.Currency = checked(next.Currency + receipt.Total);
                 next.FirstRun = true;

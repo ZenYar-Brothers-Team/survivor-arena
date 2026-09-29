@@ -133,24 +133,23 @@ namespace Game.Bootstrap.PlayModeTests
                     foreach (var kind in new[] { "character", "field", "ability", "set" })
                     {
                         Submit(ui, GameplayUiElementIds.MetaUnlockType(kind)); yield return null;
-                        Assert.AreEqual(kind == "ability" ? 30 : kind == "set" ? 20 : 10, list.Query(className: "shop-unlock").ToList().Count);
+                        Assert.AreEqual(kind == "ability" ? 10 : kind == "set" ? 15 : 10, list.Query(className: "shop-unlock").ToList().Count);
+                        Assert.IsTrue(ui.Q<Button>(GameplayUiElementIds.MetaUnlockType(kind)).ClassListContains("shop-selected"));
                         if (kind == "field") Assert.AreEqual(10, list.Query<Image>().ToList().Count);
                         if(kind == "ability")
                         {
-                            var states = ui.Q<DropdownField>(GameplayUiElementIds.MetaUnlockState);
-                            Assert.Contains("Не открыто · 10",states.choices);
-                            states.index = 1; yield return null;
+                            Assert.AreEqual("Закрыто · 10",ui.Q<Button>(GameplayUiElementIds.MetaUnlockState(1)).text);
+                            Assert.IsTrue(ui.Q<Button>(GameplayUiElementIds.MetaUnlockState(1)).ClassListContains("shop-selected"));
+                            Assert.IsFalse(ui.Q<Button>(GameplayUiElementIds.MetaUnlockState(0)).ClassListContains("shop-selected"));
                             Assert.AreEqual(10,list.Query(className:"shop-unlock").ToList().Count);
-                            states.index = 0; yield return null;
                         }
                         Assert.LessOrEqual(list.Query(className: "shop-unlock").ToList().Max(e => e.worldBound.xMax), size.x);
                         UiFoundationSmokeTests.Capture(target, $"meta-unlocks-{kind}-{size.x}x{size.y}");
                     }
-                    var filter = ui.Q<DropdownField>(GameplayUiElementIds.MetaUnlockState);
-                    filter.index = 2; yield return null;
+                    Submit(ui, GameplayUiElementIds.MetaUnlockState(2)); yield return null;
                     Assert.AreEqual(0, list.Query(className: "shop-unlock").ToList().Count);
                     Assert.IsNotNull(list.Q(className: "shop-unlock-empty"));
-                    filter.index = 0; yield return null;
+                    Submit(ui, GameplayUiElementIds.MetaUnlockState(0)); yield return null;
                     list.scrollOffset = new Vector2(0, list.verticalScroller.highValue); yield return null;
                     Bounded(list.Query(className: "shop-unlock").ToList().Last(), size);
                     document.panelSettings.targetTexture = null; Object.Destroy(target); target = null;

@@ -7,6 +7,23 @@ namespace Game.Presentation.Tests
 {
     public sealed class SpriteAssetImportTests
     {
+        [Test]
+        public void FolioSurface_UsesWholeMatteCanvas()
+        {
+            const string path = "Assets/Resources/Art/UI/Folio/ui-folio-surface-background.png";
+            var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            Assert.IsNotNull(importer);
+            Assert.IsNotNull(sprite);
+            Assert.AreEqual(SpriteImportMode.Single, importer.spriteImportMode);
+            Assert.IsFalse(importer.mipmapEnabled);
+            Assert.AreEqual(TextureWrapMode.Clamp, importer.wrapMode);
+            Assert.AreEqual(FilterMode.Bilinear, importer.filterMode);
+            Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);
+            Assert.AreEqual(sprite.texture.width, sprite.rect.width);
+            Assert.AreEqual(sprite.texture.height, sprite.rect.height);
+        }
+
         [TestCase("ui-menu-back-background")]
         [TestCase("ui-menu-front-background")]
         public void MenuLayer_PreservesWholeCanvas(string name)

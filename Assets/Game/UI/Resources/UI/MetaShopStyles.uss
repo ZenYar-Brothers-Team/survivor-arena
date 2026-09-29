@@ -59,11 +59,12 @@
 .shop-dialog-actions { flex-direction: row; justify-content: space-between; }
 .shop-group-title { font-size: 28px; color: #d5a84a; margin-bottom: 12px; margin-top: 18px; }
 .shop-unlock-pane { flex-grow: 1; min-width: 0; min-height: 0; }
-.shop-unlock-filters { flex-direction: row; align-items: center; margin-bottom: 18px; flex-shrink: 0; }
+.shop-unlock-filters { flex-direction: row; align-items: center; flex-wrap: wrap; margin-bottom: 18px; flex-shrink: 0; }
 .shop-mode .shop-type-filter { margin-right: 9px; background-color: transparent; border-color: transparent; }
 .shop-mode .shop-type-filter.shop-selected { background-color: #493d4e; border-color: #806773; }
-.shop-unlock-state { margin-left: auto; width: 220px; }
-.shop-unlock-state .unity-base-field__input { background-color: #403746; color: #e8d8b8; border-width: 1px; border-color: #806773; padding: 7px; font-size: 20px; }
+.shop-state-filters { flex-direction: row; margin-left: auto; }
+.shop-mode .shop-state-filter { margin-left: 4px; padding: 7px 9px; background-color: #302936; border-width: 1px; border-bottom-width: 2px; border-color: #645163; font-size: 17px; }
+.shop-mode .shop-state-filter.shop-selected { color: #d5a84a; background-color: #51443c; border-color: #d5a84a; }
 .shop-unlock-grid { flex-direction: row; flex-wrap: wrap; padding-right: 12px; margin-bottom: 16px; }
 .shop-unlock { width: 32.6%; margin-right: 0.7%; min-height: 124px; flex-direction: row; align-items: center; padding: 14px; margin-bottom: 10px; background-color: #39303f; border-width: 1px; border-color: #645163; border-radius: 7px; }
 .shop-unlock-available { border-color: #a98b50; background-color: #403739; }
@@ -112,7 +113,7 @@
 .results-compact .shop-unlock-kind { font-size: 13px; }
 .results-compact .shop-unlock-filters { margin-bottom: 11px; }
 .results-compact .shop-type-filter { font-size: 17px; padding: 6px 12px; margin-right: 5px; }
-.results-compact .shop-unlock-state { width: 185px; }
-.results-compact .shop-unlock-state .unity-base-field__input { font-size: 17px; }
+.results-compact .shop-state-filters { width: 100%; margin-left: 0; margin-top: 6px; }
+.results-compact .shop-state-filter { flex-grow: 1; margin-left: 0; margin-right: 4px; padding: 5px 6px; font-size: 15px; }
 .results-compact .shop-unlock-total { font-size: 16px; }
 .results-compact .shop-footer Button, .results-compact.shop-mode .meta-actions Button { font-size: 19px; }
