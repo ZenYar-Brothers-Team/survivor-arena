@@ -10,6 +10,12 @@ profiles, not an in-game toggle. For a wide visible-XP detour use
 dangerous, keeps a waypoint on the safer side. `arcOffsetWorldUnits` is the
 sideways displacement (2–10 world units; 6 is roughly 0.6 of the Gameplay
 camera height). It is still a research bot profile, not a gameplay change.
+For a crowd-luring pattern use
+[`examples/fresh-herd-loop.json`](examples/fresh-herd-loop.json): `herdLoop/v1`
+switches between local foraging, luring enemies away from a remembered XP
+area, sweeping around them, and returning. Its report includes
+`movementModeDecisions`; high expired XP means the pattern did not actually
+solve collection. It is not an in-game toggle or a human-play model.
 
 `chains` counts independent profile histories; `maxRunsPerChain` limits runs
 within each history. A fresh chain begins

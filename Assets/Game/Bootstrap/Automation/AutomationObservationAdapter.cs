@@ -60,7 +60,7 @@ namespace Game.Bootstrap.Automation
                 var body = enemy.GetComponent<Rigidbody2D>();
                 var collider = enemy.GetComponent<CircleCollider2D>();
                 _threats.Add(new BotThreat(enemy.Position, body != null ? body.linearVelocity : Vector2.zero,
-                    collider != null ? collider.radius : 0.5f, 3f));
+                    collider != null ? collider.radius : 0.5f, 3f, isEnemy: true));
             }
             EnemyProjectileRegistry.CopyActiveTo(_projectiles);
             foreach (var projectile in _projectiles)
@@ -121,8 +121,12 @@ namespace Game.Bootstrap.Automation
                         break;
                 }
             }
+            var health = _player.Health;
+            var healthFraction = health != null && health.MaxHealth > 0f ?
+                health.CurrentHealth / health.MaxHealth : 0f;
             return new BotObservation(position, _player.MovementSpeed, playerRadius, _arenaBounds,
-                _threats.ToArray(), _collectibles.ToArray(), _obstacles.ToArray(), _beams.ToArray(), coverageComplete);
+                _threats.ToArray(), _collectibles.ToArray(), _obstacles.ToArray(), _beams.ToArray(),
+                coverageComplete, healthFraction);
         }
     }
 }

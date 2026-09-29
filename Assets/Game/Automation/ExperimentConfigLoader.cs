@@ -104,17 +104,29 @@ namespace Game.Automation
         {
             var movement = data.MovementPolicy ?? throw new ArgumentException("movementPolicy required.");
             if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused" &&
-                movement.Id != "orbitExperience")
+                movement.Id != "orbitExperience" && movement.Id != "herdLoop")
                 throw new ArgumentException("Unknown movement policy/version.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
             Range(movement.PredictionSeconds, 0.05f, 3f, "predictionSeconds");
             Range(movement.ObstaclePadding, 0f, 2f, "obstaclePadding");
             Range(movement.StuckSeconds, 0.5f, 30f, "stuckSeconds");
-            if (movement.Id == "orbitExperience")
+            if (movement.Id == "orbitExperience" || movement.Id == "herdLoop")
                 Range(movement.ArcOffsetWorldUnits, 2f, 10f, "arcOffsetWorldUnits");
             else if (movement.ArcOffsetWorldUnits.HasValue)
-                throw new ArgumentException("arcOffsetWorldUnits is only valid for orbitExperience.");
+                throw new ArgumentException("arcOffsetWorldUnits is only valid for orbitExperience or herdLoop.");
+            if (movement.Id == "herdLoop")
+            {
+                if (!movement.CrowdMinEnemies.HasValue || movement.CrowdMinEnemies < 4 || movement.CrowdMinEnemies > 30)
+                    throw new ArgumentException("crowdMinEnemies out of range.");
+                Range(movement.CrowdRadius, 3f, 20f, "crowdRadius");
+                Range(movement.LureSeconds, 1f, 15f, "lureSeconds");
+                Range(movement.SweepSeconds, 1f, 15f, "sweepSeconds");
+                Range(movement.CollectSeconds, 1f, 30f, "collectSeconds");
+            }
+            else if (movement.CrowdMinEnemies.HasValue || movement.CrowdRadius.HasValue ||
+                movement.LureSeconds.HasValue || movement.SweepSeconds.HasValue || movement.CollectSeconds.HasValue)
+                throw new ArgumentException("Herd settings are only valid for herdLoop.");
             if (data.DraftPolicy?.Id != "randomLegal" || data.DraftPolicy.Version != 1)
                 throw new ArgumentException("Unknown draft policy/version.");
             var purchase = data.PurchasePolicy ?? throw new ArgumentException("purchasePolicy required.");

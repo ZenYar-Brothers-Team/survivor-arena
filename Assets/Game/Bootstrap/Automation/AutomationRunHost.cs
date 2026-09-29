@@ -38,6 +38,7 @@ namespace Game.Bootstrap.Automation
         private float _nextMovementAt;
         private bool _requestedStop;
         private readonly List<string> _offered = new List<string>(3);
+        private readonly Dictionary<string, int> _movementModeDecisions = new Dictionary<string, int>();
 
         public AutomationRunState State { get; private set; }
         public string TerminalReason { get; private set; }
@@ -66,6 +67,7 @@ namespace Game.Bootstrap.Automation
             _fieldId = fieldId ?? _settings.FieldRoute[0];
             if (!_settings.FieldRoute.Contains(_fieldId)) throw new ArgumentException("Field is outside configured route.");
             _movement = new BotMovementPolicy(_settings.MovementPolicy);
+            _movementModeDecisions.Clear();
             // Separate random stream: policy choices never advance the gameplay draft/wave/pickup RNG.
             _draftChoice = new RandomLegalDraftPolicy(new System.Random(Guid.NewGuid().GetHashCode()));
             _experimentStartedAt = Time.realtimeSinceStartupAsDouble;
@@ -171,6 +173,12 @@ namespace Game.Bootstrap.Automation
             if (State == AutomationRunState.ResolveDraft) Transition(AutomationRunState.Running);
             if (_run.Elapsed < _nextMovementAt) return;
             var decision = _movement.Decide(_bindings.Observation.Capture(), _settings.MovementPolicy.DecisionIntervalSeconds.Value);
+            if (_movement.CurrentHerdMode.HasValue)
+            {
+                var mode = _movement.CurrentHerdMode.Value.ToString();
+                _movementModeDecisions.TryGetValue(mode, out var count);
+                _movementModeDecisions[mode] = count + 1;
+            }
             _direction.SetDirection(decision.Direction);
             if (decision.Stuck) BotStuck = true;
             if (decision.CoverageIncomplete) CoverageIncomplete = true;
@@ -287,6 +295,7 @@ namespace Game.Bootstrap.Automation
                     ["layout"] = _root.LayoutSeed, ["traveler"] = _root.TravelerSeed, ["pickup"] = _root.PickupSeed },
                 ["rngCoverage"] = "gameplay seeds captured; policy seed not replayable",
                 ["botStuck"] = BotStuck, ["coverageIncomplete"] = CoverageIncomplete,
+                ["movementModeDecisions"] = JObject.FromObject(_movementModeDecisions),
                 ["recorder"] = recorder, ["stopReason"] = _requestedStop ? TerminalReason : null,
                 ["error"] = error,
                 ["capabilities"] = new JObject { ["damageAndHealing"] = _root.Playtest is PlaytestSession,

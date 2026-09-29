@@ -19,11 +19,34 @@ namespace Game.Automation.Tests
             return settings;
         }
 
+        private static MovementPolicyData HerdSettings()
+        {
+            var settings = Settings();
+            settings.Id = "herdLoop";
+            settings.ArcOffsetWorldUnits = 6f;
+            settings.CrowdMinEnemies = 8;
+            settings.CrowdRadius = 8f;
+            settings.LureSeconds = 7f;
+            settings.SweepSeconds = 5f;
+            settings.CollectSeconds = 10f;
+            return settings;
+        }
+
+        private static BotThreat[] Crowd(Vector2 center, int count)
+        {
+            var threats = new BotThreat[count];
+            for (var i = 0; i < count; i++)
+                threats[i] = new BotThreat(center + new Vector2((i % 3) * 0.1f, (i / 3) * 0.1f),
+                    Vector2.zero, 0.4f, 3f, isEnemy: true);
+            return threats;
+        }
+
         private static BotObservation Observe(Vector2 position, BotThreat[] threats = null, BotPickup[] pickups = null,
-            BotObstacle[] obstacles = null, BotBeam[] beams = null, bool complete = true) =>
+            BotObstacle[] obstacles = null, BotBeam[] beams = null, bool complete = true,
+            float healthFraction = 1f) =>
             new BotObservation(position, 3f, 0.3f, Rect.MinMaxRect(-10, -10, 10, 10),
                 threats ?? new BotThreat[0], pickups ?? new BotPickup[0], obstacles ?? new BotObstacle[0],
-                beams ?? new BotBeam[0], complete);
+                beams ?? new BotBeam[0], complete, healthFraction);
 
         [Test]
         public void Decide_VisibleXp_ApproachesWithoutGameplayRandomness()
@@ -157,6 +180,73 @@ namespace Game.Automation.Tests
                     new BotPickup(new Vector2(0, 6), 1f)
                 });
             Assert.Greater(policy.Decide(observation, 0.2f).Direction.y, 0f);
+        }
+
+        [Test]
+        public void Decide_HerdLoop_SparseEnemiesForagesForXp()
+        {
+            var policy = new BotMovementPolicy(HerdSettings());
+            var decision = policy.Decide(Observe(Vector2.zero,
+                threats: Crowd(new Vector2(-4, 0), 2),
+                pickups: new[] { new BotPickup(new Vector2(3, 0), 1f) }), 0.2f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+            Assert.Greater(decision.Direction.x, 0f);
+        }
+
+        [Test]
+        public void Decide_HerdLoop_CrowdTriggersLureSweepAndReturn()
+        {
+            var policy = new BotMovementPolicy(HerdSettings());
+            var xp = new[] { new BotPickup(new Vector2(8, 0), 1f) };
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8), pickups: xp), 0.2f);
+            Assert.AreEqual(BotHerdMode.Lure, policy.CurrentHerdMode);
+            policy.Decide(Observe(new Vector2(-6, 0), threats: Crowd(new Vector2(-3, 0), 8), pickups: xp), 1f);
+            Assert.AreEqual(BotHerdMode.Sweep, policy.CurrentHerdMode);
+            policy.Decide(Observe(new Vector2(-6, 4), threats: Crowd(new Vector2(-4, 2), 8), pickups: xp), 10.1f);
+            Assert.AreEqual(BotHerdMode.Collect, policy.CurrentHerdMode);
+        }
+
+        [Test]
+        public void Decide_HerdLoop_DoesNotLureWhenCrowdIsBehindXpOrXpIsAtFeet()
+        {
+            var policy = new BotMovementPolicy(HerdSettings());
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(-3, 0), 8),
+                pickups: new[] { new BotPickup(new Vector2(3, 0), 1f) }), 0.2f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8),
+                pickups: new[] { new BotPickup(Vector2.zero, 1f) }), 0.2f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+        }
+
+        [Test]
+        public void Decide_HerdLoop_ProjectilesDoNotCountAsCrowdAndCoverageResetStops()
+        {
+            var policy = new BotMovementPolicy(HerdSettings());
+            var projectiles = new BotThreat[8];
+            for (var i = 0; i < projectiles.Length; i++)
+                projectiles[i] = new BotThreat(new Vector2(-4, i * 0.1f), Vector2.zero, 0.2f, 10f);
+            policy.Decide(Observe(Vector2.zero, threats: projectiles,
+                pickups: new[] { new BotPickup(new Vector2(3, 0), 1f) }), 0.2f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+            var stopped = policy.Decide(Observe(Vector2.zero, complete: false), 0.2f);
+            Assert.IsTrue(stopped.CoverageIncomplete);
+            Assert.AreEqual(Vector2.zero, stopped.Direction);
+        }
+
+        [Test]
+        public void Decide_HerdLoop_LowHealthAvoidsRiskierDirectXpLine()
+        {
+            var threats = new[]
+            {
+                new BotThreat(new Vector2(3, 1.6f), Vector2.zero, 0.5f, 3f, isEnemy: true)
+            };
+            var pickups = new[] { new BotPickup(new Vector2(3, 0), 1f) };
+            var healthy = new BotMovementPolicy(HerdSettings()).Decide(
+                Observe(Vector2.zero, threats: threats, pickups: pickups, healthFraction: 1f), 0.2f);
+            var wounded = new BotMovementPolicy(HerdSettings()).Decide(
+                Observe(Vector2.zero, threats: threats, pickups: pickups, healthFraction: 0f), 0.2f);
+            Assert.AreEqual(Vector2.right, healthy.Direction);
+            Assert.Less(wounded.Direction.y, 0f);
         }
 
         [Test]

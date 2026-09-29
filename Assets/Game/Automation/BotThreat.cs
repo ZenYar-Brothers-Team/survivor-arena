@@ -9,13 +9,15 @@ namespace Game.Automation
         public Vector2 Velocity { get; }
         public float Radius { get; }
         public float Weight { get; }
+        public bool IsEnemy { get; }
 
-        public BotThreat(Vector2 position, Vector2 velocity, float radius, float weight)
+        public BotThreat(Vector2 position, Vector2 velocity, float radius, float weight, bool isEnemy = false)
         {
             Position = position;
             Velocity = velocity;
             Radius = radius;
             Weight = weight;
+            IsEnemy = isEnemy;
         }
     }
 }

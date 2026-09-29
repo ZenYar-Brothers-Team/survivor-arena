@@ -19,18 +19,20 @@ namespace Game.Automation
         private readonly float _stuckSeconds;
         private readonly bool _experienceFocused;
         private readonly BotOrbitPlanner _orbitPlanner;
+        private readonly BotHerdPlanner _herdPlanner;
         private Vector2 _previousDirection;
         private Vector2 _lastPosition;
         private bool _hasLastPosition;
         private float _stationarySeconds;
         private int _recoveryAttempts;
+        public BotHerdMode? CurrentHerdMode => _herdPlanner?.Mode;
 
         public BotMovementPolicy(MovementPolicyData settings)
         {
             if (settings == null || settings.PredictionSeconds == null || settings.ObstaclePadding == null ||
                 settings.StuckSeconds == null) throw new ArgumentException("Validated movement policy required.", nameof(settings));
             if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused" &&
-                settings.Id != "orbitExperience")
+                settings.Id != "orbitExperience" && settings.Id != "herdLoop")
                 throw new ArgumentException("Unknown movement policy/version.", nameof(settings));
             _predictionSeconds = settings.PredictionSeconds.Value;
             _obstaclePadding = settings.ObstaclePadding.Value;
@@ -44,6 +46,14 @@ namespace Game.Automation
                 _orbitPlanner = new BotOrbitPlanner(settings.ArcOffsetWorldUnits.Value,
                     _predictionSeconds, _obstaclePadding);
             }
+            if (settings.Id == "herdLoop")
+            {
+                if (!settings.ArcOffsetWorldUnits.HasValue || !settings.CrowdMinEnemies.HasValue ||
+                    !settings.CrowdRadius.HasValue || !settings.LureSeconds.HasValue ||
+                    !settings.SweepSeconds.HasValue || !settings.CollectSeconds.HasValue)
+                    throw new ArgumentException("Validated herd settings required.", nameof(settings));
+                _herdPlanner = new BotHerdPlanner(settings);
+            }
         }
 
         public BotMovementDecision Decide(BotObservation observation, float elapsedSimulationSeconds)
@@ -56,6 +66,7 @@ namespace Game.Automation
             {
                 _previousDirection = Vector2.zero;
                 _orbitPlanner?.Clear();
+                _herdPlanner?.Clear();
                 return new BotMovementDecision(Vector2.zero, coverageIncomplete: true);
             }
 
@@ -72,6 +83,7 @@ namespace Game.Automation
 
             var orbitGoal = _orbitPlanner?.NextGoal(observation);
             if (_orbitPlanner != null && !orbitGoal.HasValue) _previousDirection = Vector2.zero;
+            _herdPlanner?.Update(observation, elapsedSimulationSeconds);
 
             var best = 0;
             var bestScore = float.NegativeInfinity;
@@ -81,13 +93,15 @@ namespace Game.Automation
                 if (_stationarySeconds >= _stuckSeconds && (direction == _previousDirection ||
                     _recoveryAttempts > 0 && direction == Vector2.zero)) continue;
                 if (!IsReachable(observation, direction)) continue;
-                var score = Score(observation, direction, orbitGoal);
+                var score = _herdPlanner != null ? ScoreHerd(observation, direction) :
+                    Score(observation, direction, orbitGoal);
                 if (direction == _previousDirection) score += 0.1f;
                 if (score > bestScore) { bestScore = score; best = i; }
             }
             if (_stationarySeconds >= _stuckSeconds)
             {
                 _orbitPlanner?.Clear();
+                _herdPlanner?.Clear();
                 _recoveryAttempts++;
                 _stationarySeconds = 0f;
             }
@@ -152,6 +166,52 @@ namespace Game.Automation
             // IP-34 AB-09: this selectable research policy accepts moderate exposure
             // for visible XP, while projectile/beam danger still dominates its gain.
             return attraction - (_experienceFocused ? 5f : 10f) * danger;
+        }
+
+        private float ScoreHerd(BotObservation observation, Vector2 direction)
+        {
+            // AB-11: compare the worst exposure over three short forward samples,
+            // not only the endpoint. Low HP raises the cost of any exposure.
+            var danger = 0f;
+            for (var sample = 1; sample <= 3; sample++)
+            {
+                var seconds = _predictionSeconds * sample;
+                var position = observation.Position + direction * observation.MovementSpeed * seconds;
+                var padding = observation.PlayerRadius + _obstaclePadding;
+                if (position.x < observation.ArenaBounds.xMin + padding ||
+                    position.x > observation.ArenaBounds.xMax - padding ||
+                    position.y < observation.ArenaBounds.yMin + padding ||
+                    position.y > observation.ArenaBounds.yMax - padding)
+                    return -1000f;
+                var exposureTotal = 0f;
+                foreach (var threat in observation.Threats)
+                {
+                    var predicted = threat.Position + threat.Velocity * seconds;
+                    var margin = observation.PlayerRadius + threat.Radius + 2f;
+                    var exposure = Mathf.Max(0f, margin - Vector2.Distance(position, predicted)) / margin;
+                    exposureTotal += threat.Weight * exposure * exposure;
+                }
+                foreach (var beam in observation.Beams)
+                {
+                    var margin = observation.PlayerRadius + beam.HalfWidth + 2f;
+                    var exposure = Mathf.Max(0f, margin - DistanceToSegment(position, beam.Start, beam.End)) / margin;
+                    exposureTotal += beam.Weight * exposure * exposure;
+                }
+                danger = Mathf.Max(danger, exposureTotal);
+            }
+            var attraction = 0f;
+            if (_herdPlanner.Goal.HasValue)
+            {
+                var target = GuidanceTarget(observation, _herdPlanner.Goal.Value);
+                var destination = observation.Position + direction * observation.MovementSpeed * _predictionSeconds;
+                var oldDistance = Vector2.Distance(observation.Position, target);
+                var newDistance = Vector2.Distance(destination, target);
+                var weight = _herdPlanner.Mode == BotHerdMode.Collect ? 14f :
+                    _herdPlanner.Mode == BotHerdMode.Forage ? 10f : 8f;
+                attraction = weight * (oldDistance - newDistance) / Mathf.Max(1f, oldDistance);
+            }
+            var dangerWeight = Mathf.Lerp(9f, 4f, observation.HealthFraction);
+            return attraction - dangerWeight * danger;
         }
 
         private Vector2 GuidanceTarget(BotObservation observation, Vector2 pickup)

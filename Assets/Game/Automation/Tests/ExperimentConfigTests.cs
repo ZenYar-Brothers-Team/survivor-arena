@@ -110,6 +110,26 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Load_HerdLoop_RequiresTypedSettingsAndKeepsOtherProfilesSeparate()
+        {
+            var value = Fresh();
+            value["movementPolicy"]["id"] = "herdLoop";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["arcOffsetWorldUnits"] = 6;
+            value["movementPolicy"]["crowdMinEnemies"] = 8;
+            value["movementPolicy"]["crowdRadius"] = 8;
+            value["movementPolicy"]["lureSeconds"] = 7;
+            value["movementPolicy"]["sweepSeconds"] = 5;
+            value["movementPolicy"]["collectSeconds"] = 10;
+            Assert.AreEqual("herdLoop", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["crowdMinEnemies"] = 3;
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+            value["movementPolicy"]["crowdMinEnemies"] = 8;
+            value["movementPolicy"]["id"] = "safePickup";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+        }
+
+        [Test]
         public void Preset_InvalidPersonalLevelsAndOwner_AreRejected()
         {
             var builder = new PresetProfileBuilder(_catalog);
