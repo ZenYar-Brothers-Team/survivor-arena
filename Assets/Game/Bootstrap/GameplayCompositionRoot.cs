@@ -85,6 +85,13 @@ namespace Game.Bootstrap
         public const string ProductionProfileFileName = "profile-meta-r1.json";
         public bool IsInitialized { get; private set; }
         public IPlaytestSession Playtest { get; private set; }
+        private Func<Guid, IPlaytestExportSink> _automationExportSink;
+        /// <summary>Development-only export redirection, configured before launching each automated run.</summary>
+        public void ConfigureAutomationExportSink(Func<Guid, IPlaytestExportSink> factory)
+        {
+            if (!DevelopmentTools || IsInitialized) throw new InvalidOperationException("Configure automation export before run initialization.");
+            _automationExportSink = factory;
+        }
         public BossEncounterRuntime BossEncounters { get; private set; }
         public WorldPickupRuntime Pickups { get; private set; }
         public TravelerEncounterRuntime Travelers { get; private set; }
@@ -118,7 +125,7 @@ namespace Game.Bootstrap
             if (!DevelopmentTools || !IsInitialized)
                 throw new InvalidOperationException("Automation bindings require an active development run.");
             return new AutomationRuntimeBindings(runController, draftRuntime, player.GetComponent<PlayerMover>(),
-                CreateAutomationObservationAdapter(observationRadius));
+                CreateAutomationObservationAdapter(observationRadius), player, experienceRuntime, enemySpawner);
         }
         public ISettingsService Settings { get; private set; }
         public UnityEngine.UIElements.UIDocument ShellDocument => _shellScreen?.Document;
@@ -539,7 +546,8 @@ namespace Game.Bootstrap
                         TravelerSeed = UseReferenceSeeds ? travelerSchedule.Seed : FreshRunSeed.Next());
                 }
                 Playtest = PlaytestComposition.Create(Catalog, DraftSeed, runController.Model, player, experienceRuntime,
-                    draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers);
+                    draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers,
+                    _automationExportSink?.Invoke(runController.Model.RunId));
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 
                 gameplayUiRoot.Initialize(

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Game.Automation;
 using Game.Content;
 using Game.Meta;
 using Game.Run;
+using Game.Telemetry;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Game.Bootstrap.Automation
@@ -18,6 +21,13 @@ namespace Game.Bootstrap.Automation
         private BotMovementPolicy _movement;
         private RandomLegalDraftPolicy _draftChoice;
         private RunModel _run;
+        private MemoryProfileStore _profileStore;
+        private AutomationRunRecorder _recorder;
+        private ExperimentConfig _config;
+        private string _runFolder;
+        private string _profileBefore;
+        private DateTime _runStartedUtc;
+        private bool _reportWritten;
         private double _experimentStartedAt;
         private double _stateStartedAt;
         private double _runStartedAt;
@@ -30,16 +40,20 @@ namespace Game.Bootstrap.Automation
         public string TerminalReason { get; private set; }
         public RunOutcome Outcome { get; private set; }
         public MetaRunReceipt Receipt { get; private set; }
+        public bool BotStuck { get; private set; }
+        public bool CoverageIncomplete { get; private set; }
         public bool IsFinished => State == AutomationRunState.Completed || State == AutomationRunState.Stopped ||
             State == AutomationRunState.Failed;
         public event Action<AutomationRunHost> Finished;
 
-        public void Initialize(GameplayCompositionRoot root, ExperimentConfig config)
+        public void Initialize(GameplayCompositionRoot root, ExperimentConfig config, MemoryProfileStore profileStore = null)
         {
             if (_root != null) throw new InvalidOperationException("Automation host already initialized.");
             _root = root ?? throw new ArgumentNullException(nameof(root));
             if (!_root.DevelopmentTools) throw new InvalidOperationException("Automation requires Editor or Development Build.");
-            _settings = (config ?? throw new ArgumentNullException(nameof(config))).Data;
+            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _settings = _config.Data;
+            _profileStore = profileStore;
             _movement = new BotMovementPolicy(_settings.MovementPolicy);
             // Separate random stream: policy choices never advance the gameplay draft/wave/pickup RNG.
             _draftChoice = new RandomLegalDraftPolicy(new System.Random(Guid.NewGuid().GetHashCode()));
@@ -83,13 +97,26 @@ namespace Game.Bootstrap.Automation
         private void StartRun(double now)
         {
             if (!_root.AtMainMenu || !_root.Profile.CanStart) { Fail("profileNotReady"); return; }
+            if (_profileStore != null)
+            {
+                _profileBefore = _profileStore.Main ?? throw new InvalidOperationException("Isolated profile missing.");
+                _root.ConfigureAutomationExportSink(id =>
+                {
+                    _runFolder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs", id.ToString("N"));
+                    if (Directory.Exists(_runFolder)) throw new IOException("Run output already exists: " + _runFolder);
+                    return new AutomationPlaytestSink(_runFolder);
+                });
+            }
             _root.Play();
             if (!_root.AtCharacterSelection || !_root.TryStartCharacter(new ContentId(_settings.CharacterId)) ||
                 !_root.TryStartField(new ContentId(_settings.FieldRoute[0])))
             { Fail("characterOrFieldUnavailable"); return; }
             _bindings = _root.CreateAutomationRuntimeBindings(_settings.MovementPolicy.ObservationRadius.Value);
             _run = _bindings.Run.Model;
+            _runStartedUtc = DateTime.UtcNow;
             _run.Completed += HandleCompleted;
+            _recorder = new AutomationRunRecorder(_run, _bindings.Draft, _bindings.Player,
+                _bindings.Experience, _bindings.Spawner.Director);
             _direction = new BotDirectionSource();
             _bindings.Mover.ConfigureInputSource(_direction);
             if (!_bindings.Run.SetSpeed(_settings.RunSpeed.Value)) { Fail("runSpeedRejected"); return; }
@@ -134,8 +161,8 @@ namespace Game.Bootstrap.Automation
             if (_run.Elapsed < _nextMovementAt) return;
             var decision = _movement.Decide(_bindings.Observation.Capture(), _settings.MovementPolicy.DecisionIntervalSeconds.Value);
             _direction.SetDirection(decision.Direction);
-            if (decision.Stuck) TerminalReason = "botStuck";
-            if (decision.CoverageIncomplete) TerminalReason = "coverageIncomplete";
+            if (decision.Stuck) BotStuck = true;
+            if (decision.CoverageIncomplete) CoverageIncomplete = true;
             _nextMovementAt = _run.Elapsed + _settings.MovementPolicy.DecisionIntervalSeconds.Value;
         }
 
@@ -166,6 +193,19 @@ namespace Game.Bootstrap.Automation
             Receipt = _root.Profile.LastReceipt;
             if (Receipt == null || Receipt.RunId != Outcome.RunId.ToString())
             { Fail("receiptMissingOrMismatched"); return; }
+            if (_profileStore != null)
+            {
+                var telemetry = _root.Playtest as PlaytestSession;
+                if (telemetry == null) { Fail("telemetryUnavailable"); return; }
+                if (telemetry.PendingExport.IsFaulted || telemetry.LastExportError != null)
+                { Fail("telemetryExportFailed: " + telemetry.LastExportError); return; }
+                if (!telemetry.FinalExportQueued || telemetry.FinalExportPath == null)
+                {
+                    if (StateTimedOut(now)) Fail("telemetryExportTimeout");
+                    return;
+                }
+                WriteReport(true, null);
+            }
             if (_requestedStop || Outcome.Reason != RunCompletionReason.Victory && Outcome.Reason != RunCompletionReason.Defeat)
                 Transition(AutomationRunState.Stopped, TerminalReason ?? "administrativeStop");
             else Transition(AutomationRunState.Completed, Outcome.Reason.ToString());
@@ -200,7 +240,48 @@ namespace Game.Bootstrap.Automation
             if (IsFinished) return;
             _direction?.Clear();
             if (_run != null && _run.Outcome == null) _root?.QuitProfileRun();
+            if (_profileStore != null && _runFolder != null)
+            {
+                try { WriteReport(false, reason); }
+                catch (Exception error) { reason += "; partialReportError: " + error.Message; }
+            }
             Transition(AutomationRunState.Failed, reason);
+        }
+
+        private void WriteReport(bool complete, string error)
+        {
+            if (_reportWritten || _runFolder == null) return;
+            Directory.CreateDirectory(_runFolder);
+            AutomationPlaytestSink.WriteAtomic(Path.Combine(_runFolder, "profile-before.json"), _profileBefore);
+            var rewardProfile = _profileStore.Main;
+            if (rewardProfile != null)
+                AutomationPlaytestSink.WriteAtomic(Path.Combine(_runFolder, "profile-after-reward.json"), rewardProfile);
+            var recorder = _recorder?.Snapshot();
+            var payload = new JObject
+            {
+                ["schemaVersion"] = 1, ["experimentId"] = _config.ExperimentId,
+                ["chainId"] = "chain-0001", ["runId"] = _run.RunId.ToString("N"), ["runIndex"] = 1,
+                ["configSha256"] = TelemetryProvenance.Hash(_config.ToString()),
+                ["initialProfileSha256"] = _config.InitialProfileSha256,
+                ["template"] = _settings.Template, ["characterId"] = _settings.CharacterId,
+                ["fieldId"] = _settings.FieldRoute[0], ["runSpeed"] = _settings.RunSpeed,
+                ["startedUtc"] = _runStartedUtc.ToString("O"), ["endedUtc"] = DateTime.UtcNow.ToString("O"),
+                ["simulationSeconds"] = _run.Elapsed, ["outcome"] = Outcome?.Reason.ToString(),
+                ["completionReason"] = complete && !_requestedStop &&
+                    (Outcome?.Reason == RunCompletionReason.Victory || Outcome?.Reason == RunCompletionReason.Defeat)
+                    ? "completed" : "incomplete",
+                ["telemetryComplete"] = complete,
+                ["receipt"] = Receipt == null ? null : JObject.FromObject(Receipt),
+                ["seeds"] = new JObject { ["draft"] = _root.DraftSeed, ["wave"] = _root.WaveSeed,
+                    ["layout"] = _root.LayoutSeed, ["traveler"] = _root.TravelerSeed, ["pickup"] = _root.PickupSeed },
+                ["rngCoverage"] = "gameplay seeds captured; policy seed not replayable",
+                ["botStuck"] = BotStuck, ["coverageIncomplete"] = CoverageIncomplete,
+                ["recorder"] = recorder, ["error"] = error,
+                ["capabilities"] = new JObject { ["damageAndHealing"] = _root.Playtest is PlaytestSession,
+                    ["setDamageAttribution"] = "unsupported", ["phaseEvents"] = recorder != null }
+            };
+            AutomationPlaytestSink.WriteAtomic(Path.Combine(_runFolder, "automation.json"), payload.ToString());
+            _reportWritten = true;
         }
 
         private void Transition(AutomationRunState state, string reason = null)
@@ -214,6 +295,7 @@ namespace Game.Bootstrap.Automation
         private void OnDestroy()
         {
             if (_run != null) _run.Completed -= HandleCompleted;
+            _recorder?.Dispose();
             if (_bindings?.Mover != null) _bindings.Mover.ConfigureInputSource(null);
             _direction?.Clear();
         }

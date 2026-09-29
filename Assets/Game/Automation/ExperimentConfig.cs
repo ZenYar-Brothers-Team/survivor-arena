@@ -1,4 +1,6 @@
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Game.Automation
@@ -11,6 +13,7 @@ namespace Game.Automation
         public string InitialProfilePath { get; }
         internal string InitialProfileJson { get; }
         public string ExperimentId { get; }
+        public string InitialProfileSha256 { get; }
         public ExperimentConfigData Data => JsonConvert.DeserializeObject<ExperimentConfigData>(_json, ExperimentConfigLoader.JsonSettings);
 
         internal ExperimentConfig(ExperimentConfigData data, string outputDirectory, string initialProfilePath, string initialProfileJson)
@@ -19,6 +22,9 @@ namespace Game.Automation
             OutputDirectory = outputDirectory;
             InitialProfilePath = initialProfilePath;
             InitialProfileJson = initialProfileJson;
+            using (var sha = SHA256.Create())
+                InitialProfileSha256 = BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(initialProfileJson)))
+                    .Replace("-", "").ToLowerInvariant();
             ExperimentId = data.ExperimentId;
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using Game.Automation;
 using Game.Bootstrap.Automation;
 using Game.Meta;
@@ -20,12 +21,14 @@ namespace Game.Bootstrap.PlayModeTests
         private GameplayCompositionRoot _root;
         private AutomationRunHost _host;
         private RunController _run;
+        private MemoryProfileStore _store;
+        private ExperimentConfig _config;
 
         [UnitySetUp]
         public IEnumerator SetUp()
         {
-            ProductionSmokeScene.Load(TestContext.CurrentContext.Test.Name.Contains("SaveFailure")
-                ? new FailAfterFirstProfileStore() : null, openSelection: false);
+            _store = TestContext.CurrentContext.Test.Name.Contains("SaveFailure") ? null : new MemoryProfileStore();
+            ProductionSmokeScene.Load(_store == null ? new FailAfterFirstProfileStore() : _store, openSelection: false);
             yield return null;
             yield return null;
             _root = Object.FindAnyObjectByType<GameplayCompositionRoot>();
@@ -36,10 +39,10 @@ namespace Game.Bootstrap.PlayModeTests
             if (TestContext.CurrentContext.Test.Name.Contains("ManualPauseTimeout"))
                 data["transitionTimeoutSeconds"] = 0.2f;
             var outputRoot = Path.Combine(Application.temporaryCachePath, "automation-host-" + Guid.NewGuid().ToString("N"));
-            var config = new ExperimentConfigLoader(MetaCatalog.Load(), new[] { "FIELD-001" }, outputRoot)
+            _config = new ExperimentConfigLoader(MetaCatalog.Load(), new[] { "FIELD-001" }, outputRoot)
                 .Parse(data.ToString(), Path.GetDirectoryName(path));
             _host = _root.gameObject.AddComponent<AutomationRunHost>();
-            _host.Initialize(_root, config);
+            _host.Initialize(_root, _config, _store);
         }
 
         [UnityTearDown]
@@ -62,6 +65,15 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(RunCompletionReason.Victory, _host.Outcome.Reason);
             Assert.AreEqual(_host.Outcome.RunId.ToString(), _host.Receipt.RunId);
             Assert.Greater(_host.Receipt.Total, 0);
+            var folder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs",
+                _host.Outcome.RunId.ToString("N"));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "run.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "profile-before.json")));
+            Assert.IsTrue(File.Exists(Path.Combine(folder, "profile-after-reward.json")));
+            var sidecar = JObject.Parse(File.ReadAllText(Path.Combine(folder, "automation.json")));
+            Assert.AreEqual("completed", (string)sidecar["completionReason"]);
+            Assert.AreEqual("Victory", (string)sidecar["outcome"]);
+            Assert.AreEqual(_host.Receipt.Total, (long)sidecar["receipt"]["Total"]);
         }
 
         [UnityTest]
@@ -85,6 +97,11 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(AutomationRunState.Stopped, _host.State, _host.TerminalReason);
             Assert.AreEqual(RunCompletionReason.Aborted, _host.Outcome.Reason);
             Assert.AreEqual("testStop", _host.TerminalReason);
+            var folder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs",
+                _host.Outcome.RunId.ToString("N"));
+            var sidecar = JObject.Parse(File.ReadAllText(Path.Combine(folder, "automation.json")));
+            Assert.AreEqual("incomplete", (string)sidecar["completionReason"]);
+            Assert.AreEqual("Aborted", (string)sidecar["outcome"]);
         }
 
         [UnityTest]
@@ -103,6 +120,17 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(0, draft.PendingDraftCount);
             Assert.GreaterOrEqual(draft.Totals.Selections, 2);
             Assert.AreEqual(RunState.Running, _run.Model.State);
+            _run.Model.Kill();
+            for (var i = 0; i < 40 && !_host.IsFinished; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Completed, _host.State, _host.TerminalReason);
+            var folder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs",
+                _host.Outcome.RunId.ToString("N"));
+            var sidecar = JObject.Parse(File.ReadAllText(Path.Combine(folder, "automation.json")));
+            var history = (JArray)sidecar["recorder"]["events"];
+            Assert.IsTrue(history.Any(item => (string)item["type"] == "draftOffer"));
+            Assert.IsTrue(history.Any(item => (string)item["type"] == "draftSelection"));
+            Assert.IsTrue(history.Any(item => (string)item["type"] == "phase"));
+            Assert.AreEqual(0, (int)sidecar["recorder"]["reachedPhaseIndex"]);
         }
 
         [UnityTest]

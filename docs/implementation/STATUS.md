@@ -117,8 +117,8 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Verified | 6/6 EditMode + 3/3 Python, [evidence](evidence/2026-09-29-ip34-automation.md#ab-01) |
 | 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | Verified | Full graphics 975/975 + 40/40, XP PlayMode 2/2; [evidence](evidence/2026-09-29-ip34-automation.md#ab-02) |
 | 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Implemented | 13/13 EditMode + 6/6 fixture PlayMode; natural FIELD-001 run pending report integration, [evidence](evidence/2026-09-29-ip34-automation.md#ab-03) |
-| 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | In progress | AB-03 implementation; telemetry adapters/schema |
-| 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Blocked | AB-03/04 |
+| 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Implemented | 6/6 composed PlayMode; natural-run, overflow/export-failure and purchase snapshots pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-04) |
+| 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | In progress | AB-04 report implementation |
 | 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Blocked | AB-05 |
 | 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Blocked | AB-04/06 |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Blocked | AB-01…07 |
@@ -767,7 +767,7 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 Status: In progress
 Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-04; готовность остальных — в scoped очереди выше.
+Current packet: AB-05; готовность остальных — в scoped очереди выше.
 Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
 Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
 случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.

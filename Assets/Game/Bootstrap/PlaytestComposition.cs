@@ -19,7 +19,8 @@ namespace Game.Bootstrap
     {
         public static IPlaytestSession Create(RuntimeContentCatalog catalog, int draftSeed, RunModel run,
             PlayerCharacterRuntime player, PlayerExperienceRuntime xp, LevelUpDraftRuntime draft,
-            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null, ITravelerRuntime travelers = null)
+            ContinuousFixtureEnemySpawner spawner, PlayerActiveSkillSetRuntime skills, IPickupRuntime pickups = null,
+            ITravelerRuntime travelers = null, IPlaytestExportSink exportSink = null)
         {
             if (!Application.isEditor && !UnityEngine.Debug.isDebugBuild) return new DisabledPlaytestSession();
             try
@@ -44,7 +45,7 @@ namespace Game.Bootstrap
                     overrides = new { durationSeconds = run.Duration, source = "RunController scene configuration" }
                 }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");
                 return new PlaytestSession(run, player, xp, draft, spawner, skills, provenance,
-                    new LocalPlaytestExportSink(Path.Combine(Application.persistentDataPath, "Playtests")),
+                    exportSink ?? new LocalPlaytestExportSink(Path.Combine(Application.persistentDataPath, "Playtests")),
                     () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow, pickups: pickups, travelers: travelers);
             }
             catch (Exception error)

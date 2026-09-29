@@ -31,6 +31,9 @@ namespace Game.Telemetry
         private bool _disposed, _finalExportQueued;
         private bool _exportRequested;
         private string _status = "Recording";
+        public bool FinalExportQueued => _finalExportQueued;
+        public string FinalExportPath { get; private set; }
+        public string LastExportError { get; private set; }
         public RunTelemetryRecorder Recorder { get; }
         /// <summary>Worker completion for hosts/tests that must finish I/O before shutdown.</summary>
         public Task PendingExport => _export ?? Task.CompletedTask;
@@ -138,7 +141,9 @@ namespace Game.Telemetry
             if (_disposed) return;
             if (_export != null && _export.IsCompleted)
             {
-                _status = _export.IsFaulted ? "Export error: " + _export.Exception.GetBaseException().Message : "Saved: " + _export.Result;
+                if (_export.IsFaulted) LastExportError = _export.Exception.GetBaseException().Message;
+                else if (_finalExportQueued) { FinalExportPath = _export.Result; LastExportError = null; }
+                _status = _export.IsFaulted ? "Export error: " + LastExportError : "Saved: " + _export.Result;
                 _export = null;
             }
             var needsFinal = _run.Outcome != null && !_finalExportQueued;
@@ -159,7 +164,7 @@ namespace Game.Telemetry
                     return _sink.Write(report);
                 });
             }
-            catch (Exception error) { _status = "Export error: " + error.Message; }
+            catch (Exception error) { LastExportError = error.Message; _status = "Export error: " + error.Message; }
         }
         private object CaptureProducers()
         {

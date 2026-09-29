@@ -69,3 +69,23 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   advances the model clock only in a test; it is not a natural production run.
 - Remaining verification: one naturally completed FIELD-001 production run
   after AB-04 sidecar exists; this is not yet counted as done.
+
+## AB-04
+
+- A development-only export sink writes the existing typed IP-31 telemetry to
+  the isolated run folder, not the ordinary player-data Playtests folder.
+  `automation.json` is published after the telemetry export and matching saved
+  reward receipt. Administrative stops are incomplete even when their telemetry
+  export and legitimate reward are complete.
+- The bounded automation recorder subscribes to actual draft offers, selections
+  and wave phase changes. Its counters survive dropped history; it records
+  offered IDs/levels, selected IDs/levels, phase entry HP/level/XP, reached phase
+  and final build. The sidecar carries config/initial-profile hashes and known
+  gameplay seeds. Set-damage attribution and deterministic replay are explicitly
+  unsupported; the existing run.json remains the source for damage/healing/XP.
+- Composed PlayMode 6/6 PASS at
+  `TestResults/checks/20260929T103928-315357Z/summary.json`, including artifact
+  shape, saved profile, offers versus selections, phase, and incomplete stop.
+- Verification still pending: naturally elapsed production run, recorder overflow,
+  export failure, and `profile-after-purchases` (AB-05). This is implemented,
+  not yet Verified.
