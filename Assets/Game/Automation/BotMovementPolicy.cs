@@ -17,6 +17,7 @@ namespace Game.Automation
         private readonly float _predictionSeconds;
         private readonly float _obstaclePadding;
         private readonly float _stuckSeconds;
+        private readonly bool _experienceFocused;
         private Vector2 _previousDirection;
         private Vector2 _lastPosition;
         private bool _hasLastPosition;
@@ -27,9 +28,12 @@ namespace Game.Automation
         {
             if (settings == null || settings.PredictionSeconds == null || settings.ObstaclePadding == null ||
                 settings.StuckSeconds == null) throw new ArgumentException("Validated movement policy required.", nameof(settings));
+            if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused")
+                throw new ArgumentException("Unknown movement policy/version.", nameof(settings));
             _predictionSeconds = settings.PredictionSeconds.Value;
             _obstaclePadding = settings.ObstaclePadding.Value;
             _stuckSeconds = settings.StuckSeconds.Value;
+            _experienceFocused = settings.Id == "experienceFocused";
         }
 
         public BotMovementDecision Decide(BotObservation observation, float elapsedSimulationSeconds)
@@ -120,9 +124,12 @@ namespace Game.Automation
                 var target = GuidanceTarget(observation, pickup.Position);
                 var oldDistance = Vector2.Distance(observation.Position, target);
                 var newDistance = Vector2.Distance(destination, target);
-                attraction += pickup.Priority * (oldDistance - newDistance) / Mathf.Max(1f, oldDistance);
+                var gain = pickup.Priority * (oldDistance - newDistance) / Mathf.Max(1f, oldDistance);
+                attraction += _experienceFocused ? gain * (pickup.IsExperience ? 6f : 0.5f) : gain;
             }
-            return attraction - 10f * danger;
+            // IP-34 AB-09: this selectable research policy accepts moderate exposure
+            // for visible XP, while projectile/beam danger still dominates its gain.
+            return attraction - (_experienceFocused ? 5f : 10f) * danger;
         }
 
         private Vector2 GuidanceTarget(BotObservation observation, Vector2 pickup)

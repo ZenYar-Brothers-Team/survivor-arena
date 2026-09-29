@@ -48,6 +48,36 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Decide_ExperienceFocusedProfile_PrefersXpOverWorldPickup()
+        {
+            var observation = Observe(Vector2.zero, pickups: new[]
+            {
+                new BotPickup(new Vector2(3, 0), 1f),
+                new BotPickup(new Vector2(-3, 0), 2f, isExperience: false)
+            });
+            var safe = new BotMovementPolicy(Settings());
+            var focusedSettings = Settings();
+            focusedSettings.Id = "experienceFocused";
+            var focused = new BotMovementPolicy(focusedSettings);
+            Assert.AreEqual(Vector2.left, safe.Decide(observation, 0.2f).Direction);
+            Assert.AreEqual(Vector2.right, focused.Decide(observation, 0.2f).Direction);
+        }
+
+        [Test]
+        public void Decide_ExperienceFocusedProfile_AcceptsModerateThreatButAvoidsProjectile()
+        {
+            var settings = Settings();
+            settings.Id = "experienceFocused";
+            var pickup = new[] { new BotPickup(new Vector2(3, 0), 1f) };
+            var moderate = Observe(Vector2.zero,
+                threats: new[] { new BotThreat(new Vector2(2, 1.5f), Vector2.zero, 0.5f, 3f) }, pickups: pickup);
+            Assert.Greater(new BotMovementPolicy(settings).Decide(moderate, 0.2f).Direction.x, 0f);
+            var projectile = Observe(Vector2.zero,
+                threats: new[] { new BotThreat(new Vector2(2, 0), new Vector2(-2, 0), 0.25f, 10f) }, pickups: pickup);
+            Assert.AreNotEqual(Vector2.right, new BotMovementPolicy(settings).Decide(projectile, 0.2f).Direction);
+        }
+
+        [Test]
         public void Decide_BlockedObservation_StopsAndReportsCoverage()
         {
             var policy = new BotMovementPolicy(Settings());

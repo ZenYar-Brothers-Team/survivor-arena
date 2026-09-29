@@ -21,7 +21,7 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 ## Действующие границы
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
-`automated-runs-v1`: очередь AB-01…08 реализована и проверена
+`automated-runs-v2`: очередь AB-01…09 реализована и проверена
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
 [DECISION-0098](../decisions/0098-balance-runner-presentation.md));
 [scoped очередь](#automated-runs-execution) содержит фактические проверки.
@@ -107,9 +107,9 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 <a id="automated-runs-execution"></a>
 ### IP-34 — автоматические прогоны, scoped очередь
 
-Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v1`;
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v2`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
-Поручение пользователя охватывает AB-01…08 последовательно; общий backlog не
+Поручение пользователя охватывает AB-01…08 последовательно и AB-09 отдельно; общий backlog не
 возобновляется.
 
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
@@ -122,6 +122,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Verified | Silent player, full multi-chain series, 600 s partial; visual SafeWindow fix and rebuilt player, next on-screen check pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Verified | 18/18 Python tests and real-series groups/censoring; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Verified | 8 natural template runs, separate 1× and 600 s window, full graphics 979/979 + 52/52; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 9 | [AB-09 — XP-focused bot profile](modules/IP-34-automated-balance-runs.md#ab-09) | Verified | Отдельный ID и пример; Unity 983/983 + 52/52, Python 18/18, тихий production pilot; [evidence](evidence/2026-09-29-ip34-xp-bot.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -765,11 +766,11 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
 Status: Verified
-Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
+Scope revision: automated-runs-v2, расширение по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: очередь AB-01…08 завершена; подтверждение каждого — в scoped очереди выше.
-Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
-Remaining acceptance: в границах v1 нет. Целевой win rate, автоподбор и
+Current packet: AB-01…09 завершены; подтверждения в scoped очереди выше.
+Authorization: AB-01…08 и отдельный XP-focused bot по поручению пользователя 2026-09-29.
+Remaining acceptance: в границах v2 нет. Целевой win rate, автоподбор и
 визуальный reviewer остаются будущими отдельными решениями; `--visual` доступен
 по явному запросу, но не запускался на экране в финальном пилоте.
 Prerequisite audit 2026-09-29: проверены текущие `ProfileCodec/MemoryProfileStore`,
@@ -788,6 +789,9 @@ separate controlled final-player run left profile/settings hashes unchanged.
 Documentation impact: IP-34 schema/examples, policy formula/limits,
 [DECISION-0098](../decisions/0098-balance-runner-presentation.md) и инструкция
 синхронизированы; GDD/CD и production balance без изменений.
+AB-09 evidence: [XP-focused profile](evidence/2026-09-29-ip34-xp-bot.md);
+пилот 1/1 natural loss (84.66 simulation s, 10 XP), без вывода об улучшении
+относительно safePickup. GDD/CD и gameplay balance не менялись.
 
 ## Status maintenance rule
 

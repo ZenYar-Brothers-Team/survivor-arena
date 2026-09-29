@@ -7,11 +7,13 @@ namespace Game.Automation
     {
         public Vector2 Position { get; }
         public float Priority { get; }
+        public bool IsExperience { get; }
 
-        public BotPickup(Vector2 position, float priority)
+        public BotPickup(Vector2 position, float priority, bool isExperience = true)
         {
             Position = position;
             Priority = priority;
+            IsExperience = isExperience;
         }
     }
 }

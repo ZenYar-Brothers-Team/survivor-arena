@@ -103,7 +103,8 @@ namespace Game.Automation
         private void ValidatePolicies(ExperimentConfigData data)
         {
             var movement = data.MovementPolicy ?? throw new ArgumentException("movementPolicy required.");
-            if (movement.Id != "safePickup" || movement.Version != 1) throw new ArgumentException("Unknown movement policy/version.");
+            if (movement.Version != 1 || movement.Id != "safePickup" && movement.Id != "experienceFocused")
+                throw new ArgumentException("Unknown movement policy/version.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
             Range(movement.PredictionSeconds, 0.05f, 3f, "predictionSeconds");

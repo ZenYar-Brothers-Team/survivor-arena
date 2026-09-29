@@ -82,6 +82,16 @@ namespace Game.Automation.Tests
         }
 
         [Test]
+        public void Load_ExperienceFocusedPolicy_IsSelectableButUnknownPolicyIsRejected()
+        {
+            var value = Fresh();
+            value["movementPolicy"]["id"] = "experienceFocused";
+            Assert.AreEqual("experienceFocused", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["id"] = "unknown";
+            Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
+        }
+
+        [Test]
         public void Preset_InvalidPersonalLevelsAndOwner_AreRejected()
         {
             var builder = new PresetProfileBuilder(_catalog);

@@ -1,7 +1,10 @@
 # Automated balance runs (IP-34)
 
 The experiment contract is versioned JSON. See [`examples/fresh.json`](examples/fresh.json)
-and [`examples/preset.json`](examples/preset.json). `chains` counts independent profile
+and [`examples/preset.json`](examples/preset.json). To select the XP-focused
+movement bot, set `movementPolicy.id` to `experienceFocused` (version 1); the
+original `safePickup` remains available. The two IDs are separate research
+profiles, not an in-game toggle. `chains` counts independent profile
 histories; `maxRunsPerChain` limits runs within each history. A fresh chain begins
 with the production `ProfileCodec.Create()` state. A preset chain starts from a
 copy of the referenced profile; completed runs and purchases alter only that copy.

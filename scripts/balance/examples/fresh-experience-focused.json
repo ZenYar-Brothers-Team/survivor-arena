@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "fresh-experience-focused-example",
+  "template": "fresh",
+  "chains": 2,
+  "maxRunsPerChain": 2,
+  "runSpeed": 1,
+  "characterId": "CHAR-001",
+  "fieldRoute": ["FIELD-001"],
+  "movementPolicy": {
+    "id": "experienceFocused",
+    "version": 1,
+    "decisionIntervalSeconds": 0.2,
+    "observationRadius": 12,
+    "predictionSeconds": 0.5,
+    "obstaclePadding": 0.15,
+    "stuckSeconds": 3
+  },
+  "draftPolicy": {"id": "randomLegal", "version": 1},
+  "purchasePolicy": {
+    "id": "cheapestPersonalUpgrade",
+    "version": 1,
+    "allowedUpgradeIds": ["META-003", "META-004", "META-008"],
+    "maxPurchasesPerIntermission": 3
+  },
+  "stopAfterRouteClear": false,
+  "maxExperimentWallSeconds": 10800,
+  "runWallTimeoutSeconds": 3600,
+  "transitionTimeoutSeconds": 30,
+  "outputDirectory": "fresh-experience-focused-example"
+}
