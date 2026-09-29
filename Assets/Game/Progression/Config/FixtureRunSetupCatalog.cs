@@ -33,7 +33,8 @@ namespace Game.Progression
                     Require(draft.InitialRerolls, "draft.initialRerolls"),
                     Require(draft.InitialBanishes, "draft.initialBanishes"),
                     Require(draft.EmptyBookCurrency, "draft.emptyBookCurrency"),
-                    Require(draft.SetDraftChance, "draft.setDraftChance")),
+                    Require(draft.SetDraftChance, "draft.setDraftChance"),
+                    draft.BookUpgradeCountWeights == null ? null : new BookUpgradeCount(draft.BookUpgradeCountWeights)),
                 new ExperienceSettings(
                     Require(experience.BaseDropLifetimeSeconds, "experience.baseDropLifetimeSeconds"),
                     Require(experience.LevelThresholds, "experience.levelThresholds")),

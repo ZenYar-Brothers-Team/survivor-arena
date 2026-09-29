@@ -12,8 +12,11 @@ namespace Game.Progression
         public int InitialRerolls { get; }
         public int InitialBanishes { get; }
         public int? EmptyBookCurrency { get; }
+        /// <summary>DECISION-0093: how many draft choices one Traveler Book grants.</summary>
+        public BookUpgradeCount BookUpgradeCount { get; }
 
-        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes, int? emptyBookCurrency = null, float setDraftChance = 0f)
+        public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes, int? emptyBookCurrency = null, float setDraftChance = 0f,
+            BookUpgradeCount bookUpgradeCount = null)
         {
             NumericValidation.ValidateRange(offerCount, 1, 3, nameof(offerCount));
             NumericValidation.ValidateNonNegative(initialRerolls, nameof(initialRerolls), "Draft control counts cannot be negative.");
@@ -21,6 +24,7 @@ namespace Game.Progression
             if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
             NumericValidation.ValidateRange(setDraftChance, 0f, 1f, nameof(setDraftChance));
             SetDraftChance = setDraftChance;
+            BookUpgradeCount = bookUpgradeCount ?? BookUpgradeCount.Single;
             EmptyBookCurrency = emptyBookCurrency;
             OfferCount = offerCount;
             Seed = seed;

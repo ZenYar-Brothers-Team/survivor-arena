@@ -101,6 +101,40 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void Book_WithRolledThreeChoices_QueuesThreeBookDraftsAndPaysEachSelection()
+        {
+            // DECISION-0093: the Book rolls 1…3 choices; each applied choice earns the Book upgrade reward.
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, new[] { _active }, _active, 3, new FixedDraftRandom(0.9f),
+                emptyBookCurrency: 50, bookUpgradeCurrency: 20,
+                bookUpgradeCount: new BookUpgradeCount(new[] { 0.5f, 0.35f, 0.15f }));
+            var pickup = Guid.NewGuid();
+            Assert.IsTrue(Book(pickup));
+            Assert.AreEqual(3, _draft.PendingDraftCount);
+            Assert.AreEqual(DraftOrigin.Book, _draft.NextRequest.Origin);
+            Assert.AreEqual(pickup, _draft.NextRequest.PickupId);
+            for (var i = 0; i < 3; i++) Assert.IsTrue(_draft.Select(_active.Id, _draft.Revision));
+            Assert.AreEqual(0, _draft.PendingDraftCount);
+            Assert.AreEqual(60, _draft.BookCurrency);
+            Assert.AreEqual(1, _draft.Capture().DraftTotals.AcceptedBooks, "One pickup is still one accepted Book.");
+            Assert.IsFalse(Book(pickup), "The same pickup cannot queue more choices.");
+            Assert.AreEqual(RunState.Running, _run.Model.State);
+        }
+
+        [Test]
+        public void EmptyBook_WithMultiChoiceWeights_PaysOnceAndQueuesNothing()
+        {
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, new[] { _active }, _active, 3, new FixedDraftRandom(0.9f),
+                emptyBookCurrency: 50, bookUpgradeCurrency: 20,
+                bookUpgradeCount: new BookUpgradeCount(new[] { 0.5f, 0.35f, 0.15f }));
+            UpgradeTo(6);
+            Assert.IsTrue(Book());
+            Assert.AreEqual(50, _draft.BookCurrency);
+            Assert.AreEqual(0, _draft.PendingDraftCount);
+        }
+
+        [Test]
         public void BookUpgrade_CancelledAtTerminal_DoesNotEarnBonus()
         {
             _draft.Shutdown();

@@ -44,8 +44,8 @@ namespace Game.Bootstrap.Tests
                 "DECISION-0063: a new enemy type is visible from the first wave.");
             foreach (var phase in configuration.Timeline.Phases)
             {
-                Assert.AreEqual(1.2f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
-                Assert.AreEqual(1.1f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.15f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.08f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1f, phase.Modifiers.SpeedMultiplier, 1e-5f, phase.Id.ToString());
             }
         }

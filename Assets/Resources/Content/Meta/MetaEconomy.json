@@ -11,7 +11,7 @@
       "stat": "health",
       "cap": 10,
       "priceCoefficient": 100,
-      "bonus": 0.05
+      "bonus": 0.075
     },
     {
       "id": "META-004",
@@ -20,7 +20,7 @@
       "stat": "damage",
       "cap": 10,
       "priceCoefficient": 100,
-      "bonus": 0.03
+      "bonus": 0.045
     },
     {
       "id": "META-005",
@@ -29,7 +29,7 @@
       "stat": "size",
       "cap": 10,
       "priceCoefficient": 150,
-      "bonus": 0.04
+      "bonus": 0.06
     },
     {
       "id": "META-006",
@@ -38,7 +38,7 @@
       "stat": "actionSpeed",
       "cap": 10,
       "priceCoefficient": 200,
-      "bonus": 0.03
+      "bonus": 0.045
     },
     {
       "id": "META-007",
@@ -47,7 +47,7 @@
       "stat": "regeneration",
       "cap": 10,
       "priceCoefficient": 200,
-      "bonus": 0.05
+      "bonus": 0.075
     },
     {
       "id": "META-008",
@@ -56,7 +56,7 @@
       "stat": "movement",
       "cap": 10,
       "priceCoefficient": 150,
-      "bonus": 0.03
+      "bonus": 0.045
     },
     {
       "id": "META-009",
@@ -83,7 +83,7 @@
       "stat": "pickupRadius",
       "cap": 10,
       "priceCoefficient": 100,
-      "bonus": 0.1
+      "bonus": 0.15
     },
     {
       "id": "META-012",
@@ -92,7 +92,7 @@
       "stat": "experience",
       "cap": 10,
       "priceCoefficient": 200,
-      "bonus": 0.03
+      "bonus": 0.045
     },
     {
       "id": "META-013",
@@ -101,7 +101,7 @@
       "stat": "damageReduction",
       "cap": 10,
       "priceCoefficient": 200,
-      "bonus": 0.02
+      "bonus": 0.03
     },
     {
       "id": "META-014",
@@ -110,7 +110,7 @@
       "stat": "healing",
       "cap": 10,
       "priceCoefficient": 100,
-      "bonus": 0.05
+      "bonus": 0.075
     }
   ],
   "unlocks": [

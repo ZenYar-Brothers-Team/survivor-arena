@@ -30,10 +30,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -62,10 +62,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -94,10 +94,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       },
       "burst": {
         "count": 14,
@@ -127,10 +127,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -159,10 +159,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -191,10 +191,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -219,10 +219,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -251,10 +251,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -283,10 +283,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -311,10 +311,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -351,10 +351,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -383,10 +383,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -411,10 +411,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -447,10 +447,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -487,10 +487,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       }
     },
     {
@@ -519,10 +519,10 @@
         }
       ],
       "modifiers": {
-        "healthMultiplier": 1.2,
+        "healthMultiplier": 1.15,
         "speedMultiplier": 1,
-        "contactDamageMultiplier": 1.1,
-        "attackDamageMultiplier": 1.1
+        "contactDamageMultiplier": 1.08,
+        "attackDamageMultiplier": 1.08
       },
       "burst": {
         "count": 23,

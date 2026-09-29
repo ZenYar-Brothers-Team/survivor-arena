@@ -443,7 +443,8 @@ namespace Game.Bootstrap
                     Catalog.Sets,
                     new SetEffectAbilityFactory(_setEffects),
                     checked((int)Profile.Catalog.EmptyBookReward),
-                    new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance), Profile.Catalog.BookUpgradeReward);
+                    new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance), Profile.Catalog.BookUpgradeReward,
+                    setup.Draft.BookUpgradeCount);
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 // The executor owns a scene GameObject (mine pool root); it is registered for

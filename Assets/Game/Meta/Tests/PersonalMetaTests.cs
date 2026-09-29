@@ -24,11 +24,12 @@ namespace Game.Meta.Tests
                 Assert.AreEqual(upgrade.Stat == "rerolls" || upgrade.Stat == "banishes" ? 6 : 10, upgrade.Cap);
             }
             var m = profile.Modifier("CHAR-001");
-            Assert.AreEqual(.05f, m.MaxHealthMultiplierBonus); Assert.AreEqual(.03f, m.ActiveSkillDamageMultiplierBonus);
-            Assert.AreEqual(.04f, m.EffectSizeMultiplierBonus); Assert.AreEqual(.03f, m.ActionSpeedBonus);
-            Assert.AreEqual(.05f, m.HealthRegenerationPerSecondBonus); Assert.AreEqual(.03f, m.MovementSpeedMultiplierBonus);
-            Assert.AreEqual(.1f, m.PickupRadiusMultiplierBonus); Assert.AreEqual(.03f, m.PickedUpXpMultiplierBonus);
-            Assert.AreEqual(.02f, m.IncomingDamageReductionBonus); Assert.AreEqual(.05f, m.HealthRestorationMultiplierBonus);
+            // DECISION-0093: DECISION-0091 bonuses ×1.5.
+            Assert.AreEqual(.075f, m.MaxHealthMultiplierBonus, 1e-6f); Assert.AreEqual(.045f, m.ActiveSkillDamageMultiplierBonus, 1e-6f);
+            Assert.AreEqual(.06f, m.EffectSizeMultiplierBonus, 1e-6f); Assert.AreEqual(.045f, m.ActionSpeedBonus, 1e-6f);
+            Assert.AreEqual(.075f, m.HealthRegenerationPerSecondBonus, 1e-6f); Assert.AreEqual(.045f, m.MovementSpeedMultiplierBonus, 1e-6f);
+            Assert.AreEqual(.15f, m.PickupRadiusMultiplierBonus, 1e-6f); Assert.AreEqual(.045f, m.PickedUpXpMultiplierBonus, 1e-6f);
+            Assert.AreEqual(.03f, m.IncomingDamageReductionBonus, 1e-6f); Assert.AreEqual(.075f, m.HealthRestorationMultiplierBonus, 1e-6f);
             Assert.AreEqual(1, profile.ExtraRerolls("CHAR-001")); Assert.AreEqual(1, profile.ExtraBanishes("CHAR-001"));
             Assert.AreEqual(default(Game.Character.CharacterStatModifier), profile.Modifier("CHAR-002"));
             Assert.AreEqual(0, profile.ExtraRerolls("CHAR-002")); Assert.AreEqual(0, profile.ExtraBanishes("CHAR-002"));

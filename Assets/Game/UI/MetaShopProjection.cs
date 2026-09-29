@@ -30,7 +30,8 @@ namespace Game.UI
             var amount = upgrade.Bonus * level;
             if (upgrade.Stat == "regeneration") return "+" + amount.ToString("0.##", CultureInfo.GetCultureInfo("ru-RU")) + " HP/с";
             if (upgrade.Stat == "rerolls" || upgrade.Stat == "banishes") return "+" + amount.ToString("0") + " на забег";
-            return "+" + (amount * 100).ToString("0") + (upgrade.Stat == "damageReduction" ? " п.п." : "%");
+            // DECISION-0093: bonuses such as +4.5% keep one decimal instead of rounding to +5%.
+            return "+" + (amount * 100).ToString("0.#", CultureInfo.GetCultureInfo("ru-RU")) + (upgrade.Stat == "damageReduction" ? " п.п." : "%");
         }
         public static string Reason(string value) => value switch
         {

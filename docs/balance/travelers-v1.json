@@ -306,5 +306,14 @@
         "projectileDamage": 20
       }
     }
-  ]
+  ],
+  "book": {
+    "upgradeCountWeights": [
+      0.5,
+      0.35,
+      0.15
+    ],
+    "note": "weight i = chance of i+1 draft choices per Book",
+    "approval": "Approved 2026-09-29 (DECISION-0093)"
+  }
 }

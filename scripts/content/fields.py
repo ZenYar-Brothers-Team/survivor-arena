@@ -166,6 +166,8 @@ def run_setup(baseline):
     return {"startingCharacterId": baseline["character"]["id"],
             "draft": {"offerCount": draft["offerCount"], "setDraftChance": draft["setDraftChance"],
                       "seed": baseline["randomness"]["referenceSeeds"]["draft"], "initialRerolls": draft["initialRerolls"],
-                      "initialBanishes": draft["initialBanishes"], "emptyBookCurrency": draft["emptyBookCurrency"]},
+                      "initialBanishes": draft["initialBanishes"], "emptyBookCurrency": draft["emptyBookCurrency"],
+                      # DECISION-0093: a Traveler Book grants 1…3 choices by these weights.
+                      "bookUpgradeCountWeights": baseline["lateTravelers"]["book"]["upgradeCountWeights"]},
             "experience": {"levelThresholds": xp["levelThresholds"], "baseDropLifetimeSeconds": xp["baseDropLifetimeSeconds"]},
             "hostileDamageMultiplier": baseline["combat"]["hostileDamageMultiplier"]}

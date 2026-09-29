@@ -8,5 +8,7 @@ namespace Game.Progression.Json
         public int? InitialRerolls { get; set; }
         public int? InitialBanishes { get; set; }
         public int? EmptyBookCurrency { get; set; }
+        /// <summary>Optional; absent means one choice per Book (BookUpgradeCount.Single).</summary>
+        public float[] BookUpgradeCountWeights { get; set; }
     }
 }

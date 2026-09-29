@@ -26,6 +26,16 @@ namespace Game.UI.Tests
             Assert.IsTrue(view.State.Cards.Where(c => c.Cap > 0).All(c => c.Icon == null));
             Assert.IsTrue(view.State.Cards.Where(c => c.HiddenCharacter).All(c => c.Text == "?"));
         }
+        [Test] public void Bonus_FractionalPercentPerLevel_KeepsOneDecimal()
+        {
+            // DECISION-0093: +4.5% per level must not display as +5%.
+            var catalog = MetaCatalog.Load();
+            var damage = catalog.Upgrades.Values.Single(u => u.Stat == "damage");
+            var reduction = catalog.Upgrades.Values.Single(u => u.Stat == "damageReduction");
+            Assert.AreEqual("+4,5%", MetaShopProjection.Bonus(damage, 1));
+            Assert.AreEqual("+45%", MetaShopProjection.Bonus(damage, 10));
+            Assert.AreEqual("+3 п.п.", MetaShopProjection.Bonus(reduction, 1));
+        }
         [Test] public void ShopAssets_UseSemanticIdsAndNoCharacterDropdown()
         {
             var root = Resources.Load<VisualTreeAsset>("UI/MetaShop").CloneTree();

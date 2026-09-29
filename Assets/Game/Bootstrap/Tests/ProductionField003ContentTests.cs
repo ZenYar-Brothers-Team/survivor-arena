@@ -41,9 +41,9 @@ namespace Game.Bootstrap.Tests
                 "DECISION-0063/0067: the new type is visible from the first wave.");
             foreach (var phase in configuration.Timeline.Phases)
             {
-                Assert.AreEqual(1.4f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
-                Assert.AreEqual(1.2f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
-                Assert.AreEqual(1.2f, phase.Modifiers.AttackDamageMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.3f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.16f, phase.Modifiers.ContactDamageMultiplier, 1e-5f, phase.Id.ToString());
+                Assert.AreEqual(1.16f, phase.Modifiers.AttackDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1f, phase.Modifiers.SpeedMultiplier, 1e-5f, phase.Id.ToString());
             }
             Assert.AreEqual(200, configuration.Timeline.MaxAliveEnemies, "Shared technical ordinary-enemy cap.");

@@ -179,16 +179,16 @@ namespace Game.Meta.Tests
             var run=MetaTestData.Run(1000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
             var prior=profile.Modifier("CHAR-001");
             await profile.PurchaseAsync("META-003",0,"CHAR-001");await profile.PurchaseAsync("META-003",1,"CHAR-001");
-            Assert.AreEqual(0,prior.MaxHealthMultiplierBonus);Assert.AreEqual(.10f,profile.Modifier("CHAR-001").MaxHealthMultiplierBonus,.0001);
+            Assert.AreEqual(0,prior.MaxHealthMultiplierBonus);Assert.AreEqual(.15f,profile.Modifier("CHAR-001").MaxHealthMultiplierBonus,.0001);
             Assert.AreEqual(0,profile.Modifier("CHAR-002").MaxHealthMultiplierBonus,.0001);
             profile.SetRunActive(true);Assert.IsFalse(await profile.PurchaseAsync("META-003",1,"CHAR-001"));profile.SetRunActive(false);
         }
-        [Test] public async Task DamageUpgrades_PersonalCap_TotalThirtyPercentAndCorrectPrice()
+        [Test] public async Task DamageUpgrades_PersonalCap_TotalFortyFivePercentAndCorrectPrice()
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             var run=MetaTestData.Run(2000,0);run.Start();run.Stop();await profile.ApplyAsync(run.Outcome,true);
             for(var n=0;n<10;n++) Assert.IsTrue(await profile.PurchaseAsync("META-004",n,"CHAR-001"));
-            Assert.AreEqual(.30f,profile.Modifier("CHAR-001").ActiveSkillDamageMultiplierBonus,.0001);
+            Assert.AreEqual(.45f,profile.Modifier("CHAR-001").ActiveSkillDamageMultiplierBonus,.0001);
             Assert.AreEqual(0,profile.Modifier("CHAR-002").ActiveSkillDamageMultiplierBonus,.0001);
             Assert.AreEqual(4500,profile.Currency);
             Assert.IsFalse(await profile.PurchaseAsync("META-004",10,"CHAR-001"));

@@ -24,6 +24,7 @@ namespace Game.Progression
         private RunModel _owner;
         private int? _emptyBookCurrency;
         private int _bookUpgradeCurrency;
+        private BookUpgradeCount _bookUpgradeCount = BookUpgradeCount.Single;
         private bool _pumping;
         private bool _resolving;
         private int _acceptedBooks, _selections, _emptyRequests, _cancelled;
@@ -104,7 +105,8 @@ namespace Game.Progression
             IEnumerable<SetDefinition> setDefinitions = null,
             ISetExtraAbilityFactory setAbilityFactory = null,
             int? emptyBookCurrency = null,
-            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0)
+            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0,
+            BookUpgradeCount bookUpgradeCount = null)
         {
             InitializeCore(
                 experience,
@@ -117,7 +119,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency);
+                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency, bookUpgradeCount);
         }
 
         public void Initialize(
@@ -133,7 +135,8 @@ namespace Game.Progression
             IEnumerable<SetDefinition> setDefinitions = null,
             ISetExtraAbilityFactory setAbilityFactory = null,
             int? emptyBookCurrency = null,
-            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0)
+            ISetDraftOfferProvider setOffers = null, int bookUpgradeCurrency = 0,
+            BookUpgradeCount bookUpgradeCount = null)
         {
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
@@ -153,7 +156,7 @@ namespace Game.Progression
                 initialRerolls,
                 initialBanishes,
                 setDefinitions,
-                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency);
+                setAbilityFactory, emptyBookCurrency, setOffers, bookUpgradeCurrency, bookUpgradeCount);
         }
 
         private void InitializeCore(
@@ -167,7 +170,8 @@ namespace Game.Progression
             int initialRerolls,
             int initialBanishes,
             IEnumerable<SetDefinition> setDefinitions,
-            ISetExtraAbilityFactory setAbilityFactory, int? emptyBookCurrency, ISetDraftOfferProvider setOffers, int bookUpgradeCurrency)
+            ISetExtraAbilityFactory setAbilityFactory, int? emptyBookCurrency, ISetDraftOfferProvider setOffers, int bookUpgradeCurrency,
+            BookUpgradeCount bookUpgradeCount)
         {
             if (_initialized)
                 throw new InvalidOperationException("Level-up draft runtime is already initialized.");
@@ -182,6 +186,7 @@ namespace Game.Progression
             _emptyBookCurrency = emptyBookCurrency;
             NumericValidation.ValidateNonNegative(bookUpgradeCurrency, nameof(bookUpgradeCurrency));
             _bookUpgradeCurrency = bookUpgradeCurrency;
+            _bookUpgradeCount = bookUpgradeCount ?? BookUpgradeCount.Single;
             _draftRandom = draftRandom ?? new SeededDraftRandom(0);
             _offerCount = offerCount;
             Build = new PlayerBuild(startingActive);
@@ -276,6 +281,7 @@ namespace Game.Progression
         /// Complete an already accepted Book pickup, including callbacks during a draft pause.
         /// World-pickup adapters must gate collection on Running. Source run/life IDs are mandatory.
         /// DECISION-0020: empty at pickup awards currency now; later queue/banish exhaustion does not.
+        /// DECISION-0093: an accepted Book queues 1…N choices by the configured weights; an empty Book still pays once.
         /// </summary>
         public bool RequestBook(Guid pickupId, Guid sourceRunId, ContentId sourceContentId)
         {
@@ -283,6 +289,7 @@ namespace Game.Progression
                 pickupId == Guid.Empty || !sourceContentId.IsValid || _bookPickups.Contains(pickupId)) return false;
             var request = DraftRequest.ForBook(sourceRunId, pickupId, sourceContentId);
             var empty = !_pool.HasEligibleOptions(Build, Controls.BanishedIds);
+            var choices = empty ? 1 : _bookUpgradeCount.Roll(_draftRandom);
             var total = empty ? checked(_bookCurrency + _emptyBookCurrency.Value) : _bookCurrency;
             _bookPickups.Add(pickupId);
             _acceptedBooks++;
@@ -296,8 +303,13 @@ namespace Game.Progression
             }
             else
             {
-                _requests.Enqueue(request);
-                RequestQueued?.Invoke(request);
+                // Enqueue every choice of this Book before any DraftOpened callback can enqueue something else.
+                for (var i = 0; i < choices; i++)
+                {
+                    var choice = i == 0 ? request : DraftRequest.ForBook(sourceRunId, pickupId, sourceContentId);
+                    _requests.Enqueue(choice);
+                    RequestQueued?.Invoke(choice);
+                }
                 OpenNextDraft();
             }
             return true;
@@ -436,6 +448,7 @@ namespace Game.Progression
             _bookCurrency = 0;
             _emptyBookCurrency = null;
             _bookUpgradeCurrency = 0;
+            _bookUpgradeCount = BookUpgradeCount.Single;
             _pumping = _resolving = false;
             DraftOpened = null;
             SelectionApplied = null;

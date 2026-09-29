@@ -55,6 +55,7 @@ namespace Game.Bootstrap.PlayModeTests
                 // Publish the arranged build through the normal selection event.
                 Assert.IsTrue(draft.RequestBook(Guid.NewGuid(), run.Model.RunId, new ContentId("PICKUP-002")));
                 Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
+                DrainBookChoices(draft);
                 var originalCameraTarget = camera.targetTexture;
                 foreach (var size in new[] { new Vector2Int(1920, 1080), new Vector2Int(1280, 720) })
                 {
@@ -120,6 +121,7 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.AreEqual(revision, draft.Revision, "Inspect cannot consume a real Book.");
                     UiFoundationSmokeTests.Capture(target, $"r2-production-book-{size.x}");
                     UiFoundationSmokeTests.Submit(tree.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
+                    DrainBookChoices(draft);
                     Assert.IsFalse(draft.IsDraftOpen);
 
                     run.Model.Pause(); yield return null; yield return null;
@@ -173,6 +175,13 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(projected.x * tree.layout.width - 32, bar.style.left.value.value, .1f);
             Assert.AreEqual((1 - projected.y) * tree.layout.height - 18, bar.style.top.value.value, .1f);
             Assert.AreEqual(PickingMode.Ignore, bar.pickingMode);
+        }
+
+        /// <summary>DECISION-0093: a Book may queue up to three choices; resolve the rest through the runtime.</summary>
+        private static void DrainBookChoices(LevelUpDraftRuntime draft)
+        {
+            for (var i = 0; i < 3 && draft.IsDraftOpen; i++)
+                Assert.IsTrue(draft.Select(draft.CurrentDraft.Options[0].Definition.Id));
         }
     }
 }

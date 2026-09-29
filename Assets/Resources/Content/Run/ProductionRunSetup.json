@@ -6,7 +6,12 @@
     "seed": 230923,
     "initialRerolls": 1,
     "initialBanishes": 1,
-    "emptyBookCurrency": 50
+    "emptyBookCurrency": 50,
+    "bookUpgradeCountWeights": [
+      0.5,
+      0.35,
+      0.15
+    ]
   },
   "experience": {
     "levelThresholds": [
