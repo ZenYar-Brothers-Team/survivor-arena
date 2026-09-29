@@ -26,6 +26,9 @@ namespace Game.Bootstrap.Automation
         private ExperimentConfig _config;
         private string _runFolder;
         private string _profileBefore;
+        private string _chainId = "chain-0001";
+        private string _fieldId;
+        private int _runIndex = 1;
         private DateTime _runStartedUtc;
         private bool _reportWritten;
         private double _experimentStartedAt;
@@ -46,7 +49,8 @@ namespace Game.Bootstrap.Automation
             State == AutomationRunState.Failed;
         public event Action<AutomationRunHost> Finished;
 
-        public void Initialize(GameplayCompositionRoot root, ExperimentConfig config, MemoryProfileStore profileStore = null)
+        public void Initialize(GameplayCompositionRoot root, ExperimentConfig config, MemoryProfileStore profileStore = null,
+            string chainId = "chain-0001", int runIndex = 1, string fieldId = null)
         {
             if (_root != null) throw new InvalidOperationException("Automation host already initialized.");
             _root = root ?? throw new ArgumentNullException(nameof(root));
@@ -54,6 +58,12 @@ namespace Game.Bootstrap.Automation
             _config = config ?? throw new ArgumentNullException(nameof(config));
             _settings = _config.Data;
             _profileStore = profileStore;
+            if (string.IsNullOrWhiteSpace(chainId) || chainId.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 || runIndex < 1)
+                throw new ArgumentException("Invalid chain identity or run index.");
+            _chainId = chainId;
+            _runIndex = runIndex;
+            _fieldId = fieldId ?? _settings.FieldRoute[0];
+            if (!_settings.FieldRoute.Contains(_fieldId)) throw new ArgumentException("Field is outside configured route.");
             _movement = new BotMovementPolicy(_settings.MovementPolicy);
             // Separate random stream: policy choices never advance the gameplay draft/wave/pickup RNG.
             _draftChoice = new RandomLegalDraftPolicy(new System.Random(Guid.NewGuid().GetHashCode()));
@@ -102,14 +112,14 @@ namespace Game.Bootstrap.Automation
                 _profileBefore = _profileStore.Main ?? throw new InvalidOperationException("Isolated profile missing.");
                 _root.ConfigureAutomationExportSink(id =>
                 {
-                    _runFolder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs", id.ToString("N"));
+                    _runFolder = Path.Combine(_config.OutputDirectory, "chains", _chainId, "runs", id.ToString("N"));
                     if (Directory.Exists(_runFolder)) throw new IOException("Run output already exists: " + _runFolder);
                     return new AutomationPlaytestSink(_runFolder);
                 });
             }
             _root.Play();
             if (!_root.AtCharacterSelection || !_root.TryStartCharacter(new ContentId(_settings.CharacterId)) ||
-                !_root.TryStartField(new ContentId(_settings.FieldRoute[0])))
+                !_root.TryStartField(new ContentId(_fieldId)))
             { Fail("characterOrFieldUnavailable"); return; }
             _bindings = _root.CreateAutomationRuntimeBindings(_settings.MovementPolicy.ObservationRadius.Value);
             _run = _bindings.Run.Model;
@@ -260,11 +270,11 @@ namespace Game.Bootstrap.Automation
             var payload = new JObject
             {
                 ["schemaVersion"] = 1, ["experimentId"] = _config.ExperimentId,
-                ["chainId"] = "chain-0001", ["runId"] = _run.RunId.ToString("N"), ["runIndex"] = 1,
+                ["chainId"] = _chainId, ["runId"] = _run.RunId.ToString("N"), ["runIndex"] = _runIndex,
                 ["configSha256"] = TelemetryProvenance.Hash(_config.ToString()),
                 ["initialProfileSha256"] = _config.InitialProfileSha256,
                 ["template"] = _settings.Template, ["characterId"] = _settings.CharacterId,
-                ["fieldId"] = _settings.FieldRoute[0], ["runSpeed"] = _settings.RunSpeed,
+                ["fieldId"] = _fieldId, ["runSpeed"] = _settings.RunSpeed,
                 ["startedUtc"] = _runStartedUtc.ToString("O"), ["endedUtc"] = DateTime.UtcNow.ToString("O"),
                 ["simulationSeconds"] = _run.Elapsed, ["outcome"] = Outcome?.Reason.ToString(),
                 ["completionReason"] = complete && !_requestedStop &&

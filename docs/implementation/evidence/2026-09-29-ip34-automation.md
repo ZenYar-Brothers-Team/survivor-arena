@@ -89,3 +89,26 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
 - Verification still pending: naturally elapsed production run, recorder overflow,
   export failure, and `profile-after-purchases` (AB-05). This is implemented,
   not yet Verified.
+
+## AB-05
+
+- One `AutomationCampaignHost` owns a single isolated profile chain and starts
+  successive ordinary `AutomationRunHost` runs only after the previous outcome,
+  telemetry, reward save and intermission purchases finish. It writes
+  `initial-profile.json` and `profile-after-purchases.json` under its chain and
+  augments the sidecar with actual purchases/refusals/currency. The external
+  runner will start a fresh process/store for each independent chain (AB-06).
+- The purchase policy sorts affordable personal upgrades by next saved price,
+  then ordinal ID, and re-reads level/price after every successful
+  `ProfileService.PurchaseAsync`. The route policy repeats after defeat,
+  advances after a real victory only if the next field is unlocked/playable,
+  and emits explicit `routeBlocked`/`routeCleared` reasons.
+- Automation EditMode 15/15 PASS,
+  `TestResults/checks/20260929T104432-797166Z/summary.json`; campaign PlayMode
+  2/2 PASS, `TestResults/checks/20260929T104728-381452Z/summary.json`.
+  The campaign fixtures show two losses sharing one saved profile with one
+  purchase, and a fixture victory unlocking/starting FIELD-002 through normal
+  production navigation. The fixture victory uses a model time jump, not the
+  natural pilot.
+- Remaining verification: standalone chain reset, crash/watchdog and natural
+  campaign completion; no production pilot result is claimed yet.
