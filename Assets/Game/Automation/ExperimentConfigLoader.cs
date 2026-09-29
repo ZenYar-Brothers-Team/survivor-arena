@@ -21,14 +21,17 @@ namespace Game.Automation
         private readonly ProfileCodec _codec;
         private readonly HashSet<string> _playableFields;
         private readonly string _experimentRoot;
+        private readonly bool _allowExistingOutput;
 
         /// <param name="playableFields">Fields with complete production runtime bindings, not merely unlock definitions.</param>
-        public ExperimentConfigLoader(MetaCatalog catalog, IEnumerable<string> playableFields, string experimentRoot)
+        public ExperimentConfigLoader(MetaCatalog catalog, IEnumerable<string> playableFields, string experimentRoot,
+            bool allowExistingOutput = false)
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _codec = new ProfileCodec(catalog);
             _playableFields = new HashSet<string>(playableFields ?? throw new ArgumentNullException(nameof(playableFields)), StringComparer.Ordinal);
             _experimentRoot = Path.GetFullPath(experimentRoot ?? throw new ArgumentNullException(nameof(experimentRoot)));
+            _allowExistingOutput = allowExistingOutput;
         }
 
         public ExperimentConfig LoadFile(string path)
@@ -76,7 +79,8 @@ namespace Game.Automation
             var output = Path.GetFullPath(Path.Combine(_experimentRoot, data.OutputDirectory));
             if (!output.StartsWith(_experimentRoot.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
                 throw new ArgumentException("outputDirectory escapes experiment root.");
-            if (Directory.Exists(output) || File.Exists(output)) throw new IOException("Experiment output already exists: " + output);
+            if (File.Exists(output) || Directory.Exists(output) && !_allowExistingOutput)
+                throw new IOException("Experiment output already exists: " + output);
 
             string presetPath = null;
             ProfileData initial;

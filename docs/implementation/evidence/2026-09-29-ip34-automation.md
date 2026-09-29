@@ -112,3 +112,30 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   natural pilot.
 - Remaining verification: standalone chain reset, crash/watchdog and natural
   campaign completion; no production pilot result is claimed yet.
+
+## AB-06
+
+- Dedicated `BALANCE_AUTOMATION` Windows Development Build entry configures
+  isolated in-memory profile/settings before the gameplay root's `Start`.
+  Failed bootstrap disables that root before it can fall back to production
+  stores. The builder records Unity/commit/dirty and executable/data hashes.
+- `run.py` checks a new output path, source/build hashes, one child at a time,
+  bounded wall time, cancellation and nonzero exits. Atomic manifest updates
+  retain completed runs and the last started run ID even if its report is absent.
+  The runner only stops its own child; no automatic retry or cleanup.
+- Python 9/9 PASS (`python -m unittest discover -s scripts/balance -p 'test_*.py' -v`),
+  including sequential chains, input/output rejection, nonzero child, crash
+  with missing sidecar, hang deadline and keyboard cancellation. Unity
+  automation EditMode 15/15 PASS at
+  `TestResults/checks/20260929T105331-165017Z/summary.json`.
+- Real dedicated Windows player built at `TestResults/balance-build/ip34-balance.exe`
+  with adjacent build manifest. A fresh FIELD-001 standalone smoke ran from
+  `TestResults/balance-smoke-ab06/manifest.json`: run
+  `530e718e15b848dbb5eba6db04721496`, 449.43 simulation seconds in 98.45
+  experiment wall seconds (5× setting), then explicit `runWallTimeout` at 90 s.
+  It wrote telemetry, sidecar, profile snapshots and child log, with
+  `Aborted/incomplete`, not defeat; chain/experiment state `partial`, exit 0.
+  This is infrastructure evidence, **not** the natural-completion pilot.
+- Pending for Verified: fresh standalone natural W/L, completed multi-chain
+  series and full required regression smoke. The current player must be rebuilt
+  after subsequent source changes before AB-08.

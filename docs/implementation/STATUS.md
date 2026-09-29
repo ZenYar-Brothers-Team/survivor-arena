@@ -119,8 +119,8 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Implemented | 13/13 EditMode + 6/6 fixture PlayMode; natural FIELD-001 run pending report integration, [evidence](evidence/2026-09-29-ip34-automation.md#ab-03) |
 | 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Implemented | 6/6 composed PlayMode; natural-run, overflow/export-failure and purchase snapshots pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-04) |
 | 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Implemented | 15/15 Automation EditMode + 2/2 composed PlayMode; [evidence](evidence/2026-09-29-ip34-automation.md#ab-05) |
-| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | In progress | AB-05 implementation |
-| 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Blocked | AB-04/06 |
+| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Implemented | 9/9 Python + real standalone partial smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-06) |
+| 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | In progress | AB-04/06 implementation |
 | 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Blocked | AB-01…07 |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
@@ -767,7 +767,7 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 Status: In progress
 Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-06; готовность остальных — в scoped очереди выше.
+Current packet: AB-07; готовность остальных — в scoped очереди выше.
 Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
 Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
 случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.

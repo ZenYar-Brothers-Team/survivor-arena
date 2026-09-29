@@ -27,4 +27,36 @@ extra unlocks are a declared laboratory starting condition, not earned results.
 Unity's `ProfileCodec` validates the resulting file again before use. Preserve
 the original declaration and generated profile with experiment evidence.
 
-The local standalone runner and analysis commands are delivered in AB-06/07.
+## Build and run locally
+
+Build a separate Windows development player from a closed-Editor worktree. The
+builder uses the repository's Unity process/lock preflight and refuses to launch
+batch Unity over an interactive Editor. It never replaces the normal game build:
+
+```powershell
+python scripts/balance/build.py --output TestResults/balance-build/balance.exe
+python scripts/balance/run.py --experiment scripts/balance/examples/fresh.json --player TestResults/balance-build/balance.exe --output TestResults/fresh-field001-example --validate-only
+python scripts/balance/run.py --experiment scripts/balance/examples/fresh.json --player TestResults/balance-build/balance.exe --output TestResults/fresh-field001-example
+```
+
+`--output` must be new and its final directory name must equal the config's
+`outputDirectory`. For a second experiment, use a new experiment ID and output
+name. Validation checks the executable and `_Data` hashes against the adjacent
+`build-manifest.json`; the Unity worker revalidates content IDs, policy ranges,
+profile and config. Source config and preset are hashed and checked again before
+each chain. A changed input requires a new run. The runner launches one hidden
+child player per independent chain and never touches the production profile or
+settings. All profile and settings state stays in memory; only experiment
+artifacts are written under `--output`.
+
+`manifest.json` is atomically refreshed during execution. `experiment.json`
+captures the requested config and build fingerprint. Each chain has an initial
+profile, progress heartbeat and summary. Each run has existing telemetry
+`run.json`, typed `automation.json`, profile snapshots and `player.log`.
+`completed` means the configured chain/route ended; `partial` means a planned
+watchdog/route stop, not a loss; `failed` means process, input, export or save
+failure. Ctrl+C stops only this runner's current child, keeps completed files,
+and marks the manifest `cancelled`. There are no automatic retries or deletion.
+
+The statistical `analyze.py`/`compare.py` commands follow in AB-07. Do not infer
+balance quality from the speed or win rate of a single short smoke run.

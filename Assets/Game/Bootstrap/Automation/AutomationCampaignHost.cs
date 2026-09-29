@@ -25,6 +25,8 @@ namespace Game.Bootstrap.Automation
         private int _runIndex;
         private bool _pendingIntermission;
         private double _startedAt;
+        private double _lastProgressAt;
+        private Guid? _lastProgressRunId;
         public bool IsFinished { get; private set; }
         public string StopReason { get; private set; }
         public int StartedRuns => _runIndex;
@@ -53,6 +55,8 @@ namespace Game.Bootstrap.Automation
             if (_root == null || IsFinished) return;
             try
             {
+                if (Time.realtimeSinceStartupAsDouble - _lastProgressAt >= 2 || _run?.CurrentRunId != _lastProgressRunId)
+                    WriteProgress();
                 if (Time.realtimeSinceStartupAsDouble - _startedAt >= _settings.MaxExperimentWallSeconds.Value)
                 {
                     if (_run != null && !_run.IsFinished) _run.RequestStop("experimentWallBudget");
@@ -73,6 +77,19 @@ namespace Game.Bootstrap.Automation
         {
             // No scene teardown or purchase inside an outcome/gameplay callback.
             _pendingIntermission = true;
+        }
+
+        private void WriteProgress()
+        {
+            var folder = Path.Combine(_config.OutputDirectory, "chains", _chainId);
+            AutomationPlaytestSink.WriteAtomic(Path.Combine(folder, "chain-progress.json"),
+                new JObject { ["chainId"] = _chainId, ["startedRuns"] = _runIndex,
+                    ["currentRunId"] = _run?.CurrentRunId?.ToString("N"),
+                    ["currentRunState"] = _run?.State.ToString(),
+                    ["fieldId"] = _settings.FieldRoute[_fieldIndex],
+                    ["updatedUtc"] = DateTime.UtcNow.ToString("O") }.ToString());
+            _lastProgressAt = Time.realtimeSinceStartupAsDouble;
+            _lastProgressRunId = _run?.CurrentRunId;
         }
 
         private void ProcessIntermission()

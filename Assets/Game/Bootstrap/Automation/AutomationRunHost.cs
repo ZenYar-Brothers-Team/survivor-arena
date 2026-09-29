@@ -43,6 +43,7 @@ namespace Game.Bootstrap.Automation
         public string TerminalReason { get; private set; }
         public RunOutcome Outcome { get; private set; }
         public MetaRunReceipt Receipt { get; private set; }
+        public Guid? CurrentRunId => _run?.RunId;
         public bool BotStuck { get; private set; }
         public bool CoverageIncomplete { get; private set; }
         public bool IsFinished => State == AutomationRunState.Completed || State == AutomationRunState.Stopped ||
@@ -286,7 +287,8 @@ namespace Game.Bootstrap.Automation
                     ["layout"] = _root.LayoutSeed, ["traveler"] = _root.TravelerSeed, ["pickup"] = _root.PickupSeed },
                 ["rngCoverage"] = "gameplay seeds captured; policy seed not replayable",
                 ["botStuck"] = BotStuck, ["coverageIncomplete"] = CoverageIncomplete,
-                ["recorder"] = recorder, ["error"] = error,
+                ["recorder"] = recorder, ["stopReason"] = _requestedStop ? TerminalReason : null,
+                ["error"] = error,
                 ["capabilities"] = new JObject { ["damageAndHealing"] = _root.Playtest is PlaytestSession,
                     ["setDamageAttribution"] = "unsupported", ["phaseEvents"] = recorder != null }
             };

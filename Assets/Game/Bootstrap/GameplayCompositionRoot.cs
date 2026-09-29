@@ -205,6 +205,14 @@ namespace Game.Bootstrap
             PlayMenuCue("ui.confirm"); AtMainMenu = false; _metaPresenter.OpenShop(); NotifyNavigation();
         }
         public void QuitRun() => QuitProfileRun();
+        /// <summary>Development automation may exit only after all run/profile I/O is complete.</summary>
+        public void QuitAutomation(int exitCode)
+        {
+            if (!DevelopmentTools || Profile?.RunActive != false)
+                throw new InvalidOperationException("Automation exit requires an idle development profile.");
+            _allowQuit = true;
+            Application.Quit(exitCode);
+        }
         public void Exit() => Application.Quit();
         public bool DevelopmentTools => Application.isEditor || Debug.isDebugBuild;
         public async void UnlockAllForDevelopment()
