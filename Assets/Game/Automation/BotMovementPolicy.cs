@@ -26,13 +26,20 @@ namespace Game.Automation
         private float _stationarySeconds;
         private int _recoveryAttempts;
         public BotHerdMode? CurrentHerdMode => _herdPlanner?.Mode;
+        public Vector2? CurrentHerdGoal => _herdPlanner?.Goal;
+        public int CurrentHerdCrowdCount => _herdPlanner?.CrowdCount ?? 0;
+        public int CurrentHerdRouteBlockers => _herdPlanner?.RouteBlockers ?? 0;
+        public int CurrentHerdBankRouteBlockers => _herdPlanner?.BankRouteBlockers ?? 0;
+        public string CurrentHerdTransitionReason => _herdPlanner?.TransitionReason;
+        public float CurrentHerdScore { get; private set; }
 
         public BotMovementPolicy(MovementPolicyData settings)
         {
             if (settings == null || settings.PredictionSeconds == null || settings.ObstaclePadding == null ||
                 settings.StuckSeconds == null) throw new ArgumentException("Validated movement policy required.", nameof(settings));
             if (settings.Version != 1 || settings.Id != "safePickup" && settings.Id != "experienceFocused" &&
-                settings.Id != "orbitExperience" && settings.Id != "herdLoop")
+                settings.Id != "orbitExperience" && settings.Id != "herdLoop" &&
+                settings.Id != "herdLoopAdaptive")
                 throw new ArgumentException("Unknown movement policy/version.", nameof(settings));
             _predictionSeconds = settings.PredictionSeconds.Value;
             _obstaclePadding = settings.ObstaclePadding.Value;
@@ -46,7 +53,7 @@ namespace Game.Automation
                 _orbitPlanner = new BotOrbitPlanner(settings.ArcOffsetWorldUnits.Value,
                     _predictionSeconds, _obstaclePadding);
             }
-            if (settings.Id == "herdLoop")
+            if (settings.Id == "herdLoop" || settings.Id == "herdLoopAdaptive")
             {
                 if (!settings.ArcOffsetWorldUnits.HasValue || !settings.CrowdMinEnemies.HasValue ||
                     !settings.CrowdRadius.HasValue || !settings.LureSeconds.HasValue ||
@@ -106,6 +113,7 @@ namespace Game.Automation
                 _stationarySeconds = 0f;
             }
             _previousDirection = Directions[best];
+            if (_herdPlanner != null) CurrentHerdScore = float.IsNegativeInfinity(bestScore) ? 0f : bestScore;
             return new BotMovementDecision(_previousDirection, stuck: _recoveryAttempts >= 8);
         }
 

@@ -1,5 +1,13 @@
 # Regression map
 
+IP-34 AB-12: `BotMovementPolicyTests.Decide_AdaptiveHerd_PrefersOpenXpRouteOverCloserBlockedXp`,
+`Decide_AdaptiveHerd_StillBlockedAfterSweepAbandonsBankAndSelectsOtherXp` и
+`Decide_AdaptiveHerd_OpenRouteAfterSweepReturnsToXp` охраняют выбор доступного
+XP, отказ от безнадёжного обхода и возврат по открывшемуся коридору.
+`ExperimentConfigTests.Load_HerdLoop_RequiresTypedSettingsAndKeepsOtherProfilesSeparate`
+проверяет отдельный ID. Production-player pilot проверяет формат ограниченного
+диагностического `movementTrace`; это не unit-test и не replay.
+
 Meta stat icons R1: MetaShopSmokeTests проверяет 12 ненулевых sprites из registry,
 slot 32 px перед названием, отсутствие пересечения с title/level в 1080p и 720p.
 

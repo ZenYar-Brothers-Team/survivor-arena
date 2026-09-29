@@ -11,14 +11,21 @@ namespace Game.Automation
         private readonly float _lureSeconds;
         private readonly float _sweepSeconds;
         private readonly float _collectSeconds;
+        private readonly bool _adaptive;
         private float _modeSeconds;
+        private float _avoidSeconds;
         private Vector2 _bank;
+        private Vector2 _avoidedBank;
         private Vector2 _lureStart;
         private Vector2 _lureGoal;
         private int _sweepSign;
 
         public BotHerdMode Mode { get; private set; }
         public Vector2? Goal { get; private set; }
+        public int CrowdCount { get; private set; }
+        public int RouteBlockers { get; private set; }
+        public int BankRouteBlockers { get; private set; }
+        public string TransitionReason { get; private set; } = "initial";
 
         public BotHerdPlanner(MovementPolicyData settings)
         {
@@ -28,6 +35,7 @@ namespace Game.Automation
             _lureSeconds = settings.LureSeconds.Value;
             _sweepSeconds = settings.SweepSeconds.Value;
             _collectSeconds = settings.CollectSeconds.Value;
+            _adaptive = settings.Id == "herdLoopAdaptive";
         }
 
         public void Clear()
@@ -35,11 +43,17 @@ namespace Game.Automation
             Mode = BotHerdMode.Forage;
             Goal = null;
             _modeSeconds = 0f;
+            _avoidSeconds = 0f;
+            RouteBlockers = 0;
+            BankRouteBlockers = 0;
+            CrowdCount = 0;
+            TransitionReason = "reset";
         }
 
         public void Update(BotObservation observation, float elapsedSimulationSeconds)
         {
             _modeSeconds += elapsedSimulationSeconds;
+            _avoidSeconds = Mathf.Max(0f, _avoidSeconds - elapsedSimulationSeconds);
             var crowdCenter = Vector2.zero;
             var crowdCount = 0;
             var radiusSquared = _crowdRadius * _crowdRadius;
@@ -50,17 +64,21 @@ namespace Game.Automation
                 crowdCount++;
             }
             if (crowdCount > 0) crowdCenter /= crowdCount;
+            CrowdCount = crowdCount;
+            RouteBlockers = Goal.HasValue ? CountRouteBlockers(observation, Goal.Value) : 0;
 
             switch (Mode)
             {
                 case BotHerdMode.Forage:
-                    Goal = NearestXp(observation, observation.Position, float.PositiveInfinity);
+                    Goal = _adaptive ? PreferredXp(observation) :
+                        NearestXp(observation, observation.Position, float.PositiveInfinity);
+                    RouteBlockers = Goal.HasValue ? CountRouteBlockers(observation, Goal.Value) : 0;
                     if (crowdCount >= _crowdMinEnemies && Goal.HasValue &&
                         (Goal.Value - observation.Position).sqrMagnitude > 4f &&
-                        EnemyBlocksRoute(observation, Goal.Value))
+                        RouteBlockers >= 3)
                     {
                         _bank = Goal.Value;
-                        Transition(BotHerdMode.Lure);
+                        Transition(BotHerdMode.Lure, "xp-route-blocked");
                         BeginLure(observation, crowdCenter);
                     }
                     break;
@@ -68,23 +86,36 @@ namespace Game.Automation
                     if (_modeSeconds >= _lureSeconds ||
                         (observation.Position - _lureStart).sqrMagnitude >= _arcOffset * _arcOffset * 0.64f)
                     {
-                        Transition(BotHerdMode.Sweep);
+                        Transition(BotHerdMode.Sweep, "lure-distance-or-time");
                         _sweepSign = ChooseSweepSide(observation, crowdCenter);
                     }
                     else Goal = _lureGoal;
                     break;
                 case BotHerdMode.Sweep:
+                    if (_adaptive && _modeSeconds >= _sweepSeconds * 2f &&
+                        CountRouteBlockers(observation, _bank) >= 3)
+                    {
+                        AbandonBank("sweep-route-still-blocked");
+                        break;
+                    }
                     if (_modeSeconds >= _sweepSeconds &&
-                        (!EnemyBlocksRoute(observation, _bank) || _modeSeconds >= _sweepSeconds * 2f))
-                        Transition(BotHerdMode.Collect);
+                        (CountRouteBlockers(observation, _bank) < 3 ||
+                        !_adaptive && _modeSeconds >= _sweepSeconds * 2f))
+                        Transition(BotHerdMode.Collect, "xp-route-open");
                     else Goal = SweepGoal(observation, crowdCenter);
                     break;
                 case BotHerdMode.Collect:
                     var nearbyXp = NearestXp(observation, _bank, _arcOffset * 1.5f);
                     Goal = nearbyXp ?? _bank;
+                    if (_adaptive && CountRouteBlockers(observation, Goal.Value) >= 3 &&
+                        observation.HealthFraction < 0.5f)
+                    {
+                        AbandonBank("collect-route-unsafe");
+                        break;
+                    }
                     if (_modeSeconds >= _collectSeconds ||
                         crowdCount >= _crowdMinEnemies && observation.HealthFraction < 0.35f)
-                        Transition(BotHerdMode.Forage);
+                        Transition(BotHerdMode.Forage, "collect-complete-or-unsafe");
                     break;
             }
 
@@ -92,6 +123,37 @@ namespace Game.Automation
                 Goal = NearestXp(observation, _bank, _arcOffset * 1.5f) ?? _bank;
             else if (Mode == BotHerdMode.Sweep)
                 Goal = SweepGoal(observation, crowdCenter);
+            RouteBlockers = Goal.HasValue ? CountRouteBlockers(observation, Goal.Value) : 0;
+            BankRouteBlockers = Mode == BotHerdMode.Forage ? 0 :
+                CountRouteBlockers(observation, _bank);
+        }
+
+        private Vector2? PreferredXp(BotObservation observation)
+        {
+            Vector2? safe = null;
+            Vector2? blocked = null;
+            var safeDistance = float.PositiveInfinity;
+            var blockedDistance = float.PositiveInfinity;
+            foreach (var pickup in observation.Pickups)
+            {
+                if (!pickup.IsExperience || _avoidSeconds > 0f &&
+                    (pickup.Position - _avoidedBank).sqrMagnitude < 2.25f) continue;
+                var distance = (pickup.Position - observation.Position).sqrMagnitude;
+                if (CountRouteBlockers(observation, pickup.Position) < 3)
+                {
+                    if (distance < safeDistance) { safe = pickup.Position; safeDistance = distance; }
+                }
+                else if (distance < blockedDistance) { blocked = pickup.Position; blockedDistance = distance; }
+            }
+            return safe ?? blocked;
+        }
+
+        private void AbandonBank(string reason)
+        {
+            _avoidedBank = _bank;
+            _avoidSeconds = _collectSeconds;
+            Transition(BotHerdMode.Forage, reason);
+            Goal = null;
         }
 
         private void BeginLure(BotObservation observation, Vector2 crowdCenter)
@@ -151,11 +213,11 @@ namespace Game.Automation
             return nearest;
         }
 
-        private static bool EnemyBlocksRoute(BotObservation observation, Vector2 goal)
+        private static int CountRouteBlockers(BotObservation observation, Vector2 goal)
         {
             var path = goal - observation.Position;
             var lengthSquared = path.sqrMagnitude;
-            if (lengthSquared < 0.25f) return false;
+            if (lengthSquared < 0.25f) return 0;
             var blockers = 0;
             foreach (var threat in observation.Threats)
             {
@@ -164,10 +226,9 @@ namespace Game.Automation
                 if (progress <= 0.05f || progress >= 1f) continue;
                 var closest = observation.Position + path * progress;
                 var clearance = observation.PlayerRadius + threat.Radius + 1.25f;
-                if ((threat.Position - closest).sqrMagnitude < clearance * clearance && ++blockers >= 3)
-                    return true;
+                if ((threat.Position - closest).sqrMagnitude < clearance * clearance) blockers++;
             }
-            return false;
+            return blockers;
         }
 
         private static Vector2 ClampGoal(BotObservation observation, Vector2 goal)
@@ -178,10 +239,11 @@ namespace Game.Automation
                 Mathf.Clamp(goal.y, observation.ArenaBounds.yMin + padding, observation.ArenaBounds.yMax - padding));
         }
 
-        private void Transition(BotHerdMode next)
+        private void Transition(BotHerdMode next, string reason)
         {
             Mode = next;
             _modeSeconds = 0f;
+            TransitionReason = reason;
         }
     }
 }

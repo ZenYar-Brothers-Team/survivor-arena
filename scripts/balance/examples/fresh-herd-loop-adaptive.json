@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "fresh-herd-loop-adaptive-example",
+  "template": "fresh",
+  "chains": 3,
+  "maxRunsPerChain": 1,
+  "runSpeed": 5,
+  "characterId": "CHAR-001",
+  "fieldRoute": ["FIELD-001"],
+  "movementPolicy": {
+    "id": "herdLoopAdaptive",
+    "version": 1,
+    "decisionIntervalSeconds": 0.2,
+    "observationRadius": 12,
+    "predictionSeconds": 0.5,
+    "obstaclePadding": 0.15,
+    "stuckSeconds": 3,
+    "arcOffsetWorldUnits": 6,
+    "crowdMinEnemies": 8,
+    "crowdRadius": 8,
+    "lureSeconds": 7,
+    "sweepSeconds": 5,
+    "collectSeconds": 10
+  },
+  "draftPolicy": {"id": "randomLegal", "version": 1},
+  "purchasePolicy": {
+    "id": "cheapestPersonalUpgrade", "version": 1,
+    "allowedUpgradeIds": ["META-003", "META-004", "META-008"],
+    "maxPurchasesPerIntermission": 3
+  },
+  "stopAfterRouteClear": false,
+  "maxExperimentWallSeconds": 900,
+  "runWallTimeoutSeconds": 720,
+  "transitionTimeoutSeconds": 30,
+  "outputDirectory": "fresh-herd-loop-adaptive-example"
+}

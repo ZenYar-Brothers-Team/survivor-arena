@@ -16,6 +16,14 @@ switches between local foraging, luring enemies away from a remembered XP
 area, sweeping around them, and returning. Its report includes
 `movementModeDecisions`; high expired XP means the pattern did not actually
 solve collection. It is not an in-game toggle or a human-play model.
+For diagnostic runs use
+[`examples/fresh-herd-loop-adaptive.json`](examples/fresh-herd-loop-adaptive.json):
+`herdLoopAdaptive/v1` first favors XP with an open route, abandons a still
+blocked bank after a bounded sweep, and temporarily avoids retrying it. Both
+herd profiles include a bounded `movementTrace` in each `automation.json`
+(position, goal, direction, mode/reason, HP, crowd/blockers, score); samples
+are taken roughly once per simulation second and at mode changes. This trace
+is diagnostic, not a replay or evidence of superior performance.
 
 `chains` counts independent profile histories; `maxRunsPerChain` limits runs
 within each history. A fresh chain begins

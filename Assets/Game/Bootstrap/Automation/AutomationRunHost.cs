@@ -39,6 +39,10 @@ namespace Game.Bootstrap.Automation
         private bool _requestedStop;
         private readonly List<string> _offered = new List<string>(3);
         private readonly Dictionary<string, int> _movementModeDecisions = new Dictionary<string, int>();
+        private readonly JArray _movementTrace = new JArray();
+        private float _nextMovementTraceAt;
+        private BotHerdMode? _lastMovementTraceMode;
+        private int _movementTraceDropped;
 
         public AutomationRunState State { get; private set; }
         public string TerminalReason { get; private set; }
@@ -68,6 +72,10 @@ namespace Game.Bootstrap.Automation
             if (!_settings.FieldRoute.Contains(_fieldId)) throw new ArgumentException("Field is outside configured route.");
             _movement = new BotMovementPolicy(_settings.MovementPolicy);
             _movementModeDecisions.Clear();
+            _movementTrace.Clear();
+            _nextMovementTraceAt = 0f;
+            _lastMovementTraceMode = null;
+            _movementTraceDropped = 0;
             // Separate random stream: policy choices never advance the gameplay draft/wave/pickup RNG.
             _draftChoice = new RandomLegalDraftPolicy(new System.Random(Guid.NewGuid().GetHashCode()));
             _experimentStartedAt = Time.realtimeSinceStartupAsDouble;
@@ -172,17 +180,49 @@ namespace Game.Bootstrap.Automation
             _manualPauseStartedAt = 0;
             if (State == AutomationRunState.ResolveDraft) Transition(AutomationRunState.Running);
             if (_run.Elapsed < _nextMovementAt) return;
-            var decision = _movement.Decide(_bindings.Observation.Capture(), _settings.MovementPolicy.DecisionIntervalSeconds.Value);
+            var observation = _bindings.Observation.Capture();
+            var decision = _movement.Decide(observation, _settings.MovementPolicy.DecisionIntervalSeconds.Value);
             if (_movement.CurrentHerdMode.HasValue)
             {
                 var mode = _movement.CurrentHerdMode.Value.ToString();
                 _movementModeDecisions.TryGetValue(mode, out var count);
                 _movementModeDecisions[mode] = count + 1;
+                if (_run.Elapsed >= _nextMovementTraceAt || _lastMovementTraceMode != _movement.CurrentHerdMode)
+                    RecordMovementTrace(observation, decision);
             }
             _direction.SetDirection(decision.Direction);
             if (decision.Stuck) BotStuck = true;
             if (decision.CoverageIncomplete) CoverageIncomplete = true;
             _nextMovementAt = _run.Elapsed + _settings.MovementPolicy.DecisionIntervalSeconds.Value;
+        }
+
+        private void RecordMovementTrace(BotObservation observation, BotMovementDecision decision)
+        {
+            // IP-34 AB-12: one sample per simulation second plus state changes; no per-frame log spam.
+            var goal = _movement.CurrentHerdGoal;
+            _movementTrace.Add(new JObject
+            {
+                ["t"] = _run.Elapsed,
+                ["mode"] = _movement.CurrentHerdMode.Value.ToString(),
+                ["reason"] = _movement.CurrentHerdTransitionReason,
+                ["position"] = new JArray(observation.Position.x, observation.Position.y),
+                ["goal"] = goal.HasValue ? new JArray(goal.Value.x, goal.Value.y) : null,
+                ["direction"] = new JArray(decision.Direction.x, decision.Direction.y),
+                ["hpFraction"] = observation.HealthFraction,
+                ["crowdCount"] = _movement.CurrentHerdCrowdCount,
+                ["routeBlockers"] = _movement.CurrentHerdRouteBlockers,
+                ["bankRouteBlockers"] = _movement.CurrentHerdBankRouteBlockers,
+                ["visiblePickups"] = observation.Pickups.Count,
+                ["score"] = _movement.CurrentHerdScore,
+                ["stuck"] = decision.Stuck
+            });
+            if (_movementTrace.Count > 1024)
+            {
+                _movementTrace.RemoveAt(0);
+                _movementTraceDropped++;
+            }
+            _lastMovementTraceMode = _movement.CurrentHerdMode;
+            _nextMovementTraceAt = _run.Elapsed + 1f;
         }
 
         private void ResolveOneDraft()
@@ -296,6 +336,8 @@ namespace Game.Bootstrap.Automation
                 ["rngCoverage"] = "gameplay seeds captured; policy seed not replayable",
                 ["botStuck"] = BotStuck, ["coverageIncomplete"] = CoverageIncomplete,
                 ["movementModeDecisions"] = JObject.FromObject(_movementModeDecisions),
+                ["movementTrace"] = _movementTrace,
+                ["movementTraceDropped"] = _movementTraceDropped,
                 ["recorder"] = recorder, ["stopReason"] = _requestedStop ? TerminalReason : null,
                 ["error"] = error,
                 ["capabilities"] = new JObject { ["damageAndHealing"] = _root.Playtest is PlaytestSession,

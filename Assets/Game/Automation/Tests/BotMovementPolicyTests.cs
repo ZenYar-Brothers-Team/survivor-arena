@@ -32,6 +32,13 @@ namespace Game.Automation.Tests
             return settings;
         }
 
+        private static MovementPolicyData AdaptiveHerdSettings()
+        {
+            var settings = HerdSettings();
+            settings.Id = "herdLoopAdaptive";
+            return settings;
+        }
+
         private static BotThreat[] Crowd(Vector2 center, int count)
         {
             var threats = new BotThreat[count];
@@ -216,6 +223,48 @@ namespace Game.Automation.Tests
             policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8),
                 pickups: new[] { new BotPickup(Vector2.zero, 1f) }), 0.2f);
             Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+        }
+
+        [Test]
+        public void Decide_AdaptiveHerd_PrefersOpenXpRouteOverCloserBlockedXp()
+        {
+            var policy = new BotMovementPolicy(AdaptiveHerdSettings());
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8),
+                pickups: new[] { new BotPickup(new Vector2(6, 0), 1f),
+                    new BotPickup(new Vector2(0, 7), 1f) }), 0.2f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+            Assert.AreEqual(new Vector2(0, 7), policy.CurrentHerdGoal);
+        }
+
+        [Test]
+        public void Decide_AdaptiveHerd_StillBlockedAfterSweepAbandonsBankAndSelectsOtherXp()
+        {
+            var policy = new BotMovementPolicy(AdaptiveHerdSettings());
+            var blockedXp = new[] { new BotPickup(new Vector2(8, 0), 1f) };
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8),
+                pickups: blockedXp), 0.2f);
+            policy.Decide(Observe(new Vector2(-6, 0), threats: Crowd(new Vector2(-3, 0), 8),
+                pickups: blockedXp), 1f);
+            policy.Decide(Observe(new Vector2(-6, 4), threats: Crowd(new Vector2(-4, 2), 8),
+                pickups: blockedXp), 10.1f);
+            Assert.AreEqual(BotHerdMode.Forage, policy.CurrentHerdMode);
+            Assert.AreEqual("sweep-route-still-blocked", policy.CurrentHerdTransitionReason);
+            policy.Decide(Observe(new Vector2(-6, 4), threats: Crowd(new Vector2(-4, 2), 8),
+                pickups: new[] { blockedXp[0], new BotPickup(new Vector2(-6, 7), 1f) }), 0.2f);
+            Assert.AreEqual(new Vector2(-6, 7), policy.CurrentHerdGoal);
+        }
+
+        [Test]
+        public void Decide_AdaptiveHerd_OpenRouteAfterSweepReturnsToXp()
+        {
+            var policy = new BotMovementPolicy(AdaptiveHerdSettings());
+            var xp = new[] { new BotPickup(new Vector2(8, 0), 1f) };
+            policy.Decide(Observe(Vector2.zero, threats: Crowd(new Vector2(3, 0), 8), pickups: xp), 0.2f);
+            policy.Decide(Observe(new Vector2(-6, 0), threats: Crowd(new Vector2(-3, 0), 8), pickups: xp), 1f);
+            Assert.GreaterOrEqual(policy.CurrentHerdBankRouteBlockers, 3);
+            policy.Decide(Observe(new Vector2(-6, 4), threats: Crowd(new Vector2(-7, 2), 8), pickups: xp), 5.1f);
+            Assert.AreEqual(BotHerdMode.Collect, policy.CurrentHerdMode);
+            Assert.AreEqual(new Vector2(8, 0), policy.CurrentHerdGoal);
         }
 
         [Test]

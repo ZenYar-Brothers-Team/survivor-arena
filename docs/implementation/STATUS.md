@@ -21,8 +21,8 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 ## Действующие границы
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
-`automated-runs-v4`: очередь AB-01…11 реализована и проверена; AB-11 экспериментальный,
-качество сбора XP не подтверждено
+`automated-runs-v5`: AB-01…12 реализованы и проверены; адаптивный профиль
+остаётся исследовательским, улучшение сбора XP не доказано
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
 [DECISION-0098](../decisions/0098-balance-runner-presentation.md));
 [scoped очередь](#automated-runs-execution) содержит фактические проверки.
@@ -108,9 +108,9 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 <a id="automated-runs-execution"></a>
 ### IP-34 — автоматические прогоны, scoped очередь
 
-Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v4`;
+Применяется только после поручения на реализацию IP-34. Ревизия `automated-runs-v5`;
 спецификация и критерии — [план](modules/IP-34-automated-balance-runs.md).
-Поручение пользователя охватывает AB-01…08 последовательно, AB-09…11 отдельно; общий backlog не
+Поручение пользователя охватывает AB-01…08 последовательно, AB-09…12 отдельно; общий backlog не
 возобновляется.
 
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
@@ -126,6 +126,7 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | 9 | [AB-09 — XP-focused bot profile](modules/IP-34-automated-balance-runs.md#ab-09) | Verified | Отдельный ID и пример; Unity 983/983 + 52/52, Python 18/18, тихий production pilot; [evidence](evidence/2026-09-29-ip34-xp-bot.md). |
 | 10 | [AB-10 — широкий обход за XP](modules/IP-34-automated-balance-runs.md#ab-10) | Verified | Дуга 6 world units и выбор безопасной XP-цели; Unity 990/990 + 52/52, Python 18/18, тихий pilot; [evidence](evidence/2026-09-29-ip34-orbit-bot.md). |
 | 11 | [AB-11 — заманивание кучи и возврат за XP](modules/IP-34-automated-balance-runs.md#ab-11) | Verified | Режимы и telemetry, Unity 996/996 + 52/52, Python 18/18, два тихих пилота с низким XP; [evidence](evidence/2026-09-29-ip34-herd-bot.md). |
+| 12 | [AB-12 — диагностический трек и адаптивный обход](modules/IP-34-automated-balance-runs.md#ab-12) | Verified | Отдельный ID, ограниченный трек; Unity 999/999 + 52/52, Python 18/18, две тихие серии по три забега; [evidence](evidence/2026-09-29-ip34-adaptive-herd-bot.md). |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -769,10 +770,10 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
 Status: Verified
-Scope revision: automated-runs-v4, расширение по поручению 2026-09-29.
+Scope revision: automated-runs-v5, расширение по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-11 завершён; подтверждения AB-01…11 в scoped очереди выше.
-Authorization: AB-01…08 и новые bot-профили AB-09…11 по поручениям пользователя 2026-09-29.
+Current packet: AB-12 завершён; подтверждения AB-01…12 в scoped очереди выше.
+Authorization: AB-01…08 и новые bot-профили AB-09…12 по поручениям пользователя 2026-09-29.
 Acceptance: заманивание толпы, обход и возврат к XP при большой куче;
 локальный сбор без кучи, HP-aware уклонение, mode telemetry, smoke и pilot
 проверены как механика. Улучшение XP/выживаемости не установлено: нужны
@@ -806,6 +807,10 @@ AB-11 evidence: [herd-and-return profile](evidence/2026-09-29-ip34-herd-bot.md);
 Unity 996/996 EditMode + 52/52 PlayMode, Python 18/18; финальный тихий пилот
 1/1 natural loss (49.34 simulation s, 4 XP). Режимы работают, но выигрыш
 по XP и выживанию не установлен. GDD/CD и gameplay balance не менялись.
+AB-12 evidence: [adaptive herd profile](evidence/2026-09-29-ip34-adaptive-herd-bot.md);
+Unity 999/999 EditMode + 52/52 PlayMode, Python 18/18; финальные три тихих
+пилота 3/3 natural losses (7/15/31 XP), один дошёл до 812.6 simulation s.
+Трек работает; преимущество не установлено. GDD/CD и gameplay balance не менялись.
 
 ## Status maintenance rule
 

@@ -122,6 +122,9 @@ namespace Game.Automation.Tests
             value["movementPolicy"]["sweepSeconds"] = 5;
             value["movementPolicy"]["collectSeconds"] = 10;
             Assert.AreEqual("herdLoop", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["id"] = "herdLoopAdaptive";
+            Assert.AreEqual("herdLoopAdaptive", _loader.Parse(value.ToString(), _root).Data.MovementPolicy.Id);
+            value["movementPolicy"]["id"] = "herdLoop";
             value["movementPolicy"]["crowdMinEnemies"] = 3;
             Assert.Throws<ArgumentException>(() => _loader.Parse(value.ToString(), _root));
             value["movementPolicy"]["crowdMinEnemies"] = 8;
