@@ -118,7 +118,11 @@ namespace Game.Enemy
 
             using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.Tick", TickWarningMilliseconds);
             var wasRunning = runController != null && runController.Model != null && runController.Model.State == RunState.Running;
-            var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count);
+            var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count,
+                replaceAtCap: true);
+            if (spawnCount > 0 && target != null)
+                while (_aliveEnemies.Count + spawnCount > _director.Timeline.MaxAliveEnemies && _aliveEnemies.Count > 0)
+                    EraseFarthestOrdinary();
             double oppositeAngle = 0d;
             var hasCenter = spawnCount > 0 && TryGetOppositeMassAngle(out oppositeAngle);
             var actual = 0;
@@ -210,6 +214,25 @@ namespace Game.Enemy
         }
 
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
+
+        private void EraseFarthestOrdinary()
+        {
+            var player = (Vector2)target.position;
+            var farthestIndex = 0;
+            var farthestDistance = float.NegativeInfinity;
+            for (var i = 0; i < _aliveEnemies.Count; i++)
+            {
+                var distance = (_aliveEnemies[i].Position - player).sqrMagnitude;
+                if (distance <= farthestDistance) continue;
+                farthestDistance = distance;
+                farthestIndex = i;
+            }
+            var enemy = _aliveEnemies[farthestIndex];
+            _aliveEnemies.RemoveAt(farthestIndex);
+            enemy.Despawned -= HandleEnemyDespawned;
+            enemy.CombatResolved -= ForwardCombat;
+            enemy.EraseSilently();
+        }
 
         private void HandleEnemyDespawned(EnemyRuntime enemy)
         {

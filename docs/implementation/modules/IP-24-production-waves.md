@@ -18,6 +18,8 @@ F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) пос�
 [DECISION-0076](../../decisions/0076-wave-cap-and-field001-rhythm.md) содержит
 16 фаз на 900 секунд, сфокусированные 2–4-type composition, единый технический cap,
 два bursts и hooks.
+При заполненном cap spawner заменяет самых дальних обычных врагов согласно
+[DECISION-0105](../../decisions/0105-continuous-cap-replacement.md); cadence и данные расписания не меняются.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
 

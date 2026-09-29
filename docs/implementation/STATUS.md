@@ -20,6 +20,14 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Дельта 2026-09-30 по поручению пользователя: [DECISION-0105](../decisions/0105-continuous-cap-replacement.md)
+сохраняет cap 200, но продолжает спавн за счёт бесшумного удаления самых дальних
+обычных врагов; boss/mid-boss/Traveler не входят в cap. Human recorder получил
+`activeFirst15/v1` и возврат скорости на 1× после нажатия speed-кнопки.
+Первый human сеанс завершился incomplete (`humanSpeedChanged`) и не является
+данными для обучения. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
+Свежий player и ручной плейтест ещё не выполнены.
+
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
 AB-14 — recorder Verified: full graphics 1043/1043 + 56/56, Python 25/25,
@@ -536,6 +544,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 Status: Verified
 Dependencies: IP-04, IP-13
 Current packet: timeline-level technical cap 200 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076).
+Follow-up 2026-09-30 — Implemented: cap replacement по [DECISION-0105](../decisions/0105-continuous-cap-replacement.md) удаляет самого дальнего ordinary без событий, kills и дропа; расписания и cap 200 не менялись. Затронутые EditMode 44/44; full graphics 1051/1051 + 57/57, generation/audio/art 269 PASS. Ручной плейтест открыт. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=1.0` (повышено с 0.8 через 0.9) и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Исходный алгоритм: Enemy/Bootstrap EditMode **247/247 PASS**; тюнинг 1.0: production field EditMode **17/17 PASS**, content STATIC PASS, 0 failed/skipped. [Тюнинг/evidence](evidence/2026-09-29-opposite-spawn-bias-tuning.md), [исходный алгоритм](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md) только FIELD-001 получает 0.6 обычной continuous частоты в первые 30 s; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md), [OBS-01](../playtests/2026-09-29_field001-opening-rate.md#obs-01--снизить-спавн-в-первые-30-секунд).
 Remaining gates: Нет для synthetic framework. W-01 обновлён по DECISION-0076; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
@@ -830,6 +839,10 @@ Scope revision: automated-runs-v7, расширение по поручению 
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
 Current packet: AB-01…14 закрыты в пределах scoped приёмки выше; качество бота
 для реальной балансировки и обучение новой модели этим не приняты.
+Follow-up 2026-09-30 — Implemented: human template использует `activeFirst15/v1`,
+скорость записи возвращается на 1×. Затронутые EditMode 44/44, full graphics
+1051/1051 + 57/57 PASS; новый player и человеческая запись ещё ожидаются.
+[Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
 Current gate: после интеграции `develop-evg` до `2ea7a83` нужен новый player build
 перед standalone-запуском; full graphics 1044/1044 + 57/57 и Python 25/25 PASS
 ([refresh evidence](evidence/2026-09-30-ip34-develop-refresh.md)).

@@ -95,10 +95,38 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(1, _spawner.Tick(1, 1, true));
             Assert.AreEqual(1, _spawner.AliveCount);
             Assert.AreEqual(_registryBaseline + 3, EnemyRegistry.Count);
-            Assert.AreEqual(0, _spawner.Tick(2, 1, true));
-            Assert.AreEqual(1, _spawner.LastSpawnOutcome.Decision.Suppressed);
+            Assert.AreEqual(1, _spawner.Tick(2, 1, true));
+            Assert.AreEqual(0, _spawner.LastSpawnOutcome.Decision.Suppressed);
+            Assert.IsTrue(boss.IsAlive);
+            Assert.IsTrue(traveler.IsAlive);
+            Assert.AreEqual(_registryBaseline + 3, EnemyRegistry.Count);
             boss.Despawn();
             traveler.Despawn();
+        }
+
+        [Test]
+        public void Tick_AtCap_ErasesFarthestOrdinaryWithoutLifeOrRewardEvents()
+        {
+            _spawner.Initialize(CreateDirector(maxAlive: 2));
+            Assert.AreEqual(1, _spawner.Tick(1, 1, true));
+            Assert.AreEqual(1, _spawner.Tick(2, 1, true));
+            var enemies = LiveEnemies();
+            enemies[0].transform.position = Vector3.right;
+            enemies[1].transform.position = Vector3.right * 20f;
+            var nearLife = enemies[0].LifeId;
+            var farLife = enemies[1].LifeId;
+            var events = new List<EnemyLifeEvent>();
+            _spawner.LifeEvent += events.Add;
+
+            Assert.AreEqual(1, _spawner.Tick(3, 1, true));
+
+            Assert.AreEqual(2, _spawner.AliveCount);
+            Assert.AreEqual(_registryBaseline + 2, EnemyRegistry.Count);
+            Assert.IsTrue(LiveEnemies().Any(enemy => enemy.LifeId == nearLife));
+            Assert.IsFalse(LiveEnemies().Any(enemy => enemy.LifeId == farLife));
+            Assert.AreEqual(1, events.Count);
+            Assert.AreEqual(EnemyLifeEventKind.Spawned, events[0].Kind);
+            Assert.AreEqual(0, _spawner.Capture().Kills);
         }
 
         [Test]
@@ -146,7 +174,7 @@ namespace Game.Enemy.Tests
             for (var second = 1; second <= 6; second++)
                 spawned += _spawner.Tick(second, 1f, true);
 
-            Assert.AreEqual(3, spawned);
+            Assert.AreEqual(6, spawned, "Cadence continues while the cap is full.");
             Assert.AreEqual(3, _spawner.AliveCount);
             Assert.AreEqual(_registryBaseline + 3, EnemyRegistry.Count);
         }

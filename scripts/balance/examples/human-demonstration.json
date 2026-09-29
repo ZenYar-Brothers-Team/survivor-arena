@@ -17,7 +17,7 @@
     "maxSamples": 20000, "maxFileMegabytes": 256,
     "queueCapacity": 128, "maxEntitiesPerCollection": 512
   },
-  "draftPolicy": {"id": "randomLegal", "version": 1},
+  "draftPolicy": {"id": "activeFirst15", "version": 1},
   "purchasePolicy": {
     "id": "cheapestPersonalUpgrade", "version": 1,
     "allowedUpgradeIds": [], "maxPurchasesPerIntermission": 0

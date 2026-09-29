@@ -136,7 +136,8 @@ namespace Game.Automation
                 (movement.Trajectory ?? throw new ArgumentException("trajectory required.")).Validate();
             else if (movement.Trajectory != null)
                 throw new ArgumentException("trajectory settings are only valid for trajectorySearch.");
-            if (data.DraftPolicy?.Id != "randomLegal" || data.DraftPolicy.Version != 1)
+            if (data.DraftPolicy == null || data.DraftPolicy.Version != 1 ||
+                (data.DraftPolicy.Id != "randomLegal" && data.DraftPolicy.Id != "activeFirst15"))
                 throw new ArgumentException("Unknown draft policy/version.");
             var purchase = data.PurchasePolicy ?? throw new ArgumentException("purchasePolicy required.");
             if (purchase.Id != "cheapestPersonalUpgrade" || purchase.Version != 1 || purchase.AllowedUpgradeIds == null ||

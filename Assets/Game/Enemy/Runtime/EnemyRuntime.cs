@@ -403,9 +403,18 @@ namespace Game.Enemy
             EndLife(reason, releaseObject: true);
         }
 
+        /// <summary>Removes an ordinary enemy for cap replacement without lifecycle, death or reward callbacks.</summary>
+        public void EraseSilently()
+        {
+            if (Category != EnemyCategory.Ordinary)
+                throw new InvalidOperationException("Only ordinary enemies may be erased for cap replacement.");
+            if (_dispatchingLifecycle) return;
+            EndLife(EnemyLifeReason.Cleanup, releaseObject: true, publishLifecycle: false);
+        }
+
         public void Shutdown() => Despawn();
 
-        private void EndLife(EnemyLifeReason reason, bool releaseObject)
+        private void EndLife(EnemyLifeReason reason, bool releaseObject, bool publishLifecycle = true)
         {
             if (_despawned || !_initialized)
                 return;
@@ -435,8 +444,11 @@ namespace Game.Enemy
             _dispatchingLifecycle = true;
             try
             {
-                Publish(EnemyLifeEventKind.Despawned, reason);
-                Despawned?.Invoke(this);
+                if (publishLifecycle)
+                {
+                    Publish(EnemyLifeEventKind.Despawned, reason);
+                    Despawned?.Invoke(this);
+                }
             }
             finally
             {

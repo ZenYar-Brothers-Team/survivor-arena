@@ -79,6 +79,23 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void EraseSilently_OrdinaryEnemy_ReleasesWithoutAnyLifecycleCallback()
+        {
+            var enemy = Spawn();
+            var notifications = 0;
+            enemy.LifeEvent += _ => notifications++;
+            enemy.Despawned += _ => notifications++;
+            enemy.Died += _ => notifications++;
+
+            enemy.EraseSilently();
+
+            Assert.AreEqual(1, _sink.Events.Count, "Only the earlier spawn event is retained.");
+            Assert.AreEqual(0, notifications);
+            Assert.AreEqual(_baseline, EnemyRegistry.Count);
+            Assert.AreEqual(1, _pool.InactiveCount);
+        }
+
+        [Test]
         public void SynchronousLethalCallbacks_CannotDoubleKillHealOrReuseMidDispatch()
         {
             var enemy = Spawn();

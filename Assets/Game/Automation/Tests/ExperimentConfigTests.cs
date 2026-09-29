@@ -41,6 +41,14 @@ namespace Game.Automation.Tests
         }");
 
         [Test]
+        public void Load_ActiveFirst15DraftPolicy_IsAccepted()
+        {
+            var config = Fresh();
+            config["draftPolicy"]["id"] = "activeFirst15";
+            Assert.AreEqual("activeFirst15", _loader.Parse(config.ToString(), _root).Data.DraftPolicy.Id);
+        }
+
+        [Test]
         public async Task Load_FreshValid_IsImmutableAndMatchesCanonicalProfile()
         {
             var config = _loader.Parse(Fresh().ToString(), _root);

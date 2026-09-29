@@ -4,6 +4,7 @@ using System.IO;
 using Game.Automation;
 using Game.Content;
 using Game.Meta;
+using Game.Progression;
 using Game.Run;
 using Game.Telemetry;
 using Newtonsoft.Json.Linq;
@@ -38,12 +39,14 @@ namespace Game.Bootstrap.Automation
         private float _nextMovementAt;
         private bool _requestedStop;
         private readonly List<string> _offered = new List<string>(3);
+        private readonly List<string> _preferredActive = new List<string>(3);
         private readonly Dictionary<string, int> _movementModeDecisions = new Dictionary<string, int>();
         private readonly JArray _movementTrace = new JArray();
         private float _nextMovementTraceAt;
         private BotHerdMode? _lastMovementTraceMode;
         private int _movementTraceDropped;
         private DemonstrationRecordingSession _demonstration;
+        private HumanRecordingSpeedGuard _humanSpeedGuard;
         private string _pendingFailure;
         private bool HumanControlled => _settings?.MovementPolicy.Id == "human";
         public int DemonstrationSamples => _demonstration?.Samples ?? 0;
@@ -152,6 +155,7 @@ namespace Game.Bootstrap.Automation
                 _bindings.Mover.ConfigureInputSource(_direction);
             }
             if (!_bindings.Run.SetSpeed(_settings.RunSpeed.Value)) { Fail("runSpeedRejected"); return; }
+            if (HumanControlled) _humanSpeedGuard = new HumanRecordingSpeedGuard(_run);
             if (_settings.Demonstration != null)
             {
                 var metadataPath = Path.Combine(_config.OutputDirectory, "experiment.json");
@@ -213,7 +217,6 @@ namespace Game.Bootstrap.Automation
             if (State == AutomationRunState.ResolveDraft) Transition(AutomationRunState.Running);
             if (HumanControlled)
             {
-                if (_run.SpeedMultiplier != 1) Fail("humanSpeedChanged");
                 return; // Do not read or replace native keyboard/mouse input.
             }
             if (_run.Elapsed < _nextMovementAt) return;
@@ -305,8 +308,16 @@ namespace Game.Bootstrap.Automation
             if (StateTimedOut(Time.realtimeSinceStartupAsDouble)) { RequestStop("draftTimeout"); return; }
             var session = _bindings.Draft.CurrentDraft;
             _offered.Clear();
-            foreach (var option in session.Options) _offered.Add(option.Definition.Id.ToString());
-            var selected = _draftChoice.Choose(_offered);
+            _preferredActive.Clear();
+            foreach (var option in session.Options)
+            {
+                var id = option.Definition.Id.ToString();
+                _offered.Add(id);
+                if (option.Definition.Kind == BuildEntryKind.ActiveSkill) _preferredActive.Add(id);
+            }
+            var selected = _settings.DraftPolicy.Id == "activeFirst15"
+                ? _draftChoice.ChooseActiveFirst15(_offered, _preferredActive, _bindings.Experience.Progression.Level)
+                : _draftChoice.Choose(_offered);
             if (selected == null) return; // The owner resolves empty requests without an open session.
             // Stale revisions are not retried in a loop: the next Update captures the new session.
             _bindings.Draft.Select(new ContentId(selected), session.Revision);
@@ -473,6 +484,7 @@ namespace Game.Bootstrap.Automation
         private void OnDestroy()
         {
             Application.wantsToQuit -= WantsToQuit;
+            _humanSpeedGuard?.Dispose();
             _demonstration?.Dispose();
             if (_run != null) _run.Completed -= HandleCompleted;
             _recorder?.Dispose();

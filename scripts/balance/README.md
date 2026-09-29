@@ -128,11 +128,15 @@ The launcher copies [`examples/human-demonstration.json`](examples/human-demonst
 to a unique config/output folder under `TestResults/demonstrations`. It opens a
 windowed, muted 1× player. Add `--audio` only if wanted. Each run starts paused:
 Space, Escape or Continue resumes normal keyboard/mouse movement. Losing focus
-pauses again. Draft choices are automatic `randomLegal`; this first recorder is
-for movement, not human build decisions. The example allows up to five runs in
+pauses again. Draft choices are automatic `activeFirst15`: through player level 15,
+an offered active skill is chosen uniformly; if none is offered, any offered
+option is chosen uniformly. From level 16, all offered options are equally likely.
+This recorder is for movement, not human build decisions. The example allows up to five runs in
 one isolated fresh profile history and **no automatic meta purchases**. It never
 reads/writes your regular profile or settings. To record another starting
 progression, pass `--template` with a validated `preset` human config.
+The development HUD may show faster speed buttons, but the human recorder
+immediately restores 1× if one is pressed so the recording remains valid.
 
 Close the game window to end the session cleanly; normal in-game exits are
 recorded as administrative aborts, not defeats. The game flushes its recording

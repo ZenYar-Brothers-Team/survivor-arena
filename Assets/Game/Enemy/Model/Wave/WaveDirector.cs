@@ -84,7 +84,8 @@ namespace Game.Enemy
 
         // elapsedSeconds is run time (already pause-aware); deltaTime drives the
         // spawn clock. Returns how many enemies the spawner should create now.
-        public int Advance(float elapsedSeconds, float deltaTime, bool isRunning, int aliveEnemies)
+        public int Advance(float elapsedSeconds, float deltaTime, bool isRunning, int aliveEnemies,
+            bool replaceAtCap = false)
         {
             NumericValidation.ValidateNonNegativeFinite(elapsedSeconds, nameof(elapsedSeconds));
             NumericValidation.ValidateNonNegativeFinite(deltaTime, nameof(deltaTime));
@@ -135,7 +136,8 @@ namespace Game.Enemy
                     else
                         expired = checked(expired + burst.Count);
                 }
-                var burstCapacity = Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
+                var burstCapacity = replaceAtCap ? _timeline.MaxAliveEnemies :
+                    Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
                 var burstAllowed = Math.Min(count, burstCapacity);
                 LastDecision = new WaveSpawnDecision(count, burstAllowed, expired);
                 return burstAllowed;
@@ -154,7 +156,8 @@ namespace Game.Enemy
                 phaseDelta -= openingSeconds * (1f - openingIntensity.RateMultiplier);
             }
             var due = _spawnTimer.Tick(phaseDelta, true);
-            var capacity = Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
+            var capacity = replaceAtCap ? _timeline.MaxAliveEnemies :
+                Math.Max(0, _timeline.MaxAliveEnemies - aliveEnemies);
             var allowed = Math.Min(due, capacity);
             LastDecision = new WaveSpawnDecision(due, allowed, expired);
             return allowed;

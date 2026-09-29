@@ -2,6 +2,10 @@
 
 IP-34 AB-14: `DemonstrationTests` проверяет clocks, bounded queue, UTF-8 byte/sample
 limits, flush/footer, I/O failure и atomic promotion без overwrite.
+`RandomLegalDraftPolicyTests.ChooseActiveFirst15_LevelBoundary_ChangesToUniformChoiceAfterLevel15`
+и `ExperimentConfigTests.Load_ActiveFirst15DraftPolicy_IsAccepted` защищают приоритет
+активных умений в human template. `HumanRecordingSpeedGuardTests` защищает
+возврат на 1× после нажатия speed-кнопки без прерывания записи.
 `ExperimentConfigTests.Load_Human_RequiresRecordingOneChainAndNormalSpeed` защищает
 выбор отдельного native-input режима. `DemonstrationRecordingTests` проверяет
 initial/preserved pause, analog pre-physics pairs, overflow и drain перед Finished
@@ -167,6 +171,8 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 |---|---|---|---|---|
 | Actual spawn count при отсутствии target | `WaveSpawnerTests.Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Tick возвращает число созданных объектов; неисполненная группа отмечается unavailable и не повторяется. |
 | Continuous timer при перескоке между фазами | `WaveBurstTests.Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Время старой фазы не начисляется новой; suppressed заявки не накапливаются для последующего спавна. |
+| Заполненный cap не останавливает cadence | `WaveSpawnerTests.Tick_AtCap_ErasesFarthestOrdinaryWithoutLifeOrRewardEvents`, `WaveBurstTests.Burst_ReplacementCapacity_IgnoresCurrentPopulationButKeepsTimelineCeiling` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Самый дальний ordinary исчезает без lifecycle/reward; burst не превышает cap. |
+| Бесшумное стирание не считается смертью | `EnemyLifeContractTests.EraseSilently_OrdinaryEnemy_ReleasesWithoutAnyLifecycleCallback` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Registry и pool очищаются без Died/Despawned/LifeEvent. |
 | Противоположный спавн покрывает всё кольцо | `WaveDirectorTests.SelectSpawnAngle_BiasesOppositeCentroidButKeepsFullRing`, `SelectSpawnAngle_ZeroBiasMatchesUniformStream` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Проверяет смещение, ненулевой охват всех секторов и воспроизводимость; реальную форму толпы проверяет плейтест. |
 
 ## IP-15 — regression guards

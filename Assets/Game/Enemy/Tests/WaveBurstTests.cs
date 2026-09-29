@@ -31,6 +31,16 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0, director.Advance(2, 1, true, 0));
         }
 
+        [Test]
+        public void Burst_ReplacementCapacity_IgnoresCurrentPopulationButKeepsTimelineCeiling()
+        {
+            var director = Director(Burst(count: 12));
+            Assert.AreEqual(8, director.Advance(1, 1, true, 8, replaceAtCap: true));
+            Assert.AreEqual(12, director.LastDecision.Requested);
+            Assert.AreEqual(4, director.LastDecision.Suppressed);
+            Assert.AreEqual(0, director.Advance(2, 1, true, 8, replaceAtCap: true));
+        }
+
         [TestCase(3f)]
         [TestCase(100f)]
         public void Burst_SkippedWindowIncludingLastHold_ExpiresWithoutReplay(float time)

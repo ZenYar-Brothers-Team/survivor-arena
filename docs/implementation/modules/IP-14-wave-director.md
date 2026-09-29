@@ -28,7 +28,7 @@ Production schedules, adaptive difficulty, Traveler RNG/type selection, profiler
 
 ## Acceptance criteria
 
-`maxAliveEnemies` задаётся один раз на timeline и является техническим, а не фазовым балансным пределом. Burst исполняется один раз в заданном окне и также подчиняется этому пределу: доступная часть группы появляется, подавленный остаток не откладывается. Боссы и Путники не занимают regular cap. Пауза замораживает время окна; завершившиеся окна и невышедший остаток не воспроизводятся после skip; terminal state прекращает спавн. Continuous behavior retained. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline. Основание: [DECISION-0076](../../decisions/0076-wave-cap-and-field001-rhythm.md).
+`maxAliveEnemies` задаётся один раз на timeline и является техническим, а не фазовым балансным пределом. При заполненном cap спавнер бесшумно удаляет самых дальних обычных врагов и исполняет очередной continuous/burst запрос. Burst больше cap обрезается, остаток не откладывается. Боссы, мини-боссы и Путники не занимают regular cap. Пауза замораживает время окна; завершившиеся окна и невышедший остаток не воспроизводятся после skip; terminal state прекращает спавн. Phase transitions/skips/last hold/hook boundaries deterministic на director level; later wave may be faster but frailer. Registry/pool stays consistent at repeated load. Spawn actual counts distinguish requested/suppressed/deferred. Production schedules не выводятся из fixture timeline. Основание: [DECISION-0105](../../decisions/0105-continuous-cap-replacement.md).
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -72,8 +72,10 @@ MidBoss → FinalBoss, исполняются по одному разу пер�
 hooks догоняются; пропущенные burst windows отменяются. Terminal state не догоняет hooks.
 
 Spawner владеет только ordinary enemies, включая spawned burst: они учитываются
-при последующем continuous cap. Boss/Traveler owners используют отдельный lifecycle
-и не входят в этот счётчик. Seeded independent RNG streams выбирают composition и
+при последующем continuous cap. Когда cap заполнен, spawner сначала бесшумно
+возвращает в пул самых дальних от игрока ordinary enemies, затем выполняет spawn;
+удалённые не дают kills, XP, pickups и lifecycle events. Boss/Traveler owners
+используют отдельный lifecycle и не входят в этот счётчик. Seeded independent RNG streams выбирают composition и
 угол на окружности `spawnRadius` (world units) вокруг текущей позиции игрока.
 `spawnOppositeBias` в `[0, 1]` смещает вероятность напротив приблизительного
 центра массы живых обычных врагов, сохраняя полное кольцо (DECISION-0100).
