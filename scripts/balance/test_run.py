@@ -83,6 +83,21 @@ class BalanceRunnerTests(unittest.TestCase):
             balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
                                       audio=True)
 
+    def test_visual_launch_does_not_inherit_hidden_window_flags(self):
+        hidden = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log")
+        visual = balance_run.child_command(self.player, self.experiment, self.output, "chain-0001", self.root / "log",
+                                           visual=True)
+        with mock.patch.object(balance_run.subprocess, "Popen") as popen:
+            balance_run.launch(hidden)
+            hidden_options = popen.call_args.kwargs
+            balance_run.launch(visual)
+            visual_options = popen.call_args.kwargs
+        if balance_run.os.name == "nt":
+            self.assertIn("startupinfo", hidden_options)
+            self.assertIn("creationflags", hidden_options)
+        self.assertNotIn("startupinfo", visual_options)
+        self.assertNotIn("creationflags", visual_options)
+
     def test_two_chains_are_sequential_and_manifest_preserves_runs(self):
         launches = []
 
@@ -146,6 +161,54 @@ class BalanceRunnerTests(unittest.TestCase):
         manifest = json.loads((self.output / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual("partial", manifest["state"])
         self.assertEqual("wallBudget", manifest["chains"][0]["state"])
+
+    def test_wall_budget_does_not_start_another_chain(self):
+        self.config["maxExperimentWallSeconds"] = 100
+        self.experiment.write_text(json.dumps(self.config), encoding="utf-8")
+        launches = []
+
+        def launch(command):
+            chain_id = command[-1].split("=", 1)[1]
+            launches.append(chain_id)
+            return FakeChild(self.output, chain_id)
+
+        ticks = iter([0, 0, 101, 102])
+        with mock.patch.object(balance_run, "launch", side_effect=launch), \
+             mock.patch.object(balance_run.time, "monotonic", side_effect=lambda: next(ticks, 102)):
+            self.assertEqual(0, balance_run.run(self.experiment, self.player, self.output))
+        self.assertEqual(["chain-0001"], launches)
+        manifest = json.loads((self.output / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual("partial", manifest["state"])
+        self.assertEqual("wallBudget", manifest["chains"][1]["state"])
+
+    def test_worker_can_export_in_wall_budget_grace(self):
+        self.config["chains"] = 1
+        self.config["maxExperimentWallSeconds"] = 100
+        self.experiment.write_text(json.dumps(self.config), encoding="utf-8")
+
+        class GracefulChild(FakeChild):
+            polls = 0
+
+            def poll(self):
+                self.polls += 1
+                return None if self.polls == 1 else 0
+
+        def launch(command):
+            child = GracefulChild(self.output, "chain-0001", hang=True)
+            folder = self.output / "chains" / "chain-0001"
+            (folder / "chain-summary.json").write_text(
+                json.dumps({"stopReason": "experimentWallBudget"}), encoding="utf-8")
+            return child
+
+        ticks = iter([0, 0, 100, 101])
+        with mock.patch.object(balance_run, "launch", side_effect=launch), \
+             mock.patch.object(balance_run.time, "monotonic", side_effect=lambda: next(ticks, 101)), \
+             mock.patch.object(balance_run.time, "sleep"):
+            self.assertEqual(0, balance_run.run(self.experiment, self.player, self.output))
+        manifest = json.loads((self.output / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual("partial", manifest["state"])
+        self.assertEqual("partial", manifest["chains"][0]["state"])
+        self.assertEqual(0, manifest["chains"][0]["exitCode"])
 
     def test_keyboard_cancel_keeps_partial_manifest(self):
         children = []

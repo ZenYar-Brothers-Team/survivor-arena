@@ -74,6 +74,9 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual("completed", (string)sidecar["completionReason"]);
             Assert.AreEqual("Victory", (string)sidecar["outcome"]);
             Assert.AreEqual(_host.Receipt.Total, (long)sidecar["receipt"]["Total"]);
+            var savedSidecar = File.ReadAllText(Path.Combine(folder, "automation.json"));
+            _host.RequestStop("duplicateFinalization");
+            Assert.AreEqual(savedSidecar, File.ReadAllText(Path.Combine(folder, "automation.json")));
         }
 
         [UnityTest]
@@ -154,6 +157,23 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(AutomationRunState.Failed, _host.State);
             Assert.AreEqual("profileSaveFailed", _host.TerminalReason);
             Assert.IsNull(_host.Receipt);
+        }
+
+        [UnityTest]
+        public IEnumerator Host_ExportFailure_NeverMarksSidecarComplete()
+        {
+            for (var i = 0; i < 20 && _host.State != AutomationRunState.Running; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Running, _host.State, _host.TerminalReason);
+            var folder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs",
+                _run.Model.RunId.ToString("N"));
+            Directory.CreateDirectory(Path.Combine(folder, "run.json"));
+            _run.Model.Kill();
+            for (var i = 0; i < 40 && !_host.IsFinished; i++) yield return null;
+            Assert.AreEqual(AutomationRunState.Failed, _host.State, _host.TerminalReason);
+            StringAssert.Contains("telemetryExportFailed", _host.TerminalReason);
+            var sidecarPath = Path.Combine(folder, "automation.json");
+            if (File.Exists(sidecarPath))
+                Assert.AreNotEqual("completed", (string)JObject.Parse(File.ReadAllText(sidecarPath))["completionReason"]);
         }
     }
 }

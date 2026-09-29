@@ -12,6 +12,8 @@ import sys
 import time
 from datetime import datetime, timezone
 
+WALL_BUDGET_SHUTDOWN_GRACE_SECONDS = 30
+
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -108,7 +110,7 @@ def child_command(player: Path, experiment: Path, output: Path, chain_id: str, l
 
 def launch(command: list[str]) -> subprocess.Popen:
     options = {}
-    if os.name == "nt":
+    if os.name == "nt" and "-batchmode" in command:
         startup = subprocess.STARTUPINFO()
         startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         startup.wShowWindow = subprocess.SW_HIDE
@@ -189,6 +191,11 @@ def run(experiment: Path, player: Path, output: Path, visual: bool = False, audi
         chain = {"chainId": chain_id, "state": "starting", "runs": [], "startedUtc": utc_now()}
         manifest["chains"].append(chain)
         write_json(output / "manifest.json", manifest)
+        if time.monotonic() - started >= config["maxExperimentWallSeconds"]:
+            chain["state"] = "wallBudget"
+            chain["endedUtc"] = utc_now()
+            write_json(output / "manifest.json", manifest)
+            break
         if digest_file(experiment) != config_hash:
             chain["state"] = "inputChanged"
             break
@@ -207,7 +214,7 @@ def run(experiment: Path, player: Path, output: Path, visual: bool = False, audi
             chain["pid"] = child.pid
             while child.poll() is None:
                 elapsed = time.monotonic() - started
-                if elapsed >= config["maxExperimentWallSeconds"]:
+                if elapsed >= config["maxExperimentWallSeconds"] + WALL_BUDGET_SHUTDOWN_GRACE_SECONDS:
                     chain["state"] = "wallBudget"
                     stop_child(child)
                     break

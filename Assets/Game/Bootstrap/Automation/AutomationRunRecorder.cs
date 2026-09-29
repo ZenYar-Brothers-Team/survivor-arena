@@ -11,14 +11,12 @@ namespace Game.Bootstrap.Automation
     /// <summary>Bounded, main-thread, typed history. Counters survive event-buffer overflow.</summary>
     public sealed class AutomationRunRecorder : IDisposable
     {
-        private const int MaxEvents = 2048;
         private readonly RunModel _run;
         private readonly LevelUpDraftRuntime _draft;
         private readonly PlayerCharacterRuntime _player;
         private readonly PlayerExperienceRuntime _xp;
         private readonly WaveDirector _waves;
-        private readonly JArray _events = new JArray();
-        private int _dropped;
+        private readonly AutomationEventBuffer _events = new AutomationEventBuffer(2048);
         private int _offers;
         private int _selections;
         private int _phaseEntries;
@@ -36,15 +34,10 @@ namespace Game.Bootstrap.Automation
             _waves.PhaseChanged += OnPhase;
             OnPhase(_waves.CurrentPhase, _waves.CurrentPhaseIndex);
         }
-        private void Add(JObject item)
-        {
-            if (_events.Count < MaxEvents) _events.Add(item);
-            else _dropped++;
-        }
         private void OnPhase(WavePhaseDefinition phase, int index)
         {
             _phaseEntries++;
-            Add(new JObject { ["type"] = "phase", ["simulationSeconds"] = _run.Elapsed,
+            _events.Add(new JObject { ["type"] = "phase", ["simulationSeconds"] = _run.Elapsed,
                 ["phaseId"] = phase.Id.ToString(), ["phaseIndex"] = index,
                 ["hp"] = _player.Health.CurrentHealth, ["maxHp"] = _player.Health.MaxHealth,
                 ["level"] = _xp.Progression.Level, ["experience"] = _xp.Progression.CurrentExperience });
@@ -56,7 +49,7 @@ namespace Game.Bootstrap.Automation
             foreach (var option in options)
                 choices.Add(new JObject { ["id"] = option.Definition.Id.ToString(), ["level"] = option.ResultingLevel,
                     ["kind"] = option.Definition.Kind.ToString() });
-            Add(new JObject { ["type"] = "draftOffer", ["simulationSeconds"] = _run.Elapsed,
+            _events.Add(new JObject { ["type"] = "draftOffer", ["simulationSeconds"] = _run.Elapsed,
                 ["requestId"] = _draft.CurrentRequest?.Id.ToString("N"),
                 ["origin"] = _draft.CurrentRequest?.Origin.ToString(), ["revision"] = _draft.Revision.ToString("N"),
                 ["options"] = choices });
@@ -64,7 +57,7 @@ namespace Game.Bootstrap.Automation
         private void OnSelection(BuildSelectionResult result)
         {
             _selections++;
-            Add(new JObject { ["type"] = "draftSelection", ["simulationSeconds"] = _run.Elapsed,
+            _events.Add(new JObject { ["type"] = "draftSelection", ["simulationSeconds"] = _run.Elapsed,
                 ["id"] = result.Entry.Definition.Id.ToString(), ["level"] = result.Entry.Level,
                 ["kind"] = result.Entry.Definition.Kind.ToString(), ["newEntry"] = result.WasNewEntry });
         }
@@ -74,7 +67,7 @@ namespace Game.Bootstrap.Automation
             foreach (var entry in _draft.Build.Entries)
                 build.Add(new JObject { ["id"] = entry.Definition.Id.ToString(), ["level"] = entry.Level,
                     ["kind"] = entry.Definition.Kind.ToString() });
-            return new JObject { ["events"] = _events.DeepClone(), ["droppedEvents"] = _dropped,
+            return new JObject { ["events"] = _events.Snapshot(), ["droppedEvents"] = _events.DroppedCount,
                 ["offerCount"] = _offers, ["selectionCount"] = _selections, ["phaseEntryCount"] = _phaseEntries,
                 ["reachedPhaseId"] = _waves.CurrentPhase.Id.ToString(),
                 ["reachedPhaseIndex"] = _waves.CurrentPhaseIndex,

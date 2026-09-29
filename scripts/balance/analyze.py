@@ -202,7 +202,10 @@ def analyze_experiment(root: Path) -> dict:
         for event in row.get("phaseEvents", []):
             key = (row.get("fieldId"), row.get("timelineId"), event.get("phaseIndex"), event.get("phaseId"))
             phase_groups[key].setdefault(row["runId"], (row, event))
-    for key, by_run in sorted(phase_groups.items(), key=lambda pair: str(pair[0])):
+    for key, by_run in sorted(phase_groups.items(),
+                              key=lambda pair: (str(pair[0][0]), str(pair[0][1]),
+                                                pair[0][2] if isinstance(pair[0][2], int) else -1,
+                                                str(pair[0][3]))):
         observations = list(by_run.values())
         phases.append({"fieldId": key[0], "timelineId": key[1], "phaseIndex": key[2], "phaseId": key[3],
                        "observedRuns": len(phase_coverage[(key[0], key[1])]),

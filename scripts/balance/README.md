@@ -54,6 +54,9 @@ or user input) and mutes its own audio listener before scene load. For one
 specific experiment add `--visual` to show the game window; it stays silent
 unless you also add `--audio`. Neither switch affects your normal game or
 system audio. The selected mode is recorded in the experiment and manifest.
+For a single visible run, set `chains: 1` and `maxRunsPerChain: 1` in a new
+experiment config, use a new output directory, and invoke `run.py` with
+`--visual`. Add `--audio` only if sound is wanted for that run.
 
 `manifest.json` is atomically refreshed during execution. `experiment.json`
 captures the requested config and build fingerprint. Each chain has an initial
@@ -63,6 +66,10 @@ profile, progress heartbeat and summary. Each run has existing telemetry
 watchdog/route stop, not a loss; `failed` means process, input, export or save
 failure. Ctrl+C stops only this runner's current child, keeps completed files,
 and marks the manifest `cancelled`. There are no automatic retries or deletion.
+At an experiment wall limit, the Unity worker gets up to 30 additional seconds
+to export the current censored run and its chain summary. A hung worker is then
+terminated; the manifest records actual elapsed wall time, including this grace.
+No new chain starts after the configured limit.
 
 Analyze any finished or partial experiment without filtering away inconvenient
 runs. Outputs `analysis.json`, `runs.csv`, `chains.csv`, and `summary.md` in the

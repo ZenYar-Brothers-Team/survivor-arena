@@ -103,6 +103,13 @@ class BalanceAnalysisTests(unittest.TestCase):
         self.assertEqual(2, result["summary"]["incompleteRuns"])
         self.assertEqual(2, len(result["excluded"]))
 
+    def test_phase_rows_follow_numeric_phase_order(self):
+        self.add_run("chain-0001", "a" * 32, 1, "Defeat", 100, 10)
+        self.add_run("chain-0002", "b" * 32, 1, "Defeat", 80, 2)
+        self.manifest()
+        result = analyze_experiment(self.root)
+        self.assertEqual([0, 2, 10], [row["phaseIndex"] for row in result["phases"]])
+
     def test_compare_rejects_policy_or_speed_mismatch(self):
         self.add_run("chain-0001", "a" * 32, 1, "Victory", 100, 1)
         self.manifest()

@@ -20,12 +20,12 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
-Автоматические прогоны 2026-09-29 — поручена реализация всей очереди AB-01…08
-[IP-34](modules/IP-34-automated-balance-runs.md), `automated-runs-v1`
-([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md)). Пользователь
-разрешил проходить [scoped очередь](#automated-runs-execution) последовательно,
-останавливаясь только для принципиальных решений. Остальные UI/gameplay поручения
-и паузы сохраняются.
+Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
+`automated-runs-v1`: очередь AB-01…08 реализована и проверена
+([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
+[DECISION-0098](../decisions/0098-balance-runner-presentation.md));
+[scoped очередь](#automated-runs-execution) содержит фактические проверки.
+Остальные UI/gameplay поручения и паузы сохраняются.
 
 UI Folio polish 2026-09-29 — Implemented: по явному поручению пользователя
 выполняется отложенная чистовая отделка кнопок и фоновых поверхностей из
@@ -116,12 +116,12 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 |---:|---|---|---|
 | 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Verified | 6/6 EditMode + 3/3 Python, [evidence](evidence/2026-09-29-ip34-automation.md#ab-01) |
 | 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | Verified | Full graphics 975/975 + 40/40, XP PlayMode 2/2; [evidence](evidence/2026-09-29-ip34-automation.md#ab-02) |
-| 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Implemented | 13/13 EditMode + 6/6 fixture PlayMode; natural FIELD-001 run pending report integration, [evidence](evidence/2026-09-29-ip34-automation.md#ab-03) |
-| 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Implemented | 6/6 composed PlayMode; natural-run, overflow/export-failure and purchase snapshots pending; [evidence](evidence/2026-09-29-ip34-automation.md#ab-04) |
-| 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Implemented | 15/15 Automation EditMode + 2/2 composed PlayMode; [evidence](evidence/2026-09-29-ip34-automation.md#ab-05) |
-| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Implemented | 10/10 Python + real headless standalone partial smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-06) |
-| 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Implemented | 14/14 Python synthetic/exact tests + real partial report; [evidence](evidence/2026-09-29-ip34-automation.md#ab-07) |
-| 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | In progress | AB-01…07 implementation |
+| 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Verified | 9 natural completions plus fixture lifecycle tests; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Verified | Natural sidecars/profile snapshots; overflow/export/duplicate tests in final 52/52 PlayMode; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Verified | Two independent chains per template, purchases in preset, fixture route advance; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Verified | Silent player, full multi-chain series, 600 s partial, final rebuild/smoke; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 7 | [AB-07 — статистика и сравнение](modules/IP-34-automated-balance-runs.md#ab-07) | Verified | 18/18 Python tests and real-series groups/censoring; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
+| 8 | [AB-08 — пилот и измерение скорости](modules/IP-34-automated-balance-runs.md#ab-08) | Verified | 8 natural template runs, separate 1× and 600 s window, full graphics 979/979 + 52/52; [evidence](evidence/2026-09-29-ip34-automation.md#ab-08) |
 
 Строгий replay, новый fast simulation loop, автоподбор чисел и vision не входят
 в эту очередь. Имеющиеся полные/ручные проверки других IP не считаются evidence IP-34.
@@ -764,29 +764,30 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 
 ### IP-34 — Автоматические прогоны баланса и прогрессии
 
-Status: In progress
+Status: Verified
 Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-08; готовность остальных — в scoped очереди выше.
+Current packet: очередь AB-01…08 завершена; подтверждение каждого — в scoped очереди выше.
 Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
-Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
-случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.
+Remaining acceptance: в границах v1 нет. Целевой win rate, автоподбор и
+визуальный reviewer остаются будущими отдельными решениями; `--visual` доступен
+по явному запросу, но не запускался на экране в финальном пилоте.
 Prerequisite audit 2026-09-29: проверены текущие `ProfileCodec/MemoryProfileStore`,
 `IProfileService.PurchaseAsync`, launchers/ProfileSaveTask composition root,
 revision-aware draft commands, PlayerMover и telemetry. Для полного v1 нужны
 новые input/observation/report adapters, а не повторная реализация gameplay.
 Content boundary: базовый пилот использует FIELD-001; дополнительные поля только
 с готовыми production bindings. FIELD-004…010 не становятся доступными этим планом.
-Target implementation evidence: AB-01 config/profile isolation; AB-02 bot input,
-observation/steering; AB-03 one-run host; [детали](evidence/2026-09-29-ip34-automation.md).
-Target verification evidence: AB-01 6/6 Unity EditMode + 3/3 Python; AB-02 full
-graphics Unity 975/975 EditMode + 40/40 PlayMode, target XP fixture 2/2 PlayMode,
-0 failed/skipped. AB-03 fixture tests 13/13 EditMode + 6/6 PlayMode; natural
-production run и дальнейшие packets ещё не проверены.
-Documentation impact: IP-34 schema/examples, policy formula/limits и инструкция
-синхронизированы; Game/Content Design без изменений.
-Documentation impact: GDD/CD и production balance без изменений; связаны owning IP,
-BALANCE_WORKFLOW, каталог модулей и PROJECT_MAP.
+Implementation/verification evidence: [AB-01…08](evidence/2026-09-29-ip34-automation.md),
+финальный Unity 6000.6.0f1 full graphics 979/979 EditMode + 52/52 PlayMode,
+0 failed/skipped, Python 18/18; 8 natural template runs, one natural 1× run,
+one 600 s window with 5 natural runs plus one censored. Live profile changed
+during overlapping local activity without matching automation run IDs; a
+separate controlled final-player run left profile/settings hashes unchanged.
+Без правки баланса.
+Documentation impact: IP-34 schema/examples, policy formula/limits,
+[DECISION-0098](../decisions/0098-balance-runner-presentation.md) и инструкция
+синхронизированы; GDD/CD и production balance без изменений.
 
 ## Status maintenance rule
 
