@@ -102,7 +102,7 @@ namespace Game.Automation
             if (movement.Id != "safePickup" || movement.Version != 1) throw new ArgumentException("Unknown movement policy/version.");
             Range(movement.DecisionIntervalSeconds, 0.02f, 2f, "decisionIntervalSeconds");
             Range(movement.ObservationRadius, 1f, 50f, "observationRadius");
-            Range(movement.PredictionSeconds, 0f, 3f, "predictionSeconds");
+            Range(movement.PredictionSeconds, 0.05f, 3f, "predictionSeconds");
             Range(movement.ObstaclePadding, 0f, 2f, "obstaclePadding");
             Range(movement.StuckSeconds, 0.5f, 30f, "stuckSeconds");
             if (data.DraftPolicy?.Id != "randomLegal" || data.DraftPolicy.Version != 1)

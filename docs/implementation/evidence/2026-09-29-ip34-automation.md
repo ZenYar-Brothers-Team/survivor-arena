@@ -24,3 +24,28 @@ Runtime status and packet order live only in [STATUS](../STATUS.md).
   invalid personal owner/cap, immutable config snapshot, independent chain
   purchase state, preset source change after validation, player save/settings
   sentinels, no invented receipts. No production run is claimed for AB-01.
+
+## AB-02
+
+- `PlayerMover` accepts an optional direction source before its existing speed,
+  knockback and Rigidbody2D calculation. Null retains keyboard/mouse.
+- Owner-backed read-only snapshots include current enemies, projectiles, XP,
+  world pickups, authored obstacle colliders and visible boss hazard shapes.
+  The adapter never scans all scene objects per frame or draws future RNG.
+  `DangerWash` inverse safe-zone geometry is explicitly `coverageIncomplete`;
+  the bot stops rather than treating an unmodeled hazard as safe.
+- `safePickup/v1` evaluates eight directions plus stop, predicts visible threats,
+  gives local obstacle detours and bounded stuck recovery. Formula, units,
+  ranges and worked example are in the IP-34 module §5; these are bot settings,
+  not gameplay tuning or a claim about human play.
+- Checks: Unity 6000.6.0f1 full graphics safe runner 975/975 EditMode +
+  40/40 PlayMode, 0 failed/skipped, audio/generation/art 268 PASS at
+  `TestResults/checks/20260929T101309-221659Z/summary.json`. After adding
+  the prepared reachable XP scene fixture, targeted PlayMode 2/2 PASS at
+  `TestResults/checks/20260929T101741-482847Z/summary.json`. Pure policy
+  tests cover XP, obstacle, projectile, incomplete coverage and stuck; the
+  production-scene fixtures cover Rigidbody movement, pause/end and XP pickup.
+- First PlayMode attempt could not load production audio because a new worktree
+  held Git LFS pointers. Cached runtime audio/art LFS objects were checked out
+  into this worktree only; no production content changed. No completed natural
+  balance run is claimed for AB-02.

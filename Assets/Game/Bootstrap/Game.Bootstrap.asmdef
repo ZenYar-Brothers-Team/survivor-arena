@@ -23,7 +23,8 @@
     "Game.Diagnostics",
     "Game.Pooling",
     "Unity.InputSystem",
-    "Game.Audio"
+    "Game.Audio",
+    "Game.Automation"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

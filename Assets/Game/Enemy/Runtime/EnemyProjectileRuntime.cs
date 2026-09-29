@@ -37,6 +37,8 @@ namespace Game.Enemy
         public bool IsActive => _initialized && !_despawned;
         public float RemainingSeconds => _lifetime?.RemainingSeconds ?? 0f;
         public EnemyAttackProfile Profile => _profile;
+        public Vector2 Position => _body != null ? _body.position : (Vector2)transform.position;
+        public Vector2 Velocity => _profile != null ? _direction * _profile.ProjectileSpeed : Vector2.zero;
         public CombatSource Source { get; private set; }
 
         public void Initialize(
@@ -81,6 +83,7 @@ namespace Game.Enemy
             _impactReleasePending = false;
             ConfigureVisual();
             gameObject.name = $"Enemy Projectile [{profile.Pattern}]";
+            EnemyProjectileRegistry.Register(this);
             HandleRunState(_run.State);
         }
 
@@ -192,6 +195,7 @@ namespace Game.Enemy
 
         private void ClearState()
         {
+            EnemyProjectileRegistry.Unregister(this);
             if (_run != null) _run.StateChanged -= HandleRunState;
             _initialized = false;
             _despawned = true;

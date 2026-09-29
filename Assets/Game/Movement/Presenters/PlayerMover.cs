@@ -28,6 +28,10 @@ namespace Game.Movement
         private System.Func<Vector2?> _pointerScreenPosition;
         private Camera _inputCamera;
         private float _mouseDeadzoneWorldUnits;
+        private IMovementInputSource _inputSource;
+
+        /// <summary>Null restores the configured keyboard/mouse controls; no gameplay speed or physics rule changes.</summary>
+        public void ConfigureInputSource(IMovementInputSource source) => _inputSource = source;
 
         public void ConfigureMouseMovement(System.Func<bool> mouseMovementEnabled, Camera inputCamera, float deadzoneWorldUnits,
             System.Func<Vector2?> pointerScreenPosition = null)
@@ -73,6 +77,7 @@ namespace Game.Movement
 
         private Vector2 ReadMovementInput()
         {
+            if (_inputSource != null) return _inputSource.ReadDirection();
             var screenPosition = _pointerScreenPosition?.Invoke();
             if (_mouseMovementEnabled?.Invoke() != true || !screenPosition.HasValue || _inputCamera == null)
                 return moveAction.action.ReadValue<Vector2>();

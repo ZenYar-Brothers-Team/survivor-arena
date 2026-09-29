@@ -21,6 +21,7 @@ using Game.UI;
 using UnityEngine;
 using Game.Telemetry;
 using Game.Audio;
+using Game.Bootstrap.Automation;
 
 namespace Game.Bootstrap
 {
@@ -102,6 +103,15 @@ namespace Game.Bootstrap
         public bool AtManualPause => IsInitialized && runController.Model.IsPausedBy(RunPauseReasons.Manual);
         public bool CanPlay => Profile != null && Profile.CanStart;
         public string MovementBindings => player != null ? player.GetComponent<PlayerMover>()?.MovementBindings ?? "Unavailable" : "Unavailable";
+        /// <summary>Development-only current-state observation; never instantiated during ordinary play.</summary>
+        public AutomationObservationAdapter CreateAutomationObservationAdapter(float observationRadius)
+        {
+            if (!DevelopmentTools || !IsInitialized || _fieldEnvironmentArt == null || FieldConfiguration == null)
+                throw new InvalidOperationException("Automation observation requires an active development run.");
+            return new AutomationObservationAdapter(player, experienceRuntime, Pickups, BossEncounters,
+                _fieldEnvironmentArt.ObstacleColliders,
+                FixturePickupPlacement.ArenaBounds(FieldConfiguration.Environment, gameObject.scene), observationRadius);
+        }
         public ISettingsService Settings { get; private set; }
         public UnityEngine.UIElements.UIDocument ShellDocument => _shellScreen?.Document;
         private AppShellScreen _shellScreen;

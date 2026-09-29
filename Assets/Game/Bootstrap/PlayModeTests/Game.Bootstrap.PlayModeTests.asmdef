@@ -21,7 +21,8 @@
     "Newtonsoft.Json",
     "Game.Meta",
     "Game.Settings",
-    "Game.Movement"
+    "Game.Movement",
+    "Game.Automation"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

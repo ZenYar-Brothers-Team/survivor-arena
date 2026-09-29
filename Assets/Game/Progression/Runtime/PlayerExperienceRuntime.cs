@@ -82,6 +82,15 @@ namespace Game.Progression
             if (_activeDrops.Remove(drop)) GroundBase = Math.Max(0, GroundBase - drop.Amount);
         }
 
+        /// <summary>Copies only active ground XP drops for read-only observers; caller owns the destination buffer.</summary>
+        public void CopyActiveDropsTo(List<ExperienceDropRuntime> destination)
+        {
+            if (destination == null) throw new ArgumentNullException(nameof(destination));
+            using var guard = PerfGuard.Measure("PlayerExperienceRuntime.CopyActiveDropsTo", 2f);
+            destination.Clear();
+            foreach (var drop in _activeDrops) if (drop != null && !drop.IsConsumed) destination.Add(drop);
+        }
+
         public event Action<int> LevelUp;
         public event Action<int, int> LevelsEarned;
 

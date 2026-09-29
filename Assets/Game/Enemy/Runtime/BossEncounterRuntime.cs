@@ -54,6 +54,14 @@ namespace Game.Enemy
         /// <summary>Living ordinary enemies summoned by bosses (DECISION-0066, F3); they outlive their boss.</summary>
         public int SummonedAlive => _summonOwners.Count;
         public BossHazardField HazardsOf(EnemyRuntime boss) => boss != null && _hazards.TryGetValue(boss, out var field) ? field : null;
+        /// <summary>Copies currently visible boss hazard shapes for diagnostics and autonomous observation.</summary>
+        public void CopyHazardVisualsTo(List<BossHazardVisual> destination)
+        {
+            if (destination == null) throw new ArgumentNullException(nameof(destination));
+            using var guard = Game.Diagnostics.PerfGuard.Measure("BossEncounterRuntime.CopyHazardVisualsTo", 2f);
+            destination.Clear();
+            foreach (var field in _hazards.Values) destination.AddRange(field.Visuals);
+        }
 
         public string DevelopmentObservation
         {

@@ -115,8 +115,8 @@ UI Unlocks review 2026-09-29: по поручению пользователя �
 | Порядок | Packet | Status | Prerequisite / следующий шаг |
 |---:|---|---|---|
 | 1 | [AB-01 — конфигурация и изоляция профилей](modules/IP-34-automated-balance-runs.md#ab-01) | Verified | 6/6 EditMode + 3/3 Python, [evidence](evidence/2026-09-29-ip34-automation.md#ab-01) |
-| 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | In progress | AB-01 Verified; bot input/observer |
-| 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | Blocked | AB-01/02 |
+| 2 | [AB-02 — наблюдение и движение](modules/IP-34-automated-balance-runs.md#ab-02) | Verified | Full graphics 975/975 + 40/40, XP PlayMode 2/2; [evidence](evidence/2026-09-29-ip34-automation.md#ab-02) |
+| 3 | [AB-03 — один автономный забег](modules/IP-34-automated-balance-runs.md#ab-03) | In progress | AB-01/02 Verified; run lifecycle and draft host |
 | 4 | [AB-04 — отчёт и история развития](modules/IP-34-automated-balance-runs.md#ab-04) | Blocked | AB-03; IP-31 adapters расширять только под заявленные метрики |
 | 5 | [AB-05 — campaign и межзабеговая прогрессия](modules/IP-34-automated-balance-runs.md#ab-05) | Blocked | AB-03/04 |
 | 6 | [AB-06 — standalone и локальный runner](modules/IP-34-automated-balance-runs.md#ab-06) | Blocked | AB-05 |
@@ -767,7 +767,7 @@ Target verification evidence: audio integrity 28/28; после REPO-01 Unity 60
 Status: In progress
 Scope revision: automated-runs-v1, отдельный план по поручению 2026-09-29.
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
-Current packet: AB-02; готовность остальных — в scoped очереди выше.
+Current packet: AB-03; готовность остальных — в scoped очереди выше.
 Authorization: реализация AB-01…08 последовательно разрешена пользователем 2026-09-29.
 Remaining acceptance: AB-01…08 — оба campaign templates, обычный player loop,
 случайные runs, независимые профили, бот, отчёты, сравнение, standalone и пилот.
@@ -777,12 +777,13 @@ revision-aware draft commands, PlayerMover и telemetry. Для полного v
 новые input/observation/report adapters, а не повторная реализация gameplay.
 Content boundary: базовый пилот использует FIELD-001; дополнительные поля только
 с готовыми production bindings. FIELD-004…010 не становятся доступными этим планом.
-Target implementation evidence: AB-01 — строгий config, preset preparation и
-изолированные profile/settings stores; [детали](evidence/2026-09-29-ip34-automation.md#ab-01).
-Target verification evidence: AB-01 Unity 6000.6.0f1 targeted EditMode 6/6,
-Python 3/3, docs STATIC PASS; дальнейшие packets и production pilot ещё не проверены.
-Documentation impact: IP-34 schema/examples и локальная инструкция AB-01 синхронизированы;
-Game/Content Design без изменений.
+Target implementation evidence: AB-01 config/profile isolation; AB-02 bot input,
+read-only observation and steering; [детали](evidence/2026-09-29-ip34-automation.md).
+Target verification evidence: AB-01 6/6 Unity EditMode + 3/3 Python; AB-02 full
+graphics Unity 975/975 EditMode + 40/40 PlayMode, target XP fixture 2/2 PlayMode,
+0 failed/skipped. Дальнейшие packets и production pilot ещё не проверены.
+Documentation impact: IP-34 schema/examples, policy formula/limits и инструкция
+синхронизированы; Game/Content Design без изменений.
 Documentation impact: GDD/CD и production balance без изменений; связаны owning IP,
 BALANCE_WORKFLOW, каталог модулей и PROJECT_MAP.
 

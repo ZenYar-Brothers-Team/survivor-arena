@@ -37,6 +37,14 @@ namespace Game.Pickup
         public event Action<PickupEvent> Spawned;
         public PickupSnapshot Snapshot => new PickupSnapshot(_spawned, _collected, _expired, _cancelled, _rejected, _active.Count, _feedback);
         public int InactiveCount => _pool?.InactiveCount ?? 0;
+        /// <summary>Copies active world pickups without exposing the mutable owner collection.</summary>
+        public void CopyActiveTo(List<WorldPickupVisual> destination)
+        {
+            if (destination == null) throw new ArgumentNullException(nameof(destination));
+            using var guard = PerfGuard.Measure("WorldPickupRuntime.CopyActiveTo", 2f);
+            destination.Clear();
+            foreach (var pickup in _active) if (pickup != null && pickup.Life != null) destination.Add(pickup);
+        }
         public void Initialize(FixturePickupCatalog catalog, RunModel run, PlayerCharacterRuntime player,
             IPickupRewardTarget target, Rect fieldBounds, ContentId field,
             IReadOnlyDictionary<ContentId, SpriteDefinition> visuals = null, int? dropSeed = null, int? scatterSeed = null)

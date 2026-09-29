@@ -180,6 +180,35 @@ pickups в пределах наблюдения; hidden future RNG/будущи
 Радиусы, частота решений, горизонт предсказания и stuck timeout задаются в bot config.
 AB-02 обязан документировать формулу оценки, units, допустимые диапазоны и пример;
 выбрать проверяемые технические значения, не выдавать их за модель человека.
+
+`safePickup/v1` оценивает stop и восемь направлений раз в
+`decisionIntervalSeconds` игрового времени (0.02…2 s, пример 0.2). Радиус
+наблюдения 1…50 world units (пример 12), горизонт `h` 0.05…3 simulation s
+(пример 0.5), отступ от препятствий 0…2 world units (пример 0.15),
+`stuckSeconds` 0.5…30 simulation s (пример 3). Все эти числа — техническая
+конфигурация бота, а не значения игрока или модель человеческого поведения.
+Для направления `d` и текущей позиции `p` прогноз игрока `p′ = p + d·v·h`,
+где `v` — текущая штатная скорость в world units/s. У видимой угрозы
+`q′ = q + velocity·h`; `exposure = max(0, (R−distance(p′,q′))/R)`,
+`R = playerRadius + threatRadius + 2 world units`. Для beam distance — до
+его отрезка, `R = playerRadius + halfWidth + 2`. Danger — сумма
+`weight·exposure²` (enemy 3, projectile 10, zone 12, active beam 12,
+beam warning 4, summon marker 1). Pickup attraction — сумма
+`priority·(distance(p,target)−distance(p′,target))/max(1, distance(p,target))`
+(XP 1, world pickup 2). Итог `attraction−10·danger` с hysteresis +0.1
+предыдущему направлению; ties стабильны. Например, при player `(0,0)`,
+скорости 3, XP `(3,0)`, h=0.5 и без угроз score движения вправо = 0.5,
+а stop = 0.1, поэтому бот идёт вправо. При projectile `(2,0)` со скоростью
+`(-2,0)` вес 10 делает прямое движение хуже уклонения.
+Пересечение sweep с AABB препятствия, расширенным на player radius и padding,
+и выход за bounds поля отбрасывают направление. Если прямая к pickup закрыта,
+ближайший угол блокирующего AABB становится промежуточной целью; это локальный
+detour, не pathfinding. Меньше 0.05 world units смещения в течение
+`stuckSeconds` вызывает смену направления; после восьми неудачных попыток
+отмечается `botStuck`. Переполненная или неподдержанная зона наблюдения
+ставит `coverageIncomplete`, движение останавливается и не трактуется как
+«угроз нет». В `v1` inverse-area `DangerWash` (safe-circles boss special)
+пока отмечается неподдержанным, остальные видимые круги/лучи учитываются.
 Период движения отсчитывается в simulation seconds; draft/intermission — wall time,
 чтобы бот мог отвечать при gameplay pause. Никаких per-frame scene-wide FindObjects.
 
