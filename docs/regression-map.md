@@ -36,6 +36,13 @@ XP, отказ от безнадёжного обхода и возврат по
 проверяет отдельный ID. Production-player pilot проверяет формат ограниченного
 диагностического `movementTrace`; это не unit-test и не replay.
 
+DECISION-0102: `GameplaySmokeTests` проверяет отсутствие четырёх спрайтов
+периметрального забора при сохранённом collider `Wall_Top` и скрытом placeholder.
+DECISION-0103: `WaveDirectorTests.Advance_OpeningIntensity_ChargesReducedTimeThenReturnsToNormalAcrossBoundary`
+проверяет паузу, уменьшенную частоту, пересечение 30-секундной границы и
+возврат к обычному темпу; `ProductionFieldContentTests` фиксирует 30 s/0.6,
+`ProductionField002ContentTests` — отсутствие настройки на остальных полях.
+
 DECISION-0101: `GameplaySceneIntegrationTests.Camera_StopsAtEveryFieldEdge_ThenFollowsPlayerAgain`
 проверяет обе оси у положительной и отрицательной границ, задержку камеры при
 первом шаге внутрь, возобновление follow и ограничение render-only offset.
@@ -230,6 +237,7 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 |---|---|---|---|
 | Первый Main Menu завершает ещё не начатый run | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean`, `FieldSelectionSmokeTests.Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration` | PlayMode | IP-26 в STATUS |
 | Settings снимает чужую паузу или пропускает input в нижний экран | `AppShellPresenterTests.Settings_Back_ReturnsToOwningScreenAndBlocksBackgroundActions`, `AppShellSmokeTests.Menu_Settings_RunPause_Settings_Quit_Results_Retry` | EditMode/PlayMode | IP-26 в STATUS |
+| `Space` не ставит игру на паузу, когда фокус остался на DEV/HUD-кнопке | `UiLayoutR2SmokeTests.GameplaySpace_WhenDevelopmentButtonHasFocus_IsNotConsumedByPausePanel`; существующий `GameplaySmokeTests` проверяет manual toggle | PlayMode 1/1 + GameplaySmokeTests 3/3 PASS, 2026-09-29 | [DECISION-0084](decisions/0084-mouse-movement-and-pause-shortcuts.md), [evidence](implementation/evidence/2026-09-29-space-pause-focus.md) |
 | Последняя revision теряется / invalid original перезаписывается | `SettingsServiceTests.Save_OverlappingWrite_PersistsNewestRevisionAndRetriesFailure`, `Load_InvalidDocument_PreservesBeforeReplacing` | EditMode | IP-26 в STATUS |
 | Неподтверждённое видео сохраняется при выходе/таймауте | `SettingsServiceTests.Close_DuringVideoApply_WaitsThenRevertsAndSavesAudio`, `Preview_Timeout_RevertsWithoutPersistingCandidate`, `Load_UnsupportedSavedMode_UsesAndPersistsSafeWindow` | EditMode | IP-26 в STATUS |
 | Shake продолжает работать после disable/pause/off/end или сдвигает gameplay anchor | `SettingsPresentationSmokeTests.Shake_Damage_PreservesCameraAnchorAndResetsOnPauseOffAndEnd` | PlayMode | IP-26 в STATUS |

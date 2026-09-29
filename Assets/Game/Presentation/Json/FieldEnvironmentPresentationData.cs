@@ -15,7 +15,6 @@ namespace Game.Presentation.Json
         public string ShrineVisualId { get; set; }
         public float? ShrineChance { get; set; }
         public string ObstacleName { get; set; }
-        public float? FenceHeight { get; set; }
         public float? ObstacleScale { get; set; }
         public float? DecorationSpacing { get; set; }
         public float? DecorationJitter { get; set; }

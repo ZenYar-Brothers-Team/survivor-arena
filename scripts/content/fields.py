@@ -156,10 +156,13 @@ def field_timeline(t, field, seed, neutral_modifiers):
         phases.append(phase)
     if clock != field["durationSeconds"]:
         raise SystemExit("timeline must cover the whole field duration")
-    return {"id": t["id"], "seed": seed, "maxAliveEnemies": t["maxAliveEnemies"],
+    result = {"id": t["id"], "seed": seed, "maxAliveEnemies": t["maxAliveEnemies"],
             "spawnRadius": field["spawnRadius"], "spawnOppositeBias": field["spawnOppositeBias"],
             "openingSpawn": field["openingSpawn"],
             "phases": phases, "hooks": t["hooks"]}
+    if "openingIntensity" in field:
+        result["openingIntensity"] = field["openingIntensity"]
+    return result
 
 
 def run_setup(baseline):

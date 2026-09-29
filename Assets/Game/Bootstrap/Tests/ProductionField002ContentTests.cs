@@ -24,6 +24,8 @@ namespace Game.Bootstrap.Tests
         {
             var configuration = Field002();
             Assert.AreEqual("FIELD-002-TIMELINE", configuration.Timeline.Id.ToString());
+            Assert.AreEqual(1f, configuration.Timeline.SpawnOppositeBias);
+            Assert.IsNull(configuration.Timeline.OpeningIntensity, "Only FIELD-001 gets the reduced opening rate.");
             Assert.AreEqual("FIELD-002-ENVIRONMENT", configuration.Environment.Id.ToString());
             CollectionAssert.AreEquivalent(new[] { "BOSS-002", "MIDBOSS-002" }, configuration.Bosses.Select(b => b.Id.ToString()));
             Assert.AreEqual(2, ((TravelerScheduleDefinition)configuration.Travelers).FieldRank, "Traveler K uses r = 2.");
@@ -58,6 +60,7 @@ namespace Game.Bootstrap.Tests
             var catalog = Catalog;
             var reference = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry).Timeline;
             var timeline = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == fieldId).Resolve(catalog.Registry).Timeline;
+            Assert.IsNull(timeline.OpeningIntensity, "The opening rate change is exclusive to FIELD-001.");
             Assert.AreEqual(16, reference.Phases.Count);
             Assert.AreEqual(reference.Phases.Count, timeline.Phases.Count);
             Assert.AreEqual(reference.TotalDurationSeconds, timeline.TotalDurationSeconds, 1e-3f);

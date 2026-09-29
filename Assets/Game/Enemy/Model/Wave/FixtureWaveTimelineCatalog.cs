@@ -32,12 +32,16 @@ namespace Game.Enemy
             var opening = data.OpeningSpawn == null ? null : new WaveOpeningSpawnDefinition(
                 data.OpeningSpawn.DurationSeconds ?? throw new InvalidOperationException("Opening spawn requires durationSeconds."),
                 data.OpeningSpawn.ScreenMargin ?? throw new InvalidOperationException("Opening spawn requires screenMargin."));
+            var openingIntensity = data.OpeningIntensity == null ? null : new WaveOpeningIntensityDefinition(
+                data.OpeningIntensity.DurationSeconds ?? throw new InvalidOperationException("Opening intensity requires durationSeconds."),
+                data.OpeningIntensity.RateMultiplier ?? throw new InvalidOperationException("Opening intensity requires rateMultiplier."));
 
             return new WaveTimelineDefinition(data.Id,
                 data.Seed ?? throw new InvalidOperationException("Wave timeline requires seed."), data.SpawnRadius,
                 data.MaxAliveEnemies ?? throw new InvalidOperationException("Wave timeline requires maxAliveEnemies."), phases, hooks,
                 opening,
-                data.SpawnOppositeBias ?? throw new InvalidOperationException("Wave timeline requires spawnOppositeBias."));
+                data.SpawnOppositeBias ?? throw new InvalidOperationException("Wave timeline requires spawnOppositeBias."),
+                openingIntensity);
         }
 
         private static WavePhaseDefinition ToPhase(WavePhaseData data)

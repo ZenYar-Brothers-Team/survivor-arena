@@ -24,6 +24,7 @@ namespace Game.Bootstrap.Tests
         {
             var configuration = Field003();
             Assert.AreEqual("FIELD-003-TIMELINE", configuration.Timeline.Id.ToString());
+            Assert.AreEqual(1f, configuration.Timeline.SpawnOppositeBias);
             Assert.AreEqual("FIELD-003-ENVIRONMENT", configuration.Environment.Id.ToString());
             CollectionAssert.AreEquivalent(new[] { "BOSS-003", "MIDBOSS-003" }, configuration.Bosses.Select(b => b.Id.ToString()));
             Assert.AreEqual(3, ((TravelerScheduleDefinition)configuration.Travelers).FieldRank, "Traveler K uses r = 3.");

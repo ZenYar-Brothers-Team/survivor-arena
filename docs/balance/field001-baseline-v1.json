@@ -2019,10 +2019,14 @@
       0
     ],
     "spawnRadius": 10,
-    "spawnOppositeBias": 0.8,
+    "spawnOppositeBias": 1.0,
     "openingSpawn": {
       "durationSeconds": 20,
       "screenMargin": 1
+    },
+    "openingIntensity": {
+      "durationSeconds": 30,
+      "rateMultiplier": 0.6
     },
     "obstacles": [
       {

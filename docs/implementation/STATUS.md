@@ -30,12 +30,17 @@ worktree перенесён на D:; активные сохранения бе�
 AB-13 проверен как ограниченный эксперимент с поиском траекторий, но качество
 бота для балансных прогонов не достигнуто (три ранних поражения)
 ([DECISION-0097](../decisions/0097-automated-balance-runs-v1.md),
-[DECISION-0102](../decisions/0102-balance-runner-presentation.md));
+[DECISION-0104](../decisions/0104-balance-runner-presentation.md));
 [scoped очередь](#automated-runs-execution) содержит фактические проверки.
 Интеграция `develop-evg` до `69ea7d1` в `ip34-automation` 2026-09-29:
 full graphics 1034/1034 EditMode + 52/52 PlayMode, generation/audio/art 269 PASS;
 [evidence](evidence/2026-09-29-ip34-develop-integration.md). Старые bot-пилоты
 относятся к прежнему gameplay build, не к новой anti-blob реализации.
+Повторная интеграция `develop-evg` до `2ea7a83` 2026-09-30: новый full graphics
+1044/1044 EditMode + 57/57 PlayMode, Python 25/25, generation/audio/art 269 PASS;
+[evidence](evidence/2026-09-30-ip34-develop-refresh.md). Вошли opening spawn ×0.6,
+bias 1.0, невидимый периметр и Space focus fix; ручные gates исходной ветки сохранены.
+Готовые player-сборки ещё от предыдущей версии и требуют пересборки перед запуском.
 Остальные UI/gameplay поручения и паузы сохраняются.
 
 UI Folio polish 2026-09-29 — Implemented: по явному поручению пользователя
@@ -321,6 +326,7 @@ Remaining acceptance / IDs: none.
 Target implementation evidence: [Подробности](evidence/design-sync-R2-2026-09-21.md#ip-01).
 Target verification evidence: 2026-09-20, Unity 6000.6.0f1: Game.* EditMode 257/257, PlayMode 1/1 passed; coverage/условия — по ссылке выше.
 2026-09-28 manual-pause input delta DECISION-0084: Escape/Space/right mouse переключают только manual ownership; full PASS 870/870 + 31/31, 0 skipped — [evidence](evidence/2026-09-28-mouse-movement-and-pause-shortcuts.md).
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: `Space` больше не подавляется фокусом DEV/HUD-кнопки; перехват сфокусированного control ограничен экраном паузы и popup сета. Новый PlayMode regression **1/1 PASS**, GameplaySmokeTests **3/3 PASS**, 0 failed/skipped. [Evidence](evidence/2026-09-29-space-pause-focus.md).
 Documentation impact: IP-01 terminal/time/teardown contract; GDD и UI manual-pause shortcuts синхронизированы.
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-01).
 
@@ -530,7 +536,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 Status: Verified
 Dependencies: IP-04, IP-13
 Current packet: timeline-level technical cap 200 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076).
-Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=0.8` и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Targeted Enemy/Bootstrap EditMode **247/247 PASS**, 0 failed/skipped, генерация обновлена; [evidence](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=1.0` (повышено с 0.8 через 0.9) и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Исходный алгоритм: Enemy/Bootstrap EditMode **247/247 PASS**; тюнинг 1.0: production field EditMode **17/17 PASS**, content STATIC PASS, 0 failed/skipped. [Тюнинг/evidence](evidence/2026-09-29-opposite-spawn-bias-tuning.md), [исходный алгоритм](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md) только FIELD-001 получает 0.6 обычной continuous частоты в первые 30 s; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md), [OBS-01](../playtests/2026-09-29_field001-opening-rate.md#obs-01--снизить-спавн-в-первые-30-секунд).
 Remaining gates: Нет для synthetic framework. W-01 обновлён по DECISION-0076; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
 Remaining acceptance / IDs: none for the fixture framework packet.
 Target implementation evidence: [DECISION-0076 follow-up](evidence/2026-09-27-wave-cap-and-field001-rhythm.md), [runtime/schema](modules/IP-14-wave-director.md#runtime-и-fixture-schema).
@@ -617,6 +624,9 @@ Current packet: Meta R1 и «Открытия». Settings R1 по DECISION-0093 
 Results reward delta DECISION-0098 отображает сохранённую награду только за уровни
 после L1; новые Pause material surfaces подключены и проверены автоматически,
 ручной visual review усиленной фактуры остаётся открытым.
+Pause shortcut focus fix 2026-09-29: DEV/HUD-фокус больше не подавляет `Space`;
+новый PlayMode regression 1/1 PASS, игровой просмотр ожидается
+([evidence](evidence/2026-09-29-space-pause-focus.md)).
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
 Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.
@@ -740,6 +750,7 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22)
 Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-08 — FIELD-001 geometry/environment/metadata/thumbnail. Required packets: F1-00…07; authoritative readiness/evidence — [startup queue](#field001-execution).
+Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0102](../decisions/0102-invisible-field-perimeter.md) сплошной видимый забор по периметру FIELD-001/002/003 убран; player-only сцена-коллайдеры и внутренние препятствия сохранены. Generated content STATIC PASS; Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md), [OBS-02](../playtests/2026-09-29_camera-field-edge.md#obs-02--убрать-видимые-преграды-с-границ-карт).
 Dependencies: IP-16, IP-20, IP-21, IP-12A
 Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope).
 Remaining gates: G-14: geometry/enemy pools; G-20 resolved по DECISION-0038; G-15 resolved по DECISION-0037. Весь approved mapping переносится, numeric schedules отдельно.
@@ -782,6 +793,7 @@ Blocked by: IP-20 (Blocked, target scope), IP-21 (Blocked, target scope), IP-23 
 Remaining gates: CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон.
 Remaining acceptance / IDs: Полные production encounter schedules и bindings полей 004…010 (002/003 реализованы, ручные прогоны открыты); CG-02/CG-04; Unity verification FIELD-001.
 Startup subset F1-08: FIELD-001-TIMELINE (900 s, hooks 450/810) и startup bindings Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
+FIELD-001 opening-rate follow-up 2026-09-29 — Implemented по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md): первые 30 s continuous cadence ×0.6, FIELD-002/003 без изменения; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md).
 DECISION-0076 follow-up Verified 2026-09-27: FIELD-001 — 16 фаз с 2–4 типами, combat-фазы 70–90 s и передышки 20 s; cap 200 перенесён на timeline и применяется также к burst. Unity full PASS 870/870 + 30/30; [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md). Ручной плейтест открыт.
 FIELD-003-TIMELINE Implemented 2026-09-27 по field003-v1 (DECISION-0067): 24 фазы, HP ×1.24, урон ×1.16, ENEMY-010 с первой волны; после DECISION-0076 использует общий технический cap 200. Исторический Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md). Ручной прогон не выполнен.
 Target implementation evidence: FIELD-001 rhythm и общий cap — [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md); остальные поля 004…010 остаются gated.
@@ -818,7 +830,10 @@ Scope revision: automated-runs-v7, расширение по поручению 
 Dependencies: IP-01, IP-02, IP-07, IP-16, IP-25, IP-31; F1-09 subset IP-27.
 Current packet: AB-01…14 закрыты в пределах scoped приёмки выше; качество бота
 для реальной балансировки и обучение новой модели этим не приняты.
-Current gate: реальная человеческая запись только по следующему явному запросу;
+Current gate: после интеграции `develop-evg` до `2ea7a83` нужен новый player build
+перед standalone-запуском; full graphics 1044/1044 + 57/57 и Python 25/25 PASS
+([refresh evidence](evidence/2026-09-30-ip34-develop-refresh.md)).
+Реальная человеческая запись только по следующему явному запросу;
 выбор/обучение новой policy — отдельный scope. Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные
@@ -848,7 +863,7 @@ during overlapping local activity without matching automation run IDs; a
 separate controlled final-player run left profile/settings hashes unchanged.
 Без правки баланса.
 Documentation impact: IP-34 schema/examples, policy formula/limits,
-[DECISION-0102](../decisions/0102-balance-runner-presentation.md) и инструкция
+[DECISION-0104](../decisions/0104-balance-runner-presentation.md) и инструкция
 синхронизированы; GDD/CD и production balance без изменений.
 AB-09 evidence: [XP-focused profile](evidence/2026-09-29-ip34-xp-bot.md);
 пилот 1/1 natural loss (84.66 simulation s, 10 XP), без вывода об улучшении

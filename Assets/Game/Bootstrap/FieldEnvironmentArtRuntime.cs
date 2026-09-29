@@ -54,7 +54,6 @@ namespace Game.Bootstrap
             {
                 foreach (var name in environment.ObstacleNames) HidePlaceholder(RequireUnique(transforms, name));
                 CreateGround(ground, sideLength);
-                CreateBoundary(fence, sideLength, definition.FenceHeight);
                 IReadOnlyList<Vector2> interiorObstacles;
                 if (definition.ObstacleLayout != null || definition.ExplicitObstacles.Count > 0)
                 {
@@ -103,24 +102,6 @@ namespace Game.Bootstrap
             renderer.drawMode = SpriteDrawMode.Tiled;
             renderer.tileMode = SpriteTileMode.Continuous;
             renderer.size = new Vector2(sideLength, sideLength);
-        }
-
-        private void CreateBoundary(Sprite sprite, float sideLength, float height)
-        {
-            var half = sideLength * .5f;
-            CreateFence("FenceTop", sprite, new Vector2(0, half), sideLength, height, 0);
-            CreateFence("FenceBottom", sprite, new Vector2(0, -half), sideLength, height, 0);
-            CreateFence("FenceLeft", sprite, new Vector2(-half, 0), sideLength, height, 90);
-            CreateFence("FenceRight", sprite, new Vector2(half, 0), sideLength, height, 90);
-        }
-
-        private void CreateFence(string name, Sprite sprite, Vector2 position, float length, float height, float rotation)
-        {
-            var renderer = CreateRenderer(name, sprite, position, -2, _root.transform);
-            renderer.drawMode = SpriteDrawMode.Tiled;
-            renderer.tileMode = SpriteTileMode.Continuous;
-            renderer.size = new Vector2(length, height);
-            renderer.transform.rotation = Quaternion.Euler(0, 0, rotation);
         }
 
         private void CreateDecor(FieldEnvironmentPresentationDefinition definition, Sprite bush, Sprite grass, Sprite shrine,

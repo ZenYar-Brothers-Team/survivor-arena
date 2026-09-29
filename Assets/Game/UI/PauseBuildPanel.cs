@@ -9,6 +9,7 @@ namespace Game.UI
     internal sealed class PauseBuildPanel : IDisposable
     {
         private readonly VisualElement _root;
+        private readonly VisualElement _runOverlay;
         private readonly VisualElement _slots;
         private readonly ScrollView _sets;
         private readonly VisualElement _popup;
@@ -22,6 +23,7 @@ namespace Game.UI
         public PauseBuildPanel(VisualElement root)
         {
             _root = root;
+            _runOverlay = root.Q(GameplayUiElementIds.RunOverlay);
             _slots = root.Q(GameplayUiElementIds.PauseSlots);
             _sets = root.Q<ScrollView>(GameplayUiElementIds.PauseBuild);
             _popup = new VisualElement { name = GameplayUiElementIds.SetPopup };
@@ -46,6 +48,7 @@ namespace Game.UI
             // Space activates the focused control; it must not also toggle the run.
             // Check focus before the popup: Space may have just opened it this frame.
             if (space && _root.panel?.focusController.focusedElement is VisualElement focus &&
+                (_runOverlay.Contains(focus) || _popup.Contains(focus)) &&
                 focus.enabledInHierarchy && IsDisplayed(focus) && (focus is Button || focus is Toggle || focus is TextField)) return true;
             if (IsPopupOpen) { Close(); MarkShortcutConsumed(); return true; }
             return false;

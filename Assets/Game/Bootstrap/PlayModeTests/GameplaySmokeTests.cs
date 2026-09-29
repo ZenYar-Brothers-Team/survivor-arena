@@ -122,6 +122,13 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsNotNull(fieldArt);
             Assert.IsNotNull(fieldArt.transform.Find("Ground")?.GetComponent<SpriteRenderer>());
             Assert.IsNotNull(fieldArt.transform.Find("Stump")?.GetComponent<SpriteRenderer>());
+            Assert.IsNull(fieldArt.transform.Find("FenceTop"), "No visible perimeter fence is created.");
+            Assert.IsNull(fieldArt.transform.Find("FenceBottom"));
+            Assert.IsNull(fieldArt.transform.Find("FenceLeft"));
+            Assert.IsNull(fieldArt.transform.Find("FenceRight"));
+            Assert.IsTrue(GameObject.Find("Wall_Top").GetComponent<BoxCollider2D>().enabled,
+                "The invisible player boundary remains active.");
+            Assert.IsFalse(GameObject.Find("Wall_Top").GetComponent<SpriteRenderer>().enabled);
             Assert.AreEqual(64, fieldArt.GetComponentsInChildren<Collider2D>().Length);
             foreach (var renderer in fieldArt.GetComponentsInChildren<SpriteRenderer>())
                 if (renderer.name == "FenceObstacle") Assert.AreEqual(0f, renderer.transform.eulerAngles.z, 0.001f);

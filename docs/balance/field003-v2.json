@@ -70,7 +70,7 @@
       0
     ],
     "spawnRadius": 10,
-    "spawnOppositeBias": 0.8,
+    "spawnOppositeBias": 1.0,
     "openingSpawn": {
       "durationSeconds": 20,
       "screenMargin": 1

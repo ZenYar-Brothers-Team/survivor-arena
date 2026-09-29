@@ -74,6 +74,12 @@ namespace Game.Enemy.Tests
             var missing = Assert.Throws<InvalidOperationException>(() =>
                 FixtureWaveTimelineCatalog.FromJson(string.Format(template, "\"openingSpawn\":{\"durationSeconds\":20},")));
             StringAssert.Contains("screenMargin", missing.Message);
+            var intensity = FixtureWaveTimelineCatalog.FromJson(string.Format(template,
+                "\"openingIntensity\":{\"durationSeconds\":30,\"rateMultiplier\":0.6},"));
+            Assert.AreEqual(0.6f, intensity.OpeningIntensity.RateMultiplier);
+            var missingRate = Assert.Throws<InvalidOperationException>(() =>
+                FixtureWaveTimelineCatalog.FromJson(string.Format(template, "\"openingIntensity\":{\"durationSeconds\":30},")));
+            StringAssert.Contains("rateMultiplier", missingRate.Message);
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveOpeningSpawnDefinition(0f, 1f));
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveOpeningSpawnDefinition(20f, -1f));
         }
