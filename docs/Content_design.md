@@ -659,7 +659,7 @@ production delivery gates. Стартовое умение персонажа в
 #### Персональная прокачка — DECISION-0091
 
 Все типы принадлежат выбранному открытому герою. Бонус указан за один уровень.
-Бонусы ×1.5 к DECISION-0091 при прежних ценах — [DECISION-0093](decisions/0093-field-curve-meta-bonus-xp-book.md).
+Бонусы ×1.5 к DECISION-0091 при прежних ценах — [DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md).
 
 | Тип | Бонус | Предел | Стартовая цена, золото |
 |---|---|---|---|
@@ -810,7 +810,7 @@ CHAR-002 «Бугор»: покупка за 100 после прохождени
 Production ID Книги — **PICKUP-002** (Approved вместе с [baseline v1](balance/field001-baseline-v1.md),
 [DECISION-0053](decisions/0053-field001-difficulty-and-baseline.md)). Механика Книги утверждена
 в GDD; contact radius 0.4, без expiry, scatter 0.3, повторно используется имеющийся
-approved Traveler Book art. Одна Книга за убийство Путника; она даёт 1/2/3 выбора с весами 50/35/15% ([DECISION-0093](decisions/0093-field-curve-meta-bonus-xp-book.md), `draft.bookUpgradeCountWeights`); при пустом пуле — 50 валюты один раз.
+approved Traveler Book art. Одна Книга за убийство Путника; она даёт 1/2/3 выбора с весами 50/35/15% ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md), `draft.bookUpgradeCountWeights`); при пустом пуле — 50 валюты один раз.
 Успешное получение улучшения из Книги дополнительно даёт 20 монет (не XP-level);
 это отдельный от пустой Книги вариант, не 70. `MetaEconomy.bookUpgradeReward`
 задаёт неотрицательное целое число монет за выбор. Повтор/отмена/banish не дают
@@ -1743,7 +1743,7 @@ Unlock: доступно с начала игры.
 Окружение: мощёная дорога между деревнями, сторожевыми постами, скалами и дорожными святилищами.<br>
 Geometry / obstacles: группы камней и колонн формируют широкие коридоры, но редко создают тупики. Расстановка своя в каждом забеге: 5×5 ячеек, в каждой ряд из 3–5 камней или колонн ([DECISION-0068](decisions/0068-per-run-obstacle-layouts.md)).
 Enemy profile: деревенскую погоню усиливают охотники, гончие и первые королевские стрелки; появляются сочетания быстрых и медленных противников.<br>
-Wave pressure: немного выше плотность и короче передышки, чем на FIELD-001. Ритм FIELD-001, передышки 15 s ([DECISION-0092](decisions/0092-field002-003-rhythm-v2.md)), враги HP ×1.15 / урон ×1.08 ([DECISION-0093](decisions/0093-field-curve-meta-bonus-xp-book.md)).
+Wave pressure: немного выше плотность и короче передышки, чем на FIELD-001. Ритм FIELD-001, передышки 15 s ([DECISION-0095](decisions/0095-field002-003-rhythm-v2.md)), враги HP ×1.15 / урон ×1.08 ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md)).
 Boss / mid-boss: BOSS-002 / MIDBOSS-002.
 Enemy pool ([DECISION-0063](decisions/0063-field002-slice-v1.md)): шесть типов FIELD-001 и три новых — ENEMY-008 с первой волны, ENEMY-009, ENEMY-006.
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=2.
@@ -1756,7 +1756,7 @@ Unlock: завершить FIELD-001 хотя бы один раз.
 Окружение: разрушенный пограничный форт с визуальными участками воды, сломанными стенами и остатками мостов.<br>
 Geometry / obstacles: несколько крупных кластеров стен и обломков; между ними остаются широкие проходы. Расстановка своя в каждом забеге: 4×4 ячейки, в каждой повёрнутый фрагмент руин с завалами ([DECISION-0068](decisions/0068-per-run-obstacle-layouts.md)). Вода пока визуальна и не меняет движение.
 Enemy profile: смешанные отряды ополчения, охотников и королевской стражи; выше число врагов, способных атаковать из-за других противников.<br>
-Wave pressure: заметные пики давления появляются раньше; элитные фазы встречаются чаще. Ритм FIELD-001 ([DECISION-0092](decisions/0092-field002-003-rhythm-v2.md)), враги HP ×1.3 / урон ×1.16 ([DECISION-0093](decisions/0093-field-curve-meta-bonus-xp-book.md)).
+Wave pressure: заметные пики давления появляются раньше; элитные фазы встречаются чаще. Ритм FIELD-001 ([DECISION-0095](decisions/0095-field002-003-rhythm-v2.md)), враги HP ×1.3 / урон ×1.16 ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md)).
 Boss / mid-boss: BOSS-003 / MIDBOSS-003.
 Enemy pool ([DECISION-0067](decisions/0067-field003-v1.md)): девять типов FIELD-002 и новый ENEMY-010 с первой волны; геометрия — [field003-v1](balance/field003-v1.md), волны — [field-rhythm-v2](balance/field-rhythm-v2.md).
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=3.

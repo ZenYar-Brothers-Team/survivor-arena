@@ -1,4 +1,4 @@
-# DECISION-0092 — FIELD-002/003 на ритме FIELD-001 и множитель поля
+# DECISION-0095 — FIELD-002/003 на ритме FIELD-001 и множитель поля
 
 Status: Approved (пользователь 2026-09-29: «Да, отлично, утверждаю»)
 Date: 2026-09-29
@@ -17,7 +17,7 @@ FIELD-001 после [DECISION-0076](0076-wave-cap-and-field001-rhythm.md) пе�
 
 ## Decision
 
-> Множители HP/урона ниже заменены [DECISION-0093](0093-field-curve-meta-bonus-xp-book.md): HP ×(1 + 0.15·(N−1)), урон ×(1 + 0.08·(N−1)). Остальное действует.
+> Множители HP/урона ниже заменены [DECISION-0096](0096-field-curve-meta-bonus-xp-book.md): HP ×(1 + 0.15·(N−1)), урон ×(1 + 0.08·(N−1)). Остальное действует.
 
 Утвердить [field-rhythm-v2](../balance/field-rhythm-v2.md), таблицы [field002-v2](../balance/field002-v2.json) и
 [field003-v2](../balance/field003-v2.json):

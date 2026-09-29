@@ -15,7 +15,7 @@ FIELD-004…008 становятся **FIELD-003…008**. Он подходит 
 
 ## Волны: чем FIELD-003 сложнее FIELD-002
 
-**С 2026-09-29 волны заменены ребалансом [field-rhythm-v2](field-rhythm-v2.md) ([DECISION-0092](../decisions/0092-field002-003-rhythm-v2.md)); раздел ниже исторический.**
+**С 2026-09-29 волны заменены ребалансом [field-rhythm-v2](field-rhythm-v2.md) ([DECISION-0095](../decisions/0095-field002-003-rhythm-v2.md)); раздел ниже исторический.**
 
 FIELD-003 сохраняет свой утверждённый 24-фазовый каркас; после [DECISION-0076](../decisions/0076-wave-cap-and-field001-rhythm.md) он больше не обязан повторять обновлённый FIELD-001. Mid-boss остаётся в 7:30, босс — в 13:30.
 
