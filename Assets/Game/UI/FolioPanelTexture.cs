@@ -1,15 +1,27 @@
+using Game.Content;
+using Game.Presentation;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Game.UI
 {
-    /// <summary>Transparent paper-fibre treatment for broad folio panels.</summary>
+    /// <summary>Matte material surface for broad folio panels.</summary>
     internal sealed class FolioPanelTexture : VisualElement
     {
+        private static readonly ContentId SurfaceId = "UI-FOLIO-SURFACE-VISUAL-BACKGROUND";
+        private static Sprite _surface;
+
         public FolioPanelTexture()
         {
             pickingMode = PickingMode.Ignore;
             AddToClassList("folio-panel-texture");
+            if (_surface == null)
+            {
+                var definition = FixtureSpriteCatalog.CreateFor(new[] { SurfaceId })[0];
+                definition.RequireRole(SpriteRole.Background);
+                _surface = definition.Sprite;
+            }
+            style.backgroundImage = new StyleBackground(_surface);
             generateVisualContent += Draw;
         }
 
@@ -30,39 +42,6 @@ namespace Game.UI
                 BuildGradient(new Color(0.93f, 0.79f, 0.58f, 0.035f), new Color(0.20f, 0.14f, 0.22f, 0f)),
                 Vector2.zero, new Vector2(0, height * 0.55f), AddressMode.Clamp);
             FillRect(painter, width, height);
-
-            DrawFibres(painter, width, height);
-        }
-
-        private static void DrawFibres(Painter2D painter, float width, float height)
-        {
-            painter.strokeColor = new Color(0.92f, 0.82f, 0.67f, 0.055f);
-            painter.lineWidth = 0.75f;
-            painter.BeginPath();
-            for (var i = 0; i < 78; i++)
-            {
-                var x = 14f + ((i * 223) % Mathf.Max(1, (int)(width - 28f)));
-                var y = 12f + ((i * 139) % Mathf.Max(1, (int)(height - 24f)));
-                var length = 7f + (i * 17) % 24;
-                var rise = ((i * 7) % 5 - 2) * 0.7f;
-                painter.MoveTo(new Vector2(x, y));
-                painter.QuadraticCurveTo(
-                    new Vector2(x + length * 0.52f, y + rise),
-                    new Vector2(Mathf.Min(width - 8f, x + length), y + rise * 0.35f));
-            }
-            painter.Stroke();
-
-            painter.strokeColor = new Color(0.12f, 0.08f, 0.14f, 0.07f);
-            painter.lineWidth = 0.6f;
-            painter.BeginPath();
-            for (var i = 0; i < 24; i++)
-            {
-                var x = 20f + ((i * 311) % Mathf.Max(1, (int)(width - 40f)));
-                var y = 18f + ((i * 181) % Mathf.Max(1, (int)(height - 36f)));
-                painter.MoveTo(new Vector2(x, y));
-                painter.LineTo(new Vector2(Mathf.Min(width - 8f, x + 18f + i % 13), y + (i % 3 - 1)));
-            }
-            painter.Stroke();
         }
 
         private static void FillRect(Painter2D painter, float width, float height)

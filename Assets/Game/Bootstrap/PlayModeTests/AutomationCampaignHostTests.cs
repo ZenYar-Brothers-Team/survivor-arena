@@ -86,7 +86,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(2, campaign.StartedRuns, campaign.StopReason);
             for (var i = 0; i < 30 && controller.Model.RunId == firstId; i++) yield return null;
             Assert.AreEqual(1, root.Profile.Level("META-003", "CHAR-001"));
-            Assert.AreEqual(5, root.Profile.Currency);
+            // DECISION-0098: an immediate L1 loss gives no gold; the initial 100 pays for the upgrade.
+            Assert.AreEqual(0, root.Profile.Currency);
             Assert.AreNotEqual(firstId, controller.Model.RunId);
             var firstFolder = Path.Combine(config.OutputDirectory, "chains", "chain-0001", "runs", firstId.ToString("N"));
             Assert.IsTrue(File.Exists(Path.Combine(firstFolder, "profile-after-purchases.json")));

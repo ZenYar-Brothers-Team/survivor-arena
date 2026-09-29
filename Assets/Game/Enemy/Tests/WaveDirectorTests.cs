@@ -156,6 +156,28 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void MovementSelection_IsSeededAndDoesNotChangeCompositionOrGeometryStreams()
+        {
+            var offset = new EnemyMovementProfile(EnemyMovementKind.OffsetPursuit, 1f, .5f,
+                cycleSeconds: 2f, directPursuitSeconds: 1f);
+            var definition = new EnemyDefinition("FIXTURE-MOVEMENT-MIX", 1f, 1f, 1f, 1f, 1f,
+                movementVariants: new[] { new EnemyMovementVariant(.5f, offset) });
+            var first = CreateDirector(42);
+            var sameSeed = CreateDirector(42);
+            var untouched = CreateDirector(42);
+
+            for (var i = 0; i < 20; i++)
+            {
+                Assert.AreEqual(first.SelectMovement(definition).Kind, sameSeed.SelectMovement(definition).Kind);
+                Assert.AreEqual(first.SelectMovementSeed(), sameSeed.SelectMovementSeed());
+                Assert.AreEqual(untouched.SelectEnemy().Id, first.SelectEnemy().Id,
+                    "Movement rolls use a stream independent from composition.");
+                Assert.AreEqual(untouched.SelectSpawnAngle(), first.SelectSpawnAngle(),
+                    "Movement rolls use a stream independent from spawn geometry.");
+            }
+        }
+
+        [Test]
         public void RunSeed_ReplacesTheReferenceSeed_ForCompositionAndAngles()
         {
             var timeline = WaveTestData.ThreePhaseTimeline(seed: 7);
@@ -173,6 +195,38 @@ namespace Game.Enemy.Tests
                 differs |= angle != otherRun.SelectSpawnAngle();
             }
             Assert.IsTrue(differs);
+        }
+
+        [Test]
+        public void SelectSpawnAngle_BiasesOppositeCentroidButKeepsFullRing()
+        {
+            var source = WaveTestData.ThreePhaseTimeline(seed: 42);
+            var timeline = new WaveTimelineDefinition(source.Id, source.Seed, source.SpawnRadius,
+                source.MaxAliveEnemies, source.Phases, source.Hooks, spawnOppositeBias: 0.8f);
+            var first = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration);
+            var sameSeed = new WaveDirector(timeline, WaveTestData.TestEnemies(), RunDuration);
+            var sectors = new int[8];
+            var nearOpposite = 0;
+            for (var i = 0; i < 5000; i++)
+            {
+                var angle = first.SelectSpawnAngle(Math.PI);
+                Assert.AreEqual(angle, sameSeed.SelectSpawnAngle(Math.PI));
+                Assert.That(angle, Is.InRange(0d, Math.PI * 2d));
+                sectors[(int)(angle / (Math.PI * 2d) * sectors.Length) % sectors.Length]++;
+                if (Math.Abs(angle - Math.PI) <= Math.PI / 4d) nearOpposite++;
+            }
+            Assert.Greater(nearOpposite, 2000, "Bias should visibly favor the opposite quarter of the ring.");
+            Assert.IsTrue(sectors.All(count => count > 0), "Every sector of the ring must remain reachable.");
+        }
+
+        [Test]
+        public void SelectSpawnAngle_ZeroBiasMatchesUniformStream()
+        {
+            var ordinary = CreateDirector(42);
+            var centered = CreateDirector(42);
+            for (var i = 0; i < 32; i++)
+                Assert.AreEqual(ordinary.SelectSpawnAngle(), centered.SelectSpawnAngle(Math.PI));
+            Assert.Throws<ArgumentOutOfRangeException>(() => centered.SelectSpawnAngle(double.NaN));
         }
 
         [Test]

@@ -24,7 +24,9 @@ namespace Game.Enemy
             SpriteContactProfile contact = null,
             EnemyDeathPresentationProfile deathPresentation = null,
             GroundShadowPresentationProfile groundShadowPresentation = null,
-            ContentRegistry contentRegistry = null)
+            ContentRegistry contentRegistry = null,
+            EnemyMovementProfile movement = null,
+            int? movementSeed = null)
         {
             if (definition == null)
                 throw new ArgumentNullException(nameof(definition));
@@ -49,7 +51,9 @@ namespace Game.Enemy
                 contact,
                 deathPresentation,
                 groundShadowPresentation,
-                contentRegistry);
+                contentRegistry,
+                movement,
+                movementSeed);
             return runtime;
         }
 

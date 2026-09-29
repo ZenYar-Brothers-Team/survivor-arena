@@ -1,5 +1,9 @@
 # Regression map
 
+IP-34 / DECISION-0098 integration: `AutomationRunHostTests.Host_FixtureVictory_UsesAuthoritativeOutcomeAndSavedReceipt`
+and `AutomationCampaignHostTests.TwoLosses_UseOneProfileAndPurchaseStrengthensSecondRun`
+expect no gold for the starting L1; existing fixture purchases use initial currency.
+
 IP-34 AB-13: `BotTrajectoryPlannerTests` runs reproducible closed loops using
 the production Seek controller for the test enemies: XP behind pursuing
 crowds in three orientations, a denser/faster crowd and an obstacle detour.
@@ -19,6 +23,31 @@ XP, отказ от безнадёжного обхода и возврат по
 `ExperimentConfigTests.Load_HerdLoop_RequiresTypedSettingsAndKeepsOtherProfilesSeparate`
 проверяет отдельный ID. Production-player pilot проверяет формат ограниченного
 диагностического `movementTrace`; это не unit-test и не replay.
+
+DECISION-0101: `GameplaySceneIntegrationTests.Camera_StopsAtEveryFieldEdge_ThenFollowsPlayerAgain`
+проверяет обе оси у положительной и отрицательной границ, задержку камеры при
+первом шаге внутрь, возобновление follow и ограничение render-only offset.
+
+DECISION-0099: `EnemyPatternTests` проверяет OffsetPursuit, CommittedPursuit,
+BlockedSidestep (включая малое замедление и срабатывание рядом при полной
+скорости), ArcPassPursuit, InertialPursuit и
+weighted fallback; `EnemyPatternSchemaTests` — обязательные поля и сумму chances;
+`WaveDirectorTests.MovementSelection_IsSeededAndDoesNotChangeCompositionOrGeometryStreams`
+защищает независимость seeded-потоков; `ProductionEnemyCatalogTests` фиксирует
+ENEMY-001: 75% BlockedSidestep / по 5% Seek, OffsetPursuit, CommittedPursuit, ArcPassPursuit, InertialPursuit; усиленные параметры и скорость 1.056.
+
+DECISION-0098: `MetaProfileTests.LevelReward_ExcludesStartingLevel_PreservesBookGold`
+проверяет L1=0, L2=5 и независимую Book-награду; terminal reasons на L1
+покрывает `Exit_StartedAtLevelOne_PaysNoLevelGold`, а сохранение/Retry —
+`Apply_ResultDuplicateAndReload_PayExactlyOnce` и `MetaProgressionSmokeTests`.
+`UiLayoutR2SmokeTests` проверяет material sprite и видимость слоя в Pause.
+
+UI folio follow-up: `SettingsPresentationSmokeTests.SettingsFolio_TwoResolutions_ConfirmationAndFocus`
+проверяет folio-цвет стартовой камеры, скрытый `Obstacle_Fixture` и выключенное
+по умолчанию управление мышью в модели/Toggle. `MetaPresenterTests.UpgradesToggle_WhileSaving_KeepsPurchaseReasonStable`
+удерживает предметную причину покупки во время задержанной записи профиля.
+`MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions` проверяет segmented
+state controls и начальное `Закрыто` для умений/сетов в 1080p/720p.
 
 Meta stat icons R1: MetaShopSmokeTests проверяет 12 ненулевых sprites из registry,
 slot 32 px перед названием, отсутствие пересечения с title/level в 1080p и 720p.
@@ -119,6 +148,7 @@ IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinal
 |---|---|---|---|---|
 | Actual spawn count при отсутствии target | `WaveSpawnerTests.Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Tick возвращает число созданных объектов; неисполненная группа отмечается unavailable и не повторяется. |
 | Continuous timer при перескоке между фазами | `WaveBurstTests.Continuous_SkippedBoundary_ChargesOnlyTimeInCurrentPhaseAndDiscardsCapSuppression` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Время старой фазы не начисляется новой; suppressed заявки не накапливаются для последующего спавна. |
+| Противоположный спавн покрывает всё кольцо | `WaveDirectorTests.SelectSpawnAngle_BiasesOppositeCentroidButKeepsFullRing`, `SelectSpawnAngle_ZeroBiasMatchesUniformStream` | EditMode | См. IP-14 в [STATUS](implementation/STATUS.md) | Проверяет смещение, ненулевой охват всех секторов и воспроизводимость; реальную форму толпы проверяет плейтест. |
 
 ## IP-15 — regression guards
 

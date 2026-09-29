@@ -8,8 +8,9 @@ namespace Game.UI
         public const string MetaRefund = "meta-refund", MetaRefundReason = "meta-refund-reason", MetaRefundModal = "meta-refund-modal", MetaRefundDetail = "meta-refund-detail";
         public const string MetaRefundCancel = "meta-refund-cancel", MetaRefundConfirm = "meta-refund-confirm";
         public static string MetaHero(string id) => "meta-hero-" + id;
-        public const string MetaUnlockPane = "meta-unlock-pane", MetaUnlockFilters = "meta-unlock-filters", MetaUnlockState = "meta-unlock-state", MetaUnlockTotal = "meta-unlock-total";
+        public const string MetaUnlockPane = "meta-unlock-pane", MetaUnlockFilters = "meta-unlock-filters", MetaUnlockStates = "meta-unlock-states", MetaUnlockTotal = "meta-unlock-total";
         public static string MetaUnlockType(string kind) => "meta-unlock-type-" + kind;
+        public static string MetaUnlockState(int state) => "meta-unlock-state-" + state;
         public const string ResultsOutcome = "results-outcome";
         public const string ResultsSelection = "results-selection";
         public const string ResultsTime = "results-time";

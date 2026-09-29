@@ -21,7 +21,8 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("FIELD-001-TIMELINE", timeline.Id.ToString());
             Assert.AreEqual(16, timeline.Phases.Count);
             Assert.AreEqual(900f, timeline.TotalDurationSeconds, 1e-3f);
-            Assert.AreEqual(12f, timeline.SpawnRadius);
+            Assert.AreEqual(10f, timeline.SpawnRadius);
+            Assert.AreEqual(0.8f, timeline.SpawnOppositeBias);
             Assert.AreEqual(20f, timeline.OpeningSpawn.DurationSeconds, "DECISION-0057: screen-edge opening spawn.");
             Assert.AreEqual(1f, timeline.OpeningSpawn.ScreenMargin);
             Assert.AreEqual(450f, timeline.Hooks.Single(h => h.Kind == WaveHookKind.MidBoss).TimeSeconds);

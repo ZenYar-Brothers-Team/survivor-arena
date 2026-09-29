@@ -2328,5 +2328,10 @@
     "id": "META-010-VISUAL-ICON",
     "resourcePath": "Art/UI/Icons/Meta/meta-010-icon",
     "role": "Icon"
+  },
+  {
+    "id": "UI-FOLIO-SURFACE-VISUAL-BACKGROUND",
+    "resourcePath": "Art/UI/Folio/ui-folio-surface-background",
+    "role": "Background"
   }
 ]

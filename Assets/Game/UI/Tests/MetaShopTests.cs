@@ -43,7 +43,8 @@ namespace Game.UI.Tests
                 GameplayUiElementIds.MetaPortrait, GameplayUiElementIds.MetaUpgradeList, GameplayUiElementIds.MetaUnlockList,
                 GameplayUiElementIds.MetaRefund, GameplayUiElementIds.MetaRefundConfirm, GameplayUiElementIds.MetaRefundCancel })
                 Assert.IsNotNull(root.Q(id), id);
-            Assert.AreEqual(GameplayUiElementIds.MetaUnlockState, root.Q<DropdownField>().name);
+            Assert.IsNotNull(root.Q(GameplayUiElementIds.MetaUnlockStates));
+            Assert.IsNull(root.Q<DropdownField>());
             Assert.IsNotNull(Resources.Load<StyleSheet>("UI/MetaShopStyles"));
         }
         [Test] public async Task Unlocks_FreshProfile_IncludesInitialAndKeepsOnlyCharactersHidden()

@@ -1478,7 +1478,7 @@
     {
       "id": "ENEMY-001",
       "maxHealth": 32,
-      "movementSpeed": 0.96,
+      "movementSpeed": 1.056,
       "collisionSize": 0.8,
       "contactDamage": 10,
       "contactDamageIntervalSeconds": 1,
@@ -1487,8 +1487,58 @@
       "knockbackSeconds": 0.12,
       "knockbackResistance": 0,
       "movement": {
-        "kind": "Seek"
+        "kind": "ArcPassPursuit",
+        "preferredDistance": 4,
+        "lateralStrength": 2,
+        "cycleSeconds": 2.5,
+        "directPursuitSeconds": 0.6
       },
+      "movementVariants": [
+        {
+          "chance": 0.05,
+          "movement": {
+            "kind": "Seek"
+          }
+        },
+        {
+          "chance": 0.05,
+          "movement": {
+            "kind": "CommittedPursuit",
+            "cycleSeconds": 6
+          }
+        },
+        {
+          "chance": 0.05,
+          "movement": {
+            "kind": "OffsetPursuit",
+            "preferredDistance": 3.5,
+            "distanceTolerance": 0.25,
+            "cycleSeconds": 3,
+            "directPursuitSeconds": 1.2
+          }
+        },
+        {
+          "chance": 0.75,
+          "movement": {
+            "kind": "BlockedSidestep",
+            "preferredDistance": 0.5,
+            "lateralStrength": 4,
+            "blockedTriggerSeconds": 0.2,
+            "blockedProgressFraction": 0.95,
+            "sidestepSeconds": 2.4,
+            "sidestepCooldownSeconds": 1,
+            "sidestepNearDistance": 3,
+            "sidestepNearSeconds": 0.8
+          }
+        },
+        {
+          "chance": 0.05,
+          "movement": {
+            "kind": "InertialPursuit",
+            "turnResponseSeconds": 2
+          }
+        }
+      ],
       "attack": null
     },
     {
@@ -1968,7 +2018,8 @@
       0,
       0
     ],
-    "spawnRadius": 12,
+    "spawnRadius": 10,
+    "spawnOppositeBias": 0.8,
     "openingSpawn": {
       "durationSeconds": 20,
       "screenMargin": 1
@@ -3310,7 +3361,7 @@
       },
       "proposed": {
         "maxHealth": 32,
-        "movementSpeed": 0.96,
+        "movementSpeed": 1.056,
         "contactDamage": 10
       }
     },

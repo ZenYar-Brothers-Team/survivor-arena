@@ -52,7 +52,25 @@ namespace Game.Enemy
                     ? RequireControls(data.DashContactControls, $"Enemy {data.Id} dashContactControls") : null,
                 string.IsNullOrEmpty(data.MotionProfileId) ? default :
                     new ContentRef<SpriteMotionProfile>(data.MotionProfileId),
-                ToDashVolley(data));
+                ToDashVolley(data),
+                ToMovementVariants(data));
+        }
+
+        private static EnemyMovementVariant[] ToMovementVariants(EnemyDefinitionData data)
+        {
+            if (data.MovementVariants == null) return Array.Empty<EnemyMovementVariant>();
+            var variants = new EnemyMovementVariant[data.MovementVariants.Length];
+            for (var i = 0; i < variants.Length; i++)
+            {
+                var entry = data.MovementVariants[i] ??
+                    throw new InvalidOperationException($"Enemy {data.Id} movementVariants[{i}] is empty.");
+                if (entry.Movement == null)
+                    throw new InvalidOperationException($"Enemy {data.Id} movementVariants[{i}].movement must be set in config.");
+                variants[i] = new EnemyMovementVariant(
+                    Require(entry.Chance, $"Enemy {data.Id} movementVariants[{i}].chance"),
+                    ToMovement($"{data.Id} movementVariants[{i}]", entry.Movement));
+            }
+            return variants;
         }
 
         private static EnemyDashVolleyProfile ToDashVolley(EnemyDefinitionData data)
@@ -113,16 +131,25 @@ namespace Game.Enemy
             // Neutral fallbacks for fields this kind never reads (Seek carries every domain default).
             var neutral = EnemyMovementProfile.Seek;
             var reposition = kind == EnemyMovementKind.DistanceReposition;
-            var usesDistance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit || reposition;
-            var usesLateral = kind == EnemyMovementKind.Orbit || kind == EnemyMovementKind.Zigzag || reposition;
-            var usesCycle = kind == EnemyMovementKind.Zigzag || kind == EnemyMovementKind.ApproachRetreat || reposition;
+            var offsetPursuit = kind == EnemyMovementKind.OffsetPursuit;
+            var blockedSidestep = kind == EnemyMovementKind.BlockedSidestep;
+            var arcPass = kind == EnemyMovementKind.ArcPassPursuit;
+            var inertial = kind == EnemyMovementKind.InertialPursuit;
+            var usesDistance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit ||
+                               reposition || offsetPursuit || blockedSidestep || arcPass;
+            var usesTolerance = kind == EnemyMovementKind.KeepDistance || kind == EnemyMovementKind.Orbit ||
+                                reposition || offsetPursuit;
+            var usesLateral = kind == EnemyMovementKind.Orbit || kind == EnemyMovementKind.Zigzag ||
+                              reposition || blockedSidestep || arcPass;
+            var usesCycle = kind == EnemyMovementKind.Zigzag || kind == EnemyMovementKind.ApproachRetreat ||
+                            kind == EnemyMovementKind.CommittedPursuit || offsetPursuit || arcPass || reposition;
             var usesDash = kind == EnemyMovementKind.TelegraphedDash;
 
             string Owner(string field) => $"Enemy '{enemyId}' movement '{kind}' field '{field}'";
             return new EnemyMovementProfile(
                 kind,
                 Pick(data.PreferredDistance, usesDistance, neutral.PreferredDistance, Owner(nameof(data.PreferredDistance))),
-                Pick(data.DistanceTolerance, usesDistance, neutral.DistanceTolerance, Owner(nameof(data.DistanceTolerance))),
+                Pick(data.DistanceTolerance, usesTolerance, neutral.DistanceTolerance, Owner(nameof(data.DistanceTolerance))),
                 Pick(data.LateralStrength, usesLateral, neutral.LateralStrength, Owner(nameof(data.LateralStrength))),
                 Pick(data.CycleSeconds, usesCycle, neutral.CycleSeconds, Owner(nameof(data.CycleSeconds))),
                 Pick(data.DashTelegraphSeconds, usesDash, neutral.DashTelegraphSeconds, Owner(nameof(data.DashTelegraphSeconds))),
@@ -134,7 +161,23 @@ namespace Game.Enemy
                 usesDash && (data.DashCount ?? 1) > 1
                     ? Require(data.FollowUpTelegraphSeconds, Owner(nameof(data.FollowUpTelegraphSeconds)))
                     : data.FollowUpTelegraphSeconds ?? 0f,
-                usesDash ? data.ShowDashTelegraphLine ?? neutral.ShowDashTelegraphLine : neutral.ShowDashTelegraphLine);
+                usesDash ? data.ShowDashTelegraphLine ?? neutral.ShowDashTelegraphLine : neutral.ShowDashTelegraphLine,
+                Pick(data.DirectPursuitSeconds, offsetPursuit || arcPass, neutral.DirectPursuitSeconds,
+                    Owner(nameof(data.DirectPursuitSeconds))),
+                Pick(data.BlockedTriggerSeconds, blockedSidestep, neutral.BlockedTriggerSeconds,
+                    Owner(nameof(data.BlockedTriggerSeconds))),
+                Pick(data.BlockedProgressFraction, blockedSidestep, neutral.BlockedProgressFraction,
+                    Owner(nameof(data.BlockedProgressFraction))),
+                Pick(data.SidestepSeconds, blockedSidestep, neutral.SidestepSeconds,
+                    Owner(nameof(data.SidestepSeconds))),
+                Pick(data.SidestepCooldownSeconds, blockedSidestep, neutral.SidestepCooldownSeconds,
+                    Owner(nameof(data.SidestepCooldownSeconds))),
+                Pick(data.TurnResponseSeconds, inertial, neutral.TurnResponseSeconds,
+                    Owner(nameof(data.TurnResponseSeconds))),
+                Pick(data.SidestepNearDistance, blockedSidestep, neutral.SidestepNearDistance,
+                    Owner(nameof(data.SidestepNearDistance))),
+                Pick(data.SidestepNearSeconds, blockedSidestep, neutral.SidestepNearSeconds,
+                    Owner(nameof(data.SidestepNearSeconds))));
         }
 
         private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)

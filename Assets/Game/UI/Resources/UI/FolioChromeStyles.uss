@@ -8,8 +8,11 @@
 
 .folio-panel-texture {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    border-radius: 10px;
+    opacity: 0.48;
+    -unity-background-scale-mode: stretch-to-fill;
 }

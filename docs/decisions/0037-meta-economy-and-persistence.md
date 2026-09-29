@@ -16,15 +16,18 @@ Related IP: IP-01, IP-03, IP-12, IP-16, IP-17, IP-19, IP-22, IP-23, IP-25, IP-26
 
 ## Rewards и terminal boundary
 
-R = 5 × L, где L — достигнутый целый уровень ≥1 начатого забега,
+Действующая поправка [DECISION-0098](0098-earned-level-run-reward.md):
+R = 5 × (L − 1), где L — достигнутый целый уровень ≥1 начатого забега,
 R — целая мета-валюта за завершение. Победа, поражение, Quit Run, остановка
 начатого run для Retry и обрабатываемая ошибка дают одинаковую награду.
 Не начатый run/ошибка подготовки не дают награды и не считаются первым забегом.
 Дополнительных множителей поля, времени, kills или победы нет, минимального
-времени тоже нет: старт на L1 и немедленный выход дают 5.
+времени тоже нет: старт на L1 и немедленный выход без Книг дают 0.
 Каждая пустая при подборе Книга даёт 50; непустой запрос, опустевший позднее,
 не компенсируется (DECISION-0020). B — число таких принятых пустых Книг, целое ≥0.
-Results total = 5 × L + 50 × B. Пример: L20 и две пустые Книги — 100 + 100 = 200.
+Действующий Results total с [DECISION-0090](0090-results-r1-and-book-upgrade-gold.md)
+равен `5 × (L − 1) + 20 × U + 50 × E`, где U — успешные Book-выборы,
+E — пустые при подборе Книги. Пример: L20 и две пустые Книги — 95 + 100 = 195.
 BookCurrency уже начислена внутри run; перенос в профиль выполняется один раз,
 не повторным pickup/reward event. Все суммы/levels валидируются с checked arithmetic;
 неполный/невалидный reward snapshot не превращается в успешный нулевой payout.
@@ -90,7 +93,7 @@ profile pipeline; production skills/sets/characters/fields, их прочие д
 отдельными fixture IDs и fake consumers, не делает production ID готовым к игре.
 Числа — approved baseline, не результат плейтеста; дальнейший tuning по IP-32.
 
-Обязательны проверки L1/Quit, L20+2 Books=200, pause/900s/death ordering,
+Обязательны проверки L1/Quit=0, L2/Quit=5, L20+2 Books=195, pause/900s/death ordering,
 не начатый run, повтор terminal/load/Retry/intent, отсутствие двойной Book reward,
 недостаток валюты, все unlock mappings, caps, next-run modifiers, atomic save failure,
 backup recovery/version rejection/migration и UI result→purchase→next run.

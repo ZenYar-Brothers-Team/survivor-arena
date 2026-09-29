@@ -20,6 +20,10 @@ namespace Game.Bootstrap.PlayModeTests
             {
                 var document = root.ShellDocument; var ui = document.rootVisualElement;
                 UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.ShellSettings)); yield return null;
+                Assert.IsFalse(root.Settings.Current.MouseMovement);
+                Assert.IsFalse(ui.Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).value);
+                Assert.AreEqual(new Color32(31, 25, 37, 255), (Color32)Camera.main.backgroundColor);
+                Assert.IsFalse(GameObject.Find("Obstacle_Fixture").GetComponent<SpriteRenderer>().enabled);
                 foreach (var size in new[] { new Vector2Int(1920,1080), new Vector2Int(1280,720) })
                 {
                     target = new RenderTexture(size.x,size.y,24); document.panelSettings.targetTexture = target;

@@ -61,6 +61,10 @@ Fixture groups 18/26/34 и spawn-only load bound не задают production ч
 
 versioned encounter data и rationale принятого баланса, field bindings, run evidence; отделить proposal чисел от утверждённого config.
 
+Проба DECISION-0100 задаёт `spawnRadius = 10` и `spawnOppositeBias = 0.8`
+в authoring balance JSON FIELD-001/002/003; 20-секундное стартовое появление
+у края экрана сохраняется. Числа требуют игрового просмотра.
+
 ## Gates и недостающие решения
 
 CG-02/G-11/G-14/W-01: full per-field encounter/scaling packets; пустой Wave section не разрешает coding AI придумать канон. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.

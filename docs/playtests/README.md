@@ -26,8 +26,15 @@
 
 [Checklist](CHECKLIST.md) и [review/proposal template](REVIEW_TEMPLATE.md) задают путь от наблюдения до решения и повторной проверки. Пример: [review OBS-01](../balance/balance-progression-2026-09-21.md); [synthetic accept/apply/rollback](exercises/IP32/README.md). Состояние OBS и исход review различаются: insufficient-evidence завершает анализ имеющихся данных, но не исправляет замечание.
 
+Общие проблемы игрового опыта, которые не относятся к одному конкретному прогону
+или исправлению, собраны в [общем реестре](OPEN_ISSUES.md). Реестр не задаёт
+execution order и не заменяет [STATUS](../implementation/STATUS.md).
+
 ## Прогоны
 
+- [2026-09-29 — первый просмотр anti-blob движения; без raw report](2026-09-29_anti-blob-movement.md).
+- [2026-09-29 — видимость фактуры, Pause и награда за стартовый уровень; без raw report](2026-09-29_ui-material-and-reward.md).
+- [2026-09-29 — стартовый кадр, folio-декор, стабильность Meta и фильтры Unlocks; без raw report](2026-09-29_ui-folio-followup.md).
 - [2026-09-29 — развитие: иконки, порядок улучшений, стабильность строк и начальные открытия; без raw report](2026-09-29_meta-feedback.md).
 - [2026-09-28 — карточки улучшений: тип, layout и иконки рецептов; без raw report](2026-09-28_ui-card-layout.md).
 - [2026-09-27 — лаги, Небесный удар и ранняя прокачка; raw report, tuning по DECISION-0079](2026-09-27_091d834e.md).

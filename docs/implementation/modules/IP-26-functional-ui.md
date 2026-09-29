@@ -132,6 +132,8 @@ defaults. Layout, DEV-only скорость и player HP уточняются
 Композиционный reference следующего экрана: [UI Results R1](../proposals/2026-09-28-ui-results-r1.md).
 Принятый Results R1 и явный запрос +20 за Book upgrade закреплены
 [DECISION-0090](../../decisions/0090-results-r1-and-book-upgrade-gold.md).
+По [DECISION-0098](../../decisions/0098-earned-level-run-reward.md) Results
+показывает сохранённый level reward только за уровни после стартового L1.
 Исполнение и gates определяются STATUS. Typed Results projection получает saved
 receipt данного RunId; новые открытия выше сетов, общая прокрутка коллекции,
 награда и кнопки вне scroll. Никакого парсинга summary или начисления во View.
@@ -281,6 +283,8 @@ settings preferences и `IAudioPreview` остаются в Game.Settings, produ
 Offset ограничен JSON envelope; camera transform смещается только между URP
 begin/end-camera-render callbacks и немедленно восстанавливается. Gameplay Update,
 spawn/visibility и camera follow читают baseline. Disable/pause/off/end очищают effect.
+При границе поля render-only offset ограничивается теми же camera bounds
+по DECISION-0101, чтобы Shake не открывал место за текстурой поля.
 
 `NotificationQueue` показывает одно неблокирующее сообщение вне центра; остальные
 ждут в ограниченной очереди. UI-time при pause не идёт. `RunNotificationBinding`

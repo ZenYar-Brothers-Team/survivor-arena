@@ -64,7 +64,8 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.AreEqual(AutomationRunState.Completed, _host.State, _host.TerminalReason);
             Assert.AreEqual(RunCompletionReason.Victory, _host.Outcome.Reason);
             Assert.AreEqual(_host.Outcome.RunId.ToString(), _host.Receipt.RunId);
-            Assert.Greater(_host.Receipt.Total, 0);
+            // DECISION-0098: the fixture reaches victory without earning any levels or Book choices.
+            Assert.AreEqual(0, _host.Receipt.Total);
             var folder = Path.Combine(_config.OutputDirectory, "chains", "chain-0001", "runs",
                 _host.Outcome.RunId.ToString("N"));
             Assert.IsTrue(File.Exists(Path.Combine(folder, "run.json")));

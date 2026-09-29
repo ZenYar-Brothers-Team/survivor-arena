@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "contentId": "UI-FOLIO-SURFACE",
+  "role": "background",
+  "status": "approved",
+  "artDirectionRevision": "2026-09-28",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "referenceImages": [
+    {
+      "role": "style reference",
+      "source": "AI-generated three-swatch folio material comparison, rightmost swatch, 2026-09-29"
+    }
+  ],
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-29",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the standalone third folio texture in chat on 2026-09-29: «берем».",
+  "prompt": "Use case: precise-object-edit. Input image: the provided three-swatch comparison sheet is a STYLE REFERENCE. The rightmost third is the approved direction. Create a NEW standalone landscape rectangular surface texture based ONLY on the rightmost swatch, filling the entire image. Remove the left and middle swatches and both vertical separators completely. Preserve the right swatch's near-flat charcoal-plum base (#302936), soft broad irregular pressure folds and barely worn matte paper material. Calm, subtle, low contrast (surface variation about 3-4%), suitable behind cream Cyrillic UI text. Make the fold distribution organic across the full canvas, with no obvious central focal point, no sharp cracks, no flecks, no bright spots, no vignette, no directional light and no border. No text, letters, symbols, buttons, icons, characters, watermark or logo. This is a flat 2D game UI background surface, not a mockup or physical book. Do not imitate the left paper fibers or middle leather grain.",
+  "constraints": [
+    "Approved third UI surface concept and standalone candidate",
+    "No baked text, frame, icons or vignette",
+    "Single full-panel image; no repeated tiling"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Folio/ui-folio-surface-background.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1672x941",
+    "sourceSha256": "a1e0a8bae914c59c34eb4f39bc87b38fa1af15d7e521315ffe87d889ba0eda93",
+    "runtimeSha256": "e9b598a9fd012c3c4f2a394bd0f00baa7e9367688f65f9087608571217403343",
+    "recipe": {
+      "mode": "opaque-rgba"
+    }
+  }
+}

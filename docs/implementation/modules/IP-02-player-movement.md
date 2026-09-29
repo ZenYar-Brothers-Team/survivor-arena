@@ -22,7 +22,7 @@ GDD «Управление, бой и выживание», «Поля»; Conten
 
 ## Scope
 
-Keyboard input остаётся default. При включённой сохраняемой настройке mouse input — нормализованное направление player→pointer вне круглой deadzone 1 world unit, ноль внутри/на границе; distance не масштабирует скорость. Далее общий configurable speed, spawn, field bounds и ordinary obstacles только для player; orthographic follow без задержки и screen offset. Предоставлять authoritative movement/direction новым skills; forced displacement исполняется через согласованный motion boundary IP-05, не через sprite pose.
+Keyboard input остаётся default. При включённой сохраняемой настройке mouse input — нормализованное направление player→pointer вне круглой deadzone 1 world unit, ноль внутри/на границе; distance не масштабирует скорость. Далее общий configurable speed, spawn, field bounds и ordinary obstacles только для player; orthographic follow без задержки и screen offset, с ограничением по видимой области поля у стен (DECISION-0101). Предоставлять authoritative movement/direction новым skills; forced displacement исполняется через согласованный motion boundary IP-05, не через sprite pose.
 
 ## Out of Scope
 
@@ -30,7 +30,7 @@ Production layouts, character collider resizing по изображению, cam
 
 ## Acceptance criteria
 
-Keyboard и mouse направления/скорость корректны; pointer deadzone останавливает; pause/end прекращают input movement; camera сохраняет depth и центр player. Enemy/projectile/XP проходят ordinary geometry. Подключение knockback не меняет этот collision contract.
+Keyboard и mouse направления/скорость корректны; pointer deadzone останавливает; pause/end прекращают input movement; camera сохраняет depth и центр player внутри поля, останавливается у каждой стены без показа пространства за полем и возобновляет follow после отхода. Enemy/projectile/XP проходят ordinary geometry. Подключение knockback не меняет этот collision contract.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -40,7 +40,7 @@ Gameplay fixture, player position/direction и camera observations; отдель
 
 ## Проверки
 
-Сохранить existing movement/bounds/camera tests; добавить deadzone/direction unit tests и composed PlayMode mouse-input regression; cross-check forced displacement в IP-05 и camera presentation в IP-26.
+Сохранить existing movement/bounds/camera tests; проверить границы камеры по четырём сторонам, отход от стены и render-only Shake; добавить deadzone/direction unit tests и composed PlayMode mouse-input regression; cross-check forced displacement в IP-05 и camera presentation в IP-26.
 
 ## Документационные изменения
 

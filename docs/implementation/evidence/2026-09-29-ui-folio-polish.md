@@ -53,3 +53,17 @@ Results, Draft и Pause при 1280×720. Текстура остаётся вн
 Unity 6000.6.0f1: 949/949 EditMode и 39/39 PlayMode, 0 failed/skipped;
 generated content current, audio 28 PASS, art provenance 268 PASS. Ручная visual
 acceptance именно дополнительной фактуры пока не заявляется.
+
+## Follow-up после просмотра
+
+Последующий отзыв пользователя отменил линейную трактовку фактуры: угловые
+рамки, верхние/нижние штрихи, зернистые линии и волокна удалены. Остались только
+градиенты, пока отдельно не выбран более убедительный материал (например,
+повторяющийся узор, слабые трещины или складки). В том же пакете исправлены
+стартовый синий кадр с оранжевым fixture, краткий скачок purchase reason и Unlocks
+state dropdown; умения/сеты по умолчанию показывают закрытые элементы.
+
+Условия и наблюдения: [UI folio follow-up](../../playtests/2026-09-29_ui-folio-followup.md).
+Full graphics PASS: `TestResults/checks/20260929T094640-646705Z/summary.json`,
+964/964 EditMode + 39/39 PlayMode, 0 failed/skipped; generated content current,
+audio 28 PASS, art provenance 268 PASS. Ручная приёмка follow-up не заявляется.

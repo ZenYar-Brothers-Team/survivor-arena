@@ -2,6 +2,7 @@
   "id": "FIXTURE-WAVE-FOCUSED",
   "seed": 13579,
   "spawnRadius": 7,
+  "spawnOppositeBias": 0,
   "maxAliveEnemies": 200,
   "phases": [
     {

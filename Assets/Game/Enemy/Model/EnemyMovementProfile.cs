@@ -12,6 +12,15 @@ namespace Game.Enemy
         public float DistanceTolerance { get; }
         public float LateralStrength { get; }
         public float CycleSeconds { get; }
+        /// <summary>OffsetPursuit/ArcPassPursuit: time at the end of each cycle spent directly pursuing the player.</summary>
+        public float DirectPursuitSeconds { get; }
+        public float BlockedTriggerSeconds { get; }
+        public float BlockedProgressFraction { get; }
+        public float SidestepSeconds { get; }
+        public float SidestepCooldownSeconds { get; }
+        public float SidestepNearDistance { get; }
+        public float SidestepNearSeconds { get; }
+        public float TurnResponseSeconds { get; }
         public float DashTelegraphSeconds { get; }
         public float DashDurationSeconds { get; }
         public float DashCooldownSeconds { get; }
@@ -39,7 +48,15 @@ namespace Game.Enemy
             float repositionSeconds = 0f,
             int dashCount = 1,
             float followUpTelegraphSeconds = 0f,
-            bool showDashTelegraphLine = true)
+            bool showDashTelegraphLine = true,
+            float directPursuitSeconds = 0f,
+            float blockedTriggerSeconds = 0f,
+            float blockedProgressFraction = 0f,
+            float sidestepSeconds = 0f,
+            float sidestepCooldownSeconds = 0f,
+            float turnResponseSeconds = 0f,
+            float sidestepNearDistance = 0f,
+            float sidestepNearSeconds = 0f)
         {
             if (!Enum.IsDefined(typeof(EnemyMovementKind), kind))
                 throw new ArgumentOutOfRangeException(nameof(kind));
@@ -54,14 +71,50 @@ namespace Game.Enemy
             NumericValidation.ValidateNonNegative(repositionSeconds, nameof(repositionSeconds));
             NumericValidation.ValidateCount(dashCount, nameof(dashCount));
             NumericValidation.ValidateNonNegative(followUpTelegraphSeconds, nameof(followUpTelegraphSeconds));
+            NumericValidation.ValidateNonNegative(directPursuitSeconds, nameof(directPursuitSeconds));
+            NumericValidation.ValidateNonNegative(blockedTriggerSeconds, nameof(blockedTriggerSeconds));
+            NumericValidation.ValidateRange(blockedProgressFraction, 0f, 1f, nameof(blockedProgressFraction));
+            NumericValidation.ValidateNonNegative(sidestepSeconds, nameof(sidestepSeconds));
+            NumericValidation.ValidateNonNegative(sidestepCooldownSeconds, nameof(sidestepCooldownSeconds));
+            NumericValidation.ValidateNonNegative(turnResponseSeconds, nameof(turnResponseSeconds));
+            NumericValidation.ValidateNonNegative(sidestepNearDistance, nameof(sidestepNearDistance));
+            NumericValidation.ValidateNonNegative(sidestepNearSeconds, nameof(sidestepNearSeconds));
             if (kind == EnemyMovementKind.DistanceReposition && (repositionSeconds <= 0f || repositionSeconds >= cycleSeconds))
                 throw new ArgumentOutOfRangeException(nameof(repositionSeconds), "Reposition time must be positive and shorter than the cycle.");
+            if (kind == EnemyMovementKind.OffsetPursuit && (preferredDistance <= 0f || distanceTolerance <= 0f))
+                throw new ArgumentOutOfRangeException(nameof(preferredDistance),
+                    "Offset pursuit requires positive offset and arrival radii.");
+            if (kind == EnemyMovementKind.OffsetPursuit &&
+                (directPursuitSeconds <= 0f || directPursuitSeconds >= cycleSeconds))
+                throw new ArgumentOutOfRangeException(nameof(directPursuitSeconds),
+                    "Direct pursuit time must be positive and shorter than the offset cycle.");
+            if (kind == EnemyMovementKind.BlockedSidestep &&
+                (preferredDistance <= 0f || lateralStrength <= 0f || blockedTriggerSeconds <= 0f ||
+                 blockedProgressFraction <= 0f || sidestepSeconds <= 0f ||
+                 sidestepNearDistance <= preferredDistance || sidestepNearSeconds <= 0f))
+                throw new ArgumentOutOfRangeException(nameof(kind),
+                    "Blocked sidestep requires positive timing and strength, with near distance beyond the minimum activation distance.");
+            if (kind == EnemyMovementKind.ArcPassPursuit &&
+                (preferredDistance <= 0f || lateralStrength <= 0f || directPursuitSeconds <= 0f ||
+                 directPursuitSeconds >= cycleSeconds))
+                throw new ArgumentOutOfRangeException(nameof(kind),
+                    "Arc pass requires a positive near distance and lateral strength, with a direct phase shorter than the cycle.");
+            if (kind == EnemyMovementKind.InertialPursuit && turnResponseSeconds <= 0f)
+                throw new ArgumentOutOfRangeException(nameof(turnResponseSeconds));
 
             Kind = kind;
             PreferredDistance = preferredDistance;
             DistanceTolerance = distanceTolerance;
             LateralStrength = lateralStrength;
             CycleSeconds = cycleSeconds;
+            DirectPursuitSeconds = directPursuitSeconds;
+            BlockedTriggerSeconds = blockedTriggerSeconds;
+            BlockedProgressFraction = blockedProgressFraction;
+            SidestepSeconds = sidestepSeconds;
+            SidestepCooldownSeconds = sidestepCooldownSeconds;
+            SidestepNearDistance = sidestepNearDistance;
+            SidestepNearSeconds = sidestepNearSeconds;
+            TurnResponseSeconds = turnResponseSeconds;
             DashTelegraphSeconds = dashTelegraphSeconds;
             DashDurationSeconds = dashDurationSeconds;
             DashCooldownSeconds = dashCooldownSeconds;

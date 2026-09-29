@@ -20,7 +20,7 @@ GDD combat/enemies; ENEMY-001…020 schemas/cards как compatibility, BOSS/MID
 
 ## Scope
 
-Seek/keep-distance/orbit/zigzag/retreat/dash и single/fan/burst/ring/cross/spiral/explosive attacks; source ID/life in projectiles survives shooter death. Movement combines base/scaled speed and approved slow/knockback/dash priority; explicit per-kind knockback/resistance. Category-neutral composition для future boss/Traveler; projectile burst ≠ wave burst.
+Seek/keep-distance/orbit/zigzag/retreat/dash, лёгкие OffsetPursuit/CommittedPursuit/BlockedSidestep/ArcPassPursuit/InertialPursuit и per-spawn weighted movement variants; single/fan/burst/ring/cross/spiral/explosive attacks; source ID/life in projectiles survives shooter death. Movement combines base/scaled speed and approved slow/knockback/dash priority; explicit per-kind knockback/resistance. Category-neutral composition для future boss/Traveler; projectile burst ≠ wave burst.
 
 ## Out of Scope
 
@@ -70,7 +70,7 @@ G-07 закрыт DECISION-0017: knockback не приостанавливает
 
 EnemyAttackController публикует Cooldown / Telegraphing / Bursting, оставшееся время фазы, aim и число оставшихся burst shots. После начала telegraph полный configured wind-up проходит без damage; aim продолжает следовать за целью. Cooldown отсчитывается от выпуска первого выстрела, включая время burst; после его завершения и истечения cooldown начинается следующий wind-up. Контракт fixture scheduler не определяет wave burst/cap/catch-up policy W-01. Slow и knockback не подменяют attack time. Pause не меняет aim, phase или timers.
 
-EnemyMovementController сохраняет Seek, KeepDistance, Orbit, Zigzag, ApproachRetreat и TelegraphedDash. Dash direction фиксируется при входе в telegraph; pause сохраняет видимую фазу любых movement kinds. Runtime складывает `base speed × wave speed multiplier × slow multiplier × dash multiplier` с независимой knockback velocity. Например, base=0.7, wave=2, slow=0.5, dash=4 дают 2.8 wu/s по locked направлению; impulse 2 wu с resistance=25% за 2 s добавляет 0.75 wu/s по своему направлению. Dash/steering timers продолжаются по DECISION-0017.
+EnemyMovementController сохраняет Seek, KeepDistance, Orbit, Zigzag, ApproachRetreat, TelegraphedDash, OffsetPursuit, CommittedPursuit, BlockedSidestep, ArcPassPursuit и InertialPursuit. OffsetPursuit использует `preferredDistance` как радиус личной точки, `distanceTolerance` как радиус линейного arrival, `cycleSeconds` как период смены направления и `directPursuitSeconds` как заключительную часть цикла с прямым преследованием; CommittedPursuit использует `cycleSeconds` как период обновления курса. BlockedSidestep сравнивает предыдущее желаемое и фактическое смещение либо время внутри `sidestepNearDistance`, после любого триггера делает боковой обход с cooldown; ArcPassPursuit чередует ближнюю дугу с прямой погоней; InertialPursuit плавно обновляет курс. Все три новых шаблона требуют явных per-kind полей из JSON и выполняют O(1) работу без поиска соседей или пути. Опциональные `movementVariants[]` содержат `chance` от 0 до 1 и полный movement profile; сумма chances ≤ 1, остаток принадлежит основному `movement`. Выбор выполняется один раз на жизнь отдельным seeded-потоком WaveDirector. Dash direction фиксируется при входе в telegraph; pause сохраняет видимую фазу любых movement kinds. Runtime складывает `base speed × wave speed multiplier × slow multiplier × dash multiplier` с независимой knockback velocity. Например, base=0.7, wave=2, slow=0.5, dash=4 дают 2.8 wu/s по locked направлению; impulse 2 wu с resistance=25% за 2 s добавляет 0.75 wu/s по своему направлению. Dash/steering timers продолжаются по DECISION-0017. Anti-blob contract — [DECISION-0099](../../decisions/0099-anti-blob-enemy-movement.md).
 
 Projectile хранит value CombatSource со source ID, owner LifeId/RunId/category и immutable profile. Shooter death/reuse не меняет этот snapshot. Hit/expiry возвращает снаряд до damage callbacks; сообщение в боевой pipeline использует сохранённые locals. Это позволяет callbacks повторно арендовать тот же component без его повторного despawn старым попаданием. Pause обнуляет velocity и замораживает lifetime; Won/Lost/Stopped немедленно освобождают снаряд без ожидания следующего physics tick. Reinit/return снимают run subscription, очищают source/profile/target/lifetime/velocity/renderer/trail. Callback старого run не действует на новый running life.
 
@@ -80,7 +80,8 @@ DEV остаётся в существующем gated/collapsed drawer: present
 
 | Canonical targets | Framework mapping | Что остаётся owning packet |
 |---|---|---|
-| ENEMY-001/002/003/009/020 | Seek + contact/resistance | Production contact intervals, assets |
+| ENEMY-001 | ArcPassPursuit + weighted Seek/OffsetPursuit/CommittedPursuit/BlockedSidestep/InertialPursuit + contact/resistance | Production contact interval/assets; rollout DECISION-0099 |
+| ENEMY-002/003/009/020 | Seek + contact/resistance | Production contact intervals, assets |
 | ENEMY-004/005/012 | KeepDistance/Orbit + Single | Per-card targeting/hold behaviour, projectile geometry/data |
 | ENEMY-006/019 | KeepDistance/Seek + Fan | Production parameters/art |
 | ENEMY-007/016 | TelegraphedDash + separate dash contact controls | Production timings/duration |

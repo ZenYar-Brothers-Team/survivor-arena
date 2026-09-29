@@ -136,6 +136,7 @@ namespace Game.Bootstrap
         private RunAudioRuntime _runAudio;
         private SettingsConfig _settingsConfig;
         private CameraShakeRuntime _shake;
+        private CameraFollowTarget _cameraFollow;
         private GroundShadowRuntime _playerGroundShadow;
         private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
         private NotificationQueue _notifications;
@@ -273,6 +274,7 @@ namespace Game.Bootstrap
             try
             {
                 if (IsInitialized) return;
+                PrepareStartupSurface();
                 ValidateSceneReferences();
                 SuspendForSelection();
                 // Real play uses the production economy and a separate save (F1-08); tests configure a fixture profile.
@@ -290,6 +292,15 @@ namespace Game.Bootstrap
                 Debug.LogError($"Gameplay composition failed: {exception}", this);
                 enabled = false;
             }
+        }
+
+        private static void PrepareStartupSurface()
+        {
+            var camera = Camera.main;
+            if (camera != null) camera.backgroundColor = new Color32(31, 25, 37, 255);
+            var fixture = GameObject.Find("Obstacle_Fixture");
+            var renderer = fixture != null ? fixture.GetComponent<SpriteRenderer>() : null;
+            if (renderer != null) renderer.enabled = false;
         }
 
         public void OpenCharacterSelection(ICharacterAccessProvider access = null, IFieldAccessProvider fieldAccess = null)
@@ -414,9 +425,14 @@ namespace Game.Bootstrap
                 // DECISION-0068: fields with a pattern layout get a fresh obstacle arrangement every run.
                 var layout = fieldPresentation.ObstacleLayout;
                 LayoutSeed = layout == null ? 0 : UseReferenceSeeds ? layout.ReferenceSeed : FreshRunSeed.Next();
+                var arenaSideLength = FixtureArenaGeometryCatalog.Create().SideLength;
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
-                    gameObject.scene, FixtureArenaGeometryCatalog.Create().SideLength, layout == null ? (int?)null : LayoutSeed);
+                    gameObject.scene, arenaSideLength, layout == null ? (int?)null : LayoutSeed);
                 initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
+                _cameraFollow = Camera.main.GetComponent<CameraFollowTarget>();
+                if (_cameraFollow == null) throw new InvalidOperationException("Gameplay camera requires CameraFollowTarget.");
+                _cameraFollow.ConfigureBounds(arenaSideLength);
+                initializedSubsystems.Add(() => { _cameraFollow?.ClearBounds(); _cameraFollow = null; });
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();
                 player.transform.position = spawn.position;
@@ -689,6 +705,7 @@ namespace Game.Bootstrap
             _playerGroundShadow?.Shutdown();
             _fieldEnvironmentArt?.Dispose();
             _fieldEnvironmentArt = null;
+            _cameraFollow = null;
             player.Shutdown();
             FieldConfiguration = null;
         }

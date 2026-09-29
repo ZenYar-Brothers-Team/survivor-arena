@@ -14,6 +14,7 @@ namespace Game.Enemy
         private readonly EnemyDefinition[][] _phaseEnemies;
         private readonly float[] _phaseStarts;
         private readonly Random _random;
+        private readonly Random _movementRandom;
         private ContinuousSpawnTimer _spawnTimer;
         private int _nextHookIndex;
         private bool _burstConsumed;
@@ -77,6 +78,7 @@ namespace Game.Enemy
             Seed = seed ?? timeline.Seed;
             _random = new Random(Seed);
             _geometryRandom = new Random(Seed);
+            _movementRandom = new Random(unchecked(Seed * 486187739 + 104729));
             _spawnTimer = new ContinuousSpawnTimer(CurrentPhase.SpawnIntervalSeconds);
         }
 
@@ -148,13 +150,26 @@ namespace Game.Enemy
             return allowed;
         }
 
-        /// <summary>Uniform circle angle in radians; seeded independently of composition.
-        /// This reproduces spawn decisions, not the subsequent physics simulation.</summary>
         /// <summary>True while ordinary spawns use the screen-edge opening placement (DECISION-0057).</summary>
         public bool IsOpeningSpawnActive =>
             _timeline.OpeningSpawn != null && Elapsed < _timeline.OpeningSpawn.DurationSeconds;
 
+        /// <summary>Uniform circle angle in radians; the geometry stream is independent of composition.</summary>
         public double SelectSpawnAngle() => _geometryRandom.NextDouble() * Math.PI * 2d;
+
+        /// <summary>DECISION-0099: squeeze one uniform angle toward the direction opposite the
+        /// living ordinary enemy centroid. u - k sin(u) covers the entire ring for k in [0,1].</summary>
+        public double SelectSpawnAngle(double oppositeAngle)
+        {
+            if (double.IsNaN(oppositeAngle) || double.IsInfinity(oppositeAngle))
+                throw new ArgumentOutOfRangeException(nameof(oppositeAngle));
+            var bias = _timeline.SpawnOppositeBias;
+            if (bias <= 0f) return SelectSpawnAngle();
+            var uniform = _geometryRandom.NextDouble() * Math.PI * 2d - Math.PI;
+            var angle = oppositeAngle + uniform - bias * Math.Sin(uniform);
+            angle %= Math.PI * 2d;
+            return angle < 0d ? angle + Math.PI * 2d : angle;
+        }
 
         public EnemyDefinition SelectEnemy()
         {
@@ -173,5 +188,15 @@ namespace Game.Enemy
             }
             return enemies[enemies.Length - 1];
         }
+
+        /// <summary>Resolves a per-life movement variant on a stream independent from composition and geometry.</summary>
+        public EnemyMovementProfile SelectMovement(EnemyDefinition definition)
+        {
+            if (definition == null) throw new ArgumentNullException(nameof(definition));
+            return definition.SelectMovement((float)_movementRandom.NextDouble());
+        }
+
+        /// <summary>Seeds per-life movement state such as a personal offset or initial retarget interval.</summary>
+        public int SelectMovementSeed() => _movementRandom.Next();
     }
 }

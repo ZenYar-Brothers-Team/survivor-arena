@@ -8,26 +8,31 @@ namespace Game.UI
     {
         private readonly VisualElement _root;
         private readonly Action<MetaCardViewState> _buy;
-        private readonly DropdownField _stateFilter;
+        private readonly VisualElement _stateFilters;
         private readonly ScrollView _list;
         private MetaCardViewState[] _cards = Array.Empty<MetaCardViewState>();
         private string _kind = "all";
+        private int _state;
         private bool _blocked;
         public MetaUnlockPanel(VisualElement root, Action<MetaCardViewState> buy)
         {
             _root = root; _buy = buy;
             _list = root.Q<ScrollView>(GameplayUiElementIds.MetaUnlockList);
-            _stateFilter = root.Q<DropdownField>(GameplayUiElementIds.MetaUnlockState);
-            _stateFilter.choices = new System.Collections.Generic.List<string> { "Все состояния", "Не открыто", "Можно купить", "Открыто" };
-            _stateFilter.SetValueWithoutNotify(_stateFilter.choices[0]);
-            _stateFilter.RegisterValueChangedCallback(_ => Rebuild(true));
             var filters = root.Q(GameplayUiElementIds.MetaUnlockFilters);
+            _stateFilters = root.Q(GameplayUiElementIds.MetaUnlockStates);
+            for (var state = 0; state < 4; state++)
+            {
+                var selectedState = state;
+                var button = new Button(() => { _state = selectedState; Rebuild(true); })
+                    { name = GameplayUiElementIds.MetaUnlockState(state) };
+                button.AddToClassList("shop-state-filter"); _stateFilters.Add(button);
+            }
             var kinds = new[] { "all", "character", "field", "ability", "set" };
             var titles = new[] { "Все", "Персонажи", "Карты", "Умения", "Сеты" };
             for (var i = 0; i < kinds.Length; i++)
             {
                 var kind = kinds[i];
-                var button = new Button(() => { _kind = kind; Rebuild(true); })
+                var button = new Button(() => { _kind = kind; _state = kind == "ability" || kind == "set" ? 1 : 0; Rebuild(true); })
                     { name = GameplayUiElementIds.MetaUnlockType(kind), text = titles[i] };
                 button.AddToClassList("shop-type-filter"); filters.Insert(i, button);
             }
@@ -42,17 +47,20 @@ namespace Game.UI
         {
             var focus = (_root.panel?.focusController?.focusedElement as VisualElement)?.name;
             var offset = reset ? Vector2.zero : _list.scrollOffset;
-            var selectedState = Math.Max(0, _stateFilter.index);
             var category = _cards.Where(c => MetaShopProjection.MatchesUnlock(c, _kind, 0)).ToArray();
-            _stateFilter.choices = new System.Collections.Generic.List<string>
+            var stateTitles = new[]
             {
-                "Все состояния · " + category.Length,
-                "Не открыто · " + category.Count(c => !c.Owned),
-                "Можно купить · " + category.Count(c => c.CanBuy),
+                "Все · " + category.Length,
+                "Закрыто · " + category.Count(c => !c.Owned),
+                "Доступно · " + category.Count(c => c.CanBuy),
                 "Открыто · " + category.Count(c => c.Owned)
             };
-            _stateFilter.SetValueWithoutNotify(_stateFilter.choices[selectedState]);
-            var visible = _cards.Where(c => MetaShopProjection.MatchesUnlock(c, _kind, _stateFilter.index)).ToArray();
+            for (var state = 0; state < stateTitles.Length; state++)
+            {
+                var button = _stateFilters.Q<Button>(GameplayUiElementIds.MetaUnlockState(state));
+                button.text = stateTitles[state]; button.EnableInClassList("shop-selected", state == _state);
+            }
+            var visible = _cards.Where(c => MetaShopProjection.MatchesUnlock(c, _kind, _state)).ToArray();
             _list.Clear();
             foreach (var button in _root.Q(GameplayUiElementIds.MetaUnlockFilters).Children().OfType<Button>())
                 button.EnableInClassList("shop-selected", button.name == GameplayUiElementIds.MetaUnlockType(_kind));

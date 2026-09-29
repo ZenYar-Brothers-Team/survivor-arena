@@ -11,6 +11,8 @@ namespace Game.Enemy
         public ContentId Id { get; }
         public int Seed { get; }
         public float SpawnRadius { get; }
+        /// <summary>0 = uniform ring; 1 = strongest opposite-centroid angle bias, with support over the full ring.</summary>
+        public float SpawnOppositeBias { get; }
         /// <summary>Technical ceiling for ordinary enemies, shared by every phase.</summary>
         public int MaxAliveEnemies { get; }
         public IReadOnlyList<WavePhaseDefinition> Phases { get; }
@@ -26,11 +28,13 @@ namespace Game.Enemy
             int maxAliveEnemies,
             IReadOnlyList<WavePhaseDefinition> phases,
             IReadOnlyList<WaveHookDefinition> hooks = null,
-            WaveOpeningSpawnDefinition openingSpawn = null)
+            WaveOpeningSpawnDefinition openingSpawn = null,
+            float spawnOppositeBias = 0f)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Wave timeline requires a valid id.", nameof(id));
             NumericValidation.ValidatePositive(spawnRadius, nameof(spawnRadius));
+            NumericValidation.ValidateRange(spawnOppositeBias, 0f, 1f, nameof(spawnOppositeBias));
             NumericValidation.ValidateCount(maxAliveEnemies, nameof(maxAliveEnemies));
             if (phases == null || phases.Count == 0)
                 throw new ArgumentException("Wave timeline requires at least one phase.", nameof(phases));
@@ -73,6 +77,7 @@ namespace Game.Enemy
             Id = id;
             Seed = seed;
             SpawnRadius = spawnRadius;
+            SpawnOppositeBias = spawnOppositeBias;
             MaxAliveEnemies = maxAliveEnemies;
             Phases = phaseCopy;
             Hooks = hookCopy;
