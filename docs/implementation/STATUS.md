@@ -26,7 +26,7 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 `activeFirst15/v1` и возврат скорости на 1× после нажатия speed-кнопки.
 Первый human сеанс завершился incomplete (`humanSpeedChanged`) и не является
 данными для обучения. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
-Свежий player и ручной плейтест ещё не выполнены.
+Свежий player собран и сверен по хешам; ручной плейтест ещё не выполнен.
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -48,7 +48,8 @@ full graphics 1034/1034 EditMode + 52/52 PlayMode, generation/audio/art 269 PASS
 1044/1044 EditMode + 57/57 PlayMode, Python 25/25, generation/audio/art 269 PASS;
 [evidence](evidence/2026-09-30-ip34-develop-refresh.md). Вошли opening spawn ×0.6,
 bias 1.0, невидимый периметр и Space focus fix; ручные gates исходной ветки сохранены.
-Готовые player-сборки ещё от предыдущей версии и требуют пересборки перед запуском.
+Новый player для записи/плейтеста собран по `f5fd816` и сверен по хешам;
+ручной запуск остаётся открытым.
 Остальные UI/gameplay поручения и паузы сохраняются.
 
 UI Folio polish 2026-09-29 — Implemented: по явному поручению пользователя
@@ -841,11 +842,12 @@ Current packet: AB-01…14 закрыты в пределах scoped приём�
 для реальной балансировки и обучение новой модели этим не приняты.
 Follow-up 2026-09-30 — Implemented: human template использует `activeFirst15/v1`,
 скорость записи возвращается на 1×. Затронутые EditMode 44/44, full graphics
-1051/1051 + 57/57 PASS; новый player и человеческая запись ещё ожидаются.
+1051/1051 + 57/57 PASS; player по `f5fd816` собран, хеши совпали;
+человеческая запись ещё ожидается.
 [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
-Current gate: после интеграции `develop-evg` до `2ea7a83` нужен новый player build
-перед standalone-запуском; full graphics 1044/1044 + 57/57 и Python 25/25 PASS
-([refresh evidence](evidence/2026-09-30-ip34-develop-refresh.md)).
+Current gate: player для ручного прогона собран по `f5fd816` и сверен по хешам;
+запись ждёт участия пользователя. Перед сборкой full graphics 1051/1051 + 57/57,
+Python 25/25 PASS ([current evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md)).
 Реальная человеческая запись только по следующему явному запросу;
 выбор/обучение новой policy — отдельный scope. Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после

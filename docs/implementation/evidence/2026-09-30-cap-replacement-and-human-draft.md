@@ -33,6 +33,12 @@ Development HUD может предлагать скорость выше 1×, �
   Unity 6000.6.0f1, 1051/1051 EditMode и 57/57 PlayMode, 0 failed/skipped;
   generation/audio/art 269 PASS. Проверка выполнена после стабилизации исходников.
 - Balance Python suite: 25/25 PASS (`python -m unittest discover -s scripts/balance -p 'test_*.py'`).
+- Отдельный development player собран после коммита `f5fd816`:
+  `TestResults/balance-build-playtest-20260930/balance.exe` с соседним
+  `build-manifest.json`. Хеши executable и `_Data` совпали с манифестом;
+  build type `Development+BALANCE_AUTOMATION`. Unity автоматически менял два
+  render settings asset во время build; эти локальные изменения возвращены,
+  рабочее дерево после сборки чистое. Player не запускался для человека.
 - Ручной gameplay review плотности, видимости исчезновений и нового player:
   ожидается после сборки.
 
