@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Game.Character;
+using Game.Content;
 using Game.Run;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -18,6 +19,17 @@ namespace Game.Meta.Tests
             Assert.AreEqual(5,_catalog.RewardPerLevel); Assert.AreEqual(50,_catalog.EmptyBookReward);
             Assert.AreEqual(20,_catalog.BookUpgradeReward);
             Assert.AreEqual(900,_catalog.FieldClearSeconds);
+            var killThresholds = new Dictionary<string, long>
+            {
+                {"FIELD-002", 3000}, {"FIELD-005", 9000}, {"FIELD-007", 12000},
+                {"SKILL-009", 1800}, {"SKILL-015", 3000}, {"PASSIVE-010", 2100},
+                {"SET-008", 4200}, {"SET-011", 3000}
+            };
+            foreach (var threshold in killThresholds)
+            {
+                Assert.AreEqual("ordinaryKills", _catalog.Unlocks[threshold.Key].Metric, threshold.Key);
+                Assert.AreEqual(threshold.Value, _catalog.Unlocks[threshold.Key].TargetCount, threshold.Key);
+            }
             Assert.AreEqual(100,_catalog.Unlocks["CHAR-002"].Price);
             Assert.AreEqual(300,_catalog.Unlocks["CHAR-004"].Price);
             Assert.AreEqual(500,_catalog.Unlocks["CHAR-006"].Price);
@@ -82,13 +94,21 @@ namespace Game.Meta.Tests
                 new Dictionary<string,long>(), 0, 0);
             var run = MetaTestData.Run(1, 0, achievements:facts); run.Start(); run.Kill();
             Assert.IsTrue(await profile.ApplyAsync(run.Outcome, true));
-            Assert.IsTrue(profile.IsUnlocked("FIELD-002"));
-            Assert.IsTrue(profile.IsUnlocked("SET-011"));
+            Assert.IsFalse(profile.IsUnlocked("FIELD-002"));
+            Assert.IsFalse(profile.IsUnlocked("SET-011"));
             Assert.IsFalse(profile.IsUnlocked("CHAR-002"));
             Assert.AreEqual(500, profile.UnlockProgress("FIELD-002"));
+            StringAssert.Contains("500/3000", new ProfileAccessProvider(profile).GetLockReason(new ContentId("FIELD-002")));
             Assert.IsTrue(await profile.ApplyAsync(run.Outcome, true));
+            Assert.AreEqual(500, profile.UnlockProgress("FIELD-002"));
+            var remaining = new RunAchievementSnapshot(2500, new Dictionary<string,int>(),
+                new Dictionary<string,long>(), 0, 0);
+            var nextRun = MetaTestData.Run(1, 0, achievements:remaining); nextRun.Start(); nextRun.Kill();
+            Assert.IsTrue(await profile.ApplyAsync(nextRun.Outcome, true));
+            Assert.IsTrue(profile.IsUnlocked("FIELD-002"));
+            Assert.IsTrue(profile.IsUnlocked("SET-011"));
             var loaded = new ProfileService(_catalog, store); await loaded.LoadAsync();
-            Assert.AreEqual(500, loaded.UnlockProgress("FIELD-002"));
+            Assert.AreEqual(3000, loaded.UnlockProgress("FIELD-002"));
         }
         [Test] public async Task EarnedGold_AndPaidContent_KeepSeparateCountersAndBalances()
         {

@@ -51,7 +51,7 @@ namespace Game.UI
             var count = System.Math.Min(progress, rule.TargetCount);
             var achievement = rule.Metric switch
             {
-                "ordinaryKills" => "Убить врагов",
+                "ordinaryKills" => "Убить обычных врагов",
                 "earnedGold" => "Заработать монет",
                 "activeDamage" => "Нанести урон умениями",
                 "characterDamage" => "Нанести урон за " + target,

@@ -199,7 +199,7 @@ Knockback: 0.25 world units при каждом попадании по теку
 
 #### SKILL-009 — Магматическая мина
 Статус: Approved.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 300 обычных врагов на FIELD-002 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): убить 1800 обычных врагов на FIELD-002 (накопительно).
 
 Роль: урон по преследующим врагам и использование маршрута игрока.
 Targeting / pattern: автоматически оставляет мину в текущей позиции персонажа; мина взрывается при приближении врага или по истечении lifetime.
@@ -265,7 +265,7 @@ Knockback: impact 0.25 world units по направлению полёта сф
 
 #### SKILL-015 — Крест клинков
 Статус: Approved.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 500 обычных врагов на FIELD-004 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): убить 3000 обычных врагов на FIELD-004 (накопительно).
 
 Роль: периодический burst по четырём направлениям с сильным поздним покрытием.
 Targeting / pattern: центрируется на персонаже и в базовой версии выпускает четыре длинных режущих волны по фиксированным горизонтальному и вертикальному направлениям. Ориентация не зависит от положения врагов или направления движения персонажа.
@@ -373,7 +373,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 #### PASSIVE-010 — Талисман ученика
 
 Статус: Approved.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 350 обычных врагов на FIELD-002 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): убить 2100 обычных врагов на FIELD-002 (накопительно).
 Эффект: увеличивает количество опыта, начисляемого при физическом подборе XP.
 Уровни 1–6: +5% / +10% / +15% / +20% / +25% / +30% picked-up XP.
 Взаимодействия: модификатор применяется к фактически подобранному опыту; disappearing-XP recovery рассчитывается отдельно по своей механике.
@@ -499,7 +499,7 @@ Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.m
 
 #### SET-008 — Утилизатор
 Статус: Approved.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 700 обычных врагов на FIELD-002 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): убить 4200 обычных врагов на FIELD-002 (накопительно).
 Рецепт: SKILL-009 «Магматическая мина» + SKILL-014 «Взрывные сферы» + SKILL-016 «Разбрасыватель мусора» + PASSIVE-012 «Широкий замах».
 Тип: одна простая stateful-трансформация.
 Эффект: каждый N-й projectile Разбрасывателя мусора заменяется одним «тяжёлым мусором»: он крупнее, медленнее останавливается и при остановке взрывается. Explosion skills компонентов получают небольшой общий bonus к radius.
@@ -529,7 +529,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-011 — Кинетический арсенал
 Статус: Approved.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 500 обычных врагов на FIELD-001 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): убить 3000 обычных врагов на FIELD-001 (накопительно).
 Рецепт: SKILL-001 «Бросок камня» + SKILL-005 «Ветряное копьё» + SKILL-008 «Рикошетный диск» + PASSIVE-004 «Точильный камень» + PASSIVE-013 «Длинные руки».
 Тип: сильный пассивный projectile buff.
 Эффект: перечисленные direct projectiles получают большой bonus к projectile speed, damage, range и небольшой bonus к outgoing knockback. Cross-skill cooldown reduction убран.
@@ -1738,7 +1738,7 @@ Wave pressure: немного выше плотность и короче пер
 Boss / mid-boss: BOSS-002 / MIDBOSS-002.
 Enemy pool ([DECISION-0063](decisions/0063-field002-slice-v1.md)): шесть типов FIELD-001 и три новых — ENEMY-008 с первой волны, ENEMY-009, ENEMY-006.
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=2.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001 или убить 500 обычных врагов на FIELD-001 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): пройти FIELD-001 или убить 3000 обычных врагов на FIELD-001 (накопительно).
 
 #### FIELD-003 — Пограничные руины
 
@@ -1773,7 +1773,7 @@ Geometry / obstacles: крупные здания и стены создают �
 Enemy profile: плотный смешанный состав городской стражи, гвардейцев, инквизиторов и рыцарей; ranged-враги поддерживают выносливый frontline.<br>
 Wave pressure: короткие передышки; несколько выраженных сложных/элитных волн.
 Boss / mid-boss: BOSS-005 / MIDBOSS-005.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-004 или убить 1500 обычных врагов на FIELD-004 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): пройти FIELD-004 или убить 9000 обычных врагов на FIELD-004 (накопительно).
 
 #### FIELD-006 — Академия магов
 
@@ -1795,7 +1795,7 @@ Geometry / obstacles: много небольших препятствий не�
 Enemy profile: рыцарские отряды и церковные преследователи сочетаются с магической ranged-поддержкой и более выносливыми целями.<br>
 Wave pressure: высокая средняя плотность, элитные всплески могут следовать близко друг за другом.
 Boss / mid-boss: BOSS-007 / MIDBOSS-007.
-Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-006 или убить 2000 обычных врагов на FIELD-006 (накопительно).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): пройти FIELD-006 или убить 12000 обычных врагов на FIELD-006 (накопительно).
 
 #### FIELD-008 — Цитадель короны
 

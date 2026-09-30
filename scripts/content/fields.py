@@ -33,7 +33,7 @@ def fields(baseline):
                    {"id": two["id"], "displayName": names[two["id"]], "description": card_field(two["id"], "Роль"),
                     "thumbnailPlaceholder": "Королевский тракт", "difficulty": two["difficulty"],
                     "thumbnailVisualId": "FIELD-002-VISUAL-BACKGROUND",
-                    "unlockDescription": "Пройдите «Деревенскую окраину»", "environmentId": "FIELD-002-ENVIRONMENT",
+                    "unlockDescription": "Пройдите «Деревенскую окраину» или убейте 3000 обычных врагов на ней", "environmentId": "FIELD-002-ENVIRONMENT",
                     "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
                     "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
                     "enemyIds": baseline["field002"]["enemyPool"]},

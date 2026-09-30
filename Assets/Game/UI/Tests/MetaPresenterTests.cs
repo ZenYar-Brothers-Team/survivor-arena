@@ -21,7 +21,8 @@ namespace Game.UI.Tests
         [Test] public void UnlockCollection_FormatsAchievementProgressAndPaidPrice()
         {
             var catalog = MetaCatalog.Load();
-            StringAssert.Contains("200/500", MetaShopProjection.Condition(catalog.Unlocks["FIELD-002"], catalog, 200));
+            StringAssert.Contains("200/3000", MetaShopProjection.Condition(catalog.Unlocks["FIELD-002"], catalog, 200));
+            StringAssert.Contains("200/4200", MetaShopProjection.Condition(catalog.Unlocks["SET-008"], catalog, 200));
             Assert.AreEqual(200, catalog.Unlocks["SET-020"].Price);
         }
         [Test] public async Task UpgradesToggle_OnlyInShop_DisablesUpgradesAndMarksCards()

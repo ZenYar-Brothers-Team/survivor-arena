@@ -217,7 +217,7 @@
       "price": 0,
       "requiredId": "FIELD-001",
       "metric": "ordinaryKills",
-      "targetCount": 500
+      "targetCount": 3000
     },
     {
       "id": "FIELD-003",
@@ -247,7 +247,7 @@
       "price": 0,
       "requiredId": "FIELD-004",
       "metric": "ordinaryKills",
-      "targetCount": 1500
+      "targetCount": 9000
     },
     {
       "id": "FIELD-006",
@@ -268,7 +268,7 @@
       "price": 0,
       "requiredId": "FIELD-006",
       "metric": "ordinaryKills",
-      "targetCount": 2000
+      "targetCount": 12000
     },
     {
       "id": "FIELD-008",
@@ -368,7 +368,7 @@
       "price": 0,
       "requiredId": "FIELD-002",
       "metric": "ordinaryKills",
-      "targetCount": 300
+      "targetCount": 1800
     },
     {
       "id": "SKILL-010",
@@ -417,7 +417,7 @@
       "price": 0,
       "requiredId": "FIELD-004",
       "metric": "ordinaryKills",
-      "targetCount": 500
+      "targetCount": 3000
     },
     {
       "id": "SKILL-016",
@@ -494,7 +494,7 @@
       "price": 0,
       "requiredId": "FIELD-002",
       "metric": "ordinaryKills",
-      "targetCount": 700
+      "targetCount": 4200
     },
     {
       "id": "SET-009",
@@ -519,7 +519,7 @@
       "price": 0,
       "requiredId": "FIELD-001",
       "metric": "ordinaryKills",
-      "targetCount": 500
+      "targetCount": 3000
     },
     {
       "id": "SET-012",
@@ -681,7 +681,7 @@
       "price": 0,
       "requiredId": "FIELD-002",
       "metric": "ordinaryKills",
-      "targetCount": 350
+      "targetCount": 2100
     },
     {
       "id": "PASSIVE-011",

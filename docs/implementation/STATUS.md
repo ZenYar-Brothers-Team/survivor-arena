@@ -20,6 +20,14 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Открытия за обычные убийства 2026-10-01 — восемь порогов `ordinaryKills`
+увеличены ×6 по [DECISION-0131](../decisions/0131-ordinary-kill-unlock-thresholds.md).
+Каталог, Content Design, подсказки FIELD-002/Meta и тесты синхронизированы;
+ранее открытые ID не отзываются. Generation/content STATIC PASS, EditMode
+1169/1169 и целевые PlayMode 2/2 PASS, 0 failed/skipped. Полный PlayMode
+не завершился из-за падения Unity в render loop; его PASS не заявлен.
+[Изменение и проверки](evidence/2026-10-01-ordinary-kill-thresholds.md).
+
 Прыжок финальных боссов 2026-09-30 — Implemented по
 [DECISION-0128](../decisions/0128-boss-teleport-impact-radius.md): радиус удара
 при приземлении BOSS-001…010 уменьшен с 3.5 до 2.8 world units. Урон, тайминг,
