@@ -3,9 +3,8 @@ using UnityEngine;
 namespace Game.Traveler
 {
     /// <summary>
-    /// Procedural world effect of Traveler abilities (DECISION-0120, shapes DECISION-0123): a one-shot pulse (support wave, haste splash,
-    /// teleport flash) or a steady outline that follows a protector to show its aura radius. The outline is a plain ring, a hexagon barrier,
-    /// three spreading ripples or orbiting dots; everything sits under one flattened root so a rotating shape is drawn as the ground ellipse.
+    /// World effect of Traveler abilities: a one-shot pulse or a steady outline that follows its owner.
+    /// Approved circular aura art rotates inside one flattened root, so its ground ellipse stays at the authored support ratio.
     /// Advances only through <see cref="Tick"/>, so a paused run freezes it; instances are pooled by the encounter.
     /// </summary>
     [DisallowMultipleComponent]
@@ -46,9 +45,12 @@ namespace Game.Traveler
         {
             EnsureRenderers();
             _diameter = diameter; _color = color; _verticalScale = verticalScale; _shape = shape; _elapsed = 0; _clock = 0;
-            var outline = shape == TravelerEffectShape.Hexagon ? TravelerShapeSprites.Hexagon : shape == TravelerEffectShape.Dots ? TravelerShapeSprites.Dots : ProceduralShapeSprites.Ring;
+            var outline = shape == TravelerEffectShape.Hexagon ? TravelerShapeSprites.ShieldArt :
+                shape == TravelerEffectShape.Dots ? TravelerShapeSprites.SpeedArt :
+                shape == TravelerEffectShape.Ripples ? TravelerShapeSprites.HealArt : ProceduralShapeSprites.Ring;
             _main.sprite = outline;
-            _second.sprite = shape == TravelerEffectShape.Hexagon ? TravelerShapeSprites.Hexagon : ProceduralShapeSprites.Ring;
+            // Keep secondary waves geometric and faint: duplicating detailed art three times clutters a crowded field.
+            _second.sprite = ProceduralShapeSprites.Ring;
             _third.sprite = ProceduralShapeSprites.Ring;
         }
         private void Render()
@@ -57,9 +59,10 @@ namespace Game.Traveler
             _scaleRoot.localScale = new Vector3(_diameter, _diameter * _verticalScale, 1f);
             if (_steady)
             {
-                Set(_disc, 1f, 0f, .12f);
-                Set(_main, 1f, _clock * 10f, .65f);
-                if (_shape == TravelerEffectShape.Hexagon) Set(_second, .72f, -_clock * 16f, .4f); else Set(_second, 0f, 0f, 0f);
+                Set(_disc, 1f, 0f, .06f);
+                // The outer ornament breathes inward only, keeping the visible boundary inside the authored support radius.
+                Set(_main, .975f + .025f * Mathf.Sin(_clock * 2f), _clock * 10f, .62f);
+                if (_shape == TravelerEffectShape.Hexagon) Set(_second, .73f, -_clock * 16f, .28f); else Set(_second, 0f, 0f, 0f);
                 Set(_third, 0f, 0f, 0f);
                 return;
             }
@@ -69,17 +72,17 @@ namespace Game.Traveler
             switch (_shape)
             {
                 case TravelerEffectShape.Ripples:
-                    Set(_disc, Mathf.Lerp(.5f, 1f, eased), 0f, .25f * (1f - t));
+                    Set(_disc, Mathf.Lerp(.5f, 1f, eased), 0f, .13f * (1f - t));
                     Ripple(_main, t, 0f); Ripple(_second, t, .18f); Ripple(_third, t, .36f);
                     break;
                 case TravelerEffectShape.Dots:
-                    Set(_disc, scale, 0f, .25f * (1f - t));
+                    Set(_disc, scale, 0f, .13f * (1f - t));
                     Set(_main, scale, t * 200f, 1f - t * t);
-                    Set(_second, scale, 0f, .35f * (1f - t)); Set(_third, 0f, 0f, 0f);
+                    Set(_second, scale, 0f, .25f * (1f - t)); Set(_third, 0f, 0f, 0f);
                     break;
                 case TravelerEffectShape.Hexagon:
-                    Set(_disc, scale, 0f, .35f * (1f - t));
-                    Set(_main, scale, t * 60f, 1f - t); Set(_second, scale * .72f, -t * 60f, .5f * (1f - t)); Set(_third, 0f, 0f, 0f);
+                    Set(_disc, scale, 0f, .15f * (1f - t));
+                    Set(_main, scale, t * 60f, 1f - t); Set(_second, scale * .73f, -t * 60f, .35f * (1f - t)); Set(_third, 0f, 0f, 0f);
                     break;
                 default:
                     Set(_disc, scale, 0f, .35f * (1f - t));
@@ -93,14 +96,17 @@ namespace Game.Traveler
             if (t < delay) { Set(ring, 0f, 0f, 0f); return; }
             var local = Mathf.Clamp01((t - delay) / (1f - .36f));
             var eased = 1f - (1f - local) * (1f - local);
-            Set(ring, Mathf.Lerp(.3f, 1f, eased), 0f, .9f * (1f - local));
+            Set(ring, Mathf.Lerp(.3f, 1f, eased), _clock * 12f, .8f * (1f - local));
         }
         private void Set(SpriteRenderer renderer, float scale, float degrees, float alpha)
         {
             renderer.enabled = scale > 0f && alpha > 0f;
             renderer.transform.localScale = Vector3.one * scale;
             renderer.transform.localRotation = Quaternion.Euler(0f, 0f, degrees);
-            renderer.color = new Color(_color.r, _color.g, _color.b, _color.a * alpha);
+            // The approved images carry their own palette. Only the procedural backing/waves use the effect tint.
+            renderer.color = renderer == _main && _shape != TravelerEffectShape.Ring
+                ? new Color(1f, 1f, 1f, _color.a * alpha)
+                : new Color(_color.r, _color.g, _color.b, _color.a * alpha);
         }
         private void EnsureRenderers()
         {

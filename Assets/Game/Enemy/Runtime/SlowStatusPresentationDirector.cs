@@ -7,10 +7,9 @@ using UnityEngine;
 namespace Game.Enemy
 {
     /// <summary>
-    /// Shows the selected slow-status look on every living slowed enemy with bound body art (DECISION-0108).
-    /// The chosen bar-and-ice look is the production default; the development panel can compare earlier looks.
-    /// Reads gameplay slow state only; never changes it except through the explicit
-    /// development preview command.
+    /// Shows the selected slow look and the timed speed-boost look on living enemies with bound body art
+    /// (DECISION-0108/0124). The bar-and-ice slow look is the production default.
+    /// Reads gameplay status only; the development preview command explicitly applies a slow.
     /// </summary>
     public sealed class SlowStatusPresentationDirector : MonoBehaviour, ISlowStatusPreview
     {
@@ -19,6 +18,8 @@ namespace Game.Enemy
         private readonly List<EnemyRuntime> _alive = new List<EnemyRuntime>();
         private readonly List<SlowStatusPresentationRuntime> _shown = new List<SlowStatusPresentationRuntime>();
         private readonly HashSet<SlowStatusPresentationRuntime> _shownNext = new HashSet<SlowStatusPresentationRuntime>();
+        private readonly List<SpeedStatusPresentationRuntime> _speedShown = new List<SpeedStatusPresentationRuntime>();
+        private readonly HashSet<SpeedStatusPresentationRuntime> _speedNext = new HashSet<SpeedStatusPresentationRuntime>();
         private SlowStatusPresentationProfile _profile;
         private bool _initialized;
 
@@ -63,32 +64,48 @@ namespace Game.Enemy
             using (PerfGuard.Measure("Enemy.SlowStatusPresentation", 2f))
             {
                 _shownNext.Clear();
-                if (Style != SlowStatusStyle.Off)
+                _speedNext.Clear();
+                EnemyRegistry.CopyAliveTo(_alive);
+                foreach (var enemy in _alive)
                 {
-                    EnemyRegistry.CopyAliveTo(_alive);
-                    foreach (var enemy in _alive)
+                    var presentation = enemy.BodyPresentation;
+                    if (presentation == null) continue;
+                    if (Style != SlowStatusStyle.Off && enemy.Controls.IsSlowed)
                     {
-                        var presentation = enemy.BodyPresentation;
-                        if (presentation == null || !enemy.Controls.IsSlowed) continue;
                         var overlay = presentation.GetComponent<SlowStatusPresentationRuntime>();
                         if (overlay == null) overlay = presentation.gameObject.AddComponent<SlowStatusPresentationRuntime>();
                         overlay.Apply(presentation, _profile, Style, true, enemy.Controls.SlowRemaining01);
                         _shownNext.Add(overlay);
                     }
+                    if (!enemy.Protection.HasSpeedBoost) continue;
+                    var speedOverlay = presentation.GetComponent<SpeedStatusPresentationRuntime>();
+                    if (speedOverlay == null) speedOverlay = presentation.gameObject.AddComponent<SpeedStatusPresentationRuntime>();
+                    var slowBar = enemy.Controls.IsSlowed &&
+                        (Style == SlowStatusStyle.Ice || Style == SlowStatusStyle.Bar || Style == SlowStatusStyle.All);
+                    speedOverlay.Apply(presentation, _profile, true, enemy.Protection.SpeedBoostRemaining01,
+                        slowBar, enemy.Protection.Now);
+                    _speedNext.Add(speedOverlay);
                 }
                 // Anything shown last frame but not this one (slow expired, death, despawn, Off) is cleared.
                 foreach (var overlay in _shown)
                     if (overlay != null && !_shownNext.Contains(overlay)) overlay.Clear();
+                foreach (var overlay in _speedShown)
+                    if (overlay != null && !_speedNext.Contains(overlay)) overlay.Clear();
                 _shown.Clear();
                 _shown.AddRange(_shownNext);
+                _speedShown.Clear();
+                _speedShown.AddRange(_speedNext);
             }
         }
 
         public void Shutdown()
         {
             foreach (var overlay in _shown) if (overlay != null) overlay.Clear();
+            foreach (var overlay in _speedShown) if (overlay != null) overlay.Clear();
             _shown.Clear();
             _shownNext.Clear();
+            _speedShown.Clear();
+            _speedNext.Clear();
             _alive.Clear();
             _profile = null;
             _initialized = false;

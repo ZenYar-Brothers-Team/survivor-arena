@@ -4527,6 +4527,57 @@
         "Replacement v002 imported and resolved through SLOW-STATUS-VISUAL-MASK; docs/implementation/evidence/2026-09-30-slow-ice-runtime.md."
       ],
       "missing": "Gameplay-scale visual review on small ordinary enemies, bosses and Travelers."
+    },
+    {
+      "owner": "TRAVELER-005",
+      "role": "telegraph",
+      "visualId": "TRAVELER-005-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-005/telegraph/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-005/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-telegraph.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
+      ],
+      "missing": "Gameplay-scale visual review with several Travelers."
+    },
+    {
+      "owner": "TRAVELER-007",
+      "role": "telegraph",
+      "visualId": "TRAVELER-007-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-007/telegraph/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-007/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-007/traveler-007-telegraph.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
+      ],
+      "missing": "Gameplay-scale visual review with several Travelers."
+    },
+    {
+      "owner": "TRAVELER-009",
+      "role": "telegraph",
+      "visualId": "TRAVELER-009-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-30",
+      "source": "Art/Source/Travelers/traveler-009/telegraph/selected-master.png",
+      "provenance": "Art/Source/Travelers/traveler-009/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-telegraph.png",
+      "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
+      ],
+      "missing": "Gameplay-scale visual review with several Travelers."
     }
   ]
 }

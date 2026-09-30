@@ -19,6 +19,7 @@ namespace Game.Presentation.Tests
         private Sprite _sprite;
         private SpritePresentationRuntime _presentation;
         private SlowStatusPresentationRuntime _slow;
+        private SpeedStatusPresentationRuntime _speed;
         private SlowStatusPresentationProfile _profile;
 
         [SetUp]
@@ -45,6 +46,7 @@ namespace Game.Presentation.Tests
             _presentation.Initialize(new SpriteDefinition("FIXTURE-VISUAL", _sprite), SpriteMotionProfileTests.CreateProfile(),
                 new Health(new FixedHealthProfile(10f)), body, run);
             _slow = visual.AddComponent<SlowStatusPresentationRuntime>();
+            _speed = visual.AddComponent<SpeedStatusPresentationRuntime>();
             _profile = FixtureSlowStatusPresentationCatalog.Create();
         }
 
@@ -74,7 +76,9 @@ namespace Game.Presentation.Tests
             {
                 TintColor = new[] { 1f, 1f, 1f, 1f }, IceColor = new[] { 1f, 1f, 1f, 1f }, OutlineColor = new[] { 1f, 1f, 1f, 1f },
                 OutlineWidth = .03f, BarWidth = .6f, BarHeight = .07f, BarOffsetY = .1f,
-                BarFillColor = new[] { 1f, 1f, 1f, 1f }, BarBackColor = new[] { 0f, 0f, 0f, 1f }, PreviewSlowFraction = .4f
+                BarFillColor = new[] { 1f, 1f, 1f, 1f }, BarBackColor = new[] { 0f, 0f, 0f, 1f },
+                SpeedBarFillColor = new[] { 1f, .8f, .2f, 1f }, SpeedBoltColor = new[] { 1f, .9f, .4f, .8f },
+                SpeedBoltScale = .24f, SpeedBlinkPeriod = .7f, PreviewSlowFraction = .4f
             };
             StringAssert.Contains("previewSlowSeconds", Assert.Throws<InvalidOperationException>(() => FixtureSlowStatusPresentationCatalog.Map(data)).Message);
             data.PreviewSlowSeconds = 5f;
@@ -116,6 +120,36 @@ namespace Game.Presentation.Tests
             Assert.AreEqual(Color.white, _presentation.StatusTint);
             _slow.Apply(_presentation, _profile, SlowStatusStyle.Bar, true, .1f);
             Assert.AreEqual(_profile.BarWidth * .1f, fill.localScale.x, 1e-4f);
+        }
+
+        [Test]
+        public void SpeedBoost_BlinksAndStacksImmediatelyBelowSlowBar()
+        {
+            _slow.Apply(_presentation, _profile, SlowStatusStyle.Ice, true, .75f);
+            _speed.Apply(_presentation, _profile, true, .5f, true, 0f);
+            var slowBack = _presentation.Rig.transform.Find("SlowBar/Back").GetComponent<SpriteRenderer>();
+            var speedBar = _presentation.Rig.transform.Find("SpeedBar");
+            var speedBack = speedBar.Find("Back").GetComponent<SpriteRenderer>();
+            var speedFill = speedBar.Find("Fill");
+            var bolt = _presentation.Rig.BodyRoot.Find("SpeedBolt").GetComponent<SpriteRenderer>();
+            Assert.IsTrue(_slow.IsShowing && _speed.IsShowing);
+            Assert.AreEqual(slowBack.bounds.min.y, speedBack.bounds.max.y, 1e-4f,
+                "The two bars meet without overlapping.");
+            Assert.AreEqual(_profile.BarWidth * .5f, speedFill.localScale.x, 1e-4f);
+            Assert.IsTrue(bolt.enabled);
+            _speed.Apply(_presentation, _profile, true, .5f, true, _profile.SpeedBlinkPeriod * .5f);
+            Assert.IsFalse(bolt.enabled, "The bolt flashes periodically using run time.");
+            _speed.Apply(_presentation, _profile, true, .5f, true, _profile.SpeedBlinkPeriod * .5f);
+            Assert.IsFalse(bolt.enabled, "A paused run keeps the bolt phase.");
+            _slow.Clear();
+            _speed.Apply(_presentation, _profile, true, .25f, false, 0f);
+            Assert.IsFalse(_slow.IsShowing);
+            Assert.IsTrue(_speed.IsShowing);
+            Assert.AreEqual(_presentation.Rig.BodyRenderer.bounds.min.y - _profile.BarOffsetY,
+                speedBack.bounds.max.y, 1e-4f, "Speed alone uses the top bar slot.");
+            _speed.Clear();
+            Assert.IsFalse(speedBar.gameObject.activeSelf);
+            Assert.IsFalse(bolt.enabled);
         }
 
         [Test]

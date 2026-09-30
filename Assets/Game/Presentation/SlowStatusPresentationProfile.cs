@@ -26,12 +26,18 @@ namespace Game.Presentation
         public float BarOffsetY { get; }
         public Color BarFillColor { get; }
         public Color BarBackColor { get; }
+        public Color SpeedBarFillColor { get; }
+        public Color SpeedBoltColor { get; }
+        /// <summary>Bolt width relative to the unscaled body sprite width; pulse period in run seconds.</summary>
+        public float SpeedBoltScale { get; }
+        public float SpeedBlinkPeriod { get; }
         /// <summary>Development-only «slow all enemies» command: movement reduction 0..1 and seconds.</summary>
         public float PreviewSlowFraction { get; }
         public float PreviewSlowSeconds { get; }
 
         public SlowStatusPresentationProfile(Color tintColor, Color iceColor, Color outlineColor, float outlineWidth,
             float barWidth, float barHeight, float barOffsetY, Color barFillColor, Color barBackColor,
+            Color speedBarFillColor, Color speedBoltColor, float speedBoltScale, float speedBlinkPeriod,
             float previewSlowFraction, float previewSlowSeconds, SpriteDefinition iceMask)
         {
             Validate(tintColor, nameof(tintColor));
@@ -39,12 +45,16 @@ namespace Game.Presentation
             Validate(outlineColor, nameof(outlineColor));
             Validate(barFillColor, nameof(barFillColor));
             Validate(barBackColor, nameof(barBackColor));
+            Validate(speedBarFillColor, nameof(speedBarFillColor));
+            Validate(speedBoltColor, nameof(speedBoltColor));
             IceMask = iceMask ?? throw new ArgumentNullException(nameof(iceMask));
             IceMask.RequireRole(SpriteRole.Mask);
             NumericValidation.ValidateRange(outlineWidth, 0.005f, 0.2f, nameof(outlineWidth));
             NumericValidation.ValidatePositive(barWidth, nameof(barWidth));
             NumericValidation.ValidatePositive(barHeight, nameof(barHeight));
             NumericValidation.ValidateNonNegativeFinite(barOffsetY, nameof(barOffsetY));
+            NumericValidation.ValidateRange(speedBoltScale, 0.05f, 0.5f, nameof(speedBoltScale));
+            NumericValidation.ValidateRange(speedBlinkPeriod, 0.2f, 2f, nameof(speedBlinkPeriod));
             NumericValidation.ValidateRange(previewSlowFraction, 0.01f, 0.95f, nameof(previewSlowFraction));
             NumericValidation.ValidatePositive(previewSlowSeconds, nameof(previewSlowSeconds));
             TintColor = tintColor;
@@ -56,6 +66,10 @@ namespace Game.Presentation
             BarOffsetY = barOffsetY;
             BarFillColor = barFillColor;
             BarBackColor = barBackColor;
+            SpeedBarFillColor = speedBarFillColor;
+            SpeedBoltColor = speedBoltColor;
+            SpeedBoltScale = speedBoltScale;
+            SpeedBlinkPeriod = speedBlinkPeriod;
             PreviewSlowFraction = previewSlowFraction;
             PreviewSlowSeconds = previewSlowSeconds;
         }

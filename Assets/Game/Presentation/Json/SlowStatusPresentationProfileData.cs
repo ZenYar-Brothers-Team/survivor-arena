@@ -12,6 +12,10 @@ namespace Game.Presentation.Json
         public float? BarOffsetY { get; set; }
         public float[] BarFillColor { get; set; }
         public float[] BarBackColor { get; set; }
+        public float[] SpeedBarFillColor { get; set; }
+        public float[] SpeedBoltColor { get; set; }
+        public float? SpeedBoltScale { get; set; }
+        public float? SpeedBlinkPeriod { get; set; }
         public float? PreviewSlowFraction { get; set; }
         public float? PreviewSlowSeconds { get; set; }
     }

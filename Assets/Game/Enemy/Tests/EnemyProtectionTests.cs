@@ -31,5 +31,21 @@ namespace Game.Enemy.Tests
             state.RemoveSource(a); Assert.AreEqual(20,state.ShieldRemaining); Assert.AreEqual(b,state.ShieldSource);
             Assert.AreEqual(10,state.Absorb(10,5)); Assert.AreEqual(0,state.ShieldRemaining);
         }
+        [Test]
+        public void SpeedBoost_BarTracksStrongestSource_ThenFallsBackAndExpires()
+        {
+            var state = new EnemyProtection();
+            state.SetSpeedBoost(Guid.NewGuid(), .5f, 5f, 0f);
+            state.SetSpeedBoost(Guid.NewGuid(), .3f, 8f, 0f);
+            Assert.AreEqual(1.5f, state.SpeedMultiplier, 1e-5f);
+            state.Tick(2.5f);
+            Assert.AreEqual(.5f, state.SpeedBoostRemaining01, 1e-5f);
+            state.Tick(5f);
+            Assert.AreEqual(1.3f, state.SpeedMultiplier, 1e-5f);
+            Assert.AreEqual(.375f, state.SpeedBoostRemaining01, 1e-5f);
+            state.Tick(8f);
+            Assert.IsFalse(state.HasSpeedBoost);
+            Assert.AreEqual(0f, state.SpeedBoostRemaining01);
+        }
     }
 }

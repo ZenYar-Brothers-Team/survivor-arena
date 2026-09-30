@@ -49,6 +49,14 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsTrue(overlay.IsShowing);
                 Assert.AreEqual(SlowStatusStyle.All, overlay.AppliedStyle);
                 Assert.AreNotEqual(Color.white, slowed.BodyPresentation.StatusTint);
+                slowed.Protection.SetSpeedBoost(System.Guid.NewGuid(), .5f, run.Model.Elapsed + 5f, run.Model.Elapsed);
+                yield return null;
+                var speed = slowed.BodyPresentation.GetComponent<SpeedStatusPresentationRuntime>();
+                Assert.IsNotNull(speed);
+                Assert.IsTrue(speed.IsShowing);
+                var slowBack = slowed.BodyPresentation.Rig.transform.Find("SlowBar/Back").GetComponent<SpriteRenderer>();
+                var speedBack = slowed.BodyPresentation.Rig.transform.Find("SpeedBar/Back").GetComponent<SpriteRenderer>();
+                Assert.AreEqual(slowBack.bounds.min.y, speedBack.bounds.max.y, 1e-3f);
 
                 director.SetStyle(SlowStatusStyle.Off);
                 yield return null;
@@ -56,6 +64,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsFalse(overlay.IsShowing);
                 Assert.AreEqual(Color.white, slowed.BodyPresentation.StatusTint);
                 Assert.IsTrue(slowed.Controls.IsSlowed, "The look switch never changes gameplay slow.");
+                Assert.IsTrue(speed.IsShowing, "Hiding the slow preview never hides a real speed boost.");
             }
             finally { composition.Shutdown(); }
         }

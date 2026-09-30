@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-005",
+  "role": "telegraph",
+  "status": "approved",
+  "artDirectionRevision": "Approved current revision",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation (iterative image edit)",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-30",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+  "prompt": "Edit this exact transparent violet protective ward aura for a rotating Unity 2D sprite. Preserve the existing sparse violet linework, angular hexagonal ward identity, four outer rune-like ornaments, restrained complexity, empty transparent center, and alpha transparency. Change only proportions: make the ward equally wide and high on a SQUARE transparent canvas (a regular, near-circular hexagonal silhouette rather than the current squashed oval). Keep the original polygonal/angular edges, subtle hand-drawn irregularity, and all symbols attached to the perimeter. No glow, additional rings, ground, shadow, particles, text, or new detail. Leave a clean transparent margin on every side. Unity will flatten the whole rotating effect to 0.8 vertically afterward.",
+  "constraints": [
+    "transparent background",
+    "empty center",
+    "subtle peripheral ornament",
+    "circular source flattened to 0.8 in Unity"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-telegraph.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "67068cf289e193a43800ccff2f97613b4fde46264ccac6e24877280e9f6d1de3",
+    "runtimeSha256": "003679f249b64b97d8eaafa778f02a8891ad88b9ecb345de4e2f4302caa2014a",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 12,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

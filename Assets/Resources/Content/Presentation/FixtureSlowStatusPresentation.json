@@ -9,6 +9,10 @@
   "barOffsetY": 0.14,
   "barFillColor": [0.4, 0.75, 1.0, 1.0],
   "barBackColor": [0.1, 0.08, 0.13, 0.8],
+  "speedBarFillColor": [1.0, 0.78, 0.18, 1.0],
+  "speedBoltColor": [1.0, 0.87, 0.35, 0.85],
+  "speedBoltScale": 0.24,
+  "speedBlinkPeriod": 0.7,
   "previewSlowFraction": 0.4,
   "previewSlowSeconds": 5.0
 }

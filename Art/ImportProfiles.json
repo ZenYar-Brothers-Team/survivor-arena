@@ -1254,5 +1254,29 @@
     "pivotY": 0.5,
     "reason": "Wide matte folio panel texture, stretched once per panel; no tile seams or mipmaps.",
     "key": "Assets/Resources/Art/UI/Folio/ui-folio-surface-background.png"
+  },
+  {
+    "pixelsPerUnit": 512,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Traveler aura source is a unit circle; 512 PPU maps the 512px canvas to one effect diameter before runtime flattening.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-005/traveler-005-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 512,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Traveler aura source is a unit circle; 512 PPU maps the 512px canvas to one effect diameter before runtime flattening.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-007/traveler-007-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 512,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Traveler aura source is a unit circle; 512 PPU maps the 512px canvas to one effect diameter before runtime flattening.",
+    "key": "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-telegraph.png"
   }
 ]

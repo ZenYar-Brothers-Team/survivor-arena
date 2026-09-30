@@ -221,7 +221,8 @@ namespace Game.Traveler
             var center = picked.Position;
             var burstSquared = d.EffectRadius * d.EffectRadius;
             foreach (var enemy in _targets)
-                if (Zone(enemy.Position - center, inverseScale) <= burstSquared) enemy.Protection.SetSpeedBoost(source, d.SpeedBonus, _model.Elapsed + d.EffectSeconds);
+                if (Zone(enemy.Position - center, inverseScale) <= burstSquared)
+                    enemy.Protection.SetSpeedBoost(source, d.SpeedBonus, _model.Elapsed + d.EffectSeconds, _model.Elapsed);
             PlayPulse(center, d.EffectRadius * 2f, d.EffectColor, d.SupportVerticalScale, d.EffectShape);
         }
         // The `count` nearest targets inside the radius, nearest first, ties by LifeId; insertion into a list bounded by `count`.

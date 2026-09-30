@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "TRAVELER-009",
+  "role": "telegraph",
+  "status": "approved",
+  "artDirectionRevision": "Approved current revision",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation (iterative image edit)",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-09-30",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+  "prompt": "Edit this exact transparent healing aura asset for a rotating 2D Unity sprite. Preserve its existing green and ivory botanical linework, petals, sparse ornamentation, colors, lightness, open transparent center, and transparency. Change only geometry: restore the oval ring to a mathematically circular ring in a SQUARE transparent canvas, equal visible horizontal and vertical diameter. Keep every ornament on the circumference and preserve its hand-drawn irregularity. Do not add symbols, glow, particles, ground, shadow, text, or extra complexity. Center the circle with a clean transparent margin on all sides. This will later be flattened to 0.8 vertically by the game transform.",
+  "constraints": [
+    "transparent background",
+    "empty center",
+    "green petal ornament",
+    "circular source flattened to 0.8 in Unity"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-telegraph.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "2150d182a3c19e04b25eec1fa36b50b538cfdd84d62948a5ef8c82162f6fe90a",
+    "runtimeSha256": "c47af4f1ac0ac35fae0307a4482fa6e1da50cd25e511b5e86780c5458c8d39b2",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 12,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 16
+    }
+  }
+}

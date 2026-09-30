@@ -2338,5 +2338,20 @@
     "id": "SLOW-STATUS-VISUAL-MASK",
     "resourcePath": "Art/VFX/slow-status-ice-mask",
     "role": "Mask"
+  },
+  {
+    "id": "TRAVELER-005-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "TRAVELER-007-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "TRAVELER-009-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-telegraph",
+    "role": "Telegraph"
   }
 ]
