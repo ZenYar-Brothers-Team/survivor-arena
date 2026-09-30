@@ -20,7 +20,7 @@ namespace Game.Traveler
         private readonly List<EnemyRuntime> _nearest = new List<EnemyRuntime>();
         private readonly List<TravelerPulseEffect> _pulses = new List<TravelerPulseEffect>();
         /// <summary>Visible length of one support/teleport pulse and the teleport flash size in body sizes (presentation timing, DECISION-0120).</summary>
-        private const float PulseSeconds = .5f, TeleportFlashSizes = 3f;
+        private const float PulseSeconds = .5f, HealPulseSeconds = .8f, TeleportFlashSizes = 3f;
         private GameObjectPool<TravelerPulseEffect> _effects;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectiles;
@@ -253,7 +253,8 @@ namespace Game.Traveler
         private void PlayPulse(Vector2 position, float diameter, Color color, float verticalScale = 1f, TravelerEffectShape shape = TravelerEffectShape.Ring)
         {
             var effect = _effects.Rent();
-            effect.PlayPulse(position, diameter, color, PulseSeconds, verticalScale, shape);
+            effect.PlayPulse(position, diameter, color,
+                shape == TravelerEffectShape.Ripples ? HealPulseSeconds : PulseSeconds, verticalScale, shape);
             _pulses.Add(effect);
         }
         private void TickEffects(float deltaTime)

@@ -49,7 +49,7 @@ namespace Game.Traveler
                 shape == TravelerEffectShape.Dots ? TravelerShapeSprites.SpeedArt :
                 shape == TravelerEffectShape.Ripples ? TravelerShapeSprites.HealArt : ProceduralShapeSprites.Ring;
             _main.sprite = outline;
-            // Keep secondary waves geometric and faint: duplicating detailed art three times clutters a crowded field.
+            // Keep the secondary wave geometric: duplicating detailed art clutters a crowded field.
             _second.sprite = ProceduralShapeSprites.Ring;
             _third.sprite = ProceduralShapeSprites.Ring;
         }
@@ -73,7 +73,8 @@ namespace Game.Traveler
             {
                 case TravelerEffectShape.Ripples:
                     Set(_disc, Mathf.Lerp(.5f, 1f, eased), 0f, .13f * (1f - t));
-                    Ripple(_main, t, 0f); Ripple(_second, t, .18f); Ripple(_third, t, .36f);
+                    Ripple(_main, t, 0f); Ripple(_second, t, .32f);
+                    Set(_third, 0f, 0f, 0f);
                     break;
                 case TravelerEffectShape.Dots:
                     Set(_disc, scale, 0f, .13f * (1f - t));
@@ -94,7 +95,7 @@ namespace Game.Traveler
         private void Ripple(SpriteRenderer ring, float t, float delay)
         {
             if (t < delay) { Set(ring, 0f, 0f, 0f); return; }
-            var local = Mathf.Clamp01((t - delay) / (1f - .36f));
+            var local = Mathf.Clamp01((t - delay) / (1f - delay));
             var eased = 1f - (1f - local) * (1f - local);
             Set(ring, Mathf.Lerp(.3f, 1f, eased), _clock * 12f, .8f * (1f - local));
         }

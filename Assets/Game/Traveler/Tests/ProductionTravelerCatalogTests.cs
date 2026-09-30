@@ -100,6 +100,7 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(3.5f, pilgrim.SupportRadius, 1e-5f);
             Assert.AreEqual(3f, pilgrim.SupportCooldown, 1e-5f);
             Assert.AreEqual(20f, pilgrim.HealAmount, 1e-5f);
+            Assert.AreEqual(.55f, pilgrim.EffectColor.a, 1e-5f);
             Assert.AreEqual(TravelerMovementStyle.ZigzagEscape, Traveler("TRAVELER-002").MovementStyle);
             Assert.AreEqual(TravelerMovementStyle.DashEscape, Traveler("TRAVELER-003").MovementStyle);
             var mage = Traveler("TRAVELER-006");

@@ -23,6 +23,29 @@ namespace Game.Traveler.Tests
             Assert.IsTrue(_effect.IsFinished);
         }
         [Test]
+        public void HealingPulse_ShowsTwoSlowerWaves_AndKeepsThirdHidden()
+        {
+            _effect.PlayPulse(Vector2.zero, 7f, new Color(.4f, 1f, .5f, .55f), .8f,
+                .8f, TravelerEffectShape.Ripples);
+            var root = _effect.transform.Find("Flattened");
+            var main = root.Find("Main").GetComponent<SpriteRenderer>();
+            var second = root.Find("Second").GetComponent<SpriteRenderer>();
+            var third = root.Find("Third").GetComponent<SpriteRenderer>();
+            Assert.IsTrue(main.enabled);
+            Assert.IsFalse(second.enabled);
+            Assert.IsFalse(third.enabled);
+            Assert.LessOrEqual(main.color.a, .55f);
+
+            _effect.Tick(.2f);
+            Assert.IsFalse(second.enabled, "The second wave starts later than in the three-wave pulse.");
+            _effect.Tick(.2f);
+            Assert.IsTrue(second.enabled);
+            Assert.IsFalse(third.enabled);
+            Assert.IsFalse(_effect.IsFinished);
+            _effect.Tick(.4f);
+            Assert.IsTrue(_effect.IsFinished);
+        }
+        [Test]
         public void SteadyOutline_NeverFinishes_AndFollowsItsTarget()
         {
             var target = new GameObject("target");
