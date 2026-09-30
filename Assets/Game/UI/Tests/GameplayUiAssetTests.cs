@@ -26,6 +26,12 @@ namespace Game.UI.Tests
             Assert.IsNull(root.Q<Button>(GameplayUiElementIds.PauseButton));
             Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(root.Q(GameplayUiElementIds.WaveLabel)));
             Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(root.Q(GameplayUiElementIds.SpeedNormalButton)));
+            Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPanel).Contains(root.Q<Button>(GameplayUiElementIds.SpeedHalfButton)));
+            var slowStatus = root.Q(GameplayUiElementIds.SlowStatusSection);
+            Assert.IsTrue(root.Q(GameplayUiElementIds.DevelopmentPresentationPane).Contains(slowStatus));
+            foreach (Game.Presentation.SlowStatusStyle style in System.Enum.GetValues(typeof(Game.Presentation.SlowStatusStyle)))
+                Assert.IsNotNull(slowStatus.Q<Button>(GameplayUiElementIds.SlowStatusStyle(style)), style.ToString());
+            Assert.IsNotNull(slowStatus.Q<Button>(GameplayUiElementIds.SlowStatusSlowAll));
             Assert.IsNotNull(root.Q<ScrollView>(GameplayUiElementIds.DraftRecipeList));
             Assert.IsNotNull(root.Q<VisualElement>(GameplayUiElementIds.DraftDetails));
             Assert.IsFalse(root.Q(GameplayUiElementIds.DraftDetails) is Label);

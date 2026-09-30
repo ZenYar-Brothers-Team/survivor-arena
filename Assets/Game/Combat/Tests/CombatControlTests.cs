@@ -43,6 +43,33 @@ namespace Game.Combat.Tests
         }
 
         [Test]
+        public void SlowRemaining01_TracksLongestSourcePausesAndResets()
+        {
+            // DECISION-0108 status bar: presentation reads the remaining share of the longest-lasting slow.
+            var state = new CombatControlState();
+            var owner = new CombatIdentity(Guid.NewGuid(), null, null, CombatEntityCategory.Player);
+            CombatDamageRequest Slow(string id, float fraction, float duration) => new CombatDamageRequest(
+                new CombatSource(owner, new ContentId(id), CombatSourceOrigin.ActiveSkill), 0f,
+                new CombatControlProfile(slowFraction: fraction, slowSeconds: duration));
+            Assert.IsFalse(state.IsSlowed);
+            Assert.AreEqual(0f, state.SlowRemaining01);
+            state.Apply(Slow("FIXTURE-A", 0.5f, 4f), 0f, true);
+            state.Apply(Slow("FIXTURE-B", 0.2f, 1f), 0f, true);
+            Assert.IsTrue(state.IsSlowed);
+            Assert.AreEqual(1f, state.SlowRemaining01, 1e-4f);
+            state.Tick(1f, true);
+            Assert.AreEqual(0.75f, state.SlowRemaining01, 1e-4f);
+            state.Tick(5f, false);
+            Assert.AreEqual(0.75f, state.SlowRemaining01, 1e-4f, "Paused time does not drain the bar.");
+            state.Tick(3f, true);
+            Assert.IsFalse(state.IsSlowed);
+            Assert.AreEqual(0f, state.SlowRemaining01);
+            state.Apply(Slow("FIXTURE-A", 0.5f, 4f), 0f, true);
+            state.Reset();
+            Assert.AreEqual(0f, state.SlowRemaining01);
+        }
+
+        [Test]
         public void Slow_SourceRefreshReplacesMagnitude_WeakerSourceSurvivesAndExpiresIndependently()
         {
             var state = new CombatControlState();

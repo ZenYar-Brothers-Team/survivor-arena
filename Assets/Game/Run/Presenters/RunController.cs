@@ -58,9 +58,9 @@ namespace Game.Run
                 Model.RequestPause(RunPauseReasons.Manual);
         }
 
-        public bool SetSpeed(int multiplier) => IsInitialized && Model.SetSpeed(multiplier);
+        public bool SetSpeed(float multiplier) => IsInitialized && Model.SetSpeed(multiplier);
 
-        private void HandleSpeedChanged(int _) => ApplyTimeScale();
+        private void HandleSpeedChanged(float _) => ApplyTimeScale();
 
         private void HandleStateChanged(RunState _) => ApplyTimeScale();
 

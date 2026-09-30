@@ -60,7 +60,8 @@ namespace Game.UI
             if (key == "ricochets") return $"Рикошеты: +{Number(value.Next - value.Current)}. Повторный удар слабее";
             if (key == "pierce" && value.Next < 0) return "Сквозное пробивание без лимита целей";
             if (key == "return damage") return "Урон на возврате " + SignedPercent((value.Next - 1) * 100) + "%";
-            if (key == "Base cooldown") return isNew ? $"Перезарядка {Number(value.Next)} с" : "Скорость использования " + Percent(value.Next, value.Current);
+            // User 2026-09-30: never show cooldown seconds; only the relative use-speed change on upgrades.
+            if (key == "Base cooldown") return isNew ? "" : "Скорость использования " + Percent(value.Next, value.Current);
             if (key == "Action speed bonus") return "Скорость использования " + (isNew ? SignedPercent(value.Next * 100) + "%" : Percent(1 + value.Current, 1 + value.Next));
             if (key == "Waves" && isNew) return "";
             var label = key switch

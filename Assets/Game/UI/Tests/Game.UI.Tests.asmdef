@@ -17,7 +17,8 @@
     "Game.Combat",
     "Game.Telemetry",
     "Game.Meta",
-    "Game.Settings"
+    "Game.Settings",
+    "Game.ActiveSkill"
   ],
   "includePlatforms": [
     "Editor"

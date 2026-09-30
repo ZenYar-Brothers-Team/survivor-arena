@@ -26,10 +26,14 @@ namespace Game.Presentation
         private Sprite _baselineSprite;
         private bool _baselineEnabled;
         private SpritePresentationPreviewMotion _previewMotion;
+        // Status channel (DECISION-0108 slow tint); composed here with the hit flash so neither overwrites the other.
+        private Color _statusTint = Color.white;
         private bool _initialized;
 
         public bool IsInitialized => _initialized;
         public SpritePresentationPreviewMotion PreviewMotion => _previewMotion;
+        public Color StatusTint => _statusTint;
+        public SpritePresentationRig Rig => rig;
 
         private void Awake()
         {
@@ -79,6 +83,7 @@ namespace Game.Presentation
             rig.BodyRenderer.enabled = true;
             _animator = new ProceduralSpriteAnimator(profile);
             _previewMotion = SpritePresentationPreviewMotion.Live;
+            _statusTint = Color.white;
             _health.Damaged += HandleDamaged;
             _initialized = true;
             ApplyPose(_animator.CurrentPose);
@@ -104,6 +109,14 @@ namespace Game.Presentation
             Tick(0f);
         }
 
+        /// <summary>Multiplies the body color by a status tint; white clears it. Pause-safe (no timing).</summary>
+        public void SetStatusTint(Color tint)
+        {
+            if (!_initialized || _statusTint == tint) return;
+            _statusTint = tint;
+            ApplyPose(_animator.CurrentPose);
+        }
+
         public void ResetPresentation()
         {
             if (!_initialized)
@@ -127,6 +140,7 @@ namespace Game.Presentation
             _motionBody = null;
             _runController = null;
             _previewMotion = SpritePresentationPreviewMotion.Live;
+            _statusTint = Color.white;
             _initialized = false;
         }
 
@@ -160,7 +174,7 @@ namespace Game.Presentation
                 _baselineScale,
                 new Vector3(pose.ScaleMultiplier.x, pose.ScaleMultiplier.y, 1f));
             rig.BodyRenderer.flipX = pose.FlipX;
-            rig.BodyRenderer.color = Color.Lerp(_baselineColor, _profile.HitFlashColor, pose.FlashAmount);
+            rig.BodyRenderer.color = Color.Lerp(_baselineColor * _statusTint, _profile.HitFlashColor, pose.FlashAmount);
         }
 
         private void RestoreBaseline()

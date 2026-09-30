@@ -54,6 +54,10 @@ namespace Game.Run.Tests
             Assert.IsTrue(model.SetSpeed(3));
             Assert.IsTrue(model.SetSpeed(5));
             Assert.IsFalse(model.SetSpeed(4));
+            Assert.IsFalse(model.SetSpeed(.25f));
+            Assert.IsTrue(model.SetSpeed(.5f), "DECISION-0108 development slow motion.");
+            Assert.AreEqual(.5f, model.SpeedMultiplier);
+            Assert.IsTrue(model.SetSpeed(5));
             model.Pause();
             Assert.AreEqual(5, model.SpeedMultiplier);
             Assert.IsFalse(model.SetSpeed(2));

@@ -4,5 +4,6 @@ namespace Game.Combat
     {
         public float Fraction;
         public float Remaining;
+        public float Duration;
     }
 }

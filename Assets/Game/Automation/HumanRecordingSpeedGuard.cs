@@ -11,13 +11,13 @@ namespace Game.Automation
         public HumanRecordingSpeedGuard(RunModel run)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
-            if (_run.SpeedMultiplier != 1) throw new ArgumentException("Recording must start at 1x speed.", nameof(run));
+            if (_run.SpeedMultiplier != 1f) throw new ArgumentException("Recording must start at 1x speed.", nameof(run));
             _run.SpeedChanged += RestoreSpeed;
         }
 
-        private void RestoreSpeed(int speed)
+        private void RestoreSpeed(float speed)
         {
-            if (speed != 1) _run.SetSpeed(1);
+            if (speed != 1f) _run.SetSpeed(1f);
         }
 
         public void Dispose() => _run.SpeedChanged -= RestoreSpeed;

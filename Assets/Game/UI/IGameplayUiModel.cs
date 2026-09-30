@@ -22,7 +22,7 @@ namespace Game.UI
         CharacterStatsViewState Stats { get; }
         RunExperienceSnapshot ExperienceTotals { get; }
         RunState RunState { get; }
-        int SpeedMultiplier { get; }
+        float SpeedMultiplier { get; }
         bool IsDraftOpen { get; }
         Guid DraftRevision { get; }
         DraftRequest CurrentDraftRequest { get; }
@@ -54,7 +54,7 @@ namespace Game.UI
         bool RerollDraft(Guid revision);
         bool BanishDraftOption(ContentId id, Guid revision);
         void TogglePause();
-        bool SetSpeed(int multiplier);
+        bool SetSpeed(float multiplier);
         void AddFixtureExperience(float amount);
         void GrantFixtureRerolls(int count);
         /// <summary>Adds every catalog skill/passive/set to this run's draft pool; returns how many were added.</summary>

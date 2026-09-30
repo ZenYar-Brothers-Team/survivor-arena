@@ -113,6 +113,8 @@ namespace Game.UI.Tests
             model.RunState = RunState.Running;
             model.RaiseChanged();
 
+            view.RaiseSpeed(.5f);
+            Assert.AreEqual(.5f, view.Hud.SpeedMultiplier);
             view.RaiseSpeed(3);
             Assert.AreEqual(3, model.SpeedMultiplier);
             Assert.AreEqual(3, view.Hud.SpeedMultiplier);
@@ -516,7 +518,7 @@ namespace Game.UI.Tests
             public float RunDurationSeconds { get; set; }
             public CharacterStatsViewState Stats { get; set; } = new CharacterStatsViewState(new CharacterStats(new CharacterBaseStats(100f, 3f)));
             public RunState RunState { get; set; }
-            public int SpeedMultiplier { get; private set; } = 1;
+            public float SpeedMultiplier { get; private set; } = 1f;
             public bool IsDraftOpen { get; set; }
             public Guid DraftRevision { get; set; } = Guid.NewGuid();
             public DraftRequest CurrentDraftRequest { get; set; }
@@ -558,7 +560,7 @@ namespace Game.UI.Tests
             public bool RerollDraft(Guid revision) { RerollCalls++; return true; }
             public bool BanishDraftOption(ContentId id, Guid revision) { LastBanished = id; return true; }
             public void TogglePause() => PauseCalls++;
-            public bool SetSpeed(int multiplier) { SpeedMultiplier = multiplier; Changed?.Invoke(); return true; }
+            public bool SetSpeed(float multiplier) { SpeedMultiplier = multiplier; Changed?.Invoke(); return true; }
             public void AddFixtureBook() { BookCalls++; }
             public float LastExperienceAmount;
             public int RerollGrant;
@@ -582,7 +584,7 @@ namespace Game.UI.Tests
             public event Action<Guid> DraftRerollRequested;
             public event Action<Guid> DraftBanishModeRequested;
             public event Action PauseRequested;
-            public event Action<int> SpeedRequested;
+            public event Action<float> SpeedRequested;
             public event Action AddExperienceRequested;
             public event Action AddLargeExperienceRequested;
             public event Action AddRerollsRequested;
@@ -617,7 +619,7 @@ namespace Game.UI.Tests
             public void RaiseBanishMode(Guid? revision = null) => DraftBanishModeRequested?.Invoke(revision ?? Draft.Revision);
             public void RaiseBanish(ContentId id) { RaiseBanishMode(); RaiseSelect(id); }
             public void RaisePause() => PauseRequested?.Invoke();
-            public void RaiseSpeed(int multiplier) => SpeedRequested?.Invoke(multiplier);
+            public void RaiseSpeed(float multiplier) => SpeedRequested?.Invoke(multiplier);
             public void RaiseBook() => AddBookRequested?.Invoke();
             public void RaiseAddExperience() => AddExperienceRequested?.Invoke();
             public void RaiseAddLargeExperience() => AddLargeExperienceRequested?.Invoke();

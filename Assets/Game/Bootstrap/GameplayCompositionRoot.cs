@@ -93,6 +93,7 @@ namespace Game.Bootstrap
             _automationExportSink = factory;
         }
         public BossEncounterRuntime BossEncounters { get; private set; }
+        public SlowStatusPresentationDirector SlowStatus { get; private set; }
         public WorldPickupRuntime Pickups { get; private set; }
         public TravelerEncounterRuntime Travelers { get; private set; }
 
@@ -561,6 +562,9 @@ namespace Game.Bootstrap
                     Catalog.GroundShadowPresentation, Catalog.Registry,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups));
                 initializedSubsystems.Add(BossEncounters.Shutdown);
+                if (SlowStatus == null) SlowStatus = gameObject.AddComponent<SlowStatusPresentationDirector>();
+                SlowStatus.Initialize(FixtureSlowStatusPresentationCatalog.Create());
+                initializedSubsystems.Add(SlowStatus.Shutdown);
 
                 if (configuration.Travelers is TravelerScheduleDefinition travelerSchedule)
                 {
@@ -592,7 +596,8 @@ namespace Game.Bootstrap
                     enemySpawner,
                     Playtest,
                     BossEncounters, Pickups, Travelers,
-                    Catalog.BuildEntries); // development "unlock all" draws from the whole catalog, never the save
+                    Catalog.BuildEntries, // development "unlock all" draws from the whole catalog, never the save
+                    SlowStatus);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
                 _shellScreen?.AttachPauseActions(gameplayUiRoot.PauseFooter);
                 initializedSubsystems.Add(() => _shellScreen?.AttachPauseActions(null));

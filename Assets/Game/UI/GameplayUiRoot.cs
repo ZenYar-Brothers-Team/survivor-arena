@@ -32,6 +32,8 @@ namespace Game.UI
         private TravelerPresenter _travelerPresenter;
         private UiToolkitTravelerView _travelerView;
         private UiToolkitPickupView _pickupView;
+        private SlowStatusPresenter _slowStatusPresenter;
+        private UiToolkitSlowStatusView _slowStatusView;
         private float _hudRefreshRemaining;
         private bool _initialized;
         private Camera _anchorCamera;
@@ -60,7 +62,7 @@ namespace Game.UI
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
             IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null,
-            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null)
+            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null, ISlowStatusPreview slowStatus = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -106,10 +108,13 @@ namespace Game.UI
             _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);
             _pickupView = new UiToolkitPickupView(_document.rootVisualElement);
             _pickupPresenter = new PickupPresenter(pickups, _pickupView, Debug.isDebugBuild || Application.isEditor);
+            _slowStatusView = new UiToolkitSlowStatusView(_document.rootVisualElement);
+            _slowStatusPresenter = new SlowStatusPresenter(slowStatus, _slowStatusView, Debug.isDebugBuild || Application.isEditor);
             _travelerView = new UiToolkitTravelerView(_document.rootVisualElement);
             var camera = Camera.main;
             _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
-                position => camera != null ? camera.WorldToViewportPoint(position) : Vector3.zero, Debug.isDebugBuild || Application.isEditor);
+                position => camera != null ? camera.WorldToViewportPoint(position) : Vector3.zero, Debug.isDebugBuild || Application.isEditor,
+                () => camera != null ? camera.aspect : 16f / 9f);
             _initialized = true;
             BindHealthAnchor(camera);
         }
@@ -167,6 +172,8 @@ namespace Game.UI
             _travelerView?.Dispose();
             _pickupPresenter?.Dispose();
             _pickupView?.Dispose();
+            _slowStatusPresenter?.Dispose();
+            _slowStatusView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
             _view?.Dispose();

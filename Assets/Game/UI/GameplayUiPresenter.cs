@@ -385,7 +385,7 @@ namespace Game.UI
             RefreshAll();
         }
 
-        private void HandleSpeedRequested(int multiplier)
+        private void HandleSpeedRequested(float multiplier)
         {
             if (!_model.DevelopmentCommandsEnabled || _model.RunState != RunState.Running) return;
             if (_model.SetSpeed(multiplier)) RefreshHud();

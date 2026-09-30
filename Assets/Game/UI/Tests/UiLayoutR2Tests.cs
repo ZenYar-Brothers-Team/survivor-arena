@@ -39,6 +39,14 @@ namespace Game.UI.Tests
             Assert.AreEqual(expected, GameplayUiCopy.Describe(new DraftValueChange("Base cooldown", before, after), false, true));
         }
 
+        [Test]
+        public void CooldownCopy_NewSkill_ShowsNoCooldownSeconds()
+        {
+            Assert.AreEqual("", GameplayUiCopy.Describe(new DraftValueChange("Base cooldown", 0f, 2.4f), true, true));
+            var skill = System.Linq.Enumerable.Single(Game.ActiveSkill.ProductionActiveSkillCatalog.Create(), s => s.Id.ToString() == "SKILL-001");
+            StringAssert.DoesNotContain("Перезарядка", GameplayUiCopy.DraftEffect(skill, skill.CreateDraftPreview(0, 1)));
+        }
+
         [TestCase(12.5f, "+13")]
         [TestCase(-12.5f, "-13")]
         [TestCase(-.1f, "+0")]

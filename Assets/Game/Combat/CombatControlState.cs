@@ -13,6 +13,23 @@ namespace Game.Combat
         public float KnockbackRemaining { get; private set; }
         public float MovementMultiplier { get; private set; } = 1f;
         public int SlowSourceCount => _slow.Count;
+        public bool IsSlowed => MovementMultiplier < 1f;
+
+        /// <summary>
+        /// Presentation-only (DECISION-0108): remaining fraction 0..1 of the active slow that lasts longest,
+        /// so a status bar shrinks as the slow runs out. Zero when not slowed.
+        /// </summary>
+        public float SlowRemaining01
+        {
+            get
+            {
+                var remaining = 0f;
+                var fraction = 0f;
+                foreach (var slow in _slow.Values)
+                    if (slow.Remaining > remaining && slow.Duration > 0f) { remaining = slow.Remaining; fraction = slow.Remaining / slow.Duration; }
+                return Math.Min(1f, Math.Max(0f, fraction));
+            }
+        }
 
         public float Apply(CombatDamageRequest request, float resistance, bool acceptsSlow)
         {
@@ -36,6 +53,7 @@ namespace Game.Combat
                 if (!_slow.TryGetValue(key, out var slow)) _slow.Add(key, slow = new SlowState());
                 slow.Fraction = profile.SlowFraction;
                 slow.Remaining = profile.SlowSeconds;
+                slow.Duration = profile.SlowSeconds;
                 RefreshSlow();
             }
             return distance;

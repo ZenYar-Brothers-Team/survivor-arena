@@ -6,12 +6,22 @@ namespace Game.UI
 {
     public sealed class TravelerPresenter : IDisposable
     {
+        // DECISION-0109: pointers ride the screen frame close to the edge; values are normalized screen fractions.
+        private const float EdgeInsetX = .03f;
+        private const float EdgeInsetY = .05f;
+        private const float PointerSeparation = .07f;
+        private const float HealthBarLift = .04f;
         private readonly ITravelerRuntime _model;
         private readonly ITravelerView _view;
         private readonly Func<Vector2, Vector3> _project;
+        private readonly Func<float> _aspect;
         private readonly bool _development;
-        public TravelerPresenter(ITravelerRuntime model, ITravelerView view, Func<Vector2, Vector3> project, bool development)
-        { _model = model; _view = view; _project = project; _development = development; _view.SpawnRequested += Spawn; Refresh(); }
+        public TravelerPresenter(ITravelerRuntime model, ITravelerView view, Func<Vector2, Vector3> project, bool development,
+            Func<float> aspect = null)
+        {
+            _model = model; _view = view; _project = project; _development = development; _aspect = aspect ?? (() => 16f / 9f);
+            _view.SpawnRequested += Spawn; Refresh();
+        }
         public void Refresh()
         {
             var result = new List<TravelerHudItem>();
@@ -19,31 +29,55 @@ namespace Game.UI
                 foreach (var item in _model.Snapshot)
                 {
                     var viewport = _project(item.Position);
-                    var offscreen = viewport.z <= 0 || viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1;
+                    var behind = viewport.z <= 0;
+                    var offscreen = behind || viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1;
                     var point = new Vector2(viewport.x, 1 - viewport.y);
                     var direction = point - Vector2.one * .5f;
-                    if (viewport.z <= 0) direction = -direction;
-                    if (offscreen)
+                    if (behind) direction = -direction;
+                    var health = item.MaxHealth > 0 ? item.Health / item.MaxHealth : 0f;
+                    if (!offscreen)
                     {
-                        // Insets reserve the top HUD and bottom skill slots. Separate inward lanes prevent simultaneous pointers overlapping.
-                        var lane = result.FindAll(value => value.Offscreen).Count;
-                        var halfWidth = .44f - lane * .07f;
-                        var halfHeight = .30f - lane * .065f;
-                        var factor = Mathf.Min(halfWidth / Mathf.Max(Mathf.Abs(direction.x), .0001f), halfHeight / Mathf.Max(Mathf.Abs(direction.y), .0001f));
-                        point = Vector2.one * .5f + direction * factor;
+                        point.y = Mathf.Clamp01(point.y - HealthBarLift);
+                        result.Add(new TravelerHudItem(item.LifeId, health, point, false, 0f));
+                        continue;
                     }
-                    else point.y = Mathf.Clamp01(point.y - .04f);
-                    result.Add(new TravelerHudItem(item.LifeId, item.Marker, item.Health / item.MaxHealth,
-                        point, offscreen, Arrow(direction)));
+                    point = Separate(OnFrame(direction), result);
+                    var aspect = Mathf.Max(.01f, _aspect());
+                    var angle = Mathf.Atan2(direction.y, direction.x * aspect) * Mathf.Rad2Deg;
+                    result.Add(new TravelerHudItem(item.LifeId, health, point, true, angle));
                 }
             _view.Render(result.AsReadOnly(), _model?.DevelopmentObservation ?? "", _development && _model != null);
         }
-        private static string Arrow(Vector2 direction)
+
+        /// <summary>Where the ray from the screen centre toward the Traveler meets the inset screen frame.</summary>
+        private static Vector2 OnFrame(Vector2 direction)
         {
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y) * 2) return direction.x > 0 ? "→" : "←";
-            if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x) * 2) return direction.y > 0 ? "↓" : "↑";
-            return direction.x > 0 ? (direction.y > 0 ? "↘" : "↗") : (direction.y > 0 ? "↙" : "↖");
+            var halfWidth = .5f - EdgeInsetX;
+            var halfHeight = .5f - EdgeInsetY;
+            var factor = Mathf.Min(halfWidth / Mathf.Max(Mathf.Abs(direction.x), .0001f),
+                halfHeight / Mathf.Max(Mathf.Abs(direction.y), .0001f));
+            return Vector2.one * .5f + direction * factor;
         }
+
+        /// <summary>Several Travelers in one direction get separate pointers slid along the frame.</summary>
+        private static Vector2 Separate(Vector2 point, List<TravelerHudItem> placed)
+        {
+            var onVerticalEdge = Mathf.Abs(point.x - .5f) >= .5f - EdgeInsetX - .001f;
+            for (var attempt = 0; attempt < 8; attempt++)
+            {
+                var overlaps = false;
+                foreach (var other in placed)
+                    if (other.Offscreen && Mathf.Abs(other.Position.x - point.x) < PointerSeparation &&
+                        Mathf.Abs(other.Position.y - point.y) < PointerSeparation) { overlaps = true; break; }
+                if (!overlaps) break;
+                if (onVerticalEdge) point.y = point.y + PointerSeparation > 1f - EdgeInsetY ? point.y - 2 * PointerSeparation : point.y + PointerSeparation;
+                else point.x = point.x + PointerSeparation > 1f - EdgeInsetX ? point.x - 2 * PointerSeparation : point.x + PointerSeparation;
+            }
+            point.x = Mathf.Clamp(point.x, EdgeInsetX, 1f - EdgeInsetX);
+            point.y = Mathf.Clamp(point.y, EdgeInsetY, 1f - EdgeInsetY);
+            return point;
+        }
+
         private void Spawn() { if (_development) _model?.SpawnDevelopmentTraveler(); }
         public void Dispose() => _view.SpawnRequested -= Spawn;
     }

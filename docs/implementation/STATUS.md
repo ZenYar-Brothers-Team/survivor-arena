@@ -653,6 +653,12 @@ Delta 2026-09-30 [DECISION-0107](../decisions/0107-hostile-damage-notifications-
 уведомлений, валюта «монеты» (IP-25/26). Full graphics 1071/1071 + 58/58 PASS; визуальная приёмка
 плашки и полоски ожидается ([evidence](evidence/2026-09-30-decision-0107.md)).
 Затем счётчик сета на паузе переведён на взятые компоненты, как в драфте: UI 114/114 + 4/4 PASS.
+DEV-превью эффекта замедления (4 варианта + «Все») и скорость 0.5× по
+[DECISION-0108](../decisions/0108-slow-status-look-preview.md) — Implemented; full graphics 1081/1081 + 59/59
+PASS; выбор варианта ожидает пользователя ([evidence](evidence/2026-09-30-slow-status-preview.md)).
+Указатель на Путников по [DECISION-0109](../decisions/0109-traveler-offscreen-pointer.md) и скрытие секунд
+перезарядки в описаниях умений — Implemented; full graphics 1083/1083 + 59/59 PASS
+(`TestResults/checks/20260930T064602-849800Z`); визуальная приёмка ожидается.
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
 Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.

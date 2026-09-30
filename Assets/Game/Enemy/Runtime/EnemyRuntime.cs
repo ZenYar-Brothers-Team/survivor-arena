@@ -68,6 +68,9 @@ namespace Game.Enemy
         public EnemyLifeEvent LastLifeEvent { get; private set; }
         public Health Health { get; private set; }
         public CombatControlState Controls { get; } = new CombatControlState();
+        /// <summary>Body presentation when production art is bound; null for fixture bodies (DECISION-0108 status overlays).</summary>
+        public SpritePresentationRuntime BodyPresentation =>
+            _presentation != null && _presentation.IsInitialized && _presentationRig.gameObject.activeSelf ? _presentation : null;
         public CombatIdentity Identity => new CombatIdentity(LifeId, _runId, ContentId, Category switch
         {
             EnemyCategory.Boss => CombatEntityCategory.Boss,

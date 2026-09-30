@@ -78,6 +78,7 @@
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
                 <ui:VisualElement class="hud-speed-controls">
+                    <ui:Button name="hud-speed-half" text="0.5×" class="speed-button" />
                     <ui:Button name="hud-speed-1" text="1×" class="speed-button" />
                     <ui:Button name="hud-speed-2" text="2×" class="speed-button" />
                     <ui:Button name="hud-speed-3" text="3×" class="speed-button" />
@@ -115,7 +116,7 @@
                 <ui:Label text="CHARACTERS" class="development-section-title development-section-spaced" />
                 <ui:VisualElement name="development-character-selection" class="character-selection-panel" />
             </ui:ScrollView>
-            <ui:VisualElement name="development-pane-presentation" class="development-pane">
+            <ui:ScrollView name="development-pane-presentation" class="development-pane development-scroll">
                 <ui:Label text="PRESENTATION PREVIEW" class="development-section-title" />
                 <ui:VisualElement class="development-button-row development-button-wrap">
                     <ui:Button name="development-presentation-live" text="Live" class="compact-button showcase-button" />
@@ -125,7 +126,21 @@
                     <ui:Button name="development-presentation-reset" text="Reset" class="compact-button showcase-button" />
                 </ui:VisualElement>
                 <ui:Label text="Use -10 HP on the Run tab for hit reaction. Escape / Space / RMB to pause." class="development-help" />
-            </ui:VisualElement>
+                <ui:VisualElement name="development-slow-status">
+                    <ui:Label text="ЗАМЕДЛЕНИЕ — ВАРИАНТЫ" class="development-section-title development-section-spaced" />
+                    <ui:VisualElement class="development-button-row development-button-wrap">
+                        <ui:Button name="development-slow-status-off" text="Нет" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-bar" text="Полоска" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-tint" text="Посинение" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-ice" text="Лёд" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-outline" text="Обводка" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-all" text="Все" class="compact-button showcase-button" />
+                    </ui:VisualElement>
+                    <ui:Button name="development-slow-status-slow-all" text="Замедлить всех врагов" class="compact-button" />
+                    <ui:Label name="development-slow-status-summary" class="development-help" />
+                    <ui:Label text="Вариант сохраняется до выхода из игры. Кнопка замедления работает во время забега (не на паузе); в обычной игре замедление дают отдельные умения и сеты." class="development-help" />
+                </ui:VisualElement>
+            </ui:ScrollView>
             <ui:ScrollView name="development-pane-playtest" class="development-pane development-scroll">
                 <ui:Label text="LOCAL PLAYTEST" class="development-section-title" />
                 <ui:Label name="playtest-summary" text="Recording disabled" class="development-help" />

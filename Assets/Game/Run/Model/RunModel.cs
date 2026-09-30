@@ -10,7 +10,7 @@ namespace Game.Run
 
         public float Duration { get; }
         public float Elapsed { get; private set; }
-        public int SpeedMultiplier { get; private set; } = 1;
+        public float SpeedMultiplier { get; private set; } = 1f;
         public RunState State { get; private set; } = RunState.NotStarted;
         public int PauseReasonCount => _pauseReasons.Count;
         public Guid RunId { get; } = Guid.NewGuid();
@@ -33,7 +33,7 @@ namespace Game.Run
         public event Action Won;
         public event Action Lost;
         public event Action<RunState> StateChanged;
-        public event Action<int> SpeedChanged;
+        public event Action<float> SpeedChanged;
         public event Action<RunOutcome> Completed;
         /// <summary>Accepted pause ownership transitions, including additional reasons while paused.</summary>
         public event Action<string, bool> PauseChanged;
@@ -57,10 +57,13 @@ namespace Game.Run
             RequestPause(RunPauseReasons.Manual);
         }
 
-        /// <summary>Run HUD speed choices; pause retains the selected speed for resume.</summary>
-        public bool SetSpeed(int multiplier)
+        /// <summary>
+        /// Run HUD speed choices; pause retains the selected speed for resume. 0.5 is the development
+        /// slow-motion choice (DECISION-0108); automation still accepts only integral speeds.
+        /// </summary>
+        public bool SetSpeed(float multiplier)
         {
-            if (multiplier != 1 && multiplier != 2 && multiplier != 3 && multiplier != 5)
+            if (multiplier != 0.5f && multiplier != 1f && multiplier != 2f && multiplier != 3f && multiplier != 5f)
                 return false;
             if (State != RunState.Running)
                 return false;

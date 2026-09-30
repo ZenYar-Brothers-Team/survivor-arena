@@ -88,6 +88,9 @@ namespace Game.UI
         public static string MetaUpgradeIcon(string id) => "meta-upgrade-icon-" + id;
         public static string MetaBuy(string id) => "meta-buy-" + id;
         public const string TravelerOverlay = "traveler-overlay";
+        public const string TravelerPointerArrow = "traveler-arrow";
+        public const string TravelerPointerCaption = "traveler-caption";
+        public const string TravelerHealth = "traveler-health";
         public const string TravelerObservation = "development-traveler-observation";
         public const string SpawnTraveler = "development-spawn-traveler";
         public const string PickupFeedback = "hud-pickup-feedback";
@@ -147,6 +150,7 @@ namespace Game.UI
         public const string TimerLabel = "hud-timer";
         public const string WaveLabel = "hud-wave";
         public const string PauseButton = "hud-pause";
+        public const string SpeedHalfButton = "hud-speed-half";
         public const string SpeedNormalButton = "hud-speed-1";
         public const string SpeedDoubleButton = "hud-speed-2";
         public const string SpeedTripleButton = "hud-speed-3";
@@ -194,6 +198,11 @@ namespace Game.UI
         public const string PresentationLeftButton = "development-presentation-left";
         public const string PresentationRightButton = "development-presentation-right";
         public const string PresentationResetButton = "development-presentation-reset";
+        public const string SlowStatusSection = "development-slow-status";
+        public const string SlowStatusSummary = "development-slow-status-summary";
+        public const string SlowStatusSlowAll = "development-slow-status-slow-all";
+        public static string SlowStatusStyle(Game.Presentation.SlowStatusStyle style) =>
+            "development-slow-status-" + style.ToString().ToLowerInvariant();
         public const string CharacterSelection = "development-character-selection";
 
         public static string DraftSelectButton(int index) => $"draft-option-{index}-select";

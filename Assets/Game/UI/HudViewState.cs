@@ -17,7 +17,7 @@ namespace Game.UI
         public RunExperienceSnapshot ExperienceTotals { get; }
         public long BookCurrency { get; }
         public BossViewState Boss { get; }
-        public int SpeedMultiplier { get; }
+        public float SpeedMultiplier { get; }
         public bool CanChangeSpeed { get; }
         public bool IsHealthLocked { get; }
         public string CharacterName { get; }
@@ -33,7 +33,7 @@ namespace Game.UI
             WaveViewState wave,
             CharacterStatsViewState stats = null,
             RunExperienceSnapshot experienceTotals = null, long bookCurrency = 0, BossViewState boss = default,
-            int speedMultiplier = 1, bool canChangeSpeed = false, float runDurationSeconds = 0f,
+            float speedMultiplier = 1f, bool canChangeSpeed = false, float runDurationSeconds = 0f,
             bool isHealthLocked = false, string characterName = "", Sprite characterPortrait = null,
             float? baselineMovementSpeed = null)
         {

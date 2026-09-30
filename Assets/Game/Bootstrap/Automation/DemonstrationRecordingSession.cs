@@ -50,7 +50,9 @@ namespace Game.Bootstrap.Automation
                     {
                         ["physicsStep"] = _clock.StepIndex, ["physicsSeconds"] = _clock.StepStartSeconds,
                         ["runSeconds"] = _bindings.Run.Model.Elapsed, ["stepSeconds"] = stepSeconds,
-                        ["runSpeed"] = _bindings.Run.Model.SpeedMultiplier,
+                        // Integral speeds stay JSON integers (validator schema); 0.5× is development-only.
+                        ["runSpeed"] = _bindings.Run.Model.SpeedMultiplier % 1f == 0f
+                            ? new JValue((int)_bindings.Run.Model.SpeedMultiplier) : new JValue(_bindings.Run.Model.SpeedMultiplier),
                         ["captureReason"] = periodic
                             ? actionChanged ? "periodicAndActionChange" : "periodic"
                             : "actionChange",

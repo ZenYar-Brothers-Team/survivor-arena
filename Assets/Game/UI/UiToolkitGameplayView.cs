@@ -30,6 +30,7 @@ namespace Game.UI
         private readonly Label _levelLabel;
         private readonly Label _timerLabel;
         private readonly Label _waveLabel;
+        private readonly Button _speedHalfButton;
         private readonly Button _speedNormalButton;
         private readonly Button _speedDoubleButton;
         private readonly Button _speedTripleButton;
@@ -89,7 +90,7 @@ namespace Game.UI
         public event Action<Guid> DraftRerollRequested;
         public event Action<Guid> DraftBanishModeRequested;
         public event Action PauseRequested;
-        public event Action<int> SpeedRequested;
+        public event Action<float> SpeedRequested;
         public event Action AddExperienceRequested;
         public event Action AddLargeExperienceRequested;
         public event Action AddRerollsRequested;
@@ -130,6 +131,7 @@ namespace Game.UI
             _levelLabel = Require<Label>(root, GameplayUiElementIds.LevelLabel);
             _timerLabel = Require<Label>(root, GameplayUiElementIds.TimerLabel);
             _waveLabel = Require<Label>(root, GameplayUiElementIds.WaveLabel);
+            _speedHalfButton = Require<Button>(root, GameplayUiElementIds.SpeedHalfButton);
             _speedNormalButton = Require<Button>(root, GameplayUiElementIds.SpeedNormalButton);
             _speedDoubleButton = Require<Button>(root, GameplayUiElementIds.SpeedDoubleButton);
             _speedTripleButton = Require<Button>(root, GameplayUiElementIds.SpeedTripleButton);
@@ -184,6 +186,7 @@ namespace Game.UI
             _presentationResetButton = Require<Button>(root, GameplayUiElementIds.PresentationResetButton);
             _characterSelection = Require<VisualElement>(root, GameplayUiElementIds.CharacterSelection);
 
+            _speedHalfButton.clicked += HandleHalfSpeedClicked;
             _speedNormalButton.clicked += HandleNormalSpeedClicked;
             _speedDoubleButton.clicked += HandleDoubleSpeedClicked;
             _speedTripleButton.clicked += HandleTripleSpeedClicked;
@@ -216,6 +219,7 @@ namespace Game.UI
 
         public void RenderHud(HudViewState state)
         {
+            RenderSpeedButton(_speedHalfButton, .5f, state);
             RenderSpeedButton(_speedNormalButton, 1, state);
             RenderSpeedButton(_speedDoubleButton, 2, state);
             RenderSpeedButton(_speedTripleButton, 3, state);
@@ -582,12 +586,13 @@ namespace Game.UI
         }
 
         private void HandlePauseClicked() { _pause.MarkShortcutConsumed(); PauseRequested?.Invoke(); }
+        private void HandleHalfSpeedClicked() => SpeedRequested?.Invoke(.5f);
         private void HandleNormalSpeedClicked() => SpeedRequested?.Invoke(1);
         private void HandleDoubleSpeedClicked() => SpeedRequested?.Invoke(2);
         private void HandleTripleSpeedClicked() => SpeedRequested?.Invoke(3);
         private void HandleQuintupleSpeedClicked() => SpeedRequested?.Invoke(5);
 
-        private static void RenderSpeedButton(Button button, int multiplier, HudViewState state)
+        private static void RenderSpeedButton(Button button, float multiplier, HudViewState state)
         {
             button.EnableInClassList("speed-button--selected", state.SpeedMultiplier == multiplier);
             button.SetEnabled(state.CanChangeSpeed);
@@ -627,6 +632,7 @@ namespace Game.UI
         {
             _root.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             _pause.Dispose();
+            _speedHalfButton.clicked -= HandleHalfSpeedClicked;
             _speedNormalButton.clicked -= HandleNormalSpeedClicked;
             _speedDoubleButton.clicked -= HandleDoubleSpeedClicked;
             _speedTripleButton.clicked -= HandleTripleSpeedClicked;

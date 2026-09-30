@@ -6,6 +6,8 @@ namespace Game.UI
 {
     public sealed class UiToolkitTravelerView : ITravelerView, IDisposable
     {
+        // DECISION-0109: the pointer names only the kind of actor, never its concrete role.
+        public const string PointerCaption = "Путник";
         private readonly VisualElement _overlay;
         private readonly Label _observation;
         private readonly Button _spawn;
@@ -28,15 +30,26 @@ namespace Game.UI
                 {
                     element = new VisualElement { name = "traveler-" + item.LifeId.ToString("N"), pickingMode = PickingMode.Ignore };
                     element.AddToClassList("traveler-item");
-                    var label = new Label { name = "traveler-label", pickingMode = PickingMode.Ignore }; element.Add(label);
-                    var bar = new ProgressBar { name = "traveler-health", lowValue = 0, highValue = 1, pickingMode = PickingMode.Ignore }; element.Add(bar);
+                    var arrow = new TravelerPointerArrow { name = GameplayUiElementIds.TravelerPointerArrow };
+                    arrow.AddToClassList("traveler-arrow");
+                    element.Add(arrow);
+                    var caption = new Label(PointerCaption) { name = GameplayUiElementIds.TravelerPointerCaption, pickingMode = PickingMode.Ignore };
+                    caption.AddToClassList("traveler-caption");
+                    element.Add(caption);
+                    var bar = new ProgressBar { name = GameplayUiElementIds.TravelerHealth, lowValue = 0, highValue = 1, pickingMode = PickingMode.Ignore };
+                    element.Add(bar);
                     _items.Add(item.LifeId, element); _overlay.Add(element);
                 }
                 element.style.left = Length.Percent(item.Position.x * 100);
                 element.style.top = Length.Percent(item.Position.y * 100);
-                element.Q<Label>().text = (item.Offscreen ? item.Arrow + " " : "◆ ") + item.Name;
-                element.Q<ProgressBar>().value = item.HealthFraction;
                 element.EnableInClassList("traveler-pointer", item.Offscreen);
+                var pointer = element.Q(GameplayUiElementIds.TravelerPointerArrow);
+                pointer.style.display = item.Offscreen ? DisplayStyle.Flex : DisplayStyle.None;
+                pointer.style.rotate = new Rotate(new Angle(item.AngleDegrees, AngleUnit.Degree));
+                element.Q(GameplayUiElementIds.TravelerPointerCaption).style.display = item.Offscreen ? DisplayStyle.Flex : DisplayStyle.None;
+                var health = element.Q<ProgressBar>(GameplayUiElementIds.TravelerHealth);
+                health.style.display = item.Offscreen ? DisplayStyle.None : DisplayStyle.Flex;
+                health.value = item.HealthFraction;
             }
             _observation.text = observation;
             _observation.style.display = _spawn.style.display = development ? DisplayStyle.Flex : DisplayStyle.None;
