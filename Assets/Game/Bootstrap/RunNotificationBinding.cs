@@ -29,22 +29,28 @@ namespace Game.Bootstrap
             if(boss!=null)boss.LifeEvent+=Boss;
             if(travelers!=null)travelers.LifeEvent+=Traveler;
         }
-        private void Level(int level) => _notifications?.Push("LEVEL UP — "+level);
+        private void Level(int level) => _notifications?.Push(NotificationMessage.LevelUp(level));
         private void Selected(BuildSelectionResult result)
         {
-            if(result.WasNewEntry&&result.Entry.Definition.Kind==BuildEntryKind.Set)_notifications?.Push("SET ACQUIRED — "+result.Entry.Definition.DisplayName);
+            if(result.WasNewEntry&&result.Entry.Definition.Kind==BuildEntryKind.Set)_notifications?.Push(new NotificationMessage(NotificationKind.SetAcquired,result.Entry.Definition.DisplayName));
             foreach(var set in _sets)
-                if(!_recipes.Contains(set.Id)&&set.IsRecipeFulfilled(_draft.Build)) { _recipes.Add(set.Id);_notifications?.Push("SET RECIPE COMPLETED — "+set.DisplayName); }
+                if(!_recipes.Contains(set.Id)&&set.IsRecipeFulfilled(_draft.Build)) { _recipes.Add(set.Id);_notifications?.Push(new NotificationMessage(NotificationKind.SetRecipeReady,set.DisplayName)); }
         }
         private void Boss(EnemyLifeEvent e)
         {
-            if(e.Kind==EnemyLifeEventKind.Spawned)_notifications?.Push("BOSS INCOMING");
+            if(e.Kind==EnemyLifeEventKind.Spawned&&e.Category==EnemyCategory.Boss)_notifications?.Push(new NotificationMessage(NotificationKind.BossIncoming,BossName(e)));
             if(e.Kind==EnemyLifeEventKind.Died)_kills++;
+        }
+        private string BossName(EnemyLifeEvent e)
+        {
+            if(_boss.FinalBoss!=null&&_boss.FinalBoss.LifeId==e.LifeId)return _boss.FinalDefinition?.DisplayName??"";
+            if(_boss.MidBoss!=null&&_boss.MidBoss.LifeId==e.LifeId)return _boss.MidDefinition?.DisplayName??"";
+            return "";
         }
         private void Traveler(TravelerEvent e)
         {
-            if(e.Outcome=="Spawned")_notifications?.Push("TRAVELER APPEARED — "+e.Traveler.Name);
-            if(e.Outcome=="Escaped")_notifications?.Push("TRAVELER ESCAPED — "+e.Traveler.Name);
+            if(e.Outcome=="Spawned")_notifications?.Push(new NotificationMessage(NotificationKind.TravelerAppeared,e.Traveler.Name));
+            if(e.Outcome=="Escaped")_notifications?.Push(new NotificationMessage(NotificationKind.TravelerEscaped,e.Traveler.Name));
             if(e.Outcome=="Killed")_kills++;
         }
         public RunOutcomeContribution Capture() => new RunOutcomeContribution(kills:_kills);

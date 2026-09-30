@@ -33,7 +33,10 @@ namespace Game.Bootstrap.PlayModeTests
                 yield return null;
                 yield return null;
                 Assert.IsNull(root.BossEncounters.FinalBoss);
-                Assert.AreEqual(DisplayStyle.None, bar.resolvedStyle.display);
+                // DECISION-0107: a living mid-boss gets the same HP bar; the final boss takes priority later.
+                Assert.IsNotNull(root.BossEncounters.MidBoss);
+                Assert.AreEqual(DisplayStyle.Flex, bar.resolvedStyle.display);
+                StringAssert.Contains(root.BossEncounters.MidDefinition.DisplayName, bar.title);
                 Assert.IsTrue(root.BossEncounters.DevelopmentObservation.Contains("MidBoss"));
                 run.Model.Tick(timeline.Hooks.Single(h => h.Kind == WaveHookKind.FinalBoss).TimeSeconds - run.Model.Elapsed);
                 yield return null;

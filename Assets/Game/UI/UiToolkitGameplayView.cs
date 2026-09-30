@@ -20,16 +20,12 @@ namespace Game.UI
         private int _inspectedCard = -1;
         private readonly Label _pauseCharacter;
         private readonly VisualElement _pauseBuild;
-        private readonly UiNotification _notification;
         private string _characterName = "";
         private string _healthText = "";
-        private float _previousElapsed;
-        private int _previousLevel;
         private BuildViewState? _renderedBuild;
         private CharacterSelectionViewState _renderedCharacters;
         private readonly ProgressBar _healthBar;
         private readonly ProgressBar _bossBar;
-        private Guid _bossLife;
         private readonly ProgressBar _experienceBar;
         private readonly Label _levelLabel;
         private readonly Label _timerLabel;
@@ -126,7 +122,6 @@ namespace Game.UI
             _draftDetails = Require<VisualElement>(root, GameplayUiElementIds.DraftDetails);
             _pauseCharacter = Require<Label>(root, GameplayUiElementIds.PauseCharacter);
             _pauseBuild = Require<VisualElement>(root, GameplayUiElementIds.PauseBuild);
-            _notification = new UiNotification(Require<Label>(root, GameplayUiElementIds.Notification));
             _healthBar = Require<ProgressBar>(root, GameplayUiElementIds.HealthBar);
             SetVisible(_healthBar, false); // The world anchor reveals it only after valid projection.
             _bossBar = Require<ProgressBar>(root, GameplayUiElementIds.BossBar);
@@ -225,18 +220,12 @@ namespace Game.UI
             RenderSpeedButton(_speedDoubleButton, 2, state);
             RenderSpeedButton(_speedTripleButton, 3, state);
             RenderSpeedButton(_speedQuintupleButton, 5, state);
-            _notification.Tick(Math.Max(0f, state.ElapsedSeconds - _previousElapsed));
-            _previousElapsed = state.ElapsedSeconds;
-            if (_previousLevel > 0 && state.Level > _previousLevel) _notification.Show("Новый уровень");
-            _previousLevel = state.Level;
             SetVisible(_bossBar, state.Boss.Visible);
             if (state.Boss.Visible)
             {
-                if (_bossLife != state.Boss.LifeId) _notification.Show("Приближается босс");
                 _bossBar.value = 100f * state.Boss.CurrentHealth / state.Boss.MaxHealth;
                 _bossBar.title = $"{state.Boss.Name} · {MathF.Ceiling(state.Boss.CurrentHealth)}/{MathF.Ceiling(state.Boss.MaxHealth)}";
             }
-            _bossLife = state.Boss.Visible ? state.Boss.LifeId : Guid.Empty;
             _bookCurrency.text = $"Из книг: +{state.BookCurrency}";
             SetVisible(_bookCurrency, state.BookCurrency > 0);
             var health01 = state.MaxHealth > 0f ? state.CurrentHealth / state.MaxHealth : 0f;
@@ -401,9 +390,7 @@ namespace Game.UI
         public void RenderBuild(BuildViewState state)
         {
             if (_renderedBuild.HasValue && SameBuild(_renderedBuild.Value, state)) return;
-            var previousSetCount = _renderedBuild?.Sets.Count ?? state.Sets.Count;
             _renderedBuild = state;
-            if (state.Sets.Count > previousSetCount) _notification.Show("Сет получен");
             RenderPauseBuild(state);
             RenderSlots(_activeSlots, state.ActiveSlots, true);
             RenderSlots(_passiveSlots, state.PassiveSlots, false);

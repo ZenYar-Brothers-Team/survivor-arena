@@ -47,6 +47,8 @@ namespace Game.Enemy
         private ContentRegistry _contentRegistry;
         public EnemyRuntime FinalBoss => _alive.TryGetValue(WaveHookKind.FinalBoss, out var enemy) && enemy.IsAlive ? enemy : null;
         public BossEncounterDefinition FinalDefinition => _definitions != null && _definitions.TryGetValue(WaveHookKind.FinalBoss, out var definition) ? definition : null;
+        public EnemyRuntime MidBoss => _alive.TryGetValue(WaveHookKind.MidBoss, out var enemy) && enemy.IsAlive ? enemy : null;
+        public BossEncounterDefinition MidDefinition => _definitions != null && _definitions.TryGetValue(WaveHookKind.MidBoss, out var definition) ? definition : null;
         public event Action<EnemyLifeEvent> LifeEvent;
         public event Action<BossPhaseEvent> PhaseChanged;
         public event Action<CombatResult> CombatResolved;

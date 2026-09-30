@@ -193,7 +193,7 @@ namespace Game.Meta
             var spent = Invested(character);
             if (spent == 0) return "Нет вложений";
             if (Currency > long.MaxValue - spent) return "Превышен предел баланса";
-            return Currency + spent < Catalog.RefundFee ? "Золота и возврата недостаточно" : null;
+            return Currency + spent < Catalog.RefundFee ? "Монет и возврата недостаточно" : null;
         }
         /// <summary>DECISION-0091: one atomic refund of the selected hero, actual cost less a fixed fee.</summary>
         public async Task<bool> RefundAsync(string character, long expectedInvestment)

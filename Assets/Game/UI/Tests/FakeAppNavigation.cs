@@ -8,7 +8,7 @@ namespace Game.UI.Tests
         public bool AtCharacterSelection => false;
         public bool AtManualPause {get;set;}
         public bool CanPlay => true;
-        public string Notification => "";
+        public NotificationMessage Notification => default;
         public string MovementBindings => "WASD";
         public bool DevelopmentTools {get;set;}
         public int Plays,Quits,DevelopmentUnlocks,DevelopmentResets;

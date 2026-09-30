@@ -23,4 +23,8 @@
 .shell-panel Button:disabled { background-color: rgb(37, 43, 54); color: rgb(135, 145, 158); }
 .settings-panel .unity-base-text-field__input { color: rgb(20, 25, 32); background-color: rgb(230, 235, 241); min-width: 65px; }
 .settings-panel .unity-base-popup-field__input { color: rgb(20, 25, 32); background-color: rgb(230, 235, 241); }
-.shell-notification { position: absolute; top: 20px; right: 25px; max-width: 600px; padding: 12px; background-color: rgb(26, 34, 48); color: rgb(244, 224, 160); font-size: 20px; white-space: normal; }
+/* DECISION-0107: one notification toast in the folio palette; kind line + subject line. */
+.shell-notification { position: absolute; top: 20px; right: 25px; min-width: 260px; max-width: 460px; padding: 10px 18px 12px 16px; background-color: rgba(48, 41, 54, 0.94); border-width: 2px; border-left-width: 5px; border-color: #645263; border-left-color: #D5A84A; border-radius: 10px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/PTSans-Regular.ttf"); }
+.shell-notification-title { font-size: 15px; color: #D5A84A; letter-spacing: 1px; margin: 0; padding: 0; white-space: normal; }
+.shell-notification-detail { font-size: 22px; color: #E8D8B8; margin: 2px 0 0 0; padding: 0; white-space: normal; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
+.shell-notification-detail.shell-empty { display: none; }

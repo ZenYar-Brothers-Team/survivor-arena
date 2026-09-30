@@ -58,7 +58,7 @@ skill-модификаторов, что у сетов (складываются
 
 ## Consequences
 
-Код: `RunSetupConfig.HostileDamageMultiplier`, `CharacterBaseStats.WithIncomingDamageScale`,
+Код: `RunSetupConfig.HostileDamageMultiplier`, `HostileDamageScaling` в `PlayerCharacterRuntime.ApplyDamage` (не характеристика героя, [DECISION-0107](0107-hostile-damage-notifications-midboss-coins.md); прежний `CharacterBaseStats.WithIncomingDamageScale` удалён),
 `CharacterDefinition.StartingSkillBoost` (+ JSON `startingSkillBoost`), `PlayerActiveSkillSetRuntime.SkillModifier`,
 `StartingSkillBoostText` в экранах выбора, `WorldPickupRuntime` (границы поля вместо `IPickupPlacement`),
 `FixturePickupPlacement.ArenaBounds`.

@@ -112,6 +112,21 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void PauseRecipes_OwnedBelowThreshold_CountsOwnedComponentsLikeDraft()
+        {
+            // 2026-09-30 OBS-03: pause showed 0/3 while the draft inspector showed 1/3 for the same build.
+            var root = CreateRoot();
+            using var view = new UiToolkitGameplayView(root);
+            var recipes = new[] { new SetRecipeProgressViewState("Partial", 0, 3, false, false,
+                hasProgress: true, ownedComponents: 2, components: "✓ First 1/3\n✓ Second 1/2\n○ Third 0/2") };
+            view.RenderBuild(new BuildViewState(Array.Empty<BuildSlotViewState>(), Array.Empty<BuildSlotViewState>(),
+                Array.Empty<SetBuildViewState>(), recipes));
+
+            var card = root.Q(GameplayUiElementIds.PauseRecipes);
+            Assert.AreEqual("2/3 · В процессе", card.Q<Label>(className: "recipe-progress").text);
+        }
+
+        [Test]
         public void PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeepsAcquiredAndMissedSeparate()
         {
             var root = CreateRoot();
@@ -136,22 +151,6 @@ namespace Game.UI.Tests
             var missed = root.Q(GameplayUiElementIds.MissedSets);
             Assert.AreEqual(1, missed.childCount);
             Assert.AreEqual("Missed without progress", missed.Q<Label>(GameplayUiElementIds.CardTitle).text);
-        }
-
-        [Test]
-        public void Notification_ZeroDeltaAndExpiry_DoesNotBlockOrAdvanceWhilePaused()
-        {
-            var label = new Label();
-            var notification = new UiNotification(label);
-            notification.Show("TRAVELER APPEARED", 2);
-            notification.Tick(0);
-            Assert.AreEqual(DisplayStyle.Flex, label.style.display.value);
-            Assert.AreEqual(PickingMode.Ignore, label.pickingMode);
-            Assert.IsFalse(label.focusable);
-            notification.Show("BOSS INCOMING", 1);
-            notification.Tick(1);
-            Assert.AreEqual(DisplayStyle.None, label.style.display.value);
-            Assert.AreEqual("BOSS INCOMING", label.text);
         }
     }
 }

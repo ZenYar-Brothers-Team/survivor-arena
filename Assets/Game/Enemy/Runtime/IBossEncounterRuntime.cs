@@ -6,6 +6,8 @@ namespace Game.Enemy
     {
         EnemyRuntime FinalBoss { get; }
         BossEncounterDefinition FinalDefinition { get; }
+        EnemyRuntime MidBoss { get; }
+        BossEncounterDefinition MidDefinition { get; }
         string DevelopmentObservation { get; }
         event Action<EnemyLifeEvent> LifeEvent;
         event Action<BossPhaseEvent> PhaseChanged;

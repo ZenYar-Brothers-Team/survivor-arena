@@ -70,6 +70,20 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(_baseline + 2, EnemyRegistry.Count);
         }
 
+        [Test]
+        public void MidHook_BeforeFinal_ExposesLivingMidBossForHud()
+        {
+            var time = _director.Timeline.Hooks.Single(h => h.Kind == WaveHookKind.MidBoss).TimeSeconds;
+            _director.Advance(time, time, true, 10000);
+
+            var mid = _bosses.MidBoss;
+            Assert.IsNotNull(mid);
+            Assert.IsNull(_bosses.FinalBoss);
+            Assert.AreEqual(WaveHookKind.MidBoss, _bosses.MidDefinition.Hook);
+            mid.TakeDamage(100000);
+            Assert.IsNull(_bosses.MidBoss);
+        }
+
         [TestCase(false)]
         [TestCase(true)]
         public void Timer_BossAliveOrKilled_WinsAndCleansAllLives(bool killed)

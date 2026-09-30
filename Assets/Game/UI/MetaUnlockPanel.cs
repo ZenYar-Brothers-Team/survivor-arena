@@ -85,7 +85,7 @@ namespace Game.UI
                     if (card.Price > 0)
                     {
                         var actions = new VisualElement(); actions.AddToClassList("shop-unlock-actions");
-                        actions.Add(Label(card.Price.ToString("N0") + " золота", "shop-price"));
+                        actions.Add(Label(CoinText.Amount(card.Price), "shop-price"));
                         var buy = new Button(() => _buy(card)) { text = "Открыть", name = GameplayUiElementIds.MetaBuy(card.Id) };
                         buy.AddToClassList("shop-primary"); buy.SetEnabled(card.CanBuy && !_blocked); actions.Add(buy); copy.Add(actions);
                     }

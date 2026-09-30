@@ -648,6 +648,11 @@ Results reward delta DECISION-0098 отображает сохранённую �
 Pause shortcut focus fix 2026-09-29: DEV/HUD-фокус больше не подавляет `Space`;
 новый PlayMode regression 1/1 PASS, игровой просмотр ожидается
 ([evidence](evidence/2026-09-29-space-pause-focus.md)).
+Delta 2026-09-30 [DECISION-0107](../decisions/0107-hostile-damage-notifications-midboss-coins.md) — Implemented:
+коэффициент урона врагов вынесен из защиты героя (IP-03), полоска мини-босса (IP-15/21), единый канал
+уведомлений, валюта «монеты» (IP-25/26). Full graphics 1071/1071 + 58/58 PASS; визуальная приёмка
+плашки и полоски ожидается ([evidence](evidence/2026-09-30-decision-0107.md)).
+Затем счётчик сета на паузе переведён на взятые компоненты, как в драфте: UI 114/114 + 4/4 PASS.
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
 Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.

@@ -142,7 +142,7 @@ namespace Game.Bootstrap
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
-        public string Notification => _notifications?.Current ?? "";
+        public NotificationMessage Notification => _notifications?.Current ?? default;
         public void ConfigureSettings(ISettingsService settings)
         {
             if (Settings != null) throw new InvalidOperationException("Settings already configured.");
@@ -173,9 +173,15 @@ namespace Game.Bootstrap
         }
         private void ProfileChanged()
         {
+            var unlocked = new List<MetaUnlock>();
             foreach (var rule in Profile.Catalog.Unlocks.Values)
-                if (Profile.IsUnlocked(rule.Id) && _knownUnlocks.Add(rule.Id))
-                    _notifications?.Push((rule.Kind == "character" ? "NEW CHARACTER UNLOCKED — " : rule.Kind == "field" ? "NEW FIELD UNLOCKED — " : "NEW CONTENT UNLOCKED — ") + rule.Name);
+                if (Profile.IsUnlocked(rule.Id) && _knownUnlocks.Add(rule.Id)) unlocked.Add(rule);
+            // One result may open many things at once; Run Results lists them, so a batch is one summary toast.
+            if (unlocked.Count == 1)
+                _notifications?.Push(new NotificationMessage(unlocked[0].Kind == "character" ? NotificationKind.CharacterUnlocked :
+                    unlocked[0].Kind == "field" ? NotificationKind.FieldUnlocked : NotificationKind.ContentUnlocked, unlocked[0].Name));
+            else if (unlocked.Count > 1)
+                _notifications?.Push(new NotificationMessage(NotificationKind.UnlocksSummary, value: unlocked.Count));
             NotifyNavigation();
         }
         private void NotifyNavigation() => NavigationChanged?.Invoke();
@@ -225,7 +231,7 @@ namespace Game.Bootstrap
                 foreach (var rule in Profile.Catalog.Unlocks.Values)
                     if (rule.Kind == "character" || rule.Kind == "field") _knownUnlocks.Add(rule.Id);
                 if (await Profile.UnlockAllForDevelopmentAsync("character", "field") && this != null)
-                    _notifications?.Push("DEV — all characters and fields unlocked");
+                    _notifications?.Push(new NotificationMessage(NotificationKind.Development, "all characters and fields unlocked"));
             }
             catch (Exception exception) { Debug.LogError($"Development unlock failed: {exception}", this); }
         }
@@ -238,7 +244,7 @@ namespace Game.Bootstrap
                 // Re-baseline so unlocks earned after the reset are announced again.
                 _knownUnlocks.Clear();
                 foreach (var rule in Profile.Catalog.Unlocks.Values) if (Profile.IsUnlocked(rule.Id)) _knownUnlocks.Add(rule.Id);
-                _notifications?.Push("DEV — all progression reset (previous profile preserved)");
+                _notifications?.Push(new NotificationMessage(NotificationKind.Development, "all progression reset (previous profile preserved)"));
             }
             catch (Exception exception) { Debug.LogError($"Development reset failed: {exception}", this); }
         }
@@ -438,7 +444,8 @@ namespace Game.Bootstrap
                 player.transform.position = spawn.position;
                 if (body != null) { body.position = spawn.position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
                 initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
-                player.Initialize(selectedCharacter.BaseStats.WithIncomingDamageScale(setup.HostileDamageMultiplier), runController, selectedCharacter.Id, Profile.Modifier(selectedCharacter.Id.ToString()));
+                player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id,
+                    Profile.Modifier(selectedCharacter.Id.ToString()), setup.HostileDamageMultiplier);
                 initializedSubsystems.Add(player.Shutdown);
 
                 if (!selectedCharacter.Visual.Id.IsValid || !selectedCharacter.MotionProfile.Id.IsValid)

@@ -75,7 +75,8 @@ namespace Game.UI
             {
                 if (recipe.IsAcquired || recipe.IsMissed) continue;
                 var card = SetButton(recipe.Title, recipe.Icon, recipe.Effect, "pause-recipe-card");
-                var progress = new Label($"{recipe.FulfilledComponents}/{recipe.RequiredComponents} · " +
+                // Same numerator as the draft inspector: owned components, not level thresholds (2026-09-28 OBS-04).
+                var progress = new Label($"{recipe.OwnedComponents}/{recipe.RequiredComponents} · " +
                     (recipe.IsEligible ? "Рецепт готов" : recipe.HasProgress ? "В процессе" : "Не начат")) { pickingMode = PickingMode.Ignore };
                 progress.AddToClassList("recipe-progress"); card.Add(progress);
                 var components = new Label(recipe.Components) { pickingMode = PickingMode.Ignore };

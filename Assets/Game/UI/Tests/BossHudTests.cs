@@ -9,7 +9,7 @@ namespace Game.UI.Tests
     public sealed class BossHudTests
     {
         [Test]
-        public void FinalBoss_NotificationExpiresOnRunTimeAndBarCleansUp()
+        public void BossBar_VisibleWhileBossAliveAndCleansUp()
         {
             var root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/GameplayUi.uxml").CloneTree();
             using var view = new UiToolkitGameplayView(root);
@@ -19,15 +19,10 @@ namespace Game.UI.Tests
                 new WaveViewState(1, 1, "Final", WavePhaseTag.Elite), boss: state, runDurationSeconds: 900f);
             view.RenderHud(Hud(800, boss));
             var bar = root.Q<ProgressBar>(GameplayUiElementIds.BossBar);
-            var notification = root.Q<Label>(GameplayUiElementIds.Notification);
             Assert.AreEqual(DisplayStyle.Flex, bar.style.display.value);
             Assert.AreEqual(30, bar.value);
             StringAssert.Contains("Commander", bar.title);
-            Assert.AreEqual("Приближается босс", notification.text);
-            view.RenderHud(Hud(800, boss));
-            Assert.AreEqual(DisplayStyle.Flex, notification.style.display.value, "Pause keeps notification.");
-            view.RenderHud(Hud(804, boss));
-            Assert.AreEqual(DisplayStyle.None, notification.style.display.value);
+            Assert.IsNull(root.Q("hud-notification"), "DECISION-0107: the shell toast is the only notification surface.");
             view.RenderHud(Hud(805, default));
             Assert.AreEqual(DisplayStyle.None, bar.style.display.value);
             Assert.AreEqual("01:35", root.Q<Label>(GameplayUiElementIds.TimerLabel).text);

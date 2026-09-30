@@ -80,8 +80,11 @@ namespace Game.UI
             Q<DropdownField>(GameplayUiElementIds.SettingsWindow).SetEnabled(!state.Busy&&!state.Confirming);
             Q<Button>(GameplayUiElementIds.SettingsApply).SetEnabled(state.CanApplyVideo);
             Q<Button>(GameplayUiElementIds.SettingsBack).SetEnabled(!state.Busy);
-            Q<Label>(GameplayUiElementIds.ShellNotification).text=state.Notification;
-            Visible(GameplayUiElementIds.ShellNotification,!string.IsNullOrEmpty(state.Notification)&&!state.Settings);
+            var detail=NotificationCopy.Detail(state.Notification);
+            Q<Label>(GameplayUiElementIds.ShellNotificationTitle).text=NotificationCopy.Title(state.Notification);
+            Q<Label>(GameplayUiElementIds.ShellNotificationDetail).text=detail;
+            Q<Label>(GameplayUiElementIds.ShellNotificationDetail).EnableInClassList("shell-empty",string.IsNullOrEmpty(detail));
+            Visible(GameplayUiElementIds.ShellNotification,!state.Notification.IsEmpty&&!state.Settings);
             _settingsPanel.Render(state);
         }
         public void Dispose()

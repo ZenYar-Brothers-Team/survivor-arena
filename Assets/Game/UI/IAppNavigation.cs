@@ -8,7 +8,7 @@ namespace Game.UI
         bool AtCharacterSelection { get; }
         bool AtManualPause { get; }
         bool CanPlay { get; }
-        string Notification { get; }
+        NotificationMessage Notification { get; }
         string MovementBindings { get; }
         /// <summary>Editor/Development build only (DECISION-0005).</summary>
         bool DevelopmentTools { get; }

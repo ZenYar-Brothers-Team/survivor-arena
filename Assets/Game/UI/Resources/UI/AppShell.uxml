@@ -41,5 +41,5 @@
     <ui:VisualElement name="SettingsFooter" class="settings-footer"><ui:Button name="SettingsBack" text="Назад" /><ui:Label name="SettingsMessage" class="settings-muted" /><ui:Button name="SettingsSave" text="Повторить сохранение" /></ui:VisualElement>
     <ui:VisualElement name="SettingsModal" class="settings-modal settings-hidden"><ui:VisualElement class="settings-dialog"><ui:Label text="Оставить этот режим?" class="settings-heading" /><ui:Label name="SettingsConfirmStatus" /><ui:VisualElement class="settings-actions"><ui:Button name="SettingsRevert" text="Вернуть" /><ui:Button name="SettingsKeep" text="Оставить" class="settings-primary" /></ui:VisualElement></ui:VisualElement></ui:VisualElement>
   </ui:VisualElement></ui:VisualElement>
-<ui:Label name="ShellNotification" class="shell-notification" picking-mode="Ignore" />
+<ui:VisualElement name="ShellNotification" class="shell-notification" picking-mode="Ignore"><ui:Label name="ShellNotificationTitle" class="shell-notification-title" picking-mode="Ignore" /><ui:Label name="ShellNotificationDetail" class="shell-notification-detail" picking-mode="Ignore" /></ui:VisualElement>
 </ui:UXML>

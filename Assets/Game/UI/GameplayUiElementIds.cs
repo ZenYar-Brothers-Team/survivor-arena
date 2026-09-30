@@ -33,6 +33,8 @@ namespace Game.UI
         public const string EntryFieldDifficulty = "entry-field-difficulty";
         public const string EntryDevelopmentToggle = "EntryDevelopmentToggle";
         public const string ShellNotification = "ShellNotification";
+        public const string ShellNotificationTitle = "ShellNotificationTitle";
+        public const string ShellNotificationDetail = "ShellNotificationDetail";
         public const string ShellMenu = "ShellMenu";
         public const string ShellPlay = "ShellPlay";
         public const string ShellMeta = "ShellMeta";
@@ -138,7 +140,6 @@ namespace Game.UI
         public static string DraftRecipeButton(int index) => $"draft-recipe-{index}";
         public const string PauseBuild = "pause-build";
         public const string PauseCharacter = "pause-character";
-        public const string Notification = "hud-notification";
         public const string Root = "gameplay-ui-root";
         public const string HealthBar = "hud-health-bar";
         public const string ExperienceBar = "hud-xp-bar";

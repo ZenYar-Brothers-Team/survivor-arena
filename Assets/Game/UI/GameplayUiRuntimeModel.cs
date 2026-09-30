@@ -31,8 +31,11 @@ namespace Game.UI
         {
             get
             {
+                // UI/UX §13 + DECISION-0107: the final boss bar has priority; otherwise a living mid-boss gets the same bar.
                 var boss = _bosses?.FinalBoss;
-                return boss == null ? default : new BossViewState(boss.LifeId, _bosses.FinalDefinition.DisplayName,
+                var definition = _bosses?.FinalDefinition;
+                if (boss == null) { boss = _bosses?.MidBoss; definition = _bosses?.MidDefinition; }
+                return boss == null || definition == null ? default : new BossViewState(boss.LifeId, definition.DisplayName,
                     boss.Health.CurrentHealth, boss.Health.MaxHealth);
             }
         }

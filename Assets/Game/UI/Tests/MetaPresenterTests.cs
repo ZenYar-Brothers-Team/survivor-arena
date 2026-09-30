@@ -24,10 +24,10 @@ namespace Game.UI.Tests
             var view=new FakeMetaView();using var presenter=new MetaPresenter(profile,view,new FakeProfileNavigation());
             Assert.IsFalse(view.State.ShowUpgradesToggle);
             view.Shop();Assert.IsTrue(view.State.ShowUpgradesToggle);Assert.IsTrue(view.State.CanToggleUpgrades);Assert.IsFalse(view.State.UpgradesDisabled);
-            Assert.AreEqual("Не хватает золота",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
+            Assert.AreEqual("Не хватает монет",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
             view.DisableUpgrades(true);await Task.Yield();
             Assert.IsTrue(profile.UpgradesDisabled);Assert.IsTrue(view.State.UpgradesDisabled);
-            Assert.AreEqual("Не хватает золота",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
+            Assert.AreEqual("Не хватает монет",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
             Assert.IsNotNull(view.State.Shop); Assert.AreEqual(12,view.State.Cards.Count(c=>c.Cap>0));
             StringAssert.Contains("without meta bonuses",view.State.Summary);
             view.DisableUpgrades(false);await Task.Yield();
@@ -38,13 +38,13 @@ namespace Game.UI.Tests
             var catalog=MetaCatalog.Load();var codec=new ProfileCodec(catalog);var store=new DelayedProfileStore(codec.Encode(codec.Create()));
             var profile=new ProfileService(catalog,store);await profile.LoadAsync();
             var view=new FakeMetaView();using var presenter=new MetaPresenter(profile,view,new FakeProfileNavigation());
-            view.Shop();Assert.AreEqual("Не хватает золота",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
+            view.Shop();Assert.AreEqual("Не хватает монет",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
             view.DisableUpgrades(true);
             Assert.AreEqual(ProfileState.Saving,profile.State);
-            Assert.AreEqual("Не хватает золота",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
+            Assert.AreEqual("Не хватает монет",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
             store.CompleteWrite();await Task.Yield();await Task.Yield();
             Assert.AreEqual(ProfileState.Ready,profile.State);
-            Assert.AreEqual("Не хватает золота",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
+            Assert.AreEqual("Не хватает монет",view.State.Cards.Single(c=>c.Id=="META-003").Detail);
         }
         [Test] public void Uxml_AllSemanticElementsExist()
         {

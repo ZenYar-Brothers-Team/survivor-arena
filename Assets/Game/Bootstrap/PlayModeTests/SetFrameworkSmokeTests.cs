@@ -53,7 +53,7 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.Greater(player.Stats.MaxHealth, player.Stats.BaseStats.MaxHealth);
                 yield return null;
                 Assert.AreEqual(4, ui.Document.rootVisualElement.Q(GameplayUiElementIds.Sets).childCount);
-                StringAssert.Contains("Сет получен", ui.Document.rootVisualElement.Q<Label>(GameplayUiElementIds.Notification).text);
+                Assert.AreEqual(NotificationKind.SetAcquired, root.Notification.Kind);
                 run.Model.Pause();
                 var observations = draft.Sets.DevelopmentObservation;
                 yield return new WaitForSecondsRealtime(.1f);

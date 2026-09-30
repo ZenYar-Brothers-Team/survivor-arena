@@ -39,7 +39,7 @@ namespace Game.UI
             "Available between runs" => "Доступно между забегами",
             "Choose an unlocked character" => "Выберите открытого героя",
             "Maximum level" => "Максимум",
-            "Not enough currency" => "Не хватает золота",
+            "Not enough currency" => "Не хватает монет",
             "Already unlocked" => "Открыто",
             "Unlocked by achievement" => "За достижение",
             _ => value

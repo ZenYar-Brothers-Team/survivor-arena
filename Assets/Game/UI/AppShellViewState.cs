@@ -15,7 +15,7 @@ namespace Game.UI
         public VideoMode Candidate { get; }
         public VideoMode Desktop { get; }
         public VideoMode SafeWindow { get; }
-        public string Notification { get; }
+        public NotificationMessage Notification { get; }
         public IReadOnlyList<VideoMode> Modes { get; }
         public string Message { get; }
         public string Bindings { get; }
@@ -28,7 +28,7 @@ namespace Game.UI
         public bool CanRetrySettingsSave { get; }
         public AppShellViewState(bool menu, bool characterBack, bool pauseActions, bool settings, bool canPlay,
             bool busy, bool confirming, SettingsSnapshot values, VideoMode candidate, VideoMode desktop,
-            IReadOnlyList<VideoMode> modes, string message, string bindings, string videoStatus, VideoMode safeWindow, string notification, bool developmentUnlock = false, bool developmentResetArmed = false,
+            IReadOnlyList<VideoMode> modes, string message, string bindings, string videoStatus, VideoMode safeWindow, NotificationMessage notification, bool developmentUnlock = false, bool developmentResetArmed = false,
             bool settingsFromPause = false, bool canApplyVideo = false, bool canRetrySettingsSave = false)
         {
             SafeWindow=safeWindow;Notification=notification;DevelopmentUnlock=developmentUnlock;DevelopmentResetArmed=developmentResetArmed;

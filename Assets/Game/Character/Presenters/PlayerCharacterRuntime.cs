@@ -16,6 +16,8 @@ namespace Game.Character
         private bool _initialized;
         private CharacterRunBinding _runBinding;
         private CharacterHealthStatBinding _healthStatBinding;
+        // Run-wide hostile damage coefficient (DECISION-0107); applied to hostile hits, not a character stat.
+        private float _hostileDamageMultiplier = 1f;
 
         public CharacterStats Stats { get; private set; }
         public Health Health { get; private set; }
@@ -43,8 +45,10 @@ namespace Game.Character
         // Health and its RunController binding are created together here, atomically,
         // so a Health that can take damage and die can never exist without its death
         // already being wired to end the run.
-        public void Initialize(CharacterBaseStats baseStats, RunController controller, ContentId? contentId = null, CharacterStatModifier? permanentModifier = null)
+        public void Initialize(CharacterBaseStats baseStats, RunController controller, ContentId? contentId = null,
+            CharacterStatModifier? permanentModifier = null, float hostileDamageMultiplier = 1f)
         {
+            NumericValidation.ValidatePositive(hostileDamageMultiplier, nameof(hostileDamageMultiplier));
             if (_initialized)
                 throw new InvalidOperationException("Player character runtime is already initialized.");
             if (controller == null)
@@ -53,6 +57,7 @@ namespace Game.Character
                 throw new InvalidOperationException("Player character run controller is not configured.");
 
             runController = controller;
+            _hostileDamageMultiplier = hostileDamageMultiplier;
             Identity = new CombatIdentity(Guid.NewGuid(), controller.Model.RunId, contentId, CombatEntityCategory.Player);
             Controls.Reset();
             Stats = new CharacterStats(baseStats);
@@ -112,6 +117,7 @@ namespace Game.Character
 
         public CombatResult ApplyDamage(CombatDamageRequest request)
         {
+            request = HostileDamageScaling.Apply(request, _hostileDamageMultiplier);
             var identity = Identity;
             var notify = CombatResolved;
             var distance = !Health.IsDead && runController.Model.State == RunState.Running

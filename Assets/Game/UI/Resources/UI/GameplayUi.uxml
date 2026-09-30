@@ -5,7 +5,6 @@
         <ui:ProgressBar name="hud-health-bar" title="" low-value="0" high-value="100" class="hud-bar hud-health-bar player-health-anchor" picking-mode="Ignore" />
 
         <ui:ProgressBar name="hud-boss-bar" title="" low-value="0" high-value="100" class="boss-bar" picking-mode="Ignore" />
-        <ui:Label name="hud-notification" class="hud-notification" picking-mode="Ignore" />
         <ui:Label name="hud-book-currency" class="book-currency" picking-mode="Ignore" />
         <ui:Label name="hud-pickup-feedback" class="pickup-feedback" picking-mode="Ignore" />
 

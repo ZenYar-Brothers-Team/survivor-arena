@@ -53,8 +53,8 @@ namespace Game.UI
             if (state.Shop == null) { _modal = false; _unlocks = false; return; }
             var shop = state.Shop;
             var focus = (Root.panel?.focusController?.focusedElement as VisualElement)?.name;
-            Root.Q<Label>(GameplayUiElementIds.MetaWallet).text = shop.Currency.ToString("N0") + " золота";
-            Root.Q<Label>(GameplayUiElementIds.MetaInvested).text = "Вложено\n" + shop.Invested.ToString("N0") + " золота";
+            Root.Q<Label>(GameplayUiElementIds.MetaWallet).text = CoinText.Amount(shop.Currency);
+            Root.Q<Label>(GameplayUiElementIds.MetaInvested).text = "Вложено\n" + CoinText.Amount(shop.Invested);
             var hero = shop.Heroes.FirstOrDefault(h => h.Id == state.SelectedCharacter);
             Root.Q<Label>(GameplayUiElementIds.MetaHeroName).text = hero?.Name ?? "Нет открытых героев";
             Root.Q<Image>(GameplayUiElementIds.MetaPortrait).sprite = hero?.Icon;
@@ -115,7 +115,7 @@ namespace Game.UI
             }
             list.scrollOffset = offset;
             _collection.Render(state);
-            Root.Q<Label>(GameplayUiElementIds.MetaRefundReason).text = shop.RefundReason ?? "Комиссия " + shop.RefundFee.ToString("N0") + " золота";
+            Root.Q<Label>(GameplayUiElementIds.MetaRefundReason).text = shop.RefundReason ?? "Комиссия " + CoinText.Amount(shop.RefundFee);
             Root.Q<Button>(GameplayUiElementIds.MetaRefund).SetEnabled(shop.RefundReason == null && !shop.ConfirmRefund);
             Root.Q<Button>(GameplayUiElementIds.MetaTabUpgrades).SetEnabled(!shop.ConfirmRefund);
             Root.Q<Button>(GameplayUiElementIds.MetaTabUnlocks).SetEnabled(!shop.ConfirmRefund);
@@ -124,7 +124,7 @@ namespace Game.UI
             if (_modal)
             {
                 Root.Q<Label>(GameplayUiElementIds.MetaRefundDetail).text = (hero?.Name ?? "") + "\nВернётся: " + shop.Invested.ToString("N0") +
-                    "\nКомиссия: −" + shop.RefundFee.ToString("N0") + "\nЗолото после сброса: " +
+                    "\nКомиссия: −" + shop.RefundFee.ToString("N0") + "\nМонет после сброса: " +
                     checked(shop.Currency + shop.Invested - shop.RefundFee).ToString("N0");
                 if (!wasModal) Root.Q<Button>(GameplayUiElementIds.MetaRefundCancel).Focus();
             }
