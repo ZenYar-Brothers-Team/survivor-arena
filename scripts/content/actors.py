@@ -311,9 +311,10 @@ def travelers(baseline):
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
                 "timeGrowth": schedule["timeGrowth"], "initialHealthMultiplier": schedule["initialHealthMultiplier"]}
-    for key in ("field002", "field003"):
+    for key in ("field002", "field003", "field004"):
         if not baseline[key]["travelers"]["pool"].startswith("global"):
             raise SystemExit(f"{key} Traveler pool must be the global pool")
     return {"travelers": result, "schedules": [entry(schedule["id"], seeds["travelers"], schedule["fieldRank"]),
                                                entry("FIELD-002-TRAVELERS", seeds["travelers"] + 1000, 2),
-                                               entry("FIELD-003-TRAVELERS", seeds["travelers"] + 2000, 3)]}
+                                               entry("FIELD-003-TRAVELERS", seeds["travelers"] + 2000, 3),
+                                               entry("FIELD-004-TRAVELERS", seeds["travelers"] + 3000, 4)]}

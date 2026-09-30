@@ -10,15 +10,18 @@ def fields(baseline):
         raise SystemExit("FIELD-001 geometry policy not expressible by the runtime")
     two = baseline["field002"]["field"]
     three = baseline["field003"]["field"]
+    four = baseline["field004"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"]],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"]],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": "FIELD-002-ENVIRONMENT", "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": three["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": walls},
+                         {"id": four["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
@@ -40,7 +43,13 @@ def fields(baseline):
                     "unlockDescription": three["unlockDescription"], "environmentId": three["environmentId"],
                     "timelineId": three["timelineId"], "travelerScheduleId": three["travelerScheduleId"],
                     "finalBossId": three["finalBossId"], "midBossId": three["midBossId"],
-                    "enemyIds": baseline["field003"]["enemyPool"]}],
+                    "enemyIds": baseline["field003"]["enemyPool"]},
+                   {"id": four["id"], "displayName": names[four["id"]], "description": card_field(four["id"], "Роль"),
+                    "thumbnailPlaceholder": four["thumbnailPlaceholder"], "difficulty": four["difficulty"],
+                    "thumbnailVisualId": four["thumbnailVisualId"], "unlockDescription": four["unlockDescription"],
+                    "environmentId": four["environmentId"], "timelineId": four["timelineId"],
+                    "travelerScheduleId": four["travelerScheduleId"], "finalBossId": four["finalBossId"],
+                    "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]}],
     }
 
 
@@ -96,7 +105,12 @@ def field_presentation(baseline):
                  nearObstacleCount=sum(1 for o in three["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
     third["obstacles"] = [{"id": o["id"], "kind": ruin_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                            "height": o["height"]} for o in three["obstacles"]]
-    presentations = [data, second, third]
+    four = baseline["field004"]["field"]
+    fourth = dict(data, id="FIELD-004-PRESENTATION", environmentId=four["environmentId"],
+                  groundVisualId="FIELD-004-VISUAL-GROUND", fenceVisualId="FIELD-004-VISUAL-PALISADE",
+                  obstacleVisualId="FIELD-004-VISUAL-SUPPLY-CRATE", seed=data["seed"] + 3000,
+                  obstacleSeed=data["obstacleSeed"] + 3000, interiorObstacleCount=40, nearObstacleCount=4)
+    presentations = [data, second, third, fourth]
     # DECISION-0069: the denser village outskirts reuses the FIELD-002 rock and adds a barrel.
     data["barrelVisualId"] = "FIELD-001-VISUAL-BARREL"
     data["rockVisualId"] = "FIELD-002-VISUAL-BOULDER"
@@ -104,7 +118,7 @@ def field_presentation(baseline):
     # DECISION-0068: the first three fields generate their obstacles every run from patterns instead of a fixed list.
     wall = baseline["field"]["wallThickness"]
     for presentation in presentations:
-        layout = baseline["layouts"][presentation["id"]]
+        layout = baseline["field004"]["layout"] if presentation["id"] == "FIELD-004-PRESENTATION" else baseline["layouts"][presentation["id"]]
         presentation.pop("obstacles")
         presentation["obstacleLayout"] = {
             "cellSize": layout["cellSize"], "patternsPerCell": layout["patternsPerCell"],
@@ -139,6 +153,11 @@ def timeline_field002(baseline):
 
 def timeline_field003(baseline):
     return field_timeline(baseline["field003"]["timeline"], baseline["field003"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 2000,
+                          False, baseline.get("blobBreakupProfile"))
+
+
+def timeline_field004(baseline):
+    return field_timeline(baseline["field004"]["timeline"], baseline["field004"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 3000,
                           False, baseline.get("blobBreakupProfile"))
 
 

@@ -630,6 +630,37 @@
       "fieldGrowth": 0.1,
       "timeGrowth": 0.5,
       "initialHealthMultiplier": 0.333333
+    },
+    {
+      "id": "FIELD-004-TRAVELERS",
+      "travelerIds": [
+        "TRAVELER-001",
+        "TRAVELER-002",
+        "TRAVELER-003",
+        "TRAVELER-004",
+        "TRAVELER-005",
+        "TRAVELER-006",
+        "TRAVELER-007",
+        "TRAVELER-008",
+        "TRAVELER-009",
+        "TRAVELER-010"
+      ],
+      "minCount": 1,
+      "countProbabilities": [
+        0.1,
+        0.25,
+        0.3,
+        0.25,
+        0.1
+      ],
+      "seed": 233925,
+      "fieldRank": 4,
+      "placementAttempts": 32,
+      "endBufferSeconds": 120,
+      "spawnScreenHeights": 2,
+      "fieldGrowth": 0.1,
+      "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333
     }
   ]
 }

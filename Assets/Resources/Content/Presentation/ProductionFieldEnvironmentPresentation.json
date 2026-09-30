@@ -916,5 +916,213 @@
         }
       ]
     }
+  },
+  {
+    "id": "FIELD-004-PRESENTATION",
+    "environmentId": "FIELD-004-ENVIRONMENT",
+    "groundVisualId": "FIELD-004-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-004-VISUAL-PALISADE",
+    "obstacleVisualId": "FIELD-004-VISUAL-SUPPLY-CRATE",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 4001,
+    "obstacleSeed": 4002,
+    "interiorObstacleCount": 40,
+    "nearObstacleCount": 4,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "obstacleLayout": {
+      "cellSize": 48,
+      "patternsPerCell": 1,
+      "edgeMargin": 6,
+      "cellMargin": 4,
+      "startClearRadius": 12,
+      "minPatternGap": 6,
+      "placementAttempts": 40,
+      "referenceSeed": 4002,
+      "patterns": [
+        {
+          "id": "PALISADE-LINE",
+          "weight": 42,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -5,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 5,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": -3.2,
+              "y": 2.2,
+              "width": 1.5,
+              "height": 1.15,
+              "visualIds": [
+                "FIELD-004-VISUAL-SUPPLY-CRATE",
+                "FIELD-004-VISUAL-BRAZIER"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.2,
+              "y": -2.2,
+              "width": 1.8,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-004-VISUAL-TRAINING-DUMMY",
+                "FIELD-004-VISUAL-SUPPLY-CRATE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TENT-POST",
+          "weight": 34,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -4.4,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.4,
+              "y": 1.9,
+              "width": 2.1,
+              "height": 1.6,
+              "visualIds": [
+                "FIELD-004-VISUAL-TENT"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.7,
+              "y": -2.3,
+              "width": 1.9,
+              "height": 1.25,
+              "visualIds": [
+                "FIELD-004-VISUAL-SUPPLY-CART"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "DRILL-ROW",
+          "weight": 24,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -3.8,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 3.8,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 2.7,
+              "width": 1.4,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-004-VISUAL-TRAINING-DUMMY"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": -2.7,
+              "width": 1.5,
+              "height": 1.15,
+              "visualIds": [
+                "FIELD-004-VISUAL-BRAZIER"
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

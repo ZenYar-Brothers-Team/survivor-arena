@@ -217,7 +217,8 @@ namespace Game.Enemy.Tests
             {
                 "Content/Waves/ProductionWaveTimeline",
                 "Content/Waves/ProductionWaveTimelineField002",
-                "Content/Waves/ProductionWaveTimelineField003"
+                "Content/Waves/ProductionWaveTimelineField003",
+                "Content/Waves/ProductionWaveTimelineField004"
             })
             {
                 var asset = Resources.Load<TextAsset>(path);

@@ -27,6 +27,9 @@ BOSSES_PACKET = ROOT / "docs/balance/bosses-v1.json"
 FIELD003_PACKET = ROOT / "docs/balance/field003-v2.json"
 
 
+FIELD004_PACKET = ROOT / "docs/balance/field004-v1.json"
+
+
 LAYOUTS_PACKET = ROOT / "docs/balance/field-layouts-v1.json"
 
 
@@ -67,8 +70,12 @@ def load_baseline():
     if not str(field_three.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-003 packet is not Approved; production content cannot be generated.")
     data["field003"] = field_three
+    field_four = json.loads(FIELD004_PACKET.read_text(encoding="utf-8"))
+    if not str(field_four.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-004 packet is not Approved; production content cannot be generated.")
+    data["field004"] = field_four
     shared_cap = data["timeline"]["maxAliveEnemies"]
-    if field_two["timeline"]["maxAliveEnemies"] != shared_cap or field_three["timeline"]["maxAliveEnemies"] != shared_cap:
+    if field_two["timeline"]["maxAliveEnemies"] != shared_cap or field_three["timeline"]["maxAliveEnemies"] != shared_cap or field_four["timeline"]["maxAliveEnemies"] != shared_cap:
         raise SystemExit("All production fields must share one ordinary-enemy cap.")
     layouts = json.loads(LAYOUTS_PACKET.read_text(encoding="utf-8"))
     if not str(layouts.get("approval", "")).startswith("Approved"):
@@ -107,7 +114,7 @@ def card_field(card_id, field):
 # Complete input set for generation and check_project's reusable evidence fingerprint.
 SOURCE_PATHS = tuple(str(path.relative_to(ROOT)).replace("\\", "/") for path in (
     BASELINE, LATE_PACKET, SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
-    BOSSES_PACKET, FIELD003_PACKET, LAYOUTS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
+    BOSSES_PACKET, FIELD003_PACKET, FIELD004_PACKET, LAYOUTS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
     ROOT / "docs/Content_design.md",
     ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json",
 ))

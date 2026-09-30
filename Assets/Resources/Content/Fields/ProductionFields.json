@@ -3,7 +3,8 @@
   "availableFieldIds": [
     "FIELD-001",
     "FIELD-002",
-    "FIELD-003"
+    "FIELD-003",
+    "FIELD-004"
   ],
   "environments": [
     {
@@ -30,6 +31,17 @@
     },
     {
       "id": "FIELD-003-ENVIRONMENT",
+      "sceneName": "Gameplay",
+      "spawnPointName": "SpawnPoint",
+      "obstacleNames": [
+        "Wall_Top",
+        "Wall_Bottom",
+        "Wall_Left",
+        "Wall_Right"
+      ]
+    },
+    {
+      "id": "FIELD-004-ENVIRONMENT",
       "sceneName": "Gameplay",
       "spawnPointName": "SpawnPoint",
       "obstacleNames": [
@@ -112,6 +124,34 @@
         "ENEMY-009",
         "ENEMY-006",
         "ENEMY-010"
+      ]
+    },
+    {
+      "id": "FIELD-004",
+      "displayName": "Рыцарский лагерь",
+      "description": "проверяет способность переживать быстрые и широко распределённые атаки на открытом пространстве.",
+      "thumbnailPlaceholder": "Рыцарский лагерь",
+      "difficulty": 2,
+      "thumbnailVisualId": "FIELD-004-VISUAL-BACKGROUND",
+      "unlockDescription": "Пройдите «Пограничные руины»",
+      "environmentId": "FIELD-004-ENVIRONMENT",
+      "timelineId": "FIELD-004-TIMELINE",
+      "travelerScheduleId": "FIELD-004-TRAVELERS",
+      "finalBossId": "BOSS-004",
+      "midBossId": "MIDBOSS-004",
+      "enemyIds": [
+        "ENEMY-001",
+        "ENEMY-002",
+        "ENEMY-003",
+        "ENEMY-004",
+        "ENEMY-005",
+        "ENEMY-006",
+        "ENEMY-007",
+        "ENEMY-008",
+        "ENEMY-009",
+        "ENEMY-010",
+        "ENEMY-012",
+        "ENEMY-013"
       ]
     }
   ]

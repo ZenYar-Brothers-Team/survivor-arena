@@ -40,7 +40,7 @@ namespace Game.Bootstrap
         private static readonly string[] ProductionSources = { ProductionActiveSkillCatalog.ResourcePath, ProductionSetAttackCatalog.ResourcePath,
             ProductionPassiveCatalog.ResourcePath, ProductionSetCatalog.ResourcePath, ProductionEnemyCatalog.ResourcePath,
             ProductionBossCatalog.ResourcePath, ProductionWaveTimelinePath, "Content/Waves/ProductionWaveTimelineField002",
-            "Content/Waves/ProductionWaveTimelineField003",
+            "Content/Waves/ProductionWaveTimelineField003", "Content/Waves/ProductionWaveTimelineField004",
             ProductionRunSetupPath,
             ProductionCharacterDefinitionCatalog.ResourcePath, ProductionCharacterDefinitionCatalog.BaselinePath,
             "Content/Presentation/FixtureSpriteMotionProfiles", "Content/Presentation/FixtureSprites",
@@ -53,7 +53,7 @@ namespace Game.Bootstrap
         public const string ProductionWaveTimelinePath = "Content/Waves/ProductionWaveTimeline";
         /// <summary>Timelines of further fields; each field resolves its own by id (DECISION-0063).</summary>
         public static readonly string[] ProductionExtraWaveTimelinePaths =
-            { "Content/Waves/ProductionWaveTimelineField002", "Content/Waves/ProductionWaveTimelineField003" };
+            { "Content/Waves/ProductionWaveTimelineField002", "Content/Waves/ProductionWaveTimelineField003", "Content/Waves/ProductionWaveTimelineField004" };
         public const string ProductionRunSetupPath = "Content/Run/ProductionRunSetup";
         public const string ProductionFieldPresentationPath = "Content/Presentation/ProductionFieldEnvironmentPresentation";
 
