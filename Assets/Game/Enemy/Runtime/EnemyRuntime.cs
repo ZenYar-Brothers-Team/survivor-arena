@@ -47,6 +47,9 @@ namespace Game.Enemy
         // Body movement, or the active boss phase's dash override (DECISION-0066, E3).
         private EnemyMovementProfile _movementProfile;
         private EnemyMovementProfile _spawnMovementProfile;
+        private Vector2 _blobWaypoint;
+        private float _blobDelay;
+        private float _blobRemaining;
         private bool _holdAttacksDuringDash;
         // Shoving dash (DECISION-0118): pass-through state and per-dash hit bookkeeping.
         private const int DashShoveBufferSize = 48;
@@ -102,6 +105,7 @@ namespace Game.Enemy
         public event Action<EnemyRuntime, BossSpecialRequest> SpecialRequested;
         /// <summary>Movement profile in effect (body movement or the boss phase override).</summary>
         public EnemyMovementProfile CurrentMovement => _movementProfile ?? Definition?.Movement;
+        public bool BlobBreakupActive => _blobDelay > 0f || _blobRemaining > 0f;
         public event Action<EnemyLifeEvent> LifeEvent;
 
         private void Awake()
@@ -201,6 +205,8 @@ namespace Game.Enemy
             _movementProfile = _spawnMovementProfile;
             _holdAttacksDuringDash = false;
             _movementController = new EnemyMovementController(_movementProfile, _movementRandom);
+            _blobDelay = 0f;
+            _blobRemaining = 0f;
             _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
@@ -241,7 +247,8 @@ namespace Game.Enemy
             var movement = _movementDriver != null
                 ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
-            _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
+            var steering = ApplyBlobBreakup(movement, speed, Time.fixedDeltaTime, isSimulating);
+            _body.linearVelocity = steering + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
             UpdateDashShove(movement, isSimulating);
             if (_dashVolley != null) FireDashVolley(movement, isSimulating);
@@ -279,6 +286,46 @@ namespace Game.Enemy
                     LastProjectileSource,
                     ResolveProjectileVisual(CurrentAttack));
             }
+        }
+
+        /// <summary>Assigns one temporary fan waypoint to an ordinary enemy; never changes its base profile.</summary>
+        public bool TryStartBlobBreakup(Vector2 waypoint, float delaySeconds, float maneuverSeconds)
+        {
+            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupActive ||
+                float.IsNaN(waypoint.x) || float.IsNaN(waypoint.y) ||
+                float.IsInfinity(waypoint.x) || float.IsInfinity(waypoint.y) ||
+                delaySeconds < 0f || maneuverSeconds <= 0f)
+                return false;
+            _blobWaypoint = waypoint;
+            _blobDelay = delaySeconds;
+            _blobRemaining = maneuverSeconds;
+            return true;
+        }
+
+        public void CancelBlobBreakup()
+        {
+            if (_blobDelay > 0f) _blobRemaining = 0f;
+            _blobDelay = 0f;
+            _blobRemaining = Mathf.Min(_blobRemaining, .3f);
+        }
+
+        private Vector2 ApplyBlobBreakup(EnemyMovementFrame movement, float speed, float deltaTime, bool isSimulating)
+        {
+            if (!isSimulating || !BlobBreakupActive) return movement.Velocity;
+            if (_blobDelay > 0f)
+            {
+                _blobDelay = Mathf.Max(0f, _blobDelay - deltaTime);
+                return movement.Velocity;
+            }
+            _blobRemaining = Mathf.Max(0f, _blobRemaining - deltaTime);
+            if (movement.Phase == EnemyMovementPhase.Dashing ||
+                movement.Phase == EnemyMovementPhase.TelegraphingDash || _movementDriver != null)
+                return movement.Velocity;
+            var offset = _blobWaypoint - _body.position;
+            if (offset.sqrMagnitude < .04f) _blobRemaining = 0f;
+            if (_blobRemaining <= 0f) return movement.Velocity;
+            var weight = Mathf.Clamp01(_blobRemaining / .4f);
+            return Vector2.Lerp(movement.Velocity, offset.normalized * speed, weight);
         }
 
         // Swap the dash series only between dashes, so a running dash is never cut short (DECISION-0066, E3).
@@ -432,6 +479,8 @@ namespace Game.Enemy
                 return;
 
             _despawned = true;
+            _blobDelay = 0f;
+            _blobRemaining = 0f;
             _dying = false;
             _deathPresentation?.ResetPresentation();
             _presentation?.Shutdown();

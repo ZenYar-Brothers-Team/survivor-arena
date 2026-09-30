@@ -11,5 +11,6 @@ namespace Game.Enemy.Json
         public float SpawnIntervalSeconds { get; set; }
         public WaveCompositionEntryData[] Composition { get; set; }
         public WaveEnemyModifiersData Modifiers { get; set; }
+        public BlobBreakupPhaseData BlobBreakup { get; set; }
     }
 }

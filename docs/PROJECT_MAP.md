@@ -54,7 +54,7 @@ Bootstrap связывает модули. `CreateFixture()` и `CreateProductio
 - entryPoints: [Field](../Assets/Game/Field), [Enemy/Model/Wave](../Assets/Game/Enemy/Model/Wave), [field generation](../scripts/content/fields.py).
 - designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).
 - authoringSources: [field001 baseline](balance/field001-baseline-v1.json), [field002](balance/field002-v1.json), [field003](balance/field003-v1.json), [field002/003 waves v2](balance/field-rhythm-v2.md), [layouts](balance/field-layouts-v1.json).
-- generatedOutputs: ProductionFields, ProductionFieldEnvironmentPresentation, ProductionWaveTimeline / Field002 / Field003.
+- generatedOutputs: ProductionFields, ProductionFieldEnvironmentPresentation, ProductionWaveTimeline / Field002 / Field003 и единый ProductionBlobBreakupProfile (числа разбивки вне расписаний волн).
 - checks: generator `--check`, [Bootstrap/Tests](../Assets/Game/Bootstrap/Tests), [production field smoke](../Assets/Game/Bootstrap/PlayModeTests), ручные gates из STATUS.
 
 ## Звук

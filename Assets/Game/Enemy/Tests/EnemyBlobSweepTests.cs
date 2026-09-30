@@ -16,6 +16,78 @@ namespace Game.Enemy.Tests
         private const int Steps = 320;
 
         [Test]
+        public void FixedBlockedShare_MovementMixes_ReportCrowdingAndClusterSize()
+        {
+            var definition = ProductionEnemyCatalog.Create().Single(enemy => enemy.Id.ToString() == "ENEMY-001");
+            var profiles = new[]
+            {
+                EnemyMovementProfile.Seek,
+                new EnemyMovementProfile(EnemyMovementKind.OffsetPursuit, preferredDistance: 3.5f,
+                    distanceTolerance: .25f, cycleSeconds: 3f, directPursuitSeconds: 1.2f),
+                new EnemyMovementProfile(EnemyMovementKind.CommittedPursuit, cycleSeconds: 6f),
+                new EnemyMovementProfile(EnemyMovementKind.BlockedSidestep, preferredDistance: .5f,
+                    lateralStrength: 4f, blockedTriggerSeconds: .2f, blockedProgressFraction: .95f,
+                    sidestepSeconds: 2.4f, sidestepCooldownSeconds: 1f,
+                    sidestepNearDistance: 3f, sidestepNearSeconds: .8f),
+                new EnemyMovementProfile(EnemyMovementKind.ArcPassPursuit, preferredDistance: 4f,
+                    lateralStrength: 2f, cycleSeconds: 2.5f, directPursuitSeconds: .6f),
+                new EnemyMovementProfile(EnemyMovementKind.InertialPursuit, turnResponseSeconds: 2f)
+            };
+            var candidates = new List<(string label, float[] weights)>();
+            // Allocate the remaining 25% in 5-point steps; sparse combinations get priority.
+            for (var seek = 0; seek <= 5; seek++)
+                for (var offset = 0; offset <= 5 - seek; offset++)
+                    for (var committed = 0; committed <= 5 - seek - offset; committed++)
+                        for (var arc = 0; arc <= 5 - seek - offset - committed; arc++)
+                        {
+                            var inertial = 5 - seek - offset - committed - arc;
+                            var slots = new[] { seek, offset, committed, arc, inertial };
+                            if (slots.Count(value => value > 0) > 3 && !slots.All(value => value == 1))
+                                continue;
+                            candidates.Add(($"fixed75-{seek}{offset}{committed}{arc}{inertial}",
+                                new[] { seek * .05f, offset * .05f, committed * .05f,
+                                    .75f, arc * .05f, inertial * .05f }));
+                        }
+
+            var oldMode = Physics2D.simulationMode;
+            var output = new StringBuilder("scenario,seed,candidate,seek,offset,committed,blocked,arc,inertial,crowdedFraction,largestClusterFraction,contactFraction,meanDistance\n");
+            try
+            {
+                Physics2D.simulationMode = SimulationMode2D.Script;
+                foreach (var scenario in new[] { "dense", "ring" })
+                {
+                    for (var seed = 11; seed <= 13; seed++)
+                        foreach (var candidate in candidates)
+                            Run(definition, seed, scenario, candidate.label, profiles,
+                                candidate.weights, output);
+
+                    var shortlist = new[]
+                    {
+                        "fixed75-20003", "fixed75-00005", "fixed75-00104", "fixed75-01004",
+                        "fixed75-01103", "fixed75-10103", "fixed75-00014", "fixed75-10004",
+                        "fixed75-00203", "fixed75-11111", "fixed75-00500", "fixed75-00050"
+                    };
+                    var extended = candidates.Where(item => shortlist.Contains(item.label)).ToArray();
+                    for (var seed = 14; seed <= 30; seed++)
+                        foreach (var candidate in seed % 2 == 0 ? extended.Reverse() : extended)
+                            Run(definition, seed, scenario, candidate.label, profiles,
+                                candidate.weights, output);
+                }
+
+                var path = Path.GetFullPath(Path.Combine(Application.dataPath,
+                    "../TestResults/anti-blob-fixed75-sweep.csv"));
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                File.WriteAllText(path, output.ToString());
+                Debug.Log($"Fixed 75% BlockedSidestep: {candidates.Count} mixtures, 2 scenarios, 3 seeds; shortlist 20 seeds. CSV: {path}");
+                Assert.Greater(output.Length, 500);
+            }
+            finally
+            {
+                Physics2D.simulationMode = oldMode;
+            }
+        }
+
+        [Test]
         public void MovementMixes_CirclingPlayer_ReportCrowdingAndContact()
         {
             var definition = ProductionEnemyCatalog.Create().Single(enemy => enemy.Id.ToString() == "ENEMY-001");

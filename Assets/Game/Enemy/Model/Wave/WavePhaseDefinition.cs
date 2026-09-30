@@ -15,6 +15,7 @@ namespace Game.Enemy
         public WaveEnemyModifiers Modifiers { get; }
         public WaveSpawnMode SpawnMode { get; }
         public WaveBurstDefinition Burst { get; }
+        public BlobBreakupDefinition BlobBreakup { get; }
 
         public WavePhaseDefinition(
             ContentId id,
@@ -25,7 +26,8 @@ namespace Game.Enemy
             IReadOnlyList<WaveCompositionEntry> composition,
             WaveEnemyModifiers modifiers = null,
             WaveSpawnMode spawnMode = WaveSpawnMode.Continuous,
-            WaveBurstDefinition burst = null)
+            WaveBurstDefinition burst = null,
+            BlobBreakupDefinition blobBreakup = null)
         {
             if (!id.IsValid)
                 throw new ArgumentException("Wave phase requires a valid id.", nameof(id));
@@ -66,6 +68,7 @@ namespace Game.Enemy
             Modifiers = modifiers ?? WaveEnemyModifiers.Identity;
             SpawnMode = spawnMode;
             Burst = burst;
+            BlobBreakup = blobBreakup;
         }
     }
 }

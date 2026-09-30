@@ -54,6 +54,24 @@ W-01 утверждён [DECISION-0029](../../decisions/0029-burst-pressure-and-
 
 ## Runtime и fixture schema
 
+Пробный anti-blob follow-up [DECISION-0130](../../decisions/0130-periodic-blob-breakup-trial.md):
+Числовые параметры единого типажа лежат в отдельном
+`ProductionBlobBreakupProfile.json`. `WavePhaseData.blobBreakup` только
+ссылается на него: отсутствие или `null` выключает манёвр в фазе,
+`{"profileId": "BLOB-FAN-001"}` включает для всех ordinary типов,
+`enemyIds` при этой ссылке ограничивает конкретными enemy IDs. Чисел в
+расписаниях волн нет. Текущие FIELD-001…003 включают общий типаж во всех фазах; authoring override
+одной фазы может отключить его или сузить список типов.
+Порог плотности считается по всем живым ordinary врагам в квадрате;
+`enemyIds` ограничивает только назначение манёвра. Враги вне списка остаются
+на своём обычном движении и продолжают учитываться в плотности.
+Центральный квадрат сетки, содержащий игрока, исключён из разбивки;
+длительность манёвра задаётся в общем профиле (сейчас 6 s).
+Спавнер проверяет плотность только по running-времени, WaveDirector владеет
+конфигурацией фазы, EnemyRuntime временно направляет выбранных врагов веером.
+Отдельный player-facing UI не нужен; счётчик последнего назначения доступен
+для тестов и диагностики спавнера. Игровой visual review остаётся открытым.
+
 `WaveTimelineData.seed` и `WavePhaseData.spawnMode` обязательны. Mode — `Continuous`
 или `Burst`, независимо от rhythm tag. Continuous сохраняет interval; timeline задаёт единый cap; burst требует
 объект `burst` с `count` (целое ≥0), `offsetSeconds` (≥0) и `windowSeconds` (>0).

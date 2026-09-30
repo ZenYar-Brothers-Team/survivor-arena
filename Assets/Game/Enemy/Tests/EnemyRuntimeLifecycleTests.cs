@@ -1,3 +1,4 @@
+using System.Reflection;
 using Game.Run;
 using NUnit.Framework;
 using UnityEngine;
@@ -26,6 +27,28 @@ namespace Game.Enemy.Tests
                 Object.DestroyImmediate(_target);
             if (_runObject != null)
                 Object.DestroyImmediate(_runObject);
+        }
+
+        [Test]
+        public void BlobBreakup_TemporarySteeringPausesAndResetsOnReuse()
+        {
+            var runController = _runObject.AddComponent<RunController>();
+            runController.Initialize();
+            runController.Model.Start();
+            var definition = new EnemyDefinition("FIXTURE-ENEMY-BLOB", 12f, 1f, 1f, 1f, .5f);
+            _enemy = EnemyFactory.Spawn(definition, new Vector2(-5f, 0f), _target.transform, runController);
+            Assert.IsTrue(_enemy.TryStartBlobBreakup(new Vector2(-5f, 5f), 0f, .1f));
+            var fixedUpdate = typeof(EnemyRuntime).GetMethod("FixedUpdate", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(fixedUpdate);
+            fixedUpdate.Invoke(_enemy, null);
+            Assert.Greater(_enemy.GetComponent<Rigidbody2D>().linearVelocity.y, 0f);
+
+            runController.Model.Pause();
+            for (var i = 0; i < 20; i++) fixedUpdate.Invoke(_enemy, null);
+            Assert.IsTrue(_enemy.BlobBreakupActive);
+            runController.Model.Resume();
+            _enemy.Initialize(definition, _target.transform, runController);
+            Assert.IsFalse(_enemy.BlobBreakupActive);
         }
 
         [Test]

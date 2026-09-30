@@ -67,6 +67,58 @@ namespace Game.Enemy.Tests
                     burst: new WaveBurstDefinition(count, 0, 1)) }), WaveTestData.TestEnemies(), 60);
 
         [Test]
+        public void Tick_DenseOrdinaryGroup_StaggersOneFanAfterTenSeconds()
+        {
+            var breakup = new BlobBreakupDefinition(10f, 11, .7f, 60, 65f, 3f, 1.5f, 6f);
+            var phase = new WavePhaseDefinition("FIXTURE-BLOB-P", "Blob", WavePhaseTag.Pressure,
+                60f, 1f, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") },
+                spawnMode: WaveSpawnMode.Burst, burst: new WaveBurstDefinition(30, 0, 1),
+                blobBreakup: breakup);
+            var timeline = new WaveTimelineDefinition("FIXTURE-BLOB-T", 37, 6f, 300, new[] { phase });
+            _spawner.Initialize(new WaveDirector(timeline, WaveTestData.TestEnemies(), 60f));
+            Assert.AreEqual(30, _spawner.Tick(0f, 0f, true));
+            var enemies = LiveEnemies();
+            for (var i = 0; i < enemies.Count; i++)
+                enemies[i].transform.position = new Vector3(-5f + i % 6 * .25f, -.5f + i / 6 * .25f);
+
+            _spawner.Tick(9.9f, 0f, true);
+            Assert.AreEqual(0, _spawner.LastBlobBreakupCount);
+            _spawner.Tick(10f, 0f, true);
+
+            Assert.Greater(_spawner.LastBlobBreakupCount, 2);
+            Assert.Less(_spawner.LastBlobBreakupCount, 30);
+            Assert.AreEqual(_spawner.LastBlobBreakupCount, enemies.Count(enemy => enemy.BlobBreakupActive));
+            Assert.AreEqual(30, _spawner.AliveCount);
+        }
+
+        [Test]
+        public void Tick_FilteredBlob_CountsAllOrdinaryButMovesOnlyAllowedType()
+        {
+            var breakup = new BlobBreakupDefinition(10f, 30, 1f, 60, 65f, 3f, 1.5f, 4f,
+                new[] { new Game.Content.ContentId("FIXTURE-ENEMY-A") });
+            var phase = new WavePhaseDefinition("FIXTURE-BLOB-FILTER-P", "Blob", WavePhaseTag.Pressure,
+                60f, 1f, new[] { WaveTestData.Entry("FIXTURE-ENEMY-A"), WaveTestData.Entry("FIXTURE-ENEMY-B") },
+                spawnMode: WaveSpawnMode.Burst, burst: new WaveBurstDefinition(30, 0, 1),
+                blobBreakup: breakup);
+            var timeline = new WaveTimelineDefinition("FIXTURE-BLOB-FILTER-T", 37, 6f, 300, new[] { phase });
+            _spawner.Initialize(new WaveDirector(timeline, WaveTestData.TestEnemies(), 60f));
+            Assert.AreEqual(30, _spawner.Tick(0f, 0f, true));
+            var enemies = LiveEnemies();
+            for (var i = 0; i < enemies.Count; i++)
+                enemies[i].transform.position = new Vector3(-5f + i % 6 * .25f, -.5f + i / 6 * .25f);
+            var allowed = enemies.Where(enemy => enemy.ContentId == "FIXTURE-ENEMY-A").ToList();
+            var restricted = enemies.Where(enemy => enemy.ContentId == "FIXTURE-ENEMY-B").ToList();
+            Assert.IsNotEmpty(allowed);
+            Assert.IsNotEmpty(restricted);
+
+            _spawner.Tick(10f, 0f, true);
+
+            Assert.AreEqual(allowed.Count, _spawner.LastBlobBreakupCount);
+            Assert.IsTrue(allowed.All(enemy => enemy.BlobBreakupActive));
+            Assert.IsTrue(restricted.All(enemy => !enemy.BlobBreakupActive));
+        }
+
+        [Test]
         public void Tick_MissingTarget_ReportsZeroActualWithoutRetryingBurst()
         {
             _spawner.Initialize(CreateBurstDirector(12));

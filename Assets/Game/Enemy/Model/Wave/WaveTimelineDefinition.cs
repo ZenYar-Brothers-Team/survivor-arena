@@ -96,6 +96,10 @@ namespace Game.Enemy
                 var composition = Phases[phaseIndex].Composition;
                 for (var i = 0; i < composition.Count; i++)
                     yield return composition[i].Enemy.ToReference();
+                var breakup = Phases[phaseIndex].BlobBreakup;
+                if (breakup == null) continue;
+                for (var i = 0; i < breakup.EnemyIds.Count; i++)
+                    yield return new ContentRef<EnemyDefinition>(breakup.EnemyIds[i]).ToReference();
             }
         }
     }

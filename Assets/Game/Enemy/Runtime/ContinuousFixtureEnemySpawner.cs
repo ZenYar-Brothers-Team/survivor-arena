@@ -24,6 +24,16 @@ namespace Game.Enemy
         private Transform target;
 
         private readonly List<EnemyRuntime> _aliveEnemies = new List<EnemyRuntime>();
+        private readonly List<EnemyRuntime> _blobEnemies = new List<EnemyRuntime>();
+        private readonly List<Vector2> _blobPositions = new List<Vector2>();
+        private readonly List<bool> _blobEligible = new List<bool>();
+        private readonly List<int> _blobSelected = new List<int>();
+        private readonly List<Vector2> _blobWaypoints = new List<Vector2>();
+        private readonly List<float> _blobDelays = new List<float>();
+        private readonly BlobBreakupPlanner.Cell[] _blobGrid = new BlobBreakupPlanner.Cell[BlobBreakupPlanner.GridLength];
+        private System.Random _blobRandom;
+        private float _nextBlobCheckTime;
+        private int _lastBlobPhaseIndex;
         private WaveDirector _director;
         private IReadOnlyDictionary<ContentId, Sprite> _visuals;
         private IReadOnlyDictionary<ContentId, SpriteMotionProfile> _motions;
@@ -48,6 +58,7 @@ namespace Game.Enemy
         public EnemyLifeEvent LastLifeEvent { get; private set; }
 
         public int AliveCount => _aliveEnemies.Count;
+        public int LastBlobBreakupCount { get; private set; }
         public WaveDirector Director => _director;
         public string DevelopmentObservation
         {
@@ -89,6 +100,10 @@ namespace Game.Enemy
             _kills = 0;
             LastLifeEvent = null;
             LastSpawnOutcome = default;
+            LastBlobBreakupCount = 0;
+            _blobRandom = new System.Random(director.Seed ^ 0x4B10B);
+            _nextBlobCheckTime = director.CurrentPhase.BlobBreakup?.CheckIntervalSeconds ?? 0f;
+            _lastBlobPhaseIndex = director.CurrentPhaseIndex;
             _visuals = visuals;
             _motions = motions;
             _contacts = contacts;
@@ -120,6 +135,18 @@ namespace Game.Enemy
             var wasRunning = runController != null && runController.Model != null && runController.Model.State == RunState.Running;
             var spawnCount = _director.Advance(elapsedSeconds, deltaTime, isRunning, _aliveEnemies.Count,
                 replaceAtCap: true);
+            if (_lastBlobPhaseIndex != _director.CurrentPhaseIndex)
+            {
+                _lastBlobPhaseIndex = _director.CurrentPhaseIndex;
+                if (_director.CurrentPhase.BlobBreakup == null)
+                {
+                    for (var i = 0; i < _aliveEnemies.Count; i++)
+                        _aliveEnemies[i]?.CancelBlobBreakup();
+                    _nextBlobCheckTime = 0f;
+                }
+                else if (_nextBlobCheckTime <= 0f)
+                    _nextBlobCheckTime = elapsedSeconds + _director.CurrentPhase.BlobBreakup.CheckIntervalSeconds;
+            }
             if (spawnCount > 0 && target != null)
                 while (_aliveEnemies.Count + spawnCount > _director.Timeline.MaxAliveEnemies && _aliveEnemies.Count > 0)
                     EraseFarthestOrdinary();
@@ -138,7 +165,37 @@ namespace Game.Enemy
                     _director.CurrentPhase.SpawnMode, decision, actual, AliveCount, _director.Timeline.MaxAliveEnemies);
                 SpawnResolved?.Invoke(LastSpawnOutcome);
             }
+            if (isRunning && target != null && _director.CurrentPhase.BlobBreakup != null &&
+                elapsedSeconds >= _nextBlobCheckTime)
+            {
+                var settings = _director.CurrentPhase.BlobBreakup;
+                _nextBlobCheckTime = elapsedSeconds + settings.CheckIntervalSeconds;
+                TryBreakBlob(settings);
+            }
             return actual;
+        }
+
+        private void TryBreakBlob(BlobBreakupDefinition settings)
+        {
+            using var guard = PerfGuard.Measure("ContinuousFixtureEnemySpawner.BlobBreakup", 2f);
+            _blobEnemies.Clear();
+            _blobPositions.Clear();
+            _blobEligible.Clear();
+            for (var i = 0; i < _aliveEnemies.Count; i++)
+            {
+                var enemy = _aliveEnemies[i];
+                if (enemy == null || !enemy.IsAlive || enemy.Category != EnemyCategory.Ordinary) continue;
+                _blobEnemies.Add(enemy);
+                _blobPositions.Add(enemy.Position);
+                _blobEligible.Add(!enemy.BlobBreakupActive && settings.Includes(enemy.ContentId));
+            }
+            LastBlobBreakupCount = 0;
+            BlobBreakupPlanner.Plan(_blobPositions, target.position, settings, _blobRandom,
+                _blobGrid, _blobSelected, _blobWaypoints, _blobDelays, _blobEligible);
+            for (var i = 0; i < _blobSelected.Count; i++)
+                if (_blobEnemies[_blobSelected[i]].TryStartBlobBreakup(
+                    _blobWaypoints[i], _blobDelays[i], settings.ManeuverSeconds))
+                    LastBlobBreakupCount++;
         }
 
         // At most 16 position reads per spawning tick, shared by a whole burst.
@@ -271,6 +328,15 @@ namespace Game.Enemy
                 enemy.Despawn();
             }
             _director = null;
+            _blobEnemies.Clear();
+            _blobPositions.Clear();
+            _blobEligible.Clear();
+            _blobSelected.Clear();
+            _blobWaypoints.Clear();
+            _blobDelays.Clear();
+            _blobRandom = null;
+            _nextBlobCheckTime = 0f;
+            LastBlobBreakupCount = 0;
             _visuals = null;
             _motions = null;
             _contacts = null;

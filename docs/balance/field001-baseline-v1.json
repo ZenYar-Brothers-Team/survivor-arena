@@ -2619,6 +2619,17 @@
     "sceneName": "Gameplay",
     "spawnPointName": "PlayerSpawn"
   },
+  "blobBreakupProfile": {
+    "id": "BLOB-FAN-001",
+    "checkIntervalSeconds": 10,
+    "minimumClusterCount": 11,
+    "selectionFraction": 0.7,
+    "maxSelected": 60,
+    "coneHalfAngleDegrees": 65,
+    "overshootDistance": 3,
+    "staggerSeconds": 1.5,
+    "maneuverSeconds": 6
+  },
   "timeline": {
     "id": "FIELD-001-TIMELINE",
     "maxAliveEnemies": 300,

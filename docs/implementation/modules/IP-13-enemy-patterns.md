@@ -54,6 +54,11 @@ G-07 закрыт DECISION-0017: knockback не приостанавливает
 
 ## Schema и runtime contract
 
+Пробная разбивка blob по [DECISION-0130](../../decisions/0130-periodic-blob-breakup-trial.md)
+не заменяет per-spawn movement kind: только выбранные ordinary враги получают
+краткую временную цель, после чего продолжают своё базовое движение. Скорость,
+slow/knockback и dash priority сохраняются; состояние очищается при pool reuse.
+
 `EnemyDefinitionData` требует явные `knockbackResistance` и `contactControls.knockbackDistance`, включая ноль. Для `TelegraphedDash` отдельно требуется `dashContactControls.knockbackDistance`; runtime выбирает его только в фазе Dashing. Ненулевой knockback требует positive `knockbackSeconds` через общий CombatControlProfile. Nullable поля DTO не скрывают missing production values.
 
 Каждая ranged attack требует `projectileCount`, `projectileRadius`, `telegraphSeconds` и `controls.knockbackDistance`; остальные числовые базовые поля валидирует EnemyAttackProfile. Fixture packet задаёт wind-up 0.25 s. `telegraphSeconds` допускает явный zero для low-level immediate profiles; все ranged JSON fixtures имеют ненулевое предупреждение. Значения fixture не утверждают timings production-карточек.

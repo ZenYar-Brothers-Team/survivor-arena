@@ -31,6 +31,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -59,6 +62,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -88,6 +94,9 @@
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
       },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
+      },
       "burst": {
         "count": 12,
         "offsetSeconds": 0,
@@ -116,6 +125,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -144,6 +156,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -172,6 +187,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -196,6 +214,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -224,6 +245,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -252,6 +276,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -276,6 +303,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -308,6 +338,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -336,6 +369,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -360,6 +396,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -388,6 +427,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -420,6 +462,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       }
     },
     {
@@ -448,6 +493,9 @@
         "speedMultiplier": 1,
         "contactDamageMultiplier": 1,
         "attackDamageMultiplier": 1
+      },
+      "blobBreakup": {
+        "profileId": "BLOB-FAN-001"
       },
       "burst": {
         "count": 20,

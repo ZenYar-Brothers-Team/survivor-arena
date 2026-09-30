@@ -123,21 +123,26 @@ def minutes(seconds):
     return f"{int(seconds // 60)}:{int(seconds % 60):02d}"
 
 
+def blob_breakup_profile(baseline):
+    return baseline["blobBreakupProfile"]
+
+
 def timeline(baseline):
-    return field_timeline(baseline["timeline"], baseline["field"], baseline["randomness"]["referenceSeeds"]["waves"], True)
+    return field_timeline(baseline["timeline"], baseline["field"], baseline["randomness"]["referenceSeeds"]["waves"], True,
+                          baseline.get("blobBreakupProfile"))
 
 
 def timeline_field002(baseline):
     return field_timeline(baseline["field002"]["timeline"], baseline["field002"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 1000,
-                          False)
+                          False, baseline.get("blobBreakupProfile"))
 
 
 def timeline_field003(baseline):
     return field_timeline(baseline["field003"]["timeline"], baseline["field003"]["field"], baseline["randomness"]["referenceSeeds"]["waves"] + 2000,
-                          False)
+                          False, baseline.get("blobBreakupProfile"))
 
 
-def field_timeline(t, field, seed, neutral_modifiers):
+def field_timeline(t, field, seed, neutral_modifiers, blob_breakup_default=None):
     phases, clock = [], 0
     for p in t["phases"]:
         if p["startSeconds"] != clock:
@@ -151,6 +156,16 @@ def field_timeline(t, field, seed, neutral_modifiers):
                  "spawnIntervalSeconds": p["spawnIntervalSeconds"],
                  "composition": [{"enemyId": k, "weight": v} for k, v in p["composition"].items() if v > 0],
                  "modifiers": modifiers}
+        if "blobBreakup" in p or blob_breakup_default is not None:
+            breakup = p["blobBreakup"] if "blobBreakup" in p else {}
+            if breakup is not None:
+                if blob_breakup_default is None:
+                    raise SystemExit(f"{p['id']}: blobBreakup requires blobBreakupProfile")
+                if not isinstance(breakup, dict) or set(breakup) - {"profileId", "enemyIds"}:
+                    raise SystemExit(f"{p['id']}: blobBreakup accepts only profileId and enemyIds")
+                breakup = {"profileId": breakup.get("profileId", blob_breakup_default["id"]),
+                           **({"enemyIds": breakup["enemyIds"]} if "enemyIds" in breakup else {})}
+            phase["blobBreakup"] = breakup
         if p["burst"]:
             phase["burst"] = p["burst"]
         phases.append(phase)

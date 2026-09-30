@@ -21,9 +21,17 @@ namespace Game.Enemy
             var data = Newtonsoft.Json.JsonConvert.DeserializeObject<WaveTimelineData>(json, JsonContentFile.Settings)
                 ?? throw new InvalidOperationException("Wave timeline is required.");
             if (data.Phases == null) throw new InvalidOperationException("Wave timeline requires phases.");
+            BlobBreakupData profile = null;
+            for (var i = 0; i < data.Phases.Length; i++)
+                if (data.Phases[i].BlobBreakup != null)
+                {
+                    profile = JsonContentFile.Load<BlobBreakupData>("Content/Waves/ProductionBlobBreakupProfile")
+                        ?? throw new InvalidOperationException("Blob breakup profile is required.");
+                    break;
+                }
             var phases = new WavePhaseDefinition[data.Phases.Length];
             for (var i = 0; i < phases.Length; i++)
-                phases[i] = ToPhase(data.Phases[i]);
+                phases[i] = ToPhase(data.Phases[i], profile);
 
             var hooks = new WaveHookDefinition[data.Hooks?.Length ?? 0];
             for (var i = 0; i < hooks.Length; i++)
@@ -44,7 +52,7 @@ namespace Game.Enemy
                 openingIntensity);
         }
 
-        private static WavePhaseDefinition ToPhase(WavePhaseData data)
+        private static WavePhaseDefinition ToPhase(WavePhaseData data, BlobBreakupData profile)
         {
             var mode = data.SpawnMode ?? throw new InvalidOperationException("Wave phase requires spawnMode.");
             var burst = data.Burst == null ? null : new WaveBurstDefinition(
@@ -64,6 +72,22 @@ namespace Game.Enemy
                     data.Modifiers.ContactDamageMultiplier ?? neutral.ContactDamageMultiplier,
                     data.Modifiers.AttackDamageMultiplier ?? neutral.AttackDamageMultiplier);
 
+            var breakup = data.BlobBreakup;
+            if (breakup != null && (string.IsNullOrWhiteSpace(breakup.ProfileId) ||
+                !string.Equals(breakup.ProfileId, profile?.Id, StringComparison.Ordinal)))
+                throw new InvalidOperationException($"Unknown blob breakup profile '{breakup.ProfileId}'.");
+            var enemyIds = breakup?.EnemyIds;
+            var filter = enemyIds == null ? null : Array.ConvertAll(enemyIds, id => new Game.Content.ContentId(id));
+            var breakupDefinition = breakup == null ? null : new BlobBreakupDefinition(
+                profile.CheckIntervalSeconds ?? throw new InvalidOperationException("Blob breakup profile requires checkIntervalSeconds."),
+                profile.MinimumClusterCount ?? throw new InvalidOperationException("Blob breakup profile requires minimumClusterCount."),
+                profile.SelectionFraction ?? throw new InvalidOperationException("Blob breakup profile requires selectionFraction."),
+                profile.MaxSelected ?? throw new InvalidOperationException("Blob breakup profile requires maxSelected."),
+                profile.ConeHalfAngleDegrees ?? throw new InvalidOperationException("Blob breakup profile requires coneHalfAngleDegrees."),
+                profile.OvershootDistance ?? throw new InvalidOperationException("Blob breakup profile requires overshootDistance."),
+                profile.StaggerSeconds ?? throw new InvalidOperationException("Blob breakup profile requires staggerSeconds."),
+                profile.ManeuverSeconds ?? throw new InvalidOperationException("Blob breakup profile requires maneuverSeconds."), filter);
+
             return new WavePhaseDefinition(
                 data.Id,
                 data.DisplayName,
@@ -71,7 +95,7 @@ namespace Game.Enemy
                 data.DurationSeconds,
                 data.SpawnIntervalSeconds,
                 composition,
-                modifiers, mode, burst);
+                modifiers, mode, burst, breakupDefinition);
         }
     }
 }
