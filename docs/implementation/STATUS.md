@@ -20,6 +20,12 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Прыжок финальных боссов 2026-09-30 — Implemented по
+[DECISION-0128](../decisions/0128-boss-teleport-impact-radius.md): радиус удара
+при приземлении BOSS-001…010 уменьшен с 3.5 до 2.8 world units. Урон, тайминг,
+точка приземления и trigger distance не менялись. Unity EditMode проверка
+ожидает доступного test runner; generation check PASS.
+
 Путники 2026-09-30 — Implemented по [DECISION-0127](../decisions/0127-traveler-initial-health-scaling.md):
 Путник, появившийся в 0:00, получает треть прежнего здоровья. Его HP плавно
 достигает прежней шкалы к последнему допустимому появлению; урон сохраняет K.
@@ -100,6 +106,9 @@ bot-labelled pilot 1141 samples validator PASS.
 Offline кандидат на четырёх held-out забегах уступил repeat-previous baseline
 по общей точности; в игру не выбран. Пользователь проблем в игре не заметил.
 [Запись и оценка](evidence/2026-09-30-human-action-change-session.md).
+Двухэтапная offline-проба `change/keep → direction` почти не распознаёт момент
+смены: 37/3 870 поворотов, gate AUC 0.536…0.563; модель не выбрана для игры.
+[Диагностика](evidence/2026-09-30-two-stage-imitation-probe.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -973,6 +982,10 @@ Human follow-up на `a568e9d`: 4 завершённых забега/11 687 sam
 PASS, один короткий administrative abort исключён. Offline MLP уступил baseline
 на каждом held-out забеге; closed-loop проверка и выбор policy открыты.
 [Evidence](evidence/2026-09-30-human-action-change-session.md).
+Research follow-up: двухэтапная модель с отдельным change gate и direction head
+не дала практически полезного улучшения (66.929% против 66.886% baseline,
+37/3 870 смен); policy не выбрана, игровой pilot для этого кандидата не запускался.
+Python 31/31 PASS. [Evidence](evidence/2026-09-30-two-stage-imitation-probe.md).
 Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные

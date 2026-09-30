@@ -47,7 +47,14 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
-        public void FinalBoss_TeleportImpactUsesApprovedReducedCurve_AndStaysUnavoidable()
+        public void FinalBossTeleport_UsesTheReducedImpactRadius()
+        {
+            foreach (var boss in Catalog.Values.Where(item => item.Hook == WaveHookKind.FinalBoss))
+                Assert.AreEqual(2.8f, boss.Teleport.ImpactRadius, 1e-5f, boss.Id.ToString());
+        }
+
+        [Test]
+        public void FinalBoss_TeleportImpactUsesApprovedReducedCurve_AndCanBeEscapedAtBaseSpeed()
         {
             for (var n = 3; n <= 10; n++)
             {
@@ -55,7 +62,7 @@ namespace Game.Enemy.Tests
                 var originalDamage = 20f + 2f * (n - 2);
                 Assert.AreEqual(originalDamage / 1.5f, teleport.ImpactDamage, 1e-5f,
                     $"BOSS-{n:000}: DECISION-0080 reduces the original curve by exactly 1.5x.");
-                Assert.Less(teleport.LandingDistance + 3f * teleport.TelegraphSeconds, teleport.ImpactRadius);
+                Assert.Greater(teleport.LandingDistance + 3f * teleport.TelegraphSeconds, teleport.ImpactRadius);
             }
         }
 

@@ -39,12 +39,11 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(7.1875f, teleport.FarDistance, 1e-5f, "DECISION-0111: teleport trigger distance increased by 15%.");
             Assert.AreEqual(2f, teleport.FarSeconds, 1e-5f);
             Assert.AreEqual(1.5f, teleport.LandingDistance, 1e-5f);
-            Assert.AreEqual(3.5f, teleport.ImpactRadius, 1e-5f);
-            // User request 2026-09-26: a base-speed player (3 u/s, ProductionCharacterBaseline) running straight away
-            // from the landing point during the telegraph is still inside the slam.
+            Assert.AreEqual(2.8f, teleport.ImpactRadius, 1e-5f, "DECISION-0128: jump impact radius is 20% smaller.");
+            // A base-speed player can now leave the slam circle during the telegraph.
             const float baseMovementSpeed = 3f;
-            Assert.Less(teleport.LandingDistance + baseMovementSpeed * teleport.TelegraphSeconds, teleport.ImpactRadius,
-                "A base-speed player cannot leave the slam circle during the telegraph.");
+            Assert.Greater(teleport.LandingDistance + baseMovementSpeed * teleport.TelegraphSeconds, teleport.ImpactRadius,
+                "A base-speed player can leave the smaller slam circle during the telegraph.");
             Assert.AreEqual(20f / 1.5f, teleport.ImpactDamage, 1e-5f,
                 "DECISION-0080: teleport impact damage is reduced by exactly 1.5x.");
 
