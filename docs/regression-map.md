@@ -1,5 +1,21 @@
 # Regression map
 
+DECISION-0125: `MetaProfileTests.AchievementKills_OnDefeat_UnlockNextFieldOnceAndPersist`
+и `Load_V2Profile_PreservesUnlocksWithoutInventingPastAchievementProgress`
+проверяют накопительные достижения и миграцию сохранения;
+`CharacterPurchase_GrantsItsStartingSkillWithoutSecondPayment` проверяет
+связанную выдачу умения. `RunAchievementSmokeTests` проверяет зачёт фактически
+нанесённого урона и подтверждённых убийств в забеге;
+`MetaPresenterTests.UnlockCollection_FormatsAchievementProgressAndPaidPrice`
+проверяет показ прогресса и цены.
+
+FIELD-001…003: `ProductionRunSmokeTests.NewProductionProfile_StartsField001_WithAuthoredObstaclesAndProductionContent`
+проверяет, что горизонтальный collider бочки не включает прозрачные поля спрайта;
+`ProductionField003SmokeTests.Field003_StartsWithItsRuins_VerticalWallsExcludeTransparentPadding_AndSpawnsOnlyItsPool`
+проверяет то же у повернутой стены;
+`FieldEnvironmentArtRuntime` использует сохранённую физическую форму каждого
+prop sprite для границ player-only препятствий.
+
 IP-34 AB-14: `DemonstrationTests` проверяет clocks, bounded queue, UTF-8 byte/sample
 limits, flush/footer, I/O failure и atomic promotion без overwrite.
 `RandomLegalDraftPolicyTests.ChooseActiveFirst15_LevelBoundary_ChangesToUniformChoiceAfterLevel15`

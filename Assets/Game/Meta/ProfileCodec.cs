@@ -8,7 +8,7 @@ namespace Game.Meta
 {
     public sealed class ProfileCodec
     {
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
         private readonly Dictionary<int, IProfileMigration> _migrations = new Dictionary<int, IProfileMigration>();
         private readonly MetaCatalog _catalog;
         public ProfileCodec(MetaCatalog catalog, IEnumerable<IProfileMigration> migrations = null)
@@ -16,12 +16,14 @@ namespace Game.Meta
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             // Shipped schema steps are always present; callers may add older (synthetic/test) steps.
             _migrations.Add(1, new ProfileMigrationV1ToV2());
+            _migrations.Add(2, new ProfileMigrationV2ToV3());
             if (migrations != null) foreach (var item in migrations) _migrations.Add(item.FromVersion, item);
         }
         public ProfileData Create()
         {
             var data = new ProfileData { SchemaVersion = CurrentVersion, Upgrades = new Dictionary<string, int>(),
-                Unlocked = new HashSet<string>(), ClearedFields = new HashSet<string>(), Runs = new Dictionary<string, MetaRunReceipt>() };
+                Unlocked = new HashSet<string>(), ClearedFields = new HashSet<string>(),
+                AchievementProgress = new Dictionary<string, long>(), Runs = new Dictionary<string, MetaRunReceipt>() };
             foreach (var rule in _catalog.Unlocks.Values) if (rule.Condition == "initial") data.Unlocked.Add(rule.Id);
             return data;
         }
@@ -38,7 +40,7 @@ namespace Game.Meta
                 version++;
             }
             var document = JObject.Parse(json);
-            foreach (var field in new[] { "schemaVersion", "currency", "firstRun", "upgradesDisabled", "upgrades", "unlocked", "clearedFields", "runs" })
+            foreach (var field in new[] { "schemaVersion", "currency", "firstRun", "upgradesDisabled", "upgrades", "unlocked", "clearedFields", "achievementProgress", "runs" })
                 if (document[field] == null || document[field].Type == JTokenType.Null) throw new ArgumentException("Missing profile field: " + field);
             var data = JsonConvert.DeserializeObject<ProfileData>(json, Settings);
             Validate(data); return data;
@@ -49,7 +51,7 @@ namespace Game.Meta
         public ProfileData Copy(ProfileData data) => Decode(Encode(data));
         public void Validate(ProfileData data)
         {
-            if (data == null || data.SchemaVersion != CurrentVersion || data.Upgrades == null || data.Unlocked == null || data.ClearedFields == null || data.Runs == null) throw new ArgumentException("Incomplete profile.");
+            if (data == null || data.SchemaVersion != CurrentVersion || data.Upgrades == null || data.Unlocked == null || data.ClearedFields == null || data.AchievementProgress == null || data.Runs == null) throw new ArgumentException("Incomplete profile.");
             NumericValidation.ValidateNonNegative(data.Currency, nameof(data.Currency));
             if (data.UpgradeSpending == null) throw new ArgumentException("Missing upgrade spending.");
             foreach (var spending in data.UpgradeSpending)
@@ -59,6 +61,11 @@ namespace Game.Meta
             }
             foreach (var id in data.Unlocked) if (!_catalog.Unlocks.ContainsKey(id)) throw new ArgumentException("Unknown unlocked ID: " + id);
             foreach (var id in data.ClearedFields) if (!_catalog.Unlocks.TryGetValue(id, out var field) || field.Kind != "field") throw new ArgumentException("Unknown cleared field.");
+            foreach (var pair in data.AchievementProgress)
+            {
+                if (string.IsNullOrWhiteSpace(pair.Key)) throw new ArgumentException("Empty achievement key.");
+                NumericValidation.ValidateNonNegative(pair.Value, nameof(data.AchievementProgress));
+            }
             foreach (var pair in data.Upgrades)
             {
                 var keys = pair.Key.Split(':');

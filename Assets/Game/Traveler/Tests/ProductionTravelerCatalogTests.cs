@@ -153,6 +153,8 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(1f, schedule.Scale(0f, 900f), 1e-5f);
             Assert.AreEqual(1.25f, schedule.Scale(390f, 900f), 1e-5f);
             Assert.AreEqual(1.5f, schedule.Scale(900f, 900f), 1e-5f);
+            Assert.AreEqual(1f / 3f, schedule.HealthScale(0f, 900f), 1e-5f);
+            Assert.AreEqual(1.5f, schedule.HealthScale(780f, 900f), 1e-5f);
             var scaled = Traveler("TRAVELER-001").Scale(1.25f);
             Assert.AreEqual(812.5f, scaled.MaxHealth, 1e-3f);
             Assert.AreEqual(25f, scaled.ContactDamage, 1e-3f);

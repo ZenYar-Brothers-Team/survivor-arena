@@ -14,9 +14,15 @@ namespace Game.UI.Tests
             var view=new FakeMetaView();var navigation=new FakeProfileNavigation();using var presenter=new MetaPresenter(profile,view,navigation);
             Assert.IsFalse(view.State.Visible);view.Shop();Assert.IsTrue(view.State.Visible);
             var health=view.State.Cards.Single(c=>c.Id=="META-003");Assert.AreEqual(100,health.Price);Assert.IsFalse(health.CanBuy);
-            var condition=view.State.Cards.Single(c=>c.Id=="SKILL-016");StringAssert.Contains("15:00",condition.Detail);Assert.IsFalse(condition.CanBuy);
+            var condition=view.State.Cards.Single(c=>c.Id=="SKILL-016");StringAssert.Contains("Открыть карту",condition.Detail);Assert.IsFalse(condition.CanBuy);
             view.Close();Assert.AreEqual(1,navigation.Selections);Assert.IsFalse(view.State.Visible);
             presenter.Dispose();view.Shop();Assert.IsFalse(view.State.Visible);
+        }
+        [Test] public void UnlockCollection_FormatsAchievementProgressAndPaidPrice()
+        {
+            var catalog = MetaCatalog.Load();
+            StringAssert.Contains("200/500", MetaShopProjection.Condition(catalog.Unlocks["FIELD-002"], catalog, 200));
+            Assert.AreEqual(200, catalog.Unlocks["SET-020"].Price);
         }
         [Test] public async Task UpgradesToggle_OnlyInShop_DisablesUpgradesAndMarksCards()
         {

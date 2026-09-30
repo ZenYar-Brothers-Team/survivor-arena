@@ -20,7 +20,7 @@ namespace Game.Bootstrap.PlayModeTests
             "ENEMY-007", "ENEMY-008", "ENEMY-009", "ENEMY-010" };
 
         [UnityTest]
-        public IEnumerator Field003_StartsWithItsRuins_VerticalWallsKeepTheirRectangles_AndSpawnsOnlyItsPool()
+        public IEnumerator Field003_StartsWithItsRuins_VerticalWallsExcludeTransparentPadding_AndSpawnsOnlyItsPool()
         {
             var warnings = new System.Collections.Generic.List<string>();
             Application.LogCallback collect = (message, _, type) =>
@@ -61,8 +61,11 @@ namespace Game.Bootstrap.PlayModeTests
                 var vertical = expected.First(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width);
                 var wall = art.GetComponentsInChildren<BoxCollider2D>().Single(c => c.gameObject.name == vertical.Id.ToString());
                 Physics2D.SyncTransforms();
-                Assert.AreEqual(vertical.Width, wall.bounds.size.x, 0.02f, "A vertical wall keeps its authored width.");
-                Assert.AreEqual(vertical.Height, wall.bounds.size.y, 0.02f, "A vertical wall keeps its authored height.");
+                var wallVisual = wall.GetComponent<SpriteRenderer>().bounds;
+                Assert.Less(wall.bounds.size.x, wallVisual.size.x * .9f,
+                    "A vertical wall must not block the player in its transparent side padding.");
+                Assert.Greater(wall.bounds.size.y, vertical.Height * .85f,
+                    "The wall remains a long obstacle after fitting its visible shape.");
                 // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-003 after the
                 // DECISION-0073 skill nerf, so health is locked as with the development toggle.
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;

@@ -13,6 +13,7 @@ namespace Game.Meta
         public Dictionary<string, long> UpgradeSpending { get; set; } = new Dictionary<string, long>();
         public HashSet<string> Unlocked { get; set; }
         public HashSet<string> ClearedFields { get; set; }
+        public Dictionary<string, long> AchievementProgress { get; set; }
         public Dictionary<string, MetaRunReceipt> Runs { get; set; }
     }
 }

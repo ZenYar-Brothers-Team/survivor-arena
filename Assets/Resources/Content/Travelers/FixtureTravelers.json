@@ -677,6 +677,7 @@
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
       "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333,
       "minCount": 0
     },
     {
@@ -704,6 +705,7 @@
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
       "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333,
       "minCount": 0
     }
   ]

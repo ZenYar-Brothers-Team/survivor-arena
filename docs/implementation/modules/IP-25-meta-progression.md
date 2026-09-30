@@ -15,7 +15,7 @@
 ## Context
 
 F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
-нулевую meta для проверки баланса и неизменный unlock mapping DECISION-0050.
+нулевую meta для проверки баланса. Начальный состав DECISION-0050 сохраняется; поздний unlock mapping обновлён DECISION-0125.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
 используется как production data; проверки этого IP сохраняются.
 
@@ -88,6 +88,7 @@ Profile adapter реализует `ICharacterAccessProvider.GetLockReason(Conte
 Аналогичный `IFieldAccessProvider`/`FieldRoster` поставляет [IP-16](IP-16-field-framework.md#framework-api-и-fixture-schema).
 `RunOutcome.Selection.FieldId` даёт release-safe identity поля для unlock/reward processing;
 «завершить FIELD» = выжить 900 running seconds (DECISION-0037). Fixture unlock list не становится production economy.
+DECISION-0125 добавляет вторые пути открытия полей и смешанные открытия late skills/passives/sets. `RunOutcome.Contributions["achievements"]` содержит confirmed kills и фактически нанесённый HP damage по source, а `ProfileService` атомарно прибавляет их к прогрессу поля с reward и receipt. Отсутствующий contributor не выдумывает нулевые боевые факты. Уже открытое не отзывается; герой выдаёт своё стартовое умение без повторной оплаты.
 
 ## Конкретный economy / persistence packet
 
@@ -120,11 +121,12 @@ PendingResult/LoadError. `ProfileRunBinding` наблюдает только Run
 `Invested` / `RefundLockReason` / `RefundAsync(character, expectedInvestment)`
 владеют расчётом и атомарным сбросом выбранного героя.
 
-`ProfileCodec` schemaVersion=2: currency, firstRun, upgradesDisabled, upgrades (stable keys META-ID
+`ProfileCodec` schemaVersion=3: currency, firstRun, upgradesDisabled, upgrades (stable keys META-ID
 или META-ID:CharacterId), upgradeSpending (те же ключи → фактические затраты),
-unlocked, clearedFields, runs (RunId→receipt). Регистр ID
+unlocked, clearedFields, achievementProgress (field/metric/source→накопленная сумма), runs (RunId→receipt). Регистр ID
 сохраняется. IProfileMigration — явный шаг версии; неизвестная версия блокируется.
 Встроенный шаг `ProfileMigrationV1ToV2` добавляет `upgradesDisabled=false` (улучшения активны).
+`ProfileMigrationV2ToV3` добавляет пустой прогресс, не реконструируя прошлые убийства/урон из неполных receipts; сохранённые открытия и покупки остаются.
 `SetUpgradesDisabledAsync(bool)` ([DECISION-0064](../../decisions/0064-disable-permanent-upgrades.md)) —
 только в Ready и вне run; при `true` `Modifier` и дополнительные draft counters возвращают нулевой вклад, уровни и валюта не меняются.
 `MetaCatalogData`, `MetaUpgradeData`, `MetaUnlockData` задают JSON schema required

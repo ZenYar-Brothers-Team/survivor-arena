@@ -18,6 +18,7 @@ namespace Game.Bootstrap
     {
         private readonly List<PlaceholderState> _placeholders = new List<PlaceholderState>();
         private readonly List<Collider2D> _obstacleColliders = new List<Collider2D>();
+        private readonly Dictionary<Sprite, Rect> _obstacleContactBounds = new Dictionary<Sprite, Rect>();
         private readonly List<Collider2D> _disabledSceneColliders = new List<Collider2D>();
         private GameObject _root;
 
@@ -89,6 +90,7 @@ namespace Game.Bootstrap
                 if (_disabledSceneColliders[i] != null) _disabledSceneColliders[i].enabled = true;
             _disabledSceneColliders.Clear();
             _obstacleColliders.Clear();
+            _obstacleContactBounds.Clear();
             Obstacles = Array.Empty<FieldObstacleDefinition>();
             if (_root == null) return;
             _root.SetActive(false);
@@ -176,8 +178,8 @@ namespace Game.Bootstrap
                     if (useFence)
                     {
                         var box = renderer.gameObject.AddComponent<BoxCollider2D>();
-                        box.size = new Vector2(definition.FenceColliderWidth / renderer.transform.localScale.x,
-                            definition.FenceColliderHeight / renderer.transform.localScale.y);
+                        FitObstacleBox(box, renderer.sprite, definition.FenceColliderWidth,
+                            definition.FenceColliderHeight, renderer.transform.localScale.x);
                         collider = box;
                     }
                     else
@@ -236,12 +238,43 @@ namespace Game.Bootstrap
                 var scale = length / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
                 var renderer = CreateSprite(obstacle.Id, sprite, position, scale, upright ? 90f : 0f, -2, _root.transform);
                 var box = renderer.gameObject.AddComponent<BoxCollider2D>();
-                box.size = new Vector2(length / scale, thickness / scale);
+                FitObstacleBox(box, sprite, length, thickness, scale);
                 box.excludeLayers = ~(1 << playerLayer);
                 _obstacleColliders.Add(box);
                 positions.Add(position);
             }
             return positions;
+        }
+
+        // The authored rectangle sizes the prop. Its transparent sprite padding must not block the player.
+        private void FitObstacleBox(BoxCollider2D box, Sprite sprite, float width, float height, float scale)
+        {
+            if (!_obstacleContactBounds.TryGetValue(sprite, out var contact))
+            {
+                var points = new List<Vector2>();
+                var minimum = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+                var maximum = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+                for (var shape = 0; shape < sprite.GetPhysicsShapeCount(); shape++)
+                {
+                    points.Clear();
+                    sprite.GetPhysicsShape(shape, points);
+                    foreach (var point in points)
+                    {
+                        minimum = Vector2.Min(minimum, point);
+                        maximum = Vector2.Max(maximum, point);
+                    }
+                }
+                contact = float.IsPositiveInfinity(minimum.x)
+                    ? new Rect(sprite.bounds.min, sprite.bounds.size)
+                    : Rect.MinMaxRect(minimum.x, minimum.y, maximum.x, maximum.y);
+                _obstacleContactBounds.Add(sprite, contact);
+            }
+
+            var bounds = sprite.bounds;
+            box.size = new Vector2(width / scale * contact.width / bounds.size.x,
+                height / scale * contact.height / bounds.size.y);
+            box.offset = new Vector2(width / scale * (contact.center.x - bounds.center.x) / bounds.size.x,
+                height / scale * (contact.center.y - bounds.center.y) / bounds.size.y);
         }
 
         private void HidePlaceholder(Transform target)

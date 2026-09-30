@@ -113,16 +113,21 @@ namespace Game.Traveler
         private static float Nonnegative(float? value, string name) { var number = value ?? throw new ArgumentException(name + " required."); NumericValidation.ValidateNonNegative(number, name); return number; }
         public EnemyDefinition Scale(float multiplier)
         {
-            NumericValidation.ValidatePositive(multiplier, nameof(multiplier));
+            return Scale(multiplier, multiplier);
+        }
+        public EnemyDefinition Scale(float healthMultiplier, float damageMultiplier)
+        {
+            NumericValidation.ValidatePositive(healthMultiplier, nameof(healthMultiplier));
+            NumericValidation.ValidatePositive(damageMultiplier, nameof(damageMultiplier));
             var a = Body.Attack;
-            var attack = a == null ? null : new EnemyAttackProfile(a.Pattern, a.Damage * multiplier, a.CooldownSeconds,
+            var attack = a == null ? null : new EnemyAttackProfile(a.Pattern, a.Damage * damageMultiplier, a.CooldownSeconds,
                 a.ProjectileSpeed, a.ProjectileLifetimeSeconds, a.ProjectileCount, a.SpreadDegrees, a.BurstIntervalSeconds,
                 a.ProjectileRadius, a.ExplosionRadius, a.RotationStepDegrees, a.Controls, a.TelegraphSeconds,
                 a.ProjectileVisual, a.Cadence, a.FixedOrientation, a.FollowUps, a.WindupMovementMultiplier);
             // Art references stay: the runtime builds the animated body from them (a scaled body without
             // them threw mid-spawn and left an unregistered, invulnerable Traveler, DECISION-0059).
-            return new EnemyDefinition(Id, Body.MaxHealth * multiplier, Body.CollisionSize, Body.MovementSpeed,
-                Body.ContactDamage * multiplier, Body.ContactDamageInterval, Body.ExperienceReward, visual: Body.Visual, movement: Body.Movement,
+            return new EnemyDefinition(Id, Body.MaxHealth * healthMultiplier, Body.CollisionSize, Body.MovementSpeed,
+                Body.ContactDamage * damageMultiplier, Body.ContactDamageInterval, Body.ExperienceReward, visual: Body.Visual, movement: Body.Movement,
                 attack: attack, knockbackResistance: Body.KnockbackResistance, contactControls: Body.ContactControls, dashContactControls: Body.DashContactControls,
                 motionProfile: Body.MotionProfile, dashVolley: Body.DashVolley);
         }

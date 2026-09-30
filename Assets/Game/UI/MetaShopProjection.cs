@@ -44,15 +44,30 @@ namespace Game.UI
             "Unlocked by achievement" => "За достижение",
             _ => value
         };
-        public static string Condition(MetaUnlock rule, MetaCatalog catalog)
+        public static string Condition(MetaUnlock rule, MetaCatalog catalog, long progress = 0)
         {
             var field = rule.RequiredId != null && catalog.Unlocks.TryGetValue(rule.RequiredId, out var parent) ? parent.Name : "";
+            var target = rule.TargetId != null && catalog.Unlocks.TryGetValue(rule.TargetId, out var targetRule) ? targetRule.Name : rule.TargetId;
+            var count = System.Math.Min(progress, rule.TargetCount);
+            var achievement = rule.Metric switch
+            {
+                "ordinaryKills" => "Убить врагов",
+                "earnedGold" => "Заработать монет",
+                "activeDamage" => "Нанести урон умениями",
+                "characterDamage" => "Нанести урон за " + target,
+                "killsById" => "Победить " + target,
+                "skillDamage" => "Нанести урон · " + target,
+                _ => "Достижение"
+            };
             return rule.Condition switch
             {
                 "initial" => "Доступно с начала",
                 "fieldClear" => "Выжить 15:00 · " + field,
                 "access" => "Открыть карту · " + field,
                 "firstRun" => "Завершить первый забег",
+                "achievement" => achievement + " на " + field + " · " + count + "/" + rule.TargetCount,
+                "fieldClearOrAchievement" => "Выжить 15:00 на " + field + " или " + achievement.ToLowerInvariant() +
+                    " · " + count + "/" + rule.TargetCount,
                 _ => rule.Description
             };
         }

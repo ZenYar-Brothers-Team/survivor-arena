@@ -14,11 +14,12 @@ namespace Game.Run
         public RunDraftSnapshot DraftTotals { get; }
         public IReadOnlyList<RunBuildEntrySnapshot> Build { get; }
         public IReadOnlyList<RunBuildEntrySnapshot> Sets { get; }
+        public RunAchievementSnapshot Achievements { get; }
 
         public RunOutcomeContribution(int? kills = null, int? level = null,
             float? experience = null, IEnumerable<RunBuildEntrySnapshot> build = null,
             RunExperienceSnapshot experienceTotals = null, RunDraftSnapshot draftTotals = null,
-            IEnumerable<RunBuildEntrySnapshot> sets = null)
+            IEnumerable<RunBuildEntrySnapshot> sets = null, RunAchievementSnapshot achievements = null)
         {
             if (kills.HasValue) NumericValidation.ValidateNonNegative(kills.Value, nameof(kills));
             if (level.HasValue) NumericValidation.ValidateCount(level.Value, nameof(level));
@@ -28,6 +29,7 @@ namespace Game.Run
             Experience = experience;
             ExperienceTotals = experienceTotals;
             DraftTotals = draftTotals;
+            Achievements = achievements;
             if (sets != null)
             {
                 var copy = new List<RunBuildEntrySnapshot>(sets);

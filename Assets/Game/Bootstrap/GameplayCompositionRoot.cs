@@ -597,6 +597,8 @@ namespace Game.Bootstrap
                         Catalog.GroundShadowPresentation, Catalog.Registry,
                         TravelerSeed = UseReferenceSeeds ? travelerSchedule.Seed : FreshRunSeed.Next());
                 }
+                var achievements = new RunAchievementTracker(runController.Model, enemySpawner, BossEncounters, Travelers);
+                initializedSubsystems.Add(achievements.Dispose);
                 Playtest = PlaytestComposition.Create(Catalog, DraftSeed, runController.Model, player, experienceRuntime,
                     draftRuntime, enemySpawner, activeSkillRuntime, Pickups, Travelers,
                     _automationExportSink?.Invoke(runController.Model.RunId));

@@ -44,6 +44,10 @@ selected field загружает correct geometry/environment; ordinary boundar
 
 По DECISION-0102 внешний периметр физически ограничивает игрока, но не рисует
 сплошной забор; внутренние obstacle props сохраняют собственный арт и коллайдеры.
+По [DECISION-0126](../../decisions/0126-obstacle-transparent-padding-contact.md)
+player-only collider prop препятствия охватывает импортированную видимую форму,
+без упора в прозрачные края; после поворота стены прямоугольник поворачивается
+вместе со спрайтом.
 
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
@@ -61,7 +65,7 @@ field→kit→roles mapping, geometry constraints, metadata completeness, bindin
 
 ## Gates и недостающие решения
 
-G-14: geometry/enemy pools; G-20 resolved по DECISION-0038 (difficulty 1–5). G-15 resolved по DECISION-0037; unlock conditions берутся из CD. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
+G-14: geometry/enemy pools; G-20 resolved по DECISION-0038 (difficulty 1–5). G-15 resolved по DECISION-0037, альтернативные условия открытия — DECISION-0125 и CD; они не создают отсутствующие gameplay definitions. Весь approved mapping переносится, numeric schedules отдельно. Ссылки G-xx/W-01 — [матрица различий](../DESIGN_SYNC.md); AG-01/BG-01 — [правила поставки](../README.md). Уже утверждённые designs не требуют повторного approval.
 
 ## Потребители
 

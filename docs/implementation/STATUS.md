@@ -20,6 +20,26 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Путники 2026-09-30 — Implemented по [DECISION-0127](../decisions/0127-traveler-initial-health-scaling.md):
+Путник, появившийся в 0:00, получает треть прежнего здоровья. Его HP плавно
+достигает прежней шкалы к последнему допустимому появлению; урон сохраняет K.
+Проверки этого изменения перечислены в следующей записи evidence.
+
+Открытия 2026-09-30 — Implemented по [DECISION-0125](../decisions/0125-fields-and-achievement-unlocks-proposal.md):
+70 MetaEconomy IDs используют утверждённые условия по полям, достижениям и
+монетам; профиль v3 сохраняет накопительный прогресс, UI показывает пороги,
+а герой выдаёт своё стартовое умение. FIELD-001 остаётся принятым; ручная
+оценка FIELD-002/003 открыта, FIELD-004…010 пока без production geometry и
+полных волн. Форма обратной связи для игроков — отдельный открытый UI/сервисный
+packet: точка входа, поля и доставка ещё не утверждены. По сообщению игрока
+и [DECISION-0126](../decisions/0126-obstacle-transparent-padding-contact.md)
+подогнаны горизонтальные коллайдеры player-only препятствий FIELD-001…003 к
+видимой форме prop sprites; ручная оценка контакта в движении открыта.
+Full graphics 1146/1146 EditMode + 60/60 PlayMode PASS, 0 failed/skipped,
+generation/audio и art provenance 273/273 PASS;
+`TestResults/checks/20260930T163407-043713Z/summary.json`.
+[Изменения и проверки](evidence/2026-09-30-achievement-unlocks-and-obstacle-contact.md).
+
 Дельта 2026-09-30 по [DECISION-0117](../decisions/0117-skill-reach-and-xp-crystal-scale.md)
 — Implemented: базовая дальность всех active skills через характеристики
 CHAR-001…010 ×0.8; визуальный масштаб XP-кристалла и базовый радиус его
@@ -73,8 +93,13 @@ Offline imitation candidate обучен на трёх human runs: на кажд
 хуже повторения предыдущей команды, в игру не подключён. [Evidence](evidence/2026-09-30-human-imitation-candidate.md).
 Recorder теперь фиксирует каждый шаг смены движения между плановыми samples;
 полный graphics smoke 1051/1051 + 58/58 PASS. Новый player `e094afc` собран,
-bot-labelled pilot 1141 samples validator PASS; новый human сеанс ещё открыт.
+bot-labelled pilot 1141 samples validator PASS.
 [Evidence](evidence/2026-09-30-action-change-recorder.md).
+Новый human сеанс на `develop-evg` `a568e9d`: 4 завершённых забега,
+11 687 валидных samples, один административно прерванный забег исключён.
+Offline кандидат на четырёх held-out забегах уступил repeat-previous baseline
+по общей точности; в игру не выбран. Пользователь проблем в игре не заметил.
+[Запись и оценка](evidence/2026-09-30-human-action-change-session.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -942,8 +967,12 @@ accuracy ниже baseline на всех трёх забегах; closed-loop п
 ([evidence](evidence/2026-09-30-human-imitation-candidate.md)).
 Recorder follow-up: снимки при смене направления между periodic samples,
 старые JSONL совместимы; full graphics 1051/1051 + 58/58 PASS, новый player
-и bot-labelled pilot 1141 samples validator PASS. Новые human samples ещё нужны.
+и bot-labelled pilot 1141 samples validator PASS.
 [Evidence](evidence/2026-09-30-action-change-recorder.md).
+Human follow-up на `a568e9d`: 4 завершённых забега/11 687 samples validator
+PASS, один короткий administrative abort исключён. Offline MLP уступил baseline
+на каждом held-out забеге; closed-loop проверка и выбор policy открыты.
+[Evidence](evidence/2026-09-30-human-action-change-session.md).
 Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные

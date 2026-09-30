@@ -89,7 +89,7 @@ namespace Game.Traveler
                 var entry = Schedule[_next++];
                 // A large time step must not resurrect an encounter whose entire window has already elapsed.
                 if (_model.Elapsed < entry.Time + _definitions[entry.Id].PresenceSeconds)
-                    Spawn(entry.Id, entry.Time, entry.Scale);
+                    Spawn(entry.Id, entry.Time, entry.Scale, entry.HealthScale);
             }
             ApplyTeleports();
             UpdateSupport();
@@ -97,13 +97,17 @@ namespace Game.Traveler
         }
         public EnemyRuntime Spawn(ContentId id, float spawnTime, float scale)
         {
+            return Spawn(id, spawnTime, scale, scale);
+        }
+        public EnemyRuntime Spawn(ContentId id, float spawnTime, float scale, float healthScale)
+        {
             if (_model == null || _model.State != RunState.Running) return null;
             var definition = _definitions[id];
             if (!_placement.TrySpawn(_player.position, _camera.orthographicSize * 2 * _schedule.SpawnScreenHeights,
                 _schedule.PlacementAttempts, _random, out var position)) throw new InvalidOperationException("Traveler spawn circle has no valid point inside the field and outside obstacles; field geometry/config invalid.");
             // Art comes from the unscaled body: Scale() rebuilds stats only (DECISION-0057).
             var body = EnemyBodyVisual.Resolve(definition.Body, _contentRegistry);
-            var actor = EnemyFactory.Spawn(definition.Scale(scale), position, _player, _run, transform,
+            var actor = EnemyFactory.Spawn(definition.Scale(healthScale, scale), position, _player, _run, transform,
                 visual: body.Sprite, pool: _pool, projectilePool: _projectiles, category: EnemyCategory.Traveler,
                 motionProfile: body.Motion, contact: body.Contact, deathPresentation: _deathPresentation,
                 groundShadowPresentation: _groundShadowPresentation, contentRegistry: _contentRegistry);
@@ -289,14 +293,14 @@ namespace Game.Traveler
             if ((!Application.isEditor && !Debug.isDebugBuild) || _model == null || _schedule == null || string.IsNullOrWhiteSpace(id) || _lives.Count >= DevelopmentMaxAlive) return;
             var key = new ContentId(id);
             if (!_definitions.ContainsKey(key)) return;
-            Spawn(key, _model.Elapsed, _schedule.Scale(_model.Elapsed, _model.Duration));
+            Spawn(key, _model.Elapsed, _schedule.Scale(_model.Elapsed, _model.Duration), _schedule.HealthScale(_model.Elapsed, _model.Duration));
         }
         private const int DevelopmentMaxAlive = 10;
         public void SpawnDevelopmentTraveler()
         {
             if ((!Application.isEditor && !Debug.isDebugBuild) || _model == null || _lives.Count >= 3) return;
             var id = _schedule.TravelerIds[_devIndex++ % _schedule.TravelerIds.Count];
-            Spawn(id, _model.Elapsed, _schedule.Scale(_model.Elapsed, _model.Duration));
+            Spawn(id, _model.Elapsed, _schedule.Scale(_model.Elapsed, _model.Duration), _schedule.HealthScale(_model.Elapsed, _model.Duration));
         }
         private void HandleState(RunState state)
         {

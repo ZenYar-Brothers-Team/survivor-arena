@@ -18,6 +18,8 @@ namespace Game.Meta
         bool CanReset { get; }
         MetaRunReceipt LastReceipt { get; }
         bool IsUnlocked(string id);
+        /// <summary>Saved progress toward a numeric unlock; zero for other rules or before load.</summary>
+        long UnlockProgress(string id);
         int Level(string upgrade, string character = null);
         string PurchaseLockReason(string id, string character = null);
         /// <summary>DECISION-0064: when true, <see cref="Modifier"/> grants nothing although purchased levels are kept.</summary>

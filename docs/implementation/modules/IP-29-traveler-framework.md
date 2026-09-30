@@ -88,7 +88,9 @@ Peaceful body не может иметь attack или ненулевой contac
 
 Schedule наследует `FieldTravelerScheduleDefinition`: unique travelerIds (≥3), четыре
 normalized countProbabilities, seed, fieldRank 1…10, placementAttempts >0,
-endBufferSeconds=120, spawnScreenHeights=2, fieldGrowth=0.10, timeGrowth=0.50.
+endBufferSeconds=120, spawnScreenHeights=2, fieldGrowth=0.10, timeGrowth=0.50,
+initialHealthMultiplier=1/3. Урон использует K; HP применяет
+K×(initialHealthMultiplier+(1−initialHealthMultiplier)×u) по DECISION-0127.
 Units/formula и пример — DECISION-0035. Definitions/schedules регистрируются через
 ContentRegistry; typed refs не используют production IDs. RNG расписания отделён
 от пространственного/behavior stream и от wave/draft RNG.

@@ -45,6 +45,10 @@ namespace Game.Bootstrap.PlayModeTests
                 var fieldArt = GameObject.Find("FieldEnvironmentArt");
                 var obstacles = fieldArt.GetComponentsInChildren<Collider2D>();
                 Assert.AreEqual(288, obstacles.Length);
+                var barrel = obstacles.First(item => item.GetComponent<SpriteRenderer>().sprite.name.StartsWith("field-001-barrel"));
+                var barrelSpriteWidth = barrel.GetComponent<SpriteRenderer>().bounds.size.x;
+                Assert.Less(barrel.bounds.size.x, barrelSpriteWidth * .8f,
+                    "The barrel contact must exclude transparent horizontal padding.");
                 var camera = Camera.main;
                 var inView = obstacles.Count(item =>
                 {

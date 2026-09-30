@@ -46,12 +46,14 @@ presence lifetime. При terminal run все встречи/эффекты уб
 - a=0.10 и b=0.50 — начальные безразмерные JSON coefficients. Допустимый диапазон
   каждого [0,1]; a управляет ростом между полями, b — ростом внутри run.
 - K — фиксированный при spawn multiplier; при начальных коэффициентах 1…2.85.
-- HP = baseHP × K; damage каждого contact/dash/projectile attack = baseDamage × K.
+- HP = baseHP × K × (⅓ + ⅔ × u), [DECISION-0127](0127-traveler-initial-health-scaling.md):
+  в начале забега это треть прежнего HP, а при u=1 — прежнее `baseHP × K`.
+  Damage каждого contact/dash/projectile attack = baseDamage × K.
   Нулевой damage остаётся нулём. Значения конечные, baseHP >0, baseDamage ≥0.
 - Скорость, knockback/resistance, cooldown, presence и support strength не масштабируются.
 
 Пример: rank 5, t=390 s (6:30), T=900 s: u=0.5, K=1.4×1.25=1.75.
-Базовые 1000 HP / 20 damage становятся 1750 HP / 35 damage.
+Базовые 1000 HP / 20 damage становятся примерно 1167 HP / 35 damage.
 Параметры и rank принадлежат content JSON; коэффициенты не зашиваются в C#.
 
 ## Минимальные взаимодействия

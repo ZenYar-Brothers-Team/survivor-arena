@@ -1953,6 +1953,7 @@
     "fieldRank": 1,
     "fieldGrowth": 0.1,
     "timeGrowth": 0.5,
+    "initialHealthMultiplier": 0.333333,
     "endBufferSeconds": 120,
     "spawnScreenHeights": 2,
     "placementAttempts": 32

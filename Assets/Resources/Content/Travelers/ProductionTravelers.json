@@ -566,7 +566,8 @@
       "endBufferSeconds": 120,
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
-      "timeGrowth": 0.5
+      "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333
     },
     {
       "id": "FIELD-002-TRAVELERS",
@@ -596,7 +597,8 @@
       "endBufferSeconds": 120,
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
-      "timeGrowth": 0.5
+      "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333
     },
     {
       "id": "FIELD-003-TRAVELERS",
@@ -626,7 +628,8 @@
       "endBufferSeconds": 120,
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
-      "timeGrowth": 0.5
+      "timeGrowth": 0.5,
+      "initialHealthMultiplier": 0.333333
     }
   ]
 }

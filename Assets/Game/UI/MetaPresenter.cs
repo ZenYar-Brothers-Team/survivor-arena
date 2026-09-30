@@ -88,10 +88,10 @@ namespace Game.UI
                     var content = RunResultsProjection.Content(rule.Id, _profile.Catalog, _registry?.Invoke());
                     var hidden = rule.Kind == "character" && !_profile.IsUnlocked(rule.Id);
                     var group = rule.Kind == "character" ? "Персонажи" : rule.Kind == "field" ? "Карты" :
-                        rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "За прохождение · " + field.Name : "Доступно с начала";
+                        rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "Карта · " + field.Name : "Доступно с начала";
                     var hiddenField = rule.Kind == "field" && !_profile.IsUnlocked(rule.Id);
                     cards.Add(new MetaCardViewState(rule.Id, null, 0, hidden || hiddenField ? "?" : content.Name,
-                        _profile.IsUnlocked(rule.Id) ? "✓ Открыто" : (reason == null ? "Можно открыть" : MetaShopProjection.Condition(rule, _profile.Catalog)) +
+                        _profile.IsUnlocked(rule.Id) ? "✓ Открыто" : (reason == null ? "Можно открыть" : MetaShopProjection.Condition(rule, _profile.Catalog, _profile.UnlockProgress(rule.Id))) +
                         (reason == "Not enough currency" ? " · Не хватает монет" : ""),
                         rule.Price > 0 && reason == null, price: _profile.IsUnlocked(rule.Id) ? 0 : rule.Price,
                         group: group, icon: content.Icon, hiddenCharacter: hidden, kind: rule.Kind,

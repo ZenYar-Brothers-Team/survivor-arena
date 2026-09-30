@@ -19,6 +19,7 @@ namespace Game.Traveler
         public float SpawnScreenHeights { get; }
         public float FieldGrowth { get; }
         public float TimeGrowth { get; }
+        public float InitialHealthMultiplier { get; }
         public TravelerScheduleDefinition(TravelerScheduleData data) : base(data.Id)
         {
             TravelerIds = (data.TravelerIds ?? throw new ArgumentException("travelerIds required.")).Select(id => new ContentId(id)).ToList().AsReadOnly();
@@ -40,8 +41,10 @@ namespace Game.Traveler
             NumericValidation.ValidatePositive(SpawnScreenHeights, nameof(SpawnScreenHeights));
             FieldGrowth = data.FieldGrowth ?? throw new ArgumentException("fieldGrowth required.");
             TimeGrowth = data.TimeGrowth ?? throw new ArgumentException("timeGrowth required.");
+            InitialHealthMultiplier = data.InitialHealthMultiplier ?? throw new ArgumentException("initialHealthMultiplier required.");
             NumericValidation.ValidateRange(FieldGrowth, 0, 1, nameof(FieldGrowth));
             NumericValidation.ValidateRange(TimeGrowth, 0, 1, nameof(TimeGrowth));
+            NumericValidation.ValidateRange(InitialHealthMultiplier, 0.0001f, 1, nameof(InitialHealthMultiplier));
         }
         public float Scale(float spawnTime, float duration)
         {
@@ -49,6 +52,12 @@ namespace Game.Traveler
             NumericValidation.ValidatePositive(duration, nameof(duration));
             if (duration <= EndBufferSeconds) throw new ArgumentException("Run must exceed end buffer.");
             return (1 + FieldGrowth * (FieldRank - 1)) * (1 + TimeGrowth * Math.Min(1, spawnTime / (duration - EndBufferSeconds)));
+        }
+        /// <summary>DECISION-0127: early Travelers begin at a fraction of their normal HP and reach it by the final spawn window.</summary>
+        public float HealthScale(float spawnTime, float duration)
+        {
+            var progress = Math.Min(1, spawnTime / (duration - EndBufferSeconds));
+            return Scale(spawnTime, duration) * (InitialHealthMultiplier + (1 - InitialHealthMultiplier) * progress);
         }
         /// <summary>
         /// Draws the count (MinCount…MaxCount) and the Travelers (DECISION-0122). Types are the roles of <paramref name="roleOf"/>
@@ -82,7 +91,7 @@ namespace Game.Traveler
                 }
                 var id = bag[bag.Count - 1]; bag.RemoveAt(bag.Count - 1); lastPicked[type] = id;
                 var time = (float)random.NextDouble() * (duration - EndBufferSeconds);
-                entries.Add(new TravelerScheduleEntry(id, time, i, Scale(time, duration)));
+                entries.Add(new TravelerScheduleEntry(id, time, i, Scale(time, duration), HealthScale(time, duration)));
             }
             return entries.OrderBy(item => item.Time).ThenBy(item => item.Sequence).ToList().AsReadOnly();
         }

@@ -188,7 +188,7 @@ Knockback: 0 world units на всех уровнях; цепная молния
 
 #### SKILL-008 — Рикошетный диск
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001.
 
 Роль: эффективный урон в средней плотности врагов.
 Targeting / pattern: летит к ближайшей цели и после попадания автоматически перенаправляется к другой ближайшей цели.
@@ -199,7 +199,7 @@ Knockback: 0.25 world units при каждом попадании по теку
 
 #### SKILL-009 — Магматическая мина
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 300 обычных врагов на FIELD-002 (накопительно).
 
 Роль: урон по преследующим врагам и использование маршрута игрока.
 Targeting / pattern: автоматически оставляет мину в текущей позиции персонажа; мина взрывается при приближении врага или по истечении lifetime.
@@ -221,7 +221,7 @@ Knockback: 0.45 world units радиально от центра точки уд
 
 #### SKILL-011 — Спираль осколков
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-004 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): купить за 250 монет после открытия FIELD-004.
 
 Роль: равномерное покрытие пространства вокруг персонажа.
 Targeting / pattern: выпускает серию снарядов по кругу; направление каждой следующей активации немного поворачивается, формируя спиральный рисунок.
@@ -232,7 +232,7 @@ Knockback: 0.12 world units от каждого осколка по направ
 
 #### SKILL-012 — Пульсирующий луч
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 200000 фактического урона активными умениями на FIELD-003 (накопительно).
 
 Роль: фокусированный урон по ближайшему направлению с хорошим пробиванием.
 Targeting / pattern: короткий луч автоматически направляется на ближайшего врага и существует ограниченное время.
@@ -265,7 +265,7 @@ Knockback: impact 0.25 world units по направлению полёта сф
 
 #### SKILL-015 — Крест клинков
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-004 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 500 обычных врагов на FIELD-004 (накопительно).
 
 Роль: периодический burst по четырём направлениям с сильным поздним покрытием.
 Targeting / pattern: центрируется на персонаже и в базовой версии выпускает четыре длинных режущих волны по фиксированным горизонтальному и вертикальному направлениям. Ориентация не зависит от положения врагов или направления движения персонажа.
@@ -276,7 +276,7 @@ Knockback: 0.30 world units от каждой волны по направлен
 
 #### SKILL-016 — Разбрасыватель мусора
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): купить за 200 монет после открытия FIELD-002.
 
 Роль: очень частое хаотичное покрытие пространства множеством слабых случайно направленных projectiles.
 Targeting / pattern: не выбирает цель. При каждом срабатывании выпускает projectile в случайном направлении; если одновременно создаётся несколько projectiles, направление каждого определяется независимо. Визуально projectile может быть случайным мелким предметом из набора мусора, без обязательных gameplay-различий между предметами.
@@ -337,7 +337,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 #### PASSIVE-006 — Эхо памяти
 
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): заработать суммарно 250 монет на FIELD-002 (накопительно).
 Эффект: возвращает часть опыта, который исчез с земли до подбора.
 Уровни 1–6: 10% / 20% / 30% / 40% / 50% / 60% disappearing-XP recovery.
 Взаимодействия: складывается с базовой характеристикой recovery персонажа по общей формуле параметров; итоговое значение не должно начислять один и тот же опыт дважды.
@@ -373,7 +373,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 #### PASSIVE-010 — Талисман ученика
 
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 350 обычных врагов на FIELD-002 (накопительно).
 Эффект: увеличивает количество опыта, начисляемого при физическом подборе XP.
 Уровни 1–6: +5% / +10% / +15% / +20% / +25% / +30% picked-up XP.
 Взаимодействия: модификатор применяется к фактически подобранному опыту; disappearing-XP recovery рассчитывается отдельно по своей механике.
@@ -397,7 +397,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### PASSIVE-013 — Длинные руки
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001.
 Эффект: увеличивает дальность действия активных умений и/или продолжительность движения projectiles, если их фактическая дальность определяется lifetime.
 Уровни 1–6: +8% / +16% / +24% / +32% / +40% / +50% effective range.
 Взаимодействия: увеличивает travel distance/range, но не увеличивает width, radius или projectile size. Для projectile, дальность которого определяется сочетанием speed и lifetime, соответствующий balance-параметр масштабируется так, чтобы итоговая effective range выросла на указанный процент.
@@ -405,7 +405,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### PASSIVE-014 — Упрямство
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 150000 фактического урона активными умениями на FIELD-003 (накопительно).
 Эффект: увеличивает damage персонажа по мере снижения текущей доли HP.
 Уровни 1–6: максимальный damage bonus +15% / +25% / +35% / +45% / +55% / +70%.
 Взаимодействия: при 100% HP bonus равен 0%; далее он линейно растёт по мере потери здоровья и достигает указанного для текущего уровня максимума при 10% HP и ниже. Бонус применяется ко всему damage персонажа; его текущий коэффициент пересчитывается при лечении, уроне и изменении характеристик. Итоговый damage фиксируется при активации атаки и сохраняется для всех её отложенных попаданий, волн, мин и повторных ticks. Изменение HP влияет на следующую активацию; производный damage от уже усиленного родительского damage не умножается повторно. Самостоятельная новая set/proc-активация фиксирует собственный коэффициент (DECISION-0017).
@@ -439,7 +439,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-002 — Возвратный ритм
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001.
 Рецепт: SKILL-006 «Бумеранг» + SKILL-008 «Рикошетный диск» + PASSIVE-003 «Лёгкие сапоги».
 Тип: простая трансформация двух умений.
 Эффект: Бумеранг и Рикошетный диск получают повышенный damage и projectile speed на обратном пути к персонажу. Никаких дополнительных временных buffs или stacks нет.
@@ -449,7 +449,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-003 — Грозовой проводник
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 50000 фактического урона умением SKILL-007 на FIELD-001 (накопительно).
 Рецепт: SKILL-007 «Цепная молния» + PASSIVE-005 «Метроном» + PASSIVE-013 «Длинные руки».
 Тип: простой пассивный баф.
 Эффект: Цепная молния получает больше max targets, увеличенный jump range и заметно меньшее падение damage между прыжками.
@@ -469,7 +469,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-005 — Жадность к знаниям
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-002.
 Рецепт: PASSIVE-006 «Эхо памяти» + PASSIVE-007 «Магнит опыта» + PASSIVE-010 «Талисман ученика».
 Тип: чистый progression buff.
 Эффект: заметно усиливает disappearing-XP recovery, XP pickup radius и picked-up XP. Дополнительно каждый level-up восстанавливает небольшую долю HP.
@@ -489,7 +489,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-007 — Векторный шторм
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-004 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 200000 фактического урона умением SKILL-002 на FIELD-004 (накопительно).
 Рецепт: SKILL-002 «Веер игл» + SKILL-011 «Спираль осколков» + SKILL-015 «Крест клинков» + PASSIVE-012 «Широкий замах».
 Тип: простой общий buff группы pattern-skills.
 Эффект: три указанных умения получают bonus к effect size/width, range и damage. Их patterns не поворачиваются и не синхронизируются специальными правилами.
@@ -499,7 +499,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-008 — Утилизатор
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 700 обычных врагов на FIELD-002 (накопительно).
 Рецепт: SKILL-009 «Магматическая мина» + SKILL-014 «Взрывные сферы» + SKILL-016 «Разбрасыватель мусора» + PASSIVE-012 «Широкий замах».
 Тип: одна простая stateful-трансформация.
 Эффект: каждый N-й projectile Разбрасывателя мусора заменяется одним «тяжёлым мусором»: он крупнее, медленнее останавливается и при остановке взрывается. Explosion skills компонентов получают небольшой общий bonus к radius.
@@ -509,7 +509,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-009 — Линия пробоя
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-003.
 Рецепт: SKILL-005 «Ветряное копьё» + SKILL-012 «Пульсирующий луч» + PASSIVE-004 «Точильный камень» + PASSIVE-013 «Длинные руки».
 Тип: простой buff линейных атак.
 Эффект: Ветряное копьё и Пульсирующий луч получают большой bonus к range, damage и width; Ветряное копьё дополнительно получает bonus к pierce. Никаких marks или изменения target selection нет.
@@ -529,7 +529,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-011 — Кинетический арсенал
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): убить 500 обычных врагов на FIELD-001 (накопительно).
 Рецепт: SKILL-001 «Бросок камня» + SKILL-005 «Ветряное копьё» + SKILL-008 «Рикошетный диск» + PASSIVE-004 «Точильный камень» + PASSIVE-013 «Длинные руки».
 Тип: сильный пассивный projectile buff.
 Эффект: перечисленные direct projectiles получают большой bonus к projectile speed, damage, range и небольшой bonus к outgoing knockback. Cross-skill cooldown reduction убран.
@@ -539,7 +539,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-012 — Неподвижная крепость
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 150000 фактического урона умением SKILL-003 на FIELD-003 (накопительно).
 Рецепт: SKILL-004 «Импульсная волна» + PASSIVE-001 «Крепкое сердце» + PASSIVE-008 «Закалённая кожа» + PASSIVE-011 «Тяжёлый пояс» + PASSIVE-014 «Упрямство».
 Тип: сильный defensive passive.
 Эффект: большой bonus к max HP, damage reduction и player knockback resistance; Импульсная волна получает большой bonus к radius и outgoing knockback. Reactive proc после получения damage убран.
@@ -549,7 +549,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-013 — Перегрузка сети
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 150000 фактического урона умением SKILL-007 на FIELD-003 (накопительно).
 Рецепт: SKILL-007 «Цепная молния» + SKILL-012 «Пульсирующий луч» + PASSIVE-004 «Точильный камень» + PASSIVE-005 «Метроном».
 Тип: отдельный простой set-attack.
 Эффект: с фиксированным редким cooldown сет поражает ближайшего врага A мощным электрическим ударом; от A одновременно расходятся разряды максимум к нескольким врагам в радиусе. Вторичные разряды дальше не прыгают.
@@ -559,7 +559,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-014 — Танец клинков
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-004 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-004.
 Рецепт: SKILL-003 «Орбитальные клинки» + SKILL-011 «Спираль осколков» + SKILL-015 «Крест клинков» + PASSIVE-003 «Лёгкие сапоги» + PASSIVE-004 «Точильный камень» + PASSIVE-005 «Метроном».
 Тип: очень сильный 6-компонентный passive transformation.
 Эффект: три blade/shard skills постоянно получают большой bonus к damage, action speed и effect size. Периодическая «фаза танца» и отдельный rhythm cycle убраны.
@@ -569,7 +569,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-015 — Алхимия хаоса
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-002 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 100000 фактического урона умением SKILL-009 на FIELD-002 (накопительно).
 Рецепт: SKILL-009 «Магматическая мина» + SKILL-014 «Взрывные сферы» + SKILL-016 «Разбрасыватель мусора» + PASSIVE-002 «Собиратель» + PASSIVE-009 «Лечебная настойка» + PASSIVE-012 «Широкий замах».
 Тип: 6-компонентный explosive buff + простой pickup proc.
 Эффект: перечисленные explosive/random skills постоянно получают большой bonus к explosion damage/radius. Подбор Зелья лечения дополнительно создаёт один мощный explosion вокруг персонажа с отдельным внутренним cooldown. Сложный временный «режим утилизации» убран.
@@ -579,7 +579,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-016 — Выстрел великана
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 50000 фактического урона умением SKILL-010 на FIELD-001 (накопительно).
 Рецепт: SKILL-005 «Ветряное копьё» + PASSIVE-004 «Точильный камень» + PASSIVE-013 «Длинные руки».
 Тип: отдельный простой set-attack.
 Эффект: раз в несколько секунд по текущему направлению движения персонажа вылетает один огромный тяжёлый bolt. Он наносит очень высокий damage, пробивает много целей и сильно отбрасывает их.
@@ -599,7 +599,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 #### SET-018 — Сфера разрушения
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): купить за 400 монет после открытия FIELD-004.
 Рецепт: SKILL-014 «Взрывные сферы» + PASSIVE-004 «Точильный камень» + PASSIVE-012 «Широкий замах» + PASSIVE-014 «Упрямство».
 Тип: отдельный простой set-attack.
 Эффект: с редким cooldown в случайном направлении выпускается одна очень крупная медленная сфера. При первом попадании или завершении lifetime она создаёт мощный взрыв.
@@ -609,7 +609,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-019 — Ледяное копьё
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-003 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 150000 фактического урона умением SKILL-013 на FIELD-003 (накопительно).
 Рецепт: SKILL-013 «Ледяные осколки» + PASSIVE-011 «Тяжёлый пояс» + PASSIVE-013 «Длинные руки» + PASSIVE-014 «Упрямство».
 Тип: отдельный простой set-attack.
 Эффект: с редким cooldown по направлению движения выпускается один огромный ледяной shard. Он пробивает несколько врагов, наносит высокий damage, сильно замедляет и заметно отбрасывает поражённые цели.
@@ -619,7 +619,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бес
 
 #### SET-020 — Каменное ядро
 Статус: Approved.
-Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): бесплатно после первого прохождения FIELD-001 (выжить 900 running seconds).
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001, затем купить за 200 монет.
 Рецепт: SKILL-001 «Бросок камня» + PASSIVE-011 «Тяжёлый пояс» + PASSIVE-012 «Широкий замах» + PASSIVE-013 «Длинные руки».
 Тип: отдельный простой set-attack.
 Эффект: раз в несколько секунд в случайном направлении запускается один массивный медленный валун. Он пробивает ограниченное число целей, наносит высокий damage и очень сильно отбрасывает врагов.
@@ -641,12 +641,12 @@ Win/Defeat/Quit дают одинаковую формулу; старые recei
 
 Исходно открыты CHAR-001, FIELD-001 и набор 10 active / 10 passive / 5 sets по
 [DECISION-0050](decisions/0050-starting-content-and-unlocks.md) и [таблице ниже](#starting-content-0050).
-Поздние skills/passives/sets открываются бесплатно за FIELD-001…004 и доступны
+Поздние skills/passives/sets открываются смешанно за поля, достижения и монеты ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)) и доступны
 также на первой карте. Это мета-доступ, не обход рецептов, слотов, banish или
 production delivery gates. Стартовое умение персонажа входит в его открытый пул.
 Поле пройдено только при выживании 900 running seconds; CHAR-002 можно купить
 после первого прохождения FIELD-001 за 100. Quit/поражение не открывает покупку.
-Все условия проверяются по сохранённым фактам; награда и unlocks применяются одной
+Все условия проверяются по сохранённым фактам; награда, накопительный прогресс и unlocks применяются одной
 транзакцией, unlock notification выдаётся однажды. Зависимые условия пересчитываются
 до отсутствия новых unlocks. Условие покупки CHAR-004/006/008 — доступ к полю,
 а не прохождение этого поля. Покупки CHAR-002/004/006/008 стоят 100/300/500/700.
@@ -726,8 +726,8 @@ HP bonus per level 0…0.05, damage bonus 0…0.03. Все значения — 
 <a id="starting-content-0050"></a>
 ### Стартовый набор и дальнейшие открытия — DECISION-0050
 
-Этот раздел и строки `Unlock (DECISION-0050)` в карточках заменяют стартовый
-mapping DECISION-0037 по approval пользователя от 2026-09-22.
+Начальный состав определён DECISION-0050; поздние условия карточек и таблица ниже
+обновлены [DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md).
 Числа 10/10/5 описывают начальную meta-доступность нового профиля; это не число
 слотов, не гарантированный состав одного драфта и не постоянный лимит FIELD-001.
 Позднее открытое доступно на всех открытых полях, включая повторный FIELD-001.
@@ -765,28 +765,13 @@ mapping DECISION-0037 по approval пользователя от 2026-09-22.
 рецепта отдельно; получить сет всё ещё можно только после component thresholds
 и выбора его карточки в draft. Численные thresholds остаются открытым balance gate.
 
-#### Бесплатные пакеты открытий
+#### Смешанные открытия
 
-Условие каждого пакета — первое успешное прохождение указанного поля, живым
-достигнув 900 running seconds. Победа над боссом не обязательна. Поражение и Quit
-не открывают пакет, но сохраняют обычную валютную награду. Отдельной покупки
-skills/passives/sets нет. Таблица перечисляет только новые ID, не весь накопленный пул.
-
-| Условие | Новые active skills | Новые passive items | Новые сеты |
-|---|---|---|---|
-| Пройти FIELD-001 | SKILL-008 — Рикошетный диск | PASSIVE-013 — Длинные руки | SET-002 — Возвратный ритм; SET-003 — Грозовой проводник; SET-011 — Кинетический арсенал; SET-016 — Выстрел великана; SET-020 — Каменное ядро |
-| Пройти FIELD-002 | SKILL-009 — Магматическая мина; SKILL-016 — Разбрасыватель мусора | PASSIVE-006 — Эхо памяти; PASSIVE-010 — Талисман ученика | SET-005 — Жадность к знаниям; SET-008 — Утилизатор; SET-015 — Алхимия хаоса |
-| Пройти FIELD-003 | SKILL-012 — Пульсирующий луч | PASSIVE-014 — Упрямство | SET-009 — Линия пробоя; SET-012 — Неподвижная крепость; SET-013 — Перегрузка сети; SET-018 — Сфера разрушения; SET-019 — Ледяное копьё |
-| Пройти FIELD-004 | SKILL-011 — Спираль осколков; SKILL-015 — Крест клинков | — | SET-007 — Векторный шторм; SET-014 — Танец клинков |
-
-В каждом пакете set unlock совпадает с открытием последнего недостающего типа
-компонента его рецепта. Открытие не выдаёт компоненты и сет в текущий билд.
-Накопленный пул active/passive/set: старт 10/10/5 → после FIELD-001 11/11/10 →
-после FIELD-002 13/13/13 → после FIELD-003 14/14/18 → после FIELD-004 16/14/20.
+Полный mapping поздних active/passive/set с порогами и ценами — [DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md#утверждённый-mapping-открытий). За прохождение FIELD-001/002/003/004 остаются соответственно SKILL-008/PASSIVE-013/SET-002, SET-005, SET-009, SET-014. Остальные поздние ID имеют индивидуальные накопительные достижения или цену. Прохождение означает 900 running seconds живым, без обязательного убийства босса. Поражение и Quit не открывают награду за прохождение, но сохраняют заработанную валюту и фактический прогресс достижений. Открытие сета не выдаёт его компоненты или сет в текущий билд; рецепт всё ещё требует компонентов и уровней в забеге. Уже открытые ID не отзываются, включая старые профили.
 
 CHAR-002 «Бугор»: покупка за 100 после прохождения FIELD-001 вместо
 любого завершённого run. Это оставляет Клёпку единственным playable на новом
-профиле до первой победы. Прочие character/field unlocks и цены не меняются.
+профиле до первой победы. Прочие цены персонажей не меняются; поля получили альтернативные условия DECISION-0125.
 Все стартовые умения дальнейших персонажей открываются не позже условий доступа
 к этим персонажам. Character weights действуют только внутри уже открытого пула;
 повышенный вес или показ рецепта не открывает locked content.
@@ -1509,7 +1494,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 Пул Путников общий для всех полей ([DECISION-0063](decisions/0063-field002-slice-v1.md)): все реализованные Путники, в забеге равномерная перемешка ролей группами по три ([DECISION-0122](decisions/0122-traveler-count-and-type-mix.md)). Фиксированная тройка DECISION-0050 для FIELD-001 — TRAVELER-001 / TRAVELER-002 / TRAVELER-005, по одному представителю боевой, неагрессивной и защитной роли, — была тестовым ограничением. «Контекст» в карточках ниже — тематическая рекомендация, а не ограничение пула. Число 1–5, выбор группами по одному на роль без повторов Путника, пока не показаны все его роли, timing/scaling и награда Книга сохраняются. С 2026-09-28 в пуле все десять ([DECISION-0088](decisions/0088-travelers-v1.md)): путники одного уровня прогрессии, профили поздних карточек выровнены под стартового путника своей роли, XP и время присутствия едины внутри роли; различие полей даёт только общее масштабирование K. Presence/XP/support values FIELD-001 заданы baseline v1 (DECISION-0053).
 
-Все десять Путников ниже имеют статус Approved. Путник — временная специальная цель, а не единый тип мини-босса. В текущем пуле используются три роли: 4 боевых Путника, которые атакуют игрока и по ощущению близки к простым mini-boss encounters; 3 неагрессивных Путника, которые в основном блуждают/избегают игрока; 3 Путника-защитника, которые сами не охотятся на игрока, а помогают обычным врагам и стараются держаться рядом с ними. Для движения защитник рассматривает четырёх ближайших живых обычных врагов, выбирает среди них кандидата с наиболее плотным окружением, а при равенстве — ближайшего к игроку, и занимает позицию рядом с ним со стороны игрока; цель пересчитывается раз в 10 секунд либо после её потери ([DECISION-0082](decisions/0082-simple-traveler-protector-targeting.md)). Если любой Путник убит до ухода, он роняет Книгу. Подбор Книги немедленно открывает внеочередной draft из 3 предложений; Книга не даёт XP и не повышает уровень. Число Путников на забег задаётся системным правилом GDD: выбирается 1–5 по настраиваемому дискретному распределению вероятностей ([DECISION-0122](decisions/0122-traveler-count-and-type-mix.md)). Для каждого выбранного Путника время появления независимо выбирается равномерно по интервалу 0:00–13:00 для 15-минутного забега; типы выбираются равномерной перемешкой: группами по одному Путнику на роль в случайном порядке, внутри роли без повторов до исчерпания. Базовые профили утверждены; только HP и ненулевой damage масштабируются полем и моментом появления. Скорость и support strength не масштабируются. Формула K=(1+0.10×(r−1))×(1+0.50×u), r=1…10 — ступень поля, u=t/(T−120) в пределах [0,1], t/T — running seconds, T>120; coefficients задаются JSON. При r=5, T=900, t=390: K=1.75. Spawn — две полные высоты gameplay viewport от игрока внутри доступного поля. [DECISION-0035](decisions/0035-traveler-encounter-rules.md) задаёт timing, scaling и единые support rules. Окна присутствия, обычный XP reward, production field pools и per-ID support числа остаются balance/encounter-data.
+Все десять Путников ниже имеют статус Approved. Путник — временная специальная цель, а не единый тип мини-босса. В текущем пуле используются три роли: 4 боевых Путника, которые атакуют игрока и по ощущению близки к простым mini-boss encounters; 3 неагрессивных Путника, которые в основном блуждают/избегают игрока; 3 Путника-защитника, которые сами не охотятся на игрока, а помогают обычным врагам и стараются держаться рядом с ними. Для движения защитник рассматривает четырёх ближайших живых обычных врагов, выбирает среди них кандидата с наиболее плотным окружением, а при равенстве — ближайшего к игроку, и занимает позицию рядом с ним со стороны игрока; цель пересчитывается раз в 10 секунд либо после её потери ([DECISION-0082](decisions/0082-simple-traveler-protector-targeting.md)). Если любой Путник убит до ухода, он роняет Книгу. Подбор Книги немедленно открывает внеочередной draft из 3 предложений; Книга не даёт XP и не повышает уровень. Число Путников на забег задаётся системным правилом GDD: выбирается 1–5 по настраиваемому дискретному распределению вероятностей ([DECISION-0122](decisions/0122-traveler-count-and-type-mix.md)). Для каждого выбранного Путника время появления независимо выбирается равномерно по интервалу 0:00–13:00 для 15-минутного забега; типы выбираются равномерной перемешкой: группами по одному Путнику на роль в случайном порядке, внутри роли без повторов до исчерпания. Базовые профили утверждены; урон масштабируется K=(1+0.10×(r−1))×(1+0.50×u), а HP получает H=K×(⅓+⅔×u) ([DECISION-0127](decisions/0127-traveler-initial-health-scaling.md)). Поэтому при u=0 HP втрое ниже прежнего, а при u=1 возвращается к прежней шкале K. Здесь r=1…10 — ступень поля, u=t/(T−120) в пределах [0,1], t/T — running seconds, T>120; coefficients задаются JSON. При r=5, T=900, t=390: K=1.75, H≈1.17. Скорость и support strength не масштабируются. Spawn — две полные высоты gameplay viewport от игрока внутри доступного поля. [DECISION-0035](decisions/0035-traveler-encounter-rules.md) задаёт timing и единые support rules. Окна присутствия, обычный XP reward, production field pools и per-ID support числа остаются balance/encounter-data.
 
 #### TRAVELER-001 — Дорожный громила
 Статус: Approved.
@@ -1751,7 +1736,7 @@ Wave pressure: немного выше плотность и короче пер
 Boss / mid-boss: BOSS-002 / MIDBOSS-002.
 Enemy pool ([DECISION-0063](decisions/0063-field002-slice-v1.md)): шесть типов FIELD-001 и три новых — ENEMY-008 с первой волны, ENEMY-009, ENEMY-006.
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=2.
-Unlock: завершить FIELD-001 хотя бы один раз.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001 или убить 500 обычных врагов на FIELD-001 (накопительно).
 
 #### FIELD-003 — Пограничные руины
 
@@ -1764,7 +1749,7 @@ Wave pressure: заметные пики давления появляются �
 Boss / mid-boss: BOSS-003 / MIDBOSS-003.
 Enemy pool ([DECISION-0067](decisions/0067-field003-v1.md)): девять типов FIELD-002 и новый ENEMY-010 с первой волны; геометрия — [field003-v1](balance/field003-v1.md), волны — [field-rhythm-v2](balance/field-rhythm-v2.md).
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=3.
-Unlock: завершить FIELD-002.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-002 или заработать суммарно 500 монет на FIELD-002 (накопительно).
 
 #### FIELD-004 — Рыцарский лагерь
 
@@ -1775,7 +1760,7 @@ Geometry / obstacles: поле снова более открытое, но с �
 Enemy profile: повышается доля профессиональных солдат, конных разведчиков и первых рыцарей; меньше полностью безопасных направлений отхода.<br>
 Wave pressure: более быстрый переход от обычных волн к локальным пикам сложности.
 Boss / mid-boss: BOSS-004 / MIDBOSS-004.
-Unlock: завершить FIELD-003.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-003 или нанести 250000 фактического урона активными умениями на FIELD-003 (накопительно).
 
 #### FIELD-005 — Королевская столица
 
@@ -1786,7 +1771,7 @@ Geometry / obstacles: крупные здания и стены создают �
 Enemy profile: плотный смешанный состав городской стражи, гвардейцев, инквизиторов и рыцарей; ranged-враги поддерживают выносливый frontline.<br>
 Wave pressure: короткие передышки; несколько выраженных сложных/элитных волн.
 Boss / mid-boss: BOSS-005 / MIDBOSS-005.
-Unlock: завершить FIELD-004.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-004 или убить 1500 обычных врагов на FIELD-004 (накопительно).
 
 #### FIELD-006 — Академия магов
 
@@ -1797,7 +1782,7 @@ Geometry / obstacles: больше длинных стен и узких про�
 Enemy profile: высокая доля магов, капелланов и дальнобойных солдат, хорошо работающих в узких проходах; элиты появляются регулярнее.<br>
 Wave pressure: пики давления дольше сохраняются, а передышки короче.
 Boss / mid-boss: BOSS-006 / MIDBOSS-006.
-Unlock: завершить FIELD-005.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-005 или нанести 400000 фактического урона умением SKILL-009 на FIELD-005 (накопительно).
 
 #### FIELD-007 — Монастырские сады
 
@@ -1808,7 +1793,7 @@ Geometry / obstacles: много небольших препятствий не�
 Enemy profile: рыцарские отряды и церковные преследователи сочетаются с магической ranged-поддержкой и более выносливыми целями.<br>
 Wave pressure: высокая средняя плотность, элитные всплески могут следовать близко друг за другом.
 Boss / mid-boss: BOSS-007 / MIDBOSS-007.
-Unlock: завершить FIELD-006.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-006 или убить 2000 обычных врагов на FIELD-006 (накопительно).
 
 #### FIELD-008 — Цитадель короны
 
@@ -1819,7 +1804,7 @@ Geometry / obstacles: стены, колонны и проходы сильне�
 Enemy profile: много латных рыцарей и королевских гвардейцев, регулярные группы магов/жрецов и высокая доля элит.<br>
 Wave pressure: продолжительные сложные фазы; передышки короткие и не обязательно полностью снимают давление.
 Boss / mid-boss: BOSS-008 / MIDBOSS-008.
-Unlock: завершить FIELD-007.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-007 или нанести 750000 фактического урона за CHAR-005 на FIELD-007 (накопительно).
 
 #### FIELD-009 — Небесные врата
 
@@ -1830,7 +1815,7 @@ Geometry / obstacles: чередование больших открытых о�
 Enemy profile: земные рыцари и маги сражаются рядом с быстрыми, выносливыми и ranged-небожителями; серафимы регулярно входят в обычные волны.<br>
 Wave pressure: мало длительных передышек, высокое базовое давление и сильные локальные пики.
 Boss / mid-boss: BOSS-009 / MIDBOSS-009.
-Unlock: завершить FIELD-008.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-008 или победить MIDBOSS-008 4 раза на FIELD-008 (накопительно).
 
 #### FIELD-010 — Чертог Спасения
 
@@ -1841,6 +1826,6 @@ Geometry / obstacles: смешивает открытые арены, корид
 Enemy profile: самые тяжёлые сочетания рыцарей, архимагов, паладинов, серафимов и ангелов; высокая доля ranged, быстрых, выносливых и элитных противников.<br>
 Wave pressure: высокая плотность с ранних минут; передышки относительные; последние минуты до финального босса представляют почти непрерывную сложную фазу.
 Boss / mid-boss: BOSS-010 / MIDBOSS-010.
-Unlock: завершить FIELD-009.
+Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-009 или нанести 1000000 фактического урона умением SKILL-012 на FIELD-009 (накопительно).
 
 ### Wave / Encounter Content

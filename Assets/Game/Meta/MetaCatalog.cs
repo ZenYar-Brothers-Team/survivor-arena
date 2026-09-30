@@ -40,6 +40,9 @@ namespace Game.Meta
             { var rule = new MetaUnlock(item ?? throw new ArgumentException("Null unlock.")); unlocks.Add(rule.Id, rule); }
             foreach (var rule in unlocks.Values)
             {
+                foreach (var grant in rule.Grants)
+                    if (!unlocks.TryGetValue(grant, out var granted) || granted.Kind != "skill")
+                        throw new ArgumentException("Character grants an unknown skill: " + grant);
                 if (rule.RequiredId == null) continue;
                 if (!unlocks.TryGetValue(rule.RequiredId, out var required) || required.Kind != "field") throw new ArgumentException("Unlock requires a known field: " + rule.Id);
                 var seen = new HashSet<string> { rule.Id };

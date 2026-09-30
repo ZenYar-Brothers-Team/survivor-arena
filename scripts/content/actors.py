@@ -310,7 +310,7 @@ def travelers(baseline):
                 "seed": seed, "fieldRank": rank,
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
-                "timeGrowth": schedule["timeGrowth"]}
+                "timeGrowth": schedule["timeGrowth"], "initialHealthMultiplier": schedule["initialHealthMultiplier"]}
     for key in ("field002", "field003"):
         if not baseline[key]["travelers"]["pool"].startswith("global"):
             raise SystemExit(f"{key} Traveler pool must be the global pool")

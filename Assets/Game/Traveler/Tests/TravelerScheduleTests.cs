@@ -103,6 +103,8 @@ namespace Game.Traveler.Tests
             var data = Data["schedules"][0].ToObject<TravelerScheduleData>(); data.FieldRank = 5;
             var schedule = new TravelerScheduleDefinition(data);
             Assert.AreEqual(1.75f, schedule.Scale(390,900), .0001f);
+            Assert.AreEqual(1.4f / 3f, schedule.HealthScale(0, 900), .0001f);
+            Assert.AreEqual(2.1f, schedule.HealthScale(780, 900), .0001f);
             foreach (var definition in FixtureTravelerCatalog.Create().Definitions.Values)
             {
                 var scaled = definition.Scale(1.75f);

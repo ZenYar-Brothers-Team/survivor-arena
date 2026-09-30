@@ -143,7 +143,10 @@
       "kind": "character",
       "condition": "access",
       "price": 300,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "grants": [
+        "SKILL-009"
+      ]
     },
     {
       "id": "CHAR-005",
@@ -175,7 +178,10 @@
       "kind": "character",
       "condition": "access",
       "price": 700,
-      "requiredId": "FIELD-007"
+      "requiredId": "FIELD-007",
+      "grants": [
+        "SKILL-012"
+      ]
     },
     {
       "id": "CHAR-009",
@@ -191,7 +197,10 @@
       "kind": "character",
       "condition": "fieldClear",
       "price": 0,
-      "requiredId": "FIELD-009"
+      "requiredId": "FIELD-009",
+      "grants": [
+        "SKILL-015"
+      ]
     },
     {
       "id": "FIELD-001",
@@ -204,73 +213,95 @@
       "id": "FIELD-002",
       "name": "Королевский тракт",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-001"
+      "requiredId": "FIELD-001",
+      "metric": "ordinaryKills",
+      "targetCount": 500
     },
     {
       "id": "FIELD-003",
       "name": "Пограничные руины",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "earnedGold",
+      "targetCount": 500
     },
     {
       "id": "FIELD-004",
       "name": "Рыцарский лагерь",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "activeDamage",
+      "targetCount": 250000
     },
     {
       "id": "FIELD-005",
       "name": "Королевская столица",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-004"
+      "requiredId": "FIELD-004",
+      "metric": "ordinaryKills",
+      "targetCount": 1500
     },
     {
       "id": "FIELD-006",
       "name": "Академия магов",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-005"
+      "requiredId": "FIELD-005",
+      "metric": "skillDamage",
+      "targetCount": 400000,
+      "targetId": "SKILL-009"
     },
     {
       "id": "FIELD-007",
       "name": "Монастырские сады",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-006"
+      "requiredId": "FIELD-006",
+      "metric": "ordinaryKills",
+      "targetCount": 2000
     },
     {
       "id": "FIELD-008",
       "name": "Цитадель короны",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-007"
+      "requiredId": "FIELD-007",
+      "metric": "characterDamage",
+      "targetCount": 750000,
+      "targetId": "CHAR-005"
     },
     {
       "id": "FIELD-009",
       "name": "Небесные врата",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-008"
+      "requiredId": "FIELD-008",
+      "metric": "killsById",
+      "targetCount": 4,
+      "targetId": "MIDBOSS-008"
     },
     {
       "id": "FIELD-010",
       "name": "Чертог Спасения",
       "kind": "field",
-      "condition": "fieldClear",
+      "condition": "fieldClearOrAchievement",
       "price": 0,
-      "requiredId": "FIELD-009"
+      "requiredId": "FIELD-009",
+      "metric": "skillDamage",
+      "targetCount": 1000000,
+      "targetId": "SKILL-012"
     },
     {
       "id": "SKILL-001",
@@ -333,9 +364,11 @@
       "id": "SKILL-009",
       "name": "Магматическая мина",
       "kind": "skill",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "ordinaryKills",
+      "targetCount": 300
     },
     {
       "id": "SKILL-010",
@@ -348,17 +381,19 @@
       "id": "SKILL-011",
       "name": "Спираль осколков",
       "kind": "skill",
-      "condition": "fieldClear",
-      "price": 0,
+      "condition": "access",
+      "price": 250,
       "requiredId": "FIELD-004"
     },
     {
       "id": "SKILL-012",
       "name": "Пульсирующий луч",
       "kind": "skill",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "activeDamage",
+      "targetCount": 200000
     },
     {
       "id": "SKILL-013",
@@ -378,16 +413,18 @@
       "id": "SKILL-015",
       "name": "Крест клинков",
       "kind": "skill",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-004"
+      "requiredId": "FIELD-004",
+      "metric": "ordinaryKills",
+      "targetCount": 500
     },
     {
       "id": "SKILL-016",
       "name": "Разбрасыватель мусора",
       "kind": "skill",
-      "condition": "fieldClear",
-      "price": 0,
+      "condition": "access",
+      "price": 200,
       "requiredId": "FIELD-002"
     },
     {
@@ -409,9 +446,12 @@
       "id": "SET-003",
       "name": "Грозовой проводник",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-001"
+      "requiredId": "FIELD-001",
+      "metric": "skillDamage",
+      "targetCount": 50000,
+      "targetId": "SKILL-007"
     },
     {
       "id": "SET-004",
@@ -439,17 +479,22 @@
       "id": "SET-007",
       "name": "Векторный шторм",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-004"
+      "requiredId": "FIELD-004",
+      "metric": "skillDamage",
+      "targetCount": 200000,
+      "targetId": "SKILL-002"
     },
     {
       "id": "SET-008",
       "name": "Утилизатор",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "ordinaryKills",
+      "targetCount": 700
     },
     {
       "id": "SET-009",
@@ -470,25 +515,33 @@
       "id": "SET-011",
       "name": "Кинетический арсенал",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-001"
+      "requiredId": "FIELD-001",
+      "metric": "ordinaryKills",
+      "targetCount": 500
     },
     {
       "id": "SET-012",
       "name": "Неподвижная крепость",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "skillDamage",
+      "targetCount": 150000,
+      "targetId": "SKILL-003"
     },
     {
       "id": "SET-013",
       "name": "Перегрузка сети",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "skillDamage",
+      "targetCount": 150000,
+      "targetId": "SKILL-007"
     },
     {
       "id": "SET-014",
@@ -502,17 +555,23 @@
       "id": "SET-015",
       "name": "Алхимия хаоса",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "skillDamage",
+      "targetCount": 100000,
+      "targetId": "SKILL-009"
     },
     {
       "id": "SET-016",
       "name": "Выстрел великана",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-001"
+      "requiredId": "FIELD-001",
+      "metric": "skillDamage",
+      "targetCount": 50000,
+      "targetId": "SKILL-010"
     },
     {
       "id": "SET-017",
@@ -525,24 +584,27 @@
       "id": "SET-018",
       "name": "Сфера разрушения",
       "kind": "set",
-      "condition": "fieldClear",
-      "price": 0,
-      "requiredId": "FIELD-003"
+      "condition": "access",
+      "price": 400,
+      "requiredId": "FIELD-004"
     },
     {
       "id": "SET-019",
       "name": "Ледяное копьё",
       "kind": "set",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "skillDamage",
+      "targetCount": 150000,
+      "targetId": "SKILL-013"
     },
     {
       "id": "SET-020",
       "name": "Каменное ядро",
       "kind": "set",
       "condition": "fieldClear",
-      "price": 0,
+      "price": 200,
       "requiredId": "FIELD-001"
     },
     {
@@ -584,9 +646,11 @@
       "id": "PASSIVE-006",
       "name": "Эхо памяти",
       "kind": "passive",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "earnedGold",
+      "targetCount": 250
     },
     {
       "id": "PASSIVE-007",
@@ -613,9 +677,11 @@
       "id": "PASSIVE-010",
       "name": "Талисман ученика",
       "kind": "passive",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-002"
+      "requiredId": "FIELD-002",
+      "metric": "ordinaryKills",
+      "targetCount": 350
     },
     {
       "id": "PASSIVE-011",
@@ -643,9 +709,11 @@
       "id": "PASSIVE-014",
       "name": "Упрямство",
       "kind": "passive",
-      "condition": "fieldClear",
+      "condition": "achievement",
       "price": 0,
-      "requiredId": "FIELD-003"
+      "requiredId": "FIELD-003",
+      "metric": "activeDamage",
+      "targetCount": 150000
     }
   ],
   "refundFee": 1000

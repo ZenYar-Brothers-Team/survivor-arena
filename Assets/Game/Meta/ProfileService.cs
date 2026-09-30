@@ -74,6 +74,11 @@ namespace Game.Meta
             catch (Exception error) { Publish(ProfileState.LoadError, error.Message); }
         }
         public bool IsUnlocked(string id) => id != null && _data != null && _data.Unlocked.Contains(id);
+        public long UnlockProgress(string id)
+        {
+            if (_data == null || !Catalog.Unlocks.TryGetValue(id, out var rule) || rule.Metric == null) return 0;
+            return _data.AchievementProgress.TryGetValue(rule.ProgressKey, out var value) ? value : 0;
+        }
         public int Level(string upgrade, string character = null)
         {
             if (_data == null || !Catalog.Upgrades.TryGetValue(upgrade, out var item) || item.Personal && character == null) return 0;
@@ -81,7 +86,30 @@ namespace Game.Meta
         }
         private bool Condition(MetaUnlock rule, ProfileData data) => rule.Condition == "initial" ||
             rule.Condition == "firstRun" && data.FirstRun || rule.Condition == "fieldClear" && data.ClearedFields.Contains(rule.RequiredId) ||
-            rule.Condition == "access" && data.Unlocked.Contains(rule.RequiredId);
+            rule.Condition == "access" && data.Unlocked.Contains(rule.RequiredId) ||
+            rule.Condition == "achievement" && HasAchievement(rule, data) ||
+            rule.Condition == "fieldClearOrAchievement" && (data.ClearedFields.Contains(rule.RequiredId) || HasAchievement(rule, data));
+        private static bool HasAchievement(MetaUnlock rule, ProfileData data) =>
+            data.AchievementProgress.TryGetValue(rule.ProgressKey, out var count) && count >= rule.TargetCount;
+
+        private static void AddProgress(ProfileData data, string field, string metric, string source, long amount)
+        {
+            if (amount <= 0) return;
+            var key = field + "|" + metric + "|" + (source ?? "-");
+            data.AchievementProgress.TryGetValue(key, out var old);
+            data.AchievementProgress[key] = checked(old + amount);
+        }
+
+        private static void AddRunProgress(ProfileData data, string field, string character, long earnedGold, RunAchievementSnapshot snapshot)
+        {
+            AddProgress(data, field, "earnedGold", null, earnedGold);
+            if (snapshot == null) return;
+            AddProgress(data, field, "ordinaryKills", null, snapshot.OrdinaryKills);
+            AddProgress(data, field, "activeDamage", null, snapshot.ActiveSkillDamage);
+            AddProgress(data, field, "characterDamage", character, snapshot.CharacterDamage);
+            foreach (var pair in snapshot.KillsById) AddProgress(data, field, "killsById", pair.Key, pair.Value);
+            foreach (var pair in snapshot.DamageBySource) AddProgress(data, field, "skillDamage", pair.Key, pair.Value);
+        }
         public string PurchaseLockReason(string id, string character = null)
         {
             if (State != ProfileState.Ready) return "Save the profile first";
@@ -121,6 +149,7 @@ namespace Game.Meta
             {
                 if (expectedLevel != 0) return false;
                 var rule = Catalog.Unlocks[id]; next.Currency = checked(next.Currency - rule.Price); next.Unlocked.Add(id);
+                foreach (var grant in rule.Grants) next.Unlocked.Add(grant);
             }
             ResolveUnlocks(next);
             Publish(ProfileState.Saving);
@@ -134,7 +163,12 @@ namespace Game.Meta
             {
                 changed = false;
                 foreach (var rule in Catalog.Unlocks.Values)
+                {
                     if (rule.Price == 0 && Condition(rule, data) && data.Unlocked.Add(rule.Id)) { unlocked.Add(rule.Id); changed = true; }
+                    if (!data.Unlocked.Contains(rule.Id)) continue;
+                    foreach (var grant in rule.Grants)
+                        if (data.Unlocked.Add(grant)) { unlocked.Add(grant); changed = true; }
+                }
             } while (changed);
             return unlocked;
         }
@@ -231,6 +265,8 @@ namespace Game.Meta
                     BookReward = draft.DraftTotals.BookCurrency, NewUnlocks = new List<string>() };
                 next.Currency = checked(next.Currency + receipt.Total);
                 next.FirstRun = true;
+                AddRunProgress(next, outcome.Selection.FieldId.ToString(), outcome.Selection.CharacterId.ToString(), receipt.Total,
+                    outcome.Contributions.TryGetValue("achievements", out var facts) ? facts.Achievements : null);
                 // Victory is authoritative; shortened fixture runs never clear a 15-minute field.
                 if (outcome.Reason == RunCompletionReason.Victory && outcome.ElapsedSeconds >= Catalog.FieldClearSeconds)
                     next.ClearedFields.Add(outcome.Selection.FieldId.ToString());
