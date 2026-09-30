@@ -6,7 +6,7 @@
   "placementSkin": 0.01,
   "feedbackSeconds": 1.5,
   "experienceVisualId": "FIXTURE-XP-DROP-VISUAL",
-  "experienceVisualScale": 0.62,
+  "experienceVisualScale": 0.527,
   "dropScatterRadius": 0.3,
   "dropScatterSeed": 48212,
   "enemyChances": {},

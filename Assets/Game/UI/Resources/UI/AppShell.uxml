@@ -28,6 +28,7 @@
           <ui:Label text="Изображение" class="settings-heading" />
           <ui:DropdownField name="SettingsWindow" label="Режим" class="settings-select" />
           <ui:DropdownField name="SettingsResolution" label="Разрешение" class="settings-select" />
+          <ui:DropdownField name="SettingsUiScale" label="Масштаб интерфейса" class="settings-select" />
           <ui:VisualElement class="settings-video-actions"><ui:Button name="SettingsApply" text="Применить" /><ui:Label name="SettingsVideoStatus" class="settings-muted" /></ui:VisualElement>
           <ui:VisualElement class="settings-gameplay"><ui:Label text="Управление" class="settings-heading" />
             <ui:Toggle name="SettingsMouseMovement" label="Управление мышью" />

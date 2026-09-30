@@ -20,12 +20,13 @@ namespace Game.UI
         public event Action<float,float,float> Audio;
         public event Action<bool> Shake, MouseMovement, Preview;
         public event Action<VideoMode> Video;
+        public event Action<float> UiScaleChosen;
         private T Q<T>(string id) where T:VisualElement => Document.rootVisualElement.Q<T>(id);
         public AppShellScreen(Transform parent)
         {
             _owner=new GameObject("App shell"); UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(_owner,parent.gameObject.scene);
             _panel=ScriptableObject.CreateInstance<PanelSettings>(); _panel.scaleMode=PanelScaleMode.ScaleWithScreenSize; _panel.referenceResolution=new Vector2Int(1920,1080);
-            _panel.themeStyleSheet=Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
+            _panel.themeStyleSheet=Resources.Load<ThemeStyleSheet>("UI/GameplayTheme"); UiScale.Register(_panel);
             Document=_owner.AddComponent<UIDocument>(); Document.panelSettings=_panel; Document.sortingOrder=400;
             // Separate panels require their own render and input order (IP-26).
             _panel.sortingOrder = Document.sortingOrder;
@@ -55,6 +56,9 @@ namespace Game.UI
             Q<DropdownField>(GameplayUiElementIds.SettingsWindow).choices = new System.Collections.Generic.List<string> { "На весь экран", "В окне" };
             Q<DropdownField>(GameplayUiElementIds.SettingsWindow).RegisterValueChangedCallback(e=>
                 Video?.Invoke(e.newValue == "В окне" ? _state.SafeWindow : _state.Desktop));
+            Q<DropdownField>(GameplayUiElementIds.SettingsUiScale).choices = SettingsSnapshot.UiScales.Select(UiScale.Label).ToList();
+            Q<DropdownField>(GameplayUiElementIds.SettingsUiScale).RegisterValueChangedCallback(e =>
+                UiScaleChosen?.Invoke(SettingsSnapshot.UiScales.First(step => UiScale.Label(step) == e.newValue)));
             Q<DropdownField>(GameplayUiElementIds.SettingsResolution).RegisterValueChangedCallback(e=> { var mode=_state.Modes.FirstOrDefault(m=>m.ToString()==e.newValue); if(mode!=null)Video?.Invoke(mode); });
         }
         private void Hook(string id,Action action) => Q<Button>(id).clicked+=action;
@@ -75,6 +79,7 @@ namespace Game.UI
             Q<Slider>(GameplayUiElementIds.SettingsSfx).SetValueWithoutNotify(state.Values.Sfx*100);
             Q<Toggle>(GameplayUiElementIds.SettingsShake).SetValueWithoutNotify(state.Values.Shake);
             Q<Toggle>(GameplayUiElementIds.SettingsMouseMovement).SetValueWithoutNotify(state.Values.MouseMovement);
+            Q<DropdownField>(GameplayUiElementIds.SettingsUiScale).SetValueWithoutNotify(UiScale.Label(state.Values.UiScale));
             Q<DropdownField>(GameplayUiElementIds.SettingsWindow).SetValueWithoutNotify(state.Candidate.Borderless ? "На весь экран" : "В окне");
             var resolution=Q<DropdownField>(GameplayUiElementIds.SettingsResolution); resolution.choices=state.Modes.Select(m=>m.ToString()).ToList(); resolution.SetValueWithoutNotify(state.Candidate.ToString()); resolution.SetEnabled(!state.Candidate.Borderless&&!state.Busy&&!state.Confirming);
             Q<DropdownField>(GameplayUiElementIds.SettingsWindow).SetEnabled(!state.Busy&&!state.Confirming);

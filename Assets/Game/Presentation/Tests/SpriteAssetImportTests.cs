@@ -63,7 +63,7 @@ namespace Game.Presentation.Tests
             Assert.AreEqual(TextureWrapMode.Clamp, importer.wrapMode);
             Assert.AreEqual(FilterMode.Bilinear, importer.filterMode);
             Assert.AreEqual(SpriteMeshType.FullRect, settings.spriteMeshType);
-            Assert.AreEqual(320f, importer.spritePixelsPerUnit);
+            Assert.That(importer.spritePixelsPerUnit, Is.EqualTo(426.666667f).Within(.001f));
             Assert.AreEqual((int)SpriteAlignment.Custom, settings.spriteAlignment);
             Assert.AreEqual(new Vector2(0.5f, 0.09f), settings.spritePivot);
             Assert.AreEqual(512, importer.maxTextureSize);

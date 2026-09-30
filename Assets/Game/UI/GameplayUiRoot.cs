@@ -84,6 +84,7 @@ namespace Game.UI
             _panelSettings.screenMatchMode = PanelScreenMatchMode.MatchWidthOrHeight;
             _panelSettings.match = 0.5f;
             _panelSettings.themeStyleSheet = themeStyleSheet;
+            UiScale.Register(_panelSettings);
 
             _document = GetComponent<UIDocument>();
             if (_document == null)

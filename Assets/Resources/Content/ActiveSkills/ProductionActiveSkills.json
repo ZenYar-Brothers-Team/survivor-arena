@@ -1397,7 +1397,7 @@
                 "pierceCount": 0,
                 "speed": 9,
                 "lifetimeSeconds": 1,
-                "collisionRadius": 0.2,
+                "collisionRadius": 0.162,
                 "behavior": {
                   "ricochetCount": 1,
                   "ricochetRange": 3,
@@ -1434,7 +1434,7 @@
                 "pierceCount": 0,
                 "speed": 10.35,
                 "lifetimeSeconds": 1.15942,
-                "collisionRadius": 0.2,
+                "collisionRadius": 0.162,
                 "behavior": {
                   "ricochetCount": 2,
                   "ricochetRange": 3,
@@ -1471,7 +1471,7 @@
                 "pierceCount": 0,
                 "speed": 10.35,
                 "lifetimeSeconds": 1.449275,
-                "collisionRadius": 0.2,
+                "collisionRadius": 0.162,
                 "behavior": {
                   "ricochetCount": 3,
                   "ricochetRange": 3,
@@ -1508,7 +1508,7 @@
                 "pierceCount": 0,
                 "speed": 11.7,
                 "lifetimeSeconds": 1.794872,
-                "collisionRadius": 0.2,
+                "collisionRadius": 0.162,
                 "behavior": {
                   "ricochetCount": 5,
                   "ricochetRange": 3,
@@ -1545,7 +1545,7 @@
                 "pierceCount": 0,
                 "speed": 11.7,
                 "lifetimeSeconds": 1.794872,
-                "collisionRadius": 0.2,
+                "collisionRadius": 0.162,
                 "behavior": {
                   "ricochetCount": 5,
                   "ricochetRange": 3,
@@ -1582,7 +1582,7 @@
                 "pierceCount": 0,
                 "speed": 13.95,
                 "lifetimeSeconds": 1.935484,
-                "collisionRadius": 0.24,
+                "collisionRadius": 0.1944,
                 "behavior": {
                   "ricochetCount": 7,
                   "ricochetRange": 3,

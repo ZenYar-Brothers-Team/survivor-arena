@@ -4,6 +4,7 @@
   "sfx": 0.8,
   "shake": true,
   "mouseMovement": false,
+  "uiScale": 0,
   "mouseDeadzoneWorldUnits": 1.0,
   "safeWidth": 1280,
   "safeHeight": 720,

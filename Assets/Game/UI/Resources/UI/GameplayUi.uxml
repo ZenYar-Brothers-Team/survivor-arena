@@ -133,7 +133,7 @@
                         <ui:Button name="development-slow-status-off" text="Нет" class="compact-button showcase-button" />
                         <ui:Button name="development-slow-status-bar" text="Полоска" class="compact-button showcase-button" />
                         <ui:Button name="development-slow-status-tint" text="Посинение" class="compact-button showcase-button" />
-                        <ui:Button name="development-slow-status-ice" text="Лёд" class="compact-button showcase-button" />
+                        <ui:Button name="development-slow-status-ice" text="Полоска + лёд" class="compact-button showcase-button" />
                         <ui:Button name="development-slow-status-outline" text="Обводка" class="compact-button showcase-button" />
                         <ui:Button name="development-slow-status-all" text="Все" class="compact-button showcase-button" />
                     </ui:VisualElement>

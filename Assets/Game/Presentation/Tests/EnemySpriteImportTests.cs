@@ -21,7 +21,7 @@ namespace Game.Presentation.Tests
             Assert.IsNotNull(Resources.Load<Sprite>("Art/Sprites/Enemies/enemy-001/enemy-001-body"));
             Assert.AreEqual(new Vector2(256, 256), sprite.rect.size);
             Assert.AreEqual(new Vector2(.53f, .1f), importer.spritePivot);
-            Assert.AreEqual(160, importer.spritePixelsPerUnit);
+            Assert.AreEqual(200, importer.spritePixelsPerUnit);
             Assert.AreEqual(256, importer.maxTextureSize);
             Assert.AreEqual(TextureImporterType.Sprite, importer.textureType);
             Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);
@@ -55,7 +55,7 @@ namespace Game.Presentation.Tests
             Assert.IsNotNull(Resources.Load<Sprite>("Art/Sprites/Enemies/enemy-002/enemy-002-body"));
             Assert.AreEqual(new Vector2(256, 256), sprite.rect.size);
             Assert.AreEqual(new Vector2(.5f, .1f), importer.spritePivot);
-            Assert.AreEqual(160, importer.spritePixelsPerUnit);
+            Assert.AreEqual(200, importer.spritePixelsPerUnit);
             Assert.AreEqual(256, importer.maxTextureSize);
             Assert.AreEqual(TextureImporterType.Sprite, importer.textureType);
             Assert.AreEqual(TextureImporterCompression.Uncompressed, importer.textureCompression);

@@ -47,7 +47,7 @@ def main():
 
     # Timeline keeps its approved cadence; the ordinary-enemy ceiling is a shared technical safeguard.
     phases = data["timeline"]["phases"]
-    require(data["timeline"]["maxAliveEnemies"] == base["timeline"]["maxAliveEnemies"] == 200,
+    require(data["timeline"]["maxAliveEnemies"] == base["timeline"]["maxAliveEnemies"] == 300,
             "All fields use the shared technical ordinary-enemy cap")
     elapsed = 0
     for p in phases:

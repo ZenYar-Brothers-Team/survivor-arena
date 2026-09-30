@@ -94,9 +94,11 @@ production composition. Проверять отдельные hover/focus/presse
 состояния, кириллицу и читаемость; один статичный кадр не доказывает всю матрицу.
 По DECISION-0085 в player-facing карточках/подробностях нет абсолютного базового
 урона; damage upgrades показываются процентами без изменения gameplay values.
-По [DECISION-0086](../../decisions/0086-ui-review-density-and-inspection.md):
+По [DECISION-0086](../../decisions/0086-ui-review-density-and-inspection.md) и
+[DECISION-0112](../../decisions/0112-draft-one-click-selection.md):
 HUD без wave/инструкций/кнопки Pause и с компактным масштабом только в 720p; Draft/Book
-разделяют inspect и отдельный confirm, включая Banish. Список связанных сетов
+показывают сеты по наведению/focus и выбирают карточку одним нажатием (в режиме Banish — исключают).
+Последняя справка остаётся после ухода курсора; список связанных сетов
 со scroll не подтверждает карточку. Pause отводит больше места рецептам,
 показывает компактные acquired/missed icon/name в общем правом scroll,
 оставляет все 6+6 слотов и footer видимыми при увеличенной области персонажа.

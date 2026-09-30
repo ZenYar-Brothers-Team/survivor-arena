@@ -31,6 +31,7 @@ namespace Game.UI
             _panel = ScriptableObject.CreateInstance<PanelSettings>();
             _panel.scaleMode = PanelScaleMode.ScaleWithScreenSize;
             _panel.referenceResolution = new Vector2Int(1920, 1080);
+            UiScale.Register(_panel);
             _panel.themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
             Document = _owner.AddComponent<UIDocument>();
             Document.panelSettings = _panel;

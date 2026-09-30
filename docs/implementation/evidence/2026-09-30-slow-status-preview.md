@@ -1,6 +1,6 @@
 # Превью эффекта замедления и скорость 0.5× — evidence, 2026-09-30
 
-Решение: [DECISION-0108](../../decisions/0108-slow-status-look-preview.md); задача [GI-09](../../playtests/OPEN_ISSUES.md#gi-09--эффект-замедления).
+Решение: [DECISION-0108](../../decisions/0108-slow-status-look-preview.md).
 
 ## Реализация
 

@@ -78,6 +78,20 @@ namespace Game.Settings.Tests
             settings.SetMouseMovement(true);await settings.SaveAsync();
             Assert.IsTrue(SettingsCodec.Decode(store.Text).MouseMovement);
         }
+        [Test] public async Task UiScale_DefaultsToAuto_PersistsAndRejectsUnknownSteps()
+        {
+            var store=new MemorySettingsStore();var settings=new SettingsService(SettingsConfig.Load(),store,new FakeVideoDevice());await settings.LoadAsync();
+            Assert.AreEqual(0f,settings.Current.UiScale);
+            settings.SetUiScale(1.25f);await settings.SaveAsync();
+            Assert.AreEqual(1.25f,SettingsCodec.Decode(store.Text).UiScale);
+            settings.SetMouseMovement(true);Assert.AreEqual(1.25f,settings.Current.UiScale);
+            Assert.Throws<ArgumentOutOfRangeException>(()=>settings.SetUiScale(2f));
+        }
+        [Test] public void Decode_VersionTwo_MigratesUiScaleToAuto()
+        {
+            const string versionTwo="{\"schemaVersion\":2,\"master\":0.8,\"music\":0.6,\"sfx\":0.8,\"shake\":true,\"mouseMovement\":false,\"width\":1920,\"height\":1080,\"borderless\":true}";
+            Assert.AreEqual(0f,SettingsCodec.Decode(versionTwo).UiScale);
+        }
         [Test] public void Decode_VersionOne_MigratesMouseMovementToOff()
         {
             const string versionOne="{\"schemaVersion\":1,\"master\":0.8,\"music\":0.6,\"sfx\":0.8,\"shake\":true,\"width\":1920,\"height\":1080,\"borderless\":true}";

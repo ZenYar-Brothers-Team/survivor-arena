@@ -1,5 +1,9 @@
+using System.IO;
 using System.Linq;
+using Game.Content;
+using Game.Presentation;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Game.ActiveSkill.Tests
 {
@@ -30,9 +34,48 @@ namespace Game.ActiveSkill.Tests
             var l6 = Effect<ProjectileBurstEffect>("SKILL-008", 6);
             Assert.IsTrue(l6.Behavior.RepeatRicochetTargets, "Repeats a target only when no other valid target exists.");
             Assert.AreEqual(27f, l6.Speed * l6.LifetimeSeconds, 1e-3f, "Travel budget 6 + 3 x 7 ricochets.");
-            Assert.AreEqual(0.24f, l6.CollisionRadius, 1e-5f);
+            Assert.AreEqual(0.162f, Effect<ProjectileBurstEffect>("SKILL-008", 1).CollisionRadius, 1e-5f);
+            Assert.AreEqual(0.1944f, l6.CollisionRadius, 1e-5f);
             Assert.AreEqual(16.38f, Skill("SKILL-008").GetLevel(3).BaseDamage, 1e-4f);
             Assert.AreEqual(0.3625f, Skill("SKILL-008").GetLevel(5).Waves[0].Controls.KnockbackDistance, 1e-5f);
+        }
+
+        [Test]
+        public void RicochetDisk_VisibleCircleMatchesHitRadius()
+        {
+            var visual = FixtureSpriteCatalog.CreateFor(new ContentId[] { "SKILL-008-VISUAL-PROJECTILE" })[0];
+            var radius = Effect<ProjectileBurstEffect>("SKILL-008", 1).CollisionRadius;
+            var texture = new Texture2D(2, 2);
+            try
+            {
+                Assert.IsTrue(texture.LoadImage(File.ReadAllBytes(
+                    "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png")));
+                var pixels = texture.GetPixels32();
+                var minX = texture.width;
+                var minY = texture.height;
+                var maxX = -1;
+                var maxY = -1;
+                for (var y = 0; y < texture.height; y++)
+                    for (var x = 0; x < texture.width; x++)
+                    {
+                        if (pixels[y * texture.width + x].a < 16) continue;
+                        minX = Mathf.Min(minX, x);
+                        minY = Mathf.Min(minY, y);
+                        maxX = Mathf.Max(maxX, x);
+                        maxY = Mathf.Max(maxY, y);
+                    }
+                Assert.GreaterOrEqual(maxX, minX, "The disk must have an opaque silhouette.");
+                Assert.AreEqual(texture.width, minX + maxX + 1, "The disk must rotate around its visual center.");
+                Assert.AreEqual(texture.height, minY + maxY + 1);
+                var visibleRadiusX = radius * visual.ProjectilePresentation.VisualScale *
+                                     (maxX - minX + 1f) / texture.width;
+                var visibleRadiusY = radius * visual.ProjectilePresentation.VisualScale *
+                                     (maxY - minY + 1f) / texture.height;
+                var tolerance = 1f / visual.Sprite.pixelsPerUnit;
+                Assert.That(visibleRadiusX, Is.EqualTo(radius).Within(tolerance));
+                Assert.That(visibleRadiusY, Is.EqualTo(radius).Within(tolerance));
+            }
+            finally { Object.DestroyImmediate(texture); }
         }
 
         [Test]

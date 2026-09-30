@@ -8,8 +8,8 @@ namespace Game.Enemy
 {
     /// <summary>
     /// Shows the selected slow-status look on every living slowed enemy with bound body art (DECISION-0108).
-    /// The look is chosen from the development panel for comparison; <see cref="SlowStatusStyle.Off"/> is the
-    /// production default. Reads gameplay slow state only; never changes it except through the explicit
+    /// The chosen bar-and-ice look is the production default; the development panel can compare earlier looks.
+    /// Reads gameplay slow state only; never changes it except through the explicit
     /// development preview command.
     /// </summary>
     public sealed class SlowStatusPresentationDirector : MonoBehaviour, ISlowStatusPreview
@@ -22,7 +22,7 @@ namespace Game.Enemy
         private SlowStatusPresentationProfile _profile;
         private bool _initialized;
 
-        public SlowStatusStyle Style { get; private set; }
+        public SlowStatusStyle Style { get; private set; } = SlowStatusStyle.Ice;
         public int ShownCount => _shown.Count;
 
         public void Initialize(SlowStatusPresentationProfile profile)

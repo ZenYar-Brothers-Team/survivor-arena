@@ -170,7 +170,9 @@ def main():
                         and m["dashCount"] >= 1 and (m["dashCount"] == 1) == (m["followUpTelegraphSeconds"] == 0),
                         f"{eid}: dash timings")
         if e["teleport"]:
-            require(e["teleport"]["impactDamage"] == 20 + 2 * (n - 2), f"{eid}: teleport impact formula")
+            expected_impact = (20 + 2 * (n - 2)) / 1.5  # DECISION-0080; JSON stores six decimals.
+            require(abs(e["teleport"]["impactDamage"] - expected_impact) < 1e-6,
+                    f"{eid}: teleport impact formula")
             t = e["teleport"]
             require(t["landingDistance"] + ref["playerSpeed"] * t["telegraphSeconds"] < t["impactRadius"],
                     f"{eid}: teleport slam must stay unavoidable at base speed (DECISION-0059)")

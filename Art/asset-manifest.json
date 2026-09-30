@@ -173,13 +173,11 @@
       "provenance": "Art/Source/Skills/skill-008/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png",
       "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
-      "stage": "Image approved",
+      "stage": "Prepared",
       "evidence": [
-        "User approved the presented ricochet-disk candidate on 2026-09-22.",
-        "The fixture ricochet uses the shared projectile child and impact presentation.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User 2026-09-30 requested a strict top-down redraw of SKILL-008, then after candidate-01 was displayed specified its final size equal to the rock and a matching circular hit radius; these follow-up instructions select the displayed candidate for integration."
       ],
-      "missing": "Production SKILL-008 definition/binding and G-04 return policy remain IP-17 work."
+      "missing": "Unity import checks and target-scale visual review."
     },
     {
       "owner": "FIXTURE-SKILL-RICOCHET",
@@ -191,13 +189,11 @@
       "provenance": "Art/Source/Skills/skill-008/asset-record.json",
       "runtime": "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png",
       "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
-      "stage": "Integrated",
+      "stage": "Prepared",
       "evidence": [
-        "All six fixture levels inherit the approved ricochet disk sprite.",
-        "Visual-only spin and redirects preserve existing nearest-target and hit-ledger behavior.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User 2026-09-30 requested a strict top-down redraw of SKILL-008, then after candidate-01 was displayed specified its final size equal to the rock and a matching circular hit radius; these follow-up instructions select the displayed candidate for integration."
       ],
-      "missing": ""
+      "missing": "Unity import checks and target-scale visual review."
     },
     {
       "owner": "SKILL-014",
@@ -4514,6 +4510,23 @@
         "docs/implementation/evidence/2026-09-29-ui-folio-material.md"
       ],
       "missing": "User review of the integrated panels."
+    },
+    {
+      "owner": "SLOW-STATUS",
+      "role": "mask",
+      "visualId": "SLOW-STATUS-VISUAL-MASK",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/VFX/slow-status/ice/selected-master.png",
+      "provenance": "Art/Source/VFX/slow-status/ice/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/slow-status-ice-mask.png",
+      "resourcePath": "Art/VFX/slow-status-ice-mask",
+      "stage": "Integrated",
+      "evidence": [
+        "User 2026-09-30: «Давай возьмем первую текстуру из твоего набора, и проследи чтобы она масштабиолвалась под врага»; first generated candidate from this chat.",
+        "Replacement v002 imported and resolved through SLOW-STATUS-VISUAL-MASK; docs/implementation/evidence/2026-09-30-slow-ice-runtime.md."
+      ],
+      "missing": "Gameplay-scale visual review on small ordinary enemies, bosses and Travelers."
     }
   ]
 }

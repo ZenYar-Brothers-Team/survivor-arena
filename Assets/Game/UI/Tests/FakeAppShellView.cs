@@ -7,6 +7,8 @@ namespace Game.UI.Tests
         public event Action Play,Meta,Settings,Exit,MainMenu,Quit,Back,Apply,Keep,Revert,Save,DevelopmentUnlockAll,DevelopmentReset;
         public event Action<float,float,float> Audio;
         public event Action<bool> Shake,MouseMovement,Preview;
+        public event Action<float> UiScaleChosen;
+        public void SetUiScale(float scale)=>UiScaleChosen?.Invoke(scale);
         public event Action<VideoMode> Video;
         public AppShellViewState State;
         public void Render(AppShellViewState state){State=state;}

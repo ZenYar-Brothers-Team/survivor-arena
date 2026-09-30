@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 F1 = ROOT / "docs/balance/field001-baseline-v1.json"
 ENEMIES = ROOT / "Assets/Resources/Content/Enemies/ProductionEnemies.json"
-TECHNICAL_ORDINARY_CAP = 200
+TECHNICAL_ORDINARY_CAP = 300
 MAX_TYPES_PER_PHASE = 7
 
 

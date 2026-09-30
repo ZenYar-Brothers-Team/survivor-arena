@@ -4,6 +4,7 @@ Status: Approved
 Date: 2026-09-30
 Related IP: IP-14, IP-24, IP-34
 Supersedes: подавление спавна из-за заполненного cap в DECISION-0076; число `maxAliveEnemies=200` и расписания сохраняются.
+Поправка: значение cap 200 заменено общим 300 по [DECISION-0115](0115-shared-300-enemy-cap.md); правило замены врагов сохраняется.
 
 ## Основание
 

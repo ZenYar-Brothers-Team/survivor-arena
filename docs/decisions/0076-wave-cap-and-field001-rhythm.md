@@ -3,6 +3,7 @@
 Status: Approved
 Date: 2026-09-27
 Cap-full suppression superseded by [DECISION-0105](0105-continuous-cap-replacement.md); cap value and phase schedule remain approved.
+Cap value 200 superseded by [DECISION-0115](0115-shared-300-enemy-cap.md); phase schedule remains approved.
 Related IP: IP-14, IP-24, IP-27, IP-32
 Supersedes: фазовые `maxAliveEnemies` и исключение burst из cap в DECISION-0014/0029/0045; расписание FIELD-001 из DECISION-0053
 

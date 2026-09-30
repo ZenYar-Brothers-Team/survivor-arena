@@ -28,5 +28,12 @@ namespace Game.Pickup.Tests
             Assert.AreEqual(0.024f, catalog.Chance(new ContentId("ENEMY-001"), new ContentId("FIELD-001"), 1.6f), 1e-6f);
             Assert.AreEqual(0.02775f, catalog.Chance(new ContentId("ENEMY-003"), new ContentId("FIELD-001"), 1.85f), 1e-6f);
         }
+
+        [Test]
+        public void ExperienceCrystal_UsesReducedVisualScale()
+        {
+            var catalog = ProductionPickupCatalog.Create();
+            Assert.AreEqual(0.527f, catalog.ExperienceVisualScale, 1e-5f);
+        }
     }
 }

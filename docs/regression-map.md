@@ -44,6 +44,11 @@ XP, отказ от безнадёжного обхода и возврат по
 проверяет отдельный ID. Production-player pilot проверяет формат ограниченного
 диагностического `movementTrace`; это не unit-test и не replay.
 
+DECISION-0116: `ProductionLateSkillCatalogTests.RicochetDisk_VisibleCircleMatchesHitRadius`
+сверяет alpha-границу нового круглого диска с базовым radius, масштабом
+presentation и центром вращения; `RicochetDisk_HitCountsFollowTheCard_AndTravelBudgetCoversEveryHop`
+фиксирует L1/L6 радиусы 0.162/0.1944 при прежних ricochet/range.
+
 DECISION-0102: `GameplaySmokeTests` проверяет отсутствие четырёх спрайтов
 периметрального забора при сохранённом collider `Wall_Top` и скрытом placeholder.
 DECISION-0103: `WaveDirectorTests.Advance_OpeningIntensity_ChargesReducedTimeThenReturnsToNormalAcrossBoundary`
@@ -239,9 +244,10 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 
 Тот же review OBS-08: `UiFoundationTests.PauseRecipes_ZeroOwnedAttainable_ShowsZeroAndKeepsAcquiredAndMissedSeparate`
 защищает видимость достижимого рецепта с `0/N` и отдельные acquired/missed;
-`UiLayoutR2SmokeTests.DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit`
+`UiLayoutR2SmokeTests.DenseRecipes_OnePauseScroll_FocusInspectsAndCardSubmitSelects`
 проверяет 12 достижимых рецептов, в том числе неначатый, общий scroll и popup
-без Resume/selection в 720p/1080p. Старый фильтр `!HasProgress` ломает оба теста.
+без Resume; focus/выбор рецепта не выбирают улучшение, активация карточки
+выбирает один раз в 720p/1080p. Старый фильтр `!HasProgress` ломает оба теста.
 
 | Риск | Тесты | Вид | Evidence |
 |---|---|---|---|
@@ -282,3 +288,4 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 | Секунды перезарядки не показываются в описаниях умений | `UiLayoutR2Tests.CooldownCopy_NewSkill_ShowsNoCooldownSeconds`, `UiLayoutR2Tests.CooldownCopy_UsesReciprocalFrequency` | EditMode | Проверен новый Бросок камня; другие новые тексты с секундами перезарядки ловятся только если идут через `GameplayUiCopy` |
 | Полоски HP без чисел; HP мини-босса над головой, верхняя полоска только у финального босса (DECISION-0110) | `OverheadHealthPresenterTests`, `BossHudTests.BossBar_VisibleWhileBossAliveAndCleansUp`, `BossEncounterSmokeTests` | EditMode + PlayMode | Наличие бара над мини-боссом в smoke не утверждается (мини-босс может появиться за экраном) |
 | Обводка/лёд замедления: цвет из материала и разворот через масштаб, т.к. кастомный шейдер не видит SpriteRenderer.color/flipX; полоска на unlit-шейдере | `SlowStatusPresentationTests.Apply_All_MirrorsBodyForIceAndOutlineThenOffClears` | EditMode | Фикс 2026-09-30 после просмотра пользователем (белая обводка, не разворачивалась, полоска не видна). Цвет на экране проверяется визуально |
+| На маленьких врагах лёд почти исчезал, а полоска перекрывала нижние грани | `SlowStatusPresentationTests.Apply_IceOnCompactBody_ScalesWithSpriteAndBarClearsItsBottom`, `SlowStatusSmokeTests` | EditMode + PlayMode | Первая, более плотная текстура v002; оверлей повторяет размер body sprite, полоска ниже `body.bounds`. Фактическая читаемость в толпе остаётся визуальной проверкой |

@@ -36,7 +36,7 @@ namespace Game.Enemy.Tests
             Assert.AreEqual(0.5f, boss.Phases[1].HealthThreshold, 1e-5f);
             var teleport = boss.Teleport;
             Assert.IsNotNull(teleport, "DECISION-0059: BOSS-001 teleport-slams a player who keeps away.");
-            Assert.AreEqual(6.25f, teleport.FarDistance, 1e-5f, "DECISION-0073: half of the 10-unit reference screen height +25%.");
+            Assert.AreEqual(7.1875f, teleport.FarDistance, 1e-5f, "DECISION-0111: teleport trigger distance increased by 15%.");
             Assert.AreEqual(2f, teleport.FarSeconds, 1e-5f);
             Assert.AreEqual(1.5f, teleport.LandingDistance, 1e-5f);
             Assert.AreEqual(3.5f, teleport.ImpactRadius, 1e-5f);

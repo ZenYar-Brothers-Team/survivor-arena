@@ -1,8 +1,8 @@
 namespace Game.Presentation
 {
     /// <summary>
-    /// Candidate looks for a slowed enemy (DECISION-0108 preview, GI-09). Selected only from the development
-    /// panel until the user picks one; <see cref="Off"/> is the current production look.
+    /// Slow-status looks (DECISION-0108, GI-09). Ice includes the selected progress bar;
+    /// the other values remain available in the development panel for comparison.
     /// </summary>
     public enum SlowStatusStyle
     {

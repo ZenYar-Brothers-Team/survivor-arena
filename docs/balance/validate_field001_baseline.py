@@ -130,15 +130,15 @@ def main():
     require(sum(costs[:39]) == 1257 and costs[-1] == 85, "XP example mismatch")
 
     enemies = {entry["id"]: entry for entry in data["enemies"]}
-    require(math.isclose(enemies["ENEMY-001"]["movementSpeed"], 0.96),
-            "ENEMY-001 must remain 20% slower than its former 1.20 speed")
+    require(math.isclose(enemies["ENEMY-001"]["movementSpeed"], 1.056),
+            "ENEMY-001 must match the 10% speed increase in DECISION-0099")
     for delta in data["ordinaryEnemyChanges"]:
         require(all(enemies[delta["id"]][key] == value for key, value in delta["proposed"].items()),
                 f"Enemy before/after table out of sync: {delta['id']}")
     elapsed, nominal, xp, bursts = 0, 0, 0, 0
     intro = {}
     technical_cap = data["timeline"]["maxAliveEnemies"]
-    require(technical_cap == 200, "Ordinary-enemy technical cap must be the shared 200")
+    require(technical_cap == 300, "Ordinary-enemy technical cap must be the shared 300")
     for phase in data["timeline"]["phases"]:
         require(phase["startSeconds"] == elapsed and phase["durationSeconds"] > 0,
                 f"Timeline gap/overlap: {phase['id']}")

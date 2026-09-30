@@ -3,7 +3,7 @@
   "seed": 24680,
   "spawnRadius": 8.0,
   "spawnOppositeBias": 0,
-  "maxAliveEnemies": 200,
+  "maxAliveEnemies": 300,
   "phases": [
     {
       "id": "FIXTURE-WAVE-ORDINARY-1", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",

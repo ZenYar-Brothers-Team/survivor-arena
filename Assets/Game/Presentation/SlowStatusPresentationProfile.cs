@@ -1,3 +1,4 @@
+using System;
 using Game.Content;
 using UnityEngine;
 
@@ -11,13 +12,15 @@ namespace Game.Presentation
     {
         /// <summary>Multiplied into the body color while slowed (Tint).</summary>
         public Color TintColor { get; }
-        /// <summary>Solid silhouette drawn over the body; alpha is the ice strength (Ice).</summary>
+        /// <summary>Tint and opacity of the shared ice texture clipped to the body (Ice).</summary>
         public Color IceColor { get; }
+        /// <summary>Shared approved mask resolved through the presentation catalog.</summary>
+        public SpriteDefinition IceMask { get; }
         /// <summary>Solid silhouette copies drawn behind the body (Outline).</summary>
         public Color OutlineColor { get; }
         /// <summary>Outline thickness, world units (0.01–0.1).</summary>
         public float OutlineWidth { get; }
-        /// <summary>Full bar width / height, world units; vertical offset below the ground contact point.</summary>
+        /// <summary>Full bar width / height in world units; gap from visible sprite bottom to bar top.</summary>
         public float BarWidth { get; }
         public float BarHeight { get; }
         public float BarOffsetY { get; }
@@ -29,13 +32,15 @@ namespace Game.Presentation
 
         public SlowStatusPresentationProfile(Color tintColor, Color iceColor, Color outlineColor, float outlineWidth,
             float barWidth, float barHeight, float barOffsetY, Color barFillColor, Color barBackColor,
-            float previewSlowFraction, float previewSlowSeconds)
+            float previewSlowFraction, float previewSlowSeconds, SpriteDefinition iceMask)
         {
             Validate(tintColor, nameof(tintColor));
             Validate(iceColor, nameof(iceColor));
             Validate(outlineColor, nameof(outlineColor));
             Validate(barFillColor, nameof(barFillColor));
             Validate(barBackColor, nameof(barBackColor));
+            IceMask = iceMask ?? throw new ArgumentNullException(nameof(iceMask));
+            IceMask.RequireRole(SpriteRole.Mask);
             NumericValidation.ValidateRange(outlineWidth, 0.005f, 0.2f, nameof(outlineWidth));
             NumericValidation.ValidatePositive(barWidth, nameof(barWidth));
             NumericValidation.ValidatePositive(barHeight, nameof(barHeight));

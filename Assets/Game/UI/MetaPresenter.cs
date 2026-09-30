@@ -89,11 +89,13 @@ namespace Game.UI
                     var hidden = rule.Kind == "character" && !_profile.IsUnlocked(rule.Id);
                     var group = rule.Kind == "character" ? "Персонажи" : rule.Kind == "field" ? "Карты" :
                         rule.RequiredId != null && _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field) ? "За прохождение · " + field.Name : "Доступно с начала";
-                    cards.Add(new MetaCardViewState(rule.Id, null, 0, hidden ? "?" : content.Name,
+                    var hiddenField = rule.Kind == "field" && !_profile.IsUnlocked(rule.Id);
+                    cards.Add(new MetaCardViewState(rule.Id, null, 0, hidden || hiddenField ? "?" : content.Name,
                         _profile.IsUnlocked(rule.Id) ? "✓ Открыто" : (reason == null ? "Можно открыть" : MetaShopProjection.Condition(rule, _profile.Catalog)) +
                         (reason == "Not enough currency" ? " · Не хватает монет" : ""),
                         rule.Price > 0 && reason == null, price: _profile.IsUnlocked(rule.Id) ? 0 : rule.Price,
-                        group: group, icon: content.Icon, hiddenCharacter: hidden, kind: rule.Kind, owned: _profile.IsUnlocked(rule.Id)));
+                        group: group, icon: content.Icon, hiddenCharacter: hidden, kind: rule.Kind,
+                        owned: _profile.IsUnlocked(rule.Id), hiddenField: hiddenField));
                 }
             }
             var summary = "Currency: " + _profile.Currency;

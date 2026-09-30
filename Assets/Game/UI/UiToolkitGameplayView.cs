@@ -17,7 +17,6 @@ namespace Game.UI
         private readonly Label _recipeTitle;
         private readonly Label _recipeEffect;
         private DraftViewState _draftState;
-        private int _inspectedCard = -1;
         private readonly Label _pauseCharacter;
         private readonly VisualElement _pauseBuild;
         private string _characterName = "";
@@ -299,7 +298,9 @@ namespace Game.UI
             _rerollButton.SetEnabled(state.CanReroll);
             _banishModeButton.text = state.IsBanishMode ? "Отмена исключения" : "Исключить";
             _banishModeButton.SetEnabled(state.CanBanish);
-            _draftControlHint.text = "";
+            _draftControlHint.text = state.IsBanishMode
+                ? "Нажми на карточку, чтобы исключить вариант."
+                : "Наведи на карточку для просмотра сетов; нажми для выбора.";
             _draftOverlay.EnableInClassList("draft-banish-mode", state.IsBanishMode);
             _banishCount.text = $"Исключений: {state.RemainingBanishes}";
             if (state.Revision != Guid.Empty && _renderedDraftRevision == state.Revision && _renderedBanishMode == state.IsBanishMode) return;
@@ -307,7 +308,6 @@ namespace Game.UI
             _renderedBanishMode = state.IsBanishMode;
             _draftState = state;
             _draftOptions.Clear();
-            _inspectedCard = -1;
             _recipeInspector.style.visibility = Visibility.Hidden;
             for (var i = 0; i < 3; i++)
             {
@@ -316,11 +316,10 @@ namespace Game.UI
                 var index = i;
                 var select = new DraftCard(option, () => InspectDraft(index), () =>
                 {
-                    if (_inspectedCard == index && _renderedDraftRevision == state.Revision)
+                    if (_renderedDraftRevision == state.Revision)
                         DraftOptionSelected?.Invoke(option.Id, state.Revision);
                 });
-                select.InspectButton.name = GameplayUiElementIds.DraftSelectButton(i);
-                select.ConfirmButton.name = GameplayUiElementIds.DraftConfirmButton(i);
+                select.SelectButton.name = GameplayUiElementIds.DraftSelectButton(i);
                 _draftOptions.Add(select);
             }
             for (var i = 0; i < state.Options.Count; i++)
@@ -329,9 +328,10 @@ namespace Game.UI
 
         private void InspectDraft(int index)
         {
-            _inspectedCard = index;
+            if (index < 0 || index >= _draftState.Options.Count ||
+                !_draftState.Options[index].IsEnabled) return;
             for (var i = 0; i < _draftOptions.childCount; i++)
-                ((DraftCard)_draftOptions[i]).SetInspected(i == index, _renderedBanishMode);
+                ((DraftCard)_draftOptions[i]).SetInspected(i == index);
             var recipes = _draftState.Options[index].Recipes;
             _recipeList.Clear();
             _recipeInspector.style.visibility = recipes.Count > 0 ? Visibility.Visible : Visibility.Hidden;

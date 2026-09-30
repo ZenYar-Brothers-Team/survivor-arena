@@ -47,7 +47,7 @@ namespace Game.Bootstrap.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator DenseRecipes_OnePauseScroll_PopupAndDraftInspectionNeverCommit()
+        public IEnumerator DenseRecipes_OnePauseScroll_HoverInspectsAndCardSubmitSelects()
         {
             foreach (var size in new[] { new Vector2Int(1920, 1080), new Vector2Int(1280, 720) })
             {
@@ -139,11 +139,9 @@ namespace Game.Bootstrap.PlayModeTests
                     view.RenderDraft(new DraftViewState(true, 1, 1, options, Guid.NewGuid())); yield return null; yield return null;
                     Assert.IsNotNull(root.Q(className: "draft-panel").Q(className: "folio-panel-texture"));
                     var inspectB = root.Q<Button>(GameplayUiElementIds.DraftSelectButton(1));
-                    inspectB.Focus(); yield return null;
-                    Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(1)).enabledSelf);
-                    UiFoundationSmokeTests.Submit(inspectB);
-                    Assert.IsTrue(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(1)).enabledSelf);
-                    Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)).enabledSelf);
+                    UiFoundationSmokeTests.Hover(inspectB); yield return null;
+                    Assert.IsFalse(inspectB.focusable, "Draft cards ignore keyboard navigation.");
+                    Assert.AreEqual("Рецепт 0", root.Q<Label>(GameplayUiElementIds.DraftRecipeTitle).text.Split('·')[0].Trim());
                     Assert.AreEqual(0, choices);
                     Assert.Greater(root.Q<ScrollView>(GameplayUiElementIds.DraftRecipeList).verticalScroller.highValue, 0);
                     UiFoundationSmokeTests.Submit(root.Q<Button>(GameplayUiElementIds.DraftRecipeButton(8)));
@@ -151,10 +149,10 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.AreEqual(0, choices);
                     yield return null; yield return null;
                     UiFoundationSmokeTests.Capture(target, $"r2-draft-density-{size.x}");
-                    UiFoundationSmokeTests.Submit(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(1)));
+                    UiFoundationSmokeTests.Submit(inspectB);
                     Assert.AreEqual(1, choices);
                     view.RenderDraft(new DraftViewState(true, 1, 1, options, Guid.NewGuid(), isBanishMode: true));
-                    Assert.AreEqual("Исключить", root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)).text);
+                    StringAssert.Contains("исключить", root.Q<Label>(GameplayUiElementIds.DraftControlHint).text);
                 }
                 finally { view?.Dispose(); Object.DestroyImmediate(host); Object.DestroyImmediate(panel); Object.DestroyImmediate(target); }
             }

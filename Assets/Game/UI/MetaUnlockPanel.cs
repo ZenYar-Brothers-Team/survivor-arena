@@ -73,7 +73,8 @@ namespace Game.UI
                     var row = new VisualElement { name = GameplayUiElementIds.MetaCard(card.Id) };
                     row.AddToClassList("shop-unlock"); row.EnableInClassList("shop-unlock-available", card.CanBuy);
                     var art = new VisualElement(); art.AddToClassList("shop-unlock-art");
-                    var icon = new Image { sprite = card.Icon }; icon.AddToClassList("shop-unlock-icon");
+                    var icon = new Image(); icon.AddToClassList("shop-unlock-icon");
+                    if (card.HiddenField && card.Icon != null) BlurredThumbnail.Apply(icon, card.Icon); else icon.sprite = card.Icon;
                     if (card.HiddenCharacter) icon.tintColor = Color.black;
                     if (card.Icon != null) art.Add(icon);
                     else if (card.Kind == "field") art.Add(Label(card.Id.Substring(card.Id.LastIndexOf('-') + 1).TrimStart('0'), "shop-map-number"));

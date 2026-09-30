@@ -712,3 +712,15 @@ production bindings до появления данных полей. Подро�
 Visual IDs зарегистрированы без production bindings до появления presentation data
 FIELD-004…010. Подробности и проверки:
 [evidence](../implementation/evidence/2026-09-27-field004-010-ground-textures.md).
+
+## Slow-status ice texture — 2026-09-30
+
+Утверждён один общий прозрачный ice mask `SLOW-STATUS-VISUAL-MASK` для ordinary, boss и
+Traveler bodies. Master и prompt: `Art/Source/VFX/slow-status/ice/`; runtime:
+`Assets/Resources/Art/VFX/slow-status-ice-mask.png` (`SpriteRole.Mask`, 512×512).
+Шейдер ограничивает рисунок альфой body sprite, поэтому отдельные файлы для персонажей не
+нужны. Полоска времени остаётся процедурной. Техническая подготовка и проверки:
+[evidence](../implementation/evidence/2026-09-30-slow-ice-runtime.md).
+После просмотра в игре пользователь выбрал первый, более плотный вариант текстуры; он хранится
+как `v002/concept-01.png` и заменяет v001 по тому же runtime path и visual ID. Лёд повторяет
+размер body sprite, а полоска размещается ниже его нижней границы.

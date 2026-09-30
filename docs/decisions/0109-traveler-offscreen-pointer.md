@@ -4,8 +4,7 @@ Status: Approved
 Date: 2026-09-30
 Related IP: IP-29, IP-26
 Related content IDs: —
-Relates to: [GI-08](../playtests/OPEN_ISSUES.md#gi-08--указатель-на-путников),
-[OBS-02](../playtests/2026-09-30_ai-ui-pass.md#obs-02--метка-путника-показывает-внутренний-код)
+Relates to: [OBS-02](../playtests/2026-09-30_ai-ui-pass.md#obs-02--метка-путника-показывает-внутренний-код)
 
 ## Context
 

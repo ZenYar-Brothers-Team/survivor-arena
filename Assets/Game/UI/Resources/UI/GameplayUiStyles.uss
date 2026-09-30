@@ -1058,9 +1058,8 @@
 .draft-summary-scroll .content-card-summary { flex-shrink: 0; overflow: visible; }
 .draft-card .card-level { color: var(--folio-muted-parchment); margin: 6px 0 0 0; font-size: 21px; white-space: normal; -unity-text-align: middle-left; }
 .draft-card .card-recipe { margin-top: auto; padding-top: 8px; }
-.draft-confirm { height: 44px; flex-shrink: 0; margin: 8px 0 0 0; font-size: 18px; }
 .draft-card-inspected .draft-option-select { border-color: var(--folio-leather-rust); }
-.draft-card-inspected .draft-confirm { background-color: var(--folio-leather-rust); }
+.draft-banish-mode .draft-card-inspected .draft-option-select { border-color: var(--folio-gold); }
 .draft-card-set .draft-option-select { border-bottom-color: var(--folio-gold); }
 .recipe-inspector { height: 228px; flex-shrink: 0; flex-direction: row; margin: 14px 7px; padding: 16px; }
 .recipe-list { width: 34%; flex-shrink: 0; margin-right: 18px; }
@@ -1159,7 +1158,6 @@
 .ui-compact .draft-card .card-level { font-size: 18px; }
 .ui-compact .draft-card .content-card-title { font-size: 23px; }
 .ui-compact .draft-card .content-card-summary { font-size: 16px; }
-.ui-compact .draft-confirm { height: 36px; font-size: 16px; margin-top: 6px; }
 .ui-compact .recipe-inspector { height: 172px; margin-top: 10px; margin-bottom: 8px; padding: 10px; }
 .ui-compact .recipe-title { font-size: 21px; }
 .ui-compact .recipe-effect, .ui-compact .draft-details { font-size: 15px; }

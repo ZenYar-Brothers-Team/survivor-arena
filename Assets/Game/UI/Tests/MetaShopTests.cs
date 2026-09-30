@@ -62,7 +62,8 @@ namespace Game.UI.Tests
             {
                 Assert.AreEqual(profile.IsUnlocked(card.Id), card.Owned);
                 Assert.AreEqual(card.Kind == "character" && !card.Owned, card.HiddenCharacter);
-                Assert.AreEqual(card.HiddenCharacter ? "?" : catalog.Unlocks[card.Id].Name, card.Text);
+                Assert.AreEqual(card.Kind == "field" && !card.Owned, card.HiddenField);
+                Assert.AreEqual(card.HiddenCharacter || card.HiddenField ? "?" : catalog.Unlocks[card.Id].Name, card.Text);
             }
             Assert.AreEqual(10, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "field", 0)));
             Assert.AreEqual(20, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "set", 0)));

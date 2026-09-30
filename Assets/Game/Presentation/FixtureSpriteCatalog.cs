@@ -12,6 +12,27 @@ namespace Game.Presentation
     {
         private const string ResourcePath = "Content/Presentation/FixtureSprites";
 
+        /// <summary>Loads one registered visual without loading every sprite in the catalog.</summary>
+        public static SpriteDefinition CreateOne(ContentId visualId, SpriteRole role)
+        {
+            var data = JsonContentFile.Load<SpriteDefinitionData[]>(ResourcePath);
+            foreach (var entry in data)
+            {
+                if (entry == null) throw new InvalidOperationException("Fixture sprite data cannot contain null entries.");
+                ContentId id = entry.Id;
+                if (!id.Equals(visualId)) continue;
+                if (entry.Role != role)
+                    throw new InvalidOperationException($"Visual '{id}' has role {entry.Role}, expected {role}.");
+                if (string.IsNullOrWhiteSpace(entry.ResourcePath))
+                    throw new InvalidOperationException($"Fixture sprite '{id}' requires a resource path.");
+                var sprite = Resources.Load<Sprite>(entry.ResourcePath);
+                if (sprite == null)
+                    throw new InvalidOperationException($"Fixture sprite '{id}' is missing at Resources/{entry.ResourcePath}.");
+                return new SpriteDefinition(id, sprite, role);
+            }
+            throw new InvalidOperationException($"Visual '{visualId}' is not registered.");
+        }
+
         public static IReadOnlyList<SpriteDefinition> CreateFor(IEnumerable<ContentId> visualIds)
         {
             var definitions = new List<SpriteDefinition>();

@@ -27,7 +27,7 @@ namespace Game.UI
             _owner = new GameObject("Profile UI");
             UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(_owner, parent.gameObject.scene);
             _panel = ScriptableObject.CreateInstance<PanelSettings>();
-            _panel.scaleMode = PanelScaleMode.ScaleWithScreenSize; _panel.referenceResolution = new Vector2Int(1920, 1080);
+            _panel.scaleMode = PanelScaleMode.ScaleWithScreenSize; _panel.referenceResolution = new Vector2Int(1920, 1080); UiScale.Register(_panel);
             _panel.themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/GameplayTheme");
             Document = _owner.AddComponent<UIDocument>(); Document.panelSettings = _panel; Document.sortingOrder = 300;
             // Separate panels require their own render and input order (IP-26).

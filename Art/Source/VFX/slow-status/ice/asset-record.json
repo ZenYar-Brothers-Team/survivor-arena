@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SLOW-STATUS",
+  "role": "mask",
+  "status": "approved",
+  "artDirectionRevision": "Approved 2026-09-16",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI image_gen built-in",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-09-30",
+  "approvedBy": "user",
+  "approvalEvidence": "User 2026-09-30: «Давай возьмем первую текстуру из твоего набора, и проследи чтобы она масштабиолвалась под врага»; first generated candidate from this chat.",
+  "prompt": "Use case: stylized-concept. Asset type: reusable 2D game status-effect texture for a sprite overlay, square seamless tile. Create a polished hand-drawn storybook-cutout frost pattern on a genuinely transparent background. The design is a sparse network of broad irregular pale cyan and icy blue crystal facets, a few white glints, soft translucent frosted planes and restrained hairline cracks. Distinct large shapes must read when reduced onto a 120-pixel-tall enemy. Keep most of the canvas transparent so character faces and clothing remain legible underneath. Make the left/right and top/bottom edges visually tileable. Flat matte painted color with subtle paper texture, not photorealistic, not pixel art, not a 3D ice cube. No characters, silhouettes, border, vignette, ground, blue full-canvas haze, text, logo or watermark. Center and corners have balanced pattern density. Production-ready clean alpha edges.",
+  "constraints": [
+    "shared across ordinary enemy, boss and Traveler body sprites",
+    "body-silhouette alpha clipping",
+    "texture scales with each body's sprite bounds",
+    "bar stays below the visible body"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/slow-status-ice-mask.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "1bd0e493462b7a99691528650d84d767ff37aded51eb503a6e568feb68a4df3f",
+    "runtimeSha256": "88cf7bbead85f9b7a81e8392e415529920d349c966d9bdb445efb7835a4e8753",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": false,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "id": "FIELD-001-TIMELINE",
   "seed": 230924,
-  "maxAliveEnemies": 200,
+  "maxAliveEnemies": 300,
   "spawnRadius": 10,
   "spawnOppositeBias": 1,
   "openingSpawn": {

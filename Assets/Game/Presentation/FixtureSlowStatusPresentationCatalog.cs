@@ -1,4 +1,5 @@
 using System;
+using Game.Content;
 using Game.Content.Json;
 using Game.Presentation.Json;
 using UnityEngine;
@@ -21,7 +22,14 @@ namespace Game.Presentation
                 Require(data.BarWidth, "barWidth"), Require(data.BarHeight, "barHeight"),
                 Require(data.BarOffsetY, "barOffsetY"), ToColor(data.BarFillColor, "barFillColor"),
                 ToColor(data.BarBackColor, "barBackColor"), Require(data.PreviewSlowFraction, "previewSlowFraction"),
-                Require(data.PreviewSlowSeconds, "previewSlowSeconds"));
+                Require(data.PreviewSlowSeconds, "previewSlowSeconds"), ResolveIceMask(data.IceVisualId));
+        }
+
+        private static SpriteDefinition ResolveIceMask(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new InvalidOperationException("Slow status presentation requires iceVisualId.");
+            return FixtureSpriteCatalog.CreateOne(new ContentId(id), SpriteRole.Mask);
         }
 
         private static float Require(float? value, string name) =>

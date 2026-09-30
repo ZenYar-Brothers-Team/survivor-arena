@@ -63,6 +63,8 @@ namespace Game.Presentation.Tests
             Assert.AreEqual(0.035f, _profile.OutlineWidth, 1e-5f);
             Assert.AreEqual(5f, _profile.PreviewSlowSeconds, 1e-5f);
             Assert.AreEqual(0.4f, _profile.PreviewSlowFraction, 1e-5f);
+            Assert.AreEqual(SpriteRole.Mask, _profile.IceMask.Role);
+            Assert.AreEqual("SLOW-STATUS-VISUAL-MASK", _profile.IceMask.Id.ToString());
         }
 
         [Test]
@@ -78,6 +80,12 @@ namespace Game.Presentation.Tests
             data.PreviewSlowSeconds = 5f;
             data.IceColor = new[] { 1f, 1f };
             StringAssert.Contains("iceColor", Assert.Throws<InvalidOperationException>(() => FixtureSlowStatusPresentationCatalog.Map(data)).Message);
+            data.IceColor = new[] { 1f, 1f, 1f, 1f };
+            StringAssert.Contains("iceVisualId", Assert.Throws<InvalidOperationException>(() => FixtureSlowStatusPresentationCatalog.Map(data)).Message);
+            data.IceVisualId = "SLOW-STATUS-MISSING-MASK";
+            StringAssert.Contains("not registered", Assert.Throws<InvalidOperationException>(() => FixtureSlowStatusPresentationCatalog.Map(data)).Message);
+            data.IceVisualId = "ENEMY-001-VISUAL-BODY";
+            StringAssert.Contains("expected Mask", Assert.Throws<InvalidOperationException>(() => FixtureSlowStatusPresentationCatalog.Map(data)).Message);
         }
 
         [Test]
@@ -111,12 +119,49 @@ namespace Game.Presentation.Tests
         }
 
         [Test]
+        public void Apply_IceOnCompactBody_ScalesWithSpriteAndBarClearsItsBottom()
+        {
+            var texture = new Texture2D(80, 112);
+            var sprite = Sprite.Create(texture, new Rect(8f, 4f, 64f, 96f), new Vector2(.5f, .5f), 100f);
+            try
+            {
+                var rig = _presentation.Rig;
+                rig.BodyRenderer.sprite = sprite;
+                rig.transform.localScale = new Vector3(.7f, .7f, 1f);
+                rig.BodyRoot.localScale = new Vector3(.55f, .72f, 1f);
+
+                _slow.Apply(_presentation, _profile, SlowStatusStyle.Ice, true, .5f);
+
+                var ice = rig.BodyRoot.Find("SlowIce").GetComponent<SpriteRenderer>();
+                Assert.AreSame(sprite, ice.sprite);
+                Assert.Less(Vector3.Distance(rig.BodyRenderer.bounds.size, ice.bounds.size), 1e-4f,
+                    "The ice covers the same scaled sprite rectangle as the compact body.");
+                var properties = new MaterialPropertyBlock();
+                ice.GetPropertyBlock(properties);
+                Assert.Less(Vector4.Distance(new Vector4(80f / 64f, 112f / 96f, -8f / 64f, -4f / 96f),
+                    properties.GetVector("_IceUvTransform")), 1e-4f,
+                    "The shared mask is remapped to this body's sprite rectangle.");
+                var barBack = rig.transform.Find("SlowBar/Back").GetComponent<SpriteRenderer>();
+                Assert.LessOrEqual(barBack.bounds.max.y,
+                    rig.BodyRenderer.bounds.min.y - _profile.BarOffsetY + 1e-4f,
+                    "The bar sits below the body and cannot cover its ice.");
+            }
+            finally
+            {
+                Object.DestroyImmediate(sprite);
+                Object.DestroyImmediate(texture);
+            }
+        }
+
+        [Test]
         public void Apply_All_MirrorsBodyForIceAndOutlineThenOffClears()
         {
             // Facing is mirrored through the overlay transform: a silhouette shader never sees SpriteRenderer.flipX.
             _presentation.Rig.BodyRenderer.flipX = true;
             _slow.Apply(_presentation, _profile, SlowStatusStyle.Ice, true, 1f);
             var ice = _presentation.Rig.BodyRoot.Find("SlowIce").GetComponent<SpriteRenderer>();
+            Assert.IsTrue(_presentation.Rig.transform.Find("SlowBar").gameObject.activeSelf,
+                "The selected ice look includes the duration bar.");
             Assert.IsFalse(ice.flipX);
             Assert.AreEqual(-1f, ice.transform.localScale.x);
             _presentation.Rig.BodyRenderer.flipX = false;
@@ -128,8 +173,11 @@ namespace Game.Presentation.Tests
             Assert.AreSame(_sprite, ice.sprite);
             Assert.AreEqual(_presentation.Rig.BodyRenderer.flipX ? -1f : 1f, ice.transform.localScale.x);
             Assert.AreEqual(11, ice.sortingOrder);
-            Assert.AreEqual("SurvivorArena/SpriteSolidColor", ice.sharedMaterial.shader.name);
-            Assert.AreEqual(_profile.IceColor, ice.sharedMaterial.GetColor("_Color"), "Color comes from the material, not SpriteRenderer.color.");
+            Assert.AreEqual("SurvivorArena/SpriteIceMask", ice.sharedMaterial.shader.name);
+            Assert.Less(Vector4.Distance(_profile.IceColor, ice.sharedMaterial.GetColor("_Color")), 1e-5f,
+                "Color comes from the material, not SpriteRenderer.color.");
+            Assert.AreSame(_profile.IceMask.Sprite.texture,
+                ice.sharedMaterial.GetTexture("_IceTex"), "All bodies share one imported texture.");
             var outline = Overlays().Where(r => r.name.StartsWith("SlowOutline", StringComparison.Ordinal)).ToArray();
             Assert.AreEqual(8, outline.Length);
             Assert.IsTrue(outline.All(r => r.enabled && r.sortingOrder == 9 && r.sprite == _sprite));
@@ -138,7 +186,9 @@ namespace Game.Presentation.Tests
             var worldWidth = outline.Max(r => r.transform.localPosition.x) * Mathf.Abs(_presentation.Rig.BodyRoot.lossyScale.x);
             Assert.AreEqual(_profile.OutlineWidth, worldWidth, 1e-4f, "Outline width is in world units despite body pose scale.");
             var bar = _presentation.Rig.transform.Find("SlowBar");
-            Assert.AreEqual(_profile.BarFillColor, bar.Find("Fill").GetComponent<SpriteRenderer>().sharedMaterial.GetColor("_Color"));
+            Assert.IsTrue(bar.gameObject.activeSelf, "The selected ice look includes the duration bar.");
+            Assert.Less(Vector4.Distance(_profile.BarFillColor,
+                bar.Find("Fill").GetComponent<SpriteRenderer>().sharedMaterial.GetColor("_Color")), 1e-5f);
             Assert.IsTrue(bar.Find("Fill").GetComponent<SpriteRenderer>().enabled);
 
             _slow.Apply(_presentation, _profile, SlowStatusStyle.Off, true, 1f);

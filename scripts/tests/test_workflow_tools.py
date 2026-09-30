@@ -113,6 +113,25 @@ class ArtPacketTests(unittest.TestCase):
         self.apply()
         self.assertEqual(self.source, (self.root / asset["sourceDirectory"] / "v001/concept-01.png").read_bytes())
 
+    def test_replacement_updates_existing_shared_fixture_alias(self):
+        self.apply()
+        manifest_path = self.root / art.MANIFEST
+        manifest = art.read_json(manifest_path)
+        alias = dict(manifest["entries"][0], owner="FIXTURE-ALIAS", owningIp="IP-12A")
+        manifest["entries"].append(alias)
+        manifest_path.write_bytes(art.json_bytes(manifest))
+        from PIL import Image
+        source = self.root / "approved.png"
+        Image.new("RGBA", (32, 32), (1, 2, 3, 255)).save(source)
+        asset = self.packet["assets"][0]
+        asset.update(version="v002", sha256=art.sha(source.read_bytes()),
+                     replacementApproved=True, replacesSha256=art.sha(self.source))
+        self.apply()
+        updated = art.read_json(manifest_path)
+        self.assertEqual("Prepared", next(e for e in updated["entries"] if e["owner"] == "FIXTURE-ALIAS")["stage"])
+        self.assertEqual(self.packet["approvalEvidence"],
+                         next(e for e in updated["entries"] if e["owner"] == "FIXTURE-ALIAS")["evidence"][0])
+
     def test_rollback_preserves_original_files_on_write_failure(self):
         plan = art.build_plan(self.packet, self.root)
         real_replace = plan.replace

@@ -30,12 +30,29 @@ namespace Game.UI.Tests
             StringAssert.Contains("Fixture access required", _harness.Cards[1].Card.Summary);
             Assert.AreEqual("Preview pending", _harness.Cards[0].ThumbnailPlaceholder);
             Assert.IsTrue(_harness.Cards[1].Card.IsLocked);
+            Assert.AreEqual("?", _harness.Cards[1].Card.Title);
+            Assert.AreEqual("FIXTURE-A", _harness.Cards[0].Card.Title);
             _harness.Select("FIXTURE-B");
             Assert.AreEqual(new ContentId("FIXTURE-A"), _session.SelectedId);
             Assert.IsTrue(_harness.Cards[1].Card.IsSelected);
             Assert.IsFalse(_harness.CanStart);
             _harness.Start();
             Assert.AreEqual(0, _harness.Starts);
+        }
+        [Test]
+        public void Previews_UndefinedMaps_AreClosedHiddenAndNotSelectable()
+        {
+            _presenter.Dispose();
+            _presenter = new FieldSelectPresenter(_session, _harness, null,
+                new[] { new FieldPreviewEntry("FIXTURE-C", "Fixture condition"), new FieldPreviewEntry("FIXTURE-D", null) });
+            Assert.AreEqual(4, _harness.Cards.Count);
+            var preview = _harness.Cards[2];
+            Assert.IsTrue(preview.Card.IsLocked);
+            Assert.AreEqual("?", preview.Card.Title);
+            Assert.AreEqual("Fixture condition", preview.LockReason);
+            Assert.AreEqual("Ещё не готово", _harness.Cards[3].LockReason);
+            _harness.Select("FIXTURE-C");
+            Assert.AreEqual(new ContentId("FIXTURE-A"), _session.SelectedId);
         }
         [Test]
         public void Start_AccessRevokedAfterSelection_DoesNotLaunch()

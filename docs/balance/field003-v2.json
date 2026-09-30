@@ -1206,7 +1206,7 @@
   },
   "timeline": {
     "id": "FIELD-003-TIMELINE",
-    "maxAliveEnemies": 200,
+    "maxAliveEnemies": 300,
     "hooks": [
       {
         "kind": "MidBoss",

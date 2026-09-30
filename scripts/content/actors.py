@@ -192,9 +192,10 @@ def enemies(baseline):
     return result
 
 
-# In-game accepted presentation scales (docs/playtests/2026-09-22_visual-acceptance.md) win over the review
-# format's neutral 1.0; gameplay values below come from the baseline unchanged (DECISION-0054 section 6).
-ACCEPTED_PICKUP_VISUAL_SCALES = {"Potion": 0.68, "Book": 0.7, "experience": 0.62}
+# In-game accepted presentation scales (docs/playtests/2026-09-22_visual-acceptance.md),
+# with XP reduced by DECISION-0117, win over the review format's neutral 1.0.
+# Other gameplay values below come from the baseline (DECISION-0054 section 6).
+ACCEPTED_PICKUP_VISUAL_SCALES = {"Potion": 0.68, "Book": 0.7, "experience": 0.527}
 
 
 def pickups(baseline):

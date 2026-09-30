@@ -10,7 +10,7 @@ PATH = ROOT / "docs/balance/field003-v1.json"
 F1 = ROOT / "docs/balance/field001-baseline-v1.json"
 F2 = ROOT / "docs/balance/field002-v1.json"
 BOSSES = ROOT / "docs/balance/bosses-v1.json"
-TECHNICAL_ORDINARY_CAP = 200
+TECHNICAL_ORDINARY_CAP = 300
 
 
 def require(condition, message):

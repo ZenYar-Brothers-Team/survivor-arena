@@ -124,7 +124,8 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.AreEqual(70, list.Query(className: "shop-unlock").ToList().Count);
                     Assert.AreEqual(0,list.Query(className:"shop-unknown").ToList().Count);
                     Assert.AreEqual(70, list.Query<Image>().ToList().Count);
-                    foreach(var icon in list.Query<Image>().ToList()) Assert.IsNotNull(icon.sprite);
+                    foreach(var icon in list.Query<Image>().ToList())
+                        Assert.IsTrue(icon.sprite != null || icon.image != null, "Each unlock has a sprite or blurred image.");
                     Assert.Greater(list.verticalScroller.highValue, 0);
                     Bounded(ui.Q(GameplayUiElementIds.MetaUnlockFilters), size);
                     Bounded(ui.Q(GameplayUiElementIds.MetaUnlockTotal), size);

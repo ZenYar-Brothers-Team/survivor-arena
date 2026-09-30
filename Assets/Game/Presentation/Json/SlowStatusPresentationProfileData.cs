@@ -4,6 +4,7 @@ namespace Game.Presentation.Json
     {
         public float[] TintColor { get; set; }
         public float[] IceColor { get; set; }
+        public string IceVisualId { get; set; }
         public float[] OutlineColor { get; set; }
         public float? OutlineWidth { get; set; }
         public float? BarWidth { get; set; }

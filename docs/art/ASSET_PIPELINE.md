@@ -853,6 +853,8 @@ Acceptance: custom visual имеет роль Projectile и полный profile
 
 XP, Зелье и Traveler Book используют отдельные 256×256 runtime derivatives с ролью `SpriteRole.Pickup`, centered pivot и category import profile. Их цвет и крупная форма различимы на gameplay scale: XP — cyan crystal, лечение — зелёная круглая бутылка, Book — охристо-бордовый закрытый том. Collider/collection radius остаются authoritative и не выводятся из пикселей.
 
+По [DECISION-0117](../decisions/0117-skill-reach-and-xp-crystal-scale.md) XP visualScale равен 0.527 вместо 0.62 (−15%). Базовый радиус подбора XP и следующий ему коллайдер кристалла также уменьшаются на 15%; исходный PNG и import profile не меняются.
+
 Один `PickupSpritePresentation` создаёт дочерний `VisualRoot` и применяет небольшой bob/pulse только в running-time. Root, trigger и authoritative position не двигаются и не масштабируются. Shutdown/pool return выключает renderer, очищает sprite/tint и возвращает transform baseline; отдельные raster frames, shadow и particle emitter не требуются.
 
 Перед placement drop получает смещение, равномерное по площади диска радиуса `0.30` world units. XP и world pickups используют отдельные seeded RNG streams; scatter не расходует chance RNG. После смещения Зелье/Book лишь ограничиваются внутренними границами арены и могут остаться внутри player-only obstacle. Основание: [DECISION-0043](../decisions/0043-seeded-drop-scatter.md), пересмотр размещения: [DECISION-0075](../decisions/0075-progression-specialization-and-survivability.md).

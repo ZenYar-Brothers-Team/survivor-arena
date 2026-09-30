@@ -1,5 +1,5 @@
 // Draws a sprite's silhouette in the material _Color; the texture contributes alpha only.
-// Used by slow-status outline, ice and bar overlays (DECISION-0108). Unlit, so it does not depend on
+// Used by slow-status outline and bar overlays (DECISION-0108). Unlit, so it does not depend on
 // 2D lights or on SpriteRenderer color/flip shader properties (those are applied by the owner through
 // the material and the transform instead).
 Shader "SurvivorArena/SpriteSolidColor"

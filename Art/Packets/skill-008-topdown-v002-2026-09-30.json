@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-09-30",
+  "approvalEvidence": "User 2026-09-30 requested a strict top-down redraw of SKILL-008, then after candidate-01 was displayed specified its final size equal to the rock and a matching circular hit radius; these follow-up instructions select the displayed candidate for integration.",
+  "assets": [
+    {
+      "owner": "SKILL-008",
+      "role": "projectile",
+      "visualId": "SKILL-008-VISUAL-PROJECTILE",
+      "owningIp": "IP-17",
+      "input": "Art/Candidates/skill-008-topdown-2026-09-30/candidate-01.png",
+      "sha256": "28cf386b8d2410b86b9e9dd50194400fc8b329a227faa1472ce4490f4b3493ae",
+      "sourceDirectory": "Art/Source/Skills/skill-008",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Skills/skill-008/skill-008-projectile.png",
+      "prompt": "Edit target: the attached existing SKILL-008 ricochet disk game projectile sprite. Preserve its visual identity: dark slate steel outer plates, broad warm gold ring, bright faceted amber-orange central gem, a few restrained cyan accent facets, thick deep-plum hand-drawn contour, matte cel-shaded stylized 2D storybook cutout. Redraw its geometry as a TRUE ORTHOGRAPHIC STRAIGHT-DOWN TOP VIEW: the disk face is a perfectly circular, concentric design with the center at the exact canvas center. No perspective ellipse, no foreshortening, no visible sidewall, no diagonal tilt. It must look natural rotating in place and ricocheting in any direction. Use a simple bold silhouette and large clean shapes readable at 30–45 screen pixels; avoid tiny ornament. One isolated disk only on a genuinely transparent square background, with generous even transparent padding all around. No floor, shadow, motion blur, speed lines, glow halo, text, watermark, frame, extra objects, or UI. Preserve the existing game's material/color family, but replace the previous oblique viewpoint entirely.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved ART_DIRECTION.md; user top-down override 2026-09-30",
+      "method": "Hybrid",
+      "constraints": [
+        "transparent background",
+        "strict orthographic top view",
+        "circular rotation-safe silhouette",
+        "visible diameter equal to SKILL-001 rock at L1"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 32,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 16
+      },
+      "sprite": {
+        "projectile": {
+          "visualScale": 1.333333,
+          "spinDegreesPerSecond": 900.0,
+          "impactDurationSeconds": 0.13,
+          "flashSize": 0.2,
+          "flashRed": 0.3,
+          "flashGreen": 0.88,
+          "flashBlue": 1.0,
+          "flashAlpha": 0.72,
+          "particleCount": 3,
+          "particleSize": 0.045,
+          "particleSpeed": 0.5,
+          "particleRed": 0.23,
+          "particleGreen": 0.72,
+          "particleBlue": 0.88,
+          "particleAlpha": 0.82
+        }
+      },
+      "replacementApproved": true,
+      "replacesSha256": "828db311e1bf50556dd6fc138aa2de153a89e475768f66d0f6763d2b21d7c26e",
+      "bindings": []
+    }
+  ]
+}

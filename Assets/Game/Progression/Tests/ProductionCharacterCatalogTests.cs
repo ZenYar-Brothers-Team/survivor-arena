@@ -23,6 +23,30 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void Roster_UsesReducedBaseSkillRangeForEveryPlayableCharacter()
+        {
+            var expected = new[] { 0.8f, 0.8f, 0.8f, 0.8f, 0.8f, 0.8f, 0.8f, 1.12f, 0.8f, 1f };
+            var characters = ProductionCharacterDefinitionCatalog.CreateDefinitions().ToArray();
+            Assert.AreEqual(expected.Length, characters.Length);
+            for (var index = 0; index < characters.Length; index++)
+                Assert.AreEqual(expected[index], characters[index].BaseStats.EffectRangeMultiplier, 1e-5f,
+                    characters[index].Id.ToString());
+            Assert.AreEqual(0.8f, ProductionCharacterDefinitionCatalog.CreateBaseline().Stats.EffectRangeMultiplier, 1e-5f);
+        }
+
+        [Test]
+        public void Roster_UsesReducedExperiencePickupRadiusForEveryPlayableCharacter()
+        {
+            var expected = new[] { 0.425f, 0.425f, 0.425f, 0.425f, 0.425f, 0.425f, 0.68f, 0.425f, 0.34f, 0.425f };
+            var characters = ProductionCharacterDefinitionCatalog.CreateDefinitions().ToArray();
+            Assert.AreEqual(expected.Length, characters.Length);
+            for (var index = 0; index < characters.Length; index++)
+                Assert.AreEqual(expected[index], characters[index].BaseStats.PickupRadius, 1e-5f,
+                    characters[index].Id.ToString());
+            Assert.AreEqual(0.425f, ProductionCharacterDefinitionCatalog.CreateBaseline().Stats.PickupRadius, 1e-5f);
+        }
+
+        [Test]
         public void Klepka_KeepsStoneStartAndNeutralStats()
         {
             var character = Character("CHAR-001");
@@ -30,7 +54,7 @@ namespace Game.Progression.Tests
             Assert.AreEqual("SKILL-001", character.StartingActiveSkill.Id.ToString());
             Assert.AreEqual(100f, character.BaseStats.MaxHealth);
             Assert.AreEqual(3f, character.BaseStats.MovementSpeed);
-            Assert.AreEqual(0.5f, character.BaseStats.PickupRadius);
+            Assert.AreEqual(0.425f, character.BaseStats.PickupRadius);
             Assert.AreEqual(1f, character.BaseStats.ActiveSkillDamageMultiplier);
             Assert.AreEqual("CHAR-001-VISUAL-BODY", character.Visual.Id.ToString());
             Assert.AreEqual("CHAR-001-MOTION", character.MotionProfile.Id.ToString());

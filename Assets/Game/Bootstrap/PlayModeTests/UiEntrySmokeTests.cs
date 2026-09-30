@@ -55,14 +55,10 @@ namespace Game.Bootstrap.PlayModeTests
                     foreach (var card in document.rootVisualElement.Query<Button>(className: "entry-field-choice").ToList())
                     {
                         AssertBounded(card, size);
-                        Assert.AreEqual(5, card.Q(GameplayUiElementIds.EntryFieldDifficulty).childCount);
                         foreach (var label in card.Query<Label>().ToList())
                             StringAssert.DoesNotContain("/5", label.text ?? "");
                     }
-                    var firstField = document.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectCard("FIELD-001"));
-                    Assert.AreEqual(1, firstField.Query(className: "entry-sword-filled").ToList().Count);
-                    var thirdField = document.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectCard("FIELD-003"));
-                    Assert.AreEqual(2, thirdField.Query(className: "entry-sword-filled").ToList().Count);
+                    Assert.IsNull(document.rootVisualElement.Q(className: "entry-sword"), "Field cards no longer show a difficulty row.");
                     UiFoundationSmokeTests.Capture(target, $"ui-entry-fields-{size.x}x{size.y}");
                     document.panelSettings.targetTexture = null;
                     using (var stress = new FieldSelectScreen(root.transform, root.FieldSelection, root.Catalog.Registry))

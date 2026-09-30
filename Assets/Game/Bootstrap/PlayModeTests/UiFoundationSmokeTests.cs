@@ -69,13 +69,11 @@ namespace Game.Bootstrap.PlayModeTests
                     Assert.LessOrEqual(last.worldBound.xMax, size.x);
                     Assert.LessOrEqual(last.worldBound.yMax, size.y);
                     Assert.IsFalse(last.enabledSelf);
-                    card.Focus();
+                    Hover(card);
                     yield return null;
                     StringAssert.Contains("Завершит рецепт", root.Q<Label>(GameplayUiElementIds.DraftRecipeTitle).text);
                     Capture(target, $"ip10a-draft-{size.x}x{size.y}");
                     Submit(card);
-                    Assert.AreEqual(0, intents);
-                    Submit(root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
                     Assert.AreEqual(1, intents);
                     // A details scroll must remain below all choices, not cover them.
                     Assert.GreaterOrEqual(root.Q(GameplayUiElementIds.DraftDetails).worldBound.yMin, card.worldBound.yMax);
@@ -135,6 +133,13 @@ namespace Game.Bootstrap.PlayModeTests
                 }
             }
         }
+        internal static void Hover(VisualElement element)
+        {
+            using var enter = PointerEnterEvent.GetPooled();
+            enter.target = element;
+            element.SendEvent(enter);
+        }
+
         internal static void Submit(Button button)
         {
             using var submit = NavigationSubmitEvent.GetPooled();

@@ -116,11 +116,8 @@ namespace Game.Bootstrap.PlayModeTests
                         StringAssert.Contains("Уровень набран", row.text);
                         Assert.Greater(row.resolvedStyle.color.g, row.resolvedStyle.color.r);
                     }
-                    var revision = draft.Revision;
-                    UiFoundationSmokeTests.Submit(tree.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)));
-                    Assert.AreEqual(revision, draft.Revision, "Inspect cannot consume a real Book.");
                     UiFoundationSmokeTests.Capture(target, $"r2-production-book-{size.x}");
-                    UiFoundationSmokeTests.Submit(tree.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
+                    UiFoundationSmokeTests.Submit(tree.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)));
                     DrainBookChoices(draft);
                     Assert.IsFalse(draft.IsDraftOpen);
 

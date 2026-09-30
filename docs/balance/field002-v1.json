@@ -1086,7 +1086,7 @@
  },
  "timeline": {
   "id": "FIELD-002-TIMELINE",
-  "maxAliveEnemies": 200,
+  "maxAliveEnemies": 300,
   "hooks": [
    {
     "kind": "MidBoss",
@@ -1844,7 +1844,7 @@
    "extraVolleyRotationDegrees": 22.5
   },
   "teleport": {
-   "farDistance": 6.25,
+   "farDistance": 7.1875,
    "farSeconds": 2,
    "landingDistance": 1.5,
    "telegraphSeconds": 0.6,

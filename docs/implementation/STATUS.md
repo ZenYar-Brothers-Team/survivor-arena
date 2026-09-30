@@ -20,8 +20,46 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
-Дельта 2026-09-30 по поручению пользователя: [DECISION-0105](../decisions/0105-continuous-cap-replacement.md)
-сохраняет cap 200, но продолжает спавн за счёт бесшумного удаления самых дальних
+Дельта 2026-09-30 по [DECISION-0117](../decisions/0117-skill-reach-and-xp-crystal-scale.md)
+— Implemented: базовая дальность всех active skills через характеристики
+CHAR-001…010 ×0.8; визуальный масштаб XP-кристалла и базовый радиус его
+подбора ×0.85. Генератор синхронизирован; после согласования параллельных UI
+и balance-правок полный graphics smoke 1101/1101 EditMode + 59/59 PlayMode,
+art manifest 270/270 PASS (`TestResults/checks/20260930T115751-305090Z`).
+[Изменения и проверки](evidence/2026-09-30-skill-range-and-xp-crystals.md).
+
+Дельта UI по [DECISION-0118](../decisions/0118-closed-maps-and-ui-scale.md)
+— Implemented: закрытые карты размыты и скрывают название; Field Select
+показывает 10 карт двумя рядами, настройка масштаба интерфейса Авто/100/125/150%
+сохраняется, драфт выбирается мышью. Согласование тестов и документов после
+трёх параллельных сессий завершено; full graphics 1101/1101 + 59/59 PASS,
+Python tools 26/26 и балансные валидаторы PASS. Ручной просмотр нового UI остаётся
+открытым. [Evidence](evidence/2026-09-30-parallel-session-reconciliation.md).
+
+
+Снаряды 2026-09-30: по [DECISION-0116](../decisions/0116-projectile-scale-and-disk-circle.md)
+камень −10%, клинок −15%, сфера −10%, бумеранг без изменений; базовый
+рикошетный диск имеет новый вид строго сверху, видимый диаметр 0.324 и
+совпадающий hit radius 0.162 (L6 0.1944). v002 подключён с сохранённым GUID;
+art graphics 63/63 и manifest 270/270 PASS; стабильный full graphics
+1086/1086 EditMode + 59/59 PlayMode PASS, 0 failed/skipped
+(`TestResults/checks/20260930T100714-126686Z`). Игровой visual review
+вращения и рикошетов открыт. [Сравнение и проверки](evidence/2026-09-30-projectile-size-and-disk-preview.md).
+
+
+Размеры тел 2026-09-30 — Implemented, игровая визуальная приёмка открыта:
+[DECISION-0114](../decisions/0114-body-scale-and-boomerang.md) уменьшает
+CHAR-001…010 на 25%, обычных ENEMY-001…020 на 20%, увеличивает видимый
+SKILL-006 с 1.4 до 1.6. Боссы, mini-bosses и Путники сохраняют масштаб.
+[Общая картинка и проверки](evidence/2026-09-30-body-scale-review.md).
+Full graphics: 1085/1085 EditMode + 59/59 PlayMode PASS, art 269/269;
+`TestResults/checks/20260930T091916-526918Z/summary.json`.
+
+
+Дельта 2026-09-30 по [DECISION-0115](../decisions/0115-shared-300-enemy-cap.md) — Implemented: общий технический предел обычных врагов FIELD-001/002/003 повышен с 200 до 300; generator проверяет равенство исходных пакетов. Targeted EditMode 252/252 и graphics PlayMode 59/59 PASS; полный check и ручная оценка плотности открыты ([evidence](evidence/2026-09-30-shared-300-enemy-cap.md)). Исторические записи ниже сохраняют значения своих проверенных ревизий.
+
+Историческая дельта 2026-09-30 по поручению пользователя: [DECISION-0105](../decisions/0105-continuous-cap-replacement.md)
+сохраняла тогдашний cap 200, но продолжает спавн за счёт бесшумного удаления самых дальних
 обычных врагов; boss/mid-boss/Traveler не входят в cap. Human recorder получил
 `activeFirst15/v1` и возврат скорости на 1× после нажатия speed-кнопки.
 Первый human сеанс завершился incomplete (`humanSpeedChanged`) и не является
@@ -529,6 +567,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-12)
 Status: Implemented
 Dependencies: IP-00, IP-02, IP-03, IP-04, IP-05, IP-08, IP-12
 Current packet: Category import/role validation, provenance/inventory reconciliation, generic presentation adapters и synthetic fixture kit.
+Slow ice follow-up 2026-09-30: пользователь утвердил общий raster; mask import и runtime bar+ice подключены по [DECISION-0108](../decisions/0108-slow-status-look-preview.md). Art 63/63 + 270 records, финальные graphics EditMode 432/432 и PlayMode 59/59 PASS; игровой visual review открыт ([evidence](evidence/2026-09-30-slow-ice-runtime.md)).
+После игрового отзыва: v001 заменена первой показанной текстурой v002; оверлей проверен на уменьшенном body sprite, полоска перенесена ниже его границы. Art 64/64 + 270 records, full EditMode 1089/1089 и slow PlayMode 1/1 PASS; общий graphics PlayMode 58/59, единственный FAIL в `MetaShopSmokeTests` (70 против 61). Gameplay-scale review v002 остаётся открытым ([evidence](evidence/2026-09-30-slow-ice-runtime.md)).
 Remaining gates: G-17 concept mapping и G-18 закрыты DECISION-0029; per-image/replacement gates сохраняются для новых assets. Пользователь принял Presentation Fixture Review; остаётся gameplay density часть gate E.
 Remaining acceptance / IDs: Реальный gameplay density review с 3–4 сетами. UI body reuse и idle/flip/hit/proc/death/collect/pause/reset в Presentation Fixture Review приняты пользователем 2026-09-21 («всё хорошо»). Четыре synthetic copies не являются этим прогоном; production enemy/pickup/VFX art не заявлен.
 Target implementation evidence: [IP-12A evidence](evidence/design-sync-R2-2026-09-21-ip12a.md#ip-12a), [pipeline/API](../art/ASSET_PIPELINE.md#21-category-profiles-и-reusable-adapters-ip-12a), [manifest](../../Art/asset-manifest.json).
@@ -555,7 +595,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 
 Status: Verified
 Dependencies: IP-04, IP-13
-Current packet: timeline-level technical cap 200 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076).
+Current packet: timeline-level technical cap 300 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076/0115).
+Текущая дельта: общий cap 300 для всех production-полей по [DECISION-0115](../decisions/0115-shared-300-enemy-cap.md); код читает значение из timeline, генератор отклоняет расхождение пакетов. [Evidence](evidence/2026-09-30-shared-300-enemy-cap.md).
 Follow-up 2026-09-30 — Implemented: cap replacement по [DECISION-0105](../decisions/0105-continuous-cap-replacement.md) удаляет самого дальнего ordinary без событий, kills и дропа; расписания и cap 200 не менялись. Затронутые EditMode 44/44; full graphics 1051/1051 + 57/57, generation/audio/art 269 PASS. Ручной плейтест открыт. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=1.0` (повышено с 0.8 через 0.9) и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Исходный алгоритм: Enemy/Bootstrap EditMode **247/247 PASS**; тюнинг 1.0: production field EditMode **17/17 PASS**, content STATIC PASS, 0 failed/skipped. [Тюнинг/evidence](evidence/2026-09-29-opposite-spawn-bias-tuning.md), [исходный алгоритм](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md) только FIELD-001 получает 0.6 обычной continuous частоты в первые 30 s; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md), [OBS-01](../playtests/2026-09-29_field001-opening-rate.md#obs-01--снизить-спавн-в-первые-30-секунд).
@@ -655,7 +696,14 @@ Delta 2026-09-30 [DECISION-0107](../decisions/0107-hostile-damage-notifications-
 Затем счётчик сета на паузе переведён на взятые компоненты, как в драфте: UI 114/114 + 4/4 PASS.
 DEV-превью эффекта замедления (4 варианта + «Все») и скорость 0.5× по
 [DECISION-0108](../decisions/0108-slow-status-look-preview.md) — Implemented; full graphics 1081/1081 + 59/59
-PASS; выбор варианта ожидает пользователя ([evidence](evidence/2026-09-30-slow-status-preview.md)).
+PASS; на момент превью выбор варианта ожидал пользователя ([evidence](evidence/2026-09-30-slow-status-preview.md)).
+Пользователь выбрал «Полоска» + «Лёд», затем по игровому отзыву заменил raster на первый показанный вариант v002 2026-09-30. Production binding выполнен, итоговый gameplay-scale gate открыт ([evidence](evidence/2026-09-30-slow-ice-runtime.md)).
+[DECISION-0112](../decisions/0112-draft-one-click-selection.md) — выбор Draft/Book
+одним нажатием, справка сетов по hover/focus с сохранением последней; Implemented.
+Первый EditMode 1085/1085 PASS и две неудачные PlayMode попытки зафиксированы в
+[evidence](evidence/2026-09-30-boss-distance-and-draft-selection.md). Последующий full graphics
+1085/1085 + 59/59 PASS (`TestResults/checks/20260930T091916-526918Z`);
+ручной просмотр выбора в игре открыт.
 Указатель на Путников по [DECISION-0109](../decisions/0109-traveler-offscreen-pointer.md) и скрытие секунд
 перезарядки в описаниях умений — Implemented; full graphics 1083/1083 + 59/59 PASS
 (`TestResults/checks/20260930T064602-849800Z`); визуальная приёмка ожидается.
@@ -750,6 +798,12 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-20)
 ### IP-21 — Production Final Bosses и Mid-bosses
 
 Status: Blocked
+2026-09-30 [DECISION-0111](../decisions/0111-boss-teleport-trigger-distance.md):
+дистанция запуска телепорта BOSS-001…010 увеличена 6.25 → 7.1875 units (+15%).
+Генерация и 16/16 data validation PASS. После исходного PlayMode crash
+последующий full graphics прошёл 1085/1085 EditMode + 59/59 PlayMode;
+ручной просмотр дистанции прыжка открыт
+([evidence](evidence/2026-09-30-boss-distance-and-draft-selection.md)).
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.
 Startup packet: F1-06 — BOSS-001 и MIDBOSS-001. Required packets: F1-00/01/04; authoritative readiness/evidence — [startup queue](#field001-execution).
 Dependencies: IP-15, IP-12A
@@ -831,6 +885,7 @@ Remaining acceptance / IDs: Полные production encounter schedules и bindi
 Startup subset F1-08: FIELD-001-TIMELINE (900 s, hooks 450/810) и startup bindings Implemented 2026-09-24 — [evidence](evidence/field001-f1-08-2026-09-24.md).
 FIELD-001 opening-rate follow-up 2026-09-29 — Implemented по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md): первые 30 s continuous cadence ×0.6, FIELD-002/003 без изменения; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md).
 DECISION-0076 follow-up Verified 2026-09-27: FIELD-001 — 16 фаз с 2–4 типами, combat-фазы 70–90 s и передышки 20 s; cap 200 перенесён на timeline и применяется также к burst. Unity full PASS 870/870 + 30/30; [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md). Ручной плейтест открыт.
+Текущая дельта: FIELD-001/002/003 используют общий cap 300 по [DECISION-0115](../decisions/0115-shared-300-enemy-cap.md). [Evidence](evidence/2026-09-30-shared-300-enemy-cap.md).
 FIELD-003-TIMELINE Implemented 2026-09-27 по field003-v1 (DECISION-0067): 24 фазы, HP ×1.24, урон ×1.16, ENEMY-010 с первой волны; после DECISION-0076 использует общий технический cap 200. Исторический Unity full PASS 2026-09-27 (EditMode 847/847, PlayMode 30/30, `TestResults/checks/20260927T084545-984347Z/summary.json`); [evidence](evidence/2026-09-27-field003.md). Ручной прогон не выполнен.
 Target implementation evidence: FIELD-001 rhythm и общий cap — [evidence](evidence/2026-09-27-wave-cap-and-field001-rhythm.md); остальные поля 004…010 остаются gated.
 Target verification evidence: DECISION-0076 delta — Unity 6000.6.0f1, 870/870 EditMode + 30/30 PlayMode, 0 skipped; ручной плейтест не выполнен.

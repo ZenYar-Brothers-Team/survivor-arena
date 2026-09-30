@@ -11,11 +11,11 @@
     "disappearingXpRecovery": 0,
     "pickedUpXpMultiplier": 1,
     "xpDropLifetimeBonusSeconds": 0,
-    "pickupRadius": 0.5,
+    "pickupRadius": 0.425,
     "knockbackResistance": 0,
     "outgoingKnockbackBonus": 0,
     "effectSizeMultiplier": 1,
-    "effectRangeMultiplier": 1,
+    "effectRangeMultiplier": 0.8,
     "potionDropMultiplier": 1,
     "lowHealthDamageMaxBonus": 0
   }

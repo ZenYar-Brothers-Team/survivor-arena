@@ -18,6 +18,7 @@ namespace Game.Settings
         void SetAudio(float master,float music,float sfx);
         void SetShake(bool enabled);
         void SetMouseMovement(bool enabled);
+        void SetUiScale(float scale);
         void SetCandidate(VideoMode mode);
         Task ApplyVideoAsync();
         Task KeepVideoAsync();

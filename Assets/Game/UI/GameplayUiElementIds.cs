@@ -30,7 +30,6 @@ namespace Game.UI
         public const string EntryFieldDetail = "entry-field-detail";
         public const string EntryMenuArt = "entry-menu-art";
         public const string EntryFieldHero = "entry-field-hero";
-        public const string EntryFieldDifficulty = "entry-field-difficulty";
         public const string EntryDevelopmentToggle = "EntryDevelopmentToggle";
         public const string ShellNotification = "ShellNotification";
         public const string ShellNotificationTitle = "ShellNotificationTitle";
@@ -53,6 +52,7 @@ namespace Game.UI
         public const string SettingsSfx = "SettingsSfx";
         public const string SettingsShake = "SettingsShake";
         public const string SettingsMouseMovement = "SettingsMouseMovement";
+        public const string SettingsUiScale = "SettingsUiScale";
         public const string SettingsWindow = "SettingsWindow";
         public const string SettingsResolution = "SettingsResolution";
         public const string SettingsApply = "SettingsApply";
@@ -104,6 +104,7 @@ namespace Game.UI
         public const string FieldSelectStart = "field-select-start";
         public const string FieldSelectBack = "field-select-back";
         public const string FieldSelectThumbnail = "field-select-thumbnail";
+        public const string FieldSelectName = "field-select-name";
         public static string FieldSelectCard(string id) => "field-select-" + id;
         public const string BossBar = "hud-boss-bar";
         public const string CharacterSelectScreen = "character-select-screen";
@@ -141,7 +142,6 @@ namespace Game.UI
         public const string ReceivedSets = "pause-received-sets";
         public const string MissedSets = "pause-missed-sets";
         public const string PauseRecipes = "pause-recipes";
-        public static string DraftConfirmButton(int index) => $"draft-option-{index}-confirm";
         public static string DraftRecipeButton(int index) => $"draft-recipe-{index}";
         public const string PauseBuild = "pause-build";
         public const string PauseCharacter = "pause-character";

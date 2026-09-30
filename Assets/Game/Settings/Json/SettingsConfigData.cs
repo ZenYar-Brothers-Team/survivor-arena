@@ -8,6 +8,7 @@ namespace Game.Settings
         public float? Sfx { get; set; }
         public bool? Shake { get; set; }
         public bool? MouseMovement { get; set; }
+        public float? UiScale { get; set; }
         public float? MouseDeadzoneWorldUnits { get; set; }
         public int? SafeWidth { get; set; }
         public int? SafeHeight { get; set; }

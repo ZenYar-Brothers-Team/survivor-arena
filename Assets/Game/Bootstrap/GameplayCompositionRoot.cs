@@ -332,6 +332,23 @@ namespace Game.Bootstrap
             NotifyNavigation();
         }
 
+        // Maps that only exist as collection entries appear closed next to the playable ones.
+        private System.Collections.Generic.IReadOnlyList<FieldPreviewEntry> ClosedFieldPreviews()
+        {
+            var access = new ProfileAccessProvider(Profile);
+            var playable = new System.Collections.Generic.HashSet<string>();
+            foreach (var field in _fieldRoster.AllFields) playable.Add(field.Id.ToString());
+            var previews = new System.Collections.Generic.List<FieldPreviewEntry>();
+            foreach (var rule in Profile.Catalog.Unlocks.Values)
+                if (rule.Kind == "field" && !playable.Contains(rule.Id))
+                {
+                    var id = new ContentId(rule.Id);
+                    previews.Add(new FieldPreviewEntry(id, access.GetLockReason(id)));
+                }
+            previews.Sort((a, b) => string.CompareOrdinal(a.Id.ToString(), b.Id.ToString()));
+            return previews;
+        }
+
         public bool TryStartCharacter(ContentId id)
         {
             if (IsInitialized || _selectionScreen == null || Selection == null || !Selection.Roster.TrySelect(id, out var selectedCharacter)) return false;
@@ -339,7 +356,7 @@ namespace Game.Bootstrap
             _pendingCharacterId = id;
             var previousField = FieldSelection?.SelectedId ?? Catalog.Fields.DefaultFieldId;
             FieldSelection = new FieldSelectionSession(_fieldRoster, previousField, this);
-            _fieldScreen = new FieldSelectScreen(transform, FieldSelection, Catalog.Registry, selectedCharacter);
+            _fieldScreen = new FieldSelectScreen(transform, FieldSelection, Catalog.Registry, selectedCharacter, ClosedFieldPreviews());
             _selectionScreen?.Dispose();
             _selectionScreen = null;
             NotifyNavigation();
@@ -656,6 +673,7 @@ namespace Game.Bootstrap
         {
             if (Playtest is PlaytestSession session) session.Tick();
             Settings?.Tick(Time.realtimeSinceStartupAsDouble);
+            if (Settings != null) UiScale.Update(Settings.Current.UiScale);
             _notifications?.Tick(Time.unscaledDeltaTime, IsInitialized && runController.Model.State == RunState.Paused);
             if (Keyboard.current?.escapeKey.wasPressedThisFrame == true)
             {

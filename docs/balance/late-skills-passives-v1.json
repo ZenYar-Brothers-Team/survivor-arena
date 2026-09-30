@@ -31,7 +31,7 @@
      "speed": 9,
      "range": 9,
      "lifetimeSeconds": 1.0,
-     "collisionRadius": 0.2,
+     "collisionRadius": 0.162,
      "knockback": 0.25,
      "actionSpeedBonus": 0
     },
@@ -43,7 +43,7 @@
      "speed": 10.35,
      "range": 12,
      "lifetimeSeconds": 1.15942,
-     "collisionRadius": 0.2,
+     "collisionRadius": 0.162,
      "knockback": 0.25,
      "actionSpeedBonus": 0
     },
@@ -55,7 +55,7 @@
      "speed": 10.35,
      "range": 15,
      "lifetimeSeconds": 1.449275,
-     "collisionRadius": 0.2,
+     "collisionRadius": 0.162,
      "knockback": 0.3,
      "actionSpeedBonus": 0
     },
@@ -67,7 +67,7 @@
      "speed": 11.7,
      "range": 21,
      "lifetimeSeconds": 1.794872,
-     "collisionRadius": 0.2,
+     "collisionRadius": 0.162,
      "knockback": 0.3,
      "actionSpeedBonus": 0
     },
@@ -79,7 +79,7 @@
      "speed": 11.7,
      "range": 21,
      "lifetimeSeconds": 1.794872,
-     "collisionRadius": 0.2,
+     "collisionRadius": 0.162,
      "knockback": 0.3625,
      "actionSpeedBonus": 0.25
     },
@@ -91,7 +91,7 @@
      "speed": 13.95,
      "range": 27,
      "lifetimeSeconds": 1.935484,
-     "collisionRadius": 0.24,
+     "collisionRadius": 0.1944,
      "knockback": 0.3625,
      "actionSpeedBonus": 0.25
     }

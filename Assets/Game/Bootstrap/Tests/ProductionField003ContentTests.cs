@@ -47,7 +47,7 @@ namespace Game.Bootstrap.Tests
                 Assert.AreEqual(1.16f, phase.Modifiers.AttackDamageMultiplier, 1e-5f, phase.Id.ToString());
                 Assert.AreEqual(1f, phase.Modifiers.SpeedMultiplier, 1e-5f, phase.Id.ToString());
             }
-            Assert.AreEqual(200, configuration.Timeline.MaxAliveEnemies, "Shared technical ordinary-enemy cap.");
+            Assert.AreEqual(300, configuration.Timeline.MaxAliveEnemies, "Shared technical ordinary-enemy cap.");
             Assert.AreEqual(900f, configuration.Timeline.TotalDurationSeconds, 1e-3f);
         }
 

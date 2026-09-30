@@ -38,7 +38,8 @@ namespace Game.UI.Tests
             Assert.AreEqual("Завершит рецепт", recipe.Status);
             StringAssert.Contains("required Lv.4", recipe.Detail);
             Assert.AreEqual("Связанных сетов: 3", card.Q<Label>(GameplayUiElementIds.CardMore).text);
-            Assert.IsFalse(card.ConfirmButton.enabledSelf);
+            Assert.IsTrue(card.SelectButton.enabledSelf);
+            Assert.IsNull(card.Q<Button>("draft-option-0-confirm"));
             Assert.IsFalse(recipe.IsAcquired);
             Assert.AreEqual(1, recipe.Current);
         }

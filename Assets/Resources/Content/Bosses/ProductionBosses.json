@@ -109,7 +109,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -258,7 +258,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -542,7 +542,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -680,7 +680,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -903,7 +903,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -1129,7 +1129,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -1319,7 +1319,7 @@
     ],
     "holdAttacksDuringDash": true,
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -1552,7 +1552,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -1804,7 +1804,7 @@
     ],
     "holdAttacksDuringDash": true,
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,
@@ -2216,7 +2216,7 @@
       }
     ],
     "teleport": {
-      "farDistance": 6.25,
+      "farDistance": 7.1875,
       "farSeconds": 2,
       "landingDistance": 1.5,
       "telegraphSeconds": 0.6,

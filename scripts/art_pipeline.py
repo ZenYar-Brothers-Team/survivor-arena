@@ -252,10 +252,22 @@ def build_plan(packet, root=ROOT):
             raise ValueError("Refusing to overwrite a runtime PNG without its matching manifest entry")
         if old_entry and (old_entry.get("runtime") != asset["runtime"] or old_entry.get("visualId") != asset["visualId"]):
             raise ValueError("Runtime paths and IDs are stable; migrations are separate work")
+        shared_entries = []
         for entry in manifest["entries"]:
-            if (entry["owner"], entry["role"]) != identity and (
-                    entry.get("runtime") == asset["runtime"] or entry.get("visualId") == asset["visualId"]):
-                raise ValueError("Runtime path or visual ID belongs to another asset")
+            if (entry["owner"], entry["role"]) == identity:
+                continue
+            if entry.get("runtime") != asset["runtime"] and entry.get("visualId") != asset["visualId"]:
+                continue
+            # Production and fixture owners may deliberately share one sprite. A replacement
+            # is safe only when the alias already points to this exact managed artifact.
+            if (old_entry and entry.get("runtime") == asset["runtime"] and
+                    entry.get("visualId") == asset["visualId"] and
+                    entry.get("resourcePath") == resource and
+                    entry.get("source") == old_entry.get("source") and
+                    entry.get("provenance") == old_entry.get("provenance")):
+                shared_entries.append(entry)
+                continue
+            raise ValueError("Runtime path or visual ID belongs to another asset")
         current_sprite = next((s for s in sprites if s["id"] == sprite["id"]), None)
         if current_sprite and current_sprite != sprite:
             raise ValueError("Existing sprite definition differs; keep its full profile or migrate separately")
@@ -288,6 +300,10 @@ def build_plan(packet, root=ROOT):
         if old_entry and runtime.exists() and runtime.read_bytes() == derivative and not replacing:
             entry = old_entry  # Repeating preparation never downgrades existing review evidence.
         upsert(manifest["entries"], entry, lambda e: (e["owner"], e["role"]))
+        if replacing:
+            for shared in shared_entries:
+                shared.update(stage="Prepared", evidence=[packet["approvalEvidence"]],
+                              missing="Unity import checks and target-scale visual review.")
         for binding in asset.get("bindings", []):
             path = inside(root, binding["file"], "Assets/Resources/Content/")
             if path.suffix != ".json" or path == root / SPRITES:

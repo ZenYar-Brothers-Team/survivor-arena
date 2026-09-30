@@ -64,6 +64,9 @@ def load_baseline():
     if not str(field_three.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-003 packet is not Approved; production content cannot be generated.")
     data["field003"] = field_three
+    shared_cap = data["timeline"]["maxAliveEnemies"]
+    if field_two["timeline"]["maxAliveEnemies"] != shared_cap or field_three["timeline"]["maxAliveEnemies"] != shared_cap:
+        raise SystemExit("All production fields must share one ordinary-enemy cap.")
     layouts = json.loads(LAYOUTS_PACKET.read_text(encoding="utf-8"))
     if not str(layouts.get("approval", "")).startswith("Approved"):
         raise SystemExit("Field layouts packet is not Approved; production content cannot be generated.")

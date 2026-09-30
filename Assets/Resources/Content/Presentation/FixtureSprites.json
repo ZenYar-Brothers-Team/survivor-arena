@@ -3,29 +3,29 @@
     "id": "FIXTURE-ENEMY-SEEKER-VISUAL",
     "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
     "role": "Body",
-    "contactRadius": 0.330282,
-    "contactCenterY": 0.469539
+    "contactRadius": 0.264225,
+    "contactCenterY": 0.375631
   },
   {
     "id": "FIXTURE-ENEMY-FAN-VISUAL",
     "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
     "role": "Body",
-    "contactRadius": 0.360855,
-    "contactCenterY": 0.453097
+    "contactRadius": 0.288684,
+    "contactCenterY": 0.362478
   },
   {
     "id": "FIXTURE-CHARACTER-AGILE-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
     "role": "Body",
-    "contactRadius": 0.401431,
-    "contactCenterY": 0.530976
+    "contactRadius": 0.301073,
+    "contactCenterY": 0.398232
   },
   {
     "id": "SKILL-001-VISUAL-PROJECTILE",
     "resourcePath": "Art/Sprites/Skills/skill-001/skill-001-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.5,
+      "visualScale": 1.35,
       "spinDegreesPerSecond": 140.0,
       "impactDurationSeconds": 0.16,
       "flashSize": 0.23,
@@ -47,7 +47,7 @@
     "resourcePath": "Art/Sprites/Skills/skill-003/skill-003-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.6,
+      "visualScale": 1.36,
       "spinDegreesPerSecond": 0.0,
       "impactDurationSeconds": 0.12,
       "flashSize": 0.18,
@@ -69,7 +69,7 @@
     "resourcePath": "Art/Sprites/Skills/skill-006/skill-006-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.4,
+      "visualScale": 1.6,
       "spinDegreesPerSecond": 720.0,
       "impactDurationSeconds": 0.14,
       "flashSize": 0.2,
@@ -91,7 +91,7 @@
     "resourcePath": "Art/Sprites/Skills/skill-008/skill-008-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.7,
+      "visualScale": 1.333333,
       "spinDegreesPerSecond": 900.0,
       "impactDurationSeconds": 0.13,
       "flashSize": 0.2,
@@ -113,7 +113,7 @@
     "resourcePath": "Art/Sprites/Skills/skill-014/skill-014-projectile",
     "role": "Projectile",
     "projectile": {
-      "visualScale": 1.9,
+      "visualScale": 1.71,
       "spinDegreesPerSecond": 120.0,
       "impactDurationSeconds": 0.14,
       "flashSize": 0.18,
@@ -536,8 +536,8 @@
     "id": "CHAR-001-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body",
     "role": "Body",
-    "contactRadius": 0.401431,
-    "contactCenterY": 0.530976
+    "contactRadius": 0.301073,
+    "contactCenterY": 0.398232
   },
   {
     "id": "CHAR-001-VISUAL-PORTRAIT",
@@ -615,33 +615,33 @@
     "id": "ENEMY-001-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
     "role": "Body",
-    "contactRadius": 0.330282,
-    "contactCenterY": 0.469539
+    "contactRadius": 0.264225,
+    "contactCenterY": 0.375631
   },
   {
     "id": "ENEMY-002-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
     "role": "Body",
-    "contactRadius": 0.360855,
-    "contactCenterY": 0.453097
+    "contactRadius": 0.288684,
+    "contactCenterY": 0.362478
   },
   {
-    "contactRadius": 0.428145,
-    "contactCenterY": 0.479255,
+    "contactRadius": 0.342516,
+    "contactCenterY": 0.383404,
     "id": "ENEMY-003-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-003/enemy-003-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.494547,
-    "contactCenterY": 0.58123,
+    "contactRadius": 0.395637,
+    "contactCenterY": 0.464984,
     "id": "ENEMY-004-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.517498,
-    "contactCenterY": 0.585548,
+    "contactRadius": 0.413998,
+    "contactCenterY": 0.468438,
     "id": "ENEMY-005-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-body",
     "role": "Body"
@@ -682,8 +682,8 @@
     "role": "Body"
   },
   {
-    "contactRadius": 0.266696,
-    "contactCenterY": 0.299833,
+    "contactRadius": 0.213357,
+    "contactCenterY": 0.239866,
     "id": "ENEMY-007-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
     "role": "Body"
@@ -813,8 +813,8 @@
     "role": "Projectile"
   },
   {
-    "contactRadius": 0.468087,
-    "contactCenterY": 0.49465,
+    "contactRadius": 0.351065,
+    "contactCenterY": 0.370988,
     "id": "CHAR-002-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
     "role": "Body"
@@ -830,8 +830,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.325532,
-    "contactCenterY": 0.864593,
+    "contactRadius": 0.244149,
+    "contactCenterY": 0.648444,
     "id": "CHAR-003-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
     "role": "Body"
@@ -847,8 +847,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.267831,
-    "contactCenterY": 0.29322,
+    "contactRadius": 0.200873,
+    "contactCenterY": 0.219915,
     "id": "CHAR-004-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
     "role": "Body"
@@ -864,8 +864,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.365678,
-    "contactCenterY": 0.701864,
+    "contactRadius": 0.274258,
+    "contactCenterY": 0.526398,
     "id": "CHAR-005-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
     "role": "Body"
@@ -1045,106 +1045,106 @@
     "role": "Background"
   },
   {
-    "contactRadius": 0.336619,
-    "contactCenterY": 0.888349,
+    "contactRadius": 0.269295,
+    "contactCenterY": 0.710679,
     "id": "ENEMY-006-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-006/enemy-006-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.603173,
-    "contactCenterY": 0.73044,
+    "contactRadius": 0.482538,
+    "contactCenterY": 0.584352,
     "id": "ENEMY-008-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-008/enemy-008-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.458403,
-    "contactCenterY": 0.727409,
+    "contactRadius": 0.366722,
+    "contactCenterY": 0.581928,
     "id": "ENEMY-009-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-009/enemy-009-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.270428,
-    "contactCenterY": 0.292851,
+    "contactRadius": 0.216342,
+    "contactCenterY": 0.234281,
     "id": "ENEMY-010-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.254664,
-    "contactCenterY": 0.412046,
+    "contactRadius": 0.203731,
+    "contactCenterY": 0.329637,
     "id": "ENEMY-011-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.26875,
-    "contactCenterY": 0.530931,
+    "contactRadius": 0.214999,
+    "contactCenterY": 0.424745,
     "id": "ENEMY-012-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.321563,
-    "contactCenterY": 0.449081,
+    "contactRadius": 0.257251,
+    "contactCenterY": 0.359265,
     "id": "ENEMY-013-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-013/enemy-013-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.464741,
-    "contactCenterY": 0.885725,
+    "contactRadius": 0.371793,
+    "contactCenterY": 0.70858,
     "id": "ENEMY-014-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.320779,
-    "contactCenterY": 0.448671,
+    "contactRadius": 0.256623,
+    "contactCenterY": 0.358937,
     "id": "ENEMY-015-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.454714,
-    "contactCenterY": 0.728751,
+    "contactRadius": 0.363771,
+    "contactCenterY": 0.583001,
     "id": "ENEMY-016-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-016/enemy-016-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.260367,
-    "contactCenterY": 0.363056,
+    "contactRadius": 0.208293,
+    "contactCenterY": 0.290445,
     "id": "ENEMY-017-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-017/enemy-017-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.264113,
-    "contactCenterY": 0.412536,
+    "contactRadius": 0.21129,
+    "contactCenterY": 0.330029,
     "id": "ENEMY-018-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.472115,
-    "contactCenterY": 0.900354,
+    "contactRadius": 0.377692,
+    "contactCenterY": 0.720283,
     "id": "ENEMY-019-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.569836,
-    "contactCenterY": 0.602924,
+    "contactRadius": 0.455868,
+    "contactCenterY": 0.482339,
     "id": "ENEMY-020-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Enemies/enemy-020/enemy-020-body",
     "role": "Body"
   },
   {
-    "contactRadius": 0.755947,
-    "contactCenterY": 0.787881,
+    "contactRadius": 0.56696,
+    "contactCenterY": 0.590911,
     "id": "CHAR-006-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
     "role": "Body"
@@ -1160,8 +1160,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.274067,
-    "contactCenterY": 0.623531,
+    "contactRadius": 0.20555,
+    "contactCenterY": 0.467648,
     "id": "CHAR-007-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
     "role": "Body"
@@ -1177,8 +1177,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.304311,
-    "contactCenterY": 0.397763,
+    "contactRadius": 0.228233,
+    "contactCenterY": 0.298322,
     "id": "CHAR-008-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
     "role": "Body"
@@ -1194,8 +1194,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.262649,
-    "contactCenterY": 0.568167,
+    "contactRadius": 0.196987,
+    "contactCenterY": 0.426125,
     "id": "CHAR-009-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
     "role": "Body"
@@ -1211,8 +1211,8 @@
     "role": "Icon"
   },
   {
-    "contactRadius": 0.400199,
-    "contactCenterY": 0.486664,
+    "contactRadius": 0.300149,
+    "contactCenterY": 0.364998,
     "id": "CHAR-010-VISUAL-BODY",
     "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
     "role": "Body"
@@ -2333,5 +2333,10 @@
     "id": "UI-FOLIO-SURFACE-VISUAL-BACKGROUND",
     "resourcePath": "Art/UI/Folio/ui-folio-surface-background",
     "role": "Background"
+  },
+  {
+    "id": "SLOW-STATUS-VISUAL-MASK",
+    "resourcePath": "Art/VFX/slow-status-ice-mask",
+    "role": "Mask"
   }
 ]

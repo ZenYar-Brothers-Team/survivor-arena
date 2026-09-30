@@ -278,8 +278,6 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.IsFalse(draft.Controls.IsBanished(banishedId));
             Submit(banishButton);
             Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftSelectButton(0)));
-            Assert.AreEqual(2, draft.RemainingBanishes, "Inspect is not a banish intent.");
-            Submit(uiTree.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)));
             Assert.AreEqual("Исключить", banishButton.text);
             Assert.AreEqual(1, draft.RemainingBanishes);
             foreach (var option in draft.CurrentDraft.Options)

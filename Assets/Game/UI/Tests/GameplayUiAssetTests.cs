@@ -105,7 +105,9 @@ namespace Game.UI.Tests
             Assert.IsTrue(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));
             Assert.AreEqual("Отмена исключения", root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).text);
             Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftRerollButton).enabledSelf);
-            Assert.AreEqual("Исключить", root.Q<Button>(GameplayUiElementIds.DraftConfirmButton(0)).text);
+            Assert.AreEqual(3, root.Q<VisualElement>(GameplayUiElementIds.DraftOptions).childCount);
+            Assert.IsNull(root.Q<Button>("draft-option-0-confirm"));
+            StringAssert.Contains("исключить", root.Q<Label>(GameplayUiElementIds.DraftControlHint).text);
             view.RenderDraft(new DraftViewState(true, 0, 0, options, revision));
             Assert.IsFalse(root.Q<Button>(GameplayUiElementIds.DraftBanishModeButton).enabledSelf);
             Assert.IsFalse(root.Q<VisualElement>(GameplayUiElementIds.DraftOverlay).ClassListContains("draft-banish-mode"));

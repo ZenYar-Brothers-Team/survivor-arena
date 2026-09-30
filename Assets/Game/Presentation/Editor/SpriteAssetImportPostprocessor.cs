@@ -6,7 +6,8 @@ namespace Game.Presentation.Editor
 {
     public sealed class SpriteAssetImportPostprocessor : AssetPostprocessor
     {
-        public override uint GetVersion() => 1;
+        // Reimport existing body sprites after the 2026-09-30 ImportProfiles PPU review.
+        public override uint GetVersion() => 2;
         private void OnPreprocessTexture()
         {
             if (!assetPath.StartsWith(SpriteImportProfileCatalog.Root, StringComparison.Ordinal)) return;

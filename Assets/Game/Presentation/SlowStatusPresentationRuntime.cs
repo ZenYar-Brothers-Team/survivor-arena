@@ -6,7 +6,7 @@ namespace Game.Presentation
 {
     /// <summary>
     /// Slow-status candidate looks on one sprite body (DECISION-0108, GI-09): a shrinking bar under the feet,
-    /// a blue body tint, a light ice silhouette over the body and a blue outline behind it. Presentation only:
+    /// a blue body tint, a shared ice texture clipped to the body and a blue outline behind it. Presentation only:
     /// the owner feeds the current slow state; the gameplay root, collider and movement are never touched.
     /// Overlays are children of the body root, so they follow the pose writer's squash/tilt. Colors come from
     /// unlit materials and facing from the overlay transform, because SpriteRenderer color and flipX are
@@ -16,18 +16,25 @@ namespace Game.Presentation
     public sealed class SlowStatusPresentationRuntime : MonoBehaviour
     {
         private const string SolidColorShaderPath = "Shaders/SpriteSolidColor";
+        private const string IceShaderPath = "Shaders/SpriteIceMask";
         private static readonly int ColorProperty = Shader.PropertyToID("_Color");
+        private static readonly int IceTextureProperty = Shader.PropertyToID("_IceTex");
+        private static readonly int IceUvTransformProperty = Shader.PropertyToID("_IceUvTransform");
         private static readonly Vector2[] OutlineDirections =
         {
             new Vector2(1f, 0f), new Vector2(-1f, 0f), new Vector2(0f, 1f), new Vector2(0f, -1f),
             new Vector2(.7071f, .7071f), new Vector2(-.7071f, .7071f), new Vector2(.7071f, -.7071f), new Vector2(-.7071f, -.7071f)
         };
         private static readonly Dictionary<Color, Material> Materials = new Dictionary<Color, Material>();
+        private static readonly Dictionary<(Sprite, Color), Material> IceMaterials = new Dictionary<(Sprite, Color), Material>();
         private static Shader _shader;
+        private static Shader _iceShader;
         private static Sprite _pixel;
 
         private SpritePresentationRuntime _presentation;
         private SpriteRenderer _ice;
+        private Sprite _iceBodySprite;
+        private MaterialPropertyBlock _iceProperties;
         private readonly SpriteRenderer[] _outline = new SpriteRenderer[OutlineDirections.Length];
         private Transform _bar;
         private SpriteRenderer _barBack;
@@ -55,7 +62,12 @@ namespace Game.Presentation
 
             var ice = all || style == SlowStatusStyle.Ice;
             _ice.enabled = ice;
-            if (ice) Mirror(_ice, body, profile.IceColor, body.sortingOrder + 1, Vector2.zero);
+            if (ice)
+            {
+                Mirror(_ice, body, profile.IceColor, body.sortingOrder + 1, Vector2.zero,
+                    profile.IceMask.Sprite);
+                if (_iceBodySprite != body.sprite) SetIceUv(body.sprite);
+            }
 
             var outline = all || style == SlowStatusStyle.Outline;
             var scale = Mathf.Max(1e-4f, Mathf.Abs(presentation.Rig.BodyRoot.lossyScale.x));
@@ -66,7 +78,7 @@ namespace Game.Presentation
                     OutlineDirections[i] * (profile.OutlineWidth / scale));
             }
 
-            var bar = all || style == SlowStatusStyle.Bar;
+            var bar = all || style == SlowStatusStyle.Bar || style == SlowStatusStyle.Ice;
             _bar.gameObject.SetActive(bar);
             if (bar) LayoutBar(profile, body, Mathf.Clamp01(remaining01));
 
@@ -110,7 +122,12 @@ namespace Game.Presentation
             var sy = Mathf.Max(1e-4f, Mathf.Abs(scale.y));
             var width = profile.BarWidth / sx;
             var height = profile.BarHeight / sy;
-            _bar.localPosition = new Vector3(0f, -profile.BarOffsetY / sy, 0f);
+            // Place the whole bar below the rendered sprite, including on compact enemy art.
+            var bounds = body.bounds;
+            var worldPosition = new Vector3(bounds.center.x,
+                bounds.min.y - profile.BarOffsetY - profile.BarHeight * .5f, body.transform.position.z);
+            var localPosition = _bar.parent.InverseTransformPoint(worldPosition);
+            _bar.localPosition = new Vector3(localPosition.x, localPosition.y, 0f);
             Style(_barBack, body, profile.BarBackColor, body.sortingOrder + 2);
             _barBack.transform.localPosition = Vector3.zero;
             _barBack.transform.localScale = new Vector3(width, height, 1f);
@@ -120,19 +137,21 @@ namespace Game.Presentation
         }
 
         /// <summary>Copies the body sprite; facing is mirrored by the overlay's own X scale (see class summary).</summary>
-        private static void Mirror(SpriteRenderer target, SpriteRenderer body, Color color, int order, Vector2 offset)
+        private static void Mirror(SpriteRenderer target, SpriteRenderer body, Color color, int order, Vector2 offset,
+            Sprite icePattern = null)
         {
             target.sprite = body.sprite;
             target.flipX = target.flipY = false;
             var facing = body.flipX ? -1f : 1f;
             target.transform.localScale = new Vector3(facing, body.flipY ? -1f : 1f, 1f);
             target.transform.localPosition = new Vector3(offset.x, offset.y, 0f);
-            Style(target, body, color, order);
+            Style(target, body, color, order, icePattern);
         }
 
-        private static void Style(SpriteRenderer target, SpriteRenderer body, Color color, int order)
+        private static void Style(SpriteRenderer target, SpriteRenderer body, Color color, int order,
+            Sprite icePattern = null)
         {
-            target.sharedMaterial = MaterialFor(color);
+            target.sharedMaterial = icePattern != null ? MaterialForIce(color, icePattern) : MaterialFor(color);
             target.color = Color.white;
             target.sortingLayerID = body.sortingLayerID;
             target.sortingOrder = order;
@@ -145,6 +164,32 @@ namespace Game.Presentation
             var renderer = child.AddComponent<SpriteRenderer>();
             renderer.enabled = false;
             return renderer;
+        }
+
+        private void SetIceUv(Sprite bodySprite)
+        {
+            _iceBodySprite = bodySprite;
+            if (bodySprite == null) return;
+            var rect = bodySprite.textureRect;
+            var texture = bodySprite.texture;
+            var transform = new Vector4(texture.width / rect.width, texture.height / rect.height,
+                -rect.x / rect.width, -rect.y / rect.height);
+            if (_iceProperties == null) _iceProperties = new MaterialPropertyBlock();
+            _iceProperties.SetVector(IceUvTransformProperty, transform);
+            _ice.SetPropertyBlock(_iceProperties);
+        }
+
+        private static Material MaterialForIce(Color color, Sprite icePattern)
+        {
+            var key = (icePattern, color);
+            if (IceMaterials.TryGetValue(key, out var material) && material != null) return material;
+            if (_iceShader == null) _iceShader = Resources.Load<Shader>(IceShaderPath);
+            if (_iceShader == null) throw new InvalidOperationException($"Missing shader Resources/{IceShaderPath}.");
+            material = new Material(_iceShader) { name = "Slow ice " + ColorUtility.ToHtmlStringRGBA(color) };
+            material.SetColor(ColorProperty, color);
+            material.SetTexture(IceTextureProperty, icePattern.texture);
+            IceMaterials[key] = material;
+            return material;
         }
 
         public static Material MaterialFor(Color color)

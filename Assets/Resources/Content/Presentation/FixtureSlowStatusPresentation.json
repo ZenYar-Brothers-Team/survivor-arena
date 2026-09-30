@@ -1,6 +1,7 @@
 {
   "tintColor": [0.55, 0.72, 1.0, 1.0],
-  "iceColor": [0.78, 0.93, 1.0, 0.42],
+  "iceColor": [1.0, 1.0, 1.0, 0.85],
+  "iceVisualId": "SLOW-STATUS-VISUAL-MASK",
   "outlineColor": [0.5, 0.8, 1.0, 0.6],
   "outlineWidth": 0.035,
   "barWidth": 0.62,

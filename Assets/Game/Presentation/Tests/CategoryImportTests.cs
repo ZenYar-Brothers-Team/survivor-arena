@@ -108,7 +108,7 @@ namespace Game.Presentation.Tests
             var importer = (TextureImporter)AssetImporter.GetAtPath(Body);
             var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
             Assert.AreEqual(new Vector2(.5f, .09f), settings.spritePivot);
-            Assert.AreEqual(320, importer.spritePixelsPerUnit);
+            Assert.That(importer.spritePixelsPerUnit, Is.EqualTo(426.666667f).Within(.001f));
             Assert.AreEqual(guid, AssetDatabase.AssetPathToGUID(Body));
             Assert.Throws<InvalidOperationException>(() => SpriteImportProfileCatalog.Resolve(
                 "Assets/Resources/Art/Sprites/Enemies/unreviewed-body.png"));

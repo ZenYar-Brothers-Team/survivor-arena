@@ -33,8 +33,15 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsTrue(alive.Any(e => e.BodyPresentation != null), "Production enemies with body art spawned.");
 
                 var director = composition.SlowStatus;
-                director.SetStyle(SlowStatusStyle.All);
+                Assert.AreEqual(SlowStatusStyle.Ice, director.Style, "Bar and ice are the production default.");
                 Assert.Greater(director.SlowAllForPreview(), 0);
+                yield return null;
+                var selected = alive.First(e => e.BodyPresentation != null && e.Controls.IsSlowed)
+                    .BodyPresentation.GetComponent<SlowStatusPresentationRuntime>();
+                Assert.IsTrue(selected.IsShowing);
+                Assert.IsTrue(selected.transform.Find("SlowBar").gameObject.activeSelf);
+                Assert.IsTrue(selected.transform.Find("BodyRoot/SlowIce").GetComponent<SpriteRenderer>().enabled);
+                director.SetStyle(SlowStatusStyle.All);
                 yield return null;
                 Assert.Greater(director.ShownCount, 0);
                 var slowed = alive.First(e => e.BodyPresentation != null && e.Controls.IsSlowed);

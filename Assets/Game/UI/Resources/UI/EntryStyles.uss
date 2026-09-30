@@ -52,20 +52,10 @@
 .entry-action:focus { border-color: #e8d8b8; border-width: 3px; }
 .entry-action:disabled { background-color: #39313f; color: #9d8e9e; border-color: #574b5d; opacity: 0.58; translate: 0 0; }
 .entry-field-scroll { flex-grow: 1; min-height: 0; }
+.entry-field-scroll .unity-scroll-view__content-container { flex-grow: 1; justify-content: center; }
 .entry-field-grid { flex-direction: row; flex-wrap: wrap; }
-.entry-field-choice { width: 18.8%; height: 300px; }
+.entry-field-choice { width: 18.8%; }
 .entry-field-image { height: 144px; width: 100%; flex-shrink: 0; }
-.entry-difficulty { flex-direction: row; justify-content: center; height: 28px; margin-top: 4px; flex-shrink: 0; }
-.entry-sword-slot { width: 26px; height: 26px; flex-shrink: 0; }
-.entry-sword { width: 16px; height: 24px; align-self: center; rotate: 30deg; }
-.entry-sword-tip { position: absolute; left: 6px; top: 1px; width: 4px; height: 4px; rotate: 45deg; background-color: #766779; }
-.entry-sword-blade { position: absolute; left: 5px; top: 3px; width: 6px; height: 13px; border-width: 1px; border-color: #766779; background-color: #352d3c; }
-.entry-sword-guard { position: absolute; left: 1px; top: 15px; width: 14px; height: 3px; background-color: #766779; }
-.entry-sword-grip { position: absolute; left: 6px; top: 18px; width: 4px; height: 6px; background-color: #766779; }
-.entry-sword-filled .entry-sword-blade { background-color: #d5a84a; border-color: #e8d8b8; }
-.entry-sword-filled .entry-sword-tip, .entry-sword-filled .entry-sword-guard, .entry-sword-filled .entry-sword-grip { background-color: #d5a84a; }
-.entry-compact .entry-difficulty { height: 26px; margin-top: 2px; }
-.entry-compact .entry-sword-slot { width: 23px; }
 .entry-footer-portrait { width: 58px; height: 58px; margin-right: 16px; }
 .entry-field-footer-hero { flex-grow: 1; flex-direction: row; align-items: center; margin: 0 28px; }
 .entry-dev-actions { display: none; flex-direction: column; max-width: 360px; }
@@ -94,8 +84,7 @@
 .entry-compact .entry-primary { min-width: 235px; }
 .entry-compact .entry-footer { min-height: 60px; margin-top: 16px; }
 .entry-compact .entry-footer-detail { font-size: 18px; }
-.entry-compact .entry-field-choice { height: 210px; }
-.entry-compact .entry-field-image { height: 90px; }
+.entry-compact .entry-field-image { height: 100px; }
 .entry-compact .entry-field-choice .entry-choice-name { font-size: 20px; margin-top: 5px; }
 .entry-compact .entry-field-choice .entry-choice-state { font-size: 14px; margin-top: 4px; }
 .entry-compact .entry-field-detail { min-height: 28px; font-size: 18px; }

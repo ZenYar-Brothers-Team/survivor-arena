@@ -31,7 +31,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(810f, timeline.Hooks.Single(h => h.Kind == WaveHookKind.FinalBoss).TimeSeconds);
             var ids = timeline.Phases.SelectMany(p => p.Composition).Select(c => c.Enemy.Id.ToString()).Distinct().OrderBy(i => i);
             CollectionAssert.AreEqual(new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007" }, ids);
-            Assert.AreEqual(200, timeline.MaxAliveEnemies);
+            Assert.AreEqual(300, timeline.MaxAliveEnemies);
             Assert.IsTrue(timeline.Phases.All(p => p.Composition.Count >= 2 && p.Composition.Count <= 4),
                 "FIELD-001 phases use focused two-to-four enemy compositions.");
             Assert.IsTrue(timeline.Phases.Skip(4).Where(p => p.Tag != WavePhaseTag.Rest && p.SpawnMode == WaveSpawnMode.Continuous)
