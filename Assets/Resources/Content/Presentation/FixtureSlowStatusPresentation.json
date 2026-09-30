@@ -1,13 +1,13 @@
 {
   "tintColor": [0.55, 0.72, 1.0, 1.0],
   "iceColor": [0.78, 0.93, 1.0, 0.42],
-  "outlineColor": [0.31, 0.62, 1.0, 1.0],
+  "outlineColor": [0.5, 0.8, 1.0, 0.6],
   "outlineWidth": 0.035,
   "barWidth": 0.62,
   "barHeight": 0.07,
   "barOffsetY": 0.14,
-  "barFillColor": [0.31, 0.57, 0.74, 1.0],
-  "barBackColor": [0.14, 0.11, 0.17, 0.85],
+  "barFillColor": [0.4, 0.75, 1.0, 1.0],
+  "barBackColor": [0.1, 0.08, 0.13, 0.8],
   "previewSlowFraction": 0.4,
   "previewSlowSeconds": 5.0
 }

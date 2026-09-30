@@ -91,6 +91,8 @@ namespace Game.UI
         public const string TravelerPointerArrow = "traveler-arrow";
         public const string TravelerPointerCaption = "traveler-caption";
         public const string TravelerHealth = "traveler-health";
+        public const string OverheadHealthOverlay = "overhead-health-overlay";
+        public static string OverheadHealthBar(System.Guid lifeId) => "overhead-health-" + lifeId.ToString("N");
         public const string TravelerObservation = "development-traveler-observation";
         public const string SpawnTraveler = "development-spawn-traveler";
         public const string PickupFeedback = "hud-pickup-feedback";

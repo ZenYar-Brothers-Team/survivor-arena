@@ -659,6 +659,9 @@ PASS; выбор варианта ожидает пользователя ([evid
 Указатель на Путников по [DECISION-0109](../decisions/0109-traveler-offscreen-pointer.md) и скрытие секунд
 перезарядки в описаниях умений — Implemented; full graphics 1083/1083 + 59/59 PASS
 (`TestResults/checks/20260930T064602-849800Z`); визуальная приёмка ожидается.
+Затем: исправлены цвет/разворот обводки и видимость полоски замедления (материалы вместо свойств
+SpriteRenderer); полоски HP без чисел, HP мини-босса над головой
+([DECISION-0110](../decisions/0110-health-bars-no-numbers-midboss-overhead.md)) — Implemented, Unity-проверка ожидается.
 Proposal verification: [HTML evidence](evidence/2026-09-28-ui-entry-r1-mockups.md) — 34 captures с A/B/C/D/E, 720p/1080p: geometry/input/lock/scroll/motion/reduced-motion, силуэты, десять полей без scroll, E alpha/pointer/layers/light PASS. Не новая Unity verification и не approval арт-кандидатов.
 Latest menu approval: [выбранная пара SHA256](proposals/ui-entry-r1/menu-shepotka-review.md#visual-approval--2026-09-28) — backplate v001 + Shepotka foreground v002. Взрослый образ и свитки только для иллюстрации; canonical CHAR-003 не меняется. Средняя пыль перед обоими героями и усиленное движение лучей приняты. Предыдущий арт сохранён; выбранные слои подключены в Unity через approved packet.
 Damage presentation: [DECISION-0085](../decisions/0085-ui-damage-percent-presentation.md) реализована в runtime: базовый урон скрыт, прибавки в процентах; numeric regression включена в новые checks.

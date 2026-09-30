@@ -43,9 +43,9 @@ namespace Game.UI
                 element.style.left = Length.Percent(item.Position.x * 100);
                 element.style.top = Length.Percent(item.Position.y * 100);
                 element.EnableInClassList("traveler-pointer", item.Offscreen);
-                var pointer = element.Q(GameplayUiElementIds.TravelerPointerArrow);
+                var pointer = element.Q<TravelerPointerArrow>(GameplayUiElementIds.TravelerPointerArrow);
                 pointer.style.display = item.Offscreen ? DisplayStyle.Flex : DisplayStyle.None;
-                pointer.style.rotate = new Rotate(new Angle(item.AngleDegrees, AngleUnit.Degree));
+                pointer.AngleDegrees = item.AngleDegrees;
                 element.Q(GameplayUiElementIds.TravelerPointerCaption).style.display = item.Offscreen ? DisplayStyle.Flex : DisplayStyle.None;
                 var health = element.Q<ProgressBar>(GameplayUiElementIds.TravelerHealth);
                 health.style.display = item.Offscreen ? DisplayStyle.None : DisplayStyle.Flex;

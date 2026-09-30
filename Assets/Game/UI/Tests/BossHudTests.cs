@@ -21,7 +21,7 @@ namespace Game.UI.Tests
             var bar = root.Q<ProgressBar>(GameplayUiElementIds.BossBar);
             Assert.AreEqual(DisplayStyle.Flex, bar.style.display.value);
             Assert.AreEqual(30, bar.value);
-            StringAssert.Contains("Commander", bar.title);
+            Assert.AreEqual("Commander", bar.title, "DECISION-0110: no HP numbers on health bars.");
             Assert.IsNull(root.Q("hud-notification"), "DECISION-0107: the shell toast is the only notification surface.");
             view.RenderHud(Hud(805, default));
             Assert.AreEqual(DisplayStyle.None, bar.style.display.value);

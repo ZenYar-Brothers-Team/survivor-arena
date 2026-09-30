@@ -113,24 +113,33 @@ namespace Game.Presentation.Tests
         [Test]
         public void Apply_All_MirrorsBodyForIceAndOutlineThenOffClears()
         {
-            // Ice alone does not re-run the pose writer, so an externally set facing is mirrored as-is.
+            // Facing is mirrored through the overlay transform: a silhouette shader never sees SpriteRenderer.flipX.
             _presentation.Rig.BodyRenderer.flipX = true;
             _slow.Apply(_presentation, _profile, SlowStatusStyle.Ice, true, 1f);
             var ice = _presentation.Rig.BodyRoot.Find("SlowIce").GetComponent<SpriteRenderer>();
-            Assert.IsTrue(ice.flipX);
+            Assert.IsFalse(ice.flipX);
+            Assert.AreEqual(-1f, ice.transform.localScale.x);
+            _presentation.Rig.BodyRenderer.flipX = false;
+            _slow.Apply(_presentation, _profile, SlowStatusStyle.Ice, true, 1f);
+            Assert.AreEqual(1f, ice.transform.localScale.x, "The overlay turns with the monster.");
 
             _slow.Apply(_presentation, _profile, SlowStatusStyle.All, true, 1f);
             Assert.IsTrue(ice.enabled);
             Assert.AreSame(_sprite, ice.sprite);
-            Assert.AreEqual(_presentation.Rig.BodyRenderer.flipX, ice.flipX, "Overlay follows the pose writer's facing.");
+            Assert.AreEqual(_presentation.Rig.BodyRenderer.flipX ? -1f : 1f, ice.transform.localScale.x);
             Assert.AreEqual(11, ice.sortingOrder);
-            Assert.AreEqual(_profile.IceColor, ice.color);
+            Assert.AreEqual("SurvivorArena/SpriteSolidColor", ice.sharedMaterial.shader.name);
+            Assert.AreEqual(_profile.IceColor, ice.sharedMaterial.GetColor("_Color"), "Color comes from the material, not SpriteRenderer.color.");
             var outline = Overlays().Where(r => r.name.StartsWith("SlowOutline", StringComparison.Ordinal)).ToArray();
             Assert.AreEqual(8, outline.Length);
             Assert.IsTrue(outline.All(r => r.enabled && r.sortingOrder == 9 && r.sprite == _sprite));
+            Assert.IsTrue(outline.All(r => r.sharedMaterial.GetColor("_Color") == _profile.OutlineColor));
+            Assert.Less(_profile.OutlineColor.a, 1f, "Outline is translucent.");
             var worldWidth = outline.Max(r => r.transform.localPosition.x) * Mathf.Abs(_presentation.Rig.BodyRoot.lossyScale.x);
             Assert.AreEqual(_profile.OutlineWidth, worldWidth, 1e-4f, "Outline width is in world units despite body pose scale.");
-            Assert.AreEqual("SurvivorArena/SpriteSolidColor", ice.sharedMaterial.shader.name);
+            var bar = _presentation.Rig.transform.Find("SlowBar");
+            Assert.AreEqual(_profile.BarFillColor, bar.Find("Fill").GetComponent<SpriteRenderer>().sharedMaterial.GetColor("_Color"));
+            Assert.IsTrue(bar.Find("Fill").GetComponent<SpriteRenderer>().enabled);
 
             _slow.Apply(_presentation, _profile, SlowStatusStyle.Off, true, 1f);
             Assert.IsFalse(Overlays().Any(r => r.enabled));

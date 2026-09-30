@@ -1,10 +1,13 @@
-// Draws a sprite's silhouette in the renderer color (vertex color); texture alpha only.
-// Used by slow-status outline and ice overlays (DECISION-0108). Built-in render pipeline.
+// Draws a sprite's silhouette in the material _Color; the texture contributes alpha only.
+// Used by slow-status outline, ice and bar overlays (DECISION-0108). Unlit, so it does not depend on
+// 2D lights or on SpriteRenderer color/flip shader properties (those are applied by the owner through
+// the material and the transform instead).
 Shader "SurvivorArena/SpriteSolidColor"
 {
     Properties
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -21,19 +24,18 @@ Shader "SurvivorArena/SpriteSolidColor"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            fixed4 _Color;
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
             };
 
             struct v2f
             {
                 float4 position : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
             };
 
             v2f vert(appdata input)
@@ -41,14 +43,13 @@ Shader "SurvivorArena/SpriteSolidColor"
                 v2f output;
                 output.position = UnityObjectToClipPos(input.vertex);
                 output.uv = input.uv;
-                output.color = input.color;
                 return output;
             }
 
             fixed4 frag(v2f input) : SV_Target
             {
                 fixed alpha = tex2D(_MainTex, input.uv).a;
-                return fixed4(input.color.rgb, input.color.a * alpha);
+                return fixed4(_Color.rgb, _Color.a * alpha);
             }
             ENDCG
         }

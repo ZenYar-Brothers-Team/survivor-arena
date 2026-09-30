@@ -21,11 +21,11 @@ namespace Game.UI.Tests
             var right=harness.Rendered[0]; var sameSide=harness.Rendered[1]; var visible=harness.Rendered[2]; var below=harness.Rendered[3];
             Assert.IsTrue(right.Offscreen); Assert.IsTrue(sameSide.Offscreen); Assert.IsFalse(visible.Offscreen); Assert.IsTrue(below.Offscreen);
             // DECISION-0109: close to the screen edge, not pulled toward the centre.
-            Assert.AreEqual(.97f,right.Position.x,1e-4f); Assert.AreEqual(.5f,right.Position.y,1e-4f);
-            Assert.AreEqual(.95f,below.Position.y,1e-4f); Assert.AreEqual(.5f,below.Position.x,1e-4f);
+            Assert.AreEqual(.965f,right.Position.x,1e-4f); Assert.AreEqual(.5f,right.Position.y,1e-4f);
+            Assert.AreEqual(.935f,below.Position.y,1e-4f); Assert.AreEqual(.5f,below.Position.x,1e-4f);
             Assert.AreEqual(0f,right.AngleDegrees,1e-3f); Assert.AreEqual(90f,below.AngleDegrees,1e-3f, "Down on screen is +90° (y down).");
-            Assert.AreEqual(.97f,sameSide.Position.x,1e-4f,"A second pointer on the same edge stays on the frame.");
-            Assert.GreaterOrEqual(Mathf.Abs(sameSide.Position.y-right.Position.y),.07f-1e-4f,"…but slides along it.");
+            Assert.AreEqual(.965f,sameSide.Position.x,1e-4f,"A second pointer on the same edge stays on the frame.");
+            Assert.GreaterOrEqual(Mathf.Abs(sameSide.Position.y-right.Position.y),.09f-1e-4f,"…but slides along it.");
             Assert.AreEqual(.5f,visible.HealthFraction);
             foreach(var item in harness.Rendered) { Assert.That(item.Position.x,Is.InRange(0,1)); Assert.That(item.Position.y,Is.InRange(0,1)); }
             harness.RequestSpawn(); Assert.AreEqual(expected,harness.SpawnCount);
@@ -43,6 +43,20 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void Presenter_VisibleTraveler_PlacesHealthBarAboveBodyTop()
+        {
+            // Body centre on screen at (.5,.5); body top at viewport y .8 → bar just above the head, not mid-body.
+            var traveler=new TravelerSnapshot(Guid.NewGuid(),Guid.NewGuid(),"FIXTURE-TEST","Fixture","TEST",TravelerRole.Wanderer,
+                new Vector2(.5f,.5f),50,100,0,60,1,0,new Vector2(.5f,.8f));
+            var harness=new TravelerUiHarness { Snapshot=new[] {traveler} };
+            using var presenter=new TravelerPresenter(harness,harness,p=>new Vector3(p.x,p.y,1),false,()=>1f);
+            var item=harness.Rendered.Single();
+            Assert.IsFalse(item.Offscreen);
+            Assert.AreEqual(.5f,item.Position.x,1e-4f);
+            Assert.AreEqual(1f-.8f-.012f,item.Position.y,1e-4f);
+        }
+
+        [Test]
         public void View_PointerHasArrowAndMutedCaptionWithoutHealth_VisibleHasOnlyHealth()
         {
             var root=AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/GameplayUi.uxml").CloneTree();
@@ -53,7 +67,7 @@ namespace Game.UI.Tests
             Assert.AreEqual(2,overlay.childCount);
             var pointer=overlay.Q("traveler-"+pointerId.ToString("N"));
             Assert.AreEqual(DisplayStyle.Flex,pointer.Q<TravelerPointerArrow>().style.display.value);
-            Assert.AreEqual(30f,pointer.Q<TravelerPointerArrow>().style.rotate.value.angle.value,1e-4f);
+            Assert.AreEqual(30f,pointer.Q<TravelerPointerArrow>().AngleDegrees,1e-4f,"The arrow geometry itself turns toward the Traveler.");
             Assert.AreEqual("Путник",pointer.Q<Label>(GameplayUiElementIds.TravelerPointerCaption).text);
             Assert.AreEqual(DisplayStyle.None,pointer.Q<ProgressBar>(GameplayUiElementIds.TravelerHealth).style.display.value);
             var visible=overlay.Q("traveler-"+visibleId.ToString("N"));

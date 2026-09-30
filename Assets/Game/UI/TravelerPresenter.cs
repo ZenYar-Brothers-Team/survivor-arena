@@ -7,10 +7,10 @@ namespace Game.UI
     public sealed class TravelerPresenter : IDisposable
     {
         // DECISION-0109: pointers ride the screen frame close to the edge; values are normalized screen fractions.
-        private const float EdgeInsetX = .03f;
-        private const float EdgeInsetY = .05f;
-        private const float PointerSeparation = .07f;
-        private const float HealthBarLift = .04f;
+        private const float EdgeInsetX = .035f;
+        private const float EdgeInsetY = .065f;
+        private const float PointerSeparation = .09f;
+        private const float HealthBarLift = .012f;
         private readonly ITravelerRuntime _model;
         private readonly ITravelerView _view;
         private readonly Func<Vector2, Vector3> _project;
@@ -37,8 +37,11 @@ namespace Game.UI
                     var health = item.MaxHealth > 0 ? item.Health / item.MaxHealth : 0f;
                     if (!offscreen)
                     {
-                        point.y = Mathf.Clamp01(point.y - HealthBarLift);
-                        result.Add(new TravelerHudItem(item.LifeId, health, point, false, 0f));
+                        // The HP bar sits just above the body top, like the player's and mid-boss bars.
+                        var head = _project(item.HeadPosition);
+                        var headPoint = new Vector2(head.x, 1 - head.y);
+                        headPoint.y = Mathf.Clamp01(headPoint.y - HealthBarLift);
+                        result.Add(new TravelerHudItem(item.LifeId, health, headPoint, false, 0f));
                         continue;
                     }
                     point = Separate(OnFrame(direction), result);

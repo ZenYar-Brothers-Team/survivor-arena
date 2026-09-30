@@ -34,6 +34,10 @@ namespace Game.UI
         private UiToolkitPickupView _pickupView;
         private SlowStatusPresenter _slowStatusPresenter;
         private UiToolkitSlowStatusView _slowStatusView;
+        private IBossEncounterRuntime _bosses;
+        private OverheadHealthPresenter _overheadPresenter;
+        private UiToolkitOverheadHealthView _overheadView;
+        private readonly List<OverheadHealthSource> _overheadSources = new List<OverheadHealthSource>();
         private float _hudRefreshRemaining;
         private bool _initialized;
         private Camera _anchorCamera;
@@ -115,6 +119,10 @@ namespace Game.UI
             _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
                 position => camera != null ? camera.WorldToViewportPoint(position) : Vector3.zero, Debug.isDebugBuild || Application.isEditor,
                 () => camera != null ? camera.aspect : 16f / 9f);
+            _bosses = bosses;
+            _overheadView = new UiToolkitOverheadHealthView(_document.rootVisualElement);
+            _overheadPresenter = new OverheadHealthPresenter(MidBossBars,
+                position => camera != null ? camera.WorldToViewportPoint(position) : new Vector3(-1f, -1f, -1f), _overheadView);
             _initialized = true;
             BindHealthAnchor(camera);
         }
@@ -152,12 +160,29 @@ namespace Game.UI
             if (!_initialized)
                 return;
             _travelerPresenter.Refresh();
+            _overheadPresenter.Refresh();
             _hudRefreshRemaining -= Time.unscaledDeltaTime;
             if (_hudRefreshRemaining > 0f)
                 return;
             _hudRefreshRemaining = HudRefreshIntervalSeconds;
             _presenter.RefreshHud();
             _playtestPresenter.Refresh();
+        }
+
+        // DECISION-0110: every living mid-boss shows its own HP above its head; the top bar is final-boss only.
+        private IReadOnlyList<OverheadHealthSource> MidBossBars()
+        {
+            _overheadSources.Clear();
+            var mid = _bosses?.MidBoss;
+            if (mid != null && mid.Health != null && mid.Health.MaxHealth > 0f)
+            {
+                var body = mid.BodyPresentation?.Rig.BodyRenderer;
+                var top = body != null && body.enabled
+                    ? new Vector3(body.bounds.center.x, body.bounds.max.y, body.bounds.center.z)
+                    : (Vector3)mid.Position + Vector3.up;
+                _overheadSources.Add(new OverheadHealthSource(mid.LifeId, top, mid.Health.CurrentHealth / mid.Health.MaxHealth));
+            }
+            return _overheadSources;
         }
 
         public void Shutdown()
@@ -170,6 +195,7 @@ namespace Game.UI
             _presenter?.Dispose();
             _travelerPresenter?.Dispose();
             _travelerView?.Dispose();
+            _overheadView?.Dispose(); _overheadView = null; _overheadPresenter = null; _bosses = null;
             _pickupPresenter?.Dispose();
             _pickupView?.Dispose();
             _slowStatusPresenter?.Dispose();
@@ -200,7 +226,7 @@ namespace Game.UI
         private void OnDestroy()
         {
             RenderPipelineManager.beginCameraRendering -= OnCameraRendering;
-            _travelerPresenter?.Dispose(); _travelerView?.Dispose();
+            _travelerPresenter?.Dispose(); _travelerView?.Dispose(); _overheadView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
             _presenter?.Dispose();

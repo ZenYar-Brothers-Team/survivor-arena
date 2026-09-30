@@ -194,7 +194,7 @@ review; все типы слотов одинакового размера. Ма
 \- timer оставшегося игрового времени \`15:00 → 00:00\` для 15-минутного забега; на паузе не меняется, после нуля не уходит в отрицательное значение ([DECISION-0069](decisions/0069-field001-feedback-tuning.md)).
 
 \#\#\# Top / boss area  
-\- boss HP bar, пока жив final boss или mid-boss; если живы оба — у final boss ([DECISION-0107](decisions/0107-hostile-damage-notifications-midboss-coins.md)).
+\- boss HP bar только когда final boss активен; только имя, без чисел HP. Mid-boss показывает свой HP bar над головой ([DECISION-0110](decisions/0110-health-bars-no-numbers-midboss-overhead.md)).
 
 \#\#\# Bottom / lower area  
 \- XP bar;  
@@ -627,7 +627,9 @@ Set-information на карточках работает так же, как в 
 
 или имя boss при появлении.
 
-Mid-boss получает ту же полоску с именем и HP, пока жив; при одновременном появлении приоритет у final boss ([DECISION-0107](decisions/0107-hostile-damage-notifications-midboss-coins.md)).
+Верхняя полоска — только у final boss, с именем и без чисел HP. Каждый живой mid-boss показывает
+собственный HP bar над головой, пока он на экране, без имени и чисел; указателя за краем у него нет
+([DECISION-0110](decisions/0110-health-bars-no-numbers-midboss-overhead.md)). Числа здоровья не выводятся ни на одной полоске.
 
 Поскольку убийство final boss не требуется для победы, timer остаётся главным индикатором конца run.
 

@@ -33,10 +33,10 @@ namespace Game.Bootstrap.PlayModeTests
                 yield return null;
                 yield return null;
                 Assert.IsNull(root.BossEncounters.FinalBoss);
-                // DECISION-0107: a living mid-boss gets the same HP bar; the final boss takes priority later.
+                // DECISION-0110: a mid-boss never uses the top bar; it shows its own HP above its head while on screen.
                 Assert.IsNotNull(root.BossEncounters.MidBoss);
-                Assert.AreEqual(DisplayStyle.Flex, bar.resolvedStyle.display);
-                StringAssert.Contains(root.BossEncounters.MidDefinition.DisplayName, bar.title);
+                Assert.AreEqual(DisplayStyle.None, bar.resolvedStyle.display);
+                Assert.LessOrEqual(ui.Q(GameplayUiElementIds.OverheadHealthOverlay).childCount, 1);
                 Assert.IsTrue(root.BossEncounters.DevelopmentObservation.Contains("MidBoss"));
                 run.Model.Tick(timeline.Hooks.Single(h => h.Kind == WaveHookKind.FinalBoss).TimeSeconds - run.Model.Elapsed);
                 yield return null;
@@ -50,7 +50,7 @@ namespace Game.Bootstrap.PlayModeTests
                     bossRig != null && bossRig.gameObject.activeSelf);
                 Assert.AreEqual(DisplayStyle.Flex, bar.resolvedStyle.display);
                 Assert.Greater(bar.resolvedStyle.width, 0);
-                StringAssert.Contains(root.BossEncounters.FinalDefinition.DisplayName, bar.title);
+                Assert.AreEqual(root.BossEncounters.FinalDefinition.DisplayName, bar.title, "DECISION-0110: name only, no HP numbers.");
                 Assert.IsTrue(boss.GetComponent<LineRenderer>().enabled);
                 var timer = ui.Q<Label>(GameplayUiElementIds.TimerLabel);
                 Assert.Greater(timer.resolvedStyle.height, 0);

@@ -228,7 +228,8 @@ namespace Game.UI
             if (state.Boss.Visible)
             {
                 _bossBar.value = 100f * state.Boss.CurrentHealth / state.Boss.MaxHealth;
-                _bossBar.title = $"{state.Boss.Name} · {MathF.Ceiling(state.Boss.CurrentHealth)}/{MathF.Ceiling(state.Boss.MaxHealth)}";
+                // DECISION-0110: health bars never print HP numbers; the final boss bar keeps only its name.
+                _bossBar.title = state.Boss.Name;
             }
             _bookCurrency.text = $"Из книг: +{state.BookCurrency}";
             SetVisible(_bookCurrency, state.BookCurrency > 0);

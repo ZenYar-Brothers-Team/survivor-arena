@@ -444,10 +444,22 @@
 
 .traveler-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
 /* DECISION-0109: visible Traveler = HP bar only; off-screen = bright arrow on the frame + muted caption. */
-.traveler-item { position: absolute; width: 96px; height: 56px; margin-left: -48px; margin-top: -28px; align-items: center; justify-content: center; }
-.traveler-item ProgressBar { width: 72px; height: 10px; }
-.traveler-arrow { width: 30px; height: 26px; color: rgb(245, 195, 74); border-color: rgb(36, 27, 43); }
-.traveler-caption { margin-top: 2px; font-size: 13px; color: rgba(232, 216, 184, 0.5); -unity-text-align: middle-center; -unity-font-style: normal; }
+.traveler-item { position: absolute; width: 130px; height: 90px; margin-left: -65px; margin-top: -45px; align-items: center; justify-content: center; }
+/* Compact HP bar above a visible Traveler: dark track, amber fill, no default white frame or numbers. */
+.traveler-item ProgressBar { width: 72px; height: 8px; margin: 0; }
+.traveler-item ProgressBar .unity-progress-bar__container { min-height: 8px; }
+.traveler-item ProgressBar .unity-progress-bar__background { background-color: rgb(36, 27, 43); border-width: 1px; border-color: rgb(20, 14, 24); border-radius: 3px; }
+.traveler-item ProgressBar .unity-progress-bar__progress { background-color: rgb(229, 178, 74); border-radius: 2px; }
+.traveler-item ProgressBar .unity-progress-bar__title-container { display: none; }
+.traveler-arrow { width: 52px; height: 52px; color: rgb(245, 195, 74); border-color: rgb(36, 27, 43); }
+/* DECISION-0110: mid-boss HP above its head, boss colors, no numbers. */
+.overhead-health-bar { position: absolute; width: 110px; height: 10px; margin-left: -55px; margin-top: -14px; }
+.overhead-health-bar .unity-progress-bar__background { background-color: rgb(36, 27, 43); }
+.overhead-health-bar .unity-progress-bar__progress { background-color: rgb(214, 91, 80); border-radius: 2px; }
+.overhead-health-bar .unity-progress-bar__container { min-height: 10px; }
+.overhead-health-bar .unity-progress-bar__background { border-width: 1px; border-color: rgb(20, 14, 24); border-radius: 3px; }
+.overhead-health-bar .unity-progress-bar__title-container { display: none; }
+.traveler-caption { margin-top: 0; font-size: 20px; color: rgba(232, 216, 184, 0.62); -unity-text-align: middle-center; -unity-font-style: normal; }
 
 /* DECISION-0081: production vertical slice — HUD, Draft and Pause / Build. */
 .gameplay-root {
