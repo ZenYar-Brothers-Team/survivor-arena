@@ -12,9 +12,13 @@ namespace Game.UI
         private readonly Label _observation;
         private readonly Button _spawn;
         private readonly Dictionary<Guid, VisualElement> _items = new Dictionary<Guid, VisualElement>();
+        private readonly VisualElement _choiceList;
+        private readonly List<(Button button, Action handler)> _choiceButtons = new List<(Button, Action)>();
         public event Action SpawnRequested;
+        public event Action<string> SpawnChosen;
         public UiToolkitTravelerView(VisualElement root)
         {
+            _choiceList = root.Q(GameplayUiElementIds.TravelerChoiceList);
             _overlay = root.Q(GameplayUiElementIds.TravelerOverlay);
             _observation = root.Q<Label>(GameplayUiElementIds.TravelerObservation);
             _spawn = root.Q<Button>(GameplayUiElementIds.SpawnTraveler);
@@ -55,6 +59,27 @@ namespace Game.UI
             _observation.style.display = _spawn.style.display = development ? DisplayStyle.Flex : DisplayStyle.None;
         }
         private void Spawn() => SpawnRequested?.Invoke();
-        public void Dispose() { _spawn.clicked -= Spawn; _overlay.Clear(); _items.Clear(); }
+        /// <summary>One launch button per pool Traveler; rebuilt only when the list is handed over.</summary>
+        public void SetChoices(IReadOnlyList<Game.Traveler.TravelerChoice> choices)
+        {
+            ClearChoices();
+            if (_choiceList == null) return;
+            foreach (var choice in choices)
+            {
+                var id = choice.Id;
+                Action handler = () => SpawnChosen?.Invoke(id);
+                var button = new Button(handler) { name = GameplayUiElementIds.TravelerChoicePrefix + id, text = $"{id} · {choice.Name} · {choice.Role}" };
+                button.AddToClassList("compact-button");
+                button.AddToClassList("development-traveler-choice");
+                _choiceList.Add(button);
+                _choiceButtons.Add((button, handler));
+            }
+        }
+        private void ClearChoices()
+        {
+            foreach (var (button, _) in _choiceButtons) button.RemoveFromHierarchy();
+            _choiceButtons.Clear();
+        }
+        public void Dispose() { _spawn.clicked -= Spawn; ClearChoices(); _overlay.Clear(); _items.Clear(); }
     }
 }

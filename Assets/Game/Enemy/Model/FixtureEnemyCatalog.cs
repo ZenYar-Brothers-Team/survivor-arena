@@ -155,7 +155,8 @@ namespace Game.Enemy
                 Pick(data.DashTelegraphSeconds, usesDash, neutral.DashTelegraphSeconds, Owner(nameof(data.DashTelegraphSeconds))),
                 Pick(data.DashDurationSeconds, usesDash, neutral.DashDurationSeconds, Owner(nameof(data.DashDurationSeconds))),
                 Pick(data.DashCooldownSeconds, usesDash, neutral.DashCooldownSeconds, Owner(nameof(data.DashCooldownSeconds))),
-                Pick(data.DashSpeedMultiplier, usesDash, neutral.DashSpeedMultiplier, Owner(nameof(data.DashSpeedMultiplier))),
+                Pick(data.DashSpeedMultiplier, usesDash && data.DashDistance == null, neutral.DashSpeedMultiplier,
+                    Owner(nameof(data.DashSpeedMultiplier))),
                 Pick(data.RepositionSeconds, reposition, neutral.RepositionSeconds, Owner(nameof(data.RepositionSeconds))),
                 usesDash ? data.DashCount ?? 1 : 1,
                 usesDash && (data.DashCount ?? 1) > 1
@@ -177,7 +178,15 @@ namespace Game.Enemy
                 Pick(data.SidestepNearDistance, blockedSidestep, neutral.SidestepNearDistance,
                     Owner(nameof(data.SidestepNearDistance))),
                 Pick(data.SidestepNearSeconds, blockedSidestep, neutral.SidestepNearSeconds,
-                    Owner(nameof(data.SidestepNearSeconds))));
+                    Owner(nameof(data.SidestepNearSeconds))),
+                dashDistance: usesDash ? data.DashDistance ?? 0f : 0f,
+                dashTelegraphWidth: usesDash ? data.DashTelegraphWidth ?? 0f : 0f,
+                dashShoveRadius: usesDash ? data.DashShoveRadius ?? 0f : 0f,
+                dashShoveDistance: Pick(data.DashShoveDistance, usesDash && data.DashShoveRadius != null, 0f,
+                    Owner(nameof(data.DashShoveDistance))),
+                dashShoveSeconds: Pick(data.DashShoveSeconds, usesDash && data.DashShoveRadius != null, 0f,
+                    Owner(nameof(data.DashShoveSeconds))),
+                dashTelegraphLength: usesDash ? data.DashTelegraphLength ?? 0f : 0f);
         }
 
         private static EnemyAttackProfile ToAttack(string enemyId, EnemyAttackProfileData data)

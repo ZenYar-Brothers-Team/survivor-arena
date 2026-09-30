@@ -11,6 +11,13 @@ namespace Game.UI.Tests
         public event Action<TravelerEvent> LifeEvent { add { } remove { } }
         public event Action<Game.Combat.CombatResult> CombatResolved { add { } remove { } }
         public event Action SpawnRequested;
+        public event Action<string> SpawnChosen;
+        public IReadOnlyList<TravelerChoice> DevelopmentChoices { get; set; } = Array.Empty<TravelerChoice>();
+        public IReadOnlyList<TravelerChoice> ShownChoices { get; private set; }
+        public string ChosenSpawn { get; private set; }
+        public void SpawnDevelopmentTraveler(string id) => ChosenSpawn = id;
+        public void RequestChoice(string id) => SpawnChosen?.Invoke(id);
+        public void SetChoices(IReadOnlyList<TravelerChoice> choices) => ShownChoices = choices;
         public IReadOnlyList<TravelerHudItem> Rendered { get; private set; }
         public bool Development { get; private set; }
         public int SpawnCount { get; private set; }

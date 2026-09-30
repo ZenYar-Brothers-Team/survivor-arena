@@ -27,6 +27,26 @@ namespace Game.Traveler
         public float ShieldSeconds { get; }
         public float SupportCooldown { get; }
         public int SupportTargets { get; }
+        public TravelerMovementStyle MovementStyle { get; }
+        public float ZigzagAngleDegrees { get; }
+        public float ZigzagSeconds { get; }
+        public float EscapeDashDistance { get; }
+        public float EscapeDashSeconds { get; }
+        public float EscapeDashCooldownSeconds { get; }
+        public float OrbitRadiusX { get; }
+        public float OrbitRadiusY { get; }
+        public float OrbitLeadDegrees { get; }
+        public float TeleportMinSeconds { get; }
+        public float TeleportMaxSeconds { get; }
+        /// <summary>SpeedBurst: radius around the picked target; Heal: unused (the wave uses SupportRadius).</summary>
+        public float EffectRadius { get; }
+        public float SpeedBonus { get; }
+        public float EffectSeconds { get; }
+        public float HealAmount { get; }
+        /// <summary>Vertical/horizontal ratio of every support zone and its drawing: the 3/4 camera sees a flattened ground circle (DECISION-0058).</summary>
+        public float SupportVerticalScale { get; }
+        public UnityEngine.Color EffectColor { get; }
+        public TravelerEffectShape EffectShape { get; }
         public TravelerDefinition(TravelerData data)
         {
             if (data == null || string.IsNullOrWhiteSpace(data.Name) || string.IsNullOrWhiteSpace(data.Marker)) throw new ArgumentException("Traveler name/marker required.");
@@ -57,6 +77,37 @@ namespace Game.Traveler
             if ((Role == TravelerRole.Protector) != (Support != TravelerSupportKind.None)) throw new ArgumentException("Support belongs to protector role.");
             if (Support != TravelerSupportKind.None && SupportRadius <= 0) throw new ArgumentException("Support radius required.");
             if (Support == TravelerSupportKind.Shield && (ShieldHp <= 0 || ShieldSeconds <= 0)) throw new ArgumentException("Shield requires HP and duration.");
+            MovementStyle = data.MovementStyle ?? throw new ArgumentException("movementStyle required.");
+            if (!Enum.IsDefined(typeof(TravelerMovementStyle), MovementStyle)) throw new ArgumentException("Invalid movementStyle.");
+            if (MovementStyle != TravelerMovementStyle.Wander && Role != TravelerRole.Wanderer)
+                throw new ArgumentException("Only peaceful wanderers use an escape/orbit movement style.");
+            if (MovementStyle == TravelerMovementStyle.ZigzagEscape)
+            { ZigzagAngleDegrees = Positive(data.ZigzagAngleDegrees, "zigzagAngleDegrees"); ZigzagSeconds = Positive(data.ZigzagSeconds, "zigzagSeconds"); NumericValidation.ValidateRange(ZigzagAngleDegrees, 0, 89, "zigzagAngleDegrees"); }
+            if (MovementStyle == TravelerMovementStyle.DashEscape)
+            { EscapeDashDistance = Positive(data.EscapeDashDistance, "escapeDashDistance"); EscapeDashSeconds = Positive(data.EscapeDashSeconds, "escapeDashSeconds"); EscapeDashCooldownSeconds = Positive(data.EscapeDashCooldownSeconds, "escapeDashCooldownSeconds"); }
+            if (MovementStyle == TravelerMovementStyle.Orbit)
+            {
+                OrbitRadiusX = Positive(data.OrbitRadiusX, "orbitRadiusX"); OrbitRadiusY = Positive(data.OrbitRadiusY, "orbitRadiusY");
+                OrbitLeadDegrees = Positive(data.OrbitLeadDegrees, "orbitLeadDegrees"); NumericValidation.ValidateRange(OrbitLeadDegrees, 0, 90, "orbitLeadDegrees");
+                TeleportMinSeconds = Positive(data.TeleportMinSeconds, "teleportMinSeconds"); TeleportMaxSeconds = Positive(data.TeleportMaxSeconds, "teleportMaxSeconds");
+                if (TeleportMaxSeconds < TeleportMinSeconds) throw new ArgumentException("teleportMaxSeconds below teleportMinSeconds.");
+            }
+            if (Support == TravelerSupportKind.SpeedBurst)
+            {
+                EffectRadius = Positive(data.EffectRadius, "effectRadius"); SpeedBonus = Positive(data.SpeedBonus, "speedBonus"); EffectSeconds = Positive(data.EffectSeconds, "effectSeconds");
+                if (EffectSeconds <= 0) throw new ArgumentException("SpeedBurst requires a duration.");
+            }
+            if (Support == TravelerSupportKind.Heal) HealAmount = Positive(data.HealAmount, "healAmount");
+            if (Support != TravelerSupportKind.None)
+            { SupportVerticalScale = Positive(data.SupportVerticalScale, "supportVerticalScale"); NumericValidation.ValidateRange(SupportVerticalScale, 0.1f, 1f, "supportVerticalScale"); }
+            if (Support == TravelerSupportKind.Aura || Support == TravelerSupportKind.SpeedBurst || Support == TravelerSupportKind.Heal || MovementStyle == TravelerMovementStyle.Orbit)
+            {
+                if (data.EffectColor == null || data.EffectColor.Length != 4) throw new ArgumentException("effectColor requires RGBA for support/teleport effects.");
+                foreach (var channel in data.EffectColor) NumericValidation.ValidateRange(channel, 0, 1, "effectColor");
+                EffectColor = new UnityEngine.Color(data.EffectColor[0], data.EffectColor[1], data.EffectColor[2], data.EffectColor[3]);
+                EffectShape = data.EffectShape ?? throw new ArgumentException("effectShape required with effectColor.");
+                if (!Enum.IsDefined(typeof(TravelerEffectShape), EffectShape)) throw new ArgumentException("Invalid effectShape.");
+            }
         }
         private static float Positive(float? value, string name) { var number = value ?? throw new ArgumentException(name + " required."); NumericValidation.ValidatePositive(number, name); return number; }
         private static float Nonnegative(float? value, string name) { var number = value ?? throw new ArgumentException(name + " required."); NumericValidation.ValidateNonNegative(number, name); return number; }

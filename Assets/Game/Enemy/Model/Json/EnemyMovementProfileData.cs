@@ -28,5 +28,14 @@ namespace Game.Enemy.Json
         public float? FollowUpTelegraphSeconds { get; set; }
         /// <summary>TelegraphedDash only, optional: false hides the dash aim line (neutral: shown).</summary>
         public bool? ShowDashTelegraphLine { get; set; }
+        /// <summary>TelegraphedDash only, optional (DECISION-0118): fixed dash length; when present dashSpeedMultiplier may be omitted.</summary>
+        public float? DashDistance { get; set; }
+        public float? DashTelegraphWidth { get; set; }
+        /// <summary>TelegraphedDash only, optional: drawn line length; omitted draws the whole dash.</summary>
+        public float? DashTelegraphLength { get; set; }
+        /// <summary>TelegraphedDash only, optional: shove radius; when present the shove distance and seconds are required.</summary>
+        public float? DashShoveRadius { get; set; }
+        public float? DashShoveDistance { get; set; }
+        public float? DashShoveSeconds { get; set; }
     }
 }

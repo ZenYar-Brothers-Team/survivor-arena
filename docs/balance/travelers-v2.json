@@ -1,0 +1,121 @@
+{
+  "format": "late-content-review-data",
+  "formatVersion": 1,
+  "revision": "travelers-v2",
+  "approval": "Approved 2026-09-30 (DECISION-0120)",
+  "runtimeImportable": false,
+  "reference": "Changes movement of TRAVELER-002/003/006 and support of TRAVELER-005/007/009; every other value stays as in field001-baseline-v1 and travelers-v1.",
+  "rule": "Support zones are flattened ground ellipses (vertical/horizontal 0.8, DECISION-0058 convention); support strength does not grow with the field (DECISION-0035). Numbers are the executor's first values, tuned after a playtest.",
+  "supportVerticalScale": 0.8,
+  "overrides": {
+    "TRAVELER-002": {
+      "movementStyle": "ZigzagEscape",
+      "style": {
+        "zigzagAngleDegrees": 40,
+        "zigzagSeconds": 0.5
+      },
+      "avoidRadius": 14.2
+    },
+    "TRAVELER-003": {
+      "movementStyle": "DashEscape",
+      "style": {
+        "escapeDashDistance": 2.5,
+        "escapeDashSeconds": 0.35,
+        "escapeDashCooldownSeconds": 2
+      },
+      "avoidRadius": 14.2
+    },
+    "TRAVELER-006": {
+      "movementStyle": "Orbit",
+      "style": {
+        "orbitRadiusX": 7,
+        "orbitRadiusY": 3.8,
+        "orbitLeadDegrees": 20,
+        "teleportMinSeconds": 4,
+        "teleportMaxSeconds": 8
+      },
+      "effectColor": [
+        0.3,
+        0.85,
+        1,
+        0.85
+      ],
+      "avoidRadius": 14.2,
+      "effectShape": "Ring"
+    },
+    "TRAVELER-005": {
+      "support": {
+        "kind": "Aura",
+        "radius": 3,
+        "reduction": 0.4,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 1,
+        "supportTargets": 1
+      },
+      "effectColor": [
+        0.65,
+        0.4,
+        1,
+        0.85
+      ],
+      "effectShape": "Hexagon"
+    },
+    "TRAVELER-007": {
+      "support": {
+        "kind": "SpeedBurst",
+        "radius": 4,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 5,
+        "supportTargets": 1,
+        "effectRadius": 1.5,
+        "speedBonus": 0.5,
+        "effectSeconds": 5
+      },
+      "effectColor": [
+        1,
+        0.75,
+        0.2,
+        0.85
+      ],
+      "effectShape": "Dots"
+    },
+    "TRAVELER-009": {
+      "support": {
+        "kind": "Heal",
+        "radius": 3.5,
+        "reduction": 0,
+        "resistance": 0,
+        "shieldHp": 0,
+        "shieldSeconds": 0,
+        "cooldownSeconds": 3,
+        "supportTargets": 1,
+        "healAmount": 20
+      },
+      "effectColor": [
+        0.4,
+        1,
+        0.5,
+        0.85
+      ],
+      "effectShape": "Ripples"
+    }
+  },
+  "avoidRadiusScreenWidths": 0.8,
+  "avoidRadius": 14.2,
+  "schedule": {
+    "minCount": 1,
+    "countProbabilities": [
+      0.1,
+      0.25,
+      0.3,
+      0.25,
+      0.1
+    ],
+    "typeRule": "groups of one Traveler per role in random role order; bag per role without repeats (DECISION-0122)"
+  }
+}

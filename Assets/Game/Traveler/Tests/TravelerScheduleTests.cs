@@ -18,29 +18,77 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(3,result.Count); Assert.AreEqual(3,result.Select(item=>item.Id).Distinct().Count());
             foreach(var item in result) Assert.AreEqual(expected,item.Time);
         }
-        [Test]
-        public void RoleAwareDraw_NeverRepeatsARole_AndCapsCountByRoles()
+        private static TravelerRole ThreeRoles(ContentId id) =>
+            id.ToString().Contains("BRUISER") || id.ToString().Contains("DASH") || id.ToString().Contains("CROSS") ? TravelerRole.Offensive
+            : id.ToString().Contains("WANDER") || id.ToString().Contains("REST") ? TravelerRole.Wanderer : TravelerRole.Protector;
+        private TravelerScheduleDefinition Schedule(int minCount, params float[] probabilities)
         {
-            // DECISION-0063: one global pool; four types but only two roles -> at most two, one per role.
             var data = Data["schedules"][0].ToObject<TravelerScheduleData>();
-            var ids = data.TravelerIds.ToList();
-            ids.Add("FIXTURE-TRAVELER-EXTRA");
-            data.TravelerIds = ids.ToArray();
-            data.CountProbabilities = new[] { 0f, 0f, 0f, 1f };
-            var definition = new TravelerScheduleDefinition(data);
-            TravelerRole Role(ContentId id) => id.ToString() == ids[0] || id.ToString() == ids[1] ? TravelerRole.Offensive : TravelerRole.Protector;
-            for (var seed = 0; seed < 50; seed++)
+            data.MinCount = minCount; data.CountProbabilities = probabilities;
+            return new TravelerScheduleDefinition(data);
+        }
+        [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)] [TestCase(5)] [TestCase(8)] [TestCase(10)]
+        public void TypeMix_EveryGroupOfThreeHasDistinctRoles_ForAnyCount(int count)
+        {
+            // DECISION-0122: 5 = 3 + 2, 8 = 3 + 3 + 2, the last shorter group still has distinct roles.
+            var probabilities = new float[count + 1]; probabilities[count] = 1;
+            var definition = Schedule(0, probabilities);
+            for (var seed = 0; seed < 60; seed++)
             {
-                var entries = definition.Draw(900, new Random(seed), Role);
-                Assert.AreEqual(2, entries.Count, $"seed {seed}");
-                Assert.AreEqual(2, entries.Select(e => Role(e.Id)).Distinct().Count(), $"seed {seed}");
+                var entries = definition.Draw(900, new Random(seed), ThreeRoles).OrderBy(e => e.Sequence).ToList();
+                Assert.AreEqual(count, entries.Count, $"seed {seed}");
+                for (var start = 0; start < count; start += 3)
+                {
+                    var roles = entries.Skip(start).Take(3).Select(e => ThreeRoles(e.Id)).ToList();
+                    Assert.AreEqual(roles.Count, roles.Distinct().Count(), $"seed {seed}, group at {start}");
+                }
+            }
+        }
+        [Test]
+        public void TypeMix_DoesNotRepeatATravelerBeforeItsTypeIsExhausted()
+        {
+            var definition = Schedule(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1); // eight fixture Travelers, three roles
+            for (var seed = 0; seed < 40; seed++)
+            {
+                var entries = definition.Draw(900, new Random(seed), ThreeRoles).OrderBy(e => e.Sequence).ToList();
+                foreach (var role in new[] { TravelerRole.Offensive, TravelerRole.Wanderer, TravelerRole.Protector })
+                {
+                    var ids = entries.Where(e => ThreeRoles(e.Id) == role).Select(e => e.Id).ToList();
+                    var size = definition.TravelerIds.Count(id => ThreeRoles(id) == role);
+                    foreach (var chunk in ids.Select((id, index) => (id, index)).GroupBy(x => x.index / size))
+                        Assert.AreEqual(chunk.Count(), chunk.Select(x => x.id).Distinct().Count(), $"seed {seed}, {role}");
+                }
+            }
+        }
+        [Test]
+        public void CountRange_UsesMinCountAndProbabilityIndex()
+        {
+            var definition = Schedule(1, .2f, .2f, .2f, .2f, .2f);
+            Assert.AreEqual(1, definition.MinCount); Assert.AreEqual(5, definition.MaxCount);
+            var seen = Enumerable.Range(0, 300).Select(seed => definition.Draw(900, new Random(seed), ThreeRoles).Count).Distinct().OrderBy(x => x).ToList();
+            CollectionAssert.AreEqual(new[] { 1, 2, 3, 4, 5 }, seen);
+        }
+        [Test]
+        public void ProductionSchedules_DrawOneToFiveTravelersOnEveryField()
+        {
+            var catalog = FixtureTravelerCatalog.CreateProduction();
+            foreach (var schedule in catalog.Schedules)
+            {
+                Assert.AreEqual(1, schedule.MinCount, schedule.Id.ToString()); Assert.AreEqual(5, schedule.MaxCount, schedule.Id.ToString());
+                for (var seed = 0; seed < 100; seed++)
+                {
+                    var entries = schedule.Draw(900, new Random(seed), id => catalog.Definitions[id].Role);
+                    Assert.That(entries.Count, Is.InRange(1, 5));
+                    var first = entries.OrderBy(e => e.Sequence).Take(3).Select(e => catalog.Definitions[e.Id].Role).ToList();
+                    Assert.AreEqual(first.Count, first.Distinct().Count());
+                }
             }
         }
 
         [TestCase(0)] [TestCase(1)] [TestCase(2)] [TestCase(3)]
         public void CountDraw_IsDeterministic_WithoutReplacement_WithinCutoff(int count)
         {
-            var data = Data["schedules"][0].ToObject<TravelerScheduleData>();
+            var data = Data["schedules"][0].ToObject<TravelerScheduleData>(); data.MinCount = 0;
             data.CountProbabilities = Enumerable.Range(0,4).Select(i => i == count ? 1f : 0f).ToArray();
             var definition = new TravelerScheduleDefinition(data);
             var first = definition.Draw(900, new Random(37)); var second = definition.Draw(900, new Random(37));

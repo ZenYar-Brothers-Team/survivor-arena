@@ -33,6 +33,37 @@ namespace Game.UI.Tests
             presenter.Dispose(); harness.RequestSpawn(); Assert.AreEqual(expected,harness.SpawnCount);
         }
 
+        [TestCase(true)] [TestCase(false)]
+        public void Presenter_HandsChoicesOverOnceAndGatesChosenSpawn(bool development)
+        {
+            var harness=new TravelerUiHarness();
+            using var presenter=new TravelerPresenter(harness,harness,p=>new Vector3(p.x,p.y,1),development,()=>1f);
+            Assert.IsNull(harness.ShownChoices,"Nothing to show before the encounter knows its pool.");
+            harness.DevelopmentChoices=new[] {new TravelerChoice("TRAVELER-008","Рыцарь","Offensive")};
+            presenter.Refresh();
+            Assert.AreEqual(development?1:0,harness.ShownChoices?.Count??0);
+            harness.RequestChoice("TRAVELER-008");
+            Assert.AreEqual(development?"TRAVELER-008":null,harness.ChosenSpawn);
+            presenter.Dispose(); harness.RequestChoice("TRAVELER-002");
+            Assert.AreNotEqual("TRAVELER-002",harness.ChosenSpawn);
+        }
+
+        [Test]
+        public void View_ChoicesBecomeOneNamedButtonEach_ReplacedNotDuplicated()
+        {
+            var root=AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/GameplayUi.uxml").CloneTree();
+            using var view=new UiToolkitTravelerView(root);
+            var list=root.Q(GameplayUiElementIds.TravelerChoiceList);
+            Assert.IsNotNull(root.Q<Button>(GameplayUiElementIds.DevelopmentTravelersTab));
+            Assert.IsNotNull(root.Q(GameplayUiElementIds.DevelopmentTravelersPane));
+            view.SetChoices(new[] {new TravelerChoice("TRAVELER-008","Рыцарь","Offensive"),new TravelerChoice("TRAVELER-002","Стрелок","Wanderer")});
+            Assert.AreEqual(2,list.childCount);
+            var button=root.Q<Button>(GameplayUiElementIds.TravelerChoicePrefix+"TRAVELER-008");
+            StringAssert.Contains("Рыцарь",button.text);
+            view.SetChoices(new[] {new TravelerChoice("TRAVELER-005","Паломник","Protector")});
+            Assert.AreEqual(1,list.childCount);
+        }
+
         [Test]
         public void Presenter_WideScreenAngle_UsesAspect()
         {

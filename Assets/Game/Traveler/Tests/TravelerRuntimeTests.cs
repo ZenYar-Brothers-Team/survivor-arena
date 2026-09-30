@@ -43,6 +43,21 @@ namespace Game.Traveler.Tests
         public void TearDown() { _travelers.Shutdown(); _pickups.Shutdown(); _player.Shutdown(); _run.Shutdown(); Object.DestroyImmediate(_root); Assert.AreEqual(_baseline,EnemyRegistry.Count); }
         private EnemyRuntime Spawn(string suffix="WANDER") => _travelers.Spawn("FIXTURE-TRAVELER-"+suffix,_run.Model.Elapsed,1);
         [Test]
+        public void DevelopmentChoices_ListThePoolAndSpawnTheChosenTravelerOnly()
+        {
+            var choices=_travelers.DevelopmentChoices;
+            Assert.AreEqual(_catalog.Schedules[0].TravelerIds.Count,choices.Count);
+            Assert.IsTrue(choices.All(choice=>!string.IsNullOrEmpty(choice.Name) && !string.IsNullOrEmpty(choice.Role)));
+            Assert.AreEqual(0,_travelers.Snapshot.Count);
+            _travelers.SpawnDevelopmentTraveler("FIXTURE-TRAVELER-BRUISER");
+            Assert.AreEqual("FIXTURE-TRAVELER-BRUISER",_travelers.Snapshot.Single().Id.ToString());
+            _travelers.SpawnDevelopmentTraveler("NO-SUCH-TRAVELER"); _travelers.SpawnDevelopmentTraveler("");
+            Assert.AreEqual(1,_travelers.Snapshot.Count,"Unknown or empty ids do nothing.");
+            _travelers.SpawnDevelopmentTraveler("FIXTURE-TRAVELER-BRUISER");
+            Assert.AreEqual(2,_travelers.Snapshot.Count,"The same Traveler may be launched again.");
+            _travelers.Shutdown(); Assert.AreEqual(0,_travelers.DevelopmentChoices.Count);
+        }
+        [Test]
         public void PeacefulContact_DoesNotDispatchPlayerCombat_ExpiredAttackerCannotHit()
         {
             var hits=0; _player.CombatResolved += result => hits++;
@@ -118,6 +133,93 @@ namespace Game.Traveler.Tests
             _travelers.Tick(); Assert.AreEqual(25,enemy.Protection.ShieldRemaining);
             enemy.TakeDamage(10); Assert.AreEqual(100,enemy.Health.CurrentHealth); Assert.AreEqual(15,enemy.Protection.ShieldRemaining);
             protector.TakeDamage(10000); Assert.AreEqual(0,enemy.Protection.ShieldRemaining); enemy.Despawn();
+        }
+        private EnemyRuntime Ordinary(Vector2 position, float health=100) =>
+            EnemyFactory.Spawn(new EnemyDefinition("TEST",health,1,0,0,1),position,_player.transform,_run,_root.transform);
+        [Test]
+        public void Heal_RestoresFixedHealthInFlattenedZone_OnlyOrdinaryEnemies()
+        {
+            var healer=Spawn("HEAL"); var origin=healer.Position;
+            var near=Ordinary(origin+new Vector2(3f,0)); var flat=Ordinary(origin+new Vector2(0,3f)); var far=Ordinary(origin+new Vector2(6,0));
+            var boss=EnemyFactory.Spawn(new EnemyDefinition("TEST-BOSS",100,1,0,0,1),origin,_player.transform,_run,_root.transform,category:EnemyCategory.Boss);
+            near.TakeDamage(50); flat.TakeDamage(50); far.TakeDamage(50); boss.TakeDamage(50);
+            _travelers.Tick();
+            Assert.AreEqual(70,near.Health.CurrentHealth,.01f,"Inside the horizontal radius 3.5.");
+            Assert.AreEqual(50,flat.Health.CurrentHealth,.01f,"Radius 3.5 x 0.8 = 2.8 vertically, so 3.0 above is outside.");
+            Assert.AreEqual(50,far.Health.CurrentHealth,.01f); Assert.AreEqual(50,boss.Health.CurrentHealth,.01f);
+            _travelers.Tick(); Assert.AreEqual(70,near.Health.CurrentHealth,.01f,"Next wave only after the 3 s cooldown.");
+            _run.Model.Tick(3.1f); _travelers.Tick(); Assert.AreEqual(90,near.Health.CurrentHealth,.01f);
+            near.Despawn(); flat.Despawn(); far.Despawn(); boss.Despawn();
+        }
+        [Test]
+        public void SpeedBurst_BoostsSmallAreaAroundOneNearbyEnemy_ForFiveSeconds()
+        {
+            var caster=Spawn("HASTE"); var origin=caster.Position;
+            var a=Ordinary(origin+new Vector2(1,0)); var b=Ordinary(origin+new Vector2(1.5f,0)); var outside=Ordinary(origin+new Vector2(-4.2f,0));
+            _travelers.Tick();
+            Assert.AreEqual(1.5f,a.Protection.SpeedMultiplier,1e-5f); Assert.AreEqual(1.5f,b.Protection.SpeedMultiplier,1e-5f);
+            Assert.AreEqual(1f,outside.Protection.SpeedMultiplier,1e-5f,"Outside the caster radius and the splash.");
+            _run.Model.Tick(4.9f); a.Protection.Tick(_run.Model.Elapsed); Assert.AreEqual(1.5f,a.Protection.SpeedMultiplier,1e-5f);
+            _run.Model.Tick(.2f); a.Protection.Tick(_run.Model.Elapsed); Assert.AreEqual(1f,a.Protection.SpeedMultiplier,1e-5f);
+            a.Despawn(); b.Despawn(); outside.Despawn();
+        }
+        [Test]
+        public void SpeedBoost_DoesNotStack_AndClearsOnReset()
+        {
+            var enemy=Ordinary(Vector2.zero);
+            enemy.Protection.SetSpeedBoost(System.Guid.NewGuid(),.5f,10); enemy.Protection.SetSpeedBoost(System.Guid.NewGuid(),.3f,10);
+            Assert.AreEqual(1.5f,enemy.Protection.SpeedMultiplier,1e-5f);
+            enemy.Protection.Reset(); Assert.AreEqual(1f,enemy.Protection.SpeedMultiplier,1e-5f); enemy.Despawn();
+        }
+        [Test]
+        public void ZigzagEscape_FleesAwayAlternatingSides()
+        {
+            var driver=new TravelerMovementDriver(_catalog.Definitions["FIXTURE-TRAVELER-ZIGZAG"],_placement,_run.Model.RunId,1);
+            var signs=new List<float>();
+            for(var i=0;i<24;i++)
+            {
+                var frame=driver.Tick(Vector2.right,Vector2.zero,2,.1f,true);
+                Assert.Greater(frame.Velocity.x,0,"Always moves away from the player.");
+                signs.Add(Mathf.Sign(frame.Velocity.y));
+            }
+            Assert.Contains(1f,signs); Assert.Contains(-1f,signs);
+        }
+        [Test]
+        public void DashEscape_DashesTheConfiguredDistanceAway_ThenWaitsForCooldown()
+        {
+            var driver=new TravelerMovementDriver(_catalog.Definitions["FIXTURE-TRAVELER-DASHAWAY"],_placement,_run.Model.RunId,1);
+            var position=Vector2.right; var travelled=0f;
+            var first=driver.Tick(position,Vector2.zero,1,.05f,true);
+            Assert.AreEqual(3f/.4f,first.Velocity.magnitude,.01f); Assert.Greater(first.Velocity.x,0);
+            for(var i=0;i<8;i++) { var frame=i==0?first:driver.Tick(position,Vector2.zero,1,.05f,true); travelled+=frame.Velocity.magnitude*.05f; }
+            Assert.AreEqual(3f,travelled,.01f);
+            for(var i=0;i<30;i++) Assert.Less(driver.Tick(Vector2.right,Vector2.zero,1,.05f,true).Velocity.magnitude,3f,"No second dash inside the 2 s cooldown.");
+            var dashedAgain=false;
+            for(var i=0;i<20;i++) dashedAgain|=driver.Tick(Vector2.right,Vector2.zero,1,.05f,true).Velocity.magnitude>3f;
+            Assert.IsTrue(dashedAgain,"Dashes again once the cooldown has passed.");
+        }
+        [Test]
+        public void Orbit_TeleportsToOppositeOrQuarterPointOfTheOval()
+        {
+            var driver=new TravelerMovementDriver(_catalog.Definitions["FIXTURE-TRAVELER-ORBIT"],_placement,_run.Model.RunId,3);
+            var player=new Vector2(2,1); var position=player+new Vector2(6,0); var jumps=0;
+            for(var i=0;i<400;i++)
+            {
+                position+=driver.Tick(position,player,1,.05f,true).Velocity*.05f;
+                if(!driver.TryTakeTeleport(out var target)) continue;
+                jumps++; var relative=target-player;
+                Assert.AreEqual(1f,relative.x*relative.x/36f+relative.y*relative.y/12.25f,.01f,"Lands on the oval around the player.");
+                position=target;
+            }
+            Assert.GreaterOrEqual(jumps,3);
+        }
+        [Test]
+        public void Orbit_StaysNearTheOval_WhenThePlayerStands()
+        {
+            var driver=new TravelerMovementDriver(_catalog.Definitions["FIXTURE-TRAVELER-ORBIT"],_placement,_run.Model.RunId,5);
+            var position=new Vector2(0,0.5f);
+            for(var i=0;i<1200;i++) { position+=driver.Tick(position,Vector2.zero,3,.05f,true).Velocity*.05f; driver.TryTakeTeleport(out _); }
+            Assert.AreEqual(1f,position.x*position.x/36f+position.y*position.y/12.25f,.25f);
         }
         [Test]
         public void WanderAvoidance_IsPauseSafe_AndStaysInsideReachableArena()

@@ -16,6 +16,12 @@ namespace Game.Traveler
         private readonly List<TravelerLife> _lives = new List<TravelerLife>();
         private readonly List<EnemyRuntime> _targets = new List<EnemyRuntime>();
         private readonly HashSet<EnemyRuntime> _affected = new HashSet<EnemyRuntime>();
+        private readonly List<EnemyRuntime> _scratch = new List<EnemyRuntime>();
+        private readonly List<EnemyRuntime> _nearest = new List<EnemyRuntime>();
+        private readonly List<TravelerPulseEffect> _pulses = new List<TravelerPulseEffect>();
+        /// <summary>Visible length of one support/teleport pulse and the teleport flash size in body sizes (presentation timing, DECISION-0120).</summary>
+        private const float PulseSeconds = .5f, TeleportFlashSizes = 3f;
+        private GameObjectPool<TravelerPulseEffect> _effects;
         private GameObjectPool<EnemyRuntime> _pool;
         private GameObjectPool<EnemyProjectileRuntime> _projectiles;
         private IReadOnlyDictionary<ContentId, TravelerDefinition> _definitions;
@@ -63,6 +69,7 @@ namespace Game.Traveler
             Schedule = planned; _random = new System.Random(unchecked(resolvedSeed ^ 0x54726176));
             _pool ??= new GameObjectPool<EnemyRuntime>(EnemyFactory.CreateInstance, transform);
             _projectiles ??= new GameObjectPool<EnemyProjectileRuntime>(EnemyProjectileFactory.CreateInstance, transform);
+            _effects ??= new GameObjectPool<TravelerPulseEffect>(TravelerPulseEffect.CreateInstance, transform);
             _model.StateChanged += HandleState;
         }
         private void Update() => Tick();
@@ -84,7 +91,9 @@ namespace Game.Traveler
                 if (_model.Elapsed < entry.Time + _definitions[entry.Id].PresenceSeconds)
                     Spawn(entry.Id, entry.Time, entry.Scale);
             }
+            ApplyTeleports();
             UpdateSupport();
+            TickEffects(Time.deltaTime);
         }
         public EnemyRuntime Spawn(ContentId id, float spawnTime, float scale)
         {
@@ -102,8 +111,11 @@ namespace Game.Traveler
             // The role color only tints placeholder squares; approved art keeps its own colors.
             if (body.Sprite == null) actor.GetComponent<SpriteRenderer>().color = definition.Color;
             _lives.Add(life);
-            actor.ConfigureEncounter(definition.Role == TravelerRole.Offensive ? null :
-                new TravelerMovementDriver(definition, _placement, _model.RunId, _random.Next()), () => DamageAllowed(life));
+            if (definition.Role != TravelerRole.Offensive)
+                life.Driver = new TravelerMovementDriver(definition, _placement, _model.RunId, _random.Next());
+            if (definition.Support == TravelerSupportKind.Aura)
+            { life.AuraEffect = _effects.Rent(); life.AuraEffect.ShowSteady(actor.transform, definition.SupportRadius * 2f, definition.EffectColor, definition.SupportVerticalScale, definition.EffectShape); }
+            actor.ConfigureEncounter(life.Driver, () => DamageAllowed(life));
             actor.LifeEvent += OnActorEvent;
             actor.Despawned += OnDespawn;
             actor.CombatResolved += ForwardCombat;
@@ -121,7 +133,7 @@ namespace Game.Traveler
         {
             var life = _lives.FirstOrDefault(item => item.Actor.LifeId == snapshot.LifeId);
             if (life == null || snapshot.Kind != EnemyLifeEventKind.Died) return;
-            RemoveSupport(life.Actor.LifeId);
+            RemoveSupport(life.Actor.LifeId); ReleaseAura(life);
             if (_model.State != RunState.Running || _model.Elapsed >= life.Deadline) return;
             _xp?.OnEnemyLifeEvent(snapshot);
             _pickups.Spawn(_book, snapshot.Position, snapshot.LifeId, snapshot.ContentId);
@@ -131,7 +143,7 @@ namespace Game.Traveler
         {
             var life = _lives.FirstOrDefault(item => item.Actor == actor);
             if (life == null) return;
-            _lives.Remove(life); RemoveSupport(actor.LifeId);
+            _lives.Remove(life); RemoveSupport(actor.LifeId); ReleaseAura(life);
             actor.LifeEvent -= OnActorEvent; actor.Despawned -= OnDespawn; actor.CombatResolved -= ForwardCombat;
             if (actor.LastLifeEvent.Reason != EnemyLifeReason.Killed)
                 LifeEvent?.Invoke(new TravelerEvent(new TravelerSnapshot(life, _model.RunId), actor.LastLifeEvent.Reason == EnemyLifeReason.Escaped ? "Escaped" : "Cancelled"));
@@ -139,32 +151,146 @@ namespace Game.Traveler
         private void UpdateSupport()
         {
             if (_model == null) return;
+            var supporting = false;
+            foreach (var life in _lives) if (life.Definition.Support != TravelerSupportKind.None) { supporting = true; break; }
+            if (!supporting && _affected.Count == 0) return;
+            using var guard = PerfGuard.Measure("Traveler.Support", 3f);
+            // No LINQ or per-call lists: one pass over the alive registry, then one pass per protector (DECISION-0120).
             EnemyRegistry.CopyAliveTo(_targets);
-            _targets.RemoveAll(enemy => enemy.Category != EnemyCategory.Ordinary || enemy.Identity.RunId != _model.RunId);
-            foreach (var life in _lives.ToArray())
+            var kept = 0;
+            for (var i = 0; i < _targets.Count; i++)
             {
+                var enemy = _targets[i];
+                if (enemy.Category == EnemyCategory.Ordinary && enemy.Identity.RunId == _model.RunId) _targets[kept++] = enemy;
+            }
+            _targets.RemoveRange(kept, _targets.Count - kept);
+            _scratch.Clear(); _scratch.AddRange(_affected);
+            foreach (var previous in _scratch) if (previous == null || !previous.IsAlive) _affected.Remove(previous);
+            for (var index = 0; index < _lives.Count; index++)
+            {
+                var life = _lives[index];
                 var d = life.Definition;
                 if (d.Support == TravelerSupportKind.None) continue;
                 var source = life.Actor.LifeId;
-                foreach (var previous in _affected.ToArray())
-                    if (previous == null || !previous.IsAlive) _affected.Remove(previous);
-                    else previous.Protection.RemoveAura(source);
-                var nearby = _targets.Where(enemy => (enemy.Position - life.Actor.Position).sqrMagnitude <= d.SupportRadius * d.SupportRadius)
-                    .OrderBy(enemy => (enemy.Position - life.Actor.Position).sqrMagnitude).ThenBy(enemy => enemy.LifeId).ToList();
-                if (d.Support == TravelerSupportKind.Aura)
-                    foreach (var enemy in nearby) { enemy.Protection.SetAura(source, d.Reduction, d.Resistance, life.Deadline); _affected.Add(enemy); }
-                else if (_model.Elapsed >= life.NextSupportTime)
+                var origin = life.Actor.Position;
+                var radiusSquared = d.SupportRadius * d.SupportRadius;
+                var inverseScale = 1f / d.SupportVerticalScale;
+                switch (d.Support)
                 {
-                    life.NextSupportTime = _model.Elapsed + d.SupportCooldown;
-                    foreach (var enemy in nearby.Take(d.SupportTargets))
-                    { enemy.Protection.CastShield(source, d.ShieldHp, Mathf.Min(d.ShieldSeconds, life.Deadline - _model.Elapsed), _model.Elapsed); _affected.Add(enemy); }
+                    case TravelerSupportKind.Aura:
+                        _scratch.Clear(); _scratch.AddRange(_affected);
+                        foreach (var previous in _scratch)
+                            if (Zone(previous.Position - origin, inverseScale) > radiusSquared) previous.Protection.RemoveAura(source);
+                        foreach (var enemy in _targets)
+                            if (Zone(enemy.Position - origin, inverseScale) <= radiusSquared)
+                            { enemy.Protection.SetAura(source, d.Reduction, d.Resistance, life.Deadline); _affected.Add(enemy); }
+                        break;
+                    case TravelerSupportKind.Shield:
+                        if (_model.Elapsed < life.NextSupportTime) break;
+                        life.NextSupportTime = _model.Elapsed + d.SupportCooldown;
+                        SelectNearest(origin, radiusSquared, d.SupportTargets, inverseScale);
+                        foreach (var enemy in _nearest)
+                        { enemy.Protection.CastShield(source, d.ShieldHp, Mathf.Min(d.ShieldSeconds, life.Deadline - _model.Elapsed), _model.Elapsed); _affected.Add(enemy); }
+                        break;
+                    case TravelerSupportKind.SpeedBurst:
+                        if (_model.Elapsed < life.NextSupportTime) break;
+                        CastSpeedBurst(life, source, origin, radiusSquared, inverseScale);
+                        break;
+                    case TravelerSupportKind.Heal:
+                        if (_model.Elapsed < life.NextSupportTime) break;
+                        life.NextSupportTime = _model.Elapsed + d.SupportCooldown;
+                        foreach (var enemy in _targets)
+                            if (Zone(enemy.Position - origin, inverseScale) <= radiusSquared) enemy.Health.Heal(d.HealAmount);
+                        PlayPulse(origin, d.SupportRadius * 2f, d.EffectColor, d.SupportVerticalScale, d.EffectShape);
+                        break;
                 }
             }
-            foreach (var enemy in _affected) if (enemy != null && enemy.IsAlive) enemy.Protection.Tick(_model.Elapsed);
+            foreach (var enemy in _affected) enemy.Protection.Tick(_model.Elapsed);
+        }
+        // Support zones are flattened ground ellipses like the strike areas (DECISION-0058: the 3/4 camera); the test costs one extra multiply.
+        private static float Zone(Vector2 offset, float inverseScale) => offset.x * offset.x + offset.y * offset.y * inverseScale * inverseScale;
+        // DECISION-0120: a random ordinary enemy near the Traveler is picked (reservoir sampling, no list) and everything in the small radius around it speeds up.
+        private void CastSpeedBurst(TravelerLife life, Guid source, Vector2 origin, float radiusSquared, float inverseScale)
+        {
+            var d = life.Definition;
+            EnemyRuntime picked = null; var candidates = 0;
+            foreach (var enemy in _targets)
+                if (Zone(enemy.Position - origin, inverseScale) <= radiusSquared && _random.Next(++candidates) == 0) picked = enemy;
+            if (picked == null) { life.NextSupportTime = _model.Elapsed + 1f; return; }
+            life.NextSupportTime = _model.Elapsed + d.SupportCooldown;
+            var center = picked.Position;
+            var burstSquared = d.EffectRadius * d.EffectRadius;
+            foreach (var enemy in _targets)
+                if (Zone(enemy.Position - center, inverseScale) <= burstSquared) enemy.Protection.SetSpeedBoost(source, d.SpeedBonus, _model.Elapsed + d.EffectSeconds);
+            PlayPulse(center, d.EffectRadius * 2f, d.EffectColor, d.SupportVerticalScale, d.EffectShape);
+        }
+        // The `count` nearest targets inside the radius, nearest first, ties by LifeId; insertion into a list bounded by `count`.
+        private void SelectNearest(Vector2 origin, float radiusSquared, int count, float inverseScale)
+        {
+            _nearest.Clear();
+            foreach (var enemy in _targets)
+            {
+                var distance = Zone(enemy.Position - origin, inverseScale);
+                if (distance > radiusSquared) continue;
+                var at = _nearest.Count;
+                while (at > 0)
+                {
+                    var other = _nearest[at - 1];
+                    var otherDistance = Zone(other.Position - origin, inverseScale);
+                    if (otherDistance < distance || (otherDistance == distance && other.LifeId.CompareTo(enemy.LifeId) < 0)) break;
+                    at--;
+                }
+                if (at >= count) continue;
+                _nearest.Insert(at, enemy);
+                if (_nearest.Count > count) _nearest.RemoveAt(count);
+            }
+        }
+        private void PlayPulse(Vector2 position, float diameter, Color color, float verticalScale = 1f, TravelerEffectShape shape = TravelerEffectShape.Ring)
+        {
+            var effect = _effects.Rent();
+            effect.PlayPulse(position, diameter, color, PulseSeconds, verticalScale, shape);
+            _pulses.Add(effect);
+        }
+        private void TickEffects(float deltaTime)
+        {
+            for (var i = _pulses.Count - 1; i >= 0; i--)
+            {
+                var pulse = _pulses[i];
+                pulse.Tick(deltaTime);
+                if (!pulse.IsFinished) continue;
+                _pulses.RemoveAt(i); _effects.Return(pulse);
+            }
+            foreach (var life in _lives) life.AuraEffect?.Tick(deltaTime);
+        }
+        private void ReleaseAura(TravelerLife life)
+        { if (life.AuraEffect == null) return; _effects.Return(life.AuraEffect); life.AuraEffect = null; }
+        // Teleport of the orbiting mage: flash where it leaves and where it lands (DECISION-0120).
+        private void ApplyTeleports()
+        {
+            foreach (var life in _lives)
+            {
+                if (life.Driver == null || life.Actor == null || !life.Driver.TryTakeTeleport(out var target)) continue;
+                var flash = life.Definition.Body.CollisionSize * TeleportFlashSizes;
+                PlayPulse(life.Actor.Position, flash, life.Definition.EffectColor);
+                life.Actor.transform.position = target;
+                life.Actor.GetComponent<Rigidbody2D>().position = target;
+                PlayPulse(target, flash, life.Definition.EffectColor);
+            }
         }
         private void RemoveSupport(Guid source)
         { foreach (var enemy in _affected) if (enemy != null) enemy.Protection.RemoveSource(source); }
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
+        public IReadOnlyList<TravelerChoice> DevelopmentChoices => _schedule == null || _definitions == null
+            ? Array.Empty<TravelerChoice>()
+            : _schedule.TravelerIds.Select(id => new TravelerChoice(id.ToString(), _definitions[id].Name, _definitions[id].Role.ToString())).ToList().AsReadOnly();
+        public void SpawnDevelopmentTraveler(string id)
+        {
+            if ((!Application.isEditor && !Debug.isDebugBuild) || _model == null || _schedule == null || string.IsNullOrWhiteSpace(id) || _lives.Count >= DevelopmentMaxAlive) return;
+            var key = new ContentId(id);
+            if (!_definitions.ContainsKey(key)) return;
+            Spawn(key, _model.Elapsed, _schedule.Scale(_model.Elapsed, _model.Duration));
+        }
+        private const int DevelopmentMaxAlive = 10;
         public void SpawnDevelopmentTraveler()
         {
             if ((!Application.isEditor && !Debug.isDebugBuild) || _model == null || _lives.Count >= 3) return;
@@ -178,7 +304,9 @@ namespace Game.Traveler
             else Clear();
         }
         private void Clear()
-        { foreach (var life in _lives.ToArray()) if (life.Actor != null) life.Actor.Despawn(); _lives.Clear(); _affected.Clear(); }
+        { foreach (var life in _lives.ToArray()) if (life.Actor != null) life.Actor.Despawn(); _lives.Clear(); _affected.Clear();
+            foreach (var pulse in _pulses) _effects.Return(pulse);
+            _pulses.Clear(); }
         public void Shutdown()
         {
             if (_model != null) _model.StateChanged -= HandleState;

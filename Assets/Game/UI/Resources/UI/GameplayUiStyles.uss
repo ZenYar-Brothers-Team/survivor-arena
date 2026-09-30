@@ -233,8 +233,8 @@
     position: absolute;
     left: 16px;
     bottom: 112px;
-    width: 400px;
-    max-height: 430px;
+    width: 480px;
+    max-height: 620px;
     flex-direction: column;
     padding: 10px;
     background-color: rgba(18, 22, 30, 0.9);
@@ -304,9 +304,12 @@
     -unity-font-style: bold;
 }
 
+.development-traveler-list { flex-direction: column; margin-bottom: 6px; }
+.development-traveler-choice { height: 28px; margin: 0 0 3px 0; -unity-text-align: middle-left; }
+
 .development-pane {
     display: none;
-    max-height: 330px;
+    max-height: 520px;
     padding: 8px;
     background-color: rgba(41, 48, 62, 0.82);
     border-radius: 4px;

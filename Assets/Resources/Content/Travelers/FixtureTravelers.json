@@ -41,7 +41,8 @@
         0.6,
         0.15,
         1
-      ]
+      ],
+      "movementStyle": "Wander"
     },
     {
       "id": "FIXTURE-TRAVELER-DASH",
@@ -93,7 +94,8 @@
         0.6,
         0.15,
         1
-      ]
+      ],
+      "movementStyle": "Wander"
     },
     {
       "id": "FIXTURE-TRAVELER-CROSS",
@@ -151,7 +153,8 @@
         0.6,
         0.15,
         1
-      ]
+      ],
+      "movementStyle": "Wander"
     },
     {
       "id": "FIXTURE-TRAVELER-WANDER",
@@ -194,7 +197,8 @@
         0.85,
         1,
         1
-      ]
+      ],
+      "movementStyle": "Wander"
     },
     {
       "id": "FIXTURE-TRAVELER-REST",
@@ -237,7 +241,8 @@
         0.85,
         1,
         1
-      ]
+      ],
+      "movementStyle": "Wander"
     },
     {
       "id": "FIXTURE-TRAVELER-GUARD",
@@ -280,7 +285,16 @@
         0.4,
         1,
         1
-      ]
+      ],
+      "movementStyle": "Wander",
+      "supportVerticalScale": 0.8,
+      "effectColor": [
+        0.65,
+        0.4,
+        1,
+        0.8
+      ],
+      "effectShape": "Hexagon"
     },
     {
       "id": "FIXTURE-TRAVELER-AURA",
@@ -323,7 +337,16 @@
         0.4,
         1,
         1
-      ]
+      ],
+      "movementStyle": "Wander",
+      "supportVerticalScale": 0.8,
+      "effectColor": [
+        0.65,
+        0.4,
+        1,
+        0.8
+      ],
+      "effectShape": "Hexagon"
     },
     {
       "id": "FIXTURE-TRAVELER-SHIELD",
@@ -366,7 +389,266 @@
         0.4,
         1,
         1
-      ]
+      ],
+      "movementStyle": "Wander",
+      "supportVerticalScale": 0.8
+    },
+    {
+      "id": "FIXTURE-TRAVELER-ZIGZAG",
+      "name": "Fixture ZIGZAG",
+      "marker": "ZIGZAG",
+      "role": "Wanderer",
+      "body": {
+        "id": "FIXTURE-TRAVELER-ZIGZAG",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ],
+      "movementStyle": "ZigzagEscape",
+      "zigzagAngleDegrees": 45,
+      "zigzagSeconds": 0.5
+    },
+    {
+      "id": "FIXTURE-TRAVELER-DASHAWAY",
+      "name": "Fixture DASHAWAY",
+      "marker": "DASHAWAY",
+      "role": "Wanderer",
+      "body": {
+        "id": "FIXTURE-TRAVELER-DASHAWAY",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ],
+      "movementStyle": "DashEscape",
+      "escapeDashDistance": 3,
+      "escapeDashSeconds": 0.4,
+      "escapeDashCooldownSeconds": 2
+    },
+    {
+      "id": "FIXTURE-TRAVELER-ORBIT",
+      "name": "Fixture ORBIT",
+      "marker": "ORBIT",
+      "role": "Wanderer",
+      "body": {
+        "id": "FIXTURE-TRAVELER-ORBIT",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "None",
+      "supportRadius": 5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 3,
+      "color": [
+        0.3,
+        0.85,
+        1,
+        1
+      ],
+      "movementStyle": "Orbit",
+      "orbitRadiusX": 6,
+      "orbitRadiusY": 3.5,
+      "orbitLeadDegrees": 20,
+      "teleportMinSeconds": 2,
+      "teleportMaxSeconds": 3,
+      "effectColor": [
+        0.3,
+        0.85,
+        1,
+        0.8
+      ],
+      "effectShape": "Ring"
+    },
+    {
+      "id": "FIXTURE-TRAVELER-HASTE",
+      "name": "Fixture HASTE",
+      "marker": "HASTE",
+      "role": "Protector",
+      "body": {
+        "id": "FIXTURE-TRAVELER-HASTE",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "SpeedBurst",
+      "supportRadius": 4,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 5,
+      "supportTargets": 1,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ],
+      "movementStyle": "Wander",
+      "supportVerticalScale": 0.8,
+      "effectRadius": 1.5,
+      "speedBonus": 0.5,
+      "effectSeconds": 5,
+      "effectColor": [
+        1,
+        0.8,
+        0.2,
+        0.8
+      ],
+      "effectShape": "Dots"
+    },
+    {
+      "id": "FIXTURE-TRAVELER-HEAL",
+      "name": "Fixture HEAL",
+      "marker": "HEAL",
+      "role": "Protector",
+      "body": {
+        "id": "FIXTURE-TRAVELER-HEAL",
+        "knockbackResistance": 0.0,
+        "maxHealth": 160,
+        "collisionSize": 1.2,
+        "movementSpeed": 1.2,
+        "contactDamage": 0,
+        "contactDamageInterval": 1.0,
+        "experienceReward": 0,
+        "movement": {
+          "kind": "Seek"
+        },
+        "contactControls": {
+          "knockbackDistance": 0,
+          "knockbackSeconds": 0.1
+        }
+      },
+      "presenceSeconds": 60,
+      "wanderSeconds": 3,
+      "restSeconds": 0.0,
+      "avoidRadius": 3,
+      "avoidSeconds": 1.5,
+      "guardOffset": 0,
+      "support": "Heal",
+      "supportRadius": 3.5,
+      "reduction": 0.0,
+      "resistance": 0.0,
+      "shieldHp": 0,
+      "shieldSeconds": 0,
+      "supportCooldown": 3,
+      "supportTargets": 1,
+      "color": [
+        0.65,
+        0.4,
+        1,
+        1
+      ],
+      "movementStyle": "Wander",
+      "supportVerticalScale": 0.8,
+      "healAmount": 20,
+      "effectColor": [
+        0.4,
+        1,
+        0.5,
+        0.8
+      ],
+      "effectShape": "Ripples"
     }
   ],
   "schedules": [
@@ -394,7 +676,8 @@
       "endBufferSeconds": 120,
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
-      "timeGrowth": 0.5
+      "timeGrowth": 0.5,
+      "minCount": 0
     },
     {
       "id": "FIXTURE-TRAVELER-SCHEDULE-2",
@@ -420,7 +703,8 @@
       "endBufferSeconds": 120,
       "spawnScreenHeights": 2,
       "fieldGrowth": 0.1,
-      "timeGrowth": 0.5
+      "timeGrowth": 0.5,
+      "minCount": 0
     }
   ]
 }

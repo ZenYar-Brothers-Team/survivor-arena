@@ -74,6 +74,7 @@
                 <ui:Button name="development-tab-run" text="Run" class="development-tab" />
                 <ui:Button name="development-tab-build" text="Build" class="development-tab" />
                 <ui:Button name="development-tab-presentation" text="Presentation" class="development-tab" />
+                <ui:Button name="development-tab-travelers" text="Travelers" class="development-tab" />
                 <ui:Button name="development-tab-playtest" text="Playtest" class="development-tab" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
@@ -102,8 +103,6 @@
                 <ui:Label name="development-stats-observation" text="Stats unavailable" class="development-help" />
             </ui:ScrollView>
             <ui:ScrollView name="development-pane-build" class="development-pane development-scroll">
-                <ui:Label name="development-traveler-observation" class="observation-label" />
-                <ui:Button name="development-spawn-traveler" text="Spawn fixture Traveler" class="compact-button" />
                 <ui:Label name="development-pickup-observation" class="observation-label" />
                 <ui:Button name="development-drop-potion" text="Drop fixture potion" class="compact-button" />
                 <ui:Button name="development-drop-book" text="Drop fixture Book" class="compact-button" />
@@ -141,6 +140,14 @@
                     <ui:Label name="development-slow-status-summary" class="development-help" />
                     <ui:Label text="Вариант сохраняется до выхода из игры. Кнопка замедления работает во время забега (не на паузе); в обычной игре замедление дают отдельные умения и сеты." class="development-help" />
                 </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:ScrollView name="development-pane-travelers" class="development-pane development-scroll">
+                <ui:Label text="TRAVELERS" class="development-section-title" />
+                <ui:Label text="Нажмите путника, чтобы запустить его сейчас (до 10 одновременно). Масштаб — как у путника на этой минуте." class="development-help" />
+                <ui:VisualElement name="development-traveler-list" class="development-traveler-list" />
+                <ui:Button name="development-spawn-traveler" text="Следующий по кругу" class="compact-button" />
+                <ui:Label text="LIVE" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-traveler-observation" class="observation-label" />
             </ui:ScrollView>
             <ui:ScrollView name="development-pane-playtest" class="development-pane development-scroll">
                 <ui:Label text="LOCAL PLAYTEST" class="development-section-title" />

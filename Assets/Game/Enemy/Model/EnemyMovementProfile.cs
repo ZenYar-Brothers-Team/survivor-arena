@@ -34,6 +34,23 @@ namespace Game.Enemy
         /// <summary>TelegraphedDash: draw the aim line during the dash telegraph. The telegraph pause
         /// itself stays; ENEMY-007 hides the line (DECISION-0057, playtest 2026-09-25_5233a664 OBS-05).</summary>
         public bool ShowDashTelegraphLine { get; }
+        /// <summary>TelegraphedDash, optional (DECISION-0118): fixed dash length in world units. When positive the
+        /// dash speed is length / <see cref="DashDurationSeconds"/> and <see cref="DashSpeedMultiplier"/> is unused;
+        /// zero keeps the classic speed x multiplier dash.</summary>
+        public float DashDistance { get; }
+        /// <summary>TelegraphedDash, optional: telegraph line width in world units; zero keeps the thin default line.</summary>
+        public float DashTelegraphWidth { get; }
+        /// <summary>TelegraphedDash, optional: telegraph line length in world units; zero draws the whole dash length.</summary>
+        public float DashTelegraphLength { get; }
+        /// <summary>TelegraphedDash, optional: radius around the dashing body that shoves ordinary enemies aside and lets
+        /// the dasher pass through them and the player; zero disables the shove and the pass-through.</summary>
+        public float DashShoveRadius { get; }
+        /// <summary>Sideways knockback given to every shoved enemy once per dash (before its knockback resistance).</summary>
+        public float DashShoveDistance { get; }
+        public float DashShoveSeconds { get; }
+        public bool DashShoves => DashShoveRadius > 0f;
+        public float DashSpeed(float movementSpeed) =>
+            DashDistance > 0f ? DashDistance / DashDurationSeconds : movementSpeed * DashSpeedMultiplier;
 
         public EnemyMovementProfile(
             EnemyMovementKind kind,
@@ -56,7 +73,13 @@ namespace Game.Enemy
             float sidestepCooldownSeconds = 0f,
             float turnResponseSeconds = 0f,
             float sidestepNearDistance = 0f,
-            float sidestepNearSeconds = 0f)
+            float sidestepNearSeconds = 0f,
+            float dashDistance = 0f,
+            float dashTelegraphWidth = 0f,
+            float dashShoveRadius = 0f,
+            float dashShoveDistance = 0f,
+            float dashShoveSeconds = 0f,
+            float dashTelegraphLength = 0f)
         {
             if (!Enum.IsDefined(typeof(EnemyMovementKind), kind))
                 throw new ArgumentOutOfRangeException(nameof(kind));
@@ -79,6 +102,15 @@ namespace Game.Enemy
             NumericValidation.ValidateNonNegative(turnResponseSeconds, nameof(turnResponseSeconds));
             NumericValidation.ValidateNonNegative(sidestepNearDistance, nameof(sidestepNearDistance));
             NumericValidation.ValidateNonNegative(sidestepNearSeconds, nameof(sidestepNearSeconds));
+            NumericValidation.ValidateNonNegative(dashDistance, nameof(dashDistance));
+            NumericValidation.ValidateNonNegative(dashTelegraphWidth, nameof(dashTelegraphWidth));
+            NumericValidation.ValidateNonNegative(dashShoveRadius, nameof(dashShoveRadius));
+            NumericValidation.ValidateNonNegative(dashShoveDistance, nameof(dashShoveDistance));
+            NumericValidation.ValidateNonNegative(dashShoveSeconds, nameof(dashShoveSeconds));
+            NumericValidation.ValidateNonNegative(dashTelegraphLength, nameof(dashTelegraphLength));
+            if (dashShoveRadius > 0f && (dashShoveDistance <= 0f || dashShoveSeconds <= 0f))
+                throw new ArgumentOutOfRangeException(nameof(dashShoveRadius),
+                    "A dash shove needs a positive knockback distance and duration.");
             if (kind == EnemyMovementKind.DistanceReposition && (repositionSeconds <= 0f || repositionSeconds >= cycleSeconds))
                 throw new ArgumentOutOfRangeException(nameof(repositionSeconds), "Reposition time must be positive and shorter than the cycle.");
             if (kind == EnemyMovementKind.OffsetPursuit && (preferredDistance <= 0f || distanceTolerance <= 0f))
@@ -123,6 +155,12 @@ namespace Game.Enemy
             DashCount = dashCount;
             FollowUpTelegraphSeconds = followUpTelegraphSeconds;
             ShowDashTelegraphLine = showDashTelegraphLine;
+            DashDistance = dashDistance;
+            DashTelegraphWidth = dashTelegraphWidth;
+            DashTelegraphLength = dashTelegraphLength;
+            DashShoveRadius = dashShoveRadius;
+            DashShoveDistance = dashShoveDistance;
+            DashShoveSeconds = dashShoveSeconds;
         }
     }
 }

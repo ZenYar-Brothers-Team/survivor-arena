@@ -34,13 +34,14 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(75f, wanderer.PresenceSeconds);
             Assert.AreEqual(3f, wanderer.WanderSeconds);
             Assert.AreEqual(0.5f, wanderer.RestSeconds);
-            Assert.AreEqual(3f, wanderer.AvoidRadius);
+            Assert.AreEqual(14.2f, wanderer.AvoidRadius, 1e-4f, "DECISION-0121: 0.8 of the screen width.");
             Assert.AreEqual(1.5f, wanderer.AvoidSeconds);
             var guard = Traveler("TRAVELER-005");
             Assert.AreEqual(TravelerRole.Protector, guard.Role);
             Assert.AreEqual(TravelerSupportKind.Aura, guard.Support);
             Assert.AreEqual(3f, guard.SupportRadius);
-            Assert.AreEqual(0.2f, guard.Reduction, 1e-5f);
+            Assert.AreEqual(0.4f, guard.Reduction, 1e-5f, "DECISION-0120: aura reduction 20% -> 40%.");
+            Assert.AreEqual(0.8f, guard.SupportVerticalScale, 1e-5f);
             Assert.AreEqual(0.65f, guard.Body.KnockbackResistance, 1e-5f);
             Assert.AreEqual(18f, guard.Body.ExperienceReward);
         }
@@ -73,22 +74,38 @@ namespace Game.Traveler.Tests
             Assert.AreEqual(Game.Enemy.EnemyMovementKind.TelegraphedDash, knight.Movement.Kind);
             Assert.AreEqual(4f, knight.Movement.DashCooldownSeconds, 1e-5f, "Card: one long dash about every 4 s.");
             Assert.IsNotNull(knight.DashContactControls);
+            // DECISION-0119: about a quarter of the screen width, shoving, wide telegraph.
+            Assert.AreEqual(9f, knight.Movement.DashDistance, 1e-5f, "DECISION-0121: dash range doubled.");
+            Assert.AreEqual(0.53f, knight.Movement.DashTelegraphWidth, 1e-5f, "DECISION-0121: band three times thinner.");
+            Assert.AreEqual(4f, knight.Movement.DashTelegraphLength, 1e-5f, "DECISION-0121: drawn line shorter than the dash.");
+            Assert.IsTrue(knight.Movement.DashShoves);
+            Assert.AreEqual(1.5f, knight.Movement.DashShoveDistance, 1e-5f);
             var angel = Traveler("TRAVELER-010").Body.Attack;
             Assert.AreEqual(Game.Enemy.EnemyProjectilePattern.Cross, angel.Pattern);
             Assert.AreEqual(4, angel.ProjectileCount);
             Assert.AreEqual(10f, angel.Damage, 1e-5f);
             Assert.AreEqual(2.6f, angel.CooldownSeconds, 1e-5f);
             Assert.AreEqual("BOSS-010-VISUAL-PROJECTILE", angel.ProjectileVisual.Id.ToString());
+            // DECISION-0120: Inquisitor throws a small haste splash, Heavenly Pilgrim heals in waves.
             var inquisitor = Traveler("TRAVELER-007");
-            Assert.AreEqual(TravelerSupportKind.Shield, inquisitor.Support);
-            Assert.AreEqual(35f, inquisitor.ShieldHp);
-            Assert.AreEqual(4f, inquisitor.ShieldSeconds);
-            Assert.AreEqual(6f, inquisitor.SupportCooldown);
-            Assert.AreEqual(4, inquisitor.SupportTargets);
+            Assert.AreEqual(TravelerSupportKind.SpeedBurst, inquisitor.Support);
+            Assert.AreEqual(4f, inquisitor.SupportRadius, 1e-5f);
+            Assert.AreEqual(1.5f, inquisitor.EffectRadius, 1e-5f);
+            Assert.AreEqual(0.5f, inquisitor.SpeedBonus, 1e-5f);
+            Assert.AreEqual(5f, inquisitor.EffectSeconds, 1e-5f);
+            Assert.AreEqual(5f, inquisitor.SupportCooldown, 1e-5f);
+            Assert.AreEqual(0.8f, inquisitor.SupportVerticalScale, 1e-5f);
             var pilgrim = Traveler("TRAVELER-009");
-            Assert.AreEqual(TravelerSupportKind.Aura, pilgrim.Support);
-            Assert.AreEqual(0.1f, pilgrim.Reduction, 1e-5f);
-            Assert.AreEqual(0.4f, pilgrim.Resistance, 1e-5f);
+            Assert.AreEqual(TravelerSupportKind.Heal, pilgrim.Support);
+            Assert.AreEqual(3.5f, pilgrim.SupportRadius, 1e-5f);
+            Assert.AreEqual(3f, pilgrim.SupportCooldown, 1e-5f);
+            Assert.AreEqual(20f, pilgrim.HealAmount, 1e-5f);
+            Assert.AreEqual(TravelerMovementStyle.ZigzagEscape, Traveler("TRAVELER-002").MovementStyle);
+            Assert.AreEqual(TravelerMovementStyle.DashEscape, Traveler("TRAVELER-003").MovementStyle);
+            var mage = Traveler("TRAVELER-006");
+            Assert.AreEqual(TravelerMovementStyle.Orbit, mage.MovementStyle);
+            Assert.Greater(mage.OrbitRadiusX, mage.OrbitRadiusY, "The oval follows the wide screen.");
+            Assert.AreEqual(TravelerMovementStyle.Wander, Traveler("TRAVELER-001").MovementStyle);
             Assert.AreEqual(5f, Traveler("TRAVELER-003").WanderSeconds, "Long straight segments.");
             Assert.AreEqual(0f, Traveler("TRAVELER-003").RestSeconds);
             Assert.AreEqual(1f, Traveler("TRAVELER-006").RestSeconds, "Stops for a while between walks.");
@@ -107,7 +124,7 @@ namespace Game.Traveler.Tests
         }
 
         [Test]
-        public void EveryFieldDrawsFromAllTenTravelers_WithoutRepeatingRoles()
+        public void EveryFieldDrawsFromAllTenTravelers_WithDistinctRolesPerGroupOfThree()
         {
             var catalog = FixtureTravelerCatalog.CreateProduction();
             foreach (var schedule in catalog.Schedules.Cast<TravelerScheduleDefinition>())
@@ -117,7 +134,9 @@ namespace Game.Traveler.Tests
                 for (var seed = 0; seed < 300; seed++)
                 {
                     var entries = schedule.Draw(900f, new Random(seed), id => catalog.Definitions[id].Role);
-                    Assert.AreEqual(entries.Count, entries.Select(e => catalog.Definitions[e.Id].Role).Distinct().Count());
+                    var roles = entries.OrderBy(e => e.Sequence).Select(e => catalog.Definitions[e.Id].Role).ToList();
+                    for (var start = 0; start < roles.Count; start += 3)
+                        Assert.AreEqual(roles.Skip(start).Take(3).Count(), roles.Skip(start).Take(3).Distinct().Count(), "DECISION-0122: every group of three has three different roles.");
                     foreach (var entry in entries) seen.Add(entry.Id);
                 }
                 Assert.AreEqual(10, seen.Count, $"{schedule.Id}: every Traveler can appear");
@@ -129,7 +148,8 @@ namespace Game.Traveler.Tests
         {
             var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single(s => s.Id.ToString() == "FIELD-001-TRAVELERS");
             Assert.AreEqual("FIELD-001-TRAVELERS", schedule.Id.ToString());
-            CollectionAssert.AreEqual(new[] { 0.15f, 0.4f, 0.35f, 0.1f }, schedule.CountProbabilities);
+            Assert.AreEqual(1, schedule.MinCount);
+            CollectionAssert.AreEqual(new[] { 0.1f, 0.25f, 0.3f, 0.25f, 0.1f }, schedule.CountProbabilities);
             Assert.AreEqual(1f, schedule.Scale(0f, 900f), 1e-5f);
             Assert.AreEqual(1.25f, schedule.Scale(390f, 900f), 1e-5f);
             Assert.AreEqual(1.5f, schedule.Scale(900f, 900f), 1e-5f);
@@ -144,19 +164,19 @@ namespace Game.Traveler.Tests
         }
 
         [Test]
-        public void Draws_ProduceZeroToThreeDistinctTypes_WithinTheSpawnWindow()
+        public void Draws_ProduceOneToFiveDistinctTravelers_WithinTheSpawnWindow()
         {
             var schedule = FixtureTravelerCatalog.CreateProduction().Schedules.Single(s => s.Id.ToString() == "FIELD-001-TRAVELERS");
-            var counts = new int[4];
+            var counts = new int[6];
             for (var seed = 0; seed < 400; seed++)
             {
                 var entries = schedule.Draw(900f, new Random(seed));
-                Assert.LessOrEqual(entries.Count, 3);
+                Assert.That(entries.Count, Is.InRange(1, 5), "DECISION-0122: 1 to 5 Travelers per map.");
                 counts[entries.Count]++;
                 Assert.AreEqual(entries.Count, entries.Select(e => e.Id).Distinct().Count(), "No repeated Traveler type.");
                 foreach (var entry in entries) Assert.That(entry.Time, Is.InRange(0f, 780f));
             }
-            for (var n = 0; n < 4; n++) Assert.Greater(counts[n], 0, $"count {n} occurs");
+            for (var n = 1; n <= 5; n++) Assert.Greater(counts[n], 0, $"count {n} occurs");
         }
     }
 }

@@ -250,7 +250,30 @@ def late_traveler(t, baseline):
     }
 
 
+def apply_travelers_v2(entry, v2):
+    """DECISION-0120: movement style of peaceful Travelers, and Aura/SpeedBurst/Heal support of protectors."""
+    override = v2["overrides"].get(entry["id"], {})
+    entry["movementStyle"] = override.get("movementStyle", "Wander")
+    entry.update(override.get("style", {}))
+    if "avoidRadius" in override:
+        entry["avoidRadius"] = override["avoidRadius"]
+    if "support" in override:
+        support = dict(override["support"])
+        entry["support"] = support.pop("kind")
+        entry["supportRadius"] = support.pop("radius")
+        entry["supportCooldown"] = support.pop("cooldownSeconds")
+        for key, value in support.items():
+            entry[key] = value
+    if "effectColor" in override:
+        entry["effectColor"] = override["effectColor"]
+        entry["effectShape"] = override["effectShape"]
+    if entry["support"] != "None":
+        entry["supportVerticalScale"] = v2["supportVerticalScale"]
+    return entry
+
+
 def travelers(baseline):
+    v2 = baseline["travelersV2"]
     schedule = baseline["travelerSchedule"]
     seeds = baseline["randomness"]["referenceSeeds"]
     if schedule["typeSelection"] != "uniform-without-replacement" or not schedule["timesIndependent"] \
@@ -277,12 +300,14 @@ def travelers(baseline):
             "supportCooldown": support["cooldownSeconds"], "supportTargets": support["supportTargets"], "color": t["color"],
         })
     result += [late_traveler(t, baseline) for t in baseline["lateTravelers"]["travelers"]]
+    result = [apply_travelers_v2(t, v2) for t in result]
     pool = sorted(t["id"] for t in result)
 
     def entry(schedule_id, seed, rank):
         # DECISION-0063: every field draws from the global pool of implemented Travelers, roles never repeat.
         return {"id": schedule_id, "travelerIds": pool,
-                "countProbabilities": schedule["countProbabilities"], "seed": seed, "fieldRank": rank,
+                "minCount": v2["schedule"]["minCount"], "countProbabilities": v2["schedule"]["countProbabilities"],
+                "seed": seed, "fieldRank": rank,
                 "placementAttempts": schedule["placementAttempts"], "endBufferSeconds": schedule["endBufferSeconds"],
                 "spawnScreenHeights": schedule["spawnScreenHeights"], "fieldGrowth": schedule["fieldGrowth"],
                 "timeGrowth": schedule["timeGrowth"]}

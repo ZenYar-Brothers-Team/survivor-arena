@@ -48,6 +48,13 @@ namespace Game.Enemy
         private EnemyMovementProfile _movementProfile;
         private EnemyMovementProfile _spawnMovementProfile;
         private bool _holdAttacksDuringDash;
+        // Shoving dash (DECISION-0118): pass-through state and per-dash hit bookkeeping.
+        private const int DashShoveBufferSize = 48;
+        private Collider2D[] _dashShoveHits;
+        private readonly System.Collections.Generic.HashSet<EnemyRuntime> _dashShoved = new System.Collections.Generic.HashSet<EnemyRuntime>();
+        private bool _dashPassThrough;
+        private bool _dashHitPlayer;
+        private LayerMask _dashSavedExclude;
         public BossCombatController BossCombat { get; private set; }
         private EnemyAttackProfile CurrentAttack => BossCombat != null ? BossCombat.AttackDefinition?.Attack : Definition?.Attack;
         private bool _initialized;
@@ -170,6 +177,7 @@ namespace Game.Enemy
             // Only the root carries the collider; skill area damage queries this layer only (DECISION-0056).
             gameObject.layer = EnemyPhysicsLayer.Index;
             _collider.enabled = true;
+            EndDashPassThrough();
             _body.gravityScale = 0f;
             _body.simulated = true;
             _body.linearVelocity = Vector2.zero;
@@ -229,12 +237,13 @@ namespace Game.Enemy
             // MIDBOSS-009 slows down while winding up (DECISION-0066, E6).
             var windup = _attackController?.Phase == EnemyAttackPhase.Telegraphing && CurrentAttack != null
                 ? CurrentAttack.WindupMovementMultiplier : 1f;
-            var speed = Definition.MovementSpeed * control.MovementMultiplier * windup;
+            var speed = Definition.MovementSpeed * control.MovementMultiplier * windup * Protection.SpeedMultiplier;
             var movement = _movementDriver != null
                 ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
             _body.linearVelocity = movement.Velocity + new Vector2(control.KnockbackX, control.KnockbackY);
             MovementPhase = movement.Phase;
+            UpdateDashShove(movement, isSimulating);
             if (_dashVolley != null) FireDashVolley(movement, isSimulating);
             if (!isSimulating || (_attackController == null && BossCombat == null))
             {
@@ -593,6 +602,85 @@ namespace Game.Enemy
                 usesScaleCompensatedBody ? Definition.CollisionSize : 1f, bodyRenderer);
         }
 
+        /// <summary>
+        /// DECISION-0118: while a shoving dash runs the body ignores enemy and player colliders, every ordinary enemy it
+        /// sweeps over is pushed sideways once, and the player takes one contact hit per dash. One overlap query per
+        /// physics tick, only during the dash; the buffer is reused and nothing is allocated.
+        /// </summary>
+        private void UpdateDashShove(EnemyMovementFrame movement, bool isSimulating)
+        {
+            var move = CurrentMovement;
+            var active = isSimulating && move.DashShoves && movement.Phase == EnemyMovementPhase.Dashing;
+            if (!active)
+            {
+                if (_dashPassThrough) EndDashPassThrough();
+                return;
+            }
+            using var guard = PerfGuard.Measure("EnemyRuntime.DashShove", 1f);
+            if (!_dashPassThrough)
+            {
+                _dashPassThrough = true;
+                _dashSavedExclude = _collider.excludeLayers;
+                var mask = 1 << EnemyPhysicsLayer.Index;
+                var playerLayer = LayerMask.NameToLayer("Player");
+                if (playerLayer >= 0) mask |= 1 << playerLayer;
+                _collider.excludeLayers = _dashSavedExclude | mask;
+                _dashShoved.Clear();
+                _dashHitPlayer = false;
+            }
+            _dashShoveHits ??= new Collider2D[DashShoveBufferSize];
+            var filter = ContactFilter2D.noFilter;
+            var queryMask = 1 << EnemyPhysicsLayer.Index;
+            var playerQueryLayer = LayerMask.NameToLayer("Player");
+            if (playerQueryLayer >= 0) queryMask |= 1 << playerQueryLayer;
+            filter.SetLayerMask(queryMask);
+            var origin = _body.position;
+            var count = Physics2D.OverlapCircle(origin, move.DashShoveRadius, filter, _dashShoveHits);
+            var forward = movement.TelegraphDirection;
+            for (var i = 0; i < count; i++)
+            {
+                var hit = _dashShoveHits[i];
+                if (hit == null || hit.gameObject == gameObject) continue;
+                if (hit.TryGetComponent(out EnemyRuntime other))
+                {
+                    if (!other.IsAlive || other.Category != EnemyCategory.Ordinary || other._runId != _runId ||
+                        !_dashShoved.Add(other)) continue;
+                    var relative = other.Position - origin;
+                    var cross = forward.x * relative.y - forward.y * relative.x;
+                    // Dead-centre hits alternate by life id so a packed line splits to both sides.
+                    var side = Mathf.Abs(cross) > 0.05f ? Mathf.Sign(cross) : ((other.LifeId.GetHashCode() & 1) == 0 ? 1f : -1f);
+                    var push = new Vector2(-forward.y, forward.x) * side + forward * 0.3f;
+                    other.ApplyShove(push, move.DashShoveDistance, move.DashShoveSeconds, Identity, Definition.Id);
+                }
+                else if (!_dashHitPlayer && hit.TryGetComponent(out PlayerCharacterRuntime player))
+                {
+                    _dashHitPlayer = true;
+                    if (player.Health == null || player.Health.IsDead || Definition.ContactDamage <= 0) continue;
+                    var direction = (Vector2)player.transform.position - origin;
+                    player.ApplyDamage(new CombatDamageRequest(
+                        new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyContact),
+                        Definition.ContactDamage, Definition.DashContactControls, direction.x, direction.y));
+                }
+            }
+        }
+
+        private void EndDashPassThrough()
+        {
+            if (!_dashPassThrough) return;
+            _dashPassThrough = false;
+            _collider.excludeLayers = _dashSavedExclude;
+            _dashShoved.Clear();
+        }
+
+        /// <summary>Knockback only (no damage, no hit event, no slow), reduced by this enemy's knockback resistance.</summary>
+        public void ApplyShove(Vector2 direction, float distance, float seconds, CombatIdentity source, ContentId sourceId)
+        {
+            if (!_initialized || !IsAlive || _dispatchingLifecycle || !IsRunRunning() || distance <= 0f || seconds <= 0f) return;
+            var request = new CombatDamageRequest(new CombatSource(source, sourceId, CombatSourceOrigin.EnemyContact), 0f,
+                new CombatControlProfile(distance, seconds), direction.x, direction.y);
+            Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: false);
+        }
+
         private void ConfigureTelegraph()
         {
             _telegraph.enabled = false;
@@ -614,9 +702,15 @@ namespace Game.Enemy
             _telegraph.enabled = dashLine || attackTelegraph;
             if (!_telegraph.enabled) return;
             var start = (Vector3)_body.position;
-            var length = Mathf.Max(2f, Definition.MovementSpeed * move.DashSpeedMultiplier * move.DashDurationSeconds);
+            var length = move.DashTelegraphLength > 0f ? move.DashTelegraphLength
+                : move.DashDistance > 0f ? move.DashDistance
+                : Mathf.Max(2f, Definition.MovementSpeed * move.DashSpeedMultiplier * move.DashDurationSeconds);
             var direction = dashLine ? movement.TelegraphDirection : _attackController.AimDirection;
             if (!dashLine) length = CurrentAttack.ProjectileSpeed * CurrentAttack.TelegraphSeconds;
+            // A dash telegraph with its own width keeps a constant band; every other telegraph keeps the thin tapered line.
+            var wide = dashLine && move.DashTelegraphWidth > 0f;
+            _telegraph.startWidth = wide ? move.DashTelegraphWidth : 0.08f;
+            _telegraph.endWidth = wide ? move.DashTelegraphWidth : 0.025f;
             _telegraph.SetPosition(0, start);
             _telegraph.SetPosition(1, start + (Vector3)(direction * length));
         }

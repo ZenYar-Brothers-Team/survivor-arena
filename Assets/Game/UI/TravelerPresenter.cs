@@ -16,14 +16,21 @@ namespace Game.UI
         private readonly Func<Vector2, Vector3> _project;
         private readonly Func<float> _aspect;
         private readonly bool _development;
+        private bool _choicesShown;
         public TravelerPresenter(ITravelerRuntime model, ITravelerView view, Func<Vector2, Vector3> project, bool development,
             Func<float> aspect = null)
         {
             _model = model; _view = view; _project = project; _development = development; _aspect = aspect ?? (() => 16f / 9f);
-            _view.SpawnRequested += Spawn; Refresh();
+            _view.SpawnRequested += Spawn; _view.SpawnChosen += SpawnChosen; Refresh();
         }
         public void Refresh()
         {
+            // The pool is known only once the encounter is initialized, so the list is handed over on first sight.
+            if (_development && !_choicesShown && _model != null)
+            {
+                var choices = _model.DevelopmentChoices;
+                if (choices.Count > 0) { _view.SetChoices(choices); _choicesShown = true; }
+            }
             var result = new List<TravelerHudItem>();
             if (_model != null)
                 foreach (var item in _model.Snapshot)
@@ -82,6 +89,7 @@ namespace Game.UI
         }
 
         private void Spawn() { if (_development) _model?.SpawnDevelopmentTraveler(); }
-        public void Dispose() => _view.SpawnRequested -= Spawn;
+        private void SpawnChosen(string id) { if (_development) _model?.SpawnDevelopmentTraveler(id); }
+        public void Dispose() { _view.SpawnRequested -= Spawn; _view.SpawnChosen -= SpawnChosen; }
     }
 }

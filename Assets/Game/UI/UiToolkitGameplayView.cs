@@ -61,6 +61,8 @@ namespace Game.UI
         private readonly Button _developmentPresentationTab;
         private readonly Button _developmentPlaytestTab;
         private readonly VisualElement _developmentPlaytestPane;
+        private readonly Button _developmentTravelersTab;
+        private readonly VisualElement _developmentTravelersPane;
         private readonly VisualElement _developmentRunPane;
         private readonly VisualElement _developmentBuildPane;
         private readonly VisualElement _developmentPresentationPane;
@@ -163,6 +165,8 @@ namespace Game.UI
             _developmentPresentationTab = Require<Button>(root, GameplayUiElementIds.DevelopmentPresentationTab);
             _developmentPlaytestTab = Require<Button>(root, GameplayUiElementIds.DevelopmentPlaytestTab);
             _developmentPlaytestPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPlaytestPane);
+            _developmentTravelersTab = Require<Button>(root, GameplayUiElementIds.DevelopmentTravelersTab);
+            _developmentTravelersPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentTravelersPane);
             _developmentRunPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentRunPane);
             _developmentBuildPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentBuildPane);
             _developmentPresentationPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPresentationPane);
@@ -207,6 +211,7 @@ namespace Game.UI
             _developmentBuildTab.clicked += ShowDevelopmentBuildTab;
             _developmentPresentationTab.clicked += ShowDevelopmentPresentationTab;
             _developmentPlaytestTab.clicked += ShowDevelopmentPlaytestTab;
+            _developmentTravelersTab.clicked += ShowDevelopmentTravelersTab;
             _presentationLiveButton.clicked += HandlePresentationLiveClicked;
             _presentationIdleButton.clicked += HandlePresentationIdleClicked;
             _presentationLeftButton.clicked += HandlePresentationLeftClicked;
@@ -565,12 +570,16 @@ namespace Game.UI
 
         private void ShowDevelopmentPlaytestTab() => ShowDevelopmentTab(_developmentPlaytestPane, _developmentPlaytestTab);
 
+        private void ShowDevelopmentTravelersTab() => ShowDevelopmentTab(_developmentTravelersPane, _developmentTravelersTab);
+
         private void ShowDevelopmentTab(VisualElement activePane, Button activeTab)
         {
             SetVisible(_developmentRunPane, activePane == _developmentRunPane);
             SetVisible(_developmentBuildPane, activePane == _developmentBuildPane);
             SetVisible(_developmentPresentationPane, activePane == _developmentPresentationPane);
             SetVisible(_developmentPlaytestPane, activePane == _developmentPlaytestPane);
+            SetVisible(_developmentTravelersPane, activePane == _developmentTravelersPane);
+            _developmentTravelersTab.EnableInClassList("development-tab-active", activeTab == _developmentTravelersTab);
             _developmentPlaytestTab.EnableInClassList("development-tab-active", activeTab == _developmentPlaytestTab);
             _developmentRunTab.EnableInClassList("development-tab-active", activeTab == _developmentRunTab);
             _developmentBuildTab.EnableInClassList("development-tab-active", activeTab == _developmentBuildTab);
@@ -655,6 +664,7 @@ namespace Game.UI
             _developmentBuildTab.clicked -= ShowDevelopmentBuildTab;
             _developmentPresentationTab.clicked -= ShowDevelopmentPresentationTab;
             _developmentPlaytestTab.clicked -= ShowDevelopmentPlaytestTab;
+            _developmentTravelersTab.clicked -= ShowDevelopmentTravelersTab;
             _presentationLiveButton.clicked -= HandlePresentationLiveClicked;
             _presentationIdleButton.clicked -= HandlePresentationIdleClicked;
             _presentationLeftButton.clicked -= HandlePresentationLeftClicked;

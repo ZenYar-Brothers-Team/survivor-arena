@@ -11,7 +11,9 @@ namespace Game.Telemetry.Tests
         public string DevelopmentObservation => "fixture";
         public event Action<TravelerEvent> LifeEvent;
         public event Action<CombatResult> CombatResolved;
+        public IReadOnlyList<TravelerChoice> DevelopmentChoices => Array.Empty<TravelerChoice>();
         public void SpawnDevelopmentTraveler() { }
+        public void SpawnDevelopmentTraveler(string id) { }
         public void Publish(TravelerEvent item) => LifeEvent?.Invoke(item);
         public void Hit(CombatResult result) => CombatResolved?.Invoke(result);
     }

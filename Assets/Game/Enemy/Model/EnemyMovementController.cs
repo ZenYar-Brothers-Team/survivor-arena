@@ -314,14 +314,14 @@ namespace Game.Enemy
                     return Frame(Vector2.zero, _dashPhase, _dashDirection);
                 _dashPhase = EnemyMovementPhase.Dashing;
                 _dashPhaseRemaining = _profile.DashDurationSeconds;
-                return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                return Frame(_dashDirection * _profile.DashSpeed(movementSpeed), _dashPhase, _dashDirection);
             }
 
             if (_dashPhase == EnemyMovementPhase.Dashing)
             {
                 _dashPhaseRemaining -= deltaTime;
                 if (_dashPhaseRemaining > 0f)
-                    return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                    return Frame(_dashDirection * _profile.DashSpeed(movementSpeed), _dashPhase, _dashDirection);
                 if (--_dashesLeftInSequence > 0)
                 {
                     // Follow-up dash: fresh direction snapshot, shorter telegraph, no pursuit in between (MIDBOSS-001).
@@ -332,7 +332,7 @@ namespace Game.Enemy
                         return Frame(Vector2.zero, _dashPhase, _dashDirection);
                     _dashPhase = EnemyMovementPhase.Dashing;
                     _dashPhaseRemaining = _profile.DashDurationSeconds;
-                    return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                    return Frame(_dashDirection * _profile.DashSpeed(movementSpeed), _dashPhase, _dashDirection);
                 }
                 _dashPhase = EnemyMovementPhase.Seeking;
                 _dashCooldownRemaining = _profile.DashCooldownSeconds;
@@ -349,7 +349,7 @@ namespace Game.Enemy
                     return Frame(Vector2.zero, _dashPhase, _dashDirection);
                 _dashPhase = EnemyMovementPhase.Dashing;
                 _dashPhaseRemaining = _profile.DashDurationSeconds;
-                return Frame(_dashDirection * movementSpeed * _profile.DashSpeedMultiplier, _dashPhase, _dashDirection);
+                return Frame(_dashDirection * _profile.DashSpeed(movementSpeed), _dashPhase, _dashDirection);
             }
 
             return Frame(toward * movementSpeed, EnemyMovementPhase.Seeking);

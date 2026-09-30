@@ -7,6 +7,7 @@ namespace Game.Enemy
     public sealed class EnemyProtection
     {
         private readonly Dictionary<Guid, (float reduction, float resistance, float deadline)> _auras = new Dictionary<Guid, (float, float, float)>();
+        private readonly Dictionary<Guid, (float bonus, float deadline)> _speedBoosts = new Dictionary<Guid, (float, float)>();
         private readonly List<Guid> _expired = new List<Guid>();
         public Guid ShieldSource { get; private set; }
         public float ShieldCapacity { get; private set; }
@@ -14,6 +15,14 @@ namespace Game.Enemy
         public float ShieldDeadline { get; private set; }
         public float Reduction { get { float value = 0; foreach (var aura in _auras.Values) value = Math.Max(value, aura.reduction); return value; } }
         public float ResistanceBonus { get { float value = 0; foreach (var aura in _auras.Values) value = Math.Max(value, aura.resistance); return value; } }
+        /// <summary>DECISION-0120: strongest active timed speed bonus; boosts of different casts do not add up.</summary>
+        public float SpeedMultiplier { get { float value = 0; foreach (var boost in _speedBoosts.Values) value = Math.Max(value, boost.bonus); return 1 + value; } }
+        public void SetSpeedBoost(Guid source, float bonus, float deadline)
+        {
+            if (source == Guid.Empty) throw new ArgumentException("Speed boost source required.");
+            NumericValidation.ValidatePositive(bonus, nameof(bonus));
+            _speedBoosts[source] = (bonus, deadline);
+        }
         public void SetAura(Guid source, float reduction, float resistance, float deadline = float.PositiveInfinity)
         {
             if (source == Guid.Empty) throw new ArgumentException("Aura source required.");
@@ -39,6 +48,10 @@ namespace Game.Enemy
             _expired.Clear();
             foreach (var aura in _auras) if (now >= aura.Value.deadline) _expired.Add(aura.Key);
             foreach (var source in _expired) _auras.Remove(source);
+            if (_speedBoosts.Count == 0) return;
+            _expired.Clear();
+            foreach (var boost in _speedBoosts) if (now >= boost.Value.deadline) _expired.Add(boost.Key);
+            foreach (var source in _expired) _speedBoosts.Remove(source);
         }
         public float Absorb(float amount, float now)
         {
@@ -52,7 +65,7 @@ namespace Game.Enemy
         }
         public void RemoveAura(Guid source) => _auras.Remove(source);
         public void RemoveSource(Guid source) { RemoveAura(source); if (ShieldSource == source) ClearShield(); }
-        public void Reset() { _auras.Clear(); ClearShield(); }
+        public void Reset() { _auras.Clear(); _speedBoosts.Clear(); ClearShield(); }
         private void ClearShield() { ShieldSource = Guid.Empty; ShieldCapacity = ShieldRemaining = ShieldDeadline = 0; }
     }
 }
