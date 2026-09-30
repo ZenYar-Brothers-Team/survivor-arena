@@ -109,6 +109,9 @@ Offline кандидат на четырёх held-out забегах уступ�
 Двухэтапная offline-проба `change/keep → direction` почти не распознаёт момент
 смены: 37/3 870 поворотов, gate AUC 0.536…0.563; модель не выбрана для игры.
 [Диагностика](evidence/2026-09-30-two-stage-imitation-probe.md).
+История наблюдений 0,4/1,2 s и 1/3 s не дала существенного выигрыша:
+44 и 35 угаданных смен из 3 870; policy не выбрана.
+[Temporal evidence](evidence/2026-09-30-temporal-imitation-probe.md).
 
 Автоматические прогоны 2026-09-29 — [IP-34](modules/IP-34-automated-balance-runs.md),
 `automated-runs-v7`: AB-01…14 реализованы и проверены в пределах scoped приёмки;
@@ -617,8 +620,8 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-12a
 
 Status: Implemented
 Dependencies: IP-03, IP-04, IP-05
-Movement overlay follow-up 2026-09-30 — Implemented для пробной разбивки blob: выбранные ordinary жизни на короткое время получают fan waypoint без замены базового movement kind; pause, dash priority и pool reuse сохранены. Enemy EditMode 231/231 PASS; игровой просмотр открыт. [DECISION-0130](../decisions/0130-periodic-blob-breakup-trial.md), [evidence](evidence/2026-09-30-periodic-blob-breakup.md).
 Current packet: Пользовательская дельта 2026-09-29 — пять лёгких anti-blob movement kinds, per-spawn weighted movement variants и ENEMY-001 rollout; прежний fixture movement/attack/control scope сохраняется.
+Movement overlay follow-up 2026-09-30 — Implemented для пробной разбивки blob: выбранные ordinary жизни на короткое время получают fan waypoint без замены базового movement kind; pause, dash priority и pool reuse сохранены. Enemy EditMode 231/231 PASS; игровой просмотр открыт. [DECISION-0130](../decisions/0130-periodic-blob-breakup-trial.md), [evidence](evidence/2026-09-30-periodic-blob-breakup.md).
 Remaining gates: Нет для fixture framework. G-07 закрыт DECISION-0017. G-14 остаётся для production cards; новые wind-up/control values — synthetic fixtures.
 Remaining acceptance / IDs: пользователь сравнил двухтипную смесь с прежней шеститипной и выбрал прежнюю как более интересную в игре. ENEMY-001 вновь использует 75% усиленный BlockedSidestep и по 5% пяти других шаблонов. Автоматический перебор остаётся экспериментом; production catalog после возврата 8/8 EditMode PASS. Прежний fixture framework packet закрыт.
 Target implementation evidence: [Fixed-75 sweep и rollout](evidence/2026-09-30-anti-blob-fixed75-sweep.md), [Anti-blob delta](evidence/2026-09-29-anti-blob-enemy-movement.md), [IP-13 evidence](evidence/design-sync-R2-2026-09-21-ip13.md#ip-13), [schema/compatibility matrix](modules/IP-13-enemy-patterns.md#schema-и-runtime-contract).
@@ -631,9 +634,9 @@ Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-13)
 Status: Verified
 Dependencies: IP-04, IP-13
 Current packet: timeline-level technical cap 300 для continuous/burst, skipped-window expiry, seeded composition/geometry, deterministic hooks, actual spawn outcomes и existing HUD/DEV projection (DECISION-0076/0115).
+Anti-blob trial 2026-09-30 — Implemented по [DECISION-0130](../decisions/0130-periodic-blob-breakup-trial.md): phase-level `blobBreakup` включён во всех текущих production-фазах FIELD-001…004 для всех ordinary типов. Раз в 10 s обрабатываются плотные непересекающиеся квадраты 3.5×3.5 wu на сетке 7×7 (охват 24.5×24.5 wu), кроме центрального квадрата с игроком; порог 11 ordinary врагов, выбор 70 %, cap 60 на квадрат, манёвр до 6 s. Сторона веера определяется положением врага относительно линии от группы к игроку. `enemyIds` ограничивает только получателей манёвра, но все ordinary типы учитываются в плотности; выключение на фазе поддержано. Targeted Enemy EditMode 26/26 PASS относится к предыдущей настройке (`TestResults/checks/20260930T194540-114798Z/summary.json`); тест новой настройки NOT RUN: открытый Editor не отвечает через UnitySkills REST. [Evidence](evidence/2026-09-30-periodic-blob-breakup.md).
 Текущая дельта: общий cap 300 для всех production-полей по [DECISION-0115](../decisions/0115-shared-300-enemy-cap.md); код читает значение из timeline, генератор отклоняет расхождение пакетов. [Evidence](evidence/2026-09-30-shared-300-enemy-cap.md).
 Follow-up 2026-09-30 — Implemented: cap replacement по [DECISION-0105](../decisions/0105-continuous-cap-replacement.md) удаляет самого дальнего ordinary без событий, kills и дропа; расписания и cap 200 не менялись. Затронутые EditMode 44/44; full graphics 1051/1051 + 57/57, generation/audio/art 269 PASS. Ручной плейтест открыт. [Evidence](evidence/2026-09-30-cap-replacement-and-human-draft.md).
-Anti-blob trial 2026-09-30 — Implemented по [DECISION-0130](../decisions/0130-periodic-blob-breakup-trial.md): phase-level `blobBreakup` включён во всех текущих production-фазах FIELD-001…004 для всех ordinary типов. Раз в 10 s обрабатываются плотные непересекающиеся квадраты 3.5×3.5 wu на сетке 7×7 (охват 24.5×24.5 wu), кроме центрального квадрата с игроком; порог 11 ordinary врагов, выбор 70 %, cap 60 на квадрат, манёвр до 6 s. Сторона веера определяется положением врага относительно линии от группы к игроку. `enemyIds` ограничивает только получателей манёвра, но все ordinary типы учитываются в плотности; выключение на фазе поддержано. Targeted Enemy EditMode 26/26 PASS относится к предыдущей настройке (`TestResults/checks/20260930T194540-114798Z/summary.json`); тест новой настройки NOT RUN: открытый Editor не отвечает через UnitySkills REST. [Evidence](evidence/2026-09-30-periodic-blob-breakup.md).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0100](../decisions/0100-opposite-centroid-spawn.md) production FIELD-001/002/003 используют `spawnOppositeBias=1.0` (повышено с 0.8 через 0.9) и обычный `spawnRadius=10` вместо 12; первые 20 секунд спавн остаётся у края экрана. На tick спавна оцениваются не более 16 живых обычных врагов, выбор угла охватывает всё кольцо. Исходный алгоритм: Enemy/Bootstrap EditMode **247/247 PASS**; тюнинг 1.0: production field EditMode **17/17 PASS**, content STATIC PASS, 0 failed/skipped. [Тюнинг/evidence](evidence/2026-09-29-opposite-spawn-bias-tuning.md), [исходный алгоритм](evidence/2026-09-29-opposite-centroid-spawn.md), [OBS-09](../playtests/2026-09-29_anti-blob-movement.md#obs-09--проба-противоположного-спавна-и-более-близкого-кольца).
 Follow-up 2026-09-29 — Implemented, ожидает игрового просмотра: по [DECISION-0103](../decisions/0103-field001-opening-spawn-rate.md) только FIELD-001 получает 0.6 обычной continuous частоты в первые 30 s; generated content STATIC PASS, Enemy/Bootstrap EditMode **248/248 PASS**, GameplaySmokeTests PlayMode **3/3 PASS**. [Evidence](evidence/2026-09-29-perimeter-and-opening-rate.md), [OBS-01](../playtests/2026-09-29_field001-opening-rate.md#obs-01--снизить-спавн-в-первые-30-секунд).
 Remaining gates: Нет для synthetic framework. W-01 обновлён по DECISION-0076; G-11/G-14 production schedules/Traveler timing остаются у catalog packets. IP-12A density review отдельно.
@@ -991,6 +994,25 @@ Research follow-up: двухэтапная модель с отдельным ch
 не дала практически полезного улучшения (66.929% против 66.886% baseline,
 37/3 870 смен); policy не выбрана, игровой pilot для этого кандидата не запускался.
 Python 31/31 PASS. [Evidence](evidence/2026-09-30-two-stage-imitation-probe.md).
+Temporal follow-up: оба масштаба истории остались около repeat-previous
+baseline, а change gate не стал пригодным для игры. Python 33/33 PASS;
+runtime и content не менялись. Цель игрока не наблюдается в human JSONL;
+следующий research scope — closed-loop оценка автономной policy по выживанию,
+XP и уровню, без заявления о восстановлении человеческого намерения.
+[Evidence](evidence/2026-09-30-temporal-imitation-probe.md).
+Closed-loop bot pilot на закреплённом `develop-evg` `4eac2a4`: три значения
+`trajectorySearch.contactPenalty` (20/60/120) дали по 3/3 natural Defeat;
+контрольный `herdLoopAdaptive` тоже 3/3 Defeat, но два забега длились 455/562 s.
+Новая policy не выбрана, пригодность для балансировки не установлена;
+следующий research вопрос — связь выживания с убийствами и сбором XP.
+Runtime, content и баланс не менялись.
+[Evidence](evidence/2026-09-30-closed-loop-bot-pilot.md).
+Herd XP follow-up: в двух долгих забегах 81/69 убийств, 15/26 собранного XP,
+62/39 истёкшего базового XP. Проверен `sweepSeconds` 5→1 на том же player:
+3/3 natural Defeat, среднее выживание 233.56 s против 375.08 s у контроля;
+параметр не принят. Следующий candidate должен проверять выбор достижимого XP
+или путь к нему; пригодная policy ещё не установлена.
+[Evidence](evidence/2026-09-30-herd-xp-conversion-probe.md).
 Ресурсный блокер снят: worktree целиком на D:, старый Git/Codex путь
 сохранён junction-ссылкой. Активные сохранения возвращены в обычную папку C: после
 ошибки записи через LocalLow junction; полная копия на D: сохранена, восстановленные

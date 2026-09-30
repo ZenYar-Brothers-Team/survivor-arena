@@ -85,7 +85,7 @@ DEV остаётся в существующем gated/collapsed drawer: present
 
 | Canonical targets | Framework mapping | Что остаётся owning packet |
 |---|---|---|
-| ENEMY-001 | ArcPassPursuit + weighted Seek/OffsetPursuit/CommittedPursuit/BlockedSidestep/InertialPursuit + contact/resistance | Production contact interval/assets; rollout DECISION-0099 |
+| ENEMY-001 | ArcPassPursuit (5%) + weighted Seek/OffsetPursuit/CommittedPursuit/InertialPursuit (по 5%) и BlockedSidestep (75%) + contact/resistance | Production contact interval/assets; rollout DECISION-0099 |
 | ENEMY-002/003/009/020 | Seek + contact/resistance | Production contact intervals, assets |
 | ENEMY-004/005/012 | KeepDistance/Orbit + Single | Per-card targeting/hold behaviour, projectile geometry/data |
 | ENEMY-006/019 | KeepDistance/Seek + Fan | Production parameters/art |

@@ -195,6 +195,31 @@ contains the fitted network and input hashes for reproducibility. The model is
 **not** loaded by the game or selected as a bot policy: offline action matching
 does not establish closed-loop survival, XP collection or balance quality.
 
+To diagnose movement changes, use the separate two-stage research probe on at
+least three naturally completed human recordings:
+
+```powershell
+python scripts/balance/probe_two_stage_imitation.py <run1.jsonl> <run2.jsonl> <run3.jsonl> --output TestResults/imitation-two-stage/evaluation.json
+```
+
+It holds out each run, trains a change gate and a direction model on the other
+runs, and compares with repeating the previous action. The report also gives
+change detection AUC and direction accuracy with oracle timing. It does not
+serialize or select an in-game policy.
+
+For a temporal diagnostic on the same completed recordings, pass earlier
+observations to the two-stage probe:
+
+```powershell
+python scripts/balance/probe_temporal_imitation.py <run1.jsonl> <run2.jsonl> <run3.jsonl> --lags 0.4 1.2 --output TestResults/imitation-temporal/evaluation.json
+```
+
+Each lag uses the last sample at or before that many running physics seconds
+ago, including the action known then. Missing history is marked explicitly.
+The current action, future state and event capture reason are excluded from
+features. The result still requires independent in-game validation before any
+policy selection.
+
 ## Analyze experiments
 
 Analyze any finished or partial experiment without filtering away inconvenient
