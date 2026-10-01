@@ -46,6 +46,17 @@ namespace Game.Bootstrap
             _player.ApplyDamage(new CombatDamageRequest(new CombatSource(_player.Identity, source, CombatSourceOrigin.Unknown), damage));
         }
 
+        public void Hit(float amount, ContentId source)
+        {
+            if (!IsAlive || amount <= 0f) return;
+            _player.ApplyDamage(new CombatDamageRequest(new CombatSource(_player.Identity, source, CombatSourceOrigin.Unknown), amount));
+        }
+
+        public void HealFraction(float fractionOfMaxHealth)
+        {
+            if (IsAlive) _player.Health.Heal(_player.Health.MaxHealth * fractionOfMaxHealth);
+        }
+
         public void TeleportTo(Vector2 position)
         {
             _player.transform.position = position;

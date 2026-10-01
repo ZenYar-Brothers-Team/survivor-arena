@@ -341,6 +341,159 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void Strike_HitsEveryoneInsideItsCircleOnce_WhenTheWarningEnds_AndNoOneElse()
+        {
+            var runtime = Build(1, (ZoneTestData.Strike(), Vector2.zero, 0f));
+            var effect = runtime.Zones[0].Effect;
+            var circle = effect.StrikeCenter(Vector2.zero, 1, 0, 0, 0);
+            Assert.LessOrEqual(circle.magnitude, effect.Radius - effect.StrikeRadius + 1e-3f, "Circles land fully inside the altar.");
+            _player.Position = circle;
+            _enemies.Add(circle).Add(new Vector2(40, 0));
+            Run(runtime, 2.9f);
+            Assert.AreEqual(0f, _player.HitTaken, "Nothing lands while the warning still fills.");
+            Run(runtime, 0.3f);
+            Assert.GreaterOrEqual(_player.HitTaken, 10f, "The player standing in the circle is hit when the warning ends.");
+            Assert.GreaterOrEqual(_enemies.StrikeTaken[0], 50f, "So is an enemy inside it.");
+            Assert.AreEqual(0f, _enemies.StrikeTaken[1], "An enemy far away is spared.");
+            var taken = _player.HitTaken;
+            Run(runtime, 10f);
+            Assert.AreEqual(taken, _player.HitTaken, "One hit per volley, not per frame.");
+        }
+
+        [Test]
+        public void Strike_NextVolleyLandsElsewhere_AndThePlayerCanDodge()
+        {
+            var runtime = Build(1, (ZoneTestData.Strike(), Vector2.zero, 0f));
+            var effect = runtime.Zones[0].Effect;
+            Assert.AreNotEqual(effect.StrikeCenter(Vector2.zero, 1, 0, 0, 0), effect.StrikeCenter(Vector2.zero, 1, 0, 1, 0));
+            Assert.AreEqual(effect.StrikeCenter(Vector2.zero, 1, 0, 3, 1), effect.StrikeCenter(Vector2.zero, 1, 0, 3, 1), "Deterministic.");
+            _player.Position = new Vector2(60, 0); // far outside every circle
+            Run(runtime, 25f);
+            Assert.AreEqual(0f, _player.HitTaken);
+        }
+
+        [Test]
+        public void Strike_EnemiesOnlyAltar_NeverHurtsThePlayer_AndCyclingAltarStrikesOnlyWhileOn()
+        {
+            var data = ZoneTestData.Strike(polarity: ZoneAltarPolarity.Positive);
+            data.StrikePlayerDamage = 0f;
+            var runtime = Build(1, (data, Vector2.zero, 0f));
+            var circle = runtime.Zones[0].Effect.StrikeCenter(Vector2.zero, 1, 0, 0, 0);
+            _player.Position = circle;
+            _enemies.Add(circle);
+            Run(runtime, 3.2f);
+            Assert.AreEqual(0f, _player.HitTaken);
+            Assert.GreaterOrEqual(_enemies.StrikeTaken[0], 50f);
+
+            var cycling = ZoneTestData.Strike();
+            cycling.Lifetime = ZoneLifetimeMode.Cycling;
+            cycling.PulsePeriodSeconds = 100f; cycling.PulseVisibleSeconds = 10f; cycling.PulseFadeSeconds = 1f;
+            _player = new FakeZonePlayer(); _enemies = new FakeZoneEnemies();
+            runtime = Build(1, (cycling, Vector2.zero, 0f));
+            Run(runtime, 4f); // the first volley (t = 3) goes off while the altar is on
+            _player.HitTaken = 0f;
+            _player.Position = runtime.Zones[0].Effect.StrikeCenter(Vector2.zero, 1, 0, 1, 0);
+            Run(runtime, 20f); // the volley at t = 23 (second volley, 20 s period) falls in the resting part of the cycle
+            Assert.AreEqual(0f, _player.HitTaken, "A resting altar does not strike.");
+        }
+
+        [Test]
+        public void StrikeCircles_AreCollectedWhileWarning_AndEmptyOtherwise()
+        {
+            var runtime = Build(1, (ZoneTestData.Strike(), Vector2.zero, 0f));
+            var circles = new List<StrikeCircle>();
+            Run(runtime, 1.5f);
+            runtime.CollectStrikeCircles(circles);
+            Assert.AreEqual(2, circles.Count);
+            Assert.AreEqual(0.5f, circles[0].Telegraph, 0.05f);
+            Assert.AreEqual(0f, circles[0].Flash);
+            Run(runtime, 2.0f); // 3.5 s: flashing
+            runtime.CollectStrikeCircles(circles);
+            Assert.AreEqual(2, circles.Count);
+            Assert.Greater(circles[0].Flash, 0f);
+            Run(runtime, 3f); // 6.5 s: quiet
+            runtime.CollectStrikeCircles(circles);
+            Assert.AreEqual(0, circles.Count);
+        }
+
+        [Test]
+        public void Shrine_FiresEveryRewardOnceWhenFull_ThenRestsForItsCooldown()
+        {
+            var runtime = Build(1, (ZoneTestData.Shrine(), Vector2.zero, 0f));
+            var zone = runtime.Zones[0];
+            _player.Position = new Vector2(1, 0);
+            _enemies.Add(new Vector2(3, 0)).Add(new Vector2(30, 0));
+            Run(runtime, 9f);
+            Assert.AreEqual(0.9f, zone.Charge, 0.03f);
+            Assert.AreEqual(0f, _player.Healed, "Nothing before it is full.");
+            Run(runtime, 1.2f);
+            Assert.AreEqual(0.25f, _player.Healed, 1e-4f, "Healing fires once.");
+            Assert.AreEqual(100f, _enemies.StrikeTaken[0], 1e-3f, "The blast hits the enemy near the shrine.");
+            Assert.AreEqual(0f, _enemies.StrikeTaken[1], "An enemy beyond the blast radius is spared.");
+            Run(runtime, 0.2f);
+            Assert.AreEqual(0.5f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "The timed buff is on.");
+            Assert.AreEqual(0.5f, _player.Zone.IncomingDamageReductionBonus, 1e-4f, "So is the shield.");
+            Assert.Greater(runtime.BuffRemaining(zone.Effect), 7f);
+            Assert.Greater(runtime.ShieldRemaining(zone.Effect), 4f);
+            Assert.Greater(zone.ShrineCooldownRemaining, 59f);
+            Assert.IsFalse(zone.IsActive(runtime.Time), "Resting: it does nothing.");
+            Assert.AreEqual(0f, zone.RestProgress(runtime.Time), 0.05f, "The cooldown ring starts empty.");
+
+            Run(runtime, 30f);
+            Assert.AreEqual(0.25f, _player.Healed, 1e-4f, "No second reward while it rests, even standing inside.");
+            Assert.AreEqual(0f, zone.Charge);
+            Assert.AreEqual(0.5f, zone.RestProgress(runtime.Time), 0.05f);
+            Assert.IsFalse(_player.Modifiers.TryGetValue(ZoneRuntime.ModifierKey, out _) && _player.Zone.MovementSpeedMultiplierBonus > 0f,
+                "The timed buff has run out by now.");
+            Run(runtime, 31f);
+            Assert.AreEqual(0f, zone.ShrineCooldownRemaining, 1e-3f);
+            Run(runtime, 11f);
+            Assert.AreEqual(0.5f, _player.Healed, 1e-4f, "It fires again after the cooldown and a new fill.");
+        }
+
+        [Test]
+        public void Shrine_ProgressDrainsWhenTheCharacterLeaves_AndDeathResetsIt()
+        {
+            var runtime = Build(1, (ZoneTestData.Shrine(), Vector2.zero, 0f));
+            var zone = runtime.Zones[0];
+            _player.Position = Vector2.zero;
+            Run(runtime, 5f);
+            Assert.AreEqual(0.5f, zone.Charge, 0.03f);
+            _player.Position = new Vector2(40, 0);
+            Run(runtime, 1.25f);
+            Assert.AreEqual(0.25f, zone.Charge, 0.03f, "A full charge drains over 5 s outside, so a quarter in 1.25 s.");
+            _player.Position = Vector2.zero;
+            Run(runtime, 2f);
+            _player.IsAlive = false;
+            runtime.Tick(Dt);
+            Assert.AreEqual(0f, zone.Charge, "Death resets the progress.");
+            Assert.AreEqual(0f, _player.Healed);
+        }
+
+        [Test]
+        public void Shrine_CooldownKeepsRunningWhileFarAway()
+        {
+            var runtime = Build(1, (ZoneTestData.Shrine(), Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            Run(runtime, 10.2f);
+            Assert.Greater(runtime.Zones[0].ShrineCooldownRemaining, 59f);
+            _view = new Rect(500f, 500f, 10f, 10f); // the shrine is outside the active window
+            Run(runtime, 30f);
+            Assert.AreEqual(30f, runtime.Zones[0].ShrineCooldownRemaining, 1.5f, "A shrine's cooldown does not pause out of view.");
+        }
+
+        [Test]
+        public void CyclingAltar_RestProgress_RunsFromZeroToOneBetweenWindows()
+        {
+            var runtime = Build(1, (ZoneTestData.Altar(), new Vector2(30, 30), 0f));
+            var zone = runtime.Zones[0];
+            Run(runtime, 10f);
+            Assert.AreEqual(-1f, zone.RestProgress(runtime.Time), "No ring while it is on.");
+            Run(runtime, 24f); // 34 s: 10 s into the 66 s rest
+            Assert.AreEqual(10f / 66f, zone.RestProgress(runtime.Time), 0.02f);
+        }
+
+        [Test]
         public void Charge_GrowsWhileInside_ClampsAtFull_AndBonusFollowsTheCharge()
         {
             var runtime = Build(1, (ZoneTestData.Charge(), Vector2.zero, 0f));

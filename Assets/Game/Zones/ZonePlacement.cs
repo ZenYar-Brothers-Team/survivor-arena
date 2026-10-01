@@ -27,6 +27,22 @@ namespace Game.Zones
 
         public void SetCharge(float charge) => Charge = Mathf.Clamp01(charge);
 
+        /// <summary>Shrines: seconds left of the cooldown after the shrine fired (0 when ready).</summary>
+        public float ShrineCooldownRemaining { get; private set; }
+
+        public void SetShrineCooldown(float seconds) => ShrineCooldownRemaining = Mathf.Max(0f, seconds);
+
+        /// <summary>
+        /// Progress 0..1 of the rest until the altar works again (the ring that fills around it); -1 while it works or never rests.
+        /// A shrine's cooldown after firing takes precedence over its cycle rest.
+        /// </summary>
+        public float RestProgress(float runSeconds)
+        {
+            if (Effect.Kind == ZoneEffectKind.Shrine && ShrineCooldownRemaining > 0f)
+                return 1f - ShrineCooldownRemaining / Effect.ShrineCooldownSeconds;
+            return Effect.RestProgress(PhaseSeconds, runSeconds);
+        }
+
         public ZonePlacement(int index, ZoneEffectDefinition effect, Vector2 center, float phaseSeconds = 0f)
         {
             if (effect == null) throw new System.ArgumentNullException(nameof(effect));
@@ -57,7 +73,8 @@ namespace Game.Zones
         public bool BurstFiresBetween(float from, float to) => Effect.BurstFiresBetween(PhaseSeconds, from, to);
 
         /// <summary>True when the zone is shown enough for its effect to work.</summary>
-        public bool IsActive(float runSeconds) => Visibility(runSeconds) >= ZoneEffectDefinition.ActivationThreshold;
+        public bool IsActive(float runSeconds) => Visibility(runSeconds) >= ZoneEffectDefinition.ActivationThreshold &&
+                                                  ShrineCooldownRemaining <= 0f;
 
         public bool Contains(Vector2 point) => Effect.Contains(Center, point);
     }

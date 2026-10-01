@@ -14,6 +14,10 @@ namespace Game.Zones
         void RemoveStatModifier(string key);
         /// <summary>Damage over time from a zone effect (already scaled by the frame time).</summary>
         void Damage(float amount, ContentId source);
+        /// <summary>One-off damage that lands immediately (a strike hit), unlike the throttled <see cref="Damage"/>.</summary>
+        void Hit(float amount, ContentId source);
+        /// <summary>Heals the player by a fraction of their maximum health.</summary>
+        void HealFraction(float fractionOfMaxHealth);
         /// <summary>Moves the player instantly; velocity and knockback are the adapter's concern.</summary>
         void TeleportTo(Vector2 position);
     }

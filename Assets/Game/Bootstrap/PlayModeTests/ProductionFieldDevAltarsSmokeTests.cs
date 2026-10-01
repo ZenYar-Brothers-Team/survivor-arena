@@ -46,13 +46,15 @@ namespace Game.Bootstrap.PlayModeTests
                 var driver = Object.FindAnyObjectByType<ZoneRuntimeDriver>();
                 Assert.IsNotNull(driver, "The zone driver exists on an altar field.");
                 var zones = driver.Runtime.Zones;
-                Assert.AreEqual(9, zones.Count, "Two wind, two healing, one ward, one power and three charging altars.");
+                Assert.AreEqual(11, zones.Count, "One wind, one healing, one ward, one power, two charging, one rift, two strike and two shrine altars.");
                 CollectionAssert.AreEquivalent(new[] { ZoneEffectKind.Haste, ZoneEffectKind.Regeneration, ZoneEffectKind.Protection,
-                    ZoneEffectKind.ArcanePower, ZoneEffectKind.Charge }, zones.Select(z => z.Effect.Kind).Distinct());
+                    ZoneEffectKind.ArcanePower, ZoneEffectKind.Charge, ZoneEffectKind.Rift, ZoneEffectKind.Strike, ZoneEffectKind.Shrine },
+                    zones.Select(z => z.Effect.Kind).Distinct());
+                Assert.IsTrue(zones.All(z => z.Effect.Polarity.HasValue), "Every altar on this field carries a polarity.");
                 Assert.IsTrue(zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Cycling) &&
                               zones.Any(z => z.Effect.Kind == ZoneEffectKind.Charge), "Cycling and charging altars exist.");
                 var centers = zones.Select(z => z.Center).ToList();
-                Assert.AreEqual(9, driver.GetComponentsInChildren<SpriteRenderer>(true).Length, "One placeholder disc per altar.");
+                Assert.AreEqual(11, driver.GetComponentsInChildren<SpriteRenderer>(true).Count(r => r.name.StartsWith("Zone-")), "One placeholder disc per altar (strike warnings add their own discs).");
 
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 for (var i = 0; i < 120; i++) yield return new WaitForFixedUpdate();

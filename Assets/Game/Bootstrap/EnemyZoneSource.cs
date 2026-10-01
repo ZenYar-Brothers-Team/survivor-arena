@@ -42,6 +42,12 @@ namespace Game.Bootstrap
             _pending[enemy] = _pending.TryGetValue(enemy, out var sum) ? sum + amount : amount;
         }
 
+        public void Strike(int index, float amount, ContentId source)
+        {
+            var enemy = _alive[index];
+            if (enemy != null && enemy.IsAlive) enemy.TakeDamage(amount);
+        }
+
         private void Flush()
         {
             _lastFlushTime = Time.time;

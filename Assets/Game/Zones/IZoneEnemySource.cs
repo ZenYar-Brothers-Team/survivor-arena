@@ -15,5 +15,7 @@ namespace Game.Zones
         /// <summary>Slows an enemy by <paramref name="fraction"/> for <paramref name="seconds"/> (re-applied while it stays in the zone).</summary>
         void Slow(int index, float fraction, float seconds, ContentId source);
         void Damage(int index, float amount, ContentId source);
+        /// <summary>One-off damage that lands immediately (a strike or blast), unlike the throttled <see cref="Damage"/>.</summary>
+        void Strike(int index, float amount, ContentId source);
     }
 }

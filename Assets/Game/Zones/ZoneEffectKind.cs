@@ -28,6 +28,16 @@ namespace Game.Zones
         /// <summary>
         /// Charging altar: the longer the player stays inside, the more its bonus grows (to a maximum); leaving lets it drain.
         /// </summary>
-        Charge
+        Charge,
+        /// <summary>
+        /// Strike altar: every period it shows warning circles at random points inside it, then hits everything in them once
+        /// (the player, the enemies or both, by data).
+        /// </summary>
+        Strike,
+        /// <summary>
+        /// Shrine: stay inside for a while and it fires its reward once (a timed buff, healing, a blast on the enemies, a
+        /// shield), then rests for a long cooldown.
+        /// </summary>
+        Shrine
     }
 }

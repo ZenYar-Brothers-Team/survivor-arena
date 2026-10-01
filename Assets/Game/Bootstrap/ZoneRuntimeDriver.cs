@@ -17,8 +17,13 @@ namespace Game.Bootstrap
         private const float DiscAlpha = 0.38f;
         private const int SortingOrder = -6;
         private const float IdleAltarVisibility = 0.25f;
+        private const float StrikeWarningAlpha = 0.6f;
+        private const float StrikeFlashAlpha = 0.9f;
 
         private readonly List<SpriteRenderer> _discs = new List<SpriteRenderer>();
+        // Warning circles of strike altars: a reused list of what to draw and a grow-only pool of discs for them.
+        private readonly List<StrikeCircle> _circles = new List<StrikeCircle>();
+        private readonly List<SpriteRenderer> _strikeDiscs = new List<SpriteRenderer>();
         private ZoneRuntime _runtime;
         private RunController _run;
         private Sprite _sprite;
@@ -78,6 +83,9 @@ namespace Game.Bootstrap
                 // Altars stay faintly drawn while resting so the player can find them; a charging altar brightens as it fills.
                 if (zone.IsNear && zone.Effect.AlwaysShown)
                     visibility = Mathf.Max(visibility, IdleAltarVisibility + (1f - IdleAltarVisibility) * zone.Charge);
+                // A shrine that just fired rests dimly until its cooldown is over.
+                if (zone.IsNear && zone.Effect.Kind == ZoneEffectKind.Shrine && zone.ShrineCooldownRemaining > 0f)
+                    visibility = IdleAltarVisibility;
                 disc.enabled = visibility > 0f;
                 if (!disc.enabled) continue;
                 var color = zone.Effect.Color;
@@ -85,6 +93,35 @@ namespace Game.Bootstrap
                 disc.color = color;
                 disc.transform.position = new Vector3(zone.Center.x, zone.Center.y, 0f);
                 var scale = zone.Effect.Radius * 2f / _sprite.bounds.size.x * zone.RadiusScale(_runtime.Time);
+                disc.transform.localScale = new Vector3(scale, scale, 1f);
+            }
+            RefreshStrikes();
+        }
+
+        private void RefreshStrikes()
+        {
+            _runtime.CollectStrikeCircles(_circles);
+            while (_strikeDiscs.Count < _circles.Count)
+            {
+                var disc = new GameObject($"Strike-{_strikeDiscs.Count}").AddComponent<SpriteRenderer>();
+                disc.transform.SetParent(transform, false);
+                disc.sprite = _sprite;
+                disc.sortingOrder = SortingOrder + 1;
+                _strikeDiscs.Add(disc);
+            }
+            for (var i = 0; i < _strikeDiscs.Count; i++)
+            {
+                var disc = _strikeDiscs[i];
+                disc.enabled = i < _circles.Count;
+                if (!disc.enabled) continue;
+                var circle = _circles[i];
+                var color = circle.Zone.Effect.Color;
+                // The warning fills in as the strike nears; the flash grows a little and fades out.
+                var alpha = circle.Flash > 0f ? StrikeFlashAlpha * (1f - circle.Flash) : StrikeWarningAlpha * circle.Telegraph;
+                color.a = alpha;
+                disc.color = color;
+                disc.transform.position = new Vector3(circle.Center.x, circle.Center.y, 0f);
+                var scale = circle.Radius * 2f / _sprite.bounds.size.x * (1f + ZoneEffectDefinition.BurstFlashGrowth * circle.Flash);
                 disc.transform.localScale = new Vector3(scale, scale, 1f);
             }
         }

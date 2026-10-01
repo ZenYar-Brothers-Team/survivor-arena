@@ -5004,7 +5004,8 @@
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
-          "playerMovementBonus": 0.5
+          "playerMovementBonus": 0.5,
+          "polarity": "Positive"
         },
         {
           "id": "FIXTURE-ALTAR-HEAL",
@@ -5016,7 +5017,8 @@
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
-          "playerRegenerationPerSecond": 8
+          "playerRegenerationPerSecond": 8,
+          "polarity": "Positive"
         },
         {
           "id": "FIXTURE-ALTAR-WARD",
@@ -5028,7 +5030,8 @@
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 22,
           "pulseFadeSeconds": 3,
-          "playerIncomingDamageReduction": 0.8
+          "playerIncomingDamageReduction": 0.8,
+          "polarity": "Positive"
         },
         {
           "id": "FIXTURE-ALTAR-POWER",
@@ -5041,7 +5044,8 @@
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
           "playerSkillDamageBonus": 0.6,
-          "playerActionSpeedBonus": 0.3
+          "playerActionSpeedBonus": 0.3,
+          "polarity": "Positive"
         },
         {
           "id": "FIXTURE-ALTAR-CHARGE",
@@ -5053,17 +5057,97 @@
           "chargeSecondsToMax": 20,
           "chargeDecaySeconds": 8,
           "chargeSkillDamageBonus": 1,
-          "chargeActionSpeedBonus": 0.3
+          "chargeActionSpeedBonus": 0.3,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIXTURE-ALTAR-RIFT",
+          "displayName": "Алтарь разлома",
+          "kind": "Rift",
+          "radius": 4,
+          "color": "#ff5a5a",
+          "lifetime": "Permanent",
+          "playerDamagePerSecond": 4,
+          "enemyDamagePerSecond": 0,
+          "polarity": "Negative"
+        },
+        {
+          "id": "FIXTURE-ALTAR-STRIKE-CURSED",
+          "displayName": "Алтарь проклятых ударов",
+          "kind": "Strike",
+          "radius": 8,
+          "color": "#c2185b",
+          "lifetime": "Permanent",
+          "strikePeriodSeconds": 12,
+          "strikeTelegraphSeconds": 2.5,
+          "strikeFlashSeconds": 0.6,
+          "strikeCount": 3,
+          "strikeRadius": 2.5,
+          "strikePlayerDamage": 25,
+          "strikeEnemyDamage": 60,
+          "polarity": "Neutral"
+        },
+        {
+          "id": "FIXTURE-ALTAR-STRIKE-HOLY",
+          "displayName": "Алтарь священного гнева",
+          "kind": "Strike",
+          "radius": 8,
+          "color": "#ffd45a",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "strikePeriodSeconds": 6,
+          "strikeTelegraphSeconds": 2,
+          "strikeFlashSeconds": 0.5,
+          "strikeCount": 3,
+          "strikeRadius": 2.5,
+          "strikePlayerDamage": 0,
+          "strikeEnemyDamage": 80,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIXTURE-SHRINE-POWER",
+          "displayName": "Святыня силы",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#ffb347",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 8,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardBuffSeconds": 20,
+          "rewardMovementBonus": 0.3,
+          "rewardSkillDamageBonus": 0.6,
+          "rewardActionSpeedBonus": 0.3,
+          "rewardBlastDamage": 150,
+          "rewardBlastRadius": 12,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIXTURE-SHRINE-LIFE",
+          "displayName": "Святыня жизни",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#7bd96a",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 8,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardHealFraction": 0.5,
+          "rewardShieldSeconds": 10,
+          "rewardIncomingDamageReduction": 0.5,
+          "polarity": "Positive"
         }
       ],
       "zones": [
         {
           "effectId": "FIXTURE-ALTAR-HASTE",
-          "count": 2
+          "count": 1
         },
         {
           "effectId": "FIXTURE-ALTAR-HEAL",
-          "count": 2
+          "count": 1
         },
         {
           "effectId": "FIXTURE-ALTAR-WARD",
@@ -5075,7 +5159,27 @@
         },
         {
           "effectId": "FIXTURE-ALTAR-CHARGE",
-          "count": 3
+          "count": 2
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-RIFT",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-STRIKE-CURSED",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-STRIKE-HOLY",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-SHRINE-POWER",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-SHRINE-LIFE",
+          "count": 1
         }
       ]
     }

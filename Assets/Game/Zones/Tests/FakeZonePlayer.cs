@@ -11,11 +11,16 @@ namespace Game.Zones.Tests
         public bool IsAlive { get; set; } = true;
         public readonly Dictionary<string, CharacterStatModifier> Modifiers = new Dictionary<string, CharacterStatModifier>();
         public float DamageTaken;
+        public float HitTaken;
+        public float Healed;
         public readonly List<Vector2> Teleports = new List<Vector2>();
 
         public void SetStatModifier(string key, CharacterStatModifier modifier) => Modifiers[key] = modifier;
         public void RemoveStatModifier(string key) => Modifiers.Remove(key);
         public void Damage(float amount, ContentId source) => DamageTaken += amount;
+
+        public void Hit(float amount, ContentId source) => HitTaken += amount;
+        public void HealFraction(float fractionOfMaxHealth) => Healed += fractionOfMaxHealth;
 
         public void TeleportTo(Vector2 position)
         {

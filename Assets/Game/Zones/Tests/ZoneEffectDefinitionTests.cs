@@ -84,6 +84,74 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void Definition_Altars_NeedAPolarityThatMatchesWhatTheyDo()
+        {
+            var data = ZoneTestData.Altar(); data.Polarity = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "An altar must say whose side it is on.");
+            data = ZoneTestData.Charge(); data.Polarity = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            Assert.DoesNotThrow(() => new ZoneEffectDefinition(ZoneTestData.Haste()), "A plain zone needs no polarity.");
+            data = ZoneTestData.Rift(); data.Polarity = ZoneAltarPolarity.Positive;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A rift that hurts the player is not positive.");
+            data = ZoneTestData.Rift(); data.Polarity = ZoneAltarPolarity.Negative;
+            Assert.AreEqual(ZoneAltarPolarity.Negative, new ZoneEffectDefinition(data).Polarity);
+            data = ZoneTestData.Rift(); data.EnemyDamagePerSecond = 0f; data.Polarity = ZoneAltarPolarity.Neutral;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Neutral hurts the enemies too.");
+            data = ZoneTestData.Altar(); data.Polarity = ZoneAltarPolarity.Negative;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A haste altar does not harm the player.");
+        }
+
+        [Test]
+        public void Definition_StrikeAltar_TakesItsValues_AndKeepsItsRules()
+        {
+            var strike = new ZoneEffectDefinition(ZoneTestData.Strike());
+            Assert.AreEqual(2, strike.StrikeCount);
+            Assert.AreEqual(20f, strike.PhaseRange, "A permanent strike altar still gets a random starting phase.");
+            Assert.IsTrue(strike.HarmsPlayer && strike.HarmsEnemies);
+            var data = ZoneTestData.Strike(); data.StrikeRadius = 8f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Circles must be smaller than the altar.");
+            data = ZoneTestData.Strike(); data.StrikePlayerDamage = 0f; data.StrikeEnemyDamage = 0f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A strike must hit someone.");
+            data = ZoneTestData.Strike(); data.StrikeTelegraphSeconds = 19.9f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Warning plus flash must fit the period.");
+            data = ZoneTestData.Strike(); data.StrikeCount = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.Strike(); ZoneTestData.Lifetime(data, ZoneLifetimeMode.Pulsing);
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A strike altar stays in place.");
+            data = ZoneTestData.Haste(); data.StrikeCount = 2;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Strike values belong only to strike altars.");
+            data = ZoneTestData.Strike(polarity: ZoneAltarPolarity.Positive);
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A strike that hits the player is not positive.");
+            data = ZoneTestData.Strike(polarity: ZoneAltarPolarity.Positive); data.StrikePlayerDamage = 0f;
+            Assert.DoesNotThrow(() => new ZoneEffectDefinition(data), "An enemies-only strike is a positive altar.");
+        }
+
+        [Test]
+        public void Definition_Shrine_NeedsARewardAndPositivePolarity()
+        {
+            var shrine = new ZoneEffectDefinition(ZoneTestData.Shrine());
+            Assert.AreEqual(60f, shrine.ShrineCooldownSeconds);
+            Assert.AreEqual(8f, shrine.TimedBuffSeconds);
+            Assert.AreEqual(0.5f, shrine.TimedBuffMovementBonus);
+            var data = ZoneTestData.Shrine();
+            data.RewardBuffSeconds = null; data.RewardMovementBonus = null; data.RewardHealFraction = null;
+            data.RewardBlastDamage = null; data.RewardBlastRadius = null; data.RewardShieldSeconds = null; data.RewardIncomingDamageReduction = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A shrine without a reward is pointless.");
+            data = ZoneTestData.Shrine(); data.RewardBuffSeconds = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A buff reward needs its duration.");
+            data = ZoneTestData.Shrine(); data.RewardBlastRadius = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A blast needs damage and radius together.");
+            data = ZoneTestData.Shrine(); data.RewardHealFraction = 1.5f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.Shrine(); data.ShrineCooldownSeconds = 0f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.Shrine(); data.Polarity = ZoneAltarPolarity.Neutral;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A shrine rewards the player: positive only.");
+            data = ZoneTestData.Haste(); data.RewardHealFraction = 0.1f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Shrine values belong only to shrines.");
+        }
+
+        [Test]
         public void Definition_ChargeAndCyclingAltars_TakeTheirValues_AndKeepTheirRules()
         {
             var charge = new ZoneEffectDefinition(ZoneTestData.Charge());

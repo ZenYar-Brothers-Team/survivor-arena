@@ -40,6 +40,31 @@ namespace Game.Zones.Json
         public float? ChargeDecaySeconds { get; set; }
         public float? ChargeSkillDamageBonus { get; set; }
         public float? ChargeActionSpeedBonus { get; set; }
+        // Altars: whose side the zone is on (required for cycling zones, charge, strike and shrine kinds).
+        public ZoneAltarPolarity? Polarity { get; set; }
+        // Strike: every strikePeriodSeconds, strikeCount circles of strikeRadius warn for strikeTelegraphSeconds at random points
+        // inside the zone, hit once, then flash for strikeFlashSeconds.
+        public float? StrikePeriodSeconds { get; set; }
+        public float? StrikeTelegraphSeconds { get; set; }
+        public float? StrikeFlashSeconds { get; set; }
+        public int? StrikeCount { get; set; }
+        public float? StrikeRadius { get; set; }
+        public float? StrikePlayerDamage { get; set; }
+        public float? StrikeEnemyDamage { get; set; }
+        // Shrine: seconds inside to fire, seconds outside for the progress to drain, cooldown after firing.
+        public float? ShrineChargeSeconds { get; set; }
+        public float? ShrineDecaySeconds { get; set; }
+        public float? ShrineCooldownSeconds { get; set; }
+        // Shrine rewards (at least one): timed buff, healing, blast around the shrine, timed shield.
+        public float? RewardBuffSeconds { get; set; }
+        public float? RewardMovementBonus { get; set; }
+        public float? RewardSkillDamageBonus { get; set; }
+        public float? RewardActionSpeedBonus { get; set; }
+        public float? RewardHealFraction { get; set; }
+        public float? RewardBlastDamage { get; set; }
+        public float? RewardBlastRadius { get; set; }
+        public float? RewardShieldSeconds { get; set; }
+        public float? RewardIncomingDamageReduction { get; set; }
         // Portal
         public float? PortalCooldownSeconds { get; set; }
         public float? PortalExitDistance { get; set; }

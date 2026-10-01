@@ -56,7 +56,44 @@ namespace Game.Zones
         /// <summary>Charge: action-speed bonus at full charge.</summary>
         public float ChargeActionSpeedBonus { get; }
         /// <summary>Altars and charging zones stay faintly drawn even while resting so the player can find them.</summary>
-        public bool AlwaysShown => Lifetime == ZoneLifetimeMode.Cycling || Kind == ZoneEffectKind.Charge;
+        public bool AlwaysShown => IsAltar;
+        /// <summary>Whose side the altar is on; set for every altar and checked against the effect's real harm.</summary>
+        public ZoneAltarPolarity? Polarity { get; }
+        /// <summary>Strike: length of one volley cycle.</summary>
+        public float StrikePeriodSeconds { get; }
+        public float StrikeTelegraphSeconds { get; }
+        public float StrikeFlashSeconds { get; }
+        public int StrikeCount { get; }
+        public float StrikeRadius { get; }
+        public float StrikePlayerDamage { get; }
+        public float StrikeEnemyDamage { get; }
+        /// <summary>Shrine: seconds inside to fire, seconds outside to drain the progress, cooldown after firing.</summary>
+        public float ShrineChargeSeconds { get; }
+        public float ShrineDecaySeconds { get; }
+        public float ShrineCooldownSeconds { get; }
+        public float RewardBuffSeconds { get; }
+        public float RewardMovementBonus { get; }
+        public float RewardSkillDamageBonus { get; }
+        public float RewardActionSpeedBonus { get; }
+        public float RewardHealFraction { get; }
+        public float RewardBlastDamage { get; }
+        public float RewardBlastRadius { get; }
+        public float RewardShieldSeconds { get; }
+        public float RewardIncomingDamageReduction { get; }
+        /// <summary>Cycling zones and the charge, strike and shrine kinds are altars: they need a polarity.</summary>
+        public bool IsAltar => Lifetime == ZoneLifetimeMode.Cycling || Kind == ZoneEffectKind.Charge ||
+                               Kind == ZoneEffectKind.Strike || Kind == ZoneEffectKind.Shrine;
+        public bool HarmsPlayer => (Kind == ZoneEffectKind.Rift && PlayerDamagePerSecond > 0f) ||
+                                   (Kind == ZoneEffectKind.Slow && PlayerMovementBonus < 0f) ||
+                                   (Kind == ZoneEffectKind.Strike && StrikePlayerDamage > 0f);
+        public bool HarmsEnemies => (Kind == ZoneEffectKind.Rift && EnemyDamagePerSecond > 0f) ||
+                                    (Kind == ZoneEffectKind.Slow && EnemySlowFraction > 0f) ||
+                                    (Kind == ZoneEffectKind.Strike && StrikeEnemyDamage > 0f);
+        /// <summary>Timed buff a burst or shrine leaves on the player.</summary>
+        public float TimedBuffSeconds => Kind == ZoneEffectKind.Shrine ? RewardBuffSeconds : PlayerBuffSeconds;
+        public float TimedBuffMovementBonus => Kind == ZoneEffectKind.Shrine ? RewardMovementBonus : PlayerMovementBonus;
+        /// <summary>Range of a random starting phase: the cycle for cycling and pulsing zones, the volley period for a permanent strike altar.</summary>
+        public float PhaseRange => Lifetime != ZoneLifetimeMode.Permanent ? PulsePeriodSeconds : Kind == ZoneEffectKind.Strike ? StrikePeriodSeconds : 0f;
         /// <summary>Portal: time before the player can use any portal again.</summary>
         public float PortalCooldownSeconds { get; }
         /// <summary>Portal: how far outside the partner's rim the player arrives.</summary>
@@ -117,8 +154,52 @@ namespace Game.Zones
             if (Kind == ZoneEffectKind.Charge && Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
                 throw new ArgumentException($"Charge effect '{data.Id}' stays in place: permanent or cycling.");
 
+            if (Kind != ZoneEffectKind.Strike && (data.StrikePeriodSeconds.HasValue || data.StrikeTelegraphSeconds.HasValue ||
+                    data.StrikeFlashSeconds.HasValue || data.StrikeCount.HasValue || data.StrikeRadius.HasValue ||
+                    data.StrikePlayerDamage.HasValue || data.StrikeEnemyDamage.HasValue))
+                throw new ArgumentException($"Zone effect '{data.Id}' carries strike values but is not a strike altar.");
+            if (Kind != ZoneEffectKind.Shrine && (data.ShrineChargeSeconds.HasValue || data.ShrineDecaySeconds.HasValue ||
+                    data.ShrineCooldownSeconds.HasValue || HasReward(data)))
+                throw new ArgumentException($"Zone effect '{data.Id}' carries shrine values but is not a shrine.");
+            if ((Kind == ZoneEffectKind.Strike || Kind == ZoneEffectKind.Shrine) &&
+                Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
+                throw new ArgumentException($"Altar effect '{data.Id}' stays in place: permanent or cycling.");
+
             switch (Kind)
             {
+                case ZoneEffectKind.Strike:
+                    StrikePeriodSeconds = Required(data.StrikePeriodSeconds, data.Id, "strikePeriodSeconds");
+                    StrikeTelegraphSeconds = Required(data.StrikeTelegraphSeconds, data.Id, "strikeTelegraphSeconds");
+                    StrikeFlashSeconds = Required(data.StrikeFlashSeconds, data.Id, "strikeFlashSeconds");
+                    StrikeCount = data.StrikeCount ?? throw new ArgumentException($"Zone effect '{data.Id}' requires strikeCount.");
+                    StrikeRadius = Required(data.StrikeRadius, data.Id, "strikeRadius");
+                    StrikePlayerDamage = Required(data.StrikePlayerDamage, data.Id, "strikePlayerDamage");
+                    StrikeEnemyDamage = Required(data.StrikeEnemyDamage, data.Id, "strikeEnemyDamage");
+                    NumericValidation.ValidatePositive(StrikePeriodSeconds, nameof(StrikePeriodSeconds));
+                    NumericValidation.ValidatePositive(StrikeTelegraphSeconds, nameof(StrikeTelegraphSeconds));
+                    NumericValidation.ValidatePositive(StrikeFlashSeconds, nameof(StrikeFlashSeconds));
+                    NumericValidation.ValidateCount(StrikeCount, nameof(StrikeCount));
+                    NumericValidation.ValidatePositive(StrikeRadius, nameof(StrikeRadius));
+                    NumericValidation.ValidateNonNegativeFinite(StrikePlayerDamage, nameof(StrikePlayerDamage));
+                    NumericValidation.ValidateNonNegativeFinite(StrikeEnemyDamage, nameof(StrikeEnemyDamage));
+                    if (StrikeTelegraphSeconds + StrikeFlashSeconds > StrikePeriodSeconds)
+                        throw new ArgumentException($"Strike altar '{data.Id}' warns and flashes longer than its period.");
+                    if (StrikeRadius >= Radius) throw new ArgumentException($"Strike altar '{data.Id}': strike circles must be smaller than the altar.");
+                    if (StrikePlayerDamage <= 0f && StrikeEnemyDamage <= 0f)
+                        throw new ArgumentException($"Strike altar '{data.Id}' must hit the player or the enemies.");
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
+                    break;
+                case ZoneEffectKind.Shrine:
+                    ShrineChargeSeconds = Required(data.ShrineChargeSeconds, data.Id, "shrineChargeSeconds");
+                    ShrineDecaySeconds = Required(data.ShrineDecaySeconds, data.Id, "shrineDecaySeconds");
+                    ShrineCooldownSeconds = Required(data.ShrineCooldownSeconds, data.Id, "shrineCooldownSeconds");
+                    NumericValidation.ValidatePositive(ShrineChargeSeconds, nameof(ShrineChargeSeconds));
+                    NumericValidation.ValidatePositive(ShrineDecaySeconds, nameof(ShrineDecaySeconds));
+                    NumericValidation.ValidatePositive(ShrineCooldownSeconds, nameof(ShrineCooldownSeconds));
+                    (RewardBuffSeconds, RewardMovementBonus, RewardSkillDamageBonus, RewardActionSpeedBonus, RewardHealFraction,
+                        RewardBlastDamage, RewardBlastRadius, RewardShieldSeconds, RewardIncomingDamageReduction) = ReadRewards(data);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
+                    break;
                 case ZoneEffectKind.Slow:
                     PlayerMovementBonus = Required(data.PlayerMovementBonus, data.Id, "playerMovementBonus");
                     EnemySlowFraction = Required(data.EnemySlowFraction, data.Id, "enemySlowFraction");
@@ -196,6 +277,17 @@ namespace Game.Zones
                     Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
             }
+            Polarity = data.Polarity;
+            if (IsAltar && !Polarity.HasValue) throw new ArgumentException($"Altar effect '{data.Id}' requires a polarity.");
+            if (Polarity.HasValue)
+            {
+                var ok = Polarity.Value == ZoneAltarPolarity.Positive ? !HarmsPlayer
+                    : Polarity.Value == ZoneAltarPolarity.Negative ? HarmsPlayer
+                    : HarmsPlayer && HarmsEnemies;
+                if (!ok) throw new ArgumentException($"Zone effect '{data.Id}' polarity {Polarity.Value} does not match what the effect does.");
+            }
+            if (Kind == ZoneEffectKind.Shrine && Polarity != ZoneAltarPolarity.Positive)
+                throw new ArgumentException($"Shrine '{data.Id}' rewards the player, so it must be positive.");
         }
 
         /// <summary>
@@ -243,6 +335,114 @@ namespace Game.Zones
         {
             var t = (runSeconds + phaseSeconds) % PulsePeriodSeconds;
             return t < 0f ? t + PulsePeriodSeconds : t;
+        }
+
+        private static bool HasReward(ZoneEffectData data) =>
+            data.RewardBuffSeconds.HasValue || data.RewardMovementBonus.HasValue || data.RewardSkillDamageBonus.HasValue ||
+            data.RewardActionSpeedBonus.HasValue || data.RewardHealFraction.HasValue || data.RewardBlastDamage.HasValue ||
+            data.RewardBlastRadius.HasValue || data.RewardShieldSeconds.HasValue || data.RewardIncomingDamageReduction.HasValue;
+
+        // Each reward is a group whose members come together; a shrine needs at least one group.
+        private static (float buffSeconds, float movement, float skill, float action, float heal, float blastDamage, float blastRadius,
+            float shieldSeconds, float shieldReduction) ReadRewards(ZoneEffectData data)
+        {
+            var buff = data.RewardBuffSeconds.HasValue || data.RewardMovementBonus.HasValue ||
+                       data.RewardSkillDamageBonus.HasValue || data.RewardActionSpeedBonus.HasValue;
+            var blast = data.RewardBlastDamage.HasValue || data.RewardBlastRadius.HasValue;
+            var shield = data.RewardShieldSeconds.HasValue || data.RewardIncomingDamageReduction.HasValue;
+            float buffSeconds = 0f, movement = 0f, skill = 0f, action = 0f, heal = 0f, blastDamage = 0f, blastRadius = 0f, shieldSeconds = 0f, reduction = 0f;
+            if (buff)
+            {
+                buffSeconds = Required(data.RewardBuffSeconds, data.Id, "rewardBuffSeconds");
+                movement = data.RewardMovementBonus ?? 0f;
+                skill = data.RewardSkillDamageBonus ?? 0f;
+                action = data.RewardActionSpeedBonus ?? 0f;
+                NumericValidation.ValidatePositive(buffSeconds, nameof(buffSeconds));
+                NumericValidation.ValidateRange(movement, 0f, 2f, nameof(movement));
+                NumericValidation.ValidateNonNegativeFinite(skill, nameof(skill));
+                NumericValidation.ValidateNonNegativeFinite(action, nameof(action));
+                if (movement <= 0f && skill <= 0f && action <= 0f)
+                    throw new ArgumentException($"Shrine '{data.Id}' buff reward needs a movement, skill-damage or action-speed bonus.");
+            }
+            if (data.RewardHealFraction.HasValue)
+            {
+                heal = data.RewardHealFraction.Value;
+                NumericValidation.ValidateRange(heal, 0f, 1f, nameof(heal));
+                if (heal <= 0f) throw new ArgumentException($"Shrine '{data.Id}' rewardHealFraction must be positive.");
+            }
+            if (blast)
+            {
+                blastDamage = Required(data.RewardBlastDamage, data.Id, "rewardBlastDamage");
+                blastRadius = Required(data.RewardBlastRadius, data.Id, "rewardBlastRadius");
+                NumericValidation.ValidatePositive(blastDamage, nameof(blastDamage));
+                NumericValidation.ValidatePositive(blastRadius, nameof(blastRadius));
+            }
+            if (shield)
+            {
+                shieldSeconds = Required(data.RewardShieldSeconds, data.Id, "rewardShieldSeconds");
+                reduction = Required(data.RewardIncomingDamageReduction, data.Id, "rewardIncomingDamageReduction");
+                NumericValidation.ValidatePositive(shieldSeconds, nameof(shieldSeconds));
+                NumericValidation.ValidateRange(reduction, 0f, 0.95f, nameof(reduction));
+                if (reduction <= 0f) throw new ArgumentException($"Shrine '{data.Id}' shield reward needs a positive reduction.");
+            }
+            if (!buff && !data.RewardHealFraction.HasValue && !blast && !shield)
+                throw new ArgumentException($"Shrine '{data.Id}' needs at least one reward.");
+            return (buffSeconds, movement, skill, action, heal, blastDamage, blastRadius, shieldSeconds, reduction);
+        }
+
+        /// <summary>
+        /// Strike altar timing at a run time: false while the volley is over (hidden); otherwise the warning fill 0..1 and,
+        /// after the strike, the flash progress 0..1.
+        /// </summary>
+        public bool StrikeState(float phaseSeconds, float runSeconds, out float telegraph, out float flash)
+        {
+            var t = (runSeconds + phaseSeconds) % StrikePeriodSeconds;
+            if (t < 0f) t += StrikePeriodSeconds;
+            telegraph = 0f; flash = 0f;
+            if (t < StrikeTelegraphSeconds) { telegraph = t / StrikeTelegraphSeconds; return true; }
+            telegraph = 1f;
+            if (t >= StrikeTelegraphSeconds + StrikeFlashSeconds) return false;
+            flash = (t - StrikeTelegraphSeconds) / StrikeFlashSeconds;
+            return true;
+        }
+
+        /// <summary>True when a strike goes off (end of the warning) in (<paramref name="from"/>, <paramref name="to"/>]; <paramref name="volley"/> numbers that volley.</summary>
+        public bool StrikeFiresBetween(float phaseSeconds, float from, float to, out int volley)
+        {
+            volley = 0;
+            if (Kind != ZoneEffectKind.Strike || to <= from) return false;
+            var cycle = Mathf.Floor((to + phaseSeconds - StrikeTelegraphSeconds) / StrikePeriodSeconds);
+            var fireTime = cycle * StrikePeriodSeconds + StrikeTelegraphSeconds - phaseSeconds;
+            volley = (int)cycle;
+            return fireTime > from && fireTime <= to;
+        }
+
+        /// <summary>Where strike circle <paramref name="index"/> of a volley lands: deterministic per run seed, zone and volley, fully inside the altar.</summary>
+        public Vector2 StrikeCenter(Vector2 altarCenter, int seed, int zoneIndex, int volley, int index)
+        {
+            var reach = Radius - StrikeRadius;
+            var angle = Unit(seed, zoneIndex, volley, index * 2) * Mathf.PI * 2f;
+            var distance = Mathf.Sqrt(Unit(seed, zoneIndex, volley, index * 2 + 1)) * reach;
+            return altarCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
+        }
+
+        // Allocation-free hash to 0..1, so strike circles can be recomputed every frame without a Random instance.
+        private static float Unit(int a, int b, int c, int d)
+        {
+            unchecked
+            {
+                var h = (uint)a * 2654435761u ^ (uint)b * 40503u ^ (uint)c * 2246822519u ^ (uint)d * 3266489917u;
+                h ^= h >> 15; h *= 2246822519u; h ^= h >> 13; h *= 3266489917u; h ^= h >> 16;
+                return (h & 0xFFFFFF) / 16777216f;
+            }
+        }
+
+        /// <summary>Progress 0..1 of a cycling altar's rest until it switches on again; -1 while it is on (or the zone never rests).</summary>
+        public float RestProgress(float phaseSeconds, float runSeconds)
+        {
+            if (Lifetime != ZoneLifetimeMode.Cycling || PulsePeriodSeconds <= PulseVisibleSeconds) return -1f;
+            var t = CycleTime(phaseSeconds, runSeconds);
+            return t < PulseVisibleSeconds ? -1f : (t - PulseVisibleSeconds) / (PulsePeriodSeconds - PulseVisibleSeconds);
         }
 
         /// <summary>True when the world point lies inside the zone disc centered at <paramref name="center"/>.</summary>

@@ -56,14 +56,37 @@ namespace Game.Zones.Tests
         public static ZoneEffectData Charge(string id = "T-CHARGE", ZoneLifetimeMode mode = ZoneLifetimeMode.Permanent) => Lifetime(new ZoneEffectData
         {
             Id = id, Kind = ZoneEffectKind.Charge, Radius = 5f, Color = "#ffb347", ChargeSecondsToMax = 20f, ChargeDecaySeconds = 8f,
-            ChargeSkillDamageBonus = 1f, ChargeActionSpeedBonus = 0.3f
+            ChargeSkillDamageBonus = 1f, ChargeActionSpeedBonus = 0.3f,
+            Polarity = ZoneAltarPolarity.Positive
         }, mode);
 
         /// <summary>A cycling altar: 90 s cycle, 24 s on (3 s fades), never moves.</summary>
         public static ZoneEffectData Altar(string id = "T-ALTAR") => new ZoneEffectData
         {
             Id = id, Kind = ZoneEffectKind.Haste, Radius = 4f, Color = "#6df0c2", Lifetime = ZoneLifetimeMode.Cycling,
-            PulsePeriodSeconds = 90f, PulseVisibleSeconds = 24f, PulseFadeSeconds = 3f, PlayerMovementBonus = 0.5f
+            PulsePeriodSeconds = 90f, PulseVisibleSeconds = 24f, PulseFadeSeconds = 3f, PlayerMovementBonus = 0.5f,
+            Polarity = ZoneAltarPolarity.Positive
+        };
+
+        /// <summary>Strike altar: 20 s volleys of 2 circles (radius 2) inside radius 8; 3 s warning, 0.5 s flash; 10 to the player, 50 to enemies.</summary>
+        public static ZoneEffectData Strike(string id = "T-STRIKE", ZoneAltarPolarity polarity = ZoneAltarPolarity.Neutral) => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Strike, Radius = 8f, Color = "#ff5a5a", Lifetime = ZoneLifetimeMode.Permanent,
+            StrikePeriodSeconds = 20f, StrikeTelegraphSeconds = 3f, StrikeFlashSeconds = 0.5f, StrikeCount = 2, StrikeRadius = 2f,
+            StrikePlayerDamage = 10f, StrikeEnemyDamage = 50f, Polarity = polarity
+        };
+
+        /// <summary>
+        /// Shrine: 10 s inside to fire, 5 s outside to drain, 60 s cooldown; rewards +50% speed for 8 s, 25% healing, a 100 blast
+        /// within 6 and 50% damage reduction for 5 s.
+        /// </summary>
+        public static ZoneEffectData Shrine(string id = "T-SHRINE") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Shrine, Radius = 5f, Color = "#ffe08a", Lifetime = ZoneLifetimeMode.Permanent,
+            ShrineChargeSeconds = 10f, ShrineDecaySeconds = 5f, ShrineCooldownSeconds = 60f,
+            RewardBuffSeconds = 8f, RewardMovementBonus = 0.5f, RewardHealFraction = 0.25f,
+            RewardBlastDamage = 100f, RewardBlastRadius = 6f, RewardShieldSeconds = 5f, RewardIncomingDamageReduction = 0.5f,
+            Polarity = ZoneAltarPolarity.Positive
         };
 
         /// <summary>Marks an effect permanent, or pulsing with a 30 s period, 20 s shown (3 s fades).</summary>

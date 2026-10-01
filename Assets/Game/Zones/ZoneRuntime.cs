@@ -29,6 +29,8 @@ namespace Game.Zones
         // Timed buffs that outlast their zone (one per effect; a new burst refreshes it instead of stacking).
         private readonly Dictionary<ZoneEffectDefinition, float> _buffs = new Dictionary<ZoneEffectDefinition, float>();
         private readonly List<ZoneEffectDefinition> _expiredBuffs = new List<ZoneEffectDefinition>();
+        // Timed shields a shrine leaves on the player (incoming-damage reduction), one per shrine effect.
+        private readonly Dictionary<ZoneEffectDefinition, float> _shields = new Dictionary<ZoneEffectDefinition, float>();
 
         public IReadOnlyList<ZonePlacement> Zones => _zones;
         /// <summary>Seconds this runtime has been ticked (the zones' pulse clock).</summary>
@@ -92,6 +94,8 @@ namespace Game.Zones
             RefreshWindow();
             Relocate();
             TickBursts(previous, deltaTime);
+            TickShrines(deltaTime);
+            TickStrikes(previous);
             TickPlayer(deltaTime);
             TickEnemies(deltaTime);
         }
@@ -122,23 +126,107 @@ namespace Game.Zones
         /// <summary>Remaining seconds of the timed buff a burst zone gave the player (0 when none).</summary>
         public float BuffRemaining(ZoneEffectDefinition effect) => _buffs.TryGetValue(effect, out var remaining) ? remaining : 0f;
 
+        /// <summary>Remaining seconds of the timed shield a shrine gave the player (0 when none).</summary>
+        public float ShieldRemaining(ZoneEffectDefinition effect) => _shields.TryGetValue(effect, out var remaining) ? remaining : 0f;
+
         // A burst zone goes off the instant its telegraph ends: a player inside the radius then gets the timed buff.
         private void TickBursts(float previousTime, float deltaTime)
         {
-            if (_buffs.Count > 0)
-            {
-                _expiredBuffs.Clear();
-                _expiredBuffs.AddRange(_buffs.Keys);
-                foreach (var effect in _expiredBuffs)
-                {
-                    var left = _buffs[effect] - deltaTime;
-                    if (left <= 0f) _buffs.Remove(effect); else _buffs[effect] = left;
-                }
-            }
+            DecayTimers(_buffs, deltaTime);
+            DecayTimers(_shields, deltaTime);
             if (!_player.IsAlive) return;
             foreach (var zone in _zones)
                 if (zone.IsNear && zone.BurstFiresBetween(previousTime, Time) && zone.Contains(_player.Position))
                     _buffs[zone.Effect] = zone.Effect.PlayerBuffSeconds;
+        }
+
+        private void DecayTimers(Dictionary<ZoneEffectDefinition, float> timers, float deltaTime)
+        {
+            if (timers.Count == 0) return;
+            _expiredBuffs.Clear();
+            _expiredBuffs.AddRange(timers.Keys);
+            foreach (var effect in _expiredBuffs)
+            {
+                var left = timers[effect] - deltaTime;
+                if (left <= 0f) timers.Remove(effect); else timers[effect] = left;
+            }
+        }
+
+        // A shrine fills while the player stands inside it, drains otherwise, and fires its reward once when full; then it
+        // rests for its cooldown (which keeps running while the shrine is far away or the altar is off).
+        private void TickShrines(float deltaTime)
+        {
+            foreach (var zone in _zones)
+            {
+                if (zone.Effect.Kind != ZoneEffectKind.Shrine) continue;
+                var effect = zone.Effect;
+                if (zone.ShrineCooldownRemaining > 0f)
+                {
+                    zone.SetShrineCooldown(zone.ShrineCooldownRemaining - deltaTime);
+                    zone.SetCharge(0f);
+                    continue;
+                }
+                if (!zone.IsNear || !_player.IsAlive) { zone.SetCharge(0f); continue; }
+                var inside = zone.IsActive(Time) && zone.Contains(_player.Position);
+                var next = zone.Charge + (inside ? deltaTime / effect.ShrineChargeSeconds : -deltaTime / effect.ShrineDecaySeconds);
+                if (next < 1f) { zone.SetCharge(next); continue; }
+                zone.SetCharge(0f);
+                zone.SetShrineCooldown(effect.ShrineCooldownSeconds);
+                FireShrine(zone);
+            }
+        }
+
+        private void FireShrine(ZonePlacement zone)
+        {
+            var effect = zone.Effect;
+            if (effect.RewardBuffSeconds > 0f) _buffs[effect] = effect.RewardBuffSeconds;
+            if (effect.RewardShieldSeconds > 0f) _shields[effect] = effect.RewardShieldSeconds;
+            if (effect.RewardHealFraction > 0f) _player.HealFraction(effect.RewardHealFraction);
+            if (effect.RewardBlastDamage <= 0f) return;
+            using var guard = PerfGuard.Measure("Zones.ShrineBlast", 2f);
+            var count = _enemies.Refresh();
+            var radiusSquared = effect.RewardBlastRadius * effect.RewardBlastRadius;
+            for (var i = 0; i < count; i++)
+                if ((_enemies.Position(i) - zone.Center).sqrMagnitude <= radiusSquared)
+                    _enemies.Strike(i, effect.RewardBlastDamage, effect.Id);
+        }
+
+        // A strike altar's circles hit the instant their warning ends (only while the altar is on and near the player).
+        private void TickStrikes(float previousTime)
+        {
+            foreach (var zone in _zones)
+            {
+                var effect = zone.Effect;
+                if (effect.Kind != ZoneEffectKind.Strike || !zone.IsNear || !zone.IsActive(Time)) continue;
+                if (!effect.StrikeFiresBetween(zone.PhaseSeconds, previousTime, Time, out var volley)) continue;
+                var enemyCount = effect.StrikeEnemyDamage > 0f ? _enemies.Refresh() : 0;
+                var radiusSquared = effect.StrikeRadius * effect.StrikeRadius;
+                for (var circle = 0; circle < effect.StrikeCount; circle++)
+                {
+                    var center = effect.StrikeCenter(zone.Center, _seed, zone.Index, volley, circle);
+                    if (effect.StrikePlayerDamage > 0f && _player.IsAlive && (_player.Position - center).sqrMagnitude <= radiusSquared)
+                        _player.Hit(effect.StrikePlayerDamage, effect.Id);
+                    for (var i = 0; i < enemyCount; i++)
+                        if ((_enemies.Position(i) - center).sqrMagnitude <= radiusSquared)
+                            _enemies.Strike(i, effect.StrikeEnemyDamage, effect.Id);
+                }
+            }
+        }
+
+        /// <summary>Fills <paramref name="circles"/> with the strike warnings and flashes to draw right now (cleared first).</summary>
+        public void CollectStrikeCircles(List<StrikeCircle> circles)
+        {
+            circles.Clear();
+            foreach (var zone in _zones)
+            {
+                var effect = zone.Effect;
+                if (effect.Kind != ZoneEffectKind.Strike || !zone.IsNear || !zone.IsActive(Time)) continue;
+                if (!effect.StrikeState(zone.PhaseSeconds, Time, out var telegraph, out var flash)) continue;
+                var volley = Mathf.FloorToInt((Time + zone.PhaseSeconds) / effect.StrikePeriodSeconds);
+                for (var circle = 0; circle < effect.StrikeCount; circle++)
+                    circles.Add(new StrikeCircle(zone, effect.StrikeCenter(zone.Center, _seed, zone.Index, volley, circle),
+                        effect.StrikeRadius, telegraph, flash));
+            }
         }
 
         private void TickPlayer(float deltaTime)
@@ -147,12 +235,19 @@ namespace Game.Zones
             if (!_player.IsAlive)
             {
                 _buffs.Clear();
+                _shields.Clear();
                 foreach (var zone in _zones) zone.SetCharge(0f);
                 ApplyModifier(0f, 0f, 0f, 0f, 0f);
                 return;
             }
             float move = 0f, skill = 0f, action = 0f, regen = 0f, defense = 0f, damage = 0f;
-            foreach (var pair in _buffs) move += pair.Key.PlayerMovementBonus;
+            foreach (var pair in _buffs)
+            {
+                move += pair.Key.TimedBuffMovementBonus;
+                skill += pair.Key.RewardSkillDamageBonus;
+                action += pair.Key.RewardActionSpeedBonus;
+            }
+            foreach (var pair in _shields) defense += pair.Key.RewardIncomingDamageReduction;
             ZonePlacement portal = null;
             var position = _player.Position;
             // Charging altars fill while the player stands inside an active one and drain otherwise; their bonus is the charge.
@@ -169,7 +264,9 @@ namespace Game.Zones
             }
             foreach (var zone in _zones)
             {
-                if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst || zone.Effect.Kind == ZoneEffectKind.Charge) continue; // handled above
+                // Bursts, charging altars, strike altars and shrines have their own ticks.
+                var own = zone.Effect.Kind;
+                if (own == ZoneEffectKind.SpeedBurst || own == ZoneEffectKind.Charge || own == ZoneEffectKind.Strike || own == ZoneEffectKind.Shrine) continue;
                 if (!zone.IsNear || !zone.IsActive(Time) || !zone.Contains(position)) continue;
                 PlayerActiveZoneCount++;
                 var effect = zone.Effect;
