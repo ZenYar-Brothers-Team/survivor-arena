@@ -15,10 +15,20 @@ namespace Game.MLAgents
     /// original uncommitted experiment, since that code never left its local worktree. Geometry, reward and
     /// outcome rules match the documented formulas; EnvironmentParameters drive curriculum stages from Python.
     /// </summary>
+    /// <remarks>
+    /// Drives its own decision/action cadence from FixedUpdate instead of the stock DecisionRequester
+    /// component: in this embedded package DecisionRequester.Awake() subscribes to Academy.AgentPreStep and
+    /// never fires it (confirmed with FixedUpdate/Academy.StepCount ticking correctly in lockstep while
+    /// RequestDecision/RequestAction were simply never invoked) even though GetComponent&lt;Agent&gt;() resolves
+    /// correctly — a vendor-package issue on this Unity/package combination, not a wiring bug on this class's
+    /// side. RequestDecision()/RequestAction() are both public on Agent, so driving them directly here is a
+    /// small, self-contained workaround.
+    /// </remarks>
     [RequireComponent(typeof(BehaviorParameters))]
-    [RequireComponent(typeof(DecisionRequester))]
     public sealed class MicroArenaAgent : Agent
     {
+        private const int DecisionPeriod = 5; // 5 physics steps @ 0.02s = 0.1s between decisions (matches the snapshot).
+
         [SerializeField]
         private Transform threatVisual;
 
@@ -26,6 +36,7 @@ namespace Game.MLAgents
         private Transform xpVisual;
 
         private const int MaxSpawnAttempts = 20;
+        private int _fixedUpdateCount;
 
         /// <summary>Wires the threat/XP visuals this agent moves each step; the agent's own transform is the player visual.</summary>
         public void Configure(Transform threatTransform, Transform xpTransform)
@@ -49,6 +60,16 @@ namespace Game.MLAgents
         public override void Initialize()
         {
             _config = ResolveConfig();
+        }
+
+        /// <summary>Drives this agent's own decision/action cadence; see the class remarks for why.</summary>
+        private void FixedUpdate()
+        {
+            if (_fixedUpdateCount % DecisionPeriod == 0)
+                RequestDecision();
+            else
+                RequestAction();
+            _fixedUpdateCount++;
         }
 
         public override void OnEpisodeBegin()

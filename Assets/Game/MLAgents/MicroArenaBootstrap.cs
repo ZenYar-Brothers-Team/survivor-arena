@@ -1,5 +1,4 @@
 using Game.Presentation;
-using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using UnityEngine;
@@ -17,9 +16,9 @@ namespace Game.MLAgents
 
         private void Awake()
         {
-            var player = CreateDisc("Player", new Color(0.3f, 0.85f, 1f, 1f), MicroArenaConfig.Default(0).PlayerRadius);
             var threat = CreateDisc("Threat", new Color(1f, 0.3f, 0.3f, 1f), MicroArenaConfig.Default(0).ThreatRadius);
             var xp = CreateDisc("Xp", new Color(1f, 0.85f, 0.2f, 1f), MicroArenaConfig.Default(0).XpRadius);
+            var player = CreateDisc("Player", new Color(0.3f, 0.85f, 1f, 1f), MicroArenaConfig.Default(0).PlayerRadius);
 
             var behaviorParameters = player.AddComponent<BehaviorParameters>();
             behaviorParameters.BehaviorName = BehaviorName;
@@ -27,10 +26,6 @@ namespace Game.MLAgents
             behaviorParameters.BrainParameters.NumStackedVectorObservations = 1;
             behaviorParameters.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(2);
             behaviorParameters.BehaviorType = BehaviorType.Default;
-
-            var decisionRequester = player.AddComponent<DecisionRequester>();
-            decisionRequester.DecisionPeriod = 5; // 5 physics steps @ 0.02s = 0.1s between decisions (matches the snapshot).
-            decisionRequester.TakeActionsBetweenDecisions = true;
 
             var agent = player.AddComponent<MicroArenaAgent>();
             agent.Configure(threat.transform, xp.transform);
