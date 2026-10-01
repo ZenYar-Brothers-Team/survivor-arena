@@ -1,0 +1,262 @@
+[
+  {
+    "id": "wet-small",
+    "image": "Art/Source/Environment/field-002-ruins-obstacles/wet-small.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 175.49
+  },
+  {
+    "id": "wet-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-medium-soft-edge-v2-preview.png",
+    "canvas": [
+      2169,
+      725
+    ],
+    "referenceCanvas": [
+      2170,
+      725
+    ],
+    "proposedPpu": 126.1918202764977
+  },
+  {
+    "id": "wet-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-large-soft-edge-v2-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 42.94
+  },
+  {
+    "id": "wet-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-upright-soft-edge-v2-preview.png",
+    "canvas": [
+      1044,
+      1507
+    ],
+    "referenceCanvas": [
+      1044,
+      1507
+    ],
+    "proposedPpu": 90.52
+  },
+  {
+    "id": "ward-small",
+    "image": "Art/Source/Environment/field-002-ruins-obstacles/ward-small.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 157.72
+  },
+  {
+    "id": "ward-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-medium-soft-edge-v2-preview.png",
+    "canvas": [
+      1846,
+      852
+    ],
+    "referenceCanvas": [
+      1846,
+      852
+    ],
+    "proposedPpu": 130.44
+  },
+  {
+    "id": "ward-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-large-soft-edge-v2-preview.png",
+    "canvas": [
+      1416,
+      1111
+    ],
+    "referenceCanvas": [
+      1417,
+      1110
+    ],
+    "proposedPpu": 55.08110091743119
+  },
+  {
+    "id": "ward-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-upright-soft-edge-v2-preview.png",
+    "canvas": [
+      1018,
+      1544
+    ],
+    "referenceCanvas": [
+      1019,
+      1544
+    ],
+    "proposedPpu": 96.36533856722275
+  },
+  {
+    "id": "thorn-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/thorn-small-soft-edge-v2-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 138.93
+  },
+  {
+    "id": "thorn-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/thorn-medium-soft-edge-v2-preview.png",
+    "canvas": [
+      1821,
+      864
+    ],
+    "referenceCanvas": [
+      1821,
+      864
+    ],
+    "proposedPpu": 95.32
+  },
+  {
+    "id": "thorn-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/thorn-large-soft-edge-v2-preview.png",
+    "canvas": [
+      1374,
+      1145
+    ],
+    "referenceCanvas": [
+      1374,
+      1145
+    ],
+    "proposedPpu": 48.85
+  },
+  {
+    "id": "thorn-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/thorn-upright-soft-edge-v2-preview.png",
+    "canvas": [
+      793,
+      1983
+    ],
+    "referenceCanvas": [
+      793,
+      1983
+    ],
+    "proposedPpu": 117.42
+  },
+  {
+    "id": "net-small",
+    "image": "Art/Source/Environment/field-002-ruins-obstacles/net-small.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 142.31
+  },
+  {
+    "id": "net-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-medium-soft-edge-v2-preview.png",
+    "canvas": [
+      1721,
+      914
+    ],
+    "referenceCanvas": [
+      1723,
+      913
+    ],
+    "proposedPpu": 105.46743470690656
+  },
+  {
+    "id": "net-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-large-detail-scale-v4-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 52.93
+  },
+  {
+    "id": "net-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-upright-detail-scale-v4-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 84.74
+  },
+  {
+    "id": "incense-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-small-soft-edge-v2-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 155.55
+  },
+  {
+    "id": "incense-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-medium-soft-edge-v2-preview.png",
+    "canvas": [
+      1774,
+      887
+    ],
+    "referenceCanvas": [
+      1774,
+      887
+    ],
+    "proposedPpu": 108.1
+  },
+  {
+    "id": "incense-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-large-detail-scale-v3-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "referenceCanvas": [
+      1254,
+      1254
+    ],
+    "proposedPpu": 44.49
+  },
+  {
+    "id": "incense-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-upright-soft-edge-v2-preview.png",
+    "canvas": [
+      1117,
+      1408
+    ],
+    "referenceCanvas": [
+      1117,
+      1408
+    ],
+    "proposedPpu": 96.04
+  }
+]

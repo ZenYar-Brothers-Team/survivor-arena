@@ -6,11 +6,11 @@
   "artDirectionRevision": "Approved art direction read 2026-10-01",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v001/concept-01.png",
+  "selectedVersion": "v002/concept-01.png",
   "approvedAt": "2026-10-01",
   "approvedBy": "user",
-  "approvalEvidence": "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01).",
-  "prompt": "Historical request recorded in Art/Concepts/field-002-ruins-blob-art/prompts.md (section for the thorn-small-angular-v2 obstacle; source Art/Concepts/field-002-ruins-blob-art/thorn-small-angular-v2-preview.png). Verbatim text is retained there; it was not duplicated into this packet.",
+  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
+  "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 6.7 by 6 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve tangled thorn roots, leaf clusters and stone sizes; stray fine root ends can enter the transition. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
   "constraints": [
     "transparent background",
     "fixed authored orientation and footprint size; no random rotation or scale",
@@ -22,8 +22,8 @@
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "77a4c27b4b21649d4a62aac9a07e7d26bab2b313d72268e49dcb88935221c482",
-    "runtimeSha256": "77a4c27b4b21649d4a62aac9a07e7d26bab2b313d72268e49dcb88935221c482",
+    "sourceSha256": "e7d4a92ca210544d919fec8234fca8b7b7d5e807c4d380bbf070a60a5729352e",
+    "runtimeSha256": "e7d4a92ca210544d919fec8234fca8b7b7d5e807c4d380bbf070a60a5729352e",
     "recipe": {
       "mode": "copy"
     }

@@ -1,5 +1,10 @@
 # Regression map
 
+FIELD-DEV-BLOBS contact: `scripts/tests/test_dev_blob_collider_fit.py` checks a
+passable concave bay, exclusion of disconnected opaque debris, pivot alignment,
+and correspondence of all twenty configured contours to the installed raster
+cores ([DECISION-0133](decisions/0133-dev-obstacle-dense-core-contact.md)).
+
 DECISION-0125: `MetaProfileTests.AchievementKills_OnDefeat_UnlockNextFieldOnceAndPersist`
 и `Load_V2Profile_PreservesUnlocksWithoutInventingPastAchievementProgress`
 проверяют накопительные достижения и миграцию сохранения;

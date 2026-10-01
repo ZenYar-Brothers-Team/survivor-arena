@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-01",
+  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
+  "assets": [
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/wet-small.png",
+      "sha256": "99687f67037953ee1ae3b13d452577735b1c8451ac00c3f8059ac9cadf744837",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Broken wet paving: let the earth break into scattered small stones, dusty brush marks and sparse moss; keep puddles and the same slab arrangement. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 175.49,
+        "maxSize": 2048,
+        "pivotX": 0.4996,
+        "pivotY": 0.4984,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (small-angular, footprint 5.9 x 5.3 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-medium-soft-edge-v2-preview.png",
+      "sha256": "90c250533334024f112d50c7efff79597be7d48d48a23580273d9f85b377e539",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-medium",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 13.989 by 4.665 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve paving, puddles, stone sizes and moss. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 126.25,
+        "maxSize": 2048,
+        "pivotX": 0.4993,
+        "pivotY": 0.4566,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (medium-linear, footprint 13.989 x 4.665 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "420f022a38c674ab7a274d5e96f892f2d4bf844510536146af7e8f4d94d5d8a6"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-large-soft-edge-v2-preview.png",
+      "sha256": "506c66fbb5337fda706a57e474db2ea289a25441218f45e17b331c89c73d682b",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-large",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 26.9 by 20.307 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve paving, puddles, stone sizes and moss. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 42.94,
+        "maxSize": 2048,
+        "pivotX": 0.5191,
+        "pivotY": 0.504,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (large-round, footprint 26.9 x 20.307 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "34934fcd74a0558f3e3fe988bc69d4a373ea9dabaca706109095919109bcd1ac"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-upright-soft-edge-v2-preview.png",
+      "sha256": "95ba7c2b92fe039f823d69cbf24cc634102711b726829821eb68596cbb2a6ebd",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-upright",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 10.344 by 14.953 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve paving, puddles, stone sizes and moss. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 90.52,
+        "maxSize": 2048,
+        "pivotX": 0.5005,
+        "pivotY": 0.5043,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (wet-upright-round, footprint 10.344 x 14.953 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "29680deeb06690f6d49ec94309ada5e235c72119360d7b0e428ba6e67ed03943"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/ward-small.png",
+      "sha256": "caff21aadd46aef90f346eeac4181db9f1c8e05192b074431d2692fe0fbab1df",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Royal ward paving: erode the outermost slab ends into little stone fragments and dust; blue light should diminish subtly near the outermost fragments. Keep all existing diamonds the same small size. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 157.72,
+        "maxSize": 2048,
+        "pivotX": 0.5116,
+        "pivotY": 0.5371,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-small-angular-v2, footprint 6.3 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-medium-soft-edge-v2-preview.png",
+      "sha256": "427e23e4a0fad3a376363c27b96c86e24ea628e04d189a5f24e8f6577a18cc3c",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-medium",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 13.312 by 6.151 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve all small blue/gold diamonds and stone sizes; reduce peripheral glow subtly into transparency. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 130.44,
+        "maxSize": 2048,
+        "pivotX": 0.4992,
+        "pivotY": 0.52,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-medium-linear-v2, footprint 13.312 x 6.151 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "b23c1fd547c70b1f1e430e029af90f43d5ad21d1bda3e32e739c1f0ac0e53a49"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-large-soft-edge-v2-preview.png",
+      "sha256": "7aa60ba168ad4cf1d6a9d548ed4fe69ccbd83b1fd84e2c6b4a9e87de2eae03d8",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-large",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 24.765 by 19.402 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve all small blue/gold diamonds and stone sizes; reduce peripheral glow subtly into transparency. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 55.12,
+        "maxSize": 2048,
+        "pivotX": 0.5028,
+        "pivotY": 0.5099,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-large-round-v2, footprint 24.765 x 19.402 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "9480435b30c84ff5b23cc48e25f3f0ef435130cb5d8515c3570bc72afdbe1821"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-upright-soft-edge-v2-preview.png",
+      "sha256": "dd3020d812dc2395a72af76ab61f917852890a05ec3bc61d39d1b081cd693a65",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-upright",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 9 by 13.7 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve all small blue/gold diamonds and stone sizes; reduce peripheral glow subtly into transparency. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.46,
+        "maxSize": 2048,
+        "pivotX": 0.501,
+        "pivotY": 0.5172,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-upright-angular, footprint 9.0 x 13.7 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "20a1e7a1b256651ecd56bcf82d3c9abb8f56f46c91c306a830d7e1fcbb1a6b73"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/thorn-small-soft-edge-v2-preview.png",
+      "sha256": "e7d4a92ca210544d919fec8234fca8b7b7d5e807c4d380bbf070a60a5729352e",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-small",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 6.7 by 6 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve tangled thorn roots, leaf clusters and stone sizes; stray fine root ends can enter the transition. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 138.93,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5068,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-small-angular-v2, footprint 6.7 x 6.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "77a4c27b4b21649d4a62aac9a07e7d26bab2b313d72268e49dcb88935221c482"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/thorn-medium-soft-edge-v2-preview.png",
+      "sha256": "123cea5722cda0c33fcd8d7cac3231951ddb95a7ef4bbfe0c4d89ff7dfb34ea3",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-medium",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 15.635 by 7.425 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve tangled thorn roots, leaf clusters and stone sizes; stray fine root ends can enter the transition. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 95.32,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.4728,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-medium-linear-v2, footprint 15.635 x 7.425 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "474e77a4edeb340c7bef94c4a4d102e930c3fc03c4d22c78c8dd5e6987960dc0"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/thorn-large-soft-edge-v2-preview.png",
+      "sha256": "8c7dd03faa816d2c82dbb34dff648a5343e0ee6f05056dc1bb61b99e12afc986",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-large",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 23.117 by 19.216 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve tangled thorn roots, leaf clusters and stone sizes; stray fine root ends can enter the transition. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 48.85,
+        "maxSize": 2048,
+        "pivotX": 0.4975,
+        "pivotY": 0.5022,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-large-round-v2, footprint 23.117 x 19.216 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "46b77fca935e12eeadf2f05789bc0d35ada2eed51d20ad8a0edaec778c823e31"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/thorn-upright-soft-edge-v2-preview.png",
+      "sha256": "9db14282f73ae474d599875c38b0bbc8d929d60337ec23c3ba9cdecce1bce371",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-upright",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 3.949 by 15 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve tangled thorn roots, leaf clusters and stone sizes; stray fine root ends can enter the transition. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 117.42,
+        "maxSize": 2048,
+        "pivotX": 0.5549,
+        "pivotY": 0.4985,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-upright-linear, footprint 3.949 x 15.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "85bd6162f0ad69422c404bbef9d7f48225754193da68ba21ddeb25cae5a558c1"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/net-small.png",
+      "sha256": "6ddde4bdbf1b80e228ddb416d69e4abc1d1839b036fc79b51658d872aecbfd91",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Ground net: let the earth end in sparse tufts, dusty brush marks and a few loose small stones. Preserve the right-side inward notch, all ropes, rope thickness, cloth strips and anchors. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 142.31,
+        "maxSize": 2048,
+        "pivotX": 0.5163,
+        "pivotY": 0.5175,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-small-angular-v2, footprint 6.6 x 5.8 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-medium-soft-edge-v2-preview.png",
+      "sha256": "fe3258516bfaee7cb2c30cb9fccd5b3418e6628eaf67c30ffd005cbfeaa74bb3",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-medium",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 15.021 by 7.949 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve all mesh cells, knots, rope thickness, cloth strips and anchor plates. Large footprint deliberately has thicker cable, keep it. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 105.59,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.4918,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-medium-linear-v2, footprint 15.021 x 7.949 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "af6bc54831e334438984c218756281ac54f4d38bcab93604c22ca0b9eae88712"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-large-detail-scale-v4-preview.png",
+      "sha256": "9affc9edd4db2b79339ad02749011a21b184bbaa970e9b118135da1fac740157",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-large",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png",
+      "prompt": "Precise object edit of IMAGE 1. The ground patch, soft transparent edge, whole canvas, camera and net rope routes must stay the same. The bells and iron plates are STILL MUCH TOO LARGE. Make each bell, each iron plate, each cloth tie and each upright wooden peg only ONE THIRD of its CURRENT width and height in image 1. This is a dramatic reduction; the current pieces are miniature statues and must become small utilitarian hardware. Keep ropes at current thickness, reconnect them to the new small hardware. Do NOT scale the whole obstacle. Image 2 is a medium ground net covering 15 world units; image 1 covers 23 world units wide. In the final world these items must have comparable real-world sizes. Use image 2 style and construction, with sparse small brass bells. Preserve transparent alpha and narrow irregular ground skirt. No giant plates, bells or posts, no dark outer rim, no text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 52.93,
+        "maxSize": 2048,
+        "pivotX": 0.5084,
+        "pivotY": 0.5028,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-large-round-v2, footprint 23.4 x 19.5 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "375f789d85d983ddcbf34538fd6c3c906a785e82ffad6e6b7b7db729b8e0f8b9"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-upright-detail-scale-v4-preview.png",
+      "sha256": "eb37504f78020319850d9acceac84740cd46a056dabc7caa5643f69067a8e0b7",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-upright",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop.png",
+      "prompt": "Precise object edit of IMAGE 1. The ground patch, soft transparent edge, whole canvas, camera and net rope routes must stay the same. The bells and iron plates are STILL MUCH TOO LARGE. Make each bell, each iron plate, each cloth tie and each upright wooden peg only ONE THIRD of its CURRENT width and height in image 1. This is a dramatic reduction; the current pieces are miniature statues and must become small utilitarian hardware. Keep ropes at current thickness, reconnect them to the new small hardware. Do NOT scale the whole obstacle. Image 2 is a medium ground net covering 15 world units; image 1 covers 9 world units wide. In the final world these items must have comparable real-world sizes. Use image 2 style and construction, with sparse small brass bells. Preserve transparent alpha and narrow irregular ground skirt. No giant plates, bells or posts, no dark outer rim, no text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 84.74,
+        "maxSize": 2048,
+        "pivotX": 0.5247,
+        "pivotY": 0.5167,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-upright-angular, footprint 8.7 x 13.9 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "79ac92959111ecaa40246d6fca3900e82ad3cc73f8a12664abf38701bf02d4aa"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-small-soft-edge-v2-preview.png",
+      "sha256": "d4bb0481a1421653099e4d280111450f45e22b01afb678f2cdc4f55a84915e29",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-small",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 6.8 by 6.1 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve small incense bowls and static haze curls, no new haze outside the footprint; soften the ground edge. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 155.55,
+        "maxSize": 2048,
+        "pivotX": 0.5012,
+        "pivotY": 0.5191,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-small-angular-v2, footprint 6.8 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "f85cc408e34f045a27ad97d8b5359ccfa8e14318bad5dd3e1e06bb49eadce2f2"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-medium-soft-edge-v2-preview.png",
+      "sha256": "60e89237b787e0a5cae77045d99269a4df2e88bb864602b7d46d09396cc8be0c",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-medium",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 14.375 by 5.943 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve small incense bowls and static haze curls, no new haze outside the footprint; soften the ground edge. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 108.1,
+        "maxSize": 2048,
+        "pivotX": 0.5011,
+        "pivotY": 0.4882,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-medium-linear-v2, footprint 14.375 x 5.943 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "66bf13c5d2526c0d095efb0db00b45cc50912e0b53d7c8adddbd8ff97485c459"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-large-detail-scale-v3-preview.png",
+      "sha256": "20e29a75296ab07b22697cd79237496777d2dc679466df230d769d67ebc573f6",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-large",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the edit target, image 2 is a SMALL sprite from the same family as a WORLD SCALE reference. IMPORTANT image 1 is a much larger ground footprint; corresponding internal items must be proportionally MUCH SMALLER IN ITS CANVAS than in image 2. Keep image 1 exact canvas dimensions/aspect ratio, existing core silhouette, position, soft alpha skirt and fixed camera orientation. Change the internal construction only to fix world scale. Pixel targets below are for the ORIGINAL target canvas, do not resize the whole image. Correct the brass censers: every bowl including its complete silhouette must be only 0.9 wu wide = 40 pixels maximum. Boundary discs 0.25 wu = 11 pixels, flowers 0.2 wu = 9 pixels. Replace oversized bowls with these small bowls; cover the large footprint with 12–16 correctly sized bowls, rather than enlarged few bowls. Static smoke curls 0.8–1.5 wu = 36–67 pixels. Preserve low static haze and stones, no giant single smoke cloud. Preserve matte hand-painted storybook rendering and transparent alpha background. No dark exterior rim, no platform, buildings, text or frame.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 44.49,
+        "maxSize": 2048,
+        "pivotX": 0.5159,
+        "pivotY": 0.5104,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-large-round-v2, footprint 20.234 x 21.395 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "46bf29e1ab65ec37134fa516346631ca8913d9300caf8c180de9b6293f164239"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-upright-soft-edge-v2-preview.png",
+      "sha256": "c6122e5fd37724e19efd8b5a09ec3541de7a60661b4f7e4cfaa07ddc3a01de57",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-upright",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 10.081 by 12.709 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve small incense bowls and static haze curls, no new haze outside the footprint; soften the ground edge. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.04,
+        "maxSize": 2048,
+        "pivotX": 0.5031,
+        "pivotY": 0.5153,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-upright-round, footprint 10.081 x 12.709 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "594456fc650e00252d8791ca1791ee51b5129300d5128143e9c5074899fd7112"
+    }
+  ]
+}
