@@ -926,6 +926,7 @@
   {
     "id": "SET-021",
     "displayName": "Камешек в сапоге",
+    "iconVisualId": "SET-021-VISUAL-ICON",
     "description": "раз в 4 s в направлении движения игрока летит небольшой камешек: 35 damage, пробивает до 2 целей, дальность 6, скорость 9, radius 0.3, outgoing knockback 0.5.",
     "recipe": [
       {
@@ -951,7 +952,8 @@
   {
     "id": "SET-022",
     "displayName": "Хлопушка",
-    "description": "раз в 6 s по ближайшему врагу бьёт мгновенный конус от игрока: дальность 3.5, угол 60°, 20 damage всем в конусе и сильный outgoing knockback 3.0.",
+    "iconVisualId": "SET-022-VISUAL-ICON",
+    "description": "раз в 6 s по ближайшему врагу бьёт мгновенный конус от игрока: дальность 3.5, угол 60°, 20 damage всем в конусе и сильный outgoing knockback 3.0. Если в пределах 3.5 нет врага, конус бьёт в случайную сторону (равномерный угол, seed атаки), а не в направление прошлого удара ([DECISION-0138](decisions/0138-low-tier-sets.md), дополнение 2026-10-02).",
     "recipe": [
       {
         "id": "SKILL-014",
@@ -981,6 +983,7 @@
   {
     "id": "SET-023",
     "displayName": "Дорожные сборы",
+    "iconVisualId": "SET-023-VISUAL-ICON",
     "description": "+10% max HP, +6% movement speed, −4% входящего урона.",
     "recipe": [
       {
@@ -1013,6 +1016,7 @@
   {
     "id": "SET-024",
     "displayName": "Набитая рука",
+    "iconVisualId": "SET-024-VISUAL-ICON",
     "description": "+10% damage активных умений, +6% action speed.",
     "recipe": [
       {
@@ -1039,6 +1043,7 @@
   {
     "id": "SET-025",
     "displayName": "Походный сбор",
+    "iconVisualId": "SET-025-VISUAL-ICON",
     "description": "+25% XP pickup radius, +0.2 HP/s регенерации.",
     "recipe": [
       {
@@ -1070,6 +1075,7 @@
   {
     "id": "SET-026",
     "displayName": "Круговая оборона",
+    "iconVisualId": "SET-026-VISUAL-ICON",
     "description": "Орбитальные клинки и Импульсная волна получают +15% damage и +15% size.",
     "recipe": [
       {
@@ -1105,6 +1111,7 @@
   {
     "id": "SET-027",
     "displayName": "Небесный град",
+    "iconVisualId": "SET-027-VISUAL-ICON",
     "description": "Небесный удар и Веер игл получают +15% damage и +15% size.",
     "recipe": [
       {
@@ -1145,6 +1152,7 @@
   {
     "id": "SET-028",
     "displayName": "Холодный разряд",
+    "iconVisualId": "SET-028-VISUAL-ICON",
     "description": "Ледяные осколки получают +15% damage и +5 п.п. к силе существующего slow (не создаёт slow сам); Цепная молния получает +15% damage и +15% jump range.",
     "recipe": [
       {
@@ -1197,6 +1205,7 @@
   {
     "id": "SET-029",
     "displayName": "Игра в камушки",
+    "iconVisualId": "SET-029-VISUAL-ICON",
     "description": "Рикошетный диск и Бросок камня получают +15% damage, +15% projectile speed и +20% outgoing knockback.",
     "recipe": [
       {
@@ -1251,6 +1260,7 @@
   {
     "id": "SET-030",
     "displayName": "Размах руки",
+    "iconVisualId": "SET-030-VISUAL-ICON",
     "description": "Бумеранг и Ветряное копьё получают +20% effective range и +12% damage.",
     "recipe": [
       {
@@ -1291,6 +1301,7 @@
   {
     "id": "SET-031",
     "displayName": "Меткий бросок",
+    "iconVisualId": "SET-031-VISUAL-ICON",
     "description": "Бросок камня получает +15% damage и +15% projectile speed.",
     "recipe": [
       {
@@ -1334,6 +1345,7 @@
   {
     "id": "SET-032",
     "displayName": "Подрывник",
+    "iconVisualId": "SET-032-VISUAL-ICON",
     "description": "Взрывные сферы: часть explosion получает +15% damage и +15% radius.",
     "recipe": [
       {
@@ -1371,6 +1383,7 @@
   {
     "id": "SET-033",
     "displayName": "Вертушка",
+    "iconVisualId": "SET-033-VISUAL-ICON",
     "description": "Орбитальные клинки вращаются на 25% быстрее.",
     "recipe": [
       {
@@ -1402,6 +1415,7 @@
   {
     "id": "SET-034",
     "displayName": "Ледяной град",
+    "iconVisualId": "SET-034-VISUAL-ICON",
     "description": "Ледяные осколки выпускают на 2 осколка больше.",
     "recipe": [
       {
@@ -1433,6 +1447,7 @@
   {
     "id": "SET-035",
     "displayName": "Колючий пучок",
+    "iconVisualId": "SET-035-VISUAL-ICON",
     "description": "Веер игл: каждая игла дополнительно пробивает 1 цель.",
     "recipe": [
       {

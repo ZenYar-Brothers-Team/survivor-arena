@@ -7,6 +7,8 @@ namespace Game.Presentation
         ChainArc,
         StrikeTelegraph,
         /// <summary>Pulsing beam band redrawn on every damage tick (SKILL-012).</summary>
-        Beam
+        Beam,
+        /// <summary>Brief outline of an instant cone, using its authoritative direction, radius and angle.</summary>
+        ConeArc
     }
 }

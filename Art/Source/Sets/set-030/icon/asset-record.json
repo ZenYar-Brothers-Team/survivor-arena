@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-030",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all 15 SET-021…035 icon candidates in this chat: «утверждаю, встраивай в игру».",
+  "prompt": "Use case: stylized-concept. Generate ONE square 1:1 standalone UI set icon for Survival Arena, readable at 48px, source master at least 512px square. Stylized 2D hand-painted storybook cutout; thick continuous deep-plum #241B2B outer outline, two or three flat matte color masses, simple cel shading, only subtle dry-brush material texture, no photorealism, no 3D or plastic render, no pixel art. Centered compact fused emblem of two or three large motifs fills 74% of canvas with generous transparent padding all sides. Early modest low-tier set, scrappy fairy-tale equipment, restrained small gold binding accent, no ornate luxury, no enclosing badge or frame. Subject in clear slight three-quarter view where appropriate. Genuine transparent alpha background. No text, letters, numbers, watermark, UI card, panel, scenery, floor, cast shadow, characters, hands, excess particles, blurred glow, cropped edges or tiny ornaments. Content owner SET-030, role Icon. Subject: A broad curved rust wooden boomerang crossed by one short stylized azure wind spear, tied with a small gold connector; wide sweeping silhouette.",
+  "constraints": [
+    "transparent background",
+    "no text or baked frame",
+    "readable at 48 px"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Sets/set-030-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "d8438cb6f4608ca2e8c2ec77a26fe3ec742e231e74cd66f9fb221c81fadf1211",
+    "runtimeSha256": "dca5bfb371564a010c3ab855b45d3246b4043a8b2c5b02d53c4fe89a303d49cd",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 2
+    }
+  }
+}

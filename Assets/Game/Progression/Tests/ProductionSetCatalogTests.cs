@@ -30,8 +30,7 @@ namespace Game.Progression.Tests
             Assert.AreEqual(3, Threshold(Set("SET-017"), "PASSIVE-005"));
             foreach (var set in ProductionSetCatalog.Create())
             {
-                // SET-021…035 (low-tier, DECISION-0138) have no icons yet.
-                if (int.Parse(set.Id.ToString().Substring(4)) <= 20) Assert.AreEqual(set.Id + "-VISUAL-ICON", set.Icon.Id.ToString());
+                Assert.AreEqual(set.Id + "-VISUAL-ICON", set.Icon.Id.ToString());
                 Assert.IsFalse(string.IsNullOrWhiteSpace(set.Description));
             }
         }

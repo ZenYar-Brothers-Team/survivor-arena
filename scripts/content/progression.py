@@ -223,9 +223,9 @@ def sets(baseline):
     for entry in baseline["lowSets"]["sets"]:
         recipe = [{"id": item, "kind": "ActiveSkill" if item.startswith("SKILL-") else "PassiveItem", "minimumLevel": level}
                   for item, level in entry["requirements"].items()]
-        result.append({"id": entry["id"], "displayName": names[entry["id"]],
+        result.append({"id": entry["id"], "displayName": names[entry["id"]], "iconVisualId": f"{entry['id']}-VISUAL-ICON",
                        "description": card_field(entry["id"], "Эффект"), "recipe": recipe,
-                       "effects": low_set_effects(entry)})  # no iconVisualId until icons are added
+                       "effects": low_set_effects(entry)})
     return result
 
 
@@ -264,9 +264,7 @@ def set_attacks(baseline):
 
 # Approved set projectile art (commit b595f9e, docs/implementation/evidence/2026-09-26-set-world-art.md).
 SET_ATTACK_VISUALS = {name: f"{name}-VISUAL-PROJECTILE" for name in ("SET-016", "SET-018", "SET-019", "SET-020")}
-
-
-LOW_SET_IDS = ("SET-021", "SET-022")  # no art yet (DECISION-0138)
+SET_ATTACK_VISUALS["SET-021"] = "SKILL-001-VISUAL-PROJECTILE"  # Reuse the approved stone, at the set projectile's radius.
 
 
 def late_set_attack(set_id, effect, seed, kb_seconds):
@@ -316,8 +314,7 @@ def late_set_attack(set_id, effect, seed, kb_seconds):
     else:
         raise SystemExit(f"{set_id}: unknown set attack pattern {pattern}")
     template = {"id": SET_ATTACK_TEMPLATES[set_id], "displayName": content_design_names("SET")[set_id]}
-    if set_id not in LOW_SET_IDS:
-        template["iconVisualId"] = f"{set_id}-VISUAL-ICON"
+    template["iconVisualId"] = f"{set_id}-VISUAL-ICON"
     if set_id in SET_ATTACK_VISUALS:
         template["visualId"] = SET_ATTACK_VISUALS[set_id]
     template["levels"] = [level] * 6

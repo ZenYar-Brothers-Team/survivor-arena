@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-027",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all 15 SET-021…035 icon candidates in this chat: «утверждаю, встраивай в игру».",
+  "prompt": "Use case: stylized-concept. Generate ONE square 1:1 standalone UI set icon for Survival Arena, readable at 48px, source master at least 512px square. Stylized 2D hand-painted storybook cutout; thick continuous deep-plum #241B2B outer outline, two or three flat matte color masses, simple cel shading, only subtle dry-brush material texture, no photorealism, no 3D or plastic render, no pixel art. Centered compact fused emblem of two or three large motifs fills 74% of canvas with generous transparent padding all sides. Early modest low-tier set, scrappy fairy-tale equipment, restrained small gold binding accent, no ornate luxury, no enclosing badge or frame. Subject in clear slight three-quarter view where appropriate. Genuine transparent alpha background. No text, letters, numbers, watermark, UI card, panel, scenery, floor, cast shadow, characters, hands, excess particles, blurred glow, cropped edges or tiny ornaments. Content owner SET-027, role Icon. Subject: One broad ivory-blue descending celestial strike backed by a fan of three thick steel needles, with a modest gold connector, clear downward impact silhouette.",
+  "constraints": [
+    "transparent background",
+    "no text or baked frame",
+    "readable at 48 px"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Sets/set-027-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "bfb611841ddbc804dbdfe12703dd40e2abaff46ffa2da1254e2f9e112f31f276",
+    "runtimeSha256": "21d183267e3d826effa1309689ec3024a2c53f80b1d1488d84b3e86bbb5a7bd2",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 2
+    }
+  }
+}

@@ -417,7 +417,7 @@ namespace Game.ActiveSkill
             return visual;
         }
 
-        private static void ExecuteArea(ScheduledSkillEffect scheduled, AreaEffect effect)
+        private void ExecuteArea(ScheduledSkillEffect scheduled, AreaEffect effect)
         {
             var center = scheduled.CenterOverride ??
                          (scheduled.Activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.Self || effect.ArcDegrees > 0f
@@ -431,6 +431,8 @@ namespace Game.ActiveSkill
                 var direction = EnemyDamageArea.ConeDirection(activation.AimDirection, activation.InitialTarget != null, activation.Random);
                 EnemyDamageArea.Apply(center, effect.Radius * activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier),
                     coneDirection: direction, coneHalfAngleDegrees: effect.ArcDegrees * 0.5f);
+                if (_worldEffects.TryGetProfile(activation.SourceId, SkillWorldEffectKind.ConeArc, out var profile))
+                    _worldEffects.ConePulse(profile, center, direction, effect.Radius * activation.SizeMultiplier, effect.ArcDegrees);
                 return;
             }
             EnemyDamageArea.Apply(center, effect.Radius * scheduled.Activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier));

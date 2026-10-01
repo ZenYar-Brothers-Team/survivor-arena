@@ -16,8 +16,10 @@ namespace Game.Presentation
         public Color ImpactColor { get; }
         /// <summary>Ring/arc line width in world units; for a beam, the width of its bright core.</summary>
         public float Thickness { get; }
-        /// <summary>Fade time of a finished ring, arc or impact flash, in running seconds.</summary>
+        /// <summary>Fade time in running seconds; for a travelling cone, total lifetime including ExpansionSeconds.</summary>
         public float FadeSeconds { get; }
+        /// <summary>ConeArc travel from caster to full radius in running seconds; remaining lifetime fades it.</summary>
+        public float ExpansionSeconds { get; }
         /// <summary>Width of the vertical light pillar over a strike impact, in world units (0 = no pillar).</summary>
         public float PillarWidth { get; }
         /// <summary>Height of that pillar above the impact point, in world units (0 = no pillar).</summary>
@@ -29,12 +31,15 @@ namespace Game.Presentation
 
         public SkillWorldEffectProfile(ContentId skillId, SkillWorldEffectKind kind, Color color, Color impactColor,
             float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f,
-            float pillarLeadSeconds = 0f)
+            float pillarLeadSeconds = 0f, float expansionSeconds = 0f)
         {
             if (!skillId.IsValid) throw new ArgumentException("Skill world effect requires a skill id.", nameof(skillId));
             if (!Enum.IsDefined(typeof(SkillWorldEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
             NumericValidation.ValidatePositive(thickness, nameof(thickness));
             NumericValidation.ValidatePositive(fadeSeconds, nameof(fadeSeconds));
+            NumericValidation.ValidateNonNegativeFinite(expansionSeconds, nameof(expansionSeconds));
+            if (expansionSeconds >= fadeSeconds || (expansionSeconds > 0f && kind != SkillWorldEffectKind.ConeArc))
+                throw new ArgumentException("Only a cone can travel, and travel must leave time to fade.", nameof(expansionSeconds));
             NumericValidation.ValidateNonNegative(pillarWidth, nameof(pillarWidth));
             NumericValidation.ValidateNonNegative(pillarHeight, nameof(pillarHeight));
             if ((pillarWidth > 0f) != (pillarHeight > 0f))
@@ -52,6 +57,7 @@ namespace Game.Presentation
             ImpactColor = impactColor;
             Thickness = thickness;
             FadeSeconds = fadeSeconds;
+            ExpansionSeconds = expansionSeconds;
             PillarWidth = pillarWidth;
             PillarHeight = pillarHeight;
             PillarLeadSeconds = pillarLeadSeconds;

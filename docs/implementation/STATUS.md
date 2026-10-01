@@ -24,7 +24,28 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 Усиление сетов R1 2026-10-02 — Implemented по [DECISION-0139](../decisions/0139-set-buffs-r1.md): SET-002 (+25% range, +15% damage/action speed Бумерангу и Диску), SET-004 без Льда (Волна сама замедляет 30%), SET-005 лечение 10%, SET-010 slow 50% и уязвимость +20% в радиусе орбиты. EditMode 1276/1276 PASS; PlayMode и ручная проверка не запускались.
 
-Low-tier сеты SET-021…035 2026-10-02 — Implemented по [DECISION-0138](../decisions/0138-low-tier-sets.md) ([пакет](../balance/sets-low-v1.md)): 15 ранних слабых сетов (2–4 компонента, сумма уровней 5–6), покупка за золото 150/100, 14 из 15 доступны с первого профиля. Новые механики: конус SET-022, `ExtraProjectiles`, `SlowStrengthBonus`. EditMode 1271/1271 PASS; PlayMode и ручной прогон сборки сетов не запускались, иконок нет, цены и числа без плейтеста.
+Low-tier сеты SET-021…035 2026-10-02 — Implemented по [DECISION-0138](../decisions/0138-low-tier-sets.md) ([пакет](../balance/sets-low-v1.md)): 15 ранних слабых сетов (2–4 компонента, сумма уровней 5–6), покупка за золото 150/100, 14 из 15 доступны с первого профиля. Новые механики: конус SET-022, `ExtraProjectiles`, `SlowStrengthBonus`. EditMode 1271/1271 PASS; PlayMode и ручной прогон сборки сетов не запускались, цены и числа без плейтеста. Иконки поставлены отдельным проходом ниже.
+
+Иконки low-tier 2026-10-02: пользователь утвердил все 15 SET-021…035; art pipeline plan/apply,
+masters/provenance, runtime 256×256, Unity import и production bindings выполнены.
+Свежие проверки Unity 6000.6: art 80/80 EditMode + ProductionSetCatalogTests 6/6 PASS,
+0 failed/skipped; generation и manifest integrity 308 PASS.
+[Evidence](evidence/2026-10-02-low-tier-set-icons.md). Remaining: игровой цикл всех новых сетов
+и совместный review, баланс чисел/цен. Ручная приёмка иконок в реальном UI не заменяется source approval;
+полный low-tier packet не Verified. Общая очередь не возобновлена.
+
+World visuals SET-021/022 2026-10-02: камешек использует approved stone projectile,
+Хлопушка показывает короткий pooled `ConeArc` по направлению/углу/радиусу damage.
+Свежие Unity 6000.6 проверки: ActiveSkill EditMode 122/122, art EditMode 80/80,
+production visual smoke PlayMode с graphics 2/2 PASS, 0 failed/skipped; generation/manifest PASS.
+[Evidence](evidence/2026-10-02-low-tier-set-world-visuals.md). Оба выявленных world visual gaps закрыты;
+ручной обзор в плотном бою и общая low-tier приёмка остаются.
+
+SET-022 visual feedback 2026-10-02: по [OBS-01](../playtests/2026-10-02_set-022-cone-motion.md)
+статичный контур заменён расходящейся дугой без прямых боков (OBS-02): travel 0.14 s + fade 0.10 s,
+damage остаётся мгновенным. Свежие EditMode 122/122 + graphics PlayMode 3/3 PASS,
+0 failed/skipped; [Unity animation](proposals/2026-10-02-low-tier-set-icons/set-022-arc-only.gif).
+Визуал показан пользователю; финальная художественная приёмка этой коррекции ожидается.
 
 Перенос карт 2026-10-01 — Implemented по [DECISION-0136](../decisions/0136-map-transfer-fields-002-003.md): тест «Тест 02» удалён, его кляксы стали геометрией FIELD-002 («Пограничные руины»), прежняя FIELD-002 (тракт) стала FIELD-003 («Королевский тракт»); фон, миниатюры, состав волн FIELD-002 (ENEMY-008→010) и Content Design синхронизированы. EditMode 1259/1259, PlayMode FIELD-002…004 smoke PASS; полный PlayMode без графики вылетает в рендере, графический прогон: 1 UI-падение вне scope. Ручной прогон и gameplay-scale review карт открыты.
 

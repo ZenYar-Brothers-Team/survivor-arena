@@ -1309,6 +1309,8 @@
   {
     "id": "SET-021-ATTACK",
     "displayName": "Камешек в сапоге",
+    "iconVisualId": "SET-021-VISUAL-ICON",
+    "visualId": "SKILL-001-VISUAL-PROJECTILE",
     "levels": [
       {
         "cooldownSeconds": 4,
@@ -1501,6 +1503,7 @@
   {
     "id": "SET-022-ATTACK",
     "displayName": "Хлопушка",
+    "iconVisualId": "SET-022-VISUAL-ICON",
     "levels": [
       {
         "cooldownSeconds": 6,

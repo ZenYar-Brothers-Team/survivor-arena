@@ -320,6 +320,14 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 
 ## Исправления по ревью 2026-10-02
 
+- World visual gaps SET-021/022: `LowTierSetMechanicsTests.StoneSetAttack_ReusesApprovedStoneVisualAtEveryLevel`,
+  OBS-01 cone-motion correction: тот же lifecycle test проверяет рост из origin, half/full radius,
+  freeze во время travel и мгновенный damage до визуального движения.
+  `ConePulse_MatchesAimedOrRandomHitGeometry_FreezesOnPauseAndClearsOnStop` (две ветки aim)
+  и `ActiveSkillPatternSmokeTests.LowTierSetAttacks_LoadWorldVisualsPauseAndClearOnRunEnd` (graphics PlayMode).
+  Проверяют отсутствие placeholder, реальную production profile wiring, совпадение визуальной геометрии
+  с конусом, pause/fade/pool reuse/terminal cleanup; не заменяют ручной review в плотной толпе.
+
 - Направление конуса SET-022 без цели (DECISION-0138, дополнение 2026-10-02):
   `Game.ActiveSkill.Tests.LowTierSetMechanicsTests.ConeDirection_FollowsTheTarget_OrPicksASeededRandomWayWithoutOne`,
   `Cone_WithoutASkillSeed_IsRejected` и проверка seed в `ConeSetAttack_IsAnInstantNearestTargetCone`.

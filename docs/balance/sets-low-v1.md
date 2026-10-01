@@ -63,4 +63,5 @@
 Реализовано 2026-10-02: карточки в Content Design, генерация `ProductionSets`/`ProductionSetAttacks`,
 15 unlocks в `MetaEconomy.json`. Новые узкие механики: конус (`AreaEffect.arcDegrees`, SET-022),
 `ExtraProjectiles` (SET-034), `SlowStrengthBonus` (SET-028); остальное — существующие каналы.
-Иконок пока нет (`iconVisualId` отсутствует); арт добавляется отдельно.
+Иконки — отдельная роль `SET-XXX-VISUAL-ICON`; [утверждённый арт-пакет](../../Art/Packets/low-tier-set-icons-2026-10-02.json).
+Текущая поставка и проверки — только в [STATUS](../implementation/STATUS.md).

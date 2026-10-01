@@ -1,0 +1,227 @@
+[
+  {
+    "owner": "SET-021",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      33,
+      48,
+      1192,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-022",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      73,
+      53,
+      1211,
+      1206
+    ],
+    "borderAlphaMax": 0
+  },
+  {
+    "owner": "SET-023",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      0,
+      41,
+      1157,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-024",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      0,
+      33,
+      1216,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-025",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      31,
+      39,
+      1236,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-026",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      24,
+      86,
+      1157,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-027",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      19,
+      85,
+      1140,
+      1182
+    ],
+    "borderAlphaMax": 0
+  },
+  {
+    "owner": "SET-028",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      0,
+      51,
+      1224,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-029",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      27,
+      51,
+      1208,
+      1230
+    ],
+    "borderAlphaMax": 0
+  },
+  {
+    "owner": "SET-030",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      89,
+      23,
+      1200,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-031",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      17,
+      81,
+      1223,
+      1239
+    ],
+    "borderAlphaMax": 0
+  },
+  {
+    "owner": "SET-032",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      0,
+      45,
+      1222,
+      1254
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-033",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      0,
+      41,
+      1210,
+      1214
+    ],
+    "borderAlphaMax": 1
+  },
+  {
+    "owner": "SET-034",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      86,
+      19,
+      1196,
+      1222
+    ],
+    "borderAlphaMax": 0
+  },
+  {
+    "owner": "SET-035",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaBounds": [
+      19,
+      21,
+      1240,
+      1246
+    ],
+    "borderAlphaMax": 0
+  }
+]

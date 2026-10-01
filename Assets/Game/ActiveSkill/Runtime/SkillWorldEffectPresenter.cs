@@ -24,6 +24,10 @@ namespace Game.ActiveSkill
             public float Remaining;
             public float Fade;
             public bool Held;
+            public float Expansion;
+            public Vector3 Origin;
+            public Vector3 EndPosition;
+            public Vector3 EndScale;
         }
 
         private readonly IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> _profiles;
@@ -106,6 +110,42 @@ namespace Game.ActiveSkill
             shape.Renderer.transform.localScale = new Vector3(length, profile.Thickness, 1f);
         }
 
+        /// <summary>Travelling curved arc of an instant cone, without radial sides; geometry comes from the hit test.</summary>
+        public void ConePulse(SkillWorldEffectProfile profile, Vector2 origin, Vector2 direction, float radius, float arcDegrees)
+        {
+            if (radius <= Mathf.Epsilon || direction.sqrMagnitude <= Mathf.Epsilon) return;
+            var firstShape = _shapes.Count;
+            // Twelve chords approximate the short arc without generating textures or persistent entities.
+            const int segments = 12;
+            var start = Mathf.Atan2(direction.y, direction.x) - arcDegrees * Mathf.Deg2Rad * .5f;
+            var step = arcDegrees * Mathf.Deg2Rad / segments;
+            var first = origin + new Vector2(Mathf.Cos(start), Mathf.Sin(start)) * radius;
+            var previous = first;
+            for (var i = 1; i <= segments; i++)
+            {
+                var angle = start + step * i;
+                var next = origin + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                Segment(profile, previous, next);
+                previous = next;
+            }
+            if (profile.ExpansionSeconds <= 0f) return;
+            for (var i = firstShape; i < _shapes.Count; i++)
+            {
+                var shape = _shapes[i];
+                shape.Expansion = profile.ExpansionSeconds;
+                shape.Origin = origin;
+                shape.EndPosition = shape.Renderer.transform.position;
+                shape.EndScale = shape.Renderer.transform.localScale;
+                UpdateExpansion(shape, 0f);
+            }
+        }
+
+        private static void UpdateExpansion(Shape shape, float progress)
+        {
+            shape.Renderer.transform.position = Vector3.Lerp(shape.Origin, shape.EndPosition, progress);
+            shape.Renderer.transform.localScale = new Vector3(shape.EndScale.x * progress, shape.EndScale.y, shape.EndScale.z);
+        }
+
         /// <summary>
         /// One beam pulse along the gameplay hit band: a soft glow as wide as the band and a bright core of
         /// <see cref="SkillWorldEffectProfile.Thickness"/>, both fading over the profile fade time.
@@ -136,7 +176,9 @@ namespace Game.ActiveSkill
                     continue;
                 }
                 var color = shape.Color;
-                color.a *= Mathf.Clamp01(shape.Remaining / shape.Fade);
+                if (shape.Expansion > 0f)
+                    UpdateExpansion(shape, Mathf.Clamp01((shape.Fade - shape.Remaining) / shape.Expansion));
+                color.a *= Mathf.Clamp01(shape.Remaining / (shape.Fade - shape.Expansion));
                 shape.Renderer.color = color;
             }
         }

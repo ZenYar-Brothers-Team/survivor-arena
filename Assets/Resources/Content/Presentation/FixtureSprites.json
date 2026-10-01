@@ -2453,5 +2453,80 @@
     "id": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
     "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop",
     "role": "Prop"
+  },
+  {
+    "id": "SET-021-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-021-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-022-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-022-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-023-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-023-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-024-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-024-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-025-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-025-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-026-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-026-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-027-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-027-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-028-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-028-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-029-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-029-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-030-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-030-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-031-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-031-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-032-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-032-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-033-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-033-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-034-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-034-icon",
+    "role": "Icon"
+  },
+  {
+    "id": "SET-035-VISUAL-ICON",
+    "resourcePath": "Art/UI/Icons/Sets/set-035-icon",
+    "role": "Icon"
   }
 ]

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "SET-029",
+  "role": "icon",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all 15 SET-021…035 icon candidates in this chat: «утверждаю, встраивай в игру».",
+  "prompt": "Use case: stylized-concept. Generate ONE square 1:1 standalone UI set icon for Survival Arena, readable at 48px, source master at least 512px square. Stylized 2D hand-painted storybook cutout; thick continuous deep-plum #241B2B outer outline, two or three flat matte color masses, simple cel shading, only subtle dry-brush material texture, no photorealism, no 3D or plastic render, no pixel art. Centered compact fused emblem of two or three large motifs fills 74% of canvas with generous transparent padding all sides. Early modest low-tier set, scrappy fairy-tale equipment, restrained small gold binding accent, no ornate luxury, no enclosing badge or frame. Subject in clear slight three-quarter view where appropriate. Genuine transparent alpha background. No text, letters, numbers, watermark, UI card, panel, scenery, floor, cast shadow, characters, hands, excess particles, blurred glow, cropped edges or tiny ornaments. Content owner SET-029, role Icon. Subject: A squat steel ricochet disc with a rust leather central strap and two small chunky grey pebbles tucked against its lower side; modest brass rivet, compact playful composition.",
+  "constraints": [
+    "transparent background",
+    "no text or baked frame",
+    "readable at 48 px"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/UI/Icons/Sets/set-029-icon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "b198c285b9e43b8f20353e48da3a07373422b666963e8a6393a4bcc3ed1330ef",
+    "runtimeSha256": "4aba70625aca9d193361b7c2e918c91c536d88f9ad922ffd1424a644ccb31ec2",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 2
+    }
+  }
+}

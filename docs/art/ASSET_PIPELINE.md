@@ -891,6 +891,16 @@ Fixture mapping допустим только при ясном механиче
 
 ## 30. World-art для орбитального клинка, бумеранга, рикошетного диска и взрывной сферы
 
+Low-tier set-attack visuals: SET-021-ATTACK переиспользует existing approved
+`SKILL-001-VISUAL-PROJECTILE` без дублирования PNG/source/provenance. SET-022-ATTACK
+использует procedural `ConeArc` из `SkillWorldEffects.json` и существующий shape pool:
+только короткая расходящаяся дуга без прямых radial sides; geometry передаётся из gameplay hit test,
+fade только в running-time.
+Optional `expansionSeconds` ConeArc задаёт расходящийся от origin импульс до полного
+радиуса; должен быть меньше общей lifetime `fadeSeconds`. Pause замораживает travel и fade,
+damage по-прежнему мгновенный. Остальные profile используют neutral expansion=0.
+Новый raster packet не нужен. Поставка и проверки — [evidence](../implementation/evidence/2026-10-02-low-tier-set-world-visuals.md).
+
 `SKILL-003`, `SKILL-006`, `SKILL-008` и `SKILL-014` имеют по одному утверждённому прозрачному projectile master и 256×256 runtime derivative. UI icon остаётся отдельной ролью и provenance-записью. Все четыре world-sprite используют `SpriteRole.Projectile`, centered pivot и общий projectile import profile; gameplay radius, орбита, return, ricochet и blast radius не выводятся из пикселей.
 
 Один progression-level `visualId` наследуется всеми уровнями навыка, пока конкретный level не задаёт осознанный override. Fixture mapping используется только для визуального review механически соответствующего framework-паттерна и не регистрирует production definition.

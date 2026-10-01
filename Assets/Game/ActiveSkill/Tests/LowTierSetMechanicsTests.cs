@@ -2,6 +2,7 @@ using System.Linq;
 using Game.Combat;
 using Game.Content;
 using Game.Progression;
+using Game.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -123,9 +124,85 @@ namespace Game.ActiveSkill.Tests
 
         private static readonly ContentId SkillId = new ContentId("SKILL-013");
 
+        [Test]
+        public void StoneSetAttack_ReusesApprovedStoneVisualAtEveryLevel()
+        {
+            var template = ProductionSetAttackCatalog.Create().Single(t => t.Id.ToString() == "SET-021-ATTACK");
+            for (var level = 1; level <= 6; level++)
+            {
+                var definition = template.GetLevel(level);
+                Assert.AreEqual("SKILL-001-VISUAL-PROJECTILE", definition.Visual.Id.ToString());
+                var projectile = (ProjectileBurstEffect)definition.Waves.Single().Effects.Single();
+                Assert.AreEqual(0.3f, projectile.CollisionRadius, 1e-5f, "Art does not change the authored hit radius.");
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ConePulse_MatchesAimedOrRandomHitGeometry_FreezesOnPauseAndClearsOnStop(bool hasTarget)
+        {
+            _executor.Dispose();
+            var profiles = SkillWorldEffectCatalog.Create();
+            _executor = new SceneActiveSkillEffectExecutor(_context.Run, _launcher, worldEffectProfiles: profiles);
+            var id = new ContentId("SET-022-ATTACK");
+            Assert.AreEqual(SkillWorldEffectKind.ConeArc, profiles[id].Kind);
+            var level = ProductionSetAttackCatalog.Create().Single(t => t.Id == id).GetLevel(1);
+            var target = hasTarget ? _context.Enemy(new Vector2(0f, 2f)) : null;
+            Physics2D.SyncTransforms();
+            var direction = EnemyDamageArea.ConeDirection(Vector2.up, hasTarget, new System.Random(7));
+            var activation = new ActiveSkillActivation(id, 1, Vector2.zero, Vector2.up, target, 20f, level,
+                _context.Owner.transform, sizeMultiplier: 2f, random: new System.Random(7));
+            _executor.Schedule(activation);
+            _executor.Tick(0f, true);
+            var shapes = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                .Where(r => r.enabled && r.name == "SkillWorldEffect").ToArray();
+            Assert.Greater(shapes.Length, 0, "The travelling cone exists immediately, including without a target.");
+            Assert.IsTrue(shapes.All(r => r.transform.position == Vector3.zero && r.transform.localScale.x == 0f),
+                "The pulse starts at the caster rather than appearing at full radius.");
+            if (hasTarget) Assert.Less(target.Health.CurrentHealth, 100f, "Damage remains instant, before visual travel.");
+            _executor.Tick(profiles[id].ExpansionSeconds * .5f, true);
+            var halfway = shapes.Select(r => r.transform.position).ToArray();
+            AssertArcRadius(shapes, 3.5f, direction);
+            _executor.Tick(1f, false);
+            CollectionAssert.AreEqual(halfway, shapes.Select(r => r.transform.position).ToArray(), "Pause freezes outward travel.");
+            _executor.Tick(profiles[id].ExpansionSeconds * .5f, true);
+            AssertArcRadius(shapes, 7f, direction);
+            var alpha = shapes[0].color.a;
+            _executor.Tick(1f, false);
+            Assert.AreEqual(shapes.Length, _executor.ActiveWorldEffectShapeCount);
+            Assert.AreEqual(alpha, shapes[0].color.a, "Pause freezes presentation time.");
+            _executor.Tick(profiles[id].FadeSeconds + 0.01f, true);
+            Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount, "The pulse expires in running time.");
+            _executor.Schedule(activation);
+            _executor.Tick(0f, true);
+            Assert.AreEqual(shapes.Length, _executor.ActiveWorldEffectShapeCount, "Pool reuse does not retain an old pulse.");
+            _context.Run.Model.Stop();
+            _executor.Tick(0f, false);
+            Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount, "A terminal run clears the pulse immediately.");
+        }
+
         private static ActiveSkillLevelDefinition Burst(IActiveSkillEffect effect, CombatControlProfile controls = null) =>
             new ActiveSkillLevelDefinition(10f, 1f, ActiveSkillTargetingMode.Self,
                 new ActiveSkillActivationWave(0f, 0f, 1f, controls ?? CombatControlProfile.None, effect));
+
+        private static void AssertArcRadius(SpriteRenderer[] shapes, float radius, Vector2 direction)
+        {
+            var widestAngle = 0f;
+            foreach (var shape in shapes)
+            {
+                var center = (Vector2)shape.transform.position;
+                var halfLength = (Vector2)shape.transform.right * shape.transform.localScale.x * .5f;
+                foreach (var endpoint in new[] { center - halfLength, center + halfLength })
+                {
+                    Assert.AreEqual(radius, endpoint.magnitude, 1e-4f,
+                        "All stroke endpoints lie on the travelling arc; there are no straight edges to the caster.");
+                    var angle = Vector2.Angle(endpoint, direction);
+                    Assert.LessOrEqual(angle, 30.001f, "The arc stays inside the authoritative cone.");
+                    widestAngle = Mathf.Max(widestAngle, angle);
+                }
+            }
+            Assert.AreEqual(30f, widestAngle, 1e-3f, "The arc reaches the authored 60-degree cone edges.");
+        }
 
         private void Fire(ActiveSkillLevelDefinition level, SkillMechanicBonus mechanics)
         {

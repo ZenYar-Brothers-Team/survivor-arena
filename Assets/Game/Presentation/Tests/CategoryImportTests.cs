@@ -13,7 +13,7 @@ namespace Game.Presentation.Tests
         private const string Body = "Assets/Resources/Art/Sprites/Characters/fixture-character-agile/fixture-character-agile-body.png";
         [TestCase("Skills", 16)]
         [TestCase("Passives", 14)]
-        [TestCase("Sets", 20)]
+        [TestCase("Sets", 35)]
         public void ApprovedGameplayIcons_AllUseTheIconImportProfile(string category, int expectedCount)
         {
             var directory = $"Assets/Resources/Art/UI/Icons/{category}";

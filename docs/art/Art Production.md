@@ -321,6 +321,11 @@ World sprite для passive item по умолчанию не нужен.
 Нужно 20 icons:  
 \`SET-001 ... SET-020\`
 
+Дополнительный low-tier пакет: 15 отдельных иконок `SET-021…035`, утверждённых пользователем 2026-10-02;
+[review v001](../implementation/proposals/2026-10-02-low-tier-set-icons/review.md),
+[арт-пакет](../../Art/Packets/low-tier-set-icons-2026-10-02.json).
+Для импорта применяется тот же icon contract; execution status — только [STATUS](../implementation/STATUS.md).
+
 Method: \`Generate via GPT\`    
 Status: \`IN GAME — v001; 20 masters/runtime imports и production bindings подключены; ручной обзор set-progress и сочетания 3–4 сетов остаётся\`
 
@@ -350,6 +355,8 @@ Status: \`IN GAME — v001; 20 masters/runtime imports и production bindings п
 | SET-018 Сфера разрушения | Large slow sphere v001 подключена; explosion использует общий presenter | Hybrid |
 | SET-019 Ледяное копьё | Huge ice shard v001 подключён | Generate via GPT \+ Hybrid |
 | SET-020 Каменное ядро | Massive boulder v001 подключён | Generate via GPT \+ Hybrid |
+| SET-021 Камешек в сапоге | Approved SKILL-001 stone projectile; размер от set collider, общий spin/impact | Reuse |
+| SET-022 Хлопушка | Только расходящаяся дуга, без прямых сторон; authoritative radius/angle/direction, pool/travel/fade | Procedural in Unity |
 
 Generic rule: set effects должны быть вторичным визуальным слоем и не забивать основные active skills.
 

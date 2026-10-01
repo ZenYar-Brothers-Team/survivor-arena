@@ -1,5 +1,14 @@
 [
   {
+    "skillId": "SET-022-ATTACK",
+    "kind": "ConeArc",
+    "color": [1.0, 0.84, 0.52, 0.9],
+    "impactColor": [1.0, 0.93, 0.74, 0.5],
+    "thickness": 0.12,
+    "fadeSeconds": 0.24,
+    "expansionSeconds": 0.14
+  },
+  {
     "skillId": "SKILL-004",
     "kind": "ExpandingRing",
     "color": [
