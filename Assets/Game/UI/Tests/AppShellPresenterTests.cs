@@ -28,6 +28,15 @@ namespace Game.UI.Tests
             view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
             view.OpenSettings();Assert.IsFalse(view.State.DevelopmentUnlock);view.UnlockAll();Assert.AreEqual(1,nav.DevelopmentUnlocks);
         }
+        [Test] public async Task DevelopmentGrantCurrency_OnlyInDevelopmentTools_AtMainMenu()
+        {
+            var nav=new FakeAppNavigation();var view=new FakeAppShellView();
+            var settings=new SettingsService(SettingsConfig.Load(),new MemorySettingsStore(),new FakeVideoDevice());await settings.LoadAsync();
+            using var presenter=new AppShellPresenter(nav,settings,new FakeAudioPreview(),view);
+            view.GrantCurrency();Assert.AreEqual(0,nav.DevelopmentGrants);
+            nav.DevelopmentTools=true;presenter.Refresh();view.GrantCurrency();Assert.AreEqual(1,nav.DevelopmentGrants);
+            view.OpenSettings();view.GrantCurrency();Assert.AreEqual(1,nav.DevelopmentGrants);
+        }
         [Test] public async Task DevelopmentReset_NeedsSecondClick_AndDisarmsOutsideMainMenu()
         {
             var nav=new FakeAppNavigation();var view=new FakeAppShellView();

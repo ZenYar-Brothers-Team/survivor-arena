@@ -11,8 +11,9 @@ namespace Game.UI.Tests
         public NotificationMessage Notification => default;
         public string MovementBindings => "WASD";
         public bool DevelopmentTools {get;set;}
-        public int Plays,Quits,DevelopmentUnlocks,DevelopmentResets;
+        public int Plays,Quits,DevelopmentUnlocks,DevelopmentResets,DevelopmentGrants;
         public void UnlockAllForDevelopment(){DevelopmentUnlocks++;}
+        public void GrantCurrencyForDevelopment(){DevelopmentGrants++;}
         public void ResetProgressionForDevelopment(){DevelopmentResets++;}
         public void Play(){Plays++;}public void MainMenu(){AtMainMenu=true;NavigationChanged?.Invoke();}
         public void Meta(){} public void QuitRun(){Quits++;}public void Exit(){}

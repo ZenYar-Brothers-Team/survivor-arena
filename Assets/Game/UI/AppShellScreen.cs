@@ -16,7 +16,7 @@ namespace Game.UI
         private readonly MenuIllustration _illustration;
         private readonly SettingsPanel _settingsPanel;
         public UIDocument Document { get; }
-        public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentReset;
+        public event Action Play, Meta, Settings, Exit, MainMenu, Quit, Back, Apply, Keep, Revert, Save, DevelopmentUnlockAll, DevelopmentGrantCurrency, DevelopmentReset;
         public event Action<float,float,float> Audio;
         public event Action<bool> Shake, MouseMovement, Preview;
         public event Action<VideoMode> Video;
@@ -40,6 +40,7 @@ namespace Game.UI
             Hook(GameplayUiElementIds.ShellPlay,()=>Play?.Invoke()); Hook(GameplayUiElementIds.ShellMeta,()=>Meta?.Invoke());
             Hook(GameplayUiElementIds.ShellSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellExit,()=>Exit?.Invoke());
             Hook(GameplayUiElementIds.ShellDevelopmentUnlockAll,()=>DevelopmentUnlockAll?.Invoke());
+            Hook(GameplayUiElementIds.ShellDevelopmentGrantCurrency,()=>DevelopmentGrantCurrency?.Invoke());
             Hook(GameplayUiElementIds.ShellDevelopmentReset,()=>DevelopmentReset?.Invoke());
             Hook(GameplayUiElementIds.ShellBack,()=>MainMenu?.Invoke()); Hook(GameplayUiElementIds.ShellPauseSettings,()=>Settings?.Invoke()); Hook(GameplayUiElementIds.ShellQuit,()=>Quit?.Invoke());
             _pauseActions = Q<VisualElement>(GameplayUiElementIds.ShellPause);

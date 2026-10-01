@@ -156,6 +156,14 @@ namespace Game.Meta.Tests
             var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.IsTrue(loaded.IsUnlocked("CHAR-008"));
             profile.SetRunActive(true);Assert.IsFalse(await profile.UnlockAllForDevelopmentAsync("character"));
         }
+        [Test] public async Task DevelopmentGrantCurrency_AddsCoins_Persisted_AndRefusedDuringARun()
+        {
+            var store=new MemoryProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();
+            Assert.IsTrue(await profile.GrantCurrencyForDevelopmentAsync(100000));Assert.AreEqual(100000,profile.Currency);
+            var loaded=new ProfileService(_catalog,store);await loaded.LoadAsync();Assert.AreEqual(100000,loaded.Currency);
+            Assert.IsFalse(await profile.GrantCurrencyForDevelopmentAsync(0));
+            profile.SetRunActive(true);Assert.IsFalse(await profile.GrantCurrencyForDevelopmentAsync(100000));Assert.AreEqual(100000,profile.Currency);
+        }
         [Test] public async Task DevelopmentReset_ReturnsToNewProfile_PreservingPreviousFiles()
         {
             var store=new FailingProfileStore();var profile=new ProfileService(_catalog,store);await profile.LoadAsync();

@@ -240,6 +240,17 @@ namespace Game.Bootstrap
             }
             catch (Exception exception) { Debug.LogError($"Development unlock failed: {exception}", this); }
         }
+        public async void GrantCurrencyForDevelopment()
+        {
+            if (!DevelopmentTools || !AtMainMenu || !CanPlay) return;
+            try
+            {
+                if (await Profile.GrantCurrencyForDevelopmentAsync(DevelopmentCurrencyGrant) && this != null)
+                    _notifications?.Push(new NotificationMessage(NotificationKind.Development, "+100000 coins"));
+            }
+            catch (Exception exception) { Debug.LogError($"Development currency grant failed: {exception}", this); }
+        }
+        private const long DevelopmentCurrencyGrant = 100000;
         public async void ResetProgressionForDevelopment()
         {
             if (!DevelopmentTools || !AtMainMenu || !CanPlay) return;

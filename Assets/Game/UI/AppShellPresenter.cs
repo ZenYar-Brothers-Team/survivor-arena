@@ -16,7 +16,7 @@ namespace Game.UI
             navigation.NavigationChanged+=Refresh; settings.Changed+=Refresh;
             view.Play+=Play; view.Meta+=Meta; view.Settings+=Open; view.Exit+=Exit; view.MainMenu+=Menu; view.Quit+=Quit;
             view.Back+=Back; view.Apply+=Apply; view.Keep+=Keep; view.Revert+=Revert; view.Save+=Save;
-            view.Audio+=Audio; view.Shake+=Shake; view.MouseMovement+=MouseMovement; view.Preview+=Preview; view.Video+=Video; view.UiScaleChosen+=UiScaleChosen; view.DevelopmentUnlockAll+=UnlockAll; view.DevelopmentReset+=ResetProgress;
+            view.Audio+=Audio; view.Shake+=Shake; view.MouseMovement+=MouseMovement; view.Preview+=Preview; view.Video+=Video; view.UiScaleChosen+=UiScaleChosen; view.DevelopmentUnlockAll+=UnlockAll; view.DevelopmentGrantCurrency+=GrantCurrency; view.DevelopmentReset+=ResetProgress;
             Refresh();
         }
         private void Play() { if(!SettingsOpen&&_navigation.CanPlay)_navigation.Play(); }
@@ -24,6 +24,7 @@ namespace Game.UI
         private void Exit() => _navigation.Exit();
         private bool _resetArmed;
         private void UnlockAll() { _resetArmed=false; if(DevelopmentUnlockVisible)_navigation.UnlockAllForDevelopment(); Refresh(); }
+        private void GrantCurrency() { _resetArmed=false; if(DevelopmentUnlockVisible)_navigation.GrantCurrencyForDevelopment(); Refresh(); }
         // Destructive: the first click only arms the button, the second one resets.
         private void ResetProgress()
         {
@@ -69,7 +70,7 @@ namespace Game.UI
             _audio.StopPreviews(); _navigation.NavigationChanged-=Refresh; _settings.Changed-=Refresh;
             _view.Play-=Play; _view.Meta-=Meta; _view.Settings-=Open; _view.Exit-=Exit; _view.MainMenu-=Menu; _view.Quit-=Quit;
             _view.Back-=Back; _view.Apply-=Apply; _view.Keep-=Keep; _view.Revert-=Revert; _view.Save-=Save;
-            _view.Audio-=Audio; _view.Shake-=Shake; _view.MouseMovement-=MouseMovement; _view.Preview-=Preview; _view.Video-=Video; _view.UiScaleChosen-=UiScaleChosen; _view.DevelopmentUnlockAll-=UnlockAll; _view.DevelopmentReset-=ResetProgress;
+            _view.Audio-=Audio; _view.Shake-=Shake; _view.MouseMovement-=MouseMovement; _view.Preview-=Preview; _view.Video-=Video; _view.UiScaleChosen-=UiScaleChosen; _view.DevelopmentUnlockAll-=UnlockAll; _view.DevelopmentGrantCurrency-=GrantCurrency; _view.DevelopmentReset-=ResetProgress;
         }
     }
 }

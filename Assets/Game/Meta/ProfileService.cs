@@ -299,6 +299,14 @@ namespace Game.Meta
             try { await _store.WriteAsync(_codec.Encode(next)); _data = next; Publish(ProfileState.Ready, "Development unlock saved"); return true; }
             catch (Exception error) { Publish(ProfileState.Ready, "Development unlock not saved: " + error.Message); return false; }
         }
+        public async Task<bool> GrantCurrencyForDevelopmentAsync(long amount)
+        {
+            if (State != ProfileState.Ready || RunActive || amount <= 0 || Currency > long.MaxValue - amount) return false;
+            var next = _codec.Copy(_data); next.Currency += amount;
+            Publish(ProfileState.Saving);
+            try { await _store.WriteAsync(_codec.Encode(next)); _data = next; Publish(ProfileState.Ready, "Development currency saved"); return true; }
+            catch (Exception error) { Publish(ProfileState.Ready, "Development currency not saved: " + error.Message); return false; }
+        }
         public async Task<bool> ResetForDevelopmentAsync()
         {
             if (State != ProfileState.Ready || RunActive) return false;

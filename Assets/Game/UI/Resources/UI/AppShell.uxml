@@ -7,6 +7,7 @@
     <ui:Button name="EntryDevelopmentToggle" text="DEV" class="shell-dev" />
     <ui:VisualElement class="entry-dev-actions">
     <ui:Button name="ShellDevelopmentUnlockAll" text="DEV: unlock all characters &amp; fields" class="shell-dev" />
+    <ui:Button name="ShellDevelopmentGrantCurrency" text="DEV: +100 000 coins" class="shell-dev" />
     <ui:Button name="ShellDevelopmentReset" text="DEV: reset all progression" class="shell-dev shell-dev-danger" />
     </ui:VisualElement>
   </ui:VisualElement>
