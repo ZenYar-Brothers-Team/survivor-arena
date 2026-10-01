@@ -1,0 +1,27 @@
+{
+    "name": "Game.Zones.Tests",
+    "rootNamespace": "Game.Zones.Tests",
+    "references": [
+        "Game.Zones",
+        "Game.Character",
+        "Game.Content",
+        "Game.Combat",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

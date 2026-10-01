@@ -45,5 +45,7 @@ namespace Game.Presentation.Json
         public FieldBlobLayoutData BlobLayout { get; set; }
         /// <summary>Optional arena side in world units; replaces the shared fixture arena for this field.</summary>
         public float? ArenaSideLength { get; set; }
+        /// <summary>Optional per-run effect zones (magical map study); independent of the obstacle layout.</summary>
+        public Game.Zones.Json.ZoneLayoutData ZoneLayout { get; set; }
     }
 }

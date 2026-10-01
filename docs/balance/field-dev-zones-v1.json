@@ -1,0 +1,148 @@
+{
+ "format": "dev-field-zones",
+ "formatVersion": 1,
+ "revision": "field-dev-zones-v1",
+ "approval": "Approved 2026-10-01 (dev-only тестовое поле «Тест 06» по поручению пользователя; числа зон — placeholder для проверки логики, не баланс)",
+ "purpose": "Developer-only test field («Тест 06») for the effect-zone foundation of the magical map (FIELD-006). Not one of the ten designed fields. Spawn settings are shared with FIELD-001. Ground is FIELD-006's; obstacles are five small ruins illustrations from the Тест 02 library. Six zone effects: three permanent, three pulsing (a pulsing zone fades in, stays, fades out and reappears at a new random point).",
+ "units": {
+  "distance": "world units",
+  "time": "seconds",
+  "bonus": "fraction, 0.4 = +40%"
+ },
+ "field": {
+  "id": "FIELD-DEV-ZONES",
+  "environmentId": "FIELD-DEV-ZONES-ENVIRONMENT",
+  "presentationId": "FIELD-DEV-ZONES-PRESENTATION",
+  "displayName": "Тест 06",
+  "description": "Тестовое поле для магической карты: зоны с эффектами (постоянные и мерцающие). Спавн как на FIELD-001. Только для разработки.",
+  "unlockDescription": "Всегда доступно (поле для разработки)",
+  "thumbnailPlaceholder": "DEV",
+  "arenaSideLength": 120,
+  "groundVisualId": "FIELD-006-VISUAL-GROUND",
+  "difficulty": 1
+ },
+ "obstacles": {
+  "libraryIds": [
+   "wet-small",
+   "ward-small",
+   "thorn-small",
+   "net-small",
+   "incense-small"
+  ],
+  "edgeMargin": 5,
+  "startClearRadius": 11,
+  "playerClearRadius": 3.5,
+  "minGap": 7,
+  "placementAttempts": 1500,
+  "maxRestarts": 40,
+  "referenceSeed": 6,
+  "pixelsPerUnit": 16,
+  "outlinePixels": 2
+ },
+ "zoneLayout": {
+  "edgeMargin": 6,
+  "startClearRadius": 8,
+  "minGap": 4,
+  "obstacleClearance": 1.5,
+  "placementAttempts": 600,
+  "maxRestarts": 20,
+  "referenceSeed": 6,
+  "effects": [
+   {
+    "id": "FIXTURE-ZONE-SLOW",
+    "displayName": "Вязкое поле",
+    "kind": "Slow",
+    "radius": 7,
+    "color": "#4aa3ff",
+    "lifetime": "Permanent",
+    "playerMovementBonus": -0.45,
+    "enemySlowFraction": 0.45,
+    "enemySlowSeconds": 0.3
+   },
+   {
+    "id": "FIXTURE-ZONE-HASTE",
+    "displayName": "Воздушный поток",
+    "kind": "Haste",
+    "radius": 6,
+    "color": "#6df0c2",
+    "lifetime": "Pulsing",
+    "pulsePeriodSeconds": 30,
+    "pulseVisibleSeconds": 20,
+    "pulseFadeSeconds": 3,
+    "playerMovementBonus": 0.4
+   },
+   {
+    "id": "FIXTURE-ZONE-REGEN",
+    "displayName": "Источник",
+    "kind": "Regeneration",
+    "radius": 6,
+    "color": "#7bd96a",
+    "lifetime": "Permanent",
+    "playerRegenerationPerSecond": 3
+   },
+   {
+    "id": "FIXTURE-ZONE-ARCANE",
+    "displayName": "Арканный всплеск",
+    "kind": "ArcanePower",
+    "radius": 6,
+    "color": "#c28cff",
+    "lifetime": "Pulsing",
+    "pulsePeriodSeconds": 30,
+    "pulseVisibleSeconds": 18,
+    "pulseFadeSeconds": 3,
+    "playerSkillDamageBonus": 0.5,
+    "playerActionSpeedBonus": 0.3
+   },
+   {
+    "id": "FIXTURE-ZONE-RIFT",
+    "displayName": "Нестабильный разлом",
+    "kind": "Rift",
+    "radius": 7,
+    "color": "#ff5a5a",
+    "lifetime": "Pulsing",
+    "pulsePeriodSeconds": 36,
+    "pulseVisibleSeconds": 24,
+    "pulseFadeSeconds": 4,
+    "playerDamagePerSecond": 5,
+    "enemyDamagePerSecond": 25
+   },
+   {
+    "id": "FIXTURE-ZONE-PORTAL",
+    "displayName": "Портал",
+    "kind": "Portal",
+    "radius": 3.5,
+    "color": "#ffd45a",
+    "lifetime": "Permanent",
+    "portalCooldownSeconds": 3,
+    "portalExitDistance": 3,
+    "portalMinPairDistance": 40
+   }
+  ],
+  "zones": [
+   {
+    "effectId": "FIXTURE-ZONE-SLOW",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-HASTE",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-REGEN",
+    "count": 1
+   },
+   {
+    "effectId": "FIXTURE-ZONE-ARCANE",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-RIFT",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-PORTAL",
+    "count": 2
+   }
+  ]
+ }
+}

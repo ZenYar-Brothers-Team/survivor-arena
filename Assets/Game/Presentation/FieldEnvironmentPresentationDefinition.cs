@@ -51,6 +51,8 @@ namespace Game.Presentation
         public FieldBlobLayoutDefinition BlobLayout { get; }
         /// <summary>Arena side override in world units; null = the shared fixture arena.</summary>
         public float? ArenaSideLength { get; }
+        /// <summary>Per-run effect zones; null = none.</summary>
+        public Game.Zones.ZoneLayoutDefinition ZoneLayout { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -112,6 +114,7 @@ namespace Game.Presentation
                 throw new ArgumentException("A blob layout excludes authored obstacles and the pattern layout.");
             if (BlobLayout != null && data.InteriorObstacleCount != BlobLayout.TotalCount)
                 throw new ArgumentException("interiorObstacleCount must match the blob layout count.");
+            ZoneLayout = data.ZoneLayout == null ? null : new Game.Zones.ZoneLayoutDefinition(data.ZoneLayout);
             ArenaSideLength = data.ArenaSideLength;
             if (ArenaSideLength.HasValue) NumericValidation.ValidatePositive(ArenaSideLength.Value, nameof(ArenaSideLength));
 

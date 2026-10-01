@@ -18,6 +18,7 @@ using Game.Presentation;
 using Game.Progression;
 using Game.Run;
 using Game.UI;
+using Game.Zones;
 using UnityEngine;
 using Game.Telemetry;
 using Game.Audio;
@@ -61,6 +62,8 @@ namespace Game.Bootstrap
         public int WaveSeed { get; private set; }
         /// <summary>Seed of this run's obstacle layout (DECISION-0068); 0 for fields without one.</summary>
         public int LayoutSeed { get; private set; }
+        /// <summary>Seed of this run's effect-zone layout (0 when the field has no zones).</summary>
+        public int ZoneSeed { get; private set; }
         public int TravelerSeed { get; private set; }
         /// <summary>Potion drop-roll seed of the current run: fresh per run (DECISION-0074) unless reference seeds are pinned.</summary>
         public int PickupSeed { get; private set; }
@@ -140,6 +143,7 @@ namespace Game.Bootstrap
         private CameraFollowTarget _cameraFollow;
         private GroundShadowRuntime _playerGroundShadow;
         private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
+        private ZoneRuntimeDriver _zoneDriver;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -606,6 +610,20 @@ namespace Game.Bootstrap
                     _automationExportSink?.Invoke(runController.Model.RunId));
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 
+                if (fieldPresentation.ZoneLayout != null)
+                {
+                    // Effect zones (magical map study): a fresh arrangement every run, kept clear of this run's obstacles.
+                    var zoneLayout = fieldPresentation.ZoneLayout;
+                    ZoneSeed = UseReferenceSeeds ? zoneLayout.ReferenceSeed : FreshRunSeed.Next();
+                    var outlines = new List<IReadOnlyList<Vector2>>();
+                    foreach (var outline in FieldMapPreviewSource.Outlines(_fieldEnvironmentArt.ObstacleColliders)) outlines.Add(outline);
+                    var zoneRules = new ZonePlacementRules(zoneLayout, arenaSideLength, spawn.position, outlines);
+                    var placements = ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed);
+                    var zoneRuntime = new ZoneRuntime(placements, zoneRules, ZoneSeed,
+                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>()), new EnemyZoneSource());
+                    _zoneDriver = ZoneRuntimeDriver.Create(zoneRuntime, runController, gameObject.scene);
+                    initializedSubsystems.Add(() => { _zoneDriver?.Shutdown(); _zoneDriver = null; });
+                }
                 var mapPreview = new FieldMapPreviewSource(_fieldEnvironmentArt,
                     () => FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), Camera.main);
                 gameplayUiRoot.Initialize(
@@ -739,6 +757,8 @@ namespace Game.Bootstrap
             experienceRuntime.Shutdown();
             playerPresentation.Shutdown();
             _playerGroundShadow?.Shutdown();
+            _zoneDriver?.Shutdown();
+            _zoneDriver = null;
             _fieldEnvironmentArt?.Dispose();
             _fieldEnvironmentArt = null;
             _cameraFollow = null;

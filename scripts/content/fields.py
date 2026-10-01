@@ -13,8 +13,9 @@ def fields(baseline):
     four = baseline["field004"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     dev = baseline["devBlobs"]["field"]
+    zones_dev = baseline["devZones"]["field"]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], dev["id"]],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], dev["id"], zones_dev["id"]],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -25,6 +26,8 @@ def fields(baseline):
                          {"id": four["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": dev["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": walls},
+                         {"id": zones_dev["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
@@ -58,6 +61,13 @@ def fields(baseline):
                     "thumbnailPlaceholder": dev["thumbnailPlaceholder"], "difficulty": dev["difficulty"],
                     "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": dev["unlockDescription"],
                     "environmentId": dev["environmentId"], "timelineId": field["timelineId"],
+                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]], "testField": True},
+                   # Development-only effect-zone test field: same shared FIELD-001 spawn settings.
+                   {"id": zones_dev["id"], "displayName": zones_dev["displayName"], "description": zones_dev["description"],
+                    "thumbnailPlaceholder": zones_dev["thumbnailPlaceholder"], "difficulty": zones_dev["difficulty"],
+                    "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": zones_dev["unlockDescription"],
+                    "environmentId": zones_dev["environmentId"], "timelineId": field["timelineId"],
                     "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
                     "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]], "testField": True}],
     }
@@ -153,6 +163,22 @@ def field_presentation(baseline):
                interiorObstacleCount=count, nearObstacleCount=0,
                arenaSideLength=dev_field["arenaSideLength"], blobLayout=dev_packet["blobLayout"])
     presentations.append(dev)
+    # Development-only effect-zone test field: a few small ruins illustrations as obstacles plus the zone layout.
+    zones_packet = baseline["devZones"]
+    zones_field = zones_packet["field"]
+    obstacles = zones_packet["obstacles"]
+    library = [item for item in dev_packet["blobLayout"]["library"] if item["id"] in obstacles["libraryIds"]]
+    if len(library) != len(obstacles["libraryIds"]):
+        raise SystemExit("Dev zones obstacles reference unknown library items")
+    blob_layout = {key: value for key, value in obstacles.items() if key != "libraryIds"}
+    blob_layout.update(library=library, blobs=[{"libraryId": item["id"]} for item in library])
+    zones = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
+    zones.update(id=zones_field["presentationId"], environmentId=zones_field["environmentId"],
+                 groundVisualId=zones_field["groundVisualId"],
+                 seed=presentations[0]["seed"] + 5000, obstacleSeed=presentations[0]["obstacleSeed"] + 5000,
+                 interiorObstacleCount=len(library), nearObstacleCount=0,
+                 arenaSideLength=zones_field["arenaSideLength"], blobLayout=blob_layout, zoneLayout=zones_packet["zoneLayout"])
+    presentations.append(zones)
     return presentations
 
 

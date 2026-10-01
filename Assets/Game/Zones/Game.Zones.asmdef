@@ -1,15 +1,11 @@
 {
-    "name": "Game.Presentation",
-    "rootNamespace": "Game.Presentation",
+    "name": "Game.Zones",
+    "rootNamespace": "Game.Zones",
     "references": [
         "Game.Content",
-        "Game.Content.Json",
         "Game.Combat",
-        "Game.Run",
-        "Game.Movement",
-        "Game.Pooling",
-        "Game.Diagnostics",
-        "Game.Zones"
+        "Game.Character",
+        "Game.Diagnostics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

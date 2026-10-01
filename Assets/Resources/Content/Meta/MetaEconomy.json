@@ -311,6 +311,13 @@
       "price": 0
     },
     {
+      "id": "FIELD-DEV-ZONES",
+      "name": "Тест 06",
+      "kind": "field",
+      "condition": "dev",
+      "price": 0
+    },
+    {
       "id": "SKILL-001",
       "name": "Бросок камня",
       "kind": "skill",

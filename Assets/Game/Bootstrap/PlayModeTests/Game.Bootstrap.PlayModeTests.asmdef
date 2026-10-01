@@ -22,7 +22,8 @@
     "Game.Meta",
     "Game.Settings",
     "Game.Movement",
-    "Game.Automation"
+    "Game.Automation",
+    "Game.Zones"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

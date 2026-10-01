@@ -169,7 +169,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(0.5f, catalog.RunSetup.Draft.SetDraftChance);
             Assert.AreEqual(45f, catalog.RunSetup.Experience.BaseDropLifetimeSeconds,
                 "DECISION-0057: dropped XP disappears after 45 s (playtest 2026-09-25_5233a664 OBS-04).");
-            CollectionAssert.AreEqual(new[] { "FIELD-001", "FIELD-002", "FIELD-003", "FIELD-004", "FIELD-DEV-BLOBS" },
+            CollectionAssert.AreEqual(new[] { "FIELD-001", "FIELD-002", "FIELD-003", "FIELD-004", "FIELD-DEV-BLOBS", "FIELD-DEV-ZONES" },
                 catalog.Fields.Roster.AllFields.Select(f => f.Id.ToString()));
             var configuration = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry);
             Assert.AreEqual(SpriteRole.Background,
