@@ -918,5 +918,543 @@
         "scalesWithSizeAndRange": true
       }
     ]
+  },
+  {
+    "id": "SET-021",
+    "displayName": "Камешек в сапоге",
+    "description": "раз в 4 s в направлении движения игрока летит небольшой камешек: 35 damage, пробивает до 2 целей, дальность 6, скорость 9, radius 0.3, outgoing knockback 0.5.",
+    "recipe": [
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-021-ATTACK",
+        "cooldownSeconds": 4,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-022",
+    "displayName": "Хлопушка",
+    "description": "раз в 6 s по ближайшему врагу бьёт мгновенный конус от игрока: дальность 3.5, угол 60°, 20 damage всем в конусе и сильный outgoing knockback 3.0.",
+    "recipe": [
+      {
+        "id": "SKILL-014",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "IndependentAttack",
+        "attackTemplate": "SET-022-ATTACK",
+        "cooldownSeconds": 6,
+        "scalesWithSizeAndRange": true
+      }
+    ]
+  },
+  {
+    "id": "SET-023",
+    "displayName": "Дорожные сборы",
+    "description": "+10% max HP, +6% movement speed, −4% входящего урона.",
+    "recipe": [
+      {
+        "id": "PASSIVE-001",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-008",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "maxHealthMultiplierBonus": 0.1,
+          "movementSpeedMultiplierBonus": 0.06,
+          "incomingDamageReductionBonus": 0.04
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-024",
+    "displayName": "Набитая рука",
+    "description": "+10% damage активных умений, +6% action speed.",
+    "recipe": [
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.1,
+          "actionSpeedBonus": 0.06
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-025",
+    "displayName": "Походный сбор",
+    "description": "+25% XP pickup radius, +0.2 HP/s регенерации.",
+    "recipe": [
+      {
+        "id": "PASSIVE-007",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-002",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-009",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "StatBuff",
+        "modifier": {
+          "pickupRadiusMultiplierBonus": 0.25,
+          "healthRegenerationPerSecondBonus": 0.2
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-026",
+    "displayName": "Круговая оборона",
+    "description": "Орбитальные клинки и Импульсная волна получают +15% damage и +15% size.",
+    "recipe": [
+      {
+        "id": "SKILL-003",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-004",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-003",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "effectSizeMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-004",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "effectSizeMultiplierBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-027",
+    "displayName": "Небесный град",
+    "description": "Небесный удар и Веер игл получают +15% damage и +15% size.",
+    "recipe": [
+      {
+        "id": "SKILL-010",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "SKILL-002",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-010",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "effectSizeMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-002",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "effectSizeMultiplierBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-028",
+    "displayName": "Холодный разряд",
+    "description": "Ледяные осколки получают +15% damage и +5 п.п. к силе существующего slow (не создаёт slow сам); Цепная молния получает +15% damage и +15% jump range.",
+    "recipe": [
+      {
+        "id": "SKILL-013",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "SKILL-007",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-003",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-013",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-007",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-013",
+        "mechanics": {
+          "slowStrengthBonus": 0.05
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-007",
+        "mechanics": {
+          "chainJumpRangeBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-029",
+    "displayName": "Игра в камушки",
+    "description": "Рикошетный диск и Бросок камня получают +15% damage, +15% projectile speed и +20% outgoing knockback.",
+    "recipe": [
+      {
+        "id": "SKILL-008",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-008",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "outgoingKnockbackBonus": 0.2
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-008",
+        "mechanics": {
+          "projectileSpeedBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-001",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "outgoingKnockbackBonus": 0.2
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-001",
+        "mechanics": {
+          "projectileSpeedBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-030",
+    "displayName": "Размах руки",
+    "description": "Бумеранг и Ветряное копьё получают +20% effective range и +12% damage.",
+    "recipe": [
+      {
+        "id": "SKILL-006",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "SKILL-005",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-006",
+        "modifier": {
+          "effectRangeMultiplierBonus": 0.2,
+          "activeSkillDamageMultiplierBonus": 0.12
+        }
+      },
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-005",
+        "modifier": {
+          "effectRangeMultiplierBonus": 0.2,
+          "activeSkillDamageMultiplierBonus": 0.12
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-031",
+    "displayName": "Меткий бросок",
+    "description": "Бросок камня получает +15% damage и +15% projectile speed.",
+    "recipe": [
+      {
+        "id": "SKILL-001",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-012",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-001",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillTransform",
+        "skill": "SKILL-001",
+        "modifier": {
+          "activeSkillDamageMultiplierBonus": 0.15
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-001",
+        "mechanics": {
+          "projectileSpeedBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-032",
+    "displayName": "Подрывник",
+    "description": "Взрывные сферы: часть explosion получает +15% damage и +15% radius.",
+    "recipe": [
+      {
+        "id": "SKILL-014",
+        "kind": "ActiveSkill",
+        "minimumLevel": 2
+      },
+      {
+        "id": "PASSIVE-004",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-008",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-005",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-014",
+        "mechanics": {
+          "explosionDamageBonus": 0.15,
+          "explosionRadiusBonus": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-033",
+    "displayName": "Вертушка",
+    "description": "Орбитальные клинки вращаются на 25% быстрее.",
+    "recipe": [
+      {
+        "id": "SKILL-003",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-007",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-001",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-003",
+        "mechanics": {
+          "orbitAngularSpeedBonus": 0.25
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-034",
+    "displayName": "Ледяной град",
+    "description": "Ледяные осколки выпускают на 2 осколка больше.",
+    "recipe": [
+      {
+        "id": "SKILL-013",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-002",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-009",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-013",
+        "mechanics": {
+          "extraProjectiles": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "SET-035",
+    "displayName": "Колючий пучок",
+    "description": "Веер игл: каждая игла дополнительно пробивает 1 цель.",
+    "recipe": [
+      {
+        "id": "SKILL-002",
+        "kind": "ActiveSkill",
+        "minimumLevel": 3
+      },
+      {
+        "id": "PASSIVE-008",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      },
+      {
+        "id": "PASSIVE-007",
+        "kind": "PassiveItem",
+        "minimumLevel": 1
+      }
+    ],
+    "effects": [
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-002",
+        "mechanics": {
+          "extraPierce": 1
+        }
+      }
+    ]
   }
 ]

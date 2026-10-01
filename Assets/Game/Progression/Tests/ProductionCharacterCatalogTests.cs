@@ -151,7 +151,8 @@ namespace Game.Progression.Tests
         [Test]
         public void Blocks_MakeDifferentSetsUnreachablePerCharacter()
         {
-            var sets = ProductionSetCatalog.Create();
+            // Low-tier sets SET-021…035 (DECISION-0138) are deliberately cheap and not part of this canonical blocking design.
+            var sets = ProductionSetCatalog.Create().Where(set => int.Parse(set.Id.ToString().Substring(4)) <= 20).ToArray();
             var lostSets = new Dictionary<string, string>();
             foreach (var character in ProductionCharacterDefinitionCatalog.CreateDefinitions())
             {

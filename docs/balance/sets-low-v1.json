@@ -1,0 +1,382 @@
+{
+ "format": "late-content-review-data",
+ "formatVersion": 1,
+ "revision": "sets-low-v1",
+ "approval": "Approved 2026-10-01 (DECISION-0138)",
+ "runtimeImportable": false,
+ "units": {
+  "distance": "world units",
+  "time": "running seconds",
+  "fractions": "0.3 = +30%"
+ },
+ "tier": "low",
+ "recipeRules": {
+  "minComponents": 2,
+  "maxComponents": 4,
+  "minLevelSum": 5,
+  "maxLevelSum": 6
+ },
+ "startAvailable": [
+  "SKILL-001",
+  "SKILL-002",
+  "SKILL-003",
+  "SKILL-004",
+  "SKILL-005",
+  "SKILL-006",
+  "SKILL-007",
+  "SKILL-010",
+  "SKILL-013",
+  "SKILL-014",
+  "PASSIVE-001",
+  "PASSIVE-002",
+  "PASSIVE-003",
+  "PASSIVE-004",
+  "PASSIVE-005",
+  "PASSIVE-007",
+  "PASSIVE-008",
+  "PASSIVE-009",
+  "PASSIVE-011",
+  "PASSIVE-012"
+ ],
+ "componentUnlockAfterField001": [
+  "SKILL-008"
+ ],
+ "sets": [
+  {
+   "id": "SET-021",
+   "name": "Камешек в сапоге",
+   "category": "attack",
+   "requirements": {
+    "SKILL-001": 3,
+    "PASSIVE-003": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "cooldownSeconds": 4,
+     "damage": 35,
+     "range": 6,
+     "speed": 9,
+     "knockback": 0.5,
+     "actionSpeedScaling": false,
+     "countsAsSkillActivation": false,
+     "pattern": "Projectile",
+     "initialDelaySeconds": 4,
+     "targeting": "MovementDirection",
+     "maxHitTargets": 2,
+     "collisionRadius": 0.3,
+     "knockbackSeconds": 0.12,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-022",
+   "name": "Хлопушка",
+   "category": "attack",
+   "requirements": {
+    "SKILL-014": 3,
+    "PASSIVE-005": 1,
+    "PASSIVE-011": 2
+   },
+   "effects": [
+    {
+     "kind": "IndependentAttack",
+     "targeting": "NearestEnemy",
+     "cooldownSeconds": 6,
+     "damage": 20,
+     "knockback": 3,
+     "actionSpeedScaling": false,
+     "countsAsSkillActivation": false,
+     "pattern": "Cone",
+     "initialDelaySeconds": 6,
+     "targetingRadius": 3.5,
+     "radius": 3.5,
+     "arcDegrees": 60,
+     "knockbackSeconds": 0.12,
+     "genericDamageAndKnockbackScaling": true,
+     "effectSizeAndRangeScaling": true
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-023",
+   "name": "Дорожные сборы",
+   "category": "passive",
+   "requirements": {
+    "PASSIVE-001": 2,
+    "PASSIVE-008": 2,
+    "PASSIVE-003": 1
+   },
+   "effects": [
+    {
+     "kind": "StatBuff",
+     "maxHpBonus": 0.1,
+     "movementSpeedBonus": 0.06,
+     "incomingDamageReduction": 0.04
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-024",
+   "name": "Набитая рука",
+   "category": "passive",
+   "requirements": {
+    "PASSIVE-004": 3,
+    "PASSIVE-005": 2
+   },
+   "effects": [
+    {
+     "kind": "StatBuff",
+     "damageBonus": 0.1,
+     "actionSpeedBonus": 0.06
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-025",
+   "name": "Походный сбор",
+   "category": "passive",
+   "requirements": {
+    "PASSIVE-007": 2,
+    "PASSIVE-002": 2,
+    "PASSIVE-009": 2
+   },
+   "effects": [
+    {
+     "kind": "StatBuff",
+     "pickupRadiusBonus": 0.25,
+     "regenPerSecond": 0.2
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-026",
+   "name": "Круговая оборона",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-003": 3,
+    "SKILL-004": 2
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skills": [
+      "SKILL-003",
+      "SKILL-004"
+     ],
+     "damageBonus": 0.15,
+     "sizeBonus": 0.15
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-027",
+   "name": "Небесный град",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-010": 3,
+    "SKILL-002": 2,
+    "PASSIVE-012": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skills": [
+      "SKILL-010",
+      "SKILL-002"
+     ],
+     "damageBonus": 0.15,
+     "sizeBonus": 0.15
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-028",
+   "name": "Холодный разряд",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-013": 2,
+    "SKILL-007": 2,
+    "PASSIVE-003": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skills": [
+      "SKILL-013",
+      "SKILL-007"
+     ],
+     "damageBonus": 0.15
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-013",
+     "slowStrengthBonus": 0.05
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-007",
+     "jumpRangeBonus": 0.15
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-029",
+   "name": "Игра в камушки",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-008": 2,
+    "SKILL-001": 2,
+    "PASSIVE-011": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skills": [
+      "SKILL-008",
+      "SKILL-001"
+     ],
+     "damageBonus": 0.15,
+     "projectileSpeedBonus": 0.15,
+     "outgoingKnockbackBonus": 0.2
+    }
+   ],
+   "requiredId": "FIELD-002"
+  },
+  {
+   "id": "SET-030",
+   "name": "Размах руки",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-006": 2,
+    "SKILL-005": 2,
+    "PASSIVE-012": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skills": [
+      "SKILL-006",
+      "SKILL-005"
+     ],
+     "rangeBonus": 0.2,
+     "damageBonus": 0.12
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-031",
+   "name": "Меткий бросок",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-001": 3,
+    "PASSIVE-004": 1,
+    "PASSIVE-012": 1,
+    "PASSIVE-001": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-001",
+     "damageBonus": 0.15,
+     "projectileSpeedBonus": 0.15
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-032",
+   "name": "Подрывник",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-014": 2,
+    "PASSIVE-004": 1,
+    "PASSIVE-008": 1,
+    "PASSIVE-005": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-014",
+     "explosionDamageBonus": 0.15,
+     "explosionRadiusBonus": 0.15
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-033",
+   "name": "Вертушка",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-003": 3,
+    "PASSIVE-007": 1,
+    "PASSIVE-001": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-003",
+     "rotationSpeedBonus": 0.25
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-034",
+   "name": "Ледяной град",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-013": 3,
+    "PASSIVE-002": 1,
+    "PASSIVE-009": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-013",
+     "extraProjectiles": 2
+    }
+   ],
+   "requiredId": "FIELD-001"
+  },
+  {
+   "id": "SET-035",
+   "name": "Колючий пучок",
+   "category": "skill-boost",
+   "requirements": {
+    "SKILL-002": 3,
+    "PASSIVE-008": 1,
+    "PASSIVE-007": 1
+   },
+   "effects": [
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-002",
+     "extraPierce": 1
+    }
+   ],
+   "requiredId": "FIELD-001"
+  }
+ ],
+ "unlock": {
+  "condition": "access",
+  "note": "Bought for gold. requiredId is the field that must be open: FIELD-001 is open from the start; SET-029 needs SKILL-008 and therefore FIELD-002 (opened together with it by clearing FIELD-001). Ownership of recipe components is not checked at purchase.",
+  "priceByCategory": {
+   "attack": 150,
+   "passive": 100,
+   "skill-boost": 100
+  }
+ }
+}

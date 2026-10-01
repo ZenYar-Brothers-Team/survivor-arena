@@ -274,14 +274,14 @@ namespace Game.ActiveSkill
 
         private void ExecuteProjectileBurst(ScheduledSkillEffect scheduled, ProjectileBurstEffect effect)
         {
+            var mechanics = scheduled.Activation.Mechanics;
             var directions = ProjectileDirectionGenerator.Create(
                 effect.Layout,
-                effect.ProjectileCount,
+                effect.ProjectileCount + mechanics.ExtraProjectiles,
                 scheduled.Activation.AimDirection,
                 effect.SpreadDegrees,
                 scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees, scheduled.Activation.Random);
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
-            var mechanics = scheduled.Activation.Mechanics;
             // Set speed bonus keeps travel distance: lifetime shrinks by the same factor (sets-v1).
             var speedFactor = 1f + mechanics.ProjectileSpeedBonus;
             var explosive = effect.Behavior.ExplosionDamageMultiplier > 0f;
@@ -420,9 +420,16 @@ namespace Game.ActiveSkill
         private static void ExecuteArea(ScheduledSkillEffect scheduled, AreaEffect effect)
         {
             var center = scheduled.CenterOverride ??
-                         (scheduled.Activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.Self
+                         (scheduled.Activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.Self || effect.ArcDegrees > 0f
                              ? scheduled.Activation.Origin
                              : scheduled.Activation.AimPoint);
+            if (effect.ArcDegrees > 0f)
+            {
+                // Cone toward the aimed target from the caster (SET-022); knockback still points away from the origin.
+                EnemyDamageArea.Apply(center, effect.Radius * scheduled.Activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier),
+                    coneDirection: scheduled.Activation.AimDirection, coneHalfAngleDegrees: effect.ArcDegrees * 0.5f);
+                return;
+            }
             EnemyDamageArea.Apply(center, effect.Radius * scheduled.Activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier));
         }
 
@@ -839,10 +846,16 @@ namespace Game.ActiveSkill
 
         private static EnemyDamageRequest CreateDamage(ScheduledSkillEffect scheduled, float effectMultiplier)
         {
+            var controls = scheduled.Wave.Controls;
+            var slowBonus = scheduled.Activation.Mechanics.SlowStrengthBonus;
+            // Set slow bonus (SET-028) strengthens only an existing slow; it never creates one.
+            if (slowBonus > 0f && controls.SlowFraction > 0f)
+                controls = new CombatControlProfile(controls.KnockbackDistance, controls.KnockbackSeconds,
+                    Mathf.Min(1f, controls.SlowFraction + slowBonus), controls.SlowSeconds, controls.Channel);
             return new EnemyDamageRequest(new CombatDamageRequest(
                 scheduled.Activation.Source,
                 scheduled.Activation.Damage * scheduled.Wave.DamageMultiplier * effectMultiplier,
-                scheduled.Wave.Controls,
+                controls,
                 outgoingKnockbackMultiplier: scheduled.Activation.OutgoingKnockbackMultiplier * scheduled.KnockbackMultiplier,
                 slowedTargetDamageFactor: scheduled.Activation.SlowedTargetDamageFactor,
                 slowedTargetKnockbackBonus: scheduled.Activation.SlowedTargetBonus.KnockbackBonus));

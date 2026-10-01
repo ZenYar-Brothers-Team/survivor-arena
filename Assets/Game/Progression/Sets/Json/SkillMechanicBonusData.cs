@@ -19,10 +19,12 @@ namespace Game.Progression.Json
         public float HeavyExplosionRadius { get; set; }
         public float HeavyExplosionDamageMultiplier { get; set; }
         public float HeavyExplosionKnockback { get; set; }
+        public int ExtraProjectiles { get; set; }
+        public float SlowStrengthBonus { get; set; }
 
         public SkillMechanicBonus ToBonus() => new SkillMechanicBonus(ProjectileSpeedBonus, ReturnDamageBonus, ReturnSpeedBonus,
             ExtraChainTargets, ChainJumpRangeBonus, ChainFalloffReduction, ExtraPierce, OrbitAngularSpeedBonus,
             ExplosionDamageBonus, ExplosionRadiusBonus, HeavyEveryNth, HeavySizeMultiplier, HeavyStopMultiplier,
-            HeavyExplosionRadius, HeavyExplosionDamageMultiplier, HeavyExplosionKnockback);
+            HeavyExplosionRadius, HeavyExplosionDamageMultiplier, HeavyExplosionKnockback, ExtraProjectiles, SlowStrengthBonus);
     }
 }

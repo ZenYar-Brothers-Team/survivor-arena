@@ -40,6 +40,8 @@ def main():
         recipe = re.search(r"^Рецепт: (.+)$", match[2], re.M)
         require(recipe is not None, f"Missing recipe: {match[1]}")
         recipes[match[1]] = set(re.findall(r"(?:SKILL|PASSIVE)-\d{3}", recipe[1]))
+    # SET-021…035 are the separate low-tier packet (sets-low-v1, DECISION-0138).
+    recipes = {key: value for key, value in recipes.items() if int(key[4:]) <= 20}
     require(len(recipes) == 20, "Expected the complete canonical set catalogue")
 
     baseline = {entry["id"] for entry in json.loads(BASELINE.read_text(encoding="utf-8"))["sets"]}

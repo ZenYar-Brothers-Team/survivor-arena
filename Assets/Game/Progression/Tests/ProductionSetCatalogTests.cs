@@ -14,9 +14,9 @@ namespace Game.Progression.Tests
             set.Recipe.Single(c => c.Id.ToString() == component).MinimumLevel;
 
         [Test]
-        public void Catalog_ContainsAllTwentySets_WithBaselineThresholdsForTheStartupFive()
+        public void Catalog_ContainsAllThirtyFiveSets_WithBaselineThresholdsForTheStartupFive()
         {
-            CollectionAssert.AreEqual(Enumerable.Range(1, 20).Select(n => $"SET-{n:000}"),
+            CollectionAssert.AreEqual(Enumerable.Range(1, 35).Select(n => $"SET-{n:000}"),
                 ProductionSetCatalog.Create().Select(s => s.Id.ToString()));
             Assert.AreEqual(3, Threshold(Set("SET-001"), "SKILL-001"));
             Assert.AreEqual(2, Threshold(Set("SET-001"), "PASSIVE-004"));
@@ -28,7 +28,8 @@ namespace Game.Progression.Tests
             Assert.AreEqual(3, Threshold(Set("SET-017"), "PASSIVE-005"));
             foreach (var set in ProductionSetCatalog.Create())
             {
-                Assert.AreEqual(set.Id + "-VISUAL-ICON", set.Icon.Id.ToString());
+                // SET-021…035 (low-tier, DECISION-0138) have no icons yet.
+                if (int.Parse(set.Id.ToString().Substring(4)) <= 20) Assert.AreEqual(set.Id + "-VISUAL-ICON", set.Icon.Id.ToString());
                 Assert.IsFalse(string.IsNullOrWhiteSpace(set.Description));
             }
         }

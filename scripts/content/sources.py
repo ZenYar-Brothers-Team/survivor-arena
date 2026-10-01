@@ -15,6 +15,9 @@ LATE_PACKET = ROOT / "docs/balance/late-skills-passives-v1.json"
 SETS_PACKET = ROOT / "docs/balance/sets-v1.json"
 
 
+LOW_SETS_PACKET = ROOT / "docs/balance/sets-low-v1.json"
+
+
 ENEMIES_PACKET = ROOT / "docs/balance/enemies-v1.json"
 
 
@@ -63,6 +66,10 @@ def load_baseline():
     if not str(late_sets.get("approval", "")).startswith("Approved"):
         raise SystemExit("Sets packet is not Approved; production content cannot be generated.")
     data["lateSets"] = late_sets
+    low_sets = json.loads(LOW_SETS_PACKET.read_text(encoding="utf-8"))
+    if not str(low_sets.get("approval", "")).startswith("Approved"):
+        raise SystemExit("Low-tier sets packet is not Approved; production content cannot be generated.")
+    data["lowSets"] = low_sets
     late_enemies = json.loads(ENEMIES_PACKET.read_text(encoding="utf-8"))
     if not str(late_enemies.get("approval", "")).startswith("Approved"):
         raise SystemExit("Enemies packet is not Approved; production content cannot be generated.")
@@ -134,7 +141,7 @@ def card_field(card_id, field):
 
 # Complete input set for generation and check_project's reusable evidence fingerprint.
 SOURCE_PATHS = tuple(str(path.relative_to(ROOT)).replace("\\", "/") for path in (
-    BASELINE, LATE_PACKET, SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
+    BASELINE, LATE_PACKET, SETS_PACKET, LOW_SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
     BOSSES_PACKET, FIELD003_PACKET, FIELD004_PACKET, LAYOUTS_PACKET, FIELD_DEV_BLOBS_PACKET, FIELD_DEV_ZONES_PACKET, FIELD_DEV_ALTARS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
     ROOT / "docs/Content_design.md",
     ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json",

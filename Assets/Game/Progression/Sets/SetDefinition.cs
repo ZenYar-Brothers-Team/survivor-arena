@@ -28,8 +28,8 @@ namespace Game.Progression
         public SetDefinition(ContentId id, string displayName, string description, IEnumerable<SetEffectDefinition> effects,
             ContentRef<SpriteDefinition> icon, params SetRecipeComponent[] recipe) : base(id, BuildEntryKind.Set, displayName)
         {
-            if (recipe == null || recipe.Length < 3 || recipe.Length > 6)
-                throw new ArgumentException("Set recipe requires 3-6 components.", nameof(recipe));
+            if (recipe == null || recipe.Length < 2 || recipe.Length > 6)
+                throw new ArgumentException("Set recipe requires 2-6 components (2-4 for low-tier sets, DECISION-0138; 3-6 otherwise).", nameof(recipe));
 
             var ids = new HashSet<ContentId>();
             for (var i = 0; i < recipe.Length; i++)

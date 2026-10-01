@@ -45,7 +45,7 @@ def passives(baseline):
 
 
 SET_ATTACK_TEMPLATES = {name: f"{name}-ATTACK" for name in
-                        ("SET-013", "SET-015", "SET-016", "SET-017", "SET-018", "SET-019", "SET-020")}
+                        ("SET-013", "SET-015", "SET-016", "SET-017", "SET-018", "SET-019", "SET-020", "SET-021", "SET-022")}
 
 
 SKILL_TRANSFORM_STATS = ("activeDamageBonus", "effectSizeBonus", "effectRangeBonus", "outgoingKnockbackBonus", "actionSpeedBonus")
@@ -121,6 +121,53 @@ def late_set_effects(entry):
     return effects
 
 
+LOW_STAT_CHANNELS = {  # sets-low-v1 field -> runtime CharacterStatModifierData field (DECISION-0138)
+    "damageBonus": "activeSkillDamageMultiplierBonus", "sizeBonus": "effectSizeMultiplierBonus",
+    "rangeBonus": "effectRangeMultiplierBonus", "outgoingKnockbackBonus": "outgoingKnockbackBonus",
+    "actionSpeedBonus": "actionSpeedBonus", "maxHpBonus": "maxHealthMultiplierBonus",
+    "movementSpeedBonus": "movementSpeedMultiplierBonus", "incomingDamageReduction": "incomingDamageReductionBonus",
+    "pickupRadiusBonus": "pickupRadiusMultiplierBonus", "regenPerSecond": "healthRegenerationPerSecondBonus",
+}
+
+
+LOW_MECHANICS = {  # sets-low-v1 field -> SkillMechanicBonus field
+    "projectileSpeedBonus": "projectileSpeedBonus", "rotationSpeedBonus": "orbitAngularSpeedBonus",
+    "extraPierce": "extraPierce", "extraProjectiles": "extraProjectiles", "jumpRangeBonus": "chainJumpRangeBonus",
+    "slowStrengthBonus": "slowStrengthBonus", "explosionDamageBonus": "explosionDamageBonus",
+    "explosionRadiusBonus": "explosionRadiusBonus",
+}
+
+
+def low_set_effects(entry):
+    """sets-low-v1 (DECISION-0138) review effects -> runtime SetEffect JSON."""
+    effects = []
+    for effect in entry["effects"]:
+        kind = effect["kind"]
+        if kind == "SkillTransform":
+            for skill in effect.get("skills", [effect.get("skill")]):
+                stats = {LOW_STAT_CHANNELS[k]: v for k, v in effect.items() if k in LOW_STAT_CHANNELS}
+                extra = {LOW_MECHANICS[k]: v for k, v in effect.items() if k in LOW_MECHANICS}
+                unknown = set(effect) - {"kind", "skill", "skills"} - set(LOW_STAT_CHANNELS) - set(LOW_MECHANICS)
+                if unknown:
+                    raise SystemExit(f"{entry['id']}: unmapped transform fields {sorted(unknown)}")
+                if stats:
+                    effects.append({"kind": "SkillTransform", "skill": skill, "modifier": stats})
+                if extra:
+                    effects.append(mechanics(skill, extra))
+        elif kind == "StatBuff":
+            effects.append({"kind": "StatBuff", "modifier": {LOW_STAT_CHANNELS[k]: v for k, v in effect.items() if k != "kind"}})
+        elif kind == "IndependentAttack":
+            if effect["actionSpeedScaling"] or effect["countsAsSkillActivation"] or not effect["genericDamageAndKnockbackScaling"] \
+                    or effect["initialDelaySeconds"] != effect["cooldownSeconds"]:
+                raise SystemExit(f"{entry['id']}: set attack policy not expressible")
+            effects.append({"kind": kind, "attackTemplate": SET_ATTACK_TEMPLATES[entry["id"]],
+                            "cooldownSeconds": effect["cooldownSeconds"],
+                            "scalesWithSizeAndRange": effect["effectSizeAndRangeScaling"]})
+        else:
+            raise SystemExit(f"{entry['id']}: no runtime mapping for {kind}")
+    return effects
+
+
 def sets(baseline):
     names = content_design_names("SET")
     result = []
@@ -167,6 +214,12 @@ def sets(baseline):
                 raise SystemExit(f"{entry['id']}: no runtime mapping for {kind}")
         result.append({"id": entry["id"], "displayName": names[entry["id"]], "iconVisualId": f"{entry['id']}-VISUAL-ICON",
                        "description": card_field(entry["id"], "Эффект"), "recipe": recipe, "effects": effects})
+    for entry in baseline["lowSets"]["sets"]:
+        recipe = [{"id": item, "kind": "ActiveSkill" if item.startswith("SKILL-") else "PassiveItem", "minimumLevel": level}
+                  for item, level in entry["requirements"].items()]
+        result.append({"id": entry["id"], "displayName": names[entry["id"]],
+                       "description": card_field(entry["id"], "Эффект"), "recipe": recipe,
+                       "effects": low_set_effects(entry)})  # no iconVisualId until icons are added
     return result
 
 
@@ -196,11 +249,18 @@ def set_attacks(baseline):
             number = int(entry["id"].split("-")[1])
             template = late_set_attack(entry["id"], effect, seed_base + number, kb_seconds)
             result.append(template)
+    for entry in baseline["lowSets"]["sets"]:
+        for effect in entry["effects"]:
+            if effect["kind"] == "IndependentAttack":
+                result.append(late_set_attack(entry["id"], effect, seed_base + int(entry["id"].split("-")[1]), kb_seconds))
     return sorted(result, key=lambda item: item["id"])
 
 
 # Approved set projectile art (commit b595f9e, docs/implementation/evidence/2026-09-26-set-world-art.md).
 SET_ATTACK_VISUALS = {name: f"{name}-VISUAL-PROJECTILE" for name in ("SET-016", "SET-018", "SET-019", "SET-020")}
+
+
+LOW_SET_IDS = ("SET-021", "SET-022")  # no art yet (DECISION-0138)
 
 
 def late_set_attack(set_id, effect, seed, kb_seconds):
@@ -240,10 +300,16 @@ def late_set_attack(set_id, effect, seed, kb_seconds):
                                         "explosionKnockbackMultiplier": effect["explosionKnockback"] / effect["impactKnockback"]})
             ctrl = controls(effect["impactKnockback"], effect["knockbackSeconds"])
         level["waves"] = [wave([projectile], ctrl)]
+    elif pattern == "Cone":
+        # Instant cone from the caster toward the nearest enemy (SET-022).
+        level.update(baseDamage=effect["damage"], targetingMode="NearestEnemy", targetingRadius=effect["targetingRadius"])
+        level["waves"] = [wave([{"kind": "Area", "radius": effect["radius"], "arcDegrees": effect["arcDegrees"]}],
+                               controls(kb, effect["knockbackSeconds"]))]
     else:
         raise SystemExit(f"{set_id}: unknown set attack pattern {pattern}")
-    template = {"id": SET_ATTACK_TEMPLATES[set_id], "displayName": content_design_names("SET")[set_id],
-                "iconVisualId": f"{set_id}-VISUAL-ICON"}
+    template = {"id": SET_ATTACK_TEMPLATES[set_id], "displayName": content_design_names("SET")[set_id]}
+    if set_id not in LOW_SET_IDS:
+        template["iconVisualId"] = f"{set_id}-VISUAL-ICON"
     if set_id in SET_ATTACK_VISUALS:
         template["visualId"] = SET_ATTACK_VISUALS[set_id]
     template["levels"] = [level] * 6

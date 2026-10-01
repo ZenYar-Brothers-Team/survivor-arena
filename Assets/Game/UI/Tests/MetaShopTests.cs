@@ -54,7 +54,7 @@ namespace Game.UI.Tests
             var view = new FakeMetaView(); using var presenter = new MetaPresenter(profile, view, new FakeProfileNavigation());
             view.Shop(); var cards = view.State.Cards.Where(c => c.Cap == 0).ToArray();
             Assert.AreEqual(catalog.Unlocks.Values.Count(r => r.Condition != "dev"), cards.Length, "The development-only field is not shop content.");
-            Assert.AreEqual(70, cards.Length);
+            Assert.AreEqual(85, cards.Length);
             CollectionAssert.AreEquivalent(new[] { "SKILL-001", "SKILL-002", "SKILL-003", "SKILL-004", "SKILL-005", "SKILL-006", "SKILL-007", "SKILL-010", "SKILL-013", "SKILL-014" }, cards.Where(c => c.Kind == "skill" && c.Owned).Select(c => c.Id));
             CollectionAssert.AreEquivalent(new[] { "PASSIVE-001", "PASSIVE-002", "PASSIVE-003", "PASSIVE-004", "PASSIVE-005", "PASSIVE-007", "PASSIVE-008", "PASSIVE-009", "PASSIVE-011", "PASSIVE-012" }, cards.Where(c => c.Kind == "passive" && c.Owned).Select(c => c.Id));
             CollectionAssert.AreEquivalent(new[] { "SET-001", "SET-004", "SET-006", "SET-010", "SET-017" }, cards.Where(c => c.Kind == "set" && c.Owned).Select(c => c.Id));
@@ -66,7 +66,7 @@ namespace Game.UI.Tests
                 Assert.AreEqual(card.HiddenCharacter || card.HiddenField ? "?" : catalog.Unlocks[card.Id].Name, card.Text);
             }
             Assert.AreEqual(10, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "field", 0)));
-            Assert.AreEqual(20, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "set", 0)));
+            Assert.AreEqual(35, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "set", 0)));
             Assert.AreEqual(30, cards.Count(c => MetaShopProjection.MatchesUnlock(c, "ability", 0)));
             Assert.AreEqual(cards.Count(c => c.Owned), cards.Count(c => MetaShopProjection.MatchesUnlock(c, "all", 3)));
             Assert.AreEqual(cards.Count(c => !c.Owned), cards.Count(c => MetaShopProjection.MatchesUnlock(c, "all", 1)));

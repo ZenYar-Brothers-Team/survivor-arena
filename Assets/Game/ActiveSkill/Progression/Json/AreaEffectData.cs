@@ -6,5 +6,7 @@ namespace Game.ActiveSkill.Json
         public float Radius { get; set; }
         public float DamageMultiplier { get; set; } = 1f;
         public float ExpansionSeconds { get; set; }
+        /// <summary>Neutral 0 = full disk; positive = instant cone (total angle) toward the aim direction.</summary>
+        public float ArcDegrees { get; set; }
     }
 }

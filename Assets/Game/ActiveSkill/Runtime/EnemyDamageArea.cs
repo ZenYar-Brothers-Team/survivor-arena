@@ -22,12 +22,22 @@ namespace Game.ActiveSkill
             return x * x + y * y <= 1f + 1e-4f;
         }
 
+        /// <summary>Is <paramref name="offset"/> within <paramref name="halfAngleDegrees"/> of <paramref name="direction"/>?
+        /// A zero offset (the center touches the body) counts as inside; the boundary counts as inside.</summary>
+        public static bool InsideCone(Vector2 offset, Vector2 direction, float halfAngleDegrees)
+        {
+            if (offset.sqrMagnitude <= 1e-8f || direction.sqrMagnitude <= 1e-8f) return true;
+            return Vector2.Angle(direction, offset) <= halfAngleDegrees + 1e-3f;
+        }
+
         public static int Apply(
             Vector2 center,
             float radius,
             EnemyDamageRequest damage,
             IEnemyDamageReceiver directTarget = null,
-            float verticalScale = 1f)
+            float verticalScale = 1f,
+            Vector2? coneDirection = null,
+            float coneHalfAngleDegrees = 180f)
         {
             using var guard = PerfGuard.Measure("EnemyDamageArea.Apply", 2f);
             // Each invocation rents its own buffers, including nested calls from lethal callbacks.
@@ -43,6 +53,8 @@ namespace Game.ActiveSkill
                     if (colliders[i] == null) continue;
                     // Flattened ground area (DECISION-0058): the body's nearest point must lie in the ellipse.
                     if (verticalScale < 1f && !InsideEllipse(colliders[i].ClosestPoint(center) - center, radius, verticalScale)) continue;
+                    // Cone (SET-022): the body's nearest point must lie within the half-angle of the aim direction.
+                    if (coneDirection.HasValue && !InsideCone(colliders[i].ClosestPoint(center) - center, coneDirection.Value, coneHalfAngleDegrees)) continue;
                     var receiver = colliders[i].GetComponentInParent<IEnemyDamageReceiver>();
                     var radial = receiver != null ? receiver.Position - center : Vector2.zero;
                     ApplyOnce(receiver, damage.WithDirection(radial.x, radial.y), damaged);
