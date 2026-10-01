@@ -15,11 +15,16 @@ namespace Game.Zones.Tests
         [SetUp]
         public void SetUp()
         {
+            _view = WholeArena;
             _player = new FakeZonePlayer();
             _enemies = new FakeZoneEnemies();
         }
 
         private static ZoneEffectDefinition Effect(ZoneEffectData data) => new ZoneEffectDefinition(data);
+
+        // A screen far larger than the arena, so tests that are not about the active window see every zone near.
+        private static readonly Rect WholeArena = new Rect(-100f, -100f, 200f, 200f);
+        private Rect _view = WholeArena;
 
         private ZoneRuntime Build(int seed, params (ZoneEffectData effect, Vector2 center, float phase)[] zones)
         {
@@ -29,7 +34,8 @@ namespace Game.Zones.Tests
             var placements = new List<ZonePlacement>();
             for (var i = 0; i < zones.Length; i++)
                 placements.Add(new ZonePlacement(i, layout.Effects[Effect(zones[i].effect).Id], zones[i].center, zones[i].phase));
-            return new ZoneRuntime(placements, new ZonePlacementRules(layout, 120f, Vector2.zero, null), seed, _player, _enemies);
+            return new ZoneRuntime(placements, new ZonePlacementRules(layout, 120f, Vector2.zero, null), seed, _player, _enemies,
+                () => _view);
         }
 
         private static void Run(ZoneRuntime runtime, float seconds)
@@ -263,6 +269,59 @@ namespace Game.Zones.Tests
             Assert.Greater(spots.Distinct().Count(), 3, "A new random point each cycle.");
             Run(runtime, 18f);
             Assert.AreEqual(0f, zone.Visibility(runtime.Time), "Mid-cycle, after the flash, it is hidden.");
+        }
+
+        [Test]
+        public void ActiveWindow_IsTheScreenPlusHalfAScreenOnEverySide()
+        {
+            var window = ZoneRuntime.WindowOf(new Rect(-8.9f, -5f, 17.8f, 10f), 0.5f);
+            Assert.AreEqual(35.6f, window.width, 1e-3f, "Two screens wide: the screen and half a screen on each side.");
+            Assert.AreEqual(20f, window.height, 1e-3f);
+            Assert.AreEqual(-17.8f, window.xMin, 1e-3f);
+            Assert.AreEqual(-10f, window.yMin, 1e-3f);
+            var none = ZoneRuntime.WindowOf(default, 0.5f);
+            Assert.Greater(none.width, 1e5f, "Without a camera there is no limit.");
+        }
+
+        [Test]
+        public void FarZones_DoNothing_NoEffectsNoEnemyScanNoDiscs()
+        {
+            _view = new Rect(-8.9f, -5f, 17.8f, 10f); // window: x -17.8..17.8, y -10..10
+            var runtime = Build(1, (ZoneTestData.Slow(), new Vector2(45, 0), 0f), (ZoneTestData.Rift(), new Vector2(0, 0), 0f));
+            _enemies.Add(new Vector2(45, 0)); // inside the far slow zone, outside the window
+            _player.Position = new Vector2(45, 0); // the player stands in it too, but the camera has not followed (test setup)
+            runtime.Tick(Dt);
+            Assert.IsFalse(runtime.Zones[0].IsNear);
+            Assert.IsTrue(runtime.Zones[1].IsNear);
+            Assert.AreEqual(1, runtime.NearZoneCount);
+            Assert.AreEqual(0f, _enemies.SlowFractions[0], "A zone outside the window slows nobody.");
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "...and does not touch the player either.");
+        }
+
+        [Test]
+        public void Zones_WakeUpWhenTheScreenReachesThem()
+        {
+            _view = new Rect(-8.9f, -5f, 17.8f, 10f);
+            var runtime = Build(1, (ZoneTestData.Haste(), new Vector2(26, 0), 0f)); // radius 5: its rim reaches x = 21, window edge 17.8
+            _player.Position = new Vector2(26, 0);
+            runtime.Tick(Dt);
+            Assert.IsFalse(runtime.Zones[0].IsNear);
+            _view = new Rect(8.5f, -5f, 17.8f, 10f); // the camera follows the player toward the zone
+            runtime.Tick(Dt);
+            Assert.IsTrue(runtime.Zones[0].IsNear);
+            Assert.AreEqual(0.35f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f);
+        }
+
+        [Test]
+        public void Relocation_PutsAReappearingZoneInsideTheActiveWindow()
+        {
+            _view = new Rect(30f, 30f, 17.8f, 10f); // window around (38.9, 35): x 21.1..56.7, y 25..45, inside the 54-unit arena half
+            var runtime = Build(2, (ZoneTestData.Haste(mode: ZoneLifetimeMode.Pulsing), new Vector2(-40, -40), 0f));
+            var zone = runtime.Zones[0];
+            Run(runtime, 30.5f);
+            Assert.AreEqual(1, zone.Cycle);
+            Assert.IsTrue(runtime.ActiveWindow.Contains(zone.Center), $"It reappeared at {zone.Center}, inside {runtime.ActiveWindow}.");
+            Assert.IsTrue(zone.IsNear);
         }
 
         [Test]

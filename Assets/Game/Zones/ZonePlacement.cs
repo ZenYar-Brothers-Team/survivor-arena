@@ -17,6 +17,10 @@ namespace Game.Zones
         public float PhaseSeconds { get; }
         /// <summary>Pulse cycle the current center was chosen for (0 for the first).</summary>
         public int Cycle { get; private set; }
+        /// <summary>True while the zone lies within the player's active window; only such zones work, show and relocate.</summary>
+        public bool IsNear { get; private set; }
+
+        public void SetNear(bool near) => IsNear = near;
 
         public ZonePlacement(int index, ZoneEffectDefinition effect, Vector2 center, float phaseSeconds = 0f)
         {

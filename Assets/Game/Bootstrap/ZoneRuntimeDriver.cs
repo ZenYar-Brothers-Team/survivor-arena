@@ -33,6 +33,16 @@ namespace Game.Bootstrap
             return driver;
         }
 
+        /// <summary>World rectangle an orthographic camera shows (empty without a camera).</summary>
+        public static Rect CameraRect(Camera camera)
+        {
+            if (camera == null) return default;
+            var height = camera.orthographicSize * 2f;
+            var width = height * camera.aspect;
+            var center = camera.transform.position;
+            return new Rect(center.x - width * .5f, center.y - height * .5f, width, height);
+        }
+
         private void Initialize(ZoneRuntime runtime, RunController run)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
@@ -62,7 +72,8 @@ namespace Game.Bootstrap
             {
                 var zone = _runtime.Zones[i];
                 var disc = _discs[i];
-                var visibility = zone.Visibility(_runtime.Time);
+                // Only zones within the active window around the player are drawn (and simulated).
+                var visibility = zone.IsNear ? zone.Visibility(_runtime.Time) : 0f;
                 disc.enabled = visibility > 0f;
                 if (!disc.enabled) continue;
                 var color = zone.Effect.Color;

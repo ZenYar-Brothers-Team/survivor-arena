@@ -19,6 +19,9 @@ namespace Game.Zones
         private readonly Vector2 _start;
         private readonly IReadOnlyList<IReadOnlyList<Vector2>> _obstacles;
 
+        /// <summary>Fraction of the screen size the active window extends beyond the player's screen on each side.</summary>
+        public float ActiveScreenMargin => _layout.ActiveScreenMargin;
+
         public ZonePlacementRules(ZoneLayoutDefinition layout, float sideLength, Vector2 start,
             IReadOnlyList<IReadOnlyList<Vector2>> obstacles)
         {
@@ -31,21 +34,29 @@ namespace Game.Zones
         /// <summary>
         /// Draws up to PlacementAttempts random centers and returns the first that satisfies every clearance.
         /// <paramref name="others"/> are all other zones (their current centers count, even while invisible);
-        /// <paramref name="pairFirst"/> is the first portal of the pair when placing the second one.
+        /// <paramref name="pairFirst"/> is the first portal of the pair when placing the second one; <paramref name="within"/>,
+        /// when given, confines the center to that world rectangle (the active window around the player).
         /// </summary>
         public bool TryPick(ZoneEffectDefinition effect, System.Random random, IEnumerable<ZonePlacement> others,
-            ZonePlacement pairFirst, out Vector2 center)
+            ZonePlacement pairFirst, out Vector2 center, Rect? within = null)
         {
             var isPortal = effect.Kind == ZoneEffectKind.Portal;
             var needed = effect.Radius + _layout.ObstacleClearance + (isPortal ? effect.PortalExitDistance + ExitBodyAllowance : 0f);
-            var lo = -_half + effect.Radius;
-            var hi = _half - effect.Radius;
+            var loX = -_half + effect.Radius;
+            var hiX = _half - effect.Radius;
+            var loY = loX;
+            var hiY = hiX;
+            if (within.HasValue)
+            {
+                loX = Mathf.Max(loX, within.Value.xMin); hiX = Mathf.Min(hiX, within.Value.xMax);
+                loY = Mathf.Max(loY, within.Value.yMin); hiY = Mathf.Min(hiY, within.Value.yMax);
+            }
             var occupied = new List<ZonePlacement>(others);
             center = default;
-            if (hi < lo) return false;
+            if (hiX < loX || hiY < loY) return false;
             for (var attempt = 0; attempt < _layout.PlacementAttempts; attempt++)
             {
-                var candidate = new Vector2(Range(random, lo, hi), Range(random, lo, hi));
+                var candidate = new Vector2(Range(random, loX, hiX), Range(random, loY, hiY));
                 if ((candidate - _start).magnitude < _layout.StartClearRadius + effect.Radius) continue;
                 if (occupied.Exists(other => Vector2.Distance(other.Center, candidate) <
                                              other.Effect.Radius + effect.Radius + _layout.MinGap)) continue;

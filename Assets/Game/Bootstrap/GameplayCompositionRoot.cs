@@ -619,8 +619,10 @@ namespace Game.Bootstrap
                     foreach (var outline in FieldMapPreviewSource.Outlines(_fieldEnvironmentArt.ObstacleColliders)) outlines.Add(outline);
                     var zoneRules = new ZonePlacementRules(zoneLayout, arenaSideLength, spawn.position, outlines);
                     var placements = ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed);
+                    var zoneCamera = Camera.main;
                     var zoneRuntime = new ZoneRuntime(placements, zoneRules, ZoneSeed,
-                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>()), new EnemyZoneSource());
+                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>()), new EnemyZoneSource(),
+                        () => ZoneRuntimeDriver.CameraRect(zoneCamera));
                     _zoneDriver = ZoneRuntimeDriver.Create(zoneRuntime, runController, gameObject.scene);
                     initializedSubsystems.Add(() => { _zoneDriver?.Shutdown(); _zoneDriver = null; });
                 }

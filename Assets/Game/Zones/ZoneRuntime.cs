@@ -22,6 +22,7 @@ namespace Game.Zones
         private readonly int _seed;
         private readonly IZonePlayerTarget _player;
         private readonly IZoneEnemySource _enemies;
+        private readonly Func<Rect> _view;
         private float _portalCooldown;
         private bool _modifierSet;
         private float _move, _skill, _action, _regen, _defense;
@@ -35,9 +36,14 @@ namespace Game.Zones
         /// <summary>How many active zones the player stood in on the last tick.</summary>
         public int PlayerActiveZoneCount { get; private set; }
         public float PortalCooldownRemaining => _portalCooldown;
+        /// <summary>The player's screen widened by the layout's margin on every side: only zones touching it are simulated.</summary>
+        public Rect ActiveWindow { get; private set; }
+        /// <summary>Zones currently inside the active window.</summary>
+        public int NearZoneCount { get; private set; }
 
+        /// <param name="view">World rectangle the player's camera shows; the active window is derived from it each tick.</param>
         public ZoneRuntime(IReadOnlyList<ZonePlacement> zones, ZonePlacementRules rules, int seed, IZonePlayerTarget player,
-            IZoneEnemySource enemies)
+            IZoneEnemySource enemies, Func<Rect> view)
         {
             if (zones == null) throw new ArgumentNullException(nameof(zones));
             _zones = new List<ZonePlacement>(zones);
@@ -45,6 +51,36 @@ namespace Game.Zones
             _seed = seed;
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _enemies = enemies ?? throw new ArgumentNullException(nameof(enemies));
+            _view = view ?? throw new ArgumentNullException(nameof(view));
+            RefreshWindow();
+        }
+
+        /// <summary>The active window for a screen rectangle and margin; an empty screen means no limit.</summary>
+        public static Rect WindowOf(Rect view, float margin)
+        {
+            if (view.width <= 0f || view.height <= 0f) return new Rect(-1e6f, -1e6f, 2e6f, 2e6f);
+            var dx = view.width * margin;
+            var dy = view.height * margin;
+            return new Rect(view.xMin - dx, view.yMin - dy, view.width + 2f * dx, view.height + 2f * dy);
+        }
+
+        private void RefreshWindow()
+        {
+            ActiveWindow = WindowOf(_view(), _rules.ActiveScreenMargin);
+            NearZoneCount = 0;
+            foreach (var zone in _zones)
+            {
+                var near = TouchesWindow(zone, ActiveWindow);
+                zone.SetNear(near);
+                if (near) NearZoneCount++;
+            }
+        }
+
+        private static bool TouchesWindow(ZonePlacement zone, Rect window)
+        {
+            var dx = Mathf.Max(window.xMin - zone.Center.x, 0f, zone.Center.x - window.xMax);
+            var dy = Mathf.Max(window.yMin - zone.Center.y, 0f, zone.Center.y - window.yMax);
+            return dx * dx + dy * dy <= zone.Effect.Radius * zone.Effect.Radius;
         }
 
         public void Tick(float deltaTime)
@@ -53,6 +89,7 @@ namespace Game.Zones
             var previous = Time;
             Time += deltaTime;
             _portalCooldown = Mathf.Max(0f, _portalCooldown - deltaTime);
+            RefreshWindow();
             Relocate();
             TickBursts(previous, deltaTime);
             TickPlayer(deltaTime);
@@ -68,8 +105,10 @@ namespace Game.Zones
                 var cycle = zone.CycleAt(Time);
                 if (cycle == zone.Cycle) continue;
                 var random = new System.Random(unchecked(_seed * 31 + zone.Index * 7919 + cycle * 104729));
-                var center = _rules.TryPick(zone.Effect, random, OthersOf(zone), null, out var picked) ? picked : zone.Center;
+                // It reappears near the player (inside the active window) so the zones the player can see are the ones in play.
+                var center = _rules.TryPick(zone.Effect, random, OthersOf(zone), null, out var picked, ActiveWindow) ? picked : zone.Center;
                 zone.Relocate(center, cycle);
+                zone.SetNear(TouchesWindow(zone, ActiveWindow));
             }
         }
 
@@ -97,7 +136,7 @@ namespace Game.Zones
             }
             if (!_player.IsAlive) return;
             foreach (var zone in _zones)
-                if (zone.BurstFiresBetween(previousTime, Time) && zone.Contains(_player.Position))
+                if (zone.IsNear && zone.BurstFiresBetween(previousTime, Time) && zone.Contains(_player.Position))
                     _buffs[zone.Effect] = zone.Effect.PlayerBuffSeconds;
         }
 
@@ -117,7 +156,7 @@ namespace Game.Zones
             foreach (var zone in _zones)
             {
                 if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst) continue; // its buff is handled above
-                if (!zone.IsActive(Time) || !zone.Contains(position)) continue;
+                if (!zone.IsNear || !zone.IsActive(Time) || !zone.Contains(position)) continue;
                 PlayerActiveZoneCount++;
                 var effect = zone.Effect;
                 switch (effect.Kind)
@@ -183,7 +222,7 @@ namespace Game.Zones
         {
             var touchesEnemies = false;
             foreach (var zone in _zones)
-                if (zone.IsActive(Time) && AffectsEnemies(zone.Effect)) { touchesEnemies = true; break; }
+                if (zone.IsNear && zone.IsActive(Time) && AffectsEnemies(zone.Effect)) { touchesEnemies = true; break; }
             if (!touchesEnemies) return;
             // Cost scales with living enemies times zones (DECISION-0008).
             using var guard = PerfGuard.Measure("Zones.TickEnemies", 2f);
@@ -193,7 +232,7 @@ namespace Game.Zones
                 var position = _enemies.Position(i);
                 foreach (var zone in _zones)
                 {
-                    if (!zone.IsActive(Time) || !AffectsEnemies(zone.Effect) || !zone.Contains(position)) continue;
+                    if (!zone.IsNear || !zone.IsActive(Time) || !AffectsEnemies(zone.Effect) || !zone.Contains(position)) continue;
                     var effect = zone.Effect;
                     if (effect.Kind == ZoneEffectKind.Slow)
                         _enemies.Slow(i, effect.EnemySlowFraction, effect.EnemySlowSeconds, effect.Id);

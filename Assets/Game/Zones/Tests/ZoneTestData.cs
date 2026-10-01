@@ -65,7 +65,8 @@ namespace Game.Zones.Tests
 
         public static ZoneLayoutData Layout(ZoneEffectData[] effects, params (string effectId, int count)[] zones) => new ZoneLayoutData
         {
-            EdgeMargin = 6f, StartClearRadius = 8f, MinGap = 4f, ObstacleClearance = 1.5f, PlacementAttempts = 800, MaxRestarts = 20,
+            EdgeMargin = 6f, StartClearRadius = 8f, MinGap = 4f, ObstacleClearance = 1.5f, ActiveScreenMargin = 0.5f,
+            PlacementAttempts = 800, MaxRestarts = 20,
             ReferenceSeed = 6, Effects = effects,
             Zones = zones.Select(z => new ZoneCountData { EffectId = z.effectId, Count = z.count }).ToArray()
         };

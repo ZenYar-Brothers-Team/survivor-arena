@@ -192,6 +192,7 @@
     "effectId": "FIXTURE-ZONE-HEAL",
     "count": 1
    }
-  ]
+  ],
+  "activeScreenMargin": 0.5
  }
 }
