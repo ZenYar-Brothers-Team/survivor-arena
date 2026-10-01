@@ -103,7 +103,7 @@
   },
   {
    "id": "ENEMY-010",
-   "maxHealth": 100,
+   "maxHealth": 60,
    "movementSpeed": 0.9,
    "collisionSize": 0.85,
    "contactDamage": 12,

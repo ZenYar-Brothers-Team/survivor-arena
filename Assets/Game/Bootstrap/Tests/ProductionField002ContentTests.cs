@@ -108,7 +108,7 @@ namespace Game.Bootstrap.Tests
             // Map transfer (DECISION-0136): FIELD-002 keeps its art and uses the illustrated blobs of the former test field.
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION");
-            Assert.AreEqual(120f, presentation.ArenaSideLength);
+            Assert.AreEqual(100f, presentation.ArenaSideLength);
             Assert.IsNull(presentation.ObstacleLayout);
             Assert.AreEqual(20, presentation.BlobLayout.TotalCount);
             Assert.AreEqual("FIELD-003-VISUAL-GROUND", presentation.Ground.Id.ToString());

@@ -985,7 +985,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Роль: ranged burst-угроза.
 
-### Размер / collision: 0.85. HP: 100. Speed: 0.70. Contact damage: 12.
+### Размер / collision: 0.85. HP: 60. Speed: 0.70. Contact damage: 12.
 ### Knockback: contact 0.20; burst projectile 0.15. Knockback resistance 10%.
 
 ### Поведение: профессиональный солдат держит среднюю дистанцию и стреляет короткими сериями.
@@ -1732,7 +1732,7 @@ Unlock: доступно с начала игры.
 Статус: Approved. Сложность: 1/5.
 Роль: учит учитывать геометрию и первые более плотные сочетания врагов.
 Окружение: разрушенный пограничный форт: земля с камешками, сломанные стены и завалы.<br>
-Geometry / obstacles: арена 120×120; 20 иллюстраций руин (по четыре формы пяти семейств), каждая ровно один раз; расстановка своя в каждом забеге, зазор между контурами не меньше 7 ([DECISION-0132](decisions/0132-dev-blob-test-field.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).
+Geometry / obstacles: арена 100×100; 20 иллюстраций руин (по четыре формы пяти семейств), каждая ровно один раз; расстановка своя в каждом забеге, зазор между контурами не меньше 4 ([DECISION-0132](decisions/0132-dev-blob-test-field.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).
 Enemy profile: деревенскую погоню усиливают охотники, гончие и гвардейские стрелки форта; появляются сочетания быстрых и медленных противников; конных разведчиков здесь нет ([DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).<br>
 Wave pressure: немного выше плотность и короче передышки, чем на FIELD-001. Ритм FIELD-001, передышки 15 s ([DECISION-0095](decisions/0095-field002-003-rhythm-v2.md)), враги HP ×1.15 / урон ×1.08 ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md)).
 Boss / mid-boss: BOSS-002 / MIDBOSS-002.

@@ -15,7 +15,7 @@
   "description": "Тестовое поле для второй карты: кляксы-препятствия. Спавн как на FIELD-001. Только для разработки.",
   "unlockDescription": "Всегда доступно (поле для разработки)",
   "thumbnailPlaceholder": "DEV",
-  "arenaSideLength": 120,
+  "arenaSideLength": 100,
   "difficulty": 1,
   "groundVisualId": "FIELD-003-VISUAL-GROUND"
  },
@@ -31,7 +31,7 @@
   "edgeMargin": 5,
   "startClearRadius": 11,
   "playerClearRadius": 3.5,
-  "minGap": 7,
+  "minGap": 4,
   "placementAttempts": 1500,
   "maxRestarts": 40,
   "referenceSeed": 5,

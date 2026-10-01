@@ -16,7 +16,7 @@ namespace Game.Enemy.Tests
             var rows = new (string id, float hp, float speed, float contact, float xp, float resistance)[]
             {
                 ("ENEMY-006", 85, 0.85f, 12, 4, 0.1f), ("ENEMY-008", 90, 1.3f, 12, 4, 0.2f), ("ENEMY-009", 220, 0.7f, 22, 6, 0.55f),
-                ("ENEMY-010", 100, 0.9f, 12, 5, 0.1f), ("ENEMY-011", 120, 0.85f, 14, 6, 0.15f), ("ENEMY-012", 115, 1f, 15, 6, 0.15f),
+                ("ENEMY-010", 60, 0.9f, 12, 5, 0.1f), ("ENEMY-011", 120, 0.85f, 14, 6, 0.15f), ("ENEMY-012", 115, 1f, 15, 6, 0.15f),
                 ("ENEMY-013", 110, 1.55f, 16, 6, 0.1f), ("ENEMY-014", 180, 0.65f, 20, 8, 0.25f), ("ENEMY-015", 145, 0.9f, 16, 7, 0.2f),
                 ("ENEMY-016", 320, 0.8f, 28, 10, 0.65f), ("ENEMY-017", 170, 1.75f, 20, 8, 0.2f), ("ENEMY-018", 190, 0.85f, 18, 9, 0.25f),
                 ("ENEMY-019", 300, 0.9f, 26, 12, 0.6f), ("ENEMY-020", 420, 1.1f, 36, 15, 0.7f),

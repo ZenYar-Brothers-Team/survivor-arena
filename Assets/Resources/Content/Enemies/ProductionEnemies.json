@@ -295,7 +295,7 @@
   {
     "id": "ENEMY-010",
     "knockbackResistance": 0.1,
-    "maxHealth": 100,
+    "maxHealth": 60,
     "collisionSize": 0.85,
     "movementSpeed": 0.9,
     "contactDamage": 12,
