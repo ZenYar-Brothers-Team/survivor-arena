@@ -178,6 +178,94 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void Protection_CutsIncomingDamageWhileInside_AndStacksWithOtherBonuses()
+        {
+            var runtime = Build(1, (ZoneTestData.Protection(), Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            runtime.Tick(Dt);
+            Assert.AreEqual(0.8f, _player.Zone.IncomingDamageReductionBonus, 1e-4f);
+            _player.Position = new Vector2(30, 0);
+            runtime.Tick(Dt);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey));
+        }
+
+        [Test]
+        public void Protection_PulsingFadesOutSlowly_ThenReleasesThePlayer()
+        {
+            var ward = ZoneTestData.Protection(mode: ZoneLifetimeMode.Pulsing);
+            ward.PulsePeriodSeconds = 40f; ward.PulseVisibleSeconds = 26f; ward.PulseFadeSeconds = 6f;
+            var runtime = Build(1, (ward, Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            Run(runtime, 10f);
+            Assert.AreEqual(0.8f, _player.Zone.IncomingDamageReductionBonus, 1e-4f);
+            Run(runtime, 12.5f); // 22.5 s: well into the 6 s fade-out but still more than half there
+            Assert.IsTrue(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "Still working while it fades.");
+            Run(runtime, 1.5f);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "Gone once it has mostly faded.");
+        }
+
+        [Test]
+        public void SpeedBurst_GoesOffAtTheEndOfItsTelegraph_GivingATimedBuffThatOutlastsTheZone()
+        {
+            var effect = ZoneTestData.SpeedBurst();
+            var runtime = Build(1, (effect, Vector2.zero, 0f));
+            _player.Position = new Vector2(3, 0);
+            Run(runtime, 3.5f);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "Nothing happens while it is still swelling.");
+            Run(runtime, 0.8f);
+            Assert.AreEqual(0.6f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "The buff lands the instant the telegraph ends.");
+            _player.Position = new Vector2(50, 0); // leaving does not cancel it
+            Run(runtime, 5f);
+            Assert.AreEqual(0.6f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "The buff outlasts the zone and the player's position.");
+            var definition = runtime.Zones[0].Effect;
+            Assert.Greater(runtime.BuffRemaining(definition), 0f);
+            Run(runtime, 4f);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "The buff runs out after its 8 s.");
+            Assert.AreEqual(0f, runtime.BuffRemaining(definition));
+        }
+
+        [Test]
+        public void SpeedBurst_BuffsOnlyAPlayerInsideTheRadius()
+        {
+            var runtime = Build(1, (ZoneTestData.SpeedBurst(), Vector2.zero, 0f));
+            _player.Position = new Vector2(30, 0); // outside the 8-unit radius when it goes off
+            Run(runtime, 5f);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "A player outside the radius gets nothing.");
+            Run(runtime, 35.5f); // the next cycle begins: the zone has moved on to a new random spot
+            _player.Position = runtime.Zones[0].Center;
+            Run(runtime, 4f);
+            Assert.AreEqual(0.6f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "Waiting inside the new spot earns the buff.");
+        }
+
+        [Test]
+        public void SpeedBurst_TwoBurstsOfOneEffect_RefreshTheBuffInsteadOfStacking()
+        {
+            var effect = ZoneTestData.SpeedBurst();
+            var runtime = Build(1, (effect, new Vector2(0, 0), 0f), (effect, new Vector2(2, 0), 1f)); // they go off at 4 s and 3 s
+            _player.Position = new Vector2(1, 0);
+            Run(runtime, 4.5f);
+            Assert.AreEqual(0.6f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "Not +120%: one buff per effect.");
+            Assert.Greater(runtime.BuffRemaining(runtime.Zones[0].Effect), 7.4f, "The later burst refreshed the duration.");
+        }
+
+        [Test]
+        public void SpeedBurst_ZoneReappearsElsewhereEachCycle_ButStaysGoneBetweenBursts()
+        {
+            var runtime = Build(3, (ZoneTestData.SpeedBurst(), new Vector2(40, 40), 0f));
+            var zone = runtime.Zones[0];
+            var spots = new List<Vector2> { zone.Center };
+            for (var cycle = 1; cycle <= 4; cycle++)
+            {
+                Run(runtime, 40.5f);
+                Assert.AreEqual(cycle, zone.Cycle);
+                spots.Add(zone.Center);
+            }
+            Assert.Greater(spots.Distinct().Count(), 3, "A new random point each cycle.");
+            Run(runtime, 18f);
+            Assert.AreEqual(0f, zone.Visibility(runtime.Time), "Mid-cycle, after the flash, it is hidden.");
+        }
+
+        [Test]
         public void Tick_ZeroTimeChangesNothing_SoAPausedRunStandsStill()
         {
             var runtime = Build(1, (ZoneTestData.Rift(), Vector2.zero, 0f));

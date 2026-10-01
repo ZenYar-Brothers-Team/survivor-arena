@@ -40,7 +40,7 @@ namespace Game.Zones
                     ? placed[placed.Count - 1] : null;
                 if (!rules.TryPick(effect, random, placed, pairFirst, out var center)) return null;
                 // A pulsing zone starts at a random point of its cycle so zones do not all blink together.
-                var phase = effect.Lifetime == ZoneLifetimeMode.Pulsing
+                var phase = effect.Lifetime != ZoneLifetimeMode.Permanent
                     ? ZonePlacementRules.Range(random, 0f, effect.PulsePeriodSeconds) : 0f;
                 var zone = new ZonePlacement(index, effect, center, phase);
                 if (pairFirst != null)

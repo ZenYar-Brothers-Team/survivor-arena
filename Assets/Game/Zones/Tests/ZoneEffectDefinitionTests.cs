@@ -55,6 +55,65 @@ namespace Game.Zones.Tests
             Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A portal pair cannot relocate together.");
         }
 
+        [Test]
+        public void Definition_ProtectionAndSpeedBurstTakeTheirValues_AndKeepTheirLifetimes()
+        {
+            Assert.AreEqual(0.8f, new ZoneEffectDefinition(ZoneTestData.Protection()).PlayerIncomingDamageReduction);
+            var burst = new ZoneEffectDefinition(ZoneTestData.SpeedBurst());
+            Assert.AreEqual(0.6f, burst.PlayerMovementBonus);
+            Assert.AreEqual(8f, burst.PlayerBuffSeconds);
+            Assert.AreEqual(ZoneLifetimeMode.Burst, burst.Lifetime);
+            var data = ZoneTestData.Protection(); data.PlayerIncomingDamageReduction = 0.99f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A ward cannot make the player immune.");
+            data = ZoneTestData.Protection(); data.PlayerIncomingDamageReduction = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.SpeedBurst(); data.PlayerBuffSeconds = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.SpeedBurst(); data.TelegraphSeconds = 39.8f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Telegraph and flash must fit the cycle.");
+            data = ZoneTestData.SpeedBurst(); data.PulseFadeSeconds = 2f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A burst carries no fade values.");
+            data = ZoneTestData.SpeedBurst(); data.Lifetime = ZoneLifetimeMode.Permanent; data.PulsePeriodSeconds = null;
+            data.TelegraphSeconds = null; data.FlashSeconds = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A speed burst must be a burst.");
+            data = ZoneTestData.Haste(); data.Lifetime = ZoneLifetimeMode.Burst; data.PulsePeriodSeconds = 40f;
+            data.TelegraphSeconds = 4f; data.FlashSeconds = 1f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Only the speed burst may use the burst lifetime.");
+            data = ZoneTestData.Haste(); data.PlayerBuffSeconds = 5f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A haste zone carries no buff duration.");
+        }
+
+        [TestCase(0f, 0f)]
+        [TestCase(2f, 0.5f)]
+        [TestCase(4f, 1f)]
+        [TestCase(4.25f, 1.1f)]
+        [TestCase(4.5f, 0f)]
+        [TestCase(20f, 0f)]
+        [TestCase(41f, 0.25f)]
+        public void Burst_RadiusScale_SwellsThenFlashesThenVanishes(float time, float expected)
+        {
+            var effect = new ZoneEffectDefinition(ZoneTestData.SpeedBurst());
+            // At the end of the flash the zone is gone; during it the disc is a little larger than the radius.
+            var actual = effect.RadiusScale(0f, time);
+            if (time >= 4f && time < 4.5f) Assert.AreEqual(1f + ZoneEffectDefinition.BurstFlashGrowth * ((time - 4f) / 0.5f), actual, 1e-4f);
+            else Assert.AreEqual(expected, actual, 1e-4f);
+        }
+
+        [Test]
+        public void Burst_FiresOncePerCycle_WhenTheTelegraphEnds_AcrossTickBoundariesAndPhases()
+        {
+            var effect = new ZoneEffectDefinition(ZoneTestData.SpeedBurst());
+            Assert.IsFalse(effect.BurstFiresBetween(0f, 0f, 3.99f));
+            Assert.IsTrue(effect.BurstFiresBetween(0f, 3.99f, 4.01f), "Goes off at t = 4 s.");
+            Assert.IsFalse(effect.BurstFiresBetween(0f, 4.01f, 30f));
+            Assert.IsTrue(effect.BurstFiresBetween(0f, 43.9f, 44.1f), "And again at 44 s.");
+            Assert.IsTrue(effect.BurstFiresBetween(10f, 33.9f, 34.1f), "A phase of 10 s shifts it to 34 s.");
+            var fires = 0;
+            for (var t = 0f; t < 200f; t += 0.37f) if (effect.BurstFiresBetween(7f, t, t + 0.37f)) fires++;
+            Assert.AreEqual(5, fires, "Five 40 s cycles in 200 s, however the ticks fall.");
+            Assert.IsFalse(new ZoneEffectDefinition(ZoneTestData.Haste()).BurstFiresBetween(0f, 0f, 100f), "Only burst zones go off.");
+        }
+
         [TestCase(0f, 0f)]
         [TestCase(1.5f, 0.5f)]
         [TestCase(3f, 1f)]

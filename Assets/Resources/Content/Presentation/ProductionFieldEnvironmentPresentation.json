@@ -4538,6 +4538,43 @@
           "portalCooldownSeconds": 3,
           "portalExitDistance": 3,
           "portalMinPairDistance": 40
+        },
+        {
+          "id": "FIXTURE-ZONE-SPEED-BURST",
+          "displayName": "Рывок",
+          "kind": "SpeedBurst",
+          "radius": 8,
+          "color": "#ffe14a",
+          "lifetime": "Burst",
+          "pulsePeriodSeconds": 40,
+          "telegraphSeconds": 4,
+          "flashSeconds": 0.6,
+          "playerMovementBonus": 0.6,
+          "playerBuffSeconds": 8
+        },
+        {
+          "id": "FIXTURE-ZONE-WARD",
+          "displayName": "Защитный круг",
+          "kind": "Protection",
+          "radius": 6,
+          "color": "#9fd3ff",
+          "lifetime": "Pulsing",
+          "pulsePeriodSeconds": 40,
+          "pulseVisibleSeconds": 26,
+          "pulseFadeSeconds": 6,
+          "playerIncomingDamageReduction": 0.8
+        },
+        {
+          "id": "FIXTURE-ZONE-HEAL",
+          "displayName": "Целебный круг",
+          "kind": "Regeneration",
+          "radius": 6,
+          "color": "#ff8fd0",
+          "lifetime": "Pulsing",
+          "pulsePeriodSeconds": 40,
+          "pulseVisibleSeconds": 26,
+          "pulseFadeSeconds": 6,
+          "playerRegenerationPerSecond": 6
         }
       ],
       "zones": [
@@ -4564,6 +4601,18 @@
         {
           "effectId": "FIXTURE-ZONE-PORTAL",
           "count": 2
+        },
+        {
+          "effectId": "FIXTURE-ZONE-SPEED-BURST",
+          "count": 2
+        },
+        {
+          "effectId": "FIXTURE-ZONE-WARD",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-ZONE-HEAL",
+          "count": 1
         }
       ]
     }

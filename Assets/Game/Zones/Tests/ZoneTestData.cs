@@ -39,6 +39,19 @@ namespace Game.Zones.Tests
             PortalMinPairDistance = 30f
         }, ZoneLifetimeMode.Permanent);
 
+        /// <summary>Speed burst: swells for 4 s of a 40 s cycle, goes off, flashes 0.5 s; +60% speed for 8 s.</summary>
+        public static ZoneEffectData SpeedBurst(string id = "T-BURST") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.SpeedBurst, Radius = 8f, Color = "#ffe14a", Lifetime = ZoneLifetimeMode.Burst,
+            PulsePeriodSeconds = 40f, TelegraphSeconds = 4f, FlashSeconds = 0.5f, PlayerMovementBonus = 0.6f, PlayerBuffSeconds = 8f
+        };
+
+        /// <summary>Ward: 80% less incoming damage while inside.</summary>
+        public static ZoneEffectData Protection(string id = "T-WARD", ZoneLifetimeMode mode = ZoneLifetimeMode.Permanent) => Lifetime(new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Protection, Radius = 6f, Color = "#9fd3ff", PlayerIncomingDamageReduction = 0.8f
+        }, mode);
+
         /// <summary>Marks an effect permanent, or pulsing with a 30 s period, 20 s shown (3 s fades).</summary>
         public static ZoneEffectData Lifetime(ZoneEffectData data, ZoneLifetimeMode mode)
         {

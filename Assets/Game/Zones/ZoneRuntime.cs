@@ -24,7 +24,10 @@ namespace Game.Zones
         private readonly IZoneEnemySource _enemies;
         private float _portalCooldown;
         private bool _modifierSet;
-        private float _move, _skill, _action, _regen;
+        private float _move, _skill, _action, _regen, _defense;
+        // Timed buffs that outlast their zone (one per effect; a new burst refreshes it instead of stacking).
+        private readonly Dictionary<ZoneEffectDefinition, float> _buffs = new Dictionary<ZoneEffectDefinition, float>();
+        private readonly List<ZoneEffectDefinition> _expiredBuffs = new List<ZoneEffectDefinition>();
 
         public IReadOnlyList<ZonePlacement> Zones => _zones;
         /// <summary>Seconds this runtime has been ticked (the zones' pulse clock).</summary>
@@ -47,9 +50,11 @@ namespace Game.Zones
         public void Tick(float deltaTime)
         {
             if (deltaTime <= 0f) return;
+            var previous = Time;
             Time += deltaTime;
             _portalCooldown = Mathf.Max(0f, _portalCooldown - deltaTime);
             Relocate();
+            TickBursts(previous, deltaTime);
             TickPlayer(deltaTime);
             TickEnemies(deltaTime);
         }
@@ -59,7 +64,7 @@ namespace Game.Zones
         {
             foreach (var zone in _zones)
             {
-                if (zone.Effect.Lifetime != ZoneLifetimeMode.Pulsing) continue;
+                if (zone.Effect.Lifetime == ZoneLifetimeMode.Permanent) continue;
                 var cycle = zone.CycleAt(Time);
                 if (cycle == zone.Cycle) continue;
                 var random = new System.Random(unchecked(_seed * 31 + zone.Index * 7919 + cycle * 104729));
@@ -74,19 +79,44 @@ namespace Game.Zones
                 if (other != zone) yield return other;
         }
 
+        /// <summary>Remaining seconds of the timed buff a burst zone gave the player (0 when none).</summary>
+        public float BuffRemaining(ZoneEffectDefinition effect) => _buffs.TryGetValue(effect, out var remaining) ? remaining : 0f;
+
+        // A burst zone goes off the instant its telegraph ends: a player inside the radius then gets the timed buff.
+        private void TickBursts(float previousTime, float deltaTime)
+        {
+            if (_buffs.Count > 0)
+            {
+                _expiredBuffs.Clear();
+                _expiredBuffs.AddRange(_buffs.Keys);
+                foreach (var effect in _expiredBuffs)
+                {
+                    var left = _buffs[effect] - deltaTime;
+                    if (left <= 0f) _buffs.Remove(effect); else _buffs[effect] = left;
+                }
+            }
+            if (!_player.IsAlive) return;
+            foreach (var zone in _zones)
+                if (zone.BurstFiresBetween(previousTime, Time) && zone.Contains(_player.Position))
+                    _buffs[zone.Effect] = zone.Effect.PlayerBuffSeconds;
+        }
+
         private void TickPlayer(float deltaTime)
         {
             PlayerActiveZoneCount = 0;
             if (!_player.IsAlive)
             {
-                ApplyModifier(0f, 0f, 0f, 0f);
+                _buffs.Clear();
+                ApplyModifier(0f, 0f, 0f, 0f, 0f);
                 return;
             }
-            float move = 0f, skill = 0f, action = 0f, regen = 0f, damage = 0f;
+            float move = 0f, skill = 0f, action = 0f, regen = 0f, defense = 0f, damage = 0f;
+            foreach (var pair in _buffs) move += pair.Key.PlayerMovementBonus;
             ZonePlacement portal = null;
             var position = _player.Position;
             foreach (var zone in _zones)
             {
+                if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst) continue; // its buff is handled above
                 if (!zone.IsActive(Time) || !zone.Contains(position)) continue;
                 PlayerActiveZoneCount++;
                 var effect = zone.Effect;
@@ -98,6 +128,9 @@ namespace Game.Zones
                         break;
                     case ZoneEffectKind.Regeneration:
                         regen += effect.PlayerRegenerationPerSecond;
+                        break;
+                    case ZoneEffectKind.Protection:
+                        defense += effect.PlayerIncomingDamageReduction;
                         break;
                     case ZoneEffectKind.ArcanePower:
                         skill += effect.PlayerSkillDamageBonus;
@@ -112,7 +145,7 @@ namespace Game.Zones
                         break;
                 }
             }
-            ApplyModifier(move, skill, action, regen);
+            ApplyModifier(move, skill, action, regen, defense);
             if (portal != null) Teleport(portal);
         }
 
@@ -126,23 +159,24 @@ namespace Game.Zones
             _portalCooldown = from.Effect.PortalCooldownSeconds;
         }
 
-        private void ApplyModifier(float move, float skill, float action, float regen)
+        private void ApplyModifier(float move, float skill, float action, float regen, float defense)
         {
             var zero = Mathf.Abs(move) < ModifierEpsilon && Mathf.Abs(skill) < ModifierEpsilon &&
-                       Mathf.Abs(action) < ModifierEpsilon && Mathf.Abs(regen) < ModifierEpsilon;
+                       Mathf.Abs(action) < ModifierEpsilon && Mathf.Abs(regen) < ModifierEpsilon && Mathf.Abs(defense) < ModifierEpsilon;
             if (zero)
             {
                 if (_modifierSet) _player.RemoveStatModifier(ModifierKey);
                 _modifierSet = false;
-                _move = _skill = _action = _regen = 0f;
+                _move = _skill = _action = _regen = _defense = 0f;
                 return;
             }
             if (_modifierSet && Mathf.Approximately(move, _move) && Mathf.Approximately(skill, _skill) &&
-                Mathf.Approximately(action, _action) && Mathf.Approximately(regen, _regen)) return;
+                Mathf.Approximately(action, _action) && Mathf.Approximately(regen, _regen) && Mathf.Approximately(defense, _defense)) return;
             _player.SetStatModifier(ModifierKey, new CharacterStatModifier(movementSpeedMultiplierBonus: move,
-                activeSkillDamageMultiplierBonus: skill, actionSpeedBonus: action, healthRegenerationPerSecondBonus: regen));
+                activeSkillDamageMultiplierBonus: skill, actionSpeedBonus: action, healthRegenerationPerSecondBonus: regen,
+                incomingDamageReductionBonus: defense));
             _modifierSet = true;
-            _move = move; _skill = skill; _action = action; _regen = regen;
+            _move = move; _skill = skill; _action = action; _regen = regen; _defense = defense;
         }
 
         private void TickEnemies(float deltaTime)

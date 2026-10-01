@@ -16,6 +16,9 @@ namespace Game.Zones.Json
         public float? PulsePeriodSeconds { get; set; }
         public float? PulseVisibleSeconds { get; set; }
         public float? PulseFadeSeconds { get; set; }
+        // Burst: the cycle length is pulsePeriodSeconds; the disc swells for telegraphSeconds, goes off, then flashes for flashSeconds.
+        public float? TelegraphSeconds { get; set; }
+        public float? FlashSeconds { get; set; }
         // Slow / Haste
         public float? PlayerMovementBonus { get; set; }
         public float? EnemySlowFraction { get; set; }
@@ -28,6 +31,10 @@ namespace Game.Zones.Json
         // Rift
         public float? PlayerDamagePerSecond { get; set; }
         public float? EnemyDamagePerSecond { get; set; }
+        // Protection
+        public float? PlayerIncomingDamageReduction { get; set; }
+        // SpeedBurst: uses playerMovementBonus plus how long the buff lasts.
+        public float? PlayerBuffSeconds { get; set; }
         // Portal
         public float? PortalCooldownSeconds { get; set; }
         public float? PortalExitDistance { get; set; }

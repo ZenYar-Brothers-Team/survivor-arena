@@ -17,6 +17,13 @@ namespace Game.Zones
         /// <summary>Unstable rift: damage per second to the player and/or to enemies inside.</summary>
         Rift,
         /// <summary>Portal: entering teleports the player beside its paired portal (with a cooldown).</summary>
-        Portal
+        Portal,
+        /// <summary>Ward: while inside, the player takes much less damage.</summary>
+        Protection,
+        /// <summary>
+        /// Speed burst: the disc swells to show it is about to go off, then instantly gives the player inside a timed speed
+        /// buff that outlasts the zone (a Traveler-style buff).
+        /// </summary>
+        SpeedBurst
     }
 }

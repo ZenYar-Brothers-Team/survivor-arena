@@ -46,12 +46,14 @@ namespace Game.Bootstrap.PlayModeTests
                 var driver = Object.FindAnyObjectByType<ZoneRuntimeDriver>();
                 Assert.IsNotNull(driver, "The zone driver exists on a zones field.");
                 var zones = driver.Runtime.Zones;
-                Assert.AreEqual(11, zones.Count, "Two slows, two hastes, one spring, two arcane, two rifts and one portal pair.");
+                Assert.AreEqual(15, zones.Count, "Two slows, two hastes, two springs, two arcane, two rifts, two bursts, one ward and one portal pair.");
                 CollectionAssert.AreEquivalent(new[] { ZoneEffectKind.Slow, ZoneEffectKind.Haste, ZoneEffectKind.Regeneration,
-                    ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal }, zones.Select(z => z.Effect.Kind).Distinct());
+                    ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.Protection,
+                    ZoneEffectKind.SpeedBurst }, zones.Select(z => z.Effect.Kind).Distinct());
                 Assert.IsTrue(zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Permanent) &&
-                              zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Pulsing), "Both permanent and pulsing zones exist.");
-                Assert.AreEqual(11, driver.GetComponentsInChildren<SpriteRenderer>(true).Length, "One placeholder disc per zone.");
+                              zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Pulsing) &&
+                              zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Burst), "Permanent, pulsing and burst zones all exist.");
+                Assert.AreEqual(15, driver.GetComponentsInChildren<SpriteRenderer>(true).Length, "One placeholder disc per zone.");
 
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 for (var i = 0; i < 120; i++) yield return new WaitForFixedUpdate();

@@ -41,6 +41,12 @@ namespace Game.Zones
         /// <summary>Visibility 0..1 at a run time.</summary>
         public float Visibility(float runSeconds) => Effect.Visibility(PhaseSeconds, runSeconds);
 
+        /// <summary>Drawn size as a fraction of the radius (swelling for a burst zone).</summary>
+        public float RadiusScale(float runSeconds) => Effect.RadiusScale(PhaseSeconds, runSeconds);
+
+        /// <summary>True when a burst zone goes off in (<paramref name="from"/>, <paramref name="to"/>].</summary>
+        public bool BurstFiresBetween(float from, float to) => Effect.BurstFiresBetween(PhaseSeconds, from, to);
+
         /// <summary>True when the zone is shown enough for its effect to work.</summary>
         public bool IsActive(float runSeconds) => Visibility(runSeconds) >= ZoneEffectDefinition.ActivationThreshold;
 

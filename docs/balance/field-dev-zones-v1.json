@@ -3,7 +3,7 @@
  "formatVersion": 1,
  "revision": "field-dev-zones-v1",
  "approval": "Approved 2026-10-01 (dev-only тестовое поле «Тест 06» по поручению пользователя; числа зон — placeholder для проверки логики, не баланс)",
- "purpose": "Developer-only test field («Тест 06») for the effect-zone foundation of the magical map (FIELD-006). Not one of the ten designed fields. Spawn settings are shared with FIELD-001. Ground is FIELD-006's; obstacles are five small ruins illustrations from the Тест 02 library. Six zone effects: three permanent, three pulsing (a pulsing zone fades in, stays, fades out and reappears at a new random point).",
+ "purpose": "Developer-only test field («Тест 06») for the effect-zone foundation of the magical map (FIELD-006). Not one of the ten designed fields. Spawn settings are shared with FIELD-001. Ground is FIELD-006's; obstacles are five small ruins illustrations from the Тест 02 library. Zone effects: permanent, pulsing and burst ones (a burst swells, goes off once and gives a timed speed buff; healing and ward circles fade out slowly) (a pulsing zone fades in, stays, fades out and reappears at a new random point).",
  "units": {
   "distance": "world units",
   "time": "seconds",
@@ -116,6 +116,43 @@
     "portalCooldownSeconds": 3,
     "portalExitDistance": 3,
     "portalMinPairDistance": 40
+   },
+   {
+    "id": "FIXTURE-ZONE-SPEED-BURST",
+    "displayName": "Рывок",
+    "kind": "SpeedBurst",
+    "radius": 8,
+    "color": "#ffe14a",
+    "lifetime": "Burst",
+    "pulsePeriodSeconds": 40,
+    "telegraphSeconds": 4,
+    "flashSeconds": 0.6,
+    "playerMovementBonus": 0.6,
+    "playerBuffSeconds": 8
+   },
+   {
+    "id": "FIXTURE-ZONE-WARD",
+    "displayName": "Защитный круг",
+    "kind": "Protection",
+    "radius": 6,
+    "color": "#9fd3ff",
+    "lifetime": "Pulsing",
+    "pulsePeriodSeconds": 40,
+    "pulseVisibleSeconds": 26,
+    "pulseFadeSeconds": 6,
+    "playerIncomingDamageReduction": 0.8
+   },
+   {
+    "id": "FIXTURE-ZONE-HEAL",
+    "displayName": "Целебный круг",
+    "kind": "Regeneration",
+    "radius": 6,
+    "color": "#ff8fd0",
+    "lifetime": "Pulsing",
+    "pulsePeriodSeconds": 40,
+    "pulseVisibleSeconds": 26,
+    "pulseFadeSeconds": 6,
+    "playerRegenerationPerSecond": 6
    }
   ],
   "zones": [
@@ -142,6 +179,18 @@
    {
     "effectId": "FIXTURE-ZONE-PORTAL",
     "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-SPEED-BURST",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ZONE-WARD",
+    "count": 1
+   },
+   {
+    "effectId": "FIXTURE-ZONE-HEAL",
+    "count": 1
    }
   ]
  }
