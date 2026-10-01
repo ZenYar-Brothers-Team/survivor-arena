@@ -6,24 +6,24 @@
   "artDirectionRevision": "Approved art direction read 2026-10-01",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v002/concept-01.png",
+  "selectedVersion": "v003/concept-01.png",
   "approvedAt": "2026-10-01",
   "approvedBy": "user",
-  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
-  "prompt": "Precise object edit of IMAGE 1. The ground patch, soft transparent edge, whole canvas, camera and net rope routes must stay the same. The bells and iron plates are STILL MUCH TOO LARGE. Make each bell, each iron plate, each cloth tie and each upright wooden peg only ONE THIRD of its CURRENT width and height in image 1. This is a dramatic reduction; the current pieces are miniature statues and must become small utilitarian hardware. Keep ropes at current thickness, reconnect them to the new small hardware. Do NOT scale the whole obstacle. Image 2 is a medium ground net covering 15 world units; image 1 covers 23 world units wide. In the final world these items must have comparable real-world sizes. Use image 2 style and construction, with sparse small brass bells. Preserve transparent alpha and narrow irregular ground skirt. No giant plates, bells or posts, no dark outer rim, no text.",
+  "approvalEvidence": "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять.",
+  "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
   "constraints": [
     "transparent background",
-    "fixed authored orientation and footprint size; no random rotation or scale",
-    "footprint fixed by the study mask",
-    "no baked gameplay geometry"
+    "actual FIELD-003 ground palette reference",
+    "preserve canvas, pivot, world scale and interior object positions",
+    "visual transition only; existing dense-core collider remains unchanged"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png"
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "9affc9edd4db2b79339ad02749011a21b184bbaa970e9b118135da1fac740157",
-    "runtimeSha256": "9affc9edd4db2b79339ad02749011a21b184bbaa970e9b118135da1fac740157",
+    "sourceSha256": "c31ee2462a2ea8d28b2763b43b3ba14f1984e17de6b269c72169d909c7b02a10",
+    "runtimeSha256": "c31ee2462a2ea8d28b2763b43b3ba14f1984e17de6b269c72169d909c7b02a10",
     "recipe": {
       "mode": "copy"
     }

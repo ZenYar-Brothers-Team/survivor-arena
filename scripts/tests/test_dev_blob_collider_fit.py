@@ -32,13 +32,17 @@ class DevBlobColliderFitTests(unittest.TestCase):
         self.assertLess(max(p[0] for p in points), .4, 'Remote debris must not create an invisible wall')
         self.assertAlmostEqual(min(p[0] for p in points), -2.38, delta=.03)
 
-    def test_configured_contours_match_current_runtime_sprite_pivots_and_dense_cores(self):
+    def test_configured_contours_match_frozen_collision_reference_and_import_pivots(self):
         packet = json.loads((ROOT/'Art/Packets/field-dev-blobs-soft-edges-2026-10-01.json').read_text(encoding='utf-8'))
         data = json.loads((ROOT/'docs/balance/field-dev-blobs-v1.json').read_text(encoding='utf-8'))
         for asset, item in zip(packet['assets'],data['blobLayout']['library']):
             with self.subTest(item=item['id']):
                 self.assertEqual(asset['visualId'],item['visualId'])
-                self.assertEqual(fit(ROOT/asset['runtime'],asset['importProfile']),item['points'])
+                # Palette/ground-skirt replacements must not redefine collision.
+                # The immutable selected version used for the approved fit remains
+                # the geometry reference even after the runtime PNG is replaced.
+                reference = ROOT/asset['sourceDirectory']/asset['version']/'concept-01.png'
+                self.assertEqual(fit(reference,asset['importProfile']),item['points'])
 
 
 if __name__ == '__main__': unittest.main()

@@ -1,0 +1,382 @@
+[
+  {
+    "id": "wet-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-small-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 175.49,
+    "collider": "unchanged"
+  },
+  {
+    "id": "wet-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-medium-ground-match-v1-preview.png",
+    "canvas": [
+      2169,
+      725
+    ],
+    "originalCanvas": [
+      2169,
+      725
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 126.25,
+    "collider": "unchanged"
+  },
+  {
+    "id": "wet-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-large-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 42.94,
+    "collider": "unchanged"
+  },
+  {
+    "id": "wet-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/wet-upright-ground-match-v1-preview.png",
+    "canvas": [
+      1044,
+      1507
+    ],
+    "originalCanvas": [
+      1044,
+      1507
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 90.52,
+    "collider": "unchanged"
+  },
+  {
+    "id": "ward-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-small-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 157.72,
+    "collider": "unchanged"
+  },
+  {
+    "id": "ward-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-medium-ground-match-v1-preview.png",
+    "canvas": [
+      1846,
+      852
+    ],
+    "originalCanvas": [
+      1846,
+      852
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 130.44,
+    "collider": "unchanged"
+  },
+  {
+    "id": "ward-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-large-ground-match-v1-preview.png",
+    "canvas": [
+      1415,
+      1111
+    ],
+    "originalCanvas": [
+      1416,
+      1111
+    ],
+    "canvasPreserved": false,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 55.12,
+    "collider": "unchanged"
+  },
+  {
+    "id": "ward-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/ward-upright-ground-match-v1-preview.png",
+    "canvas": [
+      1018,
+      1545
+    ],
+    "originalCanvas": [
+      1018,
+      1544
+    ],
+    "canvasPreserved": false,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 96.46,
+    "collider": "unchanged"
+  },
+  {
+    "id": "thorn-small",
+    "image": "Art/Source/Environment/field-dev-blobs/thorn-small/selected-master.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 138.93,
+    "collider": "unchanged"
+  },
+  {
+    "id": "thorn-medium",
+    "image": "Art/Source/Environment/field-dev-blobs/thorn-medium/selected-master.png",
+    "canvas": [
+      1821,
+      864
+    ],
+    "originalCanvas": [
+      1821,
+      864
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 95.32,
+    "collider": "unchanged"
+  },
+  {
+    "id": "thorn-large",
+    "image": "Art/Source/Environment/field-dev-blobs/thorn-large/selected-master.png",
+    "canvas": [
+      1374,
+      1145
+    ],
+    "originalCanvas": [
+      1374,
+      1145
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 48.85,
+    "collider": "unchanged"
+  },
+  {
+    "id": "thorn-upright",
+    "image": "Art/Source/Environment/field-dev-blobs/thorn-upright/selected-master.png",
+    "canvas": [
+      793,
+      1983
+    ],
+    "originalCanvas": [
+      793,
+      1983
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 117.42,
+    "collider": "unchanged"
+  },
+  {
+    "id": "net-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-small-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 142.31,
+    "collider": "unchanged"
+  },
+  {
+    "id": "net-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-medium-ground-match-v1-preview.png",
+    "canvas": [
+      1721,
+      914
+    ],
+    "originalCanvas": [
+      1721,
+      914
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 105.59,
+    "collider": "unchanged"
+  },
+  {
+    "id": "net-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-large-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 52.93,
+    "collider": "unchanged"
+  },
+  {
+    "id": "net-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/net-upright-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "ppu": 84.74,
+    "collider": "unchanged"
+  },
+  {
+    "id": "incense-small",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-small-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 155.55,
+    "collider": "unchanged"
+  },
+  {
+    "id": "incense-medium",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-medium-ground-match-v1-preview.png",
+    "canvas": [
+      1774,
+      887
+    ],
+    "originalCanvas": [
+      1774,
+      887
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 108.1,
+    "collider": "unchanged"
+  },
+  {
+    "id": "incense-large",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-large-ground-match-v1-preview.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "originalCanvas": [
+      1254,
+      1254
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 44.49,
+    "collider": "unchanged"
+  },
+  {
+    "id": "incense-upright",
+    "image": "Art/Concepts/field-002-ruins-blob-art/incense-upright-ground-match-v1-preview.png",
+    "canvas": [
+      1117,
+      1408
+    ],
+    "originalCanvas": [
+      1117,
+      1408
+    ],
+    "canvasPreserved": true,
+    "alphaRange": [
+      0,
+      254
+    ],
+    "ppu": 96.04,
+    "collider": "unchanged"
+  }
+]

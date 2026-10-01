@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-01",
+  "approvalEvidence": "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять.",
+  "assets": [
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-small-ground-match-v1-preview.png",
+      "sha256": "ae64438d07ab943283d61b45e2df860cb84a9702dc4040b39765f4e007b564b3",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-small",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all puddles, paving slab shapes and markings. Tone the soil and slab dirt toward the map reference; subdue overly yellow ground markings. Keep blue-grey water distinct. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 175.49,
+        "maxSize": 2048,
+        "pivotX": 0.4996,
+        "pivotY": 0.4984,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (small-angular, footprint 5.9 x 5.3 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "99687f67037953ee1ae3b13d452577735b1c8451ac00c3f8059ac9cadf744837"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-medium-ground-match-v1-preview.png",
+      "sha256": "1c2a80d41fd446018e51ca0c3bb19ef620b800079fe0a7dc2ac9b78eb4828c27",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-medium",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all puddles, paving slab shapes and markings. Tone the soil and slab dirt toward the map reference; subdue overly yellow ground markings. Keep blue-grey water distinct. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 126.25,
+        "maxSize": 2048,
+        "pivotX": 0.4993,
+        "pivotY": 0.4566,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (medium-linear, footprint 13.989 x 4.665 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "90c250533334024f112d50c7efff79597be7d48d48a23580273d9f85b377e539"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-large-ground-match-v1-preview.png",
+      "sha256": "77312c1e9e5f39be42b71878dedc87b768ad197019dba4e0d709008e96c52b74",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-large",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all puddles, paving slab shapes and markings. Tone the soil and slab dirt toward the map reference; subdue overly yellow ground markings. Keep blue-grey water distinct. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 42.94,
+        "maxSize": 2048,
+        "pivotX": 0.5191,
+        "pivotY": 0.504,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (large-round, footprint 26.9 x 20.307 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "506c66fbb5337fda706a57e474db2ea289a25441218f45e17b331c89c73d682b"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/wet-upright-ground-match-v1-preview.png",
+      "sha256": "90bc0ba25b2acd5985c6749570aa350bca9e69dab40e6a65a7066eec8e2f9fb3",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-upright",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all puddles, paving slab shapes and markings. Tone the soil and slab dirt toward the map reference; subdue overly yellow ground markings. Keep blue-grey water distinct. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 90.52,
+        "maxSize": 2048,
+        "pivotX": 0.5005,
+        "pivotY": 0.5043,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (wet-upright-round, footprint 10.344 x 14.953 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "95ba7c2b92fe039f823d69cbf24cc634102711b726829821eb68596cbb2a6ebd"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-small-ground-match-v1-preview.png",
+      "sha256": "a4be39c49448916cb77b44a6e4fe3d1c352d88fd3a1e9aa827363e9111a727c6",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-small",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all pale limestone slabs and small blue/gold rune motifs; keep their material identity and sizes. Match soil/grout to brown-grey map earth and let outer pale stone fragments become gradually dirtier and closer in value to the reference. Add an irregular muted taupe dust/stone transition near the perimeter to ease pale masonry into the brown floor. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 157.72,
+        "maxSize": 2048,
+        "pivotX": 0.5116,
+        "pivotY": 0.5371,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-small-angular-v2, footprint 6.3 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "caff21aadd46aef90f346eeac4181db9f1c8e05192b074431d2692fe0fbab1df"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-medium-ground-match-v1-preview.png",
+      "sha256": "35322637f50df5fd261a632bdadd1d8bcae4cd7108a806dfa44806c34f27f4f4",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-medium",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all pale limestone slabs and small blue/gold rune motifs; keep their material identity and sizes. Match soil/grout to brown-grey map earth and let outer pale stone fragments become gradually dirtier and closer in value to the reference. Add an irregular muted taupe dust/stone transition near the perimeter to ease pale masonry into the brown floor. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 130.44,
+        "maxSize": 2048,
+        "pivotX": 0.4992,
+        "pivotY": 0.52,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-medium-linear-v2, footprint 13.312 x 6.151 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "427e23e4a0fad3a376363c27b96c86e24ea628e04d189a5f24e8f6577a18cc3c"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-large-ground-match-v1-preview.png",
+      "sha256": "4537285d685b342e9b09e56bcfd47323d5504cfb33c99a9ca9c971c8f206887e",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-large",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all pale limestone slabs and small blue/gold rune motifs; keep their material identity and sizes. Match soil/grout to brown-grey map earth and let outer pale stone fragments become gradually dirtier and closer in value to the reference. Add an irregular muted taupe dust/stone transition near the perimeter to ease pale masonry into the brown floor. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 55.12,
+        "maxSize": 2048,
+        "pivotX": 0.5028,
+        "pivotY": 0.5099,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-large-round-v2, footprint 24.765 x 19.402 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "7aa60ba168ad4cf1d6a9d548ed4fe69ccbd83b1fd84e2c6b4a9e87de2eae03d8"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/ward-upright-ground-match-v1-preview.png",
+      "sha256": "b7e1d45d1712abe5e888ec9dcf8b3b4671db6844e2b705514a845113765001cf",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-upright",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all pale limestone slabs and small blue/gold rune motifs; keep their material identity and sizes. Match soil/grout to brown-grey map earth and let outer pale stone fragments become gradually dirtier and closer in value to the reference. Add an irregular muted taupe dust/stone transition near the perimeter to ease pale masonry into the brown floor. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.46,
+        "maxSize": 2048,
+        "pivotX": 0.501,
+        "pivotY": 0.5172,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-upright-angular, footprint 9.0 x 13.7 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "dd3020d812dc2395a72af76ab61f917852890a05ec3bc61d39d1b081cd693a65"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-small-ground-match-v1-preview.png",
+      "sha256": "9a55968c0b2a85d40ee06ff1909e1322e6886308ce27f6d91d1a4fa3e5fb304b",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-small",
+      "version": "v002",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 142.31,
+        "maxSize": 2048,
+        "pivotX": 0.5163,
+        "pivotY": 0.5175,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-small-angular-v2, footprint 6.6 x 5.8 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "6ddde4bdbf1b80e228ddb416d69e4abc1d1839b036fc79b51658d872aecbfd91"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-medium-ground-match-v1-preview.png",
+      "sha256": "f8196791cb48c0cdf3b911de23497437ce61bcb8c0839dcfdba24782bba54239",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-medium",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 105.59,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.4918,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-medium-linear-v2, footprint 15.021 x 7.949 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "fe3258516bfaee7cb2c30cb9fccd5b3418e6628eaf67c30ffd005cbfeaa74bb3"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-large-ground-match-v1-preview.png",
+      "sha256": "c31ee2462a2ea8d28b2763b43b3ba14f1984e17de6b269c72169d909c7b02a10",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-large",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 52.93,
+        "maxSize": 2048,
+        "pivotX": 0.5084,
+        "pivotY": 0.5028,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-large-round-v2, footprint 23.4 x 19.5 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "9affc9edd4db2b79339ad02749011a21b184bbaa970e9b118135da1fac740157"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/net-upright-ground-match-v1-preview.png",
+      "sha256": "a43f5a5017b889b6dd46a832f729905cb5dffbc8109704b54894a0f4a6d45d9d",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-upright",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 84.74,
+        "maxSize": 2048,
+        "pivotX": 0.5247,
+        "pivotY": 0.5167,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-upright-angular, footprint 8.7 x 13.9 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "eb37504f78020319850d9acceac84740cd46a056dabc7caa5643f69067a8e0b7"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-small-ground-match-v1-preview.png",
+      "sha256": "39b1b52e1f177694f1bd7da0c9dd6f6d2419ab3bb6d1ee8314fa21d77c0a1818",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-small",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain every tiny brass censer, flower and smoke curl at exactly its current size and position. ONLY bring earth, background stones and perimeter vegetation toward the map reference; soften the transition in their tones. Keep static low haze inside the core. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 155.55,
+        "maxSize": 2048,
+        "pivotX": 0.5012,
+        "pivotY": 0.5191,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-small-angular-v2, footprint 6.8 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "d4bb0481a1421653099e4d280111450f45e22b01afb678f2cdc4f55a84915e29"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-medium-ground-match-v1-preview.png",
+      "sha256": "cc52a8d212f13428eaffb0d0505317b01b38c97ab4c9fe6ef08d3ac9a17fbc23",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-medium",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain every tiny brass censer, flower and smoke curl at exactly its current size and position. ONLY bring earth, background stones and perimeter vegetation toward the map reference; soften the transition in their tones. Keep static low haze inside the core. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 108.1,
+        "maxSize": 2048,
+        "pivotX": 0.5011,
+        "pivotY": 0.4882,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-medium-linear-v2, footprint 14.375 x 5.943 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "60e89237b787e0a5cae77045d99269a4df2e88bb864602b7d46d09396cc8be0c"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-large-ground-match-v1-preview.png",
+      "sha256": "cab8183061ce2dcfb9e7c2e4cc738c462042c57cb622744d3bdb82cf4e113281",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-large",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain every tiny brass censer, flower and smoke curl at exactly its current size and position. ONLY bring earth, background stones and perimeter vegetation toward the map reference; soften the transition in their tones. Keep static low haze inside the core. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 44.49,
+        "maxSize": 2048,
+        "pivotX": 0.5159,
+        "pivotY": 0.5104,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-large-round-v2, footprint 20.234 x 21.395 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "20e29a75296ab07b22697cd79237496777d2dc679466df230d769d67ebc573f6"
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Concepts/field-002-ruins-blob-art/incense-upright-ground-match-v1-preview.png",
+      "sha256": "90762c0c84cb887c52680acd00ec8c48fd3cb5ebfd57caa0e69493e907f84737",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-upright",
+      "version": "v003",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png",
+      "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain every tiny brass censer, flower and smoke curl at exactly its current size and position. ONLY bring earth, background stones and perimeter vegetation toward the map reference; soften the transition in their tones. Keep static low haze inside the core. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "actual FIELD-003 ground palette reference",
+        "preserve canvas, pivot, world scale and interior object positions",
+        "visual transition only; existing dense-core collider remains unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.04,
+        "maxSize": 2048,
+        "pivotX": 0.5031,
+        "pivotY": 0.5153,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-upright-round, footprint 10.081 x 12.709 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      },
+      "replacementApproved": true,
+      "replacesSha256": "c6122e5fd37724e19efd8b5a09ec3541de7a60661b4f7e4cfaa07ddc3a01de57"
+    }
+  ]
+}

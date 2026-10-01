@@ -6,24 +6,24 @@
   "artDirectionRevision": "Approved art direction read 2026-10-01",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v001/concept-01.png",
+  "selectedVersion": "v002/concept-01.png",
   "approvedAt": "2026-10-01",
   "approvedBy": "user",
-  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
-  "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Ground net: let the earth end in sparse tufts, dusty brush marks and a few loose small stones. Preserve the right-side inward notch, all ropes, rope thickness, cloth strips and anchors. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+  "approvalEvidence": "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять.",
+  "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain EVERY rope route, rope thickness, small bell, plate, post and cloth tie exactly at its current size and position. ONLY recolour the ground beneath them and perimeter debris from warm yellow sand to the grey-brown earth and stones of the map reference. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
   "constraints": [
     "transparent background",
-    "fixed authored orientation and footprint size; no random rotation or scale",
-    "soft-edge variant keeps its core footprint scale",
-    "no baked gameplay geometry"
+    "actual FIELD-003 ground palette reference",
+    "preserve canvas, pivot, world scale and interior object positions",
+    "visual transition only; existing dense-core collider remains unchanged"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png"
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "6ddde4bdbf1b80e228ddb416d69e4abc1d1839b036fc79b51658d872aecbfd91",
-    "runtimeSha256": "6ddde4bdbf1b80e228ddb416d69e4abc1d1839b036fc79b51658d872aecbfd91",
+    "sourceSha256": "9a55968c0b2a85d40ee06ff1909e1322e6886308ce27f6d91d1a4fa3e5fb304b",
+    "runtimeSha256": "9a55968c0b2a85d40ee06ff1909e1322e6886308ce27f6d91d1a4fa3e5fb304b",
     "recipe": {
       "mode": "copy"
     }

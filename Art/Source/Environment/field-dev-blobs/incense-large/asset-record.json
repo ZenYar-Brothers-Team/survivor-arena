@@ -6,24 +6,24 @@
   "artDirectionRevision": "Approved art direction read 2026-10-01",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v002/concept-01.png",
+  "selectedVersion": "v003/concept-01.png",
   "approvedAt": "2026-10-01",
   "approvedBy": "user",
-  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
-  "prompt": "Use case: precise-object-edit. Image 1 is the edit target, image 2 is a SMALL sprite from the same family as a WORLD SCALE reference. IMPORTANT image 1 is a much larger ground footprint; corresponding internal items must be proportionally MUCH SMALLER IN ITS CANVAS than in image 2. Keep image 1 exact canvas dimensions/aspect ratio, existing core silhouette, position, soft alpha skirt and fixed camera orientation. Change the internal construction only to fix world scale. Pixel targets below are for the ORIGINAL target canvas, do not resize the whole image. Correct the brass censers: every bowl including its complete silhouette must be only 0.9 wu wide = 40 pixels maximum. Boundary discs 0.25 wu = 11 pixels, flowers 0.2 wu = 9 pixels. Replace oversized bowls with these small bowls; cover the large footprint with 12–16 correctly sized bowls, rather than enlarged few bowls. Static smoke curls 0.8–1.5 wu = 36–67 pixels. Preserve low static haze and stones, no giant single smoke cloud. Preserve matte hand-painted storybook rendering and transparent alpha background. No dark exterior rim, no platform, buildings, text or frame.",
+  "approvalEvidence": "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять.",
+  "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain every tiny brass censer, flower and smoke curl at exactly its current size and position. ONLY bring earth, background stones and perimeter vegetation toward the map reference; soften the transition in their tones. Keep static low haze inside the core. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
   "constraints": [
     "transparent background",
-    "fixed authored orientation and footprint size; no random rotation or scale",
-    "footprint fixed by the study mask",
-    "no baked gameplay geometry"
+    "actual FIELD-003 ground palette reference",
+    "preserve canvas, pivot, world scale and interior object positions",
+    "visual transition only; existing dense-core collider remains unchanged"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png"
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "20e29a75296ab07b22697cd79237496777d2dc679466df230d769d67ebc573f6",
-    "runtimeSha256": "20e29a75296ab07b22697cd79237496777d2dc679466df230d769d67ebc573f6",
+    "sourceSha256": "cab8183061ce2dcfb9e7c2e4cc738c462042c57cb622744d3bdb82cf4e113281",
+    "runtimeSha256": "cab8183061ce2dcfb9e7c2e4cc738c462042c57cb622744d3bdb82cf4e113281",
     "recipe": {
       "mode": "copy"
     }

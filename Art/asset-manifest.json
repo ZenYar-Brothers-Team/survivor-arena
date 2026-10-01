@@ -4591,7 +4591,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4607,7 +4607,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4623,7 +4623,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4639,7 +4639,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4655,7 +4655,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4671,7 +4671,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4687,7 +4687,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4703,7 +4703,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4783,7 +4783,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4799,7 +4799,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4815,7 +4815,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4831,7 +4831,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4847,7 +4847,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4863,7 +4863,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4879,7 +4879,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4895,7 +4895,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
       ],
       "missing": "Unity import checks and target-scale visual review."
     }

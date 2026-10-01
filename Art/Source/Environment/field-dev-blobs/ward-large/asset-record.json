@@ -6,24 +6,24 @@
   "artDirectionRevision": "Approved art direction read 2026-10-01",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v002/concept-01.png",
+  "selectedVersion": "v003/concept-01.png",
   "approvedAt": "2026-10-01",
   "approvedBy": "user",
-  "approvalEvidence": "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний.",
-  "prompt": "Use case: precise-object-edit. Edit ONLY the perimeter of this existing transparent game obstacle sprite. Preserve the exact canvas aspect ratio, original core position, core size IN PIXELS, all interior object sizes, arrangement, orientation and camera. Remove the continuous dark purple outer contour completely. Replace the abrupt soil cut edge with a narrow irregular hand-painted transition: sparse stones, dusty brush marks and moss/root tips that gradually become partially transparent and then fully transparent. Transition width about 0.35 world units on a 24.765 by 19.402 world-unit footprint, never a broad halo. Preserve every concavity and the overall original unique footprint. Leave generous transparent margins, no clipping. Preserve all small blue/gold diamonds and stone sizes; reduce peripheral glow subtly into transparency. Matte stylized storybook game art, retain the reference rendering. Output one sprite with TRUE transparent alpha and partly transparent boundary pixels. No outline ring, platform, frame, background, text, colour fringe or fog halo.",
+  "approvalEvidence": "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять.",
+  "prompt": "Use case: precise-object-edit. IMAGE 1: existing game obstacle sprite, EDIT TARGET. IMAGE 2: the actual repeating map ground, COLOR AND GROUND MATERIAL REFERENCE ONLY. This sprite will be placed at arbitrary positions on image 2. Change only the soil, grout and outer ground transition in IMAGE 1 so it blends naturally with IMAGE 2. Match the actual reference's desaturated grey-brown/taupe soil, dusty brown-grey stone and muted olive moss; remove the obstacle soil's yellow-orange/beige colour cast. MATCH the reference's brightness and saturation, not just general hue. Retain all pale limestone slabs and small blue/gold rune motifs; keep their material identity and sizes. Match soil/grout to brown-grey map earth and let outer pale stone fragments become gradually dirtier and closer in value to the reference. Add an irregular muted taupe dust/stone transition near the perimeter to ease pale masonry into the brown floor. Render a mottled irregular feathered alpha transition, mixing map-matched dusty earth, scattered same-tone fragments and partially transparent brush marks; no continuous halo or outlining. The transition may extend a little into available transparent padding, but no clipping. IMPORTANT preserve exact original canvas dimensions/aspect ratio, core shape, location and PIXEL SCALE of all objects. Existing gameplay collider is frozen; no resizing, rearranging, shifting or new collision-worthy objects. Match reference tones at the outer edge particularly carefully. Keep stylized matte storybook illustration. Output only ONE standalone RGBA sprite on TRUE TRANSPARENT background, including semi-transparent transition pixels. Never bake the rectangular reference ground tile or a surrounding opaque floor into the output. No frame, words, dark border, white vignette, glow halo or colour fringe.",
   "constraints": [
     "transparent background",
-    "fixed authored orientation and footprint size; no random rotation or scale",
-    "footprint fixed by the study mask",
-    "no baked gameplay geometry"
+    "actual FIELD-003 ground palette reference",
+    "preserve canvas, pivot, world scale and interior object positions",
+    "visual transition only; existing dense-core collider remains unchanged"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png"
   ],
   "preparation": {
-    "sourceDimensions": "1416x1111",
-    "sourceSha256": "7aa60ba168ad4cf1d6a9d548ed4fe69ccbd83b1fd84e2c6b4a9e87de2eae03d8",
-    "runtimeSha256": "7aa60ba168ad4cf1d6a9d548ed4fe69ccbd83b1fd84e2c6b4a9e87de2eae03d8",
+    "sourceDimensions": "1415x1111",
+    "sourceSha256": "4537285d685b342e9b09e56bcfd47323d5504cfb33c99a9ca9c971c8f206887e",
+    "runtimeSha256": "4537285d685b342e9b09e56bcfd47323d5504cfb33c99a9ca9c971c8f206887e",
     "recipe": {
       "mode": "copy"
     }

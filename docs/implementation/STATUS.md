@@ -22,6 +22,12 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 FIELD-DEV-BLOBS контакт 2026-10-01 — Implemented по DECISION-0133: двадцать контуров подогнаны по плотному ядру установленных PNG вокруг импортированных pivot/PPU; generation STATIC PASS и Python 2/2 PASS. Unity art check NOT RUN: процесс Editor без определимого project path. После команды «подключай новый арт» утверждённый набор перенесён через art_pipeline: заменены 17 PNG, ещё 3 уже имели мягкий край; все GUID сохранены. Контуры повторно подогнаны по новому арту; Python 2/2 PASS, generation и manifest 293 PASS. Контакт в движении ожидает игрового просмотра. [Evidence](evidence/2026-10-01-dev-obstacle-soft-edges-and-contact.md).
 
+FIELD-DEV-BLOBS палитра грунта 2026-10-01 — Implemented: по «Подключай и комить»
+заменены 16 PNG под фактический FIELD-003 пол; 4 колючки сохранены.
+Все 20 контуров и sprite GUID/PPU/pivot неизменны. Python 2/2 PASS;
+Unity art check после замены NOT RUN: процесс Editor без определимого project path.
+[Пакет и проверки](../../Art/Concepts/field-002-ruins-blob-art/ground-match-review.md).
+
 Открытия за обычные убийства 2026-10-01 — восемь порогов `ordinaryKills`
 увеличены ×6 по [DECISION-0131](../decisions/0131-ordinary-kill-unlock-thresholds.md).
 Каталог, Content Design, подсказки FIELD-002/Meta и тесты синхронизированы;
