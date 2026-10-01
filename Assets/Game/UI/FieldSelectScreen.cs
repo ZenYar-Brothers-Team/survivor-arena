@@ -22,6 +22,7 @@ namespace Game.UI
         private const int Columns = 5;
         // Up to this many fields share the screen without scrolling (4 full rows); more fields keep the same card size and scroll.
         private const int FittingFieldCount = 20;
+        private const float TestSectionSpacing = 24f;
         // Field backgrounds are authored at 512x341; the card picture keeps that ratio while there is room for it.
         private const float PictureAspect = 341f / 512f;
         public UIDocument Document { get; }
@@ -114,8 +115,6 @@ namespace Game.UI
             var inner = style.width - style.paddingLeft - style.paddingRight - style.borderLeftWidth - style.borderRightWidth;
             var text = style.height - picture.resolvedStyle.height;
             if (float.IsNaN(inner) || inner <= 0 || float.IsNaN(text) || text <= 0) return;
-            // Designed fields (and their closed previews) fill the screen; test fields wait below and are reached by scrolling.
-            _cards.style.minHeight = _testIds.Count > 0 ? area : 0f;
             var rows = FittingRows(_choices.Count - _testIds.Count);
             var natural = inner * PictureAspect;
             var height = Mathf.Clamp(area / rows - style.marginBottom - text, 60f, natural);
@@ -123,6 +122,17 @@ namespace Game.UI
             {
                 var image = choice.Q<Image>(GameplayUiElementIds.FieldSelectThumbnail);
                 if (Mathf.Abs(image.resolvedStyle.height - height) > 0.5f) image.style.height = height;
+            }
+            // Designed fields (and their closed previews) fill the screen; the test section starts below it, reached by scrolling.
+            // The cards keep their natural height: only the gap above the test section grows, so nothing feeds back into the picture size.
+            if (_testIds.Count > 0)
+            {
+                var used = _cards.resolvedStyle.height;
+                if (!float.IsNaN(used))
+                {
+                    var gap = Mathf.Max(TestSectionSpacing, area - used);
+                    if (Mathf.Abs(_testSection.resolvedStyle.marginTop - gap) > 0.5f) _testSection.style.marginTop = gap;
+                }
             }
         }
         /// <summary>Rows the card pictures are sized for: every row shares the screen up to 20 fields, extra rows scroll.</summary>
