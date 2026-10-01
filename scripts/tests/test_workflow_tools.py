@@ -269,6 +269,34 @@ class CheckRunnerTests(unittest.TestCase):
         with patch.object(checks, "command", return_value=json.dumps(rows)):
             self.assertEqual([{"pid": 2, "batch": True}], checks.editor_processes(Path("D:/GitHub/survivor-arena")))
 
+    def test_hub_service_is_not_an_editor_and_does_not_hide_real_editor(self):
+        hub = {"ProcessId": 1, "ExecutablePath": r"C:\Program Files\Unity Hub\resources\unity.exe",
+               "CommandLine": r'"C:\Program Files\Unity Hub\resources\unity.exe" serve'}
+        editor = {"ProcessId": 2, "CommandLine": 'Unity.exe -projectPath "D:/GitHub/survivor-arena"'}
+        with patch.object(checks, "command", return_value=json.dumps([hub])) as probe:
+            self.assertEqual([], checks.editor_processes())
+            self.assertIn("ExecutablePath", probe.call_args.args[0][-1])
+        with patch.object(checks, "command", return_value=json.dumps([hub, editor])):
+            self.assertEqual([{"pid": 2, "batch": False}],
+                             checks.editor_processes(Path("D:/GitHub/survivor-arena")))
+
+    def test_unidentified_unity_still_blocks_even_with_hub_service(self):
+        executable = r"C:\Program Files\Unity Hub\resources\unity.exe"
+        hub = {"ProcessId": 1, "ExecutablePath": executable,
+               "CommandLine": f'"{executable}" serve'}
+        for row in (
+            {"ProcessId": 2, "CommandLine": '"D:/Unity/Editor/Unity.exe"'},
+            {"ProcessId": 2, "ExecutablePath": r"D:\Unity\Editor\Unity.exe",
+             "CommandLine": r'"D:\Unity\Editor\Unity.exe" serve'},
+            {"ProcessId": 2, "CommandLine": hub["CommandLine"]},
+            dict(hub, ProcessId=2, CommandLine=f'"{executable}" serve --unknown'),
+            dict(hub, ProcessId=2, CommandLine='"D:/other/Unity.exe" serve'),
+            dict(hub, ProcessId=2, CommandLine=None),
+        ):
+            with self.subTest(row=row), patch.object(checks, "command", return_value=json.dumps([hub, row])):
+                with self.assertRaisesRegex(checks.NotRun, "PID 2"):
+                    checks.editor_processes()
+
     def test_xml_counts_only_project_tests_and_rejects_empty_or_skipped(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "test.xml"

@@ -4,6 +4,7 @@ import datetime
 import hashlib
 import json
 import math
+import ntpath
 import os
 from pathlib import Path
 import re
@@ -176,12 +177,26 @@ def created_import_metadata(root, before_assets, before_fingerprint):
     return sorted(added) if added and fingerprint(root, added) == before_fingerprint else []
 
 
+def is_hub_service(row):
+    """Recognize the Hub helper by both executable location and exact invocation."""
+    executable = row.get("ExecutablePath")
+    line = row.get("CommandLine")
+    if not executable or not line:
+        return False
+    executable = ntpath.normcase(ntpath.normpath(executable))
+    if not executable.endswith(r"\unity hub\resources\unity.exe"):
+        return False
+    match = re.fullmatch(r'\s*(?:"([^"]+)"|(\S+))\s+serve\s*', line)
+    return bool(match and ntpath.normcase(ntpath.normpath(
+        match.group(1) or match.group(2))) == executable)
+
+
 def editor_processes(root=ROOT):
     # A denied/unavailable process probe must never be interpreted as "Editor closed".
     script = ("$ErrorActionPreference='Stop'\n"
               "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8\n"
               "@(Get-CimInstance Win32_Process -Filter \"Name='Unity.exe'\" | "
-              "Select-Object ProcessId,CommandLine) | ConvertTo-Json -Compress")
+              "Select-Object ProcessId,ExecutablePath,CommandLine) | ConvertTo-Json -Compress")
     try:
         output = command(["powershell", "-NoProfile", "-NonInteractive", "-Command", script], root, timeout=15)
         rows = json.loads(output.lstrip("\ufeff")) if output.strip() else []
@@ -191,14 +206,17 @@ def editor_processes(root=ROOT):
         rows = [rows]
     matches = []
     for row in rows:
+        if is_hub_service(row):
+            continue
         line = row.get("CommandLine")
         if not line:
-            raise NotRun("A Unity process has an unreadable command line; cannot safely launch batch mode.")
+            raise NotRun(f"Unity PID {row.get('ProcessId')} has an unreadable command line; cannot safely launch batch mode.")
         if re.search(r'"?-parentPid"?\s', line, re.I) and re.search(r"AssetImportWorker", line):
             continue  # Import worker child of an interactive Editor; the Editor row itself is matched.
         match = re.search(r'-projectPath\s+(?:"([^"]+)"|(\S+))', line, re.I)
         if not match:
-            raise NotRun("Unity process has no identifiable project path; confirm the Editor state manually.")
+            raise NotRun(f"Unity PID {row.get('ProcessId')} ({row.get('ExecutablePath') or 'executable unreadable'}) "
+                         "has no identifiable project path; confirm the Editor state manually.")
         project = Path(match.group(1) or match.group(2)).resolve()
         if os.path.normcase(str(project)) == os.path.normcase(str(root.resolve())):
             matches.append({"pid": row["ProcessId"], "batch": bool(re.search(r"-batchmode\b", line, re.I))})

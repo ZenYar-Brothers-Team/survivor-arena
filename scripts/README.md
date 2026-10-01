@@ -76,6 +76,8 @@ python scripts/check_project.py --scope docs --paths docs/implementation/WORKFLO
 
 Перед каждым Unity запуском runner проверяет процессы и project lock. При открытом Editor используется UnitySkills REST; Bypass для PlayMode включает только пользователь. Недоступная проверка процессов, другой project, запрет режима или недоступный REST дают `NOT RUN / INCOMPLETE` и exit 2. При закрытом Editor запускается установленная версия из ProjectVersion. Никакого batch поверх открытого Editor и автоматического закрытия Editor. `--unity-url` выбирает явно нужный локальный endpoint; `--unity-path` позволяет указать Editor. Процессам запрещено конкурировать через локальный runner lock.
 
+Служебный `Unity Hub/resources/unity.exe serve` исключается из Editor-проверки только при совпадении `ExecutablePath` и точной командной строки. У этого процесса Hub нет `-projectPath`; его присутствие не требует закрывать Hub. Любой другой Unity без читаемой командной строки или пути проекта по-прежнему блокирует запуск; сообщение содержит PID и, если доступен, путь executable для диагностики.
+
 У UnitySkills literal class/namespace filter, поэтому runner отдельно переводит стандартные scopes и простые anchored namespaces. Непереводимое regex-выражение не расширяется до всех тестов молча. Server mode/grant restrictions сохраняются.
 
 Для capture-тестов UI/camera добавить `--graphics`: закрытый Editor запускается
