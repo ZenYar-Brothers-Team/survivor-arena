@@ -18,4 +18,4 @@ Selected set of **20 PNGs**, five families with four unique footprints each. Sou
 - Preserve edge clearance, passable gaps and the start area in random placement. No daily scheduling rule was added.
 - These selected masters live outside Assets per ASSET_PIPELINE. Runtime derivatives, import profiles, resource bindings and collider checks belong to the later integration. Use scripts/art_pipeline.py for the approved runtime packet once those identifiers and profiles are defined.
 
-Visual comparison for the three softened variants: [on the ruins floor](../../../Concepts/field-002-ruins-blob-art/soft-edge-on-ruins-comparison.png). Original generation prompts remain in that concept directory's generation-plan-v3.json, prompts.md and soft-edge-study.json.
+Current approved review: [all twenty at shared world scale](../../../Concepts/field-002-ruins-blob-art/soft-library-world-scale-review.png). Historical generation prompts remain in that concept directory's generation-plan-v3.json and prompts.md; the three original soft-edge prompts are recorded in Art/Packets/field-dev-blobs-ruins-2026-10-01.json. Superseded study images and masks have been removed.

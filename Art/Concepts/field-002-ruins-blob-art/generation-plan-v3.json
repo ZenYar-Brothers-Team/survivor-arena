@@ -1,0 +1,152 @@
+{
+  "generator": "built-in imagegen",
+  "transparentBackground": true,
+  "requests": [
+    {
+      "id": "wet-medium",
+      "output": "medium-linear-v3-preview.png",
+      "references": [
+        "medium-linear-mask.png",
+        "medium-linear-preview.png",
+        "small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the same family's earlier art, THIRD is the SMALL sprite used as a shared detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 13.99 by 4.67 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "wet-large",
+      "output": "large-round-v3-preview.png",
+      "references": [
+        "large-round-mask.png",
+        "large-round-preview.png",
+        "small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the same family's earlier art, THIRD is the SMALL sprite used as a shared detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 26.90 by 20.31 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.4% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "wet-upright",
+      "output": "wet-upright-round-v3-preview.png",
+      "references": [
+        "wet-upright-round-mask.png",
+        "small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 10.34 by 14.95 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 6.3% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "ward-medium",
+      "output": "ward-medium-linear-v3-preview.png",
+      "references": [
+        "ward-medium-linear-v2-mask.png",
+        "ward-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 13.31 by 6.15 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.9% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "ward-large",
+      "output": "ward-large-round-v3-preview.png",
+      "references": [
+        "ward-large-round-v2-mask.png",
+        "ward-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 24.77 by 19.40 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text. Across this large footprint use at least 70 small limestone slabs and 10-15 SMALL diamond nodes. NO giant central medallion. Each diamond is 3 percent of total footprint width or less."
+    },
+    {
+      "id": "ward-upright",
+      "output": "ward-upright-angular-v3-preview.png",
+      "references": [
+        "ward-upright-angular-mask.png",
+        "ward-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 9.00 by 13.70 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 7.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "thorn-medium",
+      "output": "thorn-medium-linear-v3-preview.png",
+      "references": [
+        "thorn-medium-linear-v2-mask.png",
+        "thorn-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 15.63 by 7.42 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "thorn-large",
+      "output": "thorn-large-round-v3-preview.png",
+      "references": [
+        "thorn-large-round-v2-mask.png",
+        "thorn-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 23.12 by 19.22 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.8% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "thorn-upright",
+      "output": "thorn-upright-linear-v3-preview.png",
+      "references": [
+        "thorn-upright-linear-mask.png",
+        "thorn-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 3.95 by 15.00 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 16.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "net-medium",
+      "output": "net-medium-linear-v3-preview.png",
+      "references": [
+        "net-medium-linear-v2-mask.png",
+        "net-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 15.02 by 7.95 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Braided rope 0.12-0.16 wu thick, mesh cell 1.0-1.3 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, never thicker rope or bigger bells. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.3% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "net-large",
+      "output": "net-large-round-v3-preview.png",
+      "references": [
+        "net-large-round-v2-mask.png",
+        "net-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 23.40 by 19.50 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Intentional heavy CABLE variant: visibly multi-strand nautical cable 0.24 wu thick with twisted plies, mesh cell 2.2-2.6 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, using the explicitly heavier cable material; NEVER enlarge bells or ties. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.8% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "net-upright",
+      "output": "net-upright-angular-v3-preview.png",
+      "references": [
+        "net-upright-angular-mask.png",
+        "net-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 8.70 by 13.90 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Braided rope 0.12-0.16 wu thick, mesh cell 1.0-1.3 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, never thicker rope or bigger bells. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 7.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "incense-small",
+      "output": "incense-small-angular-v3-preview.png",
+      "references": [
+        "incense-small-angular-v2-mask.png",
+        "incense-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 6.80 by 6.10 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 9.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "incense-medium",
+      "output": "incense-medium-linear-v3-preview.png",
+      "references": [
+        "incense-medium-linear-v2-mask.png",
+        "incense-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 14.38 by 5.94 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    },
+    {
+      "id": "incense-large",
+      "output": "incense-large-round-v3-preview.png",
+      "references": [
+        "incense-large-round-v2-mask.png",
+        "incense-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 20.23 by 21.39 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 3.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text. Scatter 10-12 SMALL 0.9-wu brass bowls; each bowl is only about 4 percent of footprint width. No dominant enlarged central bowl."
+    },
+    {
+      "id": "incense-upright",
+      "output": "incense-upright-round-v3-preview.png",
+      "references": [
+        "incense-upright-round-mask.png",
+        "incense-small-angular-preview.png"
+      ],
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 10.08 by 12.71 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 6.4% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text."
+    }
+  ]
+}
