@@ -20,7 +20,9 @@ namespace Game.Progression.Tests
                 ProductionSetCatalog.Create().Select(s => s.Id.ToString()));
             Assert.AreEqual(3, Threshold(Set("SET-001"), "SKILL-001"));
             Assert.AreEqual(2, Threshold(Set("SET-001"), "PASSIVE-004"));
-            Assert.AreEqual(3, Threshold(Set("SET-004"), "SKILL-013"));
+            Assert.AreEqual(3, Threshold(Set("SET-004"), "SKILL-004"));
+            Assert.AreEqual(2, Threshold(Set("SET-004"), "PASSIVE-008"));
+            Assert.IsFalse(Set("SET-004").Recipe.Any(c => c.Id.ToString() == "SKILL-013"), "DECISION-0139: no Ice Shards.");
             Assert.AreEqual(3, Threshold(Set("SET-006"), "PASSIVE-002"));
             Assert.AreEqual(4, Threshold(Set("SET-010"), "SKILL-003"));
             Assert.AreEqual(2, Threshold(Set("SET-010"), "PASSIVE-008"));
@@ -73,16 +75,18 @@ namespace Game.Progression.Tests
                 var wide = host.SlowedBonuses.Values.Single();
                 Assert.IsFalse(wide.skill.HasValue, "SET-004 knockback applies to all player skills.");
                 Assert.AreEqual(0.5f, wide.bonus.KnockbackBonus, 1e-5f);
+                var waveSlow = Set("SET-004").Effects.Single(e => e.Kind == SetEffectKind.SkillMechanics).Mechanics;
+                Assert.AreEqual(0.3f, waveSlow.GrantedSlowFraction, 1e-5f, "DECISION-0139: the wave slows by itself.");
+                Assert.AreEqual(1.5f, waveSlow.GrantedSlowSeconds, 1e-5f);
             }
             Assert.AreEqual(0, host.SlowedBonuses.Count);
             using (new SetEffectAbility(Set("SET-010"), host))
             {
-                var orbit = host.SlowedBonuses.Values.Single();
-                Assert.AreEqual("SKILL-003", orbit.skill.Value.ToString());
-                Assert.AreEqual(0.4f, orbit.bonus.DamageBonus, 1e-5f);
+                Assert.AreEqual(0, host.SlowedBonuses.Count, "DECISION-0139 replaced the +40% orbit-vs-slowed bonus.");
                 var aura = host.Auras.Values.Single();
                 Assert.AreEqual("SKILL-003", aura.skill.ToString());
-                Assert.AreEqual(0.15f, aura.fraction, 1e-5f);
+                Assert.AreEqual(0.5f, aura.fraction, 1e-5f);
+                Assert.AreEqual(0.2f, host.AuraDamageTaken.Values.Single(), 1e-5f, "Enemies in the orbit take +20% damage.");
                 Assert.AreEqual(0.25f, aura.seconds, 1e-5f);
                 Assert.AreEqual(0.1f, aura.refresh, 1e-5f);
             }

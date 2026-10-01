@@ -20,6 +20,8 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Усиление сетов R1 2026-10-02 — Implemented по [DECISION-0139](../decisions/0139-set-buffs-r1.md): SET-002 (+25% range, +15% damage/action speed Бумерангу и Диску), SET-004 без Льда (Волна сама замедляет 30%), SET-005 лечение 10%, SET-010 slow 50% и уязвимость +20% в радиусе орбиты. EditMode 1276/1276 PASS; PlayMode и ручная проверка не запускались.
+
 Low-tier сеты SET-021…035 2026-10-02 — Implemented по [DECISION-0138](../decisions/0138-low-tier-sets.md) ([пакет](../balance/sets-low-v1.md)): 15 ранних слабых сетов (2–4 компонента, сумма уровней 5–6), покупка за золото 150/100, 14 из 15 доступны с первого профиля. Новые механики: конус SET-022, `ExtraProjectiles`, `SlowStrengthBonus`. EditMode 1271/1271 PASS; PlayMode и ручной прогон сборки сетов не запускались, иконок нет, цены и числа без плейтеста.
 
 Перенос карт 2026-10-01 — Implemented по [DECISION-0136](../decisions/0136-map-transfer-fields-002-003.md): тест «Тест 02» удалён, его кляксы стали геометрией FIELD-002 («Пограничные руины»), прежняя FIELD-002 (тракт) стала FIELD-003 («Королевский тракт»); фон, миниатюры, состав волн FIELD-002 (ENEMY-008→010) и Content Design синхронизированы. EditMode 1259/1259, PlayMode FIELD-002…004 smoke PASS; полный PlayMode без графики вылетает в рендере, графический прогон: 1 UI-падение вне scope. Ручной прогон и gameplay-scale review карт открыты.

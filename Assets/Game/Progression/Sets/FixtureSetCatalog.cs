@@ -58,7 +58,7 @@ namespace Game.Progression
                     e.AttackTemplate == null ? (ContentId?)null : new ContentId(e.AttackTemplate),
                     e.CooldownSeconds ?? 0, e.ActivationCount ?? 0, e.HealFraction ?? 0, e.BuffSeconds ?? 0,
                     e.SlowFraction ?? 0, e.SlowSeconds ?? 0, e.RefreshSeconds ?? 0, e.ScalesWithSizeAndRange ?? false,
-                    e.Mechanics == null ? default : e.Mechanics.ToBonus());
+                    e.Mechanics == null ? default : e.Mechanics.ToBonus(), e.DamageTakenBonus ?? 0);
             }
             var icon = string.IsNullOrEmpty(data.IconVisualId)
                 ? default

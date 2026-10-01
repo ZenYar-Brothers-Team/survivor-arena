@@ -49,6 +49,23 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
+        public void GrantedSlow_AddsASlowToASkillWithoutOne_KeepingItsKnockback_AndTheStrongerSlowWins()
+        {
+            var push = new CombatControlProfile(2.4f, 0.12f);
+            Fire(Burst(new ProjectileBurstEffect(1, ProjectileLayout.Single, 0f, 0, 8f, 1f, 0.2f), push),
+                new SkillMechanicBonus(grantedSlowFraction: 0.3f, grantedSlowSeconds: 1.5f));
+            var granted = _launcher.Projectiles[0].Damage.Combat.Controls;
+            Assert.AreEqual(0.3f, granted.SlowFraction, 1e-5f, "SET-004 (DECISION-0139): the wave slows by itself.");
+            Assert.AreEqual(1.5f, granted.SlowSeconds, 1e-5f);
+            Assert.AreEqual(2.4f, granted.KnockbackDistance, 1e-5f);
+
+            var strong = new CombatControlProfile(slowFraction: 0.5f, slowSeconds: 1f);
+            Fire(Burst(new ProjectileBurstEffect(1, ProjectileLayout.Single, 0f, 0, 8f, 1f, 0.2f), strong),
+                new SkillMechanicBonus(grantedSlowFraction: 0.3f, grantedSlowSeconds: 1.5f));
+            Assert.AreEqual(0.5f, _launcher.Projectiles[1].Damage.Combat.Controls.SlowFraction, 1e-5f);
+        }
+
+        [Test]
         public void Cone_ContainsOnlyOffsetsWithinTheHalfAngle()
         {
             Assert.IsTrue(EnemyDamageArea.InsideCone(new Vector2(2f, 0.5f), Vector2.right, 30f));

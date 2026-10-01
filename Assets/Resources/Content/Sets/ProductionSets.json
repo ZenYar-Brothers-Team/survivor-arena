@@ -37,7 +37,7 @@
     "id": "SET-002",
     "displayName": "Возвратный ритм",
     "iconVisualId": "SET-002-VISUAL-ICON",
-    "description": "Бумеранг и Рикошетный диск получают повышенный damage и projectile speed на обратном пути к персонажу. Никаких дополнительных временных buffs или stacks нет.",
+    "description": "Бумеранг и Рикошетный диск получают +25% effective range, +15% damage и +15% action speed ([DECISION-0139](decisions/0139-set-buffs-r1.md)). Никаких дополнительных временных buffs или stacks нет.",
     "recipe": [
       {
         "id": "SKILL-006",
@@ -57,19 +57,21 @@
     ],
     "effects": [
       {
-        "kind": "SkillMechanics",
+        "kind": "SkillTransform",
         "skill": "SKILL-006",
-        "mechanics": {
-          "returnDamageBonus": 0.5,
-          "returnSpeedBonus": 0.3
+        "modifier": {
+          "effectRangeMultiplierBonus": 0.25,
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "actionSpeedBonus": 0.15
         }
       },
       {
-        "kind": "SkillMechanics",
+        "kind": "SkillTransform",
         "skill": "SKILL-008",
-        "mechanics": {
-          "returnDamageBonus": 0.5,
-          "returnSpeedBonus": 0.3
+        "modifier": {
+          "effectRangeMultiplierBonus": 0.25,
+          "activeSkillDamageMultiplierBonus": 0.15,
+          "actionSpeedBonus": 0.15
         }
       }
     ]
@@ -112,7 +114,7 @@
     "id": "SET-004",
     "displayName": "Ледяной таран",
     "iconVisualId": "SET-004-VISUAL-ICON",
-    "description": "slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет.",
+    "description": "Импульсная волна сама замедляет врагов; slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет. Ледяные осколки для сета не нужны ([DECISION-0139](decisions/0139-set-buffs-r1.md)).",
     "recipe": [
       {
         "id": "SKILL-004",
@@ -120,12 +122,12 @@
         "minimumLevel": 3
       },
       {
-        "id": "SKILL-013",
-        "kind": "ActiveSkill",
-        "minimumLevel": 3
+        "id": "PASSIVE-011",
+        "kind": "PassiveItem",
+        "minimumLevel": 2
       },
       {
-        "id": "PASSIVE-011",
+        "id": "PASSIVE-008",
         "kind": "PassiveItem",
         "minimumLevel": 2
       }
@@ -143,6 +145,14 @@
         "modifier": {
           "effectSizeMultiplierBonus": 0.25,
           "outgoingKnockbackBonus": 0.35
+        }
+      },
+      {
+        "kind": "SkillMechanics",
+        "skill": "SKILL-004",
+        "mechanics": {
+          "grantedSlowFraction": 0.3,
+          "grantedSlowSeconds": 1.5
         }
       }
     ]
@@ -180,7 +190,7 @@
       },
       {
         "kind": "LevelHeal",
-        "healFraction": 0.05
+        "healFraction": 0.1
       }
     ]
   },
@@ -397,7 +407,7 @@
     "id": "SET-010",
     "displayName": "Холодная орбита",
     "iconVisualId": "SET-010-VISUAL-ICON",
-    "description": "враги внутри текущего orbit radius Орбитальных клинков получают слабый slow; Орбитальные клинки наносят повышенный damage slowed enemies.",
+    "description": "враги внутри текущего orbit radius Орбитальных клинков получают сильный slow и уязвимость — повышенный damage от всех атак персонажа, пока находятся в радиусе ([DECISION-0139](decisions/0139-set-buffs-r1.md)).",
     "recipe": [
       {
         "id": "SKILL-003",
@@ -424,16 +434,10 @@
       {
         "kind": "OrbitSlowAura",
         "skill": "SKILL-003",
-        "slowFraction": 0.15,
+        "slowFraction": 0.5,
         "slowSeconds": 0.25,
-        "refreshSeconds": 0.1
-      },
-      {
-        "kind": "SlowedTargetBonus",
-        "modifier": {
-          "activeSkillDamageMultiplierBonus": 0.4
-        },
-        "skill": "SKILL-003"
+        "refreshSeconds": 0.1,
+        "damageTakenBonus": 0.2
       }
     ]
   },

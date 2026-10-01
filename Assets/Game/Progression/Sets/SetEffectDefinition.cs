@@ -18,6 +18,8 @@ namespace Game.Progression
         public float SlowFraction { get; }
         public float SlowSeconds { get; }
         public float RefreshSeconds { get; }
+        /// <summary>OrbitSlowAura: extra incoming damage for enemies inside the orbit radius (SET-010, DECISION-0139).</summary>
+        public float DamageTakenBonus { get; }
         /// <summary>IndependentAttack/RewardProc: generic size/range stats also scale this set attack (SET-017, SET-015).</summary>
         public bool ScalesWithSizeAndRange { get; }
         /// <summary>SkillMechanics only: skill-specific non-stat bonuses (sets-v1, DECISION-0061).</summary>
@@ -26,8 +28,11 @@ namespace Game.Progression
             ContentId? skill = null, ContentId? attackTemplate = null, float cooldownSeconds = 0,
             int activationCount = 0, float healFraction = 0, float buffSeconds = 0,
             float slowFraction = 0, float slowSeconds = 0, float refreshSeconds = 0, bool scalesWithSizeAndRange = false,
-            SkillMechanicBonus mechanics = default)
+            SkillMechanicBonus mechanics = default, float damageTakenBonus = 0)
         {
+            NumericValidation.ValidateNonNegative(damageTakenBonus, nameof(damageTakenBonus));
+            if (damageTakenBonus > 0 && kind != SetEffectKind.OrbitSlowAura)
+                throw new ArgumentException("Only the orbit aura marks enemies as vulnerable.", nameof(damageTakenBonus));
             if (!Enum.IsDefined(typeof(SetEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
             NumericValidation.ValidateNonNegative(cooldownSeconds, nameof(cooldownSeconds));
             NumericValidation.ValidateNonNegative(buffSeconds, nameof(buffSeconds));
@@ -80,6 +85,7 @@ namespace Game.Progression
             CooldownSeconds = cooldownSeconds; ActivationCount = activationCount; HealFraction = healFraction; BuffSeconds = buffSeconds;
             SlowFraction = slowFraction; SlowSeconds = slowSeconds; RefreshSeconds = refreshSeconds; ScalesWithSizeAndRange = scalesWithSizeAndRange;
             Mechanics = mechanics;
+            DamageTakenBonus = damageTakenBonus;
         }
     }
 }

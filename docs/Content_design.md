@@ -250,7 +250,7 @@ Targeting / pattern: автоматически выпускает плотны�
 База: 4 осколка, 7.2 damage каждый (было 8; ×0.9 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), сектор 70°, cooldown 2.5 с. Slow: 20% movement speed reduction на 1.5 с при попадании.
 Knockback: 0.18 world units от каждого осколка по направлению его полёта.
 Уровни 1–6: L1 4 осколка, 20% slow на 1.5 с; L2 5 осколков и +15% projectile size; L3 6 осколков, +20% damage и slow усиливается до 25%; L4 7 осколков, каждый пробивает 1 дополнительного врага, +20% range и сектор расширяется до 85°; L5 9 осколков, +25% action speed, slow duration увеличивается до 2.0 с и +20% knockback; L6 13 осколков, сектор 100°, +20% projectile size и slow усиливается до 30%.
-Взаимодействия: каждое попадание накладывает slow по общим правилам GDD; несколько осколков по одной цели не складывают slow аддитивно, но могут обновлять его duration. Одна цель может получить damage от нескольких осколков одного залпа, если пересекает несколько траекторий. Заморозки как отдельного status effect пока нет. Сеты: SET-004, SET-010, SET-019.
+Взаимодействия: каждое попадание накладывает slow по общим правилам GDD; несколько осколков по одной цели не складывают slow аддитивно, но могут обновлять его duration. Одна цель может получить damage от нескольких осколков одного залпа, если пересекает несколько траекторий. Заморозки как отдельного status effect пока нет. Сеты: SET-010, SET-019.
 
 #### SKILL-014 — Взрывные сферы
 Статус: Approved.
@@ -359,7 +359,7 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Эффект: уменьшает входящий урон от контакта и вражеских снарядов.
 Уровни 1–6: −5% / −9% / −13% / −17% / −21% / −25% incoming damage.
 Взаимодействия: применяется к входящему damage после определения базового урона источника.
-Сеты: SET-010, SET-012.
+Сеты: SET-004, SET-010, SET-012.
 
 #### PASSIVE-009 — Лечебная настойка
 
@@ -442,10 +442,10 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-001.
 Рецепт: SKILL-006 «Бумеранг» + SKILL-008 «Рикошетный диск» + PASSIVE-003 «Лёгкие сапоги».
 Тип: простая трансформация двух умений.
-Эффект: Бумеранг и Рикошетный диск получают повышенный damage и projectile speed на обратном пути к персонажу. Никаких дополнительных временных buffs или stacks нет.
-Роль: подчёркивает return-механику без новой state-системы.
-Визуал: возвращающаяся фаза существующего projectile получает отдельный set-colored trail; новых сущностей нет.
-Параметры/точные численные значения: TBD balance pass.
+Эффект: Бумеранг и Рикошетный диск получают +25% effective range, +15% damage и +15% action speed ([DECISION-0139](decisions/0139-set-buffs-r1.md)). Никаких дополнительных временных buffs или stacks нет.
+Роль: дальний и более частый бросок двух возвратных снарядов без новой state-системы.
+Визуал: существующие projectiles; новых сущностей нет.
+Параметры (DECISION-0139, заменяет обратный путь из DECISION-0061/G-04): пороги SKILL-006 L3, SKILL-008 L3, PASSIVE-003 L2; обоим умениям +25% range, +15% damage, +15% action speed.
 
 #### SET-003 — Грозовой проводник
 Статус: Approved.
@@ -460,12 +460,12 @@ Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.m
 #### SET-004 — Ледяной таран
 Статус: Approved.
 Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): доступно с начала на новом профиле.
-Рецепт: SKILL-004 «Импульсная волна» + SKILL-013 «Ледяные осколки» + PASSIVE-011 «Тяжёлый пояс».
+Рецепт: SKILL-004 «Импульсная волна» + PASSIVE-011 «Тяжёлый пояс» + PASSIVE-008 «Закалённая кожа».
 Тип: простая control-синергия.
-Эффект: slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет.
+Эффект: Импульсная волна сама замедляет врагов; slowed enemies получают существенно больше knockback от персонажа; Импульсная волна дополнительно получает bonus к radius и knockback. Slow не продлевается от knockback и дополнительных скрытых состояний нет. Ледяные осколки для сета не нужны ([DECISION-0139](decisions/0139-set-buffs-r1.md)).
 Роль: собирает slow + knockback в понятный control-build.
 Визуал: короткий ледяной flash на slowed target при сильном отбрасывании; новых projectiles нет.
-Параметры (baseline v1, DECISION-0053): пороги SKILL-004 L3, SKILL-013 L3, PASSIVE-011 L2; +50% outgoing knockback игрока по цели, уже замедленной до текущего hit; Импульсной волне ещё +25% radius и +35% knockback.
+Параметры (DECISION-0139, поверх baseline v1): пороги SKILL-004 L3, PASSIVE-011 L2, PASSIVE-008 L2; Импульсная волна накладывает slow 30% на 1.5 s (сильнейший slow побеждает); +50% outgoing knockback игрока по цели, уже замедленной до текущего hit; Импульсной волне ещё +25% radius и +35% knockback.
 
 #### SET-005 — Жадность к знаниям
 Статус: Approved.
@@ -475,7 +475,7 @@ Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.m
 Эффект: заметно усиливает disappearing-XP recovery, XP pickup radius и picked-up XP. Дополнительно каждый level-up восстанавливает небольшую долю HP.
 Роль: превращает XP-focused билд в самостоятельную стратегию без боевых projectiles.
 Визуал: короткий set-colored pulse при level-up; постоянного боевого VFX нет.
-Параметры/точные численные значения: TBD balance pass.
+Параметры (sets-v1, DECISION-0061/0139): пороги PASSIVE-006 L3, PASSIVE-007 L3, PASSIVE-010 L3; +20% возврата исчезнувшего XP, +30% XP pickup radius, +15% подобранного XP; каждый level-up лечит 10% max HP.
 
 #### SET-006 — Полевой медик
 Статус: Approved.
@@ -522,10 +522,10 @@ Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.m
 Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): доступно с начала на новом профиле.
 Рецепт: SKILL-003 «Орбитальные клинки» + SKILL-013 «Ледяные осколки» + PASSIVE-003 «Лёгкие сапоги» + PASSIVE-008 «Закалённая кожа».
 Тип: простая aura-синергия на существующей орбите.
-Эффект: враги внутри текущего orbit radius Орбитальных клинков получают слабый slow; Орбитальные клинки наносят повышенный damage slowed enemies.
+Эффект: враги внутри текущего orbit radius Орбитальных клинков получают сильный slow и уязвимость — повышенный damage от всех атак персонажа, пока находятся в радиусе ([DECISION-0139](decisions/0139-set-buffs-r1.md)).
 Роль: превращает уже существующую орбиту в зону контроля.
 Визуал: ледяной tint на самой существующей орбите; отдельная aura-entity не создаётся.
-Параметры (baseline v1, DECISION-0053): пороги SKILL-003 L4, SKILL-013 L3, PASSIVE-003 L2, PASSIVE-008 L2; внутри текущего orbit radius slow 15% с обновлением каждые 0.1 s и duration 0.25 s; орбите +40% damage по уже замедленным целям.
+Параметры (baseline v1, DECISION-0053): пороги SKILL-003 L4, SKILL-013 L3, PASSIVE-003 L2, PASSIVE-008 L2; внутри текущего orbit radius slow 50% и +20% входящего damage с обновлением каждые 0.1 s и duration 0.25 s (DECISION-0139; прежние slow 15% и +40% урона орбиты по замедленным заменены).
 
 #### SET-011 — Кинетический арсенал
 Статус: Approved.

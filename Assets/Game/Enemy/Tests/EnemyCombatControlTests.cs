@@ -83,6 +83,22 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void VulnerabilityMark_RaisesLaterHitsOnly_AndDoesNotLeakIntoThePool()
+        {
+            // SET-010 (DECISION-0139): the orbit aura marks enemies; damage is decided before the hit applies its own controls.
+            var enemy = Spawn(new EnemyDefinition("FIXTURE-VULNERABLE", 100f, 1f, 0f, 0f, 1f));
+            var mark = new CombatControlProfile(slowFraction: 0.5f, slowSeconds: 0.25f, channel: "set-aura",
+                damageTakenBonus: 0.2f, damageTakenSeconds: 0.25f);
+            Assert.AreEqual(10f, enemy.ResolveDamage(new CombatDamageRequest(default, 10f, mark)).Health.Actual, 1e-4f,
+                "A marking hit is not amplified by its own mark.");
+            enemy.ApplyControl(new CombatDamageRequest(default, 0f, mark));
+            Assert.AreEqual(12f, enemy.ResolveDamage(new CombatDamageRequest(default, 10f)).Health.Actual, 1e-4f);
+            enemy.Despawn();
+            var reused = Spawn(enemy.Definition);
+            Assert.AreEqual(1f, reused.Controls.DamageTakenMultiplier, "Pool reuse starts unmarked.");
+        }
+
+        [Test]
         public void LethalResult_RetainsBothIdentitiesAfterPoolReturn_AndControlsDoNotLeak()
         {
             var enemy = Spawn(new EnemyDefinition("FIXTURE-LETHAL", 10f, 1f, 0f, 0f, 1f));

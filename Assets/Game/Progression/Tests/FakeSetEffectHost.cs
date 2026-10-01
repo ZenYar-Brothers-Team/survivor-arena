@@ -34,8 +34,13 @@ namespace Game.Progression.Tests
         public bool LastAttackScalesWithSizeAndRange { get; private set; }
         public void SetSlowedTargetBonus(string key, ContentId? skill, SlowedTargetBonus bonus) => SlowedBonuses[key] = (skill, bonus);
         public void RemoveSlowedTargetBonus(string key) => SlowedBonuses.Remove(key);
-        public void SetOrbitSlowAura(string key, ContentId set, ContentId orbitSkill, float slowFraction, float slowSeconds, float refreshSeconds) =>
+        public Dictionary<string, float> AuraDamageTaken { get; } = new Dictionary<string, float>();
+        public void SetOrbitSlowAura(string key, ContentId set, ContentId orbitSkill, float slowFraction, float slowSeconds, float refreshSeconds,
+            float damageTakenBonus = 0f)
+        {
             Auras[key] = (set, orbitSkill, slowFraction, slowSeconds, refreshSeconds);
+            AuraDamageTaken[key] = damageTakenBonus;
+        }
         public void RemoveOrbitSlowAura(string key) => Auras.Remove(key);
         public void Attack(string key, ContentId set, ContentId template, bool scalesWithSizeAndRange = false)
         {

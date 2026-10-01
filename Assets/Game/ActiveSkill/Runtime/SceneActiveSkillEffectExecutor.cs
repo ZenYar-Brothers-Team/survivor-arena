@@ -847,7 +847,12 @@ namespace Game.ActiveSkill
         private static EnemyDamageRequest CreateDamage(ScheduledSkillEffect scheduled, float effectMultiplier)
         {
             var controls = scheduled.Wave.Controls;
-            var slowBonus = scheduled.Activation.Mechanics.SlowStrengthBonus;
+            var mechanics = scheduled.Activation.Mechanics;
+            // Set-granted slow (SET-004): the skill keeps its knockback; the stronger slow wins.
+            if (mechanics.GrantedSlowFraction > controls.SlowFraction)
+                controls = new CombatControlProfile(controls.KnockbackDistance, controls.KnockbackSeconds,
+                    mechanics.GrantedSlowFraction, Mathf.Max(controls.SlowSeconds, mechanics.GrantedSlowSeconds), controls.Channel);
+            var slowBonus = mechanics.SlowStrengthBonus;
             // Set slow bonus (SET-028) strengthens only an existing slow; it never creates one.
             if (slowBonus > 0f && controls.SlowFraction > 0f)
                 controls = new CombatControlProfile(controls.KnockbackDistance, controls.KnockbackSeconds,

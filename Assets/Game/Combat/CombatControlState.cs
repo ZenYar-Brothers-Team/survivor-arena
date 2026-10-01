@@ -9,11 +9,14 @@ namespace Game.Combat
     {
         private readonly Dictionary<SlowSourceKey, SlowState> _slow = new Dictionary<SlowSourceKey, SlowState>();
         private readonly List<SlowSourceKey> _expired = new List<SlowSourceKey>();
+        private readonly Dictionary<SlowSourceKey, SlowState> _vulnerable = new Dictionary<SlowSourceKey, SlowState>();
         private float _knockbackX, _knockbackY;
         public float KnockbackRemaining { get; private set; }
         public float MovementMultiplier { get; private set; } = 1f;
         public int SlowSourceCount => _slow.Count;
         public bool IsSlowed => MovementMultiplier < 1f;
+        /// <summary>Incoming damage factor from the strongest active vulnerability mark (DECISION-0139); 1 = none.</summary>
+        public float DamageTakenMultiplier { get; private set; } = 1f;
 
         /// <summary>
         /// Presentation-only (DECISION-0108): remaining fraction 0..1 of the active slow that lasts longest,
@@ -56,6 +59,15 @@ namespace Game.Combat
                 slow.Duration = profile.SlowSeconds;
                 RefreshSlow();
             }
+            if (profile.DamageTakenBonus > 0f)
+            {
+                var key = new SlowSourceKey(request);
+                if (!_vulnerable.TryGetValue(key, out var mark)) _vulnerable.Add(key, mark = new SlowState());
+                mark.Fraction = profile.DamageTakenBonus;
+                mark.Remaining = profile.DamageTakenSeconds;
+                mark.Duration = profile.DamageTakenSeconds;
+                RefreshVulnerability();
+            }
             return distance;
         }
 
@@ -63,7 +75,7 @@ namespace Game.Combat
         {
             NumericValidation.ValidateNonNegative(deltaTime, nameof(deltaTime));
             if (!isRunning || deltaTime == 0f) return new ControlMotion(0f, 0f, MovementMultiplier);
-            if (KnockbackRemaining == 0f && _slow.Count == 0) return new ControlMotion(0f, 0f, 1f);
+            if (KnockbackRemaining == 0f && _slow.Count == 0 && _vulnerable.Count == 0) return new ControlMotion(0f, 0f, 1f);
             var factor = Math.Min(deltaTime, KnockbackRemaining) / deltaTime;
             var motion = new ControlMotion(_knockbackX * factor, _knockbackY * factor, MovementMultiplier);
             KnockbackRemaining = Math.Max(0f, KnockbackRemaining - deltaTime);
@@ -75,15 +87,35 @@ namespace Game.Combat
             }
             foreach (var key in _expired) _slow.Remove(key);
             if (_expired.Count > 0) RefreshSlow();
+            if (_vulnerable.Count > 0)
+            {
+                _expired.Clear();
+                foreach (var entry in _vulnerable)
+                {
+                    entry.Value.Remaining -= deltaTime;
+                    if (entry.Value.Remaining <= 0f) _expired.Add(entry.Key);
+                }
+                foreach (var key in _expired) _vulnerable.Remove(key);
+                if (_expired.Count > 0) RefreshVulnerability();
+            }
             return motion;
         }
 
         public void Reset()
         {
             _slow.Clear();
+            _vulnerable.Clear();
+            DamageTakenMultiplier = 1f;
             _expired.Clear();
             _knockbackX = _knockbackY = KnockbackRemaining = 0f;
             MovementMultiplier = 1f;
+        }
+
+        private void RefreshVulnerability()
+        {
+            var strongest = 0f;
+            foreach (var mark in _vulnerable.Values) strongest = Math.Max(strongest, mark.Fraction);
+            DamageTakenMultiplier = 1f + strongest;
         }
 
         private void RefreshSlow()

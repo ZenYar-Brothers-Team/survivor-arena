@@ -41,8 +41,15 @@ namespace Game.Progression.Tests
         [Test]
         public void MechanicSets_CarryTheChosenDecisions()
         {
-            Assert.AreEqual(0.5f, Mechanics(Set("SET-002"), "SKILL-008").ReturnDamageBonus, 1e-5f, "G-04: disc rebounds.");
-            Assert.AreEqual(0.3f, Mechanics(Set("SET-002"), "SKILL-006").ReturnSpeedBonus, 1e-5f);
+            // DECISION-0139 replaced the G-04 return-phase bonus with plain range/damage/action speed for both skills.
+            foreach (var skill in new[] { "SKILL-006", "SKILL-008" })
+            {
+                var rhythm = Set("SET-002").Effects.Single(e => e.Kind == SetEffectKind.SkillTransform && e.Skill.Value.ToString() == skill);
+                Assert.AreEqual(0.25f, rhythm.Modifier.EffectRangeMultiplierBonus, 1e-5f, skill);
+                Assert.AreEqual(0.15f, rhythm.Modifier.ActiveSkillDamageMultiplierBonus, 1e-5f, skill);
+                Assert.AreEqual(0.15f, rhythm.Modifier.ActionSpeedBonus, 1e-5f, skill);
+                Assert.AreEqual(0f, Mechanics(Set("SET-002"), skill).ReturnDamageBonus, "No return-phase bonus any more.");
+            }
             var chain = Mechanics(Set("SET-003"), "SKILL-007");
             Assert.AreEqual(2, chain.ExtraChainTargets);
             Assert.AreEqual(0.3f, chain.ChainJumpRangeBonus, 1e-5f);
@@ -67,7 +74,7 @@ namespace Game.Progression.Tests
             Assert.AreEqual(0.2f, stats.DisappearingXpRecoveryBonus, 1e-5f);
             Assert.AreEqual(0.3f, stats.PickupRadiusMultiplierBonus, 1e-5f);
             Assert.AreEqual(0.15f, stats.PickedUpXpMultiplierBonus, 1e-5f);
-            Assert.AreEqual(0.05f, greed.Effects.Single(e => e.Kind == SetEffectKind.LevelHeal).HealFraction, 1e-5f);
+            Assert.AreEqual(0.1f, greed.Effects.Single(e => e.Kind == SetEffectKind.LevelHeal).HealFraction, 1e-5f, "DECISION-0139: 10%.");
             var fortress = Set("SET-012").Effects.Single(e => e.Kind == SetEffectKind.StatBuff).Modifier;
             Assert.AreEqual(0.25f, fortress.MaxHealthMultiplierBonus, 1e-5f);
             Assert.AreEqual(0.1f, fortress.IncomingDamageReductionBonus, 1e-5f);

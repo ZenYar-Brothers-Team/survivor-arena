@@ -1387,8 +1387,8 @@
       "id": "SET-004",
       "requirements": {
         "SKILL-004": 3,
-        "SKILL-013": 3,
-        "PASSIVE-011": 2
+        "PASSIVE-011": 2,
+        "PASSIVE-008": 2
       },
       "effects": [
         {
@@ -1401,6 +1401,12 @@
           "skill": "SKILL-004",
           "effectSizeBonus": 0.25,
           "outgoingKnockbackBonus": 0.35
+        },
+        {
+          "kind": "GrantedSkillSlow",
+          "skill": "SKILL-004",
+          "slowFraction": 0.3,
+          "slowSeconds": 1.5
         }
       ]
     },
@@ -1433,16 +1439,11 @@
         {
           "kind": "ExistingOrbitSlow",
           "skill": "SKILL-003",
-          "slowFraction": 0.15,
+          "slowFraction": 0.5,
           "refreshSeconds": 0.1,
           "slowSeconds": 0.25,
-          "radius": "current-orbit-radius"
-        },
-        {
-          "kind": "ConditionalSkillDamage",
-          "skill": "SKILL-003",
-          "condition": "target-already-slowed",
-          "activeDamageBonus": 0.4
+          "radius": "current-orbit-radius",
+          "damageTakenBonus": 0.2
         }
       ]
     },

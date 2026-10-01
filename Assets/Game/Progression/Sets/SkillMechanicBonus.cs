@@ -37,6 +37,9 @@ namespace Game.Progression
         public int ExtraProjectiles { get; }
         /// <summary>Absolute slow-fraction points added to a skill's existing slow, capped at 1 (SET-028).</summary>
         public float SlowStrengthBonus { get; }
+        /// <summary>Slow the set gives a skill that may have none (SET-004 wave, DECISION-0139); the stronger slow wins.</summary>
+        public float GrantedSlowFraction { get; }
+        public float GrantedSlowSeconds { get; }
 
         public bool HasHeavyReplacement => HeavyEveryNth > 0;
 
@@ -45,8 +48,11 @@ namespace Game.Progression
             float orbitAngularSpeedBonus = 0f, float explosionDamageBonus = 0f, float explosionRadiusBonus = 0f,
             int heavyEveryNth = 0, float heavySizeMultiplier = 0f, float heavyStopMultiplier = 0f,
             float heavyExplosionRadius = 0f, float heavyExplosionDamageMultiplier = 0f, float heavyExplosionKnockback = 0f,
-            int extraProjectiles = 0, float slowStrengthBonus = 0f)
+            int extraProjectiles = 0, float slowStrengthBonus = 0f, float grantedSlowFraction = 0f, float grantedSlowSeconds = 0f)
         {
+            NumericValidation.ValidateRange(grantedSlowFraction, 0f, 1f, nameof(grantedSlowFraction));
+            NumericValidation.ValidateNonNegative(grantedSlowSeconds, nameof(grantedSlowSeconds));
+            if (grantedSlowFraction > 0f) NumericValidation.ValidatePositive(grantedSlowSeconds, nameof(grantedSlowSeconds));
             NumericValidation.ValidateNonNegative(extraProjectiles, nameof(extraProjectiles));
             NumericValidation.ValidateRange(slowStrengthBonus, 0f, 1f, nameof(slowStrengthBonus));
             NumericValidation.ValidateNonNegative(projectileSpeedBonus, nameof(projectileSpeedBonus));
@@ -90,6 +96,8 @@ namespace Game.Progression
             HeavyExplosionKnockback = heavyExplosionKnockback;
             ExtraProjectiles = extraProjectiles;
             SlowStrengthBonus = slowStrengthBonus;
+            GrantedSlowFraction = grantedSlowFraction;
+            GrantedSlowSeconds = grantedSlowSeconds;
         }
 
         /// <summary>Additive combination; falloff reductions compose, and only one set may own a heavy replacement.</summary>
@@ -111,7 +119,8 @@ namespace Game.Progression
                 ExplosionRadiusBonus + other.ExplosionRadiusBonus,
                 heavy.HeavyEveryNth, heavy.HeavySizeMultiplier, heavy.HeavyStopMultiplier, heavy.HeavyExplosionRadius,
                 heavy.HeavyExplosionDamageMultiplier, heavy.HeavyExplosionKnockback,
-                ExtraProjectiles + other.ExtraProjectiles, Mathf.Min(1f, SlowStrengthBonus + other.SlowStrengthBonus));
+                ExtraProjectiles + other.ExtraProjectiles, Mathf.Min(1f, SlowStrengthBonus + other.SlowStrengthBonus),
+                Mathf.Max(GrantedSlowFraction, other.GrantedSlowFraction), Mathf.Max(GrantedSlowSeconds, other.GrantedSlowSeconds));
         }
 
         public bool Equals(SkillMechanicBonus other) =>
@@ -124,7 +133,8 @@ namespace Game.Progression
             HeavyStopMultiplier == other.HeavyStopMultiplier && HeavyExplosionRadius == other.HeavyExplosionRadius &&
             HeavyExplosionDamageMultiplier == other.HeavyExplosionDamageMultiplier &&
             HeavyExplosionKnockback == other.HeavyExplosionKnockback &&
-            ExtraProjectiles == other.ExtraProjectiles && SlowStrengthBonus == other.SlowStrengthBonus;
+            ExtraProjectiles == other.ExtraProjectiles && SlowStrengthBonus == other.SlowStrengthBonus &&
+            GrantedSlowFraction == other.GrantedSlowFraction && GrantedSlowSeconds == other.GrantedSlowSeconds;
 
         public override bool Equals(object obj) => obj is SkillMechanicBonus other && Equals(other);
 

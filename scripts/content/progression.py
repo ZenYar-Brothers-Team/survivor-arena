@@ -201,8 +201,14 @@ def sets(baseline):
             elif kind == "ExistingOrbitSlow":
                 if effect["radius"] != "current-orbit-radius":
                     raise SystemExit(f"{entry['id']}: unsupported aura radius")
-                effects.append({"kind": "OrbitSlowAura", "skill": effect["skill"], "slowFraction": effect["slowFraction"],
-                                "slowSeconds": effect["slowSeconds"], "refreshSeconds": effect["refreshSeconds"]})
+                aura = {"kind": "OrbitSlowAura", "skill": effect["skill"], "slowFraction": effect["slowFraction"],
+                        "slowSeconds": effect["slowSeconds"], "refreshSeconds": effect["refreshSeconds"]}
+                if effect.get("damageTakenBonus"):  # SET-010 vulnerability (DECISION-0139)
+                    aura["damageTakenBonus"] = effect["damageTakenBonus"]
+                effects.append(aura)
+            elif kind == "GrantedSkillSlow":  # SET-004 wave slows by itself (DECISION-0139)
+                effects.append(mechanics(effect["skill"], {"grantedSlowFraction": effect["slowFraction"],
+                                                           "grantedSlowSeconds": effect["slowSeconds"]}))
             elif kind == "IndependentAttack":
                 if effect["initialDelaySeconds"] != effect["cooldownSeconds"] or effect["actionSpeedScaling"] \
                         or effect["countsAsSkillActivation"] or not effect["genericDamageAndKnockbackScaling"]:

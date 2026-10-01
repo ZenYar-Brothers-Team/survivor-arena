@@ -97,6 +97,8 @@ def main():
         recipe = re.search(r"^Рецепт: (.+)$", match[2], re.M)
         require(recipe is not None, f"Missing recipe: {match[1]}")
         recipes[match[1]] = set(re.findall(r"(?:SKILL|PASSIVE)-\d{3}", recipe[1]))
+    # SET-021…035 are the low-tier packet (DECISION-0138), not part of this baseline.
+    recipes = {key: value for key, value in recipes.items() if int(key[4:]) <= 20}
     require(len(recipes) == 20, "Expected complete canonical set catalogue")
     initial_items = set(roster["actives"] + roster["passives"])
     available = {name for name, recipe in recipes.items() if recipe <= initial_items}

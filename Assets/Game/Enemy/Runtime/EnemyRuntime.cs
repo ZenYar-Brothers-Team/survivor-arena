@@ -444,6 +444,8 @@ namespace Game.Enemy
                 Protection.Tick(_runController.Model?.Elapsed ?? 0f);
                 // "Already slowed" is decided before this hit applies its own slow (DECISION-0053).
                 if (Controls.MovementMultiplier < 1f) request = request.ResolveForSlowedTarget();
+                // Vulnerability mark (SET-010, DECISION-0139) is decided before this hit applies its own controls.
+                if (Controls.DamageTakenMultiplier > 1f) request = request.WithAmount(request.Amount * Controls.DamageTakenMultiplier);
                 var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
                 var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount, _runController.Model?.Elapsed ?? 0f));
                 var result = new CombatResult(request.Source, identity, new HealthChange(request.Amount, measured.AfterMitigation, measured.Actual, false), distance);

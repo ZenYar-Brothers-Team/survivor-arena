@@ -10,10 +10,17 @@ namespace Game.Combat
         public float KnockbackSeconds { get; }
         public float SlowFraction { get; }
         public float SlowSeconds { get; }
+        /// <summary>Extra share of incoming damage the target takes while marked (SET-010, DECISION-0139); 0 = none.</summary>
+        public float DamageTakenBonus { get; }
+        public float DamageTakenSeconds { get; }
         public string Channel { get; }
         public CombatControlProfile(float knockbackDistance = 0f, float knockbackSeconds = 0f,
-            float slowFraction = 0f, float slowSeconds = 0f, string channel = "primary")
+            float slowFraction = 0f, float slowSeconds = 0f, string channel = "primary",
+            float damageTakenBonus = 0f, float damageTakenSeconds = 0f)
         {
+            NumericValidation.ValidateNonNegative(damageTakenBonus, nameof(damageTakenBonus));
+            NumericValidation.ValidateNonNegative(damageTakenSeconds, nameof(damageTakenSeconds));
+            if (damageTakenBonus > 0f) NumericValidation.ValidatePositive(damageTakenSeconds, nameof(damageTakenSeconds));
             NumericValidation.ValidateNonNegative(knockbackDistance, nameof(knockbackDistance));
             NumericValidation.ValidateNonNegative(knockbackSeconds, nameof(knockbackSeconds));
             NumericValidation.ValidateRange(slowFraction, 0f, 1f, nameof(slowFraction));
@@ -25,6 +32,8 @@ namespace Game.Combat
             KnockbackSeconds = knockbackSeconds;
             SlowFraction = slowFraction;
             SlowSeconds = slowSeconds;
+            DamageTakenBonus = damageTakenBonus;
+            DamageTakenSeconds = damageTakenSeconds;
             Channel = channel;
         }
     }

@@ -50,14 +50,18 @@
    },
    "effects": [
     {
-     "kind": "ReturnPhaseTransform",
-     "skills": [
-      "SKILL-006",
-      "SKILL-008"
-     ],
-     "returnDamageBonus": 0.5,
-     "returnProjectileSpeedBonus": 0.3,
-     "disc": "rebound-after-first-hit"
+     "kind": "SkillTransform",
+     "skill": "SKILL-006",
+     "effectRangeBonus": 0.25,
+     "activeDamageBonus": 0.15,
+     "actionSpeedBonus": 0.15
+    },
+    {
+     "kind": "SkillTransform",
+     "skill": "SKILL-008",
+     "effectRangeBonus": 0.25,
+     "activeDamageBonus": 0.15,
+     "actionSpeedBonus": 0.15
     }
    ],
    "gate": "G-04"
@@ -95,7 +99,7 @@
     },
     {
      "kind": "LevelHeal",
-     "healFraction": 0.05
+     "healFraction": 0.1
     }
    ]
   },

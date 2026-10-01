@@ -121,10 +121,13 @@ namespace Game.ActiveSkill
             return total;
         }
 
-        public void SetOrbitSlowAura(string key, ContentId set, ContentId orbitSkill, float slowFraction, float slowSeconds, float refreshSeconds)
+        public void SetOrbitSlowAura(string key, ContentId set, ContentId orbitSkill, float slowFraction, float slowSeconds, float refreshSeconds,
+            float damageTakenBonus = 0f)
         {
+            // The vulnerability mark lasts as long as the slow, so it fades the same way once an enemy leaves the orbit.
             _auras[key] = new OrbitSlowAura { Set = set, Skill = orbitSkill, Refresh = refreshSeconds, Remaining = 0f,
-                Controls = new CombatControlProfile(slowFraction: slowFraction, slowSeconds: slowSeconds, channel: "set-aura") };
+                Controls = new CombatControlProfile(slowFraction: slowFraction, slowSeconds: slowSeconds, channel: "set-aura",
+                    damageTakenBonus: damageTakenBonus, damageTakenSeconds: damageTakenBonus > 0f ? slowSeconds : 0f) };
         }
         public void RemoveOrbitSlowAura(string key) => _auras.Remove(key);
 

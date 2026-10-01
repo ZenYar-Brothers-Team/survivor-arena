@@ -34,7 +34,8 @@ namespace Game.Progression
                         _host.SetSlowedTargetBonus(Key(i), effect.Skill, new SlowedTargetBonus(
                             effect.Modifier.ActiveSkillDamageMultiplierBonus, effect.Modifier.OutgoingKnockbackBonus));
                     if (effect.Kind == SetEffectKind.OrbitSlowAura)
-                        _host.SetOrbitSlowAura(Key(i), _definition.Id, effect.Skill.Value, effect.SlowFraction, effect.SlowSeconds, effect.RefreshSeconds);
+                        _host.SetOrbitSlowAura(Key(i), _definition.Id, effect.Skill.Value, effect.SlowFraction, effect.SlowSeconds, effect.RefreshSeconds,
+                            effect.DamageTakenBonus);
                 }
                 _host.ActiveSkillActivated += OnActivation; _host.Rewarded += OnReward; _host.LevelEarned += OnLevel;
             }
