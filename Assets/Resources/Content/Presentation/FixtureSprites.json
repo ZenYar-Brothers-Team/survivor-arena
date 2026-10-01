@@ -1041,7 +1041,7 @@
   },
   {
     "id": "FIELD-002-VISUAL-BACKGROUND",
-    "resourcePath": "Art/Sprites/Fields/field-002/field-002-background",
+    "resourcePath": "Art/Sprites/Fields/field-003/field-003-background",
     "role": "Background"
   },
   {
@@ -1694,7 +1694,7 @@
   },
   {
     "id": "FIELD-003-VISUAL-BACKGROUND",
-    "resourcePath": "Art/Sprites/Fields/field-003/field-003-background",
+    "resourcePath": "Art/Sprites/Fields/field-002/field-002-background",
     "role": "Background"
   },
   {

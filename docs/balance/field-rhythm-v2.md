@@ -5,6 +5,8 @@
 `python -X utf8 docs/balance/validate_field_rhythm_v2.py`. Поле, препятствия, боссы, пул врагов и путники —
 без изменений из [field002-v1](field002-v1.md) / [field003-v1](field003-v1.md).
 
+> **DECISION-0136 (2026-10-01):** в таблице ниже FIELD-002 заменяет ENEMY-008 на ENEMY-010 (вес ×0.7, остаток в ENEMY-001; HP 133 598, стрелки 21%); актуальные значения — в `field002-v2.json`. Названия полей поменялись: FIELD-002 — «Пограничные руины», FIELD-003 — «Королевский тракт».
+
 ## Зачем
 
 После [DECISION-0076](../decisions/0076-wave-cap-and-field001-rhythm.md) FIELD-001 перешёл на 16 фаз: быстрый

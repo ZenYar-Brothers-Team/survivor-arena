@@ -33,23 +33,25 @@ def fields(baseline):
                     "timelineId": field["timelineId"], "travelerScheduleId": field["travelerScheduleId"],
                     "finalBossId": field["finalBossId"], "midBossId": field["midBossId"],
                     "enemyIds": [e["id"] for e in baseline["enemies"]]},
+                   # Map transfer (DECISION-0136): Content Design names slot 2 "Пограничные руины" and slot 3 "Королевский тракт";
+                   # collection art stays keyed by field id, descriptions and gates stay with the slot.
                    {"id": two["id"], "displayName": names[two["id"]], "description": card_field(two["id"], "Роль"),
-                    "thumbnailPlaceholder": "Королевский тракт", "difficulty": two["difficulty"],
+                    "thumbnailPlaceholder": three["thumbnailPlaceholder"], "difficulty": two["difficulty"],
                     "thumbnailVisualId": "FIELD-002-VISUAL-BACKGROUND",
                     "unlockDescription": "Пройдите «Деревенскую окраину» или убейте 3000 обычных врагов на ней", "environmentId": "FIELD-002-ENVIRONMENT",
                     "timelineId": "FIELD-002-TIMELINE", "travelerScheduleId": "FIELD-002-TRAVELERS",
                     "finalBossId": baseline["field002"]["boss"]["id"], "midBossId": baseline["field002"]["midboss"]["id"],
                     "enemyIds": baseline["field002"]["enemyPool"]},
                    {"id": three["id"], "displayName": names[three["id"]], "description": card_field(three["id"], "Роль"),
-                    "thumbnailPlaceholder": three["thumbnailPlaceholder"], "difficulty": three["difficulty"],
+                    "thumbnailPlaceholder": "Королевский тракт", "difficulty": three["difficulty"],
                     "thumbnailVisualId": three["thumbnailVisualId"],
-                    "unlockDescription": three["unlockDescription"], "environmentId": three["environmentId"],
+                    "unlockDescription": f"Пройдите «{names[two['id']]}»", "environmentId": three["environmentId"],
                     "timelineId": three["timelineId"], "travelerScheduleId": three["travelerScheduleId"],
                     "finalBossId": three["finalBossId"], "midBossId": three["midBossId"],
                     "enemyIds": baseline["field003"]["enemyPool"]},
                    {"id": four["id"], "displayName": names[four["id"]], "description": card_field(four["id"], "Роль"),
                     "thumbnailPlaceholder": four["thumbnailPlaceholder"], "difficulty": four["difficulty"],
-                    "thumbnailVisualId": four["thumbnailVisualId"], "unlockDescription": four["unlockDescription"],
+                    "thumbnailVisualId": four["thumbnailVisualId"], "unlockDescription": f"Пройдите «{names[three['id']]}»",
                     "environmentId": four["environmentId"], "timelineId": four["timelineId"],
                     "travelerScheduleId": four["travelerScheduleId"], "finalBossId": four["finalBossId"],
                     "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]},
@@ -107,9 +109,11 @@ def field_presentation(baseline):
         raise SystemExit("FIELD-003 water must stay visual")
     # Map transfer (user instruction 2026-10-01): FIELD-003 takes the former FIELD-002 look and obstacle layout
     # (ground, decor, obstacle sprites, per-run patterns); its own id, environment and seeds stay.
+    three_ground = "FIELD-003-VISUAL-GROUND"
     third = dict(second, id="FIELD-003-PRESENTATION", environmentId=three["environmentId"],
                  seed=data["seed"] + 2000, obstacleSeed=data["obstacleSeed"] + 2000)
     third["obstacles"] = list(second["obstacles"])
+    second["groundVisualId"] = three_ground  # slot 2 now uses the ruins ground; slot 3 keeps the tract ground copied above
     four = baseline["field004"]["field"]
     fourth = dict(data, id="FIELD-004-PRESENTATION", environmentId=four["environmentId"],
                   groundVisualId="FIELD-004-VISUAL-GROUND", fenceVisualId="FIELD-004-VISUAL-PALISADE",

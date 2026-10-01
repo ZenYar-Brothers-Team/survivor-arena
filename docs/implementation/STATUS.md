@@ -20,6 +20,8 @@ Active execution: Meta R1 и полная вкладка «Открытия»; �
 
 ## Действующие границы
 
+Перенос карт 2026-10-01 — Implemented по [DECISION-0136](../decisions/0136-map-transfer-fields-002-003.md): тест «Тест 02» удалён, его кляксы стали геометрией FIELD-002 («Пограничные руины»), прежняя FIELD-002 (тракт) стала FIELD-003 («Королевский тракт»); фон, миниатюры, состав волн FIELD-002 (ENEMY-008→010) и Content Design синхронизированы. EditMode 1259/1259, PlayMode FIELD-002…004 smoke PASS; полный PlayMode без графики вылетает в рендере, графический прогон: 1 UI-падение вне scope. Ручной прогон и gameplay-scale review карт открыты.
+
 FIELD-DEV-BLOBS контакт 2026-10-01 — Implemented по DECISION-0133: двадцать контуров подогнаны по плотному ядру установленных PNG вокруг импортированных pivot/PPU; generation STATIC PASS и Python 2/2 PASS. Unity art check NOT RUN: процесс Editor без определимого project path. После команды «подключай новый арт» утверждённый набор перенесён через art_pipeline: заменены 17 PNG, ещё 3 уже имели мягкий край; все GUID сохранены. Контуры повторно подогнаны по новому арту; Python 2/2 PASS, generation и manifest 293 PASS. Контакт в движении ожидает игрового просмотра. [Evidence](evidence/2026-10-01-dev-obstacle-soft-edges-and-contact.md).
 
 FIELD-DEV-BLOBS палитра грунта 2026-10-01 — Implemented: по «Подключай и комить»

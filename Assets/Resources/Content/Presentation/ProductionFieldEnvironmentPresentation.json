@@ -158,7 +158,7 @@
   {
     "id": "FIELD-002-PRESENTATION",
     "environmentId": "FIELD-002-ENVIRONMENT",
-    "groundVisualId": "FIELD-002-VISUAL-GROUND",
+    "groundVisualId": "FIELD-003-VISUAL-GROUND",
     "fenceVisualId": "FIELD-001-VISUAL-FENCE",
     "obstacleVisualId": "FIELD-002-VISUAL-BOULDER",
     "bushVisualId": "FIELD-001-VISUAL-BUSH",

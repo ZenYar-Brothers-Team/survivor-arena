@@ -19,15 +19,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 80
+          "weight": 83
         },
         {
           "enemyId": "ENEMY-002",
           "weight": 10
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -50,7 +50,7 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 60
+          "weight": 63
         },
         {
           "enemyId": "ENEMY-002",
@@ -61,8 +61,8 @@
           "weight": 5
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -85,7 +85,7 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 60
+          "weight": 63
         },
         {
           "enemyId": "ENEMY-002",
@@ -96,8 +96,8 @@
           "weight": 5
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -125,15 +125,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 70
+          "weight": 73
         },
         {
           "enemyId": "ENEMY-002",
           "weight": 20
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -191,7 +191,7 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 52
+          "weight": 55
         },
         {
           "enemyId": "ENEMY-003",
@@ -202,8 +202,8 @@
           "weight": 13
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -226,15 +226,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 70
+          "weight": 73
         },
         {
           "enemyId": "ENEMY-003",
           "weight": 20
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -257,15 +257,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 58
+          "weight": 65
         },
         {
           "enemyId": "ENEMY-007",
           "weight": 12
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 22
+          "enemyId": "ENEMY-010",
+          "weight": 15
         },
         {
           "enemyId": "ENEMY-009",
@@ -327,15 +327,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 65
+          "weight": 68
         },
         {
           "enemyId": "ENEMY-002",
           "weight": 25
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         }
       ],
       "modifiers": {
@@ -357,6 +357,10 @@
       "spawnIntervalSeconds": 0.364,
       "composition": [
         {
+          "enemyId": "ENEMY-001",
+          "weight": 3
+        },
+        {
           "enemyId": "ENEMY-002",
           "weight": 30
         },
@@ -373,8 +377,8 @@
           "weight": 15
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         },
         {
           "enemyId": "ENEMY-006",
@@ -401,15 +405,15 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 45
+          "weight": 52
         },
         {
           "enemyId": "ENEMY-007",
           "weight": 20
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 25
+          "enemyId": "ENEMY-010",
+          "weight": 18
         },
         {
           "enemyId": "ENEMY-009",
@@ -506,7 +510,7 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 35
+          "weight": 38
         },
         {
           "enemyId": "ENEMY-002",
@@ -521,8 +525,8 @@
           "weight": 15
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 10
+          "enemyId": "ENEMY-010",
+          "weight": 7
         },
         {
           "enemyId": "ENEMY-006",
@@ -549,7 +553,7 @@
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 50
+          "weight": 55
         },
         {
           "enemyId": "ENEMY-002",
@@ -560,8 +564,8 @@
           "weight": 15
         },
         {
-          "enemyId": "ENEMY-008",
-          "weight": 15
+          "enemyId": "ENEMY-010",
+          "weight": 10
         }
       ],
       "modifiers": {

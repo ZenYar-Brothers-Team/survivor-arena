@@ -17,12 +17,12 @@
     "ENEMY-004",
     "ENEMY-005",
     "ENEMY-007",
-    "ENEMY-008",
+    "ENEMY-010",
     "ENEMY-009",
     "ENEMY-006"
   ],
   "newEnemiesInFirstWave": [
-    "ENEMY-008"
+    "ENEMY-010"
   ],
   "travelers": {
     "pool": "global: all implemented Travelers",
@@ -1222,9 +1222,9 @@
     },
     "FIELD-002": {
       "spawns": 1944,
-      "health": 135951,
-      "experience": 4384,
-      "rangedShare": 0.142
+      "health": 133598,
+      "experience": 4346,
+      "rangedShare": 0.214
     }
   },
   "timeline": {
@@ -1249,13 +1249,13 @@
         "tag": "Ordinary",
         "spawnIntervalSeconds": 1.136,
         "composition": {
-          "ENEMY-001": 80,
+          "ENEMY-001": 83,
           "ENEMY-002": 10,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1275,13 +1275,13 @@
         "tag": "Ordinary",
         "spawnIntervalSeconds": 0.818,
         "composition": {
-          "ENEMY-001": 60,
+          "ENEMY-001": 63,
           "ENEMY-002": 25,
           "ENEMY-003": 5,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1301,13 +1301,13 @@
         "tag": "Pressure",
         "spawnIntervalSeconds": 1,
         "composition": {
-          "ENEMY-001": 60,
+          "ENEMY-001": 63,
           "ENEMY-002": 25,
           "ENEMY-003": 5,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1331,13 +1331,13 @@
         "tag": "Rest",
         "spawnIntervalSeconds": 2.182,
         "composition": {
-          "ENEMY-001": 70,
+          "ENEMY-001": 73,
           "ENEMY-002": 20,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1363,7 +1363,7 @@
           "ENEMY-004": 10,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 0,
+          "ENEMY-010": 0,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1383,13 +1383,13 @@
         "tag": "Ordinary",
         "spawnIntervalSeconds": 0.591,
         "composition": {
-          "ENEMY-001": 52,
+          "ENEMY-001": 55,
           "ENEMY-002": 0,
           "ENEMY-003": 25,
           "ENEMY-004": 13,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1409,13 +1409,13 @@
         "tag": "Rest",
         "spawnIntervalSeconds": 1.818,
         "composition": {
-          "ENEMY-001": 70,
+          "ENEMY-001": 73,
           "ENEMY-002": 0,
           "ENEMY-003": 20,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1435,13 +1435,13 @@
         "tag": "Ordinary",
         "spawnIntervalSeconds": 0.527,
         "composition": {
-          "ENEMY-001": 58,
+          "ENEMY-001": 65,
           "ENEMY-002": 0,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 12,
-          "ENEMY-008": 22,
+          "ENEMY-010": 15,
           "ENEMY-009": 8,
           "ENEMY-006": 0
         },
@@ -1467,7 +1467,7 @@
           "ENEMY-004": 0,
           "ENEMY-005": 15,
           "ENEMY-007": 20,
-          "ENEMY-008": 0,
+          "ENEMY-010": 0,
           "ENEMY-009": 10,
           "ENEMY-006": 0
         },
@@ -1487,13 +1487,13 @@
         "tag": "Rest",
         "spawnIntervalSeconds": 1.636,
         "composition": {
-          "ENEMY-001": 65,
+          "ENEMY-001": 68,
           "ENEMY-002": 25,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1513,13 +1513,13 @@
         "tag": "Pressure",
         "spawnIntervalSeconds": 0.364,
         "composition": {
-          "ENEMY-001": 0,
+          "ENEMY-001": 3,
           "ENEMY-002": 30,
           "ENEMY-003": 20,
           "ENEMY-004": 15,
           "ENEMY-005": 0,
           "ENEMY-007": 15,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 10
         },
@@ -1539,13 +1539,13 @@
         "tag": "Pressure",
         "spawnIntervalSeconds": 0.318,
         "composition": {
-          "ENEMY-001": 45,
+          "ENEMY-001": 52,
           "ENEMY-002": 0,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 20,
-          "ENEMY-008": 25,
+          "ENEMY-010": 18,
           "ENEMY-009": 10,
           "ENEMY-006": 0
         },
@@ -1571,7 +1571,7 @@
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 0,
+          "ENEMY-010": 0,
           "ENEMY-009": 10,
           "ENEMY-006": 0
         },
@@ -1597,7 +1597,7 @@
           "ENEMY-004": 15,
           "ENEMY-005": 15,
           "ENEMY-007": 0,
-          "ENEMY-008": 0,
+          "ENEMY-010": 0,
           "ENEMY-009": 10,
           "ENEMY-006": 10
         },
@@ -1617,13 +1617,13 @@
         "tag": "Pressure",
         "spawnIntervalSeconds": 0.3,
         "composition": {
-          "ENEMY-001": 35,
+          "ENEMY-001": 38,
           "ENEMY-002": 20,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 10,
           "ENEMY-007": 15,
-          "ENEMY-008": 10,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
           "ENEMY-006": 10
         },
@@ -1643,13 +1643,13 @@
         "tag": "Pressure",
         "spawnIntervalSeconds": 1,
         "composition": {
-          "ENEMY-001": 50,
+          "ENEMY-001": 55,
           "ENEMY-002": 20,
           "ENEMY-003": 15,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
           "ENEMY-007": 0,
-          "ENEMY-008": 15,
+          "ENEMY-010": 10,
           "ENEMY-009": 0,
           "ENEMY-006": 0
         },
@@ -1666,5 +1666,9 @@
         }
       }
     ]
+  },
+  "rebalance": {
+    "revision": "field002-v2.1",
+    "note": "DECISION-0136 map transfer: the ruins map in slot 2 drops the tract-themed ENEMY-008 (horse scout) for the fort-themed ENEMY-010 (guard shooter) in every phase; its weight is x0.7 rounded, the remainder goes to ENEMY-001, which keeps phase sums at 100 and total nominal HP within 2% of v2 (ranged share rises 14% -> 21%, still below FIELD-003)."
   }
 }

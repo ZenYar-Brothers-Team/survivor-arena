@@ -211,7 +211,7 @@
     },
     {
       "id": "FIELD-002",
-      "name": "Королевский тракт",
+      "name": "Пограничные руины",
       "kind": "field",
       "condition": "fieldClearOrAchievement",
       "price": 0,
@@ -221,7 +221,7 @@
     },
     {
       "id": "FIELD-003",
-      "name": "Пограничные руины",
+      "name": "Королевский тракт",
       "kind": "field",
       "condition": "fieldClearOrAchievement",
       "price": 0,

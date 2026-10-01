@@ -35,7 +35,9 @@ def check(field, data, previous, one, enemies):
     pressure, pool = data["fieldPressure"], data["enemyPool"]
     phases, reference = data["timeline"]["phases"], one["timeline"]["phases"]
     require(data["format"] == "late-content-review-data" and not data["runtimeImportable"], f"{name}: review artifact only")
-    require(data["enemyPool"] == previous["enemyPool"], f"{name}: enemy pool unchanged from v1")
+    # DECISION-0136: the ruins map in slot 2 swaps the tract-themed ENEMY-008 for the fort-themed ENEMY-010.
+    expected_pool = [("ENEMY-010" if e == "ENEMY-008" else e) for e in previous["enemyPool"]] if field == 2 else previous["enemyPool"]
+    require(data["enemyPool"] == expected_pool, f"{name}: enemy pool unchanged from v1 (except the DECISION-0136 swap)")
     require(data["timeline"]["maxAliveEnemies"] == TECHNICAL_ORDINARY_CAP, f"{name}: shared technical cap")
     require([h["timeSeconds"] for h in data["timeline"]["hooks"]] == [450, 810], f"{name}: boss hooks at 7:30 / 13:30")
 

@@ -958,7 +958,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Ranged / особое: нет.
 
-### XP reward: 4. Контексты: FIELD-002…007 (FIELD-002, с первой волны — [DECISION-0063](decisions/0063-field002-slice-v1.md)).
+### XP reward: 4. Контексты: FIELD-003…007 (FIELD-003 — Королевский тракт, [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md); на FIELD-002 не встречается).
 
 ###
 
@@ -992,7 +992,7 @@ approved Traveler Book art. Одна Книга за убийство Путни
 
 ### Ranged / особое: серия из 3 projectiles по 9 damage с интервалом 0.15 с; cooldown серии 3.2 с.
 
-### XP reward: 5. Контексты: FIELD-003…008 (FIELD-003 — с первой волны, [DECISION-0067](decisions/0067-field003-v1.md)).
+### XP reward: 5. Контексты: FIELD-002…008 (FIELD-002 — с первой волны, [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md); FIELD-003 — [DECISION-0067](decisions/0067-field003-v1.md)).
 
 ###
 
@@ -1727,29 +1727,29 @@ Boss / mid-boss: BOSS-001 / MIDBOSS-001.
 Пул Путников (DECISION-0050, [DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, 1–5 появлений с равномерной перемешкой ролей по GDD ([DECISION-0122](decisions/0122-traveler-count-and-type-mix.md)); пока реализованы TRAVELER-001, TRAVELER-002, TRAVELER-005.
 Unlock: доступно с начала игры.
 
-#### FIELD-002 — Королевский тракт
+#### FIELD-002 — Пограничные руины
 
 Статус: Approved. Сложность: 1/5.
 Роль: учит учитывать геометрию и первые более плотные сочетания врагов.
-Окружение: мощёная дорога между деревнями, сторожевыми постами, скалами и дорожными святилищами.<br>
-Geometry / obstacles: группы камней и колонн формируют широкие коридоры, но редко создают тупики. Расстановка своя в каждом забеге: 5×5 ячеек, в каждой ряд из 3–5 камней или колонн ([DECISION-0068](decisions/0068-per-run-obstacle-layouts.md)).
-Enemy profile: деревенскую погоню усиливают охотники, гончие и первые королевские стрелки; появляются сочетания быстрых и медленных противников.<br>
+Окружение: разрушенный пограничный форт: земля с камешками, сломанные стены и завалы.<br>
+Geometry / obstacles: арена 120×120; 20 иллюстраций руин (по четыре формы пяти семейств), каждая ровно один раз; расстановка своя в каждом забеге, зазор между контурами не меньше 7 ([DECISION-0132](decisions/0132-dev-blob-test-field.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).
+Enemy profile: деревенскую погоню усиливают охотники, гончие и гвардейские стрелки форта; появляются сочетания быстрых и медленных противников; конных разведчиков здесь нет ([DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).<br>
 Wave pressure: немного выше плотность и короче передышки, чем на FIELD-001. Ритм FIELD-001, передышки 15 s ([DECISION-0095](decisions/0095-field002-003-rhythm-v2.md)), враги HP ×1.15 / урон ×1.08 ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md)).
 Boss / mid-boss: BOSS-002 / MIDBOSS-002.
-Enemy pool ([DECISION-0063](decisions/0063-field002-slice-v1.md)): шесть типов FIELD-001 и три новых — ENEMY-008 с первой волны, ENEMY-009, ENEMY-006.
+Enemy pool ([DECISION-0063](decisions/0063-field002-slice-v1.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)): шесть типов FIELD-001 и три новых — ENEMY-010 с первой волны, ENEMY-009, ENEMY-006; ENEMY-008 здесь не встречается.
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=2.
 Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md), [DECISION-0131](decisions/0131-ordinary-kill-unlock-thresholds.md)): пройти FIELD-001 или убить 3000 обычных врагов на FIELD-001 (накопительно).
 
-#### FIELD-003 — Пограничные руины
+#### FIELD-003 — Королевский тракт
 
 Статус: Approved. Сложность: 2/5.
 Роль: повышает требования к позиционированию среди разорванной геометрии.
-Окружение: разрушенный пограничный форт с визуальными участками воды, сломанными стенами и остатками мостов.<br>
-Geometry / obstacles: несколько крупных кластеров стен и обломков; между ними остаются широкие проходы. Расстановка своя в каждом забеге: 4×4 ячейки, в каждой повёрнутый фрагмент руин с завалами ([DECISION-0068](decisions/0068-per-run-obstacle-layouts.md)). Вода пока визуальна и не меняет движение.
-Enemy profile: смешанные отряды ополчения, охотников и королевской стражи; выше число врагов, способных атаковать из-за других противников.<br>
+Окружение: мощёная дорога между деревнями, сторожевыми постами, скалами и дорожными святилищами.<br>
+Geometry / obstacles: группы камней и колонн формируют широкие коридоры, но редко создают тупики. Расстановка своя в каждом забеге: 5×5 ячеек, в каждой ряд из 3–5 камней или колонн ([DECISION-0068](decisions/0068-per-run-obstacle-layouts.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)).
+Enemy profile: смешанные отряды ополчения, охотников, конных разведчиков и королевской стражи на дороге; выше число врагов, способных атаковать из-за других противников.<br>
 Wave pressure: заметные пики давления появляются раньше; элитные фазы встречаются чаще. Ритм FIELD-001 ([DECISION-0095](decisions/0095-field002-003-rhythm-v2.md)), враги HP ×1.3 / урон ×1.16 ([DECISION-0096](decisions/0096-field-curve-meta-bonus-xp-book.md)).
 Boss / mid-boss: BOSS-003 / MIDBOSS-003.
-Enemy pool ([DECISION-0067](decisions/0067-field003-v1.md)): девять типов FIELD-002 и новый ENEMY-010 с первой волны; геометрия — [field003-v1](balance/field003-v1.md), волны — [field-rhythm-v2](balance/field-rhythm-v2.md).
+Enemy pool ([DECISION-0067](decisions/0067-field003-v1.md), [DECISION-0136](decisions/0136-map-transfer-fields-002-003.md)): десять типов — шесть FIELD-001, ENEMY-006, ENEMY-008 (конные разведчики тракта), ENEMY-009 и ENEMY-010 с первой волны; геометрия — [field003-v1](balance/field003-v1.md), волны — [field-rhythm-v2](balance/field-rhythm-v2.md).
 Пул Путников ([DECISION-0063](decisions/0063-field002-slice-v1.md)): общий случайный пул, роли не повторяются; масштаб K при r=3.
 Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): пройти FIELD-002 или заработать суммарно 500 монет на FIELD-002 (накопительно).
 

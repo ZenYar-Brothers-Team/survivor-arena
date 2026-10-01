@@ -17,7 +17,7 @@ namespace Game.Bootstrap.PlayModeTests
     public sealed class ProductionField002SmokeTests
     {
         private static readonly string[] Pool = { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-006",
-            "ENEMY-007", "ENEMY-008", "ENEMY-009" };
+            "ENEMY-007", "ENEMY-009", "ENEMY-010" };
 
         [UnityTest]
         public IEnumerator Field002_StartsWithGeneratedBlobs_AndSpawnsOnlyItsPool()

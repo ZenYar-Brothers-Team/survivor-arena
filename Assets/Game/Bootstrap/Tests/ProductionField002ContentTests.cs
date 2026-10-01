@@ -40,10 +40,10 @@ namespace Game.Bootstrap.Tests
         {
             var configuration = Field002();
             CollectionAssert.AreEquivalent(new[] { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-007",
-                "ENEMY-006", "ENEMY-008", "ENEMY-009" }, configuration.Enemies.Select(e => e.Id.ToString()));
+                "ENEMY-006", "ENEMY-009", "ENEMY-010" }, configuration.Enemies.Select(e => e.Id.ToString()));
             var first = configuration.Timeline.Phases[0];
-            Assert.IsTrue(first.Composition.Any(c => c.Enemy.Id.ToString() == "ENEMY-008" && c.Weight > 0),
-                "DECISION-0063: a new enemy type is visible from the first wave.");
+            Assert.IsTrue(first.Composition.Any(c => c.Enemy.Id.ToString() == "ENEMY-010" && c.Weight > 0),
+                "DECISION-0063/0136: a new enemy type (the guard shooter) is visible from the first wave.");
             foreach (var phase in configuration.Timeline.Phases)
             {
                 Assert.AreEqual(1.15f, phase.Modifiers.HealthMultiplier, 1e-5f, phase.Id.ToString());
@@ -111,7 +111,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(120f, presentation.ArenaSideLength);
             Assert.IsNull(presentation.ObstacleLayout);
             Assert.AreEqual(20, presentation.BlobLayout.TotalCount);
-            Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
+            Assert.AreEqual("FIELD-003-VISUAL-GROUND", presentation.Ground.Id.ToString());
             var layouts = new System.Collections.Generic.HashSet<string>();
             for (var seed = 0; seed < 100; seed++)
             {
