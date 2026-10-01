@@ -101,7 +101,8 @@ namespace Game.Zones
         {
             foreach (var zone in _zones)
             {
-                if (zone.Effect.Lifetime == ZoneLifetimeMode.Permanent) continue;
+                // Altars (cycling) and permanent zones never move; pulsing and burst zones jump when a new cycle begins.
+                if (zone.Effect.Lifetime == ZoneLifetimeMode.Permanent || zone.Effect.Lifetime == ZoneLifetimeMode.Cycling) continue;
                 var cycle = zone.CycleAt(Time);
                 if (cycle == zone.Cycle) continue;
                 var random = new System.Random(unchecked(_seed * 31 + zone.Index * 7919 + cycle * 104729));
@@ -146,6 +147,7 @@ namespace Game.Zones
             if (!_player.IsAlive)
             {
                 _buffs.Clear();
+                foreach (var zone in _zones) zone.SetCharge(0f);
                 ApplyModifier(0f, 0f, 0f, 0f, 0f);
                 return;
             }
@@ -153,9 +155,21 @@ namespace Game.Zones
             foreach (var pair in _buffs) move += pair.Key.PlayerMovementBonus;
             ZonePlacement portal = null;
             var position = _player.Position;
+            // Charging altars fill while the player stands inside an active one and drain otherwise; their bonus is the charge.
             foreach (var zone in _zones)
             {
-                if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst) continue; // its buff is handled above
+                if (zone.Effect.Kind != ZoneEffectKind.Charge) continue;
+                var effect = zone.Effect;
+                if (!zone.IsNear) { zone.SetCharge(0f); continue; }
+                var inside = zone.IsActive(Time) && zone.Contains(position);
+                zone.SetCharge(zone.Charge + (inside ? deltaTime / effect.ChargeSecondsToMax : -deltaTime / effect.ChargeDecaySeconds));
+                if (inside) PlayerActiveZoneCount++;
+                skill += effect.ChargeSkillDamageBonus * zone.Charge;
+                action += effect.ChargeActionSpeedBonus * zone.Charge;
+            }
+            foreach (var zone in _zones)
+            {
+                if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst || zone.Effect.Kind == ZoneEffectKind.Charge) continue; // handled above
                 if (!zone.IsNear || !zone.IsActive(Time) || !zone.Contains(position)) continue;
                 PlayerActiveZoneCount++;
                 var effect = zone.Effect;

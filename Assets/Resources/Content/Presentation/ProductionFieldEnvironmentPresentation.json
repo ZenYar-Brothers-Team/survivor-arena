@@ -4617,5 +4617,467 @@
       ],
       "activeScreenMargin": 0.5
     }
+  },
+  {
+    "id": "FIELD-DEV-ALTARS-PRESENTATION",
+    "environmentId": "FIELD-DEV-ALTARS-ENVIRONMENT",
+    "groundVisualId": "FIELD-006-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
+    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 7001,
+    "obstacleSeed": 7002,
+    "interiorObstacleCount": 5,
+    "nearObstacleCount": 0,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
+    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
+    "arenaSideLength": 160,
+    "blobLayout": {
+      "edgeMargin": 5,
+      "startClearRadius": 11,
+      "playerClearRadius": 3.5,
+      "minGap": 7,
+      "placementAttempts": 1500,
+      "maxRestarts": 40,
+      "referenceSeed": 7,
+      "pixelsPerUnit": 16,
+      "outlinePixels": 2,
+      "library": [
+        {
+          "id": "wet-small",
+          "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+          "points": [
+            [
+              0.0029,
+              2.5329
+            ],
+            [
+              0.6449,
+              2.2259
+            ],
+            [
+              1.1845,
+              2.3747
+            ],
+            [
+              1.3985,
+              2.0398
+            ],
+            [
+              1.7055,
+              2.0119
+            ],
+            [
+              2.6081,
+              0.9046
+            ],
+            [
+              2.7662,
+              0.3557
+            ],
+            [
+              2.1149,
+              -1.4959
+            ],
+            [
+              1.6218,
+              -1.561
+            ],
+            [
+              0.5332,
+              -2.5379
+            ],
+            [
+              -1.2439,
+              -2.082
+            ],
+            [
+              -2.7884,
+              -0.6213
+            ],
+            [
+              -2.7884,
+              0.5325
+            ],
+            [
+              -2.5279,
+              1.0535
+            ],
+            [
+              -1.2997,
+              1.8165
+            ],
+            [
+              -1.1044,
+              2.3096
+            ]
+          ]
+        },
+        {
+          "id": "ward-small",
+          "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+          "points": [
+            [
+              -0.0819,
+              2.8005
+            ],
+            [
+              2.0715,
+              1.9826
+            ],
+            [
+              3.0343,
+              -0.7091
+            ],
+            [
+              1.0673,
+              -2.7071
+            ],
+            [
+              -0.4649,
+              -2.614
+            ],
+            [
+              -1.3138,
+              -2.9867
+            ],
+            [
+              -3.0427,
+              -1.1542
+            ],
+            [
+              -2.7632,
+              -0.0465
+            ],
+            [
+              -2.8771,
+              0.2641
+            ],
+            [
+              -2.6286,
+              0.6575
+            ],
+            [
+              -2.815,
+              1.5478
+            ],
+            [
+              -1.8936,
+              2.1482
+            ]
+          ]
+        },
+        {
+          "id": "thorn-small",
+          "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
+          "points": [
+            [
+              0.4231,
+              3.0296
+            ],
+            [
+              0.952,
+              2.5007
+            ],
+            [
+              1.8922,
+              0.6203
+            ],
+            [
+              2.8559,
+              0.2207
+            ],
+            [
+              3.3025,
+              -0.2024
+            ],
+            [
+              3.3378,
+              -0.8958
+            ],
+            [
+              2.8207,
+              -2.7763
+            ],
+            [
+              0.094,
+              -1.9888
+            ],
+            [
+              -2.4681,
+              -2.8233
+            ],
+            [
+              -3.2438,
+              -0.2259
+            ],
+            [
+              -3.1262,
+              0.5028
+            ],
+            [
+              -2.5033,
+              1.0316
+            ],
+            [
+              -1.5631,
+              2.4067
+            ]
+          ]
+        },
+        {
+          "id": "net-small",
+          "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+          "points": [
+            [
+              0.7743,
+              3.1043
+            ],
+            [
+              2.5527,
+              2.1061
+            ],
+            [
+              2.6445,
+              1.6127
+            ],
+            [
+              1.6118,
+              0.2818
+            ],
+            [
+              3.1378,
+              -1.2786
+            ],
+            [
+              3.0919,
+              -1.5081
+            ],
+            [
+              1.761,
+              -2.4145
+            ],
+            [
+              1.3135,
+              -2.2539
+            ],
+            [
+              0.866,
+              -2.426
+            ],
+            [
+              -0.7058,
+              -3.4127
+            ],
+            [
+              -1.1877,
+              -3.0456
+            ],
+            [
+              -2.4728,
+              -2.862
+            ],
+            [
+              -3.3104,
+              -2.4145
+            ],
+            [
+              -2.9088,
+              -0.4869
+            ],
+            [
+              -3.0694,
+              -0.1772
+            ],
+            [
+              -2.9776,
+              0.8211
+            ],
+            [
+              -2.3351,
+              1.1767
+            ],
+            [
+              -1.7499,
+              1.8652
+            ],
+            [
+              -1.3943,
+              1.8766
+            ],
+            [
+              -0.2698,
+              2.7371
+            ]
+          ]
+        },
+        {
+          "id": "incense-small",
+          "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+          "points": [
+            [
+              -0.3561,
+              2.9531
+            ],
+            [
+              2.3312,
+              1.5675
+            ],
+            [
+              2.9715,
+              -0.3954
+            ],
+            [
+              0.7356,
+              -2.5788
+            ],
+            [
+              -1.7732,
+              -2.9777
+            ],
+            [
+              -3.0013,
+              0.1189
+            ],
+            [
+              -2.6129,
+              2.1554
+            ]
+          ]
+        }
+      ],
+      "blobs": [
+        {
+          "libraryId": "wet-small"
+        },
+        {
+          "libraryId": "ward-small"
+        },
+        {
+          "libraryId": "thorn-small"
+        },
+        {
+          "libraryId": "net-small"
+        },
+        {
+          "libraryId": "incense-small"
+        }
+      ]
+    },
+    "zoneLayout": {
+      "edgeMargin": 8,
+      "startClearRadius": 10,
+      "minGap": 24,
+      "obstacleClearance": 2,
+      "activeScreenMargin": 0.5,
+      "placementAttempts": 800,
+      "maxRestarts": 30,
+      "referenceSeed": 7,
+      "effects": [
+        {
+          "id": "FIXTURE-ALTAR-HASTE",
+          "displayName": "Алтарь ветра",
+          "kind": "Haste",
+          "radius": 4,
+          "color": "#6df0c2",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerMovementBonus": 0.5
+        },
+        {
+          "id": "FIXTURE-ALTAR-HEAL",
+          "displayName": "Алтарь исцеления",
+          "kind": "Regeneration",
+          "radius": 4,
+          "color": "#ff8fd0",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerRegenerationPerSecond": 8
+        },
+        {
+          "id": "FIXTURE-ALTAR-WARD",
+          "displayName": "Алтарь защиты",
+          "kind": "Protection",
+          "radius": 4,
+          "color": "#9fd3ff",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 22,
+          "pulseFadeSeconds": 3,
+          "playerIncomingDamageReduction": 0.8
+        },
+        {
+          "id": "FIXTURE-ALTAR-POWER",
+          "displayName": "Алтарь силы",
+          "kind": "ArcanePower",
+          "radius": 4,
+          "color": "#c28cff",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerSkillDamageBonus": 0.6,
+          "playerActionSpeedBonus": 0.3
+        },
+        {
+          "id": "FIXTURE-ALTAR-CHARGE",
+          "displayName": "Алтарь накопления",
+          "kind": "Charge",
+          "radius": 5,
+          "color": "#ffb347",
+          "lifetime": "Permanent",
+          "chargeSecondsToMax": 20,
+          "chargeDecaySeconds": 8,
+          "chargeSkillDamageBonus": 1,
+          "chargeActionSpeedBonus": 0.3
+        }
+      ],
+      "zones": [
+        {
+          "effectId": "FIXTURE-ALTAR-HASTE",
+          "count": 2
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-HEAL",
+          "count": 2
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-WARD",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-POWER",
+          "count": 1
+        },
+        {
+          "effectId": "FIXTURE-ALTAR-CHARGE",
+          "count": 3
+        }
+      ]
+    }
   }
 ]

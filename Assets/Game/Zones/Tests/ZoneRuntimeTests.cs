@@ -325,6 +325,82 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void CyclingAltar_NeverMoves_AndWorksOnlyInItsShortWindowOfTheLongCycle()
+        {
+            var runtime = Build(1, (ZoneTestData.Altar(), new Vector2(30, 30), 0f));
+            var zone = runtime.Zones[0];
+            _player.Position = new Vector2(30, 30);
+            Run(runtime, 10f);
+            Assert.AreEqual(0.5f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f, "On at 10 s.");
+            Run(runtime, 25f); // 35 s: resting
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "Resting at 35 s: the player has to go elsewhere.");
+            Run(runtime, 60f); // 95 s: the next cycle is on again
+            Assert.AreEqual(0.5f, _player.Zone.MovementSpeedMultiplierBonus, 1e-4f);
+            Assert.AreEqual(new Vector2(30, 30), zone.Center, "An altar never relocates, cycle after cycle.");
+            Assert.AreEqual(1, zone.CycleAt(runtime.Time), "It has crossed into the second cycle without moving.");
+        }
+
+        [Test]
+        public void Charge_GrowsWhileInside_ClampsAtFull_AndBonusFollowsTheCharge()
+        {
+            var runtime = Build(1, (ZoneTestData.Charge(), Vector2.zero, 0f));
+            _player.Position = new Vector2(1, 0);
+            Run(runtime, 10f);
+            Assert.AreEqual(0.5f, runtime.Zones[0].Charge, 0.02f, "Half full after half the fill time.");
+            Assert.AreEqual(0.5f, _player.Zone.ActiveSkillDamageMultiplierBonus, 0.02f, "+100% at full means +50% at half.");
+            Assert.AreEqual(0.15f, _player.Zone.ActionSpeedBonus, 0.01f);
+            Run(runtime, 15f);
+            Assert.AreEqual(1f, runtime.Zones[0].Charge, 1e-4f, "Capped at full.");
+            Assert.AreEqual(1f, _player.Zone.ActiveSkillDamageMultiplierBonus, 1e-3f);
+            Assert.AreEqual(1, runtime.PlayerActiveZoneCount);
+        }
+
+        [Test]
+        public void Charge_DrainsAfterLeaving_KeepingATrailingBonusUntilEmpty()
+        {
+            var runtime = Build(1, (ZoneTestData.Charge(), Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            Run(runtime, 20f);
+            _player.Position = new Vector2(25, 0); // outside: it drains over 8 s
+            Run(runtime, 4f);
+            Assert.AreEqual(0.5f, runtime.Zones[0].Charge, 0.02f);
+            Assert.AreEqual(0.5f, _player.Zone.ActiveSkillDamageMultiplierBonus, 0.02f, "The bonus lingers while it drains.");
+            Run(runtime, 5f);
+            Assert.AreEqual(0f, runtime.Zones[0].Charge);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey), "Empty: nothing left.");
+        }
+
+        [Test]
+        public void Charge_AltarsStack_AndAFarAltarForgetsItsCharge()
+        {
+            var runtime = Build(1, (ZoneTestData.Charge("T-CHARGE-A"), new Vector2(0, 0), 0f), (ZoneTestData.Charge("T-CHARGE-B"), new Vector2(9, 0), 0f));
+            _player.Position = new Vector2(4.5f, 0); // inside both 5-unit discs
+            Run(runtime, 20f);
+            Assert.AreEqual(2f, _player.Zone.ActiveSkillDamageMultiplierBonus, 1e-3f, "Two full altars add up.");
+            Assert.AreEqual(2, runtime.PlayerActiveZoneCount);
+            _view = new Rect(60f, 60f, 17.8f, 10f); // the camera moved far away: both altars fall asleep
+            Run(runtime, 0.2f);
+            Assert.AreEqual(0f, runtime.Zones[0].Charge, "A sleeping altar drops its charge.");
+        }
+
+        [Test]
+        public void Charge_OnlyFillsWhileTheAltarIsOn_AndDeathResetsIt()
+        {
+            var cyclingCharge = ZoneTestData.Charge(mode: ZoneLifetimeMode.Cycling);
+            cyclingCharge.PulsePeriodSeconds = 90f; cyclingCharge.PulseVisibleSeconds = 24f; cyclingCharge.PulseFadeSeconds = 3f;
+            var runtime = Build(1, (cyclingCharge, Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            Run(runtime, 40f); // on for the first 24 s only
+            Assert.Less(runtime.Zones[0].Charge, 0.2f, "Standing in a resting altar earns nothing (it drained after switching off).");
+            var always = Build(1, (ZoneTestData.Charge(), Vector2.zero, 0f));
+            Run(always, 10f);
+            Assert.Greater(always.Zones[0].Charge, 0.4f);
+            _player.IsAlive = false;
+            always.Tick(Dt);
+            Assert.AreEqual(0f, always.Zones[0].Charge, "Death empties every charge.");
+        }
+
+        [Test]
         public void Tick_ZeroTimeChangesNothing_SoAPausedRunStandsStill()
         {
             var runtime = Build(1, (ZoneTestData.Rift(), Vector2.zero, 0f));

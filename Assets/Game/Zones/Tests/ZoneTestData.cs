@@ -52,6 +52,20 @@ namespace Game.Zones.Tests
             Id = id, Kind = ZoneEffectKind.Protection, Radius = 6f, Color = "#9fd3ff", PlayerIncomingDamageReduction = 0.8f
         }, mode);
 
+        /// <summary>Charging altar: 20 s inside to fill, 8 s outside to drain; +100% skill damage and +30% action speed at full charge.</summary>
+        public static ZoneEffectData Charge(string id = "T-CHARGE", ZoneLifetimeMode mode = ZoneLifetimeMode.Permanent) => Lifetime(new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Charge, Radius = 5f, Color = "#ffb347", ChargeSecondsToMax = 20f, ChargeDecaySeconds = 8f,
+            ChargeSkillDamageBonus = 1f, ChargeActionSpeedBonus = 0.3f
+        }, mode);
+
+        /// <summary>A cycling altar: 90 s cycle, 24 s on (3 s fades), never moves.</summary>
+        public static ZoneEffectData Altar(string id = "T-ALTAR") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Haste, Radius = 4f, Color = "#6df0c2", Lifetime = ZoneLifetimeMode.Cycling,
+            PulsePeriodSeconds = 90f, PulseVisibleSeconds = 24f, PulseFadeSeconds = 3f, PlayerMovementBonus = 0.5f
+        };
+
         /// <summary>Marks an effect permanent, or pulsing with a 30 s period, 20 s shown (3 s fades).</summary>
         public static ZoneEffectData Lifetime(ZoneEffectData data, ZoneLifetimeMode mode)
         {

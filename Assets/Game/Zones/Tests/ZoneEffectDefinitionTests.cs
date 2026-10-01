@@ -83,6 +83,32 @@ namespace Game.Zones.Tests
             Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A haste zone carries no buff duration.");
         }
 
+        [Test]
+        public void Definition_ChargeAndCyclingAltars_TakeTheirValues_AndKeepTheirRules()
+        {
+            var charge = new ZoneEffectDefinition(ZoneTestData.Charge());
+            Assert.AreEqual(20f, charge.ChargeSecondsToMax);
+            Assert.AreEqual(1f, charge.ChargeSkillDamageBonus);
+            Assert.IsTrue(charge.AlwaysShown, "Charging altars stay drawn.");
+            var altar = new ZoneEffectDefinition(ZoneTestData.Altar());
+            Assert.AreEqual(ZoneLifetimeMode.Cycling, altar.Lifetime);
+            Assert.IsTrue(altar.AlwaysShown, "Resting altars stay faintly drawn.");
+            Assert.IsFalse(new ZoneEffectDefinition(ZoneTestData.Haste()).AlwaysShown);
+            Assert.AreEqual(1f, altar.Visibility(0f, 10f), 1e-4f);
+            Assert.AreEqual(0f, altar.Visibility(0f, 60f), 1e-4f, "Resting for most of the long cycle.");
+            Assert.AreEqual(1f, altar.Visibility(0f, 100f), 1e-4f, "On again in the next cycle.");
+            var data = ZoneTestData.Charge(); data.ChargeSecondsToMax = 0f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.Charge(); data.ChargeDecaySeconds = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data));
+            data = ZoneTestData.Charge(); data.ChargeSkillDamageBonus = 0f; data.ChargeActionSpeedBonus = 0f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A charge must be worth something.");
+            data = ZoneTestData.Charge(mode: ZoneLifetimeMode.Pulsing);
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "A charging altar stays in place.");
+            data = ZoneTestData.Haste(); data.ChargeSecondsToMax = 5f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(data), "Charge values belong only to the Charge kind.");
+        }
+
         [TestCase(0f, 0f)]
         [TestCase(2f, 0.5f)]
         [TestCase(4f, 1f)]

@@ -16,6 +16,7 @@ namespace Game.Bootstrap
     {
         private const float DiscAlpha = 0.38f;
         private const int SortingOrder = -6;
+        private const float IdleAltarVisibility = 0.25f;
 
         private readonly List<SpriteRenderer> _discs = new List<SpriteRenderer>();
         private ZoneRuntime _runtime;
@@ -74,6 +75,9 @@ namespace Game.Bootstrap
                 var disc = _discs[i];
                 // Only zones within the active window around the player are drawn (and simulated).
                 var visibility = zone.IsNear ? zone.Visibility(_runtime.Time) : 0f;
+                // Altars stay faintly drawn while resting so the player can find them; a charging altar brightens as it fills.
+                if (zone.IsNear && zone.Effect.AlwaysShown)
+                    visibility = Mathf.Max(visibility, IdleAltarVisibility + (1f - IdleAltarVisibility) * zone.Charge);
                 disc.enabled = visibility > 0f;
                 if (!disc.enabled) continue;
                 var color = zone.Effect.Color;

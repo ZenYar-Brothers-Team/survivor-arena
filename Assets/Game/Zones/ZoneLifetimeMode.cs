@@ -11,6 +11,11 @@ namespace Game.Zones
         /// One-shot: appears at a random point, swells for a telegraph time, goes off once, flashes away and stays gone until
         /// the next cycle, when it appears somewhere else. Only the SpeedBurst kind uses it.
         /// </summary>
-        Burst
+        Burst,
+        /// <summary>
+        /// Altar: stays at its place and switches on for part of each (long) cycle with the pulse fades, then rests; it never
+        /// moves. The long rest makes the player run to another altar.
+        /// </summary>
+        Cycling
     }
 }

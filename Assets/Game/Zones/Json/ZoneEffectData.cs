@@ -35,6 +35,11 @@ namespace Game.Zones.Json
         public float? PlayerIncomingDamageReduction { get; set; }
         // SpeedBurst: uses playerMovementBonus plus how long the buff lasts.
         public float? PlayerBuffSeconds { get; set; }
+        // Charge: bonuses at full charge, how long standing inside takes to fill, how long leaving takes to drain.
+        public float? ChargeSecondsToMax { get; set; }
+        public float? ChargeDecaySeconds { get; set; }
+        public float? ChargeSkillDamageBonus { get; set; }
+        public float? ChargeActionSpeedBonus { get; set; }
         // Portal
         public float? PortalCooldownSeconds { get; set; }
         public float? PortalExitDistance { get; set; }

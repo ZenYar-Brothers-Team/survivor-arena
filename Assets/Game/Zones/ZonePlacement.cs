@@ -22,6 +22,11 @@ namespace Game.Zones
 
         public void SetNear(bool near) => IsNear = near;
 
+        /// <summary>Charging zones: how full the player's charge of this altar is, 0..1.</summary>
+        public float Charge { get; private set; }
+
+        public void SetCharge(float charge) => Charge = Mathf.Clamp01(charge);
+
         public ZonePlacement(int index, ZoneEffectDefinition effect, Vector2 center, float phaseSeconds = 0f)
         {
             if (effect == null) throw new System.ArgumentNullException(nameof(effect));

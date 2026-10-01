@@ -47,6 +47,16 @@ namespace Game.Zones
         public float PlayerIncomingDamageReduction { get; }
         /// <summary>SpeedBurst: how long the speed buff lasts after the burst, wherever the player goes.</summary>
         public float PlayerBuffSeconds { get; }
+        /// <summary>Charge: seconds inside needed to reach full charge.</summary>
+        public float ChargeSecondsToMax { get; }
+        /// <summary>Charge: seconds a full charge takes to drain once the player is outside.</summary>
+        public float ChargeDecaySeconds { get; }
+        /// <summary>Charge: active-skill damage bonus at full charge.</summary>
+        public float ChargeSkillDamageBonus { get; }
+        /// <summary>Charge: action-speed bonus at full charge.</summary>
+        public float ChargeActionSpeedBonus { get; }
+        /// <summary>Altars and charging zones stay faintly drawn even while resting so the player can find them.</summary>
+        public bool AlwaysShown => Lifetime == ZoneLifetimeMode.Cycling || Kind == ZoneEffectKind.Charge;
         /// <summary>Portal: time before the player can use any portal again.</summary>
         public float PortalCooldownSeconds { get; }
         /// <summary>Portal: how far outside the partner's rim the player arrives.</summary>
@@ -71,6 +81,7 @@ namespace Game.Zones
             switch (Lifetime)
             {
                 case ZoneLifetimeMode.Pulsing:
+                case ZoneLifetimeMode.Cycling:
                     PulsePeriodSeconds = Required(data.PulsePeriodSeconds, data.Id, "pulsePeriodSeconds");
                     PulseVisibleSeconds = Required(data.PulseVisibleSeconds, data.Id, "pulseVisibleSeconds");
                     PulseFadeSeconds = Required(data.PulseFadeSeconds, data.Id, "pulseFadeSeconds");
@@ -79,7 +90,7 @@ namespace Game.Zones
                     if (PulseVisibleSeconds > PulsePeriodSeconds) throw new ArgumentException($"Zone effect '{data.Id}' is shown longer than its period.");
                     if (PulseVisibleSeconds < 2f * PulseFadeSeconds) throw new ArgumentException($"Zone effect '{data.Id}' must stay shown at least as long as both fades.");
                     if (data.TelegraphSeconds.HasValue || data.FlashSeconds.HasValue)
-                        throw new ArgumentException($"Pulsing zone effect '{data.Id}' carries burst values.");
+                        throw new ArgumentException($"Pulsing or cycling zone effect '{data.Id}' carries burst values.");
                     break;
                 case ZoneLifetimeMode.Burst:
                     PulsePeriodSeconds = Required(data.PulsePeriodSeconds, data.Id, "pulsePeriodSeconds");
@@ -103,6 +114,8 @@ namespace Game.Zones
                 throw new ArgumentException($"Portal effect '{data.Id}' must be permanent: a pair cannot relocate together.");
             if ((Kind == ZoneEffectKind.SpeedBurst) != (Lifetime == ZoneLifetimeMode.Burst))
                 throw new ArgumentException($"Zone effect '{data.Id}': a burst lifetime belongs to the SpeedBurst kind and only to it.");
+            if (Kind == ZoneEffectKind.Charge && Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
+                throw new ArgumentException($"Charge effect '{data.Id}' stays in place: permanent or cycling.");
 
             switch (Kind)
             {
@@ -115,18 +128,18 @@ namespace Game.Zones
                     NumericValidation.ValidatePositive(EnemySlowSeconds, nameof(EnemySlowSeconds));
                     if (PlayerMovementBonus == 0f && EnemySlowFraction == 0f)
                         throw new ArgumentException($"Slow zone '{data.Id}' must slow the player or the enemies.");
-                    Forbid(data, ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.Haste:
                     PlayerMovementBonus = Required(data.PlayerMovementBonus, data.Id, "playerMovementBonus");
                     NumericValidation.ValidateRange(PlayerMovementBonus, 0f, 2f, nameof(PlayerMovementBonus));
                     if (PlayerMovementBonus <= 0f) throw new ArgumentException($"Haste zone '{data.Id}' needs a positive playerMovementBonus.");
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.Regeneration:
                     PlayerRegenerationPerSecond = Required(data.PlayerRegenerationPerSecond, data.Id, "playerRegenerationPerSecond");
                     NumericValidation.ValidatePositive(PlayerRegenerationPerSecond, nameof(PlayerRegenerationPerSecond));
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.ArcanePower:
                     PlayerSkillDamageBonus = Required(data.PlayerSkillDamageBonus, data.Id, "playerSkillDamageBonus");
@@ -135,7 +148,7 @@ namespace Game.Zones
                     NumericValidation.ValidateNonNegativeFinite(PlayerActionSpeedBonus, nameof(PlayerActionSpeedBonus));
                     if (PlayerSkillDamageBonus <= 0f && PlayerActionSpeedBonus <= 0f)
                         throw new ArgumentException($"Arcane zone '{data.Id}' must raise skill damage or action speed.");
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.Rift:
                     PlayerDamagePerSecond = Required(data.PlayerDamagePerSecond, data.Id, "playerDamagePerSecond");
@@ -144,13 +157,13 @@ namespace Game.Zones
                     NumericValidation.ValidateNonNegativeFinite(EnemyDamagePerSecond, nameof(EnemyDamagePerSecond));
                     if (PlayerDamagePerSecond <= 0f && EnemyDamagePerSecond <= 0f)
                         throw new ArgumentException($"Rift zone '{data.Id}' must damage the player or the enemies.");
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.Protection:
                     PlayerIncomingDamageReduction = Required(data.PlayerIncomingDamageReduction, data.Id, "playerIncomingDamageReduction");
                     NumericValidation.ValidateRange(PlayerIncomingDamageReduction, 0f, 0.95f, nameof(PlayerIncomingDamageReduction));
                     if (PlayerIncomingDamageReduction <= 0f) throw new ArgumentException($"Protection zone '{data.Id}' needs a positive playerIncomingDamageReduction.");
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.SpeedBurst:
                     PlayerMovementBonus = Required(data.PlayerMovementBonus, data.Id, "playerMovementBonus");
@@ -158,7 +171,20 @@ namespace Game.Zones
                     NumericValidation.ValidateRange(PlayerMovementBonus, 0f, 2f, nameof(PlayerMovementBonus));
                     if (PlayerMovementBonus <= 0f) throw new ArgumentException($"Speed burst '{data.Id}' needs a positive playerMovementBonus.");
                     NumericValidation.ValidatePositive(PlayerBuffSeconds, nameof(PlayerBuffSeconds));
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Charge);
+                    break;
+                case ZoneEffectKind.Charge:
+                    ChargeSecondsToMax = Required(data.ChargeSecondsToMax, data.Id, "chargeSecondsToMax");
+                    ChargeDecaySeconds = Required(data.ChargeDecaySeconds, data.Id, "chargeDecaySeconds");
+                    ChargeSkillDamageBonus = Required(data.ChargeSkillDamageBonus, data.Id, "chargeSkillDamageBonus");
+                    ChargeActionSpeedBonus = Required(data.ChargeActionSpeedBonus, data.Id, "chargeActionSpeedBonus");
+                    NumericValidation.ValidatePositive(ChargeSecondsToMax, nameof(ChargeSecondsToMax));
+                    NumericValidation.ValidatePositive(ChargeDecaySeconds, nameof(ChargeDecaySeconds));
+                    NumericValidation.ValidateNonNegativeFinite(ChargeSkillDamageBonus, nameof(ChargeSkillDamageBonus));
+                    NumericValidation.ValidateNonNegativeFinite(ChargeActionSpeedBonus, nameof(ChargeActionSpeedBonus));
+                    if (ChargeSkillDamageBonus <= 0f && ChargeActionSpeedBonus <= 0f)
+                        throw new ArgumentException($"Charge zone '{data.Id}' must raise skill damage or action speed at full charge.");
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
                     break;
                 default:
                     PortalCooldownSeconds = Required(data.PortalCooldownSeconds, data.Id, "portalCooldownSeconds");
@@ -167,7 +193,7 @@ namespace Game.Zones
                     NumericValidation.ValidatePositive(PortalCooldownSeconds, nameof(PortalCooldownSeconds));
                     NumericValidation.ValidatePositive(PortalExitDistance, nameof(PortalExitDistance));
                     NumericValidation.ValidatePositive(PortalMinPairDistance, nameof(PortalMinPairDistance));
-                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Protection | ValueGroup.Buff);
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
             }
         }
@@ -228,7 +254,7 @@ namespace Game.Zones
         [Flags]
         private enum ValueGroup
         {
-            SlowOnly = 1, Movement = 2, Regeneration = 4, Arcane = 8, Rift = 16, Portal = 32, Protection = 64, Buff = 128
+            SlowOnly = 1, Movement = 2, Regeneration = 4, Arcane = 8, Rift = 16, Portal = 32, Protection = 64, Buff = 128, Charge = 256
         }
 
         // A kind's data must not carry another kind's numbers.
@@ -242,7 +268,9 @@ namespace Game.Zones
                           ((groups & ValueGroup.Portal) != 0 && (data.PortalCooldownSeconds.HasValue || data.PortalExitDistance.HasValue ||
                                                                  data.PortalMinPairDistance.HasValue)) ||
                           ((groups & ValueGroup.Protection) != 0 && data.PlayerIncomingDamageReduction.HasValue) ||
-                          ((groups & ValueGroup.Buff) != 0 && data.PlayerBuffSeconds.HasValue);
+                          ((groups & ValueGroup.Buff) != 0 && data.PlayerBuffSeconds.HasValue) ||
+                          ((groups & ValueGroup.Charge) != 0 && (data.ChargeSecondsToMax.HasValue || data.ChargeDecaySeconds.HasValue ||
+                                                                 data.ChargeSkillDamageBonus.HasValue || data.ChargeActionSpeedBonus.HasValue));
             if (carried) throw new ArgumentException($"Zone effect '{data.Id}' carries values that its kind does not use.");
         }
     }

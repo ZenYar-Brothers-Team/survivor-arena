@@ -1,0 +1,137 @@
+{
+ "format": "dev-field-zones",
+ "formatVersion": 1,
+ "revision": "field-dev-altars-v1",
+ "approval": "Approved 2026-10-01 (dev-only тестовое поле «Тест 07» по поручению пользователя; числа алтарей — placeholder для проверки логики, не баланс)",
+ "purpose": "Developer-only test field («Тест 07») for the altar mechanic (candidate for FIELD-007 «Монастырские сады»). Not one of the ten designed fields. Spawn settings are shared with FIELD-001. Altars are fixed random points per run: cycling altars switch on for a short window of a long cycle (so the player runs between them), charging altars grow their bonus the longer the player stands inside. Obstacles: five small ruins illustrations.",
+ "units": {
+  "distance": "world units",
+  "time": "seconds",
+  "bonus": "fraction, 0.4 = +40%"
+ },
+ "field": {
+  "id": "FIELD-DEV-ALTARS",
+  "environmentId": "FIELD-DEV-ALTARS-ENVIRONMENT",
+  "presentationId": "FIELD-DEV-ALTARS-PRESENTATION",
+  "displayName": "Тест 07",
+  "description": "Тестовое поле для механики алтарей: циклические алтари и алтари накопления. Спавн как на FIELD-001. Только для разработки.",
+  "unlockDescription": "Всегда доступно (поле для разработки)",
+  "thumbnailPlaceholder": "DEV",
+  "arenaSideLength": 160,
+  "groundVisualId": "FIELD-006-VISUAL-GROUND",
+  "difficulty": 1
+ },
+ "obstacles": {
+  "libraryIds": [
+   "wet-small",
+   "ward-small",
+   "thorn-small",
+   "net-small",
+   "incense-small"
+  ],
+  "edgeMargin": 5,
+  "startClearRadius": 11,
+  "playerClearRadius": 3.5,
+  "minGap": 7,
+  "placementAttempts": 1500,
+  "maxRestarts": 40,
+  "referenceSeed": 7,
+  "pixelsPerUnit": 16,
+  "outlinePixels": 2
+ },
+ "zoneLayout": {
+  "edgeMargin": 8,
+  "startClearRadius": 10,
+  "minGap": 24,
+  "obstacleClearance": 2,
+  "activeScreenMargin": 0.5,
+  "placementAttempts": 800,
+  "maxRestarts": 30,
+  "referenceSeed": 7,
+  "effects": [
+   {
+    "id": "FIXTURE-ALTAR-HASTE",
+    "displayName": "Алтарь ветра",
+    "kind": "Haste",
+    "radius": 4,
+    "color": "#6df0c2",
+    "lifetime": "Cycling",
+    "pulsePeriodSeconds": 90,
+    "pulseVisibleSeconds": 24,
+    "pulseFadeSeconds": 3,
+    "playerMovementBonus": 0.5
+   },
+   {
+    "id": "FIXTURE-ALTAR-HEAL",
+    "displayName": "Алтарь исцеления",
+    "kind": "Regeneration",
+    "radius": 4,
+    "color": "#ff8fd0",
+    "lifetime": "Cycling",
+    "pulsePeriodSeconds": 90,
+    "pulseVisibleSeconds": 24,
+    "pulseFadeSeconds": 3,
+    "playerRegenerationPerSecond": 8
+   },
+   {
+    "id": "FIXTURE-ALTAR-WARD",
+    "displayName": "Алтарь защиты",
+    "kind": "Protection",
+    "radius": 4,
+    "color": "#9fd3ff",
+    "lifetime": "Cycling",
+    "pulsePeriodSeconds": 90,
+    "pulseVisibleSeconds": 22,
+    "pulseFadeSeconds": 3,
+    "playerIncomingDamageReduction": 0.8
+   },
+   {
+    "id": "FIXTURE-ALTAR-POWER",
+    "displayName": "Алтарь силы",
+    "kind": "ArcanePower",
+    "radius": 4,
+    "color": "#c28cff",
+    "lifetime": "Cycling",
+    "pulsePeriodSeconds": 90,
+    "pulseVisibleSeconds": 24,
+    "pulseFadeSeconds": 3,
+    "playerSkillDamageBonus": 0.6,
+    "playerActionSpeedBonus": 0.3
+   },
+   {
+    "id": "FIXTURE-ALTAR-CHARGE",
+    "displayName": "Алтарь накопления",
+    "kind": "Charge",
+    "radius": 5,
+    "color": "#ffb347",
+    "lifetime": "Permanent",
+    "chargeSecondsToMax": 20,
+    "chargeDecaySeconds": 8,
+    "chargeSkillDamageBonus": 1.0,
+    "chargeActionSpeedBonus": 0.3
+   }
+  ],
+  "zones": [
+   {
+    "effectId": "FIXTURE-ALTAR-HASTE",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ALTAR-HEAL",
+    "count": 2
+   },
+   {
+    "effectId": "FIXTURE-ALTAR-WARD",
+    "count": 1
+   },
+   {
+    "effectId": "FIXTURE-ALTAR-POWER",
+    "count": 1
+   },
+   {
+    "effectId": "FIXTURE-ALTAR-CHARGE",
+    "count": 3
+   }
+  ]
+ }
+}

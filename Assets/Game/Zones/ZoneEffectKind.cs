@@ -24,6 +24,10 @@ namespace Game.Zones
         /// Speed burst: the disc swells to show it is about to go off, then instantly gives the player inside a timed speed
         /// buff that outlasts the zone (a Traveler-style buff).
         /// </summary>
-        SpeedBurst
+        SpeedBurst,
+        /// <summary>
+        /// Charging altar: the longer the player stays inside, the more its bonus grows (to a maximum); leaving lets it drain.
+        /// </summary>
+        Charge
     }
 }
