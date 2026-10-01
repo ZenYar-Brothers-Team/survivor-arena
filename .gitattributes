@@ -52,4 +52,3 @@ Art/Source/Enemies/enemy-007/body/selected-master.png -filter -diff -merge binar
 Art/Source/Enemies/enemy-007/body/v002/concept-01.png -filter -diff -merge binary
 Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png -filter -diff -merge binary
 Packages/com.unity.ml-agents/**/*.dll filter=lfs diff=lfs merge=lfs -text
-Packages/com.unity.ml-agents/**/*.pdb filter=lfs diff=lfs merge=lfs -text
