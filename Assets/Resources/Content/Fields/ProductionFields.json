@@ -186,7 +186,8 @@
         "ENEMY-004",
         "ENEMY-005",
         "ENEMY-007"
-      ]
+      ],
+      "testField": true
     }
   ]
 }

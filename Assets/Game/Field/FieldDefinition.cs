@@ -23,11 +23,13 @@ namespace Game.Field
         public ContentRef<BossEncounterDefinition>? MidBoss { get; }
         public ContentRef<FieldTravelerScheduleDefinition>? Travelers { get; }
         public IReadOnlyList<ContentRef<EnemyDefinition>> Enemies { get; }
+        /// <summary>Development test field (DECISION-0132): listed below the designed fields and kept out of their 20 slots.</summary>
+        public bool IsTest { get; }
 
         public FieldDefinition(ContentId id, string displayName, string description, string thumbnailPlaceholder,
             int difficulty, string unlockDescription, ContentId environment, ContentId timeline, ContentId finalBoss,
             IEnumerable<ContentId> enemies, ContentId? midBoss = null, ContentId? travelers = null,
-            ContentId? thumbnail = null)
+            ContentId? thumbnail = null, bool isTest = false)
         {
             if (!id.IsValid || !environment.IsValid || !timeline.IsValid || !finalBoss.IsValid ||
                 (midBoss.HasValue && !midBoss.Value.IsValid) || (travelers.HasValue && !travelers.Value.IsValid) ||
@@ -41,6 +43,7 @@ namespace Game.Field
             if (ids.Count == 0 || ids.Any(value => !value.IsValid) || ids.Distinct().Count() != ids.Count)
                 throw new ArgumentException("Field requires a unique nonempty enemy pool.", nameof(enemies));
             Id = id;
+            IsTest = isTest;
             DisplayName = displayName;
             Description = description;
             ThumbnailPlaceholder = thumbnailPlaceholder;

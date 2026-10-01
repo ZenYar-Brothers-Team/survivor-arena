@@ -15,5 +15,7 @@ namespace Game.Field.Json
         public string MidBossId { get; set; }
         public string TravelerScheduleId { get; set; }
         public string[] EnemyIds { get; set; }
+        /// <summary>Development test field (DECISION-0132); absent means a designed field.</summary>
+        public bool? TestField { get; set; }
     }
 }

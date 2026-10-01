@@ -56,6 +56,9 @@ namespace Game.Bootstrap.Tests
             var firstTest = ids.FindIndex(id => rules[id].Condition == "dev");
             Assert.Greater(firstTest, 0, "At least one test field exists and a designed field comes first.");
             Assert.IsTrue(ids.Skip(firstTest).All(id => rules[id].Condition == "dev"), "Test fields sit below all designed fields.");
+            Assert.IsTrue(catalog.Fields.Roster.AllFields.Where(f => rules[f.Id.ToString()].Condition == "dev").All(f => f.IsTest),
+                "Every dev-condition field is flagged as a test field for the field screen.");
+            Assert.IsFalse(catalog.Fields.Roster.AllFields.Any(f => f.IsTest && rules[f.Id.ToString()].Condition != "dev"));
             Assert.AreEqual("Тест 02", catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-DEV-BLOBS").DisplayName);
         }
 

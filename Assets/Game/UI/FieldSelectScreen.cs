@@ -11,6 +11,9 @@ namespace Game.UI
         private readonly GameObject _owner;
         private readonly PanelSettings _panel;
         private readonly VisualElement _cards;
+        private readonly VisualElement _testSection;
+        private readonly VisualElement _testCards;
+        private readonly HashSet<ContentId> _testIds = new HashSet<ContentId>();
         private readonly Button _start;
         private readonly FieldSelectPresenter _presenter;
         private readonly Dictionary<ContentId, Button> _choices = new Dictionary<ContentId, Button>();
@@ -47,6 +50,8 @@ namespace Game.UI
             tree.CloneTree(root);
             FolioBackdrop.Attach(root.Q<VisualElement>(className: "entry-page"));
             _cards = root.Q<VisualElement>(GameplayUiElementIds.FieldSelectCards);
+            _testSection = root.Q<VisualElement>(GameplayUiElementIds.FieldSelectTestSection);
+            _testCards = root.Q<VisualElement>(GameplayUiElementIds.FieldSelectTestCards);
             _scroll = root.Q<ScrollView>(className: "entry-field-scroll");
             _scroll.RegisterCallback<GeometryChangedEvent>(_ => FitPictures());
             _cards.RegisterCallback<GeometryChangedEvent>(_ => FitPictures());
@@ -67,7 +72,7 @@ namespace Game.UI
             var current = new HashSet<ContentId>();
             foreach (var state in cards) current.Add(state.Id);
             foreach (var id in new List<ContentId>(_choices.Keys))
-                if (!current.Contains(id)) { _choices[id].RemoveFromHierarchy(); _choices.Remove(id); }
+                if (!current.Contains(id)) { _choices[id].RemoveFromHierarchy(); _choices.Remove(id); _testIds.Remove(id); }
             foreach (var state in cards)
             {
                 if (!_choices.TryGetValue(state.Id, out var card))
@@ -80,7 +85,9 @@ namespace Game.UI
                     card.Add(image);
                     card.Add(EntryUi.Label("", "entry-choice-name", GameplayUiElementIds.FieldSelectName));
                     card.Add(EntryUi.Label("", "entry-choice-state", GameplayUiElementIds.CardStatus));
-                    _choices.Add(id, card); _cards.Add(card);
+                    _choices.Add(id, card);
+                    if (state.IsTest) _testIds.Add(id);
+                    (state.IsTest ? _testCards : _cards).Add(card);
                 }
                 EntryUi.Choice(card, state.Card);
                 var picture = card.Q<Image>(GameplayUiElementIds.FieldSelectThumbnail);
@@ -90,6 +97,7 @@ namespace Game.UI
                 card.Q<Label>(GameplayUiElementIds.CardStatus).text = state.Card.IsLocked ? "Закрыто" : state.Card.IsSelected ? "Выбрано" : "Доступно";
                 if (state.Card.IsSelected) _detail.text = state.Card.Title + (state.LockReason == null ? "" : "  ·  " + EntryUi.Readable(state.LockReason));
             }
+            _testSection.style.display = _testIds.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             if (cards.Count == 0) _detail.text = "Не удалось загрузить поля";
             _start.SetEnabled(canStart);
         }
@@ -106,7 +114,9 @@ namespace Game.UI
             var inner = style.width - style.paddingLeft - style.paddingRight - style.borderLeftWidth - style.borderRightWidth;
             var text = style.height - picture.resolvedStyle.height;
             if (float.IsNaN(inner) || inner <= 0 || float.IsNaN(text) || text <= 0) return;
-            var rows = FittingRows(_choices.Count);
+            // Designed fields (and their closed previews) fill the screen; test fields wait below and are reached by scrolling.
+            _cards.style.minHeight = _testIds.Count > 0 ? area : 0f;
+            var rows = FittingRows(_choices.Count - _testIds.Count);
             var natural = inner * PictureAspect;
             var height = Mathf.Clamp(area / rows - style.marginBottom - text, 60f, natural);
             foreach (var choice in _choices.Values)

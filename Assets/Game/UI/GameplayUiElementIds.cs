@@ -105,6 +105,8 @@ namespace Game.UI
         public const string DropBook = "development-drop-book";
         public const string FieldSelectScreen = "field-select-screen";
         public const string FieldSelectCards = "field-select-cards";
+        public const string FieldSelectTestSection = "field-select-test-section";
+        public const string FieldSelectTestCards = "field-select-test-cards";
         public const string FieldSelectStart = "field-select-start";
         public const string FieldSelectBack = "field-select-back";
         public const string FieldSelectThumbnail = "field-select-thumbnail";

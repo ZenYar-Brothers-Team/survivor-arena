@@ -54,6 +54,8 @@
 .entry-field-scroll { flex-grow: 1; min-height: 0; }
 .entry-field-scroll .unity-scroll-view__content-container { flex-grow: 1; justify-content: center; }
 .entry-field-grid { flex-direction: row; flex-wrap: wrap; }
+.entry-field-tests { display: none; margin-top: 24px; }
+.entry-field-tests-title { font-size: 20px; color: #bfaf95; margin-bottom: 12px; border-top-width: 1px; border-top-color: #68576b; padding-top: 14px; }
 .entry-field-choice { width: 18.8%; }
 .entry-field-image { height: 144px; width: 100%; flex-shrink: 0; }
 .entry-footer-portrait { width: 58px; height: 58px; margin-right: 16px; }

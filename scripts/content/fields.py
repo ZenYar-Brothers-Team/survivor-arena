@@ -59,7 +59,7 @@ def fields(baseline):
                     "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": dev["unlockDescription"],
                     "environmentId": dev["environmentId"], "timelineId": field["timelineId"],
                     "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
-                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]}],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]], "testField": True}],
     }
 
 

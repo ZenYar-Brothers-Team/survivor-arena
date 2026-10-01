@@ -1,3 +1,4 @@
+using System.Linq;
 using Game.Content;
 using Game.Field;
 using NUnit.Framework;
@@ -53,6 +54,29 @@ namespace Game.UI.Tests
             Assert.AreEqual("Ещё не готово", _harness.Cards[3].LockReason);
             _harness.Select("FIXTURE-C");
             Assert.AreEqual(new ContentId("FIXTURE-A"), _session.SelectedId);
+        }
+        [Test]
+        public void TestFields_AreListedLast_AfterDesignedFieldsAndClosedPreviews()
+        {
+            var designed = Make("FIXTURE-A", 2);
+            var test = new FieldDefinition("FIXTURE-TEST", "Тест 02", "Test field", "DEV", 1, "Always", "ENV", "WAVE", "BOSS",
+                new ContentId[] { "ENEMY" }, isTest: true);
+            var fields = new[] { test, designed };
+            var session = new FieldSelectionSession(new FieldRoster(fields, _harness), designed.Id, _harness);
+            _presenter.Dispose();
+            _presenter = new FieldSelectPresenter(session, _harness, null, new[] { new FieldPreviewEntry("FIXTURE-C", null) });
+            CollectionAssert.AreEqual(new ContentId[] { "FIXTURE-A", "FIXTURE-C", "FIXTURE-TEST" }, _harness.Cards.Select(c => c.Id));
+            Assert.IsFalse(_harness.Cards[0].IsTest); Assert.IsFalse(_harness.Cards[1].IsTest);
+            Assert.IsTrue(_harness.Cards[2].IsTest);
+        }
+        [Test]
+        public void Uxml_TestFieldsHaveTheirOwnSectionInsideTheScrollView()
+        {
+            var root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Game/UI/Resources/UI/FieldSelect.uxml").CloneTree();
+            var scroll = root.Q<ScrollView>();
+            Assert.IsNotNull(scroll.Q<VisualElement>(GameplayUiElementIds.FieldSelectCards));
+            Assert.IsNotNull(scroll.Q<VisualElement>(GameplayUiElementIds.FieldSelectTestSection));
+            Assert.IsNotNull(scroll.Q<VisualElement>(GameplayUiElementIds.FieldSelectTestCards));
         }
         [Test]
         public void Start_AccessRevokedAfterSelection_DoesNotLaunch()

@@ -6,6 +6,10 @@
         </ui:VisualElement>
         <ui:ScrollView class="entry-field-scroll">
             <ui:VisualElement name="field-select-cards" class="entry-field-grid" />
+            <ui:VisualElement name="field-select-test-section" class="entry-field-tests">
+                <ui:Label text="Тестовые поля (только для разработки)" class="entry-field-tests-title" />
+                <ui:VisualElement name="field-select-test-cards" class="entry-field-grid" />
+            </ui:VisualElement>
         </ui:ScrollView>
         <ui:Label name="entry-field-detail" class="entry-field-detail" />
         <ui:VisualElement class="entry-footer">

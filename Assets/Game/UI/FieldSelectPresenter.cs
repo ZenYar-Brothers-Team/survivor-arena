@@ -25,6 +25,7 @@ namespace Game.UI
         public void Refresh()
         {
             var cards = new List<FieldSelectCardViewState>();
+            var tests = new List<FieldSelectCardViewState>();
             foreach (var field in _session.Roster.AllFields)
             {
                 var reason = _session.Roster.GetLockReason(field.Id);
@@ -35,9 +36,9 @@ namespace Game.UI
                 thumbnail?.RequireRole(SpriteRole.Background);
                 var summary = $"Сложность: {field.Difficulty}/5";
                 if (reason != null) summary += "\n" + reason;
-                cards.Add(new FieldSelectCardViewState(field.Id, new ContentCardViewState(reason != null ? "?" : field.DisplayName,
+                (field.IsTest ? tests : cards).Add(new FieldSelectCardViewState(field.Id, new ContentCardViewState(reason != null ? "?" : field.DisplayName,
                     summary, summary, null, !_session.Started, field.Id == _inspected, reason != null),
-                    field.ThumbnailPlaceholder, thumbnail?.Sprite, field.Difficulty, reason));
+                    field.ThumbnailPlaceholder, thumbnail?.Sprite, field.Difficulty, reason, field.IsTest));
             }
             foreach (var preview in _previews)
             {
@@ -47,6 +48,8 @@ namespace Game.UI
                 cards.Add(new FieldSelectCardViewState(preview.Id, new ContentCardViewState("?", preview.LockReason, preview.LockReason,
                     null, !_session.Started, false, true), "", picture, 0, preview.LockReason));
             }
+            // DECISION-0132: test fields come last, after the designed fields and their closed previews.
+            cards.AddRange(tests);
             _view.Render(cards.AsReadOnly(), _session.CanStart && _inspected == _session.SelectedId);
         }
         private void Select(ContentId id)
