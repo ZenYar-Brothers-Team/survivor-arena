@@ -17,6 +17,8 @@
   and checks. `python scripts/content/read_card.py <ID>` reads a full canonical card.
   For outputs listed in `scripts/content/generate.py:TARGETS`, edit their authoring
   inputs and regenerate; do not patch generated JSON directly.
+- Test (dev) fields «Тест NN» (condition `dev`) sit below FIELD-001…010 and are not designed content; see
+  `docs/decisions/0132-dev-blob-test-field.md` before adding or changing one.
 - Never ship Draft content or invent a missing product rule. Existing approvals persist;
   approved documents do not resolve their remaining TBDs automatically.
 - Complete required checks; synchronize STATUS and affected documents in the same change.

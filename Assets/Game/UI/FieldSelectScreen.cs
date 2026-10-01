@@ -17,6 +17,8 @@ namespace Game.UI
         private readonly Label _detail;
         private readonly ScrollView _scroll;
         private const int Columns = 5;
+        // Up to this many fields share the screen without scrolling (4 full rows); more fields keep the same card size and scroll.
+        private const int FittingFieldCount = 20;
         // Field backgrounds are authored at 512x341; the card picture keeps that ratio while there is room for it.
         private const float PictureAspect = 341f / 512f;
         public UIDocument Document { get; }
@@ -104,7 +106,7 @@ namespace Game.UI
             var inner = style.width - style.paddingLeft - style.paddingRight - style.borderLeftWidth - style.borderRightWidth;
             var text = style.height - picture.resolvedStyle.height;
             if (float.IsNaN(inner) || inner <= 0 || float.IsNaN(text) || text <= 0) return;
-            var rows = Mathf.CeilToInt(_choices.Count / (float)Columns);
+            var rows = FittingRows(_choices.Count);
             var natural = inner * PictureAspect;
             var height = Mathf.Clamp(area / rows - style.marginBottom - text, 60f, natural);
             foreach (var choice in _choices.Values)
@@ -113,6 +115,8 @@ namespace Game.UI
                 if (Mathf.Abs(image.resolvedStyle.height - height) > 0.5f) image.style.height = height;
             }
         }
+        /// <summary>Rows the card pictures are sized for: every row shares the screen up to 20 fields, extra rows scroll.</summary>
+        public static int FittingRows(int fieldCount) => Mathf.CeilToInt(Mathf.Min(fieldCount, FittingFieldCount) / (float)Columns);
         public void Dispose()
         {
             _presenter.Dispose(); Selected = null; StartRequested = null; BackRequested = null;

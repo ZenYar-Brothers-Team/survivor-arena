@@ -48,6 +48,18 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
+        public void TestFields_AreListedAfterEveryDesignedField_AndNamedAfterTheFieldTheyTest()
+        {
+            var catalog = Catalog;
+            var rules = MetaCatalog.Load().Unlocks;
+            var ids = catalog.Fields.Roster.AllFields.Select(f => f.Id.ToString()).ToList();
+            var firstTest = ids.FindIndex(id => rules[id].Condition == "dev");
+            Assert.Greater(firstTest, 0, "At least one test field exists and a designed field comes first.");
+            Assert.IsTrue(ids.Skip(firstTest).All(id => rules[id].Condition == "dev"), "Test fields sit below all designed fields.");
+            Assert.AreEqual("Тест 02", catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-DEV-BLOBS").DisplayName);
+        }
+
+        [Test]
         public async Task DevField_IsAlwaysAvailable_OnAFreshProfile_WhileLaterFieldsStayLocked()
         {
             var profile = new ProfileService(MetaCatalog.Load(), new MemoryProfileStore());

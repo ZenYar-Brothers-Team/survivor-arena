@@ -168,8 +168,8 @@
     },
     {
       "id": "FIELD-DEV-BLOBS",
-      "displayName": "DEV: Кляксы",
-      "description": "Тестовое поле для проверки геометрии кляксов. Спавн как на FIELD-001. Только для разработки.",
+      "displayName": "Тест 02",
+      "description": "Тестовое поле для второй карты: кляксы-препятствия. Спавн как на FIELD-001. Только для разработки.",
       "thumbnailPlaceholder": "DEV",
       "difficulty": 1,
       "thumbnailVisualId": "FIELD-001-VISUAL-BACKGROUND",

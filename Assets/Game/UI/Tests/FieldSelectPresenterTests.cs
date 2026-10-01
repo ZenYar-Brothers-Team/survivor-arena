@@ -84,6 +84,13 @@ namespace Game.UI.Tests
             _harness.LaunchSucceeds = true; _harness.Start();
             Assert.IsTrue(_session.Started);
         }
+        [TestCase(1, 1)]
+        [TestCase(11, 3)]
+        [TestCase(20, 4)]
+        [TestCase(21, 4)]
+        [TestCase(35, 4)]
+        public void Layout_CardsKeepTheTwentyFieldSize_AndExtraRowsScroll(int fields, int rows) =>
+            Assert.AreEqual(rows, FieldSelectScreen.FittingRows(fields));
         [Test]
         public void Uxml_SelectionActionsHaveSemanticIds()
         {

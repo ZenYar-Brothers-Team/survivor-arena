@@ -305,7 +305,7 @@
     },
     {
       "id": "FIELD-DEV-BLOBS",
-      "name": "DEV: Кляксы",
+      "name": "Тест 02",
       "kind": "field",
       "condition": "dev",
       "price": 0
