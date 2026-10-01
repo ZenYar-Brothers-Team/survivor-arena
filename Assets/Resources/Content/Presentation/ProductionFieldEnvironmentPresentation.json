@@ -186,9 +186,6 @@
     "fenceColliderWidth": 3,
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
-    "columnVisualId": "FIELD-002-VISUAL-COLUMN",
-    "shrineVisualId": "FIELD-002-VISUAL-SHRINE",
-    "shrineChance": 0.025,
     "arenaSideLength": 100,
     "blobLayout": {
       "edgeMargin": 5,

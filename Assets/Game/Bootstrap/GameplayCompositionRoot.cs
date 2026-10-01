@@ -172,9 +172,13 @@ namespace Game.Bootstrap
         }
         private string PermanentSummary(ContentId character)
         {
-            if (Profile.UpgradesDisabled) return "Permanent bonuses: disabled in Meta progression";
-            var modifier = Profile.Modifier(character.ToString());
-            return $"Permanent bonuses: HP +{modifier.MaxHealthMultiplierBonus:P0}, damage +{modifier.ActiveSkillDamageMultiplierBonus:P0}";
+            if (Profile.UpgradesDisabled) return "Постоянные бонусы: отключены в мета-прогрессии";
+            // Every personal upgrade of the shop with this character's current bonus; unbought ones read as zero.
+            var lines = new List<string> { "Постоянные бонусы:" };
+            foreach (var upgrade in Profile.Catalog.Upgrades.Values.Where(item => item.Personal)
+                         .OrderBy(item => MetaShopProjection.UpgradeOrder(item.Stat)))
+                lines.Add(upgrade.Name + " " + MetaShopProjection.Bonus(upgrade, Profile.Level(upgrade.Id, character.ToString())));
+            return string.Join("\n", lines);
         }
         private void ProfileChanged()
         {

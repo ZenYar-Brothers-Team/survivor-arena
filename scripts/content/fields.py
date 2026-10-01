@@ -154,6 +154,9 @@ def field_presentation(baseline):
     # A library start blob is one of the listed blobs; a procedural one is an extra obstacle.
     count = len(layout["blobs"]) + (0 if layout["startScreen"].get("libraryIds") else 1)
     presentations[1].pop("obstacles")
+    # The ruins map has no shrines or columns: a walkable shrine sprite read as an obstacle (the tract map keeps them as decor).
+    for key in ("shrineVisualId", "columnVisualId", "shrineChance"):
+        presentations[1].pop(key, None)
     presentations[1].update(interiorObstacleCount=count, nearObstacleCount=0,
                             arenaSideLength=dev_field["arenaSideLength"], blobLayout=layout)
     # Development-only effect-zone test fields (zones, altars): a few small ruins illustrations as obstacles plus the zone layout.
