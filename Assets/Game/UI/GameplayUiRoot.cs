@@ -28,6 +28,8 @@ namespace Game.UI
         private GameplayUiPresenter _presenter;
         private PlaytestPresenter _playtestPresenter;
         private UiToolkitPlaytestView _playtestView;
+        private MapPreviewPresenter _mapPreviewPresenter;
+        private UiToolkitMapPreviewView _mapPreviewView;
         private PickupPresenter _pickupPresenter;
         private TravelerPresenter _travelerPresenter;
         private UiToolkitTravelerView _travelerView;
@@ -66,7 +68,8 @@ namespace Game.UI
             IReadOnlyList<CharacterDefinition> unlockedCharacters = null,
             ContinuousFixtureEnemySpawner enemySpawner = null,
             IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null,
-            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null, ISlowStatusPreview slowStatus = null)
+            IReadOnlyList<BuildEntryDefinition> allDraftEntries = null, ISlowStatusPreview slowStatus = null,
+            IMapPreviewSource mapPreview = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -111,6 +114,8 @@ namespace Game.UI
             _presenter.Start();
             _playtestView = new UiToolkitPlaytestView(_document.rootVisualElement);
             _playtestPresenter = new PlaytestPresenter(Debug.isDebugBuild || Application.isEditor ? playtest : null, _playtestView);
+            _mapPreviewView = new UiToolkitMapPreviewView(_document.rootVisualElement);
+            _mapPreviewPresenter = new MapPreviewPresenter(mapPreview, _mapPreviewView, Debug.isDebugBuild || Application.isEditor);
             _pickupView = new UiToolkitPickupView(_document.rootVisualElement);
             _pickupPresenter = new PickupPresenter(pickups, _pickupView, Debug.isDebugBuild || Application.isEditor);
             _slowStatusView = new UiToolkitSlowStatusView(_document.rootVisualElement);
@@ -168,6 +173,7 @@ namespace Game.UI
             _hudRefreshRemaining = HudRefreshIntervalSeconds;
             _presenter.RefreshHud();
             _playtestPresenter.Refresh();
+            _mapPreviewPresenter.Refresh();
         }
 
         // DECISION-0110: every living mid-boss shows its own HP above its head; the top bar is final-boss only.
@@ -203,6 +209,8 @@ namespace Game.UI
             _slowStatusView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
+            _mapPreviewPresenter?.Dispose();
+            _mapPreviewView?.Dispose();
             _view?.Dispose();
             _model?.Dispose();
             if (_document != null)
@@ -230,6 +238,8 @@ namespace Game.UI
             _travelerPresenter?.Dispose(); _travelerView?.Dispose(); _overheadView?.Dispose();
             _playtestPresenter?.Dispose();
             _playtestView?.Dispose();
+            _mapPreviewPresenter?.Dispose();
+            _mapPreviewView?.Dispose();
             _presenter?.Dispose();
             _view?.Dispose();
             _model?.Dispose();

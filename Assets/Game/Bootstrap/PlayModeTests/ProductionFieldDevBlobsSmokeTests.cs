@@ -57,6 +57,17 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsTrue(colliders.All(c => c.excludeLayers == playerOnly),
                     "Blobs block only the player; every other layer passes through (DECISION-0003).");
                 Assert.AreEqual(60.5f, WallY(), .6f, "The boundary walls enclose a 120-unit arena.");
+                // Development map overlay: the button shows the arena frame, every obstacle outline and the camera frame.
+                var ui = Object.FindAnyObjectByType<GameplayUiRoot>().Document.rootVisualElement;
+                var mapToggle = ui.Q<Button>(GameplayUiElementIds.MapToggle);
+                Assert.IsTrue(mapToggle.enabledSelf, "The map button is available in development builds.");
+                using (var submit = NavigationSubmitEvent.GetPooled()) { submit.target = mapToggle; mapToggle.SendEvent(submit); }
+                yield return null;
+                Assert.AreEqual(DisplayStyle.Flex, ui.Q(GameplayUiElementIds.MapOverlay).style.display.value,
+                    "The map overlay is shown after the click.");
+                var summary = ui.Q<Label>(GameplayUiElementIds.MapSummary).text;
+                StringAssert.Contains("120×120", summary);
+                StringAssert.Contains("препятствий: 20", summary);
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 for (var i = 0; i < 300; i++) yield return new WaitForFixedUpdate();
                 Assert.AreEqual(RunState.Running, run.Model.State);

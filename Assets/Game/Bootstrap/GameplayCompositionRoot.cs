@@ -606,6 +606,8 @@ namespace Game.Bootstrap
                     _automationExportSink?.Invoke(runController.Model.RunId));
                 if (Playtest is PlaytestSession session) initializedSubsystems.Add(session.Dispose);
 
+                var mapPreview = new FieldMapPreviewSource(_fieldEnvironmentArt,
+                    () => FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), Camera.main);
                 gameplayUiRoot.Initialize(
                     player,
                     experienceRuntime,
@@ -618,7 +620,7 @@ namespace Game.Bootstrap
                     Playtest,
                     BossEncounters, Pickups, Travelers,
                     Catalog.BuildEntries, // development "unlock all" draws from the whole catalog, never the save
-                    SlowStatus);
+                    SlowStatus, mapPreview);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
                 _shellScreen?.AttachPauseActions(gameplayUiRoot.PauseFooter);
                 initializedSubsystems.Add(() => _shellScreen?.AttachPauseActions(null));

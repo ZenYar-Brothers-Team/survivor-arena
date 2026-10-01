@@ -228,6 +228,19 @@
     -unity-font-style: bold;
 }
 
+.development-map-overlay {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 440px;
+    height: 440px;
+    background-color: rgba(10, 12, 16, 0.82);
+    border-width: 1px;
+    border-color: rgb(92, 104, 128);
+    border-radius: 6px;
+}
+
 .development-panel {
     display: none;
     position: absolute;

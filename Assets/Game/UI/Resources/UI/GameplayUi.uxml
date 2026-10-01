@@ -76,6 +76,7 @@
                 <ui:Button name="development-tab-presentation" text="Presentation" class="development-tab" />
                 <ui:Button name="development-tab-travelers" text="Travelers" class="development-tab" />
                 <ui:Button name="development-tab-playtest" text="Playtest" class="development-tab" />
+                <ui:Button name="development-tab-map" text="Map" class="development-tab" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
@@ -159,6 +160,13 @@
                 </ui:VisualElement>
                 <ui:Label text="Local files only. Export during a run is incomplete. Final export is automatic; add later notes to feedback.md." class="development-help" />
             </ui:ScrollView>
+            <ui:ScrollView name="development-pane-map" class="development-pane development-scroll">
+                <ui:Label text="MAP" class="development-section-title" />
+                <ui:Button name="development-map-toggle" text="Показать карту" class="compact-button" />
+                <ui:Label name="development-map-summary" class="development-help" />
+                <ui:Label text="Вся арена в уменьшенном виде: контуры препятствий, рамка арены (белая) и текущий экран (оранжевая). Юниты не показываются." class="development-help" />
+            </ui:ScrollView>
         </ui:VisualElement>
+        <ui:VisualElement name="development-map-overlay" class="development-map-overlay" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

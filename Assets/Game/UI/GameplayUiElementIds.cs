@@ -122,6 +122,11 @@ namespace Game.UI
         public const string PlaytestNote = "playtest-note";
         public const string PlaytestMarker = "playtest-marker";
         public const string PlaytestExport = "playtest-export";
+        public const string DevelopmentMapTab = "development-tab-map";
+        public const string DevelopmentMapPane = "development-pane-map";
+        public const string MapToggle = "development-map-toggle";
+        public const string MapSummary = "development-map-summary";
+        public const string MapOverlay = "development-map-overlay";
         public const string CardIcon = "card-icon";
         public const string CardHeader = "card-header";
         public const string CardLevel = "card-level";
