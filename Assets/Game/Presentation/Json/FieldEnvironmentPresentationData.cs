@@ -41,5 +41,9 @@ namespace Game.Presentation.Json
         public FieldObstacleData[] Obstacles { get; set; }
         /// <summary>Optional per-run pattern layout (DECISION-0068); excludes authored obstacles.</summary>
         public FieldObstacleLayoutData ObstacleLayout { get; set; }
+        /// <summary>Optional per-run blob layout (field geometry study); excludes authored obstacles and the pattern layout.</summary>
+        public FieldBlobLayoutData BlobLayout { get; set; }
+        /// <summary>Optional arena side in world units; replaces the shared fixture arena for this field.</summary>
+        public float? ArenaSideLength { get; set; }
     }
 }

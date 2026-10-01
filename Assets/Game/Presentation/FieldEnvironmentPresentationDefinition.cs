@@ -47,6 +47,10 @@ namespace Game.Presentation
         public IReadOnlyList<FieldObstacleDefinition> ExplicitObstacles { get; }
         /// <summary>Per-run pattern layout (DECISION-0068); null = authored or fixture random obstacles.</summary>
         public FieldObstacleLayoutDefinition ObstacleLayout { get; }
+        /// <summary>Per-run blob layout (field geometry study); null = no blobs.</summary>
+        public FieldBlobLayoutDefinition BlobLayout { get; }
+        /// <summary>Arena side override in world units; null = the shared fixture arena.</summary>
+        public float? ArenaSideLength { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -103,6 +107,13 @@ namespace Game.Presentation
             ObstacleLayout = ToLayout(data.ObstacleLayout);
             if (ObstacleLayout != null && obstacles.Count > 0)
                 throw new ArgumentException("A field uses either authored obstacles or a per-run layout, not both.");
+            BlobLayout = data.BlobLayout == null ? null : new FieldBlobLayoutDefinition(data.BlobLayout);
+            if (BlobLayout != null && (ObstacleLayout != null || obstacles.Count > 0))
+                throw new ArgumentException("A blob layout excludes authored obstacles and the pattern layout.");
+            if (BlobLayout != null && data.InteriorObstacleCount != BlobLayout.TotalCount)
+                throw new ArgumentException("interiorObstacleCount must match the blob layout count.");
+            ArenaSideLength = data.ArenaSideLength;
+            if (ArenaSideLength.HasValue) NumericValidation.ValidatePositive(ArenaSideLength.Value, nameof(ArenaSideLength));
 
             if (!Id.IsValid || !EnvironmentId.IsValid || !Ground.Id.IsValid || !Fence.Id.IsValid ||
                 !Obstacle.Id.IsValid || !Bush.Id.IsValid || !Grass.Id.IsValid || string.IsNullOrWhiteSpace(ObstacleName))

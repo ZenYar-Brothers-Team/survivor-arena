@@ -12,8 +12,9 @@ def fields(baseline):
     three = baseline["field003"]["field"]
     four = baseline["field004"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
+    dev = baseline["devBlobs"]["field"]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"]],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], dev["id"]],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -22,6 +23,8 @@ def fields(baseline):
                          {"id": three["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": four["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
+                          "obstacleNames": walls},
+                         {"id": dev["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls}],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
                     "thumbnailPlaceholder": field["thumbnailPlaceholder"], "difficulty": field["difficulty"],
@@ -49,7 +52,14 @@ def fields(baseline):
                     "thumbnailVisualId": four["thumbnailVisualId"], "unlockDescription": four["unlockDescription"],
                     "environmentId": four["environmentId"], "timelineId": four["timelineId"],
                     "travelerScheduleId": four["travelerScheduleId"], "finalBossId": four["finalBossId"],
-                    "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]}],
+                    "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]},
+                   # Development-only blob test field: spawn settings, enemies, travelers and bosses are FIELD-001's.
+                   {"id": dev["id"], "displayName": dev["displayName"], "description": dev["description"],
+                    "thumbnailPlaceholder": dev["thumbnailPlaceholder"], "difficulty": dev["difficulty"],
+                    "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": dev["unlockDescription"],
+                    "environmentId": dev["environmentId"], "timelineId": field["timelineId"],
+                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]}],
     }
 
 
@@ -130,6 +140,15 @@ def field_presentation(baseline):
                          for pattern in layout["patterns"]]}
         if "startScreen" in layout:
             presentation["obstacleLayout"]["startScreen"] = layout["startScreen"]
+    # Development-only blob test field: FIELD-001 art and decoration, generated blobs instead of pattern obstacles.
+    dev_packet = baseline["devBlobs"]
+    dev_field = dev_packet["field"]
+    dev = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
+    dev.update(id=dev_field["presentationId"], environmentId=dev_field["environmentId"],
+               seed=presentations[0]["seed"] + 4000, obstacleSeed=presentations[0]["obstacleSeed"] + 4000,
+               interiorObstacleCount=len(dev_packet["blobLayout"]["blobs"]) + 1, nearObstacleCount=0,
+               arenaSideLength=dev_field["arenaSideLength"], blobLayout=dev_packet["blobLayout"])
+    presentations.append(dev)
     return presentations
 
 

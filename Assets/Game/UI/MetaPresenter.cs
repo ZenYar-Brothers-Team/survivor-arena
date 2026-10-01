@@ -84,6 +84,7 @@ namespace Game.UI
                 }
                 foreach (var rule in _profile.Catalog.Unlocks.Values)
                 {
+                    if (rule.Condition == "dev") continue; // development-only fields are not collection content
                     var reason = _profile.PurchaseLockReason(rule.Id);
                     var content = RunResultsProjection.Content(rule.Id, _profile.Catalog, _registry?.Invoke());
                     var hidden = rule.Kind == "character" && !_profile.IsUnlocked(rule.Id);

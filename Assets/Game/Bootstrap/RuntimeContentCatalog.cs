@@ -279,8 +279,8 @@ namespace Game.Bootstrap
             var metaCatalog = Game.Meta.MetaCatalog.Load();
             visualIds = visualIds.Concat(metaCatalog.Upgrades.Keys
                 .Select(id => new ContentId(id + "-VISUAL-ICON")));
-            // Collection art does not require a playable field definition.
-            visualIds = visualIds.Concat(metaCatalog.Unlocks.Values.Where(rule => rule.Kind == "field")
+            // Collection art does not require a playable field definition; development-only fields have none.
+            visualIds = visualIds.Concat(metaCatalog.Unlocks.Values.Where(rule => rule.Kind == "field" && rule.Condition != "dev")
                 .Select(rule => new ContentId(rule.Id + "-VISUAL-BACKGROUND")));
             allDefinitions.AddRange(FixtureSpriteCatalog.CreateFor(visualIds));
 

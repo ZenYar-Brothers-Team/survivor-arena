@@ -12,6 +12,8 @@ namespace Game.Meta
             var key = id.ToString();
             if (_profile.IsUnlocked(key)) return null;
             if (!_profile.Catalog.Unlocks.TryGetValue(key, out var rule)) return "Unavailable content";
+            // Development-only fields are available regardless of profile progress.
+            if (rule.Condition == "dev") return null;
             if (rule.Kind == "field" && rule.Condition == "fieldClearOrAchievement" && rule.Metric == "ordinaryKills")
             {
                 var previous = _profile.Catalog.Unlocks.TryGetValue(rule.RequiredId, out var field)

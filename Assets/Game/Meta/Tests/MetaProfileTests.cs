@@ -15,7 +15,7 @@ namespace Game.Meta.Tests
         [SetUp] public void Setup() { _catalog = MetaCatalog.Load(); }
         [Test] public void ProductionCatalog_ApprovedValuesAndReferences_AreComplete()
         {
-            Assert.AreEqual(70,_catalog.Unlocks.Count); Assert.AreEqual(12,_catalog.Upgrades.Count);
+            Assert.AreEqual(71,_catalog.Unlocks.Count, "70 content unlocks + the development-only FIELD-DEV-BLOBS."); Assert.AreEqual(12,_catalog.Upgrades.Count);
             Assert.AreEqual(5,_catalog.RewardPerLevel); Assert.AreEqual(50,_catalog.EmptyBookReward);
             Assert.AreEqual(20,_catalog.BookUpgradeReward);
             Assert.AreEqual(900,_catalog.FieldClearSeconds);

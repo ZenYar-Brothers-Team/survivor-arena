@@ -24,7 +24,7 @@ namespace Game.Meta
             if (Kind != "character" && Kind != "field" && Kind != "skill" && Kind != "set" && Kind != "passive") throw new ArgumentException("Invalid unlock kind.");
             Condition = data.Condition;
             if (Condition != "initial" && Condition != "firstRun" && Condition != "fieldClear" && Condition != "access" &&
-                Condition != "achievement" && Condition != "fieldClearOrAchievement") throw new ArgumentException("Invalid unlock condition.");
+                Condition != "achievement" && Condition != "fieldClearOrAchievement" && Condition != "dev") throw new ArgumentException("Invalid unlock condition.");
             RequiredId = data.RequiredId;
             if (Condition == "fieldClear" || Condition == "access" || Condition == "achievement" || Condition == "fieldClearOrAchievement") new ContentId(RequiredId);
             else if (RequiredId != null) throw new ArgumentException("Unexpected unlock dependency.");
@@ -45,13 +45,15 @@ namespace Game.Meta
             }
             else if (Metric != null || TargetId != null || data.TargetCount.HasValue)
                 throw new ArgumentException("Unexpected achievement data.");
+            if (Condition == "dev" && Kind != "field") throw new ArgumentException("Only fields can be development-only.");
             Price = data.Price ?? throw new ArgumentException("price required.");
             NumericValidation.ValidateNonNegative(Price, nameof(Price));
-            if (Condition == "initial" && Price != 0) throw new ArgumentException("Initial content cannot cost currency.");
+            if ((Condition == "initial" || Condition == "dev") && Price != 0) throw new ArgumentException("Initial content cannot cost currency.");
             if ((Condition == "achievement" || Condition == "fieldClearOrAchievement") && Price != 0)
                 throw new ArgumentException("Achievement unlock cannot cost currency.");
         }
         public string Description => Condition == "initial" ? "Available from the start" :
+            Condition == "dev" ? "Development field, always available" :
             Condition == "firstRun" ? "Finish your first run (including Quit)" :
             Condition == "fieldClear" ? "Survive 15:00 on " + RequiredId :
             Condition == "achievement" ? "Earn achievement on " + RequiredId :

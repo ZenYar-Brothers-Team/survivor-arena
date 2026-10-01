@@ -14,7 +14,7 @@ namespace Game.Bootstrap.Tests
         {
             var catalog = RuntimeContentCatalog.CreateProduction();
             var meta = Game.Meta.MetaCatalog.Load();
-            var fields = meta.Unlocks.Values.Where(rule => rule.Kind == "field").ToArray();
+            var fields = meta.Unlocks.Values.Where(rule => rule.Kind == "field" && rule.Condition != "dev").ToArray();
             Assert.AreEqual(10, fields.Length);
             foreach (var field in fields)
             {

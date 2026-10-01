@@ -1,0 +1,164 @@
+{
+ "format": "dev-field-geometry",
+ "formatVersion": 1,
+ "revision": "field-dev-blobs-v1",
+ "approval": "Approved 2026-10-01 (dev-only тестовое поле по поручению пользователя; не игровой дизайн)",
+ "purpose": "Developer-only test field for the obstacle-blob geometry study (docs/implementation/proposals/2026-10-01-field-geometry-variety.md). Not one of the ten designed fields. Spawn settings are shared with FIELD-001: timeline, enemy pool, travelers and bosses are the FIELD-001 ones.",
+ "units": {
+  "distance": "world units"
+ },
+ "field": {
+  "id": "FIELD-DEV-BLOBS",
+  "environmentId": "FIELD-DEV-BLOBS-ENVIRONMENT",
+  "presentationId": "FIELD-DEV-BLOBS-PRESENTATION",
+  "displayName": "DEV: Кляксы",
+  "description": "Тестовое поле для проверки геометрии кляксов. Спавн как на FIELD-001. Только для разработки.",
+  "unlockDescription": "Всегда доступно (поле для разработки)",
+  "thumbnailPlaceholder": "DEV",
+  "arenaSideLength": 120,
+  "difficulty": 1
+ },
+ "algorithm": [
+  "арена arenaSideLength × arenaSideLength, спавн игрока в центре",
+  "одна клякса startScreen.radius (Round или Angular) частично накрывает стартовый экран, но не ближе playerClearRadius к игроку",
+  "остальные кляксы по порядку списка blobs (от крупных к мелким): случайная форма стиля, случайная точка внутри арены с отступом edgeMargin, вне круга startClearRadius, зазор между описанными окружностями не меньше minGap",
+  "до placementAttempts попыток на клякс; если не вышло, весь набор повторяется с производным сидом (до maxRestarts раз); сид свежий на каждый забег, referenceSeed в тестах и при UseReferenceSeeds"
+ ],
+ "blobLayout": {
+  "edgeMargin": 5,
+  "startClearRadius": 11,
+  "playerClearRadius": 3.5,
+  "minGap": 7,
+  "placementAttempts": 1500,
+  "maxRestarts": 8,
+  "referenceSeed": 5,
+  "pixelsPerUnit": 16,
+  "outlinePixels": 2,
+  "startScreen": {
+   "halfWidth": 6.5,
+   "halfHeight": 4.4,
+   "reach": 4,
+   "radius": 6.48,
+   "styles": [
+    "Round",
+    "Angular"
+   ]
+  },
+  "styles": {
+   "Round": {
+    "fillColor": "#5a6a5c",
+    "outlineColor": "#1d1f23",
+    "stretchMin": 0.8,
+    "stretchMax": 1.25,
+    "outlineVertexCount": 36,
+    "harmonicAmplitudes": [
+     0.18,
+     0.14,
+     0.08
+    ],
+    "harmonicScaleMin": 0.7,
+    "harmonicScaleMax": 1.3
+   },
+   "Angular": {
+    "fillColor": "#5a5f66",
+    "outlineColor": "#1d1f23",
+    "stretchMin": 0.7,
+    "stretchMax": 1.3,
+    "minVertices": 5,
+    "maxVertices": 8,
+    "radiusJitterMin": 0.65,
+    "radiusJitterMax": 1.1,
+    "minAspect": 0.45
+   },
+   "Linear": {
+    "fillColor": "#6a5a5a",
+    "outlineColor": "#1d1f23",
+    "lengthMin": 2.0,
+    "lengthMax": 2.8,
+    "widthMin": 0.28,
+    "widthMax": 0.42,
+    "bendMax": 0.25,
+    "taper": 0.35,
+    "spineSamples": 24
+   }
+  },
+  "blobs": [
+   {
+    "style": "Round",
+    "radius": 10.8
+   },
+   {
+    "style": "Angular",
+    "radius": 10.2
+   },
+   {
+    "style": "Round",
+    "radius": 9.6
+   },
+   {
+    "style": "Angular",
+    "radius": 9.0
+   },
+   {
+    "style": "Linear",
+    "radius": 7.2
+   },
+   {
+    "style": "Linear",
+    "radius": 7.2
+   },
+   {
+    "style": "Round",
+    "radius": 6.6
+   },
+   {
+    "style": "Angular",
+    "radius": 6.0
+   },
+   {
+    "style": "Angular",
+    "radius": 5.4
+   },
+   {
+    "style": "Linear",
+    "radius": 4.8
+   },
+   {
+    "style": "Angular",
+    "radius": 4.8
+   },
+   {
+    "style": "Round",
+    "radius": 4.2
+   },
+   {
+    "style": "Angular",
+    "radius": 4.2
+   },
+   {
+    "style": "Round",
+    "radius": 3.6
+   },
+   {
+    "style": "Angular",
+    "radius": 3.6
+   },
+   {
+    "style": "Round",
+    "radius": 3.12
+   },
+   {
+    "style": "Angular",
+    "radius": 3.12
+   },
+   {
+    "style": "Angular",
+    "radius": 2.88
+   },
+   {
+    "style": "Round",
+    "radius": 2.64
+   }
+  ]
+ }
+}

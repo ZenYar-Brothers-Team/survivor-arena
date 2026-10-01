@@ -304,6 +304,13 @@
       "targetId": "SKILL-012"
     },
     {
+      "id": "FIELD-DEV-BLOBS",
+      "name": "DEV: Кляксы",
+      "kind": "field",
+      "condition": "dev",
+      "price": 0
+    },
+    {
       "id": "SKILL-001",
       "name": "Бросок камня",
       "kind": "skill",

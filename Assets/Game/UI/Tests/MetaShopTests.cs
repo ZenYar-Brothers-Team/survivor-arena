@@ -53,7 +53,7 @@ namespace Game.UI.Tests
             await profile.LoadAsync();
             var view = new FakeMetaView(); using var presenter = new MetaPresenter(profile, view, new FakeProfileNavigation());
             view.Shop(); var cards = view.State.Cards.Where(c => c.Cap == 0).ToArray();
-            Assert.AreEqual(catalog.Unlocks.Count, cards.Length);
+            Assert.AreEqual(catalog.Unlocks.Values.Count(r => r.Condition != "dev"), cards.Length, "The development-only field is not shop content.");
             Assert.AreEqual(70, cards.Length);
             CollectionAssert.AreEquivalent(new[] { "SKILL-001", "SKILL-002", "SKILL-003", "SKILL-004", "SKILL-005", "SKILL-006", "SKILL-007", "SKILL-010", "SKILL-013", "SKILL-014" }, cards.Where(c => c.Kind == "skill" && c.Owned).Select(c => c.Id));
             CollectionAssert.AreEquivalent(new[] { "PASSIVE-001", "PASSIVE-002", "PASSIVE-003", "PASSIVE-004", "PASSIVE-005", "PASSIVE-007", "PASSIVE-008", "PASSIVE-009", "PASSIVE-011", "PASSIVE-012" }, cards.Where(c => c.Kind == "passive" && c.Owned).Select(c => c.Id));

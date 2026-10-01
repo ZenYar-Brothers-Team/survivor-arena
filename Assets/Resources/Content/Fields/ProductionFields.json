@@ -4,7 +4,8 @@
     "FIELD-001",
     "FIELD-002",
     "FIELD-003",
-    "FIELD-004"
+    "FIELD-004",
+    "FIELD-DEV-BLOBS"
   ],
   "environments": [
     {
@@ -42,6 +43,17 @@
     },
     {
       "id": "FIELD-004-ENVIRONMENT",
+      "sceneName": "Gameplay",
+      "spawnPointName": "SpawnPoint",
+      "obstacleNames": [
+        "Wall_Top",
+        "Wall_Bottom",
+        "Wall_Left",
+        "Wall_Right"
+      ]
+    },
+    {
+      "id": "FIELD-DEV-BLOBS-ENVIRONMENT",
       "sceneName": "Gameplay",
       "spawnPointName": "SpawnPoint",
       "obstacleNames": [
@@ -152,6 +164,28 @@
         "ENEMY-010",
         "ENEMY-012",
         "ENEMY-013"
+      ]
+    },
+    {
+      "id": "FIELD-DEV-BLOBS",
+      "displayName": "DEV: Кляксы",
+      "description": "Тестовое поле для проверки геометрии кляксов. Спавн как на FIELD-001. Только для разработки.",
+      "thumbnailPlaceholder": "DEV",
+      "difficulty": 1,
+      "thumbnailVisualId": "FIELD-001-VISUAL-BACKGROUND",
+      "unlockDescription": "Всегда доступно (поле для разработки)",
+      "environmentId": "FIELD-DEV-BLOBS-ENVIRONMENT",
+      "timelineId": "FIELD-001-TIMELINE",
+      "travelerScheduleId": "FIELD-001-TRAVELERS",
+      "finalBossId": "BOSS-001",
+      "midBossId": "MIDBOSS-001",
+      "enemyIds": [
+        "ENEMY-001",
+        "ENEMY-002",
+        "ENEMY-003",
+        "ENEMY-004",
+        "ENEMY-005",
+        "ENEMY-007"
       ]
     }
   ]

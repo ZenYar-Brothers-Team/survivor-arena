@@ -448,10 +448,12 @@ namespace Game.Bootstrap
                 _fieldEnvironmentArt = new FieldEnvironmentArtRuntime();
                 // DECISION-0068: fields with a pattern layout get a fresh obstacle arrangement every run.
                 var layout = fieldPresentation.ObstacleLayout;
-                LayoutSeed = layout == null ? 0 : UseReferenceSeeds ? layout.ReferenceSeed : FreshRunSeed.Next();
-                var arenaSideLength = FixtureArenaGeometryCatalog.Create().SideLength;
+                // Blob fields (field geometry study) also get a fresh arrangement every run.
+                var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed;
+                LayoutSeed = referenceSeed == null ? 0 : UseReferenceSeeds ? referenceSeed.Value : FreshRunSeed.Next();
+                var arenaSideLength = fieldPresentation.ArenaSideLength ?? FixtureArenaGeometryCatalog.Create().SideLength;
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
-                    gameObject.scene, arenaSideLength, layout == null ? (int?)null : LayoutSeed);
+                    gameObject.scene, arenaSideLength, referenceSeed == null ? (int?)null : LayoutSeed);
                 initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
                 _cameraFollow = Camera.main.GetComponent<CameraFollowTarget>();
                 if (_cameraFollow == null) throw new InvalidOperationException("Gameplay camera requires CameraFollowTarget.");
