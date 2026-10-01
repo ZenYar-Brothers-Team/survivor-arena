@@ -18,11 +18,13 @@ namespace Game.UI
         private readonly Image _portrait;
         private readonly Image _skillIcon;
         private readonly VisualElement _detail;
+        private readonly VisualElement _permanentGrid;
         private readonly Label _name, _role, _skill, _boost, _highlights, _permanent, _lock, _selection;
         public UIDocument Document { get; }
         public event Action<ContentId> Selected;
         public event Action StartRequested;
-        public CharacterSelectScreen(Transform parent, CharacterSelectionSession session, ContentRegistry registry, Func<ContentId, string> permanentSummary = null)
+        public CharacterSelectScreen(Transform parent, CharacterSelectionSession session, ContentRegistry registry, Func<ContentId, string> permanentSummary = null,
+            Func<ContentId, IReadOnlyList<PermanentBonusRow>> permanentRows = null)
         {
             _owner = new GameObject("Character Selection UI");
             // A nested UIDocument must inherit its parent's panel. Keep this independently
@@ -70,13 +72,14 @@ namespace Game.UI
             _boost = EntryUi.Label("", "entry-copy"); copy.Add(_boost);
             _highlights = EntryUi.Label("", "entry-highlights"); copy.Add(_highlights);
             _permanent = EntryUi.Label("", "entry-muted"); copy.Add(_permanent);
+            _permanentGrid = EntryUi.Box("entry-bonus-grid"); copy.Add(_permanentGrid);
             var footer = EntryUi.Box("entry-footer"); root.Add(footer);
             // The shell owns Main Menu routing and draws Back in this reserved space.
             footer.Add(EntryUi.Box("entry-back-space"));
             _selection = EntryUi.Label("", "entry-footer-detail"); footer.Add(_selection);
             _start = new Button(() => StartRequested?.Invoke()) { text = "Выбрать поле →", name = GameplayUiElementIds.CharacterSelectStart };
             _start.AddToClassList("entry-action"); _start.AddToClassList("entry-primary"); footer.Add(_start);
-            _presenter = new CharacterSelectPresenter(session, registry, this, permanentSummary);
+            _presenter = new CharacterSelectPresenter(session, registry, this, permanentSummary, permanentRows);
         }
         public void Render(IReadOnlyList<CharacterSelectCardViewState> cards, bool canStart)
         {
@@ -106,18 +109,34 @@ namespace Game.UI
                 if (state.Card.IsLocked)
                 {
                     _name.text = _role.text = _skill.text = _boost.text = _highlights.text = _permanent.text = _selection.text = "";
-                    _skillIcon.sprite = null;
+                    _skillIcon.sprite = null; _permanentGrid.Clear();
                     _lock.text = "?";
                     continue;
                 }
                 _name.text = state.Card.Title; _role.text = state.Role; _skill.text = state.Skill;
                 _skillIcon.sprite = state.SkillIcon;
                 _boost.text = EntryUi.Readable(state.Boost); _highlights.text = EntryUi.Readable(state.Highlights);
+                _highlights.style.display = string.IsNullOrEmpty(_highlights.text) ? DisplayStyle.None : DisplayStyle.Flex;
                 _permanent.text = EntryUi.Readable(state.Permanent); _lock.text = EntryUi.Readable(state.LockReason);
                 _selection.text = state.Card.Title;
+                RenderBonuses(state.PermanentRows);
             }
             if (cards.Count == 0) _selection.text = "Не удалось загрузить персонажей";
             _start.SetEnabled(canStart);
+        }
+        // Two columns of upgrade rows (icon, name, current bonus) so all of them fit the panel without scrolling.
+        private void RenderBonuses(IReadOnlyList<PermanentBonusRow> rows)
+        {
+            _permanentGrid.Clear();
+            foreach (var row in rows)
+            {
+                var item = EntryUi.Box("entry-bonus");
+                item.Add(EntryUi.Image(row.Icon, "entry-bonus-icon"));
+                var text = EntryUi.Box("entry-bonus-text");
+                text.Add(EntryUi.Label(row.Name, "entry-bonus-name"));
+                text.Add(EntryUi.Label(row.Value, "entry-bonus-value"));
+                item.Add(text); _permanentGrid.Add(item);
+            }
         }
         public void Dispose()
         {

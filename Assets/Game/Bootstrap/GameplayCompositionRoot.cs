@@ -172,13 +172,16 @@ namespace Game.Bootstrap
         }
         private string PermanentSummary(ContentId character)
         {
-            if (Profile.UpgradesDisabled) return "Постоянные бонусы: отключены в мета-прогрессии";
-            // Every personal upgrade of the shop with this character's current bonus; unbought ones read as zero.
-            var lines = new List<string> { "Постоянные бонусы:" };
-            foreach (var upgrade in Profile.Catalog.Upgrades.Values.Where(item => item.Personal)
-                         .OrderBy(item => MetaShopProjection.UpgradeOrder(item.Stat)))
-                lines.Add(upgrade.Name + " " + MetaShopProjection.Bonus(upgrade, Profile.Level(upgrade.Id, character.ToString())));
-            return string.Join("\n", lines);
+            return Profile.UpgradesDisabled ? "Постоянные бонусы: отключены в мета-прогрессии" : "Постоянные бонусы:";
+        }
+        // Every personal upgrade of the shop with this character's current bonus; unbought ones read as zero.
+        private IReadOnlyList<PermanentBonusRow> PermanentRows(ContentId character)
+        {
+            if (Profile.UpgradesDisabled) return Array.Empty<PermanentBonusRow>();
+            return Profile.Catalog.Upgrades.Values.Where(item => item.Personal)
+                .OrderBy(item => MetaShopProjection.UpgradeOrder(item.Stat))
+                .Select(upgrade => new PermanentBonusRow(MetaShopProjection.UpgradeIcon(upgrade.Id, Catalog.Registry), upgrade.Name,
+                    MetaShopProjection.Bonus(upgrade, Profile.Level(upgrade.Id, character.ToString())))).ToList();
         }
         private void ProfileChanged()
         {
@@ -347,7 +350,7 @@ namespace Game.Bootstrap
             SuspendForSelection();
             var roster = new CharacterRoster(Catalog.Characters.AllCharacters, access ?? new ProfileAccessProvider(Profile));
             Selection = new CharacterSelectionSession(roster, Catalog.RunSetup.StartingCharacterId, this);
-            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary, PermanentRows);
             NotifyNavigation();
         }
 
@@ -389,7 +392,7 @@ namespace Game.Bootstrap
             _fieldScreen.Dispose();
             _fieldScreen = null;
             Selection = new CharacterSelectionSession(Selection.Roster, _pendingCharacterId, this);
-            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary);
+            _selectionScreen = new CharacterSelectScreen(transform, Selection, Catalog.Registry, PermanentSummary, PermanentRows);
             NotifyNavigation();
         }
 

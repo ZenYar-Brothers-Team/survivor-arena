@@ -108,8 +108,9 @@ namespace Game.Bootstrap.PlayModeTests
             Assert.Greater(element.worldBound.width, 0);
             Assert.GreaterOrEqual(element.worldBound.xMin, -1);
             Assert.GreaterOrEqual(element.worldBound.yMin, -1);
-            Assert.LessOrEqual(element.worldBound.xMax, size.x + 1);
-            Assert.LessOrEqual(element.worldBound.yMax, size.y + 1);
+            var label = element.name + " " + element.worldBound;
+            Assert.LessOrEqual(element.worldBound.xMax, size.x + 1, label);
+            Assert.LessOrEqual(element.worldBound.yMax, size.y + 1, label);
         }
 
         private static void AssertFolioBackdrop(VisualElement root, Vector2Int size)

@@ -6,34 +6,34 @@
 .entry-title { font-size: 46px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); }
 .entry-steps { font-size: 20px; color: #d5a84a; }
 .entry-workspace { flex-grow: 1; min-height: 0; flex-direction: row; }
-.entry-roster { width: 30%; margin-right: 30px; }
+.entry-roster { width: 25%; margin-right: 24px; }
 .entry-character-grid { flex-direction: row; flex-wrap: wrap; }
-.entry-choice { background-color: rgba(64,55,70,0.96); color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #75616a; border-bottom-color: #1d1721; border-radius: 10px; padding: 14px; margin: 0 12px 16px 0; white-space: normal; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
+.entry-choice { background-color: rgba(64,55,70,0.96); color: #e8d8b8; border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #75616a; border-bottom-color: #1d1721; border-radius: 10px; padding: 9px; margin: 0 10px 10px 0; white-space: normal; transition-property: background-color, border-color, translate, scale, opacity; transition-duration: 0.12s; transition-timing-function: ease-out; }
 .entry-choice:hover { background-color: #514452; border-color: #bfaf95; translate: 0 -2px; }
 .entry-choice:active { background-color: #302936; translate: 0 1px; scale: 0.99 0.99; }
 .entry-choice.entry-selected { border-color: #d5a84a; border-top-color: #ead28e; border-bottom-color: #6f4727; background-color: #51423f; }
 .entry-choice:focus { border-color: #e8d8b8; border-width: 3px; }
 .entry-choice:disabled { color: #a99aaa; background-color: #352d3c; }
-.entry-choice-name { font-size: 27px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); margin-top: 8px; }
-.entry-choice-state { font-size: 18px; color: #bfaf95; margin-top: 8px; }
+.entry-choice-name { font-size: 27px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); margin-top: 2px; }
+.entry-choice-state { font-size: 18px; color: #bfaf95; margin-top: 2px; }
 .entry-selected .entry-choice-state { color: #d5a84a; }
 .entry-character-choice { width: 46%; }
-.entry-character-crop { height: 180px; width: 100%; }
+.entry-character-crop { height: 150px; width: 100%; }
 .entry-page .unity-scroller { width: 12px; }
 .entry-page .unity-scroller__low-button, .entry-page .unity-scroller__high-button { display: none; }
 .entry-page .unity-base-slider__tracker { background-color: #241b2b; }
 .entry-page .unity-base-slider__dragger { background-color: #78657b; border-radius: 5px; }
 .entry-character-detail { flex-grow: 1; min-width: 0; flex-direction: row; background-color: rgba(53,45,60,0.96); border-width: 2px; border-bottom-width: 4px; border-color: #241b2b; border-top-color: #75616a; border-bottom-color: #1d1721; border-radius: 12px; overflow: hidden; }
-.entry-hero-well { width: 46%; padding: 20px; background-color: #2d2633; justify-content: center; }
+.entry-hero-well { width: 38%; padding: 20px; background-color: #2d2633; justify-content: center; }
 .entry-hero-image { flex-grow: 1; min-height: 0; }
 .entry-mystery > .entry-character-copy { display: none; }
 .entry-mystery > .entry-hero-well { width: 100%; }
 .entry-mystery .entry-lock { -unity-text-align: middle-center; font-size: 32px; }
 .entry-lock { font-size: 21px; color: #d5a84a; margin-top: 16px; flex-shrink: 0; }
-.entry-character-copy { flex-grow: 1; min-width: 0; padding: 38px 28px; }
-.entry-name { font-size: 56px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); margin-bottom: 16px; }
+.entry-character-copy { flex-grow: 1; min-width: 0; padding: 28px 28px; }
+.entry-name { font-size: 50px; -unity-font-definition: url("project://database/Assets/Game/UI/Fonts/AlegreyaSans-Medium.ttf"); margin-bottom: 8px; }
 .entry-role { font-size: 25px; color: #bfaf95; }
-.entry-eyebrow { font-size: 17px; color: #d5a84a; margin-top: 32px; margin-bottom: 16px; }
+.entry-eyebrow { font-size: 17px; color: #d5a84a; margin-top: 20px; margin-bottom: 8px; }
 .entry-skill { font-size: 30px; margin-bottom: 12px; }
 .entry-skill-heading { flex-direction: row; align-items: center; }
 .entry-skill-icon { width: 80px; height: 80px; margin-right: 16px; flex-shrink: 0; }
@@ -41,6 +41,16 @@
 .entry-copy { font-size: 22px; }
 .entry-highlights { font-size: 22px; margin-top: 28px; padding-top: 22px; margin-bottom: 24px; border-top-width: 1px; border-top-color: #68576b; }
 .entry-muted { font-size: 18px; color: #bfaf95; }
+.entry-bonus-grid { flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
+.entry-bonus { width: 33.3%; flex-direction: row; align-items: center; margin-bottom: 8px; }
+.entry-bonus-icon { width: 34px; height: 34px; margin-right: 8px; flex-shrink: 0; }
+.entry-bonus-text { flex-grow: 1; min-width: 0; }
+.entry-bonus-name { font-size: 15px; color: #bfaf95; }
+.entry-bonus-value { font-size: 19px; color: #e8d8b8; }
+.entry-compact .entry-bonus { margin-bottom: 5px; }
+.entry-compact .entry-bonus-icon { width: 30px; height: 30px; margin-right: 8px; }
+.entry-compact .entry-bonus-name { font-size: 14px; }
+.entry-compact .entry-bonus-value { font-size: 17px; }
 .entry-footer { flex-direction: row; align-items: center; margin-top: 24px; min-height: 76px; flex-shrink: 0; }
 .entry-footer-detail { flex-grow: 1; font-size: 22px; color: #bfaf95; margin: 0 28px; }
 .entry-back-space { width: 190px; }
@@ -68,9 +78,9 @@
 .entry-compact .entry-header { margin-bottom: 20px; }
 .entry-compact .entry-title { font-size: 36px; }
 .entry-compact .entry-steps { font-size: 17px; }
-.entry-compact .entry-roster { width: 29%; margin-right: 20px; }
+.entry-compact .entry-roster { width: 24%; margin-right: 16px; }
 .entry-compact .entry-choice { padding: 9px; margin-right: 9px; margin-bottom: 12px; }
-.entry-compact .entry-character-crop { height: 116px; }
+.entry-compact .entry-character-crop { height: 104px; }
 .entry-compact .entry-choice-name { font-size: 22px; }
 .entry-compact .entry-choice-state { font-size: 16px; }
 .entry-compact .entry-character-copy { padding: 24px 20px; }

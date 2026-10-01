@@ -11,10 +11,13 @@ namespace Game.UI
         private readonly ContentRegistry _registry;
         private readonly ICharacterSelectView _view;
         private readonly Func<ContentId, string> _permanentSummary;
+        private readonly Func<ContentId, IReadOnlyList<PermanentBonusRow>> _permanentRows;
         private ContentId _inspected;
-        public CharacterSelectPresenter(CharacterSelectionSession session, ContentRegistry registry, ICharacterSelectView view, Func<ContentId, string> permanentSummary = null)
+        public CharacterSelectPresenter(CharacterSelectionSession session, ContentRegistry registry, ICharacterSelectView view, Func<ContentId, string> permanentSummary = null,
+            Func<ContentId, IReadOnlyList<PermanentBonusRow>> permanentRows = null)
         {
             _permanentSummary = permanentSummary;
+            _permanentRows = permanentRows;
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
             _view = view ?? throw new ArgumentNullException(nameof(view));
@@ -47,7 +50,7 @@ namespace Game.UI
                     !_session.Started, character.Id == _inspected, reason != null), presentation.Crop.Resolve(_registry).Sprite,
                     presentation.Role, character.ResolveStartingActiveSkill(_registry).DisplayName,
                     StartingSkillBoostText.Describe(character.StartingSkillBoost).Trim(), string.Join("\n", highlights),
-                    _permanentSummary?.Invoke(character.Id) ?? "", reason, icon));
+                    _permanentSummary?.Invoke(character.Id) ?? "", reason, icon, _permanentRows?.Invoke(character.Id)));
             }
             _view.Render(cards.AsReadOnly(), _session.CanStart && _inspected == _session.SelectedId);
         }
