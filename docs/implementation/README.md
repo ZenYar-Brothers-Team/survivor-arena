@@ -110,6 +110,7 @@ Gate относится только к зависимому packet/ID. Не т�
 - [IP-31 — Локальная телеметрия ручных прогонов](modules/IP-31-manual-run-telemetry.md)
 - [IP-32 — Ручные прогоны и AI-assisted balance review](modules/IP-32-manual-ai-balance.md)
 - [IP-34 — Автоматические прогоны баланса и прогрессии](modules/IP-34-automated-balance-runs.md)
+- [IP-35 — Локализация: таблицы строк, английский и китайский](modules/IP-35-localization.md) — черновик, DECISION-0141 Proposed
 
 ## Проверка и документация
 

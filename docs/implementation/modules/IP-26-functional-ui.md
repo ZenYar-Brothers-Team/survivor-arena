@@ -66,7 +66,7 @@ Main Menu Play/Meta/Settings/Exit; Character Select→Field Select→Run; level-
 
 ## Out of Scope
 
-новые game/economy rules, generation final images внутри UI, compendium/advanced analytics/controller polish/localization до отдельного scope, сложные transitions. Remap, production audio catalog и расширенный accessibility menu — отдельно; basic Settings из Scope не относятся к этому исключению.
+новые game/economy rules, generation final images внутри UI, compendium/advanced analytics/controller polish/localization до отдельного scope (localization — [IP-35](IP-35-localization.md)), сложные transitions. Remap, production audio catalog и расширенный accessibility menu — отдельно; basic Settings из Scope не относятся к этому исключению.
 
 ## Acceptance criteria
 

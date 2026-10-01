@@ -1096,6 +1096,16 @@ Python 25/25. Новый player собран; тихий bot-labelled pilot да
 17 обычных profile/settings файлов. Это исторический итог AB-14 до human session;
 позднейшие запись и offline кандидат — в evidence выше.
 
+### IP-35 — Локализация: таблицы строк, английский и китайский
+
+Status: Blocked
+Scope revision: localization-draft-R0, черновик по запросу пользователя 2026-10-02 (GI-11).
+Dependencies: IP-00, IP-25, IP-26 (UI и Settings уже существуют; полный IP-26 не требуется).
+Gate: approval [DECISION-0141](../decisions/0141-localization-infrastructure.md) и ответы на её open questions.
+Packets: L-01…L-06 по [спецификации](modules/IP-35-localization.md); первый после approval — L-01.
+Execution order: не включён; место в очереди назначает пользователь при approval.
+Evidence: нет.
+
 ## Status maintenance rule
 
 После изменения статуса/API/acceptance пересчитать готовность потребителей и Next Ready по Execution order. Implemented означает выполненный полный обязательный scope; Verified — фактически пройденные проверки с evidence. Исторический test count не переносится автоматически. Каталоги ведут completed/remaining IDs здесь; если ни один оставшийся packet не готов, указывать конкретный Blocked gate. В STATUS оставлять краткий результат, дату, revision и ссылку на подробное evidence в `evidence/`; старые проверки не читать при выборе следующего IP. Подробности — [WORKFLOW](WORKFLOW.md).
