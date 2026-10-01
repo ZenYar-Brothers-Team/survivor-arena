@@ -144,9 +144,13 @@ def field_presentation(baseline):
     dev_packet = baseline["devBlobs"]
     dev_field = dev_packet["field"]
     dev = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
+    layout = dev_packet["blobLayout"]
+    # A library start blob is one of the listed blobs; a procedural one is an extra obstacle.
+    count = len(layout["blobs"]) + (0 if layout["startScreen"].get("libraryIds") else 1)
     dev.update(id=dev_field["presentationId"], environmentId=dev_field["environmentId"],
+               groundVisualId=dev_field["groundVisualId"],
                seed=presentations[0]["seed"] + 4000, obstacleSeed=presentations[0]["obstacleSeed"] + 4000,
-               interiorObstacleCount=len(dev_packet["blobLayout"]["blobs"]) + 1, nearObstacleCount=0,
+               interiorObstacleCount=count, nearObstacleCount=0,
                arenaSideLength=dev_field["arenaSideLength"], blobLayout=dev_packet["blobLayout"])
     presentations.append(dev)
     return presentations

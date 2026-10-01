@@ -1278,5 +1278,165 @@
     "pivotY": 0.5,
     "reason": "Traveler aura source is a unit circle; 512 PPU maps the 512px canvas to one effect diameter before runtime flattening.",
     "key": "Assets/Resources/Art/Sprites/Travelers/traveler-009/traveler-009-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 175.49,
+    "maxSize": 2048,
+    "pivotX": 0.4996,
+    "pivotY": 0.4984,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (small-angular, footprint 5.9 x 5.3 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop.png"
+  },
+  {
+    "pixelsPerUnit": 126.25,
+    "maxSize": 2048,
+    "pivotX": 0.4993,
+    "pivotY": 0.4566,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (medium-linear, footprint 13.989 x 4.665 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png"
+  },
+  {
+    "pixelsPerUnit": 42.94,
+    "maxSize": 2048,
+    "pivotX": 0.5191,
+    "pivotY": 0.504,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (large-round, footprint 26.9 x 20.307 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop.png"
+  },
+  {
+    "pixelsPerUnit": 90.52,
+    "maxSize": 2048,
+    "pivotX": 0.5005,
+    "pivotY": 0.5043,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (wet-upright-round, footprint 10.344 x 14.953 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop.png"
+  },
+  {
+    "pixelsPerUnit": 157.72,
+    "maxSize": 2048,
+    "pivotX": 0.5116,
+    "pivotY": 0.5371,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-small-angular-v2, footprint 6.3 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop.png"
+  },
+  {
+    "pixelsPerUnit": 130.44,
+    "maxSize": 2048,
+    "pivotX": 0.4992,
+    "pivotY": 0.52,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-medium-linear-v2, footprint 13.312 x 6.151 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop.png"
+  },
+  {
+    "pixelsPerUnit": 55.12,
+    "maxSize": 2048,
+    "pivotX": 0.5028,
+    "pivotY": 0.5099,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-large-round-v2, footprint 24.765 x 19.402 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96.46,
+    "maxSize": 2048,
+    "pivotX": 0.501,
+    "pivotY": 0.5172,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-upright-angular, footprint 9.0 x 13.7 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop.png"
+  },
+  {
+    "pixelsPerUnit": 138.93,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.5068,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-small-angular-v2, footprint 6.7 x 6.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop.png"
+  },
+  {
+    "pixelsPerUnit": 95.32,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.4728,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-medium-linear-v2, footprint 15.635 x 7.425 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop.png"
+  },
+  {
+    "pixelsPerUnit": 48.85,
+    "maxSize": 2048,
+    "pivotX": 0.4975,
+    "pivotY": 0.5022,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-large-round-v2, footprint 23.117 x 19.216 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop.png"
+  },
+  {
+    "pixelsPerUnit": 117.42,
+    "maxSize": 2048,
+    "pivotX": 0.5549,
+    "pivotY": 0.4985,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-upright-linear, footprint 3.949 x 15.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop.png"
+  },
+  {
+    "pixelsPerUnit": 142.31,
+    "maxSize": 2048,
+    "pivotX": 0.5163,
+    "pivotY": 0.5175,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (net-small-angular-v2, footprint 6.6 x 5.8 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png"
+  },
+  {
+    "pixelsPerUnit": 105.59,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.4918,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (net-medium-linear-v2, footprint 15.021 x 7.949 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop.png"
+  },
+  {
+    "pixelsPerUnit": 52.93,
+    "maxSize": 2048,
+    "pivotX": 0.5084,
+    "pivotY": 0.5028,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (net-large-round-v2, footprint 23.4 x 19.5 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png"
+  },
+  {
+    "pixelsPerUnit": 84.74,
+    "maxSize": 2048,
+    "pivotX": 0.5247,
+    "pivotY": 0.5167,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (net-upright-angular, footprint 8.7 x 13.9 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop.png"
+  },
+  {
+    "pixelsPerUnit": 155.55,
+    "maxSize": 2048,
+    "pivotX": 0.5012,
+    "pivotY": 0.5191,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-small-angular-v2, footprint 6.8 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop.png"
+  },
+  {
+    "pixelsPerUnit": 108.1,
+    "maxSize": 2048,
+    "pivotX": 0.5011,
+    "pivotY": 0.4882,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-medium-linear-v2, footprint 14.375 x 5.943 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png"
+  },
+  {
+    "pixelsPerUnit": 44.49,
+    "maxSize": 2048,
+    "pivotX": 0.5159,
+    "pivotY": 0.5104,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-large-round-v2, footprint 20.234 x 21.395 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png"
+  },
+  {
+    "pixelsPerUnit": 96.04,
+    "maxSize": 2048,
+    "pivotX": 0.5031,
+    "pivotY": 0.5153,
+    "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-upright-round, footprint 10.081 x 12.709 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png"
   }
 ]

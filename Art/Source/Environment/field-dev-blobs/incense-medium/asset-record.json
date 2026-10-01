@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-DEV-BLOBS-INCENSE-MEDIUM",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-10-01",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-01",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01).",
+  "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 14.38 by 5.94 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+  "constraints": [
+    "transparent background",
+    "fixed authored orientation and footprint size; no random rotation or scale",
+    "footprint fixed by the study mask",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1774x887",
+    "sourceSha256": "66bf13c5d2526c0d095efb0db00b45cc50912e0b53d7c8adddbd8ff97485c459",
+    "runtimeSha256": "66bf13c5d2526c0d095efb0db00b45cc50912e0b53d7c8adddbd8ff97485c459",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

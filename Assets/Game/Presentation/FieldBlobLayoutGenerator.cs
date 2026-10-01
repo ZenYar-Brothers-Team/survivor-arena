@@ -35,6 +35,7 @@ namespace Game.Presentation
             var random = new System.Random(seed);
             var half = sideLength * .5f - layout.EdgeMargin;
             var placed = new List<FieldObstacleShapeDefinition>();
+            if (layout.Library.Count > 0) return TryGenerateLibrary(layout, half, start, random, idPrefix);
             if (layout.StartScreen != null)
             {
                 var startShape = PlaceStartBlob(layout, start, random, idPrefix);
@@ -64,6 +65,109 @@ namespace Game.Presentation
                 placed.Add(shape);
             }
             return placed.AsReadOnly();
+        }
+
+        // Library mode: every authored obstacle appears once at a fixed size and orientation; only positions are random.
+        // Clearances use the real outlines, not bounding circles, so large illustrations still pack.
+        private static IReadOnlyList<FieldObstacleShapeDefinition> TryGenerateLibrary(FieldBlobLayoutDefinition layout, float half,
+            Vector2 start, System.Random random, string idPrefix)
+        {
+            var placed = new List<FieldObstacleShapeDefinition>();
+            var remaining = layout.Blobs.ToList();
+            if (layout.StartScreen != null && layout.StartScreen.UsesLibrary)
+            {
+                var id = layout.StartScreen.LibraryIds[random.Next(layout.StartScreen.LibraryIds.Count)];
+                var startShape = PlaceStartLibraryItem(layout, layout.Library[id], start, random, idPrefix);
+                if (startShape == null) return null;
+                placed.Add(startShape);
+                remaining.RemoveAll(entry => entry.LibraryId == id);
+            }
+            foreach (var entry in remaining)
+            {
+                var item = layout.Library[entry.LibraryId];
+                var box = Bounds(item.Points);
+                FieldObstacleShapeDefinition shape = null;
+                for (var attempt = 0; attempt < layout.PlacementAttempts && shape == null; attempt++)
+                {
+                    var offset = new Vector2(Range(random, -half - box.min.x, half - box.max.x),
+                        Range(random, -half - box.min.y, half - box.max.y));
+                    var candidate = new FieldObstacleShapeDefinition($"{idPrefix}-B{placed.Count + 1:00}", FieldBlobStyle.Library,
+                        item.Points.Select(point => point + offset), item.Visual.Id, offset);
+                    if (Contains(candidate.Points, start) || DistanceToOutline(candidate.Points, start) < layout.StartClearRadius) continue;
+                    if (placed.Any(other => Distance(other, candidate) < layout.MinGap)) continue;
+                    shape = candidate;
+                }
+                if (shape == null) return null;
+                placed.Add(shape);
+            }
+            return placed.AsReadOnly();
+        }
+
+        private static FieldObstacleShapeDefinition PlaceStartLibraryItem(FieldBlobLayoutDefinition layout,
+            FieldBlobLibraryItemDefinition item, Vector2 start, System.Random random, string idPrefix)
+        {
+            var config = layout.StartScreen;
+            for (var attempt = 0; attempt < layout.PlacementAttempts * 5; attempt++)
+            {
+                var offset = start + new Vector2(Range(random, -config.HalfWidth - config.Reach, config.HalfWidth + config.Reach),
+                    Range(random, -config.HalfHeight - config.Reach, config.HalfHeight + config.Reach));
+                var world = item.Points.Select(point => point + offset).ToList();
+                if (CoversStartScreen(world, start, config, layout.PlayerClearRadius))
+                    return new FieldObstacleShapeDefinition($"{idPrefix}-B01", FieldBlobStyle.Library, world, item.Visual.Id, offset);
+            }
+            return null;
+        }
+
+        // The outline touches the start screen, never contains the spawn or comes within PlayerClearRadius of it, and (because spawn
+        // placement treats obstacles as axis-aligned boxes) its bounding box also keeps the spawn free.
+        private static bool CoversStartScreen(IReadOnlyList<Vector2> world, Vector2 start, FieldBlobStartDefinition config,
+            float playerClearRadius)
+        {
+            if (Contains(world, start) || DistanceToOutline(world, start) < playerClearRadius) return false;
+            var min = new Vector2(world.Min(p => p.x), world.Min(p => p.y)) - Vector2.one * playerClearRadius;
+            var max = new Vector2(world.Max(p => p.x), world.Max(p => p.y)) + Vector2.one * playerClearRadius;
+            if (start.x > min.x && start.x < max.x && start.y > min.y && start.y < max.y) return false;
+            var corners = new[]
+            {
+                new Vector2(-config.HalfWidth, -config.HalfHeight), new Vector2(config.HalfWidth, -config.HalfHeight),
+                new Vector2(config.HalfWidth, config.HalfHeight), new Vector2(-config.HalfWidth, config.HalfHeight)
+            };
+            return world.Any(point => Mathf.Abs(point.x - start.x) <= config.HalfWidth &&
+                                      Mathf.Abs(point.y - start.y) <= config.HalfHeight) ||
+                   corners.Any(corner => Contains(world, start + corner));
+        }
+
+        private static Rect Bounds(IReadOnlyList<Vector2> points) => Rect.MinMaxRect(points.Min(p => p.x), points.Min(p => p.y),
+            points.Max(p => p.x), points.Max(p => p.y));
+
+        /// <summary>Clear distance between two shapes' outlines; 0 when they touch or overlap.</summary>
+        public static float Distance(FieldObstacleShapeDefinition a, FieldObstacleShapeDefinition b)
+        {
+            var apart = Vector2.Distance(a.Center, b.Center) - a.BoundingRadius - b.BoundingRadius;
+            if (apart > 0f) return apart; // the bounding circles never overlap, so the outlines are at least this far apart
+            return PolygonDistance(a.Points, b.Points);
+        }
+
+        /// <summary>Shortest distance between two polygons' outlines; 0 when they cross or one contains the other.</summary>
+        public static float PolygonDistance(IReadOnlyList<Vector2> a, IReadOnlyList<Vector2> b)
+        {
+            for (int i = 0, j = a.Count - 1; i < a.Count; j = i++)
+                for (int k = 0, l = b.Count - 1; k < b.Count; l = k++)
+                    if (SegmentsIntersect(a[j], a[i], b[l], b[k])) return 0f;
+            if (Contains(a, b[0]) || Contains(b, a[0])) return 0f;
+            var best = float.MaxValue;
+            foreach (var point in a) best = Mathf.Min(best, DistanceToOutline(b, point));
+            foreach (var point in b) best = Mathf.Min(best, DistanceToOutline(a, point));
+            return best;
+        }
+
+        private static bool SegmentsIntersect(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4)
+        {
+            var d1 = Cross(p3, p4, p1);
+            var d2 = Cross(p3, p4, p2);
+            var d3 = Cross(p1, p2, p3);
+            var d4 = Cross(p1, p2, p4);
+            return ((d1 > 0f && d2 < 0f) || (d1 < 0f && d2 > 0f)) && ((d3 > 0f && d4 < 0f) || (d3 < 0f && d4 > 0f));
         }
 
         private static FieldObstacleShapeDefinition PlaceStartBlob(FieldBlobLayoutDefinition layout, Vector2 start,

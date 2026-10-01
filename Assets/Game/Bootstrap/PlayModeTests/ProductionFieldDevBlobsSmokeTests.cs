@@ -53,6 +53,7 @@ namespace Game.Bootstrap.PlayModeTests
                     .Values.Single(p => p.Id.ToString() == "FIELD-DEV-BLOBS-PRESENTATION").BlobLayout;
                 var expected = FieldBlobLayoutGenerator.Generate(layout, 120f, Vector2.zero, root.LayoutSeed, "FIELD-DEV-BLOBS-ENVIRONMENT");
                 CollectionAssert.AreEquivalent(expected.Select(s => s.Id), colliders.Select(c => c.gameObject.name));
+                Assert.IsTrue(colliders.All(c => c.pathCount == 1), "Only the authored outline blocks the player, not paths pre-filled from the sprite.");
                 var playerOnly = ~(1 << LayerMask.NameToLayer("Player"));
                 Assert.IsTrue(colliders.All(c => c.excludeLayers == playerOnly),
                     "Blobs block only the player; every other layer passes through (DECISION-0003).");

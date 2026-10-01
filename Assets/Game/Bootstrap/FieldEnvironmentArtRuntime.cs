@@ -68,7 +68,7 @@ namespace Game.Bootstrap
                     DisableSceneCollider(obstacleTransform);
                     Shapes = FieldBlobLayoutGenerator.Generate(definition.BlobLayout, sideLength, spawn.position,
                         layoutSeed ?? definition.BlobLayout.ReferenceSeed, definition.EnvironmentId.ToString());
-                    interiorObstacles = CreateBlobObstacles(definition.BlobLayout, Shapes);
+                    interiorObstacles = CreateBlobObstacles(definition.BlobLayout, Shapes, registry);
                 }
                 else if (definition.ObstacleLayout != null || definition.ExplicitObstacles.Count > 0)
                 {
@@ -144,9 +144,10 @@ namespace Game.Bootstrap
             Physics2D.SyncTransforms();
         }
 
-        // Each silhouette is a player-only polygon collider under a flat-colour sprite generated from the same points.
+        // Each silhouette is a player-only polygon collider under its sprite: the authored library illustration (fixed size and
+        // orientation, pivot at the shape origin) or a flat-colour sprite generated from the same points.
         private IReadOnlyList<Vector2> CreateBlobObstacles(FieldBlobLayoutDefinition layout,
-            IReadOnlyList<FieldObstacleShapeDefinition> shapes)
+            IReadOnlyList<FieldObstacleShapeDefinition> shapes, ContentRegistry registry)
         {
             using var guard = PerfGuard.Measure("FieldEnvironment.CreateBlobObstacles", 150f);
             var playerLayer = LayerMask.NameToLayer("Player");
@@ -154,15 +155,23 @@ namespace Game.Bootstrap
             var centers = new List<Vector2>(shapes.Count);
             foreach (var shape in shapes)
             {
-                var style = layout.Styles[shape.Style];
-                var sprite = FieldObstacleShapeSprite.Create(shape, style.Fill, style.Outline, layout.PixelsPerUnit,
-                    layout.OutlinePixels);
-                _ownedAssets.Add(sprite.texture);
-                _ownedAssets.Add(sprite);
-                var renderer = CreateSprite(shape.Id, sprite, shape.Center, 1f, 0f, -2, _root.transform);
+                Sprite sprite;
+                if (shape.VisualId.IsValid)
+                    sprite = Resolve(new ContentRef<SpriteDefinition>(shape.VisualId), registry, SpriteRole.Prop);
+                else
+                {
+                    var style = layout.Styles[shape.Style];
+                    sprite = FieldObstacleShapeSprite.Create(shape, style.Fill, style.Outline, layout.PixelsPerUnit,
+                        layout.OutlinePixels);
+                    _ownedAssets.Add(sprite.texture);
+                    _ownedAssets.Add(sprite);
+                }
+                var renderer = CreateSprite(shape.Id, sprite, shape.Origin, 1f, 0f, -2, _root.transform);
                 var collider = renderer.gameObject.AddComponent<PolygonCollider2D>();
                 var local = new Vector2[shape.Points.Count];
-                for (var i = 0; i < local.Length; i++) local[i] = shape.Points[i] - shape.Center;
+                for (var i = 0; i < local.Length; i++) local[i] = shape.Points[i] - shape.Origin;
+                // Adding the collider next to a sprite pre-fills paths from the sprite's physics shape; only the authored outline counts.
+                collider.pathCount = 1;
                 collider.SetPath(0, local);
                 collider.excludeLayers = ~(1 << playerLayer);
                 _obstacleColliders.Add(collider);

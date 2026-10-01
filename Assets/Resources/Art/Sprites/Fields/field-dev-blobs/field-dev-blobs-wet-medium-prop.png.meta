@@ -1,0 +1,1007 @@
+fileFormatVersion: 2
+guid: 970322654be2aab41838b13ab17d5308
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6826376503585324067
+    second: field-dev-blobs-wet-medium-prop_0
+  - first:
+      213: 8135541024941147844
+    second: field-dev-blobs-wet-medium-prop_1
+  - first:
+      213: -1804294879621460278
+    second: field-dev-blobs-wet-medium-prop_2
+  - first:
+      213: -7882309209756773260
+    second: field-dev-blobs-wet-medium-prop_3
+  - first:
+      213: 7148218881571261890
+    second: field-dev-blobs-wet-medium-prop_4
+  - first:
+      213: 163498964540430809
+    second: field-dev-blobs-wet-medium-prop_5
+  - first:
+      213: -4407408758016842356
+    second: field-dev-blobs-wet-medium-prop_6
+  - first:
+      213: -8770860802981665232
+    second: field-dev-blobs-wet-medium-prop_7
+  - first:
+      213: 596299476745496683
+    second: field-dev-blobs-wet-medium-prop_8
+  - first:
+      213: 771540220485016253
+    second: field-dev-blobs-wet-medium-prop_9
+  - first:
+      213: -262169962870252651
+    second: field-dev-blobs-wet-medium-prop_10
+  - first:
+      213: 869696181396897731
+    second: field-dev-blobs-wet-medium-prop_11
+  - first:
+      213: -1845717133765285105
+    second: field-dev-blobs-wet-medium-prop_12
+  - first:
+      213: -346575263150212903
+    second: field-dev-blobs-wet-medium-prop_13
+  - first:
+      213: 3232521870180594815
+    second: field-dev-blobs-wet-medium-prop_14
+  - first:
+      213: -7719043723672167586
+    second: field-dev-blobs-wet-medium-prop_15
+  - first:
+      213: 6965369007269670475
+    second: field-dev-blobs-wet-medium-prop_16
+  - first:
+      213: 217789553970142785
+    second: field-dev-blobs-wet-medium-prop_17
+  - first:
+      213: 5791824090159168074
+    second: field-dev-blobs-wet-medium-prop_18
+  - first:
+      213: -8357983258885430674
+    second: field-dev-blobs-wet-medium-prop_19
+  - first:
+      213: -414003233918518762
+    second: field-dev-blobs-wet-medium-prop_20
+  - first:
+      213: -3973915966553766788
+    second: field-dev-blobs-wet-medium-prop_21
+  - first:
+      213: 3280835065772219002
+    second: field-dev-blobs-wet-medium-prop_22
+  - first:
+      213: 9104568614651360851
+    second: field-dev-blobs-wet-medium-prop_23
+  - first:
+      213: 5348859150507836966
+    second: field-dev-blobs-wet-medium-prop_24
+  - first:
+      213: -3861355243528252313
+    second: field-dev-blobs-wet-medium-prop_25
+  - first:
+      213: 4947843405773441189
+    second: field-dev-blobs-wet-medium-prop_26
+  - first:
+      213: 2254098323194181187
+    second: field-dev-blobs-wet-medium-prop_27
+  - first:
+      213: -987208671448594542
+    second: field-dev-blobs-wet-medium-prop_28
+  - first:
+      213: -1088105250514965969
+    second: field-dev-blobs-wet-medium-prop_29
+  - first:
+      213: -2474724097827371158
+    second: field-dev-blobs-wet-medium-prop_30
+  - first:
+      213: -750473357206513172
+    second: field-dev-blobs-wet-medium-prop_31
+  - first:
+      213: 5652462576795794158
+    second: field-dev-blobs-wet-medium-prop_32
+  - first:
+      213: 6368435803933630252
+    second: field-dev-blobs-wet-medium-prop_33
+  - first:
+      213: -1635092391224220652
+    second: field-dev-blobs-wet-medium-prop_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.4993, y: 0.4566}
+  spritePixelsToUnits: 126.25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_0
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 661
+        width: 130
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd349b8dcb6d341a0800000000000000
+      internalID: -6826376503585324067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_1
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 668
+        width: 110
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c60c3f457f37e070800000000000000
+      internalID: 8135541024941147844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_2
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 668
+        width: 25
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ace4b16dd5bd5f6e0800000000000000
+      internalID: -1804294879621460278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_3
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 659
+        width: 67
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47458a639896c9290800000000000000
+      internalID: -7882309209756773260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_4
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 690
+        width: 43
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd8bcc2333933360800000000000000
+      internalID: 7148218881571261890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_5
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 684
+        width: 57
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d99396217dd44200800000000000000
+      internalID: 163498964540430809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_6
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 676
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85e576061db5d2c0800000000000000
+      internalID: -4407408758016842356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_7
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 668
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03661e7d194a74680800000000000000
+      internalID: -8770860802981665232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_8
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 675
+        width: 21
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b68aa2bf63b764800800000000000000
+      internalID: 596299476745496683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_9
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 708
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dba9fe32ebf05ba00800000000000000
+      internalID: 771540220485016253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_10
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 683
+        width: 51
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59b575ccec59c5cf0800000000000000
+      internalID: -262169962870252651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_11
+      rect:
+        serializedVersion: 2
+        x: 1431
+        y: 664
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cffca2b118c11c00800000000000000
+      internalID: 869696181396897731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_12
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 692
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b611ebb02b266e0800000000000000
+      internalID: -1845717133765285105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_13
+      rect:
+        serializedVersion: 2
+        x: 1501
+        y: 659
+        width: 43
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d87ef762a7b03bf0800000000000000
+      internalID: -346575263150212903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_14
+      rect:
+        serializedVersion: 2
+        x: 1557
+        y: 657
+        width: 172
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f74bbc8a3893cdc20800000000000000
+      internalID: 3232521870180594815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_15
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 13
+        width: 2051
+        height: 648
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5bdfcc61a270e490800000000000000
+      internalID: -7719043723672167586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_16
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 628
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4ee2df3536f9a060800000000000000
+      internalID: 6965369007269670475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_17
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 631
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14e5e28027eb50300800000000000000
+      internalID: 217789553970142785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_18
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 596
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4abc77d251b06050800000000000000
+      internalID: 5791824090159168074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_19
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 52
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62e87f228a720c80800000000000000
+      internalID: -8357983258885430674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_20
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 61
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a7c62904a214af0800000000000000
+      internalID: -414003233918518762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_21
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 33
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c744f4eab70d9d8c0800000000000000
+      internalID: -3973915966553766788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_22
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 29
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a9ff51c1ed78d20800000000000000
+      internalID: 3280835065772219002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_23
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 37
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 356f67dbaece95e70800000000000000
+      internalID: 9104568614651360851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_24
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 37
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6260e93de07fa3a40800000000000000
+      internalID: 5348859150507836966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_25
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 34
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76418e54dd5b96ac0800000000000000
+      internalID: -3861355243528252313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_26
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 25
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a8826ddc554aa440800000000000000
+      internalID: 4947843405773441189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_27
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 29
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 346fac27b7a284f10800000000000000
+      internalID: 2254098323194181187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_28
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 29
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2970f1b91fabc42f0800000000000000
+      internalID: -987208671448594542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_29
+      rect:
+        serializedVersion: 2
+        x: 1501
+        y: 25
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2a61d82a0646e0f0800000000000000
+      internalID: -1088105250514965969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_30
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 21
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6786ef6b8308add0800000000000000
+      internalID: -2474724097827371158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_31
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 17
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce99f423578c595f0800000000000000
+      internalID: -750473357206513172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_32
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 15
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea3a1cf3c4917e40800000000000000
+      internalID: 5652462576795794158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_33
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 14
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2fd75c4f9a316850800000000000000
+      internalID: 6368435803933630252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: field-dev-blobs-wet-medium-prop_34
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 23
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 414e22e122cfe49e0800000000000000
+      internalID: -1635092391224220652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

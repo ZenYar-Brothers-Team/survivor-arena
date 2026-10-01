@@ -4578,6 +4578,326 @@
         "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
       ],
       "missing": "Gameplay-scale visual review with several Travelers."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/wet-small/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/wet-small/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-MEDIUM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/wet-medium/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/wet-medium/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-LARGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/wet-large/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/wet-large/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-UPRIGHT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/wet-upright/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/wet-upright/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/ward-small/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/ward-small/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-MEDIUM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/ward-medium/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/ward-medium/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-LARGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/ward-large/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/ward-large/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-UPRIGHT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/ward-upright/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/ward-upright/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/thorn-small/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/thorn-small/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-MEDIUM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/thorn-medium/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/thorn-medium/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-LARGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/thorn-large/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/thorn-large/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-UPRIGHT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/thorn-upright/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/thorn-upright/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/net-small/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/net-small/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-MEDIUM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/net-medium/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/net-medium/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-LARGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/net-large/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/net-large/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-UPRIGHT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/net-upright/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/net-upright/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/incense-small/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/incense-small/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-MEDIUM",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/incense-medium/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/incense-medium/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-LARGE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/incense-large/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/incense-large/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-dev-blobs/incense-upright/selected-master.png",
+      "provenance": "Art/Source/Environment/field-dev-blobs/incense-upright/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01)."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

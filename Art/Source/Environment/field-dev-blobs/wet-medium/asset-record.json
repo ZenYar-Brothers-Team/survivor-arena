@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-DEV-BLOBS-WET-MEDIUM",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved art direction read 2026-10-01",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-01",
+  "approvedBy": "user",
+  "approvalEvidence": "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01).",
+  "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the same family's earlier art, THIRD is the SMALL sprite used as a shared detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 13.99 by 4.67 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+  "constraints": [
+    "transparent background",
+    "fixed authored orientation and footprint size; no random rotation or scale",
+    "footprint fixed by the study mask",
+    "no baked gameplay geometry"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "2170x725",
+    "sourceSha256": "420f022a38c674ab7a274d5e96f892f2d4bf844510536146af7e8f4d94d5d8a6",
+    "runtimeSha256": "420f022a38c674ab7a274d5e96f892f2d4bf844510536146af7e8f4d94d5d8a6",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

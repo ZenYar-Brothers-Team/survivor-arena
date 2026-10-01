@@ -2353,5 +2353,105 @@
     "id": "TRAVELER-009-VISUAL-TELEGRAPH",
     "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-telegraph",
     "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WET-MEDIUM",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WET-LARGE",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WET-UPRIGHT",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WARD-MEDIUM",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WARD-LARGE",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-WARD-UPRIGHT",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-THORN-MEDIUM",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-THORN-LARGE",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-THORN-UPRIGHT",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-NET-MEDIUM",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-NET-LARGE",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-NET-UPRIGHT",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-INCENSE-MEDIUM",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-INCENSE-LARGE",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
+    "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop",
+    "role": "Prop"
   }
 ]

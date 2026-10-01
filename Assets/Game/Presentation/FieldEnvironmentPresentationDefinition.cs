@@ -168,6 +168,9 @@ namespace Game.Presentation
             foreach (var obstacle in ExplicitObstacles)
                 if (obstacle.VisualId.IsValid)
                     yield return new ContentReference(obstacle.VisualId, typeof(SpriteDefinition));
+            if (BlobLayout != null)
+                foreach (var item in BlobLayout.Library.Values)
+                    yield return item.Visual.ToReference();
             if (ObstacleLayout != null)
                 foreach (var visualId in ObstacleLayout.Patterns.SelectMany(pattern => pattern.Pieces)
                              .SelectMany(piece => piece.VisualVariants.Append(piece.VisualId)).Where(id => id.IsValid).Distinct())

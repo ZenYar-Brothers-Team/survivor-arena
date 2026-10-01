@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-01",
+  "approvalEvidence": "Пользователь отобрал 20 картинок («Добавь все имеющиеся картинки, получается 20 штук, включая вот эти с плавным переходом», Art/Source/Environment/field-002-ruins-obstacles/library.json) и поручил интегрировать их на тестовое поле: «Возьми, соответственно, их 20 штук и интегрируй» (2026-10-01).",
+  "assets": [
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/wet-small.png",
+      "sha256": "99687f67037953ee1ae3b13d452577735b1c8451ac00c3f8059ac9cadf744837",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Broken wet paving: let the earth break into scattered small stones, dusty brush marks and sparse moss; keep puddles and the same slab arrangement. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 175.49,
+        "maxSize": 2048,
+        "pivotX": 0.4996,
+        "pivotY": 0.4984,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (small-angular, footprint 5.9 x 5.3 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/wet-medium.png",
+      "sha256": "420f022a38c674ab7a274d5e96f892f2d4bf844510536146af7e8f4d94d5d8a6",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-medium",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the same family's earlier art, THIRD is the SMALL sprite used as a shared detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 13.99 by 4.67 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 126.25,
+        "maxSize": 2048,
+        "pivotX": 0.4993,
+        "pivotY": 0.4566,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (medium-linear, footprint 13.989 x 4.665 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/wet-large.png",
+      "sha256": "34934fcd74a0558f3e3fe988bc69d4a373ea9dabaca706109095919109bcd1ac",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-large",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the same family's earlier art, THIRD is the SMALL sprite used as a shared detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 26.90 by 20.31 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.4% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 42.94,
+        "maxSize": 2048,
+        "pivotX": 0.5191,
+        "pivotY": 0.504,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (large-round, footprint 26.9 x 20.307 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/wet-upright.png",
+      "sha256": "29680deeb06690f6d49ec94309ada5e235c72119360d7b0e428ba6e67ed03943",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/wet-upright",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: broken ancient paving, brown dirt, muted blue-gray shallow rain puddles and sparse moss. The NEW footprint measures 10.34 by 14.95 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Stone slabs mostly 0.8-1.4 world units wide, loose stones 0.15-0.35 wu, moss tufts 0.2 wu. Add more slabs to cover a larger footprint; never enlarge the slabs. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 6.3% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 90.52,
+        "maxSize": 2048,
+        "pivotX": 0.5005,
+        "pivotY": 0.5043,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (wet-upright-round, footprint 10.344 x 14.953 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/ward-small.png",
+      "sha256": "caff21aadd46aef90f346eeac4181db9f1c8e05192b074431d2692fe0fbab1df",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Royal ward paving: erode the outermost slab ends into little stone fragments and dust; blue light should diminish subtly near the outermost fragments. Keep all existing diamonds the same small size. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 157.72,
+        "maxSize": 2048,
+        "pivotX": 0.5116,
+        "pivotY": 0.5371,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-small-angular-v2, footprint 6.3 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/ward-medium.png",
+      "sha256": "b23c1fd547c70b1f1e430e029af90f43d5ad21d1bda3e32e739c1f0ac0e53a49",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-medium",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 13.31 by 6.15 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.9% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 130.44,
+        "maxSize": 2048,
+        "pivotX": 0.4992,
+        "pivotY": 0.52,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-medium-linear-v2, footprint 13.312 x 6.151 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/ward-large.png",
+      "sha256": "9480435b30c84ff5b23cc48e25f3f0ef435130cb5d8515c3570bc72afdbe1821",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-large",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 24.77 by 19.40 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text. Across this large footprint use at least 70 small limestone slabs and 10-15 SMALL diamond nodes. NO giant central medallion. Each diamond is 3 percent of total footprint width or less.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 55.12,
+        "maxSize": 2048,
+        "pivotX": 0.5028,
+        "pivotY": 0.5099,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-large-round-v2, footprint 24.765 x 19.402 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-WARD-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/ward-upright.png",
+      "sha256": "20a1e7a1b256651ecd56bcf82d3c9abb8f56f46c91c306a830d7e1fcbb1a6b73",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/ward-upright",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: pale cracked royal limestone with ice-blue and warm-gold protective circuits. The NEW footprint measures 9.00 by 13.70 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Gold/blue circuit 0.12 wu thick. EVERY glowing diamond, including the central diamond, 0.65 wu across maximum. Limestone slabs 0.8-1.4 wu. No giant central emblem or oversized medallion. Repeat small motifs across large areas. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 7.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.46,
+        "maxSize": 2048,
+        "pivotX": 0.501,
+        "pivotY": 0.5172,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (ward-upright-angular, footprint 9.0 x 13.7 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/thorn-small.png",
+      "sha256": "77a4c27b4b21649d4a62aac9a07e7d26bab2b313d72268e49dcb88935221c482",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop.png",
+      "prompt": "Historical request recorded in Art/Concepts/field-002-ruins-blob-art/prompts.md (section for the thorn-small-angular-v2 obstacle; source Art/Concepts/field-002-ruins-blob-art/thorn-small-angular-v2-preview.png). Verbatim text is retained there; it was not duplicated into this packet.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 138.93,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5068,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-small-angular-v2, footprint 6.7 x 6.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/thorn-medium.png",
+      "sha256": "474e77a4edeb340c7bef94c4a4d102e930c3fc03c4d22c78c8dd5e6987960dc0",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-medium",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 15.63 by 7.42 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 95.32,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.4728,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-medium-linear-v2, footprint 15.635 x 7.425 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/thorn-large.png",
+      "sha256": "46b77fca935e12eeadf2f05789bc0d35ada2eed51d20ad8a0edaec778c823e31",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-large",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 23.12 by 19.22 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.8% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 48.85,
+        "maxSize": 2048,
+        "pivotX": 0.4975,
+        "pivotY": 0.5022,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-large-round-v2, footprint 23.117 x 19.216 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-THORN-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/thorn-upright.png",
+      "sha256": "85bd6162f0ad69422c404bbef9d7f48225754193da68ba21ddeb25cae5a558c1",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/thorn-upright",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: ground-hugging burgundy thorn roots and red leaves over olive moss and buried paving. The NEW footprint measures 3.95 by 15.00 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Thorn roots 0.2-0.3 wu thick, thorn tips 0.18-0.25 wu long, red leaf clusters 0.6-0.9 wu, buried stone slabs 0.8-1.4 wu. Use more roots and clusters for larger areas; do not thicken roots. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 16.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 117.42,
+        "maxSize": 2048,
+        "pivotX": 0.5549,
+        "pivotY": 0.4985,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (thorn-upright-linear, footprint 3.949 x 15.0 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/net-small.png",
+      "sha256": "6ddde4bdbf1b80e228ddb416d69e4abc1d1839b036fc79b51658d872aecbfd91",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop.png",
+      "prompt": "Use case: precise-object-edit. Edit target: attached existing game obstacle sprite. Create a soft natural ground transition for placement on a warm muted beige map floor. Preserve EXACT original canvas, core position, core shape, orientation, camera, interior objects and their pixel scale. Change ONLY the perimeter: completely remove the continuous dark purple polygon outline. Replace the abrupt straight cut edge of the soil with an irregular broken brush-painted transition, transitioning through sparse debris and decreasing opacity into true transparency within approximately 40–70 source pixels. Keep a readable dense obstacle core. Allow a narrow visual skirt outside the old footprint, preserve generous transparent canvas padding. Ground net: let the earth end in sparse tufts, dusty brush marks and a few loose small stones. Preserve the right-side inward notch, all ropes, rope thickness, cloth strips and anchors. Stylized hand-painted storybook game art, muted colours. No continuous ring or rim, no broad fog halo, no added platform height, no background, no text, no checkerboard. True alpha transparency including semi-transparent transition pixels.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "soft-edge variant keeps its core footprint scale",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 142.31,
+        "maxSize": 2048,
+        "pivotX": 0.5163,
+        "pivotY": 0.5175,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-small-angular-v2, footprint 6.6 x 5.8 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/net-medium.png",
+      "sha256": "af6bc54831e334438984c218756281ac54f4d38bcab93604c22ca0b9eae88712",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-medium",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 15.02 by 7.95 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Braided rope 0.12-0.16 wu thick, mesh cell 1.0-1.3 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, never thicker rope or bigger bells. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.3% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 105.59,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.4918,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-medium-linear-v2, footprint 15.021 x 7.949 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/net-large.png",
+      "sha256": "375f789d85d983ddcbf34538fd6c3c906a785e82ffad6e6b7b7db729b8e0f8b9",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-large",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 23.40 by 19.50 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Intentional heavy CABLE variant: visibly multi-strand nautical cable 0.24 wu thick with twisted plies, mesh cell 2.2-2.6 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, using the explicitly heavier cable material; NEVER enlarge bells or ties. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 2.8% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 52.93,
+        "maxSize": 2048,
+        "pivotX": 0.5084,
+        "pivotY": 0.5028,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-large-round-v2, footprint 23.4 x 19.5 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-NET-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/net-upright.png",
+      "sha256": "79ac92959111ecaa40246d6fca3900e82ad3cc73f8a12664abf38701bf02d4aa",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/net-upright",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: flat royal monster-catching tan rope net over dusty earth, rusty low anchors and burgundy ties. The NEW footprint measures 8.70 by 13.90 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Braided rope 0.12-0.16 wu thick, mesh cell 1.0-1.3 wu, bell 0.45 wu tall, anchor plate 0.65 wu across, cloth tie 0.5 wu long. Larger footprints contain MORE mesh cells, never thicker rope or bigger bells. Bells optional, maximum four. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 7.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 84.74,
+        "maxSize": 2048,
+        "pivotX": 0.5247,
+        "pivotY": 0.5167,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (net-upright-angular, footprint 8.7 x 13.9 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-SMALL",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/incense-small.png",
+      "sha256": "f85cc408e34f045a27ad97d8b5359ccfa8e14318bad5dd3e1e06bb49eadce2f2",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-small",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 6.80 by 6.10 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 9.6% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 155.55,
+        "maxSize": 2048,
+        "pivotX": 0.5012,
+        "pivotY": 0.5191,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-small-angular-v2, footprint 6.8 x 6.1 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-MEDIUM",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-MEDIUM",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/incense-medium.png",
+      "sha256": "66bf13c5d2526c0d095efb0db00b45cc50912e0b53d7c8adddbd8ff97485c459",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-medium",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 14.38 by 5.94 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 4.5% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 108.1,
+        "maxSize": 2048,
+        "pivotX": 0.5011,
+        "pivotY": 0.4882,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-medium-linear-v2, footprint 14.375 x 5.943 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-LARGE",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-LARGE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/incense-large.png",
+      "sha256": "46bf29e1ab65ec37134fa516346631ca8913d9300caf8c180de9b6293f164239",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-large",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 20.23 by 21.39 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 3.2% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text. Scatter 10-12 SMALL 0.9-wu brass bowls; each bowl is only about 4 percent of footprint width. No dominant enlarged central bowl.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 44.49,
+        "maxSize": 2048,
+        "pivotX": 0.5159,
+        "pivotY": 0.5104,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-large-round-v2, footprint 20.234 x 21.395 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    },
+    {
+      "owner": "FIELD-DEV-BLOBS-INCENSE-UPRIGHT",
+      "role": "prop",
+      "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-UPRIGHT",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/field-002-ruins-obstacles/incense-upright.png",
+      "sha256": "594456fc650e00252d8791ca1791ee51b5129300d5128143e9c5074899fd7112",
+      "sourceDirectory": "Art/Source/Environment/field-dev-blobs/incense-upright",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png",
+      "prompt": "Use case: stylized-concept. Make ONE transparent 2D game obstacle for a 120x120 wu test map. FIRST image is its unique fixed footprint mask: preserve its boundary, proportions and orientation. SECOND image is the SMALL sprite used as a shared visual style and detail-scale reference. Content: consecrated ivory/blue ground-hugging incense haze with low brass censers. The NEW footprint measures 10.08 by 12.71 world units. CRITICAL: the whole footprint is larger, but individual objects remain at the SAME WORLD SCALE as on small footprints. Every brass censer 0.9 wu across, boundary brass disc 0.25 wu, flower 0.2 wu, smoke curls 0.8-1.5 wu. Large patches have more small curls and bowls, never giant censers. Static low haze, no animation implied. Infer pixel sizes as feature-world-size / footprint-world-size; for example a 0.65 wu diamond is only 6.4% of this footprint's width. Cover large areas by adding more same-sized elements and terrain, never by enlarging a copied miniature. Preserve angled top-down perspective, painterly matte storybook palette, deep plum outer contour. All ground-level; human pursuers cross while player is excluded. Transparent outside mask, no exterior glow/vignette/shadow, no walls, buildings, people or text.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-10-01",
+      "constraints": [
+        "transparent background",
+        "fixed authored orientation and footprint size; no random rotation or scale",
+        "footprint fixed by the study mask",
+        "no baked gameplay geometry"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "sprite": {},
+      "bindings": [],
+      "importProfile": {
+        "pixelsPerUnit": 96.04,
+        "maxSize": 2048,
+        "pivotX": 0.5031,
+        "pivotY": 0.5153,
+        "reason": "FIELD-DEV-BLOBS ruins obstacle (incense-upright-round, footprint 10.081 x 12.709 wu): PPU = core opaque bounds in source pixels / footprint size, so the artwork covers the footprint at its authored world scale; pivot is the center of those bounds, which is also the origin of the collider polygon."
+      }
+    }
+  ]
+}

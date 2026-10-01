@@ -12,11 +12,16 @@ namespace Game.Presentation
         public string Id { get; }
         public FieldBlobStyle Style { get; }
         public IReadOnlyList<Vector2> Points { get; }
+        /// <summary>Authored sprite drawn at <see cref="Origin"/>; invalid for a procedural shape (painted from the points).</summary>
+        public ContentId VisualId { get; }
+        /// <summary>World position of the sprite pivot (the shape center for a procedural shape).</summary>
+        public Vector2 Origin { get; }
         public Vector2 Center { get; }
         /// <summary>Distance from <see cref="Center"/> to the farthest point.</summary>
         public float BoundingRadius { get; }
 
-        public FieldObstacleShapeDefinition(string id, FieldBlobStyle style, IEnumerable<Vector2> points)
+        public FieldObstacleShapeDefinition(string id, FieldBlobStyle style, IEnumerable<Vector2> points,
+            ContentId visualId = default, Vector2? origin = null)
         {
             if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Shape id is required.", nameof(id));
             var list = (points ?? throw new ArgumentNullException(nameof(points))).ToList();
@@ -30,6 +35,8 @@ namespace Game.Presentation
             var sum = Vector2.zero;
             foreach (var point in list) sum += point;
             Center = sum / list.Count;
+            VisualId = visualId;
+            Origin = origin ?? Center;
             BoundingRadius = list.Max(point => (point - Center).magnitude);
         }
     }

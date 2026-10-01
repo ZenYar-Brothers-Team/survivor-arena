@@ -15,6 +15,8 @@ namespace Game.Presentation.Json
         public int? OutlinePixels { get; set; }
         public FieldBlobStartData StartScreen { get; set; }
         public Dictionary<string, FieldBlobStyleData> Styles { get; set; }
+        /// <summary>Authored illustrated obstacles (fixed size and orientation) that blob entries may reference.</summary>
+        public FieldBlobLibraryItemData[] Library { get; set; }
         public FieldBlobEntryData[] Blobs { get; set; }
     }
 }

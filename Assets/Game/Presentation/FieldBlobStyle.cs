@@ -5,6 +5,8 @@ namespace Game.Presentation
     {
         Round,
         Angular,
-        Linear
+        Linear,
+        /// <summary>A fixed authored silhouette and illustration from the blob library (no procedural outline).</summary>
+        Library
     }
 }

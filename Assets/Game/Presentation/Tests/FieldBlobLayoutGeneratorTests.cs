@@ -38,6 +38,106 @@ namespace Game.Presentation.Tests
         private static IReadOnlyList<FieldObstacleShapeDefinition> Generate(FieldBlobLayoutDefinition layout, int seed) =>
             FieldBlobLayoutGenerator.Generate(layout, Side, Vector2.zero, seed, "FIXTURE-ENVIRONMENT");
 
+        // Library mode: authored illustrations with fixed size and orientation, outlines around the sprite pivot.
+        private static FieldBlobLayoutData LibraryData()
+        {
+            float[][] Box(float w, float h) => new[]
+            {
+                new[] { -w / 2, -h / 2 }, new[] { w / 2, -h / 2 }, new[] { w / 2, h / 2 }, new[] { -w / 2, h / 2 }
+            };
+            var data = Data(0);
+            data.Styles = null;
+            data.StartScreen = new FieldBlobStartData { HalfWidth = 6.5f, HalfHeight = 4.4f, Reach = 4f, LibraryIds = new[] { "mid-a", "mid-b" } };
+            data.Library = new[]
+            {
+                new FieldBlobLibraryItemData { Id = "big", VisualId = "V-BIG", Points = Box(24f, 18f) },
+                new FieldBlobLibraryItemData { Id = "tall", VisualId = "V-TALL", Points = Box(6f, 14f) },
+                new FieldBlobLibraryItemData { Id = "mid-a", VisualId = "V-MID-A", Points = Box(14f, 6f) },
+                new FieldBlobLibraryItemData { Id = "mid-b", VisualId = "V-MID-B", Points = Box(15f, 7f) },
+                new FieldBlobLibraryItemData { Id = "small", VisualId = "V-SMALL", Points = Box(6f, 5f) }
+            };
+            data.Blobs = new[] { "big", "tall", "mid-a", "mid-b", "small" }.Select(id => new FieldBlobEntryData { LibraryId = id }).ToArray();
+            return data;
+        }
+
+        [Test]
+        public void Library_EveryItemAppearsOnce_AtItsAuthoredSizeAndOrientation_AndKeepsTheClearances()
+        {
+            var layout = new FieldBlobLayoutDefinition(LibraryData());
+            Assert.AreEqual(5, layout.TotalCount, "The start-screen item is one of the listed items.");
+            for (var seed = 0; seed < 60; seed++)
+            {
+                var shapes = Generate(layout, seed);
+                CollectionAssert.AreEquivalent(new[] { "V-BIG", "V-TALL", "V-MID-A", "V-MID-B", "V-SMALL" },
+                    shapes.Select(s => s.VisualId.ToString()), $"seed {seed}");
+                foreach (var shape in shapes)
+                {
+                    var item = layout.Library.Values.Single(i => i.Visual.Id == shape.VisualId);
+                    for (var i = 0; i < item.Points.Count; i++)
+                        Assert.AreEqual(0f, (shape.Points[i] - shape.Origin - item.Points[i]).magnitude, 1e-3f,
+                            $"seed {seed} {shape.Id}: no rotation or scaling");
+                    Assert.IsTrue(shape.Points.All(p => Mathf.Abs(p.x) <= Side * .5f - layout.EdgeMargin + 1e-3f &&
+                                                       Mathf.Abs(p.y) <= Side * .5f - layout.EdgeMargin + 1e-3f), $"seed {seed}");
+                }
+                for (var i = 1; i < shapes.Count; i++)
+                    Assert.GreaterOrEqual(FieldBlobLayoutGenerator.DistanceToOutline(shapes[i].Points, Vector2.zero), layout.StartClearRadius - 1e-3f,
+                        $"seed {seed} {shapes[i].Id} keeps the start circle clear");
+                for (var i = 0; i < shapes.Count; i++)
+                    for (var j = i + 1; j < shapes.Count; j++)
+                        Assert.GreaterOrEqual(FieldBlobLayoutGenerator.PolygonDistance(shapes[i].Points, shapes[j].Points), layout.MinGap - 1e-3f,
+                            $"seed {seed} {shapes[i].Id}/{shapes[j].Id}");
+            }
+        }
+
+        [Test]
+        public void Library_AMediumItemCoversPartOfTheStartScreen_ButNeverTheSpawn()
+        {
+            var layout = new FieldBlobLayoutDefinition(LibraryData());
+            var screen = layout.StartScreen;
+            var seen = new HashSet<string>();
+            for (var seed = 0; seed < 60; seed++)
+            {
+                var blob = Generate(layout, seed)[0];
+                seen.Add(blob.VisualId.ToString());
+                Assert.IsTrue(blob.VisualId.ToString().StartsWith("V-MID"), $"seed {seed}");
+                Assert.IsFalse(FieldBlobLayoutGenerator.Contains(blob.Points, Vector2.zero), $"seed {seed}");
+                Assert.GreaterOrEqual(FieldBlobLayoutGenerator.DistanceToOutline(blob.Points, Vector2.zero), layout.PlayerClearRadius - 1e-3f);
+                var covers = blob.Points.Any(p => Mathf.Abs(p.x) <= screen.HalfWidth && Mathf.Abs(p.y) <= screen.HalfHeight) ||
+                             new[] { new Vector2(-screen.HalfWidth, -screen.HalfHeight), new Vector2(screen.HalfWidth, screen.HalfHeight) }
+                                 .Any(c => FieldBlobLayoutGenerator.Contains(blob.Points, c));
+                Assert.IsTrue(covers, $"seed {seed}");
+            }
+            CollectionAssert.AreEquivalent(new[] { "V-MID-A", "V-MID-B" }, seen, "Either medium item can open the run.");
+        }
+
+        [Test]
+        public void Library_RejectsUnknownDuplicateAndMisplacedEntries()
+        {
+            var data = LibraryData();
+            data.Blobs[0].LibraryId = "missing";
+            Assert.Throws<ArgumentException>(() => new FieldBlobLayoutDefinition(data));
+            data = LibraryData();
+            data.Blobs[1].LibraryId = "big";
+            Assert.Throws<ArgumentException>(() => new FieldBlobLayoutDefinition(data));
+            data = LibraryData();
+            data.Blobs[0].Radius = 3f;
+            Assert.Throws<ArgumentException>(() => new FieldBlobLayoutDefinition(data));
+            data = LibraryData();
+            data.StartScreen.LibraryIds = new[] { "small", "tall" };
+            data.Blobs = data.Blobs.Where(b => b.LibraryId != "tall").ToArray();
+            Assert.Throws<ArgumentException>(() => new FieldBlobLayoutDefinition(data), "A start item must also be a listed blob.");
+        }
+
+        [Test]
+        public void PolygonDistance_ReportsOverlapContainmentAndGap()
+        {
+            Vector2[] Square(float x, float y, float s) => new[] { new Vector2(x, y), new Vector2(x + s, y), new Vector2(x + s, y + s), new Vector2(x, y + s) };
+            Assert.AreEqual(0f, FieldBlobLayoutGenerator.PolygonDistance(Square(0, 0, 4), Square(2, 2, 4)), "crossing");
+            Assert.AreEqual(0f, FieldBlobLayoutGenerator.PolygonDistance(Square(0, 0, 10), Square(3, 3, 2)), "containment");
+            Assert.AreEqual(3f, FieldBlobLayoutGenerator.PolygonDistance(Square(0, 0, 4), Square(7, 0, 4)), 1e-4f, "side by side");
+            Assert.AreEqual(Mathf.Sqrt(18f), FieldBlobLayoutGenerator.PolygonDistance(Square(0, 0, 4), Square(7, 7, 4)), 1e-4f, "diagonal");
+        }
+
         [Test]
         public void Generate_SameSeedSameLayout_DifferentSeedsDiffer()
         {
