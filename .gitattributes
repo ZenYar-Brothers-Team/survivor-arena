@@ -1,7 +1,6 @@
 # Unity-specific Git attributes for this repo.
 # Requires Force Text serialization (already enabled in this project:
 # ProjectSettings/EditorSettings.asset -> m_SerializationMode: 2).
-
 *.cs text diff=csharp
 *.unity merge=unityyamlmerge eol=lf
 *.prefab merge=unityyamlmerge eol=lf
@@ -12,7 +11,6 @@
 *.physicMaterial merge=unityyamlmerge eol=lf
 *.anim merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
-
 # Large/binary assets - track with Git LFS.
 # One-time per machine: `git lfs install`
 *.psd  filter=lfs diff=lfs merge=lfs -text
@@ -25,7 +23,6 @@
 *.ogg  filter=lfs diff=lfs merge=lfs -text
 *.fbx  filter=lfs diff=lfs merge=lfs -text
 *.mp4  filter=lfs diff=lfs merge=lfs -text
-
 # --- One-time setup, per machine (not part of this file) ---
 #
 # Register the UnityYAMLMerge driver:
@@ -33,7 +30,6 @@
 #   git config --global merge.unityyamlmerge.name "Unity Smart Merge"
 #   git config --global merge.unityyamlmerge.driver "'C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\Tools\UnityYAMLMerge.exe' merge -p %O %B %A %A"
 #   git config --global merge.unityyamlmerge.recursive binary
-
 # Cloud session without LFS upload access (lfs.github.com blocked; DECISION-0054).
 # Listed PNGs are regular git blobs. To move them to LFS later: delete these lines,
 # then `git rm --cached <paths> && git add <paths>` and commit.
@@ -55,3 +51,5 @@ Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-projectile.png -filter 
 Art/Source/Enemies/enemy-007/body/selected-master.png -filter -diff -merge binary
 Art/Source/Enemies/enemy-007/body/v002/concept-01.png -filter -diff -merge binary
 Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png -filter -diff -merge binary
+Packages/com.unity.ml-agents/**/*.dll filter=lfs diff=lfs merge=lfs -text
+Packages/com.unity.ml-agents/**/*.pdb filter=lfs diff=lfs merge=lfs -text
