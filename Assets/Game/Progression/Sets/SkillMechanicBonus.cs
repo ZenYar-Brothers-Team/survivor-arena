@@ -106,6 +106,9 @@ namespace Game.Progression
             if (HasHeavyReplacement && other.HasHeavyReplacement)
                 throw new InvalidOperationException("Only one set can replace projectiles of the same skill.");
             var heavy = HasHeavyReplacement ? this : other;
+            // Granted slows (DECISION-0139) do not merge: the stronger slow keeps its own duration; equal strength keeps the longer.
+            var granted = other.GrantedSlowFraction > GrantedSlowFraction ||
+                          (other.GrantedSlowFraction == GrantedSlowFraction && other.GrantedSlowSeconds > GrantedSlowSeconds) ? other : this;
             return new SkillMechanicBonus(
                 ProjectileSpeedBonus + other.ProjectileSpeedBonus,
                 ReturnDamageBonus + other.ReturnDamageBonus,
@@ -120,7 +123,7 @@ namespace Game.Progression
                 heavy.HeavyEveryNth, heavy.HeavySizeMultiplier, heavy.HeavyStopMultiplier, heavy.HeavyExplosionRadius,
                 heavy.HeavyExplosionDamageMultiplier, heavy.HeavyExplosionKnockback,
                 ExtraProjectiles + other.ExtraProjectiles, Mathf.Min(1f, SlowStrengthBonus + other.SlowStrengthBonus),
-                Mathf.Max(GrantedSlowFraction, other.GrantedSlowFraction), Mathf.Max(GrantedSlowSeconds, other.GrantedSlowSeconds));
+                granted.GrantedSlowFraction, granted.GrantedSlowSeconds);
         }
 
         public bool Equals(SkillMechanicBonus other) =>

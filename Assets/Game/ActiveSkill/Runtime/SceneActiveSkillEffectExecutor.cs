@@ -425,9 +425,12 @@ namespace Game.ActiveSkill
                              : scheduled.Activation.AimPoint);
             if (effect.ArcDegrees > 0f)
             {
-                // Cone toward the aimed target from the caster (SET-022); knockback still points away from the origin.
-                EnemyDamageArea.Apply(center, effect.Radius * scheduled.Activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier),
-                    coneDirection: scheduled.Activation.AimDirection, coneHalfAngleDegrees: effect.ArcDegrees * 0.5f);
+                // Cone toward the aimed target from the caster (SET-022), or a random way with no enemy in range;
+                // knockback still points away from the origin.
+                var activation = scheduled.Activation;
+                var direction = EnemyDamageArea.ConeDirection(activation.AimDirection, activation.InitialTarget != null, activation.Random);
+                EnemyDamageArea.Apply(center, effect.Radius * activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier),
+                    coneDirection: direction, coneHalfAngleDegrees: effect.ArcDegrees * 0.5f);
                 return;
             }
             EnemyDamageArea.Apply(center, effect.Radius * scheduled.Activation.SizeMultiplier, CreateDamage(scheduled, effect.DamageMultiplier));

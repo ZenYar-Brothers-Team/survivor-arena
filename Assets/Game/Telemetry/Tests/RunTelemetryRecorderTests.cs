@@ -97,6 +97,15 @@ namespace Game.Telemetry.Tests
             Assert.IsTrue((bool)Capture(a, 1)["dirty"]);
         }
         [Test]
+        public void Provenance_RecordsTheCatalogContentKind_AndNoLongerClaimsUnityRandom()
+        {
+            var files = new Dictionary<string, string> { ["a"] = "1" };
+            var production = TelemetryProvenance.Capture(files, new { seed = 1 }, "commit", false, "test", "Editor", "production");
+            Assert.AreEqual("production", (string)production["contentKind"]);
+            Assert.AreEqual("fixture", (string)TelemetryProvenance.Capture(files, new { seed = 1 }, "commit", false, "test", "Editor")["contentKind"]);
+            StringAssert.DoesNotContain("UnityEngine.Random", production["rngUncovered"].ToString());
+        }
+        [Test]
         public void Export_ByteLimitFailsExplicitly_WithoutCompletingTheRun()
         {
             var run = new RunModel(); var recorder = TelemetryTestData.Recorder(run, new TelemetryLimits(exportBytes: 1));

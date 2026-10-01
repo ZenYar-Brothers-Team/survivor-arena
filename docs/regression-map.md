@@ -317,3 +317,17 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 | Полоски HP без чисел; HP мини-босса над головой, верхняя полоска только у финального босса (DECISION-0110) | `OverheadHealthPresenterTests`, `BossHudTests.BossBar_VisibleWhileBossAliveAndCleansUp`, `BossEncounterSmokeTests` | EditMode + PlayMode | Наличие бара над мини-боссом в smoke не утверждается (мини-босс может появиться за экраном) |
 | Обводка/лёд замедления: цвет из материала и разворот через масштаб, т.к. кастомный шейдер не видит SpriteRenderer.color/flipX; полоска на unlit-шейдере | `SlowStatusPresentationTests.Apply_All_MirrorsBodyForIceAndOutlineThenOffClears` | EditMode | Фикс 2026-09-30 после просмотра пользователем (белая обводка, не разворачивалась, полоска не видна). Цвет на экране проверяется визуально |
 | На маленьких врагах лёд почти исчезал, а полоска перекрывала нижние грани | `SlowStatusPresentationTests.Apply_IceOnCompactBody_ScalesWithSpriteAndBarClearsItsBottom`, `SlowStatusSmokeTests` | EditMode + PlayMode | Первая, более плотная текстура v002; оверлей повторяет размер body sprite, полоска ниже `body.bounds`. Фактическая читаемость в толпе остаётся визуальной проверкой |
+
+## Исправления по ревью 2026-10-02
+
+- Направление конуса SET-022 без цели (DECISION-0138, дополнение 2026-10-02):
+  `Game.ActiveSkill.Tests.LowTierSetMechanicsTests.ConeDirection_FollowsTheTarget_OrPicksASeededRandomWayWithoutOne`,
+  `Cone_WithoutASkillSeed_IsRejected` и проверка seed в `ConeSetAttack_IsAnInstantNearestTargetCone`.
+- Сложение выданных замедлений двух сетов не смешивает силу одного с длительностью другого:
+  `Game.Progression.Tests.ProductionLateSetCatalogTests.MechanicBonus_GrantedSlows_KeepTheStrongerSlowWithItsOwnDuration`.
+- Provenance плейтестов пишет фактический вид контента и не заявляет `UnityEngine.Random`:
+  `Game.Telemetry.Tests.RunTelemetryRecorderTests.Provenance_RecordsTheCatalogContentKind_AndNoLongerClaimsUnityRandom`.
+- Валидаторы `docs/balance/validate_*.py` (все 13 PASS, UTF-8 вывод в консоли Windows); правило телепорта
+  финальных боссов — по DECISION-0128 (стоящего задевает, с базовой скоростью можно выйти).
+- Мёртвая зона `<Joystick>/stick` для Move (`StickDeadzone`); у `<Gamepad>/leftStick` она встроена в раскладку.
+  Отдельного теста нет: это настройка ввода, проверяется вручную с джойстиком.

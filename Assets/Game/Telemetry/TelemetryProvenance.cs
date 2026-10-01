@@ -11,7 +11,7 @@ namespace Game.Telemetry
     public static class TelemetryProvenance
     {
         public static JObject Capture(IReadOnlyDictionary<string, string> sources, object resolved,
-            string commit, bool? dirty, string platform, string buildType)
+            string commit, bool? dirty, string platform, string buildType, string contentKind = "fixture")
         {
             var files = new JArray();
             var sorted = new SortedDictionary<string, string>(StringComparer.Ordinal);
@@ -28,10 +28,12 @@ namespace Game.Telemetry
             return new JObject
             {
                 ["commit"] = commit ?? "unknown", ["dirty"] = dirty.HasValue ? new JValue(dirty.Value) : JValue.CreateNull(),
-                ["platform"] = platform, ["buildType"] = buildType, ["contentKind"] = "fixture",
+                ["platform"] = platform, ["buildType"] = buildType, ["contentKind"] = contentKind,
                 ["files"] = files, ["resolved"] = actual,
                 ["configHash"] = Hash(files.ToString(Formatting.None) + Canonical(actual)),
-                ["rngUncovered"] = new JArray("UnityEngine.Random spawn positions; no deterministic replay"),
+                // Per-life enemy/boss randomness is seeded from the life Guid; layout, pickup and zone seeds are not recorded here.
+                ["rngUncovered"] = new JArray("Enemy/boss movement, attack, teleport and hazard randomness seeded per life from a Guid",
+                    "Per-run field layout, pickup and zone seeds are not recorded; no deterministic replay"),
                 ["persistentProfile"] = "unsupported"
             };
         }

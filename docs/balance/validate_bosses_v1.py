@@ -174,8 +174,10 @@ def main():
             require(abs(e["teleport"]["impactDamage"] - expected_impact) < 1e-6,
                     f"{eid}: teleport impact formula")
             t = e["teleport"]
-            require(t["landingDistance"] + ref["playerSpeed"] * t["telegraphSeconds"] < t["impactRadius"],
-                    f"{eid}: teleport slam must stay unavoidable at base speed (DECISION-0059)")
+            # DECISION-0128 (replaces the DECISION-0059 "unavoidable" revision): a standing player is clipped,
+            # a player stepping straight out at base speed leaves the circle during the telegraph.
+            require(t["landingDistance"] < t["impactRadius"] < t["landingDistance"] + ref["playerSpeed"] * t["telegraphSeconds"],
+                    f"{eid}: teleport slam must clip a standing player and stay escapable at base speed (DECISION-0128)")
 
         # Every extension/family the data needs is declared, and nothing declared is unused.
         needed = set()
@@ -200,4 +202,5 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # non-ASCII report text; Windows consoles default to cp1251
     main()

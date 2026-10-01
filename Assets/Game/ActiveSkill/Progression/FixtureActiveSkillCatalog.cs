@@ -76,6 +76,8 @@ namespace Game.ActiveSkill
                 foreach (var effect in wave.Effects)
                     if (effect is ProjectileBurstEffect projectile && projectile.Layout == ProjectileLayout.IndependentRandom && !data.RandomSeed.HasValue)
                         throw new ArgumentException("IndependentRandom requires RandomSeed.");
+                    else if (effect is AreaEffect cone && cone.ArcDegrees > 0f && !data.RandomSeed.HasValue)
+                        throw new ArgumentException("A cone requires RandomSeed for its no-target direction.");
             var targeting = new ActiveSkillTargetingProfile(data.TargetingMode, data.TargetingRadius ?? 0f,
                 data.RandomSeed, data.InitialDirectionDegrees ?? 0f, data.ActionSpeedBonus, data.RotationPerActivationDegrees);
             return new ActiveSkillLevelDefinition(data.BaseDamage, data.CooldownSeconds, targeting, visual, waves);

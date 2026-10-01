@@ -95,6 +95,30 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(3.5f, area.Radius, 1e-5f);
             Assert.AreEqual(20f, level.BaseDamage);
             Assert.AreEqual(3f, level.Waves[0].Controls.KnockbackDistance, 1e-5f, "Strong knockback is the point of the set.");
+            Assert.IsTrue(level.Targeting.RandomSeed.HasValue, "The no-target direction is seeded content.");
+        }
+
+        [Test]
+        public void ConeDirection_FollowsTheTarget_OrPicksASeededRandomWayWithoutOne()
+        {
+            Assert.AreEqual(Vector2.up, EnemyDamageArea.ConeDirection(Vector2.up, true, null), "An aimed cone ignores the random.");
+            var first = EnemyDamageArea.ConeDirection(Vector2.right, false, new System.Random(7));
+            Assert.AreEqual(1f, first.magnitude, 1e-5f);
+            Assert.AreEqual(first, EnemyDamageArea.ConeDirection(Vector2.right, false, new System.Random(7)), "Same seed, same direction.");
+            var random = new System.Random(7);
+            var directions = Enumerable.Range(0, 64).Select(_ => EnemyDamageArea.ConeDirection(Vector2.right, false, random)).ToArray();
+            Assert.IsTrue(directions.Any(d => d.x < -0.5f) && directions.Any(d => d.y > 0.5f) && directions.Any(d => d.y < -0.5f),
+                "Without an enemy the cone no longer repeats the previous aim.");
+            Assert.Throws<System.ArgumentNullException>(() => EnemyDamageArea.ConeDirection(Vector2.right, false, null));
+        }
+
+        [Test]
+        public void Cone_WithoutASkillSeed_IsRejected()
+        {
+            var cone = new ActiveSkillLevelDefinition(10f, 1f, ActiveSkillTargetingMode.NearestEnemy,
+                new ActiveSkillActivationWave(0f, 0f, 1f, CombatControlProfile.None, new AreaEffect(3.5f, 1f, 0f, 60f)));
+            Assert.Throws<System.ArgumentException>(() => new ActiveSkillProgressionDefinition(new ContentId("SET-TEST-CONE"), "Cone",
+                cone, cone, cone, cone, cone, cone));
         }
 
         private static readonly ContentId SkillId = new ContentId("SKILL-013");

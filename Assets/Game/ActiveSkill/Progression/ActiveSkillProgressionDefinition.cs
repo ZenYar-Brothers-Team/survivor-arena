@@ -40,6 +40,8 @@ namespace Game.ActiveSkill
                     foreach (var effect in wave.Effects)
                         if (effect is ProjectileBurstEffect projectile && projectile.Layout == ProjectileLayout.IndependentRandom && !levels[i].Targeting.RandomSeed.HasValue)
                             throw new ArgumentException("Independent random directions require a configured skill seed.", nameof(levels));
+                        else if (effect is AreaEffect cone && cone.ArcDegrees > 0f && !levels[i].Targeting.RandomSeed.HasValue)
+                            throw new ArgumentException("A cone needs a configured skill seed for its no-target direction.", nameof(levels));
             }
 
             _levels = (ActiveSkillLevelDefinition[])levels.Clone();

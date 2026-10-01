@@ -121,5 +121,20 @@ namespace Game.Progression.Tests
             Assert.Throws<ArgumentException>(() => new SetEffectDefinition(SetEffectKind.SkillMechanics, skill: new ContentId("SKILL-016")),
                 "An empty mechanics effect is a data error.");
         }
+
+        [Test]
+        public void MechanicBonus_GrantedSlows_KeepTheStrongerSlowWithItsOwnDuration()
+        {
+            var strongShort = new SkillMechanicBonus(grantedSlowFraction: 0.5f, grantedSlowSeconds: 0.5f);
+            var weakLong = new SkillMechanicBonus(grantedSlowFraction: 0.3f, grantedSlowSeconds: 2f);
+            foreach (var total in new[] { strongShort.Plus(weakLong), weakLong.Plus(strongShort) })
+            {
+                Assert.AreEqual(0.5f, total.GrantedSlowFraction, 1e-5f);
+                Assert.AreEqual(0.5f, total.GrantedSlowSeconds, 1e-5f, "The weak slow's duration is not borrowed.");
+            }
+            var equalLonger = new SkillMechanicBonus(grantedSlowFraction: 0.5f, grantedSlowSeconds: 1f);
+            Assert.AreEqual(1f, strongShort.Plus(equalLonger).GrantedSlowSeconds, 1e-5f, "Equal strength keeps the longer slow.");
+            Assert.AreEqual(0.3f, default(SkillMechanicBonus).Plus(weakLong).GrantedSlowFraction, 1e-5f);
+        }
     }
 }

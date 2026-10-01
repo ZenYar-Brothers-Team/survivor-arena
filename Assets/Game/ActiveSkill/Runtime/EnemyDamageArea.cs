@@ -30,6 +30,16 @@ namespace Game.ActiveSkill
             return Vector2.Angle(direction, offset) <= halfAngleDegrees + 1e-3f;
         }
 
+        /// <summary>Cone direction (SET-022): toward the aimed enemy; with no enemy in range a uniformly random direction
+        /// from the skill's seeded random instead of the previous aim (DECISION-0138, 2026-10-02 addendum).</summary>
+        public static Vector2 ConeDirection(Vector2 aimDirection, bool hasTarget, System.Random random)
+        {
+            if (hasTarget) return aimDirection;
+            if (random == null) throw new System.ArgumentNullException(nameof(random), "A cone requires a configured skill seed.");
+            var angle = random.NextDouble() * 2d * System.Math.PI;
+            return new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle));
+        }
+
         public static int Apply(
             Vector2 center,
             float radius,

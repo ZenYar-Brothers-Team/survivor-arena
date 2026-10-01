@@ -13,6 +13,7 @@ CONTENT_DESIGN = ROOT / "docs/Content_design.md"
 SKILLS = {f"SKILL-{i:03d}" for i in range(1, 17)}
 PASSIVES = {f"PASSIVE-{i:03d}" for i in range(1, 15)}
 CHARACTERS = [f"CHAR-{i:03d}" for i in range(2, 11)]
+PACKET_SETS = {f"SET-{i:03d}" for i in range(1, 21)}
 # Design bounds of this packet: noticeable but not degenerate differences to CHAR-001.
 RATIO_BOUNDS = {
     "maxHealth": (0.6, 1.7),
@@ -47,8 +48,10 @@ def main():
     base = json.loads(BASELINE.read_text(encoding="utf-8"))["character"]["stats"]
     sets = json.loads(SETS.read_text(encoding="utf-8"))
     content = CONTENT_DESIGN.read_text(encoding="utf-8")
-    recipes = {s["id"]: {r["id"] for r in s["recipe"]} for s in sets}
-    require(len(recipes) == 20, "expected 20 production sets")
+    # The lost-set bounds of this packet were approved over SET-001…020; low-tier SET-021…035 (DECISION-0138)
+    # have their own validator (validate_sets_low_v1.py) and are outside this packet's rule.
+    recipes = {s["id"]: {r["id"] for r in s["recipe"]} for s in sets if s["id"] in PACKET_SETS}
+    require(len(recipes) == 20, "expected SET-001…020 in production sets")
 
     require(data["format"] == "late-content-review-data" and data["revision"] == "characters-v1", "format/revision")
     rule = data["weightRule"]
@@ -107,4 +110,5 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # non-ASCII report text; Windows consoles default to cp1251
     main()

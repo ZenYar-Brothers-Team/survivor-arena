@@ -214,7 +214,7 @@ Current/max HP также доступны в Pause / Build. Boss/Traveler bars 
 DEV drawer по DECISION-0005, и не входит в player HUD или Settings. Release UI
 не показывает controls и не принимает их intents; обычный run идёт на 1×.
 Development lifecycle скорости сохраняет Running/pause/end/reset из
-[DECISION-0054](decisions/0054-run-speed-controls.md), уточнённого DECISION-0083.
+[DECISION-0140](decisions/0140-run-speed-controls.md), уточнённого DECISION-0083.
 
 \#\#\# Build icons  
 Показывать компактно:  

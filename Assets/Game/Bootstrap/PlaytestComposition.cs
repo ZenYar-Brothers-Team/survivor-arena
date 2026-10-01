@@ -43,7 +43,8 @@ namespace Game.Bootstrap
                         referenceWave = spawner.Director.Timeline.Seed, traveler = (travelers as TravelerEncounterRuntime)?.Seed },
                     initialStats = player.Stats, initialBuild = entries, runSetup = catalog.RunSetup,
                     overrides = new { durationSeconds = run.Duration, source = "RunController scene configuration" }
-                }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development");
+                }, commit, dirty, Application.platform.ToString(), Application.isEditor ? "Editor" : "Development",
+                    catalog.IsProduction ? "production" : "fixture");
                 return new PlaytestSession(run, player, xp, draft, spawner, skills, provenance,
                     exportSink ?? new LocalPlaytestExportSink(Path.Combine(Application.persistentDataPath, "Playtests")),
                     () => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency, DateTime.UtcNow, pickups: pickups, travelers: travelers);

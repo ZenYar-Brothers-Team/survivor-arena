@@ -307,8 +307,10 @@ def late_set_attack(set_id, effect, seed, kb_seconds):
             ctrl = controls(effect["impactKnockback"], effect["knockbackSeconds"])
         level["waves"] = [wave([projectile], ctrl)]
     elif pattern == "Cone":
-        # Instant cone from the caster toward the nearest enemy (SET-022).
-        level.update(baseDamage=effect["damage"], targetingMode="NearestEnemy", targetingRadius=effect["targetingRadius"])
+        # Instant cone from the caster toward the nearest enemy (SET-022); the seed points it a random way with no enemy
+        # in range (DECISION-0138 addendum 2026-10-02).
+        level.update(baseDamage=effect["damage"], targetingMode="NearestEnemy", targetingRadius=effect["targetingRadius"],
+                     randomSeed=seed)
         level["waves"] = [wave([{"kind": "Area", "radius": effect["radius"], "arcDegrees": effect["arcDegrees"]}],
                                controls(kb, effect["knockbackSeconds"]))]
     else:

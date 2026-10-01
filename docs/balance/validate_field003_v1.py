@@ -11,6 +11,10 @@ F1 = ROOT / "docs/balance/field001-baseline-v1.json"
 F2 = ROOT / "docs/balance/field002-v1.json"
 BOSSES = ROOT / "docs/balance/bosses-v1.json"
 TECHNICAL_ORDINARY_CAP = 300
+# DECISION-0136 later moved card contexts (ENEMY-010 to FIELD-002, ENEMY-008 off FIELD-002). This v1 packet is
+# checked against the card as it stood at its approval; the current card is accepted as that approved successor.
+LATER_CONTEXTS = {"ENEMY-008": (3, 7), "ENEMY-010": (2, 8)}
+HISTORIC_CONTEXTS = {"ENEMY-008": (2, 7), "ENEMY-010": (4, 8)}
 
 
 def require(condition, message):
@@ -41,6 +45,8 @@ def main():
     changes = {c["id"]: c for c in data["cardChanges"]}
     for enemy_id in pool:
         start, end = contexts(content, enemy_id)
+        if enemy_id in LATER_CONTEXTS and (start, end) == LATER_CONTEXTS[enemy_id]:
+            start, end = HISTORIC_CONTEXTS[enemy_id]
         if enemy_id in changes:
             change = changes[enemy_id]
             require(change["before"] == f"FIELD-{start:03d}…{end:03d}" or change["proposed"] == f"FIELD-{start:03d}…{end:03d}",
@@ -111,4 +117,5 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # non-ASCII report text; Windows consoles default to cp1251
     main()

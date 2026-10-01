@@ -4,7 +4,7 @@ Status: Approved — только явно подтверждённые треб
 Date: 2026-09-28
 Related IP: IP-10A, IP-26, IP-27
 Related content IDs: none
-Supersedes: player-facing placement скорости из DECISION-0054; трактовку
+Supersedes: player-facing placement скорости из DECISION-0140 (до 2026-10-02 — DECISION-0054); трактовку
 прототипной раскладки как принятого production layout
 
 ## Context
@@ -24,7 +24,7 @@ Supersedes: player-facing placement скорости из DECISION-0054; тра�
 2. 1×/2×/3×/5× — development-only controls. Они принадлежат свёрнутому по умолчанию
    DEV drawer по DECISION-0005, не player HUD или Settings. В non-development build
    controls и их UI intents недоступны; обычный забег идёт на 1×. Lifecycle скорости
-   (Running/pause/end/reset) из DECISION-0054 сохраняется для development режима.
+   (Running/pause/end/reset) из DECISION-0140 сохраняется для development режима.
 3. Основной player HP bar располагается возле персонажа и следует за ним. Он не
    дублируется постоянным player HP bar в верхней/нижней панели. Pause / Build
    продолжает показывать current/max HP. Это правило не меняет boss/Traveler HP.
@@ -35,7 +35,7 @@ Supersedes: player-facing placement скорости из DECISION-0054; тра�
 ## Consequences
 
 Синхронизировать UI/UX, единственное GDD-утверждение о player speed,
-DECISION-0054/0081 и scope/checks IP-10A/26/27. Foundation smoke проверяет
+DECISION-0140/0081 и scope/checks IP-10A/26/27. Foundation smoke проверяет
 геометрию и intents; production visual acceptance требует настоящих иконок,
 текста, игрового фона и композиции со всеми действиями Pause.
 

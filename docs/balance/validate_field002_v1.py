@@ -38,9 +38,12 @@ def main():
     field_one = {e["id"] for e in base["enemies"]}
     require(field_one < set(pool) and set(pool) - field_one == {"ENEMY-006", "ENEMY-008", "ENEMY-009"},
             "FIELD-002 pool = FIELD-001 six + ENEMY-006/008/009 (DECISION-0063)")
+    # DECISION-0136 later replaced ENEMY-008 on FIELD-002 (field002-v2); its card now starts at FIELD-003.
+    # This v1 packet is checked against the card as it stood at approval; that approved successor is accepted.
+    later_start = {"ENEMY-008": "003"}
     for enemy_id in set(pool) - field_one:
         block = re.search(r"^### " + enemy_id + r" —.*?XP reward: \d+\. Контексты: FIELD-(\d{3})", content, re.M | re.S)
-        require(block and block[1] == "002", f"{enemy_id}: card context must start at FIELD-002")
+        require(block and block[1] in ("002", later_start.get(enemy_id)), f"{enemy_id}: card context must start at FIELD-002")
     first = data["timeline"]["phases"][0]["composition"]
     require(any(first[e] > 0 for e in data["newEnemiesInFirstWave"]) and set(data["newEnemiesInFirstWave"]) <= set(pool) - field_one,
             "A new enemy type must appear in the first wave (DECISION-0063)")
@@ -98,10 +101,13 @@ def main():
     require(data["boss"]["dashEndAttack"]["damage"] == 16, "BOSS-002 ring damage is 16 on its card")
     require(data["boss"]["enrage"]["everyNthDash"] == 2 and data["boss"]["enrage"]["healthThreshold"] == 0.5,
             "BOSS-002 enrage: every second dash below 50%")
-    require(data["boss"]["teleport"] == base["boss"]["teleport"], "Teleport reuses the BOSS-001 rule unchanged")
+    # DECISION-0128 later lowered the shared impact radius 3.5 → 2.8 in the baseline (and field002-v2), not in v1.
+    same = lambda t: {k: v for k, v in t.items() if k != "impactRadius"}
+    require(same(data["boss"]["teleport"]) == same(base["boss"]["teleport"]), "Teleport reuses the BOSS-001 rule unchanged")
     require(data["travelers"]["pool"].startswith("global"), "Traveler pool is global with unique roles (DECISION-0063)")
     print(f"PASS: FIELD-002 slice — {len(phases)} phases, {len(obstacles)} obstacles, MIDBOSS-002, BOSS-002")
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # non-ASCII report text; Windows consoles default to cp1251
     main()
