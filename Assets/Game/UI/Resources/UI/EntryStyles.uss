@@ -53,7 +53,7 @@
 .entry-action:disabled { background-color: #39313f; color: #9d8e9e; border-color: #574b5d; opacity: 0.58; translate: 0 0; }
 .entry-field-scroll { flex-grow: 1; min-height: 0; }
 .entry-field-scroll .unity-scroll-view__content-container { flex-grow: 1; justify-content: center; }
-.entry-field-grid { flex-direction: row; flex-wrap: wrap; }
+.entry-field-grid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; }
 .entry-field-tests { display: none; margin-top: 24px; }
 .entry-field-tests-title { font-size: 20px; color: #bfaf95; margin-bottom: 12px; border-top-width: 1px; border-top-color: #68576b; padding-top: 14px; }
 .entry-field-choice { width: 18.8%; }
