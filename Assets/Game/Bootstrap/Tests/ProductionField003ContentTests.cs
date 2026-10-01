@@ -52,34 +52,33 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_PlacesTheRuins_WallsAsFencesAndRubbleAsBoulders_WithAFreeStart()
+        public void Presentation_GeneratesRowsOfRocksAndColumnsPerRun_WithAFreeStart_AsMovedFromTheSecondMap()
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION");
-            // DECISION-0068: one ruined wall fragment with its rubble per 48-unit cell (4×4), turned at random every run.
+            // DECISION-0068: rows of 3–5 rocks or columns are placed every run, one row per 38.4-unit cell (5×5).
             var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
                 presentation.ObstacleLayout.ReferenceSeed, "FIELD-003-ENVIRONMENT");
-            Assert.That(obstacles.Count, Is.InRange(96, 112), "16 fragments of 6–7 pieces.");
-            Assert.That(obstacles.Count(o => o.Kind == FieldObstacleKind.Fence), Is.InRange(48, 64), "Wall fragments.");
-            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Stump), "Rubble.");
-            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width), "Some walls stand vertically.");
-            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Width > o.Height), "Some walls lie horizontally.");
+            Assert.That(obstacles.Count, Is.InRange(75, 125), "25 rows of 3–5 pieces.");
             Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
-                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 10f - 1e-3f),
-                "Start circle of 10 units stays free.");
-            Assert.AreEqual("FIELD-003-VISUAL-GROUND", presentation.Ground.Id.ToString());
-            Assert.AreEqual("FIELD-003-VISUAL-WALL", presentation.Fence.Id.ToString());
-            Assert.AreEqual("FIELD-003-VISUAL-RUBBLE", presentation.Obstacle.Id.ToString());
-            Assert.AreEqual("FIELD-003-VISUAL-WATER", presentation.Bush.Id.ToString());
-            var props = new[] { "FIELD-003-VISUAL-WALL", "FIELD-003-VISUAL-RUINED-ARCH", "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS", "FIELD-003-VISUAL-FALLEN-CAPSTONE", "FIELD-003-VISUAL-COLLAPSED-WELL" };
+                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 8f - 1e-3f),
+                "Start circle of 8 units stays free.");
+            Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-COLUMN", presentation.Column.Id.ToString());
+            Assert.AreEqual("FIELD-002-VISUAL-SHRINE", presentation.Shrine.Id.ToString());
+            Assert.Greater(presentation.ShrineChance, 0f);
+            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Column));
+            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Stump));
+            var props = new[] { "FIELD-002-VISUAL-BOULDER", "FIELD-002-VISUAL-ROADSIDE-MILESTONE", "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON", "FIELD-002-VISUAL-ROAD-BARRICADE" };
             for (var seed = 0; seed < 20; seed++)
             {
                 var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
                     seed, "FIELD-003-ENVIRONMENT");
                 CollectionAssert.AreEquivalent(props, run.Where(item => item.VisualId.IsValid)
                     .Select(item => item.VisualId.ToString()).Distinct().ToArray(),
-                    $"DECISION-0073: every approved FIELD-003 ruin prop appears in each run (seed {seed}).");
+                    $"DECISION-0073: every approved rock-row prop (moved from the former second map) appears in each run (seed {seed}).");
             }
         }
 

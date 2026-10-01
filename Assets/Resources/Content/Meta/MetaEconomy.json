@@ -304,13 +304,6 @@
       "targetId": "SKILL-012"
     },
     {
-      "id": "FIELD-DEV-BLOBS",
-      "name": "Тест 02",
-      "kind": "field",
-      "condition": "dev",
-      "price": 0
-    },
-    {
       "id": "FIELD-DEV-ZONES",
       "name": "Тест 06",
       "kind": "field",

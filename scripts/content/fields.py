@@ -12,10 +12,9 @@ def fields(baseline):
     three = baseline["field003"]["field"]
     four = baseline["field004"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
-    dev = baseline["devBlobs"]["field"]
     zone_devs = [baseline["devZones"]["field"], baseline["devAltars"]["field"]]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], dev["id"]] + [item["id"] for item in zone_devs],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"]] + [item["id"] for item in zone_devs],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -24,8 +23,6 @@ def fields(baseline):
                          {"id": three["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          {"id": four["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
-                          "obstacleNames": walls},
-                         {"id": dev["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
                          ] + [{"id": item["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                                "obstacleNames": walls} for item in zone_devs],
@@ -56,13 +53,6 @@ def fields(baseline):
                     "environmentId": four["environmentId"], "timelineId": four["timelineId"],
                     "travelerScheduleId": four["travelerScheduleId"], "finalBossId": four["finalBossId"],
                     "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]},
-                   # Development-only blob test field: spawn settings, enemies, travelers and bosses are FIELD-001's.
-                   {"id": dev["id"], "displayName": dev["displayName"], "description": dev["description"],
-                    "thumbnailPlaceholder": dev["thumbnailPlaceholder"], "difficulty": dev["difficulty"],
-                    "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": dev["unlockDescription"],
-                    "environmentId": dev["environmentId"], "timelineId": field["timelineId"],
-                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
-                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]], "testField": True},
                    ] + [
                    # Development-only effect-zone test fields (zones, altars): same shared FIELD-001 spawn settings.
                    {"id": item["id"], "displayName": item["displayName"], "description": item["description"],
@@ -113,20 +103,13 @@ def field_presentation(baseline):
     second["obstacles"] = [{"id": o["id"], "kind": obstacle_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
                             "height": o["height"]} for o in two["obstacles"]]
     three = baseline["field003"]["field"]
-    ruin_kinds = {"Wall": "Fence", "Rubble": "Stump"}
-    for o in three["obstacles"]:
-        if o["rotationDegrees"] != 0 or o["kind"] not in ruin_kinds:
-            raise SystemExit(f"{o['id']}: unsupported obstacle")
     if three["waterDecor"]["blocksMovement"]:
         raise SystemExit("FIELD-003 water must stay visual")
-    third = dict(data, id="FIELD-003-PRESENTATION", environmentId=three["environmentId"],
-                 groundVisualId="FIELD-003-VISUAL-GROUND", fenceVisualId="FIELD-003-VISUAL-WALL",
-                 obstacleVisualId="FIELD-003-VISUAL-RUBBLE", bushVisualId="FIELD-003-VISUAL-WATER",
-                 seed=data["seed"] + 2000, obstacleSeed=data["obstacleSeed"] + 2000,
-                 interiorObstacleCount=len(three["obstacles"]),
-                 nearObstacleCount=sum(1 for o in three["obstacles"] if abs(o["x"]) <= 20 and abs(o["y"]) <= 20))
-    third["obstacles"] = [{"id": o["id"], "kind": ruin_kinds[o["kind"]], "x": o["x"], "y": o["y"], "width": o["width"],
-                           "height": o["height"]} for o in three["obstacles"]]
+    # Map transfer (user instruction 2026-10-01): FIELD-003 takes the former FIELD-002 look and obstacle layout
+    # (ground, decor, obstacle sprites, per-run patterns); its own id, environment and seeds stay.
+    third = dict(second, id="FIELD-003-PRESENTATION", environmentId=three["environmentId"],
+                 seed=data["seed"] + 2000, obstacleSeed=data["obstacleSeed"] + 2000)
+    third["obstacles"] = list(second["obstacles"])
     four = baseline["field004"]["field"]
     fourth = dict(data, id="FIELD-004-PRESENTATION", environmentId=four["environmentId"],
                   groundVisualId="FIELD-004-VISUAL-GROUND", fenceVisualId="FIELD-004-VISUAL-PALISADE",
@@ -140,7 +123,14 @@ def field_presentation(baseline):
     # DECISION-0068: the first three fields generate their obstacles every run from patterns instead of a fixed list.
     wall = baseline["field"]["wallThickness"]
     for presentation in presentations:
-        layout = baseline["field004"]["layout"] if presentation["id"] == "FIELD-004-PRESENTATION" else baseline["layouts"][presentation["id"]]
+        if presentation["id"] == "FIELD-002-PRESENTATION":
+            continue  # FIELD-002 gets the generated illustrated blobs below
+        if presentation["id"] == "FIELD-003-PRESENTATION":
+            layout = baseline["layouts"]["FIELD-002-PRESENTATION"]  # the former second-map pattern layout
+        elif presentation["id"] == "FIELD-004-PRESENTATION":
+            layout = baseline["field004"]["layout"]
+        else:
+            layout = baseline["layouts"][presentation["id"]]
         presentation.pop("obstacles")
         presentation["obstacleLayout"] = {
             "cellSize": layout["cellSize"], "patternsPerCell": layout["patternsPerCell"],
@@ -152,19 +142,16 @@ def field_presentation(baseline):
                          for pattern in layout["patterns"]]}
         if "startScreen" in layout:
             presentation["obstacleLayout"]["startScreen"] = layout["startScreen"]
-    # Development-only blob test field: FIELD-001 art and decoration, generated blobs instead of pattern obstacles.
+    # Map transfer (user instruction 2026-10-01, DECISION-0136): FIELD-002 keeps its art and decor, but its obstacles are
+    # the per-run illustrated blobs of the former test field "Тест 02" in a compact arena.
     dev_packet = baseline["devBlobs"]
     dev_field = dev_packet["field"]
-    dev = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
     layout = dev_packet["blobLayout"]
     # A library start blob is one of the listed blobs; a procedural one is an extra obstacle.
     count = len(layout["blobs"]) + (0 if layout["startScreen"].get("libraryIds") else 1)
-    dev.update(id=dev_field["presentationId"], environmentId=dev_field["environmentId"],
-               groundVisualId=dev_field["groundVisualId"],
-               seed=presentations[0]["seed"] + 4000, obstacleSeed=presentations[0]["obstacleSeed"] + 4000,
-               interiorObstacleCount=count, nearObstacleCount=0,
-               arenaSideLength=dev_field["arenaSideLength"], blobLayout=dev_packet["blobLayout"])
-    presentations.append(dev)
+    presentations[1].pop("obstacles")
+    presentations[1].update(interiorObstacleCount=count, nearObstacleCount=0,
+                            arenaSideLength=dev_field["arenaSideLength"], blobLayout=layout)
     # Development-only effect-zone test fields (zones, altars): a few small ruins illustrations as obstacles plus the zone layout.
     for index, zones_packet in enumerate((baseline["devZones"], baseline["devAltars"])):
         zones_field = zones_packet["field"]

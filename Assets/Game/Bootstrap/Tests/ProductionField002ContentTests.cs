@@ -103,34 +103,24 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_GeneratesRowsOfRocksAndColumnsPerRun_WithAFreeStart()
+        public void Presentation_GeneratesTwentyBlobsEveryRun_InAMoreCompactArena()
         {
+            // Map transfer (DECISION-0136): FIELD-002 keeps its art and uses the illustrated blobs of the former test field.
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-002-PRESENTATION");
-            // DECISION-0068: rows of 3–5 rocks or columns are placed every run, one row per 38.4-unit cell (5×5).
-            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
-                presentation.ObstacleLayout.ReferenceSeed, "FIELD-002-ENVIRONMENT");
-            Assert.That(obstacles.Count, Is.InRange(75, 125), "25 rows of 3–5 pieces.");
-            Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
-                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 8f - 1e-3f),
-                "Start circle of 8 units stays free.");
+            Assert.AreEqual(120f, presentation.ArenaSideLength);
+            Assert.IsNull(presentation.ObstacleLayout);
+            Assert.AreEqual(20, presentation.BlobLayout.TotalCount);
             Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-COLUMN", presentation.Column.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-SHRINE", presentation.Shrine.Id.ToString());
-            Assert.Greater(presentation.ShrineChance, 0f);
-            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Column));
-            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Stump));
-            var props = new[] { "FIELD-002-VISUAL-BOULDER", "FIELD-002-VISUAL-ROADSIDE-MILESTONE", "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON", "FIELD-002-VISUAL-ROAD-BARRICADE" };
-            for (var seed = 0; seed < 20; seed++)
+            var layouts = new System.Collections.Generic.HashSet<string>();
+            for (var seed = 0; seed < 100; seed++)
             {
-                var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
-                    seed, "FIELD-002-ENVIRONMENT");
-                CollectionAssert.AreEquivalent(props, run.Where(item => item.VisualId.IsValid)
-                    .Select(item => item.VisualId.ToString()).Distinct().ToArray(),
-                    $"DECISION-0073: every approved FIELD-002 rock-row prop appears in each run (seed {seed}).");
+                var shapes = FieldBlobLayoutGenerator.Generate(presentation.BlobLayout, presentation.ArenaSideLength.Value,
+                    UnityEngine.Vector2.zero, seed, "FIELD-002-ENVIRONMENT");
+                Assert.AreEqual(20, shapes.Count, $"seed {seed}");
+                layouts.Add(string.Join("|", shapes.Select(s => s.Center.ToString("F2"))));
             }
+            Assert.Greater(layouts.Count, 95, "A fresh seed gives a fresh arrangement.");
         }
 
         [Test]

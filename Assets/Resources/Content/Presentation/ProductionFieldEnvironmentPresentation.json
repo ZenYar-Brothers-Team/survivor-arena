@@ -177,8 +177,8 @@
     "bushScaleMax": 0.68,
     "seed": 2001,
     "obstacleSeed": 2002,
-    "interiorObstacleCount": 100,
-    "nearObstacleCount": 21,
+    "interiorObstacleCount": 20,
+    "nearObstacleCount": 0,
     "obstaclePlacementAttempts": 80,
     "nearObstacleRadius": 22,
     "fenceChance": 0.35,
@@ -189,975 +189,6 @@
     "columnVisualId": "FIELD-002-VISUAL-COLUMN",
     "shrineVisualId": "FIELD-002-VISUAL-SHRINE",
     "shrineChance": 0.025,
-    "obstacleLayout": {
-      "cellSize": 38.4,
-      "patternsPerCell": 1,
-      "edgeMargin": 4,
-      "cellMargin": 3,
-      "startClearRadius": 8,
-      "minPatternGap": 4,
-      "placementAttempts": 30,
-      "referenceSeed": 2002,
-      "patterns": [
-        {
-          "id": "ROCK-ROW-3",
-          "weight": 10,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Stump",
-              "x": -2.2,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 0,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 2.2,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ROCK-ROW-4",
-          "weight": 14,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Stump",
-              "x": -3.3,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -1.1,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 1.1,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.3,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ROCK-ROW-5",
-          "weight": 12,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Stump",
-              "x": -4.4,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -2.2,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 0,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 2.2,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 4.4,
-              "y": 0,
-              "width": 1.6,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-002-VISUAL-BOULDER",
-                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
-                "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON",
-                "FIELD-002-VISUAL-ROAD-BARRICADE"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "COLUMN-ROW-3",
-          "weight": 14,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Column",
-              "x": -2.2,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 0,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 2.2,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            }
-          ]
-        },
-        {
-          "id": "COLUMN-ROW-4",
-          "weight": 26,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Column",
-              "x": -3.3,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": -1.1,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 1.1,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 3.3,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            }
-          ]
-        },
-        {
-          "id": "COLUMN-ROW-5",
-          "weight": 24,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Column",
-              "x": -4.4,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": -2.2,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 0,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 2.2,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            },
-            {
-              "kind": "Column",
-              "x": 4.4,
-              "y": 0,
-              "width": 0.9,
-              "height": 0.9
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "FIELD-003-PRESENTATION",
-    "environmentId": "FIELD-003-ENVIRONMENT",
-    "groundVisualId": "FIELD-003-VISUAL-GROUND",
-    "fenceVisualId": "FIELD-003-VISUAL-WALL",
-    "obstacleVisualId": "FIELD-003-VISUAL-RUBBLE",
-    "bushVisualId": "FIELD-003-VISUAL-WATER",
-    "grassVisualId": "FIELD-001-VISUAL-GRASS",
-    "obstacleName": "Obstacle_Fixture",
-    "obstacleScale": 1.05,
-    "decorationSpacing": 6,
-    "decorationJitter": 2.2,
-    "decorationChance": 0.75,
-    "bushChance": 0.22,
-    "decorationMargin": 4,
-    "safeRadius": 2.5,
-    "grassScaleMin": 0.32,
-    "grassScaleMax": 0.48,
-    "bushScaleMin": 0.5,
-    "bushScaleMax": 0.68,
-    "seed": 3001,
-    "obstacleSeed": 3002,
-    "interiorObstacleCount": 107,
-    "nearObstacleCount": 9,
-    "obstaclePlacementAttempts": 80,
-    "nearObstacleRadius": 22,
-    "fenceChance": 0.35,
-    "obstacleSeparation": 3.4,
-    "fenceColliderWidth": 3,
-    "fenceColliderHeight": 1.25,
-    "stumpColliderRadius": 0.68,
-    "obstacleLayout": {
-      "cellSize": 48,
-      "patternsPerCell": 1,
-      "edgeMargin": 4,
-      "cellMargin": 3,
-      "startClearRadius": 10,
-      "minPatternGap": 4,
-      "placementAttempts": 30,
-      "referenceSeed": 3002,
-      "patterns": [
-        {
-          "id": "RUIN-L",
-          "weight": 1,
-          "rotations": [
-            0,
-            90,
-            180,
-            270
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -0.07,
-              "y": 4.67,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 3.77,
-              "y": 4.67,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": -1.83,
-              "y": 1.63,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": -1.83,
-              "y": -2.21,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 1.53,
-              "y": 1.67,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 4.33,
-              "y": 2.27,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -4.67,
-              "y": -4.52,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "RUIN-U",
-          "weight": 1,
-          "rotations": [
-            0,
-            90,
-            180,
-            270
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -3.47,
-              "y": 2.1,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0.37,
-              "y": 2.1,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": -5.23,
-              "y": -0.94,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 2.13,
-              "y": -0.94,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -1.57,
-              "y": -1.5,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -3.27,
-              "y": -4.3,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 4.93,
-              "y": 4.3,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "RUIN-LINE",
-          "weight": 1,
-          "rotations": [
-            0,
-            90,
-            180,
-            270
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -3.1,
-              "y": -0.1,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0.74,
-              "y": -0.1,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 4.58,
-              "y": -0.1,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -1.2,
-              "y": 1.9,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 2.7,
-              "y": -2.1,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 6.5,
-              "y": 2.1,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -6.5,
-              "y": -1.9,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "RUIN-CORNER",
-          "weight": 1,
-          "rotations": [
-            0,
-            90,
-            180,
-            270
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -1.4,
-              "y": -2.6,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": -1.4,
-              "y": 1.24,
-              "width": 0.8,
-              "height": 3.2,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0.36,
-              "y": 3.8,
-              "width": 3.2,
-              "height": 0.8,
-              "visualIds": [
-                "FIELD-003-VISUAL-WALL",
-                "FIELD-003-VISUAL-RUINED-ARCH"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 1,
-              "y": -1.4,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -3.8,
-              "y": 2,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.8,
-              "y": 1,
-              "width": 1.4,
-              "height": 1.1,
-              "visualIds": [
-                "FIELD-003-VISUAL-RUBBLE",
-                "FIELD-003-VISUAL-BROKEN-URNS",
-                "FIELD-003-VISUAL-FALLEN-CAPSTONE",
-                "FIELD-003-VISUAL-COLLAPSED-WELL"
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "FIELD-004-PRESENTATION",
-    "environmentId": "FIELD-004-ENVIRONMENT",
-    "groundVisualId": "FIELD-004-VISUAL-GROUND",
-    "fenceVisualId": "FIELD-004-VISUAL-PALISADE",
-    "obstacleVisualId": "FIELD-004-VISUAL-SUPPLY-CRATE",
-    "bushVisualId": "FIELD-001-VISUAL-BUSH",
-    "grassVisualId": "FIELD-001-VISUAL-GRASS",
-    "obstacleName": "Obstacle_Fixture",
-    "obstacleScale": 1.05,
-    "decorationSpacing": 6,
-    "decorationJitter": 2.2,
-    "decorationChance": 0.75,
-    "bushChance": 0.22,
-    "decorationMargin": 4,
-    "safeRadius": 2.5,
-    "grassScaleMin": 0.32,
-    "grassScaleMax": 0.48,
-    "bushScaleMin": 0.5,
-    "bushScaleMax": 0.68,
-    "seed": 4001,
-    "obstacleSeed": 4002,
-    "interiorObstacleCount": 40,
-    "nearObstacleCount": 4,
-    "obstaclePlacementAttempts": 80,
-    "nearObstacleRadius": 22,
-    "fenceChance": 0.35,
-    "obstacleSeparation": 3.4,
-    "fenceColliderWidth": 3,
-    "fenceColliderHeight": 1.25,
-    "stumpColliderRadius": 0.68,
-    "obstacleLayout": {
-      "cellSize": 48,
-      "patternsPerCell": 1,
-      "edgeMargin": 6,
-      "cellMargin": 4,
-      "startClearRadius": 12,
-      "minPatternGap": 6,
-      "placementAttempts": 40,
-      "referenceSeed": 4002,
-      "patterns": [
-        {
-          "id": "PALISADE-LINE",
-          "weight": 42,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -5,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 5,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": -3.2,
-              "y": 2.2,
-              "width": 1.5,
-              "height": 1.15,
-              "visualIds": [
-                "FIELD-004-VISUAL-SUPPLY-CRATE",
-                "FIELD-004-VISUAL-BRAZIER"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.2,
-              "y": -2.2,
-              "width": 1.8,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-004-VISUAL-TRAINING-DUMMY",
-                "FIELD-004-VISUAL-SUPPLY-CRATE"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "TENT-POST",
-          "weight": 34,
-          "rotations": [
-            0,
-            90,
-            180,
-            270
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -4.4,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.4,
-              "y": 1.9,
-              "width": 2.1,
-              "height": 1.6,
-              "visualIds": [
-                "FIELD-004-VISUAL-TENT"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.7,
-              "y": -2.3,
-              "width": 1.9,
-              "height": 1.25,
-              "visualIds": [
-                "FIELD-004-VISUAL-SUPPLY-CART"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "DRILL-ROW",
-          "weight": 24,
-          "rotations": [
-            0,
-            90
-          ],
-          "pieces": [
-            {
-              "kind": "Fence",
-              "x": -3.8,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 3.8,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 0,
-              "y": 2.7,
-              "width": 1.4,
-              "height": 1.2,
-              "visualIds": [
-                "FIELD-004-VISUAL-TRAINING-DUMMY"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 0,
-              "y": -2.7,
-              "width": 1.5,
-              "height": 1.15,
-              "visualIds": [
-                "FIELD-004-VISUAL-BRAZIER"
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "FIELD-DEV-BLOBS-PRESENTATION",
-    "environmentId": "FIELD-DEV-BLOBS-ENVIRONMENT",
-    "groundVisualId": "FIELD-003-VISUAL-GROUND",
-    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
-    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
-    "bushVisualId": "FIELD-001-VISUAL-BUSH",
-    "grassVisualId": "FIELD-001-VISUAL-GRASS",
-    "obstacleName": "Obstacle_Fixture",
-    "obstacleScale": 1.05,
-    "decorationSpacing": 6,
-    "decorationJitter": 2.2,
-    "decorationChance": 0.75,
-    "bushChance": 0.22,
-    "decorationMargin": 4,
-    "safeRadius": 2.5,
-    "grassScaleMin": 0.32,
-    "grassScaleMax": 0.48,
-    "bushScaleMin": 0.5,
-    "bushScaleMax": 0.68,
-    "seed": 5001,
-    "obstacleSeed": 5002,
-    "interiorObstacleCount": 20,
-    "nearObstacleCount": 0,
-    "obstaclePlacementAttempts": 80,
-    "nearObstacleRadius": 22,
-    "fenceChance": 0.35,
-    "obstacleSeparation": 3.4,
-    "fenceColliderWidth": 3,
-    "fenceColliderHeight": 1.25,
-    "stumpColliderRadius": 0.68,
-    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
-    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
     "arenaSideLength": 120,
     "blobLayout": {
       "edgeMargin": 5,
@@ -4090,6 +3121,561 @@
               -0.6972,
               5.5597
             ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "FIELD-003-PRESENTATION",
+    "environmentId": "FIELD-003-ENVIRONMENT",
+    "groundVisualId": "FIELD-002-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
+    "obstacleVisualId": "FIELD-002-VISUAL-BOULDER",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 3001,
+    "obstacleSeed": 3002,
+    "interiorObstacleCount": 100,
+    "nearObstacleCount": 21,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "columnVisualId": "FIELD-002-VISUAL-COLUMN",
+    "shrineVisualId": "FIELD-002-VISUAL-SHRINE",
+    "shrineChance": 0.025,
+    "obstacleLayout": {
+      "cellSize": 38.4,
+      "patternsPerCell": 1,
+      "edgeMargin": 4,
+      "cellMargin": 3,
+      "startClearRadius": 8,
+      "minPatternGap": 4,
+      "placementAttempts": 30,
+      "referenceSeed": 2002,
+      "patterns": [
+        {
+          "id": "ROCK-ROW-3",
+          "weight": 10,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ROCK-ROW-4",
+          "weight": 14,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -3.3,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": -1.1,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 1.1,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.3,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ROCK-ROW-5",
+          "weight": 12,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "x": -4.4,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": -2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 2.2,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 4.4,
+              "y": 0,
+              "width": 1.6,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-002-VISUAL-BOULDER",
+                "FIELD-002-VISUAL-ROADSIDE-MILESTONE",
+                "FIELD-002-VISUAL-ROADSIDE-BENCH",
+                "FIELD-002-VISUAL-BROKEN-WAGON",
+                "FIELD-002-VISUAL-ROAD-BARRICADE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-3",
+          "weight": 14,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-4",
+          "weight": 26,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -3.3,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": -1.1,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 1.1,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 3.3,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "COLUMN-ROW-5",
+          "weight": 24,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Column",
+              "x": -4.4,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": -2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 0,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 2.2,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            },
+            {
+              "kind": "Column",
+              "x": 4.4,
+              "y": 0,
+              "width": 0.9,
+              "height": 0.9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "FIELD-004-PRESENTATION",
+    "environmentId": "FIELD-004-ENVIRONMENT",
+    "groundVisualId": "FIELD-004-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-004-VISUAL-PALISADE",
+    "obstacleVisualId": "FIELD-004-VISUAL-SUPPLY-CRATE",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0.75,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 4001,
+    "obstacleSeed": 4002,
+    "interiorObstacleCount": 40,
+    "nearObstacleCount": 4,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "obstacleLayout": {
+      "cellSize": 48,
+      "patternsPerCell": 1,
+      "edgeMargin": 6,
+      "cellMargin": 4,
+      "startClearRadius": 12,
+      "minPatternGap": 6,
+      "placementAttempts": 40,
+      "referenceSeed": 4002,
+      "patterns": [
+        {
+          "id": "PALISADE-LINE",
+          "weight": 42,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -5,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 5,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": -3.2,
+              "y": 2.2,
+              "width": 1.5,
+              "height": 1.15,
+              "visualIds": [
+                "FIELD-004-VISUAL-SUPPLY-CRATE",
+                "FIELD-004-VISUAL-BRAZIER"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.2,
+              "y": -2.2,
+              "width": 1.8,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-004-VISUAL-TRAINING-DUMMY",
+                "FIELD-004-VISUAL-SUPPLY-CRATE"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TENT-POST",
+          "weight": 34,
+          "rotations": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -4.4,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 0,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.4,
+              "y": 1.9,
+              "width": 2.1,
+              "height": 1.6,
+              "visualIds": [
+                "FIELD-004-VISUAL-TENT"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 3.7,
+              "y": -2.3,
+              "width": 1.9,
+              "height": 1.25,
+              "visualIds": [
+                "FIELD-004-VISUAL-SUPPLY-CART"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "DRILL-ROW",
+          "weight": 24,
+          "rotations": [
+            0,
+            90
+          ],
+          "pieces": [
+            {
+              "kind": "Fence",
+              "x": -3.8,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Fence",
+              "x": 3.8,
+              "y": 0,
+              "width": 3.6,
+              "height": 0.72,
+              "visualIds": [
+                "FIELD-004-VISUAL-PALISADE"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": 2.7,
+              "width": 1.4,
+              "height": 1.2,
+              "visualIds": [
+                "FIELD-004-VISUAL-TRAINING-DUMMY"
+              ]
+            },
+            {
+              "kind": "Stump",
+              "x": 0,
+              "y": -2.7,
+              "width": 1.5,
+              "height": 1.15,
+              "visualIds": [
+                "FIELD-004-VISUAL-BRAZIER"
+              ]
+            }
           ]
         }
       ]

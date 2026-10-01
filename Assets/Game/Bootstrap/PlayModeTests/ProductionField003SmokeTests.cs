@@ -58,14 +58,6 @@ namespace Game.Bootstrap.PlayModeTests
                     .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION").ObstacleLayout;
                 var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-003-ENVIRONMENT");
                 Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);
-                var vertical = expected.First(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width);
-                var wall = art.GetComponentsInChildren<BoxCollider2D>().Single(c => c.gameObject.name == vertical.Id.ToString());
-                Physics2D.SyncTransforms();
-                var wallVisual = wall.GetComponent<SpriteRenderer>().bounds;
-                Assert.Less(wall.bounds.size.x, wallVisual.size.x * .9f,
-                    "A vertical wall must not block the player in its transparent side padding.");
-                Assert.Greater(wall.bounds.size.y, vertical.Height * .85f,
-                    "The wall remains a long obstacle after fitting its visible shape.");
                 // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-003 after the
                 // DECISION-0073 skill nerf, so health is locked as with the development toggle.
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
