@@ -82,9 +82,11 @@ namespace Game.Movement
         private Vector2 ReadMovementInput()
         {
             if (_inputSource != null) return _inputSource.ReadDirection();
+            // Mouse movement adds to the keyboard/gamepad controls and never replaces them: a pressed key wins over the pointer.
+            var keyboardInput = moveAction.action.ReadValue<Vector2>();
             var screenPosition = _pointerScreenPosition?.Invoke();
-            if (_mouseMovementEnabled?.Invoke() != true || !screenPosition.HasValue || _inputCamera == null)
-                return moveAction.action.ReadValue<Vector2>();
+            if (keyboardInput != Vector2.zero || _mouseMovementEnabled?.Invoke() != true || !screenPosition.HasValue || _inputCamera == null)
+                return keyboardInput;
 
             var playerScreenDepth = _inputCamera.WorldToScreenPoint(transform.position).z;
             var pointerWorldPosition = _inputCamera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, playerScreenDepth));

@@ -16,6 +16,7 @@ namespace Game.Bootstrap.Editor
         {
             if (Application.isBatchMode) return;
 
+            EditorApplication.playModeStateChanged += FocusGameViewOnPlay;
             var gameplayScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(GameplayScenePath);
             if (gameplayScene == null) return;
             EditorSceneManager.playModeStartScene = gameplayScene;
@@ -23,6 +24,14 @@ namespace Game.Bootstrap.Editor
 
             SessionState.SetBool(SessionKey, true);
             EditorApplication.delayCall += OpenGameplayScene;
+        }
+
+        // The Input System routes keyboard input to the Editor only while the Game view has focus; after pressing Play the
+        // toolbar keeps it, so keys did nothing until the window was left and re-entered.
+        private static void FocusGameViewOnPlay(PlayModeStateChange change)
+        {
+            if (change == PlayModeStateChange.EnteredPlayMode)
+                EditorApplication.delayCall += () => EditorApplication.ExecuteMenuItem("Window/General/Game");
         }
 
         private static void OpenGameplayScene()

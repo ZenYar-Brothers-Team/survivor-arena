@@ -32,7 +32,7 @@ namespace Game.UI
             Q<Label>(GameplayUiElementIds.SettingsMusicValue).text = (state.Values.Music * 100).ToString("0") + "%";
             Q<Label>(GameplayUiElementIds.SettingsSfxValue).text = (state.Values.Sfx * 100).ToString("0") + "%";
             Q<Label>(GameplayUiElementIds.SettingsOrigin).text = state.SettingsFromPause ? "Игра на паузе" : "Главное меню";
-            Q<Label>(GameplayUiElementIds.SettingsBindings).text = "Движение    " + (state.Values.MouseMovement ? "К указателю мыши" : state.Bindings);
+            Q<Label>(GameplayUiElementIds.SettingsBindings).text = "Движение    " + (state.Values.MouseMovement ? state.Bindings + ", мышь" : state.Bindings);
             Q<Label>(GameplayUiElementIds.SettingsVideoStatus).text = state.Busy ? "Применяем режим…" : state.VideoStatus;
             Q<Label>(GameplayUiElementIds.SettingsConfirmStatus).text = state.VideoStatus;
             Q<Label>(GameplayUiElementIds.SettingsMessage).text = SettingsMessage(state.Message);
