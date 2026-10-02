@@ -48,6 +48,7 @@ namespace Game.Presentation
         public Color PlatformColor { get; }
         public Color BridgeColor { get; }
         public Color StartPlatformColor { get; }
+        public FieldPlatformArtDefinition Art { get; }
 
         public FieldPlatformLayoutDefinition(FieldPlatformLayoutData data)
         {
@@ -91,6 +92,7 @@ namespace Game.Presentation
             PlatformColor = Color(data.PlatformColor, "platformColor");
             BridgeColor = Color(data.BridgeColor, "bridgeColor");
             StartPlatformColor = Color(data.StartPlatformColor, "startPlatformColor");
+            Art = data.Art == null ? null : new FieldPlatformArtDefinition(data.Art);
         }
 
         private static float Positive(float? value, string name)

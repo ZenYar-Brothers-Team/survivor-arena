@@ -18,6 +18,20 @@ FIELD-007: по прямому поручению подключены шест�
 
 ## Context
 
+Арт текущих круговых платформ и прямых мостов FIELD-009 по поручению
+уточнён отзывом о меньшей яркости и святой земле вместо неба:
+[DECISION-0147](../../decisions/0147-field009-holy-ground-art.md). Concept A v3
+утверждён пользователем для подключения; [approved packet](../../../Art/Packets/field009-platform-art-v2-approved.json)
+и platformLayout.art задают выборку материала из принятых pixels.
+Прежний cloud/reuse draft не применяется. Gameplay visual review отдельно.
+
+Первоначальная подготовка по поручению
+пользователя 2026-10-02: [brief](../../art/briefs/field009-platform-art-v1.md)
+и [review packet](../../../Art/Candidates/field009-platform-art-2026-10-02/README.md).
+Основа — существующий [platform profile](../../balance/field009-platforms-v1.json)
+и полная FIELD-009 card. Визуальное подключение сохраняет geometry и books/damage rules;
+выбранные raster pixels прошли пользовательское утверждение до import.
+
 Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md) и утверждённый просмотр непосредственно на карте по [DECISION-0145](../../decisions/0145-field007-altars-preview.md). Только позитивные и негативные основания, без нейтральных алтарей и визуального разделения по эффектам; накопление отложено. Размер 160×160 и состав 12 + 12 + 12 утверждены пользователем.
 
 Концепт road-only сети FIELD-003, тупиков и книг с одним улучшением:

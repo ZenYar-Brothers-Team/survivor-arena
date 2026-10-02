@@ -5204,6 +5204,22 @@
         "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-009-MATERIAL",
+      "role": "tile",
+      "visualId": "FIELD-009-MATERIAL-VISUAL-TILE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-009-material/tile/selected-master.png",
+      "provenance": "Art/Source/Fields/field-009-material/tile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-009-material/field-009-material-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "User accepted concept-a-v3-golden-ground.png: «Во, вот это нравится. Давай попробуем встраивать всё это дело». First implementation samples only ground/stone regions of these approved bytes; no new generated material pixels."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

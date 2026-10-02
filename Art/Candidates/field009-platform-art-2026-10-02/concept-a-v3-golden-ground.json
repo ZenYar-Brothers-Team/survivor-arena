@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "generator": "OpenAI built-in image generation",
+  "modelVersion": null,
+  "file": "concept-a-v3-golden-ground.png",
+  "sha256": "1eee62bb4cc41b82da910b3b20a494e6059d10d5891f0e25fab437619fec7e2a",
+  "editTarget": "concept-a-v2-holy-ground.png",
+  "prompt": "Edit target: attached concept-a-v2-holy-ground.png for Survival Arena FIELD-009. Use case: stylized-concept; preview art-direction image only. Change ONLY the holy ground background BETWEEN the raised circular stone platforms and bridges. Preserve the entire composition, all platform and bridge pixels/design/palette (the current subdued cool light matte stone), their shapes, rims, sidewalls, open entrances, and small goblin and book. The current grey-brown rocky ground feels dirty. Replace it with a clean light warm creamy pale golden-yellow sacred earth surface, like softly consecrated mineral ground, smooth broad softly painted masses, understated ivory/sand-yellow/ochre variation. It must still be clearly a tangible continuous ground surface a shallow step below the paths. NO mud, dirty brown/grey patches, rocky rubble, pebbles, gravel, mottled high-frequency noise. Avoid turning it into sand dunes or desert. Preserve the appealing thin irregular yellow-gold lightning-like sacred veins running sparsely across the background, delicate branches embedded in the ground with only a small local glow. Keep them sparse, do not fill the whole area with cracks, no giant circles or new hazard zones. Background should be light and warm, distinctly warmer and slightly lower in value than the cool blue-grey platform tops so the safe path boundaries remain legible. No dazzling white or saturated yellow expanse, no bloom or glossy glare; calm matte finish and restrained contrast. It can feel ethereal and holy but must NOT become sky, clouds, water, floating islands or an abyss. Maintain hand-painted stylized 2D storybook cutout, orthographic 3/4 top-down game view, simple cel shading, flat matte colors. No new objects, characters, UI, text, logos or watermark. Output one landscape concept image.",
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "Во, вот это нравится. Давай попробуем встраивать всё это дело",
+  "note": "Approved reference pixels. Runtime samples material-only regions; gameplay visual acceptance remains separate."
+}

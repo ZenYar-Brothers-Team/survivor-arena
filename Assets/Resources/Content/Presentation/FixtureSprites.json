@@ -2558,5 +2558,10 @@
     "id": "FIELD-003-ROAD-CURB-VISUAL-PROP",
     "resourcePath": "Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop",
     "role": "Prop"
+  },
+  {
+    "id": "FIELD-009-MATERIAL-VISUAL-TILE",
+    "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
+    "role": "Tile"
   }
 ]

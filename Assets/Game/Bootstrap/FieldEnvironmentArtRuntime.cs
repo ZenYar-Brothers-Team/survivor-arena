@@ -88,7 +88,9 @@ namespace Game.Bootstrap
                     PlatformLayout = FieldPlatformLayoutGenerator.Generate(definition.PlatformLayout,
                         layoutSeed ?? definition.PlatformLayout.ReferenceSeed);
                     _platforms = new FieldPlatformSurfaceRuntime();
-                    _platforms.Initialize(PlatformLayout, _root.transform);
+                    var platformArt = definition.PlatformLayout.Art;
+                    _platforms.Initialize(PlatformLayout, _root.transform,
+                        platformArt == null ? null : Resolve(platformArt.Visual, registry, SpriteRole.Tile));
                     interiorObstacles = Array.Empty<Vector2>();
                 }
                 else if (definition.BlobLayout != null)

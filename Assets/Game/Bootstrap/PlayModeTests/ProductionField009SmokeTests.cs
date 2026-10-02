@@ -47,6 +47,42 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsTrue(layout.IsWalkable(player.transform.position));
                 Assert.AreEqual(RunState.Running, run.Model.State);
 
+                Assert.IsNotNull(GameObject.Find("PlatformNetwork/PlatformRim"));
+                Assert.IsNotNull(layout.Profile.Art, "FIELD-009 uses the approved material profile.");
+                var ground = GameObject.Find("PlatformNetwork/Void").GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.AreEqual("SurvivorArena/FieldPlatformSurface", ground.shader.name);
+                Assert.IsNotNull(ground.mainTexture);
+                var camera = Camera.main;
+                var bridge = layout.Bridges.First(b => b.From == layout.StartIndex || b.To == layout.StartIndex);
+                var other = bridge.From == layout.StartIndex ? bridge.To : bridge.From;
+                var direction = (layout.Platforms[other].Center - layout.SpawnPosition).normalized;
+                var view = layout.SpawnPosition + direction * layout.Platforms[layout.StartIndex].Radius;
+                var reviewPosition = view - direction;
+                player.transform.position = reviewPosition;
+                player.GetComponent<Rigidbody2D>().position = reviewPosition;
+                if (SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null)
+                {
+                    var target = new RenderTexture(1920, 1080, 24); target.Create();
+                    var captureObject = new GameObject("Platform art capture");
+                    try
+                    {
+                        var capture = captureObject.AddComponent<Camera>(); capture.CopyFrom(camera);
+                        capture.targetTexture = target;
+                        capture.transform.position = new Vector3(view.x, view.y, camera.transform.position.z);
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target, "field009-art-junction");
+                        capture.orthographicSize = layout.Profile.ArenaSideLength * .55f;
+                        capture.transform.position = new Vector3(0, 0, camera.transform.position.z);
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target, "field009-art-overview");
+                    }
+                    finally
+                    {
+                        Object.DestroyImmediate(captureObject);
+                        target.Release(); Object.DestroyImmediate(target);
+                    }
+                }
+
                 var half = layout.Profile.ArenaSideLength * .5f - 3f;
                 var voidPoint = Vector2.zero;
                 var found = false;
@@ -63,6 +99,7 @@ namespace Game.Bootstrap.PlayModeTests
                 root.Shutdown();
                 yield return null;
                 Assert.IsNull(Object.FindAnyObjectByType<FieldVoidDamageDriver>(), "Shutdown removes the void damage driver.");
+                Assert.IsNull(GameObject.Find("PlatformNetwork"), "Shutdown removes all platform art.");
             }
             finally
             {

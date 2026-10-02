@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 namespace Game.Bootstrap
 {
     /// <summary>
-    /// Flat-color blockout of a platform field: a void-colored arena floor, bridges and round platforms. Visual only; the
+    /// Approved FIELD-009 material regions and union-edge bands, with flat-color fallback. Visual only; the
     /// void's damage is <see cref="FieldVoidDamageDriver"/>, and nothing here blocks movement.
     /// </summary>
     public sealed class FieldPlatformSurfaceRuntime : IDisposable
@@ -20,12 +20,17 @@ namespace Game.Bootstrap
 
         private readonly List<Object> _assets = new List<Object>();
         private GameObject _root;
+        private Sprite _reference;
+        private FieldPlatformArtDefinition _art;
 
-        public void Initialize(FieldPlatformLayout layout, Transform parent)
+        public void Initialize(FieldPlatformLayout layout, Transform parent, Sprite reference = null)
         {
             if (_root != null || layout == null || parent == null)
                 throw new ArgumentException("Platform surface requires an uninitialized owner and a layout.");
             using var guard = PerfGuard.Measure("PlatformSurface.Initialize", 100f);
+            _reference = reference;
+            _art = reference == null ? null : layout.Profile.Art
+                ?? throw new ArgumentException("Textured platforms need an art profile.");
             _root = new GameObject("PlatformNetwork");
             _root.transform.SetParent(parent, false);
             try
@@ -35,7 +40,7 @@ namespace Game.Bootstrap
                 var indices = new List<int>();
                 var half = p.ArenaSideLength * .5f;
                 AddQuad(vertices, indices, new Vector2(-half, -half), new Vector2(half, -half), new Vector2(half, half), new Vector2(-half, half));
-                CreateMesh("Void", vertices, indices, p.VoidColor, VoidOrder);
+                CreateMesh("Void", vertices, indices, _art == null ? p.VoidColor : Color.white, VoidOrder, true);
 
                 vertices = new List<Vector3>();
                 indices = new List<int>();
@@ -47,18 +52,19 @@ namespace Game.Bootstrap
                     var side = Vector2.Perpendicular((b - a).normalized) * halfWidth;
                     AddQuad(vertices, indices, a - side, b - side, b + side, a + side);
                 }
-                CreateMesh("Bridges", vertices, indices, p.BridgeColor, BridgeOrder);
+                CreateMesh("Bridges", vertices, indices, _art == null ? p.BridgeColor : Color.white, BridgeOrder);
 
                 vertices = new List<Vector3>();
                 indices = new List<int>();
                 for (var i = 0; i < layout.Platforms.Count; i++)
                     if (i != layout.StartIndex) AddDisc(vertices, indices, layout.Platforms[i], p.CircleSegments);
-                CreateMesh("Platforms", vertices, indices, p.PlatformColor, PlatformOrder);
+                CreateMesh("Platforms", vertices, indices, _art == null ? p.PlatformColor : Color.white, PlatformOrder);
 
                 vertices = new List<Vector3>();
                 indices = new List<int>();
                 AddDisc(vertices, indices, layout.Platforms[layout.StartIndex], p.CircleSegments);
-                CreateMesh("StartPlatform", vertices, indices, p.StartPlatformColor, PlatformOrder);
+                CreateMesh("StartPlatform", vertices, indices, _art == null ? p.StartPlatformColor : Color.white, PlatformOrder);
+                if (_art != null) CreateEdges(layout);
             }
             catch { Dispose(); throw; }
         }
@@ -87,20 +93,39 @@ namespace Game.Bootstrap
             }
         }
 
-        private void CreateMesh(string name, List<Vector3> vertices, List<int> indices, Color color, int sortingOrder)
+        private void CreateMesh(string name, List<Vector3> vertices, List<int> indices, Color color, int sortingOrder,
+            bool ground = false, bool solid = false, List<Color> vertexColors = null)
         {
             if (vertices.Count == 0) return;
             var mesh = new Mesh { name = name, indexFormat = IndexFormat.UInt32 };
             _assets.Add(mesh);
             mesh.SetVertices(vertices);
             var colors = new Color[vertices.Count];
-            for (var i = 0; i < colors.Length; i++) colors[i] = color;
+            for (var i = 0; i < colors.Length; i++)
+            {
+                var c = vertexColors == null ? color : vertexColors[i];
+                colors[i] = QualitySettings.activeColorSpace == ColorSpace.Linear ? c.linear : c;
+            }
             mesh.colors = colors;
+            if (_art != null && !solid)
+            {
+                var uv = new List<Vector2>(vertices.Count);
+                var repeat = ground ? _art.GroundRepeat : _art.SurfaceRepeat;
+                foreach (var vertex in vertices) uv.Add((Vector2)vertex / repeat);
+                mesh.SetUVs(0, uv);
+            }
             mesh.SetTriangles(indices, 0);
             mesh.RecalculateBounds();
-            var shader = Shader.Find("Sprites/Default") ?? throw new InvalidOperationException("Sprites/Default shader missing.");
+            var shaderName = _art != null && !solid ? "SurvivorArena/FieldPlatformSurface" : "Sprites/Default";
+            var shader = Shader.Find(shaderName) ?? throw new InvalidOperationException($"{shaderName} shader missing.");
             var material = new Material(shader);
             _assets.Add(material);
+            if (_art != null && !solid)
+            {
+                material.mainTexture = _reference.texture;
+                var r = ground ? _art.GroundUvBounds : _art.SurfaceUvBounds;
+                material.SetVector("_UvBounds", new Vector4(r.xMin, r.yMin, r.xMax, r.yMax));
+            }
             var go = new GameObject(name);
             go.transform.SetParent(_root.transform, false);
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
@@ -109,16 +134,58 @@ namespace Game.Bootstrap
             renderer.sortingOrder = sortingOrder;
         }
 
+        private void CreateEdges(FieldPlatformLayout layout)
+        {
+            // One outer contour of the union: platform circles never draw a rim across a bridge entrance.
+            var field = FieldRoadDistanceField.Platforms(layout, _art.ContourStep);
+            var contours = FieldRoadMarchingSquares.Contours(field, .01f);
+            var rim = new List<Vector3>(); var gold = new List<Vector3>(); var faces = new List<Vector3>();
+            var rimTriangles = new List<int>(); var goldTriangles = new List<int>(); var faceTriangles = new List<int>();
+            var faceColors = new List<Color>();
+            foreach (var contour in contours)
+            {
+                var count = contour.Length - 1;
+                var normals = new Vector2[count];
+                for (var i = 0; i < count; i++)
+                {
+                    var previous = (contour[i] - contour[(i + count - 1) % count]).normalized;
+                    var next = (contour[(i + 1) % count] - contour[i]).normalized;
+                    var normal = Vector2.Perpendicular(previous + next).normalized;
+                    if (layout.IsWalkable(contour[i] + normal * _art.ContourStep)) normal = -normal;
+                    normals[i] = normal;
+                }
+                for (var i = 0; i < count; i++)
+                {
+                    var j = (i + 1) % count;
+                    var a = contour[i]; var b = contour[j]; var an = normals[i]; var bn = normals[j];
+                    AddQuad(rim, rimTriangles, a, b, b - bn * _art.RimWidth, a - an * _art.RimWidth);
+                    var inset = _art.RimWidth * .65f;
+                    AddQuad(gold, goldTriangles, a - an * inset, b - bn * inset,
+                        b - bn * (inset + _art.InlayWidth), a - an * (inset + _art.InlayWidth));
+                    var down = Vector2.down * _art.FaceHeight;
+                    AddQuad(faces, faceTriangles, a, b, b + down, a + down);
+                    var ac = _art.FaceColor; var bc = _art.FaceColor;
+                    ac.a *= Mathf.Clamp01(-an.y); bc.a *= Mathf.Clamp01(-bn.y);
+                    faceColors.Add(ac); faceColors.Add(bc); faceColors.Add(bc); faceColors.Add(ac);
+                }
+            }
+            CreateMesh("PlatformFaces", faces, faceTriangles, _art.FaceColor, BridgeOrder - 1, solid: true, vertexColors: faceColors);
+            CreateMesh("PlatformRim", rim, rimTriangles, _art.RimColor, PlatformOrder + 1, solid: true);
+            CreateMesh("PlatformInlay", gold, goldTriangles, _art.InlayColor, PlatformOrder + 2, solid: true);
+        }
+
         public void Dispose()
         {
             if (_root != null)
             {
+                _root.SetActive(false);
                 if (Application.isPlaying) Object.Destroy(_root); else Object.DestroyImmediate(_root);
                 _root = null;
             }
             foreach (var asset in _assets)
                 if (asset != null) { if (Application.isPlaying) Object.Destroy(asset); else Object.DestroyImmediate(asset); }
             _assets.Clear();
+            _reference = null; _art = null;
         }
     }
 }

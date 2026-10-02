@@ -4,6 +4,8 @@
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 
+FIELD-009 platform art 2026-10-02 — Implemented по прямому утверждению concept A v3: приглушённый светлый камень, кремово-золотистая святая земля и прожилки. Approved reference texture подключена через material-only UV выборки; общий контур даёт кромку, золотую вставку и нижнюю грань без закрытия мостов. Фрагменты платформ в фоне устранены ограничением выборки чистой земли и покрыты regression test. Art pipeline PLAN/APPLY PASS; art scope 112/112, manifest 317/317; graphics smoke 1/1; итоговый scoped EditMode 3/3 PASS. [Контракт](../decisions/0147-field009-holy-ground-art.md), [evidence](evidence/2026-10-02-field009-platform-art-integration.md). Geometry/damage сохранены; gameplay visual acceptance после подключения остаётся за пользователем. Общий backlog и статус IP-23 не повышаются.
+
 FIELD-007 placement order 2026-10-02 — Implemented по прямому уточнению: сначала все 36 алтарей независимо от obstacle seed, затем предметы с reserved foundation circles. Scoped graphics: 19/19 EditMode + 1/1 PlayMode, `TestResults/checks/20261002T143433-486135Z`; reusable receipt не создан при параллельных inputs. Runtime smoke подтверждает совпадение altar centers с независимой генерацией без obstacles; текущий capture содержит 97 предметов. [Контракт](../decisions/0146-monastery-existing-obstacles.md), [evidence](evidence/2026-10-02-monastery-obstacles.md).
 
 FIELD-007 obstacles 2026-10-02 — Implemented по прямому поручению пользователя: шесть approved Prop, ячейки 16 wu / два паттерна как FIELD-001, свободные основания алтарей. При текущем 120×120 целевые 98 предметов; graphics smoke наблюдает 97 и все 36 алтарей. Свежие working-tree проверки: 12/12 EditMode + 1/1 PlayMode, без reusable receipt из-за параллельных inputs; art scope 112/112 и manifest 316/316 PASS. [Контракт](../decisions/0146-monastery-existing-obstacles.md), [evidence](evidence/2026-10-02-monastery-obstacles.md). Фоновый full-resolution просмотр отдельно, без включения в obstacle commit.
@@ -1023,6 +1025,8 @@ Target verification evidence: свежий полный smoke объединён
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).
 
 ### IP-23 — Production Fields FIELD-001…010
+
+FIELD-009 platform art: явный scope пользователя; [brief](../art/briefs/field009-platform-art-v1.md) и [integration evidence](evidence/2026-10-02-field009-platform-art-integration.md). Текущее исполнение — верхняя запись FIELD-009.
 
 Алтари FIELD-007 2026-10-02: approved просмотр непосредственно на production-карте по [DECISION-0145](../decisions/0145-field007-altars-preview.md), отдельный authoring и три runtime Prop. Размер 160×160, группы 12 + 12 + 12 и ограничение три основания на экран. Назначенная земля, Dev unlock и временные encounters первого поля подключены. Детальные результаты/ограничения — верхняя запись FIELD-007 и [evidence](evidence/2026-10-02-field007-altars-preview.md). Исторический «Тест 07» сохраняется; статус всего IP не повышается.
 

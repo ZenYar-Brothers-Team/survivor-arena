@@ -32,6 +32,22 @@ namespace Game.Presentation
         /// <summary>Everything the player may walk on: main roads, dead-end corridors and their round ends.</summary>
         public static FieldRoadDistanceField Walkable(FieldRoadLayout layout) => Build(layout, true, true, false);
 
+        /// <summary>Visual-only union of FIELD-009 discs and capsule bridges; uses the same footprint as IsWalkable.</summary>
+        public static FieldRoadDistanceField Platforms(FieldPlatformLayout layout, float step)
+        {
+            if (layout == null) throw new ArgumentNullException(nameof(layout));
+            Game.Content.NumericValidation.ValidateRange(step, .05f, .5f, nameof(step));
+            using var guard = PerfGuard.Measure("PlatformSurface.DistanceField", 250f);
+            var field = new FieldRoadDistanceField(Mathf.CeilToInt(layout.Profile.ArenaSideLength / step), step,
+                -layout.Profile.ArenaSideLength * .5f);
+            for (var i = 0; i < field._values.Length; i++) field._values[i] = 4f * step;
+            foreach (var disc in layout.Platforms) field.Paint(disc.Center, disc.Center, disc.Radius);
+            foreach (var bridge in layout.Bridges)
+                field.Paint(layout.Platforms[bridge.From].Center, layout.Platforms[bridge.To].Center,
+                    layout.Profile.BridgeWidth * .5f);
+            return field;
+        }
+
         /// <summary>
         /// The dead-end surface drawn over the main roads: corridors and round ends, clipped so that it reaches only
         /// <see cref="FieldRoadLayoutDefinition.DeadEndMouthOverlap"/> past a main road edge (user revision 2026-10-02: the

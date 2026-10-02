@@ -10522,6 +10522,30 @@
     "rockVisualId": "FIELD-002-VISUAL-BOULDER",
     "arenaSideLength": 200,
     "platformLayout": {
+      "art": {
+        "visualId": "FIELD-009-MATERIAL-VISUAL-TILE",
+        "groundUvBounds": [
+          0.568182,
+          0.861849,
+          0.717703,
+          0.989373
+        ],
+        "surfaceUvBounds": [
+          0.179426,
+          0.68119,
+          0.287081,
+          0.840595
+        ],
+        "groundRepeat": 8,
+        "surfaceRepeat": 2.4,
+        "contourStep": 0.2,
+        "rimWidth": 0.18,
+        "inlayWidth": 0.035,
+        "faceHeight": 0.32,
+        "rimColor": "#b8b9c5",
+        "inlayColor": "#aa925e",
+        "faceColor": "#626680"
+      },
       "arenaSideLength": 200,
       "minimumRadius": 5.5,
       "maximumRadius": 17.78,

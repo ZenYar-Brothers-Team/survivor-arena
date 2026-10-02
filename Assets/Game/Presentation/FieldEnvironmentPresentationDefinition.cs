@@ -182,6 +182,7 @@ namespace Game.Presentation
 
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            if (PlatformLayout?.Art != null) yield return PlatformLayout.Art.Visual.ToReference();
             if (RoadLayout?.Art != null)
             {
                 yield return RoadLayout.Art.Main.ToReference();

@@ -1486,5 +1486,13 @@
     "pivotY": 0.5,
     "reason": "Road mesh uses world-space UV; curb uses authored alpha bounds, no sprite-derived physics.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 2048,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Full approved 1672x941 reference kept intact; shader uses normalized material regions. Full import preserves sampled texture detail (about 6 MiB RGBA32). No sprite-based collision.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-009-material/field-009-material-tile.png"
   }
 ]

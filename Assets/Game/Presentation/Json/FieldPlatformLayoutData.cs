@@ -3,6 +3,7 @@ namespace Game.Presentation.Json
     /// <summary>Authoring DTO of the circular-platform field geometry study (FIELD-009).</summary>
     public sealed class FieldPlatformLayoutData
     {
+        public FieldPlatformArtData Art { get; set; }
         public float? ArenaSideLength { get; set; }
         public float? MinimumRadius { get; set; }
         public float? MaximumRadius { get; set; }
