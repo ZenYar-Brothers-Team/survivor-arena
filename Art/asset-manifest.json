@@ -5217,9 +5217,10 @@
       "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
       "stage": "Prepared",
       "evidence": [
-        "User accepted concept-a-v3-golden-ground.png: «Во, вот это нравится. Давай попробуем встраивать всё это дело». First implementation samples only ground/stone regions of these approved bytes; no new generated material pixels."
+        "User accepted concept-a-v3-golden-ground.png: «Во, вот это нравится. Давай попробуем встраивать всё это дело». First implementation samples only ground/stone regions of these approved bytes; no new generated material pixels.",
+        "2026-10-02: art scope 112/112, manifest 317/317, graphics smoke 1/1 and FieldPlatformSurfaceTests 3/3 PASS."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": "Target-scale user visual review after integration."
     }
   ]
 }
