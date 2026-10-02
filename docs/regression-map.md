@@ -1,5 +1,7 @@
 # Regression map
 
+FIELD-007 altar-first ordering: ProductionMonasterySmokeTests сравнивает реальные centers с независимой генерацией без препятствий; ProductionMonasteryObstacleTests сначала резервирует алтари, затем проверяет clearance предметов.
+
 FIELD-007 препятствия: `ProductionMonasteryObstacleTests.ObstacleLayouts_UseSixApprovedPropsAndLeaveRoomForAllAltars` проверяет typed refs, плотность FIELD-001 и совместную расстановку obstacle/altar для восьми seeds.
 
 FIELD-DEV-BLOBS contact: `scripts/tests/test_dev_blob_collider_fit.py` checks a

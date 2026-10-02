@@ -14,11 +14,12 @@ namespace Game.Presentation
     public static class FieldObstacleLayoutGenerator
     {
         public static IReadOnlyList<FieldObstacleDefinition> Generate(FieldObstacleLayoutDefinition layout, float sideLength,
-            Vector2 start, int seed, string idPrefix)
+            Vector2 start, int seed, string idPrefix, IReadOnlyList<FieldObstacleExclusion> exclusions = null)
         {
             if (layout == null) throw new ArgumentNullException(nameof(layout));
             NumericValidation.ValidatePositive(sideLength, nameof(sideLength));
             if (string.IsNullOrWhiteSpace(idPrefix)) throw new ArgumentException("Obstacle id prefix is required.", nameof(idPrefix));
+            using var guard = Game.Diagnostics.PerfGuard.Measure("Field.ObstacleLayout", 100f);
             var random = new System.Random(seed);
             // DECISION-0073: visual variants use their own stream so geometry for a seed stays unchanged.
             var visualRandom = new System.Random(unchecked(seed * 31 + 17));
@@ -30,6 +31,10 @@ namespace Game.Presentation
             var result = new List<FieldObstacleDefinition>();
             var variantSources = new List<IReadOnlyList<ContentId>>();
             var reserved = ReserveStartScreen(layout, start, idPrefix, random, visualRandom, cells, origin, result, variantSources);
+            if (exclusions != null && result.Any(obstacle => exclusions.Any(circle => Distance(
+                new Rect(obstacle.X - obstacle.Width * .5f, obstacle.Y - obstacle.Height * .5f, obstacle.Width, obstacle.Height),
+                circle.Center) < circle.Radius)))
+                throw new InvalidOperationException("Start-screen obstacles intersect a reserved circle.");
             var inCell = new List<Rect>();
             var candidate = new List<Rect>();
             var kinds = new List<FieldObstacleKind>();
@@ -62,6 +67,8 @@ namespace Game.Presentation
                                 visualIds.Add(default);
                             }
                             if (candidate.Any(r => Distance(r, start) < layout.StartClearRadius)) continue;
+                            if (exclusions != null && candidate.Any(rect => exclusions.Any(circle =>
+                                Distance(rect, circle.Center) < circle.Radius))) continue;
                             if (candidate.Any(a => inCell.Any(b => Gap(a, b) < layout.MinPatternGap))) continue;
                             for (var i = 0; i < candidate.Count; i++)
                             {

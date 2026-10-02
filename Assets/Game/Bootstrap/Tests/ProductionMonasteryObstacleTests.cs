@@ -24,8 +24,12 @@ namespace Game.Bootstrap.Tests
                     catalog.Registry.Get<SpriteDefinition>(piece.VisualId).RequireRole(SpriteRole.Prop);
             for (var seed = 0; seed < 8; seed++)
             {
+                var zones = ZoneLayoutGenerator.Generate(field.ZoneLayout, field.ArenaSideLength.Value,
+                    Vector2.zero, null, seed, new Vector2(24, 14));
+                var exclusions = zones.Select(zone => new FieldObstacleExclusion(zone.Center,
+                    field.ZoneLayout.AltarObstacleRadius.Value + field.ZoneLayout.ObstacleClearance)).ToArray();
                 var obstacles = FieldObstacleLayoutGenerator.Generate(field.ObstacleLayout, field.ArenaSideLength.Value,
-                    Vector2.zero, seed, "monastery");
+                    Vector2.zero, seed, "monastery", exclusions);
                 var cells = Mathf.FloorToInt((field.ArenaSideLength.Value - 2f * field.ObstacleLayout.EdgeMargin) / field.ObstacleLayout.CellSize);
                 var targetCount = cells * cells * field.ObstacleLayout.PatternsPerCell;
                 Assert.That(obstacles.Count, Is.InRange(targetCount - 8, targetCount));
@@ -36,8 +40,6 @@ namespace Game.Bootstrap.Tests
                     var max = new Vector2(obstacle.X + obstacle.Width * .5f, obstacle.Y + obstacle.Height * .5f);
                     outlines.Add(new[] { min, new Vector2(max.x, min.y), max, new Vector2(min.x, max.y) });
                 }
-                var zones = ZoneLayoutGenerator.Generate(field.ZoneLayout, field.ArenaSideLength.Value,
-                    Vector2.zero, outlines, seed, new Vector2(24, 14));
                 Assert.AreEqual(36, zones.Count);
                 foreach (var zone in zones)
                     Assert.IsTrue(outlines.All(outline => ZoneGeometry.DiscClearance(outline, zone.Center,

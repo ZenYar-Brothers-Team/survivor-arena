@@ -1,5 +1,7 @@
 # IP-23 — Production Fields FIELD-001…010
 
+Уточнение FIELD-007: алтари резервируются до генерации предметов; obstacle seed не влияет на выбранные алтари. Предметы обходят foundation circles. Другие поля сохраняют порядок.
+
 FIELD-007: по прямому поручению подключены шесть approved obstacle Prop с плотностью FIELD-001; область эффекта может накрывать предметы, foundation clearance отдельно от effect radius. [DECISION-0146](../../decisions/0146-monastery-existing-obstacles.md).
 
 Действующая спецификация принятого плана, ревизия scope `design-sync-R2`. Текущий статус, очередь исполнения и evidence — только в [STATUS.md](../STATUS.md). Основание миграции — [DECISION-0015](../../decisions/0015-design-sync-r2.md).

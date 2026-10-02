@@ -36,7 +36,8 @@ namespace Game.Bootstrap
         public IReadOnlyList<FieldObstacleShapeDefinition> Shapes { get; private set; } = Array.Empty<FieldObstacleShapeDefinition>();
 
         public void Initialize(FieldEnvironmentPresentationDefinition definition, ContentRegistry registry,
-            FieldEnvironmentDefinition environment, Scene scene, float sideLength, int? layoutSeed = null)
+            FieldEnvironmentDefinition environment, Scene scene, float sideLength, int? layoutSeed = null,
+            IReadOnlyList<FieldObstacleExclusion> obstacleExclusions = null)
         {
             if (_root != null) throw new InvalidOperationException("Field environment art is already initialized.");
             if (definition == null || registry == null || environment == null || !scene.IsValid())
@@ -106,7 +107,7 @@ namespace Game.Bootstrap
                     DisableSceneCollider(obstacleTransform);
                     Obstacles = definition.ObstacleLayout == null ? definition.ExplicitObstacles
                         : FieldObstacleLayoutGenerator.Generate(definition.ObstacleLayout, sideLength, spawn.position,
-                            layoutSeed ?? definition.ObstacleLayout.ReferenceSeed, definition.EnvironmentId.ToString());
+                            layoutSeed ?? definition.ObstacleLayout.ReferenceSeed, definition.EnvironmentId.ToString(), obstacleExclusions);
                     interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column, barrel, rock,
                         registry);
                 }

@@ -7,3 +7,7 @@ Working-tree graphics run `TestResults/checks/20261002T142333-014162Z`: 12/12 Ed
 Art scope `TestResults/checks/20261002T142500-081117Z/summary.json`: 112/112 EditMode и manifest 316/316 PASS. Исходные obstacle raster assets не менялись. Снимок просмотрен: bridge/root props и outlines мини-карты присутствуют, пространства вокруг оснований свободны. Пользовательский visual review остаётся отдельным.
 
 В obstacle commit включены только obstacle authoring/generator/clearance/tests/docs. Ранее сделанные изменения размера/радиусов/индикации и отдельный full-resolution ground import preview сохранены в working tree; они не смешиваются с этой границей коммита. Проверки выше относятся к working tree, а не к изолированному commit snapshot.
+
+## Последующее уточнение: сначала алтари
+
+Пользователь потребовал сначала расставлять алтари. Composition root генерирует их без obstacles, сохраняет placements и резервирует circles для obstacle generator. Fresh graphics run `TestResults/checks/20261002T143433-486135Z`: 19/19 EditMode + 1/1 PlayMode прошли; reusable receipt не создан из-за изменения inputs во время проверки. Включены семь FieldObstacleLayoutGeneratorTests; regression smoke подтвердил реальные centers как результат независимой генерации без предметов, а восемь paired seeds проверили обратное направление clearance. Текущий capture наблюдает 97 препятствий и 36 алтарей. Изменения других полей отсутствуют при exclusions = null.

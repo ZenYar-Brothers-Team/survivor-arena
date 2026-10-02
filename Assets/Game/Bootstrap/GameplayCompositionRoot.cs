@@ -475,8 +475,22 @@ namespace Game.Bootstrap
                 var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed ?? fieldPresentation.RoadLayout?.ReferenceSeed ?? fieldPresentation.PlatformLayout?.ReferenceSeed;
                 LayoutSeed = referenceSeed == null ? 0 : UseReferenceSeeds ? referenceSeed.Value : FreshRunSeed.Next();
                 var arenaSideLength = fieldPresentation.ArenaSideLength ?? FixtureArenaGeometryCatalog.Create().SideLength;
+                IReadOnlyList<ZonePlacement> altarPlacements = null;
+                List<FieldObstacleExclusion> altarExclusions = null;
+                if (fieldPresentation.AltarPresentation != null && fieldPresentation.ZoneLayout != null)
+                {
+                    // User-directed FIELD-007 ordering: reserve altars first, then fill the remaining space with props.
+                    ZoneSeed = UseReferenceSeeds ? fieldPresentation.ZoneLayout.ReferenceSeed : FreshRunSeed.Next();
+                    altarPlacements = ZoneLayoutGenerator.Generate(fieldPresentation.ZoneLayout, arenaSideLength,
+                        spawn.position, null, ZoneSeed, ZoneRuntimeDriver.CameraRect(Camera.main).size);
+                    altarExclusions = new List<FieldObstacleExclusion>();
+                    var foundationRadius = fieldPresentation.ZoneLayout.AltarObstacleRadius;
+                    foreach (var altar in altarPlacements)
+                        altarExclusions.Add(new FieldObstacleExclusion(altar.Center,
+                            (foundationRadius ?? altar.Effect.Radius) + fieldPresentation.ZoneLayout.ObstacleClearance));
+                }
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
-                    gameObject.scene, arenaSideLength, referenceSeed == null ? (int?)null : LayoutSeed);
+                    gameObject.scene, arenaSideLength, referenceSeed == null ? (int?)null : LayoutSeed, altarExclusions);
                 initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
                 _cameraFollow = Camera.main.GetComponent<CameraFollowTarget>();
                 if (_cameraFollow == null) throw new InvalidOperationException("Gameplay camera requires CameraFollowTarget.");
@@ -668,13 +682,13 @@ namespace Game.Bootstrap
                 {
                     // Effect zones (magical map study): a fresh arrangement every run, kept clear of this run's obstacles.
                     var zoneLayout = fieldPresentation.ZoneLayout;
-                    ZoneSeed = UseReferenceSeeds ? zoneLayout.ReferenceSeed : FreshRunSeed.Next();
+                    if (altarPlacements == null) ZoneSeed = UseReferenceSeeds ? zoneLayout.ReferenceSeed : FreshRunSeed.Next();
                     var outlines = new List<IReadOnlyList<Vector2>>();
                     foreach (var outline in FieldMapPreviewSource.Outlines(_fieldEnvironmentArt.ObstacleColliders)) outlines.Add(outline);
                     var zoneCamera = Camera.main;
                     var screenSize = ZoneRuntimeDriver.CameraRect(zoneCamera).size;
                     var zoneRules = new ZonePlacementRules(zoneLayout, arenaSideLength, spawn.position, outlines, screenSize);
-                    var placements = ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed, screenSize);
+                    var placements = altarPlacements ?? ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed, screenSize);
                     var areaOnlyFeedback = zoneLayout.SuppressAreaUnitFeedback;
                     var zoneRuntime = new ZoneRuntime(placements, zoneRules, ZoneSeed,
                         new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>(), areaOnlyFeedback ? playerPresentation : null),

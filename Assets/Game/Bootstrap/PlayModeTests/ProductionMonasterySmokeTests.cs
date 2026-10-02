@@ -44,6 +44,13 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(36, driver.GetComponentsInChildren<AltarPresentationRuntime>(true).Length);
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 var centers = driver.Runtime.Zones.Select(z => z.Center).ToArray();
+                var fieldPresentation = root.Catalog.FieldEnvironmentPresentations[root.FieldConfiguration.Environment.Id];
+                var spawn = FieldEnvironmentBinding.Validate(root.FieldConfiguration.Environment, root.gameObject.scene);
+                var expectedAltars = ZoneLayoutGenerator.Generate(fieldPresentation.ZoneLayout,
+                    fieldPresentation.ArenaSideLength.Value, spawn.position, null, root.ZoneSeed,
+                    ZoneRuntimeDriver.CameraRect(Camera.main).size);
+                CollectionAssert.AreEqual(expectedAltars.Select(zone => zone.Center), centers,
+                    "Altar layout must be chosen independently before obstacle generation.");
                 for (var i = 0; i < 500 && Object.FindObjectsByType<Game.Enemy.EnemyRuntime>(FindObjectsSortMode.None).Length == 0; i++)
                     yield return new WaitForFixedUpdate();
                 Assert.Greater(driver.Runtime.Time, 0f);
