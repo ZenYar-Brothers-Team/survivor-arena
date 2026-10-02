@@ -94,3 +94,39 @@ Targeted EditMode **3/3 PASS**, 0 failed/skipped:
 Earlier class-wide run observed 6/6 passing tests, but the runner reported
 INCOMPLETE because concurrent working-tree inputs changed during execution
 (`20261002T064011-815577Z`); the subsequent focused run has a confirmed receipt.
+
+## Revision 2026-10-02 — widths, ring at the border, fallbacks, dev map
+
+User request; numbers and rationale in
+[DECISION-0137 revision](../../decisions/0137-field003-road-network-concept.md).
+Profile `field003-roads-v1.json`: main road 10, dead end 8, end radius 7,
+ringInset 7, fieldPadding 2 (2 units of grass outside the ring), interior
+margins 27/23. Profile validation accepts ring edge exactly at fieldPadding.
+
+Six fallbacks re-exported by the C# generator from the new profile (seeds
+17/42/91/123/256/777 → 13/14/15/13/13/14 books, none used fallback); a test
+now matches each stored fallback to the generator output for its seed.
+[Schema image](../../prototypes/field003-roads/fallbacks-2026-10-02.png).
+
+Generation measurement, EditMode batch, seeds 0–299 (temporary scratch test,
+removed after export): fallback 0/300; layout attempts 1 for all 300; graph
+attempts mean 1.93, median 1, p90 4, p99 6, max 8 (budget 24×4); books 10–19,
+mean 14.8, three seeds at the minimum 10; time median 250 ms, p95 383 ms,
+max 485 ms (PerfGuard warning threshold 500 ms). `FieldRoadLayout` exposes
+`GraphAttempts`/`LayoutAttempts`.
+
+Dev map (development launcher, Editor/Development Build only): roads, dead-end
+corridors and round ends drawn at world widths in the profile colours, in the
+surface painting order; summary adds the road piece count. Fields without roads
+are unchanged.
+
+Checks, Unity 6000.6.0f1 batch:
+- EditMode `^Game\.(Presentation|Bootstrap|UI)\.` **286/286 PASS**:
+  `TestResults/checks/20261002T081653-603580Z/summary.json`.
+- PlayMode `ProductionField003SmokeTests` with graphics **1/1 PASS**:
+  `TestResults/checks/20261002T081808-804572Z/summary.json`; overview capture
+  shows the ring along the border.
+- `generate.py --check` UP TO DATE.
+
+Not run: full EditMode/PlayMode suite; visual check of the dev map overlay in
+an interactive session.

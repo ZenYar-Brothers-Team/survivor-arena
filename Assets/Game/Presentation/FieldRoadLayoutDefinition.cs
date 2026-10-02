@@ -134,7 +134,7 @@ namespace Game.Presentation
             MainColor = main; DeadEndColor = branch;
             if (InteriorNodeCountMax < InteriorNodeCountMin || AdditionalLinkCountMax < AdditionalLinkCountMin || DeadEndLengthMax < DeadEndLengthMin ||
                 RingArcSamples < 2 || BendSamples < 2 || BookUpgradeCount != 1 || SurfaceStep > 1f ||
-                RingInset <= MainRoadWidth * .5f + FieldPadding || InteriorMargin * 2 >= ArenaSideLength ||
+                RingInset < MainRoadWidth * .5f + FieldPadding || InteriorMargin * 2 >= ArenaSideLength ||
                 DeadEndEndRadius <= DeadEndWidth * .5f || DeadEndLengthMin <= DeadEndEndRadius ||
                 RingCornerRadius <= 0 || MinimumJunctionAngleDegrees >= 180 || BranchTiltDegrees >= 90)
                 throw new ArgumentException("Inconsistent road geometry profile.");

@@ -20,14 +20,15 @@ namespace Game.Bootstrap.Tests
                 var d = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")["FIELD-003-ENVIRONMENT"];
                 runtime.Initialize(d.RoadFallbackLayouts[0],root.transform);
                 bodyObject.layer = isPlayer ? LayerMask.NameToLayer("Player") : 0;
-                bodyObject.transform.position = new Vector2(-40,-88);
+                // Perimeter ring axis: arena half 100 minus ringInset 7; its outer road edge is 2 units from the border.
+                bodyObject.transform.position = new Vector2(-40,-93);
                 bodyObject.AddComponent<CircleCollider2D>().radius = .5f;
                 var body = bodyObject.AddComponent<Rigidbody2D>(); body.gravityScale = 0; body.freezeRotation = true;
                 body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
                 Physics2D.SyncTransforms();
                 for (var i = 0; i < 80; i++) { body.linearVelocity = Vector2.down*speed; Physics2D.Simulate(.02f); }
-                if (isPlayer) Assert.Greater(body.position.y,-92f, "Player must remain inside the rendered road at walking and dash/knockback speed.");
-                else Assert.Less(body.position.y,-95f, "Grass must not constrain other entities.");
+                if (isPlayer) Assert.Greater(body.position.y,-98f, "Player must remain inside the rendered road at walking and dash/knockback speed.");
+                else Assert.Less(body.position.y,-99f, "Grass must not constrain other entities.");
             }
             finally { runtime.Dispose(); Object.DestroyImmediate(bodyObject); Object.DestroyImmediate(root); Physics2D.simulationMode = previous; }
         }

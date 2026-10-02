@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -19,11 +20,30 @@ namespace Game.UI.Tests
             Assert.AreSame(source.Obstacles, view.State.Obstacles);
             StringAssert.Contains("120×120", view.State.Summary);
             StringAssert.Contains("препятствий: 1", view.State.Summary);
+            StringAssert.DoesNotContain("дорог", view.State.Summary, "Fields without roads keep the previous summary.");
             source.View = new Rect(10f, 20f, 17.8f, 10f);
             presenter.Refresh();
             Assert.AreEqual(source.View, view.State.View, "The camera frame follows the player on every refresh.");
             view.Toggle();
             Assert.IsFalse(view.State.Visible);
+        }
+
+        [Test]
+        public void Presenter_WithRoads_PassesThemToTheViewAndCountsThem()
+        {
+            var source = new FakeMapPreviewSource
+            {
+                Roads = new List<MapPreviewRoad>
+                {
+                    new MapPreviewRoad(new[] { new Vector2(-50f, 0f), new Vector2(50f, 0f) }, 10f, Color.blue),
+                    new MapPreviewRoad(new[] { new Vector2(0f, 30f) }, 14f, Color.yellow)
+                }
+            };
+            var view = new FakeMapPreviewView();
+            using var presenter = new MapPreviewPresenter(source, view, true);
+            view.Toggle();
+            Assert.AreSame(source.Roads, view.State.Roads);
+            StringAssert.Contains("участков дорог: 2", view.State.Summary);
         }
 
         [Test]

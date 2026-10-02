@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Game.UI
 {
-    /// <summary>Development map pane plus a corner overlay that draws the arena frame, obstacle outlines and the camera frame.</summary>
+    /// <summary>Development map pane plus a corner overlay that draws roads, the arena frame, obstacle outlines and the camera frame.</summary>
     public sealed class UiToolkitMapPreviewView : IMapPreviewView, IDisposable
     {
         private const float Padding = 12f;
@@ -52,6 +53,7 @@ namespace Game.UI
                 origin.y - (world.y - state.Arena.yMin) * scale);
             var painter = context.painter2D;
 
+            if (state.Roads != null) DrawRoads(painter, ToPanel, state.Roads, scale);
             foreach (var outline in state.Obstacles)
             {
                 if (outline == null || outline.Length < 3) continue;
@@ -67,6 +69,31 @@ namespace Game.UI
             }
             Frame(painter, ToPanel, state.Arena, ArenaColor, 2f);
             Frame(painter, ToPanel, state.View, ViewColor, 2f);
+        }
+
+        // Roads are stroked at their world width so the map shows the actual walkable network; a single point is a round end.
+        private static void DrawRoads(Painter2D painter, Func<Vector2, Vector2> toPanel, IReadOnlyList<MapPreviewRoad> roads, float scale)
+        {
+            painter.lineCap = LineCap.Round;
+            painter.lineJoin = LineJoin.Round;
+            foreach (var road in roads)
+            {
+                painter.BeginPath();
+                if (road.Points.Count == 1)
+                {
+                    painter.Arc(toPanel(road.Points[0]), road.Width * .5f * scale, Angle.Degrees(0f), Angle.Degrees(360f));
+                    painter.fillColor = road.Color;
+                    painter.Fill();
+                    continue;
+                }
+                painter.MoveTo(toPanel(road.Points[0]));
+                for (var i = 1; i < road.Points.Count; i++) painter.LineTo(toPanel(road.Points[i]));
+                painter.strokeColor = road.Color;
+                painter.lineWidth = road.Width * scale;
+                painter.Stroke();
+            }
+            painter.lineCap = LineCap.Butt;
+            painter.lineJoin = LineJoin.Miter;
         }
 
         private static void Frame(Painter2D painter, Func<Vector2, Vector2> toPanel, Rect rect, Color color, float width)

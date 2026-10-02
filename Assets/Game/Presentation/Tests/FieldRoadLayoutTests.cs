@@ -14,11 +14,36 @@ namespace Game.Presentation.Tests
         public void ApprovedReferences_AllSixPreserveGeometryAndConnectedBooks()
         {
             var d = Definition();
-            CollectionAssert.AreEqual(new[] {11,14,15,18,13,15}, d.RoadFallbackLayouts.Select(l => l.DeadEnds.Count));
+            CollectionAssert.AreEqual(new[] {13,14,15,13,13,14}, d.RoadFallbackLayouts.Select(l => l.DeadEnds.Count));
             foreach (var layout in d.RoadFallbackLayouts) AssertConnected(layout);
             Assert.AreEqual(200, d.ArenaSideLength);
             Assert.IsNull(d.ObstacleLayout);
             Assert.AreEqual("FIELD-001-VISUAL-GROUND", d.Ground.Id.ToString());
+        }
+        [Test]
+        public void ApprovedReferences_MatchTheCurrentGeneratorForTheirSeeds()
+        {
+            // Fallbacks are exported from this generator and profile; a rule change must regenerate them (revision 2026-10-02).
+            var d = Definition();
+            foreach (var reference in d.RoadFallbackLayouts)
+            {
+                var generated = FieldRoadLayoutGenerator.Generate(d.RoadLayout,d.RoadFallbackLayouts,reference.Seed);
+                Assert.IsFalse(generated.UsedFallback, $"seed {reference.Seed}");
+                AssertNear(generated.Roads.SelectMany(p => p), reference.Roads.SelectMany(p => p), reference.Seed);
+                AssertNear(generated.DeadEnds.SelectMany(b => new[] {b.Entrance,b.EndCenter}),
+                    reference.DeadEnds.SelectMany(b => new[] {b.Entrance,b.EndCenter}), reference.Seed);
+            }
+        }
+        [Test]
+        public void PerimeterRing_KeepsTwoUnitsOfGrassToTheBorder()
+        {
+            var d = Definition(); var p = d.RoadLayout;
+            var layout = FieldRoadLayoutGenerator.Generate(p,d.RoadFallbackLayouts,42);
+            var outer = layout.Roads[0].Max(q => Mathf.Max(Mathf.Abs(q.x),Mathf.Abs(q.y))) + p.MainRoadWidth*.5f;
+            Assert.AreEqual(p.ArenaSideLength*.5f-2f, outer, 1e-3f, "User revision: ring pressed to the border with a 2-unit gap.");
+            foreach (var branch in layout.DeadEnds)
+                Assert.LessOrEqual(Mathf.Max(Mathf.Abs(branch.EndCenter.x),Mathf.Abs(branch.EndCenter.y))+p.DeadEndEndRadius,
+                    p.ArenaSideLength*.5f-p.FieldPadding+1e-3f);
         }
         [Test]
         public void SeededGeneration_32SeedsConnectedDiverseAndBounded()
@@ -30,10 +55,15 @@ namespace Game.Presentation.Tests
                 var before = watch.Elapsed.TotalMilliseconds;
                 var layout = FieldRoadLayoutGenerator.Generate(d.RoadLayout,d.RoadFallbackLayouts,seed);
                 if (layout.UsedFallback) fallbackCount++;
+                else
+                {
+                    Assert.That(layout.LayoutAttempts, Is.InRange(1,d.RoadLayout.LayoutAttempts));
+                    Assert.That(layout.GraphAttempts, Is.InRange(layout.LayoutAttempts,d.RoadLayout.GraphAttempts*d.RoadLayout.LayoutAttempts));
+                }
                 AssertConnected(layout);
                 Assert.GreaterOrEqual(layout.DeadEnds.Count,10);
                 fingerprints.Add(string.Join(";",layout.Roads.SelectMany(p => p).Select(p => p.ToString("F3"))));
-                TestContext.WriteLine($"seed={seed} books={layout.DeadEnds.Count} fallback={layout.UsedFallback} ms={watch.Elapsed.TotalMilliseconds-before:F1}");
+                TestContext.WriteLine($"seed={seed} books={layout.DeadEnds.Count} graphs={layout.GraphAttempts} layouts={layout.LayoutAttempts} fallback={layout.UsedFallback} ms={watch.Elapsed.TotalMilliseconds-before:F1}");
             }
             Assert.LessOrEqual(fallbackCount, 3, "The generator must build networks rather than routinely selecting the six fallbacks.");
             Assert.GreaterOrEqual(fingerprints.Count,29);
@@ -71,6 +101,12 @@ namespace Game.Presentation.Tests
             Assert.AreEqual(0,layout.MainDistance(layout.SpawnPosition));
             if (nearestAxisX != 0) Assert.Greater(layout.MainDistance(Vector2.zero),profile.MainRoadWidth*.5f,
                 "This fixture's arena center must actually be on grass.");
+        }
+        private static void AssertNear(IEnumerable<Vector2> actual, IEnumerable<Vector2> expected, int seed)
+        {
+            var a = actual.ToArray(); var e = expected.ToArray();
+            Assert.AreEqual(e.Length, a.Length, $"seed {seed}");
+            for (var i = 0; i < a.Length; i++) Assert.Less(Vector2.Distance(a[i],e[i]), 1e-3f, $"seed {seed} point {i}");
         }
         private static void AssertConnected(FieldRoadLayout layout)
         {

@@ -62,8 +62,11 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(200, presentation.ArenaSideLength);
             var layout = FieldRoadLayoutGenerator.Generate(presentation.RoadLayout,presentation.RoadFallbackLayouts,42);
             Assert.GreaterOrEqual(layout.DeadEnds.Count,10);
-            Assert.AreEqual(8,layout.Profile.MainRoadWidth);
-            Assert.AreEqual(7,layout.Profile.DeadEndWidth);
+            // Widths +20% rounded and ring 2 units from the border (DECISION-0137 revision 2026-10-02).
+            Assert.AreEqual(10,layout.Profile.MainRoadWidth);
+            Assert.AreEqual(8,layout.Profile.DeadEndWidth);
+            Assert.AreEqual(7,layout.Profile.DeadEndEndRadius);
+            Assert.AreEqual(2,layout.Profile.RingInset-layout.Profile.MainRoadWidth*.5f,"Grass between the ring and the arena border.");
             Assert.AreEqual(1,layout.Profile.BookUpgradeCount);
             Assert.LessOrEqual(layout.MainDistance(layout.SpawnPosition),1e-4f);
         }

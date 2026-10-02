@@ -15,11 +15,15 @@ namespace Game.Presentation
         public IReadOnlyList<FieldRoadDeadEnd> DeadEnds { get; }
         public int Seed { get; }
         public bool UsedFallback { get; }
+        /// <summary>Road graphs the generator built and checked for this result, including rejected ones; 0 for supplied geometry.</summary>
+        public int GraphAttempts { get; }
+        /// <summary>Complete networks tried before enough book branches fitted (1..LayoutAttempts); 0 for supplied geometry.</summary>
+        public int LayoutAttempts { get; }
         /// <summary>Point on a main road's centerline nearest to the arena center, including when the center lies on grass.</summary>
         public Vector2 SpawnPosition { get; }
         public FieldRoadLayoutDefinition Profile { get; }
         public FieldRoadLayout(FieldRoadLayoutDefinition profile, IEnumerable<IEnumerable<Vector2>> roads,
-            IEnumerable<FieldRoadDeadEnd> deadEnds, int seed, bool usedFallback)
+            IEnumerable<FieldRoadDeadEnd> deadEnds, int seed, bool usedFallback, int graphAttempts = 0, int layoutAttempts = 0)
         {
             Profile = profile ?? throw new ArgumentNullException(nameof(profile));
             Roads = roads.Select(p => (IReadOnlyList<Vector2>)Array.AsReadOnly(p.ToArray())).ToArray();
@@ -40,6 +44,9 @@ namespace Game.Presentation
                     Mathf.Abs(branch.EndCenter.y) + profile.DeadEndEndRadius > profile.ArenaSideLength * .5f - profile.FieldPadding)
                     throw new ArgumentException("Invalid or disconnected road branch.");
             Seed = seed; UsedFallback = usedFallback;
+            NumericValidation.ValidateNonNegative(graphAttempts, nameof(graphAttempts));
+            NumericValidation.ValidateNonNegative(layoutAttempts, nameof(layoutAttempts));
+            GraphAttempts = graphAttempts; LayoutAttempts = layoutAttempts;
             // Closest point on a main axis to the arena center. Safe for the actual body radius, checked by composition.
             var closest = Roads[0][0];
             foreach (var path in Roads)

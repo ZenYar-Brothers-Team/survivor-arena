@@ -10,6 +10,7 @@ namespace Game.UI.Tests
         {
             new[] { new Vector2(0, 0), new Vector2(4, 0), new Vector2(2, 3) }
         };
+        public IReadOnlyList<MapPreviewRoad> Roads { get; set; } = new List<MapPreviewRoad>();
         public Rect View { get; set; } = new Rect(-8.9f, -5f, 17.8f, 10f);
     }
 }

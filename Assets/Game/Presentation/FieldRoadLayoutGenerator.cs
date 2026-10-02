@@ -14,21 +14,21 @@ namespace Game.Presentation
         {
             if (p == null || fallbacks == null || fallbacks.Count == 0) throw new ArgumentException("Road profile and validated fallbacks required.");
             using var guard = PerfGuard.Measure("RoadLayout.Generate", 500f);
-            var rng = new Random(seed);
+            var rng = new Random(seed); var graphs = 0;
             for (var attempt = 0; attempt < p.LayoutAttempts; attempt++)
             {
-                var roads = MakeRoads(p,rng);
+                var roads = MakeRoads(p,rng,ref graphs);
                 if (roads == null) continue;
                 var branches = MakeBranches(p,rng,roads);
-                if (branches.Count >= p.MinimumDeadEnds) return new FieldRoadLayout(p,roads,branches,seed,false);
+                if (branches.Count >= p.MinimumDeadEnds) return new FieldRoadLayout(p,roads,branches,seed,false,graphs,attempt+1);
             }
             // Approved geometry is a rare bounded-budget fallback, never the primary randomizer.
             var fallback = fallbacks[rng.Next(fallbacks.Count)];
             Debug.LogWarning($"FIELD-003 seed {seed}: bounded generation exhausted; using approved fallback {fallback.Seed}.");
-            return new FieldRoadLayout(p,fallback.Roads,fallback.DeadEnds,seed,true);
+            return new FieldRoadLayout(p,fallback.Roads,fallback.DeadEnds,seed,true,graphs,p.LayoutAttempts);
         }
 
-        private static List<Vector2[]> MakeRoads(FieldRoadLayoutDefinition p, Random rng)
+        private static List<Vector2[]> MakeRoads(FieldRoadLayoutDefinition p, Random rng, ref int graphs)
         {
             var half = p.ArenaSideLength*.5f;
             var bound = half-p.RingInset;
@@ -46,6 +46,7 @@ namespace Game.Presentation
             ring.Add(ring[0]);
             for (var retry = 0; retry < p.GraphAttempts; retry++)
             {
+                graphs++;
                 var count = rng.Next(p.InteriorNodeCountMin,p.InteriorNodeCountMax+1);
                 var points = new List<Vector2>();
                 for (var attempt = 0; attempt < p.NodePlacementAttempts && points.Count < count; attempt++)

@@ -2,7 +2,7 @@ using System;
 
 namespace Game.UI
 {
-    /// <summary>Development-only map overlay: toggles a scaled-down view of the arena, its obstacles and the camera frame.</summary>
+    /// <summary>Development-only map overlay: toggles a scaled-down view of the arena, its roads, obstacles and the camera frame.</summary>
     public sealed class MapPreviewPresenter : IDisposable
     {
         private readonly IMapPreviewSource _source;
@@ -27,13 +27,15 @@ namespace Game.UI
             }
             if (!_visible)
             {
-                _view.Render(new MapPreviewViewState(true, false, default, null, default, "Карта скрыта"));
+                _view.Render(new MapPreviewViewState(true, false, default, null, null, default, "Карта скрыта"));
                 return;
             }
             var arena = _source.Arena;
             var obstacles = _source.Obstacles;
-            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, _source.View,
-                $"Арена {arena.width:0}×{arena.height:0}, препятствий: {obstacles.Count}"));
+            var roads = _source.Roads;
+            var summary = $"Арена {arena.width:0}×{arena.height:0}, препятствий: {obstacles.Count}";
+            if (roads.Count > 0) summary += $", участков дорог: {roads.Count}";
+            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, roads, _source.View, summary));
         }
 
         private void Toggle()
