@@ -11,8 +11,11 @@ namespace Game.Zones.Tests
         public readonly List<float> DamageTaken = new List<float>();
         public readonly List<float> StrikeTaken = new List<float>();
         public int Refreshes;
-        public float MovementBonus, ActionBonus, Regeneration, Defense, BuffBonus, BuffSeconds;
+        public float MovementBonus, ActionBonus, Regeneration, Defense, BuffBonus, BuffSeconds, DamageBonus;
         public int Teleports;
+        public readonly List<Vector2> Pushed = new List<Vector2>();
+        public void Push(int index, Vector2 displacement)
+        { while (Pushed.Count <= index) Pushed.Add(Vector2.zero); Pushed[index] += displacement; Positions[index] += displacement; }
 
         public FakeZoneEnemies Add(Vector2 position)
         {
@@ -27,6 +30,7 @@ namespace Game.Zones.Tests
         public void Strike(int index, float amount, ContentId source) => StrikeTaken[index] += amount;
         public void SetArea(int index, float movementBonus, float actionBonus, float regeneration, float defense, float deltaTime)
         { MovementBonus = movementBonus; ActionBonus = actionBonus; Regeneration = regeneration; Defense = defense; }
+        public void SetAreaDamage(int index, float damageBonus) => DamageBonus = damageBonus;
         public void SpeedBurst(int index, float bonus, float seconds) { BuffBonus = bonus; BuffSeconds = seconds; }
         public bool Teleport(int index, Vector2 destination, float cooldownSeconds, float runSeconds)
         { Positions[index] = destination; Teleports++; return true; }

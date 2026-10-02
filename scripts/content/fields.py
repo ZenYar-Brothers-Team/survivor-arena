@@ -15,7 +15,7 @@ def fields(baseline):
     seven = baseline["field007"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     nine = baseline["field009"]["field"]
-    zone_devs = [baseline["devZones"]["field"], baseline["devAltars"]["field"]]
+    zone_devs = [baseline["devZones"]["field"]]
     return {
         "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"], seven["id"], nine["id"]] + [item["id"] for item in zone_devs],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
@@ -81,7 +81,7 @@ def fields(baseline):
                     "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
                     "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
                    ] + [
-                   # Development-only effect-zone test fields (zones, altars): same shared FIELD-001 spawn settings.
+                   # Development-only effect-zone test field (zones): same shared FIELD-001 spawn settings.
                    {"id": item["id"], "displayName": item["displayName"], "description": item["description"],
                     "thumbnailPlaceholder": item["thumbnailPlaceholder"], "difficulty": item["difficulty"],
                     "thumbnailVisualId": field["thumbnailVisualId"], "unlockDescription": item["unlockDescription"],
@@ -185,21 +185,33 @@ def field_presentation(baseline):
     presentations[1].update(interiorObstacleCount=count, nearObstacleCount=0,
                             arenaSideLength=dev_field["arenaSideLength"], blobLayout=layout)
     # Zone/altar previews include both regression fields and permanent FIELD-006/007 IDs.
-    for index, zones_packet in enumerate((baseline["devZones"], baseline["devAltars"], baseline["field007"], baseline["field006"])):
+    # The index keeps each field's seeds stable (index 1 belonged to the removed "Тест 07" altar field).
+    for index, zones_packet in ((0, baseline["devZones"]), (2, baseline["field007"]), (3, baseline["field006"])):
         zones_field = zones_packet["field"]
         obstacles = zones_packet["obstacles"]
         library = [item for item in dev_packet["blobLayout"]["library"] if item["id"] in obstacles["libraryIds"]]
         if len(library) != len(obstacles["libraryIds"]):
             raise SystemExit("Dev zones obstacles reference unknown library items")
-        blob_layout = {key: value for key, value in obstacles.items() if key != "libraryIds"}
+        # A field may also author its own illustrated obstacles (ownLibrary: id, visualId, outline points) and how many of each to place.
+        own = obstacles.get("ownLibrary", [])
+        copies = obstacles.get("copies", 1)
+        if {item["id"] for item in own} & {item["id"] for item in library}:
+            raise SystemExit("Own obstacle ids clash with shared library ids")
+        # The runtime places each library item once, so a repeated prop is a numbered copy with the same art and outline.
+        if copies > 1:
+            own = [dict(item, id=f"{item['id']}-{n}") for item in own for n in range(1, copies + 1)]
+        library = library + own
+        blob_layout = {key: value for key, value in obstacles.items() if key not in ("libraryIds", "ownLibrary", "copies")}
         blob_layout.update(library=library, blobs=[{"libraryId": item["id"]} for item in library])
         zones = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
         zones.update(id=zones_field["presentationId"], environmentId=zones_field["environmentId"],
                      groundVisualId=zones_field["groundVisualId"],
                      seed=presentations[0]["seed"] + 5000 + index * 1000,
                      obstacleSeed=presentations[0]["obstacleSeed"] + 5000 + index * 1000,
-                     interiorObstacleCount=len(library), nearObstacleCount=0,
+                     interiorObstacleCount=len(blob_layout["blobs"]), nearObstacleCount=0,
                      arenaSideLength=zones_field["arenaSideLength"], blobLayout=blob_layout, zoneLayout=zones_packet["zoneLayout"])
+        if "decorationChance" in zones_packet:  # a field may switch off the shared first-map grass and bushes
+            zones["decorationChance"] = zones_packet["decorationChance"]
         if not library:
             zones.pop("blobLayout", None)
             zones["decorationChance"] = 0

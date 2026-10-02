@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-SHRINE-EXPERIENCE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-EXPERIENCE, role prop. Edit the reference shrine: replace the central reliquary with one large open book resting upright on a short brass stand, two broad cream pages and one azure blue central gem, NO lettering, runes or text. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+  "constraints": [
+    "preserve polarity foundation",
+    "type-specific top or relic",
+    "remove baked aura before runtime review"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1454x1082",
+    "sourceSha256": "ff11f1f290046e8f7a5568caedcfa2b7eb868feb51a085c4c9da9019224401ac",
+    "runtimeSha256": "a640995f957a462c47603c7756b6e022c068b3eb4037c5d4a4b0230e9f54c1b1",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

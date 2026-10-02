@@ -191,6 +191,20 @@ def is_hub_service(row):
         match.group(1) or match.group(2))) == executable)
 
 
+def is_unity_cli_auth_service(row):
+    """Exclude only the installed CLI's exact auth-broker invocation, never an Editor."""
+    local = os.environ.get("LOCALAPPDATA")
+    executable = row.get("ExecutablePath")
+    line = row.get("CommandLine")
+    if not local or not executable or not line:
+        return False
+    expected = ntpath.normcase(ntpath.normpath(ntpath.join(local, "Unity", "bin", "unity.exe")))
+    if ntpath.normcase(ntpath.normpath(executable)) != expected:
+        return False
+    match = re.fullmatch(r'\s*(?:"([^"]+)"|(\S+))\s+--internal-auth-broker-serve\s*', line)
+    return bool(match and ntpath.normcase(ntpath.normpath(match.group(1) or match.group(2))) == expected)
+
+
 def editor_processes(root=ROOT):
     # A denied/unavailable process probe must never be interpreted as "Editor closed".
     script = ("$ErrorActionPreference='Stop'\n"
@@ -206,7 +220,7 @@ def editor_processes(root=ROOT):
         rows = [rows]
     matches = []
     for row in rows:
-        if is_hub_service(row):
+        if is_hub_service(row) or is_unity_cli_auth_service(row):
             continue
         line = row.get("CommandLine")
         if not line:

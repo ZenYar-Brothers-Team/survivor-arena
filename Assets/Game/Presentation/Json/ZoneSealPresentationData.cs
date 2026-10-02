@@ -4,9 +4,13 @@ namespace Game.Presentation.Json
     public sealed class ZoneSealPresentationData
     {
         public string RimVisualId { get; set; }
-        public string PortalVisualId { get; set; }
-        public float? PortalHeight { get; set; }
-        public int? PortalSortingOrder { get; set; }
+        /// <summary>Radius through the painted rim midpoint, as a fraction of half the square canvas (0.5..1).</summary>
+        public float? RimReferenceRadius { get; set; }
+        public string ExperienceGlyphVisualId { get; set; }
+        public string KnockbackGlyphVisualId { get; set; }
+        /// <summary>Full raster canvas diameter divided by the zone radius, before glyphScale (0.4..1).</summary>
+        public float? RasterGlyphDiameterFraction { get; set; }
+        public string PortalGlyphVisualId { get; set; }
         public float? PortalCollapseSeconds { get; set; }
         public float? PortalTransitSeconds { get; set; }
         public float? PortalExpandSeconds { get; set; }
@@ -17,6 +21,8 @@ namespace Game.Presentation.Json
         public float? RimAlpha { get; set; }
         public float? GlyphAlpha { get; set; }
         public float? MotionAlpha { get; set; }
+        /// <summary>Alpha multiplier for visible but inactive seals (0..1); active brightness is unchanged.</summary>
+        public float? InactiveVisibilityMultiplier { get; set; }
         public float? RotationDegreesPerSecond { get; set; }
         public float? RelocatingRimDegreesPerSecond { get; set; }
         public float? ApplicationFlashSeconds { get; set; }

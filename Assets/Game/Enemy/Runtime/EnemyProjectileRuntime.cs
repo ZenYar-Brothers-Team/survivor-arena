@@ -40,6 +40,8 @@ namespace Game.Enemy
         public Vector2 Position => _body != null ? _body.position : (Vector2)transform.position;
         public Vector2 Velocity => _profile != null ? _direction * _profile.ProjectileSpeed : Vector2.zero;
         public CombatSource Source { get; private set; }
+        /// <summary>Zone bonus of the shooter at the moment of firing (1 = none); scales the damage of this projectile only.</summary>
+        public float DamageMultiplier { get; private set; } = 1f;
 
         public void Initialize(
             EnemyAttackProfile profile,
@@ -48,11 +50,14 @@ namespace Game.Enemy
             RunController runController,
             GameObjectPool<EnemyProjectileRuntime> pool = null,
             CombatSource source = default,
-            SpriteDefinition visual = null)
+            SpriteDefinition visual = null,
+            float damageMultiplier = 1f)
         {
             if (profile == null) throw new System.ArgumentNullException(nameof(profile));
+            Game.Content.NumericValidation.ValidatePositive(damageMultiplier, nameof(damageMultiplier));
             if (runController == null || runController.Model == null) throw new System.ArgumentException("Projectile requires an initialized run.", nameof(runController));
             ClearState();
+            DamageMultiplier = damageMultiplier;
             _profile = profile;
             _run = runController.Model;
             _run.StateChanged += HandleRunState;
@@ -139,6 +144,7 @@ namespace Game.Enemy
             var target = _target;
             var profile = _profile;
             var source = Source;
+            var damage = profile.Damage * DamageMultiplier;
             var direction = _direction;
             var canHit = target != null && target.Health != null && !target.Health.IsDead;
             if (canHit && profile.Pattern == EnemyProjectilePattern.Explosive)
@@ -149,7 +155,7 @@ namespace Game.Enemy
             PlayImpact(impactPosition);
             if (_impact != null && _impact.IsPlaying) BeginImpactRelease();
             else Despawn();
-            if (canHit) target.ApplyDamage(new CombatDamageRequest(source, profile.Damage, profile.Controls, direction.x, direction.y));
+            if (canHit) target.ApplyDamage(new CombatDamageRequest(source, damage, profile.Controls, direction.x, direction.y));
         }
 
         private void HandleRunState(RunState state)

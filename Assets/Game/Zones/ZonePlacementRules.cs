@@ -46,10 +46,12 @@ namespace Game.Zones
         /// when given, confines the center to that world rectangle (the active window around the player).
         /// </summary>
         public bool TryPick(ZoneEffectDefinition effect, System.Random random, IEnumerable<ZonePlacement> others,
-            ZonePlacement pairFirst, out Vector2 center, Rect? within = null, float? occurrenceRadius = null, bool allowStartOverlap = false)
+            ZonePlacement pairFirst, out Vector2 center, Rect? within = null, float? occurrenceRadius = null, bool allowStartOverlap = false,
+            Func<Vector2, float> preference = null, int candidates = 1, Vector2? aroundCenter = null, float aroundRadius = 0f,
+            Vector2? ringCenter = null, float ringDistance = 0f, bool allowZoneOverlap = false)
         {
             var radius = occurrenceRadius ?? effect.Radius;
-            var isPortal = effect.Kind == ZoneEffectKind.Portal;
+            var isPortal = effect.Kind == ZoneEffectKind.Portal && !effect.IsBurstPortal;
             // FIELD-007: effects may cover props, while the physical altar foundation remains clear (DECISION-0146).
             var obstacleRadius = effect.IsAltar && _layout.AltarObstacleRadius.HasValue ? _layout.AltarObstacleRadius.Value : radius;
             var needed = obstacleRadius + _layout.ObstacleClearance + (isPortal ? effect.PortalExitDistance + ExitBodyAllowance : 0f);
@@ -62,14 +64,32 @@ namespace Game.Zones
                 loX = Mathf.Max(loX, within.Value.xMin); hiX = Mathf.Min(hiX, within.Value.xMax);
                 loY = Mathf.Max(loY, within.Value.yMin); hiY = Mathf.Min(hiY, within.Value.yMax);
             }
+            if (aroundCenter.HasValue)
+            {
+                loX = Mathf.Max(loX, aroundCenter.Value.x - aroundRadius); hiX = Mathf.Min(hiX, aroundCenter.Value.x + aroundRadius);
+                loY = Mathf.Max(loY, aroundCenter.Value.y - aroundRadius); hiY = Mathf.Min(hiY, aroundCenter.Value.y + aroundRadius);
+            }
             var occupied = new List<ZonePlacement>(others);
             center = default;
             if (hiX < loX || hiY < loY) return false;
+            // With a preference, up to `candidates` valid centers are compared and the highest score wins (best-candidate sampling).
+            var found = false;
+            var bestScore = float.NegativeInfinity;
+            var valid = 0;
             for (var attempt = 0; attempt < _layout.PlacementAttempts; attempt++)
             {
-                var candidate = new Vector2(Range(random, loX, hiX), Range(random, loY, hiY));
+                Vector2 candidate;
+                if (ringCenter.HasValue)
+                {
+                    // A scheduled portal's second end lies exactly ringDistance from the first, in a random direction.
+                    var angle = Range(random, 0f, Mathf.PI * 2f);
+                    candidate = ringCenter.Value + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * ringDistance;
+                    if (candidate.x < loX || candidate.x > hiX || candidate.y < loY || candidate.y > hiY) continue;
+                }
+                else candidate = new Vector2(Range(random, loX, hiX), Range(random, loY, hiY));
+                if (aroundCenter.HasValue && Vector2.Distance(aroundCenter.Value, candidate) > aroundRadius) continue;
                 if (!allowStartOverlap && (candidate - _start).magnitude < _layout.StartClearRadius + radius) continue;
-                if (occupied.Exists(other => Vector2.Distance(other.Center, candidate) <
+                if (!allowZoneOverlap && occupied.Exists(other => Vector2.Distance(other.Center, candidate) <
                                              other.Radius + radius + _layout.MinGap)) continue;
                 if (pairFirst != null && Vector2.Distance(pairFirst.Center, candidate) < effect.PortalMinPairDistance) continue;
                 var blocked = false;
@@ -77,14 +97,36 @@ namespace Game.Zones
                     if (ZoneGeometry.DiscClearance(outline, candidate, needed) < 0f) { blocked = true; break; }
                 if (blocked) continue;
                 if (!ScreenDensityFits(candidate, occupied)) continue;
-                center = candidate;
-                return true;
+                if (preference == null || candidates < 2) { center = candidate; return true; }
+                var score = preference(candidate);
+                if (score > bestScore) { bestScore = score; center = candidate; found = true; }
+                if (++valid >= candidates) break;
             }
-            return false;
+            return found;
         }
 
         public static float Range(System.Random random, float min, float max) =>
             max <= min ? min : min + (float)random.NextDouble() * (max - min);
+
+        /// <summary>DECISION-0153: choose an exact-distance exit without a partner; never clamp or shorten the jump.</summary>
+        public bool TryPickPortalExit(Vector2 origin, float distance, System.Random random, out Vector2 destination)
+        {
+            using var guard = Game.Diagnostics.PerfGuard.Measure("Zones.PortalExit", 2f);
+            destination = origin;
+            for (var attempt = 0; attempt < _layout.PlacementAttempts; attempt++)
+            {
+                var angle = Range(random, 0f, Mathf.PI * 2f);
+                var candidate = origin + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
+                if (Mathf.Abs(candidate.x) > _half - ExitBodyAllowance || Mathf.Abs(candidate.y) > _half - ExitBodyAllowance) continue;
+                var blocked = false;
+                foreach (var outline in _obstacles)
+                    if (ZoneGeometry.DiscClearance(outline, candidate, ExitBodyAllowance) < 0f) { blocked = true; break; }
+                if (blocked) continue;
+                destination = candidate;
+                return true;
+            }
+            return false;
+        }
 
         private static void NumericScreenSize(Vector2 size)
         {

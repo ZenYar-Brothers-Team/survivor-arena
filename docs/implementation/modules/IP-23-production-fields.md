@@ -18,6 +18,15 @@ FIELD-007: по прямому поручению подключены шест�
 
 ## Context
 
+FIELD-007 типовые образы по DECISION-0150: пользователь подтвердил все 14 PNG,
+[пакет](../../../Art/Packets/field007-altar-types-v1.json) фиксирует bytes/hashes.
+Для всех типов actual radius равен середине двух нитей контура при каждом угле;
+декоративная наружная линия не расширяет gameplay. `effectVisualIds` строго
+покрывает эффекты поля, без общего fallback. Acceptance: midpoint/containment
+с обеих сторон, отдельный typed sprite каждого типа, pause/near/cleanup и
+import/catalog, graphics review. Художественный выбор pixels завершён;
+игровой просмотр после подключения остаётся отдельным gate.
+
 Арт текущих круговых платформ и прямых мостов FIELD-009 по поручению
 уточнён отзывом о меньшей яркости и святой земле вместо неба:
 [DECISION-0147](../../decisions/0147-field009-holy-ground-art.md). Concept A v3
@@ -39,7 +48,7 @@ cleanup/reinitialize освобождает материалы; graphics review 
 и полная FIELD-009 card. Визуальное подключение сохраняет geometry и books/damage rules;
 выбранные raster pixels прошли пользовательское утверждение до import.
 
-Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md) и утверждённый просмотр непосредственно на карте по [DECISION-0145](../../decisions/0145-field007-altars-preview.md). Только позитивные и негативные основания, без нейтральных алтарей и визуального разделения по эффектам; накопление отложено. Размер 120×120 (последующий отзыв вместо 160×160) и состав 12 + 12 + 12 утверждены пользователем.
+Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md), просмотр на карте [DECISION-0145](../../decisions/0145-field007-altars-preview.md), новые виды [DECISION-0149](../../decisions/0149-field007-mirrored-altars-and-new-shrines.md). Последующее поручение [DECISION-0150](../../decisions/0150-field007-altar-type-visuals.md): отдельный образ каждого типа алтаря/святыни при прежних позитивных и негативных основаниях; общий нейтральный плетёный внешний контур с полярностным цветом и более заметная внутренняя дуга. Все 14 raster candidates прямо выбраны пользователем; midpoint контура совпадает с actual effect radius. Нейтральных алтарей нет; накопление отложено. Размер 120×120 и состав 12 + 12 + 12 сохраняются.
 
 Концепт road-only сети FIELD-003, тупиков и книг с одним улучшением:
 [DECISION-0137](../../decisions/0137-field003-road-network-concept.md).
@@ -71,6 +80,8 @@ explicit difficulty 1–5 из CD; автоматического mapping по I
 ## Scope
 
 FIELD-007 altar preview: [DECISION-0145](../../decisions/0145-field007-altars-preview.md), [authoring](../../balance/field007-altars-v1.json). Стабильная production-карточка после существующей Dev-разблокировки, назначенная земля/миниатюра, временные encounters FIELD-001, 36 случайных алтарей и sliding-window cap три на экран. Пререквизиты этого поднабора — field/profile framework, Zones foundation и существующие encounters первого поля; финальные monastery encounters и полная приёмка поздней карты сохраняются отдельными gates.
+По последнему прямому уточнению пользователя награды святыни опыта (×5) и мощи
+(×2 action speed) длятся по 20 с; authoring и generated catalog согласованы.
 
 По отзыву пользователя FIELD-007 показывает все алтари в существующей Dev мини-карте, с полярностью/активностью и реальными границами. Радиус каждого экземпляра случайный в диапазоне ×3, максимум 1.125 прежнего; фиксируется на забег и совпадает в gameplay clearance/containment, world boundary и mini-map. Ударные круги целиком внутри actual altar radius; эффекты/награды отдельно не перебалансируются.
 
@@ -105,7 +116,20 @@ name/description/difficulty/lock condition/thumbnail + loading state; техни
 
 ## Проверки
 
-Академия preview v2 по уточнению пользователя: без внутренних obstacles/decor,
+Одиночный портал Академии по [DECISION-0153](../../decisions/0153-academy-single-burst-portal.md):
+Burst на общей цепочке, без партнёра, exact jump 5 units; существующий smooth transit
+сохраняется. `BurstPortalTests` проверяет trigger/targets/distance/placement/schema,
+Academy PlayMode smoke запускает перенос через фактический zone burst и PlayerZoneTarget.
+
+Академия: граница действия по середине толщины approved оправы и книжный символ опыта
+по [DECISION-0152](../../decisions/0152-academy-rim-midpoint-and-effect-glyphs.md).
+Отдельные растровые символы Experience/Knockback утверждены и подключены;
+Experience/Knockback/Portal скрывают procedural glyph и motion layers, чтобы
+анимированные дуги не перекрывали approved символ. Whole-occurrence guard:
+`RasterGlyphs_ApprovedSymbols_StayStillWithoutProceduralInterior_ThroughWholeOccurrence`.
+технический масштаб оправы проверяет `RasterRim_GameplayBoundaryCrossesPaintedMidpoint_AfterRotationAndFlattening`.
+
+Историческая Академия preview v2 по уточнению пользователя: без внутренних obstacles/decor,
 все виды временные; fixed и random appearance, синхронные fixed порталы;
 area-only effects не показывают unit status, lasting effects сохраняют таймер.
 Контракт и проверка новых portal/slow/presentation API — DECISION-0142.
@@ -115,6 +139,7 @@ random chains; выбранная оправа A подключена с отд�
 удалён. Action speed +50% без damage bonus. Вертикальный portal подключён в центре
 большой entry area; delayed transit с smooth camera flight. Fixed-зоны дополнительны
 к двум random slots. Точный контракт — DECISION-0142.
+Portal/fixed parts v2–v4 выше заменены DECISION-0151 и текущим DECISION-0153.
 
 per-field load/selection/ref validation и collision, restart/reload cleanup; manual density/contrast на реальном camera scale и thumbnail review.
 

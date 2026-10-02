@@ -26,12 +26,14 @@ namespace Game.Zones
         private readonly RandomZoneScheduler _randomSchedule;
         private float _portalCooldown;
         private bool _modifierSet;
-        private float _move, _skill, _action, _regen, _defense;
+        private float _move, _skill, _action, _regen, _defense, _experience;
         // Timed buffs that outlast their zone (one per effect; a new burst refreshes it instead of stacking).
         private readonly Dictionary<ZoneEffectDefinition, float> _buffs = new Dictionary<ZoneEffectDefinition, float>();
         private readonly List<ZoneEffectDefinition> _expiredBuffs = new List<ZoneEffectDefinition>();
         // Timed shields a shrine leaves on the player (incoming-damage reduction), one per shrine effect.
         private readonly Dictionary<ZoneEffectDefinition, float> _shields = new Dictionary<ZoneEffectDefinition, float>();
+        // Timed picked-up-experience multipliers a shrine leaves on the player, one per shrine effect.
+        private readonly Dictionary<ZoneEffectDefinition, float> _experienceBuffs = new Dictionary<ZoneEffectDefinition, float>();
 
         public IReadOnlyList<ZonePlacement> Zones => _zones;
         /// <summary>Seconds this runtime has been ticked (the zones' pulse clock).</summary>
@@ -51,6 +53,13 @@ namespace Game.Zones
                 return Mathf.Clamp01(fraction);
             }
         }
+        /// <summary>Remaining fraction of the longest shield a shrine gave the player; read-only presentation projection.</summary>
+        public float ShieldRemaining01 => Longest(_shields, effect => effect.RewardShieldSeconds, effect => effect.RewardShieldSeconds > 0f);
+        /// <summary>Remaining fraction of the longest picked-up experience multiplier a shrine gave the player.</summary>
+        public float ExperienceBuffRemaining01 => Longest(_experienceBuffs, effect => effect.RewardExperienceSeconds, effect => effect.RewardExperienceSeconds > 0f);
+        /// <summary>Remaining fraction of the longest skill-damage or action-speed buff a shrine gave the player.</summary>
+        public float PowerBuffRemaining01 => Longest(_buffs, effect => effect.TimedBuffSeconds,
+            effect => effect.RewardSkillDamageBonus > 0f || effect.RewardActionSpeedBonus > 0f);
         /// <summary>The player's screen widened by the layout's margin on every side: only zones touching it are simulated.</summary>
         public Rect ActiveWindow { get; private set; }
         /// <summary>Zones currently inside the active window.</summary>
@@ -105,7 +114,7 @@ namespace Game.Zones
             var previous = Time;
             Time += deltaTime;
             _portalCooldown = Mathf.Max(0f, _portalCooldown - deltaTime);
-            _randomSchedule?.Tick(Time, _view());
+            _randomSchedule?.Tick(Time, _view(), _player.Position);
             RefreshWindow();
             Relocate();
             TickBursts(previous, deltaTime);
@@ -139,8 +148,21 @@ namespace Game.Zones
                 if (other != zone && other.IsPresent) yield return other;
         }
 
+        // Largest remaining/total among the timers that pass the filter; the lambdas capture nothing, so reading it allocates nothing.
+        private static float Longest(Dictionary<ZoneEffectDefinition, float> timers, Func<ZoneEffectDefinition, float> total,
+            Func<ZoneEffectDefinition, bool> filter)
+        {
+            var best = 0f;
+            foreach (var pair in timers)
+                if (filter(pair.Key) && total(pair.Key) > 0f) best = Mathf.Max(best, pair.Value / total(pair.Key));
+            return Mathf.Clamp01(best);
+        }
+
         /// <summary>Remaining seconds of the timed buff a burst zone gave the player (0 when none).</summary>
         public float BuffRemaining(ZoneEffectDefinition effect) => _buffs.TryGetValue(effect, out var remaining) ? remaining : 0f;
+
+        /// <summary>Remaining seconds of the experience multiplier a shrine gave the player (0 when none).</summary>
+        public float ExperienceRemaining(ZoneEffectDefinition effect) => _experienceBuffs.TryGetValue(effect, out var remaining) ? remaining : 0f;
 
         /// <summary>Remaining seconds of the timed shield a shrine gave the player (0 when none).</summary>
         public float ShieldRemaining(ZoneEffectDefinition effect) => _shields.TryGetValue(effect, out var remaining) ? remaining : 0f;
@@ -150,6 +172,7 @@ namespace Game.Zones
         {
             DecayTimers(_buffs, deltaTime);
             DecayTimers(_shields, deltaTime);
+            DecayTimers(_experienceBuffs, deltaTime);
             var sharedCount = -1;
             foreach (var zone in _zones)
             {
@@ -160,9 +183,19 @@ namespace Game.Zones
                         _enemies.SpeedBurst(i, zone.Effect.PlayerMovementBonus, zone.Effect.PlayerBuffSeconds);
             }
             if (!_player.IsAlive) return;
+            var portalApplied = false;
             foreach (var zone in _zones)
                 if (zone.IsNear && zone.BurstFiresBetween(previousTime, Time) && zone.Contains(_player.Position))
-                    _buffs[zone.Effect] = zone.Effect.PlayerBuffSeconds;
+                {
+                    if (!zone.Effect.IsBurstPortal) { _buffs[zone.Effect] = zone.Effect.PlayerBuffSeconds; continue; }
+                    if (portalApplied) continue;
+                    var cycle = zone.IsScheduled ? zone.Cycle : zone.CycleAt(Time);
+                    var random = new System.Random(unchecked(_seed * 31 + zone.Index * 7919 + cycle * 104729));
+                    if (!_rules.TryPickPortalExit(_player.Position, zone.Effect.PortalJumpDistance, random, out var destination)) continue;
+                    _player.TeleportTo(destination);
+                    zone.RecordApplication(Time);
+                    portalApplied = true;
+                }
         }
 
         private void DecayTimers(Dictionary<ZoneEffectDefinition, float> timers, float deltaTime)
@@ -206,6 +239,7 @@ namespace Game.Zones
             var effect = zone.Effect;
             if (effect.RewardBuffSeconds > 0f) _buffs[effect] = effect.RewardBuffSeconds;
             if (effect.RewardShieldSeconds > 0f) _shields[effect] = effect.RewardShieldSeconds;
+            if (effect.RewardExperienceSeconds > 0f) _experienceBuffs[effect] = effect.RewardExperienceSeconds;
             if (effect.RewardHealFraction > 0f) _player.HealFraction(effect.RewardHealFraction);
             if (effect.RewardBlastDamage <= 0f) return;
             using var guard = PerfGuard.Measure("Zones.ShrineBlast", 2f);
@@ -261,11 +295,13 @@ namespace Game.Zones
             {
                 _buffs.Clear();
                 _shields.Clear();
+                _experienceBuffs.Clear();
                 foreach (var zone in _zones) zone.SetCharge(0f);
-                ApplyModifier(0f, 0f, 0f, 0f, 0f);
+                ApplyModifier(0f, 0f, 0f, 0f, 0f, 0f);
                 return;
             }
-            float move = 0f, skill = 0f, action = 0f, regen = 0f, defense = 0f, damage = 0f;
+            float move = 0f, skill = 0f, action = 0f, regen = 0f, defense = 0f, damage = 0f, experience = 0f;
+            foreach (var pair in _experienceBuffs) experience += pair.Key.RewardExperienceMultiplier - 1f;
             foreach (var pair in _buffs)
             {
                 move += pair.Key.TimedBuffMovementBonus;
@@ -291,7 +327,8 @@ namespace Game.Zones
             {
                 // Bursts, charging altars, strike altars and shrines have their own ticks.
                 var own = zone.Effect.Kind;
-                if (own == ZoneEffectKind.SpeedBurst || own == ZoneEffectKind.Charge || own == ZoneEffectKind.Strike || own == ZoneEffectKind.Shrine) continue;
+                if (zone.Effect.Lifetime == ZoneLifetimeMode.Burst || own == ZoneEffectKind.Charge || own == ZoneEffectKind.Strike || own == ZoneEffectKind.Shrine ||
+                    own == ZoneEffectKind.Knockback || zone.Effect.EmpowersEnemies) continue;
                 if (!zone.IsNear || !zone.IsActive(Time) || !zone.Contains(position)) continue;
                 PlayerActiveZoneCount++;
                 var effect = zone.Effect;
@@ -303,6 +340,10 @@ namespace Game.Zones
                         break;
                     case ZoneEffectKind.Regeneration:
                         regen += effect.PlayerRegenerationPerSecond;
+                        break;
+                    case ZoneEffectKind.Experience:
+                        // Same additive channel as the shrine reward: 5 = x5 picked-up experience while inside.
+                        experience += effect.PlayerExperienceMultiplier - 1f;
                         break;
                     case ZoneEffectKind.Protection:
                         defense += effect.PlayerIncomingDamageReduction;
@@ -320,7 +361,7 @@ namespace Game.Zones
                         break;
                 }
             }
-            ApplyModifier(move, skill, action, regen, defense);
+            ApplyModifier(move, skill, action, regen, defense, experience);
             if (portal != null) Teleport(portal);
         }
 
@@ -344,24 +385,26 @@ namespace Game.Zones
             return partner.Center + direction * (partner.Radius + partner.Effect.PortalExitDistance);
         }
 
-        private void ApplyModifier(float move, float skill, float action, float regen, float defense)
+        private void ApplyModifier(float move, float skill, float action, float regen, float defense, float experience)
         {
             var zero = Mathf.Abs(move) < ModifierEpsilon && Mathf.Abs(skill) < ModifierEpsilon &&
-                       Mathf.Abs(action) < ModifierEpsilon && Mathf.Abs(regen) < ModifierEpsilon && Mathf.Abs(defense) < ModifierEpsilon;
+                       Mathf.Abs(action) < ModifierEpsilon && Mathf.Abs(regen) < ModifierEpsilon && Mathf.Abs(defense) < ModifierEpsilon &&
+                       Mathf.Abs(experience) < ModifierEpsilon;
             if (zero)
             {
                 if (_modifierSet) _player.RemoveStatModifier(ModifierKey);
                 _modifierSet = false;
-                _move = _skill = _action = _regen = _defense = 0f;
+                _move = _skill = _action = _regen = _defense = _experience = 0f;
                 return;
             }
             if (_modifierSet && Mathf.Approximately(move, _move) && Mathf.Approximately(skill, _skill) &&
-                Mathf.Approximately(action, _action) && Mathf.Approximately(regen, _regen) && Mathf.Approximately(defense, _defense)) return;
+                Mathf.Approximately(action, _action) && Mathf.Approximately(regen, _regen) && Mathf.Approximately(defense, _defense) &&
+                Mathf.Approximately(experience, _experience)) return;
             _player.SetStatModifier(ModifierKey, new CharacterStatModifier(movementSpeedMultiplierBonus: move,
                 activeSkillDamageMultiplierBonus: skill, actionSpeedBonus: action, healthRegenerationPerSecondBonus: regen,
-                incomingDamageReductionBonus: defense));
+                incomingDamageReductionBonus: defense, pickedUpXpMultiplierBonus: experience));
             _modifierSet = true;
-            _move = move; _skill = skill; _action = action; _regen = regen; _defense = defense;
+            _move = move; _skill = skill; _action = action; _regen = regen; _defense = defense; _experience = experience;
         }
 
         private void TickEnemies(float deltaTime)
@@ -369,7 +412,8 @@ namespace Game.Zones
             var touchesEnemies = false;
             foreach (var zone in _zones)
                 // Area-only slows must clear even when the last zone switches off or leaves the window.
-                if (zone.Effect.AffectsBothSides || (zone.Effect.Kind == ZoneEffectKind.Slow && zone.Effect.EnemySlowSeconds == 0f))
+                if (zone.Effect.AffectsBothSides || zone.Effect.EmpowersEnemies ||
+                    (zone.Effect.Kind == ZoneEffectKind.Slow && zone.Effect.EnemySlowSeconds == 0f))
                 { touchesEnemies = true; break; }
                 else
                 if (zone.IsNear && zone.IsActive(Time) && AffectsEnemies(zone.Effect)) { touchesEnemies = true; break; }
@@ -380,15 +424,30 @@ namespace Game.Zones
             for (var i = 0; i < count; i++)
             {
                 var position = _enemies.Position(i);
-                float move = 0f, action = 0f, regen = 0f, defense = 0f;
+                float move = 0f, action = 0f, regen = 0f, defense = 0f, damageBonus = 0f;
                 foreach (var zone in _zones)
                 {
                     if (!zone.IsNear || !zone.IsActive(Time) || (!AffectsEnemies(zone.Effect) && !zone.Effect.AffectsBothSides) || !zone.Contains(position)) continue;
                     var effect = zone.Effect;
+                    switch (effect.Kind)
+                    {
+                        case ZoneEffectKind.EnemyHaste: move += effect.EnemyMovementBonus; continue;
+                        case ZoneEffectKind.EnemyRegeneration: regen += effect.EnemyRegenerationPerSecond; continue;
+                        case ZoneEffectKind.EnemyProtection: defense += effect.EnemyIncomingDamageReduction; continue;
+                        case ZoneEffectKind.EnemyPower: damageBonus += effect.EnemyDamageBonus; continue;
+                    }
                     if (effect.Kind == ZoneEffectKind.Slow)
                         _enemies.Slow(i, effect.EnemySlowFraction, effect.EnemySlowSeconds, effect.Id);
                     else if (effect.Kind == ZoneEffectKind.Rift)
                         _enemies.Damage(i, effect.EnemyDamagePerSecond * deltaTime, effect.Id);
+                    else if (effect.Kind == ZoneEffectKind.Knockback)
+                    {
+                        // Outward from the center; an enemy exactly on it is shoved up so it still leaves.
+                        var away = position - zone.Center;
+                        var direction = away.sqrMagnitude > 1e-6f ? away.normalized : Vector2.up;
+                        _enemies.Push(i, direction * (effect.EnemyPushSpeed * deltaTime));
+                        position = _enemies.Position(i);
+                    }
                     if (!effect.AffectsBothSides) continue;
                     switch (effect.Kind)
                     {
@@ -404,10 +463,13 @@ namespace Game.Zones
                     }
                 }
                 _enemies.SetArea(i, move, action, regen, defense, deltaTime);
+                _enemies.SetAreaDamage(i, damageBonus);
             }
         }
 
         private static bool AffectsEnemies(ZoneEffectDefinition effect) =>
+            effect.EmpowersEnemies ||
+            effect.Kind == ZoneEffectKind.Knockback ||
             (effect.Kind == ZoneEffectKind.Slow && effect.EnemySlowFraction > 0f) ||
             (effect.Kind == ZoneEffectKind.Rift && effect.EnemyDamagePerSecond > 0f);
 
@@ -421,6 +483,7 @@ namespace Game.Zones
             _modifierSet = false;
             _buffs.Clear();
             _shields.Clear();
+            _experienceBuffs.Clear();
         }
     }
 }

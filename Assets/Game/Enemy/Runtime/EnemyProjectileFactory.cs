@@ -19,7 +19,8 @@ namespace Game.Enemy
             Transform parent = null,
             GameObjectPool<EnemyProjectileRuntime> pool = null,
             CombatSource source = default,
-            SpriteDefinition visual = null)
+            SpriteDefinition visual = null,
+            float damageMultiplier = 1f)
         {
             if (profile == null)
                 throw new ArgumentNullException(nameof(profile));
@@ -29,7 +30,7 @@ namespace Game.Enemy
             var runtime = pool != null ? pool.Rent() : CreateInstance();
             runtime.transform.SetParent(parent, false);
             runtime.transform.position = position;
-            runtime.Initialize(profile, direction, target, runController, pool, source, visual);
+            runtime.Initialize(profile, direction, target, runController, pool, source, visual, damageMultiplier);
             return runtime;
         }
 

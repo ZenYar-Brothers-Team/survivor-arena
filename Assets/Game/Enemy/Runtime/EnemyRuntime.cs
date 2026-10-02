@@ -301,7 +301,8 @@ namespace Game.Enemy
                     transform.parent,
                     _projectilePool,
                     LastProjectileSource,
-                    ResolveProjectileVisual(CurrentAttack));
+                    ResolveProjectileVisual(CurrentAttack),
+                    ZoneInfluence.DamageMultiplier);
             }
         }
 
@@ -731,7 +732,7 @@ namespace Game.Enemy
                     var direction = (Vector2)player.transform.position - origin;
                     player.ApplyDamage(new CombatDamageRequest(
                         new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyContact),
-                        Definition.ContactDamage, Definition.DashContactControls, direction.x, direction.y));
+                            Definition.ContactDamage * ZoneInfluence.DamageMultiplier, Definition.DashContactControls, direction.x, direction.y));
                 }
             }
         }
@@ -804,7 +805,7 @@ namespace Game.Enemy
                 var direction = (Vector2)_contactTarget.transform.position - Position;
                 _contactTarget.ApplyDamage(new CombatDamageRequest(
                     new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyContact),
-                    Definition.ContactDamage, CurrentContactControls, direction.x, direction.y));
+                    Definition.ContactDamage * ZoneInfluence.DamageMultiplier, CurrentContactControls, direction.x, direction.y));
             }
         }
     }

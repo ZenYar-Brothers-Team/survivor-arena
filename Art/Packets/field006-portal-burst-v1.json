@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User approved the displayed violet spiral portal glyph, 2026-10-02: «Да, подключить». Single burst portal redesign and exact jump 5 world units authorized in the same conversation.",
+  "assets": [
+    {
+      "owner": "FIELD-006-ZONE-PORTAL",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-PORTAL-VISUAL-TELEGRAPH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field006-portal-burst-2026-10-02/portal-glyph-v001.png",
+      "sha256": "ec89111bce4b0a68c29411625af931d8f7d2c45bb59106e5291adb13243728c2",
+      "sourceDirectory": "Art/Source/VFX/field-006-zone-portal/telegraph",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-portal-telegraph.png",
+      "prompt": "Use case: stylized-concept. Generate ONE transparent-background ground spell glyph sprite, FIELD-006-ZONE-PORTAL telegraph, for a stylized 2D storybook cutout game magical academy. A readable compact PORTAL symbol: an irregular open spiral made of two or three chunky tapered violet ribbons curling inward toward a small transparent opening, with a short broad curved arrow suggesting passage through the opening. This is a flat painted ground symbol, NOT an upright doorway or physical object. Deep violet and lilac (#b780ff), soft cream edge accents, thick deep-plum contour, flat matte colors and simple cel shading. Hand-painted angular chalk/ink character, subtle irregularity, strong recognizable silhouette at 64 pixels, restrained ornament. Mostly transparent between strokes, no filled disc. Exact straight-down orthographic orientation; unsquashed square source, engine applies ground vertical flattening 0.8. Single centered glyph occupies 70% of square canvas with generous real transparent padding. No surrounding outer circle or zone rim, no book, no stars, no text, letters, digits or labels, no ground, no baked shadow, no bloom, fog or particles, no photorealism, no 3D rendering, no watermark. Truly transparent background.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate nonrotating central glyph",
+        "engine applies ground flattening 0.8"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 16,
+        "cropAlpha": false
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Separate ground glyph, scaled independently from the gameplay radius."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

@@ -138,6 +138,9 @@ namespace Game.Presentation
                     (effect.Kind != Game.Zones.ZoneEffectKind.Shrine && effect.Lifetime != Game.Zones.ZoneLifetimeMode.Cycling) ||
                     (effect.Polarity == Game.Zones.ZoneAltarPolarity.Negative && effect.HarmsEnemies))))
                 throw new ArgumentException("Prepared altar fields require cycling altars or positive shrines, without Charge or Neutral.");
+            if (AltarPresentation != null && (ZoneLayout.Effects.Keys.Any(id => !AltarPresentation.EffectVisuals.ContainsKey(id)) ||
+                    AltarPresentation.EffectVisuals.Keys.Any(id => !ZoneLayout.Effects.ContainsKey(id))))
+                throw new ArgumentException("Altar effectVisualIds must cover exactly the field's effect types.");
             ArenaSideLength = data.ArenaSideLength;
             if (ArenaSideLength.HasValue) NumericValidation.ValidatePositive(ArenaSideLength.Value, nameof(ArenaSideLength));
 

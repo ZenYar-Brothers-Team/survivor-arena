@@ -97,7 +97,7 @@ namespace Game.Presentation
             renderer.enabled = true;
         }
 
-        private static Sprite Pixel()
+        internal static Sprite Pixel()
         {
             if (_pixel != null) return _pixel;
             var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false)

@@ -10,7 +10,12 @@ namespace Game.Zones
         public int Chains { get; }
         public float IntervalMinSeconds { get; }
         public float IntervalMaxSeconds { get; }
-        public float ScreenMarginWorldUnits { get; }
+        /// <summary>Spawn centers lie within this many current screen widths of the player.</summary>
+        public float SpawnRadiusScreenWidths { get; }
+        /// <summary>Delay range of the dedicated portal chain; null when the layout has no scheduled portals.</summary>
+        public float? PortalIntervalMinSeconds { get; }
+        public float? PortalIntervalMaxSeconds { get; }
+        public bool HasPortalChain => PortalIntervalMinSeconds.HasValue;
 
         public RandomZoneScheduleDefinition(RandomZoneScheduleData data)
         {
@@ -18,11 +23,19 @@ namespace Game.Zones
             Chains = data.Chains ?? throw new ArgumentException("randomSchedule.chains is required.");
             IntervalMinSeconds = data.IntervalMinSeconds ?? throw new ArgumentException("randomSchedule.intervalMinSeconds is required.");
             IntervalMaxSeconds = data.IntervalMaxSeconds ?? throw new ArgumentException("randomSchedule.intervalMaxSeconds is required.");
-            ScreenMarginWorldUnits = data.ScreenMarginWorldUnits ?? throw new ArgumentException("randomSchedule.screenMarginWorldUnits is required.");
+            SpawnRadiusScreenWidths = data.SpawnRadiusScreenWidths ?? throw new ArgumentException("randomSchedule.spawnRadiusScreenWidths is required.");
             NumericValidation.ValidateCount(Chains, nameof(Chains));
             NumericValidation.ValidatePositive(IntervalMinSeconds, nameof(IntervalMinSeconds));
             NumericValidation.ValidateRange(IntervalMaxSeconds, IntervalMinSeconds, float.MaxValue, nameof(IntervalMaxSeconds));
-            NumericValidation.ValidateNonNegativeFinite(ScreenMarginWorldUnits, nameof(ScreenMarginWorldUnits));
+            NumericValidation.ValidatePositive(SpawnRadiusScreenWidths, nameof(SpawnRadiusScreenWidths));
+            if (data.PortalIntervalMinSeconds.HasValue != data.PortalIntervalMaxSeconds.HasValue)
+                throw new ArgumentException("randomSchedule portal intervals must both be present or both absent.");
+            if (data.PortalIntervalMinSeconds.HasValue)
+            {
+                PortalIntervalMinSeconds = data.PortalIntervalMinSeconds; PortalIntervalMaxSeconds = data.PortalIntervalMaxSeconds;
+                NumericValidation.ValidatePositive(PortalIntervalMinSeconds.Value, nameof(PortalIntervalMinSeconds));
+                NumericValidation.ValidateRange(PortalIntervalMaxSeconds.Value, PortalIntervalMinSeconds.Value, float.MaxValue, nameof(PortalIntervalMaxSeconds));
+            }
         }
     }
 }

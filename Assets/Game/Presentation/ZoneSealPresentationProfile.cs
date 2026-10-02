@@ -10,9 +10,11 @@ namespace Game.Presentation
     public sealed class ZoneSealPresentationProfile
     {
         public Sprite RimSprite { get; }
-        public Sprite PortalSprite { get; }
-        public float PortalHeight { get; }
-        public int PortalSortingOrder { get; }
+        public float RimReferenceRadius { get; }
+        public Sprite ExperienceGlyphSprite { get; }
+        public Sprite KnockbackGlyphSprite { get; }
+        public float RasterGlyphDiameterFraction { get; }
+        public Sprite PortalGlyphSprite { get; }
         public float PortalCollapseSeconds { get; }
         public float PortalTransitSeconds { get; }
         public float PortalExpandSeconds { get; }
@@ -23,6 +25,7 @@ namespace Game.Presentation
         public float RimAlpha { get; }
         public float GlyphAlpha { get; }
         public float MotionAlpha { get; }
+        public float InactiveVisibilityMultiplier { get; }
         public float RotationDegreesPerSecond { get; }
         public float RelocatingRimDegreesPerSecond { get; }
         public float ApplicationFlashSeconds { get; }
@@ -48,9 +51,11 @@ namespace Game.Presentation
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
             RimSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.RimVisualId), SpriteRole.Telegraph).Sprite;
-            PortalSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.PortalVisualId), SpriteRole.Prop).Sprite;
-            PortalHeight = Require(data.PortalHeight, "portalHeight", .5f, 3f);
-            PortalSortingOrder = data.PortalSortingOrder ?? throw new ArgumentException("Zone seals require portalSortingOrder.");
+            RimReferenceRadius = Require(data.RimReferenceRadius, "rimReferenceRadius", .5f, 1f);
+            ExperienceGlyphSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.ExperienceGlyphVisualId), SpriteRole.Telegraph).Sprite;
+            KnockbackGlyphSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.KnockbackGlyphVisualId), SpriteRole.Telegraph).Sprite;
+            RasterGlyphDiameterFraction = Require(data.RasterGlyphDiameterFraction, "rasterGlyphDiameterFraction", .4f, 1f);
+            PortalGlyphSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.PortalGlyphVisualId), SpriteRole.Telegraph).Sprite;
             PortalCollapseSeconds = Require(data.PortalCollapseSeconds, "portalCollapseSeconds", .05f, 1f);
             PortalTransitSeconds = Require(data.PortalTransitSeconds, "portalTransitSeconds", .1f, 3f);
             PortalExpandSeconds = Require(data.PortalExpandSeconds, "portalExpandSeconds", .05f, 1f);
@@ -61,6 +66,7 @@ namespace Game.Presentation
             RimAlpha = Require(data.RimAlpha, "rimAlpha", 0f, 1f);
             GlyphAlpha = Require(data.GlyphAlpha, "glyphAlpha", 0f, 1f);
             MotionAlpha = Require(data.MotionAlpha, "motionAlpha", 0f, 1f);
+            InactiveVisibilityMultiplier = Require(data.InactiveVisibilityMultiplier, "inactiveVisibilityMultiplier", 0f, 1f);
             RotationDegreesPerSecond = Require(data.RotationDegreesPerSecond, "rotationDegreesPerSecond", 0f, 90f);
             RelocatingRimDegreesPerSecond = Require(data.RelocatingRimDegreesPerSecond, "relocatingRimDegreesPerSecond", .1f, 90f);
             ApplicationFlashSeconds = Require(data.ApplicationFlashSeconds, "applicationFlashSeconds", .05f, 1f);

@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+
 namespace Game.Presentation.Json
 {
     public sealed class AltarPresentationData
     {
-        public string PositiveVisualId { get; set; }
-        public string NegativeVisualId { get; set; }
-        public string ShrineVisualId { get; set; }
+        public Dictionary<string, string> EffectVisualIds { get; set; }
         public float? AltarHeight { get; set; }
         public float? ShrineHeight { get; set; }
         public float? AltarContactRadius { get; set; }
@@ -15,6 +15,9 @@ namespace Game.Presentation.Json
         public float? ActiveBrightness { get; set; }
         public float? RingAlpha { get; set; }
         public float? RingThickness { get; set; }
+        public int? BoundaryLobes { get; set; }
+        public float? BoundaryInsetFraction { get; set; }
+        public float? BoundaryWeaveAlpha { get; set; }
         public float? RestingAlpha { get; set; }
         public int? SortingOrder { get; set; }
         public float? StateRingRadius { get; set; }

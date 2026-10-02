@@ -89,6 +89,33 @@ namespace Game.Zones.Tests
             CollectionAssert.AreNotEqual(first, ZoneLayoutGenerator.Generate(layout, Side, Vector2.zero, Obstacles(), 12).Select(z => z.Center).ToList());
         }
 
+        private static float MeanSamePolarityGap(int candidates)
+        {
+            var negative = ZoneTestData.Rift("T-NEG");
+            negative.Lifetime = ZoneLifetimeMode.Cycling; negative.PulsePeriodSeconds = 90f; negative.PulseVisibleSeconds = 24f;
+            negative.PulseFadeSeconds = 3f; negative.Polarity = ZoneAltarPolarity.Negative; negative.Radius = 4f;
+            var data = ZoneTestData.Layout(new[] { ZoneTestData.Altar("T-POS"), negative }, ("T-POS", 12), ("T-NEG", 12));
+            data.MinGap = 1f; data.PolarityMixCandidates = candidates;
+            var layout = new ZoneLayoutDefinition(data);
+            var total = 0f; var samples = 0;
+            for (var seed = 0; seed < 20; seed++)
+            {
+                var zones = ZoneLayoutGenerator.Generate(layout, Side, Vector2.zero, null, seed);
+                foreach (var zone in zones)
+                {
+                    total += zones.Where(o => o != zone && o.Effect.Polarity == zone.Effect.Polarity).Min(o => Vector2.Distance(o.Center, zone.Center));
+                    samples++;
+                }
+            }
+            return total / samples;
+        }
+
+        [Test]
+        public void Generate_PolarityMix_SpreadsEachPolarityFartherThanPlainScatter()
+        {
+            Assert.Greater(MeanSamePolarityGap(24), MeanSamePolarityGap(0) * 1.15f);
+        }
+
         [Test]
         public void Generate_ImpossibleLayout_Throws()
         {

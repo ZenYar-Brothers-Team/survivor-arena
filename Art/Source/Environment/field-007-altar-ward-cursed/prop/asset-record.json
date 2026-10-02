@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-ALTAR-WARD-CURSED",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-WARD-CURSED, role prop. Edit ONLY the top ornament of this altar into SHIELD: one broad upright ivory-and-brass kite shield with a large simple raised center ridge, no heraldry. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+  "constraints": [
+    "preserve polarity foundation",
+    "type-specific top or relic",
+    "remove baked aura before runtime review"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1024x1536",
+    "sourceSha256": "32445c4928e269f396eb8531424fc9c3557e439c0a8a3559f8ee084953bb4666",
+    "runtimeSha256": "9bccf2866f58f845dcb1b65fa156539521e521ecf1ca621970dbaf33f2464b5b",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

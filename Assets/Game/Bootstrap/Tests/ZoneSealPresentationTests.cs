@@ -38,7 +38,41 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Portal_KeepsLargeEntryAreaAndUprightDoorway_IndependentOfRadius()
+        public void Seal_InactiveStatesAreDimmer_ActiveBrightnessAndBoundaryUnchanged()
+        {
+            var layout = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")
+                [new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout;
+            var profile = ZoneSealPresentationProfile.Load();
+            var go = new GameObject("Seal contrast");
+            try
+            {
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>();
+                foreach (var suffix in new[] { "EXPERIENCE", "PORTAL" })
+                {
+                    var effect = layout.Effects[new ContentId("FIELD-006-ZONE-" + suffix)];
+                    var zone = new ZonePlacement(0, effect, Vector2.zero); zone.SetNear(true);
+                    seal.Initialize(effect.Kind, profile);
+                    var rim = go.transform.Find("Rim/Approved outline").GetComponent<SpriteRenderer>();
+                    foreach (var time in new[] { 0f, 2.5f, 4.9f, 5.3f, 21f, 28f })
+                    {
+                        seal.Apply(zone, time, 0f);
+                        var expected = zone.Visibility(time) * profile.RimAlpha *
+                            (seal.IsActive ? 1f : profile.InactiveVisibilityMultiplier);
+                        Assert.AreEqual(expected, rim.color.a, .0001f);
+                        Assert.AreEqual(zone.Radius, go.transform.localScale.x);
+                        Assert.AreEqual(zone.Radius * effect.VerticalScale, go.transform.localScale.y);
+                    }
+                    seal.Apply(zone, 4.9f, 0f); var warningAlpha = rim.color.a;
+                    seal.Apply(zone, 5.26f, 0f);
+                    Assert.IsTrue(seal.IsActive);
+                    Assert.Greater(rim.color.a, warningAlpha, "Full activation is clearer than the end of warning.");
+                }
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
+        public void Portal_UsesGroundGlyphAtOccurrenceScale_NoUprightDoorway()
         {
             var fields = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation");
             var effect = fields[new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout.Effects[new ContentId("FIELD-006-ZONE-PORTAL")];
@@ -49,13 +83,100 @@ namespace Game.Bootstrap.Tests
                 var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, profile);
                 foreach (var radius in new[] { effect.MinRadius, effect.Radius })
                 {
-                    var zone = new ZonePlacement(0, effect, Vector2.zero, radius: radius); zone.SetNear(true); seal.Apply(zone, 6f, 3f);
-                    Assert.IsTrue(seal.IsActive, "A personal cooldown does not switch the shared doorway off for other actors.");
-                    var portal = go.transform.Find("Portal");
-                    Assert.AreEqual(profile.PortalHeight / profile.PortalSprite.bounds.size.y, portal.lossyScale.x, .001f);
-                    Assert.AreEqual(portal.lossyScale.x, portal.lossyScale.y, .001f, "Doorway is never flattened onto the floor.");
+                    var zone = new ZonePlacement(0, effect, Vector2.zero, radius: radius); zone.SetNear(true);
+                    seal.Apply(zone, 4.9f, 0f); Assert.IsFalse(seal.IsActive, "The warning never teleports.");
+                    seal.Apply(zone, 5f, 0f); Assert.IsTrue(seal.IsActive);
+                    var portal = go.transform.Find("Glyph/Approved glyph");
+                    Assert.AreSame(profile.PortalGlyphSprite, portal.GetComponent<SpriteRenderer>().sprite);
+                    Assert.IsNull(go.transform.Find("Portal"), "No upright doorway object remains.");
+                    Assert.AreEqual(.8f, portal.lossyScale.y / portal.lossyScale.x, .001f);
                     Assert.IsTrue(portal.GetComponent<SpriteRenderer>().enabled);
                     Assert.AreEqual(new Vector3(radius, radius * .8f, 1f), go.transform.localScale);
+                }
+                seal.Shutdown(); Assert.AreEqual(0, go.transform.childCount);
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [TestCase(1f)]
+        [TestCase(.7f)]
+        public void RasterRim_GameplayBoundaryCrossesPaintedMidpoint_AfterRotationAndFlattening(float activeRadiusFraction)
+        {
+            var effect = new ZoneEffectDefinition(new ZoneEffectData { Id = "T-RIM-MIDPOINT", Kind = ZoneEffectKind.Haste,
+                Radius = 6f, MinRadius = 2f, VerticalScale = .8f, Color = "#6df0c2", Lifetime = ZoneLifetimeMode.Pulsing,
+                PulsePeriodSeconds = 30f, PulseVisibleSeconds = 20f, PulseFadeSeconds = 3f,
+                PulsePrepareSeconds = 5f, PulseIdleVisibility = .14f, PlayerMovementBonus = .4f,
+                RelocatesBetweenCycles = true, ActiveRadiusFraction = activeRadiusFraction });
+            var go = new GameObject("Rim midpoint");
+            try
+            {
+                var profile = ZoneSealPresentationProfile.Load();
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, profile);
+                foreach (var radius in new[] { 2f, 6f })
+                {
+                    var zone = new ZonePlacement(0, effect, new Vector2(3f, -4f), radius: radius); zone.SetNear(true);
+                    foreach (var time in new[] { 5f, 17f })
+                    {
+                        seal.Apply(zone, time, 0f);
+                        var art = go.transform.Find("Rim/Approved outline");
+                        for (var i = 0; i < 8; i++)
+                        {
+                            var angle = i * Mathf.PI / 4f;
+                            var sourceMidpoint = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) *
+                                (profile.RimSprite.bounds.size.x * .5f * profile.RimReferenceRadius);
+                            var midpoint = (Vector2)art.TransformPoint(sourceMidpoint);
+                            var delta = midpoint - zone.Center;
+                            var projectedRadius = new Vector2(delta.x, delta.y / effect.VerticalScale).magnitude;
+                            Assert.AreEqual(radius * activeRadiusFraction, projectedRadius, .001f, "The painted midpoint follows the gameplay ellipse.");
+                            Assert.IsTrue(zone.Contains(zone.Center + delta * .99f));
+                            Assert.IsFalse(zone.Contains(zone.Center + delta * 1.01f), "Touching only the outer part of the rim gives no effect.");
+                        }
+                    }
+                }
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
+        public void RasterGlyphs_ApprovedSymbols_StayStillWithoutProceduralInterior_ThroughWholeOccurrence()
+        {
+            var fields = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation");
+            var layout = fields[new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout;
+            var profile = ZoneSealPresentationProfile.Load();
+            var go = new GameObject("New glyphs");
+            try
+            {
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>();
+                foreach (var suffix in new[] { "EXPERIENCE", "KNOCKBACK", "PORTAL" })
+                {
+                    var effect = layout.Effects[new ContentId("FIELD-006-ZONE-" + suffix)];
+                    seal.Initialize(effect.Kind, profile);
+                    var zone = new ZonePlacement(0, effect, Vector2.zero, radius: effect.MinRadius); zone.SetNear(true);
+                    seal.Apply(zone, 5f, 0f);
+                    var glyph = go.transform.Find("Glyph/Approved glyph");
+                    var art = glyph.GetComponent<SpriteRenderer>();
+                    Assert.AreSame(suffix == "EXPERIENCE" ? profile.ExperienceGlyphSprite :
+                        suffix == "KNOCKBACK" ? profile.KnockbackGlyphSprite : profile.PortalGlyphSprite, art.sprite);
+                    Assert.IsTrue(art.enabled);
+                    Assert.IsFalse(go.transform.Find("Glyph").GetComponent<MeshRenderer>().enabled, "No mesh symbol under the raster.");
+                    Assert.AreEqual(Quaternion.identity, glyph.rotation);
+                    Assert.AreEqual(.8f, glyph.lossyScale.y / glyph.lossyScale.x, .001f);
+                    var expectedSprite = art.sprite;
+                    // Sample preparation, active payload, fade and the next cycle, not just a still frame.
+                    for (var frame = 0; frame <= 160; frame++)
+                    {
+                        var time = frame * .25f;
+                        seal.Apply(zone, time, 0f);
+                        Assert.AreSame(expectedSprite, art.sprite, "The approved symbol never changes.");
+                        Assert.AreEqual(seal.IsShowing, art.enabled);
+                        Assert.IsFalse(go.transform.Find("Glyph").GetComponent<MeshRenderer>().enabled);
+                        Assert.IsFalse(go.transform.Find("Motion").GetComponent<MeshRenderer>().enabled,
+                            "Rotating procedural ink must not cover or impersonate the approved raster symbol.");
+                    }
+                    seal.Apply(zone, suffix == "PORTAL" ? 5.2f : 12f, 0f);
+                    Assert.AreEqual(Quaternion.identity, glyph.rotation, "Only the rim turns.");
+                    zone.SetNear(false); seal.Apply(zone, 12f, 0f);
+                    Assert.IsFalse(art.enabled);
                 }
                 seal.Shutdown(); Assert.AreEqual(0, go.transform.childCount);
             }
@@ -133,13 +254,13 @@ namespace Game.Bootstrap.Tests
                 {
                     var profile = ZoneSealPresentationProfile.Load();
                     var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, profile);
-                    var fire = effect.Kind == ZoneEffectKind.SpeedBurst ? effect.TelegraphSeconds : 6f;
-                    var cooldown = effect.Kind == ZoneEffectKind.Portal ? 3f : 0f;
+                    var fire = effect.Lifetime == ZoneLifetimeMode.Burst ? effect.TelegraphSeconds : 6f;
+                    var cooldown = 0f;
                     var rim = go.transform.Find("Rim").GetComponent<MeshRenderer>();
                     var block = new MaterialPropertyBlock();
                     seal.Apply(zone, fire + profile.ApplicationFlashSeconds, cooldown);
                     rim.GetPropertyBlock(block); var faded = block.GetColor("_Color");
-                    if (effect.Kind == ZoneEffectKind.Portal) zone.RecordApplication(fire);
+                    if (effect.Kind == ZoneEffectKind.Portal && !effect.IsBurstPortal) zone.RecordApplication(fire);
                     seal.Apply(zone, fire, cooldown);
                     rim.GetPropertyBlock(block); var lit = block.GetColor("_Color");
                     Assert.Greater(lit.r + lit.g + lit.b, faded.r + faded.g + faded.b, "Only firing/use produces the bright flash.");
@@ -186,11 +307,12 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Seals_AllEightGlyphs_HaveGeometryWithinTheRealRadius()
+        public void Seals_AllTenGlyphs_HaveGeometryWithinTheRealRadius()
         {
             var builder = new ZoneSealMeshBuilder(ZoneSealPresentationProfile.Load().StrokeFraction);
             foreach (var kind in new[] { ZoneEffectKind.Slow, ZoneEffectKind.Haste, ZoneEffectKind.Regeneration,
-                ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.SpeedBurst, ZoneEffectKind.Protection })
+                ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.SpeedBurst, ZoneEffectKind.Protection,
+                ZoneEffectKind.Experience, ZoneEffectKind.Knockback })
             {
                 foreach (var mesh in new[] { builder.Boundary(kind), builder.Glyph(kind), builder.Motion(kind, .64f) })
                 {
@@ -249,7 +371,7 @@ namespace Game.Bootstrap.Tests
                 if (effect.Lifetime == ZoneLifetimeMode.Pulsing)
                 { Assert.AreEqual(5f, effect.PulsePrepareSeconds); Assert.AreEqual(.14f, effect.PulseIdleVisibility); }
             }
-            foreach (var effect in fields[new ContentId("FIELD-DEV-ALTARS-ENVIRONMENT")].ZoneLayout.Effects.Values)
+            foreach (var effect in fields[new ContentId("FIELD-007-ENVIRONMENT")].ZoneLayout.Effects.Values)
             { Assert.IsFalse(effect.HasPreparation); Assert.AreEqual(1f, effect.VerticalScale); }
         }
     }

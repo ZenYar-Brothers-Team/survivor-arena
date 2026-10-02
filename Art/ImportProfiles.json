@@ -5,7 +5,7 @@
     "maxSize": 256,
     "pivotX": 0.53,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
   },
   {
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-002/enemy-002-body.png",
@@ -13,7 +13,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
   },
   {
     "key": "Assets/Resources/Art/Sprites/Fields/field-001/field-001-ground-tile.png",
@@ -157,14 +157,14 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.09,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json."
   },
   {
     "pixelsPerUnit": 200,
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-003/enemy-003-body.png"
   },
   {
@@ -172,7 +172,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-004/enemy-004-body.png"
   },
   {
@@ -180,7 +180,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-005/enemy-005-body.png"
   },
   {
@@ -228,7 +228,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.1,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-007/enemy-007-body.png"
   },
   {
@@ -236,7 +236,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.102,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-002/char-002-body.png"
   },
   {
@@ -244,7 +244,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.098,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-003/char-003-body.png"
   },
   {
@@ -252,7 +252,7 @@
     "maxSize": 512,
     "pivotX": 0.53,
     "pivotY": 0.111,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-004/char-004-body.png"
   },
   {
@@ -260,7 +260,7 @@
     "maxSize": 512,
     "pivotX": 0.53,
     "pivotY": 0.107,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-005/char-005-body.png"
   },
   {
@@ -324,7 +324,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.045,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-006/enemy-006-body.png"
   },
   {
@@ -332,7 +332,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.08,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-008/enemy-008-body.png"
   },
   {
@@ -340,7 +340,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.075,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-009/enemy-009-body.png"
   },
   {
@@ -348,7 +348,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.125,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-010/enemy-010-body.png"
   },
   {
@@ -356,7 +356,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.144531,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-011/enemy-011-body.png"
   },
   {
@@ -364,7 +364,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.132812,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-012/enemy-012-body.png"
   },
   {
@@ -372,7 +372,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.140625,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-013/enemy-013-body.png"
   },
   {
@@ -380,7 +380,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.125,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-014/enemy-014-body.png"
   },
   {
@@ -388,7 +388,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.121094,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-015/enemy-015-body.png"
   },
   {
@@ -396,7 +396,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.121094,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-016/enemy-016-body.png"
   },
   {
@@ -404,7 +404,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.136719,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-017/enemy-017-body.png"
   },
   {
@@ -412,7 +412,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.113281,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-018/enemy-018-body.png"
   },
   {
@@ -420,7 +420,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.125,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-019/enemy-019-body.png"
   },
   {
@@ -428,7 +428,7 @@
     "maxSize": 256,
     "pivotX": 0.5,
     "pivotY": 0.144531,
-    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to ×0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved ordinary enemy body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.80 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Enemies/enemy-020/enemy-020-body.png"
   },
   {
@@ -436,7 +436,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.139,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-006/char-006-body.png"
   },
   {
@@ -444,7 +444,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.141,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-007/char-007-body.png"
   },
   {
@@ -452,7 +452,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.125,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-008/char-008-body.png"
   },
   {
@@ -460,7 +460,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.143,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-009/char-009-body.png"
   },
   {
@@ -468,7 +468,7 @@
     "maxSize": 512,
     "pivotX": 0.5,
     "pivotY": 0.119,
-    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to ×0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
+    "reason": "Approved playable character body: 2026-09-30 gameplay-size review sets world silhouette to Г—0.75 through PPU. Source pixels, import size and authored ground pivot remain unchanged; contact circle is refit in FixtureSprites.json.",
     "key": "Assets/Resources/Art/Sprites/Characters/char-010/char-010-body.png"
   },
   {
@@ -1496,19 +1496,147 @@
     "key": "Assets/Resources/Art/VFX/field-006-zone-seal-telegraph.png"
   },
   {
-    "pixelsPerUnit": 256,
-    "maxSize": 512,
-    "pivotX": 0.5,
-    "pivotY": 0.0625,
-    "reason": "Bottom padding ground-contact pivot; upright portal size independent of entry radius.",
-    "key": "Assets/Resources/Art/VFX/field-006-portal-prop.png"
-  },
-  {
     "pixelsPerUnit": 128,
     "maxSize": 2048,
     "pivotX": 0.5,
     "pivotY": 0.5,
     "reason": "Full approved 1672x941 reference kept intact; shader uses normalized material regions. Full import preserves sampled texture detail (about 6 MiB RGBA32). No sprite-based collision.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-009-material/field-009-material-tile.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste-cursed/field-007-altar-haste-cursed-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal-cursed/field-007-altar-heal-cursed-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward/field-007-altar-ward-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power/field-007-altar-power-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power-cursed/field-007-altar-power-cursed-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-holy/field-007-altar-strike-holy-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-cursed/field-007-altar-strike-cursed-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-life/field-007-shrine-life-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-ward/field-007-shrine-ward-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Separate ground glyph, scaled independently from the gameplay radius.",
+    "key": "Assets/Resources/Art/VFX/field-006-zone-experience-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Separate ground glyph, scaled independently from the gameplay radius.",
+    "key": "Assets/Resources/Art/VFX/field-006-zone-knockback-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 128,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Separate ground glyph, scaled independently from the gameplay radius.",
+    "key": "Assets/Resources/Art/VFX/field-006-zone-portal-telegraph.png"
   }
 ]

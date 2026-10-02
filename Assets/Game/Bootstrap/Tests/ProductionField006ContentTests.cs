@@ -27,25 +27,43 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual("FIELD-006-VISUAL-GROUND", presentation.Ground.Id.ToString());
             Assert.IsNotNull(presentation.Ground.Resolve(catalog.Registry).Sprite);
             var layout = presentation.ZoneLayout;
-            Assert.AreEqual(0, presentation.InteriorObstacleCount);
-            Assert.IsNull(presentation.BlobLayout);
+            Assert.AreEqual(30, presentation.InteriorObstacleCount, "Five of each of the six Academy props.");
+            Assert.IsNotNull(presentation.BlobLayout);
+            Assert.AreEqual(30, presentation.BlobLayout.Library.Count, "Numbered copies share the art of their kind.");
+            Assert.AreEqual(6, presentation.BlobLayout.Library.Values.Select(item => item.Visual.Id.ToString()).Distinct().Count());
+            Assert.IsTrue(presentation.BlobLayout.Library.Values.All(item => item.Visual.Id.ToString().StartsWith("FIELD-006-VISUAL-")),
+                "Only the Academy's own obstacle art, nothing from the first map.");
             Assert.AreEqual(0, presentation.DecorationChance);
             Assert.IsTrue(layout.SuppressAreaUnitFeedback);
-            Assert.IsTrue(layout.Effects.Values.Any(e => e.RelocatesBetweenCycles));
-            Assert.IsTrue(layout.Effects.Values.Any(e => !e.RelocatesBetweenCycles));
-            Assert.AreEqual(14, layout.Zones.Count);
+            Assert.IsTrue(layout.Effects.Values.All(e => e.RelocatesBetweenCycles), "No permanent placements: every effect appears on the schedule.");
+            Assert.AreEqual(6 * 9, layout.Zones.Count, "Six spare placements for each kind (one per chain), including single burst portals.");
             Assert.IsFalse(layout.Effects.ContainsKey(new ContentId("FIELD-006-ZONE-HEAL")));
+            Assert.IsFalse(layout.Effects.ContainsKey(new ContentId("FIELD-006-ZONE-HASTE")), "The wind current is removed.");
+            var rift = layout.Effects[new ContentId("FIELD-006-ZONE-RIFT")];
+            Assert.AreEqual(10f, rift.PlayerDamagePerSecond); Assert.AreEqual(10f, rift.EnemyDamagePerSecond);
+            var portal = layout.Effects[new ContentId("FIELD-006-ZONE-PORTAL")];
+            Assert.IsTrue(portal.IsBurstPortal); Assert.IsFalse(portal.IsScheduledPortalPair);
+            Assert.AreEqual(5f, portal.PortalJumpDistance); Assert.IsFalse(portal.AffectsBothSides);
+            Assert.AreEqual("#B780FF", "#" + UnityEngine.ColorUtility.ToHtmlStringRGB(portal.Color));
+            Assert.AreEqual(5f, layout.Effects[new ContentId("FIELD-006-ZONE-EXPERIENCE")].PlayerExperienceMultiplier);
+            var knockback = layout.Effects[new ContentId("FIELD-006-ZONE-KNOCKBACK")];
+            Assert.AreEqual(5f, knockback.Radius, "Half of the 10-unit screen height."); Assert.IsFalse(knockback.AffectsBothSides);
             var action = layout.Effects[new ContentId("FIELD-006-ZONE-ARCANE")];
             Assert.AreEqual(0f, action.PlayerSkillDamageBonus);
             Assert.AreEqual(.5f, action.PlayerActionSpeedBonus);
-            Assert.AreEqual(2, layout.RandomSchedule.Chains);
+            Assert.AreEqual(6, layout.RandomSchedule.Chains);
+            Assert.AreEqual(.7f, layout.RandomSchedule.SpawnRadiusScreenWidths);
+            Assert.IsFalse(layout.RandomSchedule.HasPortalChain, "DECISION-0153: portal competes on the general chains.");
             Assert.AreEqual(8f, layout.RandomSchedule.IntervalMinSeconds);
             Assert.AreEqual(16f, layout.RandomSchedule.IntervalMaxSeconds);
             foreach (var effect in layout.Effects.Values)
             {
                 StringAssert.StartsWith("FIELD-006-ZONE-", effect.Id.ToString());
-                Assert.IsTrue(effect.AffectsBothSides);
+                var sharesSides = effect.Kind != Game.Zones.ZoneEffectKind.Portal && effect.Kind != Game.Zones.ZoneEffectKind.Experience &&
+                                  effect.Kind != Game.Zones.ZoneEffectKind.Knockback;
+                Assert.AreEqual(sharesSides, effect.AffectsBothSides, effect.Id.ToString());
                 Assert.AreEqual(.8f, effect.VerticalScale);
+                Assert.AreEqual(.7f, effect.ActiveRadiusFraction, "Works inside the middle of the wide rim band, not at its outer edge.");
                 Assert.AreNotEqual(Game.Zones.ZoneLifetimeMode.Permanent, effect.Lifetime);
                 if (effect.Kind == Game.Zones.ZoneEffectKind.SpeedBurst)
                 { Assert.AreEqual(1.25f, effect.Radius); Assert.AreEqual(effect.Radius, effect.MinRadius); }

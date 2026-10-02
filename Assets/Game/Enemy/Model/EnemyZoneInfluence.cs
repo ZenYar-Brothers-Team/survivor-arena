@@ -9,6 +9,9 @@ namespace Game.Enemy
         public float MovementBonus { get; private set; }
         public float ActionBonus { get; private set; }
         public float DamageReduction { get; private set; }
+        /// <summary>Area bonus to the damage this enemy deals (0.5 = +50%).</summary>
+        public float DamageBonus { get; private set; }
+        public float DamageMultiplier => 1f + DamageBonus;
         public float BuffBonus { get; private set; }
         public float BuffRemaining { get; private set; }
         public float BuffDuration { get; private set; }
@@ -23,6 +26,11 @@ namespace Game.Enemy
             NumericValidation.ValidateNonNegativeFinite(defense, nameof(defense));
             MovementBonus = movement; ActionBonus = action; DamageReduction = Mathf.Clamp(defense, 0f, .95f);
         }
+        public void SetDamageBonus(float bonus)
+        {
+            NumericValidation.ValidateNonNegativeFinite(bonus, nameof(bonus));
+            DamageBonus = bonus;
+        }
         public void ApplyBurst(float bonus, float seconds)
         {
             NumericValidation.ValidateNonNegativeFinite(bonus, nameof(bonus));
@@ -34,6 +42,6 @@ namespace Game.Enemy
             NumericValidation.ValidateNonNegativeFinite(seconds, nameof(seconds));
             if (running) BuffRemaining = Mathf.Max(0f, BuffRemaining - seconds);
         }
-        public void Reset() { SetArea(0f, 0f, 0f); BuffBonus = BuffDuration = BuffRemaining = 0f; }
+        public void Reset() { SetArea(0f, 0f, 0f); DamageBonus = 0f; BuffBonus = BuffDuration = BuffRemaining = 0f; }
     }
 }

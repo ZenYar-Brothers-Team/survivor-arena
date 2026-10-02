@@ -280,6 +280,41 @@ class CheckRunnerTests(unittest.TestCase):
             self.assertEqual([{"pid": 2, "batch": False}],
                              checks.editor_processes(Path("D:/GitHub/survivor-arena")))
 
+    def test_cli_auth_broker_does_not_hide_real_editor(self):
+        local = r"C:\Users\test\AppData\Local"
+        executable = local + r"\Unity\bin\unity.exe"
+        editor = {"ProcessId": 2, "CommandLine": 'Unity.exe -projectPath "D:/GitHub/survivor-arena"'}
+        for line in (f'"{executable}" --internal-auth-broker-serve',
+                     f'{executable} --internal-auth-broker-serve'):
+            broker = {"ProcessId": 1, "ExecutablePath": executable, "CommandLine": line}
+            with self.subTest(line=line), patch.dict(checks.os.environ, {"LOCALAPPDATA": local}), \
+                 patch.object(checks, "command", return_value=json.dumps([broker, editor])):
+                self.assertTrue(checks.is_unity_cli_auth_service(broker))
+                self.assertEqual([{"pid": 2, "batch": False}],
+                                 checks.editor_processes(Path("D:/GitHub/survivor-arena")))
+
+    def test_cli_auth_exclusion_requires_exact_path_and_command(self):
+        local = r"C:\Users\test\AppData\Local"
+        executable = local + r"\Unity\bin\unity.exe"
+        broker = {"ProcessId": 1, "ExecutablePath": executable,
+                  "CommandLine": f'"{executable}" --internal-auth-broker-serve'}
+        for row in (
+            dict(broker, ExecutablePath=r"D:\Unity\Editor\Unity.exe"),
+            dict(broker, ExecutablePath=None),
+            dict(broker, CommandLine=None),
+            dict(broker, CommandLine='"D:/other/unity.exe" --internal-auth-broker-serve'),
+            dict(broker, CommandLine=f'"{executable}" --internal-auth-broker-serve --unknown'),
+            dict(broker, CommandLine=f'"{executable}" --version'),
+            dict(broker, CommandLine=f'"{executable}" serve'),
+        ):
+            with self.subTest(row=row), patch.dict(checks.os.environ, {"LOCALAPPDATA": local}), \
+                 patch.object(checks, "command", return_value=json.dumps([row])):
+                self.assertFalse(checks.is_unity_cli_auth_service(row))
+                with self.assertRaises(checks.NotRun):
+                    checks.editor_processes()
+        with patch.dict(checks.os.environ, {}, clear=True):
+            self.assertFalse(checks.is_unity_cli_auth_service(broker))
+
     def test_unidentified_unity_still_blocks_even_with_hub_service(self):
         executable = r"C:\Program Files\Unity Hub\resources\unity.exe"
         hub = {"ProcessId": 1, "ExecutablePath": executable,

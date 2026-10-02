@@ -432,6 +432,41 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void EnemyAltars_StrengthenOnlyEnemiesInside_AndNeverTouchThePlayer()
+        {
+            var runtime = Build(1, (ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyHaste, "T-EH"), Vector2.zero, 0f),
+                (ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyRegeneration, "T-ER"), Vector2.zero, 0f),
+                (ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyProtection, "T-EP"), Vector2.zero, 0f),
+                (ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyPower, "T-EW"), Vector2.zero, 0f));
+            _enemies.Add(new Vector2(1, 0));
+            _player.Position = new Vector2(1, 0);
+            Run(runtime, 5f);
+            Assert.AreEqual(0.5f, _enemies.MovementBonus, 1e-4f);
+            Assert.AreEqual(5f, _enemies.Regeneration, 1e-4f);
+            Assert.AreEqual(0.8f, _enemies.Defense, 1e-4f);
+            Assert.AreEqual(0.5f, _enemies.DamageBonus, 1e-4f);
+            Assert.AreEqual(0, _player.Modifiers.Count, "The player is not affected by enemy altars.");
+            Assert.AreEqual(0f, _player.DamageTaken);
+            _enemies.Positions[0] = new Vector2(50, 0);
+            Run(runtime, 0.2f);
+            Assert.AreEqual(0f, _enemies.MovementBonus); Assert.AreEqual(0f, _enemies.DamageBonus);
+        }
+
+        [Test]
+        public void ExperienceShrine_MultipliesPickedUpExperienceForItsDuration()
+        {
+            var runtime = Build(1, (ZoneTestData.ExperienceShrine(), Vector2.zero, 0f));
+            var zone = runtime.Zones[0];
+            _player.Position = new Vector2(1, 0);
+            Run(runtime, 4.3f);
+            Assert.AreEqual(4f, _player.Zone.PickedUpXpMultiplierBonus, 1e-4f, "x5 is a +4 bonus on the picked-up multiplier.");
+            Assert.Greater(runtime.ExperienceRemaining(zone.Effect), 25f);
+            _player.Position = new Vector2(40, 40);
+            Run(runtime, 31f);
+            Assert.AreEqual(0f, _player.Zone.PickedUpXpMultiplierBonus, 1e-4f, "The multiplier ends after 30 s.");
+        }
+
+        [Test]
         public void Shrine_FiresEveryRewardOnceWhenFull_ThenRestsForItsCooldown()
         {
             var runtime = Build(1, (ZoneTestData.Shrine(), Vector2.zero, 0f));

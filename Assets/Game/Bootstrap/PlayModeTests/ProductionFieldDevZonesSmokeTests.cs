@@ -77,17 +77,26 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(fieldId, run.Model.Selection.FieldId.ToString());
                 Assert.AreEqual(6, root.ZoneSeed, "Reference seeds pin the zone layout.");
                 var driver = Object.FindAnyObjectByType<ZoneRuntimeDriver>();
+                var academyPool = 0;
                 if (unlockThroughDev)
                 {
-                    Assert.AreEqual(7, driver.Runtime.Zones.Count(z => z.IsScheduled));
-                    Assert.LessOrEqual(driver.Runtime.Zones.Count(z => z.IsScheduled && z.IsPresent), 2);
+                    var academyLayout = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")
+                        [new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout;
+                    academyPool = academyLayout.RandomSchedule.Chains * 9;
+                    Assert.AreEqual(academyPool, driver.Runtime.Zones.Count(z => z.IsScheduled), "One reusable single placement per kind and general chain.");
+                    Assert.LessOrEqual(driver.Runtime.Zones.Count(z => z.IsScheduled && z.IsPresent), academyLayout.RandomSchedule.Chains,
+                        "All types share the general chains; no extra portal lane.");
                 }
                 Assert.IsNotNull(driver, "The zone driver exists on a zones field.");
                 var zones = driver.Runtime.Zones;
-                Assert.AreEqual(unlockThroughDev ? 14 : 15, zones.Count, "Academy has one shared green spring; legacy study retains both.");
-                CollectionAssert.AreEquivalent(new[] { ZoneEffectKind.Slow, ZoneEffectKind.Haste, ZoneEffectKind.Regeneration,
+                Assert.AreEqual(unlockThroughDev ? academyPool : 15, zones.Count);
+                var expectedKinds = unlockThroughDev ? new[] { ZoneEffectKind.Slow, ZoneEffectKind.Regeneration,
                     ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.Protection,
-                    ZoneEffectKind.SpeedBurst }, zones.Select(z => z.Effect.Kind).Distinct());
+                    ZoneEffectKind.SpeedBurst, ZoneEffectKind.Experience, ZoneEffectKind.Knockback } :
+                    new[] { ZoneEffectKind.Slow, ZoneEffectKind.Haste, ZoneEffectKind.Regeneration,
+                    ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.Protection,
+                    ZoneEffectKind.SpeedBurst };
+                CollectionAssert.AreEquivalent(expectedKinds, zones.Select(z => z.Effect.Kind).Distinct());
                 if (unlockThroughDev) Assert.IsFalse(zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Permanent));
                 else Assert.IsTrue(zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Permanent) &&
                               zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Pulsing) &&
@@ -161,18 +170,25 @@ namespace Game.Bootstrap.PlayModeTests
                     var player = Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>();
                     var camera = Camera.main; var follow = camera.GetComponent<Game.Movement.CameraFollowTarget>();
                     var from = (Vector2)player.transform.position;
-                    var destination = from + Vector2.right * 25f;
                     var profile = ZoneSealPresentationProfile.Load();
                     var transit = player.GetComponent<PortalTransitRuntime>() ?? player.gameObject.AddComponent<PortalTransitRuntime>();
                     var body = player.GetComponent<Rigidbody2D>();
                     var presentation = player.GetComponentInChildren<SpritePresentationRuntime>();
-                    Assert.IsTrue(transit.Begin(destination, run, profile, player.Health, presentation, follow));
+                    var portal = zones.First(z => z.Effect.IsBurstPortal);
+                    foreach (var zone in zones.Where(z => z.IsScheduled)) zone.EndOccurrence();
+                    portal.BeginOccurrence(from, portal.Radius, driver.Runtime.Time);
+                    Assert.IsFalse(transit.IsActive, "The new portal warns before firing.");
+                    var waiting = 0f;
+                    while (!transit.IsActive && waiting < portal.Effect.TelegraphSeconds + 1f)
+                    { yield return null; waiting += Time.deltaTime; }
+                    Assert.IsTrue(transit.IsActive, "The actual zone burst invokes the player's standard transit adapter.");
                     Assert.IsFalse(body.simulated);
                     yield return new WaitForSeconds(.55f);
                     Assert.IsTrue(transit.IsActive); Assert.IsFalse(presentation.gameObject.activeSelf);
                     Assert.AreEqual(from, (Vector2)player.transform.position, "The actor arrives after the hidden flight.");
                     var cameraMiddle = camera.transform.position;
-                    Assert.Greater(cameraMiddle.x, from.x); Assert.Less(cameraMiddle.x, destination.x);
+                    Assert.Greater(Vector2.Distance(cameraMiddle, from), 0f);
+                    Assert.Less(Vector2.Distance(cameraMiddle, from), 5f, "Camera is partway through the five-unit flight.");
                     run.TogglePause();
                     for (var i = 0; i < 5; i++) yield return null;
                     Assert.AreEqual(cameraMiddle, camera.transform.position, "Pause freezes the camera transit.");
@@ -180,8 +196,8 @@ namespace Game.Bootstrap.PlayModeTests
                     yield return new WaitForSeconds(1.1f);
                     Assert.IsFalse(transit.IsActive); Assert.IsTrue(body.simulated);
                     Assert.IsTrue(presentation.gameObject.activeSelf);
-                    Assert.Less(Vector2.Distance(destination, player.transform.position), .01f);
-                    Assert.Less(Vector2.Distance(destination, camera.transform.position), .01f);
+                    Assert.AreEqual(5f, Vector2.Distance(from, player.transform.position), .01f);
+                    Assert.Less(Vector2.Distance(player.transform.position, camera.transform.position), .01f);
                     var alive = new System.Collections.Generic.List<Game.Enemy.EnemyRuntime>();
                     Game.Enemy.EnemyRegistry.CopyAliveTo(alive);
                     var enemy = alive.First(e => e.Category == Game.Enemy.EnemyCategory.Ordinary && e.BodyPresentation != null);

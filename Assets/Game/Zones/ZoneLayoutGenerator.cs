@@ -40,12 +40,21 @@ namespace Game.Zones
                 if (layout.RandomSchedule != null && effect.RelocatesBetweenCycles)
                 {
                     var dormant = new ZonePlacement(index, effect, Vector2.zero, radius: radius);
-                    dormant.ManageOccurrences(); placed.Add(dormant); continue;
+                    dormant.ManageOccurrences();
+                    // Scheduled portals are listed in consecutive pairs; each pair appears and disappears together.
+                    if (effect.IsScheduledPortalPair && placed.Count > 0 && placed[placed.Count - 1].Effect == effect &&
+                        placed[placed.Count - 1].PartnerIndex < 0)
+                    {
+                        placed[placed.Count - 1].LinkPartner(dormant.Index); dormant.LinkPartner(placed[placed.Count - 1].Index);
+                    }
+                    placed.Add(dormant); continue;
                 }
-                var pairFirst = effect.Kind == ZoneEffectKind.Portal && placed.Count > 0 &&
+                var pairFirst = effect.Kind == ZoneEffectKind.Portal && !effect.IsBurstPortal && placed.Count > 0 &&
                                 placed[placed.Count - 1].Effect == effect && placed[placed.Count - 1].PartnerIndex < 0
                     ? placed[placed.Count - 1] : null;
-                if (!rules.TryPick(effect, random, placed.FindAll(z => z.IsPresent), pairFirst, out var center, occurrenceRadius: radius)) return null;
+                var present = placed.FindAll(z => z.IsPresent);
+                if (!rules.TryPick(effect, random, present, pairFirst, out var center, occurrenceRadius: radius,
+                        preference: MixPreference(layout, effect, present), candidates: layout.PolarityMixCandidates)) return null;
                 // A pulsing zone starts at a random point of its cycle so zones do not all blink together.
                 var phase = pairFirst != null ? pairFirst.PhaseSeconds :
                     effect.PhaseRange > 0f ? ZonePlacementRules.Range(random, 0f, effect.PhaseRange) : 0f;
@@ -58,6 +67,21 @@ namespace Game.Zones
                 placed.Add(zone);
             }
             return placed.AsReadOnly();
+        }
+
+        // Altars of one polarity prefer the candidate farthest from the nearest placed altar of the same polarity, so positive and
+        // negative altars each spread over the whole arena and mix evenly instead of clumping by chance.
+        private static Func<Vector2, float> MixPreference(ZoneLayoutDefinition layout, ZoneEffectDefinition effect, List<ZonePlacement> present)
+        {
+            if (layout.PolarityMixCandidates < 2 || !effect.IsAltar || !effect.Polarity.HasValue) return null;
+            var same = present.FindAll(z => z.Effect.IsAltar && z.Effect.Polarity == effect.Polarity);
+            if (same.Count == 0) return null;
+            return candidate =>
+            {
+                var nearest = float.MaxValue;
+                foreach (var other in same) nearest = Mathf.Min(nearest, Vector2.Distance(other.Center, candidate));
+                return nearest;
+            };
         }
     }
 }

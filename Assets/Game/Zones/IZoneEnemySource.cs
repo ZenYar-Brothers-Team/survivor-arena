@@ -19,7 +19,11 @@ namespace Game.Zones
         void Strike(int index, float amount, ContentId source);
         /// <summary>Combined area-only modifiers; zeroes clear them. Regeneration applies for this tick only.</summary>
         void SetArea(int index, float movementBonus, float actionBonus, float regeneration, float defense, float deltaTime);
+        /// <summary>Area-only bonus to the damage this enemy deals (0.5 = +50%); zero clears it. Cleared by Refresh/teardown.</summary>
+        void SetAreaDamage(int index, float damageBonus);
         void SpeedBurst(int index, float bonus, float seconds);
         bool Teleport(int index, Vector2 destination, float cooldownSeconds, float runSeconds);
+        /// <summary>Shoves the enemy by a world-space displacement for this tick (knockback fields); ignored while it is in transit or dead.</summary>
+        void Push(int index, Vector2 displacement);
     }
 }

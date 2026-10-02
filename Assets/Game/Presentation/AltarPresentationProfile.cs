@@ -5,12 +5,10 @@ using Game.Presentation.Json;
 
 namespace Game.Presentation
 {
-    /// <summary>Effect-independent altar sprites and world-space visual tuning; DECISION-0145.</summary>
+    /// <summary>Type-specific altar sprites and shared polarity contour tuning; DECISION-0150.</summary>
     public sealed class AltarPresentationProfile
     {
-        public ContentRef<SpriteDefinition> Positive { get; }
-        public ContentRef<SpriteDefinition> Negative { get; }
-        public ContentRef<SpriteDefinition> Shrine { get; }
+        public IReadOnlyDictionary<ContentId, ContentRef<SpriteDefinition>> EffectVisuals { get; }
         public float AltarHeight { get; }
         public float ShrineHeight { get; }
         public float AltarContactRadius { get; }
@@ -21,6 +19,9 @@ namespace Game.Presentation
         public float ActiveBrightness { get; }
         public float RingAlpha { get; }
         public float RingThickness { get; }
+        public int BoundaryLobes { get; }
+        public float BoundaryInsetFraction { get; }
+        public float BoundaryWeaveAlpha { get; }
         public float RestingAlpha { get; }
         public int SortingOrder { get; }
         public float StateRingRadius { get; }
@@ -37,10 +38,17 @@ namespace Game.Presentation
         public AltarPresentationProfile(AltarPresentationData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
-            Positive = new ContentRef<SpriteDefinition>(data.PositiveVisualId);
-            Negative = new ContentRef<SpriteDefinition>(data.NegativeVisualId);
-            Shrine = new ContentRef<SpriteDefinition>(data.ShrineVisualId);
-            if (!Positive.Id.IsValid || !Negative.Id.IsValid || !Shrine.Id.IsValid) throw new ArgumentException("Altar sprite IDs required.");
+            if (data.EffectVisualIds == null || data.EffectVisualIds.Count == 0)
+                throw new ArgumentException("Altar effectVisualIds required.");
+            var visuals = new Dictionary<ContentId, ContentRef<SpriteDefinition>>();
+            foreach (var entry in data.EffectVisualIds)
+            {
+                var effectId = new ContentId(entry.Key);
+                var visual = new ContentRef<SpriteDefinition>(entry.Value);
+                if (!effectId.IsValid || !visual.Id.IsValid) throw new ArgumentException("Altar effect and sprite IDs required.");
+                visuals.Add(effectId, visual);
+            }
+            EffectVisuals = new System.Collections.ObjectModel.ReadOnlyDictionary<ContentId, ContentRef<SpriteDefinition>>(visuals);
             AltarHeight = Required(data.AltarHeight, "altarHeight");
             ShrineHeight = Required(data.ShrineHeight, "shrineHeight");
             AltarContactRadius = Required(data.AltarContactRadius, "altarContactRadius");
@@ -55,6 +63,11 @@ namespace Game.Presentation
             NumericValidation.ValidatePositive(AltarHeight, nameof(AltarHeight));
             NumericValidation.ValidatePositive(ShrineHeight, nameof(ShrineHeight));
             NumericValidation.ValidatePositive(RingThickness, nameof(RingThickness));
+            BoundaryLobes = data.BoundaryLobes ?? throw new ArgumentException("Altar boundaryLobes required.");
+            NumericValidation.ValidateRange(BoundaryLobes, 3, 12, nameof(BoundaryLobes));
+            BoundaryInsetFraction = Fraction(data.BoundaryInsetFraction, "boundaryInsetFraction");
+            NumericValidation.ValidateRange(BoundaryInsetFraction, .01f, .1f, nameof(BoundaryInsetFraction));
+            BoundaryWeaveAlpha = Fraction(data.BoundaryWeaveAlpha, "boundaryWeaveAlpha");
             IdleBrightness = Fraction(data.IdleBrightness, "idleBrightness");
             ActiveBrightness = Fraction(data.ActiveBrightness, "activeBrightness");
             RingAlpha = Fraction(data.RingAlpha, "ringAlpha");
@@ -84,7 +97,7 @@ namespace Game.Presentation
 
         public IEnumerable<ContentReference> GetReferencedContent()
         {
-            yield return Positive.ToReference(); yield return Negative.ToReference(); yield return Shrine.ToReference();
+            foreach (var visual in EffectVisuals.Values) yield return visual.ToReference();
         }
 
         private static float Required(float? value, string name) => value ?? throw new ArgumentException("Altar " + name + " required.");

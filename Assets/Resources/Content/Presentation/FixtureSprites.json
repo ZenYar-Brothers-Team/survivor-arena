@@ -2565,13 +2565,93 @@
     "role": "Telegraph"
   },
   {
-    "id": "FIELD-006-PORTAL-VISUAL-PROP",
-    "resourcePath": "Art/VFX/field-006-portal-prop",
-    "role": "Prop"
-  },
-  {
     "id": "FIELD-009-MATERIAL-VISUAL-TILE",
     "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
     "role": "Tile"
+  },
+  {
+    "id": "FIELD-007-ALTAR-HASTE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-HASTE-CURSED-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-haste-cursed/field-007-altar-haste-cursed-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-HEAL-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-HEAL-CURSED-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-heal-cursed/field-007-altar-heal-cursed-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-WARD-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-ward/field-007-altar-ward-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-WARD-CURSED-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-POWER-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-power/field-007-altar-power-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-POWER-CURSED-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-power-cursed/field-007-altar-power-cursed-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-STRIKE-HOLY-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-strike-holy/field-007-altar-strike-holy-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-STRIKE-CURSED-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-strike-cursed/field-007-altar-strike-cursed-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-SHRINE-LIFE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-shrine-life/field-007-shrine-life-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-SHRINE-EXPERIENCE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-SHRINE-WARD-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-shrine-ward/field-007-shrine-ward-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-SHRINE-POWER-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-006-ZONE-EXPERIENCE-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-006-zone-experience-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-006-ZONE-KNOCKBACK-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-006-zone-knockback-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-006-ZONE-PORTAL-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-006-zone-portal-telegraph",
+    "role": "Telegraph"
   }
 ]

@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "assets": [
+    {
+      "owner": "FIELD-007-ALTAR-HASTE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HASTE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-haste.png",
+      "sha256": "06a1caa9accb457b8ff80dafef9a1aa310bee16b022158314cd87619af27e4dc",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-haste/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HASTE, role prop. Edit the provided positive altar. Keep the circular ivory stone foundation with turquoise side bands, brass collars, wood shaft, camera perspective, proportions and ground contact EXACTLY as in reference. Change ONLY the large lightning ornament at the top into ONE large broad sculpted brass WIND CURL: two thick flowing curved blades joined at the bottom, an open sweeping spiral silhouette, warm amber material. It must read as wind at 120px total altar height. Small bottom socket, no enclosing frame. Flat matte 2D hand-drawn storybook cutout, thick deep plum contour, sparse texture, 2-3 cel shaded masses, 3/4 top-down orthographic. Transparent background. Remove all baked glow/halo from the entire prop. No shadow, text, ground ring, particles or scene. All parts visible with padding.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HASTE-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HASTE-CURSED-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-haste-cursed.png",
+      "sha256": "cd830794e352d7b880dd1c3327d5f0d05770700de729c7cd25faaa8fe02320a4",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-haste-cursed/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste-cursed/field-007-altar-haste-cursed-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HASTE-CURSED, role prop. Edit ONLY the top ornament of this altar into WIND CURL: two broad flowing amber curved blades forming an open sweeping spiral. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HEAL",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HEAL-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-heal.png",
+      "sha256": "e1052c89760627d5917946a87eaba07e03b79f58c4ef45d9c586d42a1f6301c5",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-heal/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HEAL, role prop. Edit ONLY the top ornament of this altar into LIVING SPROUT: two broad rounded green gemstone leaves in brass edging joined to one short central stem. Keep EVERYTHING below the top socket exactly unchanged: round ivory stone foundation with large turquoise side bands, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HEAL-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HEAL-CURSED-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-heal-cursed.png",
+      "sha256": "c9bfcf3569328b1359bea2fb266ef54f47b3d287533feecb2900456dbc1144ae",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-heal-cursed/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal-cursed/field-007-altar-heal-cursed-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HEAL-CURSED, role prop. Edit ONLY the top ornament of this altar into LIVING SPROUT: two broad rounded green gemstone leaves in brass edging joined to one short central stem. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-WARD",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-WARD-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-ward.png",
+      "sha256": "1378f4153e6e9590cfe396a861df4c32d5f0f0c413b3c24a0a6b4cfcf6e133f3",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-ward/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward/field-007-altar-ward-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-WARD, role prop. Edit ONLY the top ornament of this altar into SHIELD: one broad upright ivory-and-brass kite shield with a large simple raised center ridge, no heraldry. Keep EVERYTHING below the top socket exactly unchanged: round ivory stone foundation with large turquoise side bands, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-WARD-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-WARD-CURSED-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-ward-cursed.png",
+      "sha256": "32445c4928e269f396eb8531424fc9c3557e439c0a8a3559f8ee084953bb4666",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-ward-cursed/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-WARD-CURSED, role prop. Edit ONLY the top ornament of this altar into SHIELD: one broad upright ivory-and-brass kite shield with a large simple raised center ridge, no heraldry. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-POWER",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POWER-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-power.png",
+      "sha256": "2057bfacae869eac6d7e44bdf95160b8d696932c3fce13fd818cbbca13a6409f",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-power/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power/field-007-altar-power-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-POWER, role prop. Edit ONLY the top ornament of this altar into HOURGLASS: one broad compact brass hourglass with large clearly visible amber sand chambers, stout frame, no clock face or floating arrows. Keep EVERYTHING below the top socket exactly unchanged: round ivory stone foundation with large turquoise side bands, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-POWER-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POWER-CURSED-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-power-cursed.png",
+      "sha256": "6c04a47631576ec07b050d35f8119c2a435226b10ae35bec7f0d6d6efb2f70ce",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-power-cursed/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power-cursed/field-007-altar-power-cursed-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-POWER-CURSED, role prop. Edit ONLY the top ornament of this altar into HOURGLASS: one broad compact brass hourglass with large clearly visible amber sand chambers, stout frame, no clock face or floating arrows. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-STRIKE-HOLY",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-STRIKE-HOLY-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-strike-holy.png",
+      "sha256": "bbc6de28c5228ac1ab849ceebf8b91516a9ae70993b1385e13457ea047a9cf83",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-strike-holy/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-holy/field-007-altar-strike-holy-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-STRIKE-HOLY, role prop. Edit ONLY the top ornament of this altar into LIGHTNING: the existing large thick amber zigzag bolt, retaining its bold naked silhouette and small bottom socket. Keep EVERYTHING below the top socket exactly unchanged: round ivory stone foundation with large turquoise side bands, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-STRIKE-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-STRIKE-CURSED-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-altar-strike-cursed.png",
+      "sha256": "1f72db8325853edac40881582a5cb8d97d3873e62b5bf4303913391a8de7630c",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-strike-cursed/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-cursed/field-007-altar-strike-cursed-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-STRIKE-CURSED, role prop. Edit ONLY the top ornament of this altar into LIGHTNING: the existing large thick amber zigzag bolt, retaining its bold naked silhouette and small bottom socket. Keep EVERYTHING below the top socket exactly unchanged: toothed star-shaped violet stone foundation with large coral inset side panels, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-SHRINE-LIFE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-LIFE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-shrine-life.png",
+      "sha256": "963ad8a35983b119021786dbd61a4e5c967252f7d7ed5e51175c5d998c89c5a6",
+      "sourceDirectory": "Art/Source/Environment/field-007-shrine-life/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-life/field-007-shrine-life-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-LIFE, role prop. Edit the reference shrine: replace the central reliquary gem with one large bright leaf-green heart-shaped living gem held by two broad brass leaves; simple heart silhouette. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-SHRINE-EXPERIENCE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-EXPERIENCE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-shrine-experience.png",
+      "sha256": "ff11f1f290046e8f7a5568caedcfa2b7eb868feb51a085c4c9da9019224401ac",
+      "sourceDirectory": "Art/Source/Environment/field-007-shrine-experience/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-EXPERIENCE, role prop. Edit the reference shrine: replace the central reliquary with one large open book resting upright on a short brass stand, two broad cream pages and one azure blue central gem, NO lettering, runes or text. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-SHRINE-WARD",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-WARD-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-shrine-ward.png",
+      "sha256": "f95ec52af9d7f322ee78ea0b32ec811689253d58be45a5a64ee225f7699b56ab",
+      "sourceDirectory": "Art/Source/Environment/field-007-shrine-ward/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-ward/field-007-shrine-ward-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-WARD, role prop. Edit the reference shrine: replace the central reliquary with one large upright ivory kite shield edged in brass, broad recognizable silhouette, simple raised center ridge, no heraldry. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-SHRINE-POWER",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-POWER-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field007-altar-types-2026-10-02/field-007-shrine-power.png",
+      "sha256": "df6f08f69c612c994f64098fc2beb68dab46e61c60e4acf685129696e692e791",
+      "sourceDirectory": "Art/Source/Environment/field-007-shrine-power/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop.png",
+      "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-POWER, role prop. Edit the reference shrine: replace the central reliquary with one large compact upright brass hourglass holding amber sand, two broad visible chambers, stout frame. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "preserve polarity foundation",
+        "type-specific top or relic",
+        "remove baked aura before runtime review"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary altar/shrine Prop; gameplay contact remains independently authored."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

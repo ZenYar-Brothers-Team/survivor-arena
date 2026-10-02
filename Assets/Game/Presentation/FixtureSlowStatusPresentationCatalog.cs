@@ -24,7 +24,9 @@ namespace Game.Presentation
                 ToColor(data.BarBackColor, "barBackColor"), ToColor(data.SpeedBarFillColor, "speedBarFillColor"),
                 ToColor(data.SpeedBoltColor, "speedBoltColor"), Require(data.SpeedBoltScale, "speedBoltScale"),
                 Require(data.SpeedBlinkPeriod, "speedBlinkPeriod"), Require(data.PreviewSlowFraction, "previewSlowFraction"),
-                Require(data.PreviewSlowSeconds, "previewSlowSeconds"), ResolveIceMask(data.IceVisualId));
+                Require(data.PreviewSlowSeconds, "previewSlowSeconds"), ResolveIceMask(data.IceVisualId),
+                ToColor(data.ShieldBarFillColor, "shieldBarFillColor"), ToColor(data.ExperienceBarFillColor, "experienceBarFillColor"),
+                ToColor(data.PowerBarFillColor, "powerBarFillColor"));
         }
 
         private static SpriteDefinition ResolveIceMask(string id)

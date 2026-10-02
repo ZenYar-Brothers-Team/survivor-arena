@@ -24,6 +24,12 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(obstacleCells * obstacleCells * presentation.ObstacleLayout.PatternsPerCell, presentation.InteriorObstacleCount);
             var layout = presentation.ZoneLayout;
             Assert.AreEqual(36, layout.Zones.Count);
+            var experience = layout.Effects[new ContentId("FIELD-007-SHRINE-EXPERIENCE")];
+            var power = layout.Effects[new ContentId("FIELD-007-SHRINE-POWER")];
+            Assert.AreEqual(20f, experience.RewardExperienceSeconds);
+            Assert.AreEqual(5f, experience.RewardExperienceMultiplier);
+            Assert.AreEqual(20f, power.RewardBuffSeconds);
+            Assert.AreEqual(1f, power.RewardActionSpeedBonus, "+100% gives x2 action speed.");
             Assert.AreEqual(3, layout.MaxPerScreen);
             Assert.AreEqual(12, layout.Zones.Count(e => e.Kind == ZoneEffectKind.Shrine));
             Assert.AreEqual(12, layout.Zones.Count(e => e.Kind != ZoneEffectKind.Shrine && e.Polarity == ZoneAltarPolarity.Positive));
@@ -54,7 +60,9 @@ namespace Game.Bootstrap.Tests
             for (var i = 0; i < zones.Count; i++)
             {
                 var zone = zones[i];
-                Assert.AreEqual(zone.Effect.Radius / 3f, zone.Effect.MinRadius);
+                // Cyclic altars are 3-7; shrines keep 1.5x their old minimum up to half the 10-unit reference screen height.
+                if (zone.Effect.Kind == ZoneEffectKind.Shrine) { Assert.AreEqual(5f, zone.Effect.Radius); Assert.AreEqual(2.8125f, zone.Effect.MinRadius); }
+                else { Assert.AreEqual(7f, zone.Effect.Radius); Assert.AreEqual(3f, zone.Effect.MinRadius); }
                 Assert.That(zone.Radius, Is.InRange(zone.Effect.MinRadius, zone.Effect.Radius));
                 Assert.AreEqual(zone.Radius, same[i].Radius);
                 Assert.IsTrue(zone.Contains(zone.Center + Vector2.right * (zone.Radius - .001f)));
@@ -192,10 +200,70 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void AltarView_NegativeAndShrine_UseOnlyPolaritySpritesAndPausedStateIsStable()
+        public void AltarBoundary_AllTypesShareNeutralBraid_MidpointIsExactReachAndFrozenOnPause()
         {
             var catalog = RuntimeContentCatalog.CreateProduction();
             var presentation = catalog.FieldEnvironmentPresentations[new ContentId("FIELD-007-ENVIRONMENT")];
+            Vector3[] reference = null;
+            foreach (var effect in presentation.ZoneLayout.Effects.Values)
+            {
+                var root = new GameObject("Altar braid test");
+                try
+                {
+                    var zone = new ZonePlacement(0, effect, Vector2.zero, 0f, effect.MinRadius);
+                    zone.SetNear(true);
+                    var view = root.AddComponent<AltarPresentationRuntime>();
+                    view.Initialize(zone, presentation.AltarPresentation, catalog.Registry);
+                    view.Apply(0f);
+                    var boundary = root.transform.Find("Boundary").GetComponent<LineRenderer>();
+                    var weave = root.transform.Find("BoundaryWeave").GetComponent<LineRenderer>();
+                    var positions = new Vector3[boundary.positionCount];
+                    boundary.GetPositions(positions);
+                    var minimum = float.PositiveInfinity;
+                    for (var i = 0; i < positions.Length; i++)
+                    {
+                        var normalized = positions[i] / zone.Radius;
+                        minimum = Mathf.Min(minimum, normalized.magnitude);
+                        var other = weave.GetPosition(i);
+                        Assert.AreEqual(zone.Radius, (positions[i].magnitude + other.magnitude) * .5f, .00001f,
+                            "Actual effect radius is the radial midpoint of the two strands.");
+                        var midpoint = (positions[i] + other) * .5f;
+                        Assert.AreEqual(zone.Radius, midpoint.magnitude, .00001f);
+                        var direction = ((Vector2)midpoint).normalized;
+                        Assert.IsTrue(zone.Contains(direction * (zone.Radius - .001f)));
+                        Assert.IsFalse(zone.Contains(direction * (zone.Radius + .001f)),
+                            "Ornamental outer pixels never extend the actual effect.");
+                        if (reference != null) Assert.Less(Vector3.Distance(reference[i], normalized), .00001f,
+                            "No type or polarity-specific contour shape.");
+                    }
+                    Assert.Less(minimum, .99f, "The outer contour is no longer a plain circle.");
+                    Assert.AreEqual(boundary.GetPosition(0), boundary.GetPosition(boundary.positionCount - 1));
+                    Assert.AreEqual(zone.Radius * (1f + presentation.AltarPresentation.BoundaryInsetFraction * .5f),
+                        boundary.GetPosition(0).magnitude, .00001f);
+                    Assert.Greater(Vector3.Distance(boundary.GetPosition(0), weave.GetPosition(0)), .01f,
+                        "The second strand forms a separate interlaced contour.");
+                    if (reference == null) reference = positions.Select(point => point / zone.Radius).ToArray();
+                    var color = boundary.startColor;
+                    Assert.AreEqual(effect.Color.r, color.r);
+                    Assert.AreEqual(effect.Color.g, color.g);
+                    Assert.AreEqual(effect.Color.b, color.b);
+                    view.Apply(0f);
+                    for (var i = 0; i < positions.Length; i++) Assert.AreEqual(positions[i], boundary.GetPosition(i));
+                    zone.SetNear(false); view.Apply(0f);
+                    Assert.IsFalse(boundary.enabled); Assert.IsFalse(weave.enabled);
+                    view.Shutdown(); Assert.AreEqual(0, root.transform.childCount);
+                }
+                finally { Object.DestroyImmediate(root); }
+            }
+        }
+
+        [Test]
+        public void AltarView_EveryTypeUsesOwnApprovedSpriteAndPausedStateIsStable()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            var presentation = catalog.FieldEnvironmentPresentations[new ContentId("FIELD-007-ENVIRONMENT")];
+            var sprites = new System.Collections.Generic.HashSet<Sprite>();
+            Assert.AreEqual(presentation.ZoneLayout.Effects.Count, presentation.AltarPresentation.EffectVisuals.Count);
             foreach (var effect in presentation.ZoneLayout.Effects.Values)
             {
                 var obj = new GameObject("Altar test");
@@ -207,11 +275,12 @@ namespace Game.Bootstrap.Tests
                     view.Initialize(zone, presentation.AltarPresentation, catalog.Registry);
                     view.Apply(0f);
                     var boundary = obj.GetComponentsInChildren<LineRenderer>().Single(line => line.name == "Boundary");
-                    Assert.AreEqual(zone.Radius, boundary.GetPosition(0).y, .001f,
-                        "Boundary uses the per-instance radius, not the definition's maximum.");
-                    var expected = effect.Kind == ZoneEffectKind.Shrine ? presentation.AltarPresentation.Shrine :
-                        effect.Polarity == ZoneAltarPolarity.Positive ? presentation.AltarPresentation.Positive : presentation.AltarPresentation.Negative;
+                    var weave = obj.transform.Find("BoundaryWeave").GetComponent<LineRenderer>();
+                    Assert.AreEqual(zone.Radius, (boundary.GetPosition(0).y + weave.GetPosition(0).y) * .5f, .001f,
+                        "Boundary midpoint uses the per-instance radius, not the definition's maximum.");
+                    var expected = presentation.AltarPresentation.EffectVisuals[effect.Id];
                     Assert.AreSame(expected.Resolve(catalog.Registry).Sprite, view.Body.sprite);
+                    Assert.IsTrue(sprites.Add(view.Body.sprite), "Each altar/shrine type must have a distinct sprite: " + effect.Id);
                     Assert.AreEqual(0, obj.GetComponentsInChildren<Collider2D>().Length, "Presentation never blocks movement.");
                     zone.SetCharge(.5f); view.Apply(0f);
                     if (effect.Kind == ZoneEffectKind.Shrine) Assert.AreEqual(.5f, view.Progress);

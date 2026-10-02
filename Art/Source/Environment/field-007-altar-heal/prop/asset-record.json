@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-ALTAR-HEAL",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HEAL, role prop. Edit ONLY the top ornament of this altar into LIVING SPROUT: two broad rounded green gemstone leaves in brass edging joined to one short central stem. Keep EVERYTHING below the top socket exactly unchanged: round ivory stone foundation with large turquoise side bands, brass collars, wood shaft, proportions, perspective, ground-contact line. The new top is large and broad, about 25-30% of total visible object height, mounted in a SMALL bottom brass socket, no large enclosing frame. The ornament silhouette must read at 120-180px total object height. 3/4 top-down orthographic, matte hand-drawn 2D storybook cutout, thick deep plum contour, 2-3 cel shaded masses, sparse dry-brush texture. Entire object visible with ample padding. REAL transparent empty background with zero glow or shadow: remove the reference's baked aura completely. No haze around edges, no ground ring, no particles, text, UI or background scene. The polarity is carried by the unchanged foundation only; the top design is the same for both polarities.",
+  "constraints": [
+    "preserve polarity foundation",
+    "type-specific top or relic",
+    "remove baked aura before runtime review"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1024x1536",
+    "sourceSha256": "e1052c89760627d5917946a87eaba07e03b79f58c4ef45d9c586d42a1f6301c5",
+    "runtimeSha256": "3e802064a24c99de39b34b15385404f15f664b630b9753d2657d3c002c048f76",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

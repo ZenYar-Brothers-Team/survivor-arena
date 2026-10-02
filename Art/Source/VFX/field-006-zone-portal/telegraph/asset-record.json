@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-006-ZONE-PORTAL",
+  "role": "telegraph",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved the displayed violet spiral portal glyph, 2026-10-02: «Да, подключить». Single burst portal redesign and exact jump 5 world units authorized in the same conversation.",
+  "prompt": "Use case: stylized-concept. Generate ONE transparent-background ground spell glyph sprite, FIELD-006-ZONE-PORTAL telegraph, for a stylized 2D storybook cutout game magical academy. A readable compact PORTAL symbol: an irregular open spiral made of two or three chunky tapered violet ribbons curling inward toward a small transparent opening, with a short broad curved arrow suggesting passage through the opening. This is a flat painted ground symbol, NOT an upright doorway or physical object. Deep violet and lilac (#b780ff), soft cream edge accents, thick deep-plum contour, flat matte colors and simple cel shading. Hand-painted angular chalk/ink character, subtle irregularity, strong recognizable silhouette at 64 pixels, restrained ornament. Mostly transparent between strokes, no filled disc. Exact straight-down orthographic orientation; unsquashed square source, engine applies ground vertical flattening 0.8. Single centered glyph occupies 70% of square canvas with generous real transparent padding. No surrounding outer circle or zone rim, no book, no stars, no text, letters, digits or labels, no ground, no baked shadow, no bloom, fog or particles, no photorealism, no 3D rendering, no watermark. Truly transparent background.",
+  "constraints": [
+    "transparent background",
+    "separate nonrotating central glyph",
+    "engine applies ground flattening 0.8"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-006-zone-portal-telegraph.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "ec89111bce4b0a68c29411625af931d8f7d2c45bb59106e5291adb13243728c2",
+    "runtimeSha256": "2da1e961beb124d02d79eb3e102c0277bfdd5f8b3ee49876e21e0b221d407a66",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 16,
+      "cropAlpha": false
+    }
+  }
+}

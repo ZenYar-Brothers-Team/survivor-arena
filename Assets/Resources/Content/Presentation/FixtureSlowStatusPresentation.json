@@ -14,5 +14,8 @@
   "speedBoltScale": 0.24,
   "speedBlinkPeriod": 0.7,
   "previewSlowFraction": 0.4,
-  "previewSlowSeconds": 5.0
+  "previewSlowSeconds": 5.0,
+  "shieldBarFillColor": [0.45, 0.78, 1.0, 1.0],
+  "experienceBarFillColor": [0.5, 0.9, 0.35, 1.0],
+  "powerBarFillColor": [0.78, 0.55, 1.0, 1.0]
 }

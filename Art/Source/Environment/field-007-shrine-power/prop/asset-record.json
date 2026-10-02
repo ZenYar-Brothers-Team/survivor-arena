@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-SHRINE-POWER",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-SHRINE-POWER, role prop. Edit the reference shrine: replace the central reliquary with one large compact upright brass hourglass holding amber sand, two broad visible chambers, stout frame. Keep the low wide ivory blue-grey stone pedestal, both broad shallow steps, the two cream unlit candles, sparse tiny moss, brass edging, camera perspective, ground contact and approximate overall proportions unchanged. Replace its large front sun motif with a SIMPLE matching relief of the same type symbol. Central relic must be broader and readable at 100-140px total shrine height. Physical object attached to pedestal, no floating icon. Matte 2D hand-drawn storybook cutout, thick dark plum outer contour, 2-3 large color masses, simple cel shading, sparse texture, 3/4 top-down orthographic view. Entire shrine visible with ample padding on REAL transparent empty background. Zero baked glow, ground shadow, haze, particles, aura or ground ring. No text, letters, numbers, UI, extra props or background scene.",
+  "constraints": [
+    "preserve polarity foundation",
+    "type-specific top or relic",
+    "remove baked aura before runtime review"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1454x1082",
+    "sourceSha256": "df6f08f69c612c994f64098fc2beb68dab46e61c60e4acf685129696e692e791",
+    "runtimeSha256": "6a1808e664799c5962e861dd97cf69e846834213f4dba8e374a3398340fde554",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

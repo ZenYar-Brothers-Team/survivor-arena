@@ -311,13 +311,6 @@
       "price": 0
     },
     {
-      "id": "FIELD-DEV-ALTARS",
-      "name": "Тест 07",
-      "kind": "field",
-      "condition": "dev",
-      "price": 0
-    },
-    {
       "id": "SKILL-001",
       "name": "Бросок камня",
       "kind": "skill",

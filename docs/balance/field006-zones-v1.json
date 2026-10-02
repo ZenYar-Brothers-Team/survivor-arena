@@ -1,9 +1,9 @@
 {
   "format": "field-zone-preview",
   "formatVersion": 1,
-  "revision": "field006-zones-preview-v4",
-  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects. User feedback v3: random per-occurrence radii from one-third previous maximum; burst diameter 2.5; two independent random appearance chains near current camera with padding. Interval 8-16 seconds and padding 2 units are preview tuning chosen for requested first iteration. User follow-up v4: all effects target both sides; remove duplicate pink healing; action-speed-only +50%; keep large portal entry area and add upright center portal with smooth delayed transit. Fixed zones are additional to the two random slots.",
-  "purpose": "FIELD-006 gameplay preview with academy seals owned here; FIELD-001 encounters shared by reference.",
+  "revision": "field006-zones-v6-single-burst-portal",
+  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects. User feedback v3: random per-occurrence radii from one-third previous maximum; burst diameter 2.5; two independent random appearance chains near current camera with padding. Interval 8-16 seconds and padding 2 units are preview tuning chosen for requested first iteration. User follow-up v4: all effects target both sides; remove duplicate pink healing; action-speed-only +50%; keep large portal entry area and add upright center portal with smooth delayed transit. Fixed zones are additional to the two random slots. User follow-up v5 (2026-10-02): Rift deals 10 HP/s to both sides; portal is player-only, a scheduled pair whose ends lie exactly one screen height apart; no permanent zones, every effect appears on five random chains within one screen width of the player, duplicates allowed; Haste removed; Slow relocates; new experience field (x5 picked-up experience while the player is inside); new knockback field (pushes everyone but the player outward, max radius half a screen height). Numbers other than those named are preview tuning. Portal pairs live on their own dedicated chain with a 120-180 s random delay and never occupy or compete with the five general chains. User follow-up: the working area is the middle of the wide rim contour (measured rim band 0.45-0.93 of the drawn radius, midline 0.7), so activeRadiusFraction is 0.7: stepping on the outer edge of the rim does nothing. User follow-up: activation window effectively unlimited (margin 10 screens) because at most six zones exist at once. User follow-up: the Academy uses its own six approved obstacle props (astrolabe, colonnade fragment, laboratory table, arcane pedestal, brass mechanism, crystal cluster), five of each, instead of anything from the first map. Outlines are the pixel-silhouette convex hull (14 points) of each runtime sprite around its pivot; sizes are the approved prop sizes. The first map's grass and bush decoration is switched off for the Academy (decorationChance 0). User follow-up: six general chains, spawn radius 0.7 screen widths, and scheduled zones may overlap each other (no minimum gap between occurrences).",
+  "purpose": "FIELD-006 gameplay preview with academy seals owned here; FIELD-001 encounters shared by reference. Portal v6 (user 2026-10-02): one violet burst seal on a general chain, no partner or dedicated lane; exact jump 5 world units, with existing disappear/appear and smooth camera transit. Replaces the v5 pair contract.",
   "units": {
     "distance": "world units",
     "time": "seconds",
@@ -31,7 +31,382 @@
     "maxRestarts": 40,
     "referenceSeed": 6,
     "pixelsPerUnit": 16,
-    "outlinePixels": 2
+    "outlinePixels": 2,
+    "ownLibrary": [
+      {
+        "id": "astrolabe",
+        "visualId": "FIELD-006-VISUAL-ASTROLABE",
+        "points": [
+          [
+            -0.849,
+            0.1198
+          ],
+          [
+            -0.8073,
+            0.2344
+          ],
+          [
+            -0.526,
+            0.6719
+          ],
+          [
+            -0.0573,
+            1.2344
+          ],
+          [
+            -0.0365,
+            1.2344
+          ],
+          [
+            0.7656,
+            0.401
+          ],
+          [
+            0.8698,
+            0.2135
+          ],
+          [
+            0.7865,
+            -0.9531
+          ],
+          [
+            0.5469,
+            -1.1406
+          ],
+          [
+            0.099,
+            -1.2448
+          ],
+          [
+            -0.1927,
+            -1.2448
+          ],
+          [
+            -0.6198,
+            -1.151
+          ],
+          [
+            -0.8177,
+            -1.026
+          ],
+          [
+            -0.8802,
+            -0.9531
+          ]
+        ]
+      },
+      {
+        "id": "colonnade-fragment",
+        "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+        "points": [
+          [
+            -1.099,
+            -0.599
+          ],
+          [
+            -0.9115,
+            0.9115
+          ],
+          [
+            -0.7865,
+            1.0781
+          ],
+          [
+            -0.6719,
+            1.1927
+          ],
+          [
+            -0.5052,
+            1.2448
+          ],
+          [
+            0.849,
+            0.3281
+          ],
+          [
+            0.9427,
+            0.2552
+          ],
+          [
+            0.9844,
+            0.1302
+          ],
+          [
+            1.099,
+            -1.0052
+          ],
+          [
+            1.099,
+            -1.0677
+          ],
+          [
+            0.8698,
+            -1.1719
+          ],
+          [
+            0.5573,
+            -1.2448
+          ],
+          [
+            -0.8177,
+            -0.8385
+          ],
+          [
+            -0.9323,
+            -0.7865
+          ]
+        ]
+      },
+      {
+        "id": "laboratory-table",
+        "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+        "points": [
+          [
+            -0.918,
+            0.1211
+          ],
+          [
+            -0.7227,
+            0.5664
+          ],
+          [
+            -0.4883,
+            0.8867
+          ],
+          [
+            0.6055,
+            0.8086
+          ],
+          [
+            0.7773,
+            0.5977
+          ],
+          [
+            0.832,
+            0.4961
+          ],
+          [
+            0.9336,
+            0.1133
+          ],
+          [
+            0.9336,
+            0.0039
+          ],
+          [
+            0.8867,
+            -0.4727
+          ],
+          [
+            0.668,
+            -0.7773
+          ],
+          [
+            0.5508,
+            -0.8867
+          ],
+          [
+            -0.6367,
+            -0.5195
+          ],
+          [
+            -0.8633,
+            -0.4258
+          ],
+          [
+            -0.9336,
+            0.0117
+          ]
+        ]
+      },
+      {
+        "id": "arcane-pedestal",
+        "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+        "points": [
+          [
+            -0.6156,
+            0.2969
+          ],
+          [
+            -0.6031,
+            0.4219
+          ],
+          [
+            -0.4469,
+            0.6156
+          ],
+          [
+            -0.3844,
+            0.6594
+          ],
+          [
+            -0.0156,
+            0.7469
+          ],
+          [
+            0.4469,
+            0.6281
+          ],
+          [
+            0.6156,
+            0.3594
+          ],
+          [
+            0.6281,
+            -0.3406
+          ],
+          [
+            0.5781,
+            -0.4594
+          ],
+          [
+            0.1219,
+            -0.6906
+          ],
+          [
+            -0.0344,
+            -0.7469
+          ],
+          [
+            -0.1469,
+            -0.7031
+          ],
+          [
+            -0.5844,
+            -0.4844
+          ],
+          [
+            -0.6344,
+            -0.3531
+          ]
+        ]
+      },
+      {
+        "id": "brass-mechanism",
+        "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+        "points": [
+          [
+            -0.6656,
+            -0.0156
+          ],
+          [
+            -0.4094,
+            0.3219
+          ],
+          [
+            -0.0344,
+            0.7219
+          ],
+          [
+            0.0281,
+            0.7281
+          ],
+          [
+            0.4156,
+            0.3156
+          ],
+          [
+            0.6594,
+            -0.0094
+          ],
+          [
+            0.6906,
+            -0.1906
+          ],
+          [
+            0.6344,
+            -0.3344
+          ],
+          [
+            0.3844,
+            -0.6281
+          ],
+          [
+            0.2594,
+            -0.6906
+          ],
+          [
+            -0.0094,
+            -0.7469
+          ],
+          [
+            -0.3844,
+            -0.6281
+          ],
+          [
+            -0.6406,
+            -0.3281
+          ],
+          [
+            -0.6906,
+            -0.1906
+          ]
+        ]
+      },
+      {
+        "id": "crystal-cluster",
+        "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+        "points": [
+          [
+            -0.6656,
+            -0.5031
+          ],
+          [
+            -0.3094,
+            0.4156
+          ],
+          [
+            -0.1969,
+            0.5594
+          ],
+          [
+            -0.0281,
+            0.7406
+          ],
+          [
+            -0.0094,
+            0.7469
+          ],
+          [
+            0.5406,
+            0.3656
+          ],
+          [
+            0.5531,
+            0.3469
+          ],
+          [
+            0.6219,
+            0.1094
+          ],
+          [
+            0.6594,
+            -0.4719
+          ],
+          [
+            0.4156,
+            -0.7219
+          ],
+          [
+            0.2906,
+            -0.7406
+          ],
+          [
+            -0.0344,
+            -0.7469
+          ],
+          [
+            -0.3844,
+            -0.6844
+          ],
+          [
+            -0.5469,
+            -0.6156
+          ]
+        ]
+      }
+    ],
+    "copies": 5
   },
   "zoneLayout": {
     "edgeMargin": 6,
@@ -58,27 +433,10 @@
         "pulseFadeSeconds": 3,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
-        "relocatesBetweenCycles": false,
+        "relocatesBetweenCycles": true,
         "minRadius": 2.333333,
-        "affectsBothSides": true
-      },
-      {
-        "id": "FIELD-006-ZONE-HASTE",
-        "displayName": "Воздушный поток",
-        "kind": "Haste",
-        "radius": 6,
-        "color": "#6df0c2",
-        "lifetime": "Pulsing",
-        "pulsePeriodSeconds": 30,
-        "pulseVisibleSeconds": 22,
-        "pulseFadeSeconds": 3,
-        "playerMovementBonus": 0.4,
-        "pulsePrepareSeconds": 5,
-        "pulseIdleVisibility": 0.14,
-        "verticalScale": 0.8,
-        "relocatesBetweenCycles": false,
-        "minRadius": 2.0,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
       },
       {
         "id": "FIELD-006-ZONE-REGEN",
@@ -96,7 +454,8 @@
         "pulseIdleVisibility": 0.14,
         "relocatesBetweenCycles": true,
         "minRadius": 2.0,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
       },
       {
         "id": "FIELD-006-ZONE-ARCANE",
@@ -115,7 +474,8 @@
         "verticalScale": 0.8,
         "relocatesBetweenCycles": true,
         "minRadius": 2.0,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
       },
       {
         "id": "FIELD-006-ZONE-RIFT",
@@ -127,34 +487,32 @@
         "pulsePeriodSeconds": 36,
         "pulseVisibleSeconds": 25,
         "pulseFadeSeconds": 4,
-        "playerDamagePerSecond": 5,
-        "enemyDamagePerSecond": 25,
+        "playerDamagePerSecond": 10,
+        "enemyDamagePerSecond": 10,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
         "relocatesBetweenCycles": true,
         "minRadius": 2.333333,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
       },
       {
         "id": "FIELD-006-ZONE-PORTAL",
         "displayName": "Портал",
         "kind": "Portal",
         "radius": 3.5,
-        "color": "#ffd45a",
-        "lifetime": "Pulsing",
-        "portalCooldownSeconds": 3,
-        "portalExitDistance": 3,
-        "portalMinPairDistance": 40,
+        "color": "#b780ff",
+        "lifetime": "Burst",
         "verticalScale": 0.8,
         "pulsePeriodSeconds": 40,
-        "pulseVisibleSeconds": 25,
-        "pulseFadeSeconds": 3,
-        "pulsePrepareSeconds": 5,
-        "pulseIdleVisibility": 0.14,
-        "relocatesBetweenCycles": false,
+        "relocatesBetweenCycles": true,
         "minRadius": 1.166667,
-        "affectsBothSides": true
+        "affectsBothSides": false,
+        "activeRadiusFraction": 0.7,
+        "telegraphSeconds": 5,
+        "flashSeconds": 0.6,
+        "portalJumpDistance": 5
       },
       {
         "id": "FIELD-006-ZONE-SPEED-BURST",
@@ -171,7 +529,8 @@
         "verticalScale": 0.8,
         "relocatesBetweenCycles": true,
         "minRadius": 1.25,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
       },
       {
         "id": "FIELD-006-ZONE-WARD",
@@ -187,52 +546,96 @@
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": false,
+        "relocatesBetweenCycles": true,
         "minRadius": 2.0,
-        "affectsBothSides": true
+        "affectsBothSides": true,
+        "activeRadiusFraction": 0.7
+      },
+      {
+        "id": "FIELD-006-ZONE-EXPERIENCE",
+        "displayName": "Поток опыта",
+        "kind": "Experience",
+        "radius": 6,
+        "color": "#ff9f43",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 22,
+        "pulseFadeSeconds": 3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true,
+        "minRadius": 2.0,
+        "affectsBothSides": false,
+        "playerExperienceMultiplier": 5,
+        "activeRadiusFraction": 0.7
+      },
+      {
+        "id": "FIELD-006-ZONE-KNOCKBACK",
+        "displayName": "Волна отталкивания",
+        "kind": "Knockback",
+        "radius": 5,
+        "color": "#ff9be0",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 22,
+        "pulseFadeSeconds": 3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true,
+        "minRadius": 1.666667,
+        "affectsBothSides": false,
+        "enemyPushSpeed": 6,
+        "activeRadiusFraction": 0.7
       }
     ],
     "zones": [
       {
         "effectId": "FIELD-006-ZONE-SLOW",
-        "count": 2
-      },
-      {
-        "effectId": "FIELD-006-ZONE-HASTE",
-        "count": 2
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-REGEN",
-        "count": 1
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-ARCANE",
-        "count": 2
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-RIFT",
-        "count": 2
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-PORTAL",
-        "count": 2
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-SPEED-BURST",
-        "count": 2
+        "count": 6
       },
       {
         "effectId": "FIELD-006-ZONE-WARD",
-        "count": 1
+        "count": 6
+      },
+      {
+        "effectId": "FIELD-006-ZONE-EXPERIENCE",
+        "count": 6
+      },
+      {
+        "effectId": "FIELD-006-ZONE-KNOCKBACK",
+        "count": 6
       }
     ],
-    "activeScreenMargin": 0.5,
+    "activeScreenMargin": 10,
     "suppressAreaUnitFeedback": true,
     "randomSchedule": {
-      "chains": 2,
+      "chains": 6,
       "intervalMinSeconds": 8,
       "intervalMaxSeconds": 16,
-      "screenMarginWorldUnits": 2
+      "spawnRadiusScreenWidths": 0.7
     }
-  }
+  },
+  "decorationChance": 0
 }

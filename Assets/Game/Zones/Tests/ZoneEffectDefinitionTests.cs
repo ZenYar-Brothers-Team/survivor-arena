@@ -84,6 +84,37 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void EnemyAltars_AreNegativeMirrors_AndRejectMissingOrForeignValues()
+        {
+            foreach (var kind in new[] { ZoneEffectKind.EnemyHaste, ZoneEffectKind.EnemyRegeneration, ZoneEffectKind.EnemyProtection, ZoneEffectKind.EnemyPower })
+            {
+                var effect = new ZoneEffectDefinition(ZoneTestData.EnemyAltar(kind, "T-E"));
+                Assert.IsTrue(effect.EmpowersEnemies); Assert.IsFalse(effect.HarmsPlayer);
+                var positive = ZoneTestData.EnemyAltar(kind, "T-E"); positive.Polarity = ZoneAltarPolarity.Positive;
+                Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(positive), "Strengthening enemies is never positive.");
+            }
+            var missing = ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyPower, "T-E"); missing.EnemyDamageBonus = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(missing));
+            var foreign = ZoneTestData.Haste(); foreign.EnemyDamageBonus = 0.5f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(foreign), "Enemy-altar values belong only to enemy altars.");
+            var carried = ZoneTestData.EnemyAltar(ZoneEffectKind.EnemyHaste, "T-E"); carried.PlayerMovementBonus = 0.5f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(carried));
+        }
+
+        [Test]
+        public void ExperienceShrine_RequiresBothValues_AndAMultiplierAboveOne()
+        {
+            var effect = new ZoneEffectDefinition(ZoneTestData.ExperienceShrine());
+            Assert.AreEqual(5f, effect.RewardExperienceMultiplier); Assert.AreEqual(30f, effect.RewardExperienceSeconds);
+            var noSeconds = ZoneTestData.ExperienceShrine(); noSeconds.RewardExperienceSeconds = null;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(noSeconds));
+            var flat = ZoneTestData.ExperienceShrine(); flat.RewardExperienceMultiplier = 1f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(flat));
+            var onWrongKind = ZoneTestData.Haste(); onWrongKind.RewardExperienceSeconds = 30f;
+            Assert.Catch<ArgumentException>(() => new ZoneEffectDefinition(onWrongKind));
+        }
+
+        [Test]
         public void Definition_Altars_NeedAPolarityThatMatchesWhatTheyDo()
         {
             var data = ZoneTestData.Altar(); data.Polarity = null;

@@ -34,12 +34,23 @@ namespace Game.Presentation
         /// <summary>Development-only «slow all enemies» command: movement reduction 0..1 and seconds.</summary>
         public float PreviewSlowFraction { get; }
         public float PreviewSlowSeconds { get; }
+        /// <summary>Duration bars of the other timed player effects (shield, picked-up experience multiplier, skill/action power).</summary>
+        public Color ShieldBarFillColor { get; }
+        public Color ExperienceBarFillColor { get; }
+        public Color PowerBarFillColor { get; }
 
         public SlowStatusPresentationProfile(Color tintColor, Color iceColor, Color outlineColor, float outlineWidth,
             float barWidth, float barHeight, float barOffsetY, Color barFillColor, Color barBackColor,
             Color speedBarFillColor, Color speedBoltColor, float speedBoltScale, float speedBlinkPeriod,
-            float previewSlowFraction, float previewSlowSeconds, SpriteDefinition iceMask)
+            float previewSlowFraction, float previewSlowSeconds, SpriteDefinition iceMask,
+            Color shieldBarFillColor, Color experienceBarFillColor, Color powerBarFillColor)
         {
+            Validate(shieldBarFillColor, nameof(shieldBarFillColor));
+            Validate(experienceBarFillColor, nameof(experienceBarFillColor));
+            Validate(powerBarFillColor, nameof(powerBarFillColor));
+            ShieldBarFillColor = shieldBarFillColor;
+            ExperienceBarFillColor = experienceBarFillColor;
+            PowerBarFillColor = powerBarFillColor;
             Validate(tintColor, nameof(tintColor));
             Validate(iceColor, nameof(iceColor));
             Validate(outlineColor, nameof(outlineColor));

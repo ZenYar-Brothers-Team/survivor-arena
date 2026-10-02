@@ -28,6 +28,8 @@ namespace Game.Zones
         /// <summary>Optional cap on altar centers in any camera rectangle, including ScreenPadding on each side.</summary>
         public int? MaxPerScreen { get; }
         public float ScreenPadding { get; }
+        /// <summary>Candidates compared per altar so each polarity spreads evenly over the arena; below 2 means plain random scatter.</summary>
+        public int PolarityMixCandidates { get; }
         public IReadOnlyDictionary<ContentId, ZoneEffectDefinition> Effects { get; }
         /// <summary>One entry per zone to place, largest radius first; portals are listed in consecutive pairs.</summary>
         public IReadOnlyList<ZoneEffectDefinition> Zones { get; }
@@ -51,6 +53,8 @@ namespace Game.Zones
             RandomSchedule = data.RandomSchedule == null ? null : new RandomZoneScheduleDefinition(data.RandomSchedule);
             MaxPerScreen = data.MaxPerScreen;
             ScreenPadding = data.ScreenPadding ?? 0f;
+            PolarityMixCandidates = data.PolarityMixCandidates ?? 0;
+            NumericValidation.ValidateNonNegative(PolarityMixCandidates, nameof(PolarityMixCandidates));
             if (MaxPerScreen.HasValue) NumericValidation.ValidateCount(MaxPerScreen.Value, nameof(MaxPerScreen));
             NumericValidation.ValidateNonNegativeFinite(ScreenPadding, nameof(ScreenPadding));
             NumericValidation.ValidateNonNegative(EdgeMargin, nameof(EdgeMargin));
@@ -78,13 +82,17 @@ namespace Game.Zones
                 if (!used.Add(id)) throw new ArgumentException($"Zone effect '{id}' is listed twice.");
                 var count = entry.Count ?? throw new ArgumentException($"Zone entry '{id}' requires a count.");
                 NumericValidation.ValidateCount(count, "zone count");
-                if (effect.Kind == ZoneEffectKind.Portal && count % 2 != 0)
+                if (effect.Kind == ZoneEffectKind.Portal && !effect.IsBurstPortal && count % 2 != 0)
                     throw new ArgumentException($"Portal effect '{id}' needs an even count (zones are paired).");
                 for (var i = 0; i < count; i++) zones.Add(effect);
             }
             if (zones.Count == 0) throw new ArgumentException("A zone layout needs at least one zone.");
             if (RandomSchedule != null && zones.Count(effect => effect.RelocatesBetweenCycles) < RandomSchedule.Chains)
                 throw new ArgumentException("randomSchedule requires at least one relocating placement per chain.");
+            if (RandomSchedule == null && zones.Any(effect => effect.IsScheduledPortalPair))
+                throw new ArgumentException("A scheduled portal pair (portalPairScreenHeights) needs a randomSchedule.");
+            if (RandomSchedule != null && zones.Any(effect => effect.IsScheduledPortalPair) != RandomSchedule.HasPortalChain)
+                throw new ArgumentException("randomSchedule portal intervals are required exactly when the layout has scheduled portal pairs.");
             // Largest first packs better; the stable order keeps portal partners adjacent.
             Zones = zones.Select((effect, index) => (effect, index)).OrderByDescending(pair => pair.effect.Radius)
                 .ThenBy(pair => pair.index).Select(pair => pair.effect).ToList().AsReadOnly();

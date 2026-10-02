@@ -37,7 +37,8 @@ namespace Game.Bootstrap
         public int Refresh()
         {
             ClearAreaSlows();
-            foreach (var enemy in _areaModified) if (enemy != null) enemy.ZoneInfluence.SetArea(0f, 0f, 0f);
+            foreach (var enemy in _areaModified)
+                if (enemy != null) { enemy.ZoneInfluence.SetArea(0f, 0f, 0f); enemy.ZoneInfluence.SetDamageBonus(0f); }
             _areaModified.Clear();
             EnemyRegistry.CopyAliveTo(_alive);
             if (_pending.Count > 0 && Time.time - _lastFlushTime >= DamageIntervalSeconds) Flush();
@@ -66,6 +67,13 @@ namespace Game.Bootstrap
             }
             else if (speed != null) speed.Clear();
         }
+        public void SetAreaDamage(int index, float damageBonus)
+        {
+            var enemy = _alive[index];
+            if (!enemy.IsAlive) return;
+            enemy.ZoneInfluence.SetDamageBonus(damageBonus);
+            if (damageBonus > 0f) _areaModified.Add(enemy);
+        }
         public void SpeedBurst(int index, float bonus, float seconds)
         { if (_alive[index].IsAlive) _alive[index].ZoneInfluence.ApplyBurst(bonus, seconds); }
         public bool Teleport(int index, Vector2 destination, float cooldownSeconds, float runSeconds)
@@ -91,6 +99,17 @@ namespace Game.Bootstrap
             }
             _portalCooldowns[enemy] = (enemy.LifeId, runSeconds + cooldownSeconds);
             return true;
+        }
+
+        public void Push(int index, Vector2 displacement)
+        {
+            var enemy = _alive[index];
+            if (!enemy.IsAlive) return;
+            var transit = enemy.GetComponent<PortalTransitRuntime>();
+            if (transit != null && transit.IsActive) return;
+            var body = enemy.GetComponent<Rigidbody2D>();
+            body.position += displacement;
+            enemy.transform.position = body.position;
         }
 
         public void Slow(int index, float fraction, float seconds, ContentId source)

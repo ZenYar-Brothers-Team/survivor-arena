@@ -24,7 +24,8 @@ acceptance IP и [WORKFLOW §9](implementation/WORKFLOW.md#9-завершени�
 `CameraFollowTarget.SetTransitFocus` задаёт плавный camera flight только игроку.
 Authoring: `docs/balance/field006-zones-v1.json`, presentation `FixtureZoneSeals.json`;
 пакеты оправы/портала — `Art/Packets/field006-zone-seal-v001-2026-10-02.json` и
-`field006-portal-v001-2026-10-02.json`. Контракт: DECISION-0142; проверки:
+`field006-portal-burst-v1.json`. Контракт: DECISION-0153 (текущий одиночный портал),
+DECISION-0142 (legacy/shared targets); проверки: BurstPortalTests,
 SharedZoneTargetsTests, EnemyZoneInfluenceTests, PortalTransitStateTests,
 ZoneSealPresentationTests, ProductionFieldDevZonesSmokeTests.
 
@@ -62,6 +63,11 @@ Bootstrap связывает модули. `CreateFixture()` и `CreateProductio
 
 Monastery FIELD-007: [altar authoring](balance/field007-altars-v1.json),
 [contract](decisions/0145-field007-altars-preview.md), [art packet](../Art/Packets/field007-altars-v1.json).
+Type-specific art: [candidate gallery](../Art/Candidates/field007-altar-types-2026-10-02/index.html),
+[visual contract](decisions/0150-field007-altar-type-visuals.md),
+[approved type packet](../Art/Packets/field007-altar-types-v1.json).
+`altarPresentation.effectVisualIds` maps all 14 effects to their own typed Prop;
+shared braided contour is centered on actual radius, foundation state ring is separate.
 Generated Fields/FieldEnvironmentPresentation from scripts/content/fields.py; assigned FIELD-007 ground;
 temporary FIELD-001 encounters. [Altar view](../Assets/Game/Presentation/AltarPresentationRuntime.cs),
 [sliding-screen placement](../Assets/Game/Zones/ZonePlacementRules.cs); ProfileService's existing Dev unlock.
@@ -74,28 +80,19 @@ Academy FIELD-006 (plus regression «Тест 06»): [cycle contract](decisions/
 [seal profile](../Assets/Resources/Content/Presentation/FixtureZoneSeals.json) (direct authoring),
 [mesh seal](../Assets/Game/Presentation/ZoneSealPresentationRuntime.cs),
 [random appearance chains](../Assets/Game/Zones/RandomZoneScheduler.cs) (opt-in layout
-`randomSchedule`; current camera spawn bounds, reusable placements and occurrence radius),
+`randomSchedule`; general chains including the single burst portal, spawn near the player,
+one reusable placement per kind per chain, [DECISION-0153](decisions/0153-academy-single-burst-portal.md)),
 [Rift hit](../Assets/Game/Presentation/ZoneRiftHitPresentationRuntime.cs),
+новые book/outward-arrow glyphs: [approved packet](../Art/Packets/field006-new-effect-glyphs-v1.json),
+[rim midpoint contract](decisions/0152-academy-rim-midpoint-and-effect-glyphs.md),
+[single burst portal](decisions/0153-academy-single-burst-portal.md) (5 world units,
+shared chain, violet ground glyph; old upright raster retired),
 [driver](../Assets/Game/Bootstrap/ZoneRuntimeDriver.cs). Academy authoring is
 [field006-zones-v1.json](balance/field006-zones-v1.json); regression authoring is `field-dev-zones-v1.json`.
 FIELD-001 waves are shared by reference; Dev unlock uses the existing ProfileService command.
 checks: ProductionField006ContentTests, ZonePreparationTests, ZoneSealPresentationTests,
 ProductionFieldDevZonesSmokeTests (including actual FIELD-006 UI launch), ZoneSealVisualSmokeTests.
 
-FIELD-003 roads: authoring [road profile](balance/field003-roads-v1.json),
-generated ProductionFieldEnvironmentPresentation, [generator](../Assets/Game/Presentation/FieldRoadLayoutGenerator.cs),
-[shared surface](../Assets/Game/Bootstrap/FieldRoadSurfaceRuntime.cs),
-[accepted references](prototypes/field003-roads/approved-v4/README.md).
-RoadLayout supplies spawn and field Books; player-only contours do not enter Traveler placement clearance.
-Road art: `roadLayout.art` in the same profile, [approved packet](../Art/Packets/field003-roads-art-v1.json),
-[art definition](../Assets/Game/Presentation/FieldRoadArtDefinition.cs),
-[world-UV shader](../Assets/Resources/Shaders/FieldRoadSurface.shader).
-Checks: art scope, FieldRoadSurfaceTests, graphics ProductionField003SmokeTests.
-
-- entryPoints: [Field](../Assets/Game/Field), [Enemy/Model/Wave](../Assets/Game/Enemy/Model/Wave), [field generation](../scripts/content/fields.py).
-- designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).
-- authoringSources: [field001 baseline](balance/field001-baseline-v1.json), [field002](balance/field002-v1.json), [field003](balance/field003-v1.json), [field002/003 waves v2](balance/field-rhythm-v2.md), [layouts](balance/field-layouts-v1.json), [blob geometry of FIELD-002 + illustration library](balance/field-dev-blobs-v1.json) (DECISION-0132, 0136), [dev zones field](balance/field-dev-zones-v1.json) [dev altars field](balance/field-dev-altars-v1.json) и модуль [Zones](../Assets/Game/Zones) (DECISION-0134, 0135).
-- generatedOutputs: ProductionFields, ProductionFieldEnvironmentPresentation, ProductionWaveTimeline / Field002 / Field003 / Field004 и единый ProductionBlobBreakupProfile (числа разбивки вне расписаний волн).
 FIELD-009 platforms (user-directed): authoring [platform packet](balance/field009-platforms-v1.json) (`platformLayout` / `art`), [generator](../Assets/Game/Presentation/FieldPlatformLayoutGenerator.cs), [surface](../Assets/Game/Bootstrap/FieldPlatformSurfaceRuntime.cs), [holy-ground damage](../Assets/Game/Bootstrap/FieldVoidDamageDriver.cs), [study](prototypes/field009-platforms/generate.py). FIELD-001 waves shared; Dev unlock opens it. Checks: FieldPlatformLayoutGeneratorTests, FieldPlatformSurfaceTests, graphics ProductionField009SmokeTests.
 
 FIELD-009 platform art: [brief](art/briefs/field009-platform-art-v1.md),
@@ -111,6 +108,20 @@ procedural weave in the same shader; masonry contour remains only near round pla
 Contract DECISION-0147; checks FieldPlatformSurfaceTests (UV/orientation, transparency,
 safe width, no bridge masonry, required settings and cleanup), graphics ProductionField009SmokeTests.
 
+FIELD-003 roads: authoring [road profile](balance/field003-roads-v1.json),
+generated ProductionFieldEnvironmentPresentation, [generator](../Assets/Game/Presentation/FieldRoadLayoutGenerator.cs),
+[shared surface](../Assets/Game/Bootstrap/FieldRoadSurfaceRuntime.cs),
+[accepted references](prototypes/field003-roads/approved-v4/README.md).
+RoadLayout supplies spawn and field Books; player-only contours do not enter Traveler placement clearance.
+Road art: `roadLayout.art` in the same profile, [approved packet](../Art/Packets/field003-roads-art-v1.json),
+[art definition](../Assets/Game/Presentation/FieldRoadArtDefinition.cs),
+[world-UV shader](../Assets/Resources/Shaders/FieldRoadSurface.shader).
+Checks: art scope, FieldRoadSurfaceTests, graphics ProductionField003SmokeTests.
+
+- entryPoints: [Field](../Assets/Game/Field), [Enemy/Model/Wave](../Assets/Game/Enemy/Model/Wave), [field generation](../scripts/content/fields.py).
+- designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).
+- authoringSources: [field001 baseline](balance/field001-baseline-v1.json), [field002](balance/field002-v1.json), [field003](balance/field003-v1.json), [field002/003 waves v2](balance/field-rhythm-v2.md), [layouts](balance/field-layouts-v1.json), [blob geometry of FIELD-002 + illustration library](balance/field-dev-blobs-v1.json) (DECISION-0132, 0136), [dev zones field](balance/field-dev-zones-v1.json) и модуль [Zones](../Assets/Game/Zones) (DECISION-0134, 0135).
+- generatedOutputs: ProductionFields, ProductionFieldEnvironmentPresentation, ProductionWaveTimeline / Field002 / Field003 / Field004 и единый ProductionBlobBreakupProfile (числа разбивки вне расписаний волн).
 - checks: generator `--check`, [Bootstrap/Tests](../Assets/Game/Bootstrap/Tests), [production field smoke](../Assets/Game/Bootstrap/PlayModeTests), ручные gates из STATUS.
 
 ## Звук

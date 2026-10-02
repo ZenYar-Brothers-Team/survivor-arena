@@ -89,6 +89,41 @@ namespace Game.Zones.Tests
             Polarity = ZoneAltarPolarity.Positive
         };
 
+        /// <summary>Cycling negative altar that strengthens enemies inside (mirror of a player-side altar).</summary>
+        public static ZoneEffectData EnemyAltar(ZoneEffectKind kind, string id) => new ZoneEffectData
+        {
+            Id = id, Kind = kind, Radius = 4f, Color = "#ed756b", Lifetime = ZoneLifetimeMode.Cycling,
+            PulsePeriodSeconds = 90f, PulseVisibleSeconds = 24f, PulseFadeSeconds = 3f, Polarity = ZoneAltarPolarity.Negative,
+            EnemyMovementBonus = kind == ZoneEffectKind.EnemyHaste ? 0.5f : (float?)null,
+            EnemyRegenerationPerSecond = kind == ZoneEffectKind.EnemyRegeneration ? 5f : (float?)null,
+            EnemyIncomingDamageReduction = kind == ZoneEffectKind.EnemyProtection ? 0.8f : (float?)null,
+            EnemyDamageBonus = kind == ZoneEffectKind.EnemyPower ? 0.5f : (float?)null
+        };
+
+        /// <summary>Shrine whose only reward is picked-up experience x5 for 30 s; fills in 4 s.</summary>
+        public static ZoneEffectData ExperienceShrine(string id = "T-XP-SHRINE") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Shrine, Radius = 5f, Color = "#ffe08a", Lifetime = ZoneLifetimeMode.Permanent,
+            ShrineChargeSeconds = 4f, ShrineDecaySeconds = 4f, ShrineCooldownSeconds = 60f,
+            RewardExperienceSeconds = 30f, RewardExperienceMultiplier = 5f, Polarity = ZoneAltarPolarity.Positive
+        };
+
+        /// <summary>Experience field on the random schedule: x5 picked-up experience while inside; Academy-style preparation timing.</summary>
+        public static ZoneEffectData ExperienceField(string id = "T-XP-FIELD") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Experience, Radius = 6f, MinRadius = 2f, Color = "#ff9f43", Lifetime = ZoneLifetimeMode.Pulsing,
+            PulsePeriodSeconds = 30f, PulseVisibleSeconds = 22f, PulseFadeSeconds = 3f, PulsePrepareSeconds = 5f, PulseIdleVisibility = .14f,
+            RelocatesBetweenCycles = true, PlayerExperienceMultiplier = 5f
+        };
+
+        /// <summary>Portal pair on the random schedule: its ends lie exactly one screen height apart.</summary>
+        public static ZoneEffectData ScheduledPortal(string id = "T-SCHED-PORTAL") => new ZoneEffectData
+        {
+            Id = id, Kind = ZoneEffectKind.Portal, Radius = 3.5f, MinRadius = 1.5f, Color = "#ffd45a", Lifetime = ZoneLifetimeMode.Pulsing,
+            PulsePeriodSeconds = 40f, PulseVisibleSeconds = 25f, PulseFadeSeconds = 3f, PulsePrepareSeconds = 5f, PulseIdleVisibility = .14f,
+            RelocatesBetweenCycles = true, PortalCooldownSeconds = 3f, PortalExitDistance = 2f, PortalPairScreenHeights = 1f
+        };
+
         /// <summary>Marks an effect permanent, or pulsing with a 30 s period, 20 s shown (3 s fades).</summary>
         public static ZoneEffectData Lifetime(ZoneEffectData data, ZoneLifetimeMode mode)
         {

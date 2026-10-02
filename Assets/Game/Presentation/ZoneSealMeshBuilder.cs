@@ -77,6 +77,26 @@ namespace Game.Presentation
                     for (var i = 0; i < 2; i++)
                         Path(new Vector2(-.25f + i * .22f, -.28f), new Vector2(-.03f + i * .22f, 0f), new Vector2(-.25f + i * .22f, .28f));
                     break;
+                case ZoneEffectKind.Knockback:
+                    // Four arrows pushing outward from the center.
+                    for (var i = 0; i < 4; i++)
+                    {
+                        var angle = i * 90f + 45f;
+                        Line(Point(.1f, angle), Point(.34f, angle));
+                        Path(Point(.24f, angle - 20f), Point(.34f, angle), Point(.24f, angle + 20f));
+                    }
+                    break;
+                case ZoneEffectKind.Experience:
+                    // DECISION-0152: experience is represented by an open book, including the mesh fallback.
+                    Path(new Vector2(0f, -.24f), new Vector2(-.12f, -.16f), new Vector2(-.32f, -.16f),
+                        new Vector2(-.32f, .24f), new Vector2(-.12f, .24f), new Vector2(0f, .16f),
+                        new Vector2(.12f, .24f), new Vector2(.32f, .24f), new Vector2(.32f, -.16f),
+                        new Vector2(.12f, -.16f), new Vector2(0f, -.24f));
+                    Line(new Vector2(0f, -.24f), new Vector2(0f, .16f));
+                    for (var side = -1; side <= 1; side += 2)
+                        for (var i = 0; i < 2; i++)
+                            Line(new Vector2(side * .09f, .07f - i * .12f), new Vector2(side * .25f, .11f - i * .12f));
+                    break;
                 case ZoneEffectKind.Protection:
                     Path(new Vector2(-.28f, .22f), new Vector2(.28f, .22f), new Vector2(.24f, -.08f),
                         new Vector2(0f, -.33f), new Vector2(-.24f, -.08f), new Vector2(-.28f, .22f));
@@ -102,13 +122,6 @@ namespace Game.Presentation
                     Line(Point(radius, angle + 68f), Point(radius - .1f, angle + 62f));
             }
             return Finish("Zone seal moving arcs");
-        }
-
-        private void Star(int tips, float outer, float inner)
-        {
-            for (var i = 0; i < tips * 2; i++)
-                Line(Point(i % 2 == 0 ? outer : inner, i * 180f / tips),
-                    Point(i % 2 == 0 ? inner : outer, (i + 1) * 180f / tips));
         }
 
         private void Arc(float radius, float from, float to, int segments, bool sharp)

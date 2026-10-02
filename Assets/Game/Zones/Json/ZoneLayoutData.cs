@@ -20,6 +20,11 @@ namespace Game.Zones.Json
         public int? MaxRestarts { get; set; }
         public int? ReferenceSeed { get; set; }
         public int? MaxPerScreen { get; set; }
+        /// <summary>
+        /// Optional: how many valid centers the layout compares for each altar so every polarity spreads evenly over the arena
+        /// (best candidate wins). Absent or below 2 keeps the plain random scatter.
+        /// </summary>
+        public int? PolarityMixCandidates { get; set; }
         public float? ScreenPadding { get; set; }
         public ZoneEffectData[] Effects { get; set; }
         public ZoneCountData[] Zones { get; set; }

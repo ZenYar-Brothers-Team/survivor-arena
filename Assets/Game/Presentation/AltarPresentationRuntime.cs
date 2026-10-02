@@ -9,9 +9,11 @@ namespace Game.Presentation
     public sealed class AltarPresentationRuntime : MonoBehaviour
     {
         private const int Segments = 64;
-        private readonly Vector3[] _points = new Vector3[Segments + 1];
+        private const int BoundarySegments = 192;
+        private readonly Vector3[] _points = new Vector3[BoundarySegments + 1];
         private SpriteRenderer _body;
         private LineRenderer _rim;
+        private LineRenderer _weave;
         private LineRenderer _progress;
         private LineRenderer _stateRim;
         private MeshRenderer _glow;
@@ -36,7 +38,7 @@ namespace Game.Presentation
             _profile = profile ?? throw new ArgumentNullException(nameof(profile));
             if (registry == null) throw new ArgumentNullException(nameof(registry));
             var shrine = zone.Effect.Kind == ZoneEffectKind.Shrine;
-            var definition = (shrine ? profile.Shrine : zone.Effect.Polarity == ZoneAltarPolarity.Positive ? profile.Positive : profile.Negative).Resolve(registry);
+            var definition = profile.EffectVisuals[zone.Effect.Id].Resolve(registry);
             definition.RequireRole(SpriteRole.Prop);
             var child = new GameObject("Body"); child.transform.SetParent(transform, false);
             _body = child.AddComponent<SpriteRenderer>();
@@ -49,7 +51,8 @@ namespace Game.Presentation
             if (shader == null) throw new InvalidOperationException("Altar ring shader missing.");
             _material = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
             _rim = CreateLine("Boundary", profile.SortingOrder - 2);
-            _stateRim = CreateLine("FoundationState", profile.SortingOrder - 1);
+            _weave = CreateLine("BoundaryWeave", profile.SortingOrder - 2);
+            _stateRim = CreateLine("FoundationState", profile.SortingOrder - 2);
             _progress = CreateLine("ChargeOrRest", profile.SortingOrder - 1);
             _stateRim.startWidth = _stateRim.endWidth = profile.StateRingThickness;
             _progress.startWidth = _progress.endWidth = profile.StateRingThickness;
@@ -80,8 +83,11 @@ namespace Game.Presentation
             var flash = Mathf.Clamp01(1f - (runSeconds - _flashAt) / _profile.FlashSeconds);
             var color = _zone.Effect.Color;
             Draw(_rim, 1f, color, IsActive ? _profile.RingAlpha : _profile.RestingAlpha);
+            Draw(_weave, 1f, color, (IsActive ? _profile.RingAlpha : _profile.RestingAlpha) * _profile.BoundaryWeaveAlpha);
             Draw(_stateRim, 1f, color, Mathf.Lerp(_profile.RestingAlpha, 1f, flash));
-            Draw(_progress, Progress, color, _profile.RingAlpha);
+            // The fill arc is drawn opaque in the bright crown color so it stands out from the dim foundation ring of the same hue.
+            var fill = _profile.GlowColor;
+            Draw(_progress, Progress, fill, 1f);
             var alpha = active ? (shrine ? Mathf.Lerp(_profile.ReadyGlowAlpha, _profile.ActiveGlowAlpha, _zone.Charge) : _profile.ActiveGlowAlpha) : 0f;
             _glow.enabled = _zone.IsNear && (alpha > 0f || flash > 0f);
             var glowColor = _profile.GlowColor; glowColor.a = Mathf.Lerp(alpha, 1f, flash);
@@ -126,16 +132,28 @@ namespace Game.Presentation
         {
             line.enabled = _zone.IsNear && fraction > 0f;
             if (!line.enabled) return;
-            var steps = Mathf.Max(1, Mathf.CeilToInt(Segments * fraction));
             var shrine = _zone.Effect.Kind == ZoneEffectKind.Shrine;
-            var radius = line == _rim ? _zone.Radius : shrine ? _profile.ShrineStateRingRadius : _profile.StateRingRadius;
-            var aspect = line == _rim ? 1f : _profile.StateRingAspect;
-            var offset = line == _rim ? 0f : shrine ? _profile.ShrineContactOffsetY : _profile.AltarContactOffsetY;
+            var boundary = line == _rim || line == _weave;
+            var steps = Mathf.Max(1, Mathf.CeilToInt((boundary ? BoundarySegments : Segments) * fraction));
+            var radius = boundary ? _zone.Radius : shrine ? _profile.ShrineStateRingRadius : _profile.StateRingRadius;
+            var aspect = boundary ? 1f : _profile.StateRingAspect;
+            var offset = boundary ? 0f : shrine ? _profile.ShrineContactOffsetY : _profile.AltarContactOffsetY;
             for (var i = 0; i <= steps; i++)
             {
                 var angle = Mathf.PI * .5f - Mathf.PI * 2f * fraction * i / steps;
-                _points[i] = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius * aspect + offset, 0f);
+                var localRadius = radius;
+                if (boundary)
+                {
+                    // Opposing strands are centered on the exact gameplay reach (DECISION-0150).
+                    // Their radial midpoint is Radius at every angle, including the crossings.
+                    // Polarity changes color only; no effect-specific symbols or gameplay geometry changes.
+                    var wave = Mathf.Cos((angle - Mathf.PI * .5f) * _profile.BoundaryLobes);
+                    if (line == _weave) wave = -wave;
+                    localRadius *= 1f + _profile.BoundaryInsetFraction * wave * .5f;
+                }
+                _points[i] = new Vector3(Mathf.Cos(angle) * localRadius, Mathf.Sin(angle) * localRadius * aspect + offset, 0f);
             }
+            if (fraction >= 1f) _points[steps] = _points[0];
             line.positionCount = steps + 1;
             // SetPosition avoids handing a grow-only buffer's unused tail to the renderer.
             for (var i = 0; i <= steps; i++) line.SetPosition(i, _points[i]);
@@ -146,6 +164,7 @@ namespace Game.Presentation
         {
             if (_body != null) DestroyOwned(_body.gameObject);
             if (_rim != null) DestroyOwned(_rim.gameObject);
+            if (_weave != null) DestroyOwned(_weave.gameObject);
             if (_progress != null) DestroyOwned(_progress.gameObject);
             if (_stateRim != null) DestroyOwned(_stateRim.gameObject);
             if (_glow != null) DestroyOwned(_glow.gameObject);
@@ -153,6 +172,7 @@ namespace Game.Presentation
             if (_material != null) DestroyOwned(_material);
             _body = null; _rim = null; _progress = null; _material = null; _profile = null; _zone = null;
             _stateRim = null; _glow = null; _glowMesh = null;
+            _weave = null;
             _hasState = false; _previousActive = false; _previousApplication = null; _flashAt = float.NegativeInfinity;
             IsActive = false; Progress = 0f;
         }

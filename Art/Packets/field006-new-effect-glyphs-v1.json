@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User approved displayed open-book Experience and outward-arrow Knockback candidates, 2026-10-02: «Да, подключить оба». Experience corrected by explicit user instruction: «Опыт мы обозначаем книжкой». Accepted exact PNG hashes recorded in this packet.",
+  "assets": [
+    {
+      "owner": "FIELD-006-ZONE-EXPERIENCE",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-EXPERIENCE-VISUAL-TELEGRAPH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field006-new-effects-2026-10-02/experience-v001.png",
+      "sha256": "6ec0c4d68a43a37319596e40aa04b994c8aa48ceb2c4c75f7e44e9698fba1daa",
+      "sourceDirectory": "Art/Source/VFX/field-006-zone-experience/telegraph",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-experience-telegraph.png",
+      "prompt": "Use case: stylized-concept. Generate ONE transparent-background ground magic glyph sprite, FIELD-006-ZONE-EXPERIENCE telegraph, for a stylized 2D storybook cutout game magical academy. EXPERIENCE IS REPRESENTED BY A BOOK. Symbol only, no surrounding zone rim. One compact OPEN BOOK glyph with clearly readable paired pages and central spine, warm amber-orange (#ff9f43) page strokes, subtle cream highlights and thick deep-plum contour. A few broad abstract page lines, absolutely no writing or letters. Hand-painted chalk/ink, chunky slightly irregular tapering strokes, flat matte colors, simple cel shading, mostly transparent gaps between strokes so it remains a ground spell glyph rather than a solid physical prop. Strong immediately recognizable book silhouette at 64 pixels. Exact straight-down orthographic orientation, unsquashed square source: engine applies vertical ground flattening 0.8. Centered book occupies 70% of square canvas; generous transparent padding on every side. No spark or star as the main symbol, no circle, no frame, no ring, no lettering, no digits, no text, no ground, no baked shadow, no fog, no bloom, no particles, no 3D or realistic rendering, no watermark. Genuine transparent background.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate nonrotating central glyph",
+        "engine applies ground flattening 0.8"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 16,
+        "cropAlpha": false,
+        "alphaNoiseCutoff": 12
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Separate ground glyph, scaled independently from the gameplay radius."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-006-ZONE-KNOCKBACK",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-KNOCKBACK-VISUAL-TELEGRAPH",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field006-new-effects-2026-10-02/knockback-v001.png",
+      "sha256": "29cb32164b3fbfb2f015512e031940eb723b29480fa46a679716b440bbf00dee",
+      "sourceDirectory": "Art/Source/VFX/field-006-zone-knockback/telegraph",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-knockback-telegraph.png",
+      "prompt": "Use case: stylized-concept. Generate ONE transparent-background ground magic glyph sprite, FIELD-006-ZONE-KNOCKBACK telegraph, for stylized 2D storybook cutout game magical academy. Symbol only, no surrounding zone rim. Four chunky outward-pointing arrowheads arranged radially toward four diagonals, each with a short tapering shaft, clearly pushing AWAY from a small empty center. Magenta-pink (#ff9be0) ink with cream edge accents and deep plum outer contour. Hand-painted chalk/ink feel, angular cutout shapes, controlled small irregularities, flat matte colors and simple cel shading. Strong readable silhouette at 64 pixels. The arrows together form a compact square footprint, mostly transparent between them. Exact straight-down orthographic orientation, unsquashed square source: engine applies standard vertical ground flattening 0.8. Centered design occupies 70% of square canvas; generous transparent padding. No circle, no ring, no frame, no inward arrows, no letters, no digits, no text, no ground, no baked shadow, no fog, no bloom, no particles, no 3D/realistic rendering, no watermark. Genuine transparent background.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate nonrotating central glyph",
+        "engine applies ground flattening 0.8"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 256,
+        "padding": 16,
+        "cropAlpha": false
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 256,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Separate ground glyph, scaled independently from the gameplay radius."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

@@ -15,7 +15,7 @@
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
         "Fixture runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -33,7 +33,7 @@
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
         "Fixture potion runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PICKUP-001 binding."
     },
@@ -51,7 +51,7 @@
       "evidence": [
         "User requested XP, potion and Traveler Book generation and integration together on 2026-09-22.",
         "Traveler reward runtime uses the pickup sprite with pooled visual-only bob/pulse and seeded drop scatter.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -69,7 +69,7 @@
       "evidence": [
         "User approved the presented stone candidate and requested slight rotation during attack on 2026-09-22.",
         "Runtime derivative is exercised through FIXTURE-SKILL-BOLT with a data-driven projectile profile.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL-001 definition/binding remain IP-17 work."
     },
@@ -87,7 +87,7 @@
       "evidence": [
         "All six fixture levels reference the approved stone sprite.",
         "Visual-only 140 degree/second spin and shared procedural impact preserve the circle collider.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -105,7 +105,7 @@
       "evidence": [
         "User approved the presented orbital-blade candidate on 2026-09-22.",
         "The fixture orbit uses pooled visual-only blades under the owner transform.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL-003 definition/binding remain IP-17 work."
     },
@@ -123,7 +123,7 @@
       "evidence": [
         "All six fixture levels inherit the approved blade sprite.",
         "Orbit position and tangent orientation affect only pooled SpriteRenderer children; gameplay damage geometry is unchanged.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -141,7 +141,7 @@
       "evidence": [
         "User approved the presented boomerang candidate on 2026-09-22.",
         "The fixture boomerang uses the shared projectile child and impact presentation.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL-006 definition/binding remain IP-17 work."
     },
@@ -159,7 +159,7 @@
       "evidence": [
         "All six fixture levels inherit the approved boomerang sprite.",
         "Visual-only spin preserves the circle collider and shared per-target cooldown.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -209,7 +209,7 @@
       "evidence": [
         "User approved the presented explosive-sphere candidate on 2026-09-22.",
         "A reusable particle-only explosion burst is configured without a second raster.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL-014 definition/binding remain IP-17 work."
     },
@@ -227,7 +227,7 @@
       "evidence": [
         "All six fixture levels inherit the approved sphere sprite.",
         "Impact and expiry use the same pause-aware pooled explosion burst while damage timing remains immediate.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -245,7 +245,7 @@
       "evidence": [
         "User approved the presented rolled-letter projectile on 2026-09-22.",
         "Fixture-only fan attack uses stable flight orientation and shared parchment-colored impact particles.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Canonical ENEMY-002 remains melee and has no production projectile binding."
     },
@@ -263,8 +263,8 @@
       "evidence": [
         "V001 was rejected as frightened and too close to the playable goblin; v002 redesign is a confident adult human pursuer with distinct proportions, posture and burgundy uniform.",
         "Runtime derivative imported and exercised through FIXTURE-ENEMY-FAN; 646/646 EditMode and 25/25 PlayMode.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
-        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 §6)."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚.",
+        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 В§6)."
       ],
       "missing": "Gameplay composition switch to production enemies (F1-08) and crowd-density review (F1-09)."
     },
@@ -280,9 +280,9 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-002/enemy-002-body",
       "stage": "Integrated",
       "evidence": [
-        "User authorized immediate generation and integration of priorities 1–3 on 2026-09-22.",
+        "User authorized immediate generation and integration of priorities 1вЂ“3 on 2026-09-22.",
         "Courier motion/contact/import coverage and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production ENEMY-002 data remains separate."
     },
@@ -300,9 +300,9 @@
       "evidence": [
         "One shared 32x32 radial mask and one config profile serve the player, ordinary enemies, bosses and Travelers.",
         "GroundShadowRuntimeTests and full Unity smoke check; docs/implementation/evidence/2026-09-22-courier-and-ground-shadows.md.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
-      "missing": "Documented 3–4-set density verification."
+      "missing": "Documented 3вЂ“4-set density verification."
     },
     {
       "owner": "ENEMY-001",
@@ -316,10 +316,10 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-001/enemy-001-body",
       "stage": "Imported",
       "evidence": [
-        "User accepted the older, rougher v002 villager on 2026-09-21: «Хорошо, давай использовать этого.»",
+        "User accepted the older, rougher v002 villager on 2026-09-21: В«РҐРѕСЂРѕС€Рѕ, РґР°РІР°Р№ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚РѕРіРѕ.В»",
         "1254x1254 PNG with alpha; master and selected candidate SHA256 match; see asset-record.json.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
-        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 §6)."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚.",
+        "F1-04 2026-09-24: production sprite entry registered with the accepted fixture contact profile and bound in ProductionEnemies.json (DECISION-0054 В§6)."
       ],
       "missing": "Gameplay composition switch to production enemies (F1-08) and crowd-density review (F1-09)."
     },
@@ -337,9 +337,9 @@
       "evidence": [
         "User requested the next step after approving ENEMY-001 v002; existing fixture keeps its ID/stats.",
         "EnemyBodyPresentationTests, EnemySpriteImportTests and EnemyBodySmokeTests; docs/implementation/evidence/2026-09-21-enemy001-art.md.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
-      "missing": "Documented 3–4-set density verification; production ENEMY-001 data remains separate."
+      "missing": "Documented 3вЂ“4-set density verification; production ENEMY-001 data remains separate."
     },
     {
       "owner": "FIXTURE-CHARACTER-AGILE",
@@ -355,9 +355,9 @@
       "evidence": [
         "Image approval 2026-09-16; asset-record.json",
         "GameplayPresentationSceneTests; SpriteAssetImportTests",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
-      "missing": "Documented 3–4-set density verification."
+      "missing": "Documented 3вЂ“4-set density verification."
     },
     {
       "owner": "CHAR-001",
@@ -372,7 +372,7 @@
       "stage": "Image approved",
       "evidence": [
         "User confirmed concept identity 2026-09-21; conceptBindings in asset-record.json",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят.",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚.",
         "F1-03 2026-09-24: production CHAR-001-VISUAL-BODY/-PORTRAIT/-ICON sprite entries reuse the approved goblin body bytes and contact profile; no new image (DECISION-0054)."
       ],
       "missing": "Gameplay composition switch to the production roster (F1-08) and in-game review of the select crop."
@@ -390,8 +390,8 @@
       "stage": "Integrated",
       "evidence": [
         "Body reuse; centered in-memory Sprite crop; Presentation Fixture Review window",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21",
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production Character Select binding/review belongs to IP-22."
     },
@@ -409,7 +409,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -427,7 +427,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -445,7 +445,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -463,7 +463,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -481,7 +481,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -499,7 +499,7 @@
       "evidence": [
         "FixturePresentationKit.json: synthetic geometry/tint, not production imagery",
         "GenericPresentationTests; PresentationAdapterSmokeTests",
-        "User accepted Presentation Fixture Review on 2026-09-21: «всё хорошо». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
+        "User accepted Presentation Fixture Review on 2026-09-21: В«РІСЃС‘ С…РѕСЂРѕС€РѕВ». Scope: diagnostic motion/roles and UI body reuse; see docs/implementation/evidence/design-sync-R2-2026-09-21-ip12a.md#user-acceptance--presentation-fixture-review-2026-09-21"
       ],
       "missing": "Real gameplay integration/density review remains per owning IP; diagnostic acceptance does not approve production imagery."
     },
@@ -517,7 +517,7 @@
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
@@ -535,7 +535,7 @@
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
@@ -553,7 +553,7 @@
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
@@ -571,7 +571,7 @@
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
@@ -589,7 +589,7 @@
       "evidence": [
         "User authorized the minimal FIELD-001 environment kit and immediate fixture integration on 2026-09-22.",
         "Visual-only field dressing preserves the existing arena colliders and gameplay geometry.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production FIELD-001 geometry and metadata remain IP-23 work."
     },
@@ -607,7 +607,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -642,7 +642,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -660,7 +660,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -678,7 +678,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -696,7 +696,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -714,7 +714,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -732,7 +732,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -750,7 +750,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -768,7 +768,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -786,7 +786,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -804,7 +804,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -839,7 +839,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -874,7 +874,7 @@
       "evidence": [
         "User approved the full set of 16 presented skill icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture skill for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SKILL definition binding remains."
     },
@@ -892,7 +892,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -910,7 +910,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -962,7 +962,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -980,7 +980,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -998,7 +998,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -1067,7 +1067,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -1085,7 +1085,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -1103,7 +1103,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -1121,7 +1121,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production PASSIVE definition binding remains."
     },
@@ -1139,7 +1139,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SET definition binding remains."
     },
@@ -1208,7 +1208,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SET definition binding remains."
     },
@@ -1328,7 +1328,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SET definition binding remains."
     },
@@ -1397,7 +1397,7 @@
       "evidence": [
         "User approved the complete presented set of 14 passive and 20 set icon candidates on 2026-09-22.",
         "Mapped to the mechanically equivalent current fixture content for draft/build UI review.",
-        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--текущий-вид-игры-принят."
+        "User accepted the current in-game presentation on 2026-09-22; docs/playtests/2026-09-22_visual-acceptance.md#obs-01--С‚РµРєСѓС‰РёР№-РІРёРґ-РёРіСЂС‹-РїСЂРёРЅСЏС‚."
       ],
       "missing": "Production SET definition binding remains."
     },
@@ -1481,7 +1481,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-002/skill-002-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+        "User delegated art for FIELD-001 on 2026-09-24: В«Р°СЂС‚ РіРѕС‚РѕРІСЊ Рё РїРѕРґРєР»СЋС‡Р°Р№ РїРѕ scripts/README.md / docs/art/ASSET_PIPELINE.md ... СЏ РЅРµ Р±СѓРґСѓ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°СЂС‚РёРЅРєРё Р·Р°СЂР°РЅРµРµ вЂ” РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ РїРѕРЅСЂР°РІРёС‚СЃСЏ, РїРѕРїСЂР°РІР»СЋ СЃР°РјР° РІСЂСѓС‡РЅСѓСЋВ»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1497,7 +1497,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-005/skill-005-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+        "User delegated art for FIELD-001 on 2026-09-24: В«Р°СЂС‚ РіРѕС‚РѕРІСЊ Рё РїРѕРґРєР»СЋС‡Р°Р№ РїРѕ scripts/README.md / docs/art/ASSET_PIPELINE.md ... СЏ РЅРµ Р±СѓРґСѓ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°СЂС‚РёРЅРєРё Р·Р°СЂР°РЅРµРµ вЂ” РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ РїРѕРЅСЂР°РІРёС‚СЃСЏ, РїРѕРїСЂР°РІР»СЋ СЃР°РјР° РІСЂСѓС‡РЅСѓСЋВ»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1513,7 +1513,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-013/skill-013-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+        "User delegated art for FIELD-001 on 2026-09-24: В«Р°СЂС‚ РіРѕС‚РѕРІСЊ Рё РїРѕРґРєР»СЋС‡Р°Р№ РїРѕ scripts/README.md / docs/art/ASSET_PIPELINE.md ... СЏ РЅРµ Р±СѓРґСѓ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°СЂС‚РёРЅРєРё Р·Р°СЂР°РЅРµРµ вЂ” РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ РїРѕРЅСЂР°РІРёС‚СЃСЏ, РїРѕРїСЂР°РІР»СЋ СЃР°РјР° РІСЂСѓС‡РЅСѓСЋВ»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1600,7 +1600,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+        "User delegated art for FIELD-001 on 2026-09-24: В«Р°СЂС‚ РіРѕС‚РѕРІСЊ Рё РїРѕРґРєР»СЋС‡Р°Р№ РїРѕ scripts/README.md / docs/art/ASSET_PIPELINE.md ... СЏ РЅРµ Р±СѓРґСѓ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°СЂС‚РёРЅРєРё Р·Р°СЂР°РЅРµРµ вЂ” РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ РїРѕРЅСЂР°РІРёС‚СЃСЏ, РїРѕРїСЂР°РІР»СЋ СЃР°РјР° РІСЂСѓС‡РЅСѓСЋВ»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1616,7 +1616,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User delegated art for FIELD-001 on 2026-09-24: «арт готовь и подключай по scripts/README.md / docs/art/ASSET_PIPELINE.md ... я не буду проверять картинки заранее — если что-то не понравится, поправлю сама вручную»; DECISION-0054."
+        "User delegated art for FIELD-001 on 2026-09-24: В«Р°СЂС‚ РіРѕС‚РѕРІСЊ Рё РїРѕРґРєР»СЋС‡Р°Р№ РїРѕ scripts/README.md / docs/art/ASSET_PIPELINE.md ... СЏ РЅРµ Р±СѓРґСѓ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°СЂС‚РёРЅРєРё Р·Р°СЂР°РЅРµРµ вЂ” РµСЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ РїРѕРЅСЂР°РІРёС‚СЃСЏ, РїРѕРїСЂР°РІР»СЋ СЃР°РјР° РІСЂСѓС‡РЅСѓСЋВ»; DECISION-0054."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1632,7 +1632,7 @@
       "resourcePath": null,
       "stage": "Prepared",
       "evidence": [
-        "One set-accent gold telegraph disc and a bright impact flash for SET-017-ATTACK (SkillWorldEffects.json); no projectile spam (Art Direction §12.1).",
+        "One set-accent gold telegraph disc and a bright impact flash for SET-017-ATTACK (SkillWorldEffects.json); no projectile spam (Art Direction В§12.1).",
         "Art delegated by the user on 2026-09-24 without prior review; DECISION-0054."
       ],
       "missing": "Actual-scale readability review with the production run (F1-08/F1-09)."
@@ -1649,8 +1649,8 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-003/enemy-003-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1666,8 +1666,8 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-004/enemy-004-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1683,8 +1683,8 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-005/enemy-005-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1700,8 +1700,8 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-001/midboss-001-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1717,8 +1717,8 @@
       "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1734,8 +1734,8 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-001/traveler-001-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1751,8 +1751,8 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-002/traveler-002-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1768,8 +1768,8 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-body",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1785,7 +1785,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-007/enemy-007-body",
       "stage": "Prepared",
       "evidence": [
-        "Playtest 2026-09-24_e1e04fc4 OBS-07, user: «гончая слишком большая, нужно уменьшить раза в 2»; follow-up request 2026-09-25 to fix playtest feedback."
+        "Playtest 2026-09-24_e1e04fc4 OBS-07, user: В«РіРѕРЅС‡Р°СЏ СЃР»РёС€РєРѕРј Р±РѕР»СЊС€Р°СЏ, РЅСѓР¶РЅРѕ СѓРјРµРЅСЊС€РёС‚СЊ СЂР°Р·Р° РІ 2В»; follow-up request 2026-09-25 to fix playtest feedback."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1801,8 +1801,8 @@
       "resourcePath": "Art/Sprites/Bosses/boss-001/boss-001-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1818,8 +1818,8 @@
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-background",
       "stage": "Integrated",
       "evidence": [
-        "User accepted the selected images in ChatGPT conversation 'Составить список арта', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
-        "User reviewed the integrated FIELD-001 art on 2026-09-24: «проверил, всё хорошо»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--новый-арт-field-001-принят."
+        "User accepted the selected images in ChatGPT conversation 'РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє Р°СЂС‚Р°', provided two image-share links and requested integration on 2026-09-24; then requested generation of the two missing images.",
+        "User reviewed the integrated FIELD-001 art on 2026-09-24: В«РїСЂРѕРІРµСЂРёР», РІСЃС‘ С…РѕСЂРѕС€РѕВ»; docs/playtests/2026-09-24_field001-art-acceptance.md#obs-01--РЅРѕРІС‹Р№-Р°СЂС‚-field-001-РїСЂРёРЅСЏС‚."
       ],
       "missing": ""
     },
@@ -1835,7 +1835,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-009/skill-009-projectile",
       "stage": "Image approved",
       "evidence": [
-        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµ, РјРѕР¶РЅРѕ РёРґС‚Рё РґР°Р»СЊС€Рµ.В»"
       ],
       "missing": "Gameplay-scale readability review at actual speed."
     },
@@ -1851,7 +1851,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-011/skill-011-projectile",
       "stage": "Image approved",
       "evidence": [
-        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµ, РјРѕР¶РЅРѕ РёРґС‚Рё РґР°Р»СЊС€Рµ.В»"
       ],
       "missing": "Gameplay-scale readability review at actual speed."
     },
@@ -1867,7 +1867,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-015/skill-015-projectile",
       "stage": "Image approved",
       "evidence": [
-        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµ, РјРѕР¶РЅРѕ РёРґС‚Рё РґР°Р»СЊС€Рµ.В»"
       ],
       "missing": "Gameplay-scale readability review at actual speed."
     },
@@ -1883,7 +1883,7 @@
       "resourcePath": "Art/Sprites/Skills/skill-016/skill-016-projectile",
       "stage": "Image approved",
       "evidence": [
-        "User approved all four presented SKILL-009/011/015/016 world-art candidates: «Утверждаю все, можно идти дальше.»"
+        "User approved all four presented SKILL-009/011/015/016 world-art candidates: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµ, РјРѕР¶РЅРѕ РёРґС‚Рё РґР°Р»СЊС€Рµ.В»"
       ],
       "missing": "Gameplay-scale readability review at actual speed."
     },
@@ -1899,7 +1899,7 @@
       "resourcePath": "Art/Sprites/Characters/char-002/char-002-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+        "User reviewed revised CHAR-002вЂ¦005 candidates with distinct arm poses and simplified waist gear, then approved all four: В«РЈС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1915,7 +1915,7 @@
       "resourcePath": "Art/Sprites/Characters/char-003/char-003-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+        "User reviewed revised CHAR-002вЂ¦005 candidates with distinct arm poses and simplified waist gear, then approved all four: В«РЈС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1931,7 +1931,7 @@
       "resourcePath": "Art/Sprites/Characters/char-004/char-004-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+        "User reviewed revised CHAR-002вЂ¦005 candidates with distinct arm poses and simplified waist gear, then approved all four: В«РЈС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1947,7 +1947,7 @@
       "resourcePath": "Art/Sprites/Characters/char-005/char-005-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed revised CHAR-002…005 candidates with distinct arm poses and simplified waist gear, then approved all four: «Утверждаю» (2026-09-26 conversation)."
+        "User reviewed revised CHAR-002вЂ¦005 candidates with distinct arm poses and simplified waist gear, then approved all four: В«РЈС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1963,7 +1963,7 @@
       "resourcePath": "Art/Sprites/Sets/set-008/set-008-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋВ»."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1979,7 +1979,7 @@
       "resourcePath": "Art/Sprites/Sets/set-016/set-016-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋВ»."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -1995,7 +1995,7 @@
       "resourcePath": "Art/Sprites/Sets/set-018/set-018-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋВ»."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2011,7 +2011,7 @@
       "resourcePath": "Art/Sprites/Sets/set-019/set-019-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋВ»."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2027,7 +2027,7 @@
       "resourcePath": "Art/Sprites/Sets/set-020/set-020-projectile",
       "stage": "Prepared",
       "evidence": [
-        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: «Подтверждаю»."
+        "User approved the five presented SET-008/016/018/019/020 world projectile previews in this conversation on 2026-09-26: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋВ»."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2043,7 +2043,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-body",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2060,7 +2060,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-002/midboss-002-body",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2077,7 +2077,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-ground-tile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2094,7 +2094,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-boulder-prop",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2111,7 +2111,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-column-prop",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T135835-874659Z/summary.json; authored Column obstacles use this sprite."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2128,7 +2128,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-shrine-prop",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T135835-874659Z/summary.json; sparse visual-only field decor uses this sprite."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2145,7 +2145,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-background",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: «выглядит хорошо, аппрувлю» (2026-09-26).",
+        "User reviewed all seven FIELD-002 candidates in this conversation and approved them: В«РІС‹РіР»СЏРґРёС‚ С…РѕСЂРѕС€Рѕ, Р°РїРїСЂСѓРІР»СЋВ» (2026-09-26).",
         "2026-09-26 Unity full PASS: 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T133605-734666Z/summary.json"
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2162,7 +2162,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-006/enemy-006-body",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26).",
         "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
       ],
       "missing": "Target-scale gameplay visual review remains."
@@ -2179,7 +2179,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-008/enemy-008-body",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26).",
         "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
       ],
       "missing": "Target-scale gameplay visual review remains."
@@ -2196,7 +2196,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-009/enemy-009-body",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: «подтверждаю» (2026-09-26).",
+        "User reviewed the three displayed ENEMY-006/008/009 candidates and confirmed them in this conversation: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-26).",
         "2026-09-26 Unity art PASS 44/44 and full PASS 802/802 EditMode, 28/28 PlayMode; TestResults/checks/20260926T141345-670435Z/summary.json"
       ],
       "missing": "Target-scale gameplay visual review remains."
@@ -2213,7 +2213,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2229,7 +2229,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2245,7 +2245,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2261,7 +2261,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-013/enemy-013-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2277,7 +2277,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2293,7 +2293,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2309,7 +2309,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-016/enemy-016-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2325,7 +2325,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-017/enemy-017-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2341,7 +2341,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2357,7 +2357,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-body",
       "stage": "Prepared",
       "evidence": [
-        "User accepted ENEMY-010 with «подходит» and, after reviewing the ENEMY-010…020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010…019 are the accepted subset."
+        "User accepted ENEMY-010 with В«РїРѕРґС…РѕРґРёС‚В» and, after reviewing the ENEMY-010вЂ¦020 packet, requested corrections only for the last melee angel (ENEMY-020); ENEMY-010вЂ¦019 are the accepted subset."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2373,7 +2373,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-020/enemy-020-body",
       "stage": "Prepared",
       "evidence": [
-        "User approved ENEMY-020 candidate-05 and requested the complete ENEMY-010…020 set integrated: «отлично, встраивай набор в игру» (2026-09-26)."
+        "User approved ENEMY-020 candidate-05 and requested the complete ENEMY-010вЂ¦020 set integrated: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РЅР°Р±РѕСЂ РІ РёРіСЂСѓВ» (2026-09-26)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2389,7 +2389,7 @@
       "resourcePath": "Art/Sprites/Characters/char-006/char-006-body",
       "stage": "Prepared",
       "evidence": [
-        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006вЂ¦010 set said В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РґР°Р»СЊС€Рµ РёРґС‚Рё. РњРЅРµ РЅСЂР°РІСЏС‚СЃСЏ СЌС‚Рё РґРІР° РІР°СЂРёР°РЅС‚Р°.В» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2405,7 +2405,7 @@
       "resourcePath": "Art/Sprites/Characters/char-007/char-007-body",
       "stage": "Prepared",
       "evidence": [
-        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006вЂ¦010 set said В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РґР°Р»СЊС€Рµ РёРґС‚Рё. РњРЅРµ РЅСЂР°РІСЏС‚СЃСЏ СЌС‚Рё РґРІР° РІР°СЂРёР°РЅС‚Р°.В» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2421,7 +2421,7 @@
       "resourcePath": "Art/Sprites/Characters/char-008/char-008-body",
       "stage": "Prepared",
       "evidence": [
-        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006вЂ¦010 set said В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РґР°Р»СЊС€Рµ РёРґС‚Рё. РњРЅРµ РЅСЂР°РІСЏС‚СЃСЏ СЌС‚Рё РґРІР° РІР°СЂРёР°РЅС‚Р°.В» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2437,7 +2437,7 @@
       "resourcePath": "Art/Sprites/Characters/char-009/char-009-body",
       "stage": "Prepared",
       "evidence": [
-        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006вЂ¦010 set said В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РґР°Р»СЊС€Рµ РёРґС‚Рё. РњРЅРµ РЅСЂР°РІСЏС‚СЃСЏ СЌС‚Рё РґРІР° РІР°СЂРёР°РЅС‚Р°.В» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2453,7 +2453,7 @@
       "resourcePath": "Art/Sprites/Characters/char-010/char-010-body",
       "stage": "Prepared",
       "evidence": [
-        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006…010 set said «Хорошо, можно дальше идти. Мне нравятся эти два варианта.» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
+        "User selected the second CHAR-006 variant; requested and accepted the revised CHAR-007 staff and CHAR-009 arms; after review of the complete CHAR-006вЂ¦010 set said В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РґР°Р»СЊС€Рµ РёРґС‚Рё. РњРЅРµ РЅСЂР°РІСЏС‚СЃСЏ СЌС‚Рё РґРІР° РІР°СЂРёР°РЅС‚Р°.В» (2026-09-27 conversation). CHAR-008/010 retained their shown candidates."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2469,7 +2469,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-003/traveler-003-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2485,7 +2485,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-004/traveler-004-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2501,7 +2501,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-006/traveler-006-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2517,7 +2517,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2533,7 +2533,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-008/traveler-008-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2549,7 +2549,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2565,7 +2565,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-010/traveler-010-body",
       "stage": "Prepared",
       "evidence": [
-        "User reviewed the seven TRAVELER-003/004/006…010 candidates, including revised compact spear and paired angel wings, and approved the entire group: «Утверждаю всех» (2026-09-27 conversation)."
+        "User reviewed the seven TRAVELER-003/004/006вЂ¦010 candidates, including revised compact spear and paired angel wings, and approved the entire group: В«РЈС‚РІРµСЂР¶РґР°СЋ РІСЃРµС…В» (2026-09-27 conversation)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2581,7 +2581,7 @@
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-barrel-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь 2026-09-27 поручил уплотнить FIELD-001 и разнообразить препятствия по миниатюре карты. Автономная подготовка и подключение арта без предварительного просмотра разрешены в docs/implementation/STATUS.md, раздел «Автономное продолжение FIELD-001»; художественная проверка остаётся пользовательским feedback после интеграции."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ 2026-09-27 РїРѕСЂСѓС‡РёР» СѓРїР»РѕС‚РЅРёС‚СЊ FIELD-001 Рё СЂР°Р·РЅРѕРѕР±СЂР°Р·РёС‚СЊ РїСЂРµРїСЏС‚СЃС‚РІРёСЏ РїРѕ РјРёРЅРёР°С‚СЋСЂРµ РєР°СЂС‚С‹. РђРІС‚РѕРЅРѕРјРЅР°СЏ РїРѕРґРіРѕС‚РѕРІРєР° Рё РїРѕРґРєР»СЋС‡РµРЅРёРµ Р°СЂС‚Р° Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР° СЂР°Р·СЂРµС€РµРЅС‹ РІ docs/implementation/STATUS.md, СЂР°Р·РґРµР» В«РђРІС‚РѕРЅРѕРјРЅРѕРµ РїСЂРѕРґРѕР»Р¶РµРЅРёРµ FIELD-001В»; С…СѓРґРѕР¶РµСЃС‚РІРµРЅРЅР°СЏ РїСЂРѕРІРµСЂРєР° РѕСЃС‚Р°С‘С‚СЃСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРј feedback РїРѕСЃР»Рµ РёРЅС‚РµРіСЂР°С†РёРё."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -2597,7 +2597,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2614,7 +2614,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2631,7 +2631,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2648,7 +2648,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2665,7 +2665,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2682,7 +2682,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2699,7 +2699,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2716,7 +2716,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2733,7 +2733,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-003/midboss-003-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2750,7 +2750,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-004/midboss-004-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2767,7 +2767,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-005/midboss-005-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2784,7 +2784,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-006/midboss-006-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2801,7 +2801,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-007/midboss-007-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2818,7 +2818,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-008/midboss-008-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2835,7 +2835,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-009/midboss-009-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2852,7 +2852,7 @@
       "resourcePath": "Art/Sprites/Bosses/midboss-010/midboss-010-body",
       "stage": "Integrated",
       "evidence": [
-        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: «Хорошо, устраивает.» (2026-09-27 conversation).",
+        "After reviewing the 16-candidate boss and midboss gallery and requesting two final pose revisions, user approved the current set: В«РҐРѕСЂРѕС€Рѕ, СѓСЃС‚СЂР°РёРІР°РµС‚.В» (2026-09-27 conversation).",
         "Unity import, contact geometry, generated content and full smoke PASS 2026-09-27: TestResults/checks/20260927T123610-731167Z/summary.json."
       ],
       "missing": "Gameplay-scale visual review remains."
@@ -2869,7 +2869,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-002/boss-002-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2886,7 +2886,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-003/boss-003-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2903,7 +2903,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-004/boss-004-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2920,7 +2920,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-005/boss-005-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2937,7 +2937,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-006/boss-006-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2954,7 +2954,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-007/boss-007-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2971,7 +2971,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-008/boss-008-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -2988,7 +2988,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-009/boss-009-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -3005,7 +3005,7 @@
       "resourcePath": "Art/Sprites/Bosses/boss-010/boss-010-projectile",
       "stage": "Integrated",
       "evidence": [
-        "User reviewed the nine FIELD-002…010 boss projectile candidates and approved the complete set: «Подтверждаю.» (2026-09-27 conversation).",
+        "User reviewed the nine FIELD-002вЂ¦010 boss projectile candidates and approved the complete set: В«РџРѕРґС‚РІРµСЂР¶РґР°СЋ.В» (2026-09-27 conversation).",
         "Unity 6000.6.0f1 full PASS 2026-09-27: 857/857 EditMode and 30/30 PlayMode; TestResults/checks/20260927T125843-334689Z/summary.json."
       ],
       "missing": "Target-scale gameplay review on the owning field."
@@ -3022,7 +3022,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІРµСЃСЊ РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ FIELD-003: В«РѕС‚Р»РёС‡РЅРѕ. Р­С‚Рѕ СѓС‚РІРµСЂР¶РґР°РµС‚СЃСЏВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3038,7 +3038,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-wall-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІРµСЃСЊ РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ FIELD-003: В«РѕС‚Р»РёС‡РЅРѕ. Р­С‚Рѕ СѓС‚РІРµСЂР¶РґР°РµС‚СЃСЏВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3054,7 +3054,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-rubble-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІРµСЃСЊ РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ FIELD-003: В«РѕС‚Р»РёС‡РЅРѕ. Р­С‚Рѕ СѓС‚РІРµСЂР¶РґР°РµС‚СЃСЏВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3070,7 +3070,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-water-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІРµСЃСЊ РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ FIELD-003: В«РѕС‚Р»РёС‡РЅРѕ. Р­С‚Рѕ СѓС‚РІРµСЂР¶РґР°РµС‚СЃСЏВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3086,7 +3086,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил весь показанный пакет FIELD-003: «отлично. Это утверждается» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІРµСЃСЊ РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ FIELD-003: В«РѕС‚Р»РёС‡РЅРѕ. Р­С‚Рѕ СѓС‚РІРµСЂР¶РґР°РµС‚СЃСЏВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3102,7 +3102,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-010/enemy-010-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3118,7 +3118,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-011/enemy-011-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3134,7 +3134,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-012/enemy-012-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3150,7 +3150,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-014/enemy-014-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3166,7 +3166,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-015/enemy-015-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3182,7 +3182,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-018/enemy-018-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3198,7 +3198,7 @@
       "resourcePath": "Art/Sprites/Enemies/enemy-019/enemy-019-projectile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел семь финальных projectile candidates ENEMY-010/011/012/014/015/018/019 и подтвердил: «подтверждаю» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» СЃРµРјСЊ С„РёРЅР°Р»СЊРЅС‹С… projectile candidates ENEMY-010/011/012/014/015/018/019 Рё РїРѕРґС‚РІРµСЂРґРёР»: В«РїРѕРґС‚РІРµСЂР¶РґР°СЋВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3214,7 +3214,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3230,7 +3230,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3246,7 +3246,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3262,7 +3262,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3278,7 +3278,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3294,7 +3294,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3310,7 +3310,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-background",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь утвердил встраивание показанного набора FIELD-004…010 после замены FIELD-010 на закатный вариант: «Хорошо, можно встраивать.» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РІСЃС‚СЂР°РёРІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРЅРѕРіРѕ РЅР°Р±РѕСЂР° FIELD-004вЂ¦010 РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ FIELD-010 РЅР° Р·Р°РєР°С‚РЅС‹Р№ РІР°СЂРёР°РЅС‚: В«РҐРѕСЂРѕС€Рѕ, РјРѕР¶РЅРѕ РІСЃС‚СЂР°РёРІР°С‚СЊ.В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3326,7 +3326,7 @@
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-village-handcart-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3342,7 +3342,7 @@
       "resourcePath": "Art/Sprites/Fields/field-001/field-001-hay-bales-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3358,7 +3358,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-broken-wagon-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3374,7 +3374,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-road-barricade-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3390,7 +3390,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-bench-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3406,7 +3406,7 @@
       "resourcePath": "Art/Sprites/Fields/field-002/field-002-roadside-milestone-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3422,7 +3422,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-ruined-arch-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3438,7 +3438,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-collapsed-well-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3454,7 +3454,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-broken-urns-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3470,7 +3470,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003/field-003-fallen-capstone-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3486,7 +3486,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-palisade-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3502,7 +3502,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-tent-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3518,7 +3518,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-cart-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3534,7 +3534,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-brazier-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3550,7 +3550,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-supply-crate-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3566,7 +3566,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-training-dummy-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3582,7 +3582,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-market-stall-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3598,7 +3598,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-street-barricade-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3614,7 +3614,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-fountain-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3630,7 +3630,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-goods-crate-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3646,7 +3646,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-stone-planter-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3662,7 +3662,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-water-barrels-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3678,7 +3678,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-astrolabe-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3694,7 +3694,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-colonnade-fragment-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3710,7 +3710,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-laboratory-table-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3726,7 +3726,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-arcane-pedestal-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3742,7 +3742,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-brass-mechanism-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3758,7 +3758,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-crystal-cluster-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3774,7 +3774,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-footbridge-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3790,7 +3790,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-mass-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3806,7 +3806,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-hedge-block-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3822,7 +3822,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-cistern-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3838,7 +3838,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-herb-planter-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3854,7 +3854,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-root-stump-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3870,7 +3870,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-column-cluster-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3886,7 +3886,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-corridor-barricade-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3902,7 +3902,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-statue-plinth-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3918,7 +3918,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-armory-crate-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3934,7 +3934,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-brazier-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3950,7 +3950,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-shield-rack-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3966,7 +3966,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-arch-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3982,7 +3982,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-column-cluster-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -3998,7 +3998,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-arch-fragment-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4014,7 +4014,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-lantern-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4030,7 +4030,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-celestial-pedestal-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4046,7 +4046,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-stone-fragment-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4062,7 +4062,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-balustrade-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4078,7 +4078,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-column-cluster-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4094,7 +4094,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-gilded-column-base-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4110,7 +4110,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-celestial-basin-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4126,7 +4126,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-ceremonial-pedestal-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4142,7 +4142,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-golden-brazier-prop",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь просмотрел показанный пакет препятствий и разрешил интеграцию: «отлично, добавляй их в проект» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕСЃРјРѕС‚СЂРµР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РїР°РєРµС‚ РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СЂР°Р·СЂРµС€РёР» РёРЅС‚РµРіСЂР°С†РёСЋ: В«РѕС‚Р»РёС‡РЅРѕ, РґРѕР±Р°РІР»СЏР№ РёС… РІ РїСЂРѕРµРєС‚В» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4158,7 +4158,7 @@
       "resourcePath": "Art/Sprites/Fields/field-004/field-004-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4174,7 +4174,7 @@
       "resourcePath": "Art/Sprites/Fields/field-005/field-005-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4190,7 +4190,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Direct user approval 2026-10-02: «Поверхность утверждаю.» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved."
+        "Direct user approval 2026-10-02: В«РџРѕРІРµСЂС…РЅРѕСЃС‚СЊ СѓС‚РІРµСЂР¶РґР°СЋ.В» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4206,7 +4206,7 @@
       "resourcePath": "Art/Sprites/Fields/field-007/field-007-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4222,7 +4222,7 @@
       "resourcePath": "Art/Sprites/Fields/field-008/field-008-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4238,7 +4238,7 @@
       "resourcePath": "Art/Sprites/Fields/field-009/field-009-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4254,7 +4254,7 @@
       "resourcePath": "Art/Sprites/Fields/field-010/field-010-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕРґРѕР±СЂРёР» РїРѕРєР°Р·Р°РЅРЅС‹Рµ РѕСЃРЅРѕРІРЅС‹Рµ С‚РµРєСЃС‚СѓСЂС‹ FIELD-004вЂ¦010 Рё РїРѕСЂСѓС‡РёР» РІСЃС‚СЂРѕРёС‚СЊ Рё Р·Р°РєРѕРјРјРёС‚РёС‚СЊ: В«РѕС‚Р»РёС‡РЅРѕ, РІСЃС‚СЂР°РёРІР°Р№ РµСЃР»Рё РµСЃС‚СЊ С‡С‚Рѕ РІСЃС‚СЂР°РёРІР°С‚СЊ, Рё РєРѕРјРёС‚СЊВ» (2026-09-27)."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4506,7 +4506,7 @@
       "resourcePath": "Art/UI/Folio/ui-folio-surface-background",
       "stage": "Integrated",
       "evidence": [
-        "User approved the standalone third folio texture in chat on 2026-09-29: «берем».",
+        "User approved the standalone third folio texture in chat on 2026-09-29: В«Р±РµСЂРµРјВ».",
         "docs/implementation/evidence/2026-09-29-ui-folio-material.md"
       ],
       "missing": "User review of the integrated panels."
@@ -4523,7 +4523,7 @@
       "resourcePath": "Art/VFX/slow-status-ice-mask",
       "stage": "Integrated",
       "evidence": [
-        "User 2026-09-30: «Давай возьмем первую текстуру из твоего набора, и проследи чтобы она масштабиолвалась под врага»; first generated candidate from this chat.",
+        "User 2026-09-30: В«Р”Р°РІР°Р№ РІРѕР·СЊРјРµРј РїРµСЂРІСѓСЋ С‚РµРєСЃС‚СѓСЂСѓ РёР· С‚РІРѕРµРіРѕ РЅР°Р±РѕСЂР°, Рё РїСЂРѕСЃР»РµРґРё С‡С‚РѕР±С‹ РѕРЅР° РјР°СЃС€С‚Р°Р±РёРѕР»РІР°Р»Р°СЃСЊ РїРѕРґ РІСЂР°РіР°В»; first generated candidate from this chat.",
         "Replacement v002 imported and resolved through SLOW-STATUS-VISUAL-MASK; docs/implementation/evidence/2026-09-30-slow-ice-runtime.md."
       ],
       "missing": "Gameplay-scale visual review on small ordinary enemies, bosses and Travelers."
@@ -4540,7 +4540,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-005/traveler-005-telegraph",
       "stage": "Integrated",
       "evidence": [
-        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "User approved the three displayed traveler aura candidates in chat: 'РџРѕРґРєР»СЋС‡Р°Р№ С‚РѕР»СЊРєРѕ РЅРµ Р·Р°Р±С‹РІР°Р№, С‡С‚Рѕ РѕРЅРё РЅРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃРёРјРјРµС‚СЂРёС‡РЅС‹РјРё. ... 0.8 РєРѕСЌС„С„РёС†РёРµРЅС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ.' (2026-09-30).",
         "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
       ],
       "missing": "Gameplay-scale visual review with several Travelers."
@@ -4557,7 +4557,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-007/traveler-007-telegraph",
       "stage": "Integrated",
       "evidence": [
-        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "User approved the three displayed traveler aura candidates in chat: 'РџРѕРґРєР»СЋС‡Р°Р№ С‚РѕР»СЊРєРѕ РЅРµ Р·Р°Р±С‹РІР°Р№, С‡С‚Рѕ РѕРЅРё РЅРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃРёРјРјРµС‚СЂРёС‡РЅС‹РјРё. ... 0.8 РєРѕСЌС„С„РёС†РёРµРЅС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ.' (2026-09-30).",
         "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
       ],
       "missing": "Gameplay-scale visual review with several Travelers."
@@ -4574,7 +4574,7 @@
       "resourcePath": "Art/Sprites/Travelers/traveler-009/traveler-009-telegraph",
       "stage": "Integrated",
       "evidence": [
-        "User approved the three displayed traveler aura candidates in chat: 'Подключай только не забывай, что они не должны быть симметричными. ... 0.8 коэффициент должен быть.' (2026-09-30).",
+        "User approved the three displayed traveler aura candidates in chat: 'РџРѕРґРєР»СЋС‡Р°Р№ С‚РѕР»СЊРєРѕ РЅРµ Р·Р°Р±С‹РІР°Р№, С‡С‚Рѕ РѕРЅРё РЅРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃРёРјРјРµС‚СЂРёС‡РЅС‹РјРё. ... 0.8 РєРѕСЌС„С„РёС†РёРµРЅС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ.' (2026-09-30).",
         "docs/implementation/evidence/2026-09-30-traveler-aura-ornaments-and-haste-status.md"
       ],
       "missing": "Gameplay-scale visual review with several Travelers."
@@ -4591,7 +4591,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4607,7 +4607,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4623,7 +4623,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4639,7 +4639,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-wet-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4655,7 +4655,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4671,7 +4671,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4687,7 +4687,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4703,7 +4703,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-ward-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4719,7 +4719,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РЅР°Р±РѕСЂ soft-library-world-scale-review.png СЃР»РѕРІР°РјРё В«РїРѕРґРєР»СЋС‡Р°Р№ РЅРѕРІС‹Р№ Р°СЂС‚В». РќР°Р±РѕСЂ РІРєР»СЋС‡Р°РµС‚ РјСЏРіРєРёРµ РєСЂР°СЏ РІСЃРµС… 20 РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СѓС‚РѕС‡РЅРµРЅРёСЏ РјР°СЃС€С‚Р°Р±Р° СЃРµС‚РµР№/Р±Р»Р°РіРѕРІРѕРЅРёР№."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4735,7 +4735,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РЅР°Р±РѕСЂ soft-library-world-scale-review.png СЃР»РѕРІР°РјРё В«РїРѕРґРєР»СЋС‡Р°Р№ РЅРѕРІС‹Р№ Р°СЂС‚В». РќР°Р±РѕСЂ РІРєР»СЋС‡Р°РµС‚ РјСЏРіРєРёРµ РєСЂР°СЏ РІСЃРµС… 20 РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СѓС‚РѕС‡РЅРµРЅРёСЏ РјР°СЃС€С‚Р°Р±Р° СЃРµС‚РµР№/Р±Р»Р°РіРѕРІРѕРЅРёР№."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4751,7 +4751,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РЅР°Р±РѕСЂ soft-library-world-scale-review.png СЃР»РѕРІР°РјРё В«РїРѕРґРєР»СЋС‡Р°Р№ РЅРѕРІС‹Р№ Р°СЂС‚В». РќР°Р±РѕСЂ РІРєР»СЋС‡Р°РµС‚ РјСЏРіРєРёРµ РєСЂР°СЏ РІСЃРµС… 20 РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СѓС‚РѕС‡РЅРµРЅРёСЏ РјР°СЃС€С‚Р°Р±Р° СЃРµС‚РµР№/Р±Р»Р°РіРѕРІРѕРЅРёР№."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4767,7 +4767,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-thorn-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил показанный набор soft-library-world-scale-review.png словами «подключай новый арт». Набор включает мягкие края всех 20 препятствий и уточнения масштаба сетей/благовоний."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» РїРѕРєР°Р·Р°РЅРЅС‹Р№ РЅР°Р±РѕСЂ soft-library-world-scale-review.png СЃР»РѕРІР°РјРё В«РїРѕРґРєР»СЋС‡Р°Р№ РЅРѕРІС‹Р№ Р°СЂС‚В». РќР°Р±РѕСЂ РІРєР»СЋС‡Р°РµС‚ РјСЏРіРєРёРµ РєСЂР°СЏ РІСЃРµС… 20 РїСЂРµРїСЏС‚СЃС‚РІРёР№ Рё СѓС‚РѕС‡РЅРµРЅРёСЏ РјР°СЃС€С‚Р°Р±Р° СЃРµС‚РµР№/Р±Р»Р°РіРѕРІРѕРЅРёР№."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4783,7 +4783,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4799,7 +4799,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4815,7 +4815,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4831,7 +4831,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-net-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4847,7 +4847,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-small-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4863,7 +4863,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-medium-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4879,7 +4879,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-large-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -4895,7 +4895,7 @@
       "resourcePath": "Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop",
       "stage": "Prepared",
       "evidence": [
-        "2026-10-01: пользователь утвердил ground-match-after-actual-floor-review.png словами «Подключай и комить». 16 замен грунта/края по фактическому FIELD-003 фону; 4 колючки сохранены; существующие коллайдеры не менять."
+        "2026-10-01: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‚РІРµСЂРґРёР» ground-match-after-actual-floor-review.png СЃР»РѕРІР°РјРё В«РџРѕРґРєР»СЋС‡Р°Р№ Рё РєРѕРјРёС‚СЊВ». 16 Р·Р°РјРµРЅ РіСЂСѓРЅС‚Р°/РєСЂР°СЏ РїРѕ С„Р°РєС‚РёС‡РµСЃРєРѕРјСѓ FIELD-003 С„РѕРЅСѓ; 4 РєРѕР»СЋС‡РєРё СЃРѕС…СЂР°РЅРµРЅС‹; СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РєРѕР»Р»Р°Р№РґРµСЂС‹ РЅРµ РјРµРЅСЏС‚СЊ."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5121,7 +5121,7 @@
       "resourcePath": "Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop",
       "stage": "Prepared",
       "evidence": [
-        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: В«Р”Р°РІР°Р№, РїРѕРµС…Р°Р»Рё ... СЃСЂР°Р·Сѓ СЂР°Р±РѕС‚Р°С‚СЊ РІ РЅР°СЃС‚РѕСЏС‰РµР№ РєР°СЂС‚РµВ». Runtime target-scale approval remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5137,7 +5137,7 @@
       "resourcePath": "Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop",
       "stage": "Prepared",
       "evidence": [
-        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: В«Р”Р°РІР°Р№, РїРѕРµС…Р°Р»Рё ... СЃСЂР°Р·Сѓ СЂР°Р±РѕС‚Р°С‚СЊ РІ РЅР°СЃС‚РѕСЏС‰РµР№ РєР°СЂС‚РµВ». Runtime target-scale approval remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5153,7 +5153,7 @@
       "resourcePath": "Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop",
       "stage": "Prepared",
       "evidence": [
-        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: В«Р”Р°РІР°Р№, РїРѕРµС…Р°Р»Рё ... СЃСЂР°Р·Сѓ СЂР°Р±РѕС‚Р°С‚СЊ РІ РЅР°СЃС‚РѕСЏС‰РµР№ РєР°СЂС‚РµВ». Runtime target-scale approval remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5169,7 +5169,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile",
       "stage": "Prepared",
       "evidence": [
-        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+        "User chose first road concept: В«РґР°, Р±РµСЂРµРј РїРµСЂРІСѓСЋВ»; approved three generated texture/curb candidates: В«РґР°, Р±РµСЂРµРјВ». Gameplay-scale acceptance remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5185,7 +5185,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile",
       "stage": "Prepared",
       "evidence": [
-        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+        "User chose first road concept: В«РґР°, Р±РµСЂРµРј РїРµСЂРІСѓСЋВ»; approved three generated texture/curb candidates: В«РґР°, Р±РµСЂРµРјВ». Gameplay-scale acceptance remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5201,7 +5201,7 @@
       "resourcePath": "Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop",
       "stage": "Prepared",
       "evidence": [
-        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+        "User chose first road concept: В«РґР°, Р±РµСЂРµРј РїРµСЂРІСѓСЋВ»; approved three generated texture/curb candidates: В«РґР°, Р±РµСЂРµРјВ». Gameplay-scale acceptance remains open."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5217,7 +5217,7 @@
       "resourcePath": "Art/VFX/field-006-zone-seal-telegraph",
       "stage": "Prepared",
       "evidence": [
-        "User selected displayed variant A: «Первый вариант ... мне нравится. Только символ внутри всё-таки нужен». Separate scalable effect glyph retained; portal is a separate candidate."
+        "User selected displayed variant A: В«РџРµСЂРІС‹Р№ РІР°СЂРёР°РЅС‚ ... РјРЅРµ РЅСЂР°РІРёС‚СЃСЏ. РўРѕР»СЊРєРѕ СЃРёРјРІРѕР» РІРЅСѓС‚СЂРё РІСЃС‘-С‚Р°РєРё РЅСѓР¶РµРЅВ». Separate scalable effect glyph retained; portal is a separate candidate."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },
@@ -5229,13 +5229,14 @@
       "owningIp": "IP-23",
       "source": "Art/Source/VFX/field-006-portal/prop/selected-master.png",
       "provenance": "Art/Source/VFX/field-006-portal/prop/asset-record.json",
-      "runtime": "Assets/Resources/Art/VFX/field-006-portal-prop.png",
-      "resourcePath": "Art/VFX/field-006-portal-prop",
-      "stage": "Prepared",
+      "runtime": null,
+      "resourcePath": null,
+      "stage": "Image approved",
       "evidence": [
-        "User follow-up after displayed portal: «У портала пусть радиус входа действительно останется большой. То есть портал будет в центре, а вокруг него еще и вот эта круглая форма». Authorizes the shown upright center portal together with a large floor entry seal and delayed smooth transit."
+        "User follow-up after displayed portal: В«РЈ РїРѕСЂС‚Р°Р»Р° РїСѓСЃС‚СЊ СЂР°РґРёСѓСЃ РІС…РѕРґР° РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ РѕСЃС‚Р°РЅРµС‚СЃСЏ Р±РѕР»СЊС€РѕР№. РўРѕ РµСЃС‚СЊ РїРѕСЂС‚Р°Р» Р±СѓРґРµС‚ РІ С†РµРЅС‚СЂРµ, Р° РІРѕРєСЂСѓРі РЅРµРіРѕ РµС‰Рµ Рё РІРѕС‚ СЌС‚Р° РєСЂСѓРіР»Р°СЏ С„РѕСЂРјР°В». Authorizes the shown upright center portal together with a large floor entry seal and delayed smooth transit.",
+        "2026-10-02: user replaced upright portal with a ground spiral symbol; old raster no longer used. DECISION-0153."
       ],
-      "missing": "Unity import checks and target-scale visual review."
+      "missing": "Retired from runtime by user request; retained only as historical source (DECISION-0153)."
     },
     {
       "owner": "FIELD-009-MATERIAL",
@@ -5249,10 +5250,282 @@
       "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
       "stage": "Prepared",
       "evidence": [
-        "User accepted concept-a-v3-golden-ground.png: «Во, вот это нравится. Давай попробуем встраивать всё это дело». First implementation samples only ground/stone regions of these approved bytes; no new generated material pixels.",
+        "User accepted concept-a-v3-golden-ground.png: В«Р’Рѕ, РІРѕС‚ СЌС‚Рѕ РЅСЂР°РІРёС‚СЃСЏ. Р”Р°РІР°Р№ РїРѕРїСЂРѕР±СѓРµРј РІСЃС‚СЂР°РёРІР°С‚СЊ РІСЃС‘ СЌС‚Рѕ РґРµР»РѕВ». First implementation samples only ground/stone regions of these approved bytes; no new generated material pixels.",
         "2026-10-02: art scope 112/112, manifest 317/317, graphics smoke 1/1 and FieldPlatformSurfaceTests 3/3 PASS."
       ],
       "missing": "Target-scale user visual review after integration."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HASTE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HASTE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-haste/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-haste/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HASTE-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HASTE-CURSED-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-haste-cursed/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-haste-cursed/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste-cursed/field-007-altar-haste-cursed-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-haste-cursed/field-007-altar-haste-cursed-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HEAL",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HEAL-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-heal/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-heal/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-heal/field-007-altar-heal-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-HEAL-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-HEAL-CURSED-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-heal-cursed/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-heal-cursed/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-heal-cursed/field-007-altar-heal-cursed-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-heal-cursed/field-007-altar-heal-cursed-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-WARD",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-WARD-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-ward/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-ward/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward/field-007-altar-ward-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-ward/field-007-altar-ward-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-WARD-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-WARD-CURSED-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-ward-cursed/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-ward-cursed/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-ward-cursed/field-007-altar-ward-cursed-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-POWER",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POWER-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-power/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-power/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power/field-007-altar-power-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-power/field-007-altar-power-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-POWER-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POWER-CURSED-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-power-cursed/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-power-cursed/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-power-cursed/field-007-altar-power-cursed-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-power-cursed/field-007-altar-power-cursed-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-STRIKE-HOLY",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-STRIKE-HOLY-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-strike-holy/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-strike-holy/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-holy/field-007-altar-strike-holy-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-strike-holy/field-007-altar-strike-holy-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-STRIKE-CURSED",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-STRIKE-CURSED-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-strike-cursed/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-strike-cursed/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-strike-cursed/field-007-altar-strike-cursed-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-strike-cursed/field-007-altar-strike-cursed-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-SHRINE-LIFE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-LIFE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-shrine-life/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-shrine-life/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-life/field-007-shrine-life-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-shrine-life/field-007-shrine-life-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-SHRINE-EXPERIENCE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-EXPERIENCE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-shrine-experience/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-shrine-experience/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-shrine-experience/field-007-shrine-experience-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-SHRINE-WARD",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-WARD-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-shrine-ward/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-shrine-ward/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-ward/field-007-shrine-ward-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-shrine-ward/field-007-shrine-ward-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-SHRINE-POWER",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-POWER-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-shrine-power/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-shrine-power/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-shrine-power/field-007-shrine-power-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved all fourteen shown candidates in this thread on 2026-10-02: В«РҐРѕСЂРѕС€Рѕ, РїРѕРґС‚РІРµСЂР¶РґР°СЋВ». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-ZONE-EXPERIENCE",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-EXPERIENCE-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/VFX/field-006-zone-experience/telegraph/selected-master.png",
+      "provenance": "Art/Source/VFX/field-006-zone-experience/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-experience-telegraph.png",
+      "resourcePath": "Art/VFX/field-006-zone-experience-telegraph",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved displayed open-book Experience and outward-arrow Knockback candidates, 2026-10-02: В«Р”Р°, РїРѕРґРєР»СЋС‡РёС‚СЊ РѕР±Р°В». Experience corrected by explicit user instruction: В«РћРїС‹С‚ РјС‹ РѕР±РѕР·РЅР°С‡Р°РµРј РєРЅРёР¶РєРѕР№В». Accepted exact PNG hashes recorded in this packet."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-ZONE-KNOCKBACK",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-KNOCKBACK-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/VFX/field-006-zone-knockback/telegraph/selected-master.png",
+      "provenance": "Art/Source/VFX/field-006-zone-knockback/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-knockback-telegraph.png",
+      "resourcePath": "Art/VFX/field-006-zone-knockback-telegraph",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved displayed open-book Experience and outward-arrow Knockback candidates, 2026-10-02: В«Р”Р°, РїРѕРґРєР»СЋС‡РёС‚СЊ РѕР±Р°В». Experience corrected by explicit user instruction: В«РћРїС‹С‚ РјС‹ РѕР±РѕР·РЅР°С‡Р°РµРј РєРЅРёР¶РєРѕР№В». Accepted exact PNG hashes recorded in this packet."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-ZONE-PORTAL",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-PORTAL-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/VFX/field-006-zone-portal/telegraph/selected-master.png",
+      "provenance": "Art/Source/VFX/field-006-zone-portal/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-portal-telegraph.png",
+      "resourcePath": "Art/VFX/field-006-zone-portal-telegraph",
+      "stage": "Prepared",
+      "evidence": [
+        "User approved the displayed violet spiral portal glyph, 2026-10-02: В«Р”Р°, РїРѕРґРєР»СЋС‡РёС‚СЊВ». Single burst portal redesign and exact jump 5 world units authorized in the same conversation."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

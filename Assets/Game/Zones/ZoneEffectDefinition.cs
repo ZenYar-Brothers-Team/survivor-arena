@@ -25,6 +25,8 @@ namespace Game.Zones
         public float Radius { get; }
         /// <summary>Ground projection shared by presentation and containment; omitted authoring preserves a circle.</summary>
         public float VerticalScale { get; }
+        /// <summary>Share of the drawn radius inside which the effect works (the rim art is a wide band; its midline is the edge).</summary>
+        public float ActiveRadiusFraction { get; }
         public Color Color { get; }
         public ZoneLifetimeMode Lifetime { get; }
         /// <summary>Whether a temporary zone picks a new place when its next preparation starts.</summary>
@@ -89,6 +91,21 @@ namespace Game.Zones
         public float RewardBlastRadius { get; }
         public float RewardShieldSeconds { get; }
         public float RewardIncomingDamageReduction { get; }
+        /// <summary>Shrine: how long picked-up experience is multiplied after firing (0 when the shrine gives none).</summary>
+        public float RewardExperienceSeconds { get; }
+        /// <summary>Shrine: factor on picked-up experience while the reward lasts (5 = five times; 1 when none).</summary>
+        public float RewardExperienceMultiplier { get; }
+        /// <summary>EnemyHaste: added to the movement-speed bonus of enemies inside.</summary>
+        public float EnemyMovementBonus { get; }
+        /// <summary>EnemyRegeneration: health per second enemies inside regain.</summary>
+        public float EnemyRegenerationPerSecond { get; }
+        /// <summary>EnemyProtection: fraction of incoming damage enemies inside are spared.</summary>
+        public float EnemyIncomingDamageReduction { get; }
+        /// <summary>EnemyPower: fraction added to the damage enemies inside deal (0.5 = +50%).</summary>
+        public float EnemyDamageBonus { get; }
+        /// <summary>The altar kinds that strengthen enemies; they are the negative mirrors of the player-side altars.</summary>
+        public bool EmpowersEnemies => Kind == ZoneEffectKind.EnemyHaste || Kind == ZoneEffectKind.EnemyRegeneration ||
+                                       Kind == ZoneEffectKind.EnemyProtection || Kind == ZoneEffectKind.EnemyPower;
         /// <summary>Cycling zones and the charge, strike and shrine kinds are altars: they need a polarity.</summary>
         public bool IsAltar => Lifetime == ZoneLifetimeMode.Cycling || Kind == ZoneEffectKind.Charge ||
                                Kind == ZoneEffectKind.Strike || Kind == ZoneEffectKind.Shrine;
@@ -109,6 +126,15 @@ namespace Game.Zones
         public float PortalExitDistance { get; }
         /// <summary>Portal: minimum distance between the two portals of a pair.</summary>
         public float PortalMinPairDistance { get; }
+        /// <summary>Portal: when positive, the pair appears on the random schedule and its ends lie exactly this many screen heights apart.</summary>
+        public float PortalPairScreenHeights { get; }
+        public bool IsScheduledPortalPair => Kind == ZoneEffectKind.Portal && PortalPairScreenHeights > 0f;
+        public bool IsBurstPortal => Kind == ZoneEffectKind.Portal && Lifetime == ZoneLifetimeMode.Burst;
+        public float PortalJumpDistance { get; }
+        /// <summary>Experience: factor on picked-up experience while the player stands inside (5 = five times).</summary>
+        public float PlayerExperienceMultiplier { get; }
+        /// <summary>Knockback: world units per second that enemies inside are pushed away from the center.</summary>
+        public float EnemyPushSpeed { get; }
 
         public ZoneEffectDefinition(ZoneEffectData data)
         {
@@ -125,6 +151,8 @@ namespace Game.Zones
             NumericValidation.ValidatePositive(Radius, nameof(Radius));
             VerticalScale = data.VerticalScale ?? 1f;
             NumericValidation.ValidateRange(VerticalScale, 0.1f, 1f, nameof(VerticalScale));
+            ActiveRadiusFraction = data.ActiveRadiusFraction ?? 1f;
+            NumericValidation.ValidateRange(ActiveRadiusFraction, 0.1f, 1f, nameof(ActiveRadiusFraction));
             if (string.IsNullOrWhiteSpace(data.Color) || !ColorUtility.TryParseHtmlString(data.Color, out var color))
                 throw new ArgumentException($"Zone effect '{data.Id}' color must be an HTML color.");
             Color = color;
@@ -177,11 +205,14 @@ namespace Game.Zones
                         throw new ArgumentException($"Permanent zone effect '{data.Id}' carries cycle values.");
                     break;
             }
-            if (Kind == ZoneEffectKind.Portal && (RelocatesBetweenCycles ||
+            // A portal pair either stays in place (fixed pair) or, with portalPairScreenHeights, appears as a pair on the random schedule.
+            if (Kind != ZoneEffectKind.Portal && data.PortalJumpDistance.HasValue)
+                throw new ArgumentException($"Non-portal effect '{data.Id}' carries portalJumpDistance.");
+            if (Kind == ZoneEffectKind.Portal && !IsBurstPortal && ((RelocatesBetweenCycles != data.PortalPairScreenHeights.HasValue) ||
                 (Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Pulsing)))
-                throw new ArgumentException($"Portal effect '{data.Id}' must stay in place; its pair may pulse together.");
-            if ((Kind == ZoneEffectKind.SpeedBurst) != (Lifetime == ZoneLifetimeMode.Burst))
-                throw new ArgumentException($"Zone effect '{data.Id}': a burst lifetime belongs to the SpeedBurst kind and only to it.");
+                throw new ArgumentException($"Portal effect '{data.Id}' must stay in place unless it is a scheduled pair (portalPairScreenHeights, relocating).");
+            if ((Kind == ZoneEffectKind.SpeedBurst || IsBurstPortal) != (Lifetime == ZoneLifetimeMode.Burst))
+                throw new ArgumentException($"Zone effect '{data.Id}': burst lifetime requires SpeedBurst or Portal.");
             if (Kind == ZoneEffectKind.Charge && Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
                 throw new ArgumentException($"Charge effect '{data.Id}' stays in place: permanent or cycling.");
 
@@ -196,8 +227,36 @@ namespace Game.Zones
                 Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
                 throw new ArgumentException($"Altar effect '{data.Id}' stays in place: permanent or cycling.");
 
+            if (!EmpowersEnemies && (data.EnemyMovementBonus.HasValue || data.EnemyRegenerationPerSecond.HasValue ||
+                    data.EnemyIncomingDamageReduction.HasValue || data.EnemyDamageBonus.HasValue))
+                throw new ArgumentException($"Zone effect '{data.Id}' carries enemy-altar values but is not an enemy altar.");
+            if (EmpowersEnemies && Lifetime != ZoneLifetimeMode.Cycling && Lifetime != ZoneLifetimeMode.Permanent)
+                throw new ArgumentException($"Enemy altar '{data.Id}' stays in place: permanent or cycling.");
+
             switch (Kind)
             {
+                case ZoneEffectKind.EnemyHaste:
+                    EnemyMovementBonus = Required(data.EnemyMovementBonus, data.Id, "enemyMovementBonus");
+                    NumericValidation.ValidateRange(EnemyMovementBonus, 0f, 2f, nameof(EnemyMovementBonus));
+                    if (EnemyMovementBonus <= 0f) throw new ArgumentException($"Enemy haste '{data.Id}' needs a positive enemyMovementBonus.");
+                    ForbidPlayerSide(data);
+                    break;
+                case ZoneEffectKind.EnemyRegeneration:
+                    EnemyRegenerationPerSecond = Required(data.EnemyRegenerationPerSecond, data.Id, "enemyRegenerationPerSecond");
+                    NumericValidation.ValidatePositive(EnemyRegenerationPerSecond, nameof(EnemyRegenerationPerSecond));
+                    ForbidPlayerSide(data);
+                    break;
+                case ZoneEffectKind.EnemyProtection:
+                    EnemyIncomingDamageReduction = Required(data.EnemyIncomingDamageReduction, data.Id, "enemyIncomingDamageReduction");
+                    NumericValidation.ValidateRange(EnemyIncomingDamageReduction, 0f, 0.95f, nameof(EnemyIncomingDamageReduction));
+                    if (EnemyIncomingDamageReduction <= 0f) throw new ArgumentException($"Enemy protection '{data.Id}' needs a positive enemyIncomingDamageReduction.");
+                    ForbidPlayerSide(data);
+                    break;
+                case ZoneEffectKind.EnemyPower:
+                    EnemyDamageBonus = Required(data.EnemyDamageBonus, data.Id, "enemyDamageBonus");
+                    NumericValidation.ValidatePositive(EnemyDamageBonus, nameof(EnemyDamageBonus));
+                    ForbidPlayerSide(data);
+                    break;
                 case ZoneEffectKind.Strike:
                     StrikePeriodSeconds = Required(data.StrikePeriodSeconds, data.Id, "strikePeriodSeconds");
                     StrikeTelegraphSeconds = Required(data.StrikeTelegraphSeconds, data.Id, "strikeTelegraphSeconds");
@@ -228,7 +287,8 @@ namespace Game.Zones
                     NumericValidation.ValidatePositive(ShrineDecaySeconds, nameof(ShrineDecaySeconds));
                     NumericValidation.ValidatePositive(ShrineCooldownSeconds, nameof(ShrineCooldownSeconds));
                     (RewardBuffSeconds, RewardMovementBonus, RewardSkillDamageBonus, RewardActionSpeedBonus, RewardHealFraction,
-                        RewardBlastDamage, RewardBlastRadius, RewardShieldSeconds, RewardIncomingDamageReduction) = ReadRewards(data);
+                        RewardBlastDamage, RewardBlastRadius, RewardShieldSeconds, RewardIncomingDamageReduction,
+                        RewardExperienceSeconds, RewardExperienceMultiplier) = ReadRewards(data);
                     Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
                 case ZoneEffectKind.Slow:
@@ -298,13 +358,50 @@ namespace Game.Zones
                         throw new ArgumentException($"Charge zone '{data.Id}' must raise skill damage or action speed at full charge.");
                     Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff);
                     break;
+                case ZoneEffectKind.Knockback:
+                    EnemyPushSpeed = Required(data.EnemyPushSpeed, data.Id, "enemyPushSpeed");
+                    NumericValidation.ValidatePositive(EnemyPushSpeed, nameof(EnemyPushSpeed));
+                    if (AffectsBothSides) throw new ArgumentException($"Knockback zone '{data.Id}' never moves the player.");
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
+                    break;
+                case ZoneEffectKind.Experience:
+                    PlayerExperienceMultiplier = Required(data.PlayerExperienceMultiplier, data.Id, "playerExperienceMultiplier");
+                    if (!(PlayerExperienceMultiplier > 1f) || float.IsInfinity(PlayerExperienceMultiplier))
+                        throw new ArgumentException($"Experience zone '{data.Id}' playerExperienceMultiplier must be above 1.");
+                    if (AffectsBothSides) throw new ArgumentException($"Experience zone '{data.Id}' only works on the player.");
+                    Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
+                    break;
                 default:
+                    if (IsBurstPortal)
+                    {
+                        PortalJumpDistance = Required(data.PortalJumpDistance, data.Id, "portalJumpDistance");
+                        NumericValidation.ValidatePositive(PortalJumpDistance, nameof(PortalJumpDistance));
+                        if (AffectsBothSides || data.PortalCooldownSeconds.HasValue || data.PortalExitDistance.HasValue ||
+                            data.PortalMinPairDistance.HasValue || data.PortalPairScreenHeights.HasValue)
+                            throw new ArgumentException($"Burst portal '{data.Id}' is player-only and has no partner or entry cooldown.");
+                        Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane |
+                            ValueGroup.Rift | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
+                        break;
+                    }
+                    if (data.PortalJumpDistance.HasValue)
+                        throw new ArgumentException($"Paired portal '{data.Id}' carries portalJumpDistance.");
                     PortalCooldownSeconds = Required(data.PortalCooldownSeconds, data.Id, "portalCooldownSeconds");
                     PortalExitDistance = Required(data.PortalExitDistance, data.Id, "portalExitDistance");
-                    PortalMinPairDistance = Required(data.PortalMinPairDistance, data.Id, "portalMinPairDistance");
                     NumericValidation.ValidatePositive(PortalCooldownSeconds, nameof(PortalCooldownSeconds));
                     NumericValidation.ValidatePositive(PortalExitDistance, nameof(PortalExitDistance));
-                    NumericValidation.ValidatePositive(PortalMinPairDistance, nameof(PortalMinPairDistance));
+                    if (data.PortalPairScreenHeights.HasValue)
+                    {
+                        // The pair distance comes from the screen at spawn time; a fixed minimum would contradict it.
+                        if (data.PortalMinPairDistance.HasValue)
+                            throw new ArgumentException($"Portal effect '{data.Id}' carries both portalPairScreenHeights and portalMinPairDistance.");
+                        PortalPairScreenHeights = data.PortalPairScreenHeights.Value;
+                        NumericValidation.ValidatePositive(PortalPairScreenHeights, nameof(PortalPairScreenHeights));
+                    }
+                    else
+                    {
+                        PortalMinPairDistance = Required(data.PortalMinPairDistance, data.Id, "portalMinPairDistance");
+                        NumericValidation.ValidatePositive(PortalMinPairDistance, nameof(PortalMinPairDistance));
+                    }
                     Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
                     break;
             }
@@ -312,8 +409,8 @@ namespace Game.Zones
             if (IsAltar && !Polarity.HasValue) throw new ArgumentException($"Altar effect '{data.Id}' requires a polarity.");
             if (Polarity.HasValue)
             {
-                var ok = Polarity.Value == ZoneAltarPolarity.Positive ? !HarmsPlayer
-                    : Polarity.Value == ZoneAltarPolarity.Negative ? HarmsPlayer
+                var ok = Polarity.Value == ZoneAltarPolarity.Positive ? !HarmsPlayer && !EmpowersEnemies
+                    : Polarity.Value == ZoneAltarPolarity.Negative ? HarmsPlayer || EmpowersEnemies
                     : HarmsPlayer && HarmsEnemies;
                 if (!ok) throw new ArgumentException($"Zone effect '{data.Id}' polarity {Polarity.Value} does not match what the effect does.");
             }
@@ -392,12 +489,23 @@ namespace Game.Zones
         private static bool HasReward(ZoneEffectData data) =>
             data.RewardBuffSeconds.HasValue || data.RewardMovementBonus.HasValue || data.RewardSkillDamageBonus.HasValue ||
             data.RewardActionSpeedBonus.HasValue || data.RewardHealFraction.HasValue || data.RewardBlastDamage.HasValue ||
-            data.RewardBlastRadius.HasValue || data.RewardShieldSeconds.HasValue || data.RewardIncomingDamageReduction.HasValue;
+            data.RewardBlastRadius.HasValue || data.RewardShieldSeconds.HasValue || data.RewardIncomingDamageReduction.HasValue ||
+            data.RewardExperienceSeconds.HasValue || data.RewardExperienceMultiplier.HasValue;
 
         // Each reward is a group whose members come together; a shrine needs at least one group.
         private static (float buffSeconds, float movement, float skill, float action, float heal, float blastDamage, float blastRadius,
-            float shieldSeconds, float shieldReduction) ReadRewards(ZoneEffectData data)
+            float shieldSeconds, float shieldReduction, float experienceSeconds, float experienceMultiplier) ReadRewards(ZoneEffectData data)
         {
+            var experience = data.RewardExperienceSeconds.HasValue || data.RewardExperienceMultiplier.HasValue;
+            float experienceSeconds = 0f, experienceMultiplier = 1f;
+            if (experience)
+            {
+                experienceSeconds = Required(data.RewardExperienceSeconds, data.Id, "rewardExperienceSeconds");
+                experienceMultiplier = Required(data.RewardExperienceMultiplier, data.Id, "rewardExperienceMultiplier");
+                NumericValidation.ValidatePositive(experienceSeconds, nameof(experienceSeconds));
+                if (!(experienceMultiplier > 1f) || float.IsInfinity(experienceMultiplier))
+                    throw new ArgumentException($"Shrine '{data.Id}' rewardExperienceMultiplier must be above 1.");
+            }
             var buff = data.RewardBuffSeconds.HasValue || data.RewardMovementBonus.HasValue ||
                        data.RewardSkillDamageBonus.HasValue || data.RewardActionSpeedBonus.HasValue;
             var blast = data.RewardBlastDamage.HasValue || data.RewardBlastRadius.HasValue;
@@ -437,9 +545,10 @@ namespace Game.Zones
                 NumericValidation.ValidateRange(reduction, 0f, 0.95f, nameof(reduction));
                 if (reduction <= 0f) throw new ArgumentException($"Shrine '{data.Id}' shield reward needs a positive reduction.");
             }
-            if (!buff && !data.RewardHealFraction.HasValue && !blast && !shield)
+            if (!buff && !data.RewardHealFraction.HasValue && !blast && !shield && !experience)
                 throw new ArgumentException($"Shrine '{data.Id}' needs at least one reward.");
-            return (buffSeconds, movement, skill, action, heal, blastDamage, blastRadius, shieldSeconds, reduction);
+            return (buffSeconds, movement, skill, action, heal, blastDamage, blastRadius, shieldSeconds, reduction,
+                experienceSeconds, experienceMultiplier);
         }
 
         /// <summary>
@@ -504,7 +613,8 @@ namespace Game.Zones
         {
             var offset = point - center;
             offset.y /= VerticalScale;
-            return offset.sqrMagnitude <= Radius * Radius;
+            var reach = Radius * ActiveRadiusFraction;
+            return offset.sqrMagnitude <= reach * reach;
         }
 
         private static float Required(float? value, string id, string name) =>
@@ -516,6 +626,11 @@ namespace Game.Zones
             SlowOnly = 1, Movement = 2, Regeneration = 4, Arcane = 8, Rift = 16, Portal = 32, Protection = 64, Buff = 128, Charge = 256
         }
 
+        // An enemy altar carries only its enemy-side numbers.
+        private static void ForbidPlayerSide(ZoneEffectData data) => Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement |
+            ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff |
+            ValueGroup.Charge);
+
         // A kind's data must not carry another kind's numbers.
         private static void Forbid(ZoneEffectData data, ValueGroup groups)
         {
@@ -525,7 +640,9 @@ namespace Game.Zones
                           ((groups & ValueGroup.Arcane) != 0 && (data.PlayerSkillDamageBonus.HasValue || data.PlayerActionSpeedBonus.HasValue)) ||
                           ((groups & ValueGroup.Rift) != 0 && (data.PlayerDamagePerSecond.HasValue || data.EnemyDamagePerSecond.HasValue)) ||
                           ((groups & ValueGroup.Portal) != 0 && (data.PortalCooldownSeconds.HasValue || data.PortalExitDistance.HasValue ||
-                                                                 data.PortalMinPairDistance.HasValue)) ||
+                                                                 data.PortalMinPairDistance.HasValue || data.PortalPairScreenHeights.HasValue || data.PortalJumpDistance.HasValue)) ||
+                          (data.Kind != ZoneEffectKind.Experience && data.PlayerExperienceMultiplier.HasValue) ||
+                          (data.Kind != ZoneEffectKind.Knockback && data.EnemyPushSpeed.HasValue) ||
                           ((groups & ValueGroup.Protection) != 0 && data.PlayerIncomingDamageReduction.HasValue) ||
                           ((groups & ValueGroup.Buff) != 0 && data.PlayerBuffSeconds.HasValue) ||
                           ((groups & ValueGroup.Charge) != 0 && (data.ChargeSecondsToMax.HasValue || data.ChargeDecaySeconds.HasValue ||

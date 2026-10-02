@@ -14,12 +14,12 @@ namespace Game.Bootstrap.PlayModeTests
     public sealed class ZoneSealVisualSmokeTests
     {
         [UnityTest]
-        public IEnumerator Seals_RenderEightDifferentEffects_AndPreparationStates()
+        public IEnumerator Seals_RenderAllNineAcademyEffects_AndPreparationStates()
         {
             var effects = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")
                 [new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout.Effects.Values
                 .GroupBy(e => e.Kind).Select(g => g.First()).ToArray();
-            Assert.AreEqual(8, effects.Length);
+            Assert.AreEqual(9, effects.Length);
             var root = new GameObject("Seal capture");
             var seals = new List<ZoneSealPresentationRuntime>();
             var zones = new List<ZonePlacement>();
@@ -38,14 +38,15 @@ namespace Game.Bootstrap.PlayModeTests
                 {
                     var go = new GameObject(effects[i].Kind.ToString()); go.transform.SetParent(root.transform, false);
                     var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effects[i].Kind, profile);
-                    var zone = new ZonePlacement(i, effects[i], new Vector2(-24f + 16f * (i % 4), i < 4 ? 9f : -9f)); zone.SetNear(true);
+                    var zone = new ZonePlacement(i, effects[i], new Vector2(-20f + 20f * (i % 3), 12f - 12f * (i / 3))); zone.SetNear(true);
                     foreach (var child in go.GetComponentsInChildren<Transform>()) child.gameObject.layer = 31;
                     zones.Add(zone); seals.Add(seal);
                 }
                 foreach (var sample in new[] { (time: 28f, name: "waiting"), (time: 2.5f, name: "preparing"), (time: 5f, name: "active") })
                 {
                     for (var i = 0; i < seals.Count; i++)
-                        seals[i].Apply(zones[i], effects[i].Kind == ZoneEffectKind.SpeedBurst && sample.name == "active" ? 4.15f : sample.time, 0f);
+                        seals[i].Apply(zones[i], effects[i].Lifetime == ZoneLifetimeMode.Burst && sample.name == "active"
+                            ? effects[i].TelegraphSeconds + .15f : sample.time, 0f);
                     yield return null; yield return null;
                     if (target != null) UiFoundationSmokeTests.Capture(target, "academy-seals-" + sample.name);
                 }

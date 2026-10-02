@@ -9328,572 +9328,6 @@
     }
   },
   {
-    "id": "FIELD-DEV-ALTARS-PRESENTATION",
-    "environmentId": "FIELD-DEV-ALTARS-ENVIRONMENT",
-    "groundVisualId": "FIELD-006-VISUAL-GROUND",
-    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
-    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
-    "bushVisualId": "FIELD-001-VISUAL-BUSH",
-    "grassVisualId": "FIELD-001-VISUAL-GRASS",
-    "obstacleName": "Obstacle_Fixture",
-    "obstacleScale": 1.05,
-    "decorationSpacing": 6,
-    "decorationJitter": 2.2,
-    "decorationChance": 0.75,
-    "bushChance": 0.22,
-    "decorationMargin": 4,
-    "safeRadius": 2.5,
-    "grassScaleMin": 0.32,
-    "grassScaleMax": 0.48,
-    "bushScaleMin": 0.5,
-    "bushScaleMax": 0.68,
-    "seed": 7001,
-    "obstacleSeed": 7002,
-    "interiorObstacleCount": 5,
-    "nearObstacleCount": 0,
-    "obstaclePlacementAttempts": 80,
-    "nearObstacleRadius": 22,
-    "fenceChance": 0.35,
-    "obstacleSeparation": 3.4,
-    "fenceColliderWidth": 3,
-    "fenceColliderHeight": 1.25,
-    "stumpColliderRadius": 0.68,
-    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
-    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
-    "arenaSideLength": 160,
-    "blobLayout": {
-      "edgeMargin": 5,
-      "startClearRadius": 11,
-      "playerClearRadius": 3.5,
-      "minGap": 7,
-      "placementAttempts": 1500,
-      "maxRestarts": 40,
-      "referenceSeed": 7,
-      "pixelsPerUnit": 16,
-      "outlinePixels": 2,
-      "library": [
-        {
-          "id": "wet-small",
-          "visualId": "FIELD-DEV-BLOBS-VISUAL-WET-SMALL",
-          "points": [
-            [
-              0.0029,
-              2.5329
-            ],
-            [
-              0.6449,
-              2.2259
-            ],
-            [
-              1.1845,
-              2.3747
-            ],
-            [
-              1.3985,
-              2.0398
-            ],
-            [
-              1.7055,
-              2.0119
-            ],
-            [
-              2.6081,
-              0.9046
-            ],
-            [
-              2.7662,
-              0.3557
-            ],
-            [
-              2.1149,
-              -1.4959
-            ],
-            [
-              1.6218,
-              -1.561
-            ],
-            [
-              0.5332,
-              -2.5379
-            ],
-            [
-              -1.2439,
-              -2.082
-            ],
-            [
-              -2.7884,
-              -0.6213
-            ],
-            [
-              -2.7884,
-              0.5325
-            ],
-            [
-              -2.5279,
-              1.0535
-            ],
-            [
-              -1.2997,
-              1.8165
-            ],
-            [
-              -1.1044,
-              2.3096
-            ]
-          ]
-        },
-        {
-          "id": "ward-small",
-          "visualId": "FIELD-DEV-BLOBS-VISUAL-WARD-SMALL",
-          "points": [
-            [
-              -0.0819,
-              2.8005
-            ],
-            [
-              2.0715,
-              1.9826
-            ],
-            [
-              3.0343,
-              -0.7091
-            ],
-            [
-              1.0673,
-              -2.7071
-            ],
-            [
-              -0.4649,
-              -2.614
-            ],
-            [
-              -1.3138,
-              -2.9867
-            ],
-            [
-              -3.0427,
-              -1.1542
-            ],
-            [
-              -2.7632,
-              -0.0465
-            ],
-            [
-              -2.8771,
-              0.2641
-            ],
-            [
-              -2.6286,
-              0.6575
-            ],
-            [
-              -2.815,
-              1.5478
-            ],
-            [
-              -1.8936,
-              2.1482
-            ]
-          ]
-        },
-        {
-          "id": "thorn-small",
-          "visualId": "FIELD-DEV-BLOBS-VISUAL-THORN-SMALL",
-          "points": [
-            [
-              0.4231,
-              3.0296
-            ],
-            [
-              0.952,
-              2.5007
-            ],
-            [
-              1.8922,
-              0.6203
-            ],
-            [
-              2.8559,
-              0.2207
-            ],
-            [
-              3.3025,
-              -0.2024
-            ],
-            [
-              3.3378,
-              -0.8958
-            ],
-            [
-              2.8207,
-              -2.7763
-            ],
-            [
-              0.094,
-              -1.9888
-            ],
-            [
-              -2.4681,
-              -2.8233
-            ],
-            [
-              -3.2438,
-              -0.2259
-            ],
-            [
-              -3.1262,
-              0.5028
-            ],
-            [
-              -2.5033,
-              1.0316
-            ],
-            [
-              -1.5631,
-              2.4067
-            ]
-          ]
-        },
-        {
-          "id": "net-small",
-          "visualId": "FIELD-DEV-BLOBS-VISUAL-NET-SMALL",
-          "points": [
-            [
-              0.7743,
-              3.1043
-            ],
-            [
-              2.5527,
-              2.1061
-            ],
-            [
-              2.6445,
-              1.6127
-            ],
-            [
-              1.6118,
-              0.2818
-            ],
-            [
-              3.1378,
-              -1.2786
-            ],
-            [
-              3.0919,
-              -1.5081
-            ],
-            [
-              1.761,
-              -2.4145
-            ],
-            [
-              1.3135,
-              -2.2539
-            ],
-            [
-              0.866,
-              -2.426
-            ],
-            [
-              -0.7058,
-              -3.4127
-            ],
-            [
-              -1.1877,
-              -3.0456
-            ],
-            [
-              -2.4728,
-              -2.862
-            ],
-            [
-              -3.3104,
-              -2.4145
-            ],
-            [
-              -2.9088,
-              -0.4869
-            ],
-            [
-              -3.0694,
-              -0.1772
-            ],
-            [
-              -2.9776,
-              0.8211
-            ],
-            [
-              -2.3351,
-              1.1767
-            ],
-            [
-              -1.7499,
-              1.8652
-            ],
-            [
-              -1.3943,
-              1.8766
-            ],
-            [
-              -0.2698,
-              2.7371
-            ]
-          ]
-        },
-        {
-          "id": "incense-small",
-          "visualId": "FIELD-DEV-BLOBS-VISUAL-INCENSE-SMALL",
-          "points": [
-            [
-              -0.3561,
-              2.9531
-            ],
-            [
-              2.3312,
-              1.5675
-            ],
-            [
-              2.9715,
-              -0.3954
-            ],
-            [
-              0.7356,
-              -2.5788
-            ],
-            [
-              -1.7732,
-              -2.9777
-            ],
-            [
-              -3.0013,
-              0.1189
-            ],
-            [
-              -2.6129,
-              2.1554
-            ]
-          ]
-        }
-      ],
-      "blobs": [
-        {
-          "libraryId": "wet-small"
-        },
-        {
-          "libraryId": "ward-small"
-        },
-        {
-          "libraryId": "thorn-small"
-        },
-        {
-          "libraryId": "net-small"
-        },
-        {
-          "libraryId": "incense-small"
-        }
-      ]
-    },
-    "zoneLayout": {
-      "edgeMargin": 8,
-      "startClearRadius": 10,
-      "minGap": 24,
-      "obstacleClearance": 2,
-      "activeScreenMargin": 0.5,
-      "placementAttempts": 800,
-      "maxRestarts": 30,
-      "referenceSeed": 7,
-      "effects": [
-        {
-          "id": "FIXTURE-ALTAR-HASTE",
-          "displayName": "Алтарь ветра",
-          "kind": "Haste",
-          "radius": 4,
-          "color": "#6df0c2",
-          "lifetime": "Cycling",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
-          "playerMovementBonus": 0.5,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-ALTAR-HEAL",
-          "displayName": "Алтарь исцеления",
-          "kind": "Regeneration",
-          "radius": 4,
-          "color": "#ff8fd0",
-          "lifetime": "Cycling",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
-          "playerRegenerationPerSecond": 8,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-ALTAR-WARD",
-          "displayName": "Алтарь защиты",
-          "kind": "Protection",
-          "radius": 4,
-          "color": "#9fd3ff",
-          "lifetime": "Cycling",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 22,
-          "pulseFadeSeconds": 3,
-          "playerIncomingDamageReduction": 0.8,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-ALTAR-POWER",
-          "displayName": "Алтарь силы",
-          "kind": "ArcanePower",
-          "radius": 4,
-          "color": "#c28cff",
-          "lifetime": "Cycling",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
-          "playerSkillDamageBonus": 0.6,
-          "playerActionSpeedBonus": 0.3,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-ALTAR-CHARGE",
-          "displayName": "Алтарь накопления",
-          "kind": "Charge",
-          "radius": 5,
-          "color": "#ffb347",
-          "lifetime": "Permanent",
-          "chargeSecondsToMax": 20,
-          "chargeDecaySeconds": 8,
-          "chargeSkillDamageBonus": 1,
-          "chargeActionSpeedBonus": 0.3,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-ALTAR-RIFT",
-          "displayName": "Алтарь разлома",
-          "kind": "Rift",
-          "radius": 4,
-          "color": "#ff5a5a",
-          "lifetime": "Permanent",
-          "playerDamagePerSecond": 4,
-          "enemyDamagePerSecond": 0,
-          "polarity": "Negative"
-        },
-        {
-          "id": "FIXTURE-ALTAR-STRIKE-CURSED",
-          "displayName": "Алтарь проклятых ударов",
-          "kind": "Strike",
-          "radius": 8,
-          "color": "#c2185b",
-          "lifetime": "Permanent",
-          "strikePeriodSeconds": 12,
-          "strikeTelegraphSeconds": 2.5,
-          "strikeFlashSeconds": 0.6,
-          "strikeCount": 3,
-          "strikeRadius": 2.5,
-          "strikePlayerDamage": 25,
-          "strikeEnemyDamage": 60,
-          "polarity": "Neutral"
-        },
-        {
-          "id": "FIXTURE-ALTAR-STRIKE-HOLY",
-          "displayName": "Алтарь священного гнева",
-          "kind": "Strike",
-          "radius": 8,
-          "color": "#ffd45a",
-          "lifetime": "Cycling",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
-          "strikePeriodSeconds": 6,
-          "strikeTelegraphSeconds": 2,
-          "strikeFlashSeconds": 0.5,
-          "strikeCount": 3,
-          "strikeRadius": 2.5,
-          "strikePlayerDamage": 0,
-          "strikeEnemyDamage": 80,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-SHRINE-POWER",
-          "displayName": "Святыня силы",
-          "kind": "Shrine",
-          "radius": 5,
-          "color": "#ffb347",
-          "lifetime": "Permanent",
-          "shrineChargeSeconds": 8,
-          "shrineDecaySeconds": 4,
-          "shrineCooldownSeconds": 120,
-          "rewardBuffSeconds": 20,
-          "rewardMovementBonus": 0.3,
-          "rewardSkillDamageBonus": 0.6,
-          "rewardActionSpeedBonus": 0.3,
-          "rewardBlastDamage": 150,
-          "rewardBlastRadius": 12,
-          "polarity": "Positive"
-        },
-        {
-          "id": "FIXTURE-SHRINE-LIFE",
-          "displayName": "Святыня жизни",
-          "kind": "Shrine",
-          "radius": 5,
-          "color": "#7bd96a",
-          "lifetime": "Permanent",
-          "shrineChargeSeconds": 8,
-          "shrineDecaySeconds": 4,
-          "shrineCooldownSeconds": 120,
-          "rewardHealFraction": 0.5,
-          "rewardShieldSeconds": 10,
-          "rewardIncomingDamageReduction": 0.5,
-          "polarity": "Positive"
-        }
-      ],
-      "zones": [
-        {
-          "effectId": "FIXTURE-ALTAR-HASTE",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-HEAL",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-WARD",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-POWER",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-CHARGE",
-          "count": 2
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-RIFT",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-STRIKE-CURSED",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-ALTAR-STRIKE-HOLY",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-SHRINE-POWER",
-          "count": 1
-        },
-        {
-          "effectId": "FIXTURE-SHRINE-LIFE",
-          "count": 1
-        }
-      ]
-    }
-  },
-  {
     "id": "FIELD-007-PRESENTATION",
     "environmentId": "FIELD-007-ENVIRONMENT",
     "groundVisualId": "FIELD-007-VISUAL-GROUND",
@@ -9942,7 +9376,7 @@
           "id": "FIELD-007-ALTAR-HASTE",
           "displayName": "Алтарь ветра",
           "kind": "Haste",
-          "radius": 4.5,
+          "radius": 7,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
@@ -9950,27 +9384,27 @@
           "pulseFadeSeconds": 3,
           "playerMovementBonus": 0.5,
           "polarity": "Positive",
-          "minRadius": 1.5
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-ALTAR-HEAL",
           "displayName": "Алтарь исцеления",
           "kind": "Regeneration",
-          "radius": 4.5,
+          "radius": 7,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
-          "playerRegenerationPerSecond": 8,
+          "playerRegenerationPerSecond": 5,
           "polarity": "Positive",
-          "minRadius": 1.5
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-ALTAR-WARD",
           "displayName": "Алтарь защиты",
           "kind": "Protection",
-          "radius": 4.5,
+          "radius": 7,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
@@ -9978,63 +9412,28 @@
           "pulseFadeSeconds": 3,
           "playerIncomingDamageReduction": 0.8,
           "polarity": "Positive",
-          "minRadius": 1.5
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-ALTAR-POWER",
           "displayName": "Алтарь силы",
           "kind": "ArcanePower",
-          "radius": 4.5,
+          "radius": 7,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
-          "playerSkillDamageBonus": 0.6,
-          "playerActionSpeedBonus": 0.3,
+          "playerSkillDamageBonus": 0,
+          "playerActionSpeedBonus": 0.5,
           "polarity": "Positive",
-          "minRadius": 1.5
-        },
-        {
-          "id": "FIELD-007-ALTAR-RIFT",
-          "displayName": "Алтарь разлома",
-          "kind": "Rift",
-          "radius": 4.5,
-          "color": "#ed756b",
-          "lifetime": "Cycling",
-          "playerDamagePerSecond": 4,
-          "enemyDamagePerSecond": 0,
-          "polarity": "Negative",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
-          "minRadius": 1.5
-        },
-        {
-          "id": "FIELD-007-ALTAR-STRIKE-CURSED",
-          "displayName": "Алтарь проклятых ударов",
-          "kind": "Strike",
-          "radius": 9,
-          "color": "#ed756b",
-          "lifetime": "Cycling",
-          "strikePeriodSeconds": 12,
-          "strikeTelegraphSeconds": 2.5,
-          "strikeFlashSeconds": 0.6,
-          "strikeCount": 3,
-          "strikeRadius": 2.5,
-          "strikePlayerDamage": 25,
-          "strikeEnemyDamage": 0,
-          "polarity": "Negative",
-          "pulsePeriodSeconds": 90,
-          "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3,
           "minRadius": 3
         },
         {
           "id": "FIELD-007-ALTAR-STRIKE-HOLY",
           "displayName": "Алтарь священного гнева",
           "kind": "Strike",
-          "radius": 9,
+          "radius": 7,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
@@ -10046,44 +9445,144 @@
           "strikeCount": 3,
           "strikeRadius": 2.5,
           "strikePlayerDamage": 0,
-          "strikeEnemyDamage": 80,
+          "strikeEnemyDamage": 20,
           "polarity": "Positive",
           "minRadius": 3
         },
         {
-          "id": "FIELD-007-SHRINE-POWER",
-          "displayName": "Святыня силы",
-          "kind": "Shrine",
-          "radius": 5.625,
-          "color": "#62b8b7",
-          "lifetime": "Permanent",
-          "shrineChargeSeconds": 8,
-          "shrineDecaySeconds": 4,
-          "shrineCooldownSeconds": 120,
-          "rewardBuffSeconds": 20,
-          "rewardMovementBonus": 0.3,
-          "rewardSkillDamageBonus": 0.6,
-          "rewardActionSpeedBonus": 0.3,
-          "rewardBlastDamage": 150,
-          "rewardBlastRadius": 12,
-          "polarity": "Positive",
-          "minRadius": 1.875
+          "id": "FIELD-007-ALTAR-HASTE-CURSED",
+          "displayName": "Проклятый алтарь ветра",
+          "kind": "EnemyHaste",
+          "radius": 7,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "enemyMovementBonus": 0.5,
+          "polarity": "Negative",
+          "minRadius": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-HEAL-CURSED",
+          "displayName": "Проклятый алтарь исцеления",
+          "kind": "EnemyRegeneration",
+          "radius": 7,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "enemyRegenerationPerSecond": 5,
+          "polarity": "Negative",
+          "minRadius": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-WARD-CURSED",
+          "displayName": "Проклятый алтарь защиты",
+          "kind": "EnemyProtection",
+          "radius": 7,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "enemyIncomingDamageReduction": 0.8,
+          "polarity": "Negative",
+          "minRadius": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-POWER-CURSED",
+          "displayName": "Проклятый алтарь силы",
+          "kind": "EnemyPower",
+          "radius": 7,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "enemyDamageBonus": 0.5,
+          "polarity": "Negative",
+          "minRadius": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-STRIKE-CURSED",
+          "displayName": "Алтарь проклятых ударов",
+          "kind": "Strike",
+          "radius": 7,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "strikePeriodSeconds": 6,
+          "strikeTelegraphSeconds": 2,
+          "strikeFlashSeconds": 0.5,
+          "strikeCount": 3,
+          "strikeRadius": 2.5,
+          "strikePlayerDamage": 20,
+          "strikeEnemyDamage": 0,
+          "polarity": "Negative",
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-SHRINE-LIFE",
           "displayName": "Святыня жизни",
           "kind": "Shrine",
-          "radius": 5.625,
+          "radius": 5,
           "color": "#62b8b7",
           "lifetime": "Permanent",
           "shrineChargeSeconds": 8,
           "shrineDecaySeconds": 4,
           "shrineCooldownSeconds": 120,
           "rewardHealFraction": 0.5,
-          "rewardShieldSeconds": 10,
-          "rewardIncomingDamageReduction": 0.5,
           "polarity": "Positive",
-          "minRadius": 1.875
+          "minRadius": 2.8125
+        },
+        {
+          "id": "FIELD-007-SHRINE-EXPERIENCE",
+          "displayName": "Святыня опыта",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#62b8b7",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 16,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardExperienceSeconds": 20,
+          "rewardExperienceMultiplier": 5,
+          "polarity": "Positive",
+          "minRadius": 2.8125
+        },
+        {
+          "id": "FIELD-007-SHRINE-WARD",
+          "displayName": "Святыня защиты",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#62b8b7",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 8,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardShieldSeconds": 60,
+          "rewardIncomingDamageReduction": 0.7,
+          "polarity": "Positive",
+          "minRadius": 2.8125
+        },
+        {
+          "id": "FIELD-007-SHRINE-POWER",
+          "displayName": "Святыня мощи",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#62b8b7",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 16,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardBuffSeconds": 20,
+          "rewardActionSpeedBonus": 1,
+          "polarity": "Positive",
+          "minRadius": 2.8125
         }
       ],
       "zones": [
@@ -10108,36 +9607,73 @@
           "count": 2
         },
         {
-          "effectId": "FIELD-007-ALTAR-RIFT",
-          "count": 6
+          "effectId": "FIELD-007-ALTAR-HASTE-CURSED",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-HEAL-CURSED",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-WARD-CURSED",
+          "count": 2
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-POWER-CURSED",
+          "count": 2
         },
         {
           "effectId": "FIELD-007-ALTAR-STRIKE-CURSED",
-          "count": 6
-        },
-        {
-          "effectId": "FIELD-007-SHRINE-POWER",
-          "count": 6
+          "count": 2
         },
         {
           "effectId": "FIELD-007-SHRINE-LIFE",
-          "count": 6
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-SHRINE-EXPERIENCE",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-SHRINE-WARD",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-SHRINE-POWER",
+          "count": 3
         }
       ],
       "maxPerScreen": 3,
+      "polarityMixCandidates": 24,
       "screenPadding": 2
     },
     "altarPresentation": {
-      "positiveVisualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
-      "negativeVisualId": "FIELD-007-ALTAR-NEGATIVE-VISUAL-PROP",
-      "shrineVisualId": "FIELD-007-SHRINE-VISUAL-PROP",
+      "effectVisualIds": {
+        "FIELD-007-ALTAR-HASTE": "FIELD-007-ALTAR-HASTE-VISUAL-PROP",
+        "FIELD-007-ALTAR-HASTE-CURSED": "FIELD-007-ALTAR-HASTE-CURSED-VISUAL-PROP",
+        "FIELD-007-ALTAR-HEAL": "FIELD-007-ALTAR-HEAL-VISUAL-PROP",
+        "FIELD-007-ALTAR-HEAL-CURSED": "FIELD-007-ALTAR-HEAL-CURSED-VISUAL-PROP",
+        "FIELD-007-ALTAR-WARD": "FIELD-007-ALTAR-WARD-VISUAL-PROP",
+        "FIELD-007-ALTAR-WARD-CURSED": "FIELD-007-ALTAR-WARD-CURSED-VISUAL-PROP",
+        "FIELD-007-ALTAR-POWER": "FIELD-007-ALTAR-POWER-VISUAL-PROP",
+        "FIELD-007-ALTAR-POWER-CURSED": "FIELD-007-ALTAR-POWER-CURSED-VISUAL-PROP",
+        "FIELD-007-ALTAR-STRIKE-HOLY": "FIELD-007-ALTAR-STRIKE-HOLY-VISUAL-PROP",
+        "FIELD-007-ALTAR-STRIKE-CURSED": "FIELD-007-ALTAR-STRIKE-CURSED-VISUAL-PROP",
+        "FIELD-007-SHRINE-LIFE": "FIELD-007-SHRINE-LIFE-VISUAL-PROP",
+        "FIELD-007-SHRINE-EXPERIENCE": "FIELD-007-SHRINE-EXPERIENCE-VISUAL-PROP",
+        "FIELD-007-SHRINE-WARD": "FIELD-007-SHRINE-WARD-VISUAL-PROP",
+        "FIELD-007-SHRINE-POWER": "FIELD-007-SHRINE-POWER-VISUAL-PROP"
+      },
       "altarHeight": 1.8,
       "shrineHeight": 1,
       "idleBrightness": 0.65,
       "activeBrightness": 1,
-      "ringAlpha": 0.65,
-      "ringThickness": 0.07,
-      "restingAlpha": 0.2,
+      "ringAlpha": 0.85,
+      "ringThickness": 0.09,
+      "boundaryLobes": 8,
+      "boundaryInsetFraction": 0.06,
+      "boundaryWeaveAlpha": 0.65,
+      "restingAlpha": 0.4,
       "sortingOrder": -3,
       "altarContactRadius": 0.28,
       "altarContactOffsetY": 0.15,
@@ -10146,7 +9682,7 @@
       "stateRingRadius": 0.55,
       "shrineStateRingRadius": 0.75,
       "stateRingAspect": 0.45,
-      "stateRingThickness": 0.055,
+      "stateRingThickness": 0.15,
       "glowRadius": 0.28,
       "glowHeightFraction": 0.85,
       "readyGlowAlpha": 0.25,
@@ -10291,7 +9827,7 @@
     "bushScaleMax": 0.68,
     "seed": 9001,
     "obstacleSeed": 9002,
-    "interiorObstacleCount": 0,
+    "interiorObstacleCount": 30,
     "nearObstacleCount": 0,
     "obstaclePlacementAttempts": 80,
     "nearObstacleRadius": 22,
@@ -10303,6 +9839,1971 @@
     "barrelVisualId": "FIELD-001-VISUAL-BARREL",
     "rockVisualId": "FIELD-002-VISUAL-BOULDER",
     "arenaSideLength": 120,
+    "blobLayout": {
+      "edgeMargin": 5,
+      "startClearRadius": 11,
+      "playerClearRadius": 3.5,
+      "minGap": 7,
+      "placementAttempts": 1500,
+      "maxRestarts": 40,
+      "referenceSeed": 6,
+      "pixelsPerUnit": 16,
+      "outlinePixels": 2,
+      "library": [
+        {
+          "id": "astrolabe-1",
+          "visualId": "FIELD-006-VISUAL-ASTROLABE",
+          "points": [
+            [
+              -0.849,
+              0.1198
+            ],
+            [
+              -0.8073,
+              0.2344
+            ],
+            [
+              -0.526,
+              0.6719
+            ],
+            [
+              -0.0573,
+              1.2344
+            ],
+            [
+              -0.0365,
+              1.2344
+            ],
+            [
+              0.7656,
+              0.401
+            ],
+            [
+              0.8698,
+              0.2135
+            ],
+            [
+              0.7865,
+              -0.9531
+            ],
+            [
+              0.5469,
+              -1.1406
+            ],
+            [
+              0.099,
+              -1.2448
+            ],
+            [
+              -0.1927,
+              -1.2448
+            ],
+            [
+              -0.6198,
+              -1.151
+            ],
+            [
+              -0.8177,
+              -1.026
+            ],
+            [
+              -0.8802,
+              -0.9531
+            ]
+          ]
+        },
+        {
+          "id": "astrolabe-2",
+          "visualId": "FIELD-006-VISUAL-ASTROLABE",
+          "points": [
+            [
+              -0.849,
+              0.1198
+            ],
+            [
+              -0.8073,
+              0.2344
+            ],
+            [
+              -0.526,
+              0.6719
+            ],
+            [
+              -0.0573,
+              1.2344
+            ],
+            [
+              -0.0365,
+              1.2344
+            ],
+            [
+              0.7656,
+              0.401
+            ],
+            [
+              0.8698,
+              0.2135
+            ],
+            [
+              0.7865,
+              -0.9531
+            ],
+            [
+              0.5469,
+              -1.1406
+            ],
+            [
+              0.099,
+              -1.2448
+            ],
+            [
+              -0.1927,
+              -1.2448
+            ],
+            [
+              -0.6198,
+              -1.151
+            ],
+            [
+              -0.8177,
+              -1.026
+            ],
+            [
+              -0.8802,
+              -0.9531
+            ]
+          ]
+        },
+        {
+          "id": "astrolabe-3",
+          "visualId": "FIELD-006-VISUAL-ASTROLABE",
+          "points": [
+            [
+              -0.849,
+              0.1198
+            ],
+            [
+              -0.8073,
+              0.2344
+            ],
+            [
+              -0.526,
+              0.6719
+            ],
+            [
+              -0.0573,
+              1.2344
+            ],
+            [
+              -0.0365,
+              1.2344
+            ],
+            [
+              0.7656,
+              0.401
+            ],
+            [
+              0.8698,
+              0.2135
+            ],
+            [
+              0.7865,
+              -0.9531
+            ],
+            [
+              0.5469,
+              -1.1406
+            ],
+            [
+              0.099,
+              -1.2448
+            ],
+            [
+              -0.1927,
+              -1.2448
+            ],
+            [
+              -0.6198,
+              -1.151
+            ],
+            [
+              -0.8177,
+              -1.026
+            ],
+            [
+              -0.8802,
+              -0.9531
+            ]
+          ]
+        },
+        {
+          "id": "astrolabe-4",
+          "visualId": "FIELD-006-VISUAL-ASTROLABE",
+          "points": [
+            [
+              -0.849,
+              0.1198
+            ],
+            [
+              -0.8073,
+              0.2344
+            ],
+            [
+              -0.526,
+              0.6719
+            ],
+            [
+              -0.0573,
+              1.2344
+            ],
+            [
+              -0.0365,
+              1.2344
+            ],
+            [
+              0.7656,
+              0.401
+            ],
+            [
+              0.8698,
+              0.2135
+            ],
+            [
+              0.7865,
+              -0.9531
+            ],
+            [
+              0.5469,
+              -1.1406
+            ],
+            [
+              0.099,
+              -1.2448
+            ],
+            [
+              -0.1927,
+              -1.2448
+            ],
+            [
+              -0.6198,
+              -1.151
+            ],
+            [
+              -0.8177,
+              -1.026
+            ],
+            [
+              -0.8802,
+              -0.9531
+            ]
+          ]
+        },
+        {
+          "id": "astrolabe-5",
+          "visualId": "FIELD-006-VISUAL-ASTROLABE",
+          "points": [
+            [
+              -0.849,
+              0.1198
+            ],
+            [
+              -0.8073,
+              0.2344
+            ],
+            [
+              -0.526,
+              0.6719
+            ],
+            [
+              -0.0573,
+              1.2344
+            ],
+            [
+              -0.0365,
+              1.2344
+            ],
+            [
+              0.7656,
+              0.401
+            ],
+            [
+              0.8698,
+              0.2135
+            ],
+            [
+              0.7865,
+              -0.9531
+            ],
+            [
+              0.5469,
+              -1.1406
+            ],
+            [
+              0.099,
+              -1.2448
+            ],
+            [
+              -0.1927,
+              -1.2448
+            ],
+            [
+              -0.6198,
+              -1.151
+            ],
+            [
+              -0.8177,
+              -1.026
+            ],
+            [
+              -0.8802,
+              -0.9531
+            ]
+          ]
+        },
+        {
+          "id": "colonnade-fragment-1",
+          "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+          "points": [
+            [
+              -1.099,
+              -0.599
+            ],
+            [
+              -0.9115,
+              0.9115
+            ],
+            [
+              -0.7865,
+              1.0781
+            ],
+            [
+              -0.6719,
+              1.1927
+            ],
+            [
+              -0.5052,
+              1.2448
+            ],
+            [
+              0.849,
+              0.3281
+            ],
+            [
+              0.9427,
+              0.2552
+            ],
+            [
+              0.9844,
+              0.1302
+            ],
+            [
+              1.099,
+              -1.0052
+            ],
+            [
+              1.099,
+              -1.0677
+            ],
+            [
+              0.8698,
+              -1.1719
+            ],
+            [
+              0.5573,
+              -1.2448
+            ],
+            [
+              -0.8177,
+              -0.8385
+            ],
+            [
+              -0.9323,
+              -0.7865
+            ]
+          ]
+        },
+        {
+          "id": "colonnade-fragment-2",
+          "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+          "points": [
+            [
+              -1.099,
+              -0.599
+            ],
+            [
+              -0.9115,
+              0.9115
+            ],
+            [
+              -0.7865,
+              1.0781
+            ],
+            [
+              -0.6719,
+              1.1927
+            ],
+            [
+              -0.5052,
+              1.2448
+            ],
+            [
+              0.849,
+              0.3281
+            ],
+            [
+              0.9427,
+              0.2552
+            ],
+            [
+              0.9844,
+              0.1302
+            ],
+            [
+              1.099,
+              -1.0052
+            ],
+            [
+              1.099,
+              -1.0677
+            ],
+            [
+              0.8698,
+              -1.1719
+            ],
+            [
+              0.5573,
+              -1.2448
+            ],
+            [
+              -0.8177,
+              -0.8385
+            ],
+            [
+              -0.9323,
+              -0.7865
+            ]
+          ]
+        },
+        {
+          "id": "colonnade-fragment-3",
+          "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+          "points": [
+            [
+              -1.099,
+              -0.599
+            ],
+            [
+              -0.9115,
+              0.9115
+            ],
+            [
+              -0.7865,
+              1.0781
+            ],
+            [
+              -0.6719,
+              1.1927
+            ],
+            [
+              -0.5052,
+              1.2448
+            ],
+            [
+              0.849,
+              0.3281
+            ],
+            [
+              0.9427,
+              0.2552
+            ],
+            [
+              0.9844,
+              0.1302
+            ],
+            [
+              1.099,
+              -1.0052
+            ],
+            [
+              1.099,
+              -1.0677
+            ],
+            [
+              0.8698,
+              -1.1719
+            ],
+            [
+              0.5573,
+              -1.2448
+            ],
+            [
+              -0.8177,
+              -0.8385
+            ],
+            [
+              -0.9323,
+              -0.7865
+            ]
+          ]
+        },
+        {
+          "id": "colonnade-fragment-4",
+          "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+          "points": [
+            [
+              -1.099,
+              -0.599
+            ],
+            [
+              -0.9115,
+              0.9115
+            ],
+            [
+              -0.7865,
+              1.0781
+            ],
+            [
+              -0.6719,
+              1.1927
+            ],
+            [
+              -0.5052,
+              1.2448
+            ],
+            [
+              0.849,
+              0.3281
+            ],
+            [
+              0.9427,
+              0.2552
+            ],
+            [
+              0.9844,
+              0.1302
+            ],
+            [
+              1.099,
+              -1.0052
+            ],
+            [
+              1.099,
+              -1.0677
+            ],
+            [
+              0.8698,
+              -1.1719
+            ],
+            [
+              0.5573,
+              -1.2448
+            ],
+            [
+              -0.8177,
+              -0.8385
+            ],
+            [
+              -0.9323,
+              -0.7865
+            ]
+          ]
+        },
+        {
+          "id": "colonnade-fragment-5",
+          "visualId": "FIELD-006-VISUAL-COLONNADE-FRAGMENT",
+          "points": [
+            [
+              -1.099,
+              -0.599
+            ],
+            [
+              -0.9115,
+              0.9115
+            ],
+            [
+              -0.7865,
+              1.0781
+            ],
+            [
+              -0.6719,
+              1.1927
+            ],
+            [
+              -0.5052,
+              1.2448
+            ],
+            [
+              0.849,
+              0.3281
+            ],
+            [
+              0.9427,
+              0.2552
+            ],
+            [
+              0.9844,
+              0.1302
+            ],
+            [
+              1.099,
+              -1.0052
+            ],
+            [
+              1.099,
+              -1.0677
+            ],
+            [
+              0.8698,
+              -1.1719
+            ],
+            [
+              0.5573,
+              -1.2448
+            ],
+            [
+              -0.8177,
+              -0.8385
+            ],
+            [
+              -0.9323,
+              -0.7865
+            ]
+          ]
+        },
+        {
+          "id": "laboratory-table-1",
+          "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+          "points": [
+            [
+              -0.918,
+              0.1211
+            ],
+            [
+              -0.7227,
+              0.5664
+            ],
+            [
+              -0.4883,
+              0.8867
+            ],
+            [
+              0.6055,
+              0.8086
+            ],
+            [
+              0.7773,
+              0.5977
+            ],
+            [
+              0.832,
+              0.4961
+            ],
+            [
+              0.9336,
+              0.1133
+            ],
+            [
+              0.9336,
+              0.0039
+            ],
+            [
+              0.8867,
+              -0.4727
+            ],
+            [
+              0.668,
+              -0.7773
+            ],
+            [
+              0.5508,
+              -0.8867
+            ],
+            [
+              -0.6367,
+              -0.5195
+            ],
+            [
+              -0.8633,
+              -0.4258
+            ],
+            [
+              -0.9336,
+              0.0117
+            ]
+          ]
+        },
+        {
+          "id": "laboratory-table-2",
+          "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+          "points": [
+            [
+              -0.918,
+              0.1211
+            ],
+            [
+              -0.7227,
+              0.5664
+            ],
+            [
+              -0.4883,
+              0.8867
+            ],
+            [
+              0.6055,
+              0.8086
+            ],
+            [
+              0.7773,
+              0.5977
+            ],
+            [
+              0.832,
+              0.4961
+            ],
+            [
+              0.9336,
+              0.1133
+            ],
+            [
+              0.9336,
+              0.0039
+            ],
+            [
+              0.8867,
+              -0.4727
+            ],
+            [
+              0.668,
+              -0.7773
+            ],
+            [
+              0.5508,
+              -0.8867
+            ],
+            [
+              -0.6367,
+              -0.5195
+            ],
+            [
+              -0.8633,
+              -0.4258
+            ],
+            [
+              -0.9336,
+              0.0117
+            ]
+          ]
+        },
+        {
+          "id": "laboratory-table-3",
+          "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+          "points": [
+            [
+              -0.918,
+              0.1211
+            ],
+            [
+              -0.7227,
+              0.5664
+            ],
+            [
+              -0.4883,
+              0.8867
+            ],
+            [
+              0.6055,
+              0.8086
+            ],
+            [
+              0.7773,
+              0.5977
+            ],
+            [
+              0.832,
+              0.4961
+            ],
+            [
+              0.9336,
+              0.1133
+            ],
+            [
+              0.9336,
+              0.0039
+            ],
+            [
+              0.8867,
+              -0.4727
+            ],
+            [
+              0.668,
+              -0.7773
+            ],
+            [
+              0.5508,
+              -0.8867
+            ],
+            [
+              -0.6367,
+              -0.5195
+            ],
+            [
+              -0.8633,
+              -0.4258
+            ],
+            [
+              -0.9336,
+              0.0117
+            ]
+          ]
+        },
+        {
+          "id": "laboratory-table-4",
+          "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+          "points": [
+            [
+              -0.918,
+              0.1211
+            ],
+            [
+              -0.7227,
+              0.5664
+            ],
+            [
+              -0.4883,
+              0.8867
+            ],
+            [
+              0.6055,
+              0.8086
+            ],
+            [
+              0.7773,
+              0.5977
+            ],
+            [
+              0.832,
+              0.4961
+            ],
+            [
+              0.9336,
+              0.1133
+            ],
+            [
+              0.9336,
+              0.0039
+            ],
+            [
+              0.8867,
+              -0.4727
+            ],
+            [
+              0.668,
+              -0.7773
+            ],
+            [
+              0.5508,
+              -0.8867
+            ],
+            [
+              -0.6367,
+              -0.5195
+            ],
+            [
+              -0.8633,
+              -0.4258
+            ],
+            [
+              -0.9336,
+              0.0117
+            ]
+          ]
+        },
+        {
+          "id": "laboratory-table-5",
+          "visualId": "FIELD-006-VISUAL-LABORATORY-TABLE",
+          "points": [
+            [
+              -0.918,
+              0.1211
+            ],
+            [
+              -0.7227,
+              0.5664
+            ],
+            [
+              -0.4883,
+              0.8867
+            ],
+            [
+              0.6055,
+              0.8086
+            ],
+            [
+              0.7773,
+              0.5977
+            ],
+            [
+              0.832,
+              0.4961
+            ],
+            [
+              0.9336,
+              0.1133
+            ],
+            [
+              0.9336,
+              0.0039
+            ],
+            [
+              0.8867,
+              -0.4727
+            ],
+            [
+              0.668,
+              -0.7773
+            ],
+            [
+              0.5508,
+              -0.8867
+            ],
+            [
+              -0.6367,
+              -0.5195
+            ],
+            [
+              -0.8633,
+              -0.4258
+            ],
+            [
+              -0.9336,
+              0.0117
+            ]
+          ]
+        },
+        {
+          "id": "arcane-pedestal-1",
+          "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+          "points": [
+            [
+              -0.6156,
+              0.2969
+            ],
+            [
+              -0.6031,
+              0.4219
+            ],
+            [
+              -0.4469,
+              0.6156
+            ],
+            [
+              -0.3844,
+              0.6594
+            ],
+            [
+              -0.0156,
+              0.7469
+            ],
+            [
+              0.4469,
+              0.6281
+            ],
+            [
+              0.6156,
+              0.3594
+            ],
+            [
+              0.6281,
+              -0.3406
+            ],
+            [
+              0.5781,
+              -0.4594
+            ],
+            [
+              0.1219,
+              -0.6906
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.1469,
+              -0.7031
+            ],
+            [
+              -0.5844,
+              -0.4844
+            ],
+            [
+              -0.6344,
+              -0.3531
+            ]
+          ]
+        },
+        {
+          "id": "arcane-pedestal-2",
+          "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+          "points": [
+            [
+              -0.6156,
+              0.2969
+            ],
+            [
+              -0.6031,
+              0.4219
+            ],
+            [
+              -0.4469,
+              0.6156
+            ],
+            [
+              -0.3844,
+              0.6594
+            ],
+            [
+              -0.0156,
+              0.7469
+            ],
+            [
+              0.4469,
+              0.6281
+            ],
+            [
+              0.6156,
+              0.3594
+            ],
+            [
+              0.6281,
+              -0.3406
+            ],
+            [
+              0.5781,
+              -0.4594
+            ],
+            [
+              0.1219,
+              -0.6906
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.1469,
+              -0.7031
+            ],
+            [
+              -0.5844,
+              -0.4844
+            ],
+            [
+              -0.6344,
+              -0.3531
+            ]
+          ]
+        },
+        {
+          "id": "arcane-pedestal-3",
+          "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+          "points": [
+            [
+              -0.6156,
+              0.2969
+            ],
+            [
+              -0.6031,
+              0.4219
+            ],
+            [
+              -0.4469,
+              0.6156
+            ],
+            [
+              -0.3844,
+              0.6594
+            ],
+            [
+              -0.0156,
+              0.7469
+            ],
+            [
+              0.4469,
+              0.6281
+            ],
+            [
+              0.6156,
+              0.3594
+            ],
+            [
+              0.6281,
+              -0.3406
+            ],
+            [
+              0.5781,
+              -0.4594
+            ],
+            [
+              0.1219,
+              -0.6906
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.1469,
+              -0.7031
+            ],
+            [
+              -0.5844,
+              -0.4844
+            ],
+            [
+              -0.6344,
+              -0.3531
+            ]
+          ]
+        },
+        {
+          "id": "arcane-pedestal-4",
+          "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+          "points": [
+            [
+              -0.6156,
+              0.2969
+            ],
+            [
+              -0.6031,
+              0.4219
+            ],
+            [
+              -0.4469,
+              0.6156
+            ],
+            [
+              -0.3844,
+              0.6594
+            ],
+            [
+              -0.0156,
+              0.7469
+            ],
+            [
+              0.4469,
+              0.6281
+            ],
+            [
+              0.6156,
+              0.3594
+            ],
+            [
+              0.6281,
+              -0.3406
+            ],
+            [
+              0.5781,
+              -0.4594
+            ],
+            [
+              0.1219,
+              -0.6906
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.1469,
+              -0.7031
+            ],
+            [
+              -0.5844,
+              -0.4844
+            ],
+            [
+              -0.6344,
+              -0.3531
+            ]
+          ]
+        },
+        {
+          "id": "arcane-pedestal-5",
+          "visualId": "FIELD-006-VISUAL-ARCANE-PEDESTAL",
+          "points": [
+            [
+              -0.6156,
+              0.2969
+            ],
+            [
+              -0.6031,
+              0.4219
+            ],
+            [
+              -0.4469,
+              0.6156
+            ],
+            [
+              -0.3844,
+              0.6594
+            ],
+            [
+              -0.0156,
+              0.7469
+            ],
+            [
+              0.4469,
+              0.6281
+            ],
+            [
+              0.6156,
+              0.3594
+            ],
+            [
+              0.6281,
+              -0.3406
+            ],
+            [
+              0.5781,
+              -0.4594
+            ],
+            [
+              0.1219,
+              -0.6906
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.1469,
+              -0.7031
+            ],
+            [
+              -0.5844,
+              -0.4844
+            ],
+            [
+              -0.6344,
+              -0.3531
+            ]
+          ]
+        },
+        {
+          "id": "brass-mechanism-1",
+          "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+          "points": [
+            [
+              -0.6656,
+              -0.0156
+            ],
+            [
+              -0.4094,
+              0.3219
+            ],
+            [
+              -0.0344,
+              0.7219
+            ],
+            [
+              0.0281,
+              0.7281
+            ],
+            [
+              0.4156,
+              0.3156
+            ],
+            [
+              0.6594,
+              -0.0094
+            ],
+            [
+              0.6906,
+              -0.1906
+            ],
+            [
+              0.6344,
+              -0.3344
+            ],
+            [
+              0.3844,
+              -0.6281
+            ],
+            [
+              0.2594,
+              -0.6906
+            ],
+            [
+              -0.0094,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6281
+            ],
+            [
+              -0.6406,
+              -0.3281
+            ],
+            [
+              -0.6906,
+              -0.1906
+            ]
+          ]
+        },
+        {
+          "id": "brass-mechanism-2",
+          "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+          "points": [
+            [
+              -0.6656,
+              -0.0156
+            ],
+            [
+              -0.4094,
+              0.3219
+            ],
+            [
+              -0.0344,
+              0.7219
+            ],
+            [
+              0.0281,
+              0.7281
+            ],
+            [
+              0.4156,
+              0.3156
+            ],
+            [
+              0.6594,
+              -0.0094
+            ],
+            [
+              0.6906,
+              -0.1906
+            ],
+            [
+              0.6344,
+              -0.3344
+            ],
+            [
+              0.3844,
+              -0.6281
+            ],
+            [
+              0.2594,
+              -0.6906
+            ],
+            [
+              -0.0094,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6281
+            ],
+            [
+              -0.6406,
+              -0.3281
+            ],
+            [
+              -0.6906,
+              -0.1906
+            ]
+          ]
+        },
+        {
+          "id": "brass-mechanism-3",
+          "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+          "points": [
+            [
+              -0.6656,
+              -0.0156
+            ],
+            [
+              -0.4094,
+              0.3219
+            ],
+            [
+              -0.0344,
+              0.7219
+            ],
+            [
+              0.0281,
+              0.7281
+            ],
+            [
+              0.4156,
+              0.3156
+            ],
+            [
+              0.6594,
+              -0.0094
+            ],
+            [
+              0.6906,
+              -0.1906
+            ],
+            [
+              0.6344,
+              -0.3344
+            ],
+            [
+              0.3844,
+              -0.6281
+            ],
+            [
+              0.2594,
+              -0.6906
+            ],
+            [
+              -0.0094,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6281
+            ],
+            [
+              -0.6406,
+              -0.3281
+            ],
+            [
+              -0.6906,
+              -0.1906
+            ]
+          ]
+        },
+        {
+          "id": "brass-mechanism-4",
+          "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+          "points": [
+            [
+              -0.6656,
+              -0.0156
+            ],
+            [
+              -0.4094,
+              0.3219
+            ],
+            [
+              -0.0344,
+              0.7219
+            ],
+            [
+              0.0281,
+              0.7281
+            ],
+            [
+              0.4156,
+              0.3156
+            ],
+            [
+              0.6594,
+              -0.0094
+            ],
+            [
+              0.6906,
+              -0.1906
+            ],
+            [
+              0.6344,
+              -0.3344
+            ],
+            [
+              0.3844,
+              -0.6281
+            ],
+            [
+              0.2594,
+              -0.6906
+            ],
+            [
+              -0.0094,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6281
+            ],
+            [
+              -0.6406,
+              -0.3281
+            ],
+            [
+              -0.6906,
+              -0.1906
+            ]
+          ]
+        },
+        {
+          "id": "brass-mechanism-5",
+          "visualId": "FIELD-006-VISUAL-BRASS-MECHANISM",
+          "points": [
+            [
+              -0.6656,
+              -0.0156
+            ],
+            [
+              -0.4094,
+              0.3219
+            ],
+            [
+              -0.0344,
+              0.7219
+            ],
+            [
+              0.0281,
+              0.7281
+            ],
+            [
+              0.4156,
+              0.3156
+            ],
+            [
+              0.6594,
+              -0.0094
+            ],
+            [
+              0.6906,
+              -0.1906
+            ],
+            [
+              0.6344,
+              -0.3344
+            ],
+            [
+              0.3844,
+              -0.6281
+            ],
+            [
+              0.2594,
+              -0.6906
+            ],
+            [
+              -0.0094,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6281
+            ],
+            [
+              -0.6406,
+              -0.3281
+            ],
+            [
+              -0.6906,
+              -0.1906
+            ]
+          ]
+        },
+        {
+          "id": "crystal-cluster-1",
+          "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+          "points": [
+            [
+              -0.6656,
+              -0.5031
+            ],
+            [
+              -0.3094,
+              0.4156
+            ],
+            [
+              -0.1969,
+              0.5594
+            ],
+            [
+              -0.0281,
+              0.7406
+            ],
+            [
+              -0.0094,
+              0.7469
+            ],
+            [
+              0.5406,
+              0.3656
+            ],
+            [
+              0.5531,
+              0.3469
+            ],
+            [
+              0.6219,
+              0.1094
+            ],
+            [
+              0.6594,
+              -0.4719
+            ],
+            [
+              0.4156,
+              -0.7219
+            ],
+            [
+              0.2906,
+              -0.7406
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6844
+            ],
+            [
+              -0.5469,
+              -0.6156
+            ]
+          ]
+        },
+        {
+          "id": "crystal-cluster-2",
+          "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+          "points": [
+            [
+              -0.6656,
+              -0.5031
+            ],
+            [
+              -0.3094,
+              0.4156
+            ],
+            [
+              -0.1969,
+              0.5594
+            ],
+            [
+              -0.0281,
+              0.7406
+            ],
+            [
+              -0.0094,
+              0.7469
+            ],
+            [
+              0.5406,
+              0.3656
+            ],
+            [
+              0.5531,
+              0.3469
+            ],
+            [
+              0.6219,
+              0.1094
+            ],
+            [
+              0.6594,
+              -0.4719
+            ],
+            [
+              0.4156,
+              -0.7219
+            ],
+            [
+              0.2906,
+              -0.7406
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6844
+            ],
+            [
+              -0.5469,
+              -0.6156
+            ]
+          ]
+        },
+        {
+          "id": "crystal-cluster-3",
+          "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+          "points": [
+            [
+              -0.6656,
+              -0.5031
+            ],
+            [
+              -0.3094,
+              0.4156
+            ],
+            [
+              -0.1969,
+              0.5594
+            ],
+            [
+              -0.0281,
+              0.7406
+            ],
+            [
+              -0.0094,
+              0.7469
+            ],
+            [
+              0.5406,
+              0.3656
+            ],
+            [
+              0.5531,
+              0.3469
+            ],
+            [
+              0.6219,
+              0.1094
+            ],
+            [
+              0.6594,
+              -0.4719
+            ],
+            [
+              0.4156,
+              -0.7219
+            ],
+            [
+              0.2906,
+              -0.7406
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6844
+            ],
+            [
+              -0.5469,
+              -0.6156
+            ]
+          ]
+        },
+        {
+          "id": "crystal-cluster-4",
+          "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+          "points": [
+            [
+              -0.6656,
+              -0.5031
+            ],
+            [
+              -0.3094,
+              0.4156
+            ],
+            [
+              -0.1969,
+              0.5594
+            ],
+            [
+              -0.0281,
+              0.7406
+            ],
+            [
+              -0.0094,
+              0.7469
+            ],
+            [
+              0.5406,
+              0.3656
+            ],
+            [
+              0.5531,
+              0.3469
+            ],
+            [
+              0.6219,
+              0.1094
+            ],
+            [
+              0.6594,
+              -0.4719
+            ],
+            [
+              0.4156,
+              -0.7219
+            ],
+            [
+              0.2906,
+              -0.7406
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6844
+            ],
+            [
+              -0.5469,
+              -0.6156
+            ]
+          ]
+        },
+        {
+          "id": "crystal-cluster-5",
+          "visualId": "FIELD-006-VISUAL-CRYSTAL-CLUSTER",
+          "points": [
+            [
+              -0.6656,
+              -0.5031
+            ],
+            [
+              -0.3094,
+              0.4156
+            ],
+            [
+              -0.1969,
+              0.5594
+            ],
+            [
+              -0.0281,
+              0.7406
+            ],
+            [
+              -0.0094,
+              0.7469
+            ],
+            [
+              0.5406,
+              0.3656
+            ],
+            [
+              0.5531,
+              0.3469
+            ],
+            [
+              0.6219,
+              0.1094
+            ],
+            [
+              0.6594,
+              -0.4719
+            ],
+            [
+              0.4156,
+              -0.7219
+            ],
+            [
+              0.2906,
+              -0.7406
+            ],
+            [
+              -0.0344,
+              -0.7469
+            ],
+            [
+              -0.3844,
+              -0.6844
+            ],
+            [
+              -0.5469,
+              -0.6156
+            ]
+          ]
+        }
+      ],
+      "blobs": [
+        {
+          "libraryId": "astrolabe-1"
+        },
+        {
+          "libraryId": "astrolabe-2"
+        },
+        {
+          "libraryId": "astrolabe-3"
+        },
+        {
+          "libraryId": "astrolabe-4"
+        },
+        {
+          "libraryId": "astrolabe-5"
+        },
+        {
+          "libraryId": "colonnade-fragment-1"
+        },
+        {
+          "libraryId": "colonnade-fragment-2"
+        },
+        {
+          "libraryId": "colonnade-fragment-3"
+        },
+        {
+          "libraryId": "colonnade-fragment-4"
+        },
+        {
+          "libraryId": "colonnade-fragment-5"
+        },
+        {
+          "libraryId": "laboratory-table-1"
+        },
+        {
+          "libraryId": "laboratory-table-2"
+        },
+        {
+          "libraryId": "laboratory-table-3"
+        },
+        {
+          "libraryId": "laboratory-table-4"
+        },
+        {
+          "libraryId": "laboratory-table-5"
+        },
+        {
+          "libraryId": "arcane-pedestal-1"
+        },
+        {
+          "libraryId": "arcane-pedestal-2"
+        },
+        {
+          "libraryId": "arcane-pedestal-3"
+        },
+        {
+          "libraryId": "arcane-pedestal-4"
+        },
+        {
+          "libraryId": "arcane-pedestal-5"
+        },
+        {
+          "libraryId": "brass-mechanism-1"
+        },
+        {
+          "libraryId": "brass-mechanism-2"
+        },
+        {
+          "libraryId": "brass-mechanism-3"
+        },
+        {
+          "libraryId": "brass-mechanism-4"
+        },
+        {
+          "libraryId": "brass-mechanism-5"
+        },
+        {
+          "libraryId": "crystal-cluster-1"
+        },
+        {
+          "libraryId": "crystal-cluster-2"
+        },
+        {
+          "libraryId": "crystal-cluster-3"
+        },
+        {
+          "libraryId": "crystal-cluster-4"
+        },
+        {
+          "libraryId": "crystal-cluster-5"
+        }
+      ]
+    },
     "zoneLayout": {
       "edgeMargin": 6,
       "startClearRadius": 8,
@@ -10328,27 +11829,10 @@
           "pulseFadeSeconds": 3,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
-          "relocatesBetweenCycles": false,
+          "relocatesBetweenCycles": true,
           "minRadius": 2.333333,
-          "affectsBothSides": true
-        },
-        {
-          "id": "FIELD-006-ZONE-HASTE",
-          "displayName": "Воздушный поток",
-          "kind": "Haste",
-          "radius": 6,
-          "color": "#6df0c2",
-          "lifetime": "Pulsing",
-          "pulsePeriodSeconds": 30,
-          "pulseVisibleSeconds": 22,
-          "pulseFadeSeconds": 3,
-          "playerMovementBonus": 0.4,
-          "pulsePrepareSeconds": 5,
-          "pulseIdleVisibility": 0.14,
-          "verticalScale": 0.8,
-          "relocatesBetweenCycles": false,
-          "minRadius": 2,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
         },
         {
           "id": "FIELD-006-ZONE-REGEN",
@@ -10366,7 +11850,8 @@
           "pulseIdleVisibility": 0.14,
           "relocatesBetweenCycles": true,
           "minRadius": 2,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
         },
         {
           "id": "FIELD-006-ZONE-ARCANE",
@@ -10385,7 +11870,8 @@
           "verticalScale": 0.8,
           "relocatesBetweenCycles": true,
           "minRadius": 2,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
         },
         {
           "id": "FIELD-006-ZONE-RIFT",
@@ -10397,34 +11883,32 @@
           "pulsePeriodSeconds": 36,
           "pulseVisibleSeconds": 25,
           "pulseFadeSeconds": 4,
-          "playerDamagePerSecond": 5,
-          "enemyDamagePerSecond": 25,
+          "playerDamagePerSecond": 10,
+          "enemyDamagePerSecond": 10,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
           "relocatesBetweenCycles": true,
           "minRadius": 2.333333,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
         },
         {
           "id": "FIELD-006-ZONE-PORTAL",
           "displayName": "Портал",
           "kind": "Portal",
           "radius": 3.5,
-          "color": "#ffd45a",
-          "lifetime": "Pulsing",
-          "portalCooldownSeconds": 3,
-          "portalExitDistance": 3,
-          "portalMinPairDistance": 40,
+          "color": "#b780ff",
+          "lifetime": "Burst",
           "verticalScale": 0.8,
           "pulsePeriodSeconds": 40,
-          "pulseVisibleSeconds": 25,
-          "pulseFadeSeconds": 3,
-          "pulsePrepareSeconds": 5,
-          "pulseIdleVisibility": 0.14,
-          "relocatesBetweenCycles": false,
+          "relocatesBetweenCycles": true,
           "minRadius": 1.166667,
-          "affectsBothSides": true
+          "affectsBothSides": false,
+          "activeRadiusFraction": 0.7,
+          "telegraphSeconds": 5,
+          "flashSeconds": 0.6,
+          "portalJumpDistance": 5
         },
         {
           "id": "FIELD-006-ZONE-SPEED-BURST",
@@ -10441,7 +11925,8 @@
           "verticalScale": 0.8,
           "relocatesBetweenCycles": true,
           "minRadius": 1.25,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
         },
         {
           "id": "FIELD-006-ZONE-WARD",
@@ -10457,52 +11942,95 @@
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": false,
+          "relocatesBetweenCycles": true,
           "minRadius": 2,
-          "affectsBothSides": true
+          "affectsBothSides": true,
+          "activeRadiusFraction": 0.7
+        },
+        {
+          "id": "FIELD-006-ZONE-EXPERIENCE",
+          "displayName": "Поток опыта",
+          "kind": "Experience",
+          "radius": 6,
+          "color": "#ff9f43",
+          "lifetime": "Pulsing",
+          "pulsePeriodSeconds": 30,
+          "pulseVisibleSeconds": 22,
+          "pulseFadeSeconds": 3,
+          "pulsePrepareSeconds": 5,
+          "pulseIdleVisibility": 0.14,
+          "verticalScale": 0.8,
+          "relocatesBetweenCycles": true,
+          "minRadius": 2,
+          "affectsBothSides": false,
+          "playerExperienceMultiplier": 5,
+          "activeRadiusFraction": 0.7
+        },
+        {
+          "id": "FIELD-006-ZONE-KNOCKBACK",
+          "displayName": "Волна отталкивания",
+          "kind": "Knockback",
+          "radius": 5,
+          "color": "#ff9be0",
+          "lifetime": "Pulsing",
+          "pulsePeriodSeconds": 30,
+          "pulseVisibleSeconds": 22,
+          "pulseFadeSeconds": 3,
+          "pulsePrepareSeconds": 5,
+          "pulseIdleVisibility": 0.14,
+          "verticalScale": 0.8,
+          "relocatesBetweenCycles": true,
+          "minRadius": 1.666667,
+          "affectsBothSides": false,
+          "enemyPushSpeed": 6,
+          "activeRadiusFraction": 0.7
         }
       ],
       "zones": [
         {
           "effectId": "FIELD-006-ZONE-SLOW",
-          "count": 2
-        },
-        {
-          "effectId": "FIELD-006-ZONE-HASTE",
-          "count": 2
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-REGEN",
-          "count": 1
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-ARCANE",
-          "count": 2
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-RIFT",
-          "count": 2
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-PORTAL",
-          "count": 2
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-SPEED-BURST",
-          "count": 2
+          "count": 6
         },
         {
           "effectId": "FIELD-006-ZONE-WARD",
-          "count": 1
+          "count": 6
+        },
+        {
+          "effectId": "FIELD-006-ZONE-EXPERIENCE",
+          "count": 6
+        },
+        {
+          "effectId": "FIELD-006-ZONE-KNOCKBACK",
+          "count": 6
         }
       ],
-      "activeScreenMargin": 0.5,
+      "activeScreenMargin": 10,
       "suppressAreaUnitFeedback": true,
       "randomSchedule": {
-        "chains": 2,
+        "chains": 6,
         "intervalMinSeconds": 8,
         "intervalMaxSeconds": 16,
-        "screenMarginWorldUnits": 2
+        "spawnRadiusScreenWidths": 0.7
       }
     }
   },

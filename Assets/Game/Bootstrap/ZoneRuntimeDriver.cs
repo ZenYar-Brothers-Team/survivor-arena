@@ -28,6 +28,7 @@ namespace Game.Bootstrap
         private readonly List<AltarPresentationRuntime> _altars = new List<AltarPresentationRuntime>();
         private SpritePresentationRuntime _playerPresentation;
         private SpeedStatusPresentationRuntime _playerSpeed;
+        private TimedEffectBarsPresentationRuntime _playerBars;
         private SlowStatusPresentationProfile _speedProfile;
         private ZoneSealPresentationProfile _sealProfile;
         private readonly HashSet<ZoneRiftHitPresentationRuntime> _riftHits = new HashSet<ZoneRiftHitPresentationRuntime>();
@@ -73,9 +74,15 @@ namespace Game.Bootstrap
             foreach (var zone in runtime.Zones) if (zone.Effect.HasPreparation) { useSeals = true; break; }
             var profile = useSeals ? ZoneSealPresentationProfile.Load() : null;
             _sealProfile = profile;
-            _playerPresentation = useSeals ? playerPresentation : null;
+            // Timed buffs (speed bursts, shrine rewards) need their duration bars on altar fields too, not only on prepared seals.
+            var timedEffects = false;
+            foreach (var zone in runtime.Zones)
+                if (zone.Effect.Kind == ZoneEffectKind.SpeedBurst || zone.Effect.Kind == ZoneEffectKind.Shrine) { timedEffects = true; break; }
+            _playerPresentation = useSeals || timedEffects ? playerPresentation : null;
             if (_playerPresentation != null)
             {
+                _playerBars = _playerPresentation.GetComponent<TimedEffectBarsPresentationRuntime>() ??
+                    _playerPresentation.gameObject.AddComponent<TimedEffectBarsPresentationRuntime>();
                 _speedProfile = FixtureSlowStatusPresentationCatalog.Create();
                 _playerSpeed = _playerPresentation.GetComponent<SpeedStatusPresentationRuntime>() ??
                     _playerPresentation.gameObject.AddComponent<SpeedStatusPresentationRuntime>();
@@ -133,6 +140,9 @@ namespace Game.Bootstrap
             if (_playerSpeed != null)
                 _playerSpeed.Apply(_playerPresentation, _speedProfile, _runtime.SpeedBuffRemaining01 > 0f,
                     _runtime.SpeedBuffRemaining01, false, _runtime.Time);
+            if (_playerBars != null)
+                _playerBars.Apply(_playerPresentation, _speedProfile, _runtime.ShieldRemaining01, _runtime.ExperienceBuffRemaining01,
+                    _runtime.PowerBuffRemaining01, _runtime.SpeedBuffRemaining01 > 0f ? 1 : 0);
             for (var i = 0; i < _discs.Count; i++)
             {
                 var zone = _runtime.Zones[i];
@@ -214,6 +224,8 @@ namespace Game.Bootstrap
             {
                 _playerSpeed.Clear();
             }
+            if (_playerBars != null) _playerBars.Clear();
+            _playerBars = null;
             _playerSpeed = null; _playerPresentation = null; _speedProfile = null;
             _runtime?.Dispose();
             _runtime = null;

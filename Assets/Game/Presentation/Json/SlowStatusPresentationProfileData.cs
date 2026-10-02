@@ -18,5 +18,8 @@ namespace Game.Presentation.Json
         public float? SpeedBlinkPeriod { get; set; }
         public float? PreviewSlowFraction { get; set; }
         public float? PreviewSlowSeconds { get; set; }
+        public float[] ShieldBarFillColor { get; set; }
+        public float[] ExperienceBarFillColor { get; set; }
+        public float[] PowerBarFillColor { get; set; }
     }
 }

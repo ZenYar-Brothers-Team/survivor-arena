@@ -38,6 +38,18 @@ namespace Game.Zones
         /// Shrine: stay inside for a while and it fires its reward once (a timed buff, healing, a blast on the enemies, a
         /// shield), then rests for a long cooldown.
         /// </summary>
-        Shrine
+        Shrine,
+        /// <summary>Negative altar (mirror of Haste): enemies inside move faster.</summary>
+        EnemyHaste,
+        /// <summary>Negative altar (mirror of Regeneration): enemies inside regenerate health per second.</summary>
+        EnemyRegeneration,
+        /// <summary>Negative altar (mirror of Protection): enemies inside take much less damage.</summary>
+        EnemyProtection,
+        /// <summary>Negative altar (mirror of ArcanePower): enemies inside deal more damage.</summary>
+        EnemyPower,
+        /// <summary>Experience field: while the player stands inside, picked-up experience is multiplied.</summary>
+        Experience,
+        /// <summary>Knockback field: pushes every enemy inside outward from the center; the player is unaffected.</summary>
+        Knockback
     }
 }

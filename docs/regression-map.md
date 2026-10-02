@@ -1,5 +1,11 @@
 # Regression map
 
+FIELD-007 контур и отдельные типы (DECISION-0150):
+`ProductionMonasteryContentTests.AltarBoundary_AllTypesShareNeutralBraid_MidpointIsExactReachAndFrozenOnPause`
+проверяет фактический радиус посередине нитей при каждом угле, containment сразу внутри/снаружи,
+общую форму всех полярностей/святынь, pause, near visibility и cleanup;
+`AltarView_EveryTypeUsesOwnApprovedSpriteAndPausedStateIsStable` — 14 отдельных typed sprites и midpoint actual radius.
+
 FIELD-007 altar-first ordering: ProductionMonasterySmokeTests сравнивает реальные centers с независимой генерацией без препятствий; ProductionMonasteryObstacleTests сначала резервирует алтари, затем проверяет clearance предметов.
 
 FIELD-007 ground import: `MonasteryGroundImportTests.ApprovedGround_FullResolutionPreviewPreservesEightUnitRepeat` проверяет реальный размер 1254×1254, повторение 8×8 wu, отключённые mipmaps/compression после штатного reimport.
@@ -8,7 +14,7 @@ FIELD-007 препятствия: `ProductionMonasteryObstacleTests.ObstacleLayo
 
 FIELD-007: `ProductionMonasteryContentTests.RandomRadii_AreSeededAndSharedByClearanceContainmentAndStrikeCircles`
 проверяет совпадение индивидуального радиуса с containment/clearance и размещение всех ударов внутри него;
-`AltarView_NegativeAndShrine_UseOnlyPolaritySpritesAndPausedStateIsStable` проверяет world boundary;
+`AltarView_EveryTypeUsesOwnApprovedSpriteAndPausedStateIsStable` проверяет world boundary;
 `AltarContact_BlocksOnlyPlayerAtFoundationAndIsIndependentOfEffectRadius` — physical contact основания.
 `MapPreviewPresenterTests.Presenter_WithAltars_PassesActualRadiiAndRestingOffscreenMarkers` проверяет Dev mini-map;
 `ProductionMonasterySmokeTests` проверяет 36 отметок/коллайдеров, контакт игрока, pause и shutdown.
@@ -190,11 +196,13 @@ Menu atmosphere motion: `MenuArtProfileTests` проверяет уменьше�
 IP-31: `RunTelemetryRecorderTests.Snapshot_ContentIdDictionaryKeys_RetainOrdinalCase` защищает стабильные content IDs от camel-case преобразования ключей JSON. `PlaytestSmokeTests.Gameplay_LethalHitExportsLinkedPacket_AndPlaytestUiStaysCollapsed` проверяет scene reload, export и идемпотентный teardown; до ordered composition Shutdown reload давал NullReferenceException в UI/passive consumers после очистки Health/Stats. Дополнительно `PlaytestSessionTests.Shutdown_DuringLiveExport_PublishesFinalSnapshotAfterEarlierPacket` защищает final packet от перезаписи более ранним live export.
 Нет открытых. Исправления ревью 2026-09-20 (A-3, A-4, A-6, T-1) сопровождаются регресс-тестами, перечисленными выше.
 
-## Безопасный runner — Unity Hub service
+## Безопасный runner — Unity Hub / CLI services
 
 `scripts/tests/test_workflow_tools.py`, `CheckRunnerTests`:
 - `test_hub_service_is_not_an_editor_and_does_not_hide_real_editor` — Hub `unity.exe serve` не блокирует проверку и не скрывает открытый Editor.
 - `test_unidentified_unity_still_blocks_even_with_hub_service` — неизвестный Unity, недоступные данные, несовпадающий executable и дополнительные аргументы сохраняют безопасный отказ с PID.
+- `test_cli_auth_broker_does_not_hide_real_editor` — точная служба авторизации установленного Unity CLI исключена; настоящий Editor остаётся видимым.
+- `test_cli_auth_exclusion_requires_exact_path_and_command` — другой executable, неизвестные команды, дополнительные аргументы и отсутствующие данные не исключаются из проверки.
 
 ## IP-11 — regression guard
 
@@ -378,6 +386,14 @@ burst application, timed buff survival, pause, teardown and config rejection.
 and `ZoneSealPresentationTests.RasterRim_ScalesWithZone_KeepsReadableSymbolAndHidesOnWindowExit`
 guard the visual scale matching the sampled gameplay radius.
 
+`ZoneSealPresentationTests.RasterRim_GameplayBoundaryCrossesPaintedMidpoint_AfterRotationAndFlattening`
+guards DECISION-0152: the circle crosses the midpoint of the thick raster contour,
+with occurrence radii, rotating artwork and Y projection 0.8; touching its outer part
+does not apply the effect.
+`ZoneSealPresentationTests.RasterGlyphs_ApprovedBookAndArrows_StayStillAndFlattenWithArea_HideAndReinitialize`
+guards approved sprite bindings, no duplicate mesh glyph, fixed orientation, projection,
+window exit and reinitialization cleanup.
+
 Academy v4 shared targets: `SharedZoneTargetsTests` guards area enemy bonuses clearing
 on exit, one-shot timed speed for enemies and enemy-only portal use with both-end flash.
 `EnemyZoneInfluenceTests` guards pause, expiry, refresh and reset;
@@ -389,8 +405,19 @@ guards adapter healing, timed speed cleanup and per-life portal cooldown.
 pause, large dt and invalid durations; the actual Academy launch smoke exercises
 player disappearance, physics lock, intermediate camera position, paused flight
 and restored actor/camera after arrival.
-`ZoneSealPresentationTests.Portal_KeepsLargeEntryAreaAndUprightDoorway_IndependentOfRadius`
-guards a constant upright portal canvas inside the variable flattened entry area.
+`ZoneSealPresentationTests.Portal_UsesGroundGlyphAtOccurrenceScale_NoUprightDoorway`
+guards DECISION-0153's flattened spiral glyph, warning state and removal of the upright doorway.
+`BurstPortalTests` guards one-shot activation including large ticks, player-only targets,
+exact five-unit displacement, safe exits, shared chains without pairs and data validation.
+`ZoneSealPresentationTests.RasterGlyphs_ApprovedSymbols_StayStillWithoutProceduralInterior_ThroughWholeOccurrence`
+guards approved book/portal/arrows identity and absence of procedural glyph/motion
+overlays through preparation, active payload, fade and the next cycle (161 samples
+per kind), plus ground flattening, hiding and reinitialization.
+`ZoneSealPresentationTests.Seal_InactiveStatesAreDimmer_ActiveBrightnessAndBoundaryUnchanged`
+guards configured inactive alpha vs full active brightness for pulsing book and
+burst portal, across preparation/fade/rest, preserving gameplay boundary scale.
+Academy PlayMode smoke triggers the actual burst → PlayerZoneTarget → PortalTransitRuntime
+path, checking disappearance, physics lock, paused camera flight and five-unit arrival.
 
 `ZonePreparationTests.TemporaryPositions_*` guards stationary vs relocating appearances.
 `TemporaryPortals_*` guards shared pair phase, fixed centers and full-light-only teleport.

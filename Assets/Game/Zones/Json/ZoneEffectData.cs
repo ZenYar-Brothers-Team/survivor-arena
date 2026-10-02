@@ -12,6 +12,8 @@ namespace Game.Zones.Json
         public float? Radius { get; set; }
         /// <summary>Optional minimum for uniformly sampled per-occurrence radius; absent means a fixed radius.</summary>
         public float? MinRadius { get; set; }
+        /// <summary>Optional fraction (0.1..1) of the drawn radius where the effect actually works; absent means the full radius.</summary>
+        public float? ActiveRadiusFraction { get; set; }
         /// <summary>Optional ground projection: vertical radius / horizontal radius (0.1..1); absent means a circle.</summary>
         public float? VerticalScale { get; set; }
         /// <summary>HTML color of the placeholder disc.</summary>
@@ -77,9 +79,25 @@ namespace Game.Zones.Json
         public float? RewardBlastRadius { get; set; }
         public float? RewardShieldSeconds { get; set; }
         public float? RewardIncomingDamageReduction { get; set; }
+        // Shrine reward: picked-up experience is multiplied (5 = five times) for rewardExperienceSeconds.
+        public float? RewardExperienceSeconds { get; set; }
+        public float? RewardExperienceMultiplier { get; set; }
+        // Enemy-side altars (EnemyHaste / EnemyRegeneration / EnemyProtection / EnemyPower): what enemies inside get.
+        public float? EnemyMovementBonus { get; set; }
+        public float? EnemyRegenerationPerSecond { get; set; }
+        public float? EnemyIncomingDamageReduction { get; set; }
+        public float? EnemyDamageBonus { get; set; }
         // Portal
         public float? PortalCooldownSeconds { get; set; }
         public float? PortalExitDistance { get; set; }
         public float? PortalMinPairDistance { get; set; }
+        /// <summary>Scheduled portal pairs: exact center distance between the two ends, in current screen heights (replaces portalMinPairDistance).</summary>
+        public float? PortalPairScreenHeights { get; set; }
+        /// <summary>Single burst portal: exact player displacement in world units; no linked exit zone.</summary>
+        public float? PortalJumpDistance { get; set; }
+        // Knockback: world units per second enemies inside are pushed away from the center.
+        public float? EnemyPushSpeed { get; set; }
+        // Experience: factor on picked-up experience while the player stands inside (5 = five times).
+        public float? PlayerExperienceMultiplier { get; set; }
     }
 }

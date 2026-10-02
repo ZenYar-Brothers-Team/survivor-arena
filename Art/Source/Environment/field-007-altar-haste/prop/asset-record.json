@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-ALTAR-HASTE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User approved all fourteen shown candidates in this thread on 2026-10-02: «Хорошо, подтверждаю». Additional approved contour contract: actual effect radius runs through the midpoint between the two strands. No substantive raster changes after approval.",
+  "prompt": "Use case: precise-object-edit. Preview-only game environment prop FIELD-007-ALTAR-HASTE, role prop. Edit the provided positive altar. Keep the circular ivory stone foundation with turquoise side bands, brass collars, wood shaft, camera perspective, proportions and ground contact EXACTLY as in reference. Change ONLY the large lightning ornament at the top into ONE large broad sculpted brass WIND CURL: two thick flowing curved blades joined at the bottom, an open sweeping spiral silhouette, warm amber material. It must read as wind at 120px total altar height. Small bottom socket, no enclosing frame. Flat matte 2D hand-drawn storybook cutout, thick deep plum contour, sparse texture, 2-3 cel shaded masses, 3/4 top-down orthographic. Transparent background. Remove all baked glow/halo from the entire prop. No shadow, text, ground ring, particles or scene. All parts visible with padding.",
+  "constraints": [
+    "preserve polarity foundation",
+    "type-specific top or relic",
+    "remove baked aura before runtime review"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-altar-haste/field-007-altar-haste-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1024x1536",
+    "sourceSha256": "06a1caa9accb457b8ff80dafef9a1aa310bee16b022158314cd87619af27e4dc",
+    "runtimeSha256": "0a1485bad97ddc3008ec2d2870718d2718a1098e6b2ad489035e42b41a9c8f0f",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}
