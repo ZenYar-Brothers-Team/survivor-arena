@@ -36,7 +36,7 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(0, presentation.DecorationChance);
             Assert.IsTrue(layout.SuppressAreaUnitFeedback);
             Assert.IsTrue(layout.Effects.Values.All(e => e.RelocatesBetweenCycles), "No permanent placements: every effect appears on the schedule.");
-            Assert.AreEqual(6 * 9, layout.Zones.Count, "Six spare placements for each kind (one per chain), including single burst portals.");
+            Assert.AreEqual(4 * 9, layout.Zones.Count, "Four spare placements for each kind (one per chain), including single burst portals.");
             Assert.IsFalse(layout.Effects.ContainsKey(new ContentId("FIELD-006-ZONE-HEAL")));
             Assert.IsFalse(layout.Effects.ContainsKey(new ContentId("FIELD-006-ZONE-HASTE")), "The wind current is removed.");
             var rift = layout.Effects[new ContentId("FIELD-006-ZONE-RIFT")];
@@ -51,7 +51,7 @@ namespace Game.Bootstrap.Tests
             var action = layout.Effects[new ContentId("FIELD-006-ZONE-ARCANE")];
             Assert.AreEqual(0f, action.PlayerSkillDamageBonus);
             Assert.AreEqual(.5f, action.PlayerActionSpeedBonus);
-            Assert.AreEqual(6, layout.RandomSchedule.Chains);
+            Assert.AreEqual(4, layout.RandomSchedule.Chains);
             Assert.AreEqual(.7f, layout.RandomSchedule.SpawnRadiusScreenWidths);
             Assert.IsFalse(layout.RandomSchedule.HasPortalChain, "DECISION-0153: portal competes on the general chains.");
             Assert.AreEqual(8f, layout.RandomSchedule.IntervalMinSeconds);

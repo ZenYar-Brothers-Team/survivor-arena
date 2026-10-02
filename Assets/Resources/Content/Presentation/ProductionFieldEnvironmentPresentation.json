@@ -11989,45 +11989,45 @@
       "zones": [
         {
           "effectId": "FIELD-006-ZONE-SLOW",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-REGEN",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-ARCANE",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-RIFT",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-PORTAL",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-SPEED-BURST",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-WARD",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-EXPERIENCE",
-          "count": 6
+          "count": 4
         },
         {
           "effectId": "FIELD-006-ZONE-KNOCKBACK",
-          "count": 6
+          "count": 4
         }
       ],
       "activeScreenMargin": 10,
       "suppressAreaUnitFeedback": true,
       "randomSchedule": {
-        "chains": 6,
+        "chains": 4,
         "intervalMinSeconds": 8,
         "intervalMaxSeconds": 16,
         "spawnRadiusScreenWidths": 0.7

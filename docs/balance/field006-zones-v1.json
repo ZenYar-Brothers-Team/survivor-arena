@@ -2,7 +2,7 @@
   "format": "field-zone-preview",
   "formatVersion": 1,
   "revision": "field006-zones-v6-single-burst-portal",
-  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects. User feedback v3: random per-occurrence radii from one-third previous maximum; burst diameter 2.5; two independent random appearance chains near current camera with padding. Interval 8-16 seconds and padding 2 units are preview tuning chosen for requested first iteration. User follow-up v4: all effects target both sides; remove duplicate pink healing; action-speed-only +50%; keep large portal entry area and add upright center portal with smooth delayed transit. Fixed zones are additional to the two random slots. User follow-up v5 (2026-10-02): Rift deals 10 HP/s to both sides; portal is player-only, a scheduled pair whose ends lie exactly one screen height apart; no permanent zones, every effect appears on five random chains within one screen width of the player, duplicates allowed; Haste removed; Slow relocates; new experience field (x5 picked-up experience while the player is inside); new knockback field (pushes everyone but the player outward, max radius half a screen height). Numbers other than those named are preview tuning. Portal pairs live on their own dedicated chain with a 120-180 s random delay and never occupy or compete with the five general chains. User follow-up: the working area is the middle of the wide rim contour (measured rim band 0.45-0.93 of the drawn radius, midline 0.7), so activeRadiusFraction is 0.7: stepping on the outer edge of the rim does nothing. User follow-up: activation window effectively unlimited (margin 10 screens) because at most six zones exist at once. User follow-up: the Academy uses its own six approved obstacle props (astrolabe, colonnade fragment, laboratory table, arcane pedestal, brass mechanism, crystal cluster), five of each, instead of anything from the first map. Outlines are the pixel-silhouette convex hull (14 points) of each runtime sprite around its pivot; sizes are the approved prop sizes. The first map's grass and bush decoration is switched off for the Academy (decorationChance 0). User follow-up: six general chains, spawn radius 0.7 screen widths, and scheduled zones may overlap each other (no minimum gap between occurrences).",
+  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects. User feedback v3: random per-occurrence radii from one-third previous maximum; burst diameter 2.5; two independent random appearance chains near current camera with padding. Interval 8-16 seconds and padding 2 units are preview tuning chosen for requested first iteration. User follow-up v4: all effects target both sides; remove duplicate pink healing; action-speed-only +50%; keep large portal entry area and add upright center portal with smooth delayed transit. Fixed zones are additional to the two random slots. User follow-up v5 (2026-10-02): Rift deals 10 HP/s to both sides; portal is player-only, a scheduled pair whose ends lie exactly one screen height apart; no permanent zones, every effect appears on five random chains within one screen width of the player, duplicates allowed; Haste removed; Slow relocates; new experience field (x5 picked-up experience while the player is inside); new knockback field (pushes everyone but the player outward, max radius half a screen height). Numbers other than those named are preview tuning. Portal pairs live on their own dedicated chain with a 120-180 s random delay and never occupy or compete with the five general chains. User follow-up: the working area is the middle of the wide rim contour (measured rim band 0.45-0.93 of the drawn radius, midline 0.7), so activeRadiusFraction is 0.7: stepping on the outer edge of the rim does nothing. User follow-up: activation window effectively unlimited (margin 10 screens) because at most six zones exist at once. User follow-up: the Academy uses its own six approved obstacle props (astrolabe, colonnade fragment, laboratory table, arcane pedestal, brass mechanism, crystal cluster), five of each, instead of anything from the first map. Outlines are the pixel-silhouette convex hull (14 points) of each runtime sprite around its pivot; sizes are the approved prop sizes. The first map's grass and bush decoration is switched off for the Academy (decorationChance 0). User follow-up: six general chains, spawn radius 0.7 screen widths, and scheduled zones may overlap each other (no minimum gap between occurrences). User follow-up 2026-10-03: reduce general effect chains from six to four, with four reusable placements per kind.",
   "purpose": "FIELD-006 gameplay preview with academy seals owned here; FIELD-001 encounters shared by reference. Portal v6 (user 2026-10-02): one violet burst seal on a general chain, no partner or dedicated lane; exact jump 5 world units, with existing disappear/appear and smooth camera transit. Replaces the v5 pair contract.",
   "units": {
     "distance": "world units",
@@ -593,45 +593,45 @@
     "zones": [
       {
         "effectId": "FIELD-006-ZONE-SLOW",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-REGEN",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-ARCANE",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-RIFT",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-PORTAL",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-SPEED-BURST",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-WARD",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-EXPERIENCE",
-        "count": 6
+        "count": 4
       },
       {
         "effectId": "FIELD-006-ZONE-KNOCKBACK",
-        "count": 6
+        "count": 4
       }
     ],
     "activeScreenMargin": 10,
     "suppressAreaUnitFeedback": true,
     "randomSchedule": {
-      "chains": 6,
+      "chains": 4,
       "intervalMinSeconds": 8,
       "intervalMaxSeconds": 16,
       "spawnRadiusScreenWidths": 0.7
