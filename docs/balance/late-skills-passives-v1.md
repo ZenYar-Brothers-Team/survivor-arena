@@ -39,7 +39,7 @@ knockback duration 0.12 s; цели только на видимом экран�
 | SKILL-009 Магматическая мина | Mine | blast radius L1–L3: 0.75/1.5/1.875; trigger radius 0.8; lifetime 6 s; взрыв и при истечении | L4 lifetime 7.2 s, cap 6; при превышении cap исчезает старейшая; L6 второй взрыв через 0.4 s: 0.75 radius, 0.6 damage, 0.7 KB |
 | SKILL-011 Спираль осколков | Projectile burst, Ring | count L1–L3: 4/7/10; range 4.5; speed 8; radius 0.12; поворот 15° за активацию | L4 12 осколков, speed 9.6; L6 вторая очередь через 0.15 s, повёрнута на половину углового шага; без пробивания |
 | SKILL-012 Пульсирующий луч | Beam | duration L1–L3: 0.4/0.8/1.1 s; targeting 6; length 6; width 0.40; tick 0.2 s | Поражает всех на линии; L4 length 7.2, width 0.62; L6 1.5 s и доворот за целью, width 0.68; KB за tick от игрока |
-| SKILL-015 Крест клинков | Projectile burst, Cross | range L1–L3: 2/4/5.2; speed 10; half-width 0.30; оси от 0° | Неограниченное пробивание, одна волна бьёт цель один раз; L4 8 волн, range 5.8; L6 второй крест через 0.35 s, поворот 22.5°, полный damage/KB |
+| SKILL-015 Крест клинков | Projectile burst, Cross | range L1–L3: 2/4/5.2; speed 5 (было 10, [DECISION-0143](../decisions/0143-blade-cross-slower-waves.md)); half-width 0.30; оси от 0° | Неограниченное пробивание, одна волна бьёт цель один раз; L4 8 волн, range 5.8; L6 второй крест через 0.35 s, поворот 22.5°, полный damage/KB |
 | SKILL-016 Разбрасыватель мусора | Decelerating projectile | stop/path L1–L3: 0.7 s/2.8, 1.4 s/5.6, 1.68 s/6.72; radius 0.12 | Исчезает при остановке; L3 2 снаряда; L4 скорость 9.6, путь 8.06, пробивает 1; L6 3 снаряда, radius 0.168 |
 
 Выбор значений: targeting 6 совпадает с остальными ближними nearest-навыками стартового
