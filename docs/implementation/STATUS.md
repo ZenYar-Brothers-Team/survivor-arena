@@ -56,6 +56,15 @@ production visual smoke PlayMode с graphics 2/2 PASS, 0 failed/skipped; generat
 [Evidence](evidence/2026-10-02-low-tier-set-world-visuals.md). Оба выявленных world visual gaps закрыты;
 ручной обзор в плотном бою и общая low-tier приёмка остаются.
 
+Pressure-wave polish 2026-10-02 — Implemented (IP-12A / SKILL-004 / SET-022):
+бирюзовое кольцо и янтарный серп, плотный гребень, прозрачный хвост,
+нерегулярный контур и короткие штрихи; хвост затухает раньше гребня.
+Full graphics: EditMode 1296/1296; PlayMode 62/64, две ошибки магазина/выбора поля
+вне этой доработки. Затронутые mask/lifecycle cases и ActiveSkillPatternSmokeTests 2/2 PASS;
+manifest 308 PASS. [Evidence](evidence/2026-10-02-pressure-wave-polish.md).
+Ручная художественная оценка в бою открыта; общий full PASS не заявлен,
+очередь не возобновлена.
+
 SET-022 visual feedback 2026-10-02: по [OBS-01](../playtests/2026-10-02_set-022-cone-motion.md)
 статичный контур заменён расходящейся дугой без прямых боков (OBS-02): travel 0.14 s + fade 0.10 s,
 damage остаётся мгновенным. Свежие EditMode 122/122 + graphics PlayMode 3/3 PASS,

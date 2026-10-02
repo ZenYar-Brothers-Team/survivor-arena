@@ -20,6 +20,16 @@ namespace Game.Presentation
         public float FadeSeconds { get; }
         /// <summary>ConeArc travel from caster to full radius in running seconds; remaining lifetime fades it.</summary>
         public float ExpansionSeconds { get; }
+        /// <summary>Pressure-wave band width / radius; zero retains the plain fixture shape.</summary>
+        public float BandFraction { get; }
+        /// <summary>Contour displacement / band width, 0..0.25.</summary>
+        public float ContourVariation { get; }
+        public int AccentCount { get; }
+        /// <summary>Short radial strokes, measured as fractions of radius and radians respectively.</summary>
+        public float AccentLengthFraction { get; }
+        public float AccentWidthRadians { get; }
+        /// <summary>Tail alpha uses this power during fade; zero disables separate tail presentation.</summary>
+        public float TailFadePower { get; }
         /// <summary>Width of the vertical light pillar over a strike impact, in world units (0 = no pillar).</summary>
         public float PillarWidth { get; }
         /// <summary>Height of that pillar above the impact point, in world units (0 = no pillar).</summary>
@@ -31,7 +41,9 @@ namespace Game.Presentation
 
         public SkillWorldEffectProfile(ContentId skillId, SkillWorldEffectKind kind, Color color, Color impactColor,
             float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f,
-            float pillarLeadSeconds = 0f, float expansionSeconds = 0f)
+            float pillarLeadSeconds = 0f, float expansionSeconds = 0f,
+            float bandFraction = 0f, float contourVariation = 0f, int accentCount = 0,
+            float accentLengthFraction = 0f, float accentWidthRadians = 0f, float tailFadePower = 0f)
         {
             if (!skillId.IsValid) throw new ArgumentException("Skill world effect requires a skill id.", nameof(skillId));
             if (!Enum.IsDefined(typeof(SkillWorldEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
@@ -58,6 +70,27 @@ namespace Game.Presentation
             Thickness = thickness;
             FadeSeconds = fadeSeconds;
             ExpansionSeconds = expansionSeconds;
+            NumericValidation.ValidateRange(bandFraction, 0f, .5f, nameof(bandFraction));
+            NumericValidation.ValidateRange(contourVariation, 0f, .25f, nameof(contourVariation));
+            NumericValidation.ValidateRange(accentCount, 0, 12, nameof(accentCount));
+            NumericValidation.ValidateRange(accentLengthFraction, 0f, .5f, nameof(accentLengthFraction));
+            NumericValidation.ValidateRange(accentWidthRadians, 0f, .1f, nameof(accentWidthRadians));
+            NumericValidation.ValidateRange(tailFadePower, 0f, 8f, nameof(tailFadePower));
+            if (bandFraction > 0f)
+            {
+                if (kind != SkillWorldEffectKind.ExpandingRing && kind != SkillWorldEffectKind.ConeArc)
+                    throw new ArgumentException("Pressure bands require a ring or cone.", nameof(bandFraction));
+                if (tailFadePower < 1f || (accentCount > 0 && (accentLengthFraction <= 0f || accentWidthRadians <= 0f)))
+                    throw new ArgumentException("Pressure bands require tail fade and complete accent dimensions.");
+            }
+            else if (contourVariation != 0f || accentCount != 0 || accentLengthFraction != 0f || accentWidthRadians != 0f || tailFadePower != 0f)
+                throw new ArgumentException("Pressure detail requires a nonzero band fraction.");
+            BandFraction = bandFraction;
+            ContourVariation = contourVariation;
+            AccentCount = accentCount;
+            AccentLengthFraction = accentLengthFraction;
+            AccentWidthRadians = accentWidthRadians;
+            TailFadePower = tailFadePower;
             PillarWidth = pillarWidth;
             PillarHeight = pillarHeight;
             PillarLeadSeconds = pillarLeadSeconds;

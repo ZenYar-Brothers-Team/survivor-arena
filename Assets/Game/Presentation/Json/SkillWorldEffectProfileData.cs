@@ -10,6 +10,12 @@ namespace Game.Presentation.Json
         public float FadeSeconds { get; set; }
         /// <summary>Optional ConeArc outward travel time, within FadeSeconds; 0 means no travel.</summary>
         public float ExpansionSeconds { get; set; }
+        public float BandFraction { get; set; }
+        public float ContourVariation { get; set; }
+        public int AccentCount { get; set; }
+        public float AccentLengthFraction { get; set; }
+        public float AccentWidthRadians { get; set; }
+        public float TailFadePower { get; set; }
         /// <summary>Optional strike light pillar; omitted or 0 means none.</summary>
         public float PillarWidth { get; set; }
         public float PillarHeight { get; set; }

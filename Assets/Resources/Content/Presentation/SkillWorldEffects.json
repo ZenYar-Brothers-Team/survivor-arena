@@ -2,29 +2,51 @@
   {
     "skillId": "SET-022-ATTACK",
     "kind": "ConeArc",
-    "color": [1.0, 0.84, 0.52, 0.9],
-    "impactColor": [1.0, 0.93, 0.74, 0.5],
+    "color": [
+      1.0,
+      0.57,
+      0.12,
+      0.8
+    ],
+    "impactColor": [
+      1.0,
+      0.91,
+      0.65,
+      0.96
+    ],
     "thickness": 0.12,
-    "fadeSeconds": 0.24,
-    "expansionSeconds": 0.14
+    "fadeSeconds": 0.3,
+    "expansionSeconds": 0.11,
+    "bandFraction": 0.2,
+    "contourVariation": 0.12,
+    "accentCount": 5,
+    "accentLengthFraction": 0.12,
+    "accentWidthRadians": 0.025,
+    "tailFadePower": 2.8
   },
   {
     "skillId": "SKILL-004",
     "kind": "ExpandingRing",
     "color": [
-      0.98,
-      0.84,
-      0.52,
-      0.72
+      0.12,
+      0.72,
+      0.69,
+      0.68
     ],
     "impactColor": [
+      0.64,
       1.0,
-      0.93,
-      0.74,
-      0.5
+      0.92,
+      0.94
     ],
     "thickness": 0.18,
-    "fadeSeconds": 0.15
+    "fadeSeconds": 0.22,
+    "bandFraction": 0.14,
+    "contourVariation": 0.12,
+    "accentCount": 8,
+    "accentLengthFraction": 0.09,
+    "accentWidthRadians": 0.018,
+    "tailFadePower": 2.8
   },
   {
     "skillId": "SKILL-007",

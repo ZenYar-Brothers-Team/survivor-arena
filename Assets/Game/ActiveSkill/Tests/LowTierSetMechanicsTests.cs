@@ -162,7 +162,7 @@ namespace Game.ActiveSkill.Tests
             if (hasTarget) Assert.Less(target.Health.CurrentHealth, 100f, "Damage remains instant, before visual travel.");
             _executor.Tick(profiles[id].ExpansionSeconds * .5f, true);
             var halfway = shapes.Select(r => r.transform.position).ToArray();
-            AssertArcRadius(shapes, 3.5f, direction);
+            AssertArcRadius(shapes, 5.25f, direction);
             _executor.Tick(1f, false);
             CollectionAssert.AreEqual(halfway, shapes.Select(r => r.transform.position).ToArray(), "Pause freezes outward travel.");
             _executor.Tick(profiles[id].ExpansionSeconds * .5f, true);
@@ -187,6 +187,18 @@ namespace Game.ActiveSkill.Tests
 
         private static void AssertArcRadius(SpriteRenderer[] shapes, float radius, Vector2 direction)
         {
+            if (shapes.All(s => s.sprite.name.StartsWith("Pressure wave")))
+            {
+                foreach (var shape in shapes)
+                {
+                    Assert.AreEqual(Vector3.zero, shape.transform.position, "Pressure masks stay centered on the caster.");
+                    Assert.AreEqual(radius, shape.sprite.bounds.extents.x * shape.transform.localScale.x, 1e-4f);
+                    Assert.AreEqual(shape.transform.localScale.x, shape.transform.localScale.y, 1e-4f);
+                    Assert.Less(Vector2.Angle(shape.transform.right, direction), .001f,
+                        "The tapered cone mask faces the same aimed/random direction as the hit test.");
+                }
+                return;
+            }
             var widestAngle = 0f;
             foreach (var shape in shapes)
             {

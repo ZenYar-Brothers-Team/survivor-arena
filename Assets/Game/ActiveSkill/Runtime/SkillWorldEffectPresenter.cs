@@ -28,12 +28,17 @@ namespace Game.ActiveSkill
             public Vector3 Origin;
             public Vector3 EndPosition;
             public Vector3 EndScale;
+            public Shape Tail;
+            public float FadePower = 1f;
+            public bool RadialExpansion;
         }
 
         private readonly IReadOnlyDictionary<ContentId, SkillWorldEffectProfile> _profiles;
         private readonly Transform _root;
         private readonly GameObjectPool<SpriteRenderer> _pool;
         private readonly List<Shape> _shapes = new List<Shape>();
+        private readonly Dictionary<(SkillWorldEffectProfile, float, bool), Sprite> _pressureSprites =
+            new Dictionary<(SkillWorldEffectProfile, float, bool), Sprite>();
 
         public int ActiveShapeCount => _shapes.Count;
 
@@ -50,6 +55,12 @@ namespace Game.ActiveSkill
         /// <summary>Held ring that the caller resizes each tick; released with <see cref="Release"/>.</summary>
         public object BeginRing(SkillWorldEffectProfile profile, Vector2 center, float radius)
         {
+            if (profile.BandFraction > 0f)
+            {
+                var crest = PressureBand(profile, center, 0f, 360f, 0f, true);
+                SetRing(crest, radius, profile.Thickness);
+                return crest;
+            }
             var shape = Rent(ProceduralShapeSprites.Ring, profile.Color, center, 0f, 0f, true);
             SetRing(shape, radius, profile.Thickness);
             return shape;
@@ -86,6 +97,7 @@ namespace Game.ActiveSkill
             if (!(handle is Shape shape) || !shape.Held) return;
             shape.Held = false;
             shape.Remaining = shape.Fade = Mathf.Max(fadeSeconds, 0.0001f);
+            Release(shape.Tail, fadeSeconds);
         }
 
         /// <summary>Impact flash; a pillar begun earlier fades with it, otherwise one starts now.</summary>
@@ -114,6 +126,21 @@ namespace Game.ActiveSkill
         public void ConePulse(SkillWorldEffectProfile profile, Vector2 origin, Vector2 direction, float radius, float arcDegrees)
         {
             if (radius <= Mathf.Epsilon || direction.sqrMagnitude <= Mathf.Epsilon) return;
+            if (profile.BandFraction > 0f)
+            {
+                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                var crest = PressureBand(profile, origin, angle, arcDegrees, profile.FadeSeconds, false);
+                SetRing(crest, radius, profile.Thickness);
+                foreach (var shape in new[] { crest, crest.Tail })
+                {
+                    shape.Expansion = profile.ExpansionSeconds;
+                    shape.RadialExpansion = true;
+                    shape.Origin = shape.EndPosition = origin;
+                    shape.EndScale = shape.Renderer.transform.localScale;
+                    if (shape.Expansion > 0f) UpdateExpansion(shape, 0f);
+                }
+                return;
+            }
             var firstShape = _shapes.Count;
             // Twelve chords approximate the short arc without generating textures or persistent entities.
             const int segments = 12;
@@ -142,6 +169,13 @@ namespace Game.ActiveSkill
 
         private static void UpdateExpansion(Shape shape, float progress)
         {
+            if (shape.RadialExpansion)
+            {
+                // Ease out gives the clap a fast initial throw without changing instant damage.
+                var eased = 1f - (1f - progress) * (1f - progress);
+                shape.Renderer.transform.localScale = shape.EndScale * eased;
+                return;
+            }
             shape.Renderer.transform.position = Vector3.Lerp(shape.Origin, shape.EndPosition, progress);
             shape.Renderer.transform.localScale = new Vector3(shape.EndScale.x * progress, shape.EndScale.y, shape.EndScale.z);
         }
@@ -178,7 +212,7 @@ namespace Game.ActiveSkill
                 var color = shape.Color;
                 if (shape.Expansion > 0f)
                     UpdateExpansion(shape, Mathf.Clamp01((shape.Fade - shape.Remaining) / shape.Expansion));
-                color.a *= Mathf.Clamp01(shape.Remaining / (shape.Fade - shape.Expansion));
+                color.a *= Mathf.Pow(Mathf.Clamp01(shape.Remaining / (shape.Fade - shape.Expansion)), shape.FadePower);
                 shape.Renderer.color = color;
             }
         }
@@ -192,6 +226,20 @@ namespace Game.ActiveSkill
         public void Dispose()
         {
             Clear();
+            foreach (var sprite in _pressureSprites.Values)
+            {
+                if (Application.isPlaying)
+                {
+                    UnityEngine.Object.Destroy(sprite.texture);
+                    UnityEngine.Object.Destroy(sprite);
+                }
+                else
+                {
+                    UnityEngine.Object.DestroyImmediate(sprite.texture);
+                    UnityEngine.Object.DestroyImmediate(sprite);
+                }
+            }
+            _pressureSprites.Clear();
             if (_root == null) return;
             if (Application.isPlaying) UnityEngine.Object.Destroy(_root.gameObject);
             else UnityEngine.Object.DestroyImmediate(_root.gameObject);
@@ -217,6 +265,29 @@ namespace Game.ActiveSkill
             // Ring sprite inner edge is at 88% of the outer edge: keep the visible band close to thickness.
             var diameter = Mathf.Max(radius * 2f, thickness);
             shape.Renderer.transform.localScale = Vector3.one * diameter;
+            if (shape.Tail != null) SetRing(shape.Tail, radius, thickness);
+        }
+
+        private Shape PressureBand(SkillWorldEffectProfile profile, Vector2 origin, float angle, float arcDegrees,
+            float fade, bool held)
+        {
+            var tail = Rent(PressureSprite(profile, arcDegrees, true), Color.white, origin, angle, fade, held);
+            tail.FadePower = profile.TailFadePower;
+            var crest = Rent(PressureSprite(profile, arcDegrees, false), Color.white, origin, angle, fade, held);
+            crest.Renderer.sortingOrder = SortingOrder + 1;
+            crest.Tail = tail;
+            return crest;
+        }
+
+        private Sprite PressureSprite(SkillWorldEffectProfile profile, float arcDegrees, bool tail)
+        {
+            var key = (profile, arcDegrees, tail);
+            if (!_pressureSprites.TryGetValue(key, out var sprite))
+            {
+                sprite = PressureWaveSprites.Create(profile, arcDegrees, tail);
+                _pressureSprites.Add(key, sprite);
+            }
+            return sprite;
         }
 
         private void Return(Shape shape)

@@ -264,7 +264,7 @@ Boss attack VFX/projectiles создаются по конкретным attack 
 | SKILL-001 | Бросок камня | Stone projectile; shared procedural impact | Generate via GPT \+ Hybrid | IN GAME — projectile v001, production binding, rotation и общий impact подключены. [Provenance](../../Art/Source/Skills/skill-001/asset-record.json) |
 | SKILL-002 | Веер игл | Needle projectile | Derived from approved icon \+ Unity fan pattern | IN GAME — v001 выделен из approved icon и подключён к production fan pattern (DECISION-0054) |
 | SKILL-003 | Орбитальные клинки | Blade sprite | Generate via GPT \+ Unity orbit | IN GAME — v001 и visual-only orbit подключены |
-| SKILL-004 | Импульсная волна | Expanding pulse/ring | Procedural in Unity / Hybrid texture | IN GAME — процедурное кольцо подключено через `SkillWorldEffects.json` |
+| SKILL-004 | Импульсная волна | Expanding pressure ring | Procedural in Unity | Бирюзовый гребень, прозрачный хвост, живой контур и штрихи; `SkillWorldEffects.json`, `PressureWaveSprites` |
 | SKILL-005 | Ветряное копьё | Wind spear projectile | Derived from approved icon \+ Unity motion | IN GAME — v001 из approved icon подключён к production projectile |
 | SKILL-006 | Бумеранг | Boomerang projectile | Generate via GPT \+ Unity return path | IN GAME — v001 и return presentation подключены |
 | SKILL-007 | Цепная молния | Lightning chain \+ hit flash | Procedural in Unity / Hybrid | IN GAME — процедурные сегменты цепи подключены |
@@ -731,3 +731,7 @@ Traveler bodies. Master и prompt: `Art/Source/VFX/slow-status/ice/`; runtime:
 После просмотра в игре пользователь выбрал первый, более плотный вариант текстуры; он хранится
 как `v002/concept-01.png` и заменяет v001 по тому же runtime path и visual ID. Лёд повторяет
 размер body sprite, а полоска размещается ниже его нижней границы.
+
+## Pressure-wave presentation — 2026-10-02
+
+SET-022 «Хлопушка»: процедурный янтарный серп с кремовым гребнем, пятью расходящимися штрихами и быстрым выбросом. SKILL-004: бирюзовое кольцо давления с прозрачным центром. В обоих эффектах хвост затухает быстрее гребня; две cached маски на профиль/угол, два pooled renderer на pulse. Новых source/runtime PNG и raster replacements нет. Художественный контракт — Art Direction §12; [подробности](../implementation/evidence/2026-10-02-pressure-wave-polish.md), текущая приёмка — только STATUS.
