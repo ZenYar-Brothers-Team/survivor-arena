@@ -25,6 +25,7 @@ namespace Game.Zones
         private readonly Func<Rect> _view;
         private readonly RandomZoneScheduler _randomSchedule;
         private float _portalCooldown;
+        private bool[] _wasActive;
         private bool _modifierSet;
         private float _move, _skill, _action, _regen, _defense, _experience;
         // Timed buffs that outlast their zone (one per effect; a new burst refreshes it instead of stacking).
@@ -36,6 +37,8 @@ namespace Game.Zones
         private readonly Dictionary<ZoneEffectDefinition, float> _experienceBuffs = new Dictionary<ZoneEffectDefinition, float>();
 
         public IReadOnlyList<ZonePlacement> Zones => _zones;
+        /// <summary>A zone visibly did something (switched on, fired, struck, teleported) near the player; presentation/audio hook.</summary>
+        public event Action<ZoneTrigger> Triggered;
         /// <summary>Seconds this runtime has been ticked (the zones' pulse clock).</summary>
         public float Time { get; private set; }
         /// <summary>How many active zones the player stood in on the last tick.</summary>
@@ -117,6 +120,7 @@ namespace Game.Zones
             _randomSchedule?.Tick(Time, _view(), _player.Position);
             RefreshWindow();
             Relocate();
+            TickActivations();
             TickBursts(previous, deltaTime);
             TickShrines(deltaTime);
             TickStrikes(previous);
@@ -139,6 +143,21 @@ namespace Game.Zones
                 var center = _rules.TryPick(zone.Effect, random, OthersOf(zone), null, out var picked, ActiveWindow) ? picked : zone.Center;
                 zone.Relocate(center, cycle);
                 zone.SetNear(TouchesWindow(zone, ActiveWindow));
+            }
+        }
+
+        // An altar, seal or pulsing zone switching on near the player; the first tick only records the starting state.
+        private void TickActivations()
+        {
+            var first = _wasActive == null;
+            if (first) _wasActive = new bool[_zones.Count];
+            for (var i = 0; i < _wasActive.Length; i++)
+            {
+                var zone = _zones[i];
+                var active = zone.Effect.Lifetime != ZoneLifetimeMode.Burst && zone.IsActive(Time);
+                var rose = active && !_wasActive[i];
+                _wasActive[i] = active;
+                if (rose && !first && zone.IsNear) Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.Activated, zone.Effect.Polarity, zone.Center));
             }
         }
 
@@ -175,6 +194,9 @@ namespace Game.Zones
             DecayTimers(_experienceBuffs, deltaTime);
             var sharedCount = -1;
             foreach (var zone in _zones)
+                if (zone.IsNear && zone.Effect.Lifetime == ZoneLifetimeMode.Burst && zone.BurstFiresBetween(previousTime, Time))
+                    Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.BurstFired, zone.Effect.Polarity, zone.Center));
+            foreach (var zone in _zones)
             {
                 if (!zone.Effect.AffectsBothSides || !zone.IsNear || !zone.BurstFiresBetween(previousTime, Time)) continue;
                 if (sharedCount < 0) sharedCount = _enemies.Refresh();
@@ -195,6 +217,7 @@ namespace Game.Zones
                     _player.TeleportTo(destination);
                     zone.RecordApplication(Time);
                     portalApplied = true;
+                    Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.PortalJump, null, null));
                 }
         }
 
@@ -237,6 +260,7 @@ namespace Game.Zones
         private void FireShrine(ZonePlacement zone)
         {
             var effect = zone.Effect;
+            Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.ShrineReward, effect.Polarity, zone.Center));
             if (effect.RewardBuffSeconds > 0f) _buffs[effect] = effect.RewardBuffSeconds;
             if (effect.RewardShieldSeconds > 0f) _shields[effect] = effect.RewardShieldSeconds;
             if (effect.RewardExperienceSeconds > 0f) _experienceBuffs[effect] = effect.RewardExperienceSeconds;
@@ -258,6 +282,7 @@ namespace Game.Zones
                 var effect = zone.Effect;
                 if (effect.Kind != ZoneEffectKind.Strike || !zone.IsNear || !zone.IsActive(Time)) continue;
                 if (!effect.StrikeFiresBetween(zone.PhaseSeconds, previousTime, Time, out var volley)) continue;
+                Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.StrikeImpact, effect.Polarity, zone.Center));
                 var enemyCount = effect.StrikeEnemyDamage > 0f ? _enemies.Refresh() : 0;
                 var radiusSquared = effect.StrikeRadius * effect.StrikeRadius;
                 for (var circle = 0; circle < effect.StrikeCount; circle++)
@@ -372,6 +397,7 @@ namespace Game.Zones
             // Both ends must be ready; the remote end need not intersect this camera's active window.
             if (!partner.Effect.IsActive(partner.PhaseSeconds, Time)) return;
             _player.TeleportTo(PortalDestination(from));
+            Triggered?.Invoke(new ZoneTrigger(ZoneTriggerKind.PortalJump, null, null));
             from.RecordApplication(Time);
             partner.RecordApplication(Time);
             _portalCooldown = from.Effect.PortalCooldownSeconds;
@@ -476,6 +502,7 @@ namespace Game.Zones
         /// <summary>Removes the zone modifier from the player; call when the run's field is torn down.</summary>
         public void Dispose()
         {
+            Triggered = null;
             if (_player is IDisposable playerDisposable) playerDisposable.Dispose();
             _randomSchedule?.Dispose();
             (_enemies as IDisposable)?.Dispose();

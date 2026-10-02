@@ -53,6 +53,8 @@ namespace Game.Enemy
         /// <summary>Feature-owned facts; optional observers do not participate in spawn/reward decisions.</summary>
         public event System.Action<EnemyLifeEvent> LifeEvent;
         public event System.Action<Game.Combat.CombatResult> CombatResolved;
+        /// <summary>Forwarded from every living ordinary enemy: a wind-up, volley or dash started (audio cues).</summary>
+        public event System.Action<EnemyActionKind, Vector2> ActionStarted;
         public event System.Action<WaveSpawnOutcome> SpawnResolved;
         public WaveSpawnOutcome LastSpawnOutcome { get; private set; }
         public EnemyLifeEvent LastLifeEvent { get; private set; }
@@ -262,6 +264,7 @@ namespace Game.Enemy
             enemy.BlobBreakupExempt = forcedAngle.HasValue;
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
+            enemy.ActionStarted += ForwardAction;
             _aliveEnemies.Add(enemy);
             return true;
         }
@@ -281,6 +284,7 @@ namespace Game.Enemy
         }
 
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
+        private void ForwardAction(EnemyActionKind kind, Vector2 position) => ActionStarted?.Invoke(kind, position);
 
         private void EraseFarthestOrdinary()
         {
@@ -298,6 +302,7 @@ namespace Game.Enemy
             _aliveEnemies.RemoveAt(farthestIndex);
             enemy.Despawned -= HandleEnemyDespawned;
             enemy.CombatResolved -= ForwardCombat;
+            enemy.ActionStarted -= ForwardAction;
             enemy.EraseSilently();
         }
 
@@ -305,6 +310,7 @@ namespace Game.Enemy
         {
             enemy.Despawned -= HandleEnemyDespawned;
             enemy.CombatResolved -= ForwardCombat;
+            enemy.ActionStarted -= ForwardAction;
             _aliveEnemies.Remove(enemy);
         }
 
@@ -335,6 +341,7 @@ namespace Game.Enemy
 
                 enemy.Despawned -= HandleEnemyDespawned;
                 enemy.CombatResolved -= ForwardCombat;
+                enemy.ActionStarted -= ForwardAction;
                 enemy.Despawn();
             }
             _director = null;
@@ -358,6 +365,7 @@ namespace Game.Enemy
             _lifecycleSink = null;
             LifeEvent = null;
             CombatResolved = null;
+            ActionStarted = null;
             SpawnResolved = null;
             LastSpawnOutcome = default;
             _initialized = false;

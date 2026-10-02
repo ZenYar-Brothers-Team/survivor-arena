@@ -7,6 +7,8 @@ using Game.Pickup;
 using Game.Progression;
 using Game.Run;
 using Game.Settings;
+using Game.Traveler;
+using Game.Zones;
 using UnityEngine;
 
 namespace Game.Audio
@@ -35,6 +37,9 @@ namespace Game.Audio
         private readonly WorldPickupRuntime _pickups;
         private readonly ContinuousFixtureEnemySpawner _enemies;
         private readonly BossEncounterRuntime _bosses;
+        private readonly TravelerEncounterRuntime _travelers;
+        private readonly ZoneRuntime _zones;
+        private readonly Func<Rect> _visibleArea;
         private readonly AudioSource _ambience;
         private readonly float _ambienceGain;
         private int _livingBosses;
@@ -43,13 +48,15 @@ namespace Game.Audio
         public RunAudioRuntime(Transform parent, ProductionAudioCatalog catalog, ISettingsService settings,
             AudioRoutingRuntime music, RunModel run, Health health, PlayerExperienceRuntime xp,
             LevelUpDraftRuntime draft, PlayerActiveSkillSetRuntime skills, WorldPickupRuntime pickups,
-            ContinuousFixtureEnemySpawner enemies, BossEncounterRuntime bosses, string fieldId)
+            ContinuousFixtureEnemySpawner enemies, BossEncounterRuntime bosses, string fieldId,
+            TravelerEncounterRuntime travelers = null, ZoneRuntime zones = null, Func<Rect> visibleArea = null)
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _music = music ?? throw new ArgumentNullException(nameof(music));
             _run = run; _health = health; _xp = xp; _draft = draft; _skills = skills;
             _pickups = pickups; _enemies = enemies; _bosses = bosses;
+            _travelers = travelers; _zones = zones; _visibleArea = visibleArea;
             _owner = new GameObject("Run audio"); _owner.transform.SetParent(parent, false);
             for (var i = 0; i < _voices.Length; i++) _voices[i] = Source();
             _ambience = Source(); _ambience.loop = true;
@@ -70,6 +77,10 @@ namespace Game.Audio
             _bosses.LifeEvent += Boss;
             _bosses.CombatResolved += BossHit;
             _bosses.PhaseChanged += BossPhase;
+            _enemies.ActionStarted += EnemyAction;
+            _bosses.ActionStarted += EnemyAction;
+            if (_travelers != null) _travelers.ActionStarted += EnemyAction;
+            if (_zones != null) _zones.Triggered += ZoneTriggered;
             Refresh();
             _music.PlayMusic(catalog.BattleMusic);
             if (hasAmbience) _ambience.Play();
@@ -144,7 +155,50 @@ namespace Game.Audio
         private void Level(int level) => Play("level.up");
         private void DraftOpened(IReadOnlyList<DraftOption> options) => Play("draft.open");
         private void Selected(BuildSelectionResult result) => Play("draft.select");
-        private void Activated(CombatSource source) => Play("skill.cast");
+        private void Activated(CombatSource source)
+        {
+            // Each sound family has its own cooldown, so a build with several skills is heard as several rhythms.
+            if (source.ContentId.HasValue && _catalog.TryGetSkillCue(source.ContentId.Value.ToString(), out var cue)) Play(cue);
+            else Play("skill.cast");
+        }
+        // World-positioned cues are heard only when they happen on screen; no camera means everything is audible.
+        private bool OnScreen(Vector2 position)
+        {
+            var view = _visibleArea?.Invoke() ?? default;
+            return view.width <= 0f || view.height <= 0f || view.Contains(position);
+        }
+
+        private void EnemyAction(EnemyActionKind kind, Vector2 position)
+        {
+            if (!OnScreen(position)) return;
+            switch (kind)
+            {
+                case EnemyActionKind.AttackWindup: Play("enemy.windup"); break;
+                case EnemyActionKind.Shot: Play("enemy.shot"); break;
+                case EnemyActionKind.DashWindup: Play("enemy.dash.windup"); break;
+                case EnemyActionKind.DashStart: Play("enemy.dash"); break;
+                case EnemyActionKind.ZoneStart: Play("boss.zone"); break;
+                case EnemyActionKind.BeamStart: Play("boss.beam"); break;
+                case EnemyActionKind.SummonStart: Play("boss.summon"); break;
+                case EnemyActionKind.TeleportWindup: Play("boss.teleport.windup"); break;
+                case EnemyActionKind.TeleportSlam: Play("boss.slam"); break;
+            }
+        }
+        private void ZoneTriggered(ZoneTrigger trigger)
+        {
+            if (trigger.Position.HasValue && !OnScreen(trigger.Position.Value)) return;
+            switch (trigger.Kind)
+            {
+                case ZoneTriggerKind.Activated:
+                    Play(trigger.Polarity == ZoneAltarPolarity.Positive ? "altar.on" :
+                        trigger.Polarity.HasValue ? "altar.cursed" : "zone.activate");
+                    break;
+                case ZoneTriggerKind.ShrineReward: Play("shrine.reward"); break;
+                case ZoneTriggerKind.StrikeImpact: Play("zone.strike"); break;
+                case ZoneTriggerKind.BurstFired: Play("zone.burst"); break;
+                case ZoneTriggerKind.PortalJump: Play("zone.portal"); break;
+            }
+        }
         private void Pickup(PickupEvent pickup)
         {
             if (pickup.State == PickupLifeState.Collected)
@@ -203,6 +257,10 @@ namespace Game.Audio
             _bosses.LifeEvent -= Boss;
             _bosses.CombatResolved -= BossHit;
             _bosses.PhaseChanged -= BossPhase;
+            _enemies.ActionStarted -= EnemyAction;
+            _bosses.ActionStarted -= EnemyAction;
+            if (_travelers != null) _travelers.ActionStarted -= EnemyAction;
+            if (_zones != null) _zones.Triggered -= ZoneTriggered;
             UnityEngine.Object.Destroy(_owner);
         }
     }

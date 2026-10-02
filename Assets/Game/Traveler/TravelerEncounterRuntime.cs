@@ -48,6 +48,8 @@ namespace Game.Traveler
         public string DevelopmentObservation => string.Join("\n", _lives.Select(life => $"{life.Definition.Id} · {life.Definition.Role} · {life.Actor.MovementPhase}/{life.Actor.AttackPhase} · spawn {life.SpawnTime:0.0}s / until {life.Deadline:0.0}s · ×{life.Scale:0.00}"));
         public event Action<TravelerEvent> LifeEvent;
         public event Action<Game.Combat.CombatResult> CombatResolved;
+        /// <summary>Forwarded from every living Traveler body: a wind-up, volley or dash started (audio cues).</summary>
+        public event Action<EnemyActionKind, Vector2> ActionStarted;
         public void Initialize(TravelerScheduleDefinition schedule, FixtureTravelerCatalog catalog, RunController run,
             Transform player, Camera camera, TravelerPlacement placement, WorldPickupRuntime pickups, PickupDefinition book,
             IEnemyLifecycleSink xp, Game.Presentation.EnemyDeathPresentationProfile deathPresentation = null,
@@ -123,6 +125,7 @@ namespace Game.Traveler
             actor.LifeEvent += OnActorEvent;
             actor.Despawned += OnDespawn;
             actor.CombatResolved += ForwardCombat;
+            actor.ActionStarted += ForwardAction;
             LifeEvent?.Invoke(new TravelerEvent(new TravelerSnapshot(life, _model.RunId), "Spawned"));
             if (_model == null || _model.State != RunState.Running) actor.Despawn();
             return actor;
@@ -148,7 +151,7 @@ namespace Game.Traveler
             var life = _lives.FirstOrDefault(item => item.Actor == actor);
             if (life == null) return;
             _lives.Remove(life); RemoveSupport(actor.LifeId); ReleaseAura(life);
-            actor.LifeEvent -= OnActorEvent; actor.Despawned -= OnDespawn; actor.CombatResolved -= ForwardCombat;
+            actor.LifeEvent -= OnActorEvent; actor.Despawned -= OnDespawn; actor.CombatResolved -= ForwardCombat; actor.ActionStarted -= ForwardAction;
             if (actor.LastLifeEvent.Reason != EnemyLifeReason.Killed)
                 LifeEvent?.Invoke(new TravelerEvent(new TravelerSnapshot(life, _model.RunId), actor.LastLifeEvent.Reason == EnemyLifeReason.Escaped ? "Escaped" : "Cancelled"));
         }
@@ -286,6 +289,7 @@ namespace Game.Traveler
         private void RemoveSupport(Guid source)
         { foreach (var enemy in _affected) if (enemy != null) enemy.Protection.RemoveSource(source); }
         private void ForwardCombat(Game.Combat.CombatResult result) => CombatResolved?.Invoke(result);
+        private void ForwardAction(EnemyActionKind kind, Vector2 position) => ActionStarted?.Invoke(kind, position);
         public IReadOnlyList<TravelerChoice> DevelopmentChoices => _schedule == null || _definitions == null
             ? Array.Empty<TravelerChoice>()
             : _schedule.TravelerIds.Select(id => new TravelerChoice(id.ToString(), _definitions[id].Name, _definitions[id].Role.ToString())).ToList().AsReadOnly();

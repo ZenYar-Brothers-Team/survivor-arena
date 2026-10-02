@@ -11,6 +11,8 @@
     "Game.ActiveSkill",
     "Game.Progression",
     "Game.Pickup",
-    "Game.Enemy"
+    "Game.Enemy",
+    "Game.Traveler",
+    "Game.Zones"
   ]
 }

@@ -77,7 +77,8 @@ namespace Game.Traveler.Tests
             // DECISION-0119: about a quarter of the screen width, shoving, wide telegraph.
             Assert.AreEqual(9f, knight.Movement.DashDistance, 1e-5f, "DECISION-0121: dash range doubled.");
             Assert.AreEqual(0.53f, knight.Movement.DashTelegraphWidth, 1e-5f, "DECISION-0121: band three times thinner.");
-            Assert.AreEqual(4f, knight.Movement.DashTelegraphLength, 1e-5f, "DECISION-0121: drawn line shorter than the dash.");
+            Assert.AreEqual(0f, knight.Movement.DashTelegraphLength, 1e-5f, "DECISION-0154: no cap, the band is as long as the dash.");
+            Assert.AreEqual(9f, knight.Movement.DashDistance, 1e-5f);
             Assert.IsTrue(knight.Movement.DashShoves);
             Assert.AreEqual(1.5f, knight.Movement.DashShoveDistance, 1e-5f);
             var angel = Traveler("TRAVELER-010").Body.Attack;

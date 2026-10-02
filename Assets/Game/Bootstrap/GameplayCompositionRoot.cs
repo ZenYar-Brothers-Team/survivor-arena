@@ -732,7 +732,8 @@ namespace Game.Bootstrap
                     _runAudio = new RunAudioRuntime(transform, _audioCatalog, Settings, _audio,
                         runController.Model, player.Health, experienceRuntime, draftRuntime,
                         activeSkillRuntime, Pickups, enemySpawner, BossEncounters,
-                        selectedField.Id.ToString());
+                        selectedField.Id.ToString(), Travelers, _zoneDriver?.Runtime,
+                        () => ZoneRuntimeDriver.CameraRect(Camera.main));
                     initializedSubsystems.Add(() => { _runAudio?.Dispose(); _runAudio = null; });
                 }
                 runController.Model.Completed += ShowProfileResult;

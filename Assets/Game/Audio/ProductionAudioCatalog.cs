@@ -13,6 +13,7 @@ namespace Game.Audio
         private readonly Dictionary<string, AudioClip[]> _clips = new Dictionary<string, AudioClip[]>(StringComparer.Ordinal);
         private readonly Dictionary<string, AudioCueData> _cues = new Dictionary<string, AudioCueData>(StringComparer.Ordinal);
         private readonly Dictionary<string, AudioClip> _ambienceClips = new Dictionary<string, AudioClip>(StringComparer.Ordinal);
+        private readonly Dictionary<string, string> _skillCues = new Dictionary<string, string>(StringComparer.Ordinal);
         private readonly Dictionary<string, float> _ambienceGains = new Dictionary<string, float>(StringComparer.Ordinal);
         public AudioClip MenuMusic { get; }
         public AudioClip BattleMusic { get; }
@@ -61,7 +62,20 @@ namespace Game.Audio
                 _cues.Add(cue.Id, cue);
                 _clips.Add(cue.Id, clips);
             }
+            if (data.SkillCues == null) throw new InvalidOperationException("skillCues is required (may be empty).");
+            foreach (var binding in data.SkillCues)
+            {
+                if (binding == null || string.IsNullOrWhiteSpace(binding.SkillId) || string.IsNullOrWhiteSpace(binding.Cue))
+                    throw new InvalidOperationException("Skill cue binding requires skillId and cue.");
+                if (!_cues.ContainsKey(binding.Cue))
+                    throw new InvalidOperationException($"Skill '{binding.SkillId}' binds unknown cue '{binding.Cue}'.");
+                if (!_skillCues.TryAdd(binding.SkillId, binding.Cue))
+                    throw new InvalidOperationException($"Duplicate skill cue binding '{binding.SkillId}'.");
+            }
         }
+
+        /// <summary>The sound family of an active skill's activation; false when the skill has no binding.</summary>
+        public bool TryGetSkillCue(string skillId, out string cueId) => _skillCues.TryGetValue(skillId, out cueId);
 
         public bool TryGet(string id, out AudioCueData cue, out AudioClip[] clips)
         {

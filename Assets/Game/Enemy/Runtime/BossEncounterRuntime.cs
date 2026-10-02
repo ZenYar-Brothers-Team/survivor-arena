@@ -52,6 +52,8 @@ namespace Game.Enemy
         public event Action<EnemyLifeEvent> LifeEvent;
         public event Action<BossPhaseEvent> PhaseChanged;
         public event Action<CombatResult> CombatResolved;
+        /// <summary>Forwarded from every living boss, plus teleport-slam moments (audio cues).</summary>
+        public event Action<EnemyActionKind, Vector2> ActionStarted;
         public event Action Changed;
         /// <summary>Living ordinary enemies summoned by bosses (DECISION-0066, F3); they outlive their boss.</summary>
         public int SummonedAlive => _summonOwners.Count;
@@ -133,6 +135,7 @@ namespace Game.Enemy
             _alive.Add(hook.Kind, enemy);
             enemy.Despawned += HandleDespawn;
             enemy.CombatResolved += ForwardCombat;
+            enemy.ActionStarted += ForwardAction;
             enemy.Health.HealthChanged += HandleHealthChanged;
             Action<int, int> handler = (previous, current) => PhaseChanged?.Invoke(new BossPhaseEvent(
                 enemy.Identity, definition.Phases[previous].Id, definition.Phases[current].Id, enemy.BossCombat.AttackDefinition?.Id ?? default));
@@ -142,6 +145,7 @@ namespace Game.Enemy
         }
 
         private void ForwardCombat(CombatResult result) => CombatResolved?.Invoke(result);
+        private void ForwardAction(EnemyActionKind kind, Vector2 position) => ActionStarted?.Invoke(kind, position);
         private void HandleHealthChanged(float previous, float current) => Changed?.Invoke();
 
         private void HandleSpecial(EnemyRuntime boss, BossSpecialRequest request)
@@ -169,6 +173,7 @@ namespace Game.Enemy
             _hazards.Remove(enemy);
             ReleaseHazardView(enemy);
             enemy.CombatResolved -= ForwardCombat;
+            enemy.ActionStarted -= ForwardAction;
             enemy.Health.HealthChanged -= HandleHealthChanged;
             if (_phaseHandlers.TryGetValue(enemy, out var handler))
             {
@@ -205,8 +210,16 @@ namespace Game.Enemy
                     continue;
                 }
                 var signal = controller.Tick(Time.fixedDeltaTime, running, enemy.Position, _target.position);
-                if (signal == BossTeleportSignal.TelegraphStarted) TeleportView(enemy).ShowTelegraph(controller.Profile, controller.Landing);
-                else if (signal == BossTeleportSignal.Impact) Slam(enemy, controller);
+                if (signal == BossTeleportSignal.TelegraphStarted)
+                {
+                    ActionStarted?.Invoke(EnemyActionKind.TeleportWindup, enemy.Position);
+                    TeleportView(enemy).ShowTelegraph(controller.Profile, controller.Landing);
+                }
+                else if (signal == BossTeleportSignal.Impact)
+                {
+                    ActionStarted?.Invoke(EnemyActionKind.TeleportSlam, controller.Landing);
+                    Slam(enemy, controller);
+                }
             }
         }
 
@@ -425,6 +438,7 @@ namespace Game.Enemy
             LifeEvent = null;
             PhaseChanged = null;
             CombatResolved = null;
+            ActionStarted = null;
             Changed = null;
         }
 

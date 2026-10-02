@@ -383,7 +383,6 @@
           "dashCooldownSeconds": 4,
           "dashDistance": 9,
           "dashTelegraphWidth": 0.53,
-          "dashTelegraphLength": 4,
           "dashShoveRadius": 0.8,
           "dashShoveDistance": 1.5,
           "dashShoveSeconds": 0.25

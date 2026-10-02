@@ -51,6 +51,7 @@ namespace Game.Enemy
         private float _blobDelay;
         private float _blobRemaining;
         private bool _holdAttacksDuringDash;
+        private EnemyAttackPhase? _announcedAttackPhase;
         // Shoving dash (DECISION-0118): pass-through state and per-dash hit bookkeeping.
         private const int DashShoveBufferSize = 48;
         private Collider2D[] _dashShoveHits;
@@ -112,6 +113,8 @@ namespace Game.Enemy
         public event Action<EnemyRuntime> Despawned;
         /// <summary>A boss step or dash end started a zone, beam or summon (DECISION-0066); the encounter owner runs it.</summary>
         public event Action<EnemyRuntime, BossSpecialRequest> SpecialRequested;
+        /// <summary>A wind-up, volley, dash or boss special began; once per moment, never per projectile, with the body position (audio cues).</summary>
+        public event Action<EnemyActionKind, Vector2> ActionStarted;
         /// <summary>Movement profile in effect (body movement or the boss phase override).</summary>
         public EnemyMovementProfile CurrentMovement => _movementProfile ?? Definition?.Movement;
         public bool BlobBreakupActive => _blobDelay > 0f || _blobRemaining > 0f;
@@ -228,6 +231,7 @@ namespace Game.Enemy
             _attackController = definition.Attack == null ? null
                 : new EnemyAttackController(definition.Attack, random: new System.Random(LifeId.GetHashCode()));
             MovementPhase = EnemyMovementPhase.Seeking;
+            _announcedAttackPhase = null;
             ConfigureTelegraph();
 
             Health = new Health(new FixedHealthProfile(definition.MaxHealth));
@@ -266,7 +270,7 @@ namespace Game.Enemy
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
             var steering = ApplyBlobBreakup(movement, speed, Time.fixedDeltaTime, isSimulating);
             _body.linearVelocity = steering + new Vector2(control.KnockbackX, control.KnockbackY);
-            MovementPhase = movement.Phase;
+            AnnounceMovement(movement.Phase);
             UpdateDashShove(movement, isSimulating);
             if (_dashVolley != null) FireDashVolley(movement, isSimulating);
             if (!isSimulating || (_attackController == null && BossCombat == null))
@@ -284,11 +288,15 @@ namespace Game.Enemy
                 shots = BossCombat.Tick(Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, attacking, Health.CurrentHealth / Health.MaxHealth, aim);
                 _attackController = BossCombat.Attack;
                 if (BossCombat.TriggeredSpecial != null)
+                {
+                    ActionStarted?.Invoke(SpecialAction(BossCombat.TriggeredSpecial.Kind), Position);
                     SpecialRequested?.Invoke(this, BossCombat.TriggeredSpecial.ToRequest(BossCombat.TriggeredSpecialId));
+                }
                 ApplyPhaseMovement(dashing);
             }
             else shots = _attackController.Tick(Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, true, aim);
             RenderTelegraph(movement);
+            AnnounceAttack(shots.Length);
             for (var i = 0; i < shots.Length; i++)
             {
                 LastProjectileSource = new CombatSource(Identity, BossCombat?.AttackDefinition?.Id ?? Definition.Id, CombatSourceOrigin.EnemyProjectile);
@@ -305,6 +313,34 @@ namespace Game.Enemy
                     ZoneInfluence.DamageMultiplier);
             }
         }
+
+        // Phase changes become one-shot action events; the movement phase is also what the rest of the runtime reads.
+        private void AnnounceMovement(EnemyMovementPhase phase)
+        {
+            var previous = MovementPhase;
+            MovementPhase = phase;
+            if (previous == phase || ActionStarted == null) return;
+            if (phase == EnemyMovementPhase.TelegraphingDash) ActionStarted(EnemyActionKind.DashWindup, Position);
+            else if (phase == EnemyMovementPhase.Dashing) ActionStarted(EnemyActionKind.DashStart, Position);
+        }
+
+        private void AnnounceAttack(int shotCount)
+        {
+            var phase = _attackController?.Phase;
+            var previous = _announcedAttackPhase;
+            _announcedAttackPhase = phase;
+            if (ActionStarted == null) return;
+            if (phase == EnemyAttackPhase.Telegraphing && previous != EnemyAttackPhase.Telegraphing)
+                ActionStarted(EnemyActionKind.AttackWindup, Position);
+            if (shotCount > 0) ActionStarted(EnemyActionKind.Shot, Position);
+        }
+
+        private static EnemyActionKind SpecialAction(BossSpecialKind kind) => kind switch
+        {
+            BossSpecialKind.Zone => EnemyActionKind.ZoneStart,
+            BossSpecialKind.Beam => EnemyActionKind.BeamStart,
+            _ => EnemyActionKind.SummonStart
+        };
 
         /// <summary>Assigns one temporary fan waypoint to an ordinary enemy; never changes its base profile.</summary>
         public bool TryStartBlobBreakup(Vector2 waypoint, float delaySeconds, float maneuverSeconds)
@@ -361,7 +397,10 @@ namespace Game.Enemy
             var shots = _dashVolley.Tick(movement.Phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, isSimulating,
                 (Vector2)_target.position - _body.position, movement.TelegraphDirection);
             foreach (var zone in _dashVolley.TriggeredZones)
+            {
+                ActionStarted?.Invoke(EnemyActionKind.ZoneStart, Position);
                 SpecialRequested?.Invoke(this, BossSpecialRequest.ForZone(zone, Definition.Id));
+            }
             if (shots.Length == 0) return;
             LastProjectileSource = new CombatSource(Identity, Definition.Id, CombatSourceOrigin.EnemyProjectile);
             for (var i = 0; i < shots.Length; i++)
@@ -543,6 +582,7 @@ namespace Game.Enemy
                 LifeEvent = null;
                 CombatResolved = null;
                 SpecialRequested = null;
+                ActionStarted = null;
                 _lifecycleSink = null;
                 if (releaseObject) ReleaseObject();
             }
@@ -784,6 +824,9 @@ namespace Game.Enemy
             var wide = dashLine && move.DashTelegraphWidth > 0f;
             _telegraph.startWidth = wide ? move.DashTelegraphWidth : 0.08f;
             _telegraph.endWidth = wide ? move.DashTelegraphWidth : 0.025f;
+            // The wide dash band is as long as the dash and fades out toward its far end (DECISION-0154).
+            _telegraph.startColor = new Color(1f, 0.25f, 0.1f, 0.9f);
+            _telegraph.endColor = wide ? new Color(1f, 0.25f, 0.1f, 0f) : new Color(1f, 0.75f, 0.1f, 0.25f);
             _telegraph.SetPosition(0, start);
             _telegraph.SetPosition(1, start + (Vector3)(direction * length));
         }

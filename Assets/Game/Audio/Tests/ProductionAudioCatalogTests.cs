@@ -29,6 +29,38 @@ namespace Game.Audio.Tests
         }
 
         [Test]
+        public void EverySkill_HasItsOwnSoundFamily_AndSeveralFamiliesExist()
+        {
+            var catalog = ProductionAudioCatalog.Load();
+            var families = new System.Collections.Generic.HashSet<string>();
+            for (var skill = 1; skill <= 16; skill++)
+            {
+                Assert.IsTrue(catalog.TryGetSkillCue($"SKILL-{skill:000}", out var cue), $"SKILL-{skill:000} needs a cue.");
+                Assert.IsTrue(catalog.TryGet(cue, out var data, out _), cue);
+                Assert.AreEqual(0, data.Priority.Value, "Attack sounds are routine, never important.");
+                families.Add(cue);
+            }
+            Assert.GreaterOrEqual(families.Count, 6, "Rough, blade, air, energy, fire and ice are heard apart.");
+            Assert.IsFalse(catalog.TryGetSkillCue("SKILL-999", out _));
+        }
+
+        [Test]
+        public void EnemyActionsAndZoneMoments_HaveCues_AndDangerousOnesAreImportant()
+        {
+            var catalog = ProductionAudioCatalog.Load();
+            foreach (var id in new[] { "enemy.windup", "enemy.shot", "enemy.dash.windup", "enemy.dash", "boss.zone", "boss.beam",
+                "boss.summon", "boss.teleport.windup", "boss.slam", "altar.on", "altar.cursed", "zone.activate", "shrine.reward",
+                "zone.strike", "zone.burst", "zone.portal" })
+                Assert.IsTrue(catalog.TryGet(id, out _, out _), id);
+            foreach (var id in new[] { "enemy.dash.windup", "enemy.dash", "boss.zone", "boss.beam", "boss.summon", "boss.slam",
+                "altar.on", "altar.cursed", "shrine.reward", "zone.strike", "zone.portal" })
+            {
+                catalog.TryGet(id, out var cue, out _);
+                Assert.GreaterOrEqual(cue.Priority.Value, 1, id);
+            }
+        }
+
+        [Test]
         public void LongTracks_Stream_WhileShortCueIsReadyInMemory()
         {
             foreach (var name in new[] { "menu_music", "battle_music", "boss_music", "victory_music",

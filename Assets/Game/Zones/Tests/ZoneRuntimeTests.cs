@@ -376,6 +376,38 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void Triggered_ReportsStrikeShrineAndPortalMoments_EachOnce()
+        {
+            var runtime = Build(1, (ZoneTestData.Strike(), new Vector2(-60, 0), 0f), (ZoneTestData.Shrine(), Vector2.zero, 0f),
+                (ZoneTestData.Portal(), new Vector2(30, 0), 0f), (ZoneTestData.Portal(), new Vector2(60, 0), 0f));
+            runtime.Zones[2].LinkPartner(3);
+            runtime.Zones[3].LinkPartner(2);
+            var kinds = new List<ZoneTriggerKind>();
+            runtime.Triggered += trigger => kinds.Add(trigger.Kind);
+            _player.Position = new Vector2(1, 0);
+            Run(runtime, 11f);
+            Assert.AreEqual(1, kinds.Count(kind => kind == ZoneTriggerKind.ShrineReward), "The shrine rewards once.");
+            Assert.AreEqual(1, kinds.Count(kind => kind == ZoneTriggerKind.StrikeImpact), "One volley hit within the first 11 s.");
+            _player.Position = new Vector2(30, 0);
+            runtime.Tick(Dt);
+            Assert.AreEqual(1, kinds.Count(kind => kind == ZoneTriggerKind.PortalJump), "The portal jump is reported once.");
+        }
+
+        [Test]
+        public void Triggered_ReportsAnAltarSwitchingOn_WithItsPolarity_OncePerCycle()
+        {
+            var runtime = Build(1, (ZoneTestData.Altar(), new Vector2(30, 30), 0f));
+            var triggers = new List<ZoneTrigger>();
+            runtime.Triggered += triggers.Add;
+            Run(runtime, 12f); // fades in during the first cycle
+            triggers.Clear();
+            Run(runtime, 55f); // rests, then the next cycle switches on
+            Run(runtime, 40f);
+            Assert.AreEqual(1, triggers.Count(trigger => trigger.Kind == ZoneTriggerKind.Activated));
+            Assert.AreEqual(runtime.Zones[0].Effect.Polarity, triggers.First(trigger => trigger.Kind == ZoneTriggerKind.Activated).Polarity);
+        }
+
+        [Test]
         public void Strike_NextVolleyLandsElsewhere_AndThePlayerCanDodge()
         {
             var runtime = Build(1, (ZoneTestData.Strike(), Vector2.zero, 0f));
