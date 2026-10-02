@@ -50,6 +50,8 @@ namespace Game.Presentation
         /// <summary>Per-run blob layout (field geometry study); null = no blobs.</summary>
         public FieldBlobLayoutDefinition BlobLayout { get; }
         public FieldRoadLayoutDefinition RoadLayout { get; }
+        /// <summary>Per-run circular platforms over a damaging void (field geometry study); null = none.</summary>
+        public FieldPlatformLayoutDefinition PlatformLayout { get; }
         public IReadOnlyList<FieldRoadLayout> RoadFallbackLayouts { get; }
         /// <summary>Arena side override in world units; null = the shared fixture arena.</summary>
         public float? ArenaSideLength { get; }
@@ -120,6 +122,10 @@ namespace Game.Presentation
             if (RoadLayout != null && (ObstacleLayout != null || BlobLayout != null || obstacles.Count > 0 || RoadFallbackLayouts.Count == 0 ||
                 data.ArenaSideLength != RoadLayout.ArenaSideLength))
                 throw new ArgumentException("Roads require their own arena, fallback and no other obstacle layout.");
+            PlatformLayout = data.PlatformLayout == null ? null : new FieldPlatformLayoutDefinition(data.PlatformLayout);
+            if (PlatformLayout != null && (RoadLayout != null || ObstacleLayout != null || BlobLayout != null || obstacles.Count > 0 ||
+                data.ArenaSideLength != PlatformLayout.ArenaSideLength))
+                throw new ArgumentException("Platforms require their own arena and no other obstacle layout.");
             if (BlobLayout != null && (ObstacleLayout != null || obstacles.Count > 0))
                 throw new ArgumentException("A blob layout excludes authored obstacles and the pattern layout.");
             if (BlobLayout != null && data.InteriorObstacleCount != BlobLayout.TotalCount)

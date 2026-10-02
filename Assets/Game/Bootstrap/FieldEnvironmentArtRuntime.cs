@@ -25,6 +25,8 @@ namespace Game.Bootstrap
         private GameObject _root;
         private FieldRoadSurfaceRuntime _roads;
         public FieldRoadLayout RoadLayout { get; private set; }
+        private FieldPlatformSurfaceRuntime _platforms;
+        public FieldPlatformLayout PlatformLayout { get; private set; }
 
         public Transform Root => _root != null ? _root.transform : null;
         public IReadOnlyList<Collider2D> ObstacleColliders => _obstacleColliders;
@@ -77,6 +79,17 @@ namespace Game.Bootstrap
                         roadArt == null ? null : Resolve(roadArt.Curb, registry, SpriteRole.Prop));
                     interiorObstacles = Array.Empty<Vector2>();
                 }
+                else if (definition.PlatformLayout != null)
+                {
+                    // Field geometry study: round platforms and bridges over a void; nothing blocks movement.
+                    HidePlaceholder(obstacleTransform);
+                    DisableSceneCollider(obstacleTransform);
+                    PlatformLayout = FieldPlatformLayoutGenerator.Generate(definition.PlatformLayout,
+                        layoutSeed ?? definition.PlatformLayout.ReferenceSeed);
+                    _platforms = new FieldPlatformSurfaceRuntime();
+                    _platforms.Initialize(PlatformLayout, _root.transform);
+                    interiorObstacles = Array.Empty<Vector2>();
+                }
                 else if (definition.BlobLayout != null)
                 {
                     // Field geometry study: generated impassable silhouettes replace the prototype scene obstacle.
@@ -115,6 +128,7 @@ namespace Game.Bootstrap
         public void Dispose()
         {
             _roads?.Dispose(); _roads = null; RoadLayout = null;
+            _platforms?.Dispose(); _platforms = null; PlatformLayout = null;
             for (var i = 0; i < _placeholders.Count; i++) _placeholders[i].Restore();
             _placeholders.Clear();
             for (var i = 0; i < _disabledSceneColliders.Count; i++)

@@ -1,0 +1,110 @@
+{
+ "D1. seed 44": {
+  "platforms": 25,
+  "bridges": 35,
+  "connected": true,
+  "cycles": 11,
+  "platform_cover_pct": 17.7,
+  "total_cover_pct": 25.1,
+  "radius_min": 5.5,
+  "radius_max": 16.0,
+  "giants": 5,
+  "max_hops": 6,
+  "leaves": 1,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.6,
+   25.6
+  ]
+ },
+ "D2. seed 45": {
+  "platforms": 24,
+  "bridges": 33,
+  "connected": true,
+  "cycles": 10,
+  "platform_cover_pct": 14.4,
+  "total_cover_pct": 21.5,
+  "radius_min": 5.4,
+  "radius_max": 16.8,
+  "giants": 2,
+  "max_hops": 7,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.2,
+   25.5
+  ]
+ },
+ "D3. seed 46": {
+  "platforms": 24,
+  "bridges": 32,
+  "connected": true,
+  "cycles": 9,
+  "platform_cover_pct": 15.7,
+  "total_cover_pct": 22.7,
+  "radius_min": 5.5,
+  "radius_max": 17.4,
+  "giants": 3,
+  "max_hops": 7,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.6,
+   25.7
+  ]
+ },
+ "D4. seed 47": {
+  "platforms": 26,
+  "bridges": 33,
+  "connected": true,
+  "cycles": 8,
+  "platform_cover_pct": 18.0,
+  "total_cover_pct": 24.5,
+  "radius_min": 5.3,
+  "radius_max": 17.3,
+  "giants": 3,
+  "max_hops": 5,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.2,
+   25.8
+  ]
+ },
+ "D5. seed 48": {
+  "platforms": 25,
+  "bridges": 32,
+  "connected": true,
+  "cycles": 8,
+  "platform_cover_pct": 18.9,
+  "total_cover_pct": 25.5,
+  "radius_min": 5.6,
+  "radius_max": 17.2,
+  "giants": 4,
+  "max_hops": 8,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   10.5,
+   25.4
+  ]
+ },
+ "D6. seed 49": {
+  "platforms": 24,
+  "bridges": 32,
+  "connected": true,
+  "cycles": 9,
+  "platform_cover_pct": 15.9,
+  "total_cover_pct": 22.3,
+  "radius_min": 5.1,
+  "radius_max": 16.4,
+  "giants": 3,
+  "max_hops": 6,
+  "leaves": 1,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.1,
+   25.8
+  ]
+ }
+}

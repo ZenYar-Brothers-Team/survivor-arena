@@ -14,9 +14,10 @@ def fields(baseline):
     six = baseline["field006"]["field"]
     seven = baseline["field007"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
+    nine = baseline["field009"]["field"]
     zone_devs = [baseline["devZones"]["field"], baseline["devAltars"]["field"]]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"], seven["id"]] + [item["id"] for item in zone_devs],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"], seven["id"], nine["id"]] + [item["id"] for item in zone_devs],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -28,6 +29,7 @@ def fields(baseline):
                           "obstacleNames": walls},
                          {"id": seven["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          {"id": six["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
+                         {"id": nine["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          ] + [{"id": item["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                                "obstacleNames": walls} for item in zone_devs],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
@@ -70,6 +72,12 @@ def fields(baseline):
                     "thumbnailPlaceholder": names[seven["id"]], "difficulty": seven["difficulty"],
                     "thumbnailVisualId": "FIELD-007-VISUAL-BACKGROUND", "unlockDescription": seven["unlockDescription"],
                     "environmentId": seven["environmentId"], "timelineId": field["timelineId"],
+                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
+                   {"id": nine["id"], "displayName": names[nine["id"]], "description": nine["description"],
+                    "thumbnailPlaceholder": names[nine["id"]], "difficulty": nine["difficulty"],
+                    "thumbnailVisualId": "FIELD-009-VISUAL-BACKGROUND", "unlockDescription": nine["unlockDescription"],
+                    "environmentId": nine["environmentId"], "timelineId": field["timelineId"],
                     "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
                     "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
                    ] + [
@@ -201,6 +209,15 @@ def field_presentation(baseline):
             if not library:
                 zones.pop("blobLayout", None)
         presentations.append(zones)
+    # FIELD-009: flat-color circular platforms and bridges over a damaging void.
+    platforms_packet = baseline["field009"]
+    platforms_field = platforms_packet["field"]
+    platforms = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
+    platforms.update(id=platforms_field["presentationId"], environmentId=platforms_field["environmentId"],
+                     seed=presentations[0]["seed"] + 9000, obstacleSeed=presentations[0]["obstacleSeed"] + 9000,
+                     interiorObstacleCount=1, nearObstacleCount=0, decorationChance=0,
+                     arenaSideLength=platforms_field["arenaSideLength"], platformLayout=platforms_packet["platformLayout"])
+    presentations.append(platforms)
     # Approved sparse road network replaces FIELD-003's former obstacle patterns only.
     third.pop("obstacleLayout", None)
     for key in ("columnVisualId", "shrineVisualId", "shrineChance"):

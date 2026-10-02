@@ -1,0 +1,98 @@
+{
+ "A. Редкие, дерево + 2 петли": {
+  "platforms": 24,
+  "bridges": 25,
+  "connected": true,
+  "cycles": 2,
+  "platform_cover_pct": 11.9,
+  "total_cover_pct": 17.1,
+  "radius_min": 5.3,
+  "radius_max": 12.3,
+  "giants": 0,
+  "max_hops": 9,
+  "bridge_len": [
+   11.3,
+   25.8
+  ]
+ },
+ "B. Средние, дерево + 6 петель": {
+  "platforms": 34,
+  "bridges": 39,
+  "connected": true,
+  "cycles": 6,
+  "platform_cover_pct": 14.4,
+  "total_cover_pct": 21.5,
+  "radius_min": 5.2,
+  "radius_max": 15.0,
+  "giants": 1,
+  "max_hops": 8,
+  "bridge_len": [
+   8.1,
+   24.0
+  ]
+ },
+ "C. Много, плотная сетка мостов": {
+  "platforms": 44,
+  "bridges": 92,
+  "connected": true,
+  "cycles": 49,
+  "platform_cover_pct": 21.4,
+  "total_cover_pct": 39.2,
+  "radius_min": 5.3,
+  "radius_max": 16.0,
+  "giants": 1,
+  "max_hops": 5,
+  "bridge_len": [
+   7.1,
+   26.0
+  ]
+ },
+ "D. Много гигантов (до 2W)": {
+  "platforms": 23,
+  "bridges": 26,
+  "connected": true,
+  "cycles": 4,
+  "platform_cover_pct": 16.3,
+  "total_cover_pct": 22.3,
+  "radius_min": 5.1,
+  "radius_max": 17.1,
+  "giants": 4,
+  "max_hops": 6,
+  "bridge_len": [
+   9.6,
+   25.5
+  ]
+ },
+ "E. Мелкие и частые, дерево + 10": {
+  "platforms": 59,
+  "bridges": 68,
+  "connected": true,
+  "cycles": 10,
+  "platform_cover_pct": 24.8,
+  "total_cover_pct": 33.1,
+  "radius_min": 5.0,
+  "radius_max": 12.4,
+  "giants": 0,
+  "max_hops": 9,
+  "bridge_len": [
+   7.1,
+   19.3
+  ]
+ },
+ "F. Длинные мосты, дерево + 4": {
+  "platforms": 21,
+  "bridges": 24,
+  "connected": true,
+  "cycles": 4,
+  "platform_cover_pct": 12.3,
+  "total_cover_pct": 18.3,
+  "radius_min": 5.2,
+  "radius_max": 16.9,
+  "giants": 2,
+  "max_hops": 6,
+  "bridge_len": [
+   14.2,
+   25.6
+  ]
+ }
+}

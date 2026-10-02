@@ -82,6 +82,8 @@ Checks: art scope, FieldRoadSurfaceTests, graphics ProductionField003SmokeTests.
 - designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).
 - authoringSources: [field001 baseline](balance/field001-baseline-v1.json), [field002](balance/field002-v1.json), [field003](balance/field003-v1.json), [field002/003 waves v2](balance/field-rhythm-v2.md), [layouts](balance/field-layouts-v1.json), [blob geometry of FIELD-002 + illustration library](balance/field-dev-blobs-v1.json) (DECISION-0132, 0136), [dev zones field](balance/field-dev-zones-v1.json) [dev altars field](balance/field-dev-altars-v1.json) и модуль [Zones](../Assets/Game/Zones) (DECISION-0134, 0135).
 - generatedOutputs: ProductionFields, ProductionFieldEnvironmentPresentation, ProductionWaveTimeline / Field002 / Field003 / Field004 и единый ProductionBlobBreakupProfile (числа разбивки вне расписаний волн).
+FIELD-009 platforms (flat-color blockout, user-directed): authoring [platform packet](balance/field009-platforms-v1.json) (`platformLayout`), [generator](../Assets/Game/Presentation/FieldPlatformLayoutGenerator.cs), [surface](../Assets/Game/Bootstrap/FieldPlatformSurfaceRuntime.cs), [void damage](../Assets/Game/Bootstrap/FieldVoidDamageDriver.cs), [study](prototypes/field009-platforms/generate.py). FIELD-001 waves shared; Dev unlock opens it. Checks: FieldPlatformLayoutGeneratorTests, ProductionField009SmokeTests.
+
 - checks: generator `--check`, [Bootstrap/Tests](../Assets/Game/Bootstrap/Tests), [production field smoke](../Assets/Game/Bootstrap/PlayModeTests), ручные gates из STATUS.
 
 ## Звук

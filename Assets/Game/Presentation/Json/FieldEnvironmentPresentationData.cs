@@ -44,6 +44,7 @@ namespace Game.Presentation.Json
         /// <summary>Optional per-run blob layout (field geometry study); excludes authored obstacles and the pattern layout.</summary>
         public FieldBlobLayoutData BlobLayout { get; set; }
         public FieldRoadLayoutData RoadLayout { get; set; }
+        public FieldPlatformLayoutData PlatformLayout { get; set; }
         public FieldRoadReferenceData[] RoadFallbackLayouts { get; set; }
         /// <summary>Optional arena side in world units; replaces the shared fixture arena for this field.</summary>
         public float? ArenaSideLength { get; set; }

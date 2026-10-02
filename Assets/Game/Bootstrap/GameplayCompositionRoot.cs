@@ -144,6 +144,7 @@ namespace Game.Bootstrap
         private GroundShadowRuntime _playerGroundShadow;
         private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
         private ZoneRuntimeDriver _zoneDriver;
+        private FieldVoidDamageDriver _voidDriver;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -471,7 +472,7 @@ namespace Game.Bootstrap
                 // DECISION-0068: fields with a pattern layout get a fresh obstacle arrangement every run.
                 var layout = fieldPresentation.ObstacleLayout;
                 // Blob fields (field geometry study) also get a fresh arrangement every run.
-                var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed ?? fieldPresentation.RoadLayout?.ReferenceSeed;
+                var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed ?? fieldPresentation.RoadLayout?.ReferenceSeed ?? fieldPresentation.PlatformLayout?.ReferenceSeed;
                 LayoutSeed = referenceSeed == null ? 0 : UseReferenceSeeds ? referenceSeed.Value : FreshRunSeed.Next();
                 var arenaSideLength = fieldPresentation.ArenaSideLength ?? FixtureArenaGeometryCatalog.Create().SideLength;
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
@@ -484,7 +485,9 @@ namespace Game.Bootstrap
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();
                 var roadLayout = _fieldEnvironmentArt.RoadLayout;
-                var startPosition = roadLayout == null ? spawn.position : (Vector3)roadLayout.SpawnPosition;
+                var platformLayout = _fieldEnvironmentArt.PlatformLayout;
+                var startPosition = roadLayout != null ? (Vector3)roadLayout.SpawnPosition
+                    : platformLayout != null ? (Vector3)platformLayout.SpawnPosition : spawn.position;
                 player.transform.position = startPosition;
                 if (body != null) { body.position = startPosition; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
                 initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
@@ -590,6 +593,20 @@ namespace Game.Bootstrap
                         original.LifetimeSeconds, original.Marker, original.Color, original.MarkerSize, original.Visual,
                         original.VisualScale, roadLayout.Profile.BookUpgradeCount);
                     foreach (var branch in roadLayout.DeadEnds) Pickups.SpawnFieldBook(fieldBook, branch.EndCenter);
+                }
+                if (platformLayout != null)
+                {
+                    // A Book of experience in the middle of a random half of the platforms (never the start one) (field geometry study).
+                    var original = Catalog.Pickups.Book;
+                    var fieldBook = new PickupDefinition(original.Id, original.Kind, original.Healing, original.ContactRadius,
+                        original.LifetimeSeconds, original.Marker, original.Color, original.MarkerSize, original.Visual,
+                        original.VisualScale, platformLayout.Profile.BookUpgradeCount);
+                    foreach (var platform in platformLayout.Platforms)
+                        if (platform.HasBook) Pickups.SpawnFieldBook(fieldBook, platform.Center);
+                    _voidDriver = FieldVoidDamageDriver.Create(platformLayout,
+                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>()), runController,
+                        fieldPresentation.EnvironmentId, gameObject.scene);
+                    initializedSubsystems.Add(() => { _voidDriver?.Shutdown(); _voidDriver = null; });
                 }
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
@@ -806,6 +823,8 @@ namespace Game.Bootstrap
             _fieldEnvironmentArt = null;
             _cameraFollow = null;
             player.Shutdown();
+            _voidDriver?.Shutdown();
+            _voidDriver = null;
             FieldConfiguration = null;
         }
 

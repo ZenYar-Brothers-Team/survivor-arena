@@ -41,5 +41,30 @@ namespace Game.Bootstrap.Tests
         {
             Assert.IsEmpty(FieldMapPreviewSource.RoadPieces(null));
         }
+
+        [Test]
+        public void PlatformPieces_DrawBridgesThenPlatformDiscs_WithProfileSizesAndColors()
+        {
+            var d = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")["FIELD-009-ENVIRONMENT"];
+            var layout = FieldPlatformLayoutGenerator.Generate(d.PlatformLayout, 3);
+            var profile = layout.Profile;
+            var pieces = FieldMapPreviewSource.PlatformPieces(layout);
+
+            Assert.AreEqual(layout.Bridges.Count + layout.Platforms.Count, pieces.Count);
+            for (var i = 0; i < layout.Bridges.Count; i++)
+            {
+                Assert.AreEqual(2, pieces[i].Points.Count);
+                Assert.AreEqual(profile.BridgeWidth, pieces[i].Width);
+                Assert.AreEqual(profile.BridgeColor, pieces[i].Color);
+            }
+            for (var i = 0; i < layout.Platforms.Count; i++)
+            {
+                var piece = pieces[layout.Bridges.Count + i];
+                CollectionAssert.AreEqual(new[] { layout.Platforms[i].Center }, piece.Points);
+                Assert.AreEqual(layout.Platforms[i].Radius * 2f, piece.Width);
+                Assert.AreEqual(i == layout.StartIndex ? profile.StartPlatformColor : profile.PlatformColor, piece.Color);
+            }
+            Assert.IsEmpty(FieldMapPreviewSource.PlatformPieces(null));
+        }
     }
 }

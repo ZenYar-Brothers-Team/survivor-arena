@@ -1,0 +1,110 @@
+{
+ "Генерация 1, seed 101": {
+  "platforms": 24,
+  "bridges": 33,
+  "connected": true,
+  "cycles": 10,
+  "platform_cover_pct": 14.5,
+  "total_cover_pct": 21.2,
+  "radius_min": 5.3,
+  "radius_max": 16.9,
+  "giants": 3,
+  "max_hops": 6,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.3,
+   25.8
+  ]
+ },
+ "Генерация 2, seed 102": {
+  "platforms": 25,
+  "bridges": 36,
+  "connected": true,
+  "cycles": 12,
+  "platform_cover_pct": 19.4,
+  "total_cover_pct": 27.0,
+  "radius_min": 5.6,
+  "radius_max": 17.5,
+  "giants": 4,
+  "max_hops": 5,
+  "leaves": 1,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.1,
+   25.6
+  ]
+ },
+ "Генерация 3, seed 103": {
+  "platforms": 24,
+  "bridges": 31,
+  "connected": true,
+  "cycles": 8,
+  "platform_cover_pct": 19.0,
+  "total_cover_pct": 25.5,
+  "radius_min": 5.4,
+  "radius_max": 16.7,
+  "giants": 5,
+  "max_hops": 4,
+  "leaves": 1,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.1,
+   24.1
+  ]
+ },
+ "Генерация 4, seed 104": {
+  "platforms": 25,
+  "bridges": 34,
+  "connected": true,
+  "cycles": 10,
+  "platform_cover_pct": 18.6,
+  "total_cover_pct": 25.4,
+  "radius_min": 5.0,
+  "radius_max": 17.4,
+  "giants": 5,
+  "max_hops": 6,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.1,
+   24.7
+  ]
+ },
+ "Генерация 5, seed 105": {
+  "platforms": 26,
+  "bridges": 36,
+  "connected": true,
+  "cycles": 11,
+  "platform_cover_pct": 17.3,
+  "total_cover_pct": 24.4,
+  "radius_min": 5.3,
+  "radius_max": 15.3,
+  "giants": 3,
+  "max_hops": 5,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.2,
+   24.9
+  ]
+ },
+ "Генерация 6, seed 106": {
+  "platforms": 24,
+  "bridges": 31,
+  "connected": true,
+  "cycles": 8,
+  "platform_cover_pct": 16.4,
+  "total_cover_pct": 22.8,
+  "radius_min": 5.0,
+  "radius_max": 17.1,
+  "giants": 2,
+  "max_hops": 6,
+  "leaves": 0,
+  "small_leaves": 0,
+  "bridge_len": [
+   9.1,
+   26.0
+  ]
+ }
+}

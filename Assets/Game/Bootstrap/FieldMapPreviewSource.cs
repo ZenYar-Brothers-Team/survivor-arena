@@ -33,7 +33,14 @@ namespace Game.Bootstrap
 
         public IReadOnlyList<Vector2[]> Obstacles => _obstacles ??= Outlines(_art.ObstacleColliders);
 
-        public IReadOnlyList<MapPreviewRoad> Roads => _roads ??= RoadPieces(_art.RoadLayout);
+        public IReadOnlyList<MapPreviewRoad> Roads => _roads ??= Pieces();
+
+        private List<MapPreviewRoad> Pieces()
+        {
+            var result = RoadPieces(_art.RoadLayout);
+            result.AddRange(PlatformPieces(_art.PlatformLayout));
+            return result;
+        }
 
         public Rect View
         {
@@ -92,6 +99,24 @@ namespace Game.Bootstrap
                                 bounds.center.y + Mathf.Sin(angle) * bounds.extents.y);
                         }
                         result.Add(ring);
+        /// <summary>
+        /// Platform field pieces in drawing order: bridges at the bridge width, then each platform as a round dot of its
+        /// own diameter (the start platform in its own color). No layout yields nothing.
+        /// </summary>
+        public static List<MapPreviewRoad> PlatformPieces(FieldPlatformLayout layout)
+        {
+            var result = new List<MapPreviewRoad>();
+            if (layout == null) return result;
+            var profile = layout.Profile;
+            foreach (var bridge in layout.Bridges)
+                result.Add(new MapPreviewRoad(new[] { layout.Platforms[bridge.From].Center, layout.Platforms[bridge.To].Center },
+                    profile.BridgeWidth, profile.BridgeColor));
+            for (var i = 0; i < layout.Platforms.Count; i++)
+                result.Add(new MapPreviewRoad(new[] { layout.Platforms[i].Center }, layout.Platforms[i].Radius * 2f,
+                    i == layout.StartIndex ? profile.StartPlatformColor : profile.PlatformColor));
+            return result;
+        }
+
                         break;
                     default:
                         var box = collider.bounds;
