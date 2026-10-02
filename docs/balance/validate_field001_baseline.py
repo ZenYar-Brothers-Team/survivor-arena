@@ -70,7 +70,7 @@ def main():
             "SKILL-013 projectile progression changed")
     require([row["count"] for row in skills["SKILL-003"]["levels"]] == [1, 1, 2, 3, 3, 4],
             "SKILL-003 blade progression changed")
-    require([row["radius"] for row in skills["SKILL-010"]["levels"]] == [0.8, 1.3, 1.8, 1.8, 1.8, 1.8],
+    require([row["radius"] for row in skills["SKILL-010"]["levels"]] == [0.64, 1.0, 1.17, 1.17, 1.17, 1.17],
             "SKILL-010 radius progression changed")
     require(skills["SKILL-010"]["levels"][5]["thirdRadiusMultiplier"] == 1.35,
             "SKILL-010 L6 third-strike radius progression changed")

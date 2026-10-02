@@ -40,5 +40,11 @@ namespace Game.ActiveSkill
             ExplodeOnExpiry = explodeOnExpiry;
             ExplosionKnockbackMultiplier = explosionKnockbackMultiplier;
         }
+
+        /// <summary>Copy with extra ricochets (DECISION-0148); unchanged when the skill has no ricochet data.</summary>
+        public ProjectileBehavior WithExtraRicochets(int extra) =>
+            extra <= 0 || RicochetRange <= 0f ? this : new ProjectileBehavior(StopAfterSeconds, UnlimitedPierce,
+                RicochetCount + extra, RicochetRange, RicochetRetention, RepeatRicochetTargets, DistinctNearestTargets,
+                ExplosionDamageMultiplier, ExplodeOnExpiry, ExplosionKnockbackMultiplier);
     }
 }

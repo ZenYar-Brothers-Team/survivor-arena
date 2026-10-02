@@ -23,6 +23,8 @@ namespace Game.Progression
         /// applied to that skill only for the whole run; default = no bonus.
         /// </summary>
         public CharacterStatModifier StartingSkillBoost { get; }
+        /// <summary>DECISION-0148: mechanics the starting active skill has from the first level (extra ricochet, blade, pierce...).</summary>
+        public SkillMechanicBonus StartingSkillMechanic { get; }
 
         public CharacterDefinition(
             ContentId id,
@@ -65,7 +67,18 @@ namespace Game.Progression
             ContentId startingActiveSkillId, ContentRef<SpriteDefinition> visual,
             ContentRef<SpriteMotionProfile> motionProfile, CharacterPresentation presentation,
             CharacterStatModifier startingSkillBoost, params CharacterDraftWeight[] draftWeights)
+            : this(id, displayName, baseStats, startingActiveSkillId, visual, motionProfile, presentation, startingSkillBoost,
+                default(SkillMechanicBonus), draftWeights)
         {
+        }
+
+        public CharacterDefinition(ContentId id, string displayName, CharacterBaseStats baseStats,
+            ContentId startingActiveSkillId, ContentRef<SpriteDefinition> visual,
+            ContentRef<SpriteMotionProfile> motionProfile, CharacterPresentation presentation,
+            CharacterStatModifier startingSkillBoost, SkillMechanicBonus startingSkillMechanic,
+            params CharacterDraftWeight[] draftWeights)
+        {
+            StartingSkillMechanic = startingSkillMechanic;
             // Only the per-skill channels of the skill modifier pipeline are meaningful for one skill.
             if (!new CharacterStatModifier(activeSkillDamageMultiplierBonus: startingSkillBoost.ActiveSkillDamageMultiplierBonus,
                     actionSpeedBonus: startingSkillBoost.ActionSpeedBonus,

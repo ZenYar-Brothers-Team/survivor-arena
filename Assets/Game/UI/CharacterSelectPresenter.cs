@@ -40,7 +40,7 @@ namespace Game.UI
                 foreach (var field in presentation.Highlights)
                     highlights.Add(CharacterHighlightFormatter.Format(character.BaseStats, baseline.Stats, field));
                 var summary = presentation.Role + "\nStarts with " + character.ResolveStartingActiveSkill(_registry).DisplayName +
-                    StartingSkillBoostText.Describe(character.StartingSkillBoost);
+                    StartingSkillBoostText.Describe(character.StartingSkillBoost, character.StartingSkillMechanic);
                 foreach (var field in presentation.Highlights)
                     summary += "\n" + CharacterHighlightFormatter.Format(character.BaseStats, baseline.Stats, field);
                 if (_permanentSummary != null) summary += "\n" + _permanentSummary(character.Id);
@@ -49,7 +49,7 @@ namespace Game.UI
                     character.DisplayName, summary, summary, presentation.Icon.Resolve(_registry).Sprite,
                     !_session.Started, character.Id == _inspected, reason != null), presentation.Crop.Resolve(_registry).Sprite,
                     presentation.Role, character.ResolveStartingActiveSkill(_registry).DisplayName,
-                    StartingSkillBoostText.Describe(character.StartingSkillBoost).Trim(), string.Join("\n", highlights),
+                    StartingSkillBoostText.Describe(character.StartingSkillBoost, character.StartingSkillMechanic).Trim(), string.Join("\n", highlights),
                     _permanentSummary?.Invoke(character.Id) ?? "", reason, icon, _permanentRows?.Invoke(character.Id)));
             }
             _view.Render(cards.AsReadOnly(), _session.CanStart && _inspected == _session.SelectedId);

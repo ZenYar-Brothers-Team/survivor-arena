@@ -41,6 +41,16 @@ namespace Game.Progression
         public float GrantedSlowFraction { get; }
         public float GrantedSlowSeconds { get; }
 
+        /// <summary>Extra rebounds of a ricocheting projectile (character starting-skill mechanic, DECISION-0148).</summary>
+        public int ExtraRicochets { get; }
+        /// <summary>Extra simultaneously active mines of the skill.</summary>
+        public int ExtraMines { get; }
+        /// <summary>Extra strikes appended after the last strike of a Strike skill, each <see cref="ExtraStrikeDelaySeconds"/> after the previous one.</summary>
+        public int ExtraStrikes { get; }
+        public float ExtraStrikeDelaySeconds { get; }
+        /// <summary>Fan spread given to extra projectiles of a skill whose card fires in a single direction (boomerang).</summary>
+        public float ExtraProjectileSpreadDegrees { get; }
+
         public bool HasHeavyReplacement => HeavyEveryNth > 0;
 
         public SkillMechanicBonus(float projectileSpeedBonus = 0f, float returnDamageBonus = 0f, float returnSpeedBonus = 0f,
@@ -48,8 +58,16 @@ namespace Game.Progression
             float orbitAngularSpeedBonus = 0f, float explosionDamageBonus = 0f, float explosionRadiusBonus = 0f,
             int heavyEveryNth = 0, float heavySizeMultiplier = 0f, float heavyStopMultiplier = 0f,
             float heavyExplosionRadius = 0f, float heavyExplosionDamageMultiplier = 0f, float heavyExplosionKnockback = 0f,
-            int extraProjectiles = 0, float slowStrengthBonus = 0f, float grantedSlowFraction = 0f, float grantedSlowSeconds = 0f)
+            int extraProjectiles = 0, float slowStrengthBonus = 0f, float grantedSlowFraction = 0f, float grantedSlowSeconds = 0f,
+            int extraRicochets = 0, int extraMines = 0, int extraStrikes = 0, float extraStrikeDelaySeconds = 0f,
+            float extraProjectileSpreadDegrees = 0f)
         {
+            NumericValidation.ValidateNonNegative(extraRicochets, nameof(extraRicochets));
+            NumericValidation.ValidateNonNegative(extraMines, nameof(extraMines));
+            NumericValidation.ValidateNonNegative(extraStrikes, nameof(extraStrikes));
+            NumericValidation.ValidateNonNegative(extraStrikeDelaySeconds, nameof(extraStrikeDelaySeconds));
+            NumericValidation.ValidateRange(extraProjectileSpreadDegrees, 0f, 180f, nameof(extraProjectileSpreadDegrees));
+            if (extraStrikes > 0) NumericValidation.ValidatePositive(extraStrikeDelaySeconds, nameof(extraStrikeDelaySeconds));
             NumericValidation.ValidateRange(grantedSlowFraction, 0f, 1f, nameof(grantedSlowFraction));
             NumericValidation.ValidateNonNegative(grantedSlowSeconds, nameof(grantedSlowSeconds));
             if (grantedSlowFraction > 0f) NumericValidation.ValidatePositive(grantedSlowSeconds, nameof(grantedSlowSeconds));
@@ -98,6 +116,11 @@ namespace Game.Progression
             SlowStrengthBonus = slowStrengthBonus;
             GrantedSlowFraction = grantedSlowFraction;
             GrantedSlowSeconds = grantedSlowSeconds;
+            ExtraRicochets = extraRicochets;
+            ExtraMines = extraMines;
+            ExtraStrikes = extraStrikes;
+            ExtraStrikeDelaySeconds = extraStrikeDelaySeconds;
+            ExtraProjectileSpreadDegrees = extraProjectileSpreadDegrees;
         }
 
         /// <summary>Additive combination; falloff reductions compose, and only one set may own a heavy replacement.</summary>
@@ -123,7 +146,10 @@ namespace Game.Progression
                 heavy.HeavyEveryNth, heavy.HeavySizeMultiplier, heavy.HeavyStopMultiplier, heavy.HeavyExplosionRadius,
                 heavy.HeavyExplosionDamageMultiplier, heavy.HeavyExplosionKnockback,
                 ExtraProjectiles + other.ExtraProjectiles, Mathf.Min(1f, SlowStrengthBonus + other.SlowStrengthBonus),
-                granted.GrantedSlowFraction, granted.GrantedSlowSeconds);
+                granted.GrantedSlowFraction, granted.GrantedSlowSeconds,
+                ExtraRicochets + other.ExtraRicochets, ExtraMines + other.ExtraMines, ExtraStrikes + other.ExtraStrikes,
+                Mathf.Max(ExtraStrikeDelaySeconds, other.ExtraStrikeDelaySeconds),
+                Mathf.Max(ExtraProjectileSpreadDegrees, other.ExtraProjectileSpreadDegrees));
         }
 
         public bool Equals(SkillMechanicBonus other) =>
@@ -137,7 +163,10 @@ namespace Game.Progression
             HeavyExplosionDamageMultiplier == other.HeavyExplosionDamageMultiplier &&
             HeavyExplosionKnockback == other.HeavyExplosionKnockback &&
             ExtraProjectiles == other.ExtraProjectiles && SlowStrengthBonus == other.SlowStrengthBonus &&
-            GrantedSlowFraction == other.GrantedSlowFraction && GrantedSlowSeconds == other.GrantedSlowSeconds;
+            GrantedSlowFraction == other.GrantedSlowFraction && GrantedSlowSeconds == other.GrantedSlowSeconds &&
+            ExtraRicochets == other.ExtraRicochets && ExtraMines == other.ExtraMines && ExtraStrikes == other.ExtraStrikes &&
+            ExtraStrikeDelaySeconds == other.ExtraStrikeDelaySeconds &&
+            ExtraProjectileSpreadDegrees == other.ExtraProjectileSpreadDegrees;
 
         public override bool Equals(object obj) => obj is SkillMechanicBonus other && Equals(other);
 

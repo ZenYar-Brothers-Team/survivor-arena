@@ -10,5 +10,15 @@ namespace Game.Character.Json
         public float ActionSpeedBonus { get; set; }
         public float EffectSizeMultiplierBonus { get; set; }
         public float EffectRangeMultiplierBonus { get; set; }
+
+        // DECISION-0148: mechanic channels of the starting skill (see SkillMechanicBonus); omitted = none.
+        public int ExtraProjectiles { get; set; }
+        public int ExtraPierce { get; set; }
+        public int ExtraChainTargets { get; set; }
+        public int ExtraRicochets { get; set; }
+        public int ExtraMines { get; set; }
+        public int ExtraStrikes { get; set; }
+        public float ExtraStrikeDelaySeconds { get; set; }
+        public float ExtraProjectileSpreadDegrees { get; set; }
     }
 }

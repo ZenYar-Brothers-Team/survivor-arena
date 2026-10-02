@@ -62,6 +62,7 @@ namespace Game.Progression.Tests
             Assert.AreEqual(0.6f, character.StartingSkillBoost.ActiveSkillDamageMultiplierBonus, 1e-5f);
             Assert.AreEqual(0.25f, character.StartingSkillBoost.ActionSpeedBonus, 1e-5f);
             Assert.AreEqual(0f, character.StartingSkillBoost.EffectSizeMultiplierBonus);
+            Assert.AreEqual(1, character.StartingSkillMechanic.ExtraRicochets, "DECISION-0148: the stone ricochets once more from level 1.");
         }
 
         [Test]
@@ -122,9 +123,27 @@ namespace Game.Progression.Tests
         {
             // DECISION-0075 specializations are unchanged by characters-v1.
             Assert.AreEqual(0.25f, Character("CHAR-002").StartingSkillBoost.EffectSizeMultiplierBonus, 1e-5f);
+            Assert.AreEqual(0.4f, Character("CHAR-002").StartingSkillBoost.ActiveSkillDamageMultiplierBonus, 1e-5f);
             Assert.AreEqual(0.45f, Character("CHAR-005").StartingSkillBoost.ActiveSkillDamageMultiplierBonus, 1e-5f);
             Assert.AreEqual(0.4f, Character("CHAR-005").StartingSkillBoost.ActionSpeedBonus, 1e-5f);
             Assert.AreEqual(0.25f, Character("CHAR-008").StartingSkillBoost.EffectRangeMultiplierBonus, 1e-5f);
+        }
+
+        [Test]
+        public void StartingSkillMechanic_FollowsDecision0148()
+        {
+            Assert.AreEqual(1, Character("CHAR-001").StartingSkillMechanic.ExtraRicochets);
+            Assert.AreEqual(1, Character("CHAR-002").StartingSkillMechanic.ExtraProjectiles, "an extra orbital blade");
+            Assert.AreEqual(1, Character("CHAR-003").StartingSkillMechanic.ExtraPierce);
+            Assert.AreEqual(2, Character("CHAR-004").StartingSkillMechanic.ExtraMines);
+            Assert.AreEqual(1, Character("CHAR-005").StartingSkillMechanic.ExtraChainTargets);
+            Assert.AreEqual(1, Character("CHAR-006").StartingSkillMechanic.ExtraStrikes);
+            Assert.AreEqual(0.3f, Character("CHAR-006").StartingSkillMechanic.ExtraStrikeDelaySeconds, 1e-5f);
+            Assert.AreEqual(1, Character("CHAR-007").StartingSkillMechanic.ExtraProjectiles, "an extra boomerang");
+            Assert.AreEqual(20f, Character("CHAR-007").StartingSkillMechanic.ExtraProjectileSpreadDegrees, 1e-5f);
+            Assert.AreEqual(1, Character("CHAR-008").StartingSkillMechanic.ExtraProjectiles, "a second beam");
+            Assert.AreEqual(1, Character("CHAR-009").StartingSkillMechanic.ExtraPierce);
+            Assert.AreEqual(4, Character("CHAR-010").StartingSkillMechanic.ExtraProjectiles, "diagonal waves from the start");
         }
 
         [TestCase("CHAR-002", new[] { "SKILL-004", "SKILL-006", "SKILL-015", "PASSIVE-001", "PASSIVE-008", "PASSIVE-011" }, new[] { "SKILL-010", "SKILL-012", "PASSIVE-005", "PASSIVE-006" })]

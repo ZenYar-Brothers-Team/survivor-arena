@@ -136,7 +136,7 @@ namespace Game.ActiveSkill
         public void Schedule(ActiveSkillActivation activation)
         {
             using var guard = PerfGuard.Measure("SceneActiveSkillEffectExecutor.Schedule", 2f);
-            var waves = activation.LevelDefinition.Waves;
+            var waves = WithExtraStrikes(activation.LevelDefinition.Waves, activation.Mechanics);
             var randomTargets = activation.LevelDefinition.TargetingMode == ActiveSkillTargetingMode.RandomEnemy;
             var usedTargets = randomTargets ? new HashSet<EnemyTargetLife>() : null;
             if (randomTargets) usedTargets.Add(activation.TargetLife);
@@ -179,9 +179,12 @@ namespace Game.ActiveSkill
                     var effect = wave.Effects[effectIndex];
                     var repeatCount = 1;
                     var repeatInterval = 0f;
+                    var copies = 1;
                     BeamTargetTracker beamTracker = null;
                     if (effect is BeamEffect beam)
                     {
+                        // Extra projectiles of a beam skill are extra beams on the next-nearest enemies (DECISION-0148).
+                        copies = 1 + activation.Mechanics.ExtraProjectiles;
                         beamTracker = new BeamTargetTracker(activation, _selection);
                         repeatCount = Math.Max(1, Mathf.CeilToInt(beam.DurationSeconds / beam.TickIntervalSeconds));
                         repeatInterval = beam.TickIntervalSeconds;
@@ -197,17 +200,40 @@ namespace Game.ActiveSkill
                         repeatInterval = orbit.HitCooldownSeconds;
                     }
 
-                    for (var tickIndex = 0; tickIndex < repeatCount; tickIndex++)
+                    for (var copy = 0; copy < copies; copy++)
                     {
-                        _scheduled.Add(new ScheduledSkillEffect(
-                            activation,
-                            wave,
-                            effect,
-                            wave.DelaySeconds + repeatInterval * tickIndex,
-                            tickIndex, centerOverride) { StrikeTargets = waveIndex > 0 ? deferred : null, BeamTracker = beamTracker });
+                        if (copy > 0) beamTracker = new BeamTargetTracker(activation, _selection, copy);
+                        for (var tickIndex = 0; tickIndex < repeatCount; tickIndex++)
+                        {
+                            _scheduled.Add(new ScheduledSkillEffect(
+                                activation,
+                                wave,
+                                effect,
+                                wave.DelaySeconds + repeatInterval * tickIndex,
+                                tickIndex, centerOverride) { StrikeTargets = waveIndex > 0 ? deferred : null, BeamTracker = beamTracker });
+                        }
                     }
                 }
             }
+        }
+
+        /// <summary>DECISION-0148: appends copies of the last strike wave, each <see cref="SkillMechanicBonus.ExtraStrikeDelaySeconds"/> later.</summary>
+        private static IReadOnlyList<ActiveSkillActivationWave> WithExtraStrikes(
+            IReadOnlyList<ActiveSkillActivationWave> waves, SkillMechanicBonus mechanics)
+        {
+            if (mechanics.ExtraStrikes <= 0) return waves;
+            var last = -1;
+            for (var i = 0; i < waves.Count; i++)
+                if (ContainsStrike(waves[i])) last = i;
+            if (last < 0) return waves;
+            var result = new List<ActiveSkillActivationWave>(waves);
+            var source = waves[last];
+            var effects = new IActiveSkillEffect[source.Effects.Count];
+            for (var i = 0; i < effects.Length; i++) effects[i] = source.Effects[i];
+            for (var k = 1; k <= mechanics.ExtraStrikes; k++)
+                result.Add(new ActiveSkillActivationWave(source.DelaySeconds + mechanics.ExtraStrikeDelaySeconds * k,
+                    source.RotationDegrees, source.DamageMultiplier, source.Controls, effects));
+            return result;
         }
 
         public void Tick(float deltaTime, bool isRunning)
@@ -279,9 +305,12 @@ namespace Game.ActiveSkill
         private void ExecuteProjectileBurst(ScheduledSkillEffect scheduled, ProjectileBurstEffect effect)
         {
             var mechanics = scheduled.Activation.Mechanics;
+            var burstCount = effect.ProjectileCount + mechanics.ExtraProjectiles;
+            // The cross layout only exists as four or eight waves: extra projectiles add the diagonals (DECISION-0148).
+            if (effect.Layout == ProjectileLayout.Cross) burstCount = burstCount > 4 ? 8 : 4;
             var directions = ProjectileDirectionGenerator.Create(
                 effect.Layout,
-                effect.ProjectileCount + mechanics.ExtraProjectiles,
+                burstCount,
                 scheduled.Activation.AimDirection,
                 effect.SpreadDegrees,
                 scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees, scheduled.Activation.Random);
@@ -289,14 +318,15 @@ namespace Game.ActiveSkill
             // Set speed bonus keeps travel distance: lifetime shrinks by the same factor (sets-v1).
             var speedFactor = 1f + mechanics.ProjectileSpeedBonus;
             var explosive = effect.Behavior.ExplosionDamageMultiplier > 0f;
+            var baseBehavior = effect.Behavior.WithExtraRicochets(mechanics.ExtraRicochets);
             var behavior = explosive && mechanics.ExplosionDamageBonus > 0f
-                ? WithExplosion(effect.Behavior, effect.Behavior.ExplosionDamageMultiplier * (1f + mechanics.ExplosionDamageBonus),
+                ? WithExplosion(baseBehavior, effect.Behavior.ExplosionDamageMultiplier * (1f + mechanics.ExplosionDamageBonus),
                     effect.Behavior.ExplodeOnExpiry, effect.Behavior.ExplosionKnockbackMultiplier, effect.Behavior.UnlimitedPierce,
                     effect.Behavior.StopAfterSeconds)
-                : effect.Behavior;
+                : baseBehavior;
             var impactRadius = effect.ImpactAreaRadius * (explosive ? 1f + mechanics.ExplosionRadiusBonus : 1f);
             var pierce = effect.Behavior.UnlimitedPierce ? effect.PierceCount : effect.PierceCount + mechanics.ExtraPierce;
-            var rebound = effect.Behavior.RicochetCount > 0;
+            var rebound = baseBehavior.RicochetCount > 0;
             if (effect.Behavior.DistinctNearestTargets) _selection.CopyAliveTo(_enemyBuffer);
             for (var i = 0; i < directions.Length; i++)
             {
@@ -382,11 +412,13 @@ namespace Game.ActiveSkill
 
         private void ExecuteBoomerang(ScheduledSkillEffect scheduled, BoomerangEffect effect)
         {
+            var extra = scheduled.Activation.Mechanics.ExtraProjectiles;
             var directions = ProjectileDirectionGenerator.Create(
                 ProjectileLayout.Fan,
-                effect.ProjectileCount,
+                effect.ProjectileCount + extra,
                 scheduled.Activation.AimDirection,
-                effect.SpreadDegrees,
+                // DECISION-0148: a single-direction card fans out as soon as a boomerang is added.
+                effect.SpreadDegrees > 0f || extra == 0 ? effect.SpreadDegrees : scheduled.Activation.Mechanics.ExtraProjectileSpreadDegrees,
                 scheduled.Wave.RotationDegrees + scheduled.Activation.RotationDegrees);
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
             var returnAfter = effect.Range * scheduled.Activation.RangeMultiplier / effect.Speed;
@@ -618,7 +650,7 @@ namespace Game.ActiveSkill
                 if (_mines[i].SourceId == scheduled.Activation.SourceId)
                     sameSourceCount++;
             }
-            if (sameSourceCount >= effect.MaxConcurrent)
+            if (sameSourceCount >= effect.MaxConcurrent + scheduled.Activation.Mechanics.ExtraMines)
             {
                 for (var i = 0; i < _mines.Count; i++)
                 {
@@ -718,6 +750,10 @@ namespace Game.ActiveSkill
         private void RefreshPersistentOrbit(ActiveSkillActivation activation, ActiveSkillActivationWave wave, OrbitEffect effect)
         {
             if (activation.OwnerTransform == null) return;
+            if (activation.Mechanics.ExtraProjectiles > 0)
+                effect = new OrbitEffect(effect.BladeCount + activation.Mechanics.ExtraProjectiles, effect.Radius,
+                    effect.AngularSpeedDegrees, effect.DurationSeconds, effect.HitCooldownSeconds, effect.DamageMultiplier,
+                    effect.BladeHitboxRadius, effect.Persistent);
             PersistentOrbitState state = null;
             for (var i = 0; i < _persistentOrbits.Count; i++)
                 if (_persistentOrbits[i].SourceId == activation.SourceId && _persistentOrbits[i].Owner == activation.OwnerTransform)

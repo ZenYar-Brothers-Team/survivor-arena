@@ -16,11 +16,25 @@ namespace Game.ActiveSkill
         private EnemyTargetLife _target;
         private Vector2 _direction;
 
-        public BeamTargetTracker(ActiveSkillActivation activation, ICombatTargetQuery selection)
+        /// <param name="rank">0 = the activation's nearest target; n = the n-th nearest visible enemy (extra beams, DECISION-0148).</param>
+        public BeamTargetTracker(ActiveSkillActivation activation, ICombatTargetQuery selection, int rank = 0)
         {
             _selection = selection;
             _target = activation.TargetLife;
             _direction = activation.AimDirection;
+            if (rank > 0 && selection != null && activation.OwnerTransform != null)
+                SelectRanked((Vector2)activation.OwnerTransform.position, rank);
+        }
+
+        private void SelectRanked(Vector2 origin, int rank)
+        {
+            _selection.CopyAliveTo(_buffer);
+            _buffer.Sort((a, b) => (a.Position - origin).sqrMagnitude.CompareTo((b.Position - origin).sqrMagnitude));
+            if (_buffer.Count == 0) return;
+            var picked = _buffer[Mathf.Min(rank, _buffer.Count - 1)];
+            _target = new EnemyTargetLife(picked);
+            var toTarget = picked.Position - origin;
+            if (toTarget.sqrMagnitude > Mathf.Epsilon) _direction = toTarget.normalized;
         }
 
         public void Resolve(ActiveSkillActivation activation, BeamEffect effect, out Vector2 origin, out Vector2 direction)

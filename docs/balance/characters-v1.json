@@ -16,8 +16,9 @@
       "id": "CHAR-002",
       "startingSkill": "SKILL-003",
       "startingSkillBoost": {
-        "activeSkillDamageMultiplierBonus": 0.6,
-        "effectSizeMultiplierBonus": 0.25
+        "activeSkillDamageMultiplierBonus": 0.4,
+        "effectSizeMultiplierBonus": 0.25,
+        "extraProjectiles": 1
       },
       "stats": {
         "maxHealth": 150,
@@ -69,7 +70,8 @@
       "startingSkill": "SKILL-005",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "actionSpeedBonus": 0.25
+        "actionSpeedBonus": 0.25,
+        "extraPierce": 1
       },
       "stats": {
         "maxHealth": 65,
@@ -120,7 +122,8 @@
       "startingSkill": "SKILL-009",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "actionSpeedBonus": 0.25
+        "actionSpeedBonus": 0.25,
+        "extraMines": 2
       },
       "stats": {
         "maxHealth": 80,
@@ -172,7 +175,8 @@
       "startingSkill": "SKILL-007",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.45,
-        "actionSpeedBonus": 0.4
+        "actionSpeedBonus": 0.4,
+        "extraChainTargets": 1
       },
       "stats": {
         "maxHealth": 60,
@@ -224,7 +228,9 @@
       "startingSkill": "SKILL-010",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.45,
-        "effectSizeMultiplierBonus": 0.25
+        "effectSizeMultiplierBonus": 0.25,
+        "extraStrikes": 1,
+        "extraStrikeDelaySeconds": 0.3
       },
       "stats": {
         "maxHealth": 170,
@@ -277,7 +283,9 @@
       "startingSkill": "SKILL-006",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "actionSpeedBonus": 0.25
+        "actionSpeedBonus": 0.25,
+        "extraProjectiles": 1,
+        "extraProjectileSpreadDegrees": 20
       },
       "stats": {
         "maxHealth": 70,
@@ -329,7 +337,8 @@
       "startingSkill": "SKILL-012",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "effectRangeMultiplierBonus": 0.25
+        "effectRangeMultiplierBonus": 0.25,
+        "extraProjectiles": 1
       },
       "stats": {
         "maxHealth": 80,
@@ -381,7 +390,8 @@
       "startingSkill": "SKILL-013",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "actionSpeedBonus": 0.25
+        "actionSpeedBonus": 0.25,
+        "extraPierce": 1
       },
       "stats": {
         "maxHealth": 75,
@@ -433,7 +443,8 @@
       "startingSkill": "SKILL-015",
       "startingSkillBoost": {
         "activeSkillDamageMultiplierBonus": 0.6,
-        "effectRangeMultiplierBonus": 0.25
+        "effectRangeMultiplierBonus": 0.25,
+        "extraProjectiles": 4
       },
       "stats": {
         "maxHealth": 130,

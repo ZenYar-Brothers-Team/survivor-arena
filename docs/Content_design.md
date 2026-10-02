@@ -214,9 +214,9 @@ Unlock ([DECISION-0050](decisions/0050-starting-content-and-unlocks.md)): дос
 
 Роль: мощный периодический AoE по скоплению врагов.
 Targeting / pattern: случайно выбирает одного врага среди видимых на экране валидных врагов в заданном targeting radius от персонажа; после короткой задержки в зафиксированную позицию выбранной цели ударяет область урона. Targeting radius — balance-data и действует дополнительно к границе экрана; если на экране в радиусе нет врага, удар приходится в случайную точку экрана в пределах radius ([DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
-База: 24.75 damage (было 55; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), impact radius 0.8, targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с. Область удара — эллипс на земле: по горизонтали impact radius, по вертикали impact radius × 0.7 (камера 3/4, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
+База: 24.75 damage (было 55; ×0.45 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)), impact radius 0.64 (было 0.8; −20% по [DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)), targeting radius — balance-data, задержка 0.6 с, cooldown 4.5 с. Область удара — эллипс на земле: по горизонтали impact radius, по вертикали impact radius × 0.7 (камера 3/4, [DECISION-0058](decisions/0058-on-screen-targeting-and-strike-visual.md)).
 Knockback: 0.45 world units радиально от центра точки удара.
-Уровни 1–6: L1 один удар с impact radius 0.8; L2 impact radius вырастает до 1.3 и knockback — на 20%; L3 +30% damage и impact radius вырастает до 1.8; L4 2 последовательных удара по двум разным случайным видимым валидным врагам внутри targeting radius; если второго врага нет — в случайную точку экрана в radius; второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +35% impact radius и +50% knockback ([DECISION-0079](decisions/0079-playtest-sky-strike-radius-and-xp-curve.md)).
+Уровни 1–6: L1 один удар с impact radius 0.64; L2 impact radius вырастает до 1.0 и knockback — на 20%; L3 +30% damage и impact radius вырастает до 1.17 (−35% к прежним 1.8; дальше основной radius не растёт); L4 2 последовательных удара по двум разным случайным видимым валидным врагам внутри targeting radius; если второго врага нет — в случайную точку экрана в radius; второй имеет 100% damage и knockback; L5 +33% action speed и telegraph delay уменьшается с 0.6 до 0.45 с; L6 3 удара, третий имеет +35% impact radius и +50% knockback ([DECISION-0079](decisions/0079-playtest-sky-strike-radius-and-xp-curve.md)).
 Взаимодействия: выбранная точка фиксируется в момент telegraph, поэтому враг может выйти из зоны до удара. Сеты: SET-017.
 
 #### SKILL-011 — Спираль осколков
@@ -1750,6 +1750,7 @@ Gameplay-роль: универсальный стартовый персона�
 Базовые характеристики: 100 HP; movement 100%; active damage 100%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-001 «Бросок камня».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-001 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: камень рикошетит в 1 дополнительного врага с первого уровня (+1 ricochet; на L4 суммарно 2).
 Draft weights: повышенные — SKILL-002, SKILL-005, SKILL-007; пониженные — SKILL-009, SKILL-014; остальные близки к стандартным.
 Unlock: доступен с начала игры.
 
@@ -1760,7 +1761,8 @@ Unlock: доступен с начала игры.
 Gameplay-роль: прочный персонаж ближней зоны, которому выгодно держать преследователей рядом.
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 150 HP; movement 85%; active damage 100%; cooldown duration 115%; disappearing-XP recovery 0%; incoming damage 85%.
 Стартовое умение: SKILL-003 «Орбитальные клинки».
-Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-003 +60% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-003 +40% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: на орбите на 1 клинок больше (L1 — 2 клинка, L6 — 5); бонус damage уменьшен с +60% до +40% (сильнейший старт в сравнении).
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-015, PASSIVE-001, PASSIVE-008, PASSIVE-011; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-005, PASSIVE-006; остальные ×1.
 Unlock (DECISION-0050): покупка за 100 после первого прохождения FIELD-001; простой Quit или поражение не выполняет условие.
 
@@ -1772,6 +1774,7 @@ Gameplay-роль: хрупкая осторожная разведчица с �
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 65 HP; movement 115%; active damage 135%; cooldown duration 100%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-005 «Ветряное копьё».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-005 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: копьё пробивает на 1 врага больше (L1 — 2 цели).
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-012, SKILL-013, PASSIVE-003, PASSIVE-004, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-008, PASSIVE-014; остальные ×1.
 Unlock: завершить FIELD-002.
 
@@ -1783,6 +1786,7 @@ Gameplay-роль: мобильный сапёр для билдов через 
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 80 HP; movement 115%; active damage 85%; cooldown duration 75%; disappearing-XP recovery 0%.
 Стартовое умение: SKILL-009 «Магматическая мина».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-009 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: на 2 мины больше может быть активно одновременно (лимит 6, на L4 — 8).
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-006, SKILL-014, PASSIVE-003, PASSIVE-005, PASSIVE-012; 0 (не выпадают) — SKILL-010, SKILL-012, PASSIVE-001, PASSIVE-014; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-003; цена 300.
 
@@ -1794,6 +1798,7 @@ Gameplay-роль: магически ориентированный персо�
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 60 HP; movement 95%; active damage 140%; cooldown duration 100%; disappearing-XP recovery 25%.
 Стартовое умение: SKILL-007 «Цепная молния».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-007 +45% damage и +40% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: цепь на 1 прыжок длиннее (L1 — 3 цели).
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-008, SKILL-011, PASSIVE-005, PASSIVE-010, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-001, PASSIVE-003; остальные ×1.
 Unlock: завершить FIELD-004.
 
@@ -1805,6 +1810,7 @@ Gameplay-роль: очень крупный и медленный персон�
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 170 HP; movement 80%; active damage 100%; cooldown duration 130%; disappearing-XP recovery 0%; effect size 140%; knockback resistance 50%.
 Стартовое умение: SKILL-010 «Небесный удар».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-010 +45% damage и +25% effect size; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: после последнего удара через 0.3 с следует ещё один удар (L1 — 2 удара; на L6 — 4); копирует настройки последнего удара.
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-004, SKILL-014, SKILL-015, PASSIVE-001, PASSIVE-011, PASSIVE-012; 0 (не выпадают) — SKILL-006, SKILL-008, PASSIVE-006, PASSIVE-013; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-005; цена 500.
 
@@ -1816,6 +1822,7 @@ Gameplay-роль: самый мобильный персонаж, предпо�
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 70 HP; movement 130%; active damage 85%; cooldown duration 100%; disappearing-XP recovery 0%; XP pickup radius 160%.
 Стартовое умение: SKILL-006 «Бумеранг».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-006 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: на 1 бумеранг больше; если карточка метает один бумеранг, добавленный летит веером 20°.
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-002, SKILL-008, SKILL-013, PASSIVE-002, PASSIVE-003, PASSIVE-007; 0 (не выпадают) — SKILL-009, SKILL-010, PASSIVE-009, PASSIVE-012; остальные ×1.
 Unlock: завершить FIELD-006.
 
@@ -1827,6 +1834,7 @@ Gameplay-роль: персонаж с ворованным световым ф�
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 80 HP; movement 90%; active damage 100%; cooldown duration 85%; disappearing-XP recovery 5%; effect range 140%.
 Стартовое умение: SKILL-012 «Пульсирующий луч».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-012 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: второй луч на втором по близости видимом враге (оба наносят урон независимо).
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-001, SKILL-005, SKILL-007, PASSIVE-004, PASSIVE-005, PASSIVE-013; 0 (не выпадают) — SKILL-003, SKILL-009, PASSIVE-002, PASSIVE-003; остальные ×1.
 Unlock: покупка за мета-валюту после открытия FIELD-007; цена 700.
 
@@ -1838,6 +1846,7 @@ Gameplay-роль: стрелок, предпочитающий вееры, пр
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 75 HP; movement 100%; active damage 130%; cooldown duration 90%; disappearing-XP recovery 0%; XP pickup radius 80%.
 Стартовое умение: SKILL-013 «Ледяные осколки».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-013 +60% damage и +25% action speed; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: осколки пробивают на 1 врага больше с первого уровня.
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-002, SKILL-005, SKILL-015, PASSIVE-004, PASSIVE-011, PASSIVE-013; 0 (не выпадают) — SKILL-004, SKILL-010, PASSIVE-005, PASSIVE-010; остальные ×1.
 Unlock: завершить FIELD-008.
 
@@ -1849,6 +1858,7 @@ Gameplay-роль: опытный персонаж поздней прогрес
 Базовые характеристики ([DECISION-0089](decisions/0089-characters-v1.md)): 130 HP; movement 90%; active damage 90%; cooldown duration 100%; disappearing-XP recovery 5%; effect range 125%; regeneration 0.4 HP/s.
 Стартовое умение: SKILL-015 «Крест клинков».
 Специализация стартового умения ([DECISION-0075](decisions/0075-progression-specialization-and-survivability.md)): только для SKILL-015 +60% damage и +25% effect range; бонусы складываются с пассивками, итоговая сила умения без пассивок ≈×2.
+Механика стартового умения ([DECISION-0148](decisions/0148-starting-skill-mechanics-and-sky-strike-radius.md)): только для стартового умения персонажа, с первого уровня, складывается с механиками сетов: диагональные волны (всего 8) есть с первого уровня; L4 даёт только range 5.8.
 Draft weights ([DECISION-0089](decisions/0089-characters-v1.md)): ×1.35 — SKILL-003, SKILL-004, SKILL-011, PASSIVE-001, PASSIVE-009, PASSIVE-014; 0 (не выпадают) — SKILL-001, SKILL-012, PASSIVE-006, PASSIVE-007; остальные ×1.
 Unlock: завершить FIELD-009.
 

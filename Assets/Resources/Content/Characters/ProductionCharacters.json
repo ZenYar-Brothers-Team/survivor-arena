@@ -93,7 +93,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "actionSpeedBonus": 0.25
+      "actionSpeedBonus": 0.25,
+      "extraRicochets": 1
     },
     "presentation": {
       "role": "Начинает с Броска камня · Чаще находит иглы, копьё и молнию · Без начальных бонусов к характеристикам",
@@ -254,8 +255,9 @@
       }
     ],
     "startingSkillBoost": {
-      "activeSkillDamageMultiplierBonus": 0.6,
-      "effectSizeMultiplierBonus": 0.25
+      "activeSkillDamageMultiplierBonus": 0.4,
+      "effectSizeMultiplierBonus": 0.25,
+      "extraProjectiles": 1
     },
     "presentation": {
       "role": "Начинает с Орбитальных клинков · Очень прочный, но медленный",
@@ -422,7 +424,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "actionSpeedBonus": 0.25
+      "actionSpeedBonus": 0.25,
+      "extraPierce": 1
     },
     "presentation": {
       "role": "Начинает с Ветряного копья · Сильные и быстрые атаки, но очень хрупкая",
@@ -588,7 +591,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "actionSpeedBonus": 0.25
+      "actionSpeedBonus": 0.25,
+      "extraMines": 2
     },
     "presentation": {
       "role": "Начинает с Магматической мины · Частые атаки и быстрый шаг, но слабее бьёт",
@@ -755,7 +759,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.45,
-      "actionSpeedBonus": 0.4
+      "actionSpeedBonus": 0.4,
+      "extraChainTargets": 1
     },
     "presentation": {
       "role": "Начинает с Цепной молнии · Самый сильный урон, но самая хрупкая",
@@ -922,7 +927,9 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.45,
-      "effectSizeMultiplierBonus": 0.25
+      "effectSizeMultiplierBonus": 0.25,
+      "extraStrikes": 1,
+      "extraStrikeDelaySeconds": 0.3
     },
     "presentation": {
       "role": "Начинает с Небесного удара · Огромный запас здоровья и большие атаки, но медленный и редко бьёт",
@@ -1090,7 +1097,9 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "actionSpeedBonus": 0.25
+      "actionSpeedBonus": 0.25,
+      "extraProjectiles": 1,
+      "extraProjectileSpreadDegrees": 20
     },
     "presentation": {
       "role": "Начинает с Бумеранга · Самый быстрый и далеко собирает опыт, но хрупкий",
@@ -1257,7 +1266,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "effectRangeMultiplierBonus": 0.25
+      "effectRangeMultiplierBonus": 0.25,
+      "extraProjectiles": 1
     },
     "presentation": {
       "role": "Начинает с Пульсирующего луча · Дальние и частые атаки, но медленная",
@@ -1424,7 +1434,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "actionSpeedBonus": 0.25
+      "actionSpeedBonus": 0.25,
+      "extraPierce": 1
     },
     "presentation": {
       "role": "Начинает с Ледяных осколков · Сильный фронтальный урон, но хрупкая",
@@ -1591,7 +1602,8 @@
     ],
     "startingSkillBoost": {
       "activeSkillDamageMultiplierBonus": 0.6,
-      "effectRangeMultiplierBonus": 0.25
+      "effectRangeMultiplierBonus": 0.25,
+      "extraProjectiles": 4
     },
     "presentation": {
       "role": "Начинает с Креста клинков · Прочный и восстанавливает здоровье, но медленнее и слабее бьёт",

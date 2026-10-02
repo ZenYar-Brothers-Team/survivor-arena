@@ -138,7 +138,7 @@ namespace Game.ActiveSkill
                 if (instance.Tick(deltaTime, isRunning, owner, _targetProvider, _executor, _mover != null ? _mover.MovementDirection : Vector2.zero,
                     SkillModifier(instance.Definition.Id),
                     slowedTargetBonus: SetSlowedTargetBonus?.Invoke(instance.Definition.Id) ?? default,
-                    skillMechanics: SetSkillMechanics?.Invoke(instance.Definition.Id) ?? default))
+                    skillMechanics: SkillMechanics(instance.Definition.Id)))
                 {
                     Activated?.Invoke(new CombatSource(owner.Identity, instance.Definition.Id, CombatSourceOrigin.ActiveSkill, instance.Level));
                     triggered = true;
@@ -146,6 +146,14 @@ namespace Game.ActiveSkill
             }
             _executor.Tick(0f, isRunning);
             return triggered;
+        }
+
+        /// <summary>Set mechanics of the skill plus the mechanics the character's starting skill has from the start (DECISION-0148).</summary>
+        public SkillMechanicBonus SkillMechanics(ContentId skill)
+        {
+            var set = SetSkillMechanics?.Invoke(skill) ?? default;
+            var character = draftRuntime.Character;
+            return character != null && character.StartingActiveSkill.Id == skill ? set.Plus(character.StartingSkillMechanic) : set;
         }
 
         /// <summary>Set-effect modifiers of the skill plus the character's starting-skill boost (DECISION-0075).</summary>

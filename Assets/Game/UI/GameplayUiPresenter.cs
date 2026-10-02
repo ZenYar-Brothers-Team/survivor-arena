@@ -101,7 +101,7 @@ namespace Game.UI
                 characters[i] = new CharacterOptionViewState(
                     character.Id,
                     character.DisplayName,
-                    character.StartingActiveSkill.Id.ToString() + StartingSkillBoostText.Describe(character.StartingSkillBoost),
+                    character.StartingActiveSkill.Id.ToString() + StartingSkillBoostText.Describe(character.StartingSkillBoost, character.StartingSkillMechanic),
                     stats.MaxHealth,
                     stats.MovementSpeed,
                     stats.ActiveSkillDamageMultiplier,

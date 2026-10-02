@@ -37,6 +37,27 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(6, _launcher.Projectiles.Count);
         }
 
+        // DECISION-0148: character starting-skill mechanics reuse the set mechanic channels.
+        [Test]
+        public void ExtraRicochets_AddReboundsToAProjectileWithRicochetData()
+        {
+            var behavior = new ProjectileBehavior(ricochetCount: 0, ricochetRange: 3f, ricochetRetention: 0.8f);
+            Fire(Burst(new ProjectileBurstEffect(1, ProjectileLayout.Single, 0f, 0, 10f, 1f, 0.2f, behavior: behavior)),
+                new SkillMechanicBonus(extraRicochets: 1));
+            Assert.AreEqual(1, _launcher.Projectiles[0].Behavior.RicochetCount);
+            Assert.AreEqual(3f, _launcher.Projectiles[0].Behavior.RicochetRange, 1e-5f);
+            Assert.AreEqual(0.8f, _launcher.Projectiles[0].Behavior.RicochetRetention, 1e-5f);
+        }
+
+        [Test]
+        public void ExtraProjectiles_OnACrossAddTheDiagonals_NeverMoreThanEight()
+        {
+            Fire(Burst(new ProjectileBurstEffect(4, ProjectileLayout.Cross, 0f, 0, 5f, 1f, 0.3f)), new SkillMechanicBonus(extraProjectiles: 4));
+            Assert.AreEqual(8, _launcher.Projectiles.Count);
+            Fire(Burst(new ProjectileBurstEffect(8, ProjectileLayout.Cross, 0f, 0, 5f, 1f, 0.3f)), new SkillMechanicBonus(extraProjectiles: 4));
+            Assert.AreEqual(16, _launcher.Projectiles.Count, "The second burst is capped at eight as well.");
+        }
+
         [Test]
         public void SlowStrengthBonus_StrengthensAnExistingSlowOnly()
         {

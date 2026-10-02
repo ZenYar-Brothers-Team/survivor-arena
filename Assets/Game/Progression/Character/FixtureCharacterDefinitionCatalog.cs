@@ -92,6 +92,15 @@ namespace Game.Progression
                     actionSpeedBonus: data.StartingSkillBoost.ActionSpeedBonus,
                     effectSizeMultiplierBonus: data.StartingSkillBoost.EffectSizeMultiplierBonus,
                     effectRangeMultiplierBonus: data.StartingSkillBoost.EffectRangeMultiplierBonus),
+                data.StartingSkillBoost == null ? default : new SkillMechanicBonus(
+                    extraProjectiles: data.StartingSkillBoost.ExtraProjectiles,
+                    extraPierce: data.StartingSkillBoost.ExtraPierce,
+                    extraChainTargets: data.StartingSkillBoost.ExtraChainTargets,
+                    extraRicochets: data.StartingSkillBoost.ExtraRicochets,
+                    extraMines: data.StartingSkillBoost.ExtraMines,
+                    extraStrikes: data.StartingSkillBoost.ExtraStrikes,
+                    extraStrikeDelaySeconds: data.StartingSkillBoost.ExtraStrikeDelaySeconds,
+                    extraProjectileSpreadDegrees: data.StartingSkillBoost.ExtraProjectileSpreadDegrees),
                 weights);
         }
     }
