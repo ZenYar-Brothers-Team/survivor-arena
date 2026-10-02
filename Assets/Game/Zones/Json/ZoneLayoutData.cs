@@ -16,6 +16,8 @@ namespace Game.Zones.Json
         public int? PlacementAttempts { get; set; }
         public int? MaxRestarts { get; set; }
         public int? ReferenceSeed { get; set; }
+        public int? MaxPerScreen { get; set; }
+        public float? ScreenPadding { get; set; }
         public ZoneEffectData[] Effects { get; set; }
         public ZoneCountData[] Zones { get; set; }
     }

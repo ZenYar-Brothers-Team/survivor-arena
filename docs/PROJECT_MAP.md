@@ -51,6 +51,13 @@ Bootstrap связывает модули. `CreateFixture()` и `CreateProductio
 
 ## Поля и расписания
 
+Monastery FIELD-007: [altar authoring](balance/field007-altars-v1.json),
+[contract](decisions/0145-field007-altars-preview.md), [art packet](../Art/Packets/field007-altars-v1.json).
+Generated Fields/FieldEnvironmentPresentation from scripts/content/fields.py; assigned FIELD-007 ground;
+temporary FIELD-001 encounters. [Altar view](../Assets/Game/Presentation/AltarPresentationRuntime.cs),
+[sliding-screen placement](../Assets/Game/Zones/ZonePlacementRules.cs); ProfileService's existing Dev unlock.
+checks: ProductionMonasteryContentTests, ZoneScreenDensityTests, ProductionMonasterySmokeTests.
+
 Academy FIELD-006 (plus regression «Тест 06»): [cycle contract](decisions/0142-academy-zone-seal-presentation.md),
 [seal profile](../Assets/Resources/Content/Presentation/FixtureZoneSeals.json) (direct authoring),
 [mesh seal](../Assets/Game/Presentation/ZoneSealPresentationRuntime.cs),

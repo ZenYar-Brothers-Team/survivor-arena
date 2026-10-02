@@ -1,0 +1,15 @@
+# Выбор основания — 2026-10-02
+
+Пользователь: «Мне нравится круглый и зубчатый с их цветами».
+
+Выбор касается формы и цвета основания: негативное зубчатое фиолетово-коралловое. Прежний нейтральный вариант переназначен негативному; воздействие на всех исключено.
+
+Молния в этом кандидате имеет слишком массивную оправу; пользователь запросил уменьшить её для читаемости в мелком масштабе. Полный runtime master ещё не утверждён. Без значков; единственное визуальное разделение по действию — полярность. Подготовка и импорт не выполнены.
+
+Generator: OpenAI built-in image generation.
+
+Prompt (verbatim):
+
+```text
+Edit the provided single altar illustration, a preview-only monastery garden prop from Survival Arena. Preserve EXACTLY the entire wooden staff, its small brass collars and the amber lightning bolt held in a brass fork at the top: identical silhouette, proportions, colors and position. Do not add any polarity sign, icon, plaque, emblem, cross, warning symbol, text, exclamation mark or medallion ANYWHERE. Change ONLY the stone foundation at the bottom, keeping approximately its original overall width and height and stable ground contact. The foundation's silhouette and large material color masses alone communicate polarity. View: orthographic 3/4 top-down, upper surfaces visible. Style: flat hand-drawn storybook cutout, thick slightly irregular dark-plum outlines, matte big color masses, simple cel shading, sparse material texture; not photorealism, not 3D render. One complete fully visible isolated altar on truly transparent background, comfortable padding. No scenery, baked ground shadow, particles, glow or haze. Foundation redesign NEUTRAL / harms both player and enemies: a low EIGHT-POINTED STAR-shaped stone foundation, clearly jagged radial silhouette with eight broad blunt wedge teeth spreading evenly all around from a squat central polygonal plinth. Dark desaturated violet stone; large CORAL RED stone inlays along the side faces of every outward tooth and muted violet upper surfaces. Communicate danger in every direction using geometry, not icons. Similar width/height to original base. All star teeth form one solid integral stone footprint; no freestanding spikes, no extra poles, no metal fence, no triangle-shaped whole base, no circle. Simple broad chunky shapes readable small, no carved arch motifs.
+```

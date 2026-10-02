@@ -18,17 +18,24 @@ namespace Game.Zones
         private readonly float _half;
         private readonly Vector2 _start;
         private readonly IReadOnlyList<IReadOnlyList<Vector2>> _obstacles;
+        private readonly Vector2 _screenSize;
 
         /// <summary>Fraction of the screen size the active window extends beyond the player's screen on each side.</summary>
         public float ActiveScreenMargin => _layout.ActiveScreenMargin;
 
         public ZonePlacementRules(ZoneLayoutDefinition layout, float sideLength, Vector2 start,
-            IReadOnlyList<IReadOnlyList<Vector2>> obstacles)
+            IReadOnlyList<IReadOnlyList<Vector2>> obstacles, Vector2? screenSize = null)
         {
             _layout = layout ?? throw new ArgumentNullException(nameof(layout));
             _half = sideLength * .5f - layout.EdgeMargin;
             _start = start;
             _obstacles = obstacles ?? Array.Empty<IReadOnlyList<Vector2>>();
+            if (layout.MaxPerScreen.HasValue)
+            {
+                if (!screenSize.HasValue) throw new ArgumentException("A screen-capped layout requires the current camera size.");
+                NumericScreenSize(screenSize.Value);
+                _screenSize = screenSize.Value + Vector2.one * (2f * layout.ScreenPadding);
+            }
         }
 
         /// <summary>
@@ -65,6 +72,7 @@ namespace Game.Zones
                 foreach (var outline in _obstacles)
                     if (ZoneGeometry.DiscClearance(outline, candidate, needed) < 0f) { blocked = true; break; }
                 if (blocked) continue;
+                if (!ScreenDensityFits(candidate, occupied)) continue;
                 center = candidate;
                 return true;
             }
@@ -73,5 +81,37 @@ namespace Game.Zones
 
         public static float Range(System.Random random, float min, float max) =>
             max <= min ? min : min + (float)random.NextDouble() * (max - min);
+
+        private static void NumericScreenSize(Vector2 size)
+        {
+            Game.Content.NumericValidation.ValidatePositive(size.x, nameof(size.x));
+            Game.Content.NumericValidation.ValidatePositive(size.y, nameof(size.y));
+        }
+
+        // Exact sliding-rectangle cap: any overfull rectangle can be shifted until its left/bottom
+        // edges meet a point. Check all such edge pairs, including points across cell boundaries.
+        private bool ScreenDensityFits(Vector2 candidate, List<ZonePlacement> occupied)
+        {
+            if (!_layout.MaxPerScreen.HasValue || occupied.Count < _layout.MaxPerScreen.Value) return true;
+            var nearby = new List<Vector2> { candidate };
+            foreach (var other in occupied)
+                if (Mathf.Abs(other.Center.x - candidate.x) <= _screenSize.x &&
+                    Mathf.Abs(other.Center.y - candidate.y) <= _screenSize.y) nearby.Add(other.Center);
+            if (nearby.Count <= _layout.MaxPerScreen.Value) return true;
+            foreach (var left in nearby)
+            {
+                if (candidate.x < left.x || candidate.x > left.x + _screenSize.x) continue;
+                foreach (var bottom in nearby)
+                {
+                    if (candidate.y < bottom.y || candidate.y > bottom.y + _screenSize.y) continue;
+                    var count = 0;
+                    foreach (var point in nearby)
+                        if (point.x >= left.x && point.x <= left.x + _screenSize.x &&
+                            point.y >= bottom.y && point.y <= bottom.y + _screenSize.y &&
+                            ++count > _layout.MaxPerScreen.Value) return false;
+                }
+            }
+            return true;
+        }
     }
 }

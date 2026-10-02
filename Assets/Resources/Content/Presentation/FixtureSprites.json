@@ -2530,6 +2530,21 @@
     "role": "Icon"
   },
   {
+    "id": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-ALTAR-NEGATIVE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop",
+    "role": "Prop"
+  },
+  {
+    "id": "FIELD-007-SHRINE-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop",
+    "role": "Prop"
+  },
+  {
     "id": "FIELD-003-ROAD-MAIN-VISUAL-TILE",
     "resourcePath": "Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile",
     "role": "Tile"

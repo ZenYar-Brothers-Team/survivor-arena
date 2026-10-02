@@ -1440,6 +1440,30 @@
     "key": "Assets/Resources/Art/Sprites/Fields/field-dev-blobs/field-dev-blobs-incense-upright-prop.png"
   },
   {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.046875,
+    "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider.",
+    "key": "Assets/Resources/Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop.png"
+  },
+  {
     "pixelsPerUnit": 128,
     "maxSize": 1024,
     "pivotX": 0.5,

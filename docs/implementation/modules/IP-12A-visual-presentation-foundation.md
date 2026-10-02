@@ -14,6 +14,8 @@
 
 ## Context
 
+Потребитель IP-23: алтари FIELD-007 по [DECISION-0145](../../decisions/0145-field007-altars-preview.md), три prepared Prop и visual-only body/boundary/progress/rest на zone clock; [art packet](../../../Art/Packets/field007-altars-v1.json). Пауза, cleanup и различимость основания проверяются в этом поднаборе.
+
 Источники GDD/CD/Art Direction ниже — действующие канонические документы из [реестра источников](../README.md). Читать только перечисленные секции и полные карточки используемых ID. Обозначение v2 в исходном review относится к уже перенесённому содержимому, а не к параллельному канону.
 
 Approved Art Direction §§2,4,6,7,9,11,12,15–19; ASSET_PIPELINE §§3–9,12–20; Art Production §§1–19; UI §§20–23; DECISION-0007/0013; importer/catalog/provenance/rig/runtime.

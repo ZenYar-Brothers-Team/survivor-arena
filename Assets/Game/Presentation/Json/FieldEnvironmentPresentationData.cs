@@ -49,5 +49,6 @@ namespace Game.Presentation.Json
         public float? ArenaSideLength { get; set; }
         /// <summary>Optional per-run effect zones (magical map study); independent of the obstacle layout.</summary>
         public Game.Zones.Json.ZoneLayoutData ZoneLayout { get; set; }
+        public AltarPresentationData AltarPresentation { get; set; }
     }
 }

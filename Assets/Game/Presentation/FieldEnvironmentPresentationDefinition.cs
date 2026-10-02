@@ -55,6 +55,7 @@ namespace Game.Presentation
         public float? ArenaSideLength { get; }
         /// <summary>Per-run effect zones; null = none.</summary>
         public Game.Zones.ZoneLayoutDefinition ZoneLayout { get; }
+        public AltarPresentationProfile AltarPresentation { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -124,6 +125,13 @@ namespace Game.Presentation
             if (BlobLayout != null && data.InteriorObstacleCount != BlobLayout.TotalCount)
                 throw new ArgumentException("interiorObstacleCount must match the blob layout count.");
             ZoneLayout = data.ZoneLayout == null ? null : new Game.Zones.ZoneLayoutDefinition(data.ZoneLayout);
+            AltarPresentation = data.AltarPresentation == null ? null : new AltarPresentationProfile(data.AltarPresentation);
+            if (AltarPresentation != null && (ZoneLayout == null || ZoneLayout.Zones.Any(effect =>
+                    !effect.IsAltar || effect.Kind == Game.Zones.ZoneEffectKind.Charge ||
+                    effect.Polarity == Game.Zones.ZoneAltarPolarity.Neutral ||
+                    (effect.Kind != Game.Zones.ZoneEffectKind.Shrine && effect.Lifetime != Game.Zones.ZoneLifetimeMode.Cycling) ||
+                    (effect.Polarity == Game.Zones.ZoneAltarPolarity.Negative && effect.HarmsEnemies))))
+                throw new ArgumentException("Prepared altar fields require cycling altars or positive shrines, without Charge or Neutral.");
             ArenaSideLength = data.ArenaSideLength;
             if (ArenaSideLength.HasValue) NumericValidation.ValidatePositive(ArenaSideLength.Value, nameof(ArenaSideLength));
 
@@ -153,7 +161,7 @@ namespace Game.Presentation
             ValidateScaleRange(BushScaleMin, BushScaleMax, "bush");
             if (DecorationJitter * 2 >= DecorationSpacing)
                 throw new ArgumentException("Decoration jitter must stay inside its placement cell.");
-            NumericValidation.ValidateCount(InteriorObstacleCount, nameof(InteriorObstacleCount));
+            NumericValidation.ValidateNonNegative(InteriorObstacleCount, nameof(InteriorObstacleCount));
             NumericValidation.ValidateCount(ObstaclePlacementAttempts, nameof(ObstaclePlacementAttempts));
             NumericValidation.ValidateNonNegative(NearObstacleCount, nameof(NearObstacleCount));
             if (NearObstacleCount > InteriorObstacleCount)
@@ -174,6 +182,8 @@ namespace Game.Presentation
                 yield return RoadLayout.Art.Branch.ToReference();
                 yield return RoadLayout.Art.Curb.ToReference();
             }
+            if (AltarPresentation != null)
+                foreach (var reference in AltarPresentation.GetReferencedContent()) yield return reference;
             yield return Ground.ToReference();
             yield return Fence.ToReference();
             yield return Obstacle.ToReference();

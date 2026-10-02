@@ -15,11 +15,12 @@ namespace Game.Zones
         private const int RestartSeedStep = 6151;
 
         public static IReadOnlyList<ZonePlacement> Generate(ZoneLayoutDefinition layout, float sideLength, Vector2 start,
-            IReadOnlyList<IReadOnlyList<Vector2>> obstacles, int seed)
+            IReadOnlyList<IReadOnlyList<Vector2>> obstacles, int seed, Vector2? screenSize = null)
         {
             if (layout == null) throw new ArgumentNullException(nameof(layout));
             NumericValidation.ValidatePositive(sideLength, nameof(sideLength));
-            var rules = new ZonePlacementRules(layout, sideLength, start, obstacles);
+            using var guard = Game.Diagnostics.PerfGuard.Measure("Zones.Layout", 500f);
+            var rules = new ZonePlacementRules(layout, sideLength, start, obstacles, screenSize);
             for (var restart = 0; restart <= layout.MaxRestarts; restart++)
             {
                 var result = TryGenerate(layout, rules, unchecked(seed + restart * RestartSeedStep));

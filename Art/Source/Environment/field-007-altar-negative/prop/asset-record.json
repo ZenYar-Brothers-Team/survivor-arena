@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-007-ALTAR-NEGATIVE",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open.",
+  "prompt": "Edit this monastery altar prop. The ONLY design change is the TOP LIGHTNING AND ITS FRAME. The user says the frame is too massive and the lightning vanishes at small gameplay scale. Replace the huge brass fork enclosing the bolt with a VERY SMALL SIMPLE BRASS SOCKET at the bottom of the lightning, plus at most two short slim retaining clips near its lower corners. REMOVE the top brass spearhead entirely. REMOVE both tall side arms and the huge lower diamond-shaped frame. Make the AMBER LIGHTNING BOLT ITSELF about 70-80 percent of the visible top ornament's area, bold chunky zigzag, 2-3 broad facets, thick dark plum outline. The entire top assembly retains approximately its old total height and width, with the lightning itself now substantially larger and wider. The bolt is physically held by its bottom in the small socket, no floating pieces. Clear naked lightning silhouette without an enclosing border, fork or ring. Keep EVERYTHING BELOW the top ornament exactly unchanged: wooden shaft, brass collars, foundation shape and colors, object position, perspective, scale and materials. Flat matte hand-drawn storybook cutout, simple cel shading, orthographic 3/4 top-down. One isolated object on transparent background, no text, signs, icons, particles, halo, cast shadow or background scene. Preview-only correction.",
+  "constraints": [
+    "transparent background",
+    "separate boundary and progress presentation",
+    "effect-independent polarity foundations"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1024x1536",
+    "sourceSha256": "f833431048813f8f58e8d26e2deaad5bac7c9648871f442386214ccd29fd1eae",
+    "runtimeSha256": "b817ececf5a0765b4cfe4f1b73ad2b854352aeebbaeb752e0a6b8451705cf7cb",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 24,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

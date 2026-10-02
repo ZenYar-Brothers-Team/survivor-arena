@@ -14,6 +14,8 @@
 
 ## Context
 
+Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md) и утверждённый просмотр непосредственно на карте по [DECISION-0145](../../decisions/0145-field007-altars-preview.md). Только позитивные и негативные основания, без нейтральных алтарей и визуального разделения по эффектам; накопление отложено. Размер 160×160 и состав 12 + 12 + 12 утверждены пользователем.
+
 Концепт road-only сети FIELD-003, тупиков и книг с одним улучшением:
 [DECISION-0137](../../decisions/0137-field003-road-network-concept.md).
 Вариант v4 принят пользователем 2026-10-02 и сохранён как
@@ -42,6 +44,8 @@ Production environment adapter заменяет fixture scene-name binding; meta
 explicit difficulty 1–5 из CD; автоматического mapping по ID нет.
 
 ## Scope
+
+FIELD-007 altar preview: [DECISION-0145](../../decisions/0145-field007-altars-preview.md), [authoring](../../balance/field007-altars-v1.json). Стабильная production-карточка после существующей Dev-разблокировки, назначенная земля/миниатюра, временные encounters FIELD-001, 36 случайных алтарей и sliding-window cap три на экран. Пререквизиты этого поднабора — field/profile framework, Zones foundation и существующие encounters первого поля; финальные monastery encounters и полная приёмка поздней карты сохраняются отдельными gates.
 
 десять geometry/environment definitions, approved enemy/boss/midboss mapping и unlock/difficulty metadata; ground treatment, нужный decor/obstacle pack и derived thumbnail. Число obstacles определяется gameplay geometry; декоративные props не получают collider автоматически.
 

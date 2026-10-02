@@ -4,6 +4,7 @@ using Game.Run;
 using Game.Zones;
 using Game.Presentation;
 using Game.Diagnostics;
+using Game.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -24,6 +25,7 @@ namespace Game.Bootstrap
 
         private readonly List<SpriteRenderer> _discs = new List<SpriteRenderer>();
         private readonly List<ZoneSealPresentationRuntime> _seals = new List<ZoneSealPresentationRuntime>();
+        private readonly List<AltarPresentationRuntime> _altars = new List<AltarPresentationRuntime>();
         private SpritePresentationRuntime _playerPresentation;
         private SpeedStatusPresentationRuntime _playerSpeed;
         private SlowStatusPresentationProfile _speedProfile;
@@ -40,12 +42,13 @@ namespace Game.Bootstrap
         public ZoneRuntime Runtime => _runtime;
 
         public static ZoneRuntimeDriver Create(ZoneRuntime runtime, RunController run, Scene scene,
-            SpritePresentationRuntime playerPresentation = null)
+            SpritePresentationRuntime playerPresentation = null, AltarPresentationProfile altarProfile = null,
+            ContentRegistry registry = null)
         {
             var root = new GameObject("FieldZones");
             SceneManager.MoveGameObjectToScene(root, scene);
             var driver = root.AddComponent<ZoneRuntimeDriver>();
-            try { driver.Initialize(runtime, run, playerPresentation); }
+            try { driver.Initialize(runtime, run, playerPresentation, altarProfile, registry); }
             catch { driver.Shutdown(); throw; }
             return driver;
         }
@@ -60,7 +63,8 @@ namespace Game.Bootstrap
             return new Rect(center.x - width * .5f, center.y - height * .5f, width, height);
         }
 
-        private void Initialize(ZoneRuntime runtime, RunController run, SpritePresentationRuntime playerPresentation)
+        private void Initialize(ZoneRuntime runtime, RunController run, SpritePresentationRuntime playerPresentation,
+            AltarPresentationProfile altarProfile, ContentRegistry registry)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _run = run ?? throw new ArgumentNullException(nameof(run));
@@ -78,6 +82,15 @@ namespace Game.Bootstrap
             }
             foreach (var zone in runtime.Zones)
             {
+                if (altarProfile != null)
+                {
+                    var visual = new GameObject($"Altar-{zone.Index}-{zone.Effect.Id}");
+                    visual.transform.SetParent(transform, false);
+                    var altar = visual.AddComponent<AltarPresentationRuntime>();
+                    _altars.Add(altar);
+                    altar.Initialize(zone, altarProfile, registry);
+                    continue;
+                }
                 if (useSeals)
                 {
                     var visual = new GameObject($"Zone-{zone.Index}-{zone.Effect.Id}");
@@ -107,6 +120,7 @@ namespace Game.Bootstrap
         {
             using var guard = PerfGuard.Measure("Zones.Presentation", 2f);
             _expiredHits.Clear();
+            foreach (var altar in _altars) altar.Apply(_runtime.Time);
             foreach (var hit in _riftHits)
             {
                 if (hit != null) hit.Tick(_runtime.Time);
@@ -193,6 +207,8 @@ namespace Game.Bootstrap
             _riftHits.Clear(); _expiredHits.Clear(); _sealProfile = null;
             foreach (var seal in _seals) if (seal != null) seal.Shutdown();
             _seals.Clear();
+            foreach (var altar in _altars) if (altar != null) altar.Shutdown();
+            _altars.Clear();
             if (_playerSpeed != null)
             {
                 _playerSpeed.Clear();

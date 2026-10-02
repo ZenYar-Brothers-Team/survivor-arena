@@ -4,6 +4,8 @@
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 
+FIELD-007 altar preview 2026-10-02 — Implemented, явный scope пользователя ([DECISION-0145](../decisions/0145-field007-altars-preview.md)). Работа непосредственно на FIELD-007: назначенная земля, Dev unlock/выбор, temporary FIELD-001 encounters, 36 случайных объектов и максимум три основания в стартовом camera viewport. Размер 160×160 и 12 позитивных циклических + 12 негативных циклических + 12 святынь утверждены пользователем. EditMode 1346/1346 PASS в общей проверке; новый graphics PlayMode FIELD-007 1/1 PASS после исправления ожидания первого спавна. Повторный полный art scope PASS: 95/95 tests, manifest 311/311, `TestResults/checks/20261002T095125-816894Z/summary.json`. [Evidence](evidence/2026-10-02-field007-altars-preview.md). Финальный баланс/encounters и пользовательская gameplay visual acceptance остаются открытыми; общий backlog не возобновлён.
+
 Печати зон Академии 2026-10-02 — Implemented непосредственно на FIELD-006
 «Академия магов» (IP-12A/IP-23, явный scope пользователя; «Тест 06» — регрессионный вариант):
 восемь mesh-образов, слабое ожидание, 5 с нелинейного наполнения и действие только при полном свете;
@@ -1017,6 +1019,8 @@ Target verification evidence: свежий полный smoke объединён
 Historical evidence: [До design-sync-R2](evidence/pre-design-sync-R2.md#ip-22).
 
 ### IP-23 — Production Fields FIELD-001…010
+
+Алтари FIELD-007 2026-10-02: approved просмотр непосредственно на production-карте по [DECISION-0145](../decisions/0145-field007-altars-preview.md), отдельный authoring и три runtime Prop. Размер 160×160, группы 12 + 12 + 12 и ограничение три основания на экран. Назначенная земля, Dev unlock и временные encounters первого поля подключены. Детальные результаты/ограничения — верхняя запись FIELD-007 и [evidence](evidence/2026-10-02-field007-altars-preview.md). Исторический «Тест 07» сохраняется; статус всего IP не повышается.
 
 Status: Blocked
 Scope revision: design-sync-R2 + field-001-start-R1 for selected startup packet.

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open.",
+  "assets": [
+    {
+      "owner": "FIELD-007-ALTAR-POSITIVE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "C:/Users/zheni/.codex/generated_images/01a0fb45-1674-7cb3-a19a-936728ea794f/exec-c80f14aa-9528-4722-94e9-04c393ce1d6a.png",
+      "sha256": "39b2b66e87b01b8b03b1d2258349a0a0624296a7b86456ace6d897c031e3f3ac",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-positive/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop.png",
+      "prompt": "Edit this monastery altar prop. The ONLY design change is the TOP LIGHTNING AND ITS FRAME. The user says the frame is too massive and the lightning vanishes at small gameplay scale. Replace the huge brass fork enclosing the bolt with a VERY SMALL SIMPLE BRASS SOCKET at the bottom of the lightning, plus at most two short slim retaining clips near its lower corners. REMOVE the top brass spearhead entirely. REMOVE both tall side arms and the huge lower diamond-shaped frame. Make the AMBER LIGHTNING BOLT ITSELF about 70-80 percent of the visible top ornament's area, bold chunky zigzag, 2-3 broad facets, thick dark plum outline. The entire top assembly retains approximately its old total height and width, with the lightning itself now substantially larger and wider. The bolt is physically held by its bottom in the small socket, no floating pieces. Clear naked lightning silhouette without an enclosing border, fork or ring. Keep EVERYTHING BELOW the top ornament exactly unchanged: wooden shaft, brass collars, foundation shape and colors, object position, perspective, scale and materials. Flat matte hand-drawn storybook cutout, simple cel shading, orthographic 3/4 top-down. One isolated object on transparent background, no text, signs, icons, particles, halo, cast shadow or background scene. Preview-only correction.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate boundary and progress presentation",
+        "effect-independent polarity foundations"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-ALTAR-NEGATIVE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-NEGATIVE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "C:/Users/zheni/.codex/generated_images/01a0fb45-1674-7cb3-a19a-936728ea794f/exec-d336a90d-c107-4861-b3ed-73cf590601ea.png",
+      "sha256": "f833431048813f8f58e8d26e2deaad5bac7c9648871f442386214ccd29fd1eae",
+      "sourceDirectory": "Art/Source/Environment/field-007-altar-negative/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop.png",
+      "prompt": "Edit this monastery altar prop. The ONLY design change is the TOP LIGHTNING AND ITS FRAME. The user says the frame is too massive and the lightning vanishes at small gameplay scale. Replace the huge brass fork enclosing the bolt with a VERY SMALL SIMPLE BRASS SOCKET at the bottom of the lightning, plus at most two short slim retaining clips near its lower corners. REMOVE the top brass spearhead entirely. REMOVE both tall side arms and the huge lower diamond-shaped frame. Make the AMBER LIGHTNING BOLT ITSELF about 70-80 percent of the visible top ornament's area, bold chunky zigzag, 2-3 broad facets, thick dark plum outline. The entire top assembly retains approximately its old total height and width, with the lightning itself now substantially larger and wider. The bolt is physically held by its bottom in the small socket, no floating pieces. Clear naked lightning silhouette without an enclosing border, fork or ring. Keep EVERYTHING BELOW the top ornament exactly unchanged: wooden shaft, brass collars, foundation shape and colors, object position, perspective, scale and materials. Flat matte hand-drawn storybook cutout, simple cel shading, orthographic 3/4 top-down. One isolated object on transparent background, no text, signs, icons, particles, halo, cast shadow or background scene. Preview-only correction.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate boundary and progress presentation",
+        "effect-independent polarity foundations"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-007-SHRINE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Environment/fixture-shrine-power/v001/concept-01.png",
+      "sha256": "5f70e0082e4d167466ffe7ef596124c3aa472fb8691510f3d58c970d9d2aff39",
+      "sourceDirectory": "Art/Source/Environment/field-007-shrine/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop.png",
+      "prompt": "Use case: stylized-concept. Asset type: preview-only environment prop concept for Survival Arena monastery gardens, not an approved runtime sprite. Create exactly ONE isolated object. Style: flat hand-drawn stylized storybook paper cutout, chunky readable silhouette, thick slightly irregular dark plum outlines (#241B2B), thinner interior lines, 2-3 large matte color masses, simple cel shading with one shadow mass, subtle sparse dry-brush texture. Orthographic 3/4 top-down view showing upper and front surfaces, neutral warm front/top lighting. Church palette: aged ivory blue-grey stone, tarnished restrained brass, small pale blue or amber accent, tiny moss patches. Very clean genuinely transparent background; ample padding all around. No background scene, text, letters, numbers, logo, watermark, frame, UI, photorealism, 3D render, plastic shine, pixel art, baked cast shadow, particles, ground aura, motion blur or tiny busy ornament. Keep details readable at approximately 120-180 pixels object height. Subject: a SHRINE, a low wide stone altar pedestal with two broad shallow steps and a central rectangular altar block. On top sits a compact brass reliquary framing a warm amber gem; two short chunky cream candles stand on either side. Large carved abstract sun motif on the front, simple thick brass edging, slightly chipped old stone with a tiny moss patch near one step. Quiet dignified fairy-tale monastery garden shrine. Dominant squat horizontal silhouette: overall width approximately 1.35 times height, no tall staff, column or spire. The reliquary is the clear focus. Candles unlit, gem light matte fill, no baked glow, external effects or ground ring. Entire shrine and all steps fully visible. Content context: dev-only shrine visual exploration from DECISION-0135; role environment prop.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "transparent background",
+        "separate boundary and progress presentation",
+        "effect-independent polarity foundations"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 24,
+        "cropAlpha": true,
+        "alphaNoiseCutoff": 32
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.046875,
+        "reason": "Stationary visual-only altar prop, bottom padding ground contact; no collider."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

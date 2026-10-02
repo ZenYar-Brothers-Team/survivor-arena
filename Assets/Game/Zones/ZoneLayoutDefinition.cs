@@ -23,6 +23,9 @@ namespace Game.Zones
         public int ReferenceSeed { get; }
         /// <summary>Area-only effects have no unit hit flash or dedicated zone overlay; timed buffs keep their timer.</summary>
         public bool SuppressAreaUnitFeedback { get; }
+        /// <summary>Optional cap on altar centers in any camera rectangle, including ScreenPadding on each side.</summary>
+        public int? MaxPerScreen { get; }
+        public float ScreenPadding { get; }
         public IReadOnlyDictionary<ContentId, ZoneEffectDefinition> Effects { get; }
         /// <summary>One entry per zone to place, largest radius first; portals are listed in consecutive pairs.</summary>
         public IReadOnlyList<ZoneEffectDefinition> Zones { get; }
@@ -40,6 +43,10 @@ namespace Game.Zones
             MaxRestarts = data.MaxRestarts ?? throw new ArgumentException("zoneLayout.maxRestarts is required.");
             ReferenceSeed = data.ReferenceSeed ?? throw new ArgumentException("zoneLayout.referenceSeed is required.");
             SuppressAreaUnitFeedback = data.SuppressAreaUnitFeedback ?? false;
+            MaxPerScreen = data.MaxPerScreen;
+            ScreenPadding = data.ScreenPadding ?? 0f;
+            if (MaxPerScreen.HasValue) NumericValidation.ValidateCount(MaxPerScreen.Value, nameof(MaxPerScreen));
+            NumericValidation.ValidateNonNegativeFinite(ScreenPadding, nameof(ScreenPadding));
             NumericValidation.ValidateNonNegative(EdgeMargin, nameof(EdgeMargin));
             NumericValidation.ValidateNonNegative(StartClearRadius, nameof(StartClearRadius));
             NumericValidation.ValidateNonNegative(MinGap, nameof(MinGap));

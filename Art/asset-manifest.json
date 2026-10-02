@@ -5110,6 +5110,54 @@
       "missing": "Unity import checks and target-scale visual review."
     },
     {
+      "owner": "FIELD-007-ALTAR-POSITIVE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-positive/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-positive/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-positive/field-007-altar-positive-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-ALTAR-NEGATIVE",
+      "role": "prop",
+      "visualId": "FIELD-007-ALTAR-NEGATIVE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-altar-negative/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-altar-negative/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-altar-negative/field-007-altar-negative-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-007-SHRINE",
+      "role": "prop",
+      "visualId": "FIELD-007-SHRINE-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Environment/field-007-shrine/prop/selected-master.png",
+      "provenance": "Art/Source/Environment/field-007-shrine/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop.png",
+      "resourcePath": "Art/Sprites/Environment/field-007-shrine/field-007-shrine-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected round and toothed bases with their colors, requested smaller lightning frame, then authorized preparing and viewing on FIELD-007: «Давай, поехали ... сразу работать в настоящей карте». Runtime target-scale approval remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
       "owner": "FIELD-003-ROAD-MAIN",
       "role": "tile",
       "visualId": "FIELD-003-ROAD-MAIN-VISUAL-TILE",

@@ -9894,6 +9894,244 @@
     }
   },
   {
+    "id": "FIELD-007-PRESENTATION",
+    "environmentId": "FIELD-007-ENVIRONMENT",
+    "groundVisualId": "FIELD-007-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
+    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 8001,
+    "obstacleSeed": 8002,
+    "interiorObstacleCount": 0,
+    "nearObstacleCount": 0,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
+    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
+    "arenaSideLength": 160,
+    "zoneLayout": {
+      "edgeMargin": 8,
+      "startClearRadius": 3,
+      "minGap": 1,
+      "obstacleClearance": 2,
+      "activeScreenMargin": 0.5,
+      "placementAttempts": 800,
+      "maxRestarts": 30,
+      "referenceSeed": 7,
+      "effects": [
+        {
+          "id": "FIELD-007-ALTAR-HASTE",
+          "displayName": "Алтарь ветра",
+          "kind": "Haste",
+          "radius": 4,
+          "color": "#62b8b7",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerMovementBonus": 0.5,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-ALTAR-HEAL",
+          "displayName": "Алтарь исцеления",
+          "kind": "Regeneration",
+          "radius": 4,
+          "color": "#62b8b7",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerRegenerationPerSecond": 8,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-ALTAR-WARD",
+          "displayName": "Алтарь защиты",
+          "kind": "Protection",
+          "radius": 4,
+          "color": "#62b8b7",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerIncomingDamageReduction": 0.8,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-ALTAR-POWER",
+          "displayName": "Алтарь силы",
+          "kind": "ArcanePower",
+          "radius": 4,
+          "color": "#62b8b7",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "playerSkillDamageBonus": 0.6,
+          "playerActionSpeedBonus": 0.3,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-ALTAR-RIFT",
+          "displayName": "Алтарь разлома",
+          "kind": "Rift",
+          "radius": 4,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "playerDamagePerSecond": 4,
+          "enemyDamagePerSecond": 0,
+          "polarity": "Negative",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-STRIKE-CURSED",
+          "displayName": "Алтарь проклятых ударов",
+          "kind": "Strike",
+          "radius": 8,
+          "color": "#ed756b",
+          "lifetime": "Cycling",
+          "strikePeriodSeconds": 12,
+          "strikeTelegraphSeconds": 2.5,
+          "strikeFlashSeconds": 0.6,
+          "strikeCount": 3,
+          "strikeRadius": 2.5,
+          "strikePlayerDamage": 25,
+          "strikeEnemyDamage": 0,
+          "polarity": "Negative",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3
+        },
+        {
+          "id": "FIELD-007-ALTAR-STRIKE-HOLY",
+          "displayName": "Алтарь священного гнева",
+          "kind": "Strike",
+          "radius": 8,
+          "color": "#62b8b7",
+          "lifetime": "Cycling",
+          "pulsePeriodSeconds": 90,
+          "pulseVisibleSeconds": 24,
+          "pulseFadeSeconds": 3,
+          "strikePeriodSeconds": 6,
+          "strikeTelegraphSeconds": 2,
+          "strikeFlashSeconds": 0.5,
+          "strikeCount": 3,
+          "strikeRadius": 2.5,
+          "strikePlayerDamage": 0,
+          "strikeEnemyDamage": 80,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-SHRINE-POWER",
+          "displayName": "Святыня силы",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#62b8b7",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 8,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardBuffSeconds": 20,
+          "rewardMovementBonus": 0.3,
+          "rewardSkillDamageBonus": 0.6,
+          "rewardActionSpeedBonus": 0.3,
+          "rewardBlastDamage": 150,
+          "rewardBlastRadius": 12,
+          "polarity": "Positive"
+        },
+        {
+          "id": "FIELD-007-SHRINE-LIFE",
+          "displayName": "Святыня жизни",
+          "kind": "Shrine",
+          "radius": 5,
+          "color": "#62b8b7",
+          "lifetime": "Permanent",
+          "shrineChargeSeconds": 8,
+          "shrineDecaySeconds": 4,
+          "shrineCooldownSeconds": 120,
+          "rewardHealFraction": 0.5,
+          "rewardShieldSeconds": 10,
+          "rewardIncomingDamageReduction": 0.5,
+          "polarity": "Positive"
+        }
+      ],
+      "zones": [
+        {
+          "effectId": "FIELD-007-ALTAR-HASTE",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-HEAL",
+          "count": 3
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-WARD",
+          "count": 2
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-POWER",
+          "count": 2
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-STRIKE-HOLY",
+          "count": 2
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-RIFT",
+          "count": 6
+        },
+        {
+          "effectId": "FIELD-007-ALTAR-STRIKE-CURSED",
+          "count": 6
+        },
+        {
+          "effectId": "FIELD-007-SHRINE-POWER",
+          "count": 6
+        },
+        {
+          "effectId": "FIELD-007-SHRINE-LIFE",
+          "count": 6
+        }
+      ],
+      "maxPerScreen": 3,
+      "screenPadding": 2
+    },
+    "altarPresentation": {
+      "positiveVisualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
+      "negativeVisualId": "FIELD-007-ALTAR-NEGATIVE-VISUAL-PROP",
+      "shrineVisualId": "FIELD-007-SHRINE-VISUAL-PROP",
+      "altarHeight": 1.8,
+      "shrineHeight": 1,
+      "idleBrightness": 0.65,
+      "activeBrightness": 1,
+      "ringAlpha": 0.65,
+      "ringThickness": 0.07,
+      "restingAlpha": 0.2,
+      "sortingOrder": -3
+    }
+  },
+  {
     "id": "FIELD-006-PRESENTATION",
     "environmentId": "FIELD-006-ENVIRONMENT",
     "groundVisualId": "FIELD-006-VISUAL-GROUND",
