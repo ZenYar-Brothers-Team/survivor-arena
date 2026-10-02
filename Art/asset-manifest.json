@@ -5108,6 +5108,54 @@
       "stage": "Integrated",
       "evidence": "docs/implementation/evidence/2026-10-02-low-tier-set-icons.md",
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-ROAD-MAIN",
+      "role": "tile",
+      "visualId": "FIELD-003-ROAD-MAIN-VISUAL-TILE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003-road-main/tile/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003-road-main/tile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-ROAD-BROKEN",
+      "role": "tile",
+      "visualId": "FIELD-003-ROAD-BROKEN-VISUAL-TILE",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003-road-broken/tile/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003-road-broken/tile/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile.png",
+      "resourcePath": "Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile",
+      "stage": "Prepared",
+      "evidence": [
+        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-003-ROAD-CURB",
+      "role": "prop",
+      "visualId": "FIELD-003-ROAD-CURB-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/Fields/field-003-road-curb/prop/selected-master.png",
+      "provenance": "Art/Source/Fields/field-003-road-curb/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

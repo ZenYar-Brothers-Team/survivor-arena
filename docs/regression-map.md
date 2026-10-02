@@ -317,6 +317,12 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 | На маленьких врагах лёд почти исчезал, а полоска перекрывала нижние грани | `SlowStatusPresentationTests.Apply_IceOnCompactBody_ScalesWithSpriteAndBarClearsItsBottom`, `SlowStatusSmokeTests` | EditMode + PlayMode | Первая, более плотная текстура v002; оверлей повторяет размер body sprite, полоска ниже `body.bounds`. Фактическая читаемость в толпе остаётся визуальной проверкой |
 ## FIELD-003 дорожная граница (2026-10-02)
 
+Ракурс бордюра и внешний переход к траве:
+`FieldRoadSurfaceTests.CurbFacesAndGrassFeather_UseFixedViewProjection_WithoutNewColliders`
+проверяет единое смещение граней вниз экрана, скрытые задние грани, UV-маску
+внешнего затухания и отсутствие новых коллайдеров. Цвет/мягкость перехода и
+читабельность проверяются на graphics capture `ProductionField003SmokeTests`.
+
 `Game.Bootstrap.Tests.FieldRoadSurfaceTests` проверяет замкнутую player-only
 кромку, удержание при 500 units/s, проходы туда/обратно и cleanup. Построение
 ограничено тестом до 1 s: запрещает возврат к тысячам grass polygon SetPath,

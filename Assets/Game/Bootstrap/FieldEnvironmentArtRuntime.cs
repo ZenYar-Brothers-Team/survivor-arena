@@ -70,7 +70,11 @@ namespace Game.Bootstrap
                     RoadLayout = FieldRoadLayoutGenerator.Generate(definition.RoadLayout, definition.RoadFallbackLayouts,
                         layoutSeed ?? definition.RoadLayout.ReferenceSeed);
                     _roads = new FieldRoadSurfaceRuntime();
-                    _roads.Initialize(RoadLayout, _root.transform);
+                    var roadArt = definition.RoadLayout.Art;
+                    _roads.Initialize(RoadLayout, _root.transform,
+                        roadArt == null ? null : Resolve(roadArt.Main, registry, SpriteRole.Tile),
+                        roadArt == null ? null : Resolve(roadArt.Branch, registry, SpriteRole.Tile),
+                        roadArt == null ? null : Resolve(roadArt.Curb, registry, SpriteRole.Prop));
                     interiorObstacles = Array.Empty<Vector2>();
                 }
                 else if (definition.BlobLayout != null)

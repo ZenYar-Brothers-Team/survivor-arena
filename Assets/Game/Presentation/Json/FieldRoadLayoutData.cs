@@ -44,5 +44,6 @@ namespace Game.Presentation.Json
         public string MainColor { get; set; }
         public string DeadEndColor { get; set; }
         public float? DeadEndMouthOverlap { get; set; }
+        public FieldRoadArtData Art { get; set; }
     }
 }

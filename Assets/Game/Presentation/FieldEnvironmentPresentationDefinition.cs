@@ -168,6 +168,12 @@ namespace Game.Presentation
 
         public IEnumerable<ContentReference> GetReferencedContent()
         {
+            if (RoadLayout?.Art != null)
+            {
+                yield return RoadLayout.Art.Main.ToReference();
+                yield return RoadLayout.Art.Branch.ToReference();
+                yield return RoadLayout.Art.Curb.ToReference();
+            }
             yield return Ground.ToReference();
             yield return Fence.ToReference();
             yield return Obstacle.ToReference();

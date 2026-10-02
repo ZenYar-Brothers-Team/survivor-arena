@@ -7,6 +7,92 @@ namespace Game.Bootstrap.Tests
 {
     public sealed class FieldRoadSurfaceTests
     {
+        [Test]
+        public void CurbFacesAndGrassFeather_UseFixedViewProjection_WithoutNewColliders()
+        {
+            var parent = new GameObject("Road edge regression");
+            var runtime = new FieldRoadSurfaceRuntime();
+            try
+            {
+                var definition = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")["FIELD-003-ENVIRONMENT"];
+                var registry = RuntimeContentCatalog.CreateProduction().Registry;
+                var art = definition.RoadLayout.Art;
+                runtime.Initialize(definition.RoadFallbackLayouts[0],parent.transform,art.Main.Resolve(registry).Sprite,
+                    art.Branch.Resolve(registry).Sprite,art.Curb.Resolve(registry).Sprite);
+                var faces = parent.transform.Find("RoadNetwork/RoadCurbFaces");
+                Assert.NotNull(faces,"The baked rotating side must be replaced by a separate projected face.");
+                var mesh = faces.GetComponent<MeshFilter>().sharedMesh;
+                var points = mesh.vertices; var colors = mesh.colors;
+                for (var i = 0; i < points.Length; i += 4)
+                {
+                    Assert.Less(Vector3.Distance(points[i+3]-points[i],Vector3.down*art.CurbFaceHeight),1e-4f);
+                    Assert.Less(Vector3.Distance(points[i+2]-points[i+1],Vector3.down*art.CurbFaceHeight),1e-4f);
+                }
+                Assert.IsTrue(colors.Any(c => c.a == 0f),"Back-facing sides must be hidden.");
+                Assert.IsTrue(colors.Any(c => c.a > .9f),"Front-facing sides remain visible.");
+                var feather = parent.transform.Find("RoadNetwork/RoadGrassTransition");
+                Assert.NotNull(feather);
+                var edgeMesh = feather.GetComponent<MeshFilter>().sharedMesh;
+                var band = edgeMesh.uv2;
+                Assert.AreEqual(edgeMesh.vertexCount,band.Length);
+                for (var i = 0; i < band.Length; i += 4)
+                {
+                    Assert.AreEqual(0f,band[i].x); Assert.AreEqual(0f,band[i+1].x);
+                    Assert.AreEqual(1f,band[i+2].x); Assert.AreEqual(1f,band[i+3].x);
+                }
+                var material = feather.GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.AreEqual(1f,material.GetFloat("_EdgeBand"));
+                Assert.AreEqual(art.EdgeOpacity,material.GetFloat("_EdgeOpacity"));
+                Assert.AreSame(art.Branch.Resolve(registry).Sprite.texture,material.mainTexture);
+                Assert.IsEmpty(faces.GetComponentsInChildren<Collider2D>());
+                Assert.IsEmpty(feather.GetComponentsInChildren<Collider2D>());
+            }
+            finally { runtime.Dispose(); Object.DestroyImmediate(parent); }
+        }
+
+        [Test]
+        public void ApprovedArt_KeepsPhysicsAndUsesWorldUv_WithOwnedMaterialCleanup()
+        {
+            var parent = new GameObject("Road art test");
+            var plainParent = new GameObject("Road blockout test");
+            var artRuntime = new FieldRoadSurfaceRuntime(); var plainRuntime = new FieldRoadSurfaceRuntime();
+            Material material = null;
+            try
+            {
+                var definition = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")["FIELD-003-ENVIRONMENT"];
+                var layout = definition.RoadFallbackLayouts[0];
+                var registry = RuntimeContentCatalog.CreateProduction().Registry;
+                var art = definition.RoadLayout.Art;
+                artRuntime.Initialize(layout,parent.transform,art.Main.Resolve(registry).Sprite,
+                    art.Branch.Resolve(registry).Sprite,art.Curb.Resolve(registry).Sprite);
+                plainRuntime.Initialize(layout,plainParent.transform);
+                Assert.AreEqual(plainRuntime.BoundaryColliders.Count,artRuntime.BoundaryColliders.Count);
+                for (var i = 0; i < plainRuntime.BoundaryColliders.Count; i++)
+                    CollectionAssert.AreEqual(plainRuntime.BoundaryColliders[i].points,artRuntime.BoundaryColliders[i].points);
+                var surface = parent.transform.Find("RoadNetwork/MainRoads");
+                var mesh = surface.GetComponent<MeshFilter>().sharedMesh;
+                var vertices = mesh.vertices; var uv = mesh.uv;
+                Assert.AreEqual(mesh.vertexCount,uv.Length);
+                for (var i = 0; i < mesh.vertexCount; i++)
+                    Assert.Less(Vector2.Distance(uv[i],(Vector2)vertices[i]/art.SurfaceRepeat),1e-5f);
+                material = surface.GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.AreEqual(1f,material.GetFloat("_MirrorRepeat"));
+                Assert.AreEqual(TextureWrapMode.Clamp,material.mainTexture.wrapMode);
+                Assert.AreSame(art.Main.Resolve(registry).Sprite.texture,material.mainTexture);
+                var curb = parent.transform.Find("RoadNetwork/RoadCurb");
+                Assert.NotNull(curb);
+                Assert.IsEmpty(curb.GetComponents<Collider2D>());
+                artRuntime.Dispose();
+                Assert.IsTrue(material == null,"The private material must be released with the road visual root.");
+                Assert.NotNull(art.Main.Resolve(registry).Sprite.texture);
+            }
+            finally
+            {
+                artRuntime.Dispose(); plainRuntime.Dispose();
+                Object.DestroyImmediate(parent); Object.DestroyImmediate(plainParent);
+            }
+        }
+
         [TestCase(true, 5f)]
         [TestCase(true, 500f)]
         [TestCase(false, 5f)]

@@ -56,6 +56,10 @@ generated ProductionFieldEnvironmentPresentation, [generator](../Assets/Game/Pre
 [shared surface](../Assets/Game/Bootstrap/FieldRoadSurfaceRuntime.cs),
 [accepted references](prototypes/field003-roads/approved-v4/README.md).
 RoadLayout supplies spawn and field Books; player-only contours do not enter Traveler placement clearance.
+Road art: `roadLayout.art` in the same profile, [approved packet](../Art/Packets/field003-roads-art-v1.json),
+[art definition](../Assets/Game/Presentation/FieldRoadArtDefinition.cs),
+[world-UV shader](../Assets/Resources/Shaders/FieldRoadSurface.shader).
+Checks: art scope, FieldRoadSurfaceTests, graphics ProductionField003SmokeTests.
 
 - entryPoints: [Field](../Assets/Game/Field), [Enemy/Model/Wave](../Assets/Game/Enemy/Model/Wave), [field generation](../scripts/content/fields.py).
 - designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).

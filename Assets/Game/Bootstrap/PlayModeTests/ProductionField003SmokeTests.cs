@@ -87,6 +87,15 @@ namespace Game.Bootstrap.PlayModeTests
                         overviewCamera.transform.position = new Vector3(0,0,camera.transform.position.z);
                         yield return null; yield return null;
                         UiFoundationSmokeTests.Capture(target,"field003-roads-overview");
+                        overviewCamera.orthographicSize = camera.orthographicSize;
+                        var book = expected.DeadEnds[0].EndCenter;
+                        overviewCamera.transform.position = new Vector3(book.x,book.y,camera.transform.position.z);
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target,"field003-roads-book-art");
+                        // Show front and back curb faces together, in addition to the gameplay-scale crop.
+                        overviewCamera.orthographicSize = definition.RoadLayout.DeadEndEndRadius*1.2f;
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target,"field003-roads-curb-review");
                     }
                     finally
                     {

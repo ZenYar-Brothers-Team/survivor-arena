@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-ROAD-BROKEN",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open.",
+  "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE square seamless tile texture filling entire canvas edge to edge: only BROKEN ROAD SURFACE for the book spurs. Same grey paving stone palette and stone size as main road, roughly 7-9 stones across tile, but around half the paving missing: large flat fragmented irregular stone islands embedded in muted brown packed soil, sparse broad dust patches. Branch must be visibly more brown and fragmented than the main road, but remain quiet under gameplay. Orthographic directly overhead, no raised rocks. No road shape, no grass, no curb, no characters, no book, no props, no borders. All four edges must tile without seam, no focal point.",
+  "constraints": [
+    "Approved first road art direction; visual only, existing geometry unchanged"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "68c3f59667d77091a918cccb16500127c15798bb9d127e3cc6fda844380a1cf2",
+    "runtimeSha256": "5950ff64bddea8297ef68292fb45834fea46b3269764bbdd6fbbda3995940faa",
+    "recipe": {
+      "mode": "opaque-rgba"
+    }
+  }
+}

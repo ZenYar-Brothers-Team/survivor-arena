@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open.",
+  "assets": [
+    {
+      "owner": "FIELD-003-ROAD-MAIN",
+      "role": "tile",
+      "visualId": "FIELD-003-ROAD-MAIN-VISUAL-TILE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Fields/field-003-road-main/tile/v001/concept-01.png",
+      "sha256": "c3949812daad36ce4583abec911dbf32f0c0c5db98912b17d0578a48227bc363",
+      "sourceDirectory": "Art/Source/Fields/field-003-road-main/tile",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile.png",
+      "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE square seamless tile texture filling the entire canvas edge to edge: only MAIN ROAD SURFACE. Large irregular grey paving stones with gently rounded chipped corners, roughly 7-9 stones across texture. Restrained two-three values, low contrast cracks and sparse broad dust patches, no center focal point. Orthographic directly overhead. No road shape, no grass, no curb, no characters, no book, no props, no borders. All four edges must tile without seam; surface fairly even in brightness throughout.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "Approved first road art direction; visual only, existing geometry unchanged"
+      ],
+      "preparation": {
+        "mode": "opaque-rgba"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 1024,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Road mesh uses world-space UV; curb uses authored alpha bounds, no sprite-derived physics."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-003-ROAD-BROKEN",
+      "role": "tile",
+      "visualId": "FIELD-003-ROAD-BROKEN-VISUAL-TILE",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Fields/field-003-road-broken/tile/v001/concept-01.png",
+      "sha256": "68c3f59667d77091a918cccb16500127c15798bb9d127e3cc6fda844380a1cf2",
+      "sourceDirectory": "Art/Source/Fields/field-003-road-broken/tile",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile.png",
+      "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE square seamless tile texture filling entire canvas edge to edge: only BROKEN ROAD SURFACE for the book spurs. Same grey paving stone palette and stone size as main road, roughly 7-9 stones across tile, but around half the paving missing: large flat fragmented irregular stone islands embedded in muted brown packed soil, sparse broad dust patches. Branch must be visibly more brown and fragmented than the main road, but remain quiet under gameplay. Orthographic directly overhead, no raised rocks. No road shape, no grass, no curb, no characters, no book, no props, no borders. All four edges must tile without seam, no focal point.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "Approved first road art direction; visual only, existing geometry unchanged"
+      ],
+      "preparation": {
+        "mode": "opaque-rgba"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 1024,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Road mesh uses world-space UV; curb uses authored alpha bounds, no sprite-derived physics."
+      },
+      "sprite": {},
+      "bindings": []
+    },
+    {
+      "owner": "FIELD-003-ROAD-CURB",
+      "role": "prop",
+      "visualId": "FIELD-003-ROAD-CURB-VISUAL-PROP",
+      "owningIp": "IP-23",
+      "input": "Art/Source/Fields/field-003-road-curb/prop/v001/concept-01.png",
+      "sha256": "be6759d65045090dd6c4dfcb921d936f46b75c60da7e1c83ac73a3cdcd055ffb",
+      "sourceDirectory": "Art/Source/Fields/field-003-road-curb/prop",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop.png",
+      "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE isolated modular LOW STONE CURB strip on TRUE TRANSPARENT background. A single straight horizontal row of 8 touching warm pale grey rectangular stone curb blocks, mildly irregular edges, subtle joints, flat tops and narrow darker lower side consistent with overhead 2D game. Row crosses almost whole width of landscape canvas, centered vertically, transparent above and below; minimal side height, curb not wall. Blocks roughly 2:1 width to height. Left and right ends flat cut for continuous repetition, no end caps. Pale but subdued, not luminous, no grass, soil, props, characters or cast shadow outside silhouette. Keep a clean compact silhouette useful when rotated and bent along a road boundary.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "2026-10-02",
+      "constraints": [
+        "Approved first road art direction; visual only, existing geometry unchanged"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 128,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Road mesh uses world-space UV; curb uses authored alpha bounds, no sprite-derived physics."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

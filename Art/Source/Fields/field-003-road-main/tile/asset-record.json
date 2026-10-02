@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-ROAD-MAIN",
+  "role": "tile",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open.",
+  "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE square seamless tile texture filling the entire canvas edge to edge: only MAIN ROAD SURFACE. Large irregular grey paving stones with gently rounded chipped corners, roughly 7-9 stones across texture. Restrained two-three values, low contrast cracks and sparse broad dust patches, no center focal point. Orthographic directly overhead. No road shape, no grass, no curb, no characters, no book, no props, no borders. All four edges must tile without seam; surface fairly even in brightness throughout.",
+  "constraints": [
+    "Approved first road art direction; visual only, existing geometry unchanged"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "c3949812daad36ce4583abec911dbf32f0c0c5db98912b17d0578a48227bc363",
+    "runtimeSha256": "17b5e62f723ec6cbe3721d356be0a45f1021454f7be934b1615e243eefa28239",
+    "recipe": {
+      "mode": "opaque-rgba"
+    }
+  }
+}

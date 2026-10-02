@@ -2528,5 +2528,20 @@
     "id": "SET-035-VISUAL-ICON",
     "resourcePath": "Art/UI/Icons/Sets/set-035-icon",
     "role": "Icon"
+  },
+  {
+    "id": "FIELD-003-ROAD-MAIN-VISUAL-TILE",
+    "resourcePath": "Art/Sprites/Fields/field-003-road-main/field-003-road-main-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-003-ROAD-BROKEN-VISUAL-TILE",
+    "resourcePath": "Art/Sprites/Fields/field-003-road-broken/field-003-road-broken-tile",
+    "role": "Tile"
+  },
+  {
+    "id": "FIELD-003-ROAD-CURB-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop",
+    "role": "Prop"
   }
 ]

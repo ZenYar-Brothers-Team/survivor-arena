@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-003-ROAD-CURB",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User chose first road concept: «да, берем первую»; approved three generated texture/curb candidates: «да, берем». Gameplay-scale acceptance remains open.",
+  "prompt": "Use case: stylized-concept. Input image is approved art direction reference for a top-down 2D fantasy survivor game. Extract its VISUAL LANGUAGE into a production texture candidate, not a screenshot. Hand painted flat storybook cutout, matte muted grey/plum stone, simple cel tone masses, soft dusty taupe wear, no photorealism, no perspective, no dramatic lighting, no text or watermark. Simplify the reference's fine noise; cracks are subdued and thin, not heavy black outlines. Create ONE isolated modular LOW STONE CURB strip on TRUE TRANSPARENT background. A single straight horizontal row of 8 touching warm pale grey rectangular stone curb blocks, mildly irregular edges, subtle joints, flat tops and narrow darker lower side consistent with overhead 2D game. Row crosses almost whole width of landscape canvas, centered vertically, transparent above and below; minimal side height, curb not wall. Blocks roughly 2:1 width to height. Left and right ends flat cut for continuous repetition, no end caps. Pale but subdued, not luminous, no grass, soil, props, characters or cast shadow outside silhouette. Keep a clean compact silhouette useful when rotated and bent along a road boundary.",
+  "constraints": [
+    "Approved first road art direction; visual only, existing geometry unchanged"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "2172x724",
+    "sourceSha256": "be6759d65045090dd6c4dfcb921d936f46b75c60da7e1c83ac73a3cdcd055ffb",
+    "runtimeSha256": "be6759d65045090dd6c4dfcb921d936f46b75c60da7e1c83ac73a3cdcd055ffb",
+    "recipe": {
+      "mode": "copy"
+    }
+  }
+}

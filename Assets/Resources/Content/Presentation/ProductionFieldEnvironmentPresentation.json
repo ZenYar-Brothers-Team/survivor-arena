@@ -3197,7 +3197,28 @@
       "bookUpgradeCount": 1,
       "mainColor": "#4f8094",
       "deadEndColor": "#d69750",
-      "deadEndMouthOverlap": 1
+      "deadEndMouthOverlap": 1,
+      "art": {
+        "mainVisualId": "FIELD-003-ROAD-MAIN-VISUAL-TILE",
+        "branchVisualId": "FIELD-003-ROAD-BROKEN-VISUAL-TILE",
+        "curbVisualId": "FIELD-003-ROAD-CURB-VISUAL-PROP",
+        "surfaceRepeat": 8,
+        "curbWidth": 0.38,
+        "curbRepeat": 4,
+        "curbUvBounds": [
+          0.015193,
+          0.46,
+          0.987109,
+          0.600829
+        ],
+        "curbFaceHeight": 0.12,
+        "curbFaceTint": "#aaa296",
+        "edgeWidth": 0.7,
+        "edgeOpacity": 0.65,
+        "edgeNoiseScale": 0.85,
+        "edgeNoiseStrength": 0.25,
+        "edgeSoilColor": "#8b795b"
+      }
     },
     "roadFallbackLayouts": [
       {

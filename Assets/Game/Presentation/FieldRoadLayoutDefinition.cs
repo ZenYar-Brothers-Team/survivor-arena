@@ -49,6 +49,7 @@ namespace Game.Presentation
         public int BookUpgradeCount { get; }
         public Color MainColor { get; }
         public Color DeadEndColor { get; }
+        public FieldRoadArtDefinition Art { get; }
         /// <summary>
         /// How far the dead-end surface is drawn onto the main road past its edge, world units: at a mouth the main road
         /// keeps its own surface, the broken dead-end surface only hints at the entrance. 0 = clipped at the edge;
@@ -58,6 +59,7 @@ namespace Game.Presentation
         public FieldRoadLayoutDefinition(FieldRoadLayoutData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
+            Art = data.Art == null ? null : new FieldRoadArtDefinition(data.Art);
             ArenaSideLength = data.ArenaSideLength ?? throw new ArgumentException("arenaSideLength is required.");
             NumericValidation.ValidatePositive(ArenaSideLength, nameof(ArenaSideLength));
             MainRoadWidth = data.MainRoadWidth ?? throw new ArgumentException("mainRoadWidth is required.");
