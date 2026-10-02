@@ -22,6 +22,8 @@ namespace Game.ActiveSkill
         public float RemainingDelay { get; set; }
         /// <summary>Shared distinct-target set for deferred RandomEnemy strike waves; null for the first wave.</summary>
         public StrikeTargetSet StrikeTargets { get; set; }
+        /// <summary>Shared aim of a beam activation; null for other effects.</summary>
+        public BeamTargetTracker BeamTracker { get; set; }
 
         public ScheduledSkillEffect(
             ActiveSkillActivation activation,

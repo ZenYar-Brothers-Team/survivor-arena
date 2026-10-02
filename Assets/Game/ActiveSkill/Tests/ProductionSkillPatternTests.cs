@@ -167,7 +167,7 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
-        public void BeamTick_DrawsGlowAndCoreOverTheHitBand_ThenFades()
+        public void BeamTick_DrawsLiveGlowAndCoreOverTheHitBand_ThenFades()
         {
             var inside = SpawnEnemy(new Vector2(3f, 0.1f), 100f);
             var outside = SpawnEnemy(new Vector2(3f, 1.5f), 100f);
@@ -182,7 +182,7 @@ namespace Game.ActiveSkill.Tests
 
             Assert.AreEqual(90f, inside.Health.CurrentHealth, 1e-4f);
             Assert.AreEqual(100f, outside.Health.CurrentHealth, 1e-4f);
-            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "One glow and one core per tick.");
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "One glow and one core per beam.");
             var shapes = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
                 .Where(renderer => renderer.enabled && renderer.name == "SkillWorldEffect")
                 .OrderBy(renderer => renderer.sortingOrder).ToArray();
@@ -192,9 +192,71 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(0f, shapes[0].bounds.min.x, 1e-3f, "Band starts at the activation origin.");
 
             _executor.Tick(0.1f, false);
-            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "Pause freezes the fade.");
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "Pause freezes the beam.");
+            _executor.Tick(0.3f, true); // beam duration over: released, fading
+            Assert.AreEqual(2, _executor.ActiveWorldEffectShapeCount, "Released beam still fades.");
             _executor.Tick(0.3f, true);
-            Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount, "Pulse returns to the pool after its fade.");
+            Assert.AreEqual(0, _executor.ActiveWorldEffectShapeCount, "Beam returns to the pool after its fade.");
+        }
+
+        [Test]
+        public void PulsingBeam_AddsTravellingWave_AndBreathesWidthWithoutChangingHits()
+        {
+            var inside = SpawnEnemy(new Vector2(3f, 0.19f), 100f);
+            var profiles = SkillWorldEffectCatalog.FromJson(
+                "[{\"skillId\":\"FIXTURE-SKILL-EXECUTOR\",\"kind\":\"Beam\",\"color\":[1,0,1,0.5],\"impactColor\":[1,1,1,1]," +
+                "\"thickness\":0.14,\"fadeSeconds\":0.24,\"pulseSeconds\":0.4,\"pulseDepth\":0.2}]");
+            _executor = new SceneActiveSkillEffectExecutor(_runController, worldEffectProfiles: profiles);
+            var level = new ActiveSkillLevelDefinition(1f, 3f, ActiveSkillTargetingMode.Self,
+                new ActiveSkillActivationWave(0f, 0f, 1f, new BeamEffect(1f, 0.2f, 0.4f, 6f, false)));
+            _executor.Schedule(Activation(level, null, 10f));
+            _executor.Tick(0f, true);
+            Assert.AreEqual(3, _executor.ActiveWorldEffectShapeCount, "Glow, core and travelling wave.");
+
+            _executor.Tick(0.1f, true); // quarter period: width at +20%
+            var glow = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                .Where(renderer => renderer.enabled && renderer.name == "SkillWorldEffect")
+                .OrderBy(renderer => renderer.sortingOrder).First();
+            Assert.AreEqual(0.48f, glow.bounds.size.y, 1e-3f);
+            Assert.AreEqual(90f, inside.Health.CurrentHealth, 1e-4f, "Pulse is visual only: the hit band stays 0.4 wide.");
+        }
+
+        [Test]
+        public void TrackingBeam_RetargetsToAnotherEnemyWhenItsTargetDies()
+        {
+            var first = SpawnEnemy(new Vector2(3f, 0f), 5f);
+            var second = SpawnEnemy(new Vector2(0f, 3f), 100f);
+            var level = new ActiveSkillLevelDefinition(1f, 3f, ActiveSkillTargetingMode.Self,
+                new ActiveSkillActivationWave(0f, 0f, 1f, new BeamEffect(1f, 0.2f, 0.4f, 6f, true)));
+            _executor.Schedule(Activation(level, first, 10f));
+            _executor.Tick(0f, true); // kills first (5 hp) along +x
+            Assert.IsFalse(first.IsAlive);
+            Assert.AreEqual(100f, second.Health.CurrentHealth, 1e-4f);
+
+            _executor.Tick(0.2f, true); // next tick: first is dead, beam turns to the nearest other enemy
+            Assert.AreEqual(90f, second.Health.CurrentHealth, 1e-4f);
+        }
+
+        [Test]
+        public void Beam_FollowsTheOwnerWhileItLasts()
+        {
+            var profiles = SkillWorldEffectCatalog.FromJson(
+                "[{\"skillId\":\"FIXTURE-SKILL-EXECUTOR\",\"kind\":\"Beam\",\"color\":[1,0,1,0.5],\"impactColor\":[1,1,1,1]," +
+                "\"thickness\":0.14,\"fadeSeconds\":0.24}]");
+            _executor = new SceneActiveSkillEffectExecutor(_runController, worldEffectProfiles: profiles);
+            var level = new ActiveSkillLevelDefinition(1f, 3f, ActiveSkillTargetingMode.Self,
+                new ActiveSkillActivationWave(0f, 0f, 1f, new BeamEffect(1f, 0.2f, 0.4f, 6f, false)));
+            _executor.Schedule(Activation(level, null, 10f));
+            _executor.Tick(0f, true);
+
+            _owner.transform.position = new Vector3(2f, 1f, 0f);
+            _executor.Tick(0.1f, true);
+
+            var glow = Object.FindObjectsByType<SpriteRenderer>(FindObjectsSortMode.None)
+                .Where(renderer => renderer.enabled && renderer.name == "SkillWorldEffect")
+                .OrderBy(renderer => renderer.sortingOrder).First();
+            Assert.AreEqual(2f, glow.bounds.min.x, 1e-3f, "Beam starts at the moved owner.");
+            Assert.AreEqual(1f, glow.transform.position.y, 1e-3f);
         }
 
         private static ActiveSkillLevelDefinition Level(OrbitEffect orbit, float refresh) =>

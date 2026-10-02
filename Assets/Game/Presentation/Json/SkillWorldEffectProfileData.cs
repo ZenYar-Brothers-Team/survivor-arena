@@ -21,5 +21,8 @@ namespace Game.Presentation.Json
         public float PillarHeight { get; set; }
         /// <summary>Optional: pillar appears this many seconds before the impact; omitted = with it.</summary>
         public float PillarLeadSeconds { get; set; }
+        /// <summary>Optional beam pulse: period seconds and width breathing depth; both omitted = steady beam.</summary>
+        public float PulseSeconds { get; set; }
+        public float PulseDepth { get; set; }
     }
 }

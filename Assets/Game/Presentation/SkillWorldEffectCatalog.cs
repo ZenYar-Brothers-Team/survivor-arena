@@ -34,7 +34,8 @@ namespace Game.Presentation
                     ToColor(entry.Color, entry.SkillId), ToColor(entry.ImpactColor, entry.SkillId), entry.Thickness, entry.FadeSeconds,
                     entry.PillarWidth, entry.PillarHeight, entry.PillarLeadSeconds, entry.ExpansionSeconds,
                     entry.BandFraction, entry.ContourVariation, entry.AccentCount,
-                    entry.AccentLengthFraction, entry.AccentWidthRadians, entry.TailFadePower);
+                    entry.AccentLengthFraction, entry.AccentWidthRadians, entry.TailFadePower,
+                    entry.PulseSeconds, entry.PulseDepth);
                 if (!result.TryAdd(profile.SkillId, profile))
                     throw new InvalidOperationException($"Duplicate skill world effect '{entry.SkillId}'.");
             }

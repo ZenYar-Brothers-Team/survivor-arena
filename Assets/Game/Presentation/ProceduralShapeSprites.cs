@@ -25,14 +25,17 @@ namespace Game.Presentation
 
         /// <summary>
         /// Horizontal beam band, 1 world unit long and 1 world unit wide at scale 1, pivot at the left center:
-        /// soft falloff across the width and short soft tips at both ends.
+        /// soft falloff across the width, a short sharp start and a long dissipating, narrowing far end.
         /// </summary>
         public static Sprite Beam => _beam != null ? _beam : _beam = CreateBeam();
 
         private static Sprite CreateBeam()
         {
-            const int length = 64;
+            const int length = 128;
             const int width = 32;
+            // The far end dissipates over its last 45%: alpha falls off and the beam narrows, so the tip
+            // reads as the end; the origin end keeps a short sharp edge.
+            const float dissipateStart = .55f;
             var texture = new Texture2D(length, width, TextureFormat.RGBA32, false)
             {
                 name = "Procedural skill beam",
@@ -44,11 +47,14 @@ namespace Game.Presentation
             for (var y = 0; y < width; y++)
             for (var x = 0; x < length; x++)
             {
-                var across = Mathf.Abs((y + .5f) / width * 2f - 1f);
-                var side = 1f - across * across;
                 var along = (x + .5f) / length;
-                var tips = Mathf.Clamp01(Mathf.Min(along, 1f - along) / .06f);
-                pixels[y * length + x] = new Color(1f, 1f, 1f, side * tips);
+                var dissipation = Mathf.Clamp01((along - dissipateStart) / (1f - dissipateStart));
+                var halfWidth = Mathf.Lerp(1f, .3f, dissipation);
+                var across = Mathf.Abs((y + .5f) / width * 2f - 1f) / halfWidth;
+                var side = Mathf.Clamp01(1f - across * across);
+                var start = Mathf.Clamp01(along / .03f);
+                var fadeOut = Mathf.Pow(1f - dissipation, 1.5f);
+                pixels[y * length + x] = new Color(1f, 1f, 1f, side * start * fadeOut);
             }
             texture.SetPixels32(pixels);
             texture.Apply(false, true);

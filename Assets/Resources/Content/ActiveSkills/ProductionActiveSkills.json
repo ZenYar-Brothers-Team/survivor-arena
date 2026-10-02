@@ -2256,7 +2256,7 @@
                 "tickIntervalSeconds": 0.2,
                 "width": 0.4,
                 "range": 6,
-                "tracksTarget": false
+                "tracksTarget": true
               }
             ],
             "controls": {
@@ -2285,7 +2285,7 @@
                 "tickIntervalSeconds": 0.2,
                 "width": 0.46,
                 "range": 6,
-                "tracksTarget": false
+                "tracksTarget": true
               }
             ],
             "controls": {
@@ -2314,7 +2314,7 @@
                 "tickIntervalSeconds": 0.2,
                 "width": 0.46,
                 "range": 6,
-                "tracksTarget": false
+                "tracksTarget": true
               }
             ],
             "controls": {
@@ -2343,7 +2343,7 @@
                 "tickIntervalSeconds": 0.2,
                 "width": 0.62,
                 "range": 7.2,
-                "tracksTarget": false
+                "tracksTarget": true
               }
             ],
             "controls": {
@@ -2372,7 +2372,7 @@
                 "tickIntervalSeconds": 0.2,
                 "width": 0.62,
                 "range": 7.2,
-                "tracksTarget": false
+                "tracksTarget": true
               }
             ],
             "controls": {

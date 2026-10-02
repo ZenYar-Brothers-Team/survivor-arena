@@ -181,19 +181,56 @@ namespace Game.ActiveSkill
         }
 
         /// <summary>
-        /// One beam pulse along the gameplay hit band: a soft glow as wide as the band and a bright core of
-        /// <see cref="SkillWorldEffectProfile.Thickness"/>, both fading over the profile fade time.
+        /// Held beam along the gameplay hit band: a soft glow as wide as the band and a bright core of
+        /// <see cref="SkillWorldEffectProfile.Thickness"/>. The caller re-poses it each frame with
+        /// <see cref="UpdateBeam"/> and releases it with <see cref="Release"/>.
         /// </summary>
-        public void BeamPulse(SkillWorldEffectProfile profile, Vector2 origin, Vector2 direction, float length, float width)
+        public object BeginBeam(SkillWorldEffectProfile profile, Vector2 origin, Vector2 direction, float length, float width)
         {
-            if (length <= Mathf.Epsilon || width <= Mathf.Epsilon || direction.sqrMagnitude <= Mathf.Epsilon) return;
+            var glow = Rent(ProceduralShapeSprites.Beam, profile.Color, origin, 0f, 0f, true);
+            var core = Rent(ProceduralShapeSprites.Beam, profile.ImpactColor, origin, 0f, 0f, true);
+            core.Renderer.sortingOrder = SortingOrder + 1;
+            glow.Tail = core;
+            if (profile.PulseSeconds > 0f)
+            {
+                var wave = Rent(ProceduralShapeSprites.Beam, profile.ImpactColor, origin, 0f, 0f, true);
+                wave.Renderer.sortingOrder = SortingOrder + 2;
+                core.Tail = wave;
+            }
+            UpdateBeam(glow, origin, direction, length, width, profile, 0f);
+            return glow;
+        }
+
+        public void UpdateBeam(object handle, Vector2 origin, Vector2 direction, float length, float width,
+            SkillWorldEffectProfile profile, float time)
+        {
+            if (!(handle is Shape glow) || glow.Renderer == null || direction.sqrMagnitude <= Mathf.Epsilon) return;
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             var size = ProceduralShapeSprites.Beam.bounds.size;
-            var glow = Rent(ProceduralShapeSprites.Beam, profile.Color, origin, angle, profile.FadeSeconds, false);
-            glow.Renderer.transform.localScale = new Vector3(length / size.x, width / size.y, 1f);
-            var core = Rent(ProceduralShapeSprites.Beam, profile.ImpactColor, origin, angle, profile.FadeSeconds, false);
-            core.Renderer.sortingOrder = SortingOrder + 1;
-            core.Renderer.transform.localScale = new Vector3(length / size.x, Mathf.Min(profile.Thickness, width) / size.y, 1f);
+            // Pulse (presentation only): width breathes and a bright wave runs out from the caster once per period.
+            var phase = profile.PulseSeconds > 0f ? time / profile.PulseSeconds : 0f;
+            var breath = 1f + profile.PulseDepth * Mathf.Sin(phase * 2f * Mathf.PI);
+            SetBeamShape(glow, origin, angle, length / size.x, width * breath / size.y);
+            var core = glow.Tail;
+            if (core == null || core.Renderer == null) return;
+            SetBeamShape(core, origin, angle, length / size.x, Mathf.Min(profile.Thickness * breath, width) / size.y);
+            var wave = core.Tail;
+            if (wave == null || wave.Renderer == null) return;
+            const float waveLengthFraction = .3f;
+            var travel = phase - Mathf.Floor(phase);
+            var waveLength = length * waveLengthFraction;
+            SetBeamShape(wave, origin + direction.normalized * (length * (1f - waveLengthFraction) * travel), angle,
+                waveLength / size.x, Mathf.Min(profile.Thickness * 2.2f, width) / size.y);
+            var color = profile.ImpactColor;
+            color.a *= Mathf.Sin(travel * Mathf.PI);
+            wave.Renderer.color = color;
+        }
+
+        private static void SetBeamShape(Shape shape, Vector2 origin, float angle, float scaleX, float scaleY)
+        {
+            shape.Renderer.transform.position = origin;
+            shape.Renderer.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            shape.Renderer.transform.localScale = new Vector3(scaleX, scaleY, 1f);
         }
 
         public void Tick(float deltaTime)

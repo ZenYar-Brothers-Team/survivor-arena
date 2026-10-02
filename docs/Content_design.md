@@ -235,10 +235,10 @@ Knockback: 0.12 world units от каждого осколка по направ
 Unlock ([DECISION-0125](decisions/0125-fields-and-achievement-unlocks-proposal.md)): нанести 200000 фактического урона активными умениями на FIELD-003 (накопительно).
 
 Роль: фокусированный урон по ближайшему направлению с хорошим пробиванием.
-Targeting / pattern: короткий луч автоматически направляется на ближайшего врага и существует ограниченное время.
+Targeting / pattern: короткий луч автоматически направляется на ближайшего врага, существует ограниченное время, начинается у персонажа и всё это время следует за ним и доворачивается вслед за текущей целью, а при её гибели переходит на ближайшего врага ([DECISION-0144](decisions/0144-pulse-beam-follows-target.md)).
 База: 7.5 damage (было 10; ×0.75 по [DECISION-0073](decisions/0073-playtest-2026-09-27-sets-boss-fields-balance.md)) каждые 0.2 с в течение 0.4 с, cooldown 3.0 с.
 Knockback: 0.04 world units за каждый tick, радиально от персонажа; повторные ticks могут последовательно смещать одну цель.
-Уровни 1–6: L1 duration 0.4 с; L2 duration 0.8 с и +15% beam width; L3 duration 1.1 с, +25% damage per tick и +25% knockback per tick; L4 +40% beam width и +20% range; L5 +33% action speed и ещё +20% knockback per tick; L6 duration 1.5 с, луч медленно доворачивается вслед за текущей целью и получает ещё +15% beam width.
+Уровни 1–6: L1 duration 0.4 с; L2 duration 0.8 с и +15% beam width; L3 duration 1.1 с, +25% damage per tick и +25% knockback per tick; L4 +40% beam width и +20% range; L5 +33% action speed и ещё +20% knockback per tick; L6 duration 1.5 с и ещё +15% beam width.
 Взаимодействия: луч поражает всех врагов на своей линии; частота tick является частью skill definition. Сеты: SET-009, SET-013.
 
 #### SKILL-013 — Ледяные осколки

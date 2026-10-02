@@ -31,6 +31,7 @@ namespace Game.ActiveSkill
         private readonly List<ScheduledSkillEffect> _scheduled = new List<ScheduledSkillEffect>();
         private readonly List<SkillMineState> _mines = new List<SkillMineState>();
         private readonly List<SkillOrbitVisualState> _orbitVisuals = new List<SkillOrbitVisualState>();
+        private readonly List<SkillBeamVisualState> _beamVisuals = new List<SkillBeamVisualState>();
         private readonly List<IEnemyDamageReceiver> _enemyBuffer = new List<IEnemyDamageReceiver>();
         private readonly ICombatTargetQuery _targets;
         // Target/point selection sees only on-screen enemies (DECISION-0058); hit tests use _targets.
@@ -178,8 +179,10 @@ namespace Game.ActiveSkill
                     var effect = wave.Effects[effectIndex];
                     var repeatCount = 1;
                     var repeatInterval = 0f;
+                    BeamTargetTracker beamTracker = null;
                     if (effect is BeamEffect beam)
                     {
+                        beamTracker = new BeamTargetTracker(activation, _selection);
                         repeatCount = Math.Max(1, Mathf.CeilToInt(beam.DurationSeconds / beam.TickIntervalSeconds));
                         repeatInterval = beam.TickIntervalSeconds;
                     }
@@ -201,7 +204,7 @@ namespace Game.ActiveSkill
                             wave,
                             effect,
                             wave.DelaySeconds + repeatInterval * tickIndex,
-                            tickIndex, centerOverride) { StrikeTargets = waveIndex > 0 ? deferred : null });
+                            tickIndex, centerOverride) { StrikeTargets = waveIndex > 0 ? deferred : null, BeamTracker = beamTracker });
                     }
                 }
             }
@@ -224,6 +227,7 @@ namespace Game.ActiveSkill
             TickExpandingAreas(deltaTime);
             TickPendingStrikes(deltaTime);
             _worldEffects.Tick(deltaTime);
+            TickBeamVisuals(deltaTime);
             foreach (var scheduled in _scheduled) scheduled.RemainingDelay -= deltaTime;
             _scheduled.Sort((left, right) => left.RemainingDelay.CompareTo(right.RemainingDelay));
             while (_scheduled.Count > 0 && _scheduled[0].RemainingDelay <= 0f)
@@ -440,9 +444,7 @@ namespace Game.ActiveSkill
 
         private void ExecuteBeamTick(ScheduledSkillEffect scheduled, BeamEffect effect)
         {
-            var direction = scheduled.Activation.AimDirection;
-            if (effect.TracksTarget && scheduled.Activation.TargetLife.IsAlive)
-                direction = (scheduled.Activation.InitialTarget.Position - scheduled.Activation.Origin).normalized;
+            scheduled.BeamTracker.Resolve(scheduled.Activation, effect, out var origin, out var direction);
 
             var damage = CreateDamage(scheduled, effect.DamageMultiplier);
             var length = effect.Range * scheduled.Activation.RangeMultiplier;
@@ -451,7 +453,7 @@ namespace Game.ActiveSkill
             for (var i = 0; i < _enemyBuffer.Count; i++)
             {
                 var enemy = _enemyBuffer[i];
-                var offset = enemy.Position - scheduled.Activation.Origin;
+                var offset = enemy.Position - origin;
                 var forward = Vector2.Dot(offset, direction);
                 if (forward < 0f || forward > length)
                     continue;
@@ -459,9 +461,16 @@ namespace Game.ActiveSkill
                 if (perpendicular <= width * 0.5f)
                     enemy.ApplyDamage(damage.WithDirection(offset.x, offset.y));
             }
-            // Procedural pulse drawn exactly over the hit band (length × width) of this tick.
-            if (_worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.Beam, out var profile))
-                _worldEffects.BeamPulse(profile, scheduled.Activation.Origin, direction, length, width);
+            // One live beam per activation, drawn over the hit band and re-posed every frame while it lasts.
+            if (scheduled.TickIndex == 0 &&
+                _worldEffects.TryGetProfile(scheduled.Activation.SourceId, SkillWorldEffectKind.Beam, out var profile))
+                _beamVisuals.Add(new SkillBeamVisualState(scheduled.Activation, effect, profile, _worldEffects, scheduled.BeamTracker));
+        }
+
+        private void TickBeamVisuals(float deltaTime)
+        {
+            for (var i = _beamVisuals.Count - 1; i >= 0; i--)
+                if (_beamVisuals[i].Tick(deltaTime)) _beamVisuals.RemoveAt(i);
         }
 
         private void ExecuteOrbitTick(ScheduledSkillEffect scheduled, OrbitEffect effect)
@@ -880,6 +889,7 @@ namespace Game.ActiveSkill
             _worldEffects.Clear();
             for (var i = 0; i < _orbitVisuals.Count; i++) _orbitVisuals[i].Dispose();
             _orbitVisuals.Clear();
+            _beamVisuals.Clear();
             for (var i = 0; i < _mines.Count; i++) _mines[i].Dispose();
             _mines.Clear();
             _scheduled.Clear();

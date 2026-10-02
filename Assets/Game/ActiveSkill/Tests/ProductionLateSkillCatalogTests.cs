@@ -117,7 +117,7 @@ namespace Game.ActiveSkill.Tests
         }
 
         [Test]
-        public void PulseBeam_TicksEveryFifthOfASecond_AndOnlyL6TracksTheTarget()
+        public void PulseBeam_TicksEveryFifthOfASecond_AndEveryLevelTracksTheTarget()
         {
             var l1 = Effect<BeamEffect>("SKILL-012", 1);
             Assert.AreEqual(7.5f, Skill("SKILL-012").GetLevel(1).BaseDamage, 1e-4f);
@@ -127,9 +127,9 @@ namespace Game.ActiveSkill.Tests
             Assert.AreEqual(6f, l1.Range, 1e-5f);
             Assert.AreEqual(0.4f, l1.Width, 1e-5f);
             Assert.AreEqual(0.04f, Skill("SKILL-012").GetLevel(1).Waves[0].Controls.KnockbackDistance, 1e-5f);
-            Assert.IsTrue(Enumerable.Range(1, 5).All(level => !Effect<BeamEffect>("SKILL-012", level).TracksTarget));
+            // DECISION-0144: the beam follows its living target from L1.
+            Assert.IsTrue(Enumerable.Range(1, 6).All(level => Effect<BeamEffect>("SKILL-012", level).TracksTarget));
             var l6 = Effect<BeamEffect>("SKILL-012", 6);
-            Assert.IsTrue(l6.TracksTarget);
             Assert.AreEqual(1.5f, l6.DurationSeconds, 1e-5f);
             Assert.AreEqual(0.68f, l6.Width, 1e-5f);
             Assert.AreEqual(7.2f, l6.Range, 1e-5f);

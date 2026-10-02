@@ -38,12 +38,17 @@ namespace Game.Presentation
         /// <summary>Seconds before the impact at which the pillar appears, so light lands before the
         /// flash (0 = together with it; DECISION-0058). Clamped to the strike telegraph at runtime.</summary>
         public float PillarLeadSeconds { get; }
+        /// <summary>Beam only: period in running seconds of the breathing width and the travelling bright wave (0 = steady beam).</summary>
+        public float PulseSeconds { get; }
+        /// <summary>Beam only: width breathing amplitude as a fraction of the width, 0..0.5.</summary>
+        public float PulseDepth { get; }
 
         public SkillWorldEffectProfile(ContentId skillId, SkillWorldEffectKind kind, Color color, Color impactColor,
             float thickness, float fadeSeconds, float pillarWidth = 0f, float pillarHeight = 0f,
             float pillarLeadSeconds = 0f, float expansionSeconds = 0f,
             float bandFraction = 0f, float contourVariation = 0f, int accentCount = 0,
-            float accentLengthFraction = 0f, float accentWidthRadians = 0f, float tailFadePower = 0f)
+            float accentLengthFraction = 0f, float accentWidthRadians = 0f, float tailFadePower = 0f,
+            float pulseSeconds = 0f, float pulseDepth = 0f)
         {
             if (!skillId.IsValid) throw new ArgumentException("Skill world effect requires a skill id.", nameof(skillId));
             if (!Enum.IsDefined(typeof(SkillWorldEffectKind), kind)) throw new ArgumentOutOfRangeException(nameof(kind));
@@ -61,6 +66,12 @@ namespace Game.Presentation
             NumericValidation.ValidateNonNegativeFinite(pillarLeadSeconds, nameof(pillarLeadSeconds));
             if (pillarLeadSeconds > 0f && pillarHeight <= 0f)
                 throw new ArgumentException("Pillar lead requires a pillar.", nameof(pillarLeadSeconds));
+            NumericValidation.ValidateNonNegativeFinite(pulseSeconds, nameof(pulseSeconds));
+            NumericValidation.ValidateRange(pulseDepth, 0f, .5f, nameof(pulseDepth));
+            if ((pulseSeconds > 0f) != (pulseDepth > 0f))
+                throw new ArgumentException("A beam pulse needs both period and depth.", nameof(pulseDepth));
+            if (pulseSeconds > 0f && kind != SkillWorldEffectKind.Beam)
+                throw new ArgumentException("Only beams can pulse.", nameof(pulseSeconds));
             ValidateColor(color, nameof(color));
             ValidateColor(impactColor, nameof(impactColor));
             SkillId = skillId;
@@ -94,6 +105,8 @@ namespace Game.Presentation
             PillarWidth = pillarWidth;
             PillarHeight = pillarHeight;
             PillarLeadSeconds = pillarLeadSeconds;
+            PulseSeconds = pulseSeconds;
+            PulseDepth = pulseDepth;
         }
 
         private static void ValidateColor(Color color, string name)
