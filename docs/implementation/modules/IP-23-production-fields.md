@@ -14,6 +14,17 @@
 
 ## Context
 
+Концепт road-only сети FIELD-003, тупиков и книг с одним улучшением:
+[DECISION-0137](../../decisions/0137-field003-road-network-concept.md).
+Вариант v4 принят пользователем 2026-10-02 и сохранён как
+[референсный пакет](../../prototypes/field003-roads/approved-v4/README.md).
+[План FIELD-003](../milestones/FIELD-003-road-network.md) связывает геометрию
+с movement IP-02 и pickup/draft lifecycle IP-28/IP-30. Принятие схемы не
+означает завершение runtime packet. По уточнению пользователя 2026-10-02
+реализация идёт прямо на FIELD-003, без dev-поля; сущности и награды на траве
+сохраняют текущее поведение/доступность. Книги тупиков используют общий Book
+lifecycle и монеты с явным override ровно одного выбора.
+
 F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
 200×200 geometry, 64 obstacle rects и metadata.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);
@@ -52,6 +63,8 @@ player-only collider prop препятствия охватывает импор
 Общие runtime/JSON/UI/art инварианты и условия verification — [общий контракт](../ASSET_PRODUCTION.md#общий-контракт). Они не заменяют перечисленные здесь feature checks.
 
 ## UI / observability
+
+Dev-only подготовка Академии: «Тест 06» использует mesh-печати и включение при полном свете по [DECISION-0142](../../decisions/0142-academy-zone-seal-presentation.md), потребитель IP-12A. Это не утверждает production-набор FIELD-006; циклы «Тест 07» сохраняют отдельный контракт алтарей.
 
 name/description/difficulty/lock condition/thumbnail + loading state; технические wave timings/boss stats не перегружают selection.
 

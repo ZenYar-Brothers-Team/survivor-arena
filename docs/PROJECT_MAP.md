@@ -51,6 +51,12 @@ Bootstrap связывает модули. `CreateFixture()` и `CreateProductio
 
 ## Поля и расписания
 
+FIELD-003 roads: authoring [road profile](balance/field003-roads-v1.json),
+generated ProductionFieldEnvironmentPresentation, [generator](../Assets/Game/Presentation/FieldRoadLayoutGenerator.cs),
+[shared surface](../Assets/Game/Bootstrap/FieldRoadSurfaceRuntime.cs),
+[accepted references](prototypes/field003-roads/approved-v4/README.md).
+RoadLayout supplies spawn and field Books; player-only contours do not enter Traveler placement clearance.
+
 - entryPoints: [Field](../Assets/Game/Field), [Enemy/Model/Wave](../Assets/Game/Enemy/Model/Wave), [field generation](../scripts/content/fields.py).
 - designRefs: карточки FIELD и Wave / Encounter Content в [Content Design](Content_design.md); [FIELD-001 milestone](implementation/milestones/FIELD-001-start.md).
 - authoringSources: [field001 baseline](balance/field001-baseline-v1.json), [field002](balance/field002-v1.json), [field003](balance/field003-v1.json), [field002/003 waves v2](balance/field-rhythm-v2.md), [layouts](balance/field-layouts-v1.json), [blob geometry of FIELD-002 + illustration library](balance/field-dev-blobs-v1.json) (DECISION-0132, 0136), [dev zones field](balance/field-dev-zones-v1.json) [dev altars field](balance/field-dev-altars-v1.json) и модуль [Zones](../Assets/Game/Zones) (DECISION-0134, 0135).

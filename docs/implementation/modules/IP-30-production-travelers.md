@@ -16,6 +16,10 @@ Traveler body использует общую смерть [DECISION-0040](../..
 
 ## Context
 
+Field reward binding и доступность Путников на road-only поле:
+[IP-23](IP-23-production-fields.md), [FIELD-003 R03-03/04](../milestones/FIELD-003-road-network.md)
+по DECISION-0137. Сохранённая схема не меняет обычные Traveler Book rewards.
+
 F1-00 review input: [baseline v1](../../balance/field001-baseline-v1.md) содержит
 три Traveler profiles, probabilities/presence/support и proposed PICKUP-002.
 Packet Approved 2026-09-24 по [DECISION-0053](../../decisions/0053-field001-difficulty-and-baseline.md);

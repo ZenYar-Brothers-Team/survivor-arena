@@ -1,0 +1,14 @@
+{
+  "format": "field003RoadReferenceV4",
+  "approvedDate": "2026-10-02",
+  "files": {
+    "README.md": "9952cfe8d8cfdfd082293d650f196daccfa9026b8811046b1ccf25721642c20c",
+    "profile.json": "3d9f959da7699535445a5c0f9fea773ab48adcc9dba793f5e70e86ca617219b7",
+    "generate.py": "a32f16ec0c70f9b341f9ba4ff48d5ea7deadd1153773b0219fb643d69cccab55",
+    "study_v4.py": "9d8acf49afbd83f5897de161e05fce078a44c9e04a4b0bb068ff244c4d3b36de",
+    "layouts-v4.png": "c33c1cb3b601f5fafe4c2a9c36545d0e831171cfca741dd2f35d13bdf468854a",
+    "layouts-v4.svg": "62b420b5d2f9083d59bbaf3981688d4e18c1dfbc146de2e0cc3cbe6cd90ef251",
+    "accepted-metrics.json": "fb1c4b0281f5629c161a929e8583203ab753d39dbfc90e76b5688b6cc2c14dbc",
+    "reference-layouts.json": "a4ce02adc46c14404ab2d8df6885f0dde5161b77f361e1cff2b05008f5cd2077"
+  }
+}

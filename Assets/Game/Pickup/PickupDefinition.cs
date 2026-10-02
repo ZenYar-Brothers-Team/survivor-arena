@@ -17,9 +17,11 @@ namespace Game.Pickup
         public float MarkerSize { get; }
         public ContentRef<SpriteDefinition> Visual { get; }
         public float VisualScale { get; }
+        /// <summary>Null uses the usual Traveler distribution; field books explicitly request one choice.</summary>
+        public int? FixedBookUpgradeCount { get; }
         public PickupDefinition(ContentId id, PickupRewardKind kind, float healing, float contactRadius,
             float? lifetimeSeconds, string marker, Color color, float markerSize,
-            ContentRef<SpriteDefinition> visual = default, float visualScale = 1f)
+            ContentRef<SpriteDefinition> visual = default, float visualScale = 1f, int? fixedBookUpgradeCount = null)
         {
             if (!id.IsValid || !Enum.IsDefined(typeof(PickupRewardKind), kind)) throw new ArgumentException("Pickup requires id and reward kind.");
             NumericValidation.ValidateNonNegative(healing, nameof(healing));
@@ -34,6 +36,12 @@ namespace Game.Pickup
             Id = id; Kind = kind; Healing = healing; ContactRadius = contactRadius; LifetimeSeconds = lifetimeSeconds;
             Marker = marker; Color = color; MarkerSize = markerSize;
             Visual = visual; VisualScale = visualScale;
+            if (fixedBookUpgradeCount.HasValue)
+            {
+                NumericValidation.ValidateCount(fixedBookUpgradeCount.Value, nameof(fixedBookUpgradeCount));
+                if (kind != PickupRewardKind.Book) throw new ArgumentException("Only books may override their choice count.");
+            }
+            FixedBookUpgradeCount = fixedBookUpgradeCount;
         }
 
         public System.Collections.Generic.IEnumerable<ContentReference> GetReferencedContent()

@@ -71,6 +71,27 @@ namespace Game.Pickup.Tests
             Assert.AreEqual(0, _pickups.Snapshot.Active); Assert.AreEqual(1, _rewards);
         }
         [Test]
+        public void FieldBook_ExactPosition_UsesSharedExpiryAndOneDraft()
+        {
+            var original = _catalog.Book;
+            var book = new PickupDefinition(original.Id, original.Kind, original.Healing, original.ContactRadius,
+                5f, original.Marker, original.Color, original.MarkerSize, fixedBookUpgradeCount: 1);
+            var position = new Vector2(3, 4);
+            var drop = _pickups.SpawnFieldBook(book, position);
+            Assert.AreEqual(position, (Vector2)drop.transform.position);
+            _run.Model.Pause(); _pickups.Tick(10);
+            Assert.AreEqual(1, _pickups.Snapshot.Active);
+            _run.Model.Resume(); _pickups.Tick(5);
+            Assert.AreEqual(1, _pickups.Snapshot.Expired);
+            Assert.AreEqual(0, _draft.PendingDraftCount);
+            drop = _pickups.SpawnFieldBook(book, Vector2.zero);
+            var identity = drop.Life.Identity.DropId;
+            _pickups.Tick(0);
+            Assert.AreEqual(1, _draft.PendingDraftCount);
+            Assert.IsFalse(_pickups.TryCollect(drop,identity));
+            Assert.AreEqual(1, _xp.Progression.Level);
+        }
+        [Test]
         public void Spawn_AppliesSmallSeededScatterWithinConfiguredRadius()
         {
             var origin = new Vector2(5f, 5f);

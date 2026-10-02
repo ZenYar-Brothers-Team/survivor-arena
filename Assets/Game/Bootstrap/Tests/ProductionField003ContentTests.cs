@@ -52,34 +52,20 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Presentation_GeneratesRowsOfRocksAndColumnsPerRun_WithAFreeStart_AsMovedFromTheSecondMap()
+        public void Presentation_GeneratesSparseRoadsAndBookBranches_OnFirstMapGrass()
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION");
-            // DECISION-0068: rows of 3–5 rocks or columns are placed every run, one row per 38.4-unit cell (5×5).
-            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
-                presentation.ObstacleLayout.ReferenceSeed, "FIELD-003-ENVIRONMENT");
-            Assert.That(obstacles.Count, Is.InRange(75, 125), "25 rows of 3–5 pieces.");
-            Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
-                    new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 8f - 1e-3f),
-                "Start circle of 8 units stays free.");
-            Assert.AreEqual("FIELD-002-VISUAL-GROUND", presentation.Ground.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-BOULDER", presentation.Obstacle.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-COLUMN", presentation.Column.Id.ToString());
-            Assert.AreEqual("FIELD-002-VISUAL-SHRINE", presentation.Shrine.Id.ToString());
-            Assert.Greater(presentation.ShrineChance, 0f);
-            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Column));
-            Assert.IsTrue(presentation.ObstacleLayout.UsesKind(FieldObstacleKind.Stump));
-            var props = new[] { "FIELD-002-VISUAL-BOULDER", "FIELD-002-VISUAL-ROADSIDE-MILESTONE", "FIELD-002-VISUAL-ROADSIDE-BENCH",
-                "FIELD-002-VISUAL-BROKEN-WAGON", "FIELD-002-VISUAL-ROAD-BARRICADE" };
-            for (var seed = 0; seed < 20; seed++)
-            {
-                var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
-                    seed, "FIELD-003-ENVIRONMENT");
-                CollectionAssert.AreEquivalent(props, run.Where(item => item.VisualId.IsValid)
-                    .Select(item => item.VisualId.ToString()).Distinct().ToArray(),
-                    $"DECISION-0073: every approved rock-row prop (moved from the former second map) appears in each run (seed {seed}).");
-            }
+            Assert.IsNull(presentation.ObstacleLayout);
+            Assert.IsNull(presentation.BlobLayout);
+            Assert.AreEqual("FIELD-001-VISUAL-GROUND", presentation.Ground.Id.ToString());
+            Assert.AreEqual(200, presentation.ArenaSideLength);
+            var layout = FieldRoadLayoutGenerator.Generate(presentation.RoadLayout,presentation.RoadFallbackLayouts,42);
+            Assert.GreaterOrEqual(layout.DeadEnds.Count,10);
+            Assert.AreEqual(8,layout.Profile.MainRoadWidth);
+            Assert.AreEqual(7,layout.Profile.DeadEndWidth);
+            Assert.AreEqual(1,layout.Profile.BookUpgradeCount);
+            Assert.LessOrEqual(layout.MainDistance(layout.SpawnPosition),1e-4f);
         }
 
         [Test]

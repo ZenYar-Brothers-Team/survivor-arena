@@ -19,7 +19,7 @@ namespace Game.Pickup
         {
             if (!CanCollect(identity)) return default;
             if (definition.Kind == PickupRewardKind.Book)
-                return new PickupRewardResult(_draft.RequestBook(identity.DropId, identity.RunId, definition.Id));
+                return new PickupRewardResult(_draft.RequestBook(identity.DropId, identity.RunId, definition.Id, definition.FixedBookUpgradeCount));
             var source = new CombatSource(new CombatIdentity(identity.DropId, identity.RunId, definition.Id, CombatEntityCategory.Unknown),
                 definition.Id, CombatSourceOrigin.Pickup);
             var result = _player.Heal(definition.Healing, source);

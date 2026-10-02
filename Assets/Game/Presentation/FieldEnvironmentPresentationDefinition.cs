@@ -49,6 +49,8 @@ namespace Game.Presentation
         public FieldObstacleLayoutDefinition ObstacleLayout { get; }
         /// <summary>Per-run blob layout (field geometry study); null = no blobs.</summary>
         public FieldBlobLayoutDefinition BlobLayout { get; }
+        public FieldRoadLayoutDefinition RoadLayout { get; }
+        public IReadOnlyList<FieldRoadLayout> RoadFallbackLayouts { get; }
         /// <summary>Arena side override in world units; null = the shared fixture arena.</summary>
         public float? ArenaSideLength { get; }
         /// <summary>Per-run effect zones; null = none.</summary>
@@ -110,6 +112,13 @@ namespace Game.Presentation
             if (ObstacleLayout != null && obstacles.Count > 0)
                 throw new ArgumentException("A field uses either authored obstacles or a per-run layout, not both.");
             BlobLayout = data.BlobLayout == null ? null : new FieldBlobLayoutDefinition(data.BlobLayout);
+            RoadLayout = data.RoadLayout == null ? null : new FieldRoadLayoutDefinition(data.RoadLayout);
+            RoadFallbackLayouts = RoadLayout == null ? Array.Empty<FieldRoadLayout>() :
+                (data.RoadFallbackLayouts ?? throw new ArgumentException("Road fallback layouts required."))
+                .Select(item => FieldRoadLayout.FromReference(RoadLayout, item, item.Seed ?? throw new ArgumentException("Fallback seed required."))).ToArray();
+            if (RoadLayout != null && (ObstacleLayout != null || BlobLayout != null || obstacles.Count > 0 || RoadFallbackLayouts.Count == 0 ||
+                data.ArenaSideLength != RoadLayout.ArenaSideLength))
+                throw new ArgumentException("Roads require their own arena, fallback and no other obstacle layout.");
             if (BlobLayout != null && (ObstacleLayout != null || obstacles.Count > 0))
                 throw new ArgumentException("A blob layout excludes authored obstacles and the pattern layout.");
             if (BlobLayout != null && data.InteriorObstacleCount != BlobLayout.TotalCount)

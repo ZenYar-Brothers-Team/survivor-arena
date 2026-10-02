@@ -15,10 +15,8 @@ DECISION-0125: `MetaProfileTests.AchievementKills_OnDefeat_UnlockNextFieldOnceAn
 `MetaPresenterTests.UnlockCollection_FormatsAchievementProgressAndPaidPrice`
 проверяет показ прогресса и цены.
 
-FIELD-001…003: `ProductionRunSmokeTests.NewProductionProfile_StartsField001_WithAuthoredObstaclesAndProductionContent`
+FIELD-001: `ProductionRunSmokeTests.NewProductionProfile_StartsField001_WithAuthoredObstaclesAndProductionContent`
 проверяет, что горизонтальный collider бочки не включает прозрачные поля спрайта;
-`ProductionField003SmokeTests.Field003_StartsWithItsRuins_VerticalWallsExcludeTransparentPadding_AndSpawnsOnlyItsPool`
-проверяет то же у повернутой стены;
 `FieldEnvironmentArtRuntime` использует сохранённую физическую форму каждого
 prop sprite для границ player-only препятствий.
 
@@ -317,6 +315,15 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 | Полоски HP без чисел; HP мини-босса над головой, верхняя полоска только у финального босса (DECISION-0110) | `OverheadHealthPresenterTests`, `BossHudTests.BossBar_VisibleWhileBossAliveAndCleansUp`, `BossEncounterSmokeTests` | EditMode + PlayMode | Наличие бара над мини-боссом в smoke не утверждается (мини-босс может появиться за экраном) |
 | Обводка/лёд замедления: цвет из материала и разворот через масштаб, т.к. кастомный шейдер не видит SpriteRenderer.color/flipX; полоска на unlit-шейдере | `SlowStatusPresentationTests.Apply_All_MirrorsBodyForIceAndOutlineThenOffClears` | EditMode | Фикс 2026-09-30 после просмотра пользователем (белая обводка, не разворачивалась, полоска не видна). Цвет на экране проверяется визуально |
 | На маленьких врагах лёд почти исчезал, а полоска перекрывала нижние грани | `SlowStatusPresentationTests.Apply_IceOnCompactBody_ScalesWithSpriteAndBarClearsItsBottom`, `SlowStatusSmokeTests` | EditMode + PlayMode | Первая, более плотная текстура v002; оверлей повторяет размер body sprite, полоска ниже `body.bounds`. Фактическая читаемость в толпе остаётся визуальной проверкой |
+## FIELD-003 дорожная граница (2026-10-02)
+
+`Game.Bootstrap.Tests.FieldRoadSurfaceTests` проверяет замкнутую player-only
+кромку, удержание при 500 units/s, проходы туда/обратно и cleanup. Построение
+ограничено тестом до 1 s: запрещает возврат к тысячам grass polygon SetPath,
+каждый из которых пересобирал всю геометрию. Seed connectivity/replay:
+`Game.Presentation.Tests.FieldRoadLayoutTests`; fixed Book override:
+`Game.Progression.Tests.DraftRequestTests.FieldBook_WithThreeChoiceDistribution_OverridesToOneAndLeavesTravelerBooksUnchanged`.
+
 
 ## Исправления по ревью 2026-10-02
 

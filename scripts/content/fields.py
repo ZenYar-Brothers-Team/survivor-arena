@@ -176,6 +176,14 @@ def field_presentation(baseline):
                      interiorObstacleCount=len(library), nearObstacleCount=0,
                      arenaSideLength=zones_field["arenaSideLength"], blobLayout=blob_layout, zoneLayout=zones_packet["zoneLayout"])
         presentations.append(zones)
+    # Approved sparse road network replaces FIELD-003's former obstacle patterns only.
+    third.pop("obstacleLayout", None)
+    for key in ("columnVisualId", "shrineVisualId", "shrineChance"):
+        third.pop(key, None)
+    third.update(groundVisualId=data["groundVisualId"], arenaSideLength=baseline["field003Roads"]["roadLayout"]["arenaSideLength"],
+                 interiorObstacleCount=1, nearObstacleCount=0, decorationChance=0,
+                 roadLayout=baseline["field003Roads"]["roadLayout"],
+                 roadFallbackLayouts=baseline["field003Roads"]["fallbackLayouts"])
     return presentations
 
 

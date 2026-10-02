@@ -13,14 +13,14 @@ using UnityEngine.UIElements;
 
 namespace Game.Bootstrap.PlayModeTests
 {
-    /// <summary>FIELD-003 (DECISION-0067): the ruins field starts in the real scene with its own layout and pool.</summary>
+    /// <summary>FIELD-003 roads start in the existing scene with unchanged encounters and one-choice field books.</summary>
     public sealed class ProductionField003SmokeTests
     {
         private static readonly string[] Pool = { "ENEMY-001", "ENEMY-002", "ENEMY-003", "ENEMY-004", "ENEMY-005", "ENEMY-006",
             "ENEMY-007", "ENEMY-008", "ENEMY-009", "ENEMY-010" };
 
         [UnityTest]
-        public IEnumerator Field003_StartsWithItsRuins_VerticalWallsExcludeTransparentPadding_AndSpawnsOnlyItsPool()
+        public IEnumerator Field003_StartsWithRoadsBooksAndPlayerOnlyGrass_AndSpawnsOnlyItsPool()
         {
             var warnings = new System.Collections.Generic.List<string>();
             Application.LogCallback collect = (message, _, type) =>
@@ -53,11 +53,48 @@ namespace Game.Bootstrap.PlayModeTests
                 var run = Object.FindAnyObjectByType<RunController>();
                 Assert.AreEqual("FIELD-003", run.Model.Selection.FieldId.ToString());
                 var art = GameObject.Find("FieldEnvironmentArt");
-                // DECISION-0068: the colliders are exactly this run's generated layout.
-                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
-                    .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION").ObstacleLayout;
-                var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-003-ENVIRONMENT");
-                Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);
+                var definition = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
+                    .Values.Single(p => p.Id.ToString() == "FIELD-003-PRESENTATION");
+                var expected = FieldRoadLayoutGenerator.Generate(definition.RoadLayout, definition.RoadFallbackLayouts,root.LayoutSeed);
+                var boundaries = art.GetComponentsInChildren<EdgeCollider2D>();
+                Assert.Greater(boundaries.Length,0);
+                foreach (var boundary in boundaries)
+                    Assert.AreEqual(~(1 << LayerMask.NameToLayer("Player")),boundary.excludeLayers.value);
+                Assert.AreEqual(expected.DeadEnds.Count,root.Pickups.Snapshot.Active);
+                var pickups = new System.Collections.Generic.List<Game.Pickup.WorldPickupVisual>(); root.Pickups.CopyActiveTo(pickups);
+                foreach (var pickup in pickups)
+                {
+                    Assert.AreEqual(1,pickup.Life.Definition.FixedBookUpgradeCount);
+                    Assert.IsTrue(expected.DeadEnds.Any(b => Vector2.Distance(b.EndCenter,pickup.transform.position) < 1e-4f));
+                }
+                var player = Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>();
+                Assert.Less(Vector2.Distance(player.transform.position,expected.SpawnPosition),.1f);
+                if (SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null)
+                {
+                    // Integration evidence only: capture the actual meshes at gameplay scale and as a whole-map overview.
+                    var camera = Camera.main; var previousTarget = camera.targetTexture;
+                    var target = new RenderTexture(1280,720,24); target.Create();
+                    GameObject overview = null;
+                    try
+                    {
+                        camera.targetTexture = target;
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target,"field003-roads-gameplay");
+                        camera.targetTexture = previousTarget;
+                        overview = new GameObject("Road overview capture");
+                        var overviewCamera = overview.AddComponent<Camera>(); overviewCamera.CopyFrom(camera);
+                        overviewCamera.targetTexture = target; overviewCamera.orthographicSize = definition.RoadLayout.ArenaSideLength*.55f;
+                        overviewCamera.transform.position = new Vector3(0,0,camera.transform.position.z);
+                        yield return null; yield return null;
+                        UiFoundationSmokeTests.Capture(target,"field003-roads-overview");
+                    }
+                    finally
+                    {
+                        camera.targetTexture = previousTarget;
+                        if (overview != null) Object.DestroyImmediate(overview);
+                        target.Release(); Object.DestroyImmediate(target);
+                    }
+                }
                 // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-003 after the
                 // DECISION-0073 skill nerf, so health is locked as with the development toggle.
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;

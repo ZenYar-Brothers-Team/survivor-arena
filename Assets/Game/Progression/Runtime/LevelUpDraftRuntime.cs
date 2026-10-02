@@ -283,13 +283,14 @@ namespace Game.Progression
         /// DECISION-0020: empty at pickup awards currency now; later queue/banish exhaustion does not.
         /// DECISION-0093: an accepted Book queues 1…N choices by the configured weights; an empty Book still pays once.
         /// </summary>
-        public bool RequestBook(Guid pickupId, Guid sourceRunId, ContentId sourceContentId)
+        public bool RequestBook(Guid pickupId, Guid sourceRunId, ContentId sourceContentId, int? fixedUpgradeCount = null)
         {
+            if (fixedUpgradeCount.HasValue) NumericValidation.ValidateCount(fixedUpgradeCount.Value, nameof(fixedUpgradeCount));
             if (!CanProcess || sourceRunId != _owner.RunId || !_emptyBookCurrency.HasValue ||
                 pickupId == Guid.Empty || !sourceContentId.IsValid || _bookPickups.Contains(pickupId)) return false;
             var request = DraftRequest.ForBook(sourceRunId, pickupId, sourceContentId);
             var empty = !_pool.HasEligibleOptions(Build, Controls.BanishedIds);
-            var choices = empty ? 1 : _bookUpgradeCount.Roll(_draftRandom);
+            var choices = empty ? 1 : fixedUpgradeCount ?? _bookUpgradeCount.Roll(_draftRandom);
             var total = empty ? checked(_bookCurrency + _emptyBookCurrency.Value) : _bookCurrency;
             _bookPickups.Add(pickupId);
             _acceptedBooks++;

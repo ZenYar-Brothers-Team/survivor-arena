@@ -1,4 +1,9 @@
 # Unity-specific Git attributes for this repo.
+# Frozen FIELD-003 references retain their manifest hashes across checkouts.
+docs/prototypes/field003-roads/approved-v4/* -text -whitespace
+# Matplotlib SVG exports contain intentional whitespace in path data.
+docs/prototypes/field003-roads/*.svg -whitespace
+docs/prototypes/field003-roads/approved-v4/*.svg -whitespace
 # Requires Force Text serialization (already enabled in this project:
 # ProjectSettings/EditorSettings.asset -> m_SerializationMode: 2).
 

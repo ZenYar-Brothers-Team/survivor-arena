@@ -10,6 +10,10 @@
 
 ## Зависимости
 
+Потребитель road-only геометрии: [IP-23](IP-23-production-fields.md),
+[FIELD-003 R03-02](../milestones/FIELD-003-road-network.md#r03-02--игрок-и-граница-доступного-пространства)
+по DECISION-0137; граница дорог относится к player-only контракту.
+
 [IP-01](IP-01-run-lifecycle.md).
 
 Это зависимости целевой ревизии, а не разрешение использовать прежний Verified для нового scope. UI/effect extension points, которые поставляются позже, проверяются fake implementations; они не создают обратных зависимостей.

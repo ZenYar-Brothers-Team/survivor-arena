@@ -135,6 +135,24 @@ namespace Game.Progression.Tests
         }
 
         [Test]
+        public void FieldBook_WithThreeChoiceDistribution_OverridesToOneAndLeavesTravelerBooksUnchanged()
+        {
+            _draft.Shutdown();
+            _draft.Initialize(_xp, _run, new[] { _active }, _active, 3, new FixedDraftRandom(0.9f),
+                emptyBookCurrency: 50, bookUpgradeCurrency: 20,
+                bookUpgradeCount: new BookUpgradeCount(new[] { 0.5f, 0.35f, 0.15f }));
+            var pickup = Guid.NewGuid();
+            Assert.IsTrue(_draft.RequestBook(pickup, _run.Model.RunId, "PICKUP-002", 1));
+            Assert.AreEqual(1, _draft.PendingDraftCount);
+            Assert.IsTrue(_draft.Select(_active.Id));
+            Assert.AreEqual(20, _draft.BookCurrency);
+            Assert.AreEqual(RunState.Running, _run.Model.State);
+            Assert.IsFalse(_draft.RequestBook(pickup, _run.Model.RunId, "PICKUP-002", 1));
+            Assert.IsTrue(Book());
+            Assert.AreEqual(3, _draft.PendingDraftCount);
+        }
+
+        [Test]
         public void BookUpgrade_CancelledAtTerminal_DoesNotEarnBonus()
         {
             _draft.Shutdown();

@@ -471,7 +471,7 @@ namespace Game.Bootstrap
                 // DECISION-0068: fields with a pattern layout get a fresh obstacle arrangement every run.
                 var layout = fieldPresentation.ObstacleLayout;
                 // Blob fields (field geometry study) also get a fresh arrangement every run.
-                var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed;
+                var referenceSeed = layout != null ? layout.ReferenceSeed : fieldPresentation.BlobLayout?.ReferenceSeed ?? fieldPresentation.RoadLayout?.ReferenceSeed;
                 LayoutSeed = referenceSeed == null ? 0 : UseReferenceSeeds ? referenceSeed.Value : FreshRunSeed.Next();
                 var arenaSideLength = fieldPresentation.ArenaSideLength ?? FixtureArenaGeometryCatalog.Create().SideLength;
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
@@ -483,8 +483,10 @@ namespace Game.Bootstrap
                 initializedSubsystems.Add(() => { _cameraFollow?.ClearBounds(); _cameraFollow = null; });
                 var previousPosition = player.transform.position;
                 var body = player.GetComponent<Rigidbody2D>();
-                player.transform.position = spawn.position;
-                if (body != null) { body.position = spawn.position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
+                var roadLayout = _fieldEnvironmentArt.RoadLayout;
+                var startPosition = roadLayout == null ? spawn.position : (Vector3)roadLayout.SpawnPosition;
+                player.transform.position = startPosition;
+                if (body != null) { body.position = startPosition; body.linearVelocity = Vector2.zero; body.angularVelocity = 0; }
                 initializedSubsystems.Add(() => { player.transform.position = previousPosition; if (body != null) body.position = previousPosition; });
                 player.Initialize(selectedCharacter.BaseStats, runController, selectedCharacter.Id,
                     Profile.Modifier(selectedCharacter.Id.ToString()), setup.HostileDamageMultiplier);
@@ -502,6 +504,15 @@ namespace Game.Bootstrap
                 var playerBody = player.GetComponent<Rigidbody2D>();
                 if (playerBody == null)
                     throw new InvalidOperationException("Player presentation requires a Rigidbody2D motion source.");
+                if (roadLayout != null)
+                {
+                    var radius = playerCollider.radius * Mathf.Max(Mathf.Abs(player.transform.lossyScale.x), Mathf.Abs(player.transform.lossyScale.y));
+                    if (radius + playerCollider.offset.magnitude >= roadLayout.Profile.DeadEndWidth * .5f - roadLayout.Profile.SurfaceStep)
+                        throw new InvalidOperationException("Selected player's contact body does not fit the road network.");
+                    var previousDetection = playerBody.collisionDetectionMode;
+                    playerBody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+                    initializedSubsystems.Add(() => { if (playerBody != null) playerBody.collisionDetectionMode = previousDetection; });
+                }
                 playerPresentation.Initialize(
                     playerVisual,
                     playerMotionProfile,
@@ -572,6 +583,14 @@ namespace Game.Bootstrap
                     PickupSeed = UseReferenceSeeds ? Catalog.Pickups.Seed : FreshRunSeed.Next(),
                     UseReferenceSeeds ? Catalog.Pickups.DropScatterSeed : FreshRunSeed.Next());
                 initializedSubsystems.Add(Pickups.Shutdown);
+                if (roadLayout != null)
+                {
+                    var original = Catalog.Pickups.Book;
+                    var fieldBook = new PickupDefinition(original.Id, original.Kind, original.Healing, original.ContactRadius,
+                        original.LifetimeSeconds, original.Marker, original.Color, original.MarkerSize, original.Visual,
+                        original.VisualScale, roadLayout.Profile.BookUpgradeCount);
+                    foreach (var branch in roadLayout.DeadEnds) Pickups.SpawnFieldBook(fieldBook, branch.EndCenter);
+                }
 
                 var enemiesById = new Dictionary<ContentId, EnemyDefinition>(configuration.Enemies.Count);
                 var enemyVisuals = new Dictionary<ContentId, Sprite>(configuration.Enemies.Count);

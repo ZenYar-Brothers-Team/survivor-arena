@@ -90,7 +90,19 @@ namespace Game.Pickup
         public WorldPickupVisual Spawn(PickupDefinition definition, Vector2 position, Guid? sourceLifeId = null, ContentId? sourceContentId = null)
         {
             if (_run == null || _run.State != RunState.Running || _player.Health == null || _player.Health.IsDead) return null;
-            var scattered = Scatter(position, _catalog.DropScatterRadius, _scatterRandom);
+            return SpawnCore(definition, position, sourceLifeId, sourceContentId, true);
+        }
+        /// <summary>Run-composition only: exact authored field position, ordinary pickup expiry/contact lifecycle.</summary>
+        public WorldPickupVisual SpawnFieldBook(PickupDefinition definition, Vector2 position)
+        {
+            if (_run == null || _player.Health == null || _player.Health.IsDead || definition.Kind != PickupRewardKind.Book ||
+                (_run.State != RunState.NotStarted && _run.State != RunState.Running))
+                throw new InvalidOperationException("Field books require a live composing run.");
+            return SpawnCore(definition, position, null, null, false);
+        }
+        private WorldPickupVisual SpawnCore(PickupDefinition definition, Vector2 position, Guid? sourceLifeId, ContentId? sourceContentId, bool scatter)
+        {
+            var scattered = scatter ? Scatter(position, _catalog.DropScatterRadius, _scatterRandom) : position;
             // DECISION-0075: the drop stays exactly where it fell (plus scatter), even inside an obstacle; no reachability
             // search runs. A drop the player cannot touch simply stays on the ground (user decision 2026-09-27).
             var skin = _catalog.PlacementSkin;

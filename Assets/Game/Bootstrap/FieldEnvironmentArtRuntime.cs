@@ -23,6 +23,8 @@ namespace Game.Bootstrap
         private readonly List<WallState> _walls = new List<WallState>();
         private readonly List<UnityEngine.Object> _ownedAssets = new List<UnityEngine.Object>();
         private GameObject _root;
+        private FieldRoadSurfaceRuntime _roads;
+        public FieldRoadLayout RoadLayout { get; private set; }
 
         public Transform Root => _root != null ? _root.transform : null;
         public IReadOnlyList<Collider2D> ObstacleColliders => _obstacleColliders;
@@ -61,7 +63,17 @@ namespace Game.Bootstrap
                 if (definition.ArenaSideLength.HasValue) ResizeWalls(transforms, definition.ArenaSideLength.Value);
                 CreateGround(ground, sideLength);
                 IReadOnlyList<Vector2> interiorObstacles;
-                if (definition.BlobLayout != null)
+                if (definition.RoadLayout != null)
+                {
+                    HidePlaceholder(obstacleTransform);
+                    DisableSceneCollider(obstacleTransform);
+                    RoadLayout = FieldRoadLayoutGenerator.Generate(definition.RoadLayout, definition.RoadFallbackLayouts,
+                        layoutSeed ?? definition.RoadLayout.ReferenceSeed);
+                    _roads = new FieldRoadSurfaceRuntime();
+                    _roads.Initialize(RoadLayout, _root.transform);
+                    interiorObstacles = Array.Empty<Vector2>();
+                }
+                else if (definition.BlobLayout != null)
                 {
                     // Field geometry study: generated impassable silhouettes replace the prototype scene obstacle.
                     HidePlaceholder(obstacleTransform);
@@ -98,6 +110,7 @@ namespace Game.Bootstrap
 
         public void Dispose()
         {
+            _roads?.Dispose(); _roads = null; RoadLayout = null;
             for (var i = 0; i < _placeholders.Count; i++) _placeholders[i].Restore();
             _placeholders.Clear();
             for (var i = 0; i < _disabledSceneColliders.Count; i++)
