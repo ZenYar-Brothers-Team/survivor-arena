@@ -2718,9 +2718,33 @@
         }
       },
       {
-        "id": "FIELD-001-P05",
+        "id": "FIELD-001-P05S",
         "startSeconds": 140,
-        "durationSeconds": 90,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1.0,
+        "composition": {
+          "ENEMY-001": 85,
+          "ENEMY-002": 15
+        },
+        "burst": {
+          "count": 36,
+          "offsetSeconds": 0,
+          "windowSeconds": 1,
+          "arcDegrees": 180
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P05",
+        "startSeconds": 145,
+        "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Ordinary",
         "spawnIntervalSeconds": 0.75,
@@ -2743,11 +2767,11 @@
         "durationSeconds": 90,
         "spawnMode": "Continuous",
         "tag": "Ordinary",
-        "spawnIntervalSeconds": 0.65,
+        "spawnIntervalSeconds": 0.26,
         "composition": {
-          "ENEMY-001": 62,
-          "ENEMY-003": 30,
-          "ENEMY-004": 8
+          "ENEMY-001": 85,
+          "ENEMY-003": 12,
+          "ENEMY-004": 3
         },
         "burst": null,
         "modifiers": {
@@ -2777,9 +2801,33 @@
         }
       },
       {
-        "id": "FIELD-001-P08",
+        "id": "FIELD-001-P08S",
         "startSeconds": 340,
-        "durationSeconds": 90,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1.0,
+        "composition": {
+          "ENEMY-001": 80,
+          "ENEMY-007": 20
+        },
+        "burst": {
+          "count": 40,
+          "offsetSeconds": 0,
+          "windowSeconds": 1,
+          "arcDegrees": 180
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P08",
+        "startSeconds": 345,
+        "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Ordinary",
         "spawnIntervalSeconds": 0.58,
@@ -2802,11 +2850,11 @@
         "durationSeconds": 90,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.45,
+        "spawnIntervalSeconds": 0.18,
         "composition": {
-          "ENEMY-001": 65,
-          "ENEMY-005": 15,
-          "ENEMY-007": 20
+          "ENEMY-001": 86,
+          "ENEMY-005": 6,
+          "ENEMY-007": 8
         },
         "burst": null,
         "modifiers": {
@@ -2836,9 +2884,33 @@
         }
       },
       {
-        "id": "FIELD-001-P11",
+        "id": "FIELD-001-P11S",
         "startSeconds": 540,
-        "durationSeconds": 90,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1.0,
+        "composition": {
+          "ENEMY-001": 85,
+          "ENEMY-002": 15
+        },
+        "burst": {
+          "count": 44,
+          "offsetSeconds": 0,
+          "windowSeconds": 1,
+          "arcDegrees": 180
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P11",
+        "startSeconds": 545,
+        "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Pressure",
         "spawnIntervalSeconds": 0.4,
@@ -2862,11 +2934,11 @@
         "durationSeconds": 90,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.35,
+        "spawnIntervalSeconds": 0.14,
         "composition": {
-          "ENEMY-001": 50,
-          "ENEMY-002": 30,
-          "ENEMY-007": 20
+          "ENEMY-001": 80,
+          "ENEMY-002": 12,
+          "ENEMY-007": 8
         },
         "burst": null,
         "modifiers": {
@@ -2896,9 +2968,33 @@
         }
       },
       {
-        "id": "FIELD-001-P14",
+        "id": "FIELD-001-P14S",
         "startSeconds": 740,
-        "durationSeconds": 70,
+        "durationSeconds": 5,
+        "spawnMode": "Burst",
+        "tag": "Pressure",
+        "spawnIntervalSeconds": 1.0,
+        "composition": {
+          "ENEMY-001": 85,
+          "ENEMY-002": 15
+        },
+        "burst": {
+          "count": 48,
+          "offsetSeconds": 0,
+          "windowSeconds": 1,
+          "arcDegrees": 180
+        },
+        "modifiers": {
+          "healthMultiplier": 1,
+          "speedMultiplier": 1,
+          "contactDamageMultiplier": 1,
+          "attackDamageMultiplier": 1
+        }
+      },
+      {
+        "id": "FIELD-001-P14",
+        "startSeconds": 745,
+        "durationSeconds": 65,
         "spawnMode": "Continuous",
         "tag": "Pressure",
         "spawnIntervalSeconds": 0.35,
@@ -2921,12 +3017,12 @@
         "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.33,
+        "spawnIntervalSeconds": 0.132,
         "composition": {
-          "ENEMY-001": 40,
-          "ENEMY-002": 25,
-          "ENEMY-005": 15,
-          "ENEMY-007": 20
+          "ENEMY-001": 76,
+          "ENEMY-002": 10,
+          "ENEMY-005": 6,
+          "ENEMY-007": 8
         },
         "burst": null,
         "modifiers": {

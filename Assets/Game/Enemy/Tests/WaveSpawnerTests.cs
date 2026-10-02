@@ -67,6 +67,31 @@ namespace Game.Enemy.Tests
                     burst: new WaveBurstDefinition(count, 0, 1)) }), WaveTestData.TestEnemies(), 60);
 
         [Test]
+        public void Tick_ArcBurst_StandsAsHalfRingWalkingStraightAtTheTarget()
+        {
+            // DECISION-0146: arc bursts keep their formation: Seek movement, exempt from blob breakup, 180° spread.
+            var phase = new WavePhaseDefinition("FIXTURE-ARC-P", "Arc", WavePhaseTag.Pressure, 60, 1,
+                new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, spawnMode: WaveSpawnMode.Burst,
+                burst: new WaveBurstDefinition(30, 0, 1, 180f));
+            _spawner.Initialize(new WaveDirector(new WaveTimelineDefinition("FIXTURE-ARC-T", 3, WaveTestData.SpawnRadius, 300,
+                new[] { phase }), WaveTestData.TestEnemies(), 60));
+            Assert.AreEqual(30, _spawner.Tick(0f, 0f, true));
+
+            var enemies = LiveEnemies();
+            var mean = Vector2.zero;
+            foreach (var enemy in enemies)
+            {
+                Assert.AreEqual(WaveTestData.SpawnRadius, enemy.Position.magnitude, 1e-3f);
+                Assert.IsTrue(enemy.BlobBreakupExempt);
+                Assert.AreEqual(EnemyMovementKind.Seek, enemy.CurrentMovement.Kind);
+                mean += enemy.Position.normalized;
+            }
+            mean.Normalize();
+            foreach (var enemy in enemies)
+                Assert.GreaterOrEqual(Vector2.Dot(enemy.Position.normalized, mean), -0.05f, "All slots lie on one half of the ring.");
+        }
+
+        [Test]
         public void Tick_DenseOrdinaryGroup_StaggersOneFanAfterTenSeconds()
         {
             var breakup = new BlobBreakupDefinition(10f, 11, .7f, 60, 65f, 3f, 1.5f, 6f);

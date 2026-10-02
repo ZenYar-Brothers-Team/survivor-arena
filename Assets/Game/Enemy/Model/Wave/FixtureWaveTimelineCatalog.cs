@@ -58,7 +58,8 @@ namespace Game.Enemy
             var burst = data.Burst == null ? null : new WaveBurstDefinition(
                 data.Burst.Count ?? throw new InvalidOperationException("Burst requires count."),
                 data.Burst.OffsetSeconds ?? throw new InvalidOperationException("Burst requires offsetSeconds."),
-                data.Burst.WindowSeconds ?? throw new InvalidOperationException("Burst requires windowSeconds."));
+                data.Burst.WindowSeconds ?? throw new InvalidOperationException("Burst requires windowSeconds."),
+                data.Burst.ArcDegrees);
             var composition = new WaveCompositionEntry[data.Composition.Length];
             for (var i = 0; i < composition.Length; i++)
                 composition[i] = new WaveCompositionEntry(data.Composition[i].EnemyId, data.Composition[i].Weight);

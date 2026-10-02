@@ -184,6 +184,19 @@ namespace Game.Enemy
             return angle < 0d ? angle + Math.PI * 2d : angle;
         }
 
+        /// <summary>DECISION-0146: slot <paramref name="index"/> of <paramref name="count"/> in an arc of the current
+        /// burst centred on <paramref name="centerAngle"/>; a small jitter keeps the line from looking ruled.</summary>
+        public double SelectBurstArcAngle(int index, int count, double centerAngle)
+        {
+            if (double.IsNaN(centerAngle) || double.IsInfinity(centerAngle)) throw new ArgumentOutOfRangeException(nameof(centerAngle));
+            if (count <= 0 || index < 0 || index >= count) throw new ArgumentOutOfRangeException(nameof(index));
+            var arc = CurrentPhase.Burst.ArcDegrees * Math.PI / 180d;
+            var step = arc / count;
+            var angle = centerAngle - arc * .5d + step * (index + .5d) + (_geometryRandom.NextDouble() - .5d) * step * .7d;
+            angle %= Math.PI * 2d;
+            return angle < 0d ? angle + Math.PI * 2d : angle;
+        }
+
         public EnemyDefinition SelectEnemy()
         {
             var composition = CurrentPhase.Composition;

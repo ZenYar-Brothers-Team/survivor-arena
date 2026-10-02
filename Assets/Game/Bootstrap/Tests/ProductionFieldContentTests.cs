@@ -19,7 +19,7 @@ namespace Game.Bootstrap.Tests
         {
             var timeline = Timeline();
             Assert.AreEqual("FIELD-001-TIMELINE", timeline.Id.ToString());
-            Assert.AreEqual(16, timeline.Phases.Count);
+            Assert.AreEqual(20, timeline.Phases.Count, "16 rhythm phases plus four arc-burst phases (DECISION-0146).");
             Assert.AreEqual(900f, timeline.TotalDurationSeconds, 1e-3f);
             Assert.AreEqual(10f, timeline.SpawnRadius);
             Assert.AreEqual(1f, timeline.SpawnOppositeBias);
@@ -35,11 +35,14 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(timeline.Phases.All(p => p.Composition.Count >= 2 && p.Composition.Count <= 4),
                 "FIELD-001 phases use focused two-to-four enemy compositions.");
             Assert.IsTrue(timeline.Phases.Skip(4).Where(p => p.Tag != WavePhaseTag.Rest && p.SpawnMode == WaveSpawnMode.Continuous)
-                .All(p => p.DurationSeconds >= 70f && p.DurationSeconds <= 90f), "Later combat waves last 70–90 seconds.");
+                .All(p => p.DurationSeconds >= 65f && p.DurationSeconds <= 90f), "Later combat waves last 65–90 seconds.");
             Assert.IsTrue(timeline.Phases.Where(p => p.Tag == WavePhaseTag.Rest).All(p => p.DurationSeconds == 20f),
                 "Respites stay short.");
-            CollectionAssert.AreEqual(new[] { 12, 20 },
+            CollectionAssert.AreEqual(new[] { 12, 36, 40, 44, 48, 20 },
                 timeline.Phases.Where(p => p.SpawnMode == WaveSpawnMode.Burst).Select(p => p.Burst.Count).ToArray());
+            CollectionAssert.AreEqual(new[] { 0f, 180f, 180f, 180f, 180f, 0f },
+                timeline.Phases.Where(p => p.SpawnMode == WaveSpawnMode.Burst).Select(p => p.Burst.ArcDegrees).ToArray(),
+                "Added bursts surround the player as a half ring; the original two stay scattered.");
             Assert.IsFalse(timeline.Phases.Take(8).Any(p => p.Composition.Any(c => c.Enemy.Id.ToString() == "ENEMY-005")),
                 "Archer enters only after the opening sequence.");
         }

@@ -10,15 +10,20 @@ namespace Game.Enemy
         public int Count { get; }
         public float OffsetSeconds { get; }
         public float WindowSeconds { get; }
+        /// <summary>Spread of the group around the opposite-of-mass direction, 0 = ordinary biased scatter,
+        /// otherwise the group stands as an evenly spaced arc of this many degrees (DECISION-0146).</summary>
+        public float ArcDegrees { get; }
 
-        public WaveBurstDefinition(int count, float offsetSeconds, float windowSeconds)
+        public WaveBurstDefinition(int count, float offsetSeconds, float windowSeconds, float arcDegrees = 0f)
         {
             NumericValidation.ValidateNonNegative(count, nameof(count));
             NumericValidation.ValidateNonNegativeFinite(offsetSeconds, nameof(offsetSeconds));
             NumericValidation.ValidatePositive(windowSeconds, nameof(windowSeconds));
+            NumericValidation.ValidateRange(arcDegrees, 0f, 360f, nameof(arcDegrees));
             Count = count;
             OffsetSeconds = offsetSeconds;
             WindowSeconds = windowSeconds;
+            ArcDegrees = arcDegrees;
         }
     }
 }

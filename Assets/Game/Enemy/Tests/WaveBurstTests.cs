@@ -123,6 +123,28 @@ namespace Game.Enemy.Tests
         }
 
         [Test]
+        public void ArcBurst_SpreadsTheGroupEvenlyAcrossItsArcAroundTheCentre()
+        {
+            // DECISION-0146: 180° arc of 40 around angle 1.0 rad; slots rise monotonically inside ±90°.
+            var phase = new WavePhaseDefinition("FIXTURE-B", "Burst", WavePhaseTag.Pressure, 5, 1,
+                new[] { WaveTestData.Entry("FIXTURE-ENEMY-A") }, spawnMode: WaveSpawnMode.Burst,
+                burst: new WaveBurstDefinition(40, 0, 1, 180f));
+            var director = Director(phase);
+            director.Advance(0f, 0f, true, 0);
+            var previous = double.NegativeInfinity;
+            for (var i = 0; i < 40; i++)
+            {
+                var angle = director.SelectBurstArcAngle(i, 40, 1.0);
+                var offset = Math.Atan2(Math.Sin(angle - 1.0), Math.Cos(angle - 1.0));
+                Assert.That(offset, Is.InRange(-Math.PI / 2d - 1e-6, Math.PI / 2d + 1e-6));
+                Assert.Greater(offset, previous, "Slots keep their order along the arc.");
+                previous = offset;
+            }
+            Assert.Throws<ArgumentOutOfRangeException>(() => new WaveBurstDefinition(1, 0, 1, 361f));
+            Assert.AreEqual(0f, new WaveBurstDefinition(1, 0, 1).ArcDegrees, "Omitted arc keeps the scattered burst.");
+        }
+
+        [Test]
         public void BurstDefinition_InvalidModeWindowOrCount_IsRejected()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new WaveBurstDefinition(-1, 0, 1));

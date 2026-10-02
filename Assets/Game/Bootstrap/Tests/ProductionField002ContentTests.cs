@@ -61,7 +61,7 @@ namespace Game.Bootstrap.Tests
             var reference = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == "FIELD-001").Resolve(catalog.Registry).Timeline;
             var timeline = catalog.Fields.Roster.AllFields.Single(f => f.Id.ToString() == fieldId).Resolve(catalog.Registry).Timeline;
             Assert.IsNull(timeline.OpeningIntensity, "The opening rate change is exclusive to FIELD-001.");
-            Assert.AreEqual(16, reference.Phases.Count);
+            Assert.AreEqual(20, reference.Phases.Count, "DECISION-0146: four arc-burst phases added to the 16.");
             Assert.AreEqual(reference.Phases.Count, timeline.Phases.Count);
             Assert.AreEqual(reference.TotalDurationSeconds, timeline.TotalDurationSeconds, 1e-3f);
             for (var i = 0; i < timeline.Phases.Count; i++)

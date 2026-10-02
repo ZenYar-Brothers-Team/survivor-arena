@@ -90,7 +90,7 @@ def main():
     require(three["nominal"]["FIELD-003"]["rangedShare"] > two["nominal"]["FIELD-002"]["rangedShare"], "FIELD-003 more ranged")
     early = [sum(1 for p in d["timeline"]["phases"] if p["tag"] == "Pressure" and p["startSeconds"] < 450) for d in (two, three)]
     require(early[1] > early[0], "FIELD-003 has more pressure phases before the mid-boss")
-    print(f"PASS: FIELD-002 HP ×{h2 / f1_health:.2f}, FIELD-003 HP ×{h3 / f1_health:.2f} to FIELD-001; 16 phases each")
+    print(f"PASS: FIELD-002 HP ×{h2 / f1_health:.2f}, FIELD-003 HP ×{h3 / f1_health:.2f} to FIELD-001; {len(two['timeline']['phases'])} phases each")
 
 
 if __name__ == "__main__":

@@ -115,6 +115,8 @@ namespace Game.Enemy
         public EnemyMovementProfile CurrentMovement => _movementProfile ?? Definition?.Movement;
         public bool BlobBreakupActive => _blobDelay > 0f || _blobRemaining > 0f;
         public event Action<EnemyLifeEvent> LifeEvent;
+        /// <summary>Arc-burst enemies (DECISION-0146) keep their formation: never picked for blob breakup. Reset per life.</summary>
+        public bool BlobBreakupExempt { get; set; }
 
         private void Awake()
         {
@@ -220,6 +222,7 @@ namespace Game.Enemy
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
                 : new EnemyAttackController(definition.Attack, random: new System.Random(LifeId.GetHashCode()));
+            BlobBreakupExempt = false;
             MovementPhase = EnemyMovementPhase.Seeking;
             ConfigureTelegraph();
 
@@ -300,7 +303,7 @@ namespace Game.Enemy
         /// <summary>Assigns one temporary fan waypoint to an ordinary enemy; never changes its base profile.</summary>
         public bool TryStartBlobBreakup(Vector2 waypoint, float delaySeconds, float maneuverSeconds)
         {
-            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupActive ||
+            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupActive || BlobBreakupExempt ||
                 float.IsNaN(waypoint.x) || float.IsNaN(waypoint.y) ||
                 float.IsInfinity(waypoint.x) || float.IsInfinity(waypoint.y) ||
                 delaySeconds < 0f || maneuverSeconds <= 0f)

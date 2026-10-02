@@ -153,10 +153,15 @@ namespace Game.Enemy
             double oppositeAngle = 0d;
             var hasCenter = spawnCount > 0 && TryGetOppositeMassAngle(out oppositeAngle);
             var actual = 0;
+            var arcBurst = spawnCount > 0 && _director.CurrentPhase.SpawnMode == WaveSpawnMode.Burst &&
+                           _director.CurrentPhase.Burst.ArcDegrees > 0f;
+            // DECISION-0146: an arc burst surrounds the player on the side away from the crowd (any side if empty).
+            var arcCenter = arcBurst ? (hasCenter ? oppositeAngle : _director.SelectSpawnAngle()) : 0d;
             for (var i = 0; i < spawnCount; i++)
             {
                 if (wasRunning && runController.Model.State != RunState.Running) break;
-                if (SpawnEnemy(hasCenter, oppositeAngle)) actual++;
+                double? forced = arcBurst ? _director.SelectBurstArcAngle(i, spawnCount, arcCenter) : (double?)null;
+                if (SpawnEnemy(hasCenter, oppositeAngle, forced)) actual++;
             }
             var decision = _director.LastDecision;
             if (decision.Requested > 0 || decision.Expired > 0)
@@ -187,7 +192,7 @@ namespace Game.Enemy
                 if (enemy == null || !enemy.IsAlive || enemy.Category != EnemyCategory.Ordinary) continue;
                 _blobEnemies.Add(enemy);
                 _blobPositions.Add(enemy.Position);
-                _blobEligible.Add(!enemy.BlobBreakupActive && settings.Includes(enemy.ContentId));
+                _blobEligible.Add(!enemy.BlobBreakupActive && !enemy.BlobBreakupExempt && settings.Includes(enemy.ContentId));
             }
             LastBlobBreakupCount = 0;
             BlobBreakupPlanner.Plan(_blobPositions, target.position, settings, _blobRandom,
@@ -218,16 +223,20 @@ namespace Game.Enemy
             return true;
         }
 
-        private bool SpawnEnemy(bool hasCenter, double oppositeAngle)
+        private bool SpawnEnemy(bool hasCenter, double oppositeAngle, double? forcedAngle = null)
         {
             if (target == null || runController == null)
                 return false;
 
-            var angle = hasCenter ? _director.SelectSpawnAngle(oppositeAngle) : _director.SelectSpawnAngle();
+            var angle = forcedAngle ?? (hasCenter ? _director.SelectSpawnAngle(oppositeAngle) : _director.SelectSpawnAngle());
             var direction = new Vector2((float)System.Math.Cos(angle), (float)System.Math.Sin(angle));
 
             var definition = _director.SelectEnemy();
             var movement = _director.SelectMovement(definition);
+            // DECISION-0146: an arc burst walks straight at the player, so its formation is not shuffled by
+            // sidesteps/arcs; dash enemies keep their own straight-line dash.
+            if (forcedAngle.HasValue && definition.Movement.Kind != EnemyMovementKind.TelegraphedDash)
+                movement = EnemyMovementProfile.Seek;
             var movementSeed = _director.SelectMovementSeed();
             var visual = _visuals != null && _visuals.TryGetValue(definition.Id, out var sprite) ? sprite : null;
             var motion = _motions != null && _motions.TryGetValue(definition.Id, out var profile) ? profile : null;
@@ -250,6 +259,7 @@ namespace Game.Enemy
                 contentRegistry: _contentRegistry,
                 movement: movement,
                 movementSeed: movementSeed);
+            enemy.BlobBreakupExempt = forcedAngle.HasValue;
             enemy.Despawned += HandleEnemyDespawned;
             enemy.CombatResolved += ForwardCombat;
             _aliveEnemies.Add(enemy);
