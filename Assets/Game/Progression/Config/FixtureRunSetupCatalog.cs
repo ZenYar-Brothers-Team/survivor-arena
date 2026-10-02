@@ -34,7 +34,8 @@ namespace Game.Progression
                     Require(draft.InitialBanishes, "draft.initialBanishes"),
                     Require(draft.EmptyBookCurrency, "draft.emptyBookCurrency"),
                     Require(draft.SetDraftChance, "draft.setDraftChance"),
-                    draft.BookUpgradeCountWeights == null ? null : new BookUpgradeCount(draft.BookUpgradeCountWeights)),
+                    draft.BookUpgradeCountWeights == null ? null : new BookUpgradeCount(draft.BookUpgradeCountWeights),
+                    draft.ActiveSkillGuarantee),
                 new ExperienceSettings(
                     Require(experience.BaseDropLifetimeSeconds, "experience.baseDropLifetimeSeconds"),
                     Require(experience.LevelThresholds, "experience.levelThresholds")),

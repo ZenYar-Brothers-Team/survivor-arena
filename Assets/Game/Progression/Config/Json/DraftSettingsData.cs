@@ -10,5 +10,7 @@ namespace Game.Progression.Json
         public int? EmptyBookCurrency { get; set; }
         /// <summary>Optional; absent means one choice per Book (BookUpgradeCount.Single).</summary>
         public float[] BookUpgradeCountWeights { get; set; }
+        /// <summary>Optional; minimum active skills in the i-th draft of a run. Absent means no guarantee.</summary>
+        public int[] ActiveSkillGuarantee { get; set; }
     }
 }

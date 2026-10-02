@@ -30,6 +30,7 @@ namespace Game.Progression
         private int _acceptedBooks, _selections, _emptyRequests, _cancelled;
         private long _bookCurrency;
         private bool _initialized;
+        private IReadOnlyList<int> _activeSkillGuarantee = Array.Empty<int>();
 
         public PlayerBuild Build { get; private set; }
         public CharacterDefinition Character { get; private set; }
@@ -204,6 +205,27 @@ namespace Game.Progression
             _initialized = true;
         }
 
+        /// <summary>
+        /// Per-run draft guarantee: entry i is the minimum number of active skills among the options of the i-th draft of the run
+        /// (rerolls and banishes included). Later drafts are unconstrained.
+        /// </summary>
+        public void ConfigureActiveSkillGuarantee(IReadOnlyList<int> minimumsByDraft)
+        {
+            if (!_initialized) throw new InvalidOperationException("Level-up draft runtime is not initialized.");
+            if (minimumsByDraft != null)
+                foreach (var minimum in minimumsByDraft) NumericValidation.ValidateNonNegative(minimum, nameof(minimumsByDraft));
+            _activeSkillGuarantee = minimumsByDraft ?? Array.Empty<int>();
+        }
+
+        private int MinimumActiveSkills
+        {
+            get
+            {
+                var index = _selections + _emptyRequests;
+                return index < _activeSkillGuarantee.Count ? _activeSkillGuarantee[index] : 0;
+            }
+        }
+
         /// <summary>Development command: adds rerolls for this run only.</summary>
         public void GrantDevelopmentRerolls(int count)
         {
@@ -257,7 +279,7 @@ namespace Game.Progression
             { ControlAttempted?.Invoke(new DraftControlAttempt("reroll", requestId, revision, null, false)); return false; }
             _setChecks = new SetDraftCheckState();
             var options = _pool.CreateRerolledOptions(Build, _offerCount, _draftRandom,
-                Controls.BanishedIds, CurrentDraft.Options, _setChecks);
+                Controls.BanishedIds, CurrentDraft.Options, _setChecks, MinimumActiveSkills);
             if (options.Count == 0) ResolveEmpty();
             else ReplaceCurrentDraft(options);
             ControlAttempted?.Invoke(new DraftControlAttempt("reroll", requestId, revision, null, true));
@@ -270,7 +292,7 @@ namespace Game.Progression
             var requestId = CurrentRequest?.Id ?? Guid.Empty;
             if (!CanAct(revision) || !IsCurrentOption(id) || !Controls.TryBanish(id))
             { ControlAttempted?.Invoke(new DraftControlAttempt("banish", requestId, revision, id, false)); return false; }
-            var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks);
+            var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks, MinimumActiveSkills);
             if (options.Count == 0) ResolveEmpty();
             else ReplaceCurrentDraft(options);
             ControlAttempted?.Invoke(new DraftControlAttempt("banish", requestId, revision, id, true));
@@ -352,7 +374,7 @@ namespace Game.Progression
                 while (CanProcess && _requests.Count > 0 && !IsDraftOpen)
                 {
                     _setChecks = new SetDraftCheckState();
-                    var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks);
+                    var options = _pool.CreateOptions(Build, _offerCount, _draftRandom, Controls.BanishedIds, _setChecks, MinimumActiveSkills);
                     if (options.Count > 0) ReplaceCurrentDraft(options);
                     else
                     {
@@ -450,6 +472,7 @@ namespace Game.Progression
             _emptyBookCurrency = null;
             _bookUpgradeCurrency = 0;
             _bookUpgradeCount = BookUpgradeCount.Single;
+            _activeSkillGuarantee = Array.Empty<int>();
             _pumping = _resolving = false;
             DraftOpened = null;
             SelectionApplied = null;

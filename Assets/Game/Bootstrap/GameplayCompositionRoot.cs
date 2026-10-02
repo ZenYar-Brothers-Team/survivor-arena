@@ -571,6 +571,7 @@ namespace Game.Bootstrap
                     checked((int)Profile.Catalog.EmptyBookReward),
                     new FixtureSetDraftOfferProvider(setup.Draft.SetDraftChance), Profile.Catalog.BookUpgradeReward,
                     setup.Draft.BookUpgradeCount);
+                draftRuntime.ConfigureActiveSkillGuarantee(setup.Draft.ActiveSkillGuarantee);
                 initializedSubsystems.Add(draftRuntime.Shutdown);
 
                 // The executor owns a scene GameObject (mine pool root); it is registered for

@@ -130,6 +130,7 @@
   "draft": {
     "offerCount": 3,
     "setDraftChance": 0.5,
+    "activeSkillGuarantee": [2, 2, 2, 1, 1],
     "initialRerolls": 1,
     "initialBanishes": 1,
     "emptyBookCurrency": 50,

@@ -82,14 +82,14 @@ namespace Game.Progression
             CreateOptions(build, offerCount, random, null);
 
         public IReadOnlyList<DraftOption> CreateOptions(PlayerBuild build, int offerCount,
-            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, SetDraftCheckState setChecks = null) =>
-            CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, out _, out _).AsReadOnly();
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, SetDraftCheckState setChecks = null, int minimumActiveSkills = 0) =>
+            CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, minimumActiveSkills, out _, out _).AsReadOnly();
 
         public IReadOnlyList<DraftOption> CreateRerolledOptions(PlayerBuild build, int offerCount,
-            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, IReadOnlyList<DraftOption> currentOptions, SetDraftCheckState setChecks = null)
+            IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds, IReadOnlyList<DraftOption> currentOptions, SetDraftCheckState setChecks = null, int minimumActiveSkills = 0)
         {
             if (currentOptions == null) throw new ArgumentNullException(nameof(currentOptions));
-            var options = CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, out var alternatives, out var priorityCount);
+            var options = CreateOptionsCore(build, offerCount, random, banishedIds, setChecks, minimumActiveSkills, out var alternatives, out var priorityCount);
             var currentIds = new HashSet<ContentId>();
             foreach (var option in currentOptions) currentIds.Add(option.Definition.Id);
             var same = currentOptions.Count == options.Count;
@@ -108,7 +108,7 @@ namespace Game.Progression
 
         private List<DraftOption> CreateOptionsCore(PlayerBuild build, int offerCount,
             IDraftRandom random, IReadOnlyCollection<ContentId> banishedIds,
-            SetDraftCheckState setChecks, out List<DraftOption> alternatives, out int priorityCount)
+            SetDraftCheckState setChecks, int minimumActiveSkills, out List<DraftOption> alternatives, out int priorityCount)
         {
             NumericValidation.ValidateCount(offerCount, nameof(offerCount));
             if (random == null) throw new ArgumentNullException(nameof(random));
@@ -151,7 +151,38 @@ namespace Game.Progression
                 }
                 alternatives.AddRange(sets.GetRange(count, sets.Count - count));
             }
+            EnsureActiveSkills(result, alternatives, minimumActiveSkills, random, priorityCount);
             return result;
+        }
+
+        // Early-run guarantee: swap offers that are not active skills for eligible active skills until the minimum is met
+        // (or no more active skills are eligible). Priority set offers keep their slots.
+        private static void EnsureActiveSkills(List<DraftOption> result, List<DraftOption> alternatives,
+            int minimum, IDraftRandom random, int priorityCount)
+        {
+            if (minimum <= 0) return;
+            minimum = Math.Min(minimum, result.Count);
+            var have = 0;
+            foreach (var option in result)
+                if (option.Definition.Kind == BuildEntryKind.ActiveSkill) have++;
+            while (have < minimum)
+            {
+                var candidates = new List<int>();
+                for (var i = 0; i < alternatives.Count; i++)
+                    if (alternatives[i].Definition.Kind == BuildEntryKind.ActiveSkill) candidates.Add(i);
+                if (candidates.Count == 0) return;
+                var slot = -1;
+                for (var i = result.Count - 1; i >= priorityCount && slot < 0; i--)
+                    if (result[i].Definition.Kind == BuildEntryKind.PassiveItem) slot = i;
+                for (var i = result.Count - 1; i >= priorityCount && slot < 0; i--)
+                    if (result[i].Definition.Kind != BuildEntryKind.ActiveSkill) slot = i;
+                if (slot < 0) return;
+                var pick = candidates[Math.Min(candidates.Count - 1, (int)(random.NextFloat01() * candidates.Count))];
+                var replaced = result[slot];
+                result[slot] = alternatives[pick];
+                alternatives[pick] = replaced;
+                have++;
+            }
         }
 
         private List<DraftOption> Eligible(PlayerBuild build, IReadOnlyCollection<ContentId> banishedIds)

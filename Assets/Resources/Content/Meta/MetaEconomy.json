@@ -634,47 +634,44 @@
       "name": "Хлопушка",
       "kind": "set",
       "condition": "access",
-      "price": 150,
+      "price": 250,
       "requiredId": "FIELD-001"
     },
     {
       "id": "SET-023",
       "name": "Дорожные сборы",
       "kind": "set",
-      "condition": "access",
-      "price": 100,
-      "requiredId": "FIELD-001"
+      "condition": "initial",
+      "price": 0
     },
     {
       "id": "SET-024",
       "name": "Набитая рука",
       "kind": "set",
-      "condition": "access",
-      "price": 100,
-      "requiredId": "FIELD-001"
+      "condition": "initial",
+      "price": 0
     },
     {
       "id": "SET-025",
       "name": "Походный сбор",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 150,
       "requiredId": "FIELD-001"
     },
     {
       "id": "SET-026",
       "name": "Круговая оборона",
       "kind": "set",
-      "condition": "access",
-      "price": 100,
-      "requiredId": "FIELD-001"
+      "condition": "initial",
+      "price": 0
     },
     {
       "id": "SET-027",
       "name": "Небесный град",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 250,
       "requiredId": "FIELD-001"
     },
     {
@@ -682,7 +679,7 @@
       "name": "Холодный разряд",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 200,
       "requiredId": "FIELD-001"
     },
     {
@@ -690,23 +687,22 @@
       "name": "Игра в камушки",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 300,
       "requiredId": "FIELD-002"
     },
     {
       "id": "SET-030",
       "name": "Размах руки",
       "kind": "set",
-      "condition": "access",
-      "price": 100,
-      "requiredId": "FIELD-001"
+      "condition": "initial",
+      "price": 0
     },
     {
       "id": "SET-031",
       "name": "Меткий бросок",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 300,
       "requiredId": "FIELD-001"
     },
     {
@@ -714,7 +710,7 @@
       "name": "Подрывник",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 250,
       "requiredId": "FIELD-001"
     },
     {
@@ -722,23 +718,22 @@
       "name": "Вертушка",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 200,
       "requiredId": "FIELD-001"
     },
     {
       "id": "SET-034",
       "name": "Ледяной град",
       "kind": "set",
-      "condition": "access",
-      "price": 100,
-      "requiredId": "FIELD-001"
+      "condition": "initial",
+      "price": 0
     },
     {
       "id": "SET-035",
       "name": "Колючий пучок",
       "kind": "set",
       "condition": "access",
-      "price": 100,
+      "price": 200,
       "requiredId": "FIELD-001"
     },
     {

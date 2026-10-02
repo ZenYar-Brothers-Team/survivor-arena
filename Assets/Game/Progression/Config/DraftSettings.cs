@@ -14,15 +14,20 @@ namespace Game.Progression
         public int? EmptyBookCurrency { get; }
         /// <summary>DECISION-0093: how many draft choices one Traveler Book grants.</summary>
         public BookUpgradeCount BookUpgradeCount { get; }
+        /// <summary>Minimum active skills among the options of the i-th draft of a run; later drafts are unconstrained.</summary>
+        public System.Collections.Generic.IReadOnlyList<int> ActiveSkillGuarantee { get; }
 
         public DraftSettings(int offerCount, int seed, int initialRerolls, int initialBanishes, int? emptyBookCurrency = null, float setDraftChance = 0f,
-            BookUpgradeCount bookUpgradeCount = null)
+            BookUpgradeCount bookUpgradeCount = null, int[] activeSkillGuarantee = null)
         {
             NumericValidation.ValidateRange(offerCount, 1, 3, nameof(offerCount));
             NumericValidation.ValidateNonNegative(initialRerolls, nameof(initialRerolls), "Draft control counts cannot be negative.");
             NumericValidation.ValidateNonNegative(initialBanishes, nameof(initialBanishes), "Draft control counts cannot be negative.");
             if (emptyBookCurrency.HasValue) NumericValidation.ValidateCount(emptyBookCurrency.Value, nameof(emptyBookCurrency));
             NumericValidation.ValidateRange(setDraftChance, 0f, 1f, nameof(setDraftChance));
+            activeSkillGuarantee = activeSkillGuarantee ?? System.Array.Empty<int>();
+            foreach (var minimum in activeSkillGuarantee) NumericValidation.ValidateRange(minimum, 0, offerCount, nameof(activeSkillGuarantee));
+            ActiveSkillGuarantee = (int[])activeSkillGuarantee.Clone();
             SetDraftChance = setDraftChance;
             BookUpgradeCount = bookUpgradeCount ?? BookUpgradeCount.Single;
             EmptyBookCurrency = emptyBookCurrency;
