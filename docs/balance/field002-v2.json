@@ -1215,16 +1215,16 @@
   },
   "nominal": {
     "FIELD-001": {
-      "spawns": 3144,
-      "health": 124021,
-      "experience": 4291,
-      "rangedShare": 0.059
+      "spawns": 2650,
+      "health": 108229,
+      "experience": 3798,
+      "rangedShare": 0.07
     },
     "FIELD-002": {
-      "spawns": 3554,
-      "health": 184972,
-      "experience": 5929,
-      "rangedShare": 0.114
+      "spawns": 2987,
+      "health": 164108,
+      "experience": 5362,
+      "rangedShare": 0.135
     }
   },
   "timeline": {
@@ -1630,16 +1630,16 @@
         "durationSeconds": 95,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.127,
+        "spawnIntervalSeconds": 0.318,
         "composition": {
-          "ENEMY-001": 81,
+          "ENEMY-001": 52,
           "ENEMY-002": 0,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
           "ENEMY-005": 0,
-          "ENEMY-007": 8,
-          "ENEMY-010": 7,
-          "ENEMY-009": 4,
+          "ENEMY-007": 20,
+          "ENEMY-010": 18,
+          "ENEMY-009": 10,
           "ENEMY-006": 0
         },
         "burst": null,
@@ -1713,17 +1713,17 @@
         "durationSeconds": 65,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.318,
+        "spawnIntervalSeconds": 0.127,
         "composition": {
-          "ENEMY-001": 50,
+          "ENEMY-001": 80,
           "ENEMY-002": 0,
           "ENEMY-003": 0,
-          "ENEMY-004": 15,
-          "ENEMY-005": 15,
+          "ENEMY-004": 6,
+          "ENEMY-005": 6,
           "ENEMY-007": 0,
           "ENEMY-010": 0,
-          "ENEMY-009": 10,
-          "ENEMY-006": 10
+          "ENEMY-009": 4,
+          "ENEMY-006": 4
         },
         "burst": null,
         "modifiers": {
@@ -1739,17 +1739,17 @@
         "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.12,
+        "spawnIntervalSeconds": 0.3,
         "composition": {
-          "ENEMY-001": 75,
-          "ENEMY-002": 8,
+          "ENEMY-001": 38,
+          "ENEMY-002": 20,
           "ENEMY-003": 0,
           "ENEMY-004": 0,
-          "ENEMY-005": 4,
-          "ENEMY-007": 6,
-          "ENEMY-010": 3,
+          "ENEMY-005": 10,
+          "ENEMY-007": 15,
+          "ENEMY-010": 7,
           "ENEMY-009": 0,
-          "ENEMY-006": 4
+          "ENEMY-006": 10
         },
         "burst": null,
         "modifiers": {

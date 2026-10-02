@@ -448,19 +448,19 @@
       "tag": "Pressure",
       "spawnMode": "Continuous",
       "durationSeconds": 90,
-      "spawnIntervalSeconds": 0.14,
+      "spawnIntervalSeconds": 0.35,
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 80
+          "weight": 50
         },
         {
           "enemyId": "ENEMY-002",
-          "weight": 12
+          "weight": 30
         },
         {
           "enemyId": "ENEMY-007",
-          "weight": 8
+          "weight": 20
         }
       ],
       "modifiers": {
@@ -539,19 +539,19 @@
       "tag": "Pressure",
       "spawnMode": "Continuous",
       "durationSeconds": 65,
-      "spawnIntervalSeconds": 0.35,
+      "spawnIntervalSeconds": 0.14,
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 60
+          "weight": 84
         },
         {
           "enemyId": "ENEMY-004",
-          "weight": 20
+          "weight": 8
         },
         {
           "enemyId": "ENEMY-005",
-          "weight": 20
+          "weight": 8
         }
       ],
       "modifiers": {
@@ -570,23 +570,23 @@
       "tag": "Pressure",
       "spawnMode": "Continuous",
       "durationSeconds": 85,
-      "spawnIntervalSeconds": 0.132,
+      "spawnIntervalSeconds": 0.33,
       "composition": [
         {
           "enemyId": "ENEMY-001",
-          "weight": 76
+          "weight": 40
         },
         {
           "enemyId": "ENEMY-002",
-          "weight": 10
+          "weight": 25
         },
         {
           "enemyId": "ENEMY-005",
-          "weight": 6
+          "weight": 15
         },
         {
           "enemyId": "ENEMY-007",
-          "weight": 8
+          "weight": 20
         }
       ],
       "modifiers": {

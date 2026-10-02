@@ -271,10 +271,10 @@
   },
   "nominal": {
     "FIELD-004": {
-      "spawns": 4437,
-      "health": 396098,
-      "experience": 10984,
-      "rangedShare": 0.2
+      "spawns": 3760,
+      "health": 364701,
+      "experience": 10307,
+      "rangedShare": 0.236
     }
   },
   "timeline": {
@@ -722,20 +722,20 @@
         "durationSeconds": 95,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.108,
+        "spawnIntervalSeconds": 0.27,
         "composition": {
-          "ENEMY-001": 66,
+          "ENEMY-001": 15,
           "ENEMY-002": 0,
           "ENEMY-003": 0,
-          "ENEMY-004": 4,
-          "ENEMY-005": 4,
+          "ENEMY-004": 10,
+          "ENEMY-005": 10,
           "ENEMY-006": 0,
-          "ENEMY-007": 6,
-          "ENEMY-008": 6,
-          "ENEMY-009": 4,
-          "ENEMY-010": 2,
-          "ENEMY-012": 4,
-          "ENEMY-013": 4
+          "ENEMY-007": 15,
+          "ENEMY-008": 15,
+          "ENEMY-009": 10,
+          "ENEMY-010": 5,
+          "ENEMY-012": 10,
+          "ENEMY-013": 10
         },
         "burst": null,
         "modifiers": {
@@ -814,20 +814,20 @@
         "durationSeconds": 65,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.255,
+        "spawnIntervalSeconds": 0.102,
         "composition": {
-          "ENEMY-001": 0,
+          "ENEMY-001": 60,
           "ENEMY-002": 0,
-          "ENEMY-003": 10,
-          "ENEMY-004": 10,
-          "ENEMY-005": 10,
-          "ENEMY-006": 10,
-          "ENEMY-007": 15,
+          "ENEMY-003": 4,
+          "ENEMY-004": 4,
+          "ENEMY-005": 4,
+          "ENEMY-006": 4,
+          "ENEMY-007": 6,
           "ENEMY-008": 0,
-          "ENEMY-009": 10,
-          "ENEMY-010": 10,
-          "ENEMY-012": 15,
-          "ENEMY-013": 10
+          "ENEMY-009": 4,
+          "ENEMY-010": 4,
+          "ENEMY-012": 6,
+          "ENEMY-013": 4
         },
         "burst": null,
         "modifiers": {
@@ -843,20 +843,20 @@
         "durationSeconds": 85,
         "spawnMode": "Continuous",
         "tag": "Pressure",
-        "spawnIntervalSeconds": 0.096,
+        "spawnIntervalSeconds": 0.24,
         "composition": {
-          "ENEMY-001": 60,
-          "ENEMY-002": 4,
+          "ENEMY-001": 0,
+          "ENEMY-002": 10,
           "ENEMY-003": 0,
-          "ENEMY-004": 4,
-          "ENEMY-005": 4,
-          "ENEMY-006": 4,
-          "ENEMY-007": 6,
+          "ENEMY-004": 10,
+          "ENEMY-005": 10,
+          "ENEMY-006": 10,
+          "ENEMY-007": 15,
           "ENEMY-008": 0,
-          "ENEMY-009": 4,
-          "ENEMY-010": 4,
-          "ENEMY-012": 6,
-          "ENEMY-013": 4
+          "ENEMY-009": 10,
+          "ENEMY-010": 10,
+          "ENEMY-012": 15,
+          "ENEMY-013": 10
         },
         "burst": null,
         "modifiers": {
