@@ -155,6 +155,12 @@ namespace Game.Bootstrap.Tests
                     seal.Apply(zone, 5f, 0f);
                     var glyph = go.transform.Find("Glyph/Approved glyph");
                     var art = glyph.GetComponent<SpriteRenderer>();
+                    var rimArt = go.transform.Find("Rim/Approved outline").GetComponent<SpriteRenderer>();
+                    Assert.AreNotSame(rimArt.sharedMaterial, art.sharedMaterial, "Independent texture bindings for outline and icon.");
+                    Assert.AreSame(rimArt.sprite.texture, rimArt.sharedMaterial.mainTexture);
+                    Assert.AreSame(art.sprite.texture, art.sharedMaterial.mainTexture);
+                    Assert.Greater(art.sortingOrder, go.transform.Find("Motion").GetComponent<MeshRenderer>().sortingOrder,
+                        "Icons must be above decorative motion from every overlapping seal, not just their own disabled layer.");
                     Assert.AreSame(suffix == "EXPERIENCE" ? profile.ExperienceGlyphSprite :
                         suffix == "KNOCKBACK" ? profile.KnockbackGlyphSprite : profile.PortalGlyphSprite, art.sprite);
                     Assert.IsTrue(art.enabled);
@@ -168,6 +174,7 @@ namespace Game.Bootstrap.Tests
                         var time = frame * .25f;
                         seal.Apply(zone, time, 0f);
                         Assert.AreSame(expectedSprite, art.sprite, "The approved symbol never changes.");
+                        Assert.AreSame(expectedSprite.texture, art.sharedMaterial.mainTexture);
                         Assert.AreEqual(seal.IsShowing, art.enabled);
                         Assert.IsFalse(go.transform.Find("Glyph").GetComponent<MeshRenderer>().enabled);
                         Assert.IsFalse(go.transform.Find("Motion").GetComponent<MeshRenderer>().enabled,

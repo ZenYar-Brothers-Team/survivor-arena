@@ -13,6 +13,7 @@ namespace Game.Presentation
         private MaterialPropertyBlock _properties;
         private Material _material;
         private Material _spriteMaterial;
+        private Material _glyphMaterial;
         private ZoneSealPresentationProfile _profile;
         private SpriteRenderer _rimArt;
         private SpriteRenderer _glyphArt;
@@ -26,10 +27,12 @@ namespace Game.Presentation
             _properties = new MaterialPropertyBlock();
             var shader = Resources.Load<Shader>("Shaders/SpriteSolidColor");
             if (shader == null) throw new InvalidOperationException("Missing seal color shader.");
-            _material = new Material(shader) { name = "Zone seal ink", hideFlags = HideFlags.HideAndDontSave };
+            _material = new Material(shader) { name = "Zone seal ink", hideFlags = HideFlags.HideAndDontSave,
+                mainTexture = Texture2D.whiteTexture };
             var spriteShader = Shader.Find("Sprites/Default");
             if (spriteShader == null) throw new InvalidOperationException("Missing unlit portal/seal sprite shader.");
             _spriteMaterial = new Material(spriteShader) { name = "Zone seal artwork", hideFlags = HideFlags.HideAndDontSave };
+            _spriteMaterial.mainTexture = profile.RimSprite.texture;
             var builder = new ZoneSealMeshBuilder(profile.StrokeFraction);
             _meshes[0] = builder.Boundary(kind); _meshes[1] = builder.Glyph(kind); _meshes[2] = builder.Motion(kind, profile.MotionRadius);
             for (var i = 0; i < _layers.Length; i++)
@@ -39,7 +42,8 @@ namespace Game.Presentation
                 child.AddComponent<MeshFilter>().sharedMesh = _meshes[i];
                 var renderer = child.AddComponent<MeshRenderer>();
                 renderer.sharedMaterial = _material;
-                renderer.sortingOrder = profile.SortingOrder + i;
+                // Every central symbol is above every zone's decorative motion, including overlapping zones.
+                renderer.sortingOrder = profile.SortingOrder + (i == 1 ? 2 : i == 2 ? 1 : 0);
                 renderer.enabled = false;
                 _layers[i] = renderer;
             }
@@ -65,8 +69,11 @@ namespace Game.Presentation
                     Mathf.Max(glyphSprite.bounds.size.x, glyphSprite.bounds.size.y));
                 _glyphArt = glyph.AddComponent<SpriteRenderer>();
                 _glyphArt.sprite = glyphSprite;
-                _glyphArt.sharedMaterial = _spriteMaterial;
-                _glyphArt.sortingOrder = profile.SortingOrder + 1;
+                // Keep each raster texture bound to its own material, including when sprite batches change.
+                _glyphMaterial = new Material(spriteShader) { name = "Zone seal approved glyph", hideFlags = HideFlags.HideAndDontSave,
+                    mainTexture = glyphSprite.texture };
+                _glyphArt.sharedMaterial = _glyphMaterial;
+                _glyphArt.sortingOrder = profile.SortingOrder + 2;
                 _glyphArt.enabled = false;
             }
             _layers[1].transform.localScale = Vector3.one * profile.GlyphScale;
@@ -157,6 +164,8 @@ namespace Game.Presentation
             }
             if (_material != null) Release(_material);
             if (_spriteMaterial != null) Release(_spriteMaterial);
+            if (_glyphMaterial != null) Release(_glyphMaterial);
+            _glyphMaterial = null;
             _spriteMaterial = null;
             _rimArt = null;
             _glyphArt = null;

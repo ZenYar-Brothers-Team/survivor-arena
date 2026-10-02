@@ -413,6 +413,13 @@ exact five-unit displacement, safe exits, shared chains without pairs and data v
 guards approved book/portal/arrows identity and absence of procedural glyph/motion
 overlays through preparation, active payload, fade and the next cycle (161 samples
 per kind), plus ground flattening, hiding and reinitialization.
+It also guards distinct rim/glyph materials with explicit approved texture bindings
+and central symbols sorting above decorative motion.
+`ZoneSealVisualSmokeTests.RasterGlyphs_RenderApprovedPixelsBesideReference_ThroughAnimatedCycles`
+compares actual GPU pixels for book/portal/arrows against fixed approved references
+at 22 times per kind, with identical neighboring arcane arcs crossing both centers.
+Run with graphics; the reference symbol stays above the arcs and the actual symbol
+must match it through warnings, flash, fade, hidden intervals and later cycles.
 `ZoneSealPresentationTests.Seal_InactiveStatesAreDimmer_ActiveBrightnessAndBoundaryUnchanged`
 guards configured inactive alpha vs full active brightness for pulsing book and
 burst portal, across preparation/fade/rest, preserving gameplay boundary scale.
