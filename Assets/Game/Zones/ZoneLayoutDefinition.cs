@@ -24,6 +24,7 @@ namespace Game.Zones
         public int ReferenceSeed { get; }
         /// <summary>Area-only effects have no unit hit flash or dedicated zone overlay; timed buffs keep their timer.</summary>
         public bool SuppressAreaUnitFeedback { get; }
+        public RandomZoneScheduleDefinition RandomSchedule { get; }
         /// <summary>Optional cap on altar centers in any camera rectangle, including ScreenPadding on each side.</summary>
         public int? MaxPerScreen { get; }
         public float ScreenPadding { get; }
@@ -47,6 +48,7 @@ namespace Game.Zones
             MaxRestarts = data.MaxRestarts ?? throw new ArgumentException("zoneLayout.maxRestarts is required.");
             ReferenceSeed = data.ReferenceSeed ?? throw new ArgumentException("zoneLayout.referenceSeed is required.");
             SuppressAreaUnitFeedback = data.SuppressAreaUnitFeedback ?? false;
+            RandomSchedule = data.RandomSchedule == null ? null : new RandomZoneScheduleDefinition(data.RandomSchedule);
             MaxPerScreen = data.MaxPerScreen;
             ScreenPadding = data.ScreenPadding ?? 0f;
             if (MaxPerScreen.HasValue) NumericValidation.ValidateCount(MaxPerScreen.Value, nameof(MaxPerScreen));
@@ -81,6 +83,8 @@ namespace Game.Zones
                 for (var i = 0; i < count; i++) zones.Add(effect);
             }
             if (zones.Count == 0) throw new ArgumentException("A zone layout needs at least one zone.");
+            if (RandomSchedule != null && zones.Count(effect => effect.RelocatesBetweenCycles) < RandomSchedule.Chains)
+                throw new ArgumentException("randomSchedule requires at least one relocating placement per chain.");
             // Largest first packs better; the stable order keeps portal partners adjacent.
             Zones = zones.Select((effect, index) => (effect, index)).OrderByDescending(pair => pair.effect.Radius)
                 .ThenBy(pair => pair.index).Select(pair => pair.effect).ToList().AsReadOnly();

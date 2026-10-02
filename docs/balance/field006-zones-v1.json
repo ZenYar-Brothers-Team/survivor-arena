@@ -1,8 +1,8 @@
 {
   "format": "field-zone-preview",
   "formatVersion": 1,
-  "revision": "field006-zones-preview-v2",
-  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects.",
+  "revision": "field006-zones-preview-v4",
+  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects. User feedback v3: random per-occurrence radii from one-third previous maximum; burst diameter 2.5; two independent random appearance chains near current camera with padding. Interval 8-16 seconds and padding 2 units are preview tuning chosen for requested first iteration. User follow-up v4: all effects target both sides; remove duplicate pink healing; action-speed-only +50%; keep large portal entry area and add upright center portal with smooth delayed transit. Fixed zones are additional to the two random slots.",
   "purpose": "FIELD-006 gameplay preview with academy seals owned here; FIELD-001 encounters shared by reference.",
   "units": {
     "distance": "world units",
@@ -58,7 +58,9 @@
         "pulseFadeSeconds": 3,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
-        "relocatesBetweenCycles": false
+        "relocatesBetweenCycles": false,
+        "minRadius": 2.333333,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-HASTE",
@@ -74,7 +76,9 @@
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": false
+        "relocatesBetweenCycles": false,
+        "minRadius": 2.0,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-REGEN",
@@ -90,11 +94,13 @@
         "pulseFadeSeconds": 3,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
-        "relocatesBetweenCycles": true
+        "relocatesBetweenCycles": true,
+        "minRadius": 2.0,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-ARCANE",
-        "displayName": "Арканный всплеск",
+        "displayName": "Ускорение действий",
         "kind": "ArcanePower",
         "radius": 6,
         "color": "#c28cff",
@@ -102,12 +108,14 @@
         "pulsePeriodSeconds": 30,
         "pulseVisibleSeconds": 20,
         "pulseFadeSeconds": 3,
-        "playerSkillDamageBonus": 0.5,
-        "playerActionSpeedBonus": 0.3,
+        "playerSkillDamageBonus": 0,
+        "playerActionSpeedBonus": 0.5,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": true
+        "relocatesBetweenCycles": true,
+        "minRadius": 2.0,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-RIFT",
@@ -124,7 +132,9 @@
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": true
+        "relocatesBetweenCycles": true,
+        "minRadius": 2.333333,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-PORTAL",
@@ -142,13 +152,15 @@
         "pulseFadeSeconds": 3,
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
-        "relocatesBetweenCycles": false
+        "relocatesBetweenCycles": false,
+        "minRadius": 1.166667,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-SPEED-BURST",
         "displayName": "Рывок",
         "kind": "SpeedBurst",
-        "radius": 8,
+        "radius": 1.25,
         "color": "#ffe14a",
         "lifetime": "Burst",
         "pulsePeriodSeconds": 40,
@@ -157,7 +169,9 @@
         "playerMovementBonus": 0.6,
         "playerBuffSeconds": 8,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": true
+        "relocatesBetweenCycles": true,
+        "minRadius": 1.25,
+        "affectsBothSides": true
       },
       {
         "id": "FIELD-006-ZONE-WARD",
@@ -173,23 +187,9 @@
         "pulsePrepareSeconds": 5,
         "pulseIdleVisibility": 0.14,
         "verticalScale": 0.8,
-        "relocatesBetweenCycles": false
-      },
-      {
-        "id": "FIELD-006-ZONE-HEAL",
-        "displayName": "Целебный круг",
-        "kind": "Regeneration",
-        "radius": 6,
-        "color": "#ff8fd0",
-        "lifetime": "Pulsing",
-        "pulsePeriodSeconds": 40,
-        "pulseVisibleSeconds": 25,
-        "pulseFadeSeconds": 6,
-        "playerRegenerationPerSecond": 6,
-        "pulsePrepareSeconds": 5,
-        "pulseIdleVisibility": 0.14,
-        "verticalScale": 0.8,
-        "relocatesBetweenCycles": true
+        "relocatesBetweenCycles": false,
+        "minRadius": 2.0,
+        "affectsBothSides": true
       }
     ],
     "zones": [
@@ -224,13 +224,15 @@
       {
         "effectId": "FIELD-006-ZONE-WARD",
         "count": 1
-      },
-      {
-        "effectId": "FIELD-006-ZONE-HEAL",
-        "count": 1
       }
     ],
     "activeScreenMargin": 0.5,
-    "suppressAreaUnitFeedback": true
+    "suppressAreaUnitFeedback": true,
+    "randomSchedule": {
+      "chains": 2,
+      "intervalMinSeconds": 8,
+      "intervalMaxSeconds": 16,
+      "screenMarginWorldUnits": 2
+    }
   }
 }

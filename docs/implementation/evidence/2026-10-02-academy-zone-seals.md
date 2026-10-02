@@ -5,6 +5,129 @@ Execution status и оставшиеся gates — только в [STATUS](../S
 
 ## Область
 
+## Уточнение v4 — общие цели и delayed portal transit
+
+Source `field006-zones-preview-v4`: восемь видов, 14 placements, семь fixed
+дополнительно к максимуму двух random occurrences. Все имеют affectsBothSides=true;
+старые поля без этой опции сохраняют свой target contract. Pink HEAL удалён;
+зелёный источник 3 HP/с. ARCANE ID сохранён, damage bonus=0, action speed=0.5;
+новый центральный символ — песочные часы с fast-forward стрелками.
+Enemy area movement/action/regen/defense применяются только внутри; speed burst
+сохраняется 8 с с time bar. Enemy influence очищается при pool reuse/teardown.
+
+По следующему уточнению пользователя показанный upright портал принят как
+центральный объект внутри сохранённой большой entry area. Portal packet PLAN →
+APPLIED, SHA256 master `154268c49a508e6c89ae10004e6f8b7f63864efd5671e013716481ba372ef70c`;
+runtime fit512, padding32, cropAlpha/cutoff32, PPU256, pivot0.5/0.0625.
+Повторный PLAN обоих packets даёт 0 changed files. Portal canvas 1.6 units,
+entry radius [1.166667,3.5], ground flatten 0.8; portal sprite upright независимо
+от radius. Collapse/hidden travel/appearance = 0.18/1/0.25 с; SmoothStep camera
+только игроку. Enemy cooldown отдельный per life. Unit transit восстанавливает
+physics, movement/attacks, health lock и presentation на выходе/teardown.
+
+Первый scoped EditMode: 355/355 PASS, но receipt NOT RUN / INCOMPLETE из-за
+параллельного изменения inputs, `TestResults/checks/20261002T130923-270693Z/EditMode.xml`.
+Свежий full graphics Unity 6000.6: **1385/1385 EditMode PASS, 64/68 PlayMode**,
+0 skipped, third-party 0; `TestResults/checks/20261002T131631-614011Z/{EditMode,PlayMode}.xml`.
+Generation UP TO DATE, audio integrity PASS. Полный verdict FAIL:
+
+- `Game.Bootstrap.PlayModeTests.MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions`: Expected 70, actual 85.
+- `Game.Bootstrap.PlayModeTests.UiEntrySmokeTests.EntryScreens_TwoResolutions_InspectAndConfirmRemainSeparate`: DEV-ZONES card bottom 1250, allowed 1081.
+- `Game.Bootstrap.PlayModeTests.ProductionMonasterySmokeTests.DevUnlock_Field007Card_StartsThirtySixVisibleAltarsAndPausesCleanly`: Player is kept outside the altar foundation; Expected False, actual True.
+- `Game.Bootstrap.PlayModeTests.ProductionFieldDevZonesSmokeTests.Academy_UnlocksThroughDevButton_StartsThroughFieldCard_AndRunsSeals`: paused camera expected (15.15,44.02,-10), actual (15.17,44.02,-10).
+
+Последняя ошибка исправлена: camera focus и camera pose публикуются вместе через
+CameraFollowTarget, без дополнительного LateUpdate шага после pause. Повторные
+scoped проверки фиксируются ниже. Чужие UI/altar failures здесь не исправлялись.
+
+После camera fix: **12/12 EditMode + 3/3 PlayMode PASS**, 0 skipped,
+`TestResults/checks/20261002T132334-513139Z/{EditMode,PlayMode}.xml`; receipt INCOMPLETE
+только из-за изменения чужих inputs во время прогона. Подтверждены player/enemy
+disappearance, physics/actor restore, paused intermediate camera, large entry
+area и constant upright portal size. На отдельном showcase выявлена зависимость
+новых SpriteRenderer от default material: без scene light art темнел. Оправа и
+doorway теперь имеют собственный явно unlit Sprites/Default material.
+Финальный art scope после этой правки: **111/111 EditMode PASS**, manifest **316/316**,
+`TestResults/checks/20261002T135106-893290Z/summary.json`, graphics enabled.
+Свежий стабильный graphics run после unlit fix: **12/12 EditMode + 3/3 PlayMode PASS**,
+0 skipped, third-party 0, `TestResults/checks/20261002T135210-855853Z/summary.json`.
+Active showcase осмотрен: цвета оправ восстановлены, action-speed hourglass виден,
+upright doorway находится в центре большой наземной области. На общей панели
+его character-scale размер закономерно мал относительно крупных зон; его размер
+не умножается на радиус области. После этого уточнено personal cooldown presentation:
+shared doorway не темнеет из-за cooldown одной цели; legacy player-only portal
+сохраняет прежнюю rest presentation. Domain portal size test это проверяет.
+Финальная проверка этого уточнения: **12/12 EditMode + 3/3 PlayMode без ошибок**,
+0 skipped, third-party 0; `TestResults/checks/20261002T135445-265418Z/{EditMode,PlayMode}.xml`.
+Receipt INCOMPLETE из-за параллельного изменения inputs; новый reusable PASS не
+заявлен. Исполненные assertions и свежие graphics captures подтверждены; code/tests
+Академии во время этого запуска не менялись. Active frame осмотрен повторно:
+оправа цветная, часы со стрелками и центральный doorway видны.
+
+## Выбранная оправа A и масштабируемый символ
+
+Пользователь выбрал первый raster-концепт и попросил отдельный символ эффекта.
+Packet `Art/Packets/field006-zone-seal-v001-2026-10-02.json` PLAN → APPLIED;
+source SHA256 `7543670c5b7de96e1260a0ac188efc5ffdb67cd138bb7a337c83646dcd8aad6e`.
+Runtime 512×512 RGBA, PPU 256, центр 0.5/0.5. Оправа подменяет рисунок mesh-обода,
+символ остаётся отдельным неподвижным слоем с glyphScale=1.5. Оба следуют occurrence
+radius; наземное сжатие 0.8 и вращение только relocating контура сохранены.
+Portal исключён из замены A. Новый portal candidate — вертикальный вход с глубиной,
+1024×1536 RGBA, SHA256 `154268c49a508e6c89ae10004e6f8b7f63864efd5671e013716481ba372ef70c`;
+показан пользователю, не импортирован до утверждения конкретного изображения.
+
+Art scope: 107/107 EditMode PASS, 0 skipped, manifest 315/315 PASS,
+`TestResults/checks/20261002T121951-603085Z/summary.json`.
+Первый отдельный graphics seal run выявил несовместимость MeshRenderer и
+SpriteRenderer на одном GameObject (6 failures, NullReferenceException).
+Оправа вынесена в отдельный дочерний объект. Повторный graphics run PASS:
+8/8 EditMode + 2/2 PlayMode, 0 skipped, third-party 0,
+`TestResults/checks/20261002T122253-563324Z/summary.json`. Реальный Dev unlock →
+FIELD-006 launch и legacy zone launch PASS. Снимок игрового запуска осмотрен:
+земля новая, масштабируемая снежинка читается, зона пока в слабой стадии подготовки.
+Финальный art scope после исправления PASS: 107/107 EditMode, manifest 315/315,
+`TestResults/checks/20261002T122353-785726Z/summary.json`.
+Отдельный graphics showcase 1/1 PlayMode PASS:
+`TestResults/checks/20261002T122454-522117Z/summary.json`;
+кадры `TestResults/academy-seals-{waiting,preparing,active}.png` показывают восемь
+видов и стадии. Portal в этом showcase ещё использует прежний mesh-рисунок.
+Кадр active осмотрен AI: неровные оправы и разные центральные символы видны;
+импульс заметно меньше длительных зон, символы не перекрывают оправу. Пользовательская
+оценка игрового масштаба остаётся отдельным review.
+
+## Отзыв v3 — occurrence radius и random scheduler
+
+Источник FIELD-006 revision `field006-zones-preview-v3`: Burst radius 1.25,
+остальные minRadius=Rmax/3; размеры выбираются на fixed placement или каждое random
+appearance. `ZonePlacement.Radius` используется в rendering, Contains, proximity,
+placement clearance и portal exit. Legacy catalogs без minRadius сохраняют свой radius.
+Optional `randomSchedule` включает две цепочки, preview delay 8–16 с после исчезновения,
+camera padding 2 units. Dormant placements повторно используются, скрыты и не занимают
+пространство; предупреждение/активность/затухание целиком занимают слот. Новый центр
+берётся только из текущего camera rectangle + padding, без fallback к старому центру.
+Нет места/camera — новая пауза; fixed-пара порталов и остальные поля без schedule
+сохраняют прежний lifecycle. RNG seeded; zero Tick держит расписание, Dispose скрывает pool.
+
+Первый scoped graphics run v3: 107/107 EditMode + 3/3 PlayMode PASS, 0 skipped,
+`TestResults/checks/20261002T115631-562719Z/summary.json`. Затем добавлен assertion
+точного NearZoneCount после завершения occurrence; следующий full ниже проверяет и его.
+
+Финальный full graphics v3: **1369/1369 EditMode PASS, 65/67 PlayMode**, 0 skipped,
+third-party 0; `TestResults/checks/20261002T115933-576250Z/{EditMode,PlayMode}.xml`.
+Academy Dev unlock → field card → gameplay, legacy zone smoke и seal graphics smoke PASS.
+Общий FAIL: только прежние `Game.Bootstrap.PlayModeTests.MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions`
+(Expected 70, actual 85) и
+`Game.Bootstrap.PlayModeTests.UiEntrySmokeTests.EntryScreens_TwoResolutions_InspectAndConfirmRemainSeparate`
+(DEV-ZONES card bottom 1250, allowed 1081). Generation UP TO DATE, audio integrity PASS,
+manifest 314/314 PASS. Approved ground packet PLAN 0 changed files; aura previews не импортированы.
+AI осмотрел обновлённый gameplay capture: v002 ground отображается, smaller sampled
+mesh footprint совпадает с игровой областью. Этот capture не утверждает новый aura art.
+
+Новые арт-preview A/B сгенерированы OpenAI built-in imagegen как отдельные RGBA
+1254×1254, референсы — ауры TRAVELER-005/007/009. Source/prompts/SHA256 сохранены
+в `Art/Candidates/field006-auras-v3-2026-10-02/preview-record.json`. Они показаны
+inline и ожидают конкретного выбора; ни один новый PNG ещё не находится в Assets.
+
 ## Свежая проверка v2 с контуром и вспышкой
 
 - Scoped graphics Unity 6000.6: **361/361 EditMode + 3/3 PlayMode PASS**, 0 skipped,

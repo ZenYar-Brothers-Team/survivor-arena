@@ -6,9 +6,18 @@ using UnityEngine;
 
 namespace Game.Presentation
 {
-    /// <summary>Validated, directly authored mesh-seal profile for the academy study. No gameplay values.</summary>
+    /// <summary>Validated rim artwork and mesh-glyph tuning for the academy study. No gameplay values.</summary>
     public sealed class ZoneSealPresentationProfile
     {
+        public Sprite RimSprite { get; }
+        public Sprite PortalSprite { get; }
+        public float PortalHeight { get; }
+        public int PortalSortingOrder { get; }
+        public float PortalCollapseSeconds { get; }
+        public float PortalTransitSeconds { get; }
+        public float PortalExpandSeconds { get; }
+        public float RimTintBlend { get; }
+        public float GlyphScale { get; }
         public float StrokeFraction { get; }
         public float MotionRadius { get; }
         public float RimAlpha { get; }
@@ -38,6 +47,15 @@ namespace Game.Presentation
         public ZoneSealPresentationProfile(ZoneSealPresentationData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
+            RimSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.RimVisualId), SpriteRole.Telegraph).Sprite;
+            PortalSprite = FixtureSpriteCatalog.CreateOne(new ContentId(data.PortalVisualId), SpriteRole.Prop).Sprite;
+            PortalHeight = Require(data.PortalHeight, "portalHeight", .5f, 3f);
+            PortalSortingOrder = data.PortalSortingOrder ?? throw new ArgumentException("Zone seals require portalSortingOrder.");
+            PortalCollapseSeconds = Require(data.PortalCollapseSeconds, "portalCollapseSeconds", .05f, 1f);
+            PortalTransitSeconds = Require(data.PortalTransitSeconds, "portalTransitSeconds", .1f, 3f);
+            PortalExpandSeconds = Require(data.PortalExpandSeconds, "portalExpandSeconds", .05f, 1f);
+            RimTintBlend = Require(data.RimTintBlend, "rimTintBlend", 0f, 1f);
+            GlyphScale = Require(data.GlyphScale, "glyphScale", 1f, 2f);
             StrokeFraction = Require(data.StrokeFraction, "strokeFraction", .005f, .04f);
             MotionRadius = Require(data.MotionRadius, "motionRadius", .4f, .75f);
             RimAlpha = Require(data.RimAlpha, "rimAlpha", 0f, 1f);

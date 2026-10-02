@@ -28,6 +28,7 @@ namespace Game.Presentation
         private SpritePresentationPreviewMotion _previewMotion;
         // Status channel (DECISION-0108 slow tint); composed here with the hit flash so neither overwrites the other.
         private Color _statusTint = Color.white;
+        private float _transitScale = 1f, _transitAlpha = 1f, _transitFlash;
         private bool _initialized;
 
         public bool IsInitialized => _initialized;
@@ -119,6 +120,16 @@ namespace Game.Presentation
             ApplyPose(_animator.CurrentPose);
         }
 
+        /// <summary>Portal channel composed with motion/status/hit feedback; never moves the authoritative root.</summary>
+        public void SetTransitPose(float scale, float alpha, float flash)
+        {
+            Game.Content.NumericValidation.ValidateRange(scale, 0f, 1f, nameof(scale));
+            Game.Content.NumericValidation.ValidateRange(alpha, 0f, 1f, nameof(alpha));
+            Game.Content.NumericValidation.ValidateRange(flash, 0f, 1f, nameof(flash));
+            _transitScale = scale; _transitAlpha = alpha; _transitFlash = flash;
+            if (_initialized) ApplyPose(_animator.CurrentPose);
+        }
+
         public void ResetPresentation()
         {
             if (!_initialized)
@@ -131,6 +142,7 @@ namespace Game.Presentation
 
         public void Shutdown()
         {
+            _transitScale = _transitAlpha = 1f; _transitFlash = 0f;
             SuppressDamageFeedback = false;
             if (!_initialized)
                 return;
@@ -176,9 +188,11 @@ namespace Game.Presentation
             rig.BodyRoot.localRotation = _baselineRotation * Quaternion.Euler(0f, 0f, pose.RotationDegrees);
             rig.BodyRoot.localScale = Vector3.Scale(
                 _baselineScale,
-                new Vector3(pose.ScaleMultiplier.x, pose.ScaleMultiplier.y, 1f));
+                new Vector3(pose.ScaleMultiplier.x * _transitScale, pose.ScaleMultiplier.y * _transitScale, 1f));
             rig.BodyRenderer.flipX = pose.FlipX;
-            rig.BodyRenderer.color = Color.Lerp(_baselineColor * _statusTint, _profile.HitFlashColor, pose.FlashAmount);
+            var color = Color.Lerp(_baselineColor * _statusTint, _profile.HitFlashColor, pose.FlashAmount);
+            color = Color.Lerp(color, Color.white, _transitFlash); color.a *= _transitAlpha;
+            rig.BodyRenderer.color = color;
         }
 
         private void RestoreBaseline()

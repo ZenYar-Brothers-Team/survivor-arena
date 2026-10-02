@@ -5,9 +5,13 @@ namespace Game.Zones.Json
     {
         public string Id { get; set; }
         public string DisplayName { get; set; }
+        /// <summary>Optional shared targets for Academy zones; absent preserves legacy target rules.</summary>
+        public bool? AffectsBothSides { get; set; }
         public ZoneEffectKind? Kind { get; set; }
         /// <summary>Zone radius in world units.</summary>
         public float? Radius { get; set; }
+        /// <summary>Optional minimum for uniformly sampled per-occurrence radius; absent means a fixed radius.</summary>
+        public float? MinRadius { get; set; }
         /// <summary>Optional ground projection: vertical radius / horizontal radius (0.1..1); absent means a circle.</summary>
         public float? VerticalScale { get; set; }
         /// <summary>HTML color of the placeholder disc.</summary>

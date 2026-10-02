@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-006-PORTAL",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout and user portal-in-large-entry-area follow-up 2026-10-02",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-02",
+  "approvedBy": "user",
+  "approvalEvidence": "User follow-up after displayed portal: «У портала пусть радиус входа действительно останется большой. То есть портал будет в центре, а вокруг него еще и вот эта круглая форма». Authorizes the shown upright center portal together with a large floor entry seal and delayed smooth transit.",
+  "prompt": "Generate ONE transparent-background 2D game sprite of a magical portal for a stylized storybook cutout fantasy game. The supplied image is a style and palette reference only, NOT an edit target: inherit hand-painted violet, pale cream and restrained teal magical energy, bold irregular contour, flat illustrated shading. Completely different silhouette: an UPRIGHT VERTICAL oval portal standing freely in the air, seen at a slight three-quarter SIDE ANGLE so it reads as a doorway one can run into. Tall narrow oval opening, roughly 1:2 width-to-height, slightly angled edge has a little thickness but no architecture. Portal should look only slightly taller than a character at runtime. A convincing visible entrance filled with a quiet deep blue-violet magical depth, sparse curling teal energy, darkest toward center, pale luminous broken oval lip. Thin wisps at the outer perimeter and 3-5 tiny hovering arcane fragments. NO flat ground circle, no floor rune, no base pedestal, no pillars, no stone arch, no landscape, no character, no text. Keep doorway recognizable at small game size; no tiny ornamental noise, no photorealistic glow or bloom. The portal floats just above its bottom contact point, balanced centered silhouette with generous transparent margin on all sides; isolated sprite only. True transparent alpha outside the portal. Do not place a type symbol inside the portal opening.",
+  "constraints": [
+    "upright oval opening",
+    "transparent exterior",
+    "small center portal independent of floor radius"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-006-portal-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1024x1536",
+    "sourceSha256": "154268c49a508e6c89ae10004e6f8b7f63864efd5671e013716481ba372ef70c",
+    "runtimeSha256": "90fe56ea13c8e4c4755ce68adad8184a0056b26828c4f2d41f1ac0cefa8c6dc3",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 32,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 32
+    }
+  }
+}

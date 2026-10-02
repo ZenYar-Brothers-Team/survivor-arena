@@ -11,6 +11,8 @@ namespace Game.Movement
 
         private Camera _camera;
         private float _arenaHalfSide;
+        private Vector2? _transitFocus;
+        public void SetTransitFocus(Vector2? focus) => _transitFocus = focus;
 
         public Transform Target => target;
 
@@ -47,7 +49,7 @@ namespace Game.Movement
                 return;
 
             var cameraPosition = transform.position;
-            var targetPosition = target.position;
+            var targetPosition = _transitFocus.HasValue ? (Vector3)_transitFocus.Value : target.position;
             transform.position = ClampPosition(new Vector3(targetPosition.x, targetPosition.y, cameraPosition.z));
         }
 

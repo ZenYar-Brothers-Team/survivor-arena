@@ -42,6 +42,7 @@ namespace Game.Bootstrap.PlayModeTests
                 var driver = Object.FindAnyObjectByType<ZoneRuntimeDriver>();
                 Assert.AreEqual(36, driver.Runtime.Zones.Count);
                 Assert.AreEqual(36, driver.GetComponentsInChildren<AltarPresentationRuntime>(true).Length);
+                Assert.AreEqual(36, driver.GetComponentsInChildren<CircleCollider2D>(true).Length);
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;
                 var centers = driver.Runtime.Zones.Select(z => z.Center).ToArray();
                 var fieldPresentation = root.Catalog.FieldEnvironmentPresentations[root.FieldConfiguration.Environment.Id];
@@ -51,6 +52,8 @@ namespace Game.Bootstrap.PlayModeTests
                     ZoneRuntimeDriver.CameraRect(Camera.main).size);
                 CollectionAssert.AreEqual(expectedAltars.Select(zone => zone.Center), centers,
                     "Altar layout must be chosen independently before obstacle generation.");
+                var radii = driver.Runtime.Zones.Select(z => z.Radius).ToArray();
+                Assert.Greater(radii.Distinct().Count(), 9);
                 for (var i = 0; i < 500 && Object.FindObjectsByType<Game.Enemy.EnemyRuntime>(FindObjectsSortMode.None).Length == 0; i++)
                     yield return new WaitForFixedUpdate();
                 Assert.Greater(driver.Runtime.Time, 0f);
@@ -59,12 +62,22 @@ namespace Game.Bootstrap.PlayModeTests
                 for (var i = 0; i < 5; i++) yield return null;
                 Assert.AreEqual(paused, driver.Runtime.Time);
                 CollectionAssert.AreEqual(centers, driver.Runtime.Zones.Select(z => z.Center));
+                CollectionAssert.AreEqual(radii, driver.Runtime.Zones.Select(z => z.Radius));
                 run.TogglePause();
+                var uiDocument = Object.FindAnyObjectByType<GameplayUiRoot>().Document;
+                var ui = uiDocument.rootVisualElement;
+                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
+                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.DevelopmentMapTab));
+                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.MapToggle));
+                for (var i = 0; i < 20; i++) yield return null;
+                Assert.AreEqual(DisplayStyle.Flex, ui.Q(GameplayUiElementIds.MapOverlay).resolvedStyle.display);
+                StringAssert.Contains("алтарей: 36", ui.Q<Label>(GameplayUiElementIds.MapSummary).text);
                 if (SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null)
                 {
                     var camera = Camera.main;
                     var prior = camera.targetTexture;
                     var target = new RenderTexture(1920, 1080, 24); target.Create();
+                    var priorUiTarget = uiDocument.panelSettings.targetTexture;
                     var player = Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>();
                     try
                     {
@@ -73,16 +86,29 @@ namespace Game.Bootstrap.PlayModeTests
                         {
                             var altar = driver.Runtime.Zones.First(z => z.Effect.Kind != ZoneEffectKind.Shrine &&
                                 (z.Effect.Polarity == ZoneAltarPolarity.Positive) == positive);
-                            player.transform.position = altar.Center; player.GetComponent<Rigidbody2D>().position = altar.Center;
+                            var standingPosition = altar.Center + Vector2.down * 1.25f;
+                            player.transform.position = standingPosition; player.GetComponent<Rigidbody2D>().position = standingPosition;
                             for (var i = 0; i < 30; i++) yield return null;
+                            var altarView = driver.GetComponentsInChildren<AltarPresentationRuntime>().Single(view =>
+                                Vector2.Distance(view.transform.position, altar.Center) < .001f);
+                            Assert.GreaterOrEqual(Physics2D.Distance(player.GetComponent<CircleCollider2D>(),
+                                altarView.GetComponent<CircleCollider2D>()).distance, -.02f, "Player stands outside the altar foundation.");
                             UiFoundationSmokeTests.Capture(target, positive ? "field007-positive" : "field007-negative");
                         }
                         var shrine = driver.Runtime.Zones.First(z => z.Effect.Kind == ZoneEffectKind.Shrine);
-                        player.transform.position = shrine.Center; player.GetComponent<Rigidbody2D>().position = shrine.Center;
+                        var shrineStandingPosition = shrine.Center + Vector2.down * 1.25f;
+                        player.transform.position = shrineStandingPosition; player.GetComponent<Rigidbody2D>().position = shrineStandingPosition;
                         for (var i = 0; i < 30; i++) yield return null;
                         UiFoundationSmokeTests.Capture(target, "field007-shrine");
+                        uiDocument.panelSettings.targetTexture = target;
+                        for (var i = 0; i < 10; i++) yield return null;
+                        UiFoundationSmokeTests.Capture(target, "field007-minimap");
                     }
-                    finally { camera.targetTexture = prior; target.Release(); Object.DestroyImmediate(target); }
+                    finally
+                    {
+                        uiDocument.panelSettings.targetTexture = priorUiTarget;
+                        camera.targetTexture = prior; target.Release(); Object.DestroyImmediate(target);
+                    }
                 }
                 root.Shutdown(); yield return null;
                 Assert.IsNull(Object.FindAnyObjectByType<ZoneRuntimeDriver>());

@@ -12,6 +12,8 @@ namespace Game.UI
         IReadOnlyList<Vector2[]> Obstacles { get; }
         /// <summary>Walkable road pieces in drawing order; empty for fields without roads; static for the run.</summary>
         IReadOnlyList<MapPreviewRoad> Roads { get; }
+        /// <summary>All stationary altars, including resting and off-screen ones; empty for other fields.</summary>
+        IReadOnlyList<MapPreviewAltar> Altars { get; }
         /// <summary>World rectangle the gameplay camera currently shows.</summary>
         Rect View { get; }
     }

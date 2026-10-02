@@ -4,18 +4,49 @@
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 
+Commit audit FIELD-006/007 2026-10-02 — по поручению пользователя полезные изменения подготовлены к сохранению отдельно от незавершённого FIELD-009. Свежие generation/audio/manifest проверки PASS; полный graphics runner не запустил Unity tests из-за недоступности локального Editor REST (WinError 10061). Новый runtime PASS и повышение статусов не заявляются. [Аудит](evidence/2026-10-02-non-field009-commit-audit.md).
+
 FIELD-009 platform art 2026-10-02 — Implemented по прямому утверждению concept A v3: приглушённый светлый камень, кремово-золотистая святая земля и прожилки. Approved reference texture подключена через material-only UV выборки; общий контур даёт кромку, золотую вставку и нижнюю грань без закрытия мостов. Фрагменты платформ в фоне устранены ограничением выборки чистой земли и покрыты regression test. Art pipeline PLAN/APPLY PASS; art scope 112/112, manifest 317/317; graphics smoke 1/1; итоговый scoped EditMode 3/3 PASS. [Контракт](../decisions/0147-field009-holy-ground-art.md), [evidence](evidence/2026-10-02-field009-platform-art-integration.md). Geometry/damage сохранены; gameplay visual acceptance после подключения остаётся за пользователем. Общий backlog и статус IP-23 не повышаются.
 
 FIELD-007 placement order 2026-10-02 — Implemented по прямому уточнению: сначала все 36 алтарей независимо от obstacle seed, затем предметы с reserved foundation circles. Scoped graphics: 19/19 EditMode + 1/1 PlayMode, `TestResults/checks/20261002T143433-486135Z`; reusable receipt не создан при параллельных inputs. Runtime smoke подтверждает совпадение altar centers с независимой генерацией без obstacles; текущий capture содержит 97 предметов. [Контракт](../decisions/0146-monastery-existing-obstacles.md), [evidence](evidence/2026-10-02-monastery-obstacles.md).
 
+FIELD-007 ground import review 2026-10-02 — Implemented технический просмотр по прямому запросу о мутности: unchanged approved PNG 1254×1254 теперь импортируется полностью (maxSize 2048, PPU 156.75 сохраняет 8 wu repeat). MonasteryGroundImportTests прошёл в scoped 12/12 EditMode + 1/1 graphics PlayMode; art scope 112/112, manifest 316/316 PASS, `TestResults/checks/20261002T142500-081117Z/summary.json`. [Причина и review](proposals/2026-10-02-field007-ground-import-review.md). Ground profile/meta/тест оставлены вне obstacle commit для пользовательского просмотра; новая raster-картинка не создавалась.
+
 FIELD-007 obstacles 2026-10-02 — Implemented по прямому поручению пользователя: шесть approved Prop, ячейки 16 wu / два паттерна как FIELD-001, свободные основания алтарей. При текущем 120×120 целевые 98 предметов; graphics smoke наблюдает 97 и все 36 алтарей. Свежие working-tree проверки: 12/12 EditMode + 1/1 PlayMode, без reusable receipt из-за параллельных inputs; art scope 112/112 и manifest 316/316 PASS. [Контракт](../decisions/0146-monastery-existing-obstacles.md), [evidence](evidence/2026-10-02-monastery-obstacles.md). Фоновый full-resolution просмотр отдельно, без включения в obstacle commit.
+
+FIELD-007 feedback v3 2026-10-02 — Implemented по прямому отзыву: поле уменьшено с 160×160 до 120×120 при прежних 36 алтарях; утверждённый state ring перенесён к подножью, локальный crown light и переходная вспышка следуют run clock, основание сохраняет цвет. Свежий scoped graphics запуск `TestResults/checks/20261002T135934-152422Z/summary.json`: 10/10 EditMode + 1/1 PlayMode PASS. Проверены 32 seeds компактного поля с лимитом три на sliding screen, rest/active clock, свет/вспышка/pause, contact и Dev launch. [Контракт](../decisions/0145-field007-altars-preview.md), [evidence](evidence/2026-10-02-field007-altars-preview.md). Пользовательская visual acceptance остаётся открытой; IP-23 целиком не повышен.
+
+FIELD-007 feedback v2 2026-10-02 — Implemented по прямому отзыву: все 36 алтарей на Dev mini-map, actual random radius [Rmax/3, Rmax], Rmax = 1.125 прежнего, общий radius для geometry/gameplay/presentation; foundation collider только для игрока. Свежий scoped graphics запуск: 118/118 EditMode и 1/1 PlayMode PASS, `TestResults/checks/20261002T132952-328179Z/summary.json`; проверены движение в оба вида оснований, мини-карта, pause/shutdown и фактические радиусы. [Evidence](evidence/2026-10-02-field007-altars-preview.md), [контракт](../decisions/0145-field007-altars-preview.md), [предложение состояний по референсам](proposals/2026-10-02-altar-state-presentation.md). Перенос кольца к подножью и локальный свет навершия остаются Proposed.
 
 FIELD-007 altar preview 2026-10-02 — Implemented, явный scope пользователя ([DECISION-0145](../decisions/0145-field007-altars-preview.md)). Работа непосредственно на FIELD-007: назначенная земля, Dev unlock/выбор, temporary FIELD-001 encounters, 36 случайных объектов и максимум три основания в стартовом camera viewport. Размер 160×160 и 12 позитивных циклических + 12 негативных циклических + 12 святынь утверждены пользователем. EditMode 1346/1346 PASS в общей проверке; новый graphics PlayMode FIELD-007 1/1 PASS после исправления ожидания первого спавна. Повторный полный art scope PASS: 95/95 tests, manifest 311/311, `TestResults/checks/20261002T095125-816894Z/summary.json`. [Evidence](evidence/2026-10-02-field007-altars-preview.md). Финальный баланс/encounters и пользовательская gameplay visual acceptance остаются открытыми; общий backlog не возобновлён.
 
 Печати зон Академии 2026-10-02 — Implemented непосредственно на FIELD-006
 «Академия магов» (IP-12A/IP-23, явный scope пользователя; «Тест 06» — регрессионный вариант):
+Уточнение v4: восемь видов действуют на обе стороны, розовый дубль лечения удалён;
+14 placements (семь fixed дополнительно к лимиту двух random appearances).
+Вместо mixed arcane — +50% action speed с песочными часами. Upright portal
+подключён в центре прежней большой области; переход 0.18/1/0.25 с, smooth camera
+flight игрока, отдельные enemy cooldowns, timed speed status для противников.
+V4 full graphics: 1385/1385 EditMode, 64/68 PlayMode (FAIL: два UI-теста,
+FIELD-007 altar collider и camera-pause Академии). Camera-pause исправлен;
+последующий scoped graphics 12/12 EditMode + 3/3 PlayMode PASS с receipt,
+`TestResults/checks/20261002T135210-855853Z/summary.json`. Art 111/111 PASS,
+manifest 316/316. Полный PASS не заявлен; см. evidence.
 восемь mesh-образов, слабое ожидание, 5 с нелинейного наполнения и действие только при полном свете;
 fade без эффекта, таймер только длительного ускорения игрока.
+Отзыв v3: импульс диаметром 2.5; радиусы остальных [Rmax/3,Rmax], fixed — на забег,
+random — на появление. Две independent random chains занимают не более двух
+слотов на всю жизнь зоны; preview пауза 8–16 с, центр внутри текущего экрана + 2 units.
+Выбран арт A: неровная raster-оправа с отдельным увеличенным и масштабируемым
+символом эффекта. Последующее уточнение v4 разрешило центральный upright portal
+внутри большой наземной области; raster подключён.
+Свежая проверка выбранной оправы: graphics 8/8 EditMode + 2/2 PlayMode PASS;
+art scope 107/107 PASS, manifest 315/315 (см. evidence).
+Проверки v3 Unity 6000.6 graphics: scoped 107/107 EditMode + 3/3 PlayMode PASS;
+финальный full после уточнения NearZoneCount — **1369/1369 EditMode, 65/67 PlayMode**,
+Academy UI launch и оба seal smoke PASS. Общий FAIL только прежних MetaShop/UiEntry
+assertions; generation/audio PASS, manifest 314 PASS. Новый арт не подключён без выбора.
+Evidence: `TestResults/checks/20261002T115933-576250Z/{EditMode,PlayMode}.xml`.
 Отзыв v2: внутренних препятствий и decor нет; все разновидности временные, включая
 синхронную неподвижную пару Portal. Fixed и relocating циклы заданы отдельно;
 area-only Slow не создаёт timed status, Rift не подсвечивает body, таймеры/состояния
@@ -211,7 +242,6 @@ art manifest 270/270 PASS (`TestResults/checks/20260930T115751-305090Z`).
 Python tools 26/26 и балансные валидаторы PASS. Ручной просмотр нового UI остаётся
 открытым. [Evidence](evidence/2026-09-30-parallel-session-reconciliation.md).
 
-
 Снаряды 2026-09-30: по [DECISION-0116](../decisions/0116-projectile-scale-and-disk-circle.md)
 камень −10%, клинок −15%, сфера −10%, бумеранг без изменений; базовый
 рикошетный диск имеет новый вид строго сверху, видимый диаметр 0.324 и
@@ -221,7 +251,6 @@ art graphics 63/63 и manifest 270/270 PASS; стабильный full graphics
 (`TestResults/checks/20260930T100714-126686Z`). Игровой visual review
 вращения и рикошетов открыт. [Сравнение и проверки](evidence/2026-09-30-projectile-size-and-disk-preview.md).
 
-
 Размеры тел 2026-09-30 — Implemented, игровая визуальная приёмка открыта:
 [DECISION-0114](../decisions/0114-body-scale-and-boomerang.md) уменьшает
 CHAR-001…010 на 25%, обычных ENEMY-001…020 на 20%, увеличивает видимый
@@ -229,7 +258,6 @@ SKILL-006 с 1.4 до 1.6. Боссы, mini-bosses и Путники сохра�
 [Общая картинка и проверки](evidence/2026-09-30-body-scale-review.md).
 Full graphics: 1085/1085 EditMode + 59/59 PlayMode PASS, art 269/269;
 `TestResults/checks/20260930T091916-526918Z/summary.json`.
-
 
 Дельта 2026-09-30 по [DECISION-0115](../decisions/0115-shared-300-enemy-cap.md) — Implemented: общий технический предел обычных врагов FIELD-001/002/003 повышен с 200 до 300; generator проверяет равенство исходных пакетов. Targeted EditMode 252/252 и graphics PlayMode 59/59 PASS; полный check и ручная оценка плотности открыты ([evidence](evidence/2026-09-30-shared-300-enemy-cap.md)). Исторические записи ниже сохраняют значения своих проверенных ревизий.
 

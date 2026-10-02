@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Game.Diagnostics;
 
 namespace Game.UI
 {
@@ -68,7 +69,41 @@ namespace Game.UI
                 painter.Stroke();
             }
             Frame(painter, ToPanel, state.Arena, ArenaColor, 2f);
+            if (state.Altars != null) DrawAltars(painter, ToPanel, state.Altars, scale);
             Frame(painter, ToPanel, state.View, ViewColor, 2f);
+        }
+
+        private static void DrawAltars(Painter2D painter, Func<Vector2, Vector2> toPanel,
+            IReadOnlyList<MapPreviewAltar> altars, float scale)
+        {
+            using var guard = PerfGuard.Measure("UI.MapAltars", 2f);
+            foreach (var altar in altars)
+            {
+                var center = toPanel(altar.Center);
+                var color = altar.Color;
+                painter.BeginPath();
+                painter.Arc(center, altar.Radius * scale, Angle.Degrees(0f), Angle.Degrees(360f));
+                color.a = altar.Active ? .18f : .07f;
+                painter.fillColor = color; painter.Fill();
+                color.a = altar.Active ? .8f : .4f;
+                painter.strokeColor = color; painter.lineWidth = 1f; painter.Stroke();
+                painter.BeginPath();
+                if (!altar.Negative)
+                    painter.Arc(center, 3f, Angle.Degrees(0f), Angle.Degrees(360f));
+                else
+                {
+                    for (var i = 0; i < 16; i++)
+                    {
+                        var angle = i * Mathf.PI / 8f;
+                        var radius = i % 2 == 0 ? 4f : 2.5f;
+                        var point = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                        if (i == 0) painter.MoveTo(point); else painter.LineTo(point);
+                    }
+                    painter.ClosePath();
+                }
+                color.a = altar.Active ? 1f : .65f;
+                painter.fillColor = color; painter.Fill();
+            }
         }
 
         // Roads are stroked at their world width so the map shows the actual walkable network; a single point is a round end.

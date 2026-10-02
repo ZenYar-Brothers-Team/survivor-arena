@@ -1,8 +1,17 @@
 namespace Game.Presentation.Json
 {
-    /// <summary>Mesh seal tuning: widths/radii relative to zone radius, alpha 0..1, rotation degrees/second.</summary>
+    /// <summary>Seal tuning: registered rim sprite, tint 0..1, glyph scale 1..2, widths/radii relative to zone radius.</summary>
     public sealed class ZoneSealPresentationData
     {
+        public string RimVisualId { get; set; }
+        public string PortalVisualId { get; set; }
+        public float? PortalHeight { get; set; }
+        public int? PortalSortingOrder { get; set; }
+        public float? PortalCollapseSeconds { get; set; }
+        public float? PortalTransitSeconds { get; set; }
+        public float? PortalExpandSeconds { get; set; }
+        public float? RimTintBlend { get; set; }
+        public float? GlyphScale { get; set; }
         public float? StrokeFraction { get; set; }
         public float? MotionRadius { get; set; }
         public float? RimAlpha { get; set; }

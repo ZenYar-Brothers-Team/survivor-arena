@@ -13,14 +13,16 @@ namespace Game.UI
         public Rect Arena { get; }
         public IReadOnlyList<Vector2[]> Obstacles { get; }
         public IReadOnlyList<MapPreviewRoad> Roads { get; }
+        public IReadOnlyList<MapPreviewAltar> Altars { get; }
         public Rect View { get; }
         public string Summary { get; }
 
         public MapPreviewViewState(bool available, bool visible, Rect arena, IReadOnlyList<Vector2[]> obstacles,
-            IReadOnlyList<MapPreviewRoad> roads, Rect view, string summary)
+            IReadOnlyList<MapPreviewRoad> roads, Rect view, string summary, IReadOnlyList<MapPreviewAltar> altars = null)
         {
             Available = available; Visible = visible; Arena = arena; Obstacles = obstacles; Roads = roads; View = view;
             Summary = summary ?? "";
+            Altars = altars;
         }
     }
 }

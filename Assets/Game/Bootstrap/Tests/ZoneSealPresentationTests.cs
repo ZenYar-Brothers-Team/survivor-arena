@@ -10,6 +10,116 @@ namespace Game.Bootstrap.Tests
     public sealed class ZoneSealPresentationTests
     {
         [Test]
+        public void EnemyAdapter_HealsAndProtects_TeleportHasPerLifeCooldown_DisposeClearsBuffs()
+        {
+            var root = new GameObject("Enemy adapter test");
+            try
+            {
+                var run = root.AddComponent<Game.Run.RunController>();
+                if (!run.IsInitialized) run.Initialize(); run.Model.Start();
+                var target = new GameObject("Target"); target.transform.SetParent(root.transform); target.transform.position = Vector2.right * 10f;
+                var enemy = Game.Enemy.EnemyFactory.Spawn(new Game.Enemy.EnemyDefinition("T-ZONE-ENEMY", 100f, 1f, 3f, 0f, 1f),
+                    Vector2.zero, target.transform, run, root.transform);
+                enemy.TakeDamage(20f);
+                using var source = new EnemyZoneSource(); source.Refresh();
+                source.SetArea(0, .4f, .5f, 3f, .8f, .5f);
+                Assert.AreEqual(81.5f, enemy.Health.CurrentHealth, .001f);
+                Assert.AreEqual(.5f, enemy.ZoneInfluence.ActionBonus);
+                Assert.AreEqual(2f, enemy.TakeDamage(10f), .001f);
+                Assert.IsTrue(source.Teleport(0, Vector2.up * 10f, 3f, 1f));
+                Assert.IsFalse(source.Teleport(0, Vector2.down * 10f, 3f, 2f));
+                Assert.AreEqual(Vector2.up * 10f, enemy.Position);
+                source.SpeedBurst(0, .6f, 8f); source.Refresh();
+                Assert.AreEqual(0f, enemy.ZoneInfluence.ActionBonus);
+                Assert.AreEqual(8f, enemy.ZoneInfluence.BuffRemaining);
+                source.Dispose(); Assert.AreEqual(0f, enemy.ZoneInfluence.BuffRemaining);
+            }
+            finally { Object.DestroyImmediate(root); }
+        }
+
+        [Test]
+        public void Portal_KeepsLargeEntryAreaAndUprightDoorway_IndependentOfRadius()
+        {
+            var fields = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation");
+            var effect = fields[new ContentId("FIELD-006-ENVIRONMENT")].ZoneLayout.Effects[new ContentId("FIELD-006-ZONE-PORTAL")];
+            var go = new GameObject("Portal size");
+            try
+            {
+                var profile = ZoneSealPresentationProfile.Load();
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, profile);
+                foreach (var radius in new[] { effect.MinRadius, effect.Radius })
+                {
+                    var zone = new ZonePlacement(0, effect, Vector2.zero, radius: radius); zone.SetNear(true); seal.Apply(zone, 6f, 3f);
+                    Assert.IsTrue(seal.IsActive, "A personal cooldown does not switch the shared doorway off for other actors.");
+                    var portal = go.transform.Find("Portal");
+                    Assert.AreEqual(profile.PortalHeight / profile.PortalSprite.bounds.size.y, portal.lossyScale.x, .001f);
+                    Assert.AreEqual(portal.lossyScale.x, portal.lossyScale.y, .001f, "Doorway is never flattened onto the floor.");
+                    Assert.IsTrue(portal.GetComponent<SpriteRenderer>().enabled);
+                    Assert.AreEqual(new Vector3(radius, radius * .8f, 1f), go.transform.localScale);
+                }
+                seal.Shutdown(); Assert.AreEqual(0, go.transform.childCount);
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
+        public void RasterRim_ScalesWithZone_KeepsReadableSymbolAndHidesOnWindowExit()
+        {
+            var effect = new ZoneEffectDefinition(new ZoneEffectData { Id = "T-ART", Kind = ZoneEffectKind.Haste,
+                Radius = 6f, MinRadius = 2f, VerticalScale = .8f, Color = "#6df0c2", Lifetime = ZoneLifetimeMode.Pulsing,
+                PulsePeriodSeconds = 30f, PulseVisibleSeconds = 20f, PulseFadeSeconds = 3f,
+                PulsePrepareSeconds = 5f, PulseIdleVisibility = .14f, PlayerMovementBonus = .4f,
+                RelocatesBetweenCycles = true });
+            var zone = new ZonePlacement(0, effect, Vector2.zero, radius: 2f); zone.SetNear(true);
+            var go = new GameObject("Approved rim");
+            try
+            {
+                var profile = ZoneSealPresentationProfile.Load();
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, profile);
+                seal.Apply(zone, 5f, 0f);
+                var rim = go.transform.Find("Rim"); var art = rim.GetComponentInChildren<SpriteRenderer>();
+                Assert.AreSame(profile.RimSprite, art.sprite);
+                Assert.IsTrue(art.enabled);
+                Assert.AreEqual("Sprites/Default", art.sharedMaterial.shader.name, "Artwork is explicitly unlit in isolated review and gameplay.");
+                Assert.IsFalse(rim.GetComponent<MeshRenderer>().enabled, "No smooth circular boundary is drawn over the art.");
+                Assert.AreEqual(new Vector2(2f, 2f), (Vector2)art.sprite.bounds.size);
+                var glyph = go.transform.Find("Glyph");
+                Assert.IsTrue(glyph.GetComponent<MeshRenderer>().enabled);
+                Assert.AreEqual(Vector3.one * profile.GlyphScale, glyph.localScale);
+                Assert.AreEqual(Quaternion.identity, glyph.localRotation);
+                foreach (var vertex in glyph.GetComponent<MeshFilter>().sharedMesh.vertices)
+                    Assert.IsTrue(zone.Contains(glyph.TransformPoint(vertex)), "Enlarged symbol remains within the actual footprint.");
+                zone.SetNear(false); seal.Apply(zone, 5f, 0f);
+                Assert.IsFalse(art.enabled);
+                Assert.IsFalse(glyph.GetComponent<MeshRenderer>().enabled);
+                seal.Shutdown(); Assert.AreEqual(0, go.transform.childCount);
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
+        public void Seal_UsesOccurrenceRadiusForRenderingAndContainment()
+        {
+            var effect = new ZoneEffectDefinition(new ZoneEffectData { Id = "T-SMALL", Kind = ZoneEffectKind.Haste,
+                Radius = 6f, MinRadius = 2f, VerticalScale = .8f, Color = "#6df0c2", Lifetime = ZoneLifetimeMode.Pulsing,
+                PulsePeriodSeconds = 30f, PulseVisibleSeconds = 20f, PulseFadeSeconds = 3f,
+                PulsePrepareSeconds = 5f, PulseIdleVisibility = .14f, PlayerMovementBonus = .4f });
+            var zone = new ZonePlacement(0, effect, Vector2.zero, radius: 2f); zone.SetNear(true);
+            var go = new GameObject("Small seal");
+            try
+            {
+                var seal = go.AddComponent<ZoneSealPresentationRuntime>(); seal.Initialize(effect.Kind, ZoneSealPresentationProfile.Load());
+                seal.Apply(zone, 5f, 0f);
+                Assert.AreEqual(new Vector3(2f, 1.6f, 1f), go.transform.localScale);
+                var rim = go.transform.Find("Rim");
+                foreach (var vertex in rim.GetComponent<MeshFilter>().sharedMesh.vertices)
+                    Assert.IsTrue(zone.Contains(rim.TransformPoint(vertex)));
+                Assert.IsFalse(zone.Contains(Vector2.right * 2.01f));
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
         public void OneShotFlash_BurstFiringAndPortalUseBrightenSeal_ThenFadeWithoutMovingBoundary()
         {
             var fields = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation");

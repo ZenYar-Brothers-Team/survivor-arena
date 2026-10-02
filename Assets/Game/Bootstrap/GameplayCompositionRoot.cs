@@ -487,7 +487,7 @@ namespace Game.Bootstrap
                     var foundationRadius = fieldPresentation.ZoneLayout.AltarObstacleRadius;
                     foreach (var altar in altarPlacements)
                         altarExclusions.Add(new FieldObstacleExclusion(altar.Center,
-                            (foundationRadius ?? altar.Effect.Radius) + fieldPresentation.ZoneLayout.ObstacleClearance));
+                            (foundationRadius ?? altar.Radius) + fieldPresentation.ZoneLayout.ObstacleClearance));
                 }
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
                     gameObject.scene, arenaSideLength, referenceSeed == null ? (int?)null : LayoutSeed, altarExclusions);
@@ -691,16 +691,20 @@ namespace Game.Bootstrap
                     var zoneRules = new ZonePlacementRules(zoneLayout, arenaSideLength, spawn.position, outlines, screenSize);
                     var placements = altarPlacements ?? ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed, screenSize);
                     var areaOnlyFeedback = zoneLayout.SuppressAreaUnitFeedback;
+                    var portalProfile = areaOnlyFeedback ? ZoneSealPresentationProfile.Load() : null;
                     var zoneRuntime = new ZoneRuntime(placements, zoneRules, ZoneSeed,
-                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>(), areaOnlyFeedback ? playerPresentation : null),
-                        new EnemyZoneSource(bodyPresentation => _zoneDriver?.ShowRiftHit(bodyPresentation), areaOnlyFeedback),
+                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>(), areaOnlyFeedback ? playerPresentation : null,
+                            runController, portalProfile, _cameraFollow),
+                        new EnemyZoneSource(bodyPresentation => _zoneDriver?.ShowRiftHit(bodyPresentation), areaOnlyFeedback,
+                            runController, portalProfile),
                         () => ZoneRuntimeDriver.CameraRect(zoneCamera));
                     _zoneDriver = ZoneRuntimeDriver.Create(zoneRuntime, runController, gameObject.scene, playerPresentation,
                         fieldPresentation.AltarPresentation, Catalog.Registry);
                     initializedSubsystems.Add(() => { _zoneDriver?.Shutdown(); _zoneDriver = null; });
                 }
                 var mapPreview = new FieldMapPreviewSource(_fieldEnvironmentArt,
-                    () => FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), Camera.main);
+                    () => FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), Camera.main,
+                    fieldPresentation.AltarPresentation == null ? null : _zoneDriver?.Runtime);
                 gameplayUiRoot.Initialize(
                     player,
                     experienceRuntime,
@@ -834,12 +838,12 @@ namespace Game.Bootstrap
             _playerGroundShadow?.Shutdown();
             _zoneDriver?.Shutdown();
             _zoneDriver = null;
+            _voidDriver?.Shutdown();
+            _voidDriver = null;
             _fieldEnvironmentArt?.Dispose();
             _fieldEnvironmentArt = null;
             _cameraFollow = null;
             player.Shutdown();
-            _voidDriver?.Shutdown();
-            _voidDriver = null;
             FieldConfiguration = null;
         }
 

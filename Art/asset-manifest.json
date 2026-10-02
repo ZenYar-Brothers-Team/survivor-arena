@@ -5206,6 +5206,38 @@
       "missing": "Unity import checks and target-scale visual review."
     },
     {
+      "owner": "FIELD-006-ZONE-SEAL",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-SEAL-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/VFX/field-006-zone-seal/telegraph/selected-master.png",
+      "provenance": "Art/Source/VFX/field-006-zone-seal/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-seal-telegraph.png",
+      "resourcePath": "Art/VFX/field-006-zone-seal-telegraph",
+      "stage": "Prepared",
+      "evidence": [
+        "User selected displayed variant A: «Первый вариант ... мне нравится. Только символ внутри всё-таки нужен». Separate scalable effect glyph retained; portal is a separate candidate."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-006-PORTAL",
+      "role": "prop",
+      "visualId": "FIELD-006-PORTAL-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-23",
+      "source": "Art/Source/VFX/field-006-portal/prop/selected-master.png",
+      "provenance": "Art/Source/VFX/field-006-portal/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-006-portal-prop.png",
+      "resourcePath": "Art/VFX/field-006-portal-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User follow-up after displayed portal: «У портала пусть радиус входа действительно останется большой. То есть портал будет в центре, а вокруг него еще и вот эта круглая форма». Authorizes the shown upright center portal together with a large floor entry seal and delayed smooth transit."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
       "owner": "FIELD-009-MATERIAL",
       "role": "tile",
       "visualId": "FIELD-009-MATERIAL-VISUAL-TILE",

@@ -1200,11 +1200,11 @@
     "key": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png"
   },
   {
-    "pixelsPerUnit": 64,
-    "maxSize": 512,
+    "pixelsPerUnit": 156.75,
+    "maxSize": 2048,
     "pivotX": 0.5,
     "pivotY": 0.5,
-    "reason": "FIELD-007 ground tile covers eight world units per repeat; low-contrast terrain preserves combat readability.",
+    "reason": "FIELD-007 technical full-resolution review: retain 1254px source, 1254 / 156.75 = 8 world units per repeat. User-requested blur investigation 2026-10-02; unchanged approved raster.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-ground-tile.png"
   },
   {
@@ -1486,6 +1486,22 @@
     "pivotY": 0.5,
     "reason": "Road mesh uses world-space UV; curb uses authored alpha bounds, no sprite-derived physics.",
     "key": "Assets/Resources/Art/Sprites/Fields/field-003-road-curb/field-003-road-curb-prop.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "Two-unit full canvas scaled by occurrence radius and flattened on the field; visual-only.",
+    "key": "Assets/Resources/Art/VFX/field-006-zone-seal-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.0625,
+    "reason": "Bottom padding ground-contact pivot; upright portal size independent of entry radius.",
+    "key": "Assets/Resources/Art/VFX/field-006-portal-prop.png"
   },
   {
     "pixelsPerUnit": 128,

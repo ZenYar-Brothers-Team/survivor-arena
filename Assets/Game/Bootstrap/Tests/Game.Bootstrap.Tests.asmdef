@@ -17,7 +17,11 @@
     "Game.Telemetry",
     "Game.Meta",
     "Game.Zones",
-    "Game.Content.Json"
+    "Game.Content.Json",
+    "Game.Run",
+    "Game.Combat",
+    "Game.Movement",
+    "Game.Pooling"
   ],
   "includePlatforms": [
     "Editor"

@@ -2,7 +2,19 @@
 
 FIELD-007 altar-first ordering: ProductionMonasterySmokeTests сравнивает реальные centers с независимой генерацией без препятствий; ProductionMonasteryObstacleTests сначала резервирует алтари, затем проверяет clearance предметов.
 
+FIELD-007 ground import: `MonasteryGroundImportTests.ApprovedGround_FullResolutionPreviewPreservesEightUnitRepeat` проверяет реальный размер 1254×1254, повторение 8×8 wu, отключённые mipmaps/compression после штатного reimport.
+
 FIELD-007 препятствия: `ProductionMonasteryObstacleTests.ObstacleLayouts_UseSixApprovedPropsAndLeaveRoomForAllAltars` проверяет typed refs, плотность FIELD-001 и совместную расстановку obstacle/altar для восьми seeds.
+
+FIELD-007: `ProductionMonasteryContentTests.RandomRadii_AreSeededAndSharedByClearanceContainmentAndStrikeCircles`
+проверяет совпадение индивидуального радиуса с containment/clearance и размещение всех ударов внутри него;
+`AltarView_NegativeAndShrine_UseOnlyPolaritySpritesAndPausedStateIsStable` проверяет world boundary;
+`AltarContact_BlocksOnlyPlayerAtFoundationAndIsIndependentOfEffectRadius` — physical contact основания.
+`MapPreviewPresenterTests.Presenter_WithAltars_PassesActualRadiiAndRestingOffscreenMarkers` проверяет Dev mini-map;
+`ProductionMonasterySmokeTests` проверяет 36 отметок/коллайдеров, контакт игрока, pause и shutdown.
+`CompactArena_RandomLayoutsKeepAllAltarsAndSlidingScreenCap` проверяет 32 seeds поля 120×120;
+`AltarState_GroundClockAndCrownLightFollowActivityAndPause` — ground ring, rest/active progress, crown light,
+transition flash, pause и постоянный цвет основания.
 
 FIELD-DEV-BLOBS contact: `scripts/tests/test_dev_blob_collider_fit.py` checks a
 passable concave bay, exclusion of disconnected opaque debris, pivot alignment,
@@ -358,6 +370,27 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
   Отдельного теста нет: это настройка ввода, проверяется вручную с джойстиком.
 
 ## Zone seal lifecycle — DECISION-0142
+
+`RandomZoneScheduleTests` guards two occupied chains across all phases, current-camera
+spawn bounds, no offscreen fallback, seeded radii, radius-aware containment, one-shot
+burst application, timed buff survival, pause, teardown and config rejection.
+`ZoneSealPresentationTests.Seal_UsesOccurrenceRadiusForRenderingAndContainment`
+and `ZoneSealPresentationTests.RasterRim_ScalesWithZone_KeepsReadableSymbolAndHidesOnWindowExit`
+guard the visual scale matching the sampled gameplay radius.
+
+Academy v4 shared targets: `SharedZoneTargetsTests` guards area enemy bonuses clearing
+on exit, one-shot timed speed for enemies and enemy-only portal use with both-end flash.
+`EnemyZoneInfluenceTests` guards pause, expiry, refresh and reset;
+`EnemyCombatControlTests.SharedZoneInfluence_ChangesRealMovementAndDamage_PoolReuseClearsIt`
+guards actual body speed, mitigation and pooling.
+`ZoneSealPresentationTests.EnemyAdapter_HealsAndProtects_TeleportHasPerLifeCooldown_DisposeClearsBuffs`
+guards adapter healing, timed speed cleanup and per-life portal cooldown.
+`PortalTransitStateTests` guards collapse/hidden flight/appearance, SmoothStep camera,
+pause, large dt and invalid durations; the actual Academy launch smoke exercises
+player disappearance, physics lock, intermediate camera position, paused flight
+and restored actor/camera after arrival.
+`ZoneSealPresentationTests.Portal_KeepsLargeEntryAreaAndUprightDoorway_IndependentOfRadius`
+guards a constant upright portal canvas inside the variable flattened entry area.
 
 `ZonePreparationTests.TemporaryPositions_*` guards stationary vs relocating appearances.
 `TemporaryPortals_*` guards shared pair phase, fixed centers and full-light-only teleport.

@@ -50,6 +50,24 @@ namespace Game.Enemy.Tests
             Assert.Greater(enemy.Controls.SlowRemaining01, 0f, "A real timed slow keeps its normal status after leaving the area.");
         }
 
+        [Test]
+        public void SharedZoneInfluence_ChangesRealMovementAndDamage_PoolReuseClearsIt()
+        {
+            var definition = new EnemyDefinition("FIXTURE-ZONE-BUFF", 100f, 1f, 3f, 0f, 1f);
+            var enemy = Spawn(definition);
+            enemy.ZoneInfluence.SetArea(.4f, .5f, .8f); enemy.ZoneInfluence.ApplyBurst(.6f, 8f);
+            Invoke(enemy, "FixedUpdate");
+            Assert.AreEqual(6f, enemy.GetComponent<Rigidbody2D>().linearVelocity.x, .001f);
+            Assert.AreEqual(2f, enemy.TakeDamage(10f), .001f);
+            enemy.ZoneInfluence.SetArea(0f, 0f, 0f); Invoke(enemy, "FixedUpdate");
+            Assert.AreEqual(4.8f, enemy.GetComponent<Rigidbody2D>().linearVelocity.x, .001f);
+            enemy.Despawn(); var reused = Spawn(definition);
+            Assert.AreSame(enemy, reused);
+            Assert.AreEqual(0f, reused.ZoneInfluence.BuffRemaining);
+            Assert.AreEqual(1f, reused.ZoneInfluence.ActionMultiplier);
+            Assert.AreEqual(0f, reused.ZoneInfluence.DamageReduction);
+        }
+
         [TestCase(false, 3f)]
         [TestCase(true, 6f)]
         public void Knockback_AddsToOrdinaryOrDashVelocity_AndDashClockContinues(bool dash, float baseSpeed)

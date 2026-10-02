@@ -1,0 +1,36 @@
+{
+  "owner": "FIELD-006",
+  "status": "Variant A selected and installed with scalable glyph; B retained as alternative preview. Follow-up v4 authorizes displayed upright portal in the center of the retained large floor entry area; portal v001 installed through approved packet.",
+  "generatedAt": "2026-10-02",
+  "generator": "OpenAI built-in image generation",
+  "brief": "Traveler aura reference with a distinct academy language: irregular broken magical traces, open center, no perfect circular frame; variants A rough ornament, B rune constellation. Existing mechanics and paused rotation retained independently.",
+  "references": [
+    "TRAVELER-005-VISUAL-TELEGRAPH",
+    "TRAVELER-007-VISUAL-TELEGRAPH",
+    "TRAVELER-009-VISUAL-TELEGRAPH"
+  ],
+  "variants": [
+    {
+      "variant": "a",
+      "input": "Art/Candidates/field006-auras-v3-2026-10-02/variant-a.png",
+      "sha256": "7543670c5b7de96e1260a0ac188efc5ffdb67cd138bb7a337c83646dcd8aad6e",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "prompt": "Art/Candidates/field006-auras-v3-2026-10-02/variant-a-prompt.txt"
+    },
+    {
+      "variant": "b",
+      "input": "Art/Candidates/field006-auras-v3-2026-10-02/variant-b.png",
+      "sha256": "c37fceb8a2ac52b513f7ec04e5717973f6415714139e897252543e08ee5c57ed",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "prompt": "Art/Candidates/field006-auras-v3-2026-10-02/variant-b-prompt.txt"
+    }
+  ]
+}

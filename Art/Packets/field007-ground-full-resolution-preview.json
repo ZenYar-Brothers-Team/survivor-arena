@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User requested investigation and improvement of blurry FIELD-007 ground. Technical full-resolution preview of the previously approved unchanged raster; no new creative candidate.",
+  "assets": [
+    {
+      "owner": "FIELD-007",
+      "role": "tile",
+      "visualId": "FIELD-007-VISUAL-GROUND",
+      "owningIp": "IP-23",
+      "input": "Art/Candidates/field-ground-textures-2026-09-27/field-007/field-007-ground-approved-rgba.png",
+      "sha256": "21acaac5c6550ad74f86fe0027b1db43a971a92dced338ab7d8080ce55f3c8df",
+      "sourceDirectory": "Art/Source/Fields/field-007/ground",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-007/field-007-ground-tile.png",
+      "prompt": "Use case: stylized-concept\nAsset type: seamless tileable 2D game ground texture for a top-down survivor arena\nStyle/medium: polished hand-painted fantasy game texture, soft painterly forms, readable at gameplay scale, restrained detail\nComposition/framing: exact orthographic top-down view, square texture, fully seamless on all four edges, evenly distributed surface variation, no focal point\nLighting/mood: diffuse neutral ambient light baked very lightly; no directional shadows\nConstraints: ground surface only; low contrast so characters, projectiles and hazards remain readable; no props, no objects, no walls, no borders, no horizon, no perspective, no text, no runes, no emblems, no logos, no watermark; avoid obvious repeated motifs\nPrimary request: monastery-garden ground blending compact mossy earth with irregular worn pale garden stones and delicate natural leaf-stain variation\nColor palette: muted sage, moss green, soft soil brown, weathered pale stone; calm and organic",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved art direction read 2026-09-27",
+      "constraints": [
+        "approved FIELD-007 ground candidate",
+        "opaque low-contrast ground",
+        "no baked gameplay effects"
+      ],
+      "preparation": {
+        "mode": "copy"
+      },
+      "importProfile": {
+        "pixelsPerUnit": 156.75,
+        "maxSize": 2048,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "FIELD-007 full 1254px source retained for clarity; 1254 / 156.75 = 8 world units per repeat, preserving terrain scale. Technical review preview."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

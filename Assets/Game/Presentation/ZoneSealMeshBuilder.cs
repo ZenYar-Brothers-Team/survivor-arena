@@ -55,8 +55,13 @@ namespace Game.Presentation
                     Arc(.33f, 195f, 345f, 18, false);
                     break;
                 case ZoneEffectKind.ArcanePower:
-                    Star(6, .33f, .15f);
-                    Arc(.1f, 0f, 360f, 20, false);
+                    // Action speed: hourglass with fast-forward marks, distinct from the horizontal running wind.
+                    Path(new Vector2(-.2f, .3f), new Vector2(.12f, .3f), new Vector2(.12f, .22f),
+                        new Vector2(-.04f, 0f), new Vector2(.12f, -.22f), new Vector2(.12f, -.3f),
+                        new Vector2(-.2f, -.3f), new Vector2(-.2f, -.22f), new Vector2(-.04f, 0f),
+                        new Vector2(-.2f, .22f), new Vector2(-.2f, .3f));
+                    Path(new Vector2(.18f, .12f), new Vector2(.29f, 0f), new Vector2(.18f, -.12f));
+                    Path(new Vector2(.3f, .12f), new Vector2(.41f, 0f), new Vector2(.3f, -.12f));
                     break;
                 case ZoneEffectKind.Rift:
                     Path(new Vector2(-.16f, .34f), new Vector2(.08f, .14f), new Vector2(-.11f, -.04f), new Vector2(.18f, -.34f));

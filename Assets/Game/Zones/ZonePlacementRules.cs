@@ -22,6 +22,7 @@ namespace Game.Zones
 
         /// <summary>Fraction of the screen size the active window extends beyond the player's screen on each side.</summary>
         public float ActiveScreenMargin => _layout.ActiveScreenMargin;
+        public RandomZoneScheduleDefinition RandomSchedule => _layout.RandomSchedule;
 
         public ZonePlacementRules(ZoneLayoutDefinition layout, float sideLength, Vector2 start,
             IReadOnlyList<IReadOnlyList<Vector2>> obstacles, Vector2? screenSize = null)
@@ -45,14 +46,15 @@ namespace Game.Zones
         /// when given, confines the center to that world rectangle (the active window around the player).
         /// </summary>
         public bool TryPick(ZoneEffectDefinition effect, System.Random random, IEnumerable<ZonePlacement> others,
-            ZonePlacement pairFirst, out Vector2 center, Rect? within = null)
+            ZonePlacement pairFirst, out Vector2 center, Rect? within = null, float? occurrenceRadius = null, bool allowStartOverlap = false)
         {
+            var radius = occurrenceRadius ?? effect.Radius;
             var isPortal = effect.Kind == ZoneEffectKind.Portal;
             // FIELD-007: effects may cover props, while the physical altar foundation remains clear (DECISION-0146).
-            var obstacleRadius = effect.IsAltar && _layout.AltarObstacleRadius.HasValue ? _layout.AltarObstacleRadius.Value : effect.Radius;
+            var obstacleRadius = effect.IsAltar && _layout.AltarObstacleRadius.HasValue ? _layout.AltarObstacleRadius.Value : radius;
             var needed = obstacleRadius + _layout.ObstacleClearance + (isPortal ? effect.PortalExitDistance + ExitBodyAllowance : 0f);
-            var loX = -_half + effect.Radius;
-            var hiX = _half - effect.Radius;
+            var loX = -_half + radius;
+            var hiX = _half - radius;
             var loY = loX;
             var hiY = hiX;
             if (within.HasValue)
@@ -66,9 +68,9 @@ namespace Game.Zones
             for (var attempt = 0; attempt < _layout.PlacementAttempts; attempt++)
             {
                 var candidate = new Vector2(Range(random, loX, hiX), Range(random, loY, hiY));
-                if ((candidate - _start).magnitude < _layout.StartClearRadius + effect.Radius) continue;
+                if (!allowStartOverlap && (candidate - _start).magnitude < _layout.StartClearRadius + radius) continue;
                 if (occupied.Exists(other => Vector2.Distance(other.Center, candidate) <
-                                             other.Effect.Radius + effect.Radius + _layout.MinGap)) continue;
+                                             other.Radius + radius + _layout.MinGap)) continue;
                 if (pairFirst != null && Vector2.Distance(pairFirst.Center, candidate) < effect.PortalMinPairDistance) continue;
                 var blocked = false;
                 foreach (var outline in _obstacles)

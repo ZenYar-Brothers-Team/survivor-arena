@@ -32,7 +32,7 @@ FIELD-007: по прямому поручению подключены шест�
 и полная FIELD-009 card. Визуальное подключение сохраняет geometry и books/damage rules;
 выбранные raster pixels прошли пользовательское утверждение до import.
 
-Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md) и утверждённый просмотр непосредственно на карте по [DECISION-0145](../../decisions/0145-field007-altars-preview.md). Только позитивные и негативные основания, без нейтральных алтарей и визуального разделения по эффектам; накопление отложено. Размер 160×160 и состав 12 + 12 + 12 утверждены пользователем.
+Набор алтарей FIELD-007: [DECISION-0135](../../decisions/0135-altars-mechanic.md) и утверждённый просмотр непосредственно на карте по [DECISION-0145](../../decisions/0145-field007-altars-preview.md). Только позитивные и негативные основания, без нейтральных алтарей и визуального разделения по эффектам; накопление отложено. Размер 120×120 (последующий отзыв вместо 160×160) и состав 12 + 12 + 12 утверждены пользователем.
 
 Концепт road-only сети FIELD-003, тупиков и книг с одним улучшением:
 [DECISION-0137](../../decisions/0137-field003-road-network-concept.md).
@@ -65,6 +65,12 @@ explicit difficulty 1–5 из CD; автоматического mapping по I
 
 FIELD-007 altar preview: [DECISION-0145](../../decisions/0145-field007-altars-preview.md), [authoring](../../balance/field007-altars-v1.json). Стабильная production-карточка после существующей Dev-разблокировки, назначенная земля/миниатюра, временные encounters FIELD-001, 36 случайных алтарей и sliding-window cap три на экран. Пререквизиты этого поднабора — field/profile framework, Zones foundation и существующие encounters первого поля; финальные monastery encounters и полная приёмка поздней карты сохраняются отдельными gates.
 
+По отзыву пользователя FIELD-007 показывает все алтари в существующей Dev мини-карте, с полярностью/активностью и реальными границами. Радиус каждого экземпляра случайный в диапазоне ×3, максимум 1.125 прежнего; фиксируется на забег и совпадает в gameplay clearance/containment, world boundary и mini-map. Ударные круги целиком внутри actual altar radius; эффекты/награды отдельно не перебалансируются.
+
+Последующий отзыв утверждает индикацию небольшим clock ring у подножья и отдельным светом навершия с переходной вспышкой; большая граница сохраняет только роль actual effect radius. Весь feedback следует run clock и не перекрашивает основание; [визуальный контракт](../proposals/2026-10-02-altar-state-presentation.md).
+
+Прямое уточнение пользователя: каждое основание алтаря получает player-only physical contact независимо от active/resting/near состояния. Collider задаётся отдельно от effect radius и принадлежит Bootstrap, renderer остаётся visual-only. Более читаемые состояния и маленькое кольцо у подножья — [утверждённый художественный вариант](../proposals/2026-10-02-altar-state-presentation.md), без изменения gameplay timing.
+
 десять geometry/environment definitions, approved enemy/boss/midboss mapping и unlock/difficulty metadata; ground treatment, нужный decor/obstacle pack и derived thumbnail. Число obstacles определяется gameplay geometry; декоративные props не получают collider автоматически.
 
 ## Out of Scope
@@ -96,6 +102,12 @@ name/description/difficulty/lock condition/thumbnail + loading state; техни
 все виды временные; fixed и random appearance, синхронные fixed порталы;
 area-only effects не показывают unit status, lasting effects сохраняют таймер.
 Контракт и проверка новых portal/slow/presentation API — DECISION-0142.
+Отзыв v3: случайный occurrence radius, impulse diameter 2.5 и две camera-bound
+random chains; выбранная оправа A подключена с отдельным масштабируемым символом.
+Уточнение v4: все восемь видов действуют на обе стороны; розовый дубль лечения
+удалён. Action speed +50% без damage bonus. Вертикальный portal подключён в центре
+большой entry area; delayed transit с smooth camera flight. Fixed-зоны дополнительны
+к двум random slots. Точный контракт — DECISION-0142.
 
 per-field load/selection/ref validation и collision, restart/reload cleanup; manual density/contrast на реальном camera scale и thumbnail review.
 

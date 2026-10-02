@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Game.Bootstrap
 {
     /// <summary>Zone-effect view of the player runtime. Damage over time is gathered and applied a few times per second.</summary>
-    public sealed class PlayerZoneTarget : IZonePlayerTarget
+    public sealed class PlayerZoneTarget : IZonePlayerTarget, System.IDisposable
     {
         private const float DamageIntervalSeconds = 0.25f;
 
@@ -16,13 +16,20 @@ namespace Game.Bootstrap
         private readonly Game.Presentation.SpritePresentationRuntime _quietAreaPresentation;
         private float _pendingDamage;
         private float _lastDamageTime;
+        private readonly Game.Run.RunController _run;
+        private readonly Game.Presentation.ZoneSealPresentationProfile _portalProfile;
+        private readonly Game.Movement.CameraFollowTarget _camera;
+        private PortalTransitRuntime _transit;
 
         public PlayerZoneTarget(PlayerCharacterRuntime player, Rigidbody2D body,
-            Game.Presentation.SpritePresentationRuntime quietAreaPresentation = null)
+            Game.Presentation.SpritePresentationRuntime quietAreaPresentation = null,
+            Game.Run.RunController run = null, Game.Presentation.ZoneSealPresentationProfile portalProfile = null,
+            Game.Movement.CameraFollowTarget camera = null)
         {
             _player = player != null ? player : throw new System.ArgumentNullException(nameof(player));
             _body = body;
             _quietAreaPresentation = quietAreaPresentation;
+            _run = run; _portalProfile = portalProfile; _camera = camera;
         }
 
         public Vector2 Position => _player.transform.position;
@@ -68,11 +75,18 @@ namespace Game.Bootstrap
 
         public void TeleportTo(Vector2 position)
         {
+            if (_portalProfile != null)
+            {
+                _transit = _player.GetComponent<PortalTransitRuntime>() ?? _player.gameObject.AddComponent<PortalTransitRuntime>();
+                _transit.Begin(position, _run, _portalProfile, _player.Health, _quietAreaPresentation, _camera);
+                return;
+            }
             _player.transform.position = position;
             if (_body == null) return;
             _body.position = position;
             _body.linearVelocity = Vector2.zero;
             _body.angularVelocity = 0f;
         }
+        public void Dispose() { if (_transit != null) _transit.Shutdown(); _pendingDamage = 0f; }
     }
 }

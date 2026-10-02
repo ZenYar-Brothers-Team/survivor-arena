@@ -19,6 +19,15 @@ acceptance IP и [WORKFLOW §9](implementation/WORKFLOW.md#9-завершени�
 
 ## Запуск, сборка систем и lifecycle
 
+Академия: `EnemyZoneInfluence` хранит area/timed channels противников;
+`PortalTransitState` и `PortalTransitRuntime` проецируют delayed transit,
+`CameraFollowTarget.SetTransitFocus` задаёт плавный camera flight только игроку.
+Authoring: `docs/balance/field006-zones-v1.json`, presentation `FixtureZoneSeals.json`;
+пакеты оправы/портала — `Art/Packets/field006-zone-seal-v001-2026-10-02.json` и
+`field006-portal-v001-2026-10-02.json`. Контракт: DECISION-0142; проверки:
+SharedZoneTargetsTests, EnemyZoneInfluenceTests, PortalTransitStateTests,
+ZoneSealPresentationTests, ProductionFieldDevZonesSmokeTests.
+
 - entryPoints: [GameplayCompositionRoot](../Assets/Game/Bootstrap/GameplayCompositionRoot.cs), [RuntimeContentCatalog](../Assets/Game/Bootstrap/RuntimeContentCatalog.cs), [Gameplay scene](../Assets/Scenes/Gameplay.unity), [Editor startup scene](../Assets/Game/Bootstrap/Editor/GameplaySceneStartup.cs).
 - designRefs: [Game Design](Game_design.md), [IP-01](implementation/modules/IP-01-run-lifecycle.md), [rollback](decisions/0010-composition-root-rollback.md).
 - authoringSources: параметры запуска в [FIELD-001 baseline](balance/field001-baseline-v1.json); fixture-конфигурации в [Content/Run](../Assets/Resources/Content/Run).
@@ -57,10 +66,15 @@ Generated Fields/FieldEnvironmentPresentation from scripts/content/fields.py; as
 temporary FIELD-001 encounters. [Altar view](../Assets/Game/Presentation/AltarPresentationRuntime.cs),
 [sliding-screen placement](../Assets/Game/Zones/ZonePlacementRules.cs); ProfileService's existing Dev unlock.
 checks: ProductionMonasteryContentTests, ZoneScreenDensityTests, ProductionMonasterySmokeTests.
+Altar feedback: `FieldMapPreviewSource.Altars` feeds the Dev mini-map via `MapPreviewAltar`;
+`AltarObstacleFactory` creates player-only foundation contact. Actual random radii are authored in
+`field007-altars-v1.json` and shared by clearance, gameplay, world boundaries and map markers.
 
 Academy FIELD-006 (plus regression «Тест 06»): [cycle contract](decisions/0142-academy-zone-seal-presentation.md),
 [seal profile](../Assets/Resources/Content/Presentation/FixtureZoneSeals.json) (direct authoring),
 [mesh seal](../Assets/Game/Presentation/ZoneSealPresentationRuntime.cs),
+[random appearance chains](../Assets/Game/Zones/RandomZoneScheduler.cs) (opt-in layout
+`randomSchedule`; current camera spawn bounds, reusable placements and occurrence radius),
 [Rift hit](../Assets/Game/Presentation/ZoneRiftHitPresentationRuntime.cs),
 [driver](../Assets/Game/Bootstrap/ZoneRuntimeDriver.cs). Academy authoring is
 [field006-zones-v1.json](balance/field006-zones-v1.json); regression authoring is `field-dev-zones-v1.json`.

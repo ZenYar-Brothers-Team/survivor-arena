@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "approvalEvidence": "User selected displayed variant A: «Первый вариант ... мне нравится. Только символ внутри всё-таки нужен». Separate scalable effect glyph retained; portal is a separate candidate.",
+  "assets": [
+    {
+      "owner": "FIELD-006-ZONE-SEAL",
+      "role": "telegraph",
+      "visualId": "FIELD-006-ZONE-SEAL-VISUAL-TELEGRAPH",
+      "owningIp": "IP-23",
+      "input": "Art/Source/VFX/field-006-zone-seal/telegraph/v001/concept-01.png",
+      "sha256": "7543670c5b7de96e1260a0ac188efc5ffdb67cd138bb7a337c83646dcd8aad6e",
+      "sourceDirectory": "Art/Source/VFX/field-006-zone-seal/telegraph",
+      "version": "v001",
+      "runtime": "Assets/Resources/Art/VFX/field-006-zone-seal-telegraph.png",
+      "prompt": "Generate one standalone transparent-background VFX aura asset concept for a magical academy ground zone in a stylized storybook cutout 2D game. The supplied Traveler aura images are STYLE REFERENCES ONLY: use their hand-painted expressive ornamental strokes and transparent empty center, but create a PRINCIPIALLY DIFFERENT academy visual, not another symmetrical ornate character halo. Concept A: BROKEN ARCANE CHALK. An irregular loose roughly circular footprint made of chunky angular hand-drawn violet and muted teal chalk-like magical strokes, imperfect broken outer contour, asymmetric clusters of short rune strokes, three displaced geometric knots, scattered tiny ink fragments. No complete smooth circle, no perfect circle anywhere, no clean mechanical circular rim, no eightfold repetition, no lotus/floral leaves, no heraldic symmetry, no compass/star ornaments copied from travelers. No large filled disc, center mostly empty, no central logo/text. A few inner detached bent strokes suggest slow orbital movement. Shape extent still roughly radial so it can indicate a circle of gameplay without pretending precision; keep the outline broad readable but contained. Flat exact straight-down orthographic orientation, circular source NOT perspective ellipse (engine flattens it onto ground later), matte painterly cream edge accents, low glow, no bloom, no cast shadow, no floor/background/props. One asset filling central 85% of square with transparent padding; truly transparent empty center/background. No labels, words, watermark.",
+      "generator": "OpenAI built-in image generation",
+      "artDirectionRevision": "Approved storybook cutout; Academy variant A selected 2026-10-02",
+      "constraints": [
+        "irregular arcane outline",
+        "empty center for scalable effect symbol",
+        "engine applies standard ground flattening"
+      ],
+      "preparation": {
+        "mode": "fit",
+        "size": 512,
+        "padding": 16,
+        "cropAlpha": false
+      },
+      "importProfile": {
+        "pixelsPerUnit": 256,
+        "maxSize": 512,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "reason": "Two-unit full canvas scaled by occurrence radius and flattened on the field; visual-only."
+      },
+      "sprite": {},
+      "bindings": []
+    }
+  ]
+}

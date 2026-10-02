@@ -67,6 +67,7 @@ namespace Game.Enemy
         private Func<bool> _damageAllowed;
         private ContentRegistry _contentRegistry;
         public EnemyProtection Protection { get; } = new EnemyProtection();
+        public EnemyZoneInfluence ZoneInfluence { get; } = new EnemyZoneInfluence();
 
         public void ConfigureEncounter(IEnemyMovementDriver movement, Func<bool> damageAllowed)
         { _movementDriver = movement; _damageAllowed = damageAllowed; }
@@ -114,9 +115,9 @@ namespace Game.Enemy
         /// <summary>Movement profile in effect (body movement or the boss phase override).</summary>
         public EnemyMovementProfile CurrentMovement => _movementProfile ?? Definition?.Movement;
         public bool BlobBreakupActive => _blobDelay > 0f || _blobRemaining > 0f;
-        public event Action<EnemyLifeEvent> LifeEvent;
         /// <summary>Arc-burst enemies (DECISION-0146) keep their formation: never picked for blob breakup. Reset per life.</summary>
         public bool BlobBreakupExempt { get; set; }
+        public event Action<EnemyLifeEvent> LifeEvent;
 
         private void Awake()
         {
@@ -142,6 +143,8 @@ namespace Game.Enemy
             int? movementSeed = null)
         {
             if (_dispatchingLifecycle) throw new InvalidOperationException("Cannot reuse an enemy during lifecycle callbacks.");
+            foreach (var component in GetComponents<MonoBehaviour>())
+                if (component is IEnemyLifeTransient transient) transient.Shutdown();
             if (definition == null) throw new ArgumentNullException(nameof(definition));
             if (target == null) throw new ArgumentNullException(nameof(target));
             if (runController == null) throw new ArgumentNullException(nameof(runController));
@@ -165,6 +168,7 @@ namespace Game.Enemy
             }
             Controls.Reset();
             AreaSlowFraction = 0f;
+            ZoneInfluence.Reset();
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             BossCombat = null;
             LastProjectileSource = default;
@@ -218,11 +222,11 @@ namespace Game.Enemy
             _movementController = new EnemyMovementController(_movementProfile, _movementRandom);
             _blobDelay = 0f;
             _blobRemaining = 0f;
+            BlobBreakupExempt = false;
             _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
                 : new EnemyAttackController(definition.Attack, random: new System.Random(LifeId.GetHashCode()));
-            BlobBreakupExempt = false;
             MovementPhase = EnemyMovementPhase.Seeking;
             ConfigureTelegraph();
 
@@ -250,12 +254,13 @@ namespace Game.Enemy
             var isSimulating = _runController.Model != null &&
                                _runController.Model.State == RunState.Running &&
                                !Health.IsDead;
+            ZoneInfluence.Tick(Time.fixedDeltaTime, isSimulating);
             var control = Controls.Tick(Time.fixedDeltaTime, isSimulating);
             Protection.Tick(_runController.Model?.Elapsed ?? 0f);
             // MIDBOSS-009 slows down while winding up (DECISION-0066, E6).
             var windup = _attackController?.Phase == EnemyAttackPhase.Telegraphing && CurrentAttack != null
                 ? CurrentAttack.WindupMovementMultiplier : 1f;
-            var speed = Definition.MovementSpeed * Mathf.Min(control.MovementMultiplier, 1f - AreaSlowFraction) * windup * Protection.SpeedMultiplier;
+            var speed = Definition.MovementSpeed * Mathf.Min(control.MovementMultiplier, 1f - AreaSlowFraction) * windup * Protection.SpeedMultiplier * ZoneInfluence.MovementMultiplier;
             var movement = _movementDriver != null
                 ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
@@ -276,13 +281,13 @@ namespace Game.Enemy
             EnemyShotCommand[] shots;
             if (BossCombat != null)
             {
-                shots = BossCombat.Tick(Time.fixedDeltaTime, attacking, Health.CurrentHealth / Health.MaxHealth, aim);
+                shots = BossCombat.Tick(Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, attacking, Health.CurrentHealth / Health.MaxHealth, aim);
                 _attackController = BossCombat.Attack;
                 if (BossCombat.TriggeredSpecial != null)
                     SpecialRequested?.Invoke(this, BossCombat.TriggeredSpecial.ToRequest(BossCombat.TriggeredSpecialId));
                 ApplyPhaseMovement(dashing);
             }
-            else shots = _attackController.Tick(Time.fixedDeltaTime, true, aim);
+            else shots = _attackController.Tick(Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, true, aim);
             RenderTelegraph(movement);
             for (var i = 0; i < shots.Length; i++)
             {
@@ -352,7 +357,7 @@ namespace Game.Enemy
         // DECISION-0063/0066: dash-end volleys leave the moment the dash series stops; the dash telegraph is their warning.
         private void FireDashVolley(EnemyMovementFrame movement, bool isSimulating)
         {
-            var shots = _dashVolley.Tick(movement.Phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime, isSimulating,
+            var shots = _dashVolley.Tick(movement.Phase, Health.CurrentHealth / Health.MaxHealth, Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, isSimulating,
                 (Vector2)_target.position - _body.position, movement.TelegraphDirection);
             foreach (var zone in _dashVolley.TriggeredZones)
                 SpecialRequested?.Invoke(this, BossSpecialRequest.ForZone(zone, Definition.Id));
@@ -411,7 +416,7 @@ namespace Game.Enemy
             if (collision.gameObject != _contactTarget.gameObject)
                 return;
 
-            ApplyContactHits(_contactTimer.Tick(Time.fixedDeltaTime, IsRunRunning()));
+            ApplyContactHits(_contactTimer.Tick(Time.fixedDeltaTime * ZoneInfluence.ActionMultiplier, IsRunRunning()));
         }
 
         private void OnCollisionExit2D(Collision2D collision)
@@ -459,7 +464,7 @@ namespace Game.Enemy
                 // Vulnerability mark (SET-010, DECISION-0139) is decided before this hit applies its own controls.
                 if (Controls.DamageTakenMultiplier > 1f) request = request.WithAmount(request.Amount * Controls.DamageTakenMultiplier);
                 var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
-                var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount, _runController.Model?.Elapsed ?? 0f));
+                var measured = Health.TakeDamageMeasured(Protection.Absorb(request.Amount * (1f - ZoneInfluence.DamageReduction), _runController.Model?.Elapsed ?? 0f));
                 var result = new CombatResult(request.Source, identity, new HealthChange(request.Amount, measured.AfterMitigation, measured.Actual, false), distance);
                 notify?.Invoke(result);
                 return result;
@@ -489,6 +494,8 @@ namespace Game.Enemy
 
         private void EndLife(EnemyLifeReason reason, bool releaseObject, bool publishLifecycle = true)
         {
+            foreach (var component in GetComponents<MonoBehaviour>())
+                if (component is IEnemyLifeTransient transient) transient.Shutdown();
             if (_despawned || !_initialized)
                 return;
 
@@ -502,6 +509,7 @@ namespace Game.Enemy
             _groundShadow?.Shutdown();
             Controls.Reset();
             AreaSlowFraction = 0f;
+            ZoneInfluence.Reset();
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
                 _body.linearVelocity = Vector2.zero;

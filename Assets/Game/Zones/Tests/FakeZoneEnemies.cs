@@ -11,6 +11,8 @@ namespace Game.Zones.Tests
         public readonly List<float> DamageTaken = new List<float>();
         public readonly List<float> StrikeTaken = new List<float>();
         public int Refreshes;
+        public float MovementBonus, ActionBonus, Regeneration, Defense, BuffBonus, BuffSeconds;
+        public int Teleports;
 
         public FakeZoneEnemies Add(Vector2 position)
         {
@@ -23,5 +25,10 @@ namespace Game.Zones.Tests
         public void Slow(int index, float fraction, float seconds, ContentId source) => SlowFractions[index] = fraction;
         public void Damage(int index, float amount, ContentId source) => DamageTaken[index] += amount;
         public void Strike(int index, float amount, ContentId source) => StrikeTaken[index] += amount;
+        public void SetArea(int index, float movementBonus, float actionBonus, float regeneration, float defense, float deltaTime)
+        { MovementBonus = movementBonus; ActionBonus = actionBonus; Regeneration = regeneration; Defense = defense; }
+        public void SpeedBurst(int index, float bonus, float seconds) { BuffBonus = bonus; BuffSeconds = seconds; }
+        public bool Teleport(int index, Vector2 destination, float cooldownSeconds, float runSeconds)
+        { Positions[index] = destination; Teleports++; return true; }
     }
 }

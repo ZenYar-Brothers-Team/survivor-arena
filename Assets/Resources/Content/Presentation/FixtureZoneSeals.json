@@ -1,4 +1,13 @@
 {
+  "rimVisualId": "FIELD-006-ZONE-SEAL-VISUAL-TELEGRAPH",
+  "portalVisualId": "FIELD-006-PORTAL-VISUAL-PROP",
+  "portalHeight": 1.6,
+  "portalSortingOrder": 0,
+  "portalCollapseSeconds": 0.18,
+  "portalTransitSeconds": 1,
+  "portalExpandSeconds": 0.25,
+  "rimTintBlend": 0.65,
+  "glyphScale": 1.5,
   "strokeFraction": 0.025,
   "motionRadius": 0.64,
   "rimAlpha": 0.85,

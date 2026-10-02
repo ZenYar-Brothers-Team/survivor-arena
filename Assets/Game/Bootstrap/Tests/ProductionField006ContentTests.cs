@@ -33,12 +33,23 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(layout.SuppressAreaUnitFeedback);
             Assert.IsTrue(layout.Effects.Values.Any(e => e.RelocatesBetweenCycles));
             Assert.IsTrue(layout.Effects.Values.Any(e => !e.RelocatesBetweenCycles));
-            Assert.AreEqual(15, layout.Zones.Count);
+            Assert.AreEqual(14, layout.Zones.Count);
+            Assert.IsFalse(layout.Effects.ContainsKey(new ContentId("FIELD-006-ZONE-HEAL")));
+            var action = layout.Effects[new ContentId("FIELD-006-ZONE-ARCANE")];
+            Assert.AreEqual(0f, action.PlayerSkillDamageBonus);
+            Assert.AreEqual(.5f, action.PlayerActionSpeedBonus);
+            Assert.AreEqual(2, layout.RandomSchedule.Chains);
+            Assert.AreEqual(8f, layout.RandomSchedule.IntervalMinSeconds);
+            Assert.AreEqual(16f, layout.RandomSchedule.IntervalMaxSeconds);
             foreach (var effect in layout.Effects.Values)
             {
                 StringAssert.StartsWith("FIELD-006-ZONE-", effect.Id.ToString());
+                Assert.IsTrue(effect.AffectsBothSides);
                 Assert.AreEqual(.8f, effect.VerticalScale);
                 Assert.AreNotEqual(Game.Zones.ZoneLifetimeMode.Permanent, effect.Lifetime);
+                if (effect.Kind == Game.Zones.ZoneEffectKind.SpeedBurst)
+                { Assert.AreEqual(1.25f, effect.Radius); Assert.AreEqual(effect.Radius, effect.MinRadius); }
+                else Assert.AreEqual(effect.Radius / 3f, effect.MinRadius, .00001f);
                 if (effect.Lifetime == Game.Zones.ZoneLifetimeMode.Pulsing)
                     Assert.AreEqual(5f, effect.PulsePrepareSeconds);
             }

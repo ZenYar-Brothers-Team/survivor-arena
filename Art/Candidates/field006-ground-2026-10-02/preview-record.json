@@ -1,0 +1,12 @@
+{
+  "owner": "FIELD-006",
+  "visualId": "FIELD-006-VISUAL-GROUND",
+  "status": "Approved by user 2026-10-02; installed as v002",
+  "generatedAt": "2026-10-02",
+  "generator": "OpenAI built-in image generation",
+  "input": "Art/Candidates/field006-ground-2026-10-02/concept-01.png",
+  "sha256": "985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447",
+  "direction": "Quiet magical academy surface: fused irregular stone, subtle violet/teal mineral veins, worn sparse non-legible magic fragments; low contrast; no ordinary brick grid; no gameplay symbols or glow.",
+  "runtimeTarget": "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png",
+  "versionIfSelected": "v002"
+}

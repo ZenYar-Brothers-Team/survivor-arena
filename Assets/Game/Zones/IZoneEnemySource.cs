@@ -17,5 +17,9 @@ namespace Game.Zones
         void Damage(int index, float amount, ContentId source);
         /// <summary>One-off damage that lands immediately (a strike or blast), unlike the throttled <see cref="Damage"/>.</summary>
         void Strike(int index, float amount, ContentId source);
+        /// <summary>Combined area-only modifiers; zeroes clear them. Regeneration applies for this tick only.</summary>
+        void SetArea(int index, float movementBonus, float actionBonus, float regeneration, float defense, float deltaTime);
+        void SpeedBurst(int index, float bonus, float seconds);
+        bool Teleport(int index, Vector2 destination, float cooldownSeconds, float runSeconds);
     }
 }

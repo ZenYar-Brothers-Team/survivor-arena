@@ -13,6 +13,14 @@ namespace Game.Presentation
         private SpriteRenderer _body;
         private LineRenderer _rim;
         private LineRenderer _progress;
+        private LineRenderer _stateRim;
+        private MeshRenderer _glow;
+        private Mesh _glowMesh;
+        private readonly Color[] _glowColors = new Color[Segments + 2];
+        private bool _hasState;
+        private bool _previousActive;
+        private float _flashAt = float.NegativeInfinity;
+        private float? _previousApplication;
         private Material _material;
         private AltarPresentationProfile _profile;
         private ZonePlacement _zone;
@@ -41,7 +49,11 @@ namespace Game.Presentation
             if (shader == null) throw new InvalidOperationException("Altar ring shader missing.");
             _material = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
             _rim = CreateLine("Boundary", profile.SortingOrder - 2);
+            _stateRim = CreateLine("FoundationState", profile.SortingOrder - 1);
             _progress = CreateLine("ChargeOrRest", profile.SortingOrder - 1);
+            _stateRim.startWidth = _stateRim.endWidth = profile.StateRingThickness;
+            _progress.startWidth = _progress.endWidth = profile.StateRingThickness;
+            CreateGlow();
         }
 
         public void Apply(float runSeconds)
@@ -50,15 +62,54 @@ namespace Game.Presentation
             transform.position = new Vector3(_zone.Center.x, _zone.Center.y, 0f);
             _body.enabled = _zone.IsNear;
             IsActive = _zone.IsNear && _zone.IsActive(runSeconds);
-            var strength = IsActive ? _zone.Visibility(runSeconds) : 0f;
-            if (_zone.Effect.Kind == ZoneEffectKind.Shrine && IsActive) strength = Mathf.Max(strength, _zone.Charge);
-            var brightness = Mathf.Lerp(_profile.IdleBrightness, _profile.ActiveBrightness, strength);
-            _body.color = new Color(brightness, brightness, brightness, 1f);
+            // Foundation color stays constant; only the separate crown light conveys activity.
+            _body.color = Color.white;
             var rest = _zone.RestProgress(runSeconds);
-            Progress = _zone.Effect.Kind == ZoneEffectKind.Shrine && _zone.ShrineCooldownRemaining <= 0f ? _zone.Charge : Mathf.Max(0f, rest);
+            var shrine = _zone.Effect.Kind == ZoneEffectKind.Shrine;
+            if (shrine) Progress = _zone.ShrineCooldownRemaining <= 0f ? _zone.Charge : Mathf.Max(0f, rest);
+            else if (rest >= 0f) Progress = rest;
+            else
+            {
+                var phase = Mathf.Repeat(runSeconds + _zone.PhaseSeconds, _zone.Effect.PulsePeriodSeconds);
+                Progress = 1f - Mathf.Clamp01(phase / _zone.Effect.PulseVisibleSeconds);
+            }
+            var active = _zone.IsActive(runSeconds);
+            if (_hasState && ((active != _previousActive) || _zone.LastApplicationSeconds != _previousApplication))
+                _flashAt = runSeconds;
+            _hasState = true; _previousActive = active; _previousApplication = _zone.LastApplicationSeconds;
+            var flash = Mathf.Clamp01(1f - (runSeconds - _flashAt) / _profile.FlashSeconds);
             var color = _zone.Effect.Color;
             Draw(_rim, 1f, color, IsActive ? _profile.RingAlpha : _profile.RestingAlpha);
+            Draw(_stateRim, 1f, color, Mathf.Lerp(_profile.RestingAlpha, 1f, flash));
             Draw(_progress, Progress, color, _profile.RingAlpha);
+            var alpha = active ? (shrine ? Mathf.Lerp(_profile.ReadyGlowAlpha, _profile.ActiveGlowAlpha, _zone.Charge) : _profile.ActiveGlowAlpha) : 0f;
+            _glow.enabled = _zone.IsNear && (alpha > 0f || flash > 0f);
+            var glowColor = _profile.GlowColor; glowColor.a = Mathf.Lerp(alpha, 1f, flash);
+            _glowColors[0] = glowColor;
+            glowColor.a = 0f;
+            for (var i = 1; i < _glowColors.Length; i++) _glowColors[i] = glowColor;
+            _glowMesh.colors = _glowColors;
+        }
+
+        private void CreateGlow()
+        {
+            var child = new GameObject("CrownLight"); child.transform.SetParent(transform, false);
+            child.transform.localPosition = Vector3.up * (_height * _profile.GlowHeightFraction);
+            _glow = child.AddComponent<MeshRenderer>();
+            _glow.sharedMaterial = _material; _glow.sortingOrder = _profile.SortingOrder + 1;
+            var vertices = new Vector3[Segments + 2];
+            var triangles = new int[Segments * 3];
+            for (var i = 0; i <= Segments; i++)
+            {
+                var angle = i * Mathf.PI * 2f / Segments;
+                vertices[i + 1] = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * _profile.GlowRadius;
+                if (i == Segments) continue;
+                triangles[i * 3] = 0; triangles[i * 3 + 1] = i + 2; triangles[i * 3 + 2] = i + 1;
+            }
+            _glowMesh = new Mesh { name = "Altar crown light", hideFlags = HideFlags.HideAndDontSave };
+            _glowMesh.vertices = vertices; _glowMesh.triangles = triangles; _glowMesh.colors = _glowColors;
+            child.AddComponent<MeshFilter>().sharedMesh = _glowMesh;
+            _glow.enabled = false;
         }
 
         private LineRenderer CreateLine(string name, int order)
@@ -76,11 +127,14 @@ namespace Game.Presentation
             line.enabled = _zone.IsNear && fraction > 0f;
             if (!line.enabled) return;
             var steps = Mathf.Max(1, Mathf.CeilToInt(Segments * fraction));
-            var radius = line == _rim ? _zone.Effect.Radius : _zone.Effect.Radius - _profile.RingThickness * 2f;
+            var shrine = _zone.Effect.Kind == ZoneEffectKind.Shrine;
+            var radius = line == _rim ? _zone.Radius : shrine ? _profile.ShrineStateRingRadius : _profile.StateRingRadius;
+            var aspect = line == _rim ? 1f : _profile.StateRingAspect;
+            var offset = line == _rim ? 0f : shrine ? _profile.ShrineContactOffsetY : _profile.AltarContactOffsetY;
             for (var i = 0; i <= steps; i++)
             {
                 var angle = Mathf.PI * .5f - Mathf.PI * 2f * fraction * i / steps;
-                _points[i] = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+                _points[i] = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius * aspect + offset, 0f);
             }
             line.positionCount = steps + 1;
             // SetPosition avoids handing a grow-only buffer's unused tail to the renderer.
@@ -93,8 +147,13 @@ namespace Game.Presentation
             if (_body != null) DestroyOwned(_body.gameObject);
             if (_rim != null) DestroyOwned(_rim.gameObject);
             if (_progress != null) DestroyOwned(_progress.gameObject);
+            if (_stateRim != null) DestroyOwned(_stateRim.gameObject);
+            if (_glow != null) DestroyOwned(_glow.gameObject);
+            if (_glowMesh != null) DestroyOwned(_glowMesh);
             if (_material != null) DestroyOwned(_material);
             _body = null; _rim = null; _progress = null; _material = null; _profile = null; _zone = null;
+            _stateRim = null; _glow = null; _glowMesh = null;
+            _hasState = false; _previousActive = false; _previousApplication = null; _flashAt = float.NegativeInfinity;
             IsActive = false; Progress = 0f;
         }
 

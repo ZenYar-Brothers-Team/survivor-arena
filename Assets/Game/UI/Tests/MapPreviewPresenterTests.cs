@@ -47,6 +47,26 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void Presenter_WithAltars_PassesActualRadiiAndRestingOffscreenMarkers()
+        {
+            var source = new FakeMapPreviewSource
+            {
+                Altars = new[]
+                {
+                    new MapPreviewAltar(new Vector2(-40, 30), 1.5f, Color.cyan, false, false),
+                    new MapPreviewAltar(new Vector2(40, -30), 4.5f, Color.red, true, true)
+                }
+            };
+            var view = new FakeMapPreviewView();
+            using var presenter = new MapPreviewPresenter(source, view, true);
+            view.Toggle();
+            Assert.AreSame(source.Altars, view.State.Altars);
+            Assert.AreEqual(1.5f, view.State.Altars[0].Radius);
+            Assert.IsFalse(view.State.Altars[0].Active);
+            StringAssert.Contains("алтарей: 2", view.State.Summary);
+        }
+
+        [Test]
         public void Presenter_WithoutDevelopmentOrSource_IsUnavailableAndIgnoresToggle()
         {
             var view = new FakeMapPreviewView();

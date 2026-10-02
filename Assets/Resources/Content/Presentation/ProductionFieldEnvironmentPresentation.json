@@ -9915,7 +9915,7 @@
     "bushScaleMax": 0.68,
     "seed": 8001,
     "obstacleSeed": 8002,
-    "interiorObstacleCount": 162,
+    "interiorObstacleCount": 98,
     "nearObstacleCount": 0,
     "obstaclePlacementAttempts": 80,
     "nearObstacleRadius": 22,
@@ -9926,12 +9926,13 @@
     "stumpColliderRadius": 0.68,
     "barrelVisualId": "FIELD-001-VISUAL-BARREL",
     "rockVisualId": "FIELD-002-VISUAL-BOULDER",
-    "arenaSideLength": 160,
+    "arenaSideLength": 120,
     "zoneLayout": {
       "edgeMargin": 8,
       "startClearRadius": 3,
       "minGap": 1,
       "obstacleClearance": 2,
+      "altarObstacleRadius": 0.75,
       "activeScreenMargin": 0.5,
       "placementAttempts": 800,
       "maxRestarts": 30,
@@ -9941,46 +9942,49 @@
           "id": "FIELD-007-ALTAR-HASTE",
           "displayName": "Алтарь ветра",
           "kind": "Haste",
-          "radius": 4,
+          "radius": 4.5,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
           "playerMovementBonus": 0.5,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.5
         },
         {
           "id": "FIELD-007-ALTAR-HEAL",
           "displayName": "Алтарь исцеления",
           "kind": "Regeneration",
-          "radius": 4,
+          "radius": 4.5,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
           "playerRegenerationPerSecond": 8,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.5
         },
         {
           "id": "FIELD-007-ALTAR-WARD",
           "displayName": "Алтарь защиты",
           "kind": "Protection",
-          "radius": 4,
+          "radius": 4.5,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
           "pulseFadeSeconds": 3,
           "playerIncomingDamageReduction": 0.8,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.5
         },
         {
           "id": "FIELD-007-ALTAR-POWER",
           "displayName": "Алтарь силы",
           "kind": "ArcanePower",
-          "radius": 4,
+          "radius": 4.5,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
@@ -9988,13 +9992,14 @@
           "pulseFadeSeconds": 3,
           "playerSkillDamageBonus": 0.6,
           "playerActionSpeedBonus": 0.3,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.5
         },
         {
           "id": "FIELD-007-ALTAR-RIFT",
           "displayName": "Алтарь разлома",
           "kind": "Rift",
-          "radius": 4,
+          "radius": 4.5,
           "color": "#ed756b",
           "lifetime": "Cycling",
           "playerDamagePerSecond": 4,
@@ -10002,13 +10007,14 @@
           "polarity": "Negative",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3
+          "pulseFadeSeconds": 3,
+          "minRadius": 1.5
         },
         {
           "id": "FIELD-007-ALTAR-STRIKE-CURSED",
           "displayName": "Алтарь проклятых ударов",
           "kind": "Strike",
-          "radius": 8,
+          "radius": 9,
           "color": "#ed756b",
           "lifetime": "Cycling",
           "strikePeriodSeconds": 12,
@@ -10021,13 +10027,14 @@
           "polarity": "Negative",
           "pulsePeriodSeconds": 90,
           "pulseVisibleSeconds": 24,
-          "pulseFadeSeconds": 3
+          "pulseFadeSeconds": 3,
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-ALTAR-STRIKE-HOLY",
           "displayName": "Алтарь священного гнева",
           "kind": "Strike",
-          "radius": 8,
+          "radius": 9,
           "color": "#62b8b7",
           "lifetime": "Cycling",
           "pulsePeriodSeconds": 90,
@@ -10040,13 +10047,14 @@
           "strikeRadius": 2.5,
           "strikePlayerDamage": 0,
           "strikeEnemyDamage": 80,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 3
         },
         {
           "id": "FIELD-007-SHRINE-POWER",
           "displayName": "Святыня силы",
           "kind": "Shrine",
-          "radius": 5,
+          "radius": 5.625,
           "color": "#62b8b7",
           "lifetime": "Permanent",
           "shrineChargeSeconds": 8,
@@ -10058,13 +10066,14 @@
           "rewardActionSpeedBonus": 0.3,
           "rewardBlastDamage": 150,
           "rewardBlastRadius": 12,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.875
         },
         {
           "id": "FIELD-007-SHRINE-LIFE",
           "displayName": "Святыня жизни",
           "kind": "Shrine",
-          "radius": 5,
+          "radius": 5.625,
           "color": "#62b8b7",
           "lifetime": "Permanent",
           "shrineChargeSeconds": 8,
@@ -10073,7 +10082,8 @@
           "rewardHealFraction": 0.5,
           "rewardShieldSeconds": 10,
           "rewardIncomingDamageReduction": 0.5,
-          "polarity": "Positive"
+          "polarity": "Positive",
+          "minRadius": 1.875
         }
       ],
       "zones": [
@@ -10115,8 +10125,7 @@
         }
       ],
       "maxPerScreen": 3,
-      "screenPadding": 2,
-      "altarObstacleRadius": 0.75
+      "screenPadding": 2
     },
     "altarPresentation": {
       "positiveVisualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
@@ -10129,7 +10138,21 @@
       "ringAlpha": 0.65,
       "ringThickness": 0.07,
       "restingAlpha": 0.2,
-      "sortingOrder": -3
+      "sortingOrder": -3,
+      "altarContactRadius": 0.28,
+      "altarContactOffsetY": 0.15,
+      "shrineContactRadius": 0.42,
+      "shrineContactOffsetY": 0.18,
+      "stateRingRadius": 0.55,
+      "shrineStateRingRadius": 0.75,
+      "stateRingAspect": 0.45,
+      "stateRingThickness": 0.055,
+      "glowRadius": 0.28,
+      "glowHeightFraction": 0.85,
+      "readyGlowAlpha": 0.25,
+      "activeGlowAlpha": 0.7,
+      "flashSeconds": 0.22,
+      "glowColor": "#FFE6A3"
     },
     "obstacleLayout": {
       "cellSize": 16,
@@ -10188,7 +10211,7 @@
               "x": 0,
               "y": 0,
               "width": 1.7,
-              "height": 1.0
+              "height": 1
             }
           ]
         },
@@ -10305,7 +10328,9 @@
           "pulseFadeSeconds": 3,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
-          "relocatesBetweenCycles": false
+          "relocatesBetweenCycles": false,
+          "minRadius": 2.333333,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-HASTE",
@@ -10321,7 +10346,9 @@
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": false
+          "relocatesBetweenCycles": false,
+          "minRadius": 2,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-REGEN",
@@ -10337,11 +10364,13 @@
           "pulseFadeSeconds": 3,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
-          "relocatesBetweenCycles": true
+          "relocatesBetweenCycles": true,
+          "minRadius": 2,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-ARCANE",
-          "displayName": "Арканный всплеск",
+          "displayName": "Ускорение действий",
           "kind": "ArcanePower",
           "radius": 6,
           "color": "#c28cff",
@@ -10349,12 +10378,14 @@
           "pulsePeriodSeconds": 30,
           "pulseVisibleSeconds": 20,
           "pulseFadeSeconds": 3,
-          "playerSkillDamageBonus": 0.5,
-          "playerActionSpeedBonus": 0.3,
+          "playerSkillDamageBonus": 0,
+          "playerActionSpeedBonus": 0.5,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": true
+          "relocatesBetweenCycles": true,
+          "minRadius": 2,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-RIFT",
@@ -10371,7 +10402,9 @@
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": true
+          "relocatesBetweenCycles": true,
+          "minRadius": 2.333333,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-PORTAL",
@@ -10389,13 +10422,15 @@
           "pulseFadeSeconds": 3,
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
-          "relocatesBetweenCycles": false
+          "relocatesBetweenCycles": false,
+          "minRadius": 1.166667,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-SPEED-BURST",
           "displayName": "Рывок",
           "kind": "SpeedBurst",
-          "radius": 8,
+          "radius": 1.25,
           "color": "#ffe14a",
           "lifetime": "Burst",
           "pulsePeriodSeconds": 40,
@@ -10404,7 +10439,9 @@
           "playerMovementBonus": 0.6,
           "playerBuffSeconds": 8,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": true
+          "relocatesBetweenCycles": true,
+          "minRadius": 1.25,
+          "affectsBothSides": true
         },
         {
           "id": "FIELD-006-ZONE-WARD",
@@ -10420,23 +10457,9 @@
           "pulsePrepareSeconds": 5,
           "pulseIdleVisibility": 0.14,
           "verticalScale": 0.8,
-          "relocatesBetweenCycles": false
-        },
-        {
-          "id": "FIELD-006-ZONE-HEAL",
-          "displayName": "Целебный круг",
-          "kind": "Regeneration",
-          "radius": 6,
-          "color": "#ff8fd0",
-          "lifetime": "Pulsing",
-          "pulsePeriodSeconds": 40,
-          "pulseVisibleSeconds": 25,
-          "pulseFadeSeconds": 6,
-          "playerRegenerationPerSecond": 6,
-          "pulsePrepareSeconds": 5,
-          "pulseIdleVisibility": 0.14,
-          "verticalScale": 0.8,
-          "relocatesBetweenCycles": true
+          "relocatesBetweenCycles": false,
+          "minRadius": 2,
+          "affectsBothSides": true
         }
       ],
       "zones": [
@@ -10470,10 +10493,6 @@
         },
         {
           "effectId": "FIELD-006-ZONE-WARD",
-          "count": 1
-        },
-        {
-          "effectId": "FIELD-006-ZONE-HEAL",
           "count": 1
         }
       ],

@@ -36,14 +36,20 @@ namespace Game.Zones
             for (var index = 0; index < layout.Zones.Count; index++)
             {
                 var effect = layout.Zones[index];
+                var radius = effect.MinRadius < effect.Radius ? ZonePlacementRules.Range(random, effect.MinRadius, effect.Radius) : effect.Radius;
+                if (layout.RandomSchedule != null && effect.RelocatesBetweenCycles)
+                {
+                    var dormant = new ZonePlacement(index, effect, Vector2.zero, radius: radius);
+                    dormant.ManageOccurrences(); placed.Add(dormant); continue;
+                }
                 var pairFirst = effect.Kind == ZoneEffectKind.Portal && placed.Count > 0 &&
                                 placed[placed.Count - 1].Effect == effect && placed[placed.Count - 1].PartnerIndex < 0
                     ? placed[placed.Count - 1] : null;
-                if (!rules.TryPick(effect, random, placed, pairFirst, out var center)) return null;
+                if (!rules.TryPick(effect, random, placed.FindAll(z => z.IsPresent), pairFirst, out var center, occurrenceRadius: radius)) return null;
                 // A pulsing zone starts at a random point of its cycle so zones do not all blink together.
                 var phase = pairFirst != null ? pairFirst.PhaseSeconds :
                     effect.PhaseRange > 0f ? ZonePlacementRules.Range(random, 0f, effect.PhaseRange) : 0f;
-                var zone = new ZonePlacement(index, effect, center, phase);
+                var zone = new ZonePlacement(index, effect, center, phase, radius);
                 if (pairFirst != null)
                 {
                     pairFirst.LinkPartner(zone.Index);

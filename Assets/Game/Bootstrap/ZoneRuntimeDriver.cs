@@ -89,6 +89,7 @@ namespace Game.Bootstrap
                     var altar = visual.AddComponent<AltarPresentationRuntime>();
                     _altars.Add(altar);
                     altar.Initialize(zone, altarProfile, registry);
+                    AltarObstacleFactory.Attach(visual, altarProfile, zone.Effect.Kind == ZoneEffectKind.Shrine);
                     continue;
                 }
                 if (useSeals)
@@ -150,7 +151,7 @@ namespace Game.Bootstrap
                 color.a = DiscAlpha * visibility;
                 disc.color = color;
                 disc.transform.position = new Vector3(zone.Center.x, zone.Center.y, 0f);
-                var scale = zone.Effect.Radius * 2f / _sprite.bounds.size.x * zone.RadiusScale(_runtime.Time);
+                var scale = zone.Radius * 2f / _sprite.bounds.size.x * zone.RadiusScale(_runtime.Time);
                 disc.transform.localScale = new Vector3(scale, scale * zone.Effect.VerticalScale, 1f);
             }
             RefreshStrikes();

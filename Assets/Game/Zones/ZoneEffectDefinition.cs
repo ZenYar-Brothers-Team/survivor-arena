@@ -12,12 +12,14 @@ namespace Game.Zones
     /// </summary>
     public sealed class ZoneEffectDefinition
     {
+        public bool AffectsBothSides { get; }
         /// <summary>A zone's continuous effect works while its visibility is at least this (fading zones are half there).</summary>
         public const float ActivationThreshold = 0.5f;
         /// <summary>A burst flash grows the disc by this fraction while it fades out.</summary>
         public const float BurstFlashGrowth = 0.2f;
 
         public ContentId Id { get; }
+        public float MinRadius { get; }
         public string DisplayName { get; }
         public ZoneEffectKind Kind { get; }
         public float Radius { get; }
@@ -114,8 +116,12 @@ namespace Game.Zones
             if (string.IsNullOrWhiteSpace(data.Id)) throw new ArgumentException("Zone effect id is required.");
             Id = new ContentId(data.Id);
             DisplayName = string.IsNullOrWhiteSpace(data.DisplayName) ? data.Id : data.DisplayName;
+            AffectsBothSides = data.AffectsBothSides ?? false;
             Kind = data.Kind ?? throw new ArgumentException($"Zone effect '{data.Id}' requires a kind.");
             Radius = Required(data.Radius, data.Id, "radius");
+            MinRadius = data.MinRadius ?? Radius;
+            NumericValidation.ValidatePositive(MinRadius, nameof(MinRadius));
+            NumericValidation.ValidateRange(MinRadius, float.Epsilon, Radius, nameof(MinRadius));
             NumericValidation.ValidatePositive(Radius, nameof(Radius));
             VerticalScale = data.VerticalScale ?? 1f;
             NumericValidation.ValidateRange(VerticalScale, 0.1f, 1f, nameof(VerticalScale));
@@ -209,7 +215,7 @@ namespace Game.Zones
                     NumericValidation.ValidateNonNegativeFinite(StrikeEnemyDamage, nameof(StrikeEnemyDamage));
                     if (StrikeTelegraphSeconds + StrikeFlashSeconds > StrikePeriodSeconds)
                         throw new ArgumentException($"Strike altar '{data.Id}' warns and flashes longer than its period.");
-                    if (StrikeRadius >= Radius) throw new ArgumentException($"Strike altar '{data.Id}': strike circles must be smaller than the altar.");
+                    if (StrikeRadius >= MinRadius) throw new ArgumentException($"Strike altar '{data.Id}': strike circles must be smaller than the smallest altar.");
                     if (StrikePlayerDamage <= 0f && StrikeEnemyDamage <= 0f)
                         throw new ArgumentException($"Strike altar '{data.Id}' must hit the player or the enemies.");
                     Forbid(data, ValueGroup.SlowOnly | ValueGroup.Movement | ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
@@ -464,9 +470,11 @@ namespace Game.Zones
         }
 
         /// <summary>Where strike circle <paramref name="index"/> of a volley lands: deterministic per run seed, zone and volley, fully inside the altar.</summary>
-        public Vector2 StrikeCenter(Vector2 altarCenter, int seed, int zoneIndex, int volley, int index)
+        public Vector2 StrikeCenter(Vector2 altarCenter, int seed, int zoneIndex, int volley, int index, float? occurrenceRadius = null)
         {
-            var reach = Radius - StrikeRadius;
+            var radius = occurrenceRadius ?? Radius;
+            NumericValidation.ValidateRange(radius, MinRadius, Radius, nameof(occurrenceRadius));
+            var reach = radius - StrikeRadius;
             var angle = Unit(seed, zoneIndex, volley, index * 2) * Mathf.PI * 2f;
             var distance = Mathf.Sqrt(Unit(seed, zoneIndex, volley, index * 2 + 1)) * reach;
             return altarCenter + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;

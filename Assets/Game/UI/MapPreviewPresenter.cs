@@ -33,9 +33,11 @@ namespace Game.UI
             var arena = _source.Arena;
             var obstacles = _source.Obstacles;
             var roads = _source.Roads;
+            var altars = _source.Altars;
             var summary = $"Арена {arena.width:0}×{arena.height:0}, препятствий: {obstacles.Count}";
             if (roads.Count > 0) summary += $", участков дорог: {roads.Count}";
-            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, roads, _source.View, summary));
+            if (altars.Count > 0) summary += $", алтарей: {altars.Count}";
+            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, roads, _source.View, summary, altars));
         }
 
         private void Toggle()

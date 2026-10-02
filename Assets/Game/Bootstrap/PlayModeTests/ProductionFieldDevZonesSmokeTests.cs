@@ -77,9 +77,14 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual(fieldId, run.Model.Selection.FieldId.ToString());
                 Assert.AreEqual(6, root.ZoneSeed, "Reference seeds pin the zone layout.");
                 var driver = Object.FindAnyObjectByType<ZoneRuntimeDriver>();
+                if (unlockThroughDev)
+                {
+                    Assert.AreEqual(7, driver.Runtime.Zones.Count(z => z.IsScheduled));
+                    Assert.LessOrEqual(driver.Runtime.Zones.Count(z => z.IsScheduled && z.IsPresent), 2);
+                }
                 Assert.IsNotNull(driver, "The zone driver exists on a zones field.");
                 var zones = driver.Runtime.Zones;
-                Assert.AreEqual(15, zones.Count, "Two slows, two hastes, two springs, two arcane, two rifts, two bursts, one ward and one portal pair.");
+                Assert.AreEqual(unlockThroughDev ? 14 : 15, zones.Count, "Academy has one shared green spring; legacy study retains both.");
                 CollectionAssert.AreEquivalent(new[] { ZoneEffectKind.Slow, ZoneEffectKind.Haste, ZoneEffectKind.Regeneration,
                     ZoneEffectKind.ArcanePower, ZoneEffectKind.Rift, ZoneEffectKind.Portal, ZoneEffectKind.Protection,
                     ZoneEffectKind.SpeedBurst }, zones.Select(z => z.Effect.Kind).Distinct());
@@ -87,8 +92,8 @@ namespace Game.Bootstrap.PlayModeTests
                 else Assert.IsTrue(zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Permanent) &&
                               zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Pulsing) &&
                               zones.Any(z => z.Effect.Lifetime == ZoneLifetimeMode.Burst), "Permanent, pulsing and burst zones all exist.");
-                Assert.AreEqual(15, driver.GetComponentsInChildren<ZoneSealPresentationRuntime>(true).Length, "One animated seal per zone.");
-                Assert.AreEqual(45, driver.GetComponentsInChildren<MeshRenderer>(true).Length, "Rim, glyph and internal motion per seal.");
+                Assert.AreEqual(zones.Count, driver.GetComponentsInChildren<ZoneSealPresentationRuntime>(true).Length, "One animated seal per zone.");
+                Assert.AreEqual(zones.Count * 3, driver.GetComponentsInChildren<MeshRenderer>(true).Length, "Rim, glyph and internal motion per seal.");
                 foreach (var zone in zones.Where(z => z.Effect.Lifetime == ZoneLifetimeMode.Pulsing))
                     Assert.AreEqual(5f, zone.Effect.PulsePrepareSeconds, "All pulsing academy study seals prepare for five seconds.");
 
@@ -149,6 +154,46 @@ namespace Game.Bootstrap.PlayModeTests
                         UiFoundationSmokeTests.Capture(target, unlockThroughDev ? "academy-field006-gameplay" : "academy-seals-gameplay");
                     }
                     finally { camera.targetTexture = previousTarget; target.Release(); Object.DestroyImmediate(target); }
+                }
+
+                if (unlockThroughDev)
+                {
+                    var player = Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>();
+                    var camera = Camera.main; var follow = camera.GetComponent<Game.Movement.CameraFollowTarget>();
+                    var from = (Vector2)player.transform.position;
+                    var destination = from + Vector2.right * 25f;
+                    var profile = ZoneSealPresentationProfile.Load();
+                    var transit = player.GetComponent<PortalTransitRuntime>() ?? player.gameObject.AddComponent<PortalTransitRuntime>();
+                    var body = player.GetComponent<Rigidbody2D>();
+                    var presentation = player.GetComponentInChildren<SpritePresentationRuntime>();
+                    Assert.IsTrue(transit.Begin(destination, run, profile, player.Health, presentation, follow));
+                    Assert.IsFalse(body.simulated);
+                    yield return new WaitForSeconds(.55f);
+                    Assert.IsTrue(transit.IsActive); Assert.IsFalse(presentation.gameObject.activeSelf);
+                    Assert.AreEqual(from, (Vector2)player.transform.position, "The actor arrives after the hidden flight.");
+                    var cameraMiddle = camera.transform.position;
+                    Assert.Greater(cameraMiddle.x, from.x); Assert.Less(cameraMiddle.x, destination.x);
+                    run.TogglePause();
+                    for (var i = 0; i < 5; i++) yield return null;
+                    Assert.AreEqual(cameraMiddle, camera.transform.position, "Pause freezes the camera transit.");
+                    run.TogglePause();
+                    yield return new WaitForSeconds(1.1f);
+                    Assert.IsFalse(transit.IsActive); Assert.IsTrue(body.simulated);
+                    Assert.IsTrue(presentation.gameObject.activeSelf);
+                    Assert.Less(Vector2.Distance(destination, player.transform.position), .01f);
+                    Assert.Less(Vector2.Distance(destination, camera.transform.position), .01f);
+                    var alive = new System.Collections.Generic.List<Game.Enemy.EnemyRuntime>();
+                    Game.Enemy.EnemyRegistry.CopyAliveTo(alive);
+                    var enemy = alive.First(e => e.Category == Game.Enemy.EnemyCategory.Ordinary && e.BodyPresentation != null);
+                    var enemyTransit = enemy.GetComponent<PortalTransitRuntime>() ?? enemy.gameObject.AddComponent<PortalTransitRuntime>();
+                    var enemyBody = enemy.GetComponent<Rigidbody2D>(); var healthLock = enemy.Health.IsLocked;
+                    Assert.IsTrue(enemyTransit.Begin(enemy.Position + Vector2.right * 10f, run, profile, enemy.Health, enemy.BodyPresentation));
+                    Assert.IsFalse(enemy.enabled); Assert.IsFalse(enemyBody.simulated);
+                    yield return new WaitForSeconds(.55f);
+                    Assert.IsTrue(enemyTransit.IsActive); Assert.IsNull(enemy.BodyPresentation, "Enemy visual root is hidden in transit.");
+                    yield return new WaitForSeconds(1.1f);
+                    Assert.IsFalse(enemyTransit.IsActive); Assert.IsTrue(enemy.enabled); Assert.IsTrue(enemyBody.simulated);
+                    Assert.AreEqual(healthLock, enemy.Health.IsLocked);
                 }
 
                 root.Shutdown();

@@ -1,5 +1,9 @@
 \# Art Production
 
+FIELD-007 ground technical review 2026-10-02: approved PNG 1254×1254 сохранён без изменения пикселей; full-resolution import с maxSize 2048 / PPU 156.75 сохраняет 8×8 wu repeat. Снята потеря деталей от прежнего maxSize 512; художественная пестрота исходника остаётся. [Отдельный просмотр](../implementation/proposals/2026-10-02-field007-ground-import-review.md), вне коммита препятствий.
+
+FIELD-007 feedback 2026-10-02: существующие три Prop сохраняются; state ring и crown light — отдельные процедурные слои без нового raster asset. Небольшой эллипс у подножья, radial mesh свет над навершием и run-clock переходная вспышка настроены в `altarPresentation` authoring; [контракт](../implementation/proposals/2026-10-02-altar-state-presentation.md). Размер поля 120×120, visual acceptance игрового просмотра остаётся отдельной.
+
 \#\# Назначение
 
 Этот документ — production inventory для визуальной части Survival Arena.
@@ -737,6 +741,24 @@ Traveler bodies. Master и prompt: `Art/Source/VFX/slow-status/ice/`; runtime:
 SET-022 «Хлопушка»: процедурный янтарный серп с кремовым гребнем, пятью расходящимися штрихами и быстрым выбросом. SKILL-004: бирюзовое кольцо давления с прозрачным центром. В обоих эффектах хвост затухает быстрее гребня; две cached маски на профиль/угол, два pooled renderer на pulse. Новых source/runtime PNG и raster replacements нет. Художественный контракт — Art Direction §12; [подробности](../implementation/evidence/2026-10-02-pressure-wave-polish.md), текущая приёмка — только STATUS.
 
 ## Academy zone seals — 2026-10-02
+
+Новый отзыв v3: ровная круглая mesh-оправа требует замены. Показаны два raster-концепта
+`Art/Candidates/field006-auras-v3-2026-10-02/`: A — неровная руническая оправа,
+B — разорванная сеть магических узлов. Reference — approved traveler aura art;
+provenance/prompt/hash сохранены рядом с preview. Пользователь выбрал A с символом
+внутри: packet `Art/Packets/field006-zone-seal-v001-2026-10-02.json`, source
+`Art/Source/VFX/field-006-zone-seal/telegraph/`, runtime
+`Assets/Resources/Art/VFX/field-006-zone-seal-telegraph.png`. Fit 512, PPU 256,
+центр 0.5/0.5, alpha сохранена. Центральные mesh glyphs увеличены в 1.5 раза,
+масштабируются вместе с зоной и не вращаются; ровный mesh обод не рисуется.
+Portal — отдельный upright oval, принятый уточнением о doorway в центре большой
+области: packet `Art/Packets/field006-portal-v001-2026-10-02.json`; source
+`Art/Source/VFX/field-006-portal/prop/`, runtime `Assets/Resources/Art/VFX/field-006-portal-prop.png`.
+Fit 512/padding32/cropAlpha true/cutoff32, PPU256, pivot0.5/0.0625. Размер upright
+canvas 1.6 units не зависит от ground entry radius; видимый силуэт несколько меньше
+canvas. Ground rim сохранён отдельно, плоский spiral glyph скрыт. Profile transit
+0.18/1/0.25 с, белое сжатие/появление композируются с обычной sprite motion.
+Action-speed +50% имеет отдельную пиктограмму песочных часов со стрелками.
 
 Все печати пакета используют наземное сжатие по Y до 0.8 после вращения внутренних слоёв;
 проверка попадания следует тому же эллипсу.

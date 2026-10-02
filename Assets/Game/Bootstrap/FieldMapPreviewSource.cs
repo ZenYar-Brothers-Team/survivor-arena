@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using Game.Presentation;
 using Game.UI;
+using Game.Zones;
+using Game.Diagnostics;
 using UnityEngine;
 
 namespace Game.Bootstrap
 {
     /// <summary>
     /// Development map preview data for the running field: the arena rectangle, this run's road network (FIELD-003,
-    /// DECISION-0137), the outline of every player-only obstacle collider the field art created, and the gameplay camera
+    /// DECISION-0137) or platform network (FIELD-009), the outline of every player-only obstacle collider the field art created, and the gameplay camera
     /// frame. Obstacles and roads are read once on first use.
     /// </summary>
     public sealed class FieldMapPreviewSource : IMapPreviewSource
@@ -21,12 +23,38 @@ namespace Game.Bootstrap
         private List<Vector2[]> _obstacles;
         private List<MapPreviewRoad> _roads;
         private Rect? _arenaRect;
+        private readonly ZoneRuntime _zones;
+        private readonly List<ZonePlacement> _altarZones = new List<ZonePlacement>();
+        private readonly List<MapPreviewAltar> _altars = new List<MapPreviewAltar>();
 
-        public FieldMapPreviewSource(FieldEnvironmentArtRuntime art, Func<Rect> arena, Camera camera)
+        public FieldMapPreviewSource(FieldEnvironmentArtRuntime art, Func<Rect> arena, Camera camera, ZoneRuntime zones = null)
         {
             _art = art ?? throw new ArgumentNullException(nameof(art));
             _arena = arena ?? throw new ArgumentNullException(nameof(arena));
             _camera = camera;
+            _zones = zones;
+            if (zones != null)
+                foreach (var zone in zones.Zones)
+                    if (zone.Effect.IsAltar)
+                    {
+                        _altarZones.Add(zone);
+                        _altars.Add(default);
+                    }
+        }
+
+        public IReadOnlyList<MapPreviewAltar> Altars
+        {
+            get
+            {
+                using var guard = PerfGuard.Measure("Zones.MapPreview", 2f);
+                for (var i = 0; i < _altarZones.Count; i++)
+                {
+                    var zone = _altarZones[i];
+                    _altars[i] = new MapPreviewAltar(zone.Center, zone.Radius, zone.Effect.Color,
+                        zone.Effect.Polarity == ZoneAltarPolarity.Negative, zone.IsActive(_zones.Time));
+                }
+                return _altars;
+            }
         }
 
         public Rect Arena => _arenaRect ??= _arena();
@@ -71,6 +99,24 @@ namespace Game.Bootstrap
             return result;
         }
 
+        /// <summary>
+        /// Platform field pieces in drawing order: bridges at the bridge width, then each platform as a round dot of its
+        /// own diameter (the start platform in its own color). No layout yields nothing.
+        /// </summary>
+        public static List<MapPreviewRoad> PlatformPieces(FieldPlatformLayout layout)
+        {
+            var result = new List<MapPreviewRoad>();
+            if (layout == null) return result;
+            var profile = layout.Profile;
+            foreach (var bridge in layout.Bridges)
+                result.Add(new MapPreviewRoad(new[] { layout.Platforms[bridge.From].Center, layout.Platforms[bridge.To].Center },
+                    profile.BridgeWidth, profile.BridgeColor));
+            for (var i = 0; i < layout.Platforms.Count; i++)
+                result.Add(new MapPreviewRoad(new[] { layout.Platforms[i].Center }, layout.Platforms[i].Radius * 2f,
+                    i == layout.StartIndex ? profile.StartPlatformColor : profile.PlatformColor));
+            return result;
+        }
+
         /// <summary>World-space outlines of obstacle colliders: polygons as authored, circles as 16-gons, anything else as its bounds.</summary>
         public static List<Vector2[]> Outlines(IEnumerable<Collider2D> colliders)
         {
@@ -99,24 +145,6 @@ namespace Game.Bootstrap
                                 bounds.center.y + Mathf.Sin(angle) * bounds.extents.y);
                         }
                         result.Add(ring);
-        /// <summary>
-        /// Platform field pieces in drawing order: bridges at the bridge width, then each platform as a round dot of its
-        /// own diameter (the start platform in its own color). No layout yields nothing.
-        /// </summary>
-        public static List<MapPreviewRoad> PlatformPieces(FieldPlatformLayout layout)
-        {
-            var result = new List<MapPreviewRoad>();
-            if (layout == null) return result;
-            var profile = layout.Profile;
-            foreach (var bridge in layout.Bridges)
-                result.Add(new MapPreviewRoad(new[] { layout.Platforms[bridge.From].Center, layout.Platforms[bridge.To].Center },
-                    profile.BridgeWidth, profile.BridgeColor));
-            for (var i = 0; i < layout.Platforms.Count; i++)
-                result.Add(new MapPreviewRoad(new[] { layout.Platforms[i].Center }, layout.Platforms[i].Radius * 2f,
-                    i == layout.StartIndex ? profile.StartPlatformColor : profile.PlatformColor));
-            return result;
-        }
-
                         break;
                     default:
                         var box = collider.bounds;

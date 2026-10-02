@@ -2560,6 +2560,16 @@
     "role": "Prop"
   },
   {
+    "id": "FIELD-006-ZONE-SEAL-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-006-zone-seal-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-006-PORTAL-VISUAL-PROP",
+    "resourcePath": "Art/VFX/field-006-portal-prop",
+    "role": "Prop"
+  },
+  {
     "id": "FIELD-009-MATERIAL-VISUAL-TILE",
     "resourcePath": "Art/Sprites/Fields/field-009-material/field-009-material-tile",
     "role": "Tile"
