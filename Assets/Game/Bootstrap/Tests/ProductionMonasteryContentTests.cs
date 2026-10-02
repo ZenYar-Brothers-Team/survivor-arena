@@ -19,7 +19,8 @@ namespace Game.Bootstrap.Tests
             var presentation = catalog.FieldEnvironmentPresentations[config.Environment.Id];
             Assert.AreEqual("FIELD-007-VISUAL-GROUND", presentation.Ground.Id.ToString());
             Assert.AreEqual(160f, presentation.ArenaSideLength);
-            Assert.AreEqual(0, presentation.InteriorObstacleCount);
+            var obstacleCells = Mathf.FloorToInt((presentation.ArenaSideLength.Value - 2f * presentation.ObstacleLayout.EdgeMargin) / presentation.ObstacleLayout.CellSize);
+            Assert.AreEqual(obstacleCells * obstacleCells * presentation.ObstacleLayout.PatternsPerCell, presentation.InteriorObstacleCount);
             var layout = presentation.ZoneLayout;
             Assert.AreEqual(36, layout.Zones.Count);
             Assert.AreEqual(3, layout.MaxPerScreen);

@@ -48,7 +48,9 @@ namespace Game.Zones
             ZonePlacement pairFirst, out Vector2 center, Rect? within = null)
         {
             var isPortal = effect.Kind == ZoneEffectKind.Portal;
-            var needed = effect.Radius + _layout.ObstacleClearance + (isPortal ? effect.PortalExitDistance + ExitBodyAllowance : 0f);
+            // FIELD-007: effects may cover props, while the physical altar foundation remains clear (DECISION-0146).
+            var obstacleRadius = effect.IsAltar && _layout.AltarObstacleRadius.HasValue ? _layout.AltarObstacleRadius.Value : effect.Radius;
+            var needed = obstacleRadius + _layout.ObstacleClearance + (isPortal ? effect.PortalExitDistance + ExitBodyAllowance : 0f);
             var loX = -_half + effect.Radius;
             var hiX = _half - effect.Radius;
             var loY = loX;

@@ -1,5 +1,7 @@
 # Regression map
 
+FIELD-007 препятствия: `ProductionMonasteryObstacleTests.ObstacleLayouts_UseSixApprovedPropsAndLeaveRoomForAllAltars` проверяет typed refs, плотность FIELD-001 и совместную расстановку obstacle/altar для восьми seeds.
+
 FIELD-DEV-BLOBS contact: `scripts/tests/test_dev_blob_collider_fit.py` checks a
 passable concave bay, exclusion of disconnected opaque debris, pivot alignment,
 and correspondence of all twenty configured contours to the immutable raster

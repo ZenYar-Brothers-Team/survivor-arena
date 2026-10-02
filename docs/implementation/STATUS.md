@@ -4,6 +4,8 @@
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 
+FIELD-007 obstacles 2026-10-02 — Implemented по прямому поручению пользователя: шесть approved Prop, ячейки 16 wu / два паттерна как FIELD-001, свободные основания алтарей. При текущем 120×120 целевые 98 предметов; graphics smoke наблюдает 97 и все 36 алтарей. Свежие working-tree проверки: 12/12 EditMode + 1/1 PlayMode, без reusable receipt из-за параллельных inputs; art scope 112/112 и manifest 316/316 PASS. [Контракт](../decisions/0146-monastery-existing-obstacles.md), [evidence](evidence/2026-10-02-monastery-obstacles.md). Фоновый full-resolution просмотр отдельно, без включения в obstacle commit.
+
 FIELD-007 altar preview 2026-10-02 — Implemented, явный scope пользователя ([DECISION-0145](../decisions/0145-field007-altars-preview.md)). Работа непосредственно на FIELD-007: назначенная земля, Dev unlock/выбор, temporary FIELD-001 encounters, 36 случайных объектов и максимум три основания в стартовом camera viewport. Размер 160×160 и 12 позитивных циклических + 12 негативных циклических + 12 святынь утверждены пользователем. EditMode 1346/1346 PASS в общей проверке; новый graphics PlayMode FIELD-007 1/1 PASS после исправления ожидания первого спавна. Повторный полный art scope PASS: 95/95 tests, manifest 311/311, `TestResults/checks/20261002T095125-816894Z/summary.json`. [Evidence](evidence/2026-10-02-field007-altars-preview.md). Финальный баланс/encounters и пользовательская gameplay visual acceptance остаются открытыми; общий backlog не возобновлён.
 
 Печати зон Академии 2026-10-02 — Implemented непосредственно на FIELD-006

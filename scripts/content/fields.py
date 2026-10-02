@@ -208,6 +208,12 @@ def field_presentation(baseline):
             zones["decorationChance"] = 0
             if not library:
                 zones.pop("blobLayout", None)
+        if "obstacleLayout" in zones_packet:
+            zones.pop("blobLayout", None)
+            zones["obstacleLayout"] = zones_packet["obstacleLayout"]
+            layout = zones_packet["obstacleLayout"]
+            cells = int((zones_field["arenaSideLength"] - 2 * layout["edgeMargin"]) // layout["cellSize"])
+            zones["interiorObstacleCount"] = cells * cells * layout["patternsPerCell"]
         presentations.append(zones)
     # FIELD-009: flat-color circular platforms and bridges over a damaging void.
     platforms_packet = baseline["field009"]

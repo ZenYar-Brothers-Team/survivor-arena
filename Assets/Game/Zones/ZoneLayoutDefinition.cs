@@ -16,6 +16,7 @@ namespace Game.Zones
         public float StartClearRadius { get; }
         public float MinGap { get; }
         public float ObstacleClearance { get; }
+        public float? AltarObstacleRadius { get; }
         /// <summary>Fraction of the screen size the active window extends beyond the player's screen on each side.</summary>
         public float ActiveScreenMargin { get; }
         public int PlacementAttempts { get; }
@@ -37,6 +38,9 @@ namespace Game.Zones
             StartClearRadius = Required(data.StartClearRadius, "zoneLayout.startClearRadius");
             MinGap = Required(data.MinGap, "zoneLayout.minGap");
             ObstacleClearance = Required(data.ObstacleClearance, "zoneLayout.obstacleClearance");
+            AltarObstacleRadius = data.AltarObstacleRadius;
+            if (AltarObstacleRadius.HasValue)
+                NumericValidation.ValidatePositive(AltarObstacleRadius.Value, nameof(AltarObstacleRadius));
             ActiveScreenMargin = Required(data.ActiveScreenMargin, "zoneLayout.activeScreenMargin");
             NumericValidation.ValidateNonNegative(ActiveScreenMargin, nameof(ActiveScreenMargin));
             PlacementAttempts = data.PlacementAttempts ?? throw new ArgumentException("zoneLayout.placementAttempts is required.");

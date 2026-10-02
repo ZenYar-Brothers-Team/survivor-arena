@@ -9915,7 +9915,7 @@
     "bushScaleMax": 0.68,
     "seed": 8001,
     "obstacleSeed": 8002,
-    "interiorObstacleCount": 0,
+    "interiorObstacleCount": 162,
     "nearObstacleCount": 0,
     "obstaclePlacementAttempts": 80,
     "nearObstacleRadius": 22,
@@ -10115,7 +10115,8 @@
         }
       ],
       "maxPerScreen": 3,
-      "screenPadding": 2
+      "screenPadding": 2,
+      "altarObstacleRadius": 0.75
     },
     "altarPresentation": {
       "positiveVisualId": "FIELD-007-ALTAR-POSITIVE-VISUAL-PROP",
@@ -10129,6 +10130,120 @@
       "ringThickness": 0.07,
       "restingAlpha": 0.2,
       "sortingOrder": -3
+    },
+    "obstacleLayout": {
+      "cellSize": 16,
+      "patternsPerCell": 2,
+      "edgeMargin": 4,
+      "cellMargin": 2,
+      "startClearRadius": 6,
+      "minPatternGap": 3,
+      "placementAttempts": 80,
+      "referenceSeed": 7002,
+      "patterns": [
+        {
+          "id": "CISTERN",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-CISTERN",
+              "x": 0,
+              "y": 0,
+              "width": 2.2,
+              "height": 1.5
+            }
+          ]
+        },
+        {
+          "id": "FOOTBRIDGE",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-FOOTBRIDGE",
+              "x": 0,
+              "y": 0,
+              "width": 2.4,
+              "height": 1.1
+            }
+          ]
+        },
+        {
+          "id": "HEDGE-BLOCK",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-HEDGE-BLOCK",
+              "x": 0,
+              "y": 0,
+              "width": 1.7,
+              "height": 1.0
+            }
+          ]
+        },
+        {
+          "id": "HERB-PLANTER",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-HERB-PLANTER",
+              "x": 0,
+              "y": 0,
+              "width": 1.2,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "ROOT-MASS",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-ROOT-MASS",
+              "x": 0,
+              "y": 0,
+              "width": 1.3,
+              "height": 0.9
+            }
+          ]
+        },
+        {
+          "id": "ROOT-STUMP",
+          "weight": 1,
+          "rotations": [
+            0
+          ],
+          "pieces": [
+            {
+              "kind": "Stump",
+              "visualId": "FIELD-007-VISUAL-ROOT-STUMP",
+              "x": 0,
+              "y": 0,
+              "width": 1.1,
+              "height": 0.9
+            }
+          ]
+        }
+      ]
     }
   },
   {
