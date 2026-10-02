@@ -1,8 +1,8 @@
 {
   "format": "field009-platforms",
   "formatVersion": 1,
-  "revision": "field009-platforms-r2",
-  "approval": "Approved 2026-10-02 (по прямому поручению пользователя: FIELD-009 играется как круговые платформы с мостами, вариант D без малых тупиков, урон пустоты 20/с; цветной блокаут, арт позже)",
+  "revision": "field009-platforms-r3-bridge-veil-D",
+  "approval": "Approved 2026-10-02 (по прямому поручению пользователя: FIELD-009 играется как круговые платформы с мостами, вариант D без малых тупиков, урон пустоты 20/с; цветной блокаут, арт позже); user approved bridge concept D for integration: transparent magical weave, no bridge masonry, platforms preserved",
   "purpose": "FIELD-009 platform geometry with approved subdued stone / golden holy-ground art (DECISION-0147). Spawn settings are shared with FIELD-001 for now.",
   "units": {
     "distance": "world units; screen height H=10, width ~17.8 (16:9)",
@@ -22,8 +22,18 @@
   "platformLayout": {
     "art": {
       "visualId": "FIELD-009-MATERIAL-VISUAL-TILE",
-      "groundUvBounds": [0.568182, 0.861849, 0.717703, 0.989373],
-      "surfaceUvBounds": [0.179426, 0.681190, 0.287081, 0.840595],
+      "groundUvBounds": [
+        0.568182,
+        0.861849,
+        0.717703,
+        0.989373
+      ],
+      "surfaceUvBounds": [
+        0.179426,
+        0.68119,
+        0.287081,
+        0.840595
+      ],
       "groundRepeat": 8,
       "surfaceRepeat": 2.4,
       "contourStep": 0.2,
@@ -32,7 +42,17 @@
       "faceHeight": 0.32,
       "rimColor": "#b8b9c5",
       "inlayColor": "#aa925e",
-      "faceColor": "#626680"
+      "faceColor": "#626680",
+      "bridgeVeil": true,
+      "bridgeVeilColor": "#BDD9F0",
+      "bridgeThreadColor": "#BACDE1",
+      "bridgeEdgeColor": "#A4BED4",
+      "bridgeVeilOpacity": 0.18,
+      "bridgeThreadOpacity": 0.62,
+      "bridgeEdgeOpacity": 0.88,
+      "bridgeWeaveLength": 4.5,
+      "bridgeThreadWidth": 0.024,
+      "bridgeEdgeWidth": 0.045
     },
     "arenaSideLength": 200,
     "minimumRadius": 5.5,

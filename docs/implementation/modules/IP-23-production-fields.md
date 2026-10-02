@@ -25,6 +25,13 @@ FIELD-007: по прямому поручению подключены шест�
 и platformLayout.art задают выборку материала из принятых pixels.
 Прежний cloud/reuse draft не применяется. Gameplay visual review отдельно.
 
+Последующий выбранный D для FIELD-009: procedural transparent veil мостов,
+bridge-local weave UV, без каменной кромки/грани вдоль переходов. Платформы,
+ground, geometry, books/damage прежние. Настройки — platformLayout.art,
+контракт — DECISION-0147. Acceptance: одинаковая плотность рисунка при разных
+углах; masonry только у кругов, открытые входы; вся safe width проходима;
+cleanup/reinitialize освобождает материалы; graphics review проверяет читаемость.
+
 Первоначальная подготовка по поручению
 пользователя 2026-10-02: [brief](../../art/briefs/field009-platform-art-v1.md)
 и [review packet](../../../Art/Candidates/field009-platform-art-2026-10-02/README.md).

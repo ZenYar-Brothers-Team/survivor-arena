@@ -32,3 +32,32 @@ ground больше не являются актуальным планом по
 Контекст: [brief](../art/briefs/field009-platform-art-v1.md),
 [review packet](../../Art/Candidates/field009-platform-art-2026-10-02/README.md).
 Текущее исполнение и проверки — только в [STATUS](../implementation/STATUS.md).
+
+## Уточнение мостов: выбран D
+
+Пользователь отклонил каменные A/B/C как тяжёлые и утвердил D:
+«да, давай попробуем D, встраивай его в игру».
+[Concept/provenance](../../Art/Candidates/field009-bridges-2026-10-02/lightweight-v2-record.json).
+Большие круги сохраняют камень, кромку, золото и нижнюю грань. Мосты — тонкое
+полупрозрачное магическое полотно с редким диагональным плетением и тонкими
+нитями по границе безопасной ширины. Плита, массивная кромка и нижняя грань
+мостов убираются. Полотно процедурное, а не raster crop из concept sheet;
+local along/across UV следуют направлению каждого перехода. Нового PNG/import нет.
+Рисунок неподвижен, без bloom/частиц. Прозрачность не вводит дыр или прыжков:
+layout, ширина, walkability, книги и holy-ground damage прежние.
+
+`platformLayout.art.bridgeVeil=true` включает D; без него прежний stone bridge.
+Режим требует все настройки, без arbitrary defaults. Opacity в [0,1], текущие
+0.18/0.62/0.88 относятся к полотну/нитям/краям. Длина повторения вдоль моста
+`bridgeWeaveLength`=4.5 wu; увеличение разрежает рисунок. Полная толщина нити
+`bridgeThreadWidth`=0.024 wu; ширина внутренней краевой полосы
+`bridgeEdgeWidth`=0.045 wu. Длины finite >0, нить < четверти repeat, край <
+половины bridgeWidth. При ширине 5.5 wu край занимает 0.045/5.5 ≈0.82% ширины
+с каждой стороны. Цвета задаются отдельно от opacity.
+
+Прежний union contour сохраняет открытые входы; masonry строится только рядом
+с кругами, с допуском contourStep. На мостах shader boundary следует точной
+safe width. Opaque platform surface скрывает наложения в кругах. Pause не
+двигает плетение; end/Shutdown освобождает meshes/materials, shared texture
+сохраняется; reinitialize создаёт одну сеть. Читаемость золотой земли сквозь
+полотно оценивается отдельно в gameplay. [Evidence](../implementation/evidence/2026-10-02-field009-bridge-veil.md).

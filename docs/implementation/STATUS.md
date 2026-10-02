@@ -4,6 +4,13 @@
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
 
+Отложенное поручение пользователя 2026-10-02: перед релизной сборкой вычистить
+build от test/dev-only и неиспользуемых материалов, подтвердив состав по
+BuildReport и release smoke. Задача [TD-050](../tech-debt-register.md#release-build-cleanup)
+добавлена в список; реализация не начата, текущая Execution order не меняется.
+
+FIELD-009 bridge veil D 2026-10-02 — Implemented по прямому выбору D: процедурное полупрозрачное полотно, редкое плетение в bridge-local UV и тонкие safe-width края. Каменная кромка/вставка/нижняя грань только у кругов; ground/platform pixels и gameplay geometry/damage прежние. Generated JSON актуален; C# compile-only четырёх assembly PASS, manifest 317/317 PASS. Unity code/art tests и shader/gameplay capture НЕ ЗАПУЩЕНЫ: открытый Editor REST недоступен (WinError 10061). Runtime/visual acceptance остаются открытыми; пользователь поручил отдельный коммит выбранного D, IP-23 не повышен. [Evidence](evidence/2026-10-02-field009-bridge-veil.md), [контракт](../decisions/0147-field009-holy-ground-art.md#уточнение-мостов-выбран-d).
+
 Commit audit FIELD-006/007 2026-10-02 — по поручению пользователя полезные изменения подготовлены к сохранению отдельно от незавершённого FIELD-009. Свежие generation/audio/manifest проверки PASS; полный graphics runner не запустил Unity tests из-за недоступности локального Editor REST (WinError 10061). Новый runtime PASS и повышение статусов не заявляются. [Аудит](evidence/2026-10-02-non-field009-commit-audit.md).
 
 FIELD-009 platform art 2026-10-02 — Implemented по прямому утверждению concept A v3: приглушённый светлый камень, кремово-золотистая святая земля и прожилки. Approved reference texture подключена через material-only UV выборки; общий контур даёт кромку, золотую вставку и нижнюю грань без закрытия мостов. Фрагменты платформ в фоне устранены ограничением выборки чистой земли и покрыты regression test. Art pipeline PLAN/APPLY PASS; art scope 112/112, manifest 317/317; graphics smoke 1/1; итоговый scoped EditMode 3/3 PASS. [Контракт](../decisions/0147-field009-holy-ground-art.md), [evidence](evidence/2026-10-02-field009-platform-art-integration.md). Geometry/damage сохранены; gameplay visual acceptance после подключения остаётся за пользователем. Общий backlog и статус IP-23 не повышаются.

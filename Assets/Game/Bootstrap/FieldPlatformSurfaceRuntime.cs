@@ -45,14 +45,24 @@ namespace Game.Bootstrap
                 vertices = new List<Vector3>();
                 indices = new List<int>();
                 var halfWidth = p.BridgeWidth * .5f;
+                if (_art != null && _art.BridgeVeil && _art.BridgeEdgeWidth >= halfWidth)
+                    throw new ArgumentException("Bridge veil edge must fit within the safe bridge width.");
+                var bridgeUv = _art != null && _art.BridgeVeil ? new List<Vector2>() : null;
                 foreach (var bridge in layout.Bridges)
                 {
                     var a = layout.Platforms[bridge.From].Center;
                     var b = layout.Platforms[bridge.To].Center;
                     var side = Vector2.Perpendicular((b - a).normalized) * halfWidth;
                     AddQuad(vertices, indices, a - side, b - side, b + side, a + side);
+                    if (bridgeUv != null)
+                    {
+                        var length = Vector2.Distance(a, b);
+                        bridgeUv.Add(new Vector2(0f, -halfWidth)); bridgeUv.Add(new Vector2(length, -halfWidth));
+                        bridgeUv.Add(new Vector2(length, halfWidth)); bridgeUv.Add(new Vector2(0f, halfWidth));
+                    }
                 }
-                CreateMesh("Bridges", vertices, indices, _art == null ? p.BridgeColor : Color.white, BridgeOrder);
+                CreateMesh("Bridges", vertices, indices, _art == null ? p.BridgeColor : Color.white, BridgeOrder,
+                    bridgeUv: bridgeUv, bridgeHalfWidth: halfWidth);
 
                 vertices = new List<Vector3>();
                 indices = new List<int>();
@@ -94,7 +104,8 @@ namespace Game.Bootstrap
         }
 
         private void CreateMesh(string name, List<Vector3> vertices, List<int> indices, Color color, int sortingOrder,
-            bool ground = false, bool solid = false, List<Color> vertexColors = null)
+            bool ground = false, bool solid = false, List<Color> vertexColors = null,
+            List<Vector2> bridgeUv = null, float bridgeHalfWidth = 0f)
         {
             if (vertices.Count == 0) return;
             var mesh = new Mesh { name = name, indexFormat = IndexFormat.UInt32 };
@@ -112,7 +123,7 @@ namespace Game.Bootstrap
                 var uv = new List<Vector2>(vertices.Count);
                 var repeat = ground ? _art.GroundRepeat : _art.SurfaceRepeat;
                 foreach (var vertex in vertices) uv.Add((Vector2)vertex / repeat);
-                mesh.SetUVs(0, uv);
+                mesh.SetUVs(0, bridgeUv ?? uv);
             }
             mesh.SetTriangles(indices, 0);
             mesh.RecalculateBounds();
@@ -122,9 +133,20 @@ namespace Game.Bootstrap
             _assets.Add(material);
             if (_art != null && !solid)
             {
-                material.mainTexture = _reference.texture;
-                var r = ground ? _art.GroundUvBounds : _art.SurfaceUvBounds;
-                material.SetVector("_UvBounds", new Vector4(r.xMin, r.yMin, r.xMax, r.yMax));
+                if (bridgeUv != null)
+                {
+                    material.SetFloat("_BridgeVeil", 1f);
+                    material.SetColor("_VeilColor", QualitySettings.activeColorSpace == ColorSpace.Linear ? _art.BridgeVeilColor.linear : _art.BridgeVeilColor);
+                    material.SetColor("_ThreadColor", QualitySettings.activeColorSpace == ColorSpace.Linear ? _art.BridgeThreadColor.linear : _art.BridgeThreadColor);
+                    material.SetColor("_EdgeColor", QualitySettings.activeColorSpace == ColorSpace.Linear ? _art.BridgeEdgeColor.linear : _art.BridgeEdgeColor);
+                    material.SetVector("_Weave", new Vector4(_art.BridgeWeaveLength, _art.BridgeThreadWidth, _art.BridgeEdgeWidth, bridgeHalfWidth));
+                }
+                else
+                {
+                    material.mainTexture = _reference.texture;
+                    var r = ground ? _art.GroundUvBounds : _art.SurfaceUvBounds;
+                    material.SetVector("_UvBounds", new Vector4(r.xMin, r.yMin, r.xMax, r.yMax));
+                }
             }
             var go = new GameObject(name);
             go.transform.SetParent(_root.transform, false);
@@ -158,6 +180,9 @@ namespace Game.Bootstrap
                 {
                     var j = (i + 1) % count;
                     var a = contour[i]; var b = contour[j]; var an = normals[i]; var bn = normals[j];
+                    // D: only the circular plazas retain masonry. Bridge contours have no extruded face,
+                    // rim or gold band; the veil shader marks the exact safe-width edges instead.
+                    if (_art.BridgeVeil && !TouchesPlatform(layout, (a + b) * .5f)) continue;
                     AddQuad(rim, rimTriangles, a, b, b - bn * _art.RimWidth, a - an * _art.RimWidth);
                     var inset = _art.RimWidth * .65f;
                     AddQuad(gold, goldTriangles, a - an * inset, b - bn * inset,
@@ -172,6 +197,15 @@ namespace Game.Bootstrap
             CreateMesh("PlatformFaces", faces, faceTriangles, _art.FaceColor, BridgeOrder - 1, solid: true, vertexColors: faceColors);
             CreateMesh("PlatformRim", rim, rimTriangles, _art.RimColor, PlatformOrder + 1, solid: true);
             CreateMesh("PlatformInlay", gold, goldTriangles, _art.InlayColor, PlatformOrder + 2, solid: true);
+        }
+
+        private bool TouchesPlatform(FieldPlatformLayout layout, Vector2 point)
+        {
+            // Marching-squares contours lie within one sampling step of the analytic circle.
+            foreach (var disc in layout.Platforms)
+                if ((point - disc.Center).sqrMagnitude <= (disc.Radius + _art.ContourStep) * (disc.Radius + _art.ContourStep))
+                    return true;
+            return false;
         }
 
         public void Dispose()

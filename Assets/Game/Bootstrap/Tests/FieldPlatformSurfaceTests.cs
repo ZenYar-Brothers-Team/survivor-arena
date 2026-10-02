@@ -45,7 +45,7 @@ namespace Game.Bootstrap.Tests
                 var layout = FieldPlatformLayoutGenerator.Generate(profile, 9);
                 runtime.Initialize(layout, parent.transform, sprite);
                 Assert.IsEmpty(parent.GetComponentsInChildren<Collider2D>());
-                foreach (var name in new[] { "Bridges", "Platforms", "StartPlatform" })
+                foreach (var name in new[] { "Platforms", "StartPlatform" })
                 {
                     var surface = parent.transform.Find("PlatformNetwork/" + name);
                     var mesh = surface.GetComponent<MeshFilter>().sharedMesh;
@@ -60,10 +60,13 @@ namespace Game.Bootstrap.Tests
                     Assert.That(mesh.colors.All(c => c == Color.white));
                 }
                 var groundMaterial = parent.transform.Find("PlatformNetwork/Void").GetComponent<MeshRenderer>().sharedMaterial;
+                var bridgeMaterial = parent.transform.Find("PlatformNetwork/Bridges").GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.AreEqual(1f, bridgeMaterial.GetFloat("_BridgeVeil"));
                 var bounds = profile.Art.GroundUvBounds;
                 Assert.AreEqual(new Vector4(bounds.xMin, bounds.yMin, bounds.xMax, bounds.yMax), groundMaterial.GetVector("_UvBounds"));
                 runtime.Dispose();
                 Assert.IsTrue(groundMaterial == null);
+                Assert.IsTrue(bridgeMaterial == null, "Private veil material is owned and released too.");
                 Assert.NotNull(sprite.texture, "Shared approved texture survives disposal.");
                 Assert.IsNull(parent.transform.Find("PlatformNetwork"));
                 runtime.Initialize(layout, parent.transform, sprite);
@@ -101,6 +104,67 @@ namespace Game.Bootstrap.Tests
                 Assert.IsFalse(layout.IsWalkable(new Vector2(0, 4)));
             }
             finally { runtime.Dispose(); Object.DestroyImmediate(parent); }
+        }
+
+        [TestCase(0f)]
+        [TestCase(45f)]
+        [TestCase(90f)]
+        public void VeilBridge_LocalWeaveCoordinates_NoMasonryOutsidePlazas_ContinuousSafeWidth(float degrees)
+        {
+            var parent = new GameObject("Bridge veil test");
+            var runtime = new FieldPlatformSurfaceRuntime();
+            try
+            {
+                var registry = RuntimeContentCatalog.CreateProduction().Registry;
+                var p = FixtureFieldEnvironmentPresentationCatalog.Load("Content/Presentation/ProductionFieldEnvironmentPresentation")
+                    ["FIELD-009-ENVIRONMENT"].PlatformLayout;
+                var axis = new Vector2(Mathf.Cos(degrees * Mathf.Deg2Rad), Mathf.Sin(degrees * Mathf.Deg2Rad));
+                var side = Vector2.Perpendicular(axis);
+                var discs = new[] { new FieldPlatformDisc(-axis * 12f, 6f), new FieldPlatformDisc(axis * 12f, 6f) };
+                var layout = new FieldPlatformLayout(p, discs, new[] { new FieldPlatformBridge(0, 1, 12) }, 0, 9);
+                runtime.Initialize(layout, parent.transform, p.Art.Visual.Resolve(registry).Sprite);
+                var surface = parent.transform.Find("PlatformNetwork/Bridges");
+                var mesh = surface.GetComponent<MeshFilter>().sharedMesh;
+                var half = p.BridgeWidth * .5f;
+                CollectionAssert.AreEqual(new[] { new Vector2(0, -half), new Vector2(24, -half),
+                    new Vector2(24, half), new Vector2(0, half) }, mesh.uv);
+                var material = surface.GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.AreEqual(1f, material.GetFloat("_BridgeVeil"));
+                Assert.AreEqual(p.Art.BridgeVeilColor.a, material.GetColor("_VeilColor").a);
+                Assert.Less(material.GetColor("_VeilColor").a, .35f, "The golden earth remains visible through D.");
+                Assert.AreEqual(new Vector4(p.Art.BridgeWeaveLength, p.Art.BridgeThreadWidth, p.Art.BridgeEdgeWidth, half), material.GetVector("_Weave"));
+                foreach (var name in new[] { "PlatformFaces", "PlatformRim", "PlatformInlay" })
+                {
+                    var points = parent.transform.Find("PlatformNetwork/" + name).GetComponent<MeshFilter>().sharedMesh.vertices;
+                    Assert.IsNotEmpty(points, "Plazas retain their existing masonry.");
+                    for (var i = 0; i < points.Length; i += 4)
+                    {
+                        var midpoint = (Vector2)(points[i] + points[i + 1]) * .5f;
+                        Assert.IsTrue(discs.Any(d => Vector2.Distance(midpoint, d.Center) <= d.Radius + p.Art.ContourStep + .001f),
+                            "No thick rim, gold band or lower face along the exposed bridge.");
+                    }
+                }
+                Assert.IsTrue(layout.IsWalkable(side * (half - .01f)), "Transparency is visual; the entire width is safe.");
+                Assert.IsFalse(layout.IsWalkable(side * (half + .01f)));
+                Assert.IsEmpty(parent.GetComponentsInChildren<Collider2D>());
+            }
+            finally { runtime.Dispose(); Object.DestroyImmediate(parent); }
+        }
+
+        [Test]
+        public void VeilProfile_MissingOrNonFiniteRequiredSettings_RejectsInsteadOfDefaulting()
+        {
+            var data = new Game.Presentation.Json.FieldPlatformArtData {
+                VisualId = "FIELD-009-MATERIAL-VISUAL-TILE", GroundUvBounds = new[] { 0f, 0f, 1f, 1f },
+                SurfaceUvBounds = new[] { 0f, 0f, 1f, 1f }, GroundRepeat = 8, SurfaceRepeat = 2.4f,
+                ContourStep = .2f, RimWidth = .18f, InlayWidth = .035f, FaceHeight = .32f,
+                RimColor = "#b8b9c5", InlayColor = "#aa925e", FaceColor = "#626680"
+            };
+            Assert.IsFalse(new FieldPlatformArtDefinition(data).BridgeVeil, "Legacy profiles retain stone bridges.");
+            data.BridgeVeil = true;
+            Assert.Throws<System.ArgumentException>(() => new FieldPlatformArtDefinition(data));
+            data.BridgeWeaveLength = float.NaN; data.BridgeThreadWidth = .024f; data.BridgeEdgeWidth = .045f;
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => new FieldPlatformArtDefinition(data));
         }
     }
 }

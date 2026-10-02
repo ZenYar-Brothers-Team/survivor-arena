@@ -50,3 +50,17 @@
 ## Docs / Dependency
 
 Записей нет.
+
+## Release build cleanup
+
+| ID | Title | Files | Impact if left | Effort | Priority | Added | Source |
+|----|-------|-------|----------------|--------|----------|-------|--------|
+| TD-050 | Вычистить релизный билд от тестовых и ненужных материалов: test/dev scenes и content, debug/review surfaces, unused assets и временные ресурсы | `Assets/Resources`, test/dev assemblies и сцены, build configuration; точный список после аудита BuildReport/dependencies | Лишний размер сборки, ненужные тестовые ресурсы или dev-возможности в пользовательской игре | M | P2 (до релизной сборки) | 2026-10-02 | Прямое поручение пользователя |
+
+Критерии TD-050: составить фактический список содержимого release build и причин
+включения; исключить неиспользуемые и test/dev-only материалы из поставки;
+подтвердить их отсутствие в BuildReport и отсутствие dev/test экранов в release
+Player; выполнить smoke основного игрового пути в release build. Не удалять
+ресурсы только по названию `Fixture`/`Test`: сначала проверить реальные runtime
+ссылки и зависимости, включая Resources.Load и generated catalogs. Нужные игре
+ресурсы и инструменты разработки в репозитории должны сохраниться.

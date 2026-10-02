@@ -106,6 +106,10 @@ FIELD-009 platform art: [brief](art/briefs/field009-platform-art-v1.md),
 [material sampler](../Assets/Resources/Shaders/FieldPlatformSurface.shader).
 Runtime surface is `FieldPlatformSurfaceRuntime`; art sampling/bands remain
 authored in `field009-platforms-v1.json` and refs resolve via sprite registry.
+Selected D bridges: optional `platformLayout.art.bridgeVeil` drives bridge-local
+procedural weave in the same shader; masonry contour remains only near round plazas.
+Contract DECISION-0147; checks FieldPlatformSurfaceTests (UV/orientation, transparency,
+safe width, no bridge masonry, required settings and cleanup), graphics ProductionField009SmokeTests.
 
 - checks: generator `--check`, [Bootstrap/Tests](../Assets/Game/Bootstrap/Tests), [production field smoke](../Assets/Game/Bootstrap/PlayModeTests), ручные gates из STATUS.
 

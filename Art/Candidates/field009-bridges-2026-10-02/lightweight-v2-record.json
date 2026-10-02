@@ -1,0 +1,19 @@
+{
+  "owner": "FIELD-009",
+  "generatedAt": "2026-10-02",
+  "generator": "OpenAI built-in image generation",
+  "kind": "preview-only concept edit, lightweight bridge comparison D/E",
+  "input": "Art/Candidates/field009-bridges-2026-10-02/lightweight-v2.png",
+  "sha256": "2f289094a7fb71e5002a723a586e40c527c398069be5f34966ec4b5344bcfe2b",
+  "prompt": "Art/Candidates/field009-bridges-2026-10-02/lightweight-v2-prompt.txt",
+  "reference": {"role": "edit target, actual gameplay screenshot", "path": "TestResults/field009-art-junction.png"},
+  "feedback": "User rejected A/B/C as heavy and massive; replace solid visual mass with openwork or translucent weave.",
+  "variants": {"D": "translucent magical woven veil, recommended", "E": "thin openwork metallic weave without backing"},
+  "approvedBy": "user",
+  "approvedAt": "2026-10-02",
+  "selectedCandidate": "D",
+  "approvalEvidence": "да, давай попробуем D, встраивай его в игру",
+  "implementation": "Procedural bridge-local veil in FieldPlatformSurface.shader; concept pixels are not imported.",
+  "runtimeOutputs": [],
+  "invariants": ["circular platforms retain existing art", "safe footprint remains continuous", "no jumps or new damage mechanics", "no bridge slab, sidewall or pedestal"]
+}

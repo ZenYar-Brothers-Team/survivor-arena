@@ -15,5 +15,16 @@ namespace Game.Presentation.Json
         public string RimColor { get; set; }
         public string InlayColor { get; set; }
         public string FaceColor { get; set; }
+        // Optional presentation mode; false keeps the existing stone bridge contract.
+        public bool BridgeVeil { get; set; }
+        public string BridgeVeilColor { get; set; }
+        public string BridgeThreadColor { get; set; }
+        public string BridgeEdgeColor { get; set; }
+        public float? BridgeVeilOpacity { get; set; }
+        public float? BridgeThreadOpacity { get; set; }
+        public float? BridgeEdgeOpacity { get; set; }
+        public float? BridgeWeaveLength { get; set; }
+        public float? BridgeThreadWidth { get; set; }
+        public float? BridgeEdgeWidth { get; set; }
     }
 }

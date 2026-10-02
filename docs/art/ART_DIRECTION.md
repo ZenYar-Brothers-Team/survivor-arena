@@ -8,6 +8,11 @@ Last updated: current approved revision
 Approved by: user
 Related architecture: [DECISION-0013](../decisions/0013-procedural-sprite-presentation.md)
 
+FIELD-009 bridge D: пользователь выбрал прозрачное магическое полотно с редким
+светлым плетением вместо массивной плиты. Круглые платформы сохраняют камень и
+объём; мосты имеют тонкий safe-width край без нижней грани, bloom и частиц.
+Контракт: [DECISION-0147](../decisions/0147-field009-holy-ground-art.md#уточнение-мостов-выбран-d).
+
 ## 1. Назначение и область действия
 
 Этот документ задаёт единый визуальный язык Survival Arena для gameplay-спрайтов, окружения, VFX и связанных UI-изображений. Он является входом для генерации, ручной доработки и визуального review ассетов.

@@ -10563,7 +10563,17 @@
         "faceHeight": 0.32,
         "rimColor": "#b8b9c5",
         "inlayColor": "#aa925e",
-        "faceColor": "#626680"
+        "faceColor": "#626680",
+        "bridgeVeil": true,
+        "bridgeVeilColor": "#BDD9F0",
+        "bridgeThreadColor": "#BACDE1",
+        "bridgeEdgeColor": "#A4BED4",
+        "bridgeVeilOpacity": 0.18,
+        "bridgeThreadOpacity": 0.62,
+        "bridgeEdgeOpacity": 0.88,
+        "bridgeWeaveLength": 4.5,
+        "bridgeThreadWidth": 0.024,
+        "bridgeEdgeWidth": 0.045
       },
       "arenaSideLength": 200,
       "minimumRadius": 5.5,

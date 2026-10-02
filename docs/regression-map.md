@@ -416,3 +416,10 @@ and no player bonus outside the flattened rim. `ZoneSealPresentationTests` also 
 `ZoneRuntimeTests.SpeedBuffProjection_OutlastsZone_DecreasesAndClearsOnDispose` guards stale timed-status projections after teardown.
 `SlowStatusPresentationTests.RiftHit_FollowsBody_FreezesWithTheClock_ExpiresWithoutATimerBar_AndReusesItsMesh`
 and `ProductionFieldDevZonesSmokeTests` guard actual Rift hit feedback, pause and cached overlay reuse.
+
+FIELD-009 selected bridge D: `FieldPlatformSurfaceTests.VeilBridge_LocalWeaveCoordinates_NoMasonryOutsidePlazas_ContinuousSafeWidth`
+guards horizontal/diagonal/vertical local UV, transparent veil, retained platform masonry,
+absence of thick bridge faces/rims/inlays and unchanged continuous safe width.
+`VeilProfile_MissingOrNonFiniteRequiredSettings_RejectsInsteadOfDefaulting` guards
+required mode parameters and neutral legacy fallback. The existing ownership test
+also guards veil material disposal/reinitialization. Graphics review remains separate.
