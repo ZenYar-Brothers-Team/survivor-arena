@@ -4190,7 +4190,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Direct user approval 2026-10-02: В«РџРѕРІРµСЂС…РЅРѕСЃС‚СЊ СѓС‚РІРµСЂР¶РґР°СЋ.В» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved."
+        "User approved the displayed corrected dark plum floor with transferred alchemical motifs, 2026-10-02: «подключай пол». Replaces previous smooth magical Academy ground."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },

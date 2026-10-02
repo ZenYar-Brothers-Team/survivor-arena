@@ -6,23 +6,24 @@
   "artDirectionRevision": "Approved art direction and academy surface follow-up read 2026-10-02",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v002/concept-01.png",
+  "selectedVersion": "v003/concept-01.png",
   "approvedAt": "2026-10-02",
   "approvedBy": "user",
-  "approvalEvidence": "Direct user approval 2026-10-02: «Поверхность утверждаю.» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved.",
-  "prompt": "Create ONE square seamless tileable ground texture for FIELD-006, a magical academy arena in a stylized hand-painted fantasy 2D survivor game. Exact orthographic straight-down view, NO perspective, NO horizon. This is a quiet floor material underneath characters, projectiles and large colorful animated magical seals; it must have LOW CONTRAST and visually restrained small details. Replace the mundane masonry look: broad softly fused slabs of ancient magical stone and smooth alchemical mineral surface, irregular organic boundaries, without obvious brickwork, neat rectangular paving blocks, cobblestones, repetitive grids or thick dark grout lines. Cool dusty slate-blue and blue-gray, gently mottled muted violet and subdued teal. Suggest magic through faint thin mineral veins, worn almost-erased small geometric/arcane fragments and subtle inlaid lines embedded in the stone. These tiny fragments should be sparsely scattered, non-legible, desaturated, near the floor value; NOT complete spell circles, NOT symbols that look like interactable objects or gameplay areas. Very slight magical pearlescence in veins only, absolutely no strong emissive glow or bloom. Soft painterly textures, flat ambient diffuse lighting, no directional cast shadows, no focal point, no contrasting accent. Seamless all four edges, uniformly distributed subdued material variation, similar average brightness across the entire tile. Surface only: no props, objects, vegetation, columns, walls, creatures, text, borders, logos, watermark. The final image is the clean texture asset itself occupying the entire square canvas, opaque background.",
+  "approvalEvidence": "User approved the displayed corrected dark plum floor with transferred alchemical motifs, 2026-10-02: «подключай пол». Replaces previous smooth magical Academy ground.",
+  "prompt": "Edit reference image 1, the DARK PLUM laboratory floor, preserving its exact dark charcoal-violet/plum palette, overall low brightness, square panel layout, fine muted teal worn patches and crafted planar material texture. Transfer onto those dark panels ONLY the sparse alchemical engraved motifs from reference image 2, the COOL BLUE-GRAY floor: crescent moons, small four-point diamond stars, thin circular outlines and tiny connected dots on a few panels. Make those transferred motifs faded desaturated gray-violet, embedded flush and low contrast, not glowing or appearing like active gameplay zones. Replace the pale calibration rulers, triangular ticks and arc measuring marks in reference1 with those alchemical motifs. Do NOT recolor the dark floor to the light blue reference palette. Do NOT add brass channels, rivets or gold studs. Keep the dark image1 floor and its subtle seam-junction diamond construction. One square seamless repeatable opaque laboratory floor texture, exact orthographic top-down, no perspective, no props, no shadows, no writing, no bloom, no focal point, no labels or borders. Dark floor is the edit target; image2 supplies motifs only.",
   "constraints": [
-    "quiet magical academy surface",
-    "low contrast, no focal point",
-    "no baked gameplay seals or props"
+    "dark plum constructed laboratory floor",
+    "faded alchemical motifs, no glow or props",
+    "target reference: Art/Candidates/field006-laboratory-floors-2026-10-02/F-calibration.png",
+    "motif reference: Art/Candidates/field006-laboratory-floors-2026-10-02/D-ceramics.png"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png"
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447",
-    "runtimeSha256": "19e3554a81087eacbda895012d5f4104a01124067b9710113fe48715abd1bb3f",
+    "sourceSha256": "a5bdec58645ac8304c874669da8f8367b8c8c14b62057795e6226b10c81d4a98",
+    "runtimeSha256": "0d6860826b7e6e00789774fce689ce02434e98cd8e6edab8fe2369997a050710",
     "recipe": {
       "mode": "opaque-rgba"
     }

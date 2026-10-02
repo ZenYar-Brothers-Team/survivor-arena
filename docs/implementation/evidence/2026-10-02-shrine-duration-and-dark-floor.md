@@ -22,4 +22,6 @@ calibration ticks removed. Candidate and verbatim prompt:
 `Art/Candidates/field006-dark-alchemical-floor-2026-10-02/`.
 SHA256 a5bdec58645ac8304c874669da8f8367b8c8c14b62057795e6226b10c81d4a98.
 Exact result shown and approval requested; runtime replacement has not been
-performed while that response is pending.
+performed while that response was pending. Subsequent user approval «подключай пол»
+authorizes the exact displayed candidate; integration results:
+[dark laboratory ground](2026-10-02-academy-dark-laboratory-ground.md).

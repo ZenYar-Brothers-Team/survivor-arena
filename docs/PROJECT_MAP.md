@@ -90,6 +90,8 @@ shared chain, violet ground glyph; old upright raster retired),
 [driver](../Assets/Game/Bootstrap/ZoneRuntimeDriver.cs). Academy authoring is
 [field006-zones-v1.json](balance/field006-zones-v1.json); regression authoring is `field-dev-zones-v1.json`.
 FIELD-001 waves are shared by reference; Dev unlock uses the existing ProfileService command.
+Ground: [dark laboratory v003 packet](../Art/Packets/field006-ground-v003-dark-laboratory.json),
+same FIELD-006-VISUAL-GROUND and runtime tile path; source/provenance under Art/Source/Fields/field-006/ground.
 checks: ProductionField006ContentTests, ZonePreparationTests, ZoneSealPresentationTests,
 ProductionFieldDevZonesSmokeTests (including actual FIELD-006 UI launch), ZoneSealVisualSmokeTests.
 

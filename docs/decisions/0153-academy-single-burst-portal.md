@@ -57,6 +57,12 @@ approved raster glyph скрываются оба procedural interior layers (gl
 
 ## Verification
 
+Дополнение земли (2026-10-02): пользователь утвердил показанный исправленный
+dark laboratory floor фразой «подключай пол». Выбран тёмный фиолетовый пол со
+стёртыми алхимическими знаками с холодного керамического референса. Пакет
+`Art/Packets/field006-ground-v003-dark-laboratory.json` заменяет v002 по прежнему
+runtime path/GUID, без gameplay/geometry изменений.
+
 BurstPortalTests: trigger timing, large tick, one application, no timed buff,
 no enemy teleport, boundary/death, exact distance/safe exit, ordinary chain,
 odd unpaired pool and schema rejection. Seal tests: ground glyph, no doorway,
