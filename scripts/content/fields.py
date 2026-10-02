@@ -309,7 +309,7 @@ def run_setup(baseline):
                       "initialBanishes": draft["initialBanishes"], "emptyBookCurrency": draft["emptyBookCurrency"],
                       # DECISION-0093: a Traveler Book grants 1…3 choices by these weights.
                       "bookUpgradeCountWeights": baseline["lateTravelers"]["book"]["upgradeCountWeights"],
-                      # Early-run guarantee: min active skills in drafts 1..5 of a run.
+                      # Early-run guarantee: min active skills in drafts 1..4 of a run.
                       "activeSkillGuarantee": draft["activeSkillGuarantee"]},
             "experience": {"levelThresholds": xp["levelThresholds"], "baseDropLifetimeSeconds": xp["baseDropLifetimeSeconds"]},
             "hostileDamageMultiplier": baseline["combat"]["hostileDamageMultiplier"]}
