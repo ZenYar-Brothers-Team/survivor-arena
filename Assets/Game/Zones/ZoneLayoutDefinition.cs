@@ -21,6 +21,8 @@ namespace Game.Zones
         public int PlacementAttempts { get; }
         public int MaxRestarts { get; }
         public int ReferenceSeed { get; }
+        /// <summary>Area-only effects have no unit hit flash or dedicated zone overlay; timed buffs keep their timer.</summary>
+        public bool SuppressAreaUnitFeedback { get; }
         public IReadOnlyDictionary<ContentId, ZoneEffectDefinition> Effects { get; }
         /// <summary>One entry per zone to place, largest radius first; portals are listed in consecutive pairs.</summary>
         public IReadOnlyList<ZoneEffectDefinition> Zones { get; }
@@ -37,6 +39,7 @@ namespace Game.Zones
             PlacementAttempts = data.PlacementAttempts ?? throw new ArgumentException("zoneLayout.placementAttempts is required.");
             MaxRestarts = data.MaxRestarts ?? throw new ArgumentException("zoneLayout.maxRestarts is required.");
             ReferenceSeed = data.ReferenceSeed ?? throw new ArgumentException("zoneLayout.referenceSeed is required.");
+            SuppressAreaUnitFeedback = data.SuppressAreaUnitFeedback ?? false;
             NumericValidation.ValidateNonNegative(EdgeMargin, nameof(EdgeMargin));
             NumericValidation.ValidateNonNegative(StartClearRadius, nameof(StartClearRadius));
             NumericValidation.ValidateNonNegative(MinGap, nameof(MinGap));

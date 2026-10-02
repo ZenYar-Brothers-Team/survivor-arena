@@ -11,10 +11,11 @@ def fields(baseline):
     two = baseline["field002"]["field"]
     three = baseline["field003"]["field"]
     four = baseline["field004"]["field"]
+    six = baseline["field006"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     zone_devs = [baseline["devZones"]["field"], baseline["devAltars"]["field"]]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"]] + [item["id"] for item in zone_devs],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"]] + [item["id"] for item in zone_devs],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -24,6 +25,7 @@ def fields(baseline):
                           "obstacleNames": walls},
                          {"id": four["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
+                         {"id": six["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          ] + [{"id": item["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                                "obstacleNames": walls} for item in zone_devs],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
@@ -55,6 +57,13 @@ def fields(baseline):
                     "environmentId": four["environmentId"], "timelineId": four["timelineId"],
                     "travelerScheduleId": four["travelerScheduleId"], "finalBossId": four["finalBossId"],
                     "midBossId": four["midBossId"], "enemyIds": baseline["field004"]["enemyPool"]},
+                   # DECISION-0142 follow-up: the academy is playable now, sharing FIELD-001 encounters by reference.
+                   {"id": six["id"], "displayName": names[six["id"]], "description": six["description"],
+                    "thumbnailPlaceholder": names[six["id"]], "difficulty": six["difficulty"],
+                    "thumbnailVisualId": "FIELD-006-VISUAL-BACKGROUND", "unlockDescription": six["unlockDescription"],
+                    "environmentId": six["environmentId"], "timelineId": field["timelineId"],
+                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
                    ] + [
                    # Development-only effect-zone test fields (zones, altars): same shared FIELD-001 spawn settings.
                    {"id": item["id"], "displayName": item["displayName"], "description": item["description"],
@@ -159,8 +168,8 @@ def field_presentation(baseline):
         presentations[1].pop(key, None)
     presentations[1].update(interiorObstacleCount=count, nearObstacleCount=0,
                             arenaSideLength=dev_field["arenaSideLength"], blobLayout=layout)
-    # Development-only effect-zone test fields (zones, altars): a few small ruins illustrations as obstacles plus the zone layout.
-    for index, zones_packet in enumerate((baseline["devZones"], baseline["devAltars"])):
+    # Academy seals include both regression fields and permanent FIELD-006.
+    for index, zones_packet in ((0, baseline["devZones"]), (1, baseline["devAltars"]), (3, baseline["field006"])):
         zones_field = zones_packet["field"]
         obstacles = zones_packet["obstacles"]
         library = [item for item in dev_packet["blobLayout"]["library"] if item["id"] in obstacles["libraryIds"]]
@@ -175,6 +184,9 @@ def field_presentation(baseline):
                      obstacleSeed=presentations[0]["obstacleSeed"] + 5000 + index * 1000,
                      interiorObstacleCount=len(library), nearObstacleCount=0,
                      arenaSideLength=zones_field["arenaSideLength"], blobLayout=blob_layout, zoneLayout=zones_packet["zoneLayout"])
+        if not library:
+            zones.pop("blobLayout", None)
+            zones["decorationChance"] = 0
         presentations.append(zones)
     # Approved sparse road network replaces FIELD-003's former obstacle patterns only.
     third.pop("obstacleLayout", None)

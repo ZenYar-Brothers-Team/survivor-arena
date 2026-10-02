@@ -44,6 +44,21 @@ namespace Game.Zones.Tests
         }
 
         [Test]
+        public void SpeedBuffProjection_OutlastsZone_DecreasesAndClearsOnDispose()
+        {
+            var runtime = Build(1, (ZoneTestData.SpeedBurst(), Vector2.zero, 0f));
+            _player.Position = Vector2.zero;
+            runtime.Tick(4f);
+            Assert.AreEqual(1f, runtime.SpeedBuffRemaining01);
+            _player.Position = new Vector2(40f, 40f);
+            runtime.Tick(4f);
+            Assert.AreEqual(.5f, runtime.SpeedBuffRemaining01);
+            runtime.Dispose();
+            Assert.AreEqual(0f, runtime.SpeedBuffRemaining01);
+            Assert.IsFalse(_player.Modifiers.ContainsKey(ZoneRuntime.ModifierKey));
+        }
+
+        [Test]
         public void Slow_SlowsThePlayerAndEnemiesInside_AndReleasesThemOutside()
         {
             var runtime = Build(1, (ZoneTestData.Slow(), Vector2.zero, 0f));

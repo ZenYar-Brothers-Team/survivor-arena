@@ -12,7 +12,7 @@ namespace Game.Zones
         /// <summary>Snapshots the living enemies and returns how many there are.</summary>
         int Refresh();
         Vector2 Position(int index);
-        /// <summary>Slows an enemy by <paramref name="fraction"/> for <paramref name="seconds"/> (re-applied while it stays in the zone).</summary>
+        /// <summary>Slows by fraction for seconds; zero seconds means area-only, cleared by Refresh/teardown without a status.</summary>
         void Slow(int index, float fraction, float seconds, ContentId source);
         void Damage(int index, float amount, ContentId source);
         /// <summary>One-off damage that lands immediately (a strike or blast), unlike the throttled <see cref="Damage"/>.</summary>

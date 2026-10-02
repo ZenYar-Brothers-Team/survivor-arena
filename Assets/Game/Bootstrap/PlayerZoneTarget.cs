@@ -13,13 +13,16 @@ namespace Game.Bootstrap
 
         private readonly PlayerCharacterRuntime _player;
         private readonly Rigidbody2D _body;
+        private readonly Game.Presentation.SpritePresentationRuntime _quietAreaPresentation;
         private float _pendingDamage;
         private float _lastDamageTime;
 
-        public PlayerZoneTarget(PlayerCharacterRuntime player, Rigidbody2D body)
+        public PlayerZoneTarget(PlayerCharacterRuntime player, Rigidbody2D body,
+            Game.Presentation.SpritePresentationRuntime quietAreaPresentation = null)
         {
             _player = player != null ? player : throw new System.ArgumentNullException(nameof(player));
             _body = body;
+            _quietAreaPresentation = quietAreaPresentation;
         }
 
         public Vector2 Position => _player.transform.position;
@@ -43,7 +46,13 @@ namespace Game.Bootstrap
             _lastDamageTime = Time.time;
             var damage = _pendingDamage;
             _pendingDamage = 0f;
-            _player.ApplyDamage(new CombatDamageRequest(new CombatSource(_player.Identity, source, CombatSourceOrigin.Unknown), damage));
+            var previous = _quietAreaPresentation != null && _quietAreaPresentation.SuppressDamageFeedback;
+            try
+            {
+                if (_quietAreaPresentation != null) _quietAreaPresentation.SuppressDamageFeedback = true;
+                _player.ApplyDamage(new CombatDamageRequest(new CombatSource(_player.Identity, source, CombatSourceOrigin.Unknown), damage));
+            }
+            finally { if (_quietAreaPresentation != null) _quietAreaPresentation.SuppressDamageFeedback = previous; }
         }
 
         public void Hit(float amount, ContentId source)

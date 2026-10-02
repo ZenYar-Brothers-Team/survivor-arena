@@ -654,13 +654,15 @@ namespace Game.Bootstrap
                     ZoneSeed = UseReferenceSeeds ? zoneLayout.ReferenceSeed : FreshRunSeed.Next();
                     var outlines = new List<IReadOnlyList<Vector2>>();
                     foreach (var outline in FieldMapPreviewSource.Outlines(_fieldEnvironmentArt.ObstacleColliders)) outlines.Add(outline);
+                    var zoneCamera = Camera.main;
                     var zoneRules = new ZonePlacementRules(zoneLayout, arenaSideLength, spawn.position, outlines);
                     var placements = ZoneLayoutGenerator.Generate(zoneLayout, arenaSideLength, spawn.position, outlines, ZoneSeed);
-                    var zoneCamera = Camera.main;
+                    var areaOnlyFeedback = zoneLayout.SuppressAreaUnitFeedback;
                     var zoneRuntime = new ZoneRuntime(placements, zoneRules, ZoneSeed,
-                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>()), new EnemyZoneSource(),
+                        new PlayerZoneTarget(player, player.GetComponent<Rigidbody2D>(), areaOnlyFeedback ? playerPresentation : null),
+                        new EnemyZoneSource(bodyPresentation => _zoneDriver?.ShowRiftHit(bodyPresentation), areaOnlyFeedback),
                         () => ZoneRuntimeDriver.CameraRect(zoneCamera));
-                    _zoneDriver = ZoneRuntimeDriver.Create(zoneRuntime, runController, gameObject.scene);
+                    _zoneDriver = ZoneRuntimeDriver.Create(zoneRuntime, runController, gameObject.scene, playerPresentation);
                     initializedSubsystems.Add(() => { _zoneDriver?.Shutdown(); _zoneDriver = null; });
                 }
                 var mapPreview = new FieldMapPreviewSource(_fieldEnvironmentArt,

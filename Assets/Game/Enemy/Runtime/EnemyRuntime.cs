@@ -78,6 +78,14 @@ namespace Game.Enemy
         public EnemyLifeEvent LastLifeEvent { get; private set; }
         public Health Health { get; private set; }
         public CombatControlState Controls { get; } = new CombatControlState();
+        /// <summary>Area-only slow, replaced each zone tick; it has no timed status or unit presentation.</summary>
+        public float AreaSlowFraction { get; private set; }
+
+        public void SetAreaSlowFraction(float fraction)
+        {
+            Game.Content.NumericValidation.ValidateRange(fraction, 0f, .95f, nameof(fraction));
+            AreaSlowFraction = fraction;
+        }
         /// <summary>Body presentation when production art is bound; null for fixture bodies (DECISION-0108 status overlays).</summary>
         public SpritePresentationRuntime BodyPresentation =>
             _presentation != null && _presentation.IsInitialized && _presentationRig.gameObject.activeSelf ? _presentation : null;
@@ -154,6 +162,7 @@ namespace Game.Enemy
                 }
             }
             Controls.Reset();
+            AreaSlowFraction = 0f;
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             BossCombat = null;
             LastProjectileSource = default;
@@ -243,7 +252,7 @@ namespace Game.Enemy
             // MIDBOSS-009 slows down while winding up (DECISION-0066, E6).
             var windup = _attackController?.Phase == EnemyAttackPhase.Telegraphing && CurrentAttack != null
                 ? CurrentAttack.WindupMovementMultiplier : 1f;
-            var speed = Definition.MovementSpeed * control.MovementMultiplier * windup * Protection.SpeedMultiplier;
+            var speed = Definition.MovementSpeed * Mathf.Min(control.MovementMultiplier, 1f - AreaSlowFraction) * windup * Protection.SpeedMultiplier;
             var movement = _movementDriver != null
                 ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
@@ -443,7 +452,7 @@ namespace Game.Enemy
             {
                 Protection.Tick(_runController.Model?.Elapsed ?? 0f);
                 // "Already slowed" is decided before this hit applies its own slow (DECISION-0053).
-                if (Controls.MovementMultiplier < 1f) request = request.ResolveForSlowedTarget();
+                if (Controls.MovementMultiplier < 1f || AreaSlowFraction > 0f) request = request.ResolveForSlowedTarget();
                 // Vulnerability mark (SET-010, DECISION-0139) is decided before this hit applies its own controls.
                 if (Controls.DamageTakenMultiplier > 1f) request = request.WithAmount(request.Amount * Controls.DamageTakenMultiplier);
                 var distance = IsRunRunning() ? Controls.Apply(request, Mathf.Min(1, Definition.KnockbackResistance + Protection.ResistanceBonus), acceptsSlow: true) : 0f;
@@ -489,6 +498,7 @@ namespace Game.Enemy
             if (_presentationRig != null) _presentationRig.gameObject.SetActive(false);
             _groundShadow?.Shutdown();
             Controls.Reset();
+            AreaSlowFraction = 0f;
             Protection.Reset(); _movementDriver = null; _damageAllowed = null;
             if (_body != null)
                 _body.linearVelocity = Vector2.zero;

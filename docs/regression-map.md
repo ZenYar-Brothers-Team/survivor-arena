@@ -352,3 +352,30 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
   финальных боссов — по DECISION-0128 (стоящего задевает, с базовой скоростью можно выйти).
 - Мёртвая зона `<Joystick>/stick` для Move (`StickDeadzone`); у `<Gamepad>/leftStick` она встроена в раскладку.
   Отдельного теста нет: это настройка ввода, проверяется вручную с джойстиком.
+
+## Zone seal lifecycle — DECISION-0142
+
+`ZonePreparationTests.TemporaryPositions_*` guards stationary vs relocating appearances.
+`TemporaryPortals_*` guards shared pair phase, fixed centers and full-light-only teleport.
+`EnemyCombatControlTests.AreaSlow_AffectsMovementWithoutStatus_UsesStrongestSlowAndClearsOnExit`
+guards no status for an area slow and strongest-slow composition with real timed statuses.
+`SpritePresentationRuntimeTests.QuietAreaDamage_ChangesHealthWithoutHitFlash_NormalDamageStillFlashes`
+guards quiet area damage without suppressing ordinary combat feedback.
+`ZoneSealPresentationTests.Rim_RotatesOnlyForRelocatingZones_KeepsEllipseAndFreezesWithClock`
+guards the contour distinction, actual projected boundary and pause.
+`ZoneSealPresentationTests.OneShotFlash_BurstFiringAndPortalUseBrightenSeal_ThenFadeWithoutMovingBoundary`
+guards application flashes, short fade and unchanged area geometry.
+
+`ProductionField006ContentTests` guards exact shared FIELD-001 waves, own academy ground,
+normal locked progression and saved Dev unlock → playable permanent field ID.
+`ProductionFieldDevZonesSmokeTests.Academy_UnlocksThroughDevButton_StartsThroughFieldCard_AndRunsSeals`
+guards the actual Dev button → academy card → gameplay path and seal pause/cleanup.
+
+`ZonePreparationTests` guards full-light-only activation and no effect during decorative fade.
+Its `GroundProjection_*` cases guard elliptical containment, neutral legacy scale, validation,
+and no player bonus outside the flattened rim. `ZoneSealPresentationTests` also verifies
+0.8 production projection and rotating ink remaining within that same ellipse.
+`ZoneSealPresentationTests` guards Unity material initialization, pause/window suppression and reinitialization cleanup.
+`ZoneRuntimeTests.SpeedBuffProjection_OutlastsZone_DecreasesAndClearsOnDispose` guards stale timed-status projections after teardown.
+`SlowStatusPresentationTests.RiftHit_FollowsBody_FreezesWithTheClock_ExpiresWithoutATimerBar_AndReusesItsMesh`
+and `ProductionFieldDevZonesSmokeTests` guard actual Rift hit feedback, pause and cached overlay reuse.

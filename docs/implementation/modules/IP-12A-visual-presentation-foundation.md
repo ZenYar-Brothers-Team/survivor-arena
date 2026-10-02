@@ -34,6 +34,8 @@ Preview/master/provenance вне Assets; approved runtime derivative, path/GUID 
 
 ## UI / observability
 
+Потребитель зон FIELD-006 «Академия магов» (и регрессионный «Тест 06»): mesh-печати, фазы света и повторно используемый speed-status overlay игрока по [DECISION-0142](../../decisions/0142-academy-zone-seal-presentation.md), совместно с IP-23. Земля — approved FIELD-006-VISUAL-GROUND. В Академии area-only effects не подсвечивают unit и не создают bar/status; lasting effects сохраняют отдельный bar/state. Граница радиуса не анимирует gameplay; проверяются pause/window/shutdown, Dev unlock → реальный запуск и игровой capture.
+
 Bounded DEV showcase или обоснованная diagnostic view: idle/flip/hit/pause/reset, target-scale и dense effects. Численные motion/VFX limits — validated config, не hardcoded gameplay.
 
 ## Проверки

@@ -4,7 +4,7 @@ namespace Game.Zones
 {
     /// <summary>
     /// One zone on the field during a run. Permanent zones keep their center; a pulsing zone is relocated by
-    /// <see cref="ZoneRuntime"/> each time a new cycle begins (while it is invisible), so it reappears somewhere else.
+    /// <see cref="ZoneRuntime"/> each time a new cycle begins (while inactive), so it reappears somewhere else.
     /// </summary>
     public sealed class ZonePlacement
     {
@@ -19,6 +19,11 @@ namespace Game.Zones
         public int Cycle { get; private set; }
         /// <summary>True while the zone lies within the player's active window; only such zones work, show and relocate.</summary>
         public bool IsNear { get; private set; }
+
+        /// <summary>Authoritative time of the last one-shot application; null before the first use (DECISION-0142).</summary>
+        public float? LastApplicationSeconds { get; private set; }
+
+        public void RecordApplication(float runSeconds) => LastApplicationSeconds = runSeconds;
 
         public void SetNear(bool near) => IsNear = near;
 
@@ -72,8 +77,8 @@ namespace Game.Zones
         /// <summary>True when a burst zone goes off in (<paramref name="from"/>, <paramref name="to"/>].</summary>
         public bool BurstFiresBetween(float from, float to) => Effect.BurstFiresBetween(PhaseSeconds, from, to);
 
-        /// <summary>True when the zone is shown enough for its effect to work.</summary>
-        public bool IsActive(float runSeconds) => Visibility(runSeconds) >= ZoneEffectDefinition.ActivationThreshold &&
+        /// <summary>True in the authoritative active phase and outside shrine cooldown.</summary>
+        public bool IsActive(float runSeconds) => Effect.IsActive(PhaseSeconds, runSeconds) &&
                                                   ShrineCooldownRemaining <= 0f;
 
         public bool Contains(Vector2 point) => Effect.Contains(Center, point);

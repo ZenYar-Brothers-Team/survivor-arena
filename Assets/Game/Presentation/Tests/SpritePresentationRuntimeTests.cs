@@ -61,6 +61,24 @@ namespace Game.Presentation.Tests
         }
 
         [Test]
+        public void QuietAreaDamage_ChangesHealthWithoutHitFlash_NormalDamageStillFlashes()
+        {
+            var runtime = CreateRuntime(out var body, out _, out var health, out var run);
+            run.Model.Start(); runtime.Tick(.01f);
+            var renderer = body.GetComponent<SpriteRenderer>(); var baseline = renderer.color;
+            var before = health.CurrentHealth;
+            runtime.SuppressDamageFeedback = true;
+            health.TakeDamage(2f); runtime.Tick(.01f);
+            Assert.Less(health.CurrentHealth, before);
+            Assert.AreEqual(baseline, renderer.color, "Standing in a damage area produces no unit flash.");
+            runtime.SuppressDamageFeedback = false;
+            health.TakeDamage(2f); runtime.Tick(.01f);
+            Assert.AreNotEqual(baseline, renderer.color, "Ordinary combat feedback remains visible.");
+            runtime.SuppressDamageFeedback = true; runtime.Shutdown();
+            Assert.IsFalse(runtime.SuppressDamageFeedback);
+        }
+
+        [Test]
         public void Pause_FreezesBodyPoseAndRepeatedInitializeResetsPreviousLife()
         {
             var runtime = CreateRuntime(out var rootBody, out _, out var health, out var runController);

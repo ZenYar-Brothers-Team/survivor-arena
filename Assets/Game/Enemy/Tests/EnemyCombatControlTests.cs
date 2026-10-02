@@ -35,6 +35,21 @@ namespace Game.Enemy.Tests
 
         [TearDown] public void TearDown() => Object.DestroyImmediate(_root);
 
+        [Test]
+        public void AreaSlow_AffectsMovementWithoutStatus_UsesStrongestSlowAndClearsOnExit()
+        {
+            var enemy = Spawn(new EnemyDefinition("FIXTURE-AREA-SLOW", 10f, 1f, 3f, 0f, 1f));
+            enemy.SetAreaSlowFraction(.5f); Invoke(enemy, "FixedUpdate");
+            Assert.AreEqual(1.5f, enemy.GetComponent<Rigidbody2D>().linearVelocity.x, .0001f);
+            Assert.AreEqual(0f, enemy.Controls.SlowRemaining01, "No timed status means no ice or timer.");
+            enemy.ApplyControl(new CombatDamageRequest(default, 0f, new CombatControlProfile(slowFraction: .2f, slowSeconds: 5f)));
+            Invoke(enemy, "FixedUpdate");
+            Assert.AreEqual(1.5f, enemy.GetComponent<Rigidbody2D>().linearVelocity.x, .0001f, "Slows take the stronger fraction, not multiply.");
+            enemy.SetAreaSlowFraction(0f); Invoke(enemy, "FixedUpdate");
+            Assert.AreEqual(2.4f, enemy.GetComponent<Rigidbody2D>().linearVelocity.x, .0001f);
+            Assert.Greater(enemy.Controls.SlowRemaining01, 0f, "A real timed slow keeps its normal status after leaving the area.");
+        }
+
         [TestCase(false, 3f)]
         [TestCase(true, 6f)]
         public void Knockback_AddsToOrdinaryOrDashVelocity_AndDashClockContinues(bool dash, float baseSpeed)

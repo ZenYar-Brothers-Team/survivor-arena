@@ -60,6 +60,24 @@ namespace Game.Presentation.Tests
         }
 
         [Test]
+        public void RiftHit_FollowsBody_FreezesWithTheClock_ExpiresWithoutATimerBar_AndReusesItsMesh()
+        {
+            var effect = _presentation.gameObject.AddComponent<ZoneRiftHitPresentationRuntime>();
+            var profile = ZoneSealPresentationProfile.Load();
+            var entityPosition = _entity.transform.position;
+            effect.Show(_presentation, profile, 10f);
+            Assert.IsTrue(effect.IsShowing);
+            var renderer = _presentation.transform.Find("Rift hit").GetComponent<MeshRenderer>();
+            var position = renderer.transform.position;
+            effect.Tick(10f); Assert.IsTrue(effect.IsShowing); Assert.AreEqual(position, renderer.transform.position);
+            Assert.AreEqual(entityPosition, _entity.transform.position, "Only the child visual moves.");
+            effect.Tick(10f + profile.RiftHitSeconds); Assert.IsFalse(effect.IsShowing);
+            effect.Show(_presentation, profile, 11f);
+            Assert.AreSame(renderer, _presentation.transform.Find("Rift hit").GetComponent<MeshRenderer>());
+            effect.Clear(); Assert.IsFalse(effect.IsShowing);
+        }
+
+        [Test]
         public void Catalog_FixtureJson_LoadsValidatedProfile()
         {
             Assert.AreEqual(0.035f, _profile.OutlineWidth, 1e-5f);

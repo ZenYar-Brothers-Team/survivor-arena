@@ -21,13 +21,20 @@ namespace Game.Zones
         public string DisplayName { get; }
         public ZoneEffectKind Kind { get; }
         public float Radius { get; }
+        /// <summary>Ground projection shared by presentation and containment; omitted authoring preserves a circle.</summary>
+        public float VerticalScale { get; }
         public Color Color { get; }
         public ZoneLifetimeMode Lifetime { get; }
+        /// <summary>Whether a temporary zone picks a new place when its next preparation starts.</summary>
+        public bool RelocatesBetweenCycles { get; }
         /// <summary>Pulsing and Burst: length of one cycle.</summary>
         public float PulsePeriodSeconds { get; }
         /// <summary>Pulsing: how long the zone is shown per cycle, both fades included.</summary>
         public float PulseVisibleSeconds { get; }
         public float PulseFadeSeconds { get; }
+        public float PulsePrepareSeconds { get; }
+        public float PulseIdleVisibility { get; }
+        public bool HasPreparation => PulsePrepareSeconds > 0f;
         /// <summary>Burst: how long the disc swells before it goes off.</summary>
         public float TelegraphSeconds { get; }
         /// <summary>Burst: how long the flash lingers after it went off.</summary>
@@ -36,7 +43,7 @@ namespace Game.Zones
         public float PlayerMovementBonus { get; }
         /// <summary>Slow: fraction of speed enemies lose while inside (0 = enemies unaffected).</summary>
         public float EnemySlowFraction { get; }
-        /// <summary>Slow: how long a slow applied to an enemy lasts after a tick (kept short so it fades on leaving).</summary>
+        /// <summary>Slow: status duration after a tick; zero means strictly area-only with no status or unit presentation.</summary>
         public float EnemySlowSeconds { get; }
         public float PlayerRegenerationPerSecond { get; }
         public float PlayerSkillDamageBonus { get; }
@@ -110,10 +117,25 @@ namespace Game.Zones
             Kind = data.Kind ?? throw new ArgumentException($"Zone effect '{data.Id}' requires a kind.");
             Radius = Required(data.Radius, data.Id, "radius");
             NumericValidation.ValidatePositive(Radius, nameof(Radius));
+            VerticalScale = data.VerticalScale ?? 1f;
+            NumericValidation.ValidateRange(VerticalScale, 0.1f, 1f, nameof(VerticalScale));
             if (string.IsNullOrWhiteSpace(data.Color) || !ColorUtility.TryParseHtmlString(data.Color, out var color))
                 throw new ArgumentException($"Zone effect '{data.Id}' color must be an HTML color.");
             Color = color;
             Lifetime = data.Lifetime ?? throw new ArgumentException($"Zone effect '{data.Id}' requires a lifetime.");
+            RelocatesBetweenCycles = data.RelocatesBetweenCycles ??
+                (Lifetime == ZoneLifetimeMode.Pulsing || Lifetime == ZoneLifetimeMode.Burst);
+            if (RelocatesBetweenCycles && Lifetime != ZoneLifetimeMode.Pulsing && Lifetime != ZoneLifetimeMode.Burst)
+                throw new ArgumentException($"Zone effect '{data.Id}': only pulsing or burst zones can relocate.");
+            if (data.PulsePrepareSeconds.HasValue || data.PulseIdleVisibility.HasValue)
+            {
+                if (Lifetime != ZoneLifetimeMode.Pulsing)
+                    throw new ArgumentException($"Zone effect '{data.Id}': preparation belongs only to pulsing zones.");
+                PulsePrepareSeconds = Required(data.PulsePrepareSeconds, data.Id, "pulsePrepareSeconds");
+                PulseIdleVisibility = Required(data.PulseIdleVisibility, data.Id, "pulseIdleVisibility");
+                NumericValidation.ValidatePositive(PulsePrepareSeconds, nameof(PulsePrepareSeconds));
+                NumericValidation.ValidateRange(PulseIdleVisibility, 0f, 0.25f, nameof(PulseIdleVisibility));
+            }
 
             switch (Lifetime)
             {
@@ -125,7 +147,9 @@ namespace Game.Zones
                     NumericValidation.ValidatePositive(PulsePeriodSeconds, nameof(PulsePeriodSeconds));
                     NumericValidation.ValidatePositive(PulseFadeSeconds, nameof(PulseFadeSeconds));
                     if (PulseVisibleSeconds > PulsePeriodSeconds) throw new ArgumentException($"Zone effect '{data.Id}' is shown longer than its period.");
-                    if (PulseVisibleSeconds < 2f * PulseFadeSeconds) throw new ArgumentException($"Zone effect '{data.Id}' must stay shown at least as long as both fades.");
+                    var prepare = HasPreparation ? PulsePrepareSeconds : PulseFadeSeconds;
+                    if (PulseVisibleSeconds < prepare + PulseFadeSeconds || (HasPreparation && PulseVisibleSeconds == prepare + PulseFadeSeconds))
+                        throw new ArgumentException($"Zone effect '{data.Id}' needs room for preparation, active time and fading.");
                     if (data.TelegraphSeconds.HasValue || data.FlashSeconds.HasValue)
                         throw new ArgumentException($"Pulsing or cycling zone effect '{data.Id}' carries burst values.");
                     break;
@@ -147,8 +171,9 @@ namespace Game.Zones
                         throw new ArgumentException($"Permanent zone effect '{data.Id}' carries cycle values.");
                     break;
             }
-            if (Kind == ZoneEffectKind.Portal && Lifetime != ZoneLifetimeMode.Permanent)
-                throw new ArgumentException($"Portal effect '{data.Id}' must be permanent: a pair cannot relocate together.");
+            if (Kind == ZoneEffectKind.Portal && (RelocatesBetweenCycles ||
+                (Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Pulsing)))
+                throw new ArgumentException($"Portal effect '{data.Id}' must stay in place; its pair may pulse together.");
             if ((Kind == ZoneEffectKind.SpeedBurst) != (Lifetime == ZoneLifetimeMode.Burst))
                 throw new ArgumentException($"Zone effect '{data.Id}': a burst lifetime belongs to the SpeedBurst kind and only to it.");
             if (Kind == ZoneEffectKind.Charge && Lifetime != ZoneLifetimeMode.Permanent && Lifetime != ZoneLifetimeMode.Cycling)
@@ -206,7 +231,7 @@ namespace Game.Zones
                     EnemySlowSeconds = Required(data.EnemySlowSeconds, data.Id, "enemySlowSeconds");
                     NumericValidation.ValidateRange(PlayerMovementBonus, -0.9f, 0f, nameof(PlayerMovementBonus));
                     NumericValidation.ValidateRange(EnemySlowFraction, 0f, 0.95f, nameof(EnemySlowFraction));
-                    NumericValidation.ValidatePositive(EnemySlowSeconds, nameof(EnemySlowSeconds));
+                    NumericValidation.ValidateNonNegativeFinite(EnemySlowSeconds, nameof(EnemySlowSeconds));
                     if (PlayerMovementBonus == 0f && EnemySlowFraction == 0f)
                         throw new ArgumentException($"Slow zone '{data.Id}' must slow the player or the enemies.");
                     Forbid(data, ValueGroup.Regeneration | ValueGroup.Arcane | ValueGroup.Rift | ValueGroup.Portal | ValueGroup.Protection | ValueGroup.Buff | ValueGroup.Charge);
@@ -304,11 +329,32 @@ namespace Game.Zones
                 if (t < TelegraphSeconds) return 1f;
                 return t < TelegraphSeconds + FlashSeconds ? 1f - (t - TelegraphSeconds) / FlashSeconds : 0f;
             }
+            // Academy seals (2026-10-02 concept): stay dim at rest, prepare briefly, then work only at full light.
+            if (HasPreparation)
+            {
+                if (t < PulsePrepareSeconds)
+                    return Mathf.Lerp(PulseIdleVisibility, 1f, Mathf.SmoothStep(0f, 1f, t / PulsePrepareSeconds));
+                if (t < PulseVisibleSeconds - PulseFadeSeconds) return 1f;
+                if (t < PulseVisibleSeconds)
+                    return Mathf.Lerp(PulseIdleVisibility, 1f, Mathf.SmoothStep(0f, 1f, (PulseVisibleSeconds - t) / PulseFadeSeconds));
+                return PulseIdleVisibility;
+            }
             if (t < PulseFadeSeconds) return t / PulseFadeSeconds;
             if (t < PulseVisibleSeconds - PulseFadeSeconds) return 1f;
             if (t < PulseVisibleSeconds) return (PulseVisibleSeconds - t) / PulseFadeSeconds;
             return 0f;
         }
+
+        /// <summary>Authoritative activation: prepared zones never work during preparation or decorative fade.</summary>
+        public bool IsActive(float phaseSeconds, float runSeconds)
+        {
+            if (!HasPreparation) return Visibility(phaseSeconds, runSeconds) >= ActivationThreshold;
+            var t = CycleTime(phaseSeconds, runSeconds);
+            return t >= PulsePrepareSeconds && t < PulseVisibleSeconds - PulseFadeSeconds;
+        }
+
+        public bool IsPreparing(float phaseSeconds, float runSeconds) =>
+            HasPreparation && CycleTime(phaseSeconds, runSeconds) < PulsePrepareSeconds;
 
         /// <summary>
         /// Drawn size as a fraction of the radius: 1 for permanent and pulsing zones; a burst swells from 0 to 1 while it
@@ -445,8 +491,13 @@ namespace Game.Zones
             return t < PulseVisibleSeconds ? -1f : (t - PulseVisibleSeconds) / (PulsePeriodSeconds - PulseVisibleSeconds);
         }
 
-        /// <summary>True when the world point lies inside the zone disc centered at <paramref name="center"/>.</summary>
-        public bool Contains(Vector2 center, Vector2 point) => (point - center).sqrMagnitude <= Radius * Radius;
+        /// <summary>True when the world point lies inside the projected ground ellipse centered at <paramref name="center"/>.</summary>
+        public bool Contains(Vector2 center, Vector2 point)
+        {
+            var offset = point - center;
+            offset.y /= VerticalScale;
+            return offset.sqrMagnitude <= Radius * Radius;
+        }
 
         private static float Required(float? value, string id, string name) =>
             value ?? throw new ArgumentException($"Zone effect '{id}' requires {name}.");

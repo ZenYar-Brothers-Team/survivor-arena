@@ -31,6 +31,8 @@ namespace Game.Presentation
         private bool _initialized;
 
         public bool IsInitialized => _initialized;
+        /// <summary>Scoped by area-damage adapters while a synchronous health event is dispatched.</summary>
+        public bool SuppressDamageFeedback { get; set; }
         public SpritePresentationPreviewMotion PreviewMotion => _previewMotion;
         public Color StatusTint => _statusTint;
         public SpritePresentationRig Rig => rig;
@@ -129,6 +131,7 @@ namespace Game.Presentation
 
         public void Shutdown()
         {
+            SuppressDamageFeedback = false;
             if (!_initialized)
                 return;
 
@@ -151,6 +154,7 @@ namespace Game.Presentation
 
         private void HandleDamaged(float appliedDamage)
         {
+            if (SuppressDamageFeedback) return;
             _animator.PlayHit(appliedDamage);
             ApplyPose(_animator.CurrentPose);
         }

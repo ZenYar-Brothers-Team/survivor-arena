@@ -8,14 +8,22 @@ namespace Game.Zones.Json
         public ZoneEffectKind? Kind { get; set; }
         /// <summary>Zone radius in world units.</summary>
         public float? Radius { get; set; }
+        /// <summary>Optional ground projection: vertical radius / horizontal radius (0.1..1); absent means a circle.</summary>
+        public float? VerticalScale { get; set; }
         /// <summary>HTML color of the placeholder disc.</summary>
         public string Color { get; set; }
         /// <summary>Permanent zones always exist; pulsing zones fade in and out on a period.</summary>
         public ZoneLifetimeMode? Lifetime { get; set; }
+        /// <summary>Optional override for Pulsing/Burst: false keeps the initial position between appearances.</summary>
+        public bool? RelocatesBetweenCycles { get; set; }
         // Pulsing: one cycle is period seconds; the zone is shown for visible seconds (including both fades) and hidden otherwise.
         public float? PulsePeriodSeconds { get; set; }
         public float? PulseVisibleSeconds { get; set; }
         public float? PulseFadeSeconds { get; set; }
+        /// <summary>Optional pulsing-only preparation in seconds; paired with pulseIdleVisibility. Enables full-light activation.</summary>
+        public float? PulsePrepareSeconds { get; set; }
+        /// <summary>Optional pulsing-only rest visibility (0..0.25), paired with pulsePrepareSeconds.</summary>
+        public float? PulseIdleVisibility { get; set; }
         // Burst: the cycle length is pulsePeriodSeconds; the disc swells for telegraphSeconds, goes off, then flashes for flashSeconds.
         public float? TelegraphSeconds { get; set; }
         public float? FlashSeconds { get; set; }

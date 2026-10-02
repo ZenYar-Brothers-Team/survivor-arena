@@ -38,6 +38,18 @@ namespace Game.Zones
         /// <summary>How many active zones the player stood in on the last tick.</summary>
         public int PlayerActiveZoneCount { get; private set; }
         public float PortalCooldownRemaining => _portalCooldown;
+        /// <summary>Remaining fraction of the longest timed movement buff; read-only presentation projection.</summary>
+        public float SpeedBuffRemaining01
+        {
+            get
+            {
+                float longest = 0f, fraction = 0f;
+                foreach (var pair in _buffs)
+                    if (pair.Key.TimedBuffMovementBonus > 0f && pair.Value > longest)
+                    { longest = pair.Value; fraction = pair.Value / pair.Key.TimedBuffSeconds; }
+                return Mathf.Clamp01(fraction);
+            }
+        }
         /// <summary>The player's screen widened by the layout's margin on every side: only zones touching it are simulated.</summary>
         public Rect ActiveWindow { get; private set; }
         /// <summary>Zones currently inside the active window.</summary>
@@ -100,13 +112,13 @@ namespace Game.Zones
             TickEnemies(deltaTime);
         }
 
-        // A pulsing zone is invisible when a new cycle starts, so it can jump to a fresh random spot unseen.
+        // A new cycle starts while inactive: legacy pulses are invisible; prepared seals are dim before lighting up.
         private void Relocate()
         {
             foreach (var zone in _zones)
             {
                 // Altars (cycling) and permanent zones never move; pulsing and burst zones jump when a new cycle begins.
-                if (zone.Effect.Lifetime == ZoneLifetimeMode.Permanent || zone.Effect.Lifetime == ZoneLifetimeMode.Cycling) continue;
+                if (!zone.Effect.RelocatesBetweenCycles) continue;
                 var cycle = zone.CycleAt(Time);
                 if (cycle == zone.Cycle) continue;
                 var random = new System.Random(unchecked(_seed * 31 + zone.Index * 7919 + cycle * 104729));
@@ -303,9 +315,13 @@ namespace Game.Zones
         {
             if (from.PartnerIndex < 0 || from.PartnerIndex >= _zones.Count) return;
             var partner = _zones[from.PartnerIndex];
+            // Both ends must be ready; the remote end need not intersect this camera's active window.
+            if (!partner.Effect.IsActive(partner.PhaseSeconds, Time)) return;
             var toArenaCenter = -partner.Center;
             var direction = toArenaCenter.sqrMagnitude > 1e-6f ? toArenaCenter.normalized : Vector2.up;
             _player.TeleportTo(partner.Center + direction * (partner.Effect.Radius + partner.Effect.PortalExitDistance));
+            from.RecordApplication(Time);
+            partner.RecordApplication(Time);
             _portalCooldown = from.Effect.PortalCooldownSeconds;
         }
 
@@ -333,6 +349,10 @@ namespace Game.Zones
         {
             var touchesEnemies = false;
             foreach (var zone in _zones)
+                // Area-only slows must clear even when the last zone switches off or leaves the window.
+                if (zone.Effect.Kind == ZoneEffectKind.Slow && zone.Effect.EnemySlowSeconds == 0f)
+                { touchesEnemies = true; break; }
+                else
                 if (zone.IsNear && zone.IsActive(Time) && AffectsEnemies(zone.Effect)) { touchesEnemies = true; break; }
             if (!touchesEnemies) return;
             // Cost scales with living enemies times zones (DECISION-0008).
@@ -360,8 +380,11 @@ namespace Game.Zones
         /// <summary>Removes the zone modifier from the player; call when the run's field is torn down.</summary>
         public void Dispose()
         {
+            (_enemies as IDisposable)?.Dispose();
             if (_modifierSet) _player.RemoveStatModifier(ModifierKey);
             _modifierSet = false;
+            _buffs.Clear();
+            _shields.Clear();
         }
     }
 }

@@ -1,0 +1,236 @@
+{
+  "format": "field-zone-preview",
+  "formatVersion": 1,
+  "revision": "field006-zones-preview-v2",
+  "approval": "Approved 2026-10-02 by direct user instruction: work directly on FIELD-006, use FIELD-001 waves and the approved academy ground, make it playable after Dev unlock. Existing zone and obstacle numbers remain preview tuning, not final balance. User follow-up: no obstacles, all kinds temporary including paired portals; fixed and relocating cycles; no unit presentation for area-only effects.",
+  "purpose": "FIELD-006 gameplay preview with academy seals owned here; FIELD-001 encounters shared by reference.",
+  "units": {
+    "distance": "world units",
+    "time": "seconds",
+    "bonus": "fraction, 0.4 = +40%"
+  },
+  "field": {
+    "id": "FIELD-006",
+    "environmentId": "FIELD-006-ENVIRONMENT",
+    "presentationId": "FIELD-006-PRESENTATION",
+    "displayName": "Академия магов",
+    "description": "Дворы Академии магов с магическими зонами. Волны первой карты используются для просмотра.",
+    "unlockDescription": "Пройдите «Королевскую столицу» или нанесите 400000 урона умением «Магматическая мина» на ней",
+    "thumbnailPlaceholder": "Академия магов",
+    "arenaSideLength": 120,
+    "groundVisualId": "FIELD-006-VISUAL-GROUND",
+    "difficulty": 3
+  },
+  "obstacles": {
+    "libraryIds": [],
+    "edgeMargin": 5,
+    "startClearRadius": 11,
+    "playerClearRadius": 3.5,
+    "minGap": 7,
+    "placementAttempts": 1500,
+    "maxRestarts": 40,
+    "referenceSeed": 6,
+    "pixelsPerUnit": 16,
+    "outlinePixels": 2
+  },
+  "zoneLayout": {
+    "edgeMargin": 6,
+    "startClearRadius": 8,
+    "minGap": 4,
+    "obstacleClearance": 1.5,
+    "placementAttempts": 600,
+    "maxRestarts": 20,
+    "referenceSeed": 6,
+    "effects": [
+      {
+        "id": "FIELD-006-ZONE-SLOW",
+        "displayName": "Вязкое поле",
+        "kind": "Slow",
+        "radius": 7,
+        "color": "#4aa3ff",
+        "lifetime": "Pulsing",
+        "playerMovementBonus": -0.45,
+        "enemySlowFraction": 0.45,
+        "enemySlowSeconds": 0,
+        "verticalScale": 0.8,
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 22,
+        "pulseFadeSeconds": 3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "relocatesBetweenCycles": false
+      },
+      {
+        "id": "FIELD-006-ZONE-HASTE",
+        "displayName": "Воздушный поток",
+        "kind": "Haste",
+        "radius": 6,
+        "color": "#6df0c2",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 22,
+        "pulseFadeSeconds": 3,
+        "playerMovementBonus": 0.4,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": false
+      },
+      {
+        "id": "FIELD-006-ZONE-REGEN",
+        "displayName": "Источник",
+        "kind": "Regeneration",
+        "radius": 6,
+        "color": "#7bd96a",
+        "lifetime": "Pulsing",
+        "playerRegenerationPerSecond": 3,
+        "verticalScale": 0.8,
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 22,
+        "pulseFadeSeconds": 3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "relocatesBetweenCycles": true
+      },
+      {
+        "id": "FIELD-006-ZONE-ARCANE",
+        "displayName": "Арканный всплеск",
+        "kind": "ArcanePower",
+        "radius": 6,
+        "color": "#c28cff",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 30,
+        "pulseVisibleSeconds": 20,
+        "pulseFadeSeconds": 3,
+        "playerSkillDamageBonus": 0.5,
+        "playerActionSpeedBonus": 0.3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true
+      },
+      {
+        "id": "FIELD-006-ZONE-RIFT",
+        "displayName": "Нестабильный разлом",
+        "kind": "Rift",
+        "radius": 7,
+        "color": "#ff5a5a",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 36,
+        "pulseVisibleSeconds": 25,
+        "pulseFadeSeconds": 4,
+        "playerDamagePerSecond": 5,
+        "enemyDamagePerSecond": 25,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true
+      },
+      {
+        "id": "FIELD-006-ZONE-PORTAL",
+        "displayName": "Портал",
+        "kind": "Portal",
+        "radius": 3.5,
+        "color": "#ffd45a",
+        "lifetime": "Pulsing",
+        "portalCooldownSeconds": 3,
+        "portalExitDistance": 3,
+        "portalMinPairDistance": 40,
+        "verticalScale": 0.8,
+        "pulsePeriodSeconds": 40,
+        "pulseVisibleSeconds": 25,
+        "pulseFadeSeconds": 3,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "relocatesBetweenCycles": false
+      },
+      {
+        "id": "FIELD-006-ZONE-SPEED-BURST",
+        "displayName": "Рывок",
+        "kind": "SpeedBurst",
+        "radius": 8,
+        "color": "#ffe14a",
+        "lifetime": "Burst",
+        "pulsePeriodSeconds": 40,
+        "telegraphSeconds": 4,
+        "flashSeconds": 0.6,
+        "playerMovementBonus": 0.6,
+        "playerBuffSeconds": 8,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true
+      },
+      {
+        "id": "FIELD-006-ZONE-WARD",
+        "displayName": "Защитный круг",
+        "kind": "Protection",
+        "radius": 6,
+        "color": "#9fd3ff",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 40,
+        "pulseVisibleSeconds": 25,
+        "pulseFadeSeconds": 6,
+        "playerIncomingDamageReduction": 0.8,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": false
+      },
+      {
+        "id": "FIELD-006-ZONE-HEAL",
+        "displayName": "Целебный круг",
+        "kind": "Regeneration",
+        "radius": 6,
+        "color": "#ff8fd0",
+        "lifetime": "Pulsing",
+        "pulsePeriodSeconds": 40,
+        "pulseVisibleSeconds": 25,
+        "pulseFadeSeconds": 6,
+        "playerRegenerationPerSecond": 6,
+        "pulsePrepareSeconds": 5,
+        "pulseIdleVisibility": 0.14,
+        "verticalScale": 0.8,
+        "relocatesBetweenCycles": true
+      }
+    ],
+    "zones": [
+      {
+        "effectId": "FIELD-006-ZONE-SLOW",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-HASTE",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-REGEN",
+        "count": 1
+      },
+      {
+        "effectId": "FIELD-006-ZONE-ARCANE",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-RIFT",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-PORTAL",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-SPEED-BURST",
+        "count": 2
+      },
+      {
+        "effectId": "FIELD-006-ZONE-WARD",
+        "count": 1
+      },
+      {
+        "effectId": "FIELD-006-ZONE-HEAL",
+        "count": 1
+      }
+    ],
+    "activeScreenMargin": 0.5,
+    "suppressAreaUnitFeedback": true
+  }
+}

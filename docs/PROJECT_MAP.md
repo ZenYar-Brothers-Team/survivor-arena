@@ -51,6 +51,16 @@ Bootstrap связывает модули. `CreateFixture()` и `CreateProductio
 
 ## Поля и расписания
 
+Academy FIELD-006 (plus regression «Тест 06»): [cycle contract](decisions/0142-academy-zone-seal-presentation.md),
+[seal profile](../Assets/Resources/Content/Presentation/FixtureZoneSeals.json) (direct authoring),
+[mesh seal](../Assets/Game/Presentation/ZoneSealPresentationRuntime.cs),
+[Rift hit](../Assets/Game/Presentation/ZoneRiftHitPresentationRuntime.cs),
+[driver](../Assets/Game/Bootstrap/ZoneRuntimeDriver.cs). Academy authoring is
+[field006-zones-v1.json](balance/field006-zones-v1.json); regression authoring is `field-dev-zones-v1.json`.
+FIELD-001 waves are shared by reference; Dev unlock uses the existing ProfileService command.
+checks: ProductionField006ContentTests, ZonePreparationTests, ZoneSealPresentationTests,
+ProductionFieldDevZonesSmokeTests (including actual FIELD-006 UI launch), ZoneSealVisualSmokeTests.
+
 FIELD-003 roads: authoring [road profile](balance/field003-roads-v1.json),
 generated ProductionFieldEnvironmentPresentation, [generator](../Assets/Game/Presentation/FieldRoadLayoutGenerator.cs),
 [shared surface](../Assets/Game/Bootstrap/FieldRoadSurfaceRuntime.cs),

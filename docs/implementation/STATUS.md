@@ -3,6 +3,45 @@
 Единственный источник execution status и Execution order. Навигация по коду/данным: [PROJECT_MAP](../PROJECT_MAP.md).
 
 Plan revision: design-sync-R2; startup packets: field-001-start-R1.
+
+Печати зон Академии 2026-10-02 — Implemented непосредственно на FIELD-006
+«Академия магов» (IP-12A/IP-23, явный scope пользователя; «Тест 06» — регрессионный вариант):
+восемь mesh-образов, слабое ожидание, 5 с нелинейного наполнения и действие только при полном свете;
+fade без эффекта, таймер только длительного ускорения игрока.
+Отзыв v2: внутренних препятствий и decor нет; все разновидности временные, включая
+синхронную неподвижную пару Portal. Fixed и relocating циклы заданы отдельно;
+area-only Slow не создаёт timed status, Rift не подсвечивает body, таймеры/состояния
+остаются только у длительных эффектов. Magical ground v002 утверждена пользователем
+и установлена через `Art/Packets/field006-ground-v002-2026-10-02.json` с сохранением GUID.
+Свежий art scope после замены: **100/100 EditMode PASS**, manifest 314/314,
+`TestResults/checks/20261002T103808-604805Z/summary.json`; generation UP TO DATE.
+Термины уточнены: временная area-only зона fixed/random и разовый random импульс;
+сейчас импульс — ускорение игрока +60% на 8 с. Portal остаётся отдельной зоной входа.
+Наземные печати сжаты по Y до 0.8; область действия следует той же границе эллипса.
+Relocating-контур вращается, fixed-контур неподвижен; разовый SpeedBurst и
+использование обоих концов Portal дают короткую вспышку на полу.
+Свежая проверка v2 и дополнений Unity 6000.6 graphics: scoped **361/361 EditMode
++ 3/3 PlayMode PASS**, 0 skipped (`TestResults/checks/20261002T102713-299217Z/summary.json`).
+Полный прогон v2: 1359/1359 EditMode, 65/67 PlayMode; прежние MetaShop/UiEntry
+failures сохраняются, Academy и Monastery smoke PASS. Generation/audio PASS;
+manifest 314 records PASS. Полный PASS не заявлен.
+[DECISION-0142](../decisions/0142-academy-zone-seal-presentation.md).
+Игровой preview FIELD-006: собственные ground/thumbnail/environment и zone IDs;
+общие волны/encounters FIELD-001, запуск после существующей Dev-разблокировки.
+Свежие проверки FIELD-006 Unity 6000.6: 8/8 EditMode + 3/3 PlayMode PASS
+(`TestResults/checks/20261002T093012-062154Z/summary.json`), включая реальную Dev-кнопку,
+карточку → запуск и сохранение unlock в профиле.
+Финальный full graphics FIELD-006: 1346/1346 EditMode PASS, PlayMode 64/67;
+Academy UI launch и оба seal smoke PASS. Общий FAIL: прежние MetaShop/UiEntry failures
+и отдельный `ProductionMonasterySmokeTests` (ожидал врагов после 30 fixed ticks, получено 0).
+Generation/audio PASS, art manifest 311 PASS; подробности в том же evidence.
+После уточнения сжатия свежий scoped graphics Unity 6000.6: 91/91 EditMode + 3/3 PlayMode PASS.
+Предшествующий full graphics: EditMode 1323/1323 PASS, PlayMode 63/65;
+оба зональных smoke и altar smoke PASS. Два прежних UI failures (MetaShop count 70/85,
+UiEntry DEV-ZONES card bottom 1250/1081), общий full PASS не заявлен.
+Generation/audio/art manifest 308 PASS; [evidence и снимки](evidence/2026-10-02-academy-zone-seals.md).
+Remaining: пользовательский обзор движения/плотной толпы; финальные enemy profile, геометрия проходов и баланс FIELD-006
+остаются отдельным решением. Общие IP не Verified, очередь не возобновлена.
 UI entry R1 feedback закрыт пользователем 2026-09-28: «Отлично», «Все, идем дальше». Запрет тестов на время фидбека завершён. Финальные правки: мечи сложности, закрытые герои только силуэт/«?», медленная диагональная пыль и замедленный свет.
 Worktree integration 2026-09-28: `develop-evg-wt` (`3d557ea`, `9e0c51f`) перенесена в текущую линию с сохранением UI entry R1; [merge evidence](evidence/2026-09-28-worktree-integration.md). Свежий полный smoke Unity 6000.6.0f1 с graphics: 921/921 EditMode + 34/34 PlayMode, 0 failed/skipped, generation/audio/art 254 PASS (`TestResults/checks/20260928T184120-318706Z/summary.json`). Персонажи/путники остаются Implemented до ручной приёмки; текущий UI packet и его порядок ниже сохраняются.
 Current UI checkpoint: UI entry R1 — Verified в границах трёх стартовых экранов, с финальным feedback пользователя и fresh checks ниже. Приёмка не распространяется на Results/Meta/Settings или новые gameplay-каталоги.

@@ -3,28 +3,28 @@
   "contentId": "FIELD-006",
   "role": "tile",
   "status": "approved",
-  "artDirectionRevision": "Approved art direction read 2026-09-27",
+  "artDirectionRevision": "Approved art direction and academy surface follow-up read 2026-10-02",
   "sourceKind": "ai-generated",
   "generator": "OpenAI built-in image generation",
-  "selectedVersion": "v001/concept-01.png",
-  "approvedAt": "2026-09-27",
+  "selectedVersion": "v002/concept-01.png",
+  "approvedAt": "2026-10-02",
   "approvedBy": "user",
-  "approvalEvidence": "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27).",
-  "prompt": "Use case: stylized-concept\nAsset type: seamless tileable 2D game ground texture for a top-down survivor arena\nStyle/medium: polished hand-painted fantasy game texture, soft painterly forms, readable at gameplay scale, restrained detail\nComposition/framing: exact orthographic top-down view, square texture, fully seamless on all four edges, evenly distributed surface variation, no focal point\nLighting/mood: diffuse neutral ambient light baked very lightly; no directional shadows\nConstraints: ground surface only; low contrast so characters, projectiles and hazards remain readable; no props, no objects, no walls, no borders, no horizon, no perspective, no text, no runes, no emblems, no logos, no watermark; avoid obvious repeated motifs\nPrimary request: mage-academy courtyard floor made of cool slate tiles and aged blue-gray stone with extremely subtle desaturated violet and teal mineral veining\nColor palette: cool slate blue, charcoal gray, muted violet, subdued teal; magical feeling through material color only, absolutely no glowing marks or symbols",
+  "approvalEvidence": "Direct user approval 2026-10-02: «Поверхность утверждаю.» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved.",
+  "prompt": "Create ONE square seamless tileable ground texture for FIELD-006, a magical academy arena in a stylized hand-painted fantasy 2D survivor game. Exact orthographic straight-down view, NO perspective, NO horizon. This is a quiet floor material underneath characters, projectiles and large colorful animated magical seals; it must have LOW CONTRAST and visually restrained small details. Replace the mundane masonry look: broad softly fused slabs of ancient magical stone and smooth alchemical mineral surface, irregular organic boundaries, without obvious brickwork, neat rectangular paving blocks, cobblestones, repetitive grids or thick dark grout lines. Cool dusty slate-blue and blue-gray, gently mottled muted violet and subdued teal. Suggest magic through faint thin mineral veins, worn almost-erased small geometric/arcane fragments and subtle inlaid lines embedded in the stone. These tiny fragments should be sparsely scattered, non-legible, desaturated, near the floor value; NOT complete spell circles, NOT symbols that look like interactable objects or gameplay areas. Very slight magical pearlescence in veins only, absolutely no strong emissive glow or bloom. Soft painterly textures, flat ambient diffuse lighting, no directional cast shadows, no focal point, no contrasting accent. Seamless all four edges, uniformly distributed subdued material variation, similar average brightness across the entire tile. Surface only: no props, objects, vegetation, columns, walls, creatures, text, borders, logos, watermark. The final image is the clean texture asset itself occupying the entire square canvas, opaque background.",
   "constraints": [
-    "approved FIELD-006 ground candidate",
-    "opaque low-contrast ground",
-    "no baked gameplay effects"
+    "quiet magical academy surface",
+    "low contrast, no focal point",
+    "no baked gameplay seals or props"
   ],
   "runtimeOutputs": [
     "Assets/Resources/Art/Sprites/Fields/field-006/field-006-ground-tile.png"
   ],
   "preparation": {
     "sourceDimensions": "1254x1254",
-    "sourceSha256": "e834d6bbc2e44a6180a13d1b30dacc14466efaeb50421800e57b3cf7ef1e8c99",
-    "runtimeSha256": "e834d6bbc2e44a6180a13d1b30dacc14466efaeb50421800e57b3cf7ef1e8c99",
+    "sourceSha256": "985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447",
+    "runtimeSha256": "19e3554a81087eacbda895012d5f4104a01124067b9710113fe48715abd1bb3f",
     "recipe": {
-      "mode": "copy"
+      "mode": "opaque-rgba"
     }
   }
 }

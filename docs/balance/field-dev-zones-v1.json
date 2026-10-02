@@ -1,7 +1,7 @@
 {
  "format": "dev-field-zones",
  "formatVersion": 1,
- "revision": "field-dev-zones-v1",
+ "revision": "field-dev-zones-seals-r2",
  "approval": "Approved 2026-10-01 (dev-only тестовое поле «Тест 06» по поручению пользователя; числа зон — placeholder для проверки логики, не баланс)",
  "purpose": "Developer-only test field («Тест 06») for the effect-zone foundation of the magical map (FIELD-006). Not one of the ten designed fields. Spawn settings are shared with FIELD-001. Ground is FIELD-006's; obstacles are five small ruins illustrations from the Тест 02 library. Zone effects: permanent, pulsing and burst ones (a burst swells, goes off once and gives a timed speed buff; healing and ward circles fade out slowly) (a pulsing zone fades in, stays, fades out and reappears at a new random point).",
  "units": {
@@ -57,7 +57,8 @@
     "lifetime": "Permanent",
     "playerMovementBonus": -0.45,
     "enemySlowFraction": 0.45,
-    "enemySlowSeconds": 0.3
+    "enemySlowSeconds": 0.3,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-HASTE",
@@ -67,9 +68,12 @@
     "color": "#6df0c2",
     "lifetime": "Pulsing",
     "pulsePeriodSeconds": 30,
-    "pulseVisibleSeconds": 20,
+    "pulseVisibleSeconds": 22,
     "pulseFadeSeconds": 3,
-    "playerMovementBonus": 0.4
+    "playerMovementBonus": 0.4,
+    "pulsePrepareSeconds": 5,
+    "pulseIdleVisibility": 0.14,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-REGEN",
@@ -78,7 +82,8 @@
     "radius": 6,
     "color": "#7bd96a",
     "lifetime": "Permanent",
-    "playerRegenerationPerSecond": 3
+    "playerRegenerationPerSecond": 3,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-ARCANE",
@@ -88,10 +93,13 @@
     "color": "#c28cff",
     "lifetime": "Pulsing",
     "pulsePeriodSeconds": 30,
-    "pulseVisibleSeconds": 18,
+    "pulseVisibleSeconds": 20,
     "pulseFadeSeconds": 3,
     "playerSkillDamageBonus": 0.5,
-    "playerActionSpeedBonus": 0.3
+    "playerActionSpeedBonus": 0.3,
+    "pulsePrepareSeconds": 5,
+    "pulseIdleVisibility": 0.14,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-RIFT",
@@ -101,10 +109,13 @@
     "color": "#ff5a5a",
     "lifetime": "Pulsing",
     "pulsePeriodSeconds": 36,
-    "pulseVisibleSeconds": 24,
+    "pulseVisibleSeconds": 25,
     "pulseFadeSeconds": 4,
     "playerDamagePerSecond": 5,
-    "enemyDamagePerSecond": 25
+    "enemyDamagePerSecond": 25,
+    "pulsePrepareSeconds": 5,
+    "pulseIdleVisibility": 0.14,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-PORTAL",
@@ -115,7 +126,8 @@
     "lifetime": "Permanent",
     "portalCooldownSeconds": 3,
     "portalExitDistance": 3,
-    "portalMinPairDistance": 40
+    "portalMinPairDistance": 40,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-SPEED-BURST",
@@ -128,7 +140,8 @@
     "telegraphSeconds": 4,
     "flashSeconds": 0.6,
     "playerMovementBonus": 0.6,
-    "playerBuffSeconds": 8
+    "playerBuffSeconds": 8,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-WARD",
@@ -138,9 +151,12 @@
     "color": "#9fd3ff",
     "lifetime": "Pulsing",
     "pulsePeriodSeconds": 40,
-    "pulseVisibleSeconds": 26,
+    "pulseVisibleSeconds": 25,
     "pulseFadeSeconds": 6,
-    "playerIncomingDamageReduction": 0.8
+    "playerIncomingDamageReduction": 0.8,
+    "pulsePrepareSeconds": 5,
+    "pulseIdleVisibility": 0.14,
+    "verticalScale": 0.8
    },
    {
     "id": "FIXTURE-ZONE-HEAL",
@@ -150,9 +166,12 @@
     "color": "#ff8fd0",
     "lifetime": "Pulsing",
     "pulsePeriodSeconds": 40,
-    "pulseVisibleSeconds": 26,
+    "pulseVisibleSeconds": 25,
     "pulseFadeSeconds": 6,
-    "playerRegenerationPerSecond": 6
+    "playerRegenerationPerSecond": 6,
+    "pulsePrepareSeconds": 5,
+    "pulseIdleVisibility": 0.14,
+    "verticalScale": 0.8
    }
   ],
   "zones": [

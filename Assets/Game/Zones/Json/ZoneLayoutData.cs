@@ -2,6 +2,7 @@ namespace Game.Zones.Json
 {
     public sealed class ZoneLayoutData
     {
+        public bool? SuppressAreaUnitFeedback { get; set; }
         public float? EdgeMargin { get; set; }
         public float? StartClearRadius { get; set; }
         public float? MinGap { get; set; }

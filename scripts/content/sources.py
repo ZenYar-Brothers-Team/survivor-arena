@@ -44,6 +44,7 @@ FIELD_DEV_ZONES_PACKET = ROOT / "docs/balance/field-dev-zones-v1.json"
 
 
 FIELD_DEV_ALTARS_PACKET = ROOT / "docs/balance/field-dev-altars-v1.json"
+FIELD006_PACKET = ROOT / "docs/balance/field006-zones-v1.json"
 
 
 CHARACTERS_PACKET = ROOT / "docs/balance/characters-v1.json"
@@ -114,6 +115,10 @@ def load_baseline():
     if not str(dev_altars.get("approval", "")).startswith("Approved"):
         raise SystemExit("Dev altars packet is not Approved; production content cannot be generated.")
     data["devAltars"] = dev_altars
+    academy = json.loads(FIELD006_PACKET.read_text(encoding="utf-8"))
+    if not str(academy.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-006 zone preview packet is not Approved.")
+    data["field006"] = academy
     roster = json.loads(CHARACTERS_PACKET.read_text(encoding="utf-8"))
     if not str(roster.get("approval", "")).startswith("Approved"):
         raise SystemExit("Characters packet is not Approved; production content cannot be generated.")
@@ -147,7 +152,7 @@ def card_field(card_id, field):
 # Complete input set for generation and check_project's reusable evidence fingerprint.
 SOURCE_PATHS = tuple(str(path.relative_to(ROOT)).replace("\\", "/") for path in (
     BASELINE, LATE_PACKET, SETS_PACKET, LOW_SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
-    BOSSES_PACKET, FIELD003_PACKET, FIELD003_ROADS_PACKET, FIELD004_PACKET, LAYOUTS_PACKET, FIELD_DEV_BLOBS_PACKET, FIELD_DEV_ZONES_PACKET, FIELD_DEV_ALTARS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
+    BOSSES_PACKET, FIELD003_PACKET, FIELD003_ROADS_PACKET, FIELD004_PACKET, FIELD006_PACKET, LAYOUTS_PACKET, FIELD_DEV_BLOBS_PACKET, FIELD_DEV_ZONES_PACKET, FIELD_DEV_ALTARS_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
     ROOT / "docs/Content_design.md",
     ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json",
 ))

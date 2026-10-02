@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Game.Run;
 using Game.Zones;
+using Game.Presentation;
+using Game.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -10,7 +12,7 @@ namespace Game.Bootstrap
 {
     /// <summary>
     /// Scene side of the effect zones: ticks <see cref="ZoneRuntime"/> only while the run is Running (pause advances no zone time)
-    /// and draws each zone as a placeholder disc whose alpha follows its pulse. Art replaces the discs later.
+    /// and draws academy seals for prepared layouts, retaining placeholder discs for the separate altar study.
     /// </summary>
     public sealed class ZoneRuntimeDriver : MonoBehaviour
     {
@@ -21,6 +23,13 @@ namespace Game.Bootstrap
         private const float StrikeFlashAlpha = 0.9f;
 
         private readonly List<SpriteRenderer> _discs = new List<SpriteRenderer>();
+        private readonly List<ZoneSealPresentationRuntime> _seals = new List<ZoneSealPresentationRuntime>();
+        private SpritePresentationRuntime _playerPresentation;
+        private SpeedStatusPresentationRuntime _playerSpeed;
+        private SlowStatusPresentationProfile _speedProfile;
+        private ZoneSealPresentationProfile _sealProfile;
+        private readonly HashSet<ZoneRiftHitPresentationRuntime> _riftHits = new HashSet<ZoneRiftHitPresentationRuntime>();
+        private readonly List<ZoneRiftHitPresentationRuntime> _expiredHits = new List<ZoneRiftHitPresentationRuntime>();
         // Warning circles of strike altars: a reused list of what to draw and a grow-only pool of discs for them.
         private readonly List<StrikeCircle> _circles = new List<StrikeCircle>();
         private readonly List<SpriteRenderer> _strikeDiscs = new List<SpriteRenderer>();
@@ -30,12 +39,14 @@ namespace Game.Bootstrap
 
         public ZoneRuntime Runtime => _runtime;
 
-        public static ZoneRuntimeDriver Create(ZoneRuntime runtime, RunController run, Scene scene)
+        public static ZoneRuntimeDriver Create(ZoneRuntime runtime, RunController run, Scene scene,
+            SpritePresentationRuntime playerPresentation = null)
         {
             var root = new GameObject("FieldZones");
             SceneManager.MoveGameObjectToScene(root, scene);
             var driver = root.AddComponent<ZoneRuntimeDriver>();
-            driver.Initialize(runtime, run);
+            try { driver.Initialize(runtime, run, playerPresentation); }
+            catch { driver.Shutdown(); throw; }
             return driver;
         }
 
@@ -49,13 +60,33 @@ namespace Game.Bootstrap
             return new Rect(center.x - width * .5f, center.y - height * .5f, width, height);
         }
 
-        private void Initialize(ZoneRuntime runtime, RunController run)
+        private void Initialize(ZoneRuntime runtime, RunController run, SpritePresentationRuntime playerPresentation)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _run = run ?? throw new ArgumentNullException(nameof(run));
             _sprite = ZoneDiscSprite.Create();
+            var useSeals = false;
+            foreach (var zone in runtime.Zones) if (zone.Effect.HasPreparation) { useSeals = true; break; }
+            var profile = useSeals ? ZoneSealPresentationProfile.Load() : null;
+            _sealProfile = profile;
+            _playerPresentation = useSeals ? playerPresentation : null;
+            if (_playerPresentation != null)
+            {
+                _speedProfile = FixtureSlowStatusPresentationCatalog.Create();
+                _playerSpeed = _playerPresentation.GetComponent<SpeedStatusPresentationRuntime>() ??
+                    _playerPresentation.gameObject.AddComponent<SpeedStatusPresentationRuntime>();
+            }
             foreach (var zone in runtime.Zones)
             {
+                if (useSeals)
+                {
+                    var visual = new GameObject($"Zone-{zone.Index}-{zone.Effect.Id}");
+                    visual.transform.SetParent(transform, false);
+                    var seal = visual.AddComponent<ZoneSealPresentationRuntime>();
+                    _seals.Add(seal);
+                    seal.Initialize(zone.Effect.Kind, profile);
+                    continue;
+                }
                 var disc = new GameObject($"Zone-{zone.Index}-{zone.Effect.Id}").AddComponent<SpriteRenderer>();
                 disc.transform.SetParent(transform, false);
                 disc.sprite = _sprite;
@@ -74,6 +105,19 @@ namespace Game.Bootstrap
 
         private void Refresh()
         {
+            using var guard = PerfGuard.Measure("Zones.Presentation", 2f);
+            _expiredHits.Clear();
+            foreach (var hit in _riftHits)
+            {
+                if (hit != null) hit.Tick(_runtime.Time);
+                if (hit == null || !hit.IsShowing) _expiredHits.Add(hit);
+            }
+            foreach (var hit in _expiredHits) _riftHits.Remove(hit);
+            for (var i = 0; i < _seals.Count; i++)
+                _seals[i].Apply(_runtime.Zones[i], _runtime.Time, _runtime.PortalCooldownRemaining);
+            if (_playerSpeed != null)
+                _playerSpeed.Apply(_playerPresentation, _speedProfile, _runtime.SpeedBuffRemaining01 > 0f,
+                    _runtime.SpeedBuffRemaining01, false, _runtime.Time);
             for (var i = 0; i < _discs.Count; i++)
             {
                 var zone = _runtime.Zones[i];
@@ -93,9 +137,18 @@ namespace Game.Bootstrap
                 disc.color = color;
                 disc.transform.position = new Vector3(zone.Center.x, zone.Center.y, 0f);
                 var scale = zone.Effect.Radius * 2f / _sprite.bounds.size.x * zone.RadiusScale(_runtime.Time);
-                disc.transform.localScale = new Vector3(scale, scale, 1f);
+                disc.transform.localScale = new Vector3(scale, scale * zone.Effect.VerticalScale, 1f);
             }
             RefreshStrikes();
+        }
+
+        /// <summary>Called only after the enemy adapter applies actual Rift damage, never on mere zone entry.</summary>
+        public void ShowRiftHit(SpritePresentationRuntime body)
+        {
+            if (_sealProfile == null || _runtime == null || body == null || !body.IsInitialized) return;
+            var hit = body.GetComponent<ZoneRiftHitPresentationRuntime>() ?? body.gameObject.AddComponent<ZoneRiftHitPresentationRuntime>();
+            hit.Show(body, _sealProfile, _runtime.Time);
+            _riftHits.Add(hit);
         }
 
         private void RefreshStrikes()
@@ -129,6 +182,22 @@ namespace Game.Bootstrap
         /// <summary>Removes the zone effects and the scene objects; safe to call more than once.</summary>
         public void Shutdown()
         {
+            ClearOwned();
+            if (this == null) return;
+            if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject);
+        }
+
+        private void ClearOwned()
+        {
+            foreach (var hit in _riftHits) if (hit != null) hit.Clear();
+            _riftHits.Clear(); _expiredHits.Clear(); _sealProfile = null;
+            foreach (var seal in _seals) if (seal != null) seal.Shutdown();
+            _seals.Clear();
+            if (_playerSpeed != null)
+            {
+                _playerSpeed.Clear();
+            }
+            _playerSpeed = null; _playerPresentation = null; _speedProfile = null;
             _runtime?.Dispose();
             _runtime = null;
             if (_sprite != null)
@@ -137,10 +206,8 @@ namespace Game.Bootstrap
                 if (Application.isPlaying) { Destroy(_sprite); Destroy(texture); } else { DestroyImmediate(_sprite); DestroyImmediate(texture); }
                 _sprite = null;
             }
-            if (this == null) return;
-            if (Application.isPlaying) Destroy(gameObject); else DestroyImmediate(gameObject);
         }
 
-        private void OnDestroy() => _runtime?.Dispose();
+        private void OnDestroy() => ClearOwned();
     }
 }

@@ -4190,7 +4190,7 @@
       "resourcePath": "Art/Sprites/Fields/field-006/field-006-ground-tile",
       "stage": "Prepared",
       "evidence": [
-        "Пользователь одобрил показанные основные текстуры FIELD-004…010 и поручил встроить и закоммитить: «отлично, встраивай если есть что встраивать, и комить» (2026-09-27)."
+        "Direct user approval 2026-10-02: «Поверхность утверждаю.» Selected displayed concept-01, SHA256 985e356343f09a1e514febc95652b1c3ba36686fb0e5465242761e7be670e447; replacement of FIELD-006 ground v001 approved."
       ],
       "missing": "Unity import checks and target-scale visual review."
     },

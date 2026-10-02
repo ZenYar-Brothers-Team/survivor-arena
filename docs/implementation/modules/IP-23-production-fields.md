@@ -64,11 +64,16 @@ player-only collider prop препятствия охватывает импор
 
 ## UI / observability
 
-Dev-only подготовка Академии: «Тест 06» использует mesh-печати и включение при полном свете по [DECISION-0142](../../decisions/0142-academy-zone-seal-presentation.md), потребитель IP-12A. Это не утверждает production-набор FIELD-006; циклы «Тест 07» сохраняют отдельный контракт алтарей.
+Академия FIELD-006 использует mesh-печати и включение при полном свете по [DECISION-0142](../../decisions/0142-academy-zone-seal-presentation.md), потребитель IP-12A. По прямому поручению пользователя 2026-10-02 дальнейшая настройка идёт на этом постоянном ID: собственные ground/thumbnail/environment, временно общее расписание FIELD-001 и его encounters, доступ через существующий Dev unlock. `field006-zones-v1.json` — источник зон Академии; «Тест 06» сохраняется для регрессий. Это не закрывает финальные enemy profile, геометрию проходов и баланс FIELD-006; циклы «Тест 07» сохраняют отдельный контракт алтарей.
 
 name/description/difficulty/lock condition/thumbnail + loading state; технические wave timings/boss stats не перегружают selection.
 
 ## Проверки
+
+Академия preview v2 по уточнению пользователя: без внутренних obstacles/decor,
+все виды временные; fixed и random appearance, синхронные fixed порталы;
+area-only effects не показывают unit status, lasting effects сохраняют таймер.
+Контракт и проверка новых portal/slow/presentation API — DECISION-0142.
 
 per-field load/selection/ref validation и collision, restart/reload cleanup; manual density/contrast на реальном camera scale и thumbnail review.
 
