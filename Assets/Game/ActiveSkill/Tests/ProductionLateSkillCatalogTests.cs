@@ -125,13 +125,13 @@ namespace Game.ActiveSkill.Tests
             CollectionAssert.AreEqual(new[] { 0.4f, 0.8f, 1.1f }, Enumerable.Range(1, 3)
                 .Select(level => Effect<BeamEffect>("SKILL-012", level).DurationSeconds));
             Assert.AreEqual(6f, l1.Range, 1e-5f);
-            Assert.AreEqual(0.4f, l1.Width, 1e-5f);
+            Assert.AreEqual(0.26f, l1.Width, 1e-5f);
             Assert.AreEqual(0.04f, Skill("SKILL-012").GetLevel(1).Waves[0].Controls.KnockbackDistance, 1e-5f);
             // DECISION-0144: the beam follows its living target from L1.
             Assert.IsTrue(Enumerable.Range(1, 6).All(level => Effect<BeamEffect>("SKILL-012", level).TracksTarget));
             var l6 = Effect<BeamEffect>("SKILL-012", 6);
             Assert.AreEqual(1.5f, l6.DurationSeconds, 1e-5f);
-            Assert.AreEqual(0.68f, l6.Width, 1e-5f);
+            Assert.AreEqual(0.442f, l6.Width, 1e-5f);
             Assert.AreEqual(7.2f, l6.Range, 1e-5f);
         }
 

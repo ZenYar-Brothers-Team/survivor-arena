@@ -2254,7 +2254,7 @@
                 "kind": "Beam",
                 "durationSeconds": 0.4,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.4,
+                "width": 0.26,
                 "range": 6,
                 "tracksTarget": true
               }
@@ -2283,7 +2283,7 @@
                 "kind": "Beam",
                 "durationSeconds": 0.8,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.46,
+                "width": 0.299,
                 "range": 6,
                 "tracksTarget": true
               }
@@ -2312,7 +2312,7 @@
                 "kind": "Beam",
                 "durationSeconds": 1.1,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.46,
+                "width": 0.299,
                 "range": 6,
                 "tracksTarget": true
               }
@@ -2341,7 +2341,7 @@
                 "kind": "Beam",
                 "durationSeconds": 1.1,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.62,
+                "width": 0.403,
                 "range": 7.2,
                 "tracksTarget": true
               }
@@ -2370,7 +2370,7 @@
                 "kind": "Beam",
                 "durationSeconds": 1.1,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.62,
+                "width": 0.403,
                 "range": 7.2,
                 "tracksTarget": true
               }
@@ -2399,7 +2399,7 @@
                 "kind": "Beam",
                 "durationSeconds": 1.5,
                 "tickIntervalSeconds": 0.2,
-                "width": 0.68,
+                "width": 0.442,
                 "range": 7.2,
                 "tracksTarget": true
               }
