@@ -41,7 +41,8 @@
     "referenceSeed": 42,
     "bookUpgradeCount": 1,
     "mainColor": "#4f8094",
-    "deadEndColor": "#d69750"
+    "deadEndColor": "#d69750",
+    "deadEndMouthOverlap": 1
   },
   "fallbackLayouts": [
     {

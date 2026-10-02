@@ -49,6 +49,12 @@ namespace Game.Presentation
         public int BookUpgradeCount { get; }
         public Color MainColor { get; }
         public Color DeadEndColor { get; }
+        /// <summary>
+        /// How far the dead-end surface is drawn onto the main road past its edge, world units: at a mouth the main road
+        /// keeps its own surface, the broken dead-end surface only hints at the entrance. 0 = clipped at the edge;
+        /// must stay under half the main road width. Visual only; walking area is unaffected.
+        /// </summary>
+        public float DeadEndMouthOverlap { get; }
         public FieldRoadLayoutDefinition(FieldRoadLayoutData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -132,11 +138,14 @@ namespace Game.Presentation
             if (!ColorUtility.TryParseHtmlString(data.MainColor, out var main) || !ColorUtility.TryParseHtmlString(data.DeadEndColor, out var branch))
                 throw new ArgumentException("Road colors are required HTML colors.");
             MainColor = main; DeadEndColor = branch;
+            DeadEndMouthOverlap = data.DeadEndMouthOverlap ?? throw new ArgumentException("deadEndMouthOverlap is required.");
+            NumericValidation.ValidateNonNegativeFinite(DeadEndMouthOverlap, nameof(DeadEndMouthOverlap));
             if (InteriorNodeCountMax < InteriorNodeCountMin || AdditionalLinkCountMax < AdditionalLinkCountMin || DeadEndLengthMax < DeadEndLengthMin ||
                 RingArcSamples < 2 || BendSamples < 2 || BookUpgradeCount != 1 || SurfaceStep > 1f ||
                 RingInset < MainRoadWidth * .5f + FieldPadding || InteriorMargin * 2 >= ArenaSideLength ||
                 DeadEndEndRadius <= DeadEndWidth * .5f || DeadEndLengthMin <= DeadEndEndRadius ||
-                RingCornerRadius <= 0 || MinimumJunctionAngleDegrees >= 180 || BranchTiltDegrees >= 90)
+                RingCornerRadius <= 0 || MinimumJunctionAngleDegrees >= 180 || BranchTiltDegrees >= 90 ||
+                DeadEndMouthOverlap >= MainRoadWidth * .5f)
                 throw new ArgumentException("Inconsistent road geometry profile.");
         }
     }

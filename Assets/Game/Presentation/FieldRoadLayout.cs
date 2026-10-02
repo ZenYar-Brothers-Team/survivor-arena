@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Content;
-using Game.Diagnostics;
 using Game.Presentation.Json;
 using UnityEngine;
 
 namespace Game.Presentation
 {
-    /// <summary>One immutable, centered road network. Surface cells are shared by display and grass blockers.</summary>
+    /// <summary>One immutable, centered road network; its surface is sampled by <see cref="FieldRoadDistanceField"/>.</summary>
     public sealed class FieldRoadLayout
     {
         public IReadOnlyList<IReadOnlyList<Vector2>> Roads { get; }
@@ -88,35 +87,5 @@ namespace Game.Presentation
             return a + d * (d.sqrMagnitude == 0 ? 0 : Mathf.Clamp01(Vector2.Dot(p-a,d)/d.sqrMagnitude));
         }
         public static float Distance(Vector2 p, Vector2 a, Vector2 b) => Vector2.Distance(p, Closest(p,a,b));
-
-        /// <summary>0 grass, 1 main road, 2 branch. A cell is rendered and blocked from exactly this same classification.</summary>
-        public byte[] BuildSurface()
-        {
-            using var guard = PerfGuard.Measure("RoadLayout.BuildSurface", 250f);
-            var side = Mathf.CeilToInt(Profile.ArenaSideLength / Profile.SurfaceStep);
-            var cells = new byte[side * side];
-            // Paint only each primitive's bounding rectangle; avoids scanning every axis for every cell.
-            void Paint(Vector2 a, Vector2 b, float radius, byte kind)
-            {
-                var half = Profile.ArenaSideLength * .5f;
-                var step = Profile.SurfaceStep;
-                var min = Vector2.Min(a,b)-Vector2.one*radius;
-                var max = Vector2.Max(a,b)+Vector2.one*radius;
-                var x0 = Mathf.Clamp(Mathf.FloorToInt((min.x+half)/step),0,side-1);
-                var x1 = Mathf.Clamp(Mathf.FloorToInt((max.x+half)/step),0,side-1);
-                var y0 = Mathf.Clamp(Mathf.FloorToInt((min.y+half)/step),0,side-1);
-                var y1 = Mathf.Clamp(Mathf.FloorToInt((max.y+half)/step),0,side-1);
-                for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++)
-                    if (Distance(new Vector2((x+.5f)*step-half,(y+.5f)*step-half),a,b) <= radius)
-                        cells[y*side+x] = kind;
-            }
-            foreach (var path in Roads) for (var i = 1; i < path.Count; i++) Paint(path[i-1],path[i],Profile.MainRoadWidth*.5f,1);
-            foreach (var branch in DeadEnds)
-            {
-                Paint(branch.Entrance,branch.EndCenter,Profile.DeadEndWidth*.5f,2);
-                Paint(branch.EndCenter,branch.EndCenter,Profile.DeadEndEndRadius,2);
-            }
-            return cells;
-        }
     }
 }

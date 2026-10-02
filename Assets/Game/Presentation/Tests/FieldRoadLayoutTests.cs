@@ -110,19 +110,21 @@ namespace Game.Presentation.Tests
         }
         private static void AssertConnected(FieldRoadLayout layout)
         {
-            var cells = layout.BuildSurface(); var p = layout.Profile; var side = Mathf.CeilToInt(p.ArenaSideLength/p.SurfaceStep);
-            int Index(Vector2 q) => Mathf.FloorToInt((q.y+p.ArenaSideLength*.5f)/p.SurfaceStep)*side+Mathf.FloorToInt((q.x+p.ArenaSideLength*.5f)/p.SurfaceStep);
-            var visited = new bool[cells.Length]; var queue = new Queue<int>();
-            var first = Index(layout.SpawnPosition); Assert.AreNotEqual(0,cells[first]); visited[first] = true; queue.Enqueue(first);
+            // Road corners of the shared distance field, 4-connected: the same surface the boundary and meshes are built from.
+            var field = FieldRoadDistanceField.Walkable(layout); var n = field.Cells+1;
+            int Index(Vector2 q) => Mathf.RoundToInt((q.y-field.Origin)/field.Step)*n+Mathf.RoundToInt((q.x-field.Origin)/field.Step);
+            bool Road(int i) => field.Inside(i%n,i/n);
+            var visited = new bool[n*n]; var queue = new Queue<int>();
+            var first = Index(layout.SpawnPosition); Assert.IsTrue(Road(first)); visited[first] = true; queue.Enqueue(first);
             while (queue.Count > 0)
             {
-                var n = queue.Dequeue();
+                var i = queue.Dequeue();
                 void Visit(int other)
-                { if (other < 0 || other >= cells.Length || visited[other] || cells[other] == 0) return; visited[other] = true; queue.Enqueue(other); }
-                if (n%side > 0) Visit(n-1); if (n%side < side-1) Visit(n+1); Visit(n-side); Visit(n+side);
+                { if (other < 0 || other >= visited.Length || visited[other] || !Road(other)) return; visited[other] = true; queue.Enqueue(other); }
+                if (i%n > 0) Visit(i-1); if (i%n < n-1) Visit(i+1); Visit(i-n); Visit(i+n);
             }
             foreach (var branch in layout.DeadEnds) Assert.IsTrue(visited[Index(branch.EndCenter)], "Book is unreachable from spawn.");
-            for (var i = 0; i < cells.Length; i++) if (cells[i] != 0) Assert.IsTrue(visited[i], "Disconnected walkable island.");
+            for (var i = 0; i < visited.Length; i++) if (Road(i)) Assert.IsTrue(visited[i], "Disconnected walkable island.");
         }
     }
 }

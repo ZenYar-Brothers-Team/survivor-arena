@@ -48,20 +48,19 @@ namespace Game.Bootstrap
         }
 
         /// <summary>
-        /// Road pieces in the surface's painting order: main road centerlines, then each dead end's corridor and round end,
-        /// at the profile's widths and colors so the map matches the walkable cells. No layout yields no roads.
+        /// Road pieces in drawing order at the profile's widths and colors: dead-end corridors, main road centerlines over
+        /// them (the main road keeps each junction, as on the field), then the round ends. No layout yields no roads.
         /// </summary>
         public static List<MapPreviewRoad> RoadPieces(FieldRoadLayout layout)
         {
             var result = new List<MapPreviewRoad>();
             if (layout == null) return result;
             var profile = layout.Profile;
+            foreach (var branch in layout.DeadEnds)
+                result.Add(new MapPreviewRoad(new[] { branch.Entrance, branch.EndCenter }, profile.DeadEndWidth, profile.DeadEndColor));
             foreach (var road in layout.Roads) result.Add(new MapPreviewRoad(road, profile.MainRoadWidth, profile.MainColor));
             foreach (var branch in layout.DeadEnds)
-            {
-                result.Add(new MapPreviewRoad(new[] { branch.Entrance, branch.EndCenter }, profile.DeadEndWidth, profile.DeadEndColor));
                 result.Add(new MapPreviewRoad(new[] { branch.EndCenter }, profile.DeadEndEndRadius * 2f, profile.DeadEndColor));
-            }
             return result;
         }
 

@@ -130,3 +130,56 @@ Checks, Unity 6000.6.0f1 batch:
 
 Not run: full EditMode/PlayMode suite; visual check of the dev map overlay in
 an interactive session.
+
+## Revision 2026-10-02 — smooth road edge
+
+User request: no snagging on the road edge, smooth round ends around books.
+The 0.5-cell mask (staircase boundary, up to ~0.35 off the outline) is replaced
+by a signed distance field on the same grid corners; marching squares with
+linear interpolation produce both the player-only `EdgeCollider2D` loops and
+the meshes (`FieldRoadDistanceField`, `FieldRoadMarchingSquares`).
+
+Tests (six fallback layouts): contour vertices and edge midpoints within 0.05
+of the analytic outline on smooth stretches, ≤0.3 chord at junction corners;
+far half of every round end on its radius ±0.03; mesh triangles lie on the road
+and the mesh area equals the contour-enclosed area within 0.2%; branch field
+matches dead ends only; connectivity now checked on the field corners. Physics:
+a 0.5-radius player body held diagonally into an oblique main road edge and
+circling outward around a round end keeps ≥70% of its tangential speed.
+
+Checks, Unity 6000.6.0f1 batch:
+- EditMode `^Game\.(Presentation|Bootstrap|UI)\.` **291/291 PASS**:
+  `TestResults/checks/20261002T091533-665246Z/summary.json`; no road PerfGuard warnings.
+- PlayMode `ProductionField003SmokeTests` with graphics **1/1 PASS**:
+  `TestResults/checks/20261002T091652-578642Z/summary.json`; gameplay capture
+  shows smooth main road, bend and round end.
+
+Not run: full suites; the slide test was not executed against the former
+cell boundary; manual play check of the feel.
+
+## Revision 2026-10-02 — main road keeps the dead-end mouth
+
+User request: at a junction the main road surface dominates; the broken
+dead-end surface may reach slightly onto it. New required profile field
+`deadEndMouthOverlap` = 1 (DTO, validation 0 ≤ v < mainRoadWidth/2, authoring
+and generated JSON). Branch visual field = max(flat-start corridor ∪ round end,
+−(main + overlap)); walkable field, colliders and generation unchanged. Dev map
+draws corridors under main roads. Corridors start flat at the entrance: a round
+cap of radius 4 behind the entrance would reach exactly the 1-unit strip at the
+far edge of a width-10 main road.
+
+Tests: branch field equals the analytic clipped surface; main axis at every
+mouth stays main surface while the strip inside the edge shows the dead end;
+nothing behind any entrance across the main road on six fallbacks; dev map order.
+
+Checks, Unity 6000.6.0f1 batch (parallel FIELD-007 work in the same tree):
+- EditMode `^Game\.(Presentation|Bootstrap|UI)\.` 278/294: all 25 road/map
+  tests and `Presentation_GeneratesSparseRoadsAndBookBranches_OnFirstMapGrass`
+  PASS; 16 failures share one cause outside this scope — the in-progress
+  FIELD-007 visual `FIELD-007-ALTAR-POSITIVE-VISUAL-PROP` has no art
+  (`TestResults/checks/20261002T092845-996504Z`). Not a PASS for the scope.
+- Before that work entered the tree, smooth-edge EditMode 291/291 PASS
+  (`20261002T091533-665246Z`).
+- PlayMode `ProductionField003SmokeTests` with graphics **1/1 PASS**
+  (`20261002T093121-429832Z`); overview shows dead-end surface stopping at the
+  main road edge.

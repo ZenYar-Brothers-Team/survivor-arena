@@ -43,5 +43,6 @@ namespace Game.Presentation.Json
         public int? BookUpgradeCount { get; set; }
         public string MainColor { get; set; }
         public string DeadEndColor { get; set; }
+        public float? DeadEndMouthOverlap { get; set; }
     }
 }

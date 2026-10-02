@@ -10,7 +10,7 @@ namespace Game.UI
         Rect Arena { get; }
         /// <summary>World-space outline of every obstacle that blocks the player; static for the run.</summary>
         IReadOnlyList<Vector2[]> Obstacles { get; }
-        /// <summary>Walkable road pieces in drawing order (main roads, then dead ends); empty for fields without roads; static for the run.</summary>
+        /// <summary>Walkable road pieces in drawing order; empty for fields without roads; static for the run.</summary>
         IReadOnlyList<MapPreviewRoad> Roads { get; }
         /// <summary>World rectangle the gameplay camera currently shows.</summary>
         Rect View { get; }
