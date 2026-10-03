@@ -54,9 +54,22 @@ namespace Game.Bootstrap.PlayModeTests
                     AssertBounded(document.rootVisualElement.Q<Button>(GameplayUiElementIds.FieldSelectStart), size);
                     foreach (var card in document.rootVisualElement.Query<Button>(className: "entry-field-choice").ToList())
                     {
-                        AssertBounded(card, size);
+                        // Designed cards fit; the separate DEV section is intentionally below and scrolls into view.
+                        if (!card.name.Contains("FIELD-DEV-")) AssertBounded(card, size);
                         foreach (var label in card.Query<Label>().ToList())
                             StringAssert.DoesNotContain("/5", label.text ?? "");
+                    }
+                    var testCards = document.rootVisualElement.Query<Button>(className: "entry-field-choice").ToList()
+                        .FindAll(card => card.name.Contains("FIELD-DEV-"));
+                    if (testCards.Count > 0)
+                    {
+                        var fieldScroll = document.rootVisualElement.Q<ScrollView>();
+                        Assert.Greater(fieldScroll.verticalScroller.highValue, 0, "DEV fields must be reachable by scrolling.");
+                        fieldScroll.scrollOffset = new Vector2(0, fieldScroll.verticalScroller.highValue);
+                        yield return null; yield return null;
+                        AssertBounded(testCards[testCards.Count - 1], size);
+                        fieldScroll.scrollOffset = Vector2.zero;
+                        yield return null;
                     }
                     Assert.IsNull(document.rootVisualElement.Q(className: "entry-sword"), "Field cards no longer show a difficulty row.");
                     UiFoundationSmokeTests.Capture(target, $"ui-entry-fields-{size.x}x{size.y}");
@@ -75,7 +88,7 @@ namespace Game.Bootstrap.PlayModeTests
                         var scroll = stress.Document.rootVisualElement.Q<ScrollView>();
                         UiFoundationSmokeTests.Capture(target, $"ui-entry-ten-fields-{size.x}x{size.y}");
                         Assert.LessOrEqual(scroll.verticalScroller.highValue, 1, $"Ten fields must fit without scrolling at {size}.");
-                        for (var i = 10; i < 20; i++)
+                        for (var i = 10; i < 21; i++)
                             cards.Add(new FieldSelectCardViewState("FIXTURE-GRID-" + i,
                                 new ContentCardViewState("Поле " + i, "", "", null, true, false, false), ""));
                         stress.Render(cards, true);

@@ -13,6 +13,7 @@
     "Game.Pickup",
     "Game.Enemy",
     "Game.Traveler",
-    "Game.Zones"
+    "Game.Zones",
+    "Game.ScreenEvents"
   ]
 }

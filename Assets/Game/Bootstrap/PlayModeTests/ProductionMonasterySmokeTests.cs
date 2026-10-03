@@ -66,9 +66,11 @@ namespace Game.Bootstrap.PlayModeTests
                 run.TogglePause();
                 var uiDocument = Object.FindAnyObjectByType<GameplayUiRoot>().Document;
                 var ui = uiDocument.rootVisualElement;
-                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
-                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.DevelopmentMapTab));
-                UiFoundationSmokeTests.Submit(ui.Q<Button>(GameplayUiElementIds.MapToggle));
+                UiFoundationSmokeTests.Click(ui.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
+                yield return null; yield return null;
+                UiFoundationSmokeTests.Click(ui.Q<Button>(GameplayUiElementIds.DevelopmentMapTab));
+                yield return null; yield return null;
+                UiFoundationSmokeTests.Click(ui.Q<Button>(GameplayUiElementIds.MapToggle));
                 for (var i = 0; i < 20; i++) yield return null;
                 Assert.AreEqual(DisplayStyle.Flex, ui.Q(GameplayUiElementIds.MapOverlay).resolvedStyle.display);
                 StringAssert.Contains("алтарей: 36", ui.Q<Label>(GameplayUiElementIds.MapSummary).text);

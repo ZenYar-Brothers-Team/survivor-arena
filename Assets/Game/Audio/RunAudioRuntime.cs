@@ -9,6 +9,7 @@ using Game.Run;
 using Game.Settings;
 using Game.Traveler;
 using Game.Zones;
+using Game.ScreenEvents;
 using UnityEngine;
 
 namespace Game.Audio
@@ -39,6 +40,7 @@ namespace Game.Audio
         private readonly BossEncounterRuntime _bosses;
         private readonly TravelerEncounterRuntime _travelers;
         private readonly ZoneRuntime _zones;
+        private readonly ScreenEventRuntime _screenEvents;
         private readonly Func<Rect> _visibleArea;
         private readonly AudioSource _ambience;
         private readonly float _ambienceGain;
@@ -49,7 +51,8 @@ namespace Game.Audio
             AudioRoutingRuntime music, RunModel run, Health health, PlayerExperienceRuntime xp,
             LevelUpDraftRuntime draft, PlayerActiveSkillSetRuntime skills, WorldPickupRuntime pickups,
             ContinuousFixtureEnemySpawner enemies, BossEncounterRuntime bosses, string fieldId,
-            TravelerEncounterRuntime travelers = null, ZoneRuntime zones = null, Func<Rect> visibleArea = null)
+            TravelerEncounterRuntime travelers = null, ZoneRuntime zones = null, Func<Rect> visibleArea = null,
+            ScreenEventRuntime screenEvents = null)
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -57,6 +60,7 @@ namespace Game.Audio
             _run = run; _health = health; _xp = xp; _draft = draft; _skills = skills;
             _pickups = pickups; _enemies = enemies; _bosses = bosses;
             _travelers = travelers; _zones = zones; _visibleArea = visibleArea;
+            _screenEvents = screenEvents;
             _owner = new GameObject("Run audio"); _owner.transform.SetParent(parent, false);
             for (var i = 0; i < _voices.Length; i++) _voices[i] = Source();
             _ambience = Source(); _ambience.loop = true;
@@ -81,6 +85,7 @@ namespace Game.Audio
             _bosses.ActionStarted += EnemyAction;
             if (_travelers != null) _travelers.ActionStarted += EnemyAction;
             if (_zones != null) _zones.Triggered += ZoneTriggered;
+            if (_screenEvents != null) _screenEvents.HazardStrikeStarted += ScreenStrike;
             Refresh();
             _music.PlayMusic(catalog.BattleMusic);
             if (hasAmbience) _ambience.Play();
@@ -148,6 +153,10 @@ namespace Game.Audio
         }
 
         private void Hurt(float amount) => Play("player.hurt");
+        private void ScreenStrike(ScreenEventInstance instance, ScreenHazard hazard)
+        {
+            if (_catalog.TryGetScreenEventCue(instance.Definition.Id.ToString(), out var cue)) Play(cue);
+        }
         private void Experience(ExperienceAwardEvent award)
         {
             if (award.Kind == ExperienceEventKind.Collected && award.AwardedAmount > 0) Play("xp.pickup");
@@ -261,6 +270,7 @@ namespace Game.Audio
             _bosses.ActionStarted -= EnemyAction;
             if (_travelers != null) _travelers.ActionStarted -= EnemyAction;
             if (_zones != null) _zones.Triggered -= ZoneTriggered;
+            if (_screenEvents != null) _screenEvents.HazardStrikeStarted -= ScreenStrike;
             UnityEngine.Object.Destroy(_owner);
         }
     }

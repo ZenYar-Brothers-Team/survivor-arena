@@ -126,8 +126,12 @@ namespace Game.Bootstrap.Tests
                 var surface = parent.transform.Find("PlatformNetwork/Bridges");
                 var mesh = surface.GetComponent<MeshFilter>().sharedMesh;
                 var half = p.BridgeWidth * .5f;
-                CollectionAssert.AreEqual(new[] { new Vector2(0, -half), new Vector2(24, -half),
-                    new Vector2(24, half), new Vector2(0, half) }, mesh.uv);
+                var expectedUv = new[] { new Vector2(0, -half), new Vector2(24, -half),
+                    new Vector2(24, half), new Vector2(0, half) };
+                Assert.AreEqual(expectedUv.Length, mesh.uv.Length);
+                for (var i = 0; i < expectedUv.Length; i++)
+                    Assert.Less(Vector2.Distance(expectedUv[i], mesh.uv[i]), .00001f,
+                        "Rotated bridge projection keeps local UV within floating-point precision.");
                 var material = surface.GetComponent<MeshRenderer>().sharedMaterial;
                 Assert.AreEqual(1f, material.GetFloat("_BridgeVeil"));
                 Assert.AreEqual(p.Art.BridgeVeilColor.a, material.GetColor("_VeilColor").a);

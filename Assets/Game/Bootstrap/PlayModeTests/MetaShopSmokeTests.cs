@@ -121,9 +121,9 @@ namespace Game.Bootstrap.PlayModeTests
                     yield return null; yield return null;
                     var list = ui.Q<ScrollView>(GameplayUiElementIds.MetaUnlockList);
                     Submit(ui, GameplayUiElementIds.MetaUnlockType("all")); yield return null;
-                    Assert.AreEqual(70, list.Query(className: "shop-unlock").ToList().Count);
+                    Assert.AreEqual(85, list.Query(className: "shop-unlock").ToList().Count);
                     Assert.AreEqual(0,list.Query(className:"shop-unknown").ToList().Count);
-                    Assert.AreEqual(70, list.Query<Image>().ToList().Count);
+                    Assert.AreEqual(85, list.Query<Image>().ToList().Count);
                     foreach(var icon in list.Query<Image>().ToList())
                         Assert.IsTrue(icon.sprite != null || icon.image != null, "Each unlock has a sprite or blurred image.");
                     Assert.Greater(list.verticalScroller.highValue, 0);
@@ -134,7 +134,7 @@ namespace Game.Bootstrap.PlayModeTests
                     foreach (var kind in new[] { "character", "field", "ability", "set" })
                     {
                         Submit(ui, GameplayUiElementIds.MetaUnlockType(kind)); yield return null;
-                        Assert.AreEqual(kind == "ability" ? 10 : kind == "set" ? 15 : 10, list.Query(className: "shop-unlock").ToList().Count);
+                        Assert.AreEqual(kind == "ability" ? 10 : kind == "set" ? 25 : 10, list.Query(className: "shop-unlock").ToList().Count);
                         Assert.IsTrue(ui.Q<Button>(GameplayUiElementIds.MetaUnlockType(kind)).ClassListContains("shop-selected"));
                         if (kind == "field") Assert.AreEqual(10, list.Query<Image>().ToList().Count);
                         if(kind == "ability")

@@ -5,6 +5,8 @@ namespace Game.Presentation.Json
         public string Id { get; set; }
         public string EnvironmentId { get; set; }
         public string GroundVisualId { get; set; }
+        /// <summary>Optional HTML RGB ground multiplier; omitted means neutral white.</summary>
+        public string GroundTint { get; set; }
         public string FenceVisualId { get; set; }
         public string ObstacleVisualId { get; set; }
         public string BushVisualId { get; set; }

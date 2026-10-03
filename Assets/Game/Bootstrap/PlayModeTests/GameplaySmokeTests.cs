@@ -69,8 +69,9 @@ namespace Game.Bootstrap.PlayModeTests
             try
             {
                 var hud = ui.Document.rootVisualElement;
-                Submit(hud.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
-                Submit(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
+                UiFoundationSmokeTests.Click(hud.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
+                yield return null; yield return null;
+                UiFoundationSmokeTests.Click(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton));
                 Assert.AreEqual(3, run.Model.SpeedMultiplier);
                 Assert.AreEqual(3f, Time.timeScale);
                 Assert.IsTrue(hud.Q<Button>(GameplayUiElementIds.SpeedTripleButton).ClassListContains("speed-button--selected"));

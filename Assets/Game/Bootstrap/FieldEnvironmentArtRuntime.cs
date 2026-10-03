@@ -64,7 +64,7 @@ namespace Game.Bootstrap
             {
                 foreach (var name in environment.ObstacleNames) HidePlaceholder(RequireUnique(transforms, name));
                 if (definition.ArenaSideLength.HasValue) ResizeWalls(transforms, definition.ArenaSideLength.Value);
-                CreateGround(ground, sideLength);
+                CreateGround(ground, sideLength, definition.GroundTint);
                 IReadOnlyList<Vector2> interiorObstacles;
                 if (definition.RoadLayout != null)
                 {
@@ -112,6 +112,13 @@ namespace Game.Bootstrap
                             layoutSeed ?? definition.ObstacleLayout.ReferenceSeed, definition.EnvironmentId.ToString(), obstacleExclusions);
                     interiorObstacles = CreateAuthoredObstacles(definition, Obstacles, fence, obstacle, column, barrel, rock,
                         registry);
+                }
+                else if (definition.ScreenEvents != null)
+                {
+                    // DECISION-0157/0160: the open screen-event arena has no fixture props or colliders.
+                    HidePlaceholder(obstacleTransform);
+                    DisableSceneCollider(obstacleTransform);
+                    interiorObstacles = Array.Empty<Vector2>();
                 }
                 else
                 {
@@ -214,9 +221,10 @@ namespace Game.Bootstrap
             return centers;
         }
 
-        private void CreateGround(Sprite sprite, float sideLength)
+        private void CreateGround(Sprite sprite, float sideLength, Color tint)
         {
             var renderer = CreateRenderer("Ground", sprite, Vector3.zero, -100, _root.transform);
+            renderer.color = tint;
             renderer.drawMode = SpriteDrawMode.Tiled;
             renderer.tileMode = SpriteTileMode.Continuous;
             renderer.size = new Vector2(sideLength, sideLength);

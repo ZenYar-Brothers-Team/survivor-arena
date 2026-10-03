@@ -14,6 +14,7 @@ namespace Game.Audio
         private readonly Dictionary<string, AudioCueData> _cues = new Dictionary<string, AudioCueData>(StringComparer.Ordinal);
         private readonly Dictionary<string, AudioClip> _ambienceClips = new Dictionary<string, AudioClip>(StringComparer.Ordinal);
         private readonly Dictionary<string, string> _skillCues = new Dictionary<string, string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, string> _screenEventCues = new Dictionary<string, string>(StringComparer.Ordinal);
         private readonly Dictionary<string, float> _ambienceGains = new Dictionary<string, float>(StringComparer.Ordinal);
         public AudioClip MenuMusic { get; }
         public AudioClip BattleMusic { get; }
@@ -62,6 +63,14 @@ namespace Game.Audio
                 _cues.Add(cue.Id, cue);
                 _clips.Add(cue.Id, clips);
             }
+            if (data.ScreenEventCues == null) throw new InvalidOperationException("screenEventCues is required (may be empty).");
+            foreach (var binding in data.ScreenEventCues)
+            {
+                if (binding == null || string.IsNullOrWhiteSpace(binding.EventId) || string.IsNullOrWhiteSpace(binding.Cue) ||
+                    !_cues.ContainsKey(binding.Cue)) throw new InvalidOperationException("Invalid screen-event cue binding.");
+                if (!_screenEventCues.TryAdd(binding.EventId, binding.Cue))
+                    throw new InvalidOperationException("Duplicate screen-event cue binding: " + binding.EventId);
+            }
             if (data.SkillCues == null) throw new InvalidOperationException("skillCues is required (may be empty).");
             foreach (var binding in data.SkillCues)
             {
@@ -76,6 +85,8 @@ namespace Game.Audio
 
         /// <summary>The sound family of an active skill's activation; false when the skill has no binding.</summary>
         public bool TryGetSkillCue(string skillId, out string cueId) => _skillCues.TryGetValue(skillId, out cueId);
+        /// <summary>Sound family at the start of each hazard's strike, not on player contact.</summary>
+        public bool TryGetScreenEventCue(string eventId, out string cueId) => _screenEventCues.TryGetValue(eventId, out cueId);
 
         public bool TryGet(string id, out AudioCueData cue, out AudioClip[] clips)
         {

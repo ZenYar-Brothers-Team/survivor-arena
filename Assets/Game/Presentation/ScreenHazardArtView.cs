@@ -11,6 +11,7 @@ namespace Game.Presentation
         private ScreenEventArtResources _resources;
         private ScreenHazard _hazard;
         private string _sweepKey;
+        private float _eventSeconds;
         public ScreenHazard Hazard => _hazard;
         public ScreenHazardPhase Phase { get; private set; }
 
@@ -41,6 +42,7 @@ namespace Game.Presentation
             Hide();
             if (_hazard == null) return;
             var h = _hazard;
+            _eventSeconds = eventSeconds;
             Phase = h.PhaseAt(eventSeconds);
             if (Phase != ScreenHazardPhase.Telegraph && Phase != ScreenHazardPhase.Strike) return;
             var profile = _resources.Profile;
@@ -80,11 +82,19 @@ namespace Game.Presentation
                 }
                 default:
                     if (h.Shape == ScreenBurstShape.Rect)
+                    {
                         Draw(0, striking ? "strikeStrip" : "warningStrip", h.Origin, h.Direction,
                             new Vector2(h.Length, h.Width), 0f, alpha, fill);
+                        if (striking) Draw(2, "warningStrip", h.Origin, h.Direction,
+                            new Vector2(h.Length, h.Width), 0f, profile.StrikeBoundaryAlpha, Color.clear);
+                    }
                     else if (h.Shape == ScreenBurstShape.Circle)
+                    {
                         Draw(0, striking ? "strikeCircle" : "warningCircle", h.Origin, Vector2.right,
                             Vector2.one * h.Radius * 2f, 1f, alpha, fill, h.Radius, sliced: false);
+                        if (striking) Draw(2, "warningCircle", h.Origin, Vector2.right,
+                            Vector2.one * h.Radius * 2f, 1f, profile.StrikeBoundaryAlpha, Color.clear, h.Radius, sliced: false);
+                    }
                     else
                     {
                         // Rect-sized drawing, analytic safe-circle cutout: no giant 400-unit fill and no leaking tiles into safety.
@@ -115,7 +125,12 @@ namespace Game.Presentation
             _properties.SetVector("_Lane", new Vector4(_hazard.Length, laneMode, trimBefore, 0f));
             _properties.SetFloat("_Shape", shape);
             _properties.SetFloat("_Sliced", sliced ? 1f : 0f);
-            _properties.SetColor("_Color", new Color(1f, 1f, 1f, alpha));
+            // Decorative ink moves on the simulation clock; the quad and analytic damage mask remain fixed.
+            _properties.SetVector("_Motion", new Vector4(_hazard.StrikeTimeAt(_eventSeconds),
+                Phase == ScreenHazardPhase.Strike && _hazard.Kind != ScreenHazardKind.Sweep && layer == 0 ? 1f : 0f, 0f, 0f));
+            var tint = Phase == ScreenHazardPhase.Strike && layer == 0 ? _resources.Profile.StrikeColor : Color.white;
+            tint.a = alpha;
+            _properties.SetColor("_Color", tint);
             _properties.SetColor("_FillColor", fill);
             renderer.SetPropertyBlock(_properties);
         }
@@ -140,6 +155,8 @@ namespace Game.Presentation
             _hazard = null;
             _resources = null;
             _sweepKey = null;
+            _eventSeconds = 0f;
+            Phase = ScreenHazardPhase.Done;
         }
     }
 }

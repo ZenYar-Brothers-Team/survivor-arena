@@ -66,6 +66,10 @@ pure rules [Game.ScreenEvents](../Assets/Game/ScreenEvents) (`ScreenEventRuntime
 scene side [driver](../Assets/Game/Bootstrap/ScreenEventDriver.cs) + [player adapter](../Assets/Game/Bootstrap/PlayerScreenEventTarget.cs); art mechanics [brief](art/briefs/field010-screen-events-art-v1.md).
 Art: [approved packet](../Art/Packets/field010-screen-events-v1.json) → masters/provenance + eight `Assets/Resources/Art/VFX/field-010-*.png`; typed [profile](../Assets/Game/Presentation/ScreenEventPresentationProfile.cs), pooled [view](../Assets/Game/Presentation/ScreenHazardArtView.cs), shared [resources](../Assets/Game/Presentation/ScreenEventArtResources.cs), analytic [shader](../Assets/Resources/Shaders/ScreenEventArtwork.shader).
 Dev tab Events: `ScreenEventDevelopmentPresenter` / `UiToolkitScreenEventDevelopmentView` over `IScreenEventDevelopmentControl` (implemented by the driver).
+Motion/audio: [DECISION-0159](decisions/0159-field010-strike-motion-and-audio.md), shader/profile tuning in the same authoring packet; `HazardStrikeStarted` → `RunAudioRuntime`, `ProductionAudio.json.screenEventCues` binds all 13 events to four existing audio families.
+
+Original lightning/circular strike clips: [DECISION-0162](decisions/0162-field010-original-strike-audio.md), deterministic `Art/Prototypes/field010-audio-sketches/generate.py` → `Resources/Audio/Sfx/lightning-v1.wav` / `light-column-v1.wav`; `docs/audio/SOURCES.json` pins source/runtime hashes. `scripts/audio/check_audio.py` validates external OGG and original WAV provenance; `ProductionAudioCatalogTests` guards actual Resources loading/import policy.
+Muted FIELD-010 palette/open arena: [DECISION-0160](decisions/0160-field010-muted-presentation.md); packet `field.groundTint` → ground renderer, strike color → artwork tint; no fixture stump fallback for screen-event arenas without their own obstacle layout.
 Checks: Game.ScreenEvents.Tests, UI ScreenEventDevelopment*Tests, ProductionField010ScreenEventsTests, graphics ProductionField010ScreenEventsSmokeTests (captures to TestResults/field010-*.png).
 
 FIELD-004 traps (DECISION-0156): authoring [trap packet](balance/field004-traps-v1.json) → generated

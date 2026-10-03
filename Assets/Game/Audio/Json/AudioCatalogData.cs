@@ -9,6 +9,7 @@ namespace Game.Audio.Json
         public string DefeatMusic;
         public AudioAmbienceData[] FieldAmbiences;
         public AudioSkillCueData[] SkillCues;
+        public AudioScreenEventCueData[] ScreenEventCues;
         public float? RoutineGlobalCooldownSeconds;
         public AudioCueData[] Cues;
     }

@@ -24,7 +24,7 @@ Shader "SurvivorArena/ScreenEventArtwork"
             #pragma fragment frag
             #include "UnityCG.cginc"
             sampler2D _MainTex;
-            float4 _UvRect, _Size, _Origin, _Direction, _Ring, _Lane;
+            float4 _UvRect, _Size, _Origin, _Direction, _Ring, _Lane, _Motion, _MotionConfig, _PulseConfig;
             float _Shape, _Sliced, _BorderWidth, _RepeatLength, _ExteriorRibbonWidth;
             fixed4 _Color, _FillColor;
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
@@ -45,7 +45,8 @@ Shader "SurvivorArena/ScreenEventArtwork"
                 if (u > 1 - border) return 1 - (1 - u) / border * sourceBorder;
                 float middle = (u - border) / (1 - 2 * border);
                 if (repeatInterior > .5)
-                    middle = frac(middle * max(1, round((length - 2 * _BorderWidth) / _RepeatLength)));
+                    middle = frac(middle * max(1, round((length - 2 * _BorderWidth) / _RepeatLength))
+                        - _Motion.x * _Motion.y * _MotionConfig.z / _RepeatLength);
                 return lerp(sourceBorder, 1 - sourceBorder, middle);
             }
             fixed4 frag(v2f input) : SV_Target
@@ -62,6 +63,8 @@ Shader "SurvivorArena/ScreenEventArtwork"
                 }
                 float2 uv = input.uv;
                 float artworkMask = 1;
+                float reveal = saturate(_Motion.x / _MotionConfig.x);
+                float revealDistance = max(abs(input.uv.x - .5), abs(input.uv.y - .5)) * 2;
                 if (_Shape > 2.5 && _Shape < 3.5)
                 {
                     // The constant-width safe corridor is cut analytically, including at very small radii.
@@ -69,14 +72,17 @@ Shader "SurvivorArena/ScreenEventArtwork"
                     if (along > 0 && across < _Ring.z * .5) discard;
                     float angle = atan2(relative.y, relative.x);
                     float repeat = max(1, round(6.2831853 * _Ring.x / _RepeatLength));
-                    uv.x = lerp(.08, .92, frac((angle / 6.2831853 + .5) * repeat));
+                    uv.x = lerp(.08, .92, frac((angle / 6.2831853 + .5) * repeat
+                        - _Motion.x * _Motion.y * _MotionConfig.w));
                     uv.y = saturate((distance - _Ring.x) / _Ring.y + .5);
+                    revealDistance = 0;
                 }
                 else if (_Shape > 1.5 && _Shape < 2.5)
                 {
                     clip(distance - _Ring.x);
                     // Sparse warning/strike ribbons across the hazardous exterior; no texture inside the safe hole.
-                    float band = frac((input.world.y + input.world.x * .25) / _RepeatLength);
+                    float band = frac((input.world.y + input.world.x * .25
+                        - _Motion.x * _Motion.y * _PulseConfig.z) / _RepeatLength);
                     float bandWidth = _ExteriorRibbonWidth / _RepeatLength;
                     artworkMask = 1 - step(bandWidth, band);
                     uv = float2(lerp(.08,.92,frac(input.world.x / _RepeatLength)), saturate(band / bandWidth));
@@ -84,6 +90,12 @@ Shader "SurvivorArena/ScreenEventArtwork"
                 else if (_Shape > .5 && _Shape < 1.5)
                 {
                     clip(_Ring.x - distance);
+                    float angle = _Motion.x * _Motion.y * _MotionConfig.y;
+                    float2 centered = uv - .5;
+                    uv = float2(centered.x * cos(angle) - centered.y * sin(angle),
+                        centered.x * sin(angle) + centered.y * cos(angle)) + .5;
+                    artworkMask *= step(0, uv.x) * step(uv.x, 1) * step(0, uv.y) * step(uv.y, 1);
+                    revealDistance = distance / max(_Ring.x, .001);
                 }
                 else if (_Shape > 3.5)
                 {
@@ -97,6 +109,11 @@ Shader "SurvivorArena/ScreenEventArtwork"
                         sliced(uv.y, _Size.y, .16, step(_RepeatLength, _Size.y)));
                 fixed4 art = tex2D(_MainTex, _UvRect.xy + uv * _UvRect.zw) * _Color;
                 art.a *= artworkMask;
+                if (_Motion.y > .5)
+                {
+                    art.a *= 1 - smoothstep(reveal, reveal + _PulseConfig.w, revealDistance);
+                    art.a *= 1 - _PulseConfig.y * (.5 - .5 * cos(_Motion.x * _PulseConfig.x * 6.2831853));
+                }
                 // Straight-alpha source-over; the faint fill says the whole area is a hazard even when art is hollow.
                 fixed alpha = art.a + _FillColor.a * (1 - art.a);
                 fixed3 rgb = (art.rgb * art.a + _FillColor.rgb * _FillColor.a * (1 - art.a)) / max(alpha, .0001);

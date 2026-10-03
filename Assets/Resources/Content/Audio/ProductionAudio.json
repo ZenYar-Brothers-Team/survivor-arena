@@ -5,63 +5,556 @@
   "victoryMusic": "Audio/Music/victory_music",
   "defeatMusic": "Audio/Music/defeat_music",
   "fieldAmbiences": [
-    { "fieldId": "FIELD-001", "clip": "Audio/Ambience/FIELD-001/field_ambience", "gain": 0.12 }
+    {
+      "fieldId": "FIELD-001",
+      "clip": "Audio/Ambience/FIELD-001/field_ambience",
+      "gain": 0.12
+    }
   ],
   "skillCues": [
-    { "skillId": "SKILL-001", "cue": "skill.rough" },
-    { "skillId": "SKILL-002", "cue": "skill.blade" },
-    { "skillId": "SKILL-004", "cue": "skill.air" },
-    { "skillId": "SKILL-005", "cue": "skill.air" },
-    { "skillId": "SKILL-006", "cue": "skill.blade" },
-    { "skillId": "SKILL-007", "cue": "skill.energy" },
-    { "skillId": "SKILL-008", "cue": "skill.blade" },
-    { "skillId": "SKILL-009", "cue": "skill.fire" },
-    { "skillId": "SKILL-010", "cue": "skill.energy" },
-    { "skillId": "SKILL-011", "cue": "skill.ice" },
-    { "skillId": "SKILL-012", "cue": "skill.energy" },
-    { "skillId": "SKILL-013", "cue": "skill.ice" },
-    { "skillId": "SKILL-014", "cue": "skill.fire" },
-    { "skillId": "SKILL-015", "cue": "skill.blade" },
-    { "skillId": "SKILL-016", "cue": "skill.rough" }
+    {
+      "skillId": "SKILL-001",
+      "cue": "skill.rough"
+    },
+    {
+      "skillId": "SKILL-002",
+      "cue": "skill.blade"
+    },
+    {
+      "skillId": "SKILL-004",
+      "cue": "skill.air"
+    },
+    {
+      "skillId": "SKILL-005",
+      "cue": "skill.air"
+    },
+    {
+      "skillId": "SKILL-006",
+      "cue": "skill.blade"
+    },
+    {
+      "skillId": "SKILL-007",
+      "cue": "skill.energy"
+    },
+    {
+      "skillId": "SKILL-008",
+      "cue": "skill.blade"
+    },
+    {
+      "skillId": "SKILL-009",
+      "cue": "skill.fire"
+    },
+    {
+      "skillId": "SKILL-010",
+      "cue": "skill.energy"
+    },
+    {
+      "skillId": "SKILL-011",
+      "cue": "skill.ice"
+    },
+    {
+      "skillId": "SKILL-012",
+      "cue": "skill.energy"
+    },
+    {
+      "skillId": "SKILL-013",
+      "cue": "skill.ice"
+    },
+    {
+      "skillId": "SKILL-014",
+      "cue": "skill.fire"
+    },
+    {
+      "skillId": "SKILL-015",
+      "cue": "skill.blade"
+    },
+    {
+      "skillId": "SKILL-016",
+      "cue": "skill.rough"
+    }
   ],
   "routineGlobalCooldownSeconds": 0.12,
   "cues": [
-    { "id": "ui.confirm", "clips": ["Audio/Sfx/ui_confirm"], "gain": 0.35, "cooldownSeconds": 0.08, "priority": 1, "ui": true },
-    { "id": "ui.back", "clips": ["Audio/Sfx/ui_back"], "gain": 0.30, "cooldownSeconds": 0.08, "priority": 1, "ui": true },
-    { "id": "ui.error", "clips": ["Audio/Sfx/ui_error"], "gain": 0.32, "cooldownSeconds": 0.20, "priority": 1, "ui": true },
-    { "id": "draft.open", "clips": ["Audio/Sfx/ui_open"], "gain": 0.38, "cooldownSeconds": 0.15, "priority": 1, "ui": true },
-    { "id": "draft.select", "clips": ["Audio/Sfx/ui_select", "Audio/Sfx/book_select"], "gain": 0.42, "cooldownSeconds": 0.12, "priority": 1, "ui": true },
-    { "id": "xp.pickup", "clips": ["Audio/Sfx/xp_pickup"], "gain": 0.17, "cooldownSeconds": 0.22, "priority": 0, "ui": false },
-    { "id": "skill.cast", "clips": ["Audio/Sfx/blade_cast", "Audio/Sfx/blade_cast_alt", "Audio/Sfx/rough_cast"], "gain": 0.23, "cooldownSeconds": 0.40, "priority": 0, "ui": false },
-    { "id": "skill.rough", "clips": ["Audio/Sfx/rough_cast", "Audio/Sfx/rough_throw"], "gain": 0.50, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "skill.blade", "clips": ["Audio/Sfx/blade_cast", "Audio/Sfx/blade_cast_alt", "Audio/Sfx/blade_cast_3"], "gain": 0.50, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "skill.air", "clips": ["Audio/Sfx/wind_cast", "Audio/Sfx/wind_cast_alt"], "gain": 0.48, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "skill.energy", "clips": ["Audio/Sfx/lightning_cast", "Audio/Sfx/lightning_cast_alt"], "gain": 0.48, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "skill.fire", "clips": ["Audio/Sfx/fire_cast", "Audio/Sfx/fire_cast_alt"], "gain": 0.48, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "skill.ice", "clips": ["Audio/Sfx/ice_cast", "Audio/Sfx/ice_cast_alt"], "gain": 0.50, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "enemy.windup", "clips": ["Audio/Sfx/enemy_windup"], "gain": 0.40, "cooldownSeconds": 0.50, "priority": 0, "ui": false },
-    { "id": "enemy.shot", "clips": ["Audio/Sfx/enemy_shot", "Audio/Sfx/enemy_shot_alt"], "gain": 0.40, "cooldownSeconds": 0.30, "priority": 0, "ui": false },
-    { "id": "enemy.dash.windup", "clips": ["Audio/Sfx/enemy_dash_windup"], "gain": 0.75, "cooldownSeconds": 0.60, "priority": 1, "ui": false },
-    { "id": "enemy.dash", "clips": ["Audio/Sfx/enemy_dash"], "gain": 0.70, "cooldownSeconds": 0.50, "priority": 1, "ui": false },
-    { "id": "boss.zone", "clips": ["Audio/Sfx/boss_zone"], "gain": 0.90, "cooldownSeconds": 0.80, "priority": 1, "ui": false },
-    { "id": "boss.beam", "clips": ["Audio/Sfx/boss_beam"], "gain": 0.90, "cooldownSeconds": 0.80, "priority": 1, "ui": false },
-    { "id": "boss.summon", "clips": ["Audio/Sfx/boss_summon"], "gain": 0.95, "cooldownSeconds": 1.00, "priority": 1, "ui": false },
-    { "id": "boss.teleport.windup", "clips": ["Audio/Sfx/boss_teleport_windup"], "gain": 0.90, "cooldownSeconds": 1.00, "priority": 1, "ui": false },
-    { "id": "boss.slam", "clips": ["Audio/Sfx/boss_slam"], "gain": 1.00, "cooldownSeconds": 1.00, "priority": 1, "ui": false },
-    { "id": "altar.on", "clips": ["Audio/Sfx/altar_on"], "gain": 0.70, "cooldownSeconds": 1.00, "priority": 1, "ui": false },
-    { "id": "altar.cursed", "clips": ["Audio/Sfx/altar_cursed"], "gain": 0.75, "cooldownSeconds": 1.00, "priority": 1, "ui": false },
-    { "id": "zone.activate", "clips": ["Audio/Sfx/zone_seal"], "gain": 0.55, "cooldownSeconds": 1.00, "priority": 0, "ui": false },
-    { "id": "shrine.reward", "clips": ["Audio/Sfx/shrine_reward"], "gain": 0.90, "cooldownSeconds": 0.50, "priority": 1, "ui": false },
-    { "id": "zone.strike", "clips": ["Audio/Sfx/zone_strike"], "gain": 0.80, "cooldownSeconds": 0.50, "priority": 1, "ui": false },
-    { "id": "zone.burst", "clips": ["Audio/Sfx/zone_burst"], "gain": 0.70, "cooldownSeconds": 0.60, "priority": 1, "ui": false },
-    { "id": "zone.portal", "clips": ["Audio/Sfx/zone_portal"], "gain": 0.80, "cooldownSeconds": 0.30, "priority": 1, "ui": false },
-    { "id": "enemy.hit", "clips": ["Audio/Sfx/wood_hit", "Audio/Sfx/wood_hit_alt", "Audio/Sfx/metal_hit", "Audio/Sfx/metal_hit_alt"], "gain": 0.13, "cooldownSeconds": 0.33, "priority": 0, "ui": false },
-    { "id": "enemy.fall", "clips": ["Audio/Sfx/enemy_fall"], "gain": 0.18, "cooldownSeconds": 0.40, "priority": 0, "ui": false },
-    { "id": "boss.hit", "clips": ["Audio/Sfx/boss_hit"], "gain": 0.22, "cooldownSeconds": 0.35, "priority": 0, "ui": false },
-    { "id": "boss.warning", "clips": ["Audio/Sfx/boss_warning"], "gain": 0.72, "cooldownSeconds": 1.00, "priority": 2, "ui": false },
-    { "id": "player.hurt", "clips": ["Audio/Sfx/player_hurt", "Audio/Sfx/player_hurt_alt"], "gain": 0.80, "cooldownSeconds": 0.12, "priority": 2, "ui": false },
-    { "id": "level.up", "clips": ["Audio/Sfx/level_up"], "gain": 0.40, "cooldownSeconds": 0.20, "priority": 2, "ui": true },
-    { "id": "book.pickup", "clips": ["Audio/Sfx/book_pickup"], "gain": 0.52, "cooldownSeconds": 0.20, "priority": 1, "ui": false },
-    { "id": "potion.pickup", "clips": ["Audio/Sfx/coin_reward"], "gain": 0.45, "cooldownSeconds": 0.20, "priority": 1, "ui": false }
+    {
+      "id": "ui.confirm",
+      "clips": [
+        "Audio/Sfx/ui_confirm"
+      ],
+      "gain": 0.35,
+      "cooldownSeconds": 0.08,
+      "priority": 1,
+      "ui": true
+    },
+    {
+      "id": "ui.back",
+      "clips": [
+        "Audio/Sfx/ui_back"
+      ],
+      "gain": 0.3,
+      "cooldownSeconds": 0.08,
+      "priority": 1,
+      "ui": true
+    },
+    {
+      "id": "ui.error",
+      "clips": [
+        "Audio/Sfx/ui_error"
+      ],
+      "gain": 0.32,
+      "cooldownSeconds": 0.2,
+      "priority": 1,
+      "ui": true
+    },
+    {
+      "id": "draft.open",
+      "clips": [
+        "Audio/Sfx/ui_open"
+      ],
+      "gain": 0.38,
+      "cooldownSeconds": 0.15,
+      "priority": 1,
+      "ui": true
+    },
+    {
+      "id": "draft.select",
+      "clips": [
+        "Audio/Sfx/ui_select",
+        "Audio/Sfx/book_select"
+      ],
+      "gain": 0.42,
+      "cooldownSeconds": 0.12,
+      "priority": 1,
+      "ui": true
+    },
+    {
+      "id": "xp.pickup",
+      "clips": [
+        "Audio/Sfx/xp_pickup"
+      ],
+      "gain": 0.17,
+      "cooldownSeconds": 0.22,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.cast",
+      "clips": [
+        "Audio/Sfx/blade_cast",
+        "Audio/Sfx/blade_cast_alt",
+        "Audio/Sfx/rough_cast"
+      ],
+      "gain": 0.23,
+      "cooldownSeconds": 0.4,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.rough",
+      "clips": [
+        "Audio/Sfx/rough_cast",
+        "Audio/Sfx/rough_throw"
+      ],
+      "gain": 0.5,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.blade",
+      "clips": [
+        "Audio/Sfx/blade_cast",
+        "Audio/Sfx/blade_cast_alt",
+        "Audio/Sfx/blade_cast_3"
+      ],
+      "gain": 0.5,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.air",
+      "clips": [
+        "Audio/Sfx/wind_cast",
+        "Audio/Sfx/wind_cast_alt"
+      ],
+      "gain": 0.48,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.energy",
+      "clips": [
+        "Audio/Sfx/lightning_cast",
+        "Audio/Sfx/lightning_cast_alt"
+      ],
+      "gain": 0.48,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.fire",
+      "clips": [
+        "Audio/Sfx/fire_cast",
+        "Audio/Sfx/fire_cast_alt"
+      ],
+      "gain": 0.48,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "skill.ice",
+      "clips": [
+        "Audio/Sfx/ice_cast",
+        "Audio/Sfx/ice_cast_alt"
+      ],
+      "gain": 0.5,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "enemy.windup",
+      "clips": [
+        "Audio/Sfx/enemy_windup"
+      ],
+      "gain": 0.4,
+      "cooldownSeconds": 0.5,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "enemy.shot",
+      "clips": [
+        "Audio/Sfx/enemy_shot",
+        "Audio/Sfx/enemy_shot_alt"
+      ],
+      "gain": 0.4,
+      "cooldownSeconds": 0.3,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "enemy.dash.windup",
+      "clips": [
+        "Audio/Sfx/enemy_dash_windup"
+      ],
+      "gain": 0.75,
+      "cooldownSeconds": 0.6,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "enemy.dash",
+      "clips": [
+        "Audio/Sfx/enemy_dash"
+      ],
+      "gain": 0.7,
+      "cooldownSeconds": 0.5,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "boss.zone",
+      "clips": [
+        "Audio/Sfx/boss_zone"
+      ],
+      "gain": 0.9,
+      "cooldownSeconds": 0.8,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "boss.beam",
+      "clips": [
+        "Audio/Sfx/boss_beam"
+      ],
+      "gain": 0.9,
+      "cooldownSeconds": 0.8,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "boss.summon",
+      "clips": [
+        "Audio/Sfx/boss_summon"
+      ],
+      "gain": 0.95,
+      "cooldownSeconds": 1.0,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "boss.teleport.windup",
+      "clips": [
+        "Audio/Sfx/boss_teleport_windup"
+      ],
+      "gain": 0.9,
+      "cooldownSeconds": 1.0,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "boss.slam",
+      "clips": [
+        "Audio/Sfx/boss_slam"
+      ],
+      "gain": 1.0,
+      "cooldownSeconds": 1.0,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "altar.on",
+      "clips": [
+        "Audio/Sfx/altar_on"
+      ],
+      "gain": 0.7,
+      "cooldownSeconds": 1.0,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "altar.cursed",
+      "clips": [
+        "Audio/Sfx/altar_cursed"
+      ],
+      "gain": 0.75,
+      "cooldownSeconds": 1.0,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "zone.activate",
+      "clips": [
+        "Audio/Sfx/zone_seal"
+      ],
+      "gain": 0.55,
+      "cooldownSeconds": 1.0,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "shrine.reward",
+      "clips": [
+        "Audio/Sfx/shrine_reward"
+      ],
+      "gain": 0.9,
+      "cooldownSeconds": 0.5,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "zone.strike",
+      "clips": [
+        "Audio/Sfx/zone_strike"
+      ],
+      "gain": 0.8,
+      "cooldownSeconds": 0.5,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "zone.burst",
+      "clips": [
+        "Audio/Sfx/zone_burst"
+      ],
+      "gain": 0.7,
+      "cooldownSeconds": 0.6,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "zone.portal",
+      "clips": [
+        "Audio/Sfx/zone_portal"
+      ],
+      "gain": 0.8,
+      "cooldownSeconds": 0.3,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "enemy.hit",
+      "clips": [
+        "Audio/Sfx/wood_hit",
+        "Audio/Sfx/wood_hit_alt",
+        "Audio/Sfx/metal_hit",
+        "Audio/Sfx/metal_hit_alt"
+      ],
+      "gain": 0.13,
+      "cooldownSeconds": 0.33,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "enemy.fall",
+      "clips": [
+        "Audio/Sfx/enemy_fall"
+      ],
+      "gain": 0.18,
+      "cooldownSeconds": 0.4,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "boss.hit",
+      "clips": [
+        "Audio/Sfx/boss_hit"
+      ],
+      "gain": 0.22,
+      "cooldownSeconds": 0.35,
+      "priority": 0,
+      "ui": false
+    },
+    {
+      "id": "boss.warning",
+      "clips": [
+        "Audio/Sfx/boss_warning"
+      ],
+      "gain": 0.72,
+      "cooldownSeconds": 1.0,
+      "priority": 2,
+      "ui": false
+    },
+    {
+      "id": "player.hurt",
+      "clips": [
+        "Audio/Sfx/player_hurt",
+        "Audio/Sfx/player_hurt_alt"
+      ],
+      "gain": 0.8,
+      "cooldownSeconds": 0.12,
+      "priority": 2,
+      "ui": false
+    },
+    {
+      "id": "level.up",
+      "clips": [
+        "Audio/Sfx/level_up"
+      ],
+      "gain": 0.4,
+      "cooldownSeconds": 0.2,
+      "priority": 2,
+      "ui": true
+    },
+    {
+      "id": "book.pickup",
+      "clips": [
+        "Audio/Sfx/book_pickup"
+      ],
+      "gain": 0.52,
+      "cooldownSeconds": 0.2,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "potion.pickup",
+      "clips": [
+        "Audio/Sfx/coin_reward"
+      ],
+      "gain": 0.45,
+      "cooldownSeconds": 0.2,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "screen.sweep",
+      "clips": [
+        "Audio/Sfx/blade_cast",
+        "Audio/Sfx/blade_cast_alt"
+      ],
+      "gain": 0.55,
+      "cooldownSeconds": 0.18,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "screen.cloud",
+      "clips": [
+        "Audio/Sfx/wind_cast",
+        "Audio/Sfx/wind_cast_alt"
+      ],
+      "gain": 0.65,
+      "cooldownSeconds": 0.3,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "screen.lightning",
+      "clips": [
+        "Audio/Sfx/lightning-v1"
+      ],
+      "gain": 0.6,
+      "cooldownSeconds": 0.12,
+      "priority": 1,
+      "ui": false
+    },
+    {
+      "id": "screen.circle",
+      "clips": [
+        "Audio/Sfx/light-column-v1"
+      ],
+      "gain": 0.6,
+      "cooldownSeconds": 0.16,
+      "priority": 1,
+      "ui": false
+    }
+  ],
+  "screenEventCues": [
+    {
+      "eventId": "SCREEN-EVENT-001",
+      "cue": "screen.sweep"
+    },
+    {
+      "eventId": "SCREEN-EVENT-002",
+      "cue": "screen.sweep"
+    },
+    {
+      "eventId": "SCREEN-EVENT-003",
+      "cue": "screen.lightning"
+    },
+    {
+      "eventId": "SCREEN-EVENT-004",
+      "cue": "screen.lightning"
+    },
+    {
+      "eventId": "SCREEN-EVENT-005",
+      "cue": "screen.circle"
+    },
+    {
+      "eventId": "SCREEN-EVENT-006",
+      "cue": "screen.circle"
+    },
+    {
+      "eventId": "SCREEN-EVENT-007",
+      "cue": "screen.lightning"
+    },
+    {
+      "eventId": "SCREEN-EVENT-008",
+      "cue": "screen.lightning"
+    },
+    {
+      "eventId": "SCREEN-EVENT-009",
+      "cue": "screen.circle"
+    },
+    {
+      "eventId": "SCREEN-EVENT-010",
+      "cue": "screen.cloud"
+    },
+    {
+      "eventId": "SCREEN-EVENT-011",
+      "cue": "screen.sweep"
+    },
+    {
+      "eventId": "SCREEN-EVENT-012",
+      "cue": "screen.lightning"
+    },
+    {
+      "eventId": "SCREEN-EVENT-013",
+      "cue": "screen.sweep"
+    }
   ]
 }

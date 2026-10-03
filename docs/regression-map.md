@@ -303,7 +303,7 @@ UI layout R2 / [review 2026-09-28 OBS-01…03](playtests/2026-09-28_ui-card-layo
 |---|---|---|---|
 | Первый Main Menu завершает ещё не начатый run | `CharacterSelectionSmokeTests.Selection_LockedCannotStart_AlternateLoadoutAndReinitAreClean`, `FieldSelectionSmokeTests.Selection_BackLockedAlternateFieldAndReinitialization_UseFreshConfiguration` | PlayMode | IP-26 в STATUS |
 | Settings снимает чужую паузу или пропускает input в нижний экран | `AppShellPresenterTests.Settings_Back_ReturnsToOwningScreenAndBlocksBackgroundActions`, `AppShellSmokeTests.Menu_Settings_RunPause_Settings_Quit_Results_Retry` | EditMode/PlayMode | IP-26 в STATUS |
-| `Space` не ставит игру на паузу, когда фокус остался на DEV/HUD-кнопке | `UiLayoutR2SmokeTests.GameplaySpace_WhenDevelopmentButtonHasFocus_IsNotConsumedByPausePanel`; существующий `GameplaySmokeTests` проверяет manual toggle | PlayMode 1/1 + GameplaySmokeTests 3/3 PASS, 2026-09-29 | [DECISION-0084](decisions/0084-mouse-movement-and-pause-shortcuts.md), [evidence](implementation/evidence/2026-09-29-space-pause-focus.md) |
+| `Space` не ставит игру на паузу, когда фокус остался на DEV/HUD-кнопке | `UiLayoutR2SmokeTests.GameplaySpace_DevelopmentControlsRejectKeyboardFocus_AndDoNotConsumePause`; существующий `GameplaySmokeTests` проверяет manual toggle | PlayMode 1/1 + GameplaySmokeTests 3/3 PASS, 2026-09-29 | [DECISION-0084](decisions/0084-mouse-movement-and-pause-shortcuts.md), [evidence](implementation/evidence/2026-09-29-space-pause-focus.md) |
 | Последняя revision теряется / invalid original перезаписывается | `SettingsServiceTests.Save_OverlappingWrite_PersistsNewestRevisionAndRetriesFailure`, `Load_InvalidDocument_PreservesBeforeReplacing` | EditMode | IP-26 в STATUS |
 | Неподтверждённое видео сохраняется при выходе/таймауте | `SettingsServiceTests.Close_DuringVideoApply_WaitsThenRevertsAndSavesAudio`, `Preview_Timeout_RevertsWithoutPersistingCandidate`, `Load_UnsupportedSavedMode_UsesAndPersistsSafeWindow` | EditMode | IP-26 в STATUS |
 | Shake продолжает работать после disable/pause/off/end или сдвигает gameplay anchor | `SettingsPresentationSmokeTests.Shake_Damage_PreservesCameraAnchorAndResetsOnPauseOffAndEnd` | PlayMode | IP-26 в STATUS |
@@ -457,3 +457,31 @@ absence of thick bridge faces/rims/inlays and unchanged continuous safe width.
 `VeilProfile_MissingOrNonFiniteRequiredSettings_RejectsInsteadOfDefaulting` guards
 required mode parameters and neutral legacy fallback. The existing ownership test
 also guards veil material disposal/reinitialization. Graphics review remains separate.
+
+## Общие проверки после расширения контента — DECISION-0161
+
+`MetaProfileTests.NewProductionProfile_StartsWithExactlyTheStartupSet` and
+`FieldClears_OnlyGrantTheFieldBasedPartOfTheMixedCatalog` assert the ten concrete startup sets and preserve field-based grants.
+`MetaShopTests.Unlocks_FreshProfile_IncludesInitialAndKeepsOnlyCharactersHidden` and
+`MetaShopSmokeTests.Unlocks_FiltersAndScroll_TwoResolutions` guard all 85 non-dev entities and 25 locked sets on a new profile.
+`FieldPlatformSurfaceTests.VeilBridge_LocalWeaveCoordinates_NoMasonryOutsidePlazas_ContinuousSafeWidth`
+uses a 0.00001 local-UV tolerance for float projection while retaining all geometry/safety assertions.
+`UiFoundationSmokeTests.Click` drives pointer down/up for DEV smoke, after layout has made the target visible;
+keyboard Submit remains used for player-facing controls.
+`UiLayoutR2SmokeTests.GameplaySpace_DevelopmentControlsRejectKeyboardFocus_AndDoNotConsumePause`
+guards deliberate keyboard isolation. `UiEntrySmokeTests` checks designed cards on-screen,
+DEV cards after scrolling, and overflow at 21 cards (20 is the current fitting capacity).
+
+## FIELD-010 muted open arena — DECISION-0160
+
+`ProductionField010ScreenEventsSmokeTests.Field010_RunsScreenEvents_WarnsThenHurtsAPlayerOutsideTheSafeCircleOnce_AndRemovesThemOnShutdown`
+guards absence of the foreign fixture stump, disabled invisible scene collision and actual ground renderer tint.
+`ProductionField010ScreenEventsTests.GroundTint_OnlyField010OverridesNeutralWhite`
+guards field-specific ground tint and neutral white for other environments. Existing motion/reset and all-layout graphics guards remain applicable.
+
+## FIELD-010 original strike clips — DECISION-0162
+
+`ProductionAudioCatalogTests.OriginalField010Strikes_UseApprovedClips_AndLoadAsShortOneShots`
+guards the approved lightning/light-column Resources clips, 0.60 gain, priority and short DecompressOnLoad import.
+`ProductionField010ScreenEventsSmokeTests` exercises the actual light-column-v1 voice during a circular strike, pause/resume and teardown.
+`scripts/audio/check_audio.py` guards catalog coverage, original generator/runtime hashes and external CC0 provenance for WAV/OGG files.

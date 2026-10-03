@@ -38,6 +38,15 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.IsTrue(root.TryStartField(new ContentId("FIELD-010")));
                 yield return null;
 
+                var environmentArt = GameObject.Find("FieldEnvironmentArt");
+                Assert.IsNotNull(environmentArt);
+                Assert.IsNull(environmentArt.transform.Find("Stump"), "FIELD-010 cannot inherit a FIELD-001 stump.");
+                Assert.IsFalse(environmentArt.GetComponentsInChildren<Collider2D>().Any(c => c.enabled),
+                    "The screen-event arena has no blocking fixture props.");
+                var presentation = root.Catalog.FieldEnvironmentPresentations[new ContentId("FIELD-010-ENVIRONMENT")];
+                Assert.IsFalse(GameObject.Find(presentation.ObstacleName).GetComponent<Collider2D>().enabled,
+                    "Removing foreign artwork must also remove its invisible collision.");
+                Assert.AreEqual(presentation.GroundTint, environmentArt.transform.Find("Ground").GetComponent<SpriteRenderer>().color);
                 var driver = root.ScreenEvents;
                 Assert.IsNotNull(driver, "FIELD-010 builds its screen event driver.");
                 Assert.AreEqual(10101, root.ScreenEventSeed);
@@ -187,16 +196,49 @@ namespace Game.Bootstrap.PlayModeTests
                         var last = runtime.Active.Hazards.OrderBy(h => h.StartDelay).Last();
                         // The warning shortly before the first strike, then the strike while it is under way.
                         var warningAt = last.StartDelay + last.TelegraphSeconds * .85f;
-                        var strikeAt = lead.StartDelay + lead.TelegraphSeconds + lead.StrikeSeconds * .45f;
                         yield return WaitUntil(runtime, Mathf.Min(warningAt, lead.StartDelay + lead.TelegraphSeconds - .05f));
+                        var run = Object.FindAnyObjectByType<RunController>();
+                        run.TogglePause();
                         capture.transform.position = camera.transform.position;
                         yield return null;
+                        capture.Render();
                         UiFoundationSmokeTests.Capture(target, $"field010-{id.ToLowerInvariant()}-warning");
-                        yield return WaitUntil(runtime, strikeAt);
-                        UiFoundationSmokeTests.Capture(target, $"field010-{id.ToLowerInvariant()}-strike");
+                        run.TogglePause();
+                        yield return WaitUntil(runtime, lead.StartDelay + lead.TelegraphSeconds + lead.StrikeSeconds * .05f);
+                        Assert.IsNotNull(runtime.Active, "The capture begins inside the live strike.");
+                        if (id == "SCREEN-EVENT-005")
+                        {
+                            var voice = root.GetComponentsInChildren<AudioSource>().FirstOrDefault(source =>
+                                source.isPlaying && source.clip != null && source.clip.name == "light-column-v1");
+                            Assert.IsNotNull(voice, "A circle strike starts its configured audio family without a player hit.");
+                            Assert.IsTrue(voice.mute || AudioListener.volume == 0f, "Automated capture stays silent on speakers.");
+                            var frozen = runtime.Active.Elapsed;
+                            run.TogglePause();
+                            yield return new WaitForSecondsRealtime(.1f);
+                            Assert.AreEqual(frozen, runtime.Active.Elapsed);
+                            Assert.IsFalse(voice.isPlaying, "Gameplay strike audio pauses with its animation.");
+                            run.TogglePause();
+                            yield return null;
+                            Assert.IsTrue(voice.isPlaying, "Resume continues the same strike voice.");
+                        }
+                        // PNG encoding can outlast a short strike. Freeze simulation and render exact
+                        // presentation-clock samples so disk latency cannot skip the animation frames.
+                        run.TogglePause();
+                        var artwork = root.ScreenEvents.GetComponentsInChildren<ScreenHazardArtView>();
+                        for (var frame = 0; frame < 12; frame++)
+                        {
+                            var sample = lead.StartDelay + lead.TelegraphSeconds + lead.StrikeSeconds * (.05f + .8f * frame / 11f);
+                            foreach (var art in artwork) art.Apply(sample, view);
+                            capture.Render();
+                            UiFoundationSmokeTests.Capture(target, $"field010-{id.ToLowerInvariant()}-motion-{frame:00}");
+                            if (frame == 6) UiFoundationSmokeTests.Capture(target, $"field010-{id.ToLowerInvariant()}-strike");
+                        }
+                        run.TogglePause();
                         var deadline = Time.realtimeSinceStartup + 12f;
                         while (runtime.Active != null && Time.realtimeSinceStartup < deadline) yield return null;
                         Assert.IsNull(runtime.Active, id);
+                        capture.Render();
+                        UiFoundationSmokeTests.Capture(target, $"field010-{id.ToLowerInvariant()}-done");
                     }
                 }
                 finally

@@ -57,7 +57,7 @@ namespace Game.UI.Tests
             Assert.AreEqual(85, cards.Length);
             CollectionAssert.AreEquivalent(new[] { "SKILL-001", "SKILL-002", "SKILL-003", "SKILL-004", "SKILL-005", "SKILL-006", "SKILL-007", "SKILL-010", "SKILL-013", "SKILL-014" }, cards.Where(c => c.Kind == "skill" && c.Owned).Select(c => c.Id));
             CollectionAssert.AreEquivalent(new[] { "PASSIVE-001", "PASSIVE-002", "PASSIVE-003", "PASSIVE-004", "PASSIVE-005", "PASSIVE-007", "PASSIVE-008", "PASSIVE-009", "PASSIVE-011", "PASSIVE-012" }, cards.Where(c => c.Kind == "passive" && c.Owned).Select(c => c.Id));
-            CollectionAssert.AreEquivalent(new[] { "SET-001", "SET-004", "SET-006", "SET-010", "SET-017" }, cards.Where(c => c.Kind == "set" && c.Owned).Select(c => c.Id));
+            CollectionAssert.AreEquivalent(new[] { "SET-001", "SET-004", "SET-006", "SET-010", "SET-017", "SET-023", "SET-024", "SET-026", "SET-030", "SET-034" }, cards.Where(c => c.Kind == "set" && c.Owned).Select(c => c.Id));
             foreach (var card in cards)
             {
                 Assert.AreEqual(profile.IsUnlocked(card.Id), card.Owned);

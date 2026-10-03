@@ -16,7 +16,8 @@
     "description": "Открытый небесный чертог без препятствий. Опасность приходит сама: по расписанию на экране загораются красные предупреждения, и затем копья, клинки, столпы и кольца света бьют только по герою. Волны FIELD-001 временно используются для просмотра.",
     "unlockDescription": "Нанесите 1 000 000 урона умением SKILL-012 на «Небесных вратах»",
     "arenaSideLength": 160,
-    "difficulty": 5
+    "difficulty": 5,
+    "groundTint": "#A29AA8"
   },
   "screenEventPresentation": {
     "artwork": {
@@ -103,16 +104,25 @@
     "borderWidth": 0.12,
     "repeatLength": 3,
     "exteriorRibbonWidth": 0.7,
-    "warningAlphaStart": 0.65,
-    "warningAlphaEnd": 1,
-    "warningFillStart": 0.12,
-    "warningFillEnd": 0.24,
-    "strikeAlpha": 1,
-    "strikeFillAlpha": 0.34,
-    "safeAlpha": 0.95,
-    "corridorAlpha": 0.16,
+    "strikeRevealSeconds": 0.18,
+    "circleRotationDegreesPerSecond": 45,
+    "stripScrollSpeed": 1.4,
+    "ringScrollCyclesPerSecond": 0.15,
+    "exteriorScrollSpeed": 0.9,
+    "strikePulseHz": 0,
+    "strikePulseDepth": 0,
+    "strikeBoundaryAlpha": 0.32,
+    "revealFeatherFraction": 0.08,
+    "warningAlphaStart": 0.5,
+    "warningAlphaEnd": 0.8,
+    "warningFillStart": 0.08,
+    "warningFillEnd": 0.14,
+    "strikeAlpha": 0.58,
+    "strikeFillAlpha": 0.12,
+    "safeAlpha": 0.65,
+    "corridorAlpha": 0.1,
     "warningColor": "#D22247",
-    "strikeColor": "#FFF4BD",
+    "strikeColor": "#B5A9BF",
     "safeColor": "#42C3C0",
     "sortingOrder": -4
   },
@@ -130,132 +140,415 @@
     "fairnessCellSize": 0.4,
     "stages": [
       {
-        "fromSeconds": 0, "valleyIntensity": 0.05, "peakIntensity": 0.40, "pauseMinSeconds": 20, "pauseMaxSeconds": 34,
+        "fromSeconds": 0,
+        "valleyIntensity": 0.05,
+        "peakIntensity": 0.4,
+        "pauseMinSeconds": 20,
+        "pauseMaxSeconds": 34,
         "pool": [
-          { "event": "SCREEN-EVENT-001", "weight": 3 },
-          { "event": "SCREEN-EVENT-002", "weight": 3 },
-          { "event": "SCREEN-EVENT-005", "weight": 1.5 },
-          { "event": "SCREEN-EVENT-007", "weight": 2 },
-          { "event": "SCREEN-EVENT-010", "weight": 2 }
+          {
+            "event": "SCREEN-EVENT-001",
+            "weight": 3
+          },
+          {
+            "event": "SCREEN-EVENT-002",
+            "weight": 3
+          },
+          {
+            "event": "SCREEN-EVENT-005",
+            "weight": 1.5
+          },
+          {
+            "event": "SCREEN-EVENT-007",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-010",
+            "weight": 2
+          }
         ]
       },
       {
-        "fromSeconds": 180, "valleyIntensity": 0.10, "peakIntensity": 0.60, "pauseMinSeconds": 16, "pauseMaxSeconds": 28,
+        "fromSeconds": 180,
+        "valleyIntensity": 0.1,
+        "peakIntensity": 0.6,
+        "pauseMinSeconds": 16,
+        "pauseMaxSeconds": 28,
         "pool": [
-          { "event": "SCREEN-EVENT-001", "weight": 2 },
-          { "event": "SCREEN-EVENT-002", "weight": 2 },
-          { "event": "SCREEN-EVENT-003", "weight": 2 },
-          { "event": "SCREEN-EVENT-004", "weight": 2 },
-          { "event": "SCREEN-EVENT-005", "weight": 2 },
-          { "event": "SCREEN-EVENT-007", "weight": 2 },
-          { "event": "SCREEN-EVENT-010", "weight": 1.5 },
-          { "event": "SCREEN-EVENT-011", "weight": 2 }
+          {
+            "event": "SCREEN-EVENT-001",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-002",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-003",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-004",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-005",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-007",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-010",
+            "weight": 1.5
+          },
+          {
+            "event": "SCREEN-EVENT-011",
+            "weight": 2
+          }
         ]
       },
       {
-        "fromSeconds": 360, "valleyIntensity": 0.15, "peakIntensity": 0.80, "pauseMinSeconds": 13, "pauseMaxSeconds": 24,
+        "fromSeconds": 360,
+        "valleyIntensity": 0.15,
+        "peakIntensity": 0.8,
+        "pauseMinSeconds": 13,
+        "pauseMaxSeconds": 24,
         "pool": [
-          { "event": "SCREEN-EVENT-001", "weight": 1.5 },
-          { "event": "SCREEN-EVENT-002", "weight": 1.5 },
-          { "event": "SCREEN-EVENT-003", "weight": 2 },
-          { "event": "SCREEN-EVENT-004", "weight": 2 },
-          { "event": "SCREEN-EVENT-005", "weight": 2 },
-          { "event": "SCREEN-EVENT-006", "weight": 2 },
-          { "event": "SCREEN-EVENT-007", "weight": 1.5 },
-          { "event": "SCREEN-EVENT-008", "weight": 2 },
-          { "event": "SCREEN-EVENT-009", "weight": 2 },
-          { "event": "SCREEN-EVENT-010", "weight": 1 },
-          { "event": "SCREEN-EVENT-011", "weight": 2 }
+          {
+            "event": "SCREEN-EVENT-001",
+            "weight": 1.5
+          },
+          {
+            "event": "SCREEN-EVENT-002",
+            "weight": 1.5
+          },
+          {
+            "event": "SCREEN-EVENT-003",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-004",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-005",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-006",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-007",
+            "weight": 1.5
+          },
+          {
+            "event": "SCREEN-EVENT-008",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-009",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-010",
+            "weight": 1
+          },
+          {
+            "event": "SCREEN-EVENT-011",
+            "weight": 2
+          }
         ]
       },
       {
-        "fromSeconds": 540, "valleyIntensity": 0.20, "peakIntensity": 1.00, "pauseMinSeconds": 10, "pauseMaxSeconds": 20,
+        "fromSeconds": 540,
+        "valleyIntensity": 0.2,
+        "peakIntensity": 1.0,
+        "pauseMinSeconds": 10,
+        "pauseMaxSeconds": 20,
         "pool": [
-          { "event": "SCREEN-EVENT-001", "weight": 1 },
-          { "event": "SCREEN-EVENT-002", "weight": 1 },
-          { "event": "SCREEN-EVENT-003", "weight": 2 },
-          { "event": "SCREEN-EVENT-004", "weight": 2 },
-          { "event": "SCREEN-EVENT-005", "weight": 2 },
-          { "event": "SCREEN-EVENT-006", "weight": 2 },
-          { "event": "SCREEN-EVENT-007", "weight": 1 },
-          { "event": "SCREEN-EVENT-008", "weight": 2 },
-          { "event": "SCREEN-EVENT-009", "weight": 2 },
-          { "event": "SCREEN-EVENT-010", "weight": 1 },
-          { "event": "SCREEN-EVENT-011", "weight": 2 },
-          { "event": "SCREEN-EVENT-012", "weight": 3 },
-          { "event": "SCREEN-EVENT-013", "weight": 3 }
+          {
+            "event": "SCREEN-EVENT-001",
+            "weight": 1
+          },
+          {
+            "event": "SCREEN-EVENT-002",
+            "weight": 1
+          },
+          {
+            "event": "SCREEN-EVENT-003",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-004",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-005",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-006",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-007",
+            "weight": 1
+          },
+          {
+            "event": "SCREEN-EVENT-008",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-009",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-010",
+            "weight": 1
+          },
+          {
+            "event": "SCREEN-EVENT-011",
+            "weight": 2
+          },
+          {
+            "event": "SCREEN-EVENT-012",
+            "weight": 3
+          },
+          {
+            "event": "SCREEN-EVENT-013",
+            "weight": 3
+          }
         ]
       }
     ],
     "events": [
       {
-        "id": "SCREEN-EVENT-001", "name": "Копьё", "layout": "strips", "rare": false, "intensity": 0.20,
-        "damagePercent": 18, "telegraphSeconds": 1.3, "motion": "sweep", "directionsDegrees": [270],
-        "countMin": 1, "countMax": 3, "ordered": true, "staggerSeconds": 0.55, "widthH": 0.22, "minGapH": 0.12,
-        "speedH": 1.8, "bodyLengthH": 0.45
+        "id": "SCREEN-EVENT-001",
+        "name": "Копьё",
+        "layout": "strips",
+        "rare": false,
+        "intensity": 0.2,
+        "damagePercent": 18,
+        "telegraphSeconds": 1.3,
+        "motion": "sweep",
+        "directionsDegrees": [
+          270
+        ],
+        "countMin": 1,
+        "countMax": 3,
+        "ordered": true,
+        "staggerSeconds": 0.55,
+        "widthH": 0.22,
+        "minGapH": 0.12,
+        "speedH": 1.8,
+        "bodyLengthH": 0.45
       },
       {
-        "id": "SCREEN-EVENT-002", "name": "Клинок", "layout": "strips", "rare": false, "intensity": 0.25,
-        "damagePercent": 18, "telegraphSeconds": 1.2, "motion": "sweep", "directionsDegrees": [0, 180],
-        "countMin": 1, "countMax": 2, "ordered": true, "staggerSeconds": 0.6, "widthH": 0.20, "minGapH": 0.15,
-        "speedH": 1.9, "bodyLengthH": 0.4
+        "id": "SCREEN-EVENT-002",
+        "name": "Клинок",
+        "layout": "strips",
+        "rare": false,
+        "intensity": 0.25,
+        "damagePercent": 18,
+        "telegraphSeconds": 1.2,
+        "motion": "sweep",
+        "directionsDegrees": [
+          0,
+          180
+        ],
+        "countMin": 1,
+        "countMax": 2,
+        "ordered": true,
+        "staggerSeconds": 0.6,
+        "widthH": 0.2,
+        "minGapH": 0.15,
+        "speedH": 1.9,
+        "bodyLengthH": 0.4
       },
       {
-        "id": "SCREEN-EVENT-003", "name": "Ряд колонн", "layout": "strips", "rare": false, "intensity": 0.50,
-        "damagePercent": 15, "telegraphSeconds": 1.0, "strikeSeconds": 0.25, "motion": "burst", "directionsDegrees": [270],
-        "countMin": 5, "countMax": 5, "ordered": true, "staggerSeconds": 0.3, "widthH": 0.13, "minGapH": 0.14
+        "id": "SCREEN-EVENT-003",
+        "name": "Ряд колонн",
+        "layout": "strips",
+        "rare": false,
+        "intensity": 0.5,
+        "damagePercent": 15,
+        "telegraphSeconds": 1.0,
+        "strikeSeconds": 0.25,
+        "motion": "burst",
+        "directionsDegrees": [
+          270
+        ],
+        "countMin": 5,
+        "countMax": 5,
+        "ordered": true,
+        "staggerSeconds": 0.3,
+        "widthH": 0.13,
+        "minGapH": 0.14
       },
       {
-        "id": "SCREEN-EVENT-004", "name": "Решётка", "layout": "cross", "rare": false, "intensity": 0.45,
-        "damagePercent": 18, "telegraphSeconds": 1.4, "strikeSeconds": 0.3, "widthH": 0.17, "crossJitter": 0.2
+        "id": "SCREEN-EVENT-004",
+        "name": "Решётка",
+        "layout": "cross",
+        "rare": false,
+        "intensity": 0.45,
+        "damagePercent": 18,
+        "telegraphSeconds": 1.4,
+        "strikeSeconds": 0.3,
+        "widthH": 0.17,
+        "crossJitter": 0.2
       },
       {
-        "id": "SCREEN-EVENT-005", "name": "Круги суда", "layout": "circles", "rare": false, "intensity": 0.40,
-        "damagePercent": 20, "telegraphSeconds": 1.2, "strikeSeconds": 0.3, "countMin": 3, "countMax": 5,
-        "radiusMinH": 0.12, "radiusMaxH": 0.20, "placement": "aroundPlayer", "playerDistanceMinH": 0.12,
-        "playerDistanceMaxH": 0.40, "playerClearanceH": 0.08, "gapH": 0.05, "staggerSeconds": 0
+        "id": "SCREEN-EVENT-005",
+        "name": "Круги суда",
+        "layout": "circles",
+        "rare": false,
+        "intensity": 0.4,
+        "damagePercent": 20,
+        "telegraphSeconds": 1.2,
+        "strikeSeconds": 0.3,
+        "countMin": 3,
+        "countMax": 5,
+        "radiusMinH": 0.12,
+        "radiusMaxH": 0.2,
+        "placement": "aroundPlayer",
+        "playerDistanceMinH": 0.12,
+        "playerDistanceMaxH": 0.4,
+        "playerClearanceH": 0.08,
+        "gapH": 0.05,
+        "staggerSeconds": 0
       },
       {
-        "id": "SCREEN-EVENT-006", "name": "Кольцо света", "layout": "ring", "rare": false, "intensity": 0.55,
-        "damagePercent": 20, "telegraphSeconds": 2.0, "startRadiusH": 0.10, "thicknessH": 0.06, "gapWidthH": 0.26,
-        "speedH": 0.30
+        "id": "SCREEN-EVENT-006",
+        "name": "Кольцо света",
+        "layout": "ring",
+        "rare": false,
+        "intensity": 0.55,
+        "damagePercent": 20,
+        "telegraphSeconds": 2.0,
+        "startRadiusH": 0.1,
+        "thicknessH": 0.06,
+        "gapWidthH": 0.26,
+        "speedH": 0.3
       },
       {
-        "id": "SCREEN-EVENT-007", "name": "Половина экрана", "layout": "halfScreen", "rare": false, "intensity": 0.35,
-        "damagePercent": 22, "telegraphSeconds": 2.2, "strikeSeconds": 0.4, "splitJitter": 0.15
+        "id": "SCREEN-EVENT-007",
+        "name": "Половина экрана",
+        "layout": "halfScreen",
+        "rare": false,
+        "intensity": 0.35,
+        "damagePercent": 22,
+        "telegraphSeconds": 2.2,
+        "strikeSeconds": 0.4,
+        "splitJitter": 0.15
       },
       {
-        "id": "SCREEN-EVENT-008", "name": "Углы", "layout": "corners", "rare": false, "intensity": 0.50,
-        "damagePercent": 20, "telegraphSeconds": 1.2, "strikeSeconds": 0.3, "cornerWidthFraction": 0.36,
-        "cornerHeightFraction": 0.36, "staggerSeconds": 0.8
+        "id": "SCREEN-EVENT-008",
+        "name": "Углы",
+        "layout": "corners",
+        "rare": false,
+        "intensity": 0.5,
+        "damagePercent": 20,
+        "telegraphSeconds": 1.2,
+        "strikeSeconds": 0.3,
+        "cornerWidthFraction": 0.36,
+        "cornerHeightFraction": 0.36,
+        "staggerSeconds": 0.8
       },
       {
-        "id": "SCREEN-EVENT-009", "name": "Падающие перья", "layout": "circles", "rare": false, "intensity": 0.60,
-        "damagePercent": 6, "telegraphSeconds": 0.9, "strikeSeconds": 0.2, "countMin": 8, "countMax": 12,
-        "radiusMinH": 0.06, "radiusMaxH": 0.08, "placement": "random", "playerClearanceH": 0.04, "gapH": 0.08,
+        "id": "SCREEN-EVENT-009",
+        "name": "Падающие перья",
+        "layout": "circles",
+        "rare": false,
+        "intensity": 0.6,
+        "damagePercent": 6,
+        "telegraphSeconds": 0.9,
+        "strikeSeconds": 0.2,
+        "countMin": 8,
+        "countMax": 12,
+        "radiusMinH": 0.06,
+        "radiusMaxH": 0.08,
+        "placement": "random",
+        "playerClearanceH": 0.04,
+        "gapH": 0.08,
         "staggerSeconds": 0.3
       },
       {
-        "id": "SCREEN-EVENT-010", "name": "Облачная волна", "layout": "strips", "rare": false, "intensity": 0.30,
-        "damagePercent": 10, "telegraphSeconds": 1.6, "motion": "sweep", "directionsDegrees": [315, 225, 45, 135],
-        "countMin": 1, "countMax": 1, "ordered": false, "staggerSeconds": 0, "widthH": 0.50, "minGapH": 0.10,
-        "speedH": 0.50, "bodyLengthH": 0.50
+        "id": "SCREEN-EVENT-010",
+        "name": "Облачная волна",
+        "layout": "strips",
+        "rare": false,
+        "intensity": 0.3,
+        "damagePercent": 10,
+        "telegraphSeconds": 1.6,
+        "motion": "sweep",
+        "directionsDegrees": [
+          315,
+          225,
+          45,
+          135
+        ],
+        "countMin": 1,
+        "countMax": 1,
+        "ordered": false,
+        "staggerSeconds": 0,
+        "widthH": 0.5,
+        "minGapH": 0.1,
+        "speedH": 0.5,
+        "bodyLengthH": 0.5
       },
       {
-        "id": "SCREEN-EVENT-011", "name": "Веер копий", "layout": "fan", "rare": false, "intensity": 0.45,
-        "damagePercent": 14, "telegraphSeconds": 1.3, "anglesDegrees": [-22, 0, 22], "widthH": 0.12,
-        "speedH": 1.8, "bodyLengthH": 0.45
+        "id": "SCREEN-EVENT-011",
+        "name": "Веер копий",
+        "layout": "fan",
+        "rare": false,
+        "intensity": 0.45,
+        "damagePercent": 14,
+        "telegraphSeconds": 1.3,
+        "anglesDegrees": [
+          -22,
+          0,
+          22
+        ],
+        "widthH": 0.12,
+        "speedH": 1.8,
+        "bodyLengthH": 0.45
       },
       {
-        "id": "SCREEN-EVENT-012", "name": "Небесный суд", "layout": "judgment", "rare": true, "intensity": 0.95,
-        "damagePercent": 28, "telegraphSeconds": 2.4, "strikeSeconds": 0.4, "safeRadiusH": 0.20,
-        "playerDistanceMinH": 0.10, "playerDistanceMaxH": 0.30
+        "id": "SCREEN-EVENT-012",
+        "name": "Небесный суд",
+        "layout": "judgment",
+        "rare": true,
+        "intensity": 0.95,
+        "damagePercent": 28,
+        "telegraphSeconds": 2.4,
+        "strikeSeconds": 0.4,
+        "safeRadiusH": 0.2,
+        "playerDistanceMinH": 0.1,
+        "playerDistanceMaxH": 0.3
       },
       {
-        "id": "SCREEN-EVENT-013", "name": "Дождь копий", "layout": "strips", "rare": true, "intensity": 0.90,
-        "damagePercent": 12, "telegraphSeconds": 1.3, "motion": "sweep", "directionsDegrees": [270],
-        "countMin": 5, "countMax": 7, "ordered": false, "staggerSeconds": 0.28, "widthH": 0.10, "minGapH": 0.17,
-        "speedH": 1.8, "bodyLengthH": 0.45
+        "id": "SCREEN-EVENT-013",
+        "name": "Дождь копий",
+        "layout": "strips",
+        "rare": true,
+        "intensity": 0.9,
+        "damagePercent": 12,
+        "telegraphSeconds": 1.3,
+        "motion": "sweep",
+        "directionsDegrees": [
+          270
+        ],
+        "countMin": 5,
+        "countMax": 7,
+        "ordered": false,
+        "staggerSeconds": 0.28,
+        "widthH": 0.1,
+        "minGapH": 0.17,
+        "speedH": 1.8,
+        "bodyLengthH": 0.45
       }
     ]
   }

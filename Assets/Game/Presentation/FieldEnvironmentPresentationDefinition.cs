@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Content;
 using Game.Presentation.Json;
+using UnityEngine;
 
 namespace Game.Presentation
 {
@@ -11,6 +12,8 @@ namespace Game.Presentation
         public ContentId Id { get; }
         public ContentId EnvironmentId { get; }
         public ContentRef<SpriteDefinition> Ground { get; }
+        /// <summary>RGB multiplier for the ground only; neutral white for fields without an override.</summary>
+        public Color GroundTint { get; }
         public ContentRef<SpriteDefinition> Fence { get; }
         public ContentRef<SpriteDefinition> Obstacle { get; }
         public ContentRef<SpriteDefinition> Bush { get; }
@@ -72,6 +75,14 @@ namespace Game.Presentation
             Id = data.Id;
             EnvironmentId = data.EnvironmentId;
             Ground = new ContentRef<SpriteDefinition>(data.GroundVisualId);
+            GroundTint = Color.white;
+            if (data.GroundTint != null)
+            {
+                if (data.GroundTint.Length != 7 || !data.GroundTint.StartsWith("#", StringComparison.Ordinal)
+                    || !ColorUtility.TryParseHtmlString(data.GroundTint, out var tint))
+                    throw new ArgumentException("groundTint must be an opaque #RRGGBB multiplier.");
+                GroundTint = tint;
+            }
             Fence = new ContentRef<SpriteDefinition>(data.FenceVisualId);
             Obstacle = new ContentRef<SpriteDefinition>(data.ObstacleVisualId);
             Bush = new ContentRef<SpriteDefinition>(data.BushVisualId);

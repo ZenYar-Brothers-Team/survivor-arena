@@ -8,6 +8,41 @@ namespace Game.Audio.Tests
     public sealed class ProductionAudioCatalogTests
     {
         [Test]
+        public void ScreenEvents_AllThirteenHaveBoundedGameplaySounds_AndDistinctFamilies()
+        {
+            var catalog = ProductionAudioCatalog.Load();
+            var families = new System.Collections.Generic.HashSet<string>();
+            for (var i = 1; i <= 13; i++)
+            {
+                Assert.IsTrue(catalog.TryGetScreenEventCue($"SCREEN-EVENT-{i:000}", out var id));
+                Assert.IsTrue(catalog.TryGet(id, out var cue, out var clips));
+                Assert.IsFalse(cue.Ui.Value);
+                Assert.AreEqual(1, cue.Priority.Value, "Strike accents use the bounded important pool, beneath critical player hurt.");
+                Assert.Greater(cue.CooldownSeconds.Value, 0);
+                Assert.Greater(clips.Length, 0);
+                families.Add(id);
+            }
+            Assert.AreEqual(4, families.Count);
+            Assert.IsFalse(catalog.TryGetScreenEventCue("SCREEN-EVENT-999", out _));
+        }
+
+        [Test]
+        public void OriginalField010Strikes_UseApprovedClips_AndLoadAsShortOneShots()
+        {
+            var catalog = ProductionAudioCatalog.Load();
+            foreach (var pair in new[] { ("screen.lightning", "lightning-v1"), ("screen.circle", "light-column-v1") })
+            {
+                Assert.IsTrue(catalog.TryGet(pair.Item1, out var cue, out var clips));
+                Assert.AreEqual(1, clips.Length);
+                Assert.AreEqual(pair.Item2, clips[0].name);
+                Assert.AreEqual(1, cue.Priority.Value);
+                Assert.AreEqual(.6f, cue.Gain.Value);
+                Assert.Less(clips[0].length, 2f);
+                Assert.AreEqual(AudioClipLoadType.DecompressOnLoad, clips[0].loadType);
+            }
+        }
+
+        [Test]
         public void ProductionAudio_ImportsAllReferences_AndUsesSharedBossTheme()
         {
             var catalog = ProductionAudioCatalog.Load();

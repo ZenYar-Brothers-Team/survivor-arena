@@ -825,6 +825,40 @@
       "sampleRate": 44100,
       "channels": 1,
       "processing": "mono mix of layers (highUp gain 1 cut 0.7 s), trim threshold, 5 ms fade, peak target 0.70"
+    },
+    {
+      "name": "lightning-v1",
+      "file": "Assets/Resources/Audio/Sfx/lightning-v1.wav",
+      "sha256": "794aba0180b9f19af4a48885a65c81e0105513d869972f058dba1ce17d151cbe",
+      "sourceKind": "procedural",
+      "source": "Art/Prototypes/field010-audio-sketches/generate.py",
+      "sourceSha256": "7fd239fb4c7e37b4d900d34a34e3b4b8b3068d5a6cb5e784dfe6d01b2d0666da",
+      "author": "Codex (procedural synthesis)",
+      "license": "Project original",
+      "seconds": 1.05,
+      "sourceSeconds": 1.05,
+      "sampleRate": 44100,
+      "channels": 2,
+      "seed": 10031,
+      "processing": "Original deterministic noise/tonal synthesis; short reflections; tapered edges; peak -3.35 dBFS. WAV copied byte-for-byte from approved listening sketch.",
+      "approval": "2026-10-03: user requested these sketches for circular and lightning-effect impacts; no third-party samples."
+    },
+    {
+      "name": "light-column-v1",
+      "file": "Assets/Resources/Audio/Sfx/light-column-v1.wav",
+      "sha256": "5d209d5acee78e23eee9d864b8ce73927d7e3104a9b4ceb53fc801d9accfc00d",
+      "sourceKind": "procedural",
+      "source": "Art/Prototypes/field010-audio-sketches/generate.py",
+      "sourceSha256": "7fd239fb4c7e37b4d900d34a34e3b4b8b3068d5a6cb5e784dfe6d01b2d0666da",
+      "author": "Codex (procedural synthesis)",
+      "license": "Project original",
+      "seconds": 1.2,
+      "sourceSeconds": 1.2,
+      "sampleRate": 44100,
+      "channels": 2,
+      "seed": 10032,
+      "processing": "Original deterministic noise/tonal synthesis; short reflections; tapered edges; peak -3.35 dBFS. WAV copied byte-for-byte from approved listening sketch.",
+      "approval": "2026-10-03: user requested these sketches for circular and lightning-effect impacts; no third-party samples."
     }
   ]
 }

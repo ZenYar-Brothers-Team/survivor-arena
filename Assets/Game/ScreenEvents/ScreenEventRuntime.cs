@@ -49,6 +49,8 @@ namespace Game.ScreenEvents
         public event Action<ScreenEventInstance> EventStarted;
         public event Action<ScreenEventInstance> EventFinished;
         public event Action<ScreenEventInstance, ScreenHazard> PlayerHit;
+        /// <summary>One notification per hazard at the telegraph-to-strike boundary, including strikes crossed in a large tick.</summary>
+        public event Action<ScreenEventInstance, ScreenHazard> HazardStrikeStarted;
 
         public ScreenEventRuntime(ScreenEventsDefinition definition, IScreenEventPlayerTarget player, int seed)
         {
@@ -167,7 +169,13 @@ namespace Game.ScreenEvents
             var end = time + deltaSeconds;
             while (time < end)
             {
-                time = Math.Min(end, time + MaxSubstepSeconds);
+                var next = Math.Min(end, time + MaxSubstepSeconds);
+                foreach (var hazard in instance.Hazards)
+                {
+                    var strikeAt = hazard.StartDelay + hazard.TelegraphSeconds;
+                    if (time < strikeAt && next >= strikeAt) HazardStrikeStarted?.Invoke(instance, hazard);
+                }
+                time = next;
                 CheckHits(instance, time);
             }
             instance.Elapsed = end;

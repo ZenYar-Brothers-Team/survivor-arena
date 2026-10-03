@@ -31,6 +31,10 @@ namespace Game.Presentation
                     material.SetFloat("_BorderWidth", profile.BorderWidth);
                     material.SetFloat("_RepeatLength", profile.RepeatLength);
                     material.SetFloat("_ExteriorRibbonWidth", profile.ExteriorRibbonWidth);
+                    material.SetVector("_MotionConfig", new Vector4(profile.StrikeRevealSeconds,
+                        profile.CircleRotationDegreesPerSecond * Mathf.Deg2Rad, profile.StripScrollSpeed, profile.RingScrollCyclesPerSecond));
+                    material.SetVector("_PulseConfig", new Vector4(profile.StrikePulseHz, profile.StrikePulseDepth,
+                        profile.ExteriorScrollSpeed, profile.RevealFeatherFraction));
                     _materials.Add(pair.Key, material);
                 }
                 Quad = new Mesh { name = "Screen event unit quad", hideFlags = HideFlags.HideAndDontSave };

@@ -28,6 +28,60 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
+        public void GroundTint_OnlyField010OverridesNeutralWhite()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            foreach (var pair in catalog.FieldEnvironmentPresentations)
+            {
+                if (pair.Key.ToString() == "FIELD-010-ENVIRONMENT")
+                {
+                    Assert.Less(pair.Value.GroundTint.maxColorComponent, 1f);
+                    Assert.AreEqual(1f, pair.Value.GroundTint.a);
+                }
+                else Assert.AreEqual(Color.white, pair.Value.GroundTint, pair.Key.ToString());
+            }
+        }
+
+        [Test]
+        public void CircleStrike_MovesOnlyArtworkClock_AndPoolReturnClearsIt()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            var profile = catalog.FieldEnvironmentPresentations[new ContentId("FIELD-010-ENVIRONMENT")].ScreenEventPresentation;
+            var hazard = ScreenHazard.Circle(0f, 1f, 1f, .2f, new Vector2(2f, 3f), 2f);
+            var owner = new GameObject("Motion test");
+            try
+            {
+                using (var resources = new ScreenEventArtResources(profile, catalog.Registry))
+                {
+                    var view = owner.AddComponent<ScreenHazardArtView>();
+                    view.Initialize(resources, hazard, null);
+                    view.Apply(1.05f, View);
+                    var ink = owner.transform.Find("ArtZone").GetComponent<MeshRenderer>();
+                    var properties = new MaterialPropertyBlock();
+                    ink.GetPropertyBlock(properties);
+                    var first = properties.GetVector("_Motion");
+                    var bounds = ink.bounds;
+                    view.Apply(1.2f, View);
+                    ink.GetPropertyBlock(properties);
+                    Assert.Greater(properties.GetVector("_Motion").x, first.x);
+                    Assert.AreEqual(1f, properties.GetVector("_Motion").y);
+                    Assert.AreEqual(bounds, ink.bounds, "Rotating ink cannot rotate the quad or move the damage region.");
+                    Assert.IsTrue(hazard.Covers(.2f, hazard.Origin, 0f));
+                    view.Apply(1.2f, View);
+                    ink.GetPropertyBlock(properties);
+                    Assert.AreEqual(.2f, properties.GetVector("_Motion").x, .00001f, "Same paused clock produces the same pose.");
+                    view.Shutdown();
+                    Assert.IsFalse(ink.enabled);
+                    Assert.IsNull(ink.sharedMaterial);
+                    ink.GetPropertyBlock(properties);
+                    Assert.AreEqual(Vector4.zero, properties.GetVector("_Motion"));
+                    Assert.AreEqual(ScreenHazardPhase.Done, view.Phase);
+                }
+            }
+            finally { Object.DestroyImmediate(owner); }
+        }
+
+        [Test]
         public void Field010_ResolvesAllApprovedArtworkAndSweepBindings()
         {
             var catalog = RuntimeContentCatalog.CreateProduction();

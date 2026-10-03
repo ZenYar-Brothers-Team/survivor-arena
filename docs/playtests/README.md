@@ -53,3 +53,5 @@ execution order и не заменяет [STATUS](../implementation/STATUS.md).
 - [2026-09-21 — «опыт стреляет»](2026-09-21_108ff5b3.md).
 
 - [2026-09-21 — кнопки после поражения, без raw report](2026-09-21_defeat-ui.md).
+
+- [2026-10-03 — FIELD-010: яркость, дёрганость, чужие препятствия; без raw report](2026-10-03_field010-visual-comfort.md).

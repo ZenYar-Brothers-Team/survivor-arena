@@ -10,6 +10,15 @@ namespace Game.Presentation.Json
         public float? BorderWidth { get; set; }
         public float? RepeatLength { get; set; }
         public float? ExteriorRibbonWidth { get; set; }
+        public float? StrikeRevealSeconds { get; set; }
+        public float? CircleRotationDegreesPerSecond { get; set; }
+        public float? StripScrollSpeed { get; set; }
+        public float? RingScrollCyclesPerSecond { get; set; }
+        public float? ExteriorScrollSpeed { get; set; }
+        public float? StrikePulseHz { get; set; }
+        public float? StrikePulseDepth { get; set; }
+        public float? StrikeBoundaryAlpha { get; set; }
+        public float? RevealFeatherFraction { get; set; }
         public float? WarningAlphaStart { get; set; }
         public float? WarningAlphaEnd { get; set; }
         public float? WarningFillStart { get; set; }

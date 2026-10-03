@@ -785,7 +785,7 @@ namespace Game.Bootstrap
                         runController.Model, player.Health, experienceRuntime, draftRuntime,
                         activeSkillRuntime, Pickups, enemySpawner, BossEncounters,
                         selectedField.Id.ToString(), Travelers, _zoneDriver?.Runtime,
-                        () => ZoneRuntimeDriver.CameraRect(Camera.main));
+                        () => ZoneRuntimeDriver.CameraRect(Camera.main), _screenEventDriver?.Runtime);
                     initializedSubsystems.Add(() => { _runAudio?.Dispose(); _runAudio = null; });
                 }
                 runController.Model.Completed += ShowProfileResult;

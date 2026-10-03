@@ -15,6 +15,15 @@ namespace Game.Presentation
         public float BorderWidth { get; }
         public float RepeatLength { get; }
         public float ExteriorRibbonWidth { get; }
+        public float StrikeRevealSeconds { get; }
+        public float CircleRotationDegreesPerSecond { get; }
+        public float StripScrollSpeed { get; }
+        public float RingScrollCyclesPerSecond { get; }
+        public float ExteriorScrollSpeed { get; }
+        public float StrikePulseHz { get; }
+        public float StrikePulseDepth { get; }
+        public float StrikeBoundaryAlpha { get; }
+        public float RevealFeatherFraction { get; }
         public float WarningAlphaStart { get; }
         public float WarningAlphaEnd { get; }
         public float WarningFillStart { get; }
@@ -58,6 +67,22 @@ namespace Game.Presentation
             NumericValidation.ValidateRange(RepeatLength, .5f, 10f, nameof(RepeatLength));
             ExteriorRibbonWidth = Required(data.ExteriorRibbonWidth, "exteriorRibbonWidth");
             NumericValidation.ValidateRange(ExteriorRibbonWidth, .05f, RepeatLength * .5f, nameof(ExteriorRibbonWidth));
+            StrikeRevealSeconds = Required(data.StrikeRevealSeconds, "strikeRevealSeconds");
+            CircleRotationDegreesPerSecond = Required(data.CircleRotationDegreesPerSecond, "circleRotationDegreesPerSecond");
+            StripScrollSpeed = Required(data.StripScrollSpeed, "stripScrollSpeed");
+            RingScrollCyclesPerSecond = Required(data.RingScrollCyclesPerSecond, "ringScrollCyclesPerSecond");
+            ExteriorScrollSpeed = Required(data.ExteriorScrollSpeed, "exteriorScrollSpeed");
+            StrikePulseHz = Required(data.StrikePulseHz, "strikePulseHz");
+            StrikePulseDepth = Fraction(data.StrikePulseDepth, "strikePulseDepth");
+            StrikeBoundaryAlpha = Fraction(data.StrikeBoundaryAlpha, "strikeBoundaryAlpha");
+            RevealFeatherFraction = Required(data.RevealFeatherFraction, "revealFeatherFraction");
+            NumericValidation.ValidateRange(RevealFeatherFraction, .01f, .25f, nameof(RevealFeatherFraction));
+            NumericValidation.ValidateRange(StrikeRevealSeconds, .02f, .5f, nameof(StrikeRevealSeconds));
+            NumericValidation.ValidateRange(CircleRotationDegreesPerSecond, -360f, 360f, nameof(CircleRotationDegreesPerSecond));
+            NumericValidation.ValidateRange(StripScrollSpeed, 0f, 20f, nameof(StripScrollSpeed));
+            NumericValidation.ValidateRange(RingScrollCyclesPerSecond, 0f, 3f, nameof(RingScrollCyclesPerSecond));
+            NumericValidation.ValidateRange(ExteriorScrollSpeed, 0f, 20f, nameof(ExteriorScrollSpeed));
+            NumericValidation.ValidateRange(StrikePulseHz, 0f, 15f, nameof(StrikePulseHz));
             WarningAlphaStart = Fraction(data.WarningAlphaStart, "warningAlphaStart");
             WarningAlphaEnd = Fraction(data.WarningAlphaEnd, "warningAlphaEnd");
             WarningFillStart = Fraction(data.WarningFillStart, "warningFillStart");

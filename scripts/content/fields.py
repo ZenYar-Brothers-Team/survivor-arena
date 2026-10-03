@@ -251,7 +251,7 @@ def field_presentation(baseline):
     events_field = events_packet["field"]
     last = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
     last.update(id=events_field["presentationId"], environmentId=events_field["environmentId"],
-                groundVisualId=events_field["groundVisualId"],
+                groundVisualId=events_field["groundVisualId"], groundTint=events_field["groundTint"],
                 seed=presentations[0]["seed"] + 10000, obstacleSeed=presentations[0]["obstacleSeed"] + 10000,
                 interiorObstacleCount=0, nearObstacleCount=0, decorationChance=0,
                 arenaSideLength=events_field["arenaSideLength"], screenEvents=events_packet["screenEvents"],

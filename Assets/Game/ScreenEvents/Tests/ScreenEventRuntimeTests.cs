@@ -24,6 +24,25 @@ namespace Game.ScreenEvents.Tests
         }
 
         [Test]
+        public void StrikeStarts_LargeTickCrossesAllBoundaries_OnceEachWithoutPlayerContact()
+        {
+            var player = new FakeScreenEventPlayer { Position = new Vector2(100f, 100f) };
+            var runtime = Create(player);
+            var starts = new List<ScreenHazard>();
+            runtime.HazardStrikeStarted += (_, hazard) => starts.Add(hazard);
+            Assert.IsTrue(runtime.TryStart("T-PILLARS", View));
+            var hazards = runtime.Active.Hazards.ToArray();
+            runtime.Tick(0f, View, false);
+            Assert.IsEmpty(starts, "Pause cannot emit a sound.");
+            runtime.Tick(runtime.Active.Duration + .1f, View, false);
+            CollectionAssert.AreEquivalent(hazards, starts);
+            Assert.AreEqual(starts.Count, starts.Distinct().Count());
+            Assert.AreEqual(0, runtime.PlayerHitCount, "Strike sounds do not require player contact.");
+            runtime.Tick(.1f, View, false);
+            Assert.AreEqual(hazards.Length, starts.Count);
+        }
+
+        [Test]
         public void Tick_FirstEventStartsAfterTheFirstDelay_NotBefore()
         {
             var runtime = Create(new FakeScreenEventPlayer());

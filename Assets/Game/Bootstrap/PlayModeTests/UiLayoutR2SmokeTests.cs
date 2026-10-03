@@ -14,7 +14,7 @@ namespace Game.Bootstrap.PlayModeTests
     public sealed class UiLayoutR2SmokeTests
     {
         [UnityTest]
-        public IEnumerator GameplaySpace_WhenDevelopmentButtonHasFocus_IsNotConsumedByPausePanel()
+        public IEnumerator GameplaySpace_DevelopmentControlsRejectKeyboardFocus_AndDoNotConsumePause()
         {
             var host = new GameObject("Pause shortcut focus harness");
             var panel = ScriptableObject.CreateInstance<PanelSettings>();
@@ -34,7 +34,8 @@ namespace Game.Bootstrap.PlayModeTests
                 var developmentButton = doc.rootVisualElement.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton);
                 developmentButton.Focus();
                 yield return null;
-                Assert.AreSame(developmentButton, doc.rootVisualElement.panel.focusController.focusedElement);
+                Assert.IsFalse(developmentButton.focusable, "DEV controls must not steal gameplay keys.");
+                Assert.AreNotSame(developmentButton, doc.rootVisualElement.panel.focusController.focusedElement);
                 Assert.IsFalse(view.ConsumePauseShortcut(true), "A focused gameplay control cannot block Space pause.");
             }
             finally

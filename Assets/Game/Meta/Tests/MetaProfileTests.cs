@@ -259,7 +259,7 @@ namespace Game.Meta.Tests
             string[] Open(string kind)=>_catalog.Unlocks.Values.Where(r=>r.Kind==kind&&profile.IsUnlocked(r.Id)).Select(r=>r.Id).OrderBy(i=>i).ToArray();
             CollectionAssert.AreEqual(new[]{"SKILL-001","SKILL-002","SKILL-003","SKILL-004","SKILL-005","SKILL-006","SKILL-007","SKILL-010","SKILL-013","SKILL-014"},Open("skill"));
             CollectionAssert.AreEqual(new[]{"PASSIVE-001","PASSIVE-002","PASSIVE-003","PASSIVE-004","PASSIVE-005","PASSIVE-007","PASSIVE-008","PASSIVE-009","PASSIVE-011","PASSIVE-012"},Open("passive"));
-            CollectionAssert.AreEqual(new[]{"SET-001","SET-004","SET-006","SET-010","SET-017"},Open("set"));
+            CollectionAssert.AreEqual(new[]{"SET-001","SET-004","SET-006","SET-010","SET-017","SET-023","SET-024","SET-026","SET-030","SET-034"},Open("set"));
             CollectionAssert.AreEqual(new[]{"CHAR-001"},Open("character"));CollectionAssert.AreEqual(new[]{"FIELD-001"},Open("field"));
             Assert.AreEqual(0,profile.Currency);
         }
@@ -267,7 +267,7 @@ namespace Game.Meta.Tests
         {
             var profile=new ProfileService(_catalog,new MemoryProfileStore());await profile.LoadAsync();
             int Count(string kind)=>_catalog.Unlocks.Values.Count(r=>r.Kind==kind&&profile.IsUnlocked(r.Id));
-            var expected=new[]{(11,11,6),(11,11,7),(11,11,8),(11,11,9)};
+            var expected=new[]{(11,11,11),(11,11,12),(11,11,13),(11,11,14)};
             for(var i=0;i<4;i++)
             {
                 var run=MetaTestData.Run(1,0,"FIELD-"+(i+1).ToString("000"));run.Start();run.Tick(900);await profile.ApplyAsync(run.Outcome,true);

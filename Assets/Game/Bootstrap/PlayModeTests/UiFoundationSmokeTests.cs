@@ -101,7 +101,7 @@ namespace Game.Bootstrap.PlayModeTests
                     yield return null;
                     Capture(target, $"ip10a-pause-details-{size.x}x{size.y}");
                     view.RenderRunOverlay(new RunOverlayViewState(false, "", false));
-                    Submit(root.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
+                    Click(root.Q<Button>(GameplayUiElementIds.DevelopmentToggleButton));
                     yield return null;
                     var dev = root.Q(GameplayUiElementIds.DevelopmentPanel).worldBound;
                     if (size.x == 1920)
@@ -109,7 +109,7 @@ namespace Game.Bootstrap.PlayModeTests
                         Assert.LessOrEqual(dev.width, size.x * 0.25f);
                         Assert.LessOrEqual(dev.height, size.y * 0.45f);
                     }
-                    Submit(root.Q<Button>(GameplayUiElementIds.DevelopmentPlaytestTab));
+                    Click(root.Q<Button>(GameplayUiElementIds.DevelopmentPlaytestTab));
                     using (var playtest = new UiToolkitPlaytestView(root))
                     {
                         playtest.Render(new PlaytestViewState(true, "Recording\nSession: fixture\nDropped: 0"));
@@ -138,6 +138,16 @@ namespace Game.Bootstrap.PlayModeTests
             using var enter = PointerEnterEvent.GetPooled();
             enter.target = element;
             element.SendEvent(enter);
+        }
+
+        // DEV controls deliberately reject keyboard navigation; exercise their pointer path.
+        internal static void Click(Button button)
+        {
+            var position = button.worldBound.center;
+            using (var down = PointerDownEvent.GetPooled(new Event { type = EventType.MouseDown, button = 0, mousePosition = position }))
+            { down.target = button; button.SendEvent(down); }
+            using (var up = PointerUpEvent.GetPooled(new Event { type = EventType.MouseUp, button = 0, mousePosition = position }))
+            { up.target = button; button.SendEvent(up); }
         }
 
         internal static void Submit(Button button)
