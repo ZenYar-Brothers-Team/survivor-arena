@@ -190,7 +190,7 @@ namespace Game.Bootstrap.Tests
             var set = TrapPlacementGenerator.Generate(layout, presentation.ArenaSideLength.Value, Vector2.zero, null, layout.ReferenceSeed);
                         Assert.That(set.Traps.Count, Is.InRange(18, 42), "About one trap per screen of the 110-unit map.");
             var byType = set.Traps.GroupBy(t => t.Type.Id.ToString()).ToDictionary(g => g.Key, g => g.Count());
-            Assert.GreaterOrEqual(byType.Count, 8, "Most trap types appear in the scatter: " + string.Join(", ", byType.Select(p => p.Key + "=" + p.Value)));
+            Assert.AreEqual(13, byType.Count, "Every trap type appears at least once: " + string.Join(", ", byType.Select(p => p.Key + "=" + p.Value)));
             Assert.Less(byType.Values.Max(), set.Traps.Count * .3f, "No single type dominates the scatter.");
             Assert.That(set.Barrels.Count, Is.InRange(26, 28), "One barrel in each of the 4 x 7 screen cells (the playable area is the arena minus the edge margin: 102 wide).");
             var cellWidth = 102f / 4f; var cellHeight = 102f / 7f;
@@ -198,6 +198,18 @@ namespace Game.Bootstrap.Tests
             Assert.IsTrue(perCell.All(g => g.Count() == 1), "Never more than one barrel on a screen.");
             var share = set.Barrels.Count(b => b.Explosive) / (float)set.Barrels.Count;
             Assert.That(share, Is.InRange(.15f, .55f), "Roughly one barrel in three is explosive (a chance, not a quota).");
+        }
+
+        [Test]
+        public void Field004_EveryTrapTypeIsOnTheMap_OnAnySeed()
+        {
+            var catalog = RuntimeContentCatalog.CreateProduction();
+            var presentation = catalog.FieldEnvironmentPresentations[new ContentId("FIELD-004-ENVIRONMENT")];
+            for (var seed = 1; seed <= 40; seed++)
+            {
+                var set = TrapPlacementGenerator.Generate(presentation.TrapLayout, presentation.ArenaSideLength.Value, Vector2.zero, null, seed);
+                Assert.AreEqual(13, set.Traps.Select(t => t.Type.Id.ToString()).Distinct().Count(), "Seed " + seed);
+            }
         }
 
         [Test]

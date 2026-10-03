@@ -149,27 +149,56 @@ namespace Game.Traps
             var cellHeight = 2f * half / rows;
             var totalWeight = 0;
             foreach (var type in layout.Types) totalWeight += type.Count;
+            // Draw every cell's trap count first, then give every trap type to a distinct random slot, so each type is on the map at
+            // least once (the remaining slots take weighted random types).
+            var cells = new List<Rect>();
+            var slotCells = new List<int>();
             for (var row = 0; row < rows; row++)
             for (var column = 0; column < columns; column++)
             {
-                var cell = Rect.MinMaxRect(-half + column * cellWidth, -half + row * cellHeight,
-                    -half + (column + 1) * cellWidth, -half + (row + 1) * cellHeight);
+                var index = cells.Count;
+                cells.Add(Rect.MinMaxRect(-half + column * cellWidth, -half + row * cellHeight,
+                    -half + (column + 1) * cellWidth, -half + (row + 1) * cellHeight));
                 var count = density.PickCount(random.NextDouble());
-                for (var n = 0; n < count; n++)
-                {
-                    var type = PickType(layout, totalWeight, random);
-                    var rotation = type.Heading == TrapHeadingMode.Fixed
-                        ? type.RotationsDegrees[random.Next(type.RotationsDegrees.Count)] : 0f;
-                    var forward = type.Heading == TrapHeadingMode.Fixed && type.SpinDegreesPerSecond == 0f
-                        ? (float?)(rotation + type.Shots[0].AngleDegrees) : null;
-                    if (!TryPick(layout, type.BodyRadius, half, start, outlines, bodies, random, forward, out var center, cell))
-                    {
-                        skipped++;
-                        continue;
-                    }
-                    bodies.Add(new Body { Center = center, Radius = type.BodyRadius });
-                    traps.Add(new TrapPlacement(type, center, rotation, InitialCooldown(type, random), type.ModelKey));
-                }
+                for (var n = 0; n < count; n++) slotCells.Add(index);
+            }
+            var guaranteed = new List<TrapTypeDefinition>(layout.Types);
+            for (var i = guaranteed.Count - 1; i > 0; i--)
+            {
+                var j = random.Next(i + 1);
+                (guaranteed[i], guaranteed[j]) = (guaranteed[j], guaranteed[i]);
+            }
+            var slotTypes = new TrapTypeDefinition[slotCells.Count];
+            var order = new List<int>();
+            for (var i = 0; i < slotCells.Count; i++) order.Add(i);
+            for (var i = order.Count - 1; i > 0; i--)
+            {
+                var j = random.Next(i + 1);
+                (order[i], order[j]) = (order[j], order[i]);
+            }
+            for (var i = 0; i < order.Count; i++)
+                slotTypes[order[i]] = i < guaranteed.Count ? guaranteed[i] : PickType(layout, totalWeight, random);
+            var placed = new HashSet<TrapTypeDefinition>();
+            bool TryPlace(TrapTypeDefinition type, Rect cell)
+            {
+                var rotation = type.Heading == TrapHeadingMode.Fixed
+                    ? type.RotationsDegrees[random.Next(type.RotationsDegrees.Count)] : 0f;
+                var forward = type.Heading == TrapHeadingMode.Fixed && type.SpinDegreesPerSecond == 0f
+                    ? (float?)(rotation + type.Shots[0].AngleDegrees) : null;
+                if (!TryPick(layout, type.BodyRadius, half, start, outlines, bodies, random, forward, out var center, cell)) return false;
+                bodies.Add(new Body { Center = center, Radius = type.BodyRadius });
+                traps.Add(new TrapPlacement(type, center, rotation, InitialCooldown(type, random), type.ModelKey));
+                placed.Add(type);
+                return true;
+            }
+            for (var slot = 0; slot < slotCells.Count; slot++)
+                if (!TryPlace(slotTypes[slot], cells[slotCells[slot]])) skipped++;
+            // A guaranteed type whose slot found no spot is tried in other random cells (the map then has one trap more).
+            foreach (var type in layout.Types)
+            {
+                if (placed.Contains(type) || slotCells.Count == 0) continue;
+                for (var attempt = 0; attempt < cells.Count && !placed.Contains(type); attempt++)
+                    TryPlace(type, cells[random.Next(cells.Count)]);
             }
             return skipped;
         }
