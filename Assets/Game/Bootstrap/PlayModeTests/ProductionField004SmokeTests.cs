@@ -59,7 +59,7 @@ namespace Game.Bootstrap.PlayModeTests
                     .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION");
                 var layout = presentation.ObstacleLayout;
                 // DECISION-0156: the traps are laid out first and the obstacles avoid their bodies.
-                var traps = Game.Traps.TrapPlacementGenerator.Generate(presentation.TrapLayout, 115f, Vector2.zero, null, root.TrapSeed);
+                var traps = Game.Traps.TrapPlacementGenerator.Generate(presentation.TrapLayout, 110f, Vector2.zero, null, root.TrapSeed);
                 var exclusions = new System.Collections.Generic.List<FieldObstacleExclusion>();
                 foreach (var trap in traps.Traps)
                     exclusions.Add(new FieldObstacleExclusion(trap.Center, trap.Type.BodyRadius *
@@ -67,7 +67,7 @@ namespace Game.Bootstrap.PlayModeTests
                 foreach (var barrel in traps.Barrels)
                     exclusions.Add(new FieldObstacleExclusion(barrel.Center,
                         presentation.TrapLayout.Barrels.BodyRadius + presentation.TrapLayout.ObstacleClearance));
-                var expected = FieldObstacleLayoutGenerator.Generate(layout, 115f, Vector2.zero, root.LayoutSeed, "FIELD-004-ENVIRONMENT", exclusions);
+                var expected = FieldObstacleLayoutGenerator.Generate(layout, 110f, Vector2.zero, root.LayoutSeed, "FIELD-004-ENVIRONMENT", exclusions);
                 Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);
                 Assert.IsFalse(expected.Any(o => o.Kind == FieldObstacleKind.Fence), "No palisade fences among the obstacles.");
                 // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-004 after the

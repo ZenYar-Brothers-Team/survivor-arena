@@ -56,9 +56,9 @@ namespace Game.Bootstrap.Tests
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION");
-            // User request 2026-10-03: the fourth map is 115 x 115 (5 x 9 trap screens of 1.2 x the camera view) with smaller obstacles; 25-unit cells give sixteen camp setups.
+            // User request 2026-10-03: the fourth map is 110 x 110 (4 x 7 trap screens of 1.44 x the camera view) with smaller obstacles; 25-unit cells give sixteen camp setups.
             var side = presentation.ArenaSideLength.Value;
-            Assert.AreEqual(115f, side);
+            Assert.AreEqual(110f, side);
             var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, side, UnityEngine.Vector2.zero,
                 presentation.ObstacleLayout.ReferenceSeed, "FIELD-004-ENVIRONMENT");
             Assert.That(obstacles.Count, Is.InRange(10, 40), "One sparse camp setup per 25-unit cell (crates, dummies, braziers, carts).");

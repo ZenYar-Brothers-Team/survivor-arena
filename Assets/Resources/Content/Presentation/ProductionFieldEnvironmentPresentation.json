@@ -8711,8 +8711,8 @@
       "forwardClearance": 3,
       "placementAttempts": 80,
       "density": {
-        "cellWidth": 21.4,
-        "cellHeight": 11.9,
+        "cellWidth": 25.6,
+        "cellHeight": 14.4,
         "countWeights": [
           {
             "count": 0,
@@ -8910,7 +8910,7 @@
             315
           ],
           "telegraphSeconds": 0.7,
-          "cooldownSeconds": 4,
+          "cooldownSeconds": 8,
           "shots": [
             {
               "projectile": "spear",
@@ -8933,7 +8933,7 @@
           ],
           "spinDegreesPerSecond": 40,
           "telegraphSeconds": 0.8,
-          "cooldownSeconds": 4.5,
+          "cooldownSeconds": 9,
           "shots": [
             {
               "projectile": "spear",
@@ -8957,7 +8957,7 @@
           "headingStepDegrees": 45,
           "headingCycleVolleys": 2,
           "telegraphSeconds": 0.8,
-          "cooldownSeconds": 4,
+          "cooldownSeconds": 8,
           "shots": [
             {
               "projectile": "spear",
@@ -8980,7 +8980,7 @@
             0
           ],
           "telegraphSeconds": 1,
-          "cooldownSeconds": 6,
+          "cooldownSeconds": 12,
           "shots": [
             {
               "projectile": "blade",
@@ -9000,7 +9000,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1.1,
-          "cooldownSeconds": 3,
+          "cooldownSeconds": 6,
           "shots": [
             {
               "projectile": "bolt-small",
@@ -9018,7 +9018,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 0.8,
-          "cooldownSeconds": 3.6,
+          "cooldownSeconds": 7.2,
           "shots": [
             {
               "projectile": "bolt-small",
@@ -9040,7 +9040,7 @@
             0
           ],
           "telegraphSeconds": 0.9,
-          "cooldownSeconds": 7,
+          "cooldownSeconds": 14,
           "shots": [
             {
               "projectile": "spike-small",
@@ -9063,7 +9063,7 @@
             0
           ],
           "telegraphSeconds": 0.9,
-          "cooldownSeconds": 5,
+          "cooldownSeconds": 10,
           "shots": [
             {
               "projectile": "spike-ring",
@@ -9083,7 +9083,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1.6,
-          "cooldownSeconds": 7,
+          "cooldownSeconds": 14,
           "shots": [
             {
               "projectile": "bolt-heavy",
@@ -9105,7 +9105,7 @@
           "headingStepDegrees": 22,
           "headingCycleVolleys": 0,
           "telegraphSeconds": 0.5,
-          "cooldownSeconds": 1.8,
+          "cooldownSeconds": 3.6,
           "shots": [
             {
               "projectile": "spear",
@@ -9126,7 +9126,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1,
-          "cooldownSeconds": 5,
+          "cooldownSeconds": 10,
           "shots": [
             {
               "projectile": "spike-small",
@@ -9146,7 +9146,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1.2,
-          "cooldownSeconds": 9,
+          "cooldownSeconds": 18,
           "shots": [
             {
               "projectile": "spike-large",
@@ -9164,7 +9164,7 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 0.9,
-          "cooldownSeconds": 5.5,
+          "cooldownSeconds": 11,
           "shots": [
             {
               "projectile": "spike-small",
@@ -9194,7 +9194,7 @@
         "barrel": "FIELD-004-TRAP-BARREL-VISUAL-PROP"
       }
     },
-    "arenaSideLength": 115,
+    "arenaSideLength": 110,
     "fenceBaseContact": true
   },
   {
