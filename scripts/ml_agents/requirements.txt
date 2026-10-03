@@ -1,0 +1,4 @@
+# Python 3.10 only (ml-agents 1.1.0 and torch 2.2.2 do not support newer interpreters).
+# Matches docs/research/2026-10-01-ml-agents-training-snapshot.md.
+torch==2.2.2
+mlagents==1.1.0

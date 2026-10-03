@@ -1,0 +1,20 @@
+{
+  "name": "Game.MLAgents",
+  "rootNamespace": "Game.MLAgents",
+  "references": [
+    "Unity.ML-Agents",
+    "Game.Content",
+    "Game.Movement",
+    "Game.Presentation",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

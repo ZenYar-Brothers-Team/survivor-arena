@@ -1,0 +1,41 @@
+# Stage 1 — stationary threat, short distance. The first stage that showed clear learning in the
+# research snapshot: PPO reached ~78% collection vs ~42-44% for straight-line movement after two
+# 60k-step passes. Run with:
+#   mlagents-learn scripts/ml_agents/stage-01-stationary-short.yaml --run-id=stage01
+# then press Play in Assets/Scenes/MLMicroArena.unity.
+behaviors:
+  MicroArena:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 128
+      buffer_size: 1024
+      learning_rate: 0.0003
+      learning_rate_schedule: linear
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+    network_settings:
+      normalize: true
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 120000
+    time_horizon: 64
+    summary_freq: 3000
+environment_parameters:
+  arena_half_size: 6.0
+  player_radius: 0.30
+  threat_radius: 0.55
+  xp_radius: 0.45
+  player_speed: 4.0
+  start_x_offset: 1.5
+  start_jitter: 0.0
+  threat_amplitude: 0.0
+  threat_frequency_hz: 0.0
+  time_limit_seconds: 2.5
+  seed: 100000
