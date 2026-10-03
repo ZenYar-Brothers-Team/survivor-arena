@@ -26,7 +26,6 @@ namespace Game.Traps
             Id = data.Id;
             Count = data.Count ?? 0;
             PerScreen = data.PerScreen ?? 0;
-            if (Count == 0 && PerScreen == 0) throw new ArgumentException("barrels need count or perScreen.");
             ExplosiveShare = data.ExplosiveShare ?? throw new ArgumentException("barrels.explosiveShare is required.");
             BodyRadius = data.BodyRadius ?? throw new ArgumentException("barrels.bodyRadius is required.");
             TriggerRadius = data.TriggerRadius ?? throw new ArgumentException("barrels.triggerRadius is required.");

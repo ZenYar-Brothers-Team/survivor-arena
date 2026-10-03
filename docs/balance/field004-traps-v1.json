@@ -26,16 +26,20 @@
       "cellHeight": 10.0,
       "countWeights": [
         {
+          "count": 0,
+          "weight": 10
+        },
+        {
           "count": 1,
-          "weight": 7
+          "weight": 80
         },
         {
           "count": 2,
-          "weight": 2
+          "weight": 5
         },
         {
           "count": 3,
-          "weight": 1
+          "weight": 5
         }
       ]
     },
