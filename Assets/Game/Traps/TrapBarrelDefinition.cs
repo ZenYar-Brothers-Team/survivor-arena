@@ -9,6 +9,8 @@ namespace Game.Traps
     {
         public ContentId Id { get; }
         public int Count { get; }
+        /// <summary>Barrels guaranteed in every screen cell of the density grid; each is explosive by chance (<see cref="ExplosiveShare"/>).</summary>
+        public int PerScreen { get; }
         public float ExplosiveShare { get; }
         public float BodyRadius { get; }
         public float TriggerRadius { get; }
@@ -22,7 +24,9 @@ namespace Game.Traps
             if (data == null) throw new ArgumentNullException(nameof(data));
             if (string.IsNullOrWhiteSpace(data.Id)) throw new ArgumentException("Barrel id is required.");
             Id = data.Id;
-            Count = data.Count ?? throw new ArgumentException("barrels.count is required.");
+            Count = data.Count ?? 0;
+            PerScreen = data.PerScreen ?? 0;
+            if (Count == 0 && PerScreen == 0) throw new ArgumentException("barrels need count or perScreen.");
             ExplosiveShare = data.ExplosiveShare ?? throw new ArgumentException("barrels.explosiveShare is required.");
             BodyRadius = data.BodyRadius ?? throw new ArgumentException("barrels.bodyRadius is required.");
             TriggerRadius = data.TriggerRadius ?? throw new ArgumentException("barrels.triggerRadius is required.");
@@ -30,6 +34,7 @@ namespace Game.Traps
             BlastRadius = data.BlastRadius ?? throw new ArgumentException("barrels.blastRadius is required.");
             Damage = data.Damage ?? throw new ArgumentException("barrels.damage is required.");
             NumericValidation.ValidateNonNegative(Count, nameof(Count));
+            NumericValidation.ValidateNonNegative(PerScreen, nameof(PerScreen));
             NumericValidation.ValidateRange(ExplosiveShare, 0f, 1f, nameof(ExplosiveShare));
             NumericValidation.ValidatePositive(BodyRadius, nameof(BodyRadius));
             NumericValidation.ValidatePositive(TriggerRadius, nameof(TriggerRadius));

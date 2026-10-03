@@ -16,7 +16,7 @@
     "playerHitRadius": 0.35,
     "maxActiveProjectiles": 160,
     "edgeMargin": 4.0,
-    "startClearRadius": 14.0,
+    "startClearRadius": 0.0,
     "minGap": 3.0,
     "obstacleClearance": 1.2,
     "forwardClearance": 3.0,
@@ -27,11 +27,11 @@
       "countWeights": [
         {
           "count": 1,
-          "weight": 2
+          "weight": 7
         },
         {
           "count": 2,
-          "weight": 7
+          "weight": 2
         },
         {
           "count": 3,
@@ -487,7 +487,7 @@
     ],
     "barrels": {
       "id": "TRAP-BARREL",
-      "count": 30,
+      "perScreen": 1,
       "explosiveShare": 0.3333333,
       "bodyRadius": 0.5,
       "triggerRadius": 2.4,

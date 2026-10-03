@@ -90,6 +90,12 @@ namespace Game.Traps
             var barrels = new List<TrapBarrelPlacement>();
             var skippedBarrels = 0;
             var spec = layout.Barrels;
+            if (layout.Density != null && spec.PerScreen > 0)
+            {
+                // One guaranteed barrel per screen cell (after every trap); each explodes with the authored chance.
+                skippedBarrels += ScatterBarrelsByScreen(layout, half, start, outlines, bodies, random, barrels);
+                return new TrapPlacementSet(traps, barrels, skippedTraps, skippedBarrels);
+            }
             var authoredExplosive = 0;
             foreach (var startBarrel in layout.StartBarrels)
             {
@@ -163,6 +169,35 @@ namespace Game.Traps
                     }
                     bodies.Add(new Body { Center = center, Radius = type.BodyRadius });
                     traps.Add(new TrapPlacement(type, center, rotation, InitialCooldown(type, random), type.ModelKey));
+                }
+            }
+            return skipped;
+        }
+
+        private static int ScatterBarrelsByScreen(TrapLayoutDefinition layout, float half, Vector2 start,
+            IReadOnlyList<IReadOnlyList<Vector2>> outlines, List<Body> bodies, System.Random random, List<TrapBarrelPlacement> barrels)
+        {
+            var density = layout.Density;
+            var spec = layout.Barrels;
+            var skipped = 0;
+            var columns = Mathf.Max(1, Mathf.RoundToInt(2f * half / density.CellWidth));
+            var rows = Mathf.Max(1, Mathf.RoundToInt(2f * half / density.CellHeight));
+            var cellWidth = 2f * half / columns;
+            var cellHeight = 2f * half / rows;
+            for (var row = 0; row < rows; row++)
+            for (var column = 0; column < columns; column++)
+            {
+                var cell = Rect.MinMaxRect(-half + column * cellWidth, -half + row * cellHeight,
+                    -half + (column + 1) * cellWidth, -half + (row + 1) * cellHeight);
+                for (var n = 0; n < spec.PerScreen; n++)
+                {
+                    if (!TryPick(layout, spec.BodyRadius, half, start, outlines, bodies, random, null, out var center, cell))
+                    {
+                        skipped++;
+                        continue;
+                    }
+                    bodies.Add(new Body { Center = center, Radius = spec.BodyRadius });
+                    barrels.Add(new TrapBarrelPlacement(center, random.NextDouble() < spec.ExplosiveShare));
                 }
             }
             return skipped;

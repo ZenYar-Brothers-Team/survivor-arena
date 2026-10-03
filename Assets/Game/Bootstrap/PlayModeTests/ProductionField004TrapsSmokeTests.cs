@@ -52,9 +52,8 @@ namespace Game.Bootstrap.PlayModeTests
                 var driver = GameObject.Find("FieldTraps")?.GetComponent<TrapRuntimeDriver>();
                 Assert.IsNotNull(driver, "FIELD-004 builds its trap driver.");
                 var runtime = driver.Runtime;
-                Assert.Greater(runtime.Traps.Count, 60, "A trap or two on every screen of the 100-unit arena.");
-                Assert.AreEqual(30, runtime.Barrels.Count);
-                Assert.AreEqual(10, runtime.Barrels.Count(b => b.Explosive));
+                Assert.Greater(runtime.Traps.Count, 55, "A trap or more on every screen of the 100-unit arena.");
+                Assert.That(runtime.Barrels.Count, Is.InRange(54, 60), "One barrel on every screen.");
 
                 // Bodies stop only the player: the contact collider excludes every layer but Player.
                 var bodies = driver.GetComponentsInChildren<CircleCollider2D>(true);

@@ -152,7 +152,7 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Barrels_ExplosiveCountRoundsTheShare()
+        public void Barrels_ExplosiveCountRoundsTheShare_ForAFixedTotal()
         {
             var layout = Layout(OneProjectile(), new[] { Type("t", "aim", new[] { Shots("p") }) }, barrels: Barrels(30, 1f / 3f));
             Assert.AreEqual(10, layout.Barrels.ExplosiveCount);

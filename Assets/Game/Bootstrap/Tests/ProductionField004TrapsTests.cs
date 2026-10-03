@@ -32,8 +32,8 @@ namespace Game.Bootstrap.Tests
                 layout.Types.Select(t => t.Id.ToString()).ToArray());
             Assert.IsNotNull(layout.Density, "Random traps are scattered per screen.");
             Assert.AreEqual(40, layout.TotalTrapCount, "With a density the counts are only weights.");
-            Assert.AreEqual(30, layout.Barrels.Count);
-            Assert.AreEqual(10, layout.Barrels.ExplosiveCount, "One barrel in three explodes.");
+            Assert.AreEqual(1, layout.Barrels.PerScreen, "One barrel on every screen.");
+            Assert.AreEqual(1f / 3f, layout.Barrels.ExplosiveShare, 1e-3f, "Each barrel explodes with a one in three chance.");
             Assert.IsTrue(layout.Types.Any(t => t.Tier == 1) && layout.Types.Any(t => t.Tier == 2) && layout.Types.Any(t => t.Tier == 3));
         }
 
@@ -138,13 +138,11 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(17.8f, density.CellWidth);
             Assert.AreEqual(10f, density.CellHeight);
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, density.CountWeights.Select(w => w.Count).ToArray());
-            Assert.Greater(density.CountWeights[1].Weight, density.CountWeights[0].Weight, "Two is more common than one.");
-            Assert.Greater(density.CountWeights[0].Weight, density.CountWeights[2].Weight, "Three is the rarest.");
+            CollectionAssert.AreEqual(new[] { 7, 2, 1 }, density.CountWeights.Select(w => w.Weight).ToArray(), "70% one trap, 20% two, 10% three.");
             var set = TrapPlacementGenerator.Generate(presentation.TrapLayout, presentation.ArenaSideLength.Value, Vector2.zero, null,
                 presentation.TrapLayout.ReferenceSeed);
-            Assert.Greater(set.Traps.Count, 60, "A trap or two on every screen of the 100-unit arena.");
-            Assert.AreEqual(30, set.Barrels.Count);
-            Assert.AreEqual(10, set.Barrels.Count(b => b.Explosive));
+            Assert.Greater(set.Traps.Count, 55, "A trap or more on every screen of the 100-unit arena.");
+            Assert.That(set.Barrels.Count, Is.InRange(54, 60), "One barrel in each of the 6 x 10 screen cells.");
         }
 
         [Test]
@@ -179,7 +177,7 @@ namespace Game.Bootstrap.Tests
         }
 
         [Test]
-        public void Field004_ScattersTrapsPerScreen_AndKeepsTheStartScreenClear()
+        public void Field004_ScattersTrapsPerScreen_TheStartIsOpenToTraps_AndEveryScreenGetsABarrel()
         {
             var catalog = RuntimeContentCatalog.CreateProduction();
             var presentation = catalog.FieldEnvironmentPresentations[new ContentId("FIELD-004-ENVIRONMENT")];
@@ -188,14 +186,19 @@ namespace Game.Bootstrap.Tests
             Assert.AreEqual(13, layout.Types.Count);
             Assert.AreEqual(0, layout.StartTraps.Count, "The temporary start-screen review set was removed.");
             Assert.AreEqual(0, layout.StartBarrels.Count);
+            Assert.AreEqual(0f, layout.StartClearRadius, "The start zone is open to traps.");
             var set = TrapPlacementGenerator.Generate(layout, presentation.ArenaSideLength.Value, Vector2.zero, null, layout.ReferenceSeed);
-            Assert.IsFalse(set.Traps.Any(t => t.Center.magnitude < layout.StartClearRadius - 1e-3f), "The start stays clear.");
+            Assert.IsTrue(set.Traps.Any(t => Mathf.Abs(t.Center.x) < 8.9f && Mathf.Abs(t.Center.y) < 5f), "The first screen has traps too.");
             Assert.Greater(set.Traps.Count, 50, "A trap or two on every screen of the 100-unit map.");
             var byType = set.Traps.GroupBy(t => t.Type.Id.ToString()).ToDictionary(g => g.Key, g => g.Count());
             Assert.AreEqual(13, byType.Count, "Every trap type appears in the scatter: " + string.Join(", ", byType.Select(p => p.Key + "=" + p.Value)));
             Assert.Less(byType.Values.Max(), set.Traps.Count * .3f, "No single type dominates the scatter.");
-            Assert.AreEqual(30, set.Barrels.Count);
-            Assert.AreEqual(10, set.Barrels.Count(b => b.Explosive), "One barrel in three explodes.");
+            Assert.That(set.Barrels.Count, Is.InRange(54, 60), "One barrel in each of the 6 x 10 screen cells.");
+            var cellWidth = 100f / 6f; var cellHeight = 10f;
+            var perCell = set.Barrels.GroupBy(b => (Mathf.FloorToInt((b.Center.x + 50f) / cellWidth), Mathf.FloorToInt((b.Center.y + 50f) / cellHeight)));
+            Assert.IsTrue(perCell.All(g => g.Count() == 1), "Never more than one barrel on a screen.");
+            var share = set.Barrels.Count(b => b.Explosive) / (float)set.Barrels.Count;
+            Assert.That(share, Is.InRange(.15f, .55f), "Roughly one barrel in three is explosive (a chance, not a quota).");
         }
 
         [Test]
