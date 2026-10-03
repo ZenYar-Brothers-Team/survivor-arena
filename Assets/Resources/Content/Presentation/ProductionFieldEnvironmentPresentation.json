@@ -8711,8 +8711,8 @@
       "forwardClearance": 3,
       "placementAttempts": 80,
       "density": {
-        "cellWidth": 17.8,
-        "cellHeight": 10,
+        "cellWidth": 21.4,
+        "cellHeight": 11.9,
         "countWeights": [
           {
             "count": 0,
@@ -9000,7 +9000,6 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1.1,
-          "telegraphLineLength": 12,
           "cooldownSeconds": 3,
           "shots": [
             {
@@ -9084,7 +9083,6 @@
           "heading": "aim",
           "aimResumeDelaySeconds": 0.35,
           "telegraphSeconds": 1.6,
-          "telegraphLineLength": 16,
           "cooldownSeconds": 7,
           "shots": [
             {
@@ -9196,7 +9194,7 @@
         "barrel": "FIELD-004-TRAP-BARREL-VISUAL-PROP"
       }
     },
-    "arenaSideLength": 100,
+    "arenaSideLength": 115,
     "fenceBaseContact": true
   },
   {

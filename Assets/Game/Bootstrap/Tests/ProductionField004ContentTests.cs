@@ -56,12 +56,12 @@ namespace Game.Bootstrap.Tests
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION");
-            // User request 2026-10-03: the fourth map is 100 x 100 with smaller obstacles; 25-unit cells give nine camp setups.
+            // User request 2026-10-03: the fourth map is 115 x 115 (5 x 9 trap screens of 1.2 x the camera view) with smaller obstacles; 25-unit cells give sixteen camp setups.
             var side = presentation.ArenaSideLength.Value;
-            Assert.AreEqual(100f, side);
+            Assert.AreEqual(115f, side);
             var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, side, UnityEngine.Vector2.zero,
                 presentation.ObstacleLayout.ReferenceSeed, "FIELD-004-ENVIRONMENT");
-            Assert.That(obstacles.Count, Is.InRange(10, 30), "One sparse camp setup per 25-unit cell (crates, dummies, braziers, carts).");
+            Assert.That(obstacles.Count, Is.InRange(10, 40), "One sparse camp setup per 25-unit cell (crates, dummies, braziers, carts).");
             Assert.IsTrue(obstacles.All(o => o.Width <= 2.0f && o.Height <= 1.5f), "The big obstacles were made smaller.");
             Assert.IsFalse(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence), "The palisade fences were removed from the obstacle generation (user request 2026-10-03).");
             Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(

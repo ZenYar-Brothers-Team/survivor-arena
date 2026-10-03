@@ -272,7 +272,7 @@ def field_presentation(baseline):
     # User request 2026-10-03: the traps belong to the fourth map only. It is 100 x 100 (the shared fixture arena was 200 x 200)
     # and its traps are scattered per screen.
     fourth["trapLayout"] = copy.deepcopy(traps["trapLayout"])
-    fourth["arenaSideLength"] = 100
+    fourth["arenaSideLength"] = 115
     fourth["fenceBaseContact"] = True  # palisade colliders sit on the sprite base, not in its middle
     return presentations
 
