@@ -12,7 +12,7 @@ from content.skills import active_skills
 from content.progression import passives, set_attacks, sets
 from content.actors import character_baseline, characters, enemies, pickups, travelers
 from content.bosses import bosses
-from content.fields import blob_breakup_profile, field_presentation, fields, run_setup, timeline, timeline_field002, timeline_field003, timeline_field004
+from content.fields import blob_breakup_profile, raid_profile, field_presentation, fields, run_setup, timeline, timeline_field002, timeline_field003, timeline_field004
 
 
 TARGETS = {
@@ -32,6 +32,7 @@ TARGETS = {
     "Assets/Resources/Content/Waves/ProductionWaveTimelineField003.json": timeline_field003,
     "Assets/Resources/Content/Waves/ProductionWaveTimelineField004.json": timeline_field004,
     "Assets/Resources/Content/Waves/ProductionBlobBreakupProfile.json": blob_breakup_profile,
+    "Assets/Resources/Content/Waves/ProductionRaidProfile.json": raid_profile,
     "Assets/Resources/Content/Run/ProductionRunSetup.json": run_setup,
     "Assets/Resources/Content/ActiveSkills/ProductionSetAttacks.json": set_attacks,
 }

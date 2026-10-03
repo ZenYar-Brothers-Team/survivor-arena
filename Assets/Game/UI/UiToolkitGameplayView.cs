@@ -63,6 +63,8 @@ namespace Game.UI
         private readonly VisualElement _developmentPlaytestPane;
         private readonly Button _developmentMapTab;
         private readonly VisualElement _developmentMapPane;
+        private readonly Button _developmentRaidTab;
+        private readonly VisualElement _developmentRaidPane;
         private readonly Button _developmentTravelersTab;
         private readonly VisualElement _developmentTravelersPane;
         private readonly VisualElement _developmentRunPane;
@@ -161,6 +163,7 @@ namespace Game.UI
             _runOverlayResumeButton = Require<Button>(root, GameplayUiElementIds.RunOverlayResumeButton);
             _developmentToggleButton = Require<Button>(root, GameplayUiElementIds.DevelopmentToggleButton);
             _developmentPanel = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPanel);
+            IsolateDevelopmentPanelFromKeyboard();
             _developmentCloseButton = Require<Button>(root, GameplayUiElementIds.DevelopmentCloseButton);
             _developmentRunTab = Require<Button>(root, GameplayUiElementIds.DevelopmentRunTab);
             _developmentBuildTab = Require<Button>(root, GameplayUiElementIds.DevelopmentBuildTab);
@@ -169,6 +172,8 @@ namespace Game.UI
             _developmentPlaytestPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentPlaytestPane);
             _developmentMapTab = Require<Button>(root, GameplayUiElementIds.DevelopmentMapTab);
             _developmentMapPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentMapPane);
+            _developmentRaidTab = Require<Button>(root, GameplayUiElementIds.DevelopmentRaidTab);
+            _developmentRaidPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentRaidPane);
             _developmentTravelersTab = Require<Button>(root, GameplayUiElementIds.DevelopmentTravelersTab);
             _developmentTravelersPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentTravelersPane);
             _developmentRunPane = Require<VisualElement>(root, GameplayUiElementIds.DevelopmentRunPane);
@@ -217,6 +222,7 @@ namespace Game.UI
             _developmentPlaytestTab.clicked += ShowDevelopmentPlaytestTab;
             _developmentTravelersTab.clicked += ShowDevelopmentTravelersTab;
             _developmentMapTab.clicked += ShowDevelopmentMapTab;
+            _developmentRaidTab.clicked += ShowDevelopmentRaidTab;
             _presentationLiveButton.clicked += HandlePresentationLiveClicked;
             _presentationIdleButton.clicked += HandlePresentationIdleClicked;
             _presentationLeftButton.clicked += HandlePresentationLeftClicked;
@@ -577,6 +583,8 @@ namespace Game.UI
 
         private void ShowDevelopmentMapTab() => ShowDevelopmentTab(_developmentMapPane, _developmentMapTab);
 
+        private void ShowDevelopmentRaidTab() => ShowDevelopmentTab(_developmentRaidPane, _developmentRaidTab);
+
         private void ShowDevelopmentTravelersTab() => ShowDevelopmentTab(_developmentTravelersPane, _developmentTravelersTab);
 
         private void ShowDevelopmentTab(VisualElement activePane, Button activeTab)
@@ -587,6 +595,8 @@ namespace Game.UI
             SetVisible(_developmentPlaytestPane, activePane == _developmentPlaytestPane);
             SetVisible(_developmentTravelersPane, activePane == _developmentTravelersPane);
             SetVisible(_developmentMapPane, activePane == _developmentMapPane);
+            SetVisible(_developmentRaidPane, activePane == _developmentRaidPane);
+            _developmentRaidTab.EnableInClassList("development-tab-active", activeTab == _developmentRaidTab);
             _developmentMapTab.EnableInClassList("development-tab-active", activeTab == _developmentMapTab);
             _developmentTravelersTab.EnableInClassList("development-tab-active", activeTab == _developmentTravelersTab);
             _developmentPlaytestTab.EnableInClassList("development-tab-active", activeTab == _developmentPlaytestTab);
@@ -647,8 +657,35 @@ namespace Game.UI
             element.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
+        // Gameplay reads keys through the Input System, so the development drawer must not react to them: no focus
+        // jumps, no Space/Enter activating the last clicked button, no arrow-key scrolling. Text fields stay typeable.
+        private void IsolateDevelopmentPanelFromKeyboard()
+        {
+            _developmentToggleButton.focusable = false;
+            _developmentPanel.Query<Button>().ForEach(button => button.focusable = false);
+            _developmentPanel.Query<ScrollView>().ForEach(scroll => scroll.focusable = false);
+            _developmentPanel.RegisterCallback<KeyDownEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.RegisterCallback<KeyUpEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.RegisterCallback<NavigationMoveEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.RegisterCallback<NavigationSubmitEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.RegisterCallback<NavigationCancelEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+        }
+
+        private static void SwallowKeyboard(EventBase evt)
+        {
+            if (evt.target is VisualElement element && (element is TextField || element.GetFirstAncestorOfType<TextField>() != null))
+                return;
+            evt.StopPropagation();
+            evt.PreventDefault();
+        }
+
         public void Dispose()
         {
+            _developmentPanel.UnregisterCallback<KeyDownEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.UnregisterCallback<KeyUpEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.UnregisterCallback<NavigationMoveEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.UnregisterCallback<NavigationSubmitEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
+            _developmentPanel.UnregisterCallback<NavigationCancelEvent>(SwallowKeyboard, TrickleDown.TrickleDown);
             _root.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             _pause.Dispose();
             _speedHalfButton.clicked -= HandleHalfSpeedClicked;
@@ -675,6 +712,7 @@ namespace Game.UI
             _developmentPlaytestTab.clicked -= ShowDevelopmentPlaytestTab;
             _developmentTravelersTab.clicked -= ShowDevelopmentTravelersTab;
             _developmentMapTab.clicked -= ShowDevelopmentMapTab;
+            _developmentRaidTab.clicked -= ShowDevelopmentRaidTab;
             _presentationLiveButton.clicked -= HandlePresentationLiveClicked;
             _presentationIdleButton.clicked -= HandlePresentationIdleClicked;
             _presentationLeftButton.clicked -= HandlePresentationLeftClicked;

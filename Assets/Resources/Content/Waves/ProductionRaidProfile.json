@@ -1,0 +1,36 @@
+{
+  "id": "RAID-001",
+  "triggerRadiusScreenWidths": 1,
+  "triggerEnemyCount": 40,
+  "countCheckSeconds": 0.5,
+  "minIntervalSeconds": 60,
+  "maxIntervalSeconds": 120,
+  "innerExemptRadius": 2,
+  "slotSpacing": 0.9,
+  "retargetSeconds": 1,
+  "maxParticipants": 150,
+  "slotJitter": 0.8,
+  "formationSpeedBonus": 0.6,
+  "arrivalSlowDistance": 0.15,
+  "ring": {
+    "durationSeconds": 15,
+    "radiusScreenWidths": 0.5
+  },
+  "wall": {
+    "durationSeconds": 20,
+    "sampleSeconds": 4,
+    "distanceScreenWidths": 0.25,
+    "widthScreenWidths": 1
+  },
+  "contraction": {
+    "durationSeconds": 20,
+    "startRadiusScreenWidths": 0.6,
+    "endRadiusScreenWidths": 0.18
+  },
+  "pincer": {
+    "durationSeconds": 20,
+    "lengthScreenWidths": 0.8,
+    "startGapScreenWidths": 0.8,
+    "endGapScreenWidths": 0.15
+  }
+}

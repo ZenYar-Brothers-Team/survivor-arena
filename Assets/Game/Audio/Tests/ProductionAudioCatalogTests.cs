@@ -35,6 +35,12 @@ namespace Game.Audio.Tests
             var families = new System.Collections.Generic.HashSet<string>();
             for (var skill = 1; skill <= 16; skill++)
             {
+                // SKILL-003 (orbiting blade) is deliberately silent: its 0.2 s activation tick sounded like constant sharpening.
+                if (skill == 3)
+                {
+                    Assert.IsFalse(catalog.TryGetSkillCue("SKILL-003", out _), "The orbiting blade stays silent.");
+                    continue;
+                }
                 Assert.IsTrue(catalog.TryGetSkillCue($"SKILL-{skill:000}", out var cue), $"SKILL-{skill:000} needs a cue.");
                 Assert.IsTrue(catalog.TryGet(cue, out var data, out _), cue);
                 Assert.AreEqual(0, data.Priority.Value, "Attack sounds are routine, never important.");

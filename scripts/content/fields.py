@@ -279,6 +279,10 @@ def field_timeline(t, field, seed, neutral_modifiers, blob_breakup_default=None)
     phases, clock = [], 0
     for p in t["phases"]:
         if p["startSeconds"] != clock:
+def raid_profile(baseline):
+    return baseline["raidProfile"]
+
+
             raise SystemExit(f"{p['id']}: phases must be contiguous")
         clock += p["durationSeconds"]
         modifiers = p["modifiers"]

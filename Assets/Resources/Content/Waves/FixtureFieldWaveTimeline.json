@@ -12,7 +12,8 @@
       "spawnMode": "Continuous",
       "durationSeconds": 900,
       "spawnIntervalSeconds": 3,
-      "composition": [{ "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1 }]
+      "composition": [{ "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1 }],
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     }
   ],
   "hooks": [{ "kind": "FinalBoss", "timeSeconds": 840 }]

@@ -68,7 +68,7 @@ namespace Game.UI
             {
                 var id = choice.Id;
                 Action handler = () => SpawnChosen?.Invoke(id);
-                var button = new Button(handler) { name = GameplayUiElementIds.TravelerChoicePrefix + id, text = $"{id} · {choice.Name} · {choice.Role}" };
+                var button = new Button(handler) { name = GameplayUiElementIds.TravelerChoicePrefix + id, text = $"{id} · {choice.Name} · {choice.Role}", focusable = false };
                 button.AddToClassList("compact-button");
                 button.AddToClassList("development-traveler-choice");
                 _choiceList.Add(button);

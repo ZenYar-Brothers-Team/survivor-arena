@@ -11,7 +11,8 @@
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 3.0 },
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 1.0 }
-      ]
+      ],
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-PRESSURE-1", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
@@ -22,7 +23,8 @@
         { "enemyId": "FIXTURE-ENEMY-RING-ZIGZAG", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-BURST-ORBIT", "weight": 1.0 }
       ],
-      "modifiers": { "speedMultiplier": 1.25, "healthMultiplier": 0.8 }
+      "modifiers": { "speedMultiplier": 1.25, "healthMultiplier": 0.8 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-ELITE-1", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
@@ -32,7 +34,8 @@
         { "enemyId": "FIXTURE-ENEMY-SPIRAL", "weight": 1.0 },
         { "enemyId": "FIXTURE-ENEMY-CROSS-RETREAT", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 1.5, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.25, "speedMultiplier": 0.9 }
+      "modifiers": { "healthMultiplier": 1.5, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.25, "speedMultiplier": 0.9 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-REST-1", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
@@ -40,7 +43,8 @@
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 0.7, "speedMultiplier": 0.8 }
+      "modifiers": { "healthMultiplier": 0.7, "speedMultiplier": 0.8 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-ORDINARY-2", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",
@@ -49,7 +53,8 @@
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-CROSS-RETREAT", "weight": 1.0 }
-      ]
+      ],
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-PRESSURE-2", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
@@ -60,7 +65,8 @@
         { "enemyId": "FIXTURE-ENEMY-RING-ZIGZAG", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 }
       ],
-      "modifiers": { "speedMultiplier": 1.4, "healthMultiplier": 0.6, "contactDamageMultiplier": 0.7 }
+      "modifiers": { "speedMultiplier": 1.4, "healthMultiplier": 0.6, "contactDamageMultiplier": 0.7 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-ELITE-2", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
@@ -70,7 +76,8 @@
         { "enemyId": "FIXTURE-ENEMY-SPIRAL", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 1.8, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.5 }
+      "modifiers": { "healthMultiplier": 1.8, "contactDamageMultiplier": 1.5, "attackDamageMultiplier": 1.5 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-REST-2", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
@@ -78,7 +85,8 @@
       "composition": [
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 0.8, "speedMultiplier": 0.85 }
+      "modifiers": { "healthMultiplier": 0.8, "speedMultiplier": 0.85 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-ORDINARY-3", "displayName": "Ordinary", "tag": "Ordinary", "spawnMode": "Continuous",
@@ -89,7 +97,8 @@
         { "enemyId": "FIXTURE-ENEMY-BURST-ORBIT", "weight": 1.0 },
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 }
       ],
-      "modifiers": { "healthMultiplier": 1.2 }
+      "modifiers": { "healthMultiplier": 1.2 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-PRESSURE-3", "displayName": "Pressure Burst", "tag": "Pressure", "spawnMode": "Burst",
@@ -100,7 +109,8 @@
         { "enemyId": "FIXTURE-ENEMY-BURST-ORBIT", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-SPIRAL", "weight": 1.0 }
       ],
-      "modifiers": { "speedMultiplier": 1.5, "healthMultiplier": 0.7, "attackDamageMultiplier": 0.8 }
+      "modifiers": { "speedMultiplier": 1.5, "healthMultiplier": 0.7, "attackDamageMultiplier": 0.8 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-ELITE-3", "displayName": "Elite", "tag": "Elite", "spawnMode": "Continuous",
@@ -110,7 +120,8 @@
         { "enemyId": "FIXTURE-ENEMY-SPIRAL", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-CROSS-RETREAT", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 2.2, "contactDamageMultiplier": 1.8, "attackDamageMultiplier": 1.75, "speedMultiplier": 1.1 }
+      "modifiers": { "healthMultiplier": 2.2, "contactDamageMultiplier": 1.8, "attackDamageMultiplier": 1.75, "speedMultiplier": 1.1 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-REST-3", "displayName": "Respite", "tag": "Rest", "spawnMode": "Continuous",
@@ -119,7 +130,8 @@
         { "enemyId": "FIXTURE-ENEMY-SEEKER", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 0.9, "speedMultiplier": 0.9 }
+      "modifiers": { "healthMultiplier": 0.9, "speedMultiplier": 0.9 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     },
     {
       "id": "FIXTURE-WAVE-FINAL-RUSH", "displayName": "Final Rush", "tag": "Elite", "spawnMode": "Continuous",
@@ -131,7 +143,8 @@
         { "enemyId": "FIXTURE-ENEMY-BURST-ORBIT", "weight": 2.0 },
         { "enemyId": "FIXTURE-ENEMY-FAN", "weight": 1.0 }
       ],
-      "modifiers": { "healthMultiplier": 2.5, "contactDamageMultiplier": 2.0, "attackDamageMultiplier": 2.0, "speedMultiplier": 1.2 }
+      "modifiers": { "healthMultiplier": 2.5, "contactDamageMultiplier": 2.0, "attackDamageMultiplier": 2.0, "speedMultiplier": 1.2 },
+      "blobBreakup": { "profileId": "BLOB-FAN-001" }
     }
   ],
   "hooks": [

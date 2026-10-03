@@ -10,7 +10,6 @@
   "skillCues": [
     { "skillId": "SKILL-001", "cue": "skill.rough" },
     { "skillId": "SKILL-002", "cue": "skill.blade" },
-    { "skillId": "SKILL-003", "cue": "skill.blade" },
     { "skillId": "SKILL-004", "cue": "skill.air" },
     { "skillId": "SKILL-005", "cue": "skill.air" },
     { "skillId": "SKILL-006", "cue": "skill.blade" },

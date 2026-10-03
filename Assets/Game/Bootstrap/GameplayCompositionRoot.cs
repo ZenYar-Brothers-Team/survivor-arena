@@ -645,7 +645,7 @@ namespace Game.Bootstrap
                 enemySpawner.Initialize(waveDirector, enemyVisuals,
                     new EnemyRewardSink(new EnemyExperienceDropSink(experienceRuntime, runController), Pickups),
                     enemyMotions, enemyContacts, Catalog.EnemyDeathPresentation, Catalog.GroundShadowPresentation,
-                    Catalog.Registry, Camera.main);
+                    Catalog.Registry, Camera.main, RaidProfileCatalog.Load());
                 initializedSubsystems.Add(enemySpawner.Shutdown);
 
                 if (BossEncounters == null) BossEncounters = gameObject.AddComponent<BossEncounterRuntime>();

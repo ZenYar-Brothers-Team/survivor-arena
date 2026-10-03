@@ -35,6 +35,8 @@ namespace Game.UI
         private UiToolkitTravelerView _travelerView;
         private UiToolkitPickupView _pickupView;
         private SlowStatusPresenter _slowStatusPresenter;
+        private RaidPresenter _raidPresenter;
+        private UiToolkitRaidView _raidView;
         private UiToolkitSlowStatusView _slowStatusView;
         private IBossEncounterRuntime _bosses;
         private OverheadHealthPresenter _overheadPresenter;
@@ -120,6 +122,8 @@ namespace Game.UI
             _pickupPresenter = new PickupPresenter(pickups, _pickupView, Debug.isDebugBuild || Application.isEditor);
             _slowStatusView = new UiToolkitSlowStatusView(_document.rootVisualElement);
             _slowStatusPresenter = new SlowStatusPresenter(slowStatus, _slowStatusView, Debug.isDebugBuild || Application.isEditor);
+            _raidView = new UiToolkitRaidView(_document.rootVisualElement);
+            _raidPresenter = new RaidPresenter(enemySpawner, _raidView, Debug.isDebugBuild || Application.isEditor);
             _travelerView = new UiToolkitTravelerView(_document.rootVisualElement);
             var camera = Camera.main;
             _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
@@ -174,6 +178,7 @@ namespace Game.UI
             _presenter.RefreshHud();
             _playtestPresenter.Refresh();
             _mapPreviewPresenter.Refresh();
+            _raidPresenter.Refresh();
         }
 
         // DECISION-0110: every living mid-boss shows its own HP above its head; the top bar is final-boss only.
@@ -205,6 +210,8 @@ namespace Game.UI
             _overheadView?.Dispose(); _overheadView = null; _overheadPresenter = null; _bosses = null;
             _pickupPresenter?.Dispose();
             _pickupView?.Dispose();
+            _raidPresenter?.Dispose();
+            _raidView?.Dispose();
             _slowStatusPresenter?.Dispose();
             _slowStatusView?.Dispose();
             _playtestPresenter?.Dispose();

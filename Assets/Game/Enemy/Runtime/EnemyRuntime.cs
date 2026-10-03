@@ -50,6 +50,11 @@ namespace Game.Enemy
         private Vector2 _blobWaypoint;
         private float _blobDelay;
         private float _blobRemaining;
+        private Vector2 _raidSlotOffset;
+        private Vector2 _raidJitter;
+        private float _raidExitRadiusSqr;
+        private float _raidSpeedMultiplier = 1f;
+        private float _raidArrivalSlowDistance = .15f;
         private bool _holdAttacksDuringDash;
         private EnemyAttackPhase? _announcedAttackPhase;
         // Shoving dash (DECISION-0118): pass-through state and per-dash hit bookkeeping.
@@ -120,6 +125,12 @@ namespace Game.Enemy
         public bool BlobBreakupActive => _blobDelay > 0f || _blobRemaining > 0f;
         /// <summary>Arc-burst enemies (DECISION-0146) keep their formation: never picked for blob breakup. Reset per life.</summary>
         public bool BlobBreakupExempt { get; set; }
+        /// <summary>A roundup (DECISION-0155) currently steers this enemy to a slot around the player. Reset per life.</summary>
+        public bool RaidActive { get; private set; }
+        /// <summary>The enemy left a roundup by reaching the player; it never rejoins the same life.</summary>
+        public bool RaidExited { get; private set; }
+        /// <summary>Spawn counter of the spawner at the moment of spawning; tells which enemies appeared after a roundup began.</summary>
+        public int SpawnOrder { get; set; }
         public event Action<EnemyLifeEvent> LifeEvent;
 
         private void Awake()
@@ -226,6 +237,8 @@ namespace Game.Enemy
             _blobDelay = 0f;
             _blobRemaining = 0f;
             BlobBreakupExempt = false;
+            RaidActive = false;
+            RaidExited = false;
             _dashVolley = definition.DashVolley == null ? null : new EnemyDashVolleyController(definition.DashVolley);
             // Aim deviation is per life, so neighbouring archers do not fire identical patterns.
             _attackController = definition.Attack == null ? null
@@ -268,7 +281,7 @@ namespace Game.Enemy
             var movement = _movementDriver != null
                 ? _movementDriver.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating)
                 : _movementController.Tick(_body.position, _target.position, speed, Time.fixedDeltaTime, isSimulating);
-            var steering = ApplyBlobBreakup(movement, speed, Time.fixedDeltaTime, isSimulating);
+            var steering = ApplyRaid(movement, speed, isSimulating) ?? ApplyBlobBreakup(movement, speed, Time.fixedDeltaTime, isSimulating);
             _body.linearVelocity = steering + new Vector2(control.KnockbackX, control.KnockbackY);
             AnnounceMovement(movement.Phase);
             UpdateDashShove(movement, isSimulating);
@@ -345,7 +358,7 @@ namespace Game.Enemy
         /// <summary>Assigns one temporary fan waypoint to an ordinary enemy; never changes its base profile.</summary>
         public bool TryStartBlobBreakup(Vector2 waypoint, float delaySeconds, float maneuverSeconds)
         {
-            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupActive || BlobBreakupExempt ||
+            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupActive || BlobBreakupExempt || RaidActive ||
                 float.IsNaN(waypoint.x) || float.IsNaN(waypoint.y) ||
                 float.IsInfinity(waypoint.x) || float.IsInfinity(waypoint.y) ||
                 delaySeconds < 0f || maneuverSeconds <= 0f)
@@ -354,6 +367,52 @@ namespace Game.Enemy
             _blobDelay = delaySeconds;
             _blobRemaining = maneuverSeconds;
             return true;
+        }
+
+        /// <summary>Joins a roundup: the temporary blob waypoint is dropped and the base profile is suspended until
+        /// <see cref="EndRaid"/>. Ordinary enemies only; never changes the base profile itself.</summary>
+        public bool TryStartRaid(Vector2 slotOffsetFromPlayer, float exitRadius, Vector2 jitter, float speedBonus, float arrivalSlowDistance)
+        {
+            if (!IsAlive || Category != EnemyCategory.Ordinary || BlobBreakupExempt || RaidActive || RaidExited ||
+                float.IsNaN(slotOffsetFromPlayer.x) || float.IsNaN(slotOffsetFromPlayer.y)) return false;
+            CancelBlobBreakup();
+            _blobRemaining = 0f;
+            _raidSlotOffset = slotOffsetFromPlayer;
+            _raidJitter = jitter;
+            _raidExitRadiusSqr = exitRadius * exitRadius;
+            _raidSpeedMultiplier = 1f + speedBonus;
+            _raidArrivalSlowDistance = arrivalSlowDistance;
+            RaidActive = true;
+            return true;
+        }
+
+        /// <summary>Moves the slot while the roundup runs (the player moves, so slots are offsets from the player).</summary>
+        public void SetRaidSlot(Vector2 slotOffsetFromPlayer)
+        {
+            if (RaidActive) _raidSlotOffset = slotOffsetFromPlayer;
+        }
+
+        public void EndRaid() => RaidActive = false;
+
+        // Slows down on arrival so the ring does not jitter around its slot; dashes and driver-led enemies keep their own movement.
+        private Vector2? ApplyRaid(EnemyMovementFrame movement, float speed, bool isSimulating)
+        {
+            if (!RaidActive || !isSimulating) return null;
+            if (movement.Phase == EnemyMovementPhase.Dashing ||
+                movement.Phase == EnemyMovementPhase.TelegraphingDash || _movementDriver != null)
+                return null;
+            var player = (Vector2)_target.position;
+            // DECISION-0155: close to the player the enemy drops the roundup and resumes its own movement profile.
+            if ((player - _body.position).sqrMagnitude <= _raidExitRadiusSqr)
+            {
+                RaidActive = false;
+                RaidExited = true;
+                return null;
+            }
+            var offset = player + _raidSlotOffset + _raidJitter - _body.position;
+            var distance = offset.magnitude;
+            if (distance < .01f) return Vector2.zero;
+            return offset / distance * (speed * _raidSpeedMultiplier * Mathf.Min(1f, distance / _raidArrivalSlowDistance));
         }
 
         public void CancelBlobBreakup()
@@ -542,6 +601,7 @@ namespace Game.Enemy
             _despawned = true;
             _blobDelay = 0f;
             _blobRemaining = 0f;
+            RaidActive = false;
             _dying = false;
             _deathPresentation?.ResetPresentation();
             _presentation?.Shutdown();
