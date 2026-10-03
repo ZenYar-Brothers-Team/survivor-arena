@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-SPEAR",
+  "role": "weapon",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE production-oriented candidate sprite for Survival Arena FIELD-010 celestial screen hazards. Style: stylized flat 2D storybook paper cutout, bold readable shapes, thick deep-plum contour, matte colors, simple cel shading, sparse hand-painted material texture, crisp edge, NO photorealism, NO 3D, NO pixel art. Orthographic gameplay graphic, top-down effect aligned horizontally; no scene, no floor, no shadow, no text, watermark, border, UI frame, particles, bloom, motion blur. Transparent RGBA background. Large clean silhouette, transparent padding of at least 8 percent all sides. This is a hostile celestial attack: ivory and antique gold masses, plum separation on a pink-orange floor. One isolated image only, no contact sheet, no variants. Asset SCREEN-EVENT-001 shared spear sweep body for events 001,011,013. Draw one broad compact ceremonial spear of celestial light pointing exactly RIGHT. Long ivory leaf-shaped triangular spearhead, chunky antique-gold socket, short substantial plum-and-gold shaft, three simple white feather-like vanes near the LEFT tail. Overall width about 3 times height, fit inside the canvas; NOT a thin full length real spear. Tip sharp and obvious, tail unmistakable, no floating fragments. Graphic body will be sized 4 by 1 world units during travel, under characters.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-spear-weapon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "2172x724",
+    "sourceSha256": "e4e5e3a6d5ab926b88f09ea3c5e9964abc016436a79c633317d23cd38b2356d4",
+    "runtimeSha256": "bdc10664cc528cbf37fcc819ad7a4c65279794b22f906fc3477a0323d2965001",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

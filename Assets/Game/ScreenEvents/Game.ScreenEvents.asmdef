@@ -1,0 +1,17 @@
+{
+    "name": "Game.ScreenEvents",
+    "rootNamespace": "Game.ScreenEvents",
+    "references": [
+        "Game.Content",
+        "Game.Diagnostics"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

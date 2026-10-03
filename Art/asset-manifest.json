@@ -5526,6 +5526,222 @@
         "User approved the displayed violet spiral portal glyph, 2026-10-02: В«Р”Р°, РїРѕРґРєР»СЋС‡РёС‚СЊВ». Single burst portal redesign and exact jump 5 world units authorized in the same conversation."
       ],
       "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-010-SPEAR",
+      "role": "weapon",
+      "visualId": "FIELD-010-SPEAR-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-spear/weapon/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-spear/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-spear-weapon.png",
+      "resourcePath": "Art/VFX/field-010-spear-weapon",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-BLADE",
+      "role": "weapon",
+      "visualId": "FIELD-010-BLADE-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-blade/weapon/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-blade/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-blade-weapon.png",
+      "resourcePath": "Art/VFX/field-010-blade-weapon",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-CLOUD-WAVE",
+      "role": "impact",
+      "visualId": "FIELD-010-CLOUD-WAVE-VISUAL-IMPACT",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-cloud-wave/impact/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-cloud-wave/impact/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-cloud-wave-impact.png",
+      "resourcePath": "Art/VFX/field-010-cloud-wave-impact",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-STRIP",
+      "role": "telegraph",
+      "visualId": "FIELD-010-STRIP-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-strip/telegraph/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-strip/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-strip-telegraph.png",
+      "resourcePath": "Art/VFX/field-010-strip-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-STRIP",
+      "role": "impact",
+      "visualId": "FIELD-010-STRIP-VISUAL-IMPACT",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-strip/impact/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-strip/impact/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-strip-impact.png",
+      "resourcePath": "Art/VFX/field-010-strip-impact",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-CIRCLE",
+      "role": "telegraph",
+      "visualId": "FIELD-010-CIRCLE-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-circle/telegraph/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-circle/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-circle-telegraph.png",
+      "resourcePath": "Art/VFX/field-010-circle-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-CIRCLE",
+      "role": "impact",
+      "visualId": "FIELD-010-CIRCLE-VISUAL-IMPACT",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-circle/impact/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-circle/impact/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-circle-impact.png",
+      "resourcePath": "Art/VFX/field-010-circle-impact",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-010-SAFE-CIRCLE",
+      "role": "telegraph",
+      "visualId": "FIELD-010-SAFE-CIRCLE-VISUAL-TELEGRAPH",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Environment/field-010-safe-circle/telegraph/selected-master.png",
+      "provenance": "Art/Source/Environment/field-010-safe-circle/telegraph/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-010-safe-circle-telegraph.png",
+      "resourcePath": "Art/VFX/field-010-safe-circle-telegraph",
+      "stage": "Integrated",
+      "evidence": [
+        "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+        "docs/implementation/evidence/2026-10-03-field010-screen-event-art.md"
+      ],
+      "missing": "User gameplay visual/motion approval (Gate E)."
+    },
+    {
+      "owner": "FIELD-004-TRAP-SPEAR",
+      "role": "weapon",
+      "visualId": "FIELD-004-TRAP-SPEAR-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Fields/field-004-trap-spear/weapon/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004-trap-spear/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-004-trap-spear-weapon.png",
+      "resourcePath": "Art/VFX/field-004-trap-spear-weapon",
+      "stage": "Prepared",
+      "evidence": [
+        "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TRAP-BOLT",
+      "role": "weapon",
+      "visualId": "FIELD-004-TRAP-BOLT-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Fields/field-004-trap-bolt/weapon/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004-trap-bolt/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-004-trap-bolt-weapon.png",
+      "resourcePath": "Art/VFX/field-004-trap-bolt-weapon",
+      "stage": "Prepared",
+      "evidence": [
+        "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TRAP-BLADE",
+      "role": "weapon",
+      "visualId": "FIELD-004-TRAP-BLADE-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Fields/field-004-trap-blade/weapon/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004-trap-blade/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-004-trap-blade-weapon.png",
+      "resourcePath": "Art/VFX/field-004-trap-blade-weapon",
+      "stage": "Prepared",
+      "evidence": [
+        "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TRAP-SPIKEBALL",
+      "role": "weapon",
+      "visualId": "FIELD-004-TRAP-SPIKEBALL-VISUAL-WEAPON",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Fields/field-004-trap-spikeball/weapon/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004-trap-spikeball/weapon/asset-record.json",
+      "runtime": "Assets/Resources/Art/VFX/field-004-trap-spikeball-weapon.png",
+      "resourcePath": "Art/VFX/field-004-trap-spikeball-weapon",
+      "stage": "Prepared",
+      "evidence": [
+        "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
+    },
+    {
+      "owner": "FIELD-004-TRAP-BARREL",
+      "role": "prop",
+      "visualId": "FIELD-004-TRAP-BARREL-VISUAL-PROP",
+      "method": "Generate",
+      "owningIp": "IP-12A",
+      "source": "Art/Source/Fields/field-004-trap-barrel/prop/selected-master.png",
+      "provenance": "Art/Source/Fields/field-004-trap-barrel/prop/asset-record.json",
+      "runtime": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-trap-barrel-prop.png",
+      "resourcePath": "Art/Sprites/Fields/field-004/field-004-trap-barrel-prop",
+      "stage": "Prepared",
+      "evidence": [
+        "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156."
+      ],
+      "missing": "Unity import checks and target-scale visual review."
     }
   ]
 }

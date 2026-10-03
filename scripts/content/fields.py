@@ -1,4 +1,5 @@
 """Production content: fields. Numeric inputs live in the approved authoring sources."""
+import copy
 import json
 from content.sources import ROOT, card_field, content_design_names
 
@@ -15,9 +16,10 @@ def fields(baseline):
     seven = baseline["field007"]["field"]
     walls = ["Wall_Top", "Wall_Bottom", "Wall_Left", "Wall_Right"]
     nine = baseline["field009"]["field"]
+    ten = baseline["field010"]["field"]
     zone_devs = [baseline["devZones"]["field"]]
     return {
-        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"], seven["id"], nine["id"]] + [item["id"] for item in zone_devs],
+        "defaultFieldId": field["id"], "availableFieldIds": [field["id"], two["id"], three["id"], four["id"], six["id"], seven["id"], nine["id"], ten["id"]] + [item["id"] for item in zone_devs],
         # The Gameplay scene keeps its baked walls and SpawnPoint (DECISION-0054 section 9); FIELD-002 reuses the scene.
         "environments": [{"id": field["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                           "obstacleNames": walls},
@@ -30,6 +32,7 @@ def fields(baseline):
                          {"id": seven["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          {"id": six["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          {"id": nine["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
+                         {"id": ten["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint", "obstacleNames": walls},
                          ] + [{"id": item["environmentId"], "sceneName": field["sceneName"], "spawnPointName": "SpawnPoint",
                                "obstacleNames": walls} for item in zone_devs],
         "fields": [{"id": field["id"], "displayName": names[field["id"]], "description": field["description"],
@@ -78,6 +81,13 @@ def fields(baseline):
                     "thumbnailPlaceholder": names[nine["id"]], "difficulty": nine["difficulty"],
                     "thumbnailVisualId": "FIELD-009-VISUAL-BACKGROUND", "unlockDescription": nine["unlockDescription"],
                     "environmentId": nine["environmentId"], "timelineId": field["timelineId"],
+                    "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
+                    "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
+                   # FIELD-010: open arena with screen events (DECISION-0157), sharing FIELD-001 encounters by reference.
+                   {"id": ten["id"], "displayName": names[ten["id"]], "description": ten["description"],
+                    "thumbnailPlaceholder": names[ten["id"]], "difficulty": ten["difficulty"],
+                    "thumbnailVisualId": "FIELD-010-VISUAL-BACKGROUND", "unlockDescription": ten["unlockDescription"],
+                    "environmentId": ten["environmentId"], "timelineId": field["timelineId"],
                     "travelerScheduleId": field["travelerScheduleId"], "finalBossId": field["finalBossId"],
                     "midBossId": field["midBossId"], "enemyIds": [e["id"] for e in baseline["enemies"]]},
                    ] + [
@@ -236,6 +246,17 @@ def field_presentation(baseline):
                      interiorObstacleCount=1, nearObstacleCount=0, decorationChance=0,
                      arenaSideLength=platforms_field["arenaSideLength"], platformLayout=platforms_packet["platformLayout"])
     presentations.append(platforms)
+    # FIELD-010: an open arena; its danger comes from per-run screen events (DECISION-0157), not from obstacles.
+    events_packet = baseline["field010"]
+    events_field = events_packet["field"]
+    last = {key: value for key, value in presentations[0].items() if key not in ("obstacleLayout", "obstacles")}
+    last.update(id=events_field["presentationId"], environmentId=events_field["environmentId"],
+                groundVisualId=events_field["groundVisualId"],
+                seed=presentations[0]["seed"] + 10000, obstacleSeed=presentations[0]["obstacleSeed"] + 10000,
+                interiorObstacleCount=0, nearObstacleCount=0, decorationChance=0,
+                arenaSideLength=events_field["arenaSideLength"], screenEvents=events_packet["screenEvents"],
+                screenEventPresentation=events_packet["screenEventPresentation"])
+    presentations.append(last)
     # Approved sparse road network replaces FIELD-003's former obstacle patterns only.
     third.pop("obstacleLayout", None)
     for key in ("columnVisualId", "shrineVisualId", "shrineChance"):
@@ -244,6 +265,15 @@ def field_presentation(baseline):
                  interiorObstacleCount=1, nearObstacleCount=0, decorationChance=0,
                  roadLayout=baseline["field003Roads"]["roadLayout"],
                  roadFallbackLayouts=baseline["field003Roads"]["fallbackLayouts"])
+    # DECISION-0156: FIELD-004 gets per-run projectile turrets and barrels in their own budget.
+    traps = baseline["field004Traps"]
+    if traps["fieldId"] != "FIELD-004":
+        raise SystemExit("The traps packet is authored for FIELD-004 only")
+    # User request 2026-10-03: the traps belong to the fourth map only. It is 100 x 100 (the shared fixture arena was 200 x 200)
+    # and its traps are scattered per screen.
+    fourth["trapLayout"] = copy.deepcopy(traps["trapLayout"])
+    fourth["arenaSideLength"] = 100
+    fourth["fenceBaseContact"] = True  # palisade colliders sit on the sprite base, not in its middle
     return presentations
 
 
@@ -253,6 +283,10 @@ def minutes(seconds):
 
 def blob_breakup_profile(baseline):
     return baseline["blobBreakupProfile"]
+
+
+def raid_profile(baseline):
+    return baseline["raidProfile"]
 
 
 def timeline(baseline):
@@ -279,10 +313,6 @@ def field_timeline(t, field, seed, neutral_modifiers, blob_breakup_default=None)
     phases, clock = [], 0
     for p in t["phases"]:
         if p["startSeconds"] != clock:
-def raid_profile(baseline):
-    return baseline["raidProfile"]
-
-
             raise SystemExit(f"{p['id']}: phases must be contiguous")
         clock += p["durationSeconds"]
         modifiers = p["modifiers"]

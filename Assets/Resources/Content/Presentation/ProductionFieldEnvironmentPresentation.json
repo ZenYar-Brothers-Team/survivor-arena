@@ -8609,12 +8609,12 @@
     "fenceColliderHeight": 1.25,
     "stumpColliderRadius": 0.68,
     "obstacleLayout": {
-      "cellSize": 48,
+      "cellSize": 25,
       "patternsPerCell": 1,
       "edgeMargin": 6,
-      "cellMargin": 4,
+      "cellMargin": 3,
       "startClearRadius": 12,
-      "minPatternGap": 6,
+      "minPatternGap": 4,
       "placementAttempts": 40,
       "referenceSeed": 4002,
       "patterns": [
@@ -8622,46 +8622,15 @@
           "id": "PALISADE-LINE",
           "weight": 42,
           "rotations": [
-            0,
-            90
+            0
           ],
           "pieces": [
-            {
-              "kind": "Fence",
-              "x": -5,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 5,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
             {
               "kind": "Stump",
               "x": -3.2,
               "y": 2.2,
-              "width": 1.5,
-              "height": 1.15,
+              "width": 1.1,
+              "height": 0.85,
               "visualIds": [
                 "FIELD-004-VISUAL-SUPPLY-CRATE",
                 "FIELD-004-VISUAL-BRAZIER"
@@ -8671,8 +8640,8 @@
               "kind": "Stump",
               "x": 3.2,
               "y": -2.2,
-              "width": 1.8,
-              "height": 1.2,
+              "width": 1.3,
+              "height": 0.9,
               "visualIds": [
                 "FIELD-004-VISUAL-TRAINING-DUMMY",
                 "FIELD-004-VISUAL-SUPPLY-CRATE"
@@ -8681,51 +8650,18 @@
           ]
         },
         {
-          "id": "TENT-POST",
+          "id": "CART-POST",
           "weight": 34,
           "rotations": [
-            0,
-            90,
-            180,
-            270
+            0
           ],
           "pieces": [
             {
-              "kind": "Fence",
-              "x": -4.4,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 0,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
               "kind": "Stump",
-              "x": 3.4,
-              "y": 1.9,
-              "width": 2.1,
-              "height": 1.6,
-              "visualIds": [
-                "FIELD-004-VISUAL-TENT"
-              ]
-            },
-            {
-              "kind": "Stump",
-              "x": 3.7,
-              "y": -2.3,
-              "width": 1.9,
-              "height": 1.25,
+              "x": 3.6,
+              "y": -2.4,
+              "width": 2,
+              "height": 1.4,
               "visualIds": [
                 "FIELD-004-VISUAL-SUPPLY-CART"
               ]
@@ -8736,36 +8672,15 @@
           "id": "DRILL-ROW",
           "weight": 24,
           "rotations": [
-            0,
-            90
+            0
           ],
           "pieces": [
-            {
-              "kind": "Fence",
-              "x": -3.8,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
-            {
-              "kind": "Fence",
-              "x": 3.8,
-              "y": 0,
-              "width": 3.6,
-              "height": 0.72,
-              "visualIds": [
-                "FIELD-004-VISUAL-PALISADE"
-              ]
-            },
             {
               "kind": "Stump",
               "x": 0,
               "y": 2.7,
-              "width": 1.4,
-              "height": 1.2,
+              "width": 1,
+              "height": 0.9,
               "visualIds": [
                 "FIELD-004-VISUAL-TRAINING-DUMMY"
               ]
@@ -8774,8 +8689,8 @@
               "kind": "Stump",
               "x": 0,
               "y": -2.7,
-              "width": 1.5,
-              "height": 1.15,
+              "width": 1.1,
+              "height": 0.85,
               "visualIds": [
                 "FIELD-004-VISUAL-BRAZIER"
               ]
@@ -8783,7 +8698,502 @@
           ]
         }
       ]
-    }
+    },
+    "trapLayout": {
+      "referenceSeed": 40411,
+      "radiusScreenWidths": 1,
+      "playerHitRadius": 0.35,
+      "maxActiveProjectiles": 160,
+      "edgeMargin": 4,
+      "startClearRadius": 14,
+      "minGap": 3,
+      "obstacleClearance": 1.2,
+      "forwardClearance": 3,
+      "placementAttempts": 80,
+      "density": {
+        "cellWidth": 17.8,
+        "cellHeight": 10,
+        "countWeights": [
+          {
+            "count": 1,
+            "weight": 2
+          },
+          {
+            "count": 2,
+            "weight": 7
+          },
+          {
+            "count": 3,
+            "weight": 1
+          }
+        ]
+      },
+      "rage": {
+        "maxMultiplier": 3,
+        "secondsToMax": 60
+      },
+      "models": [
+        {
+          "key": "trap-001",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.03,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-002",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.03,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-003",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.03,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-004",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.7,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-005",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.78,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-006",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.78,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-007",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.66,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-008",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.67,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-009",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.27,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-010",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.03,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-011",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.66,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-012",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 1.55,
+          "depthOffset": 3
+        },
+        {
+          "key": "trap-013",
+          "headNode": "RotatingHead",
+          "tiltDegrees": 54,
+          "scale": 0.66,
+          "depthOffset": 3
+        }
+      ],
+      "startTraps": [],
+      "projectiles": [
+        {
+          "id": "spear",
+          "visual": "spear",
+          "radius": 0.3,
+          "speed": 7.5,
+          "damage": 9,
+          "spinDegreesPerSecond": 0
+        },
+        {
+          "id": "bolt-small",
+          "visual": "bolt",
+          "radius": 0.14,
+          "speed": 8,
+          "damage": 8,
+          "spinDegreesPerSecond": 0
+        },
+        {
+          "id": "bolt-heavy",
+          "visual": "bolt",
+          "radius": 0.45,
+          "speed": 9,
+          "damage": 16,
+          "spinDegreesPerSecond": 0
+        },
+        {
+          "id": "blade",
+          "visual": "blade",
+          "radius": 0.2333,
+          "speed": 3.6,
+          "damage": 8,
+          "spinDegreesPerSecond": 540,
+          "returnAfterSeconds": 2.2
+        },
+        {
+          "id": "spike-small",
+          "visual": "spikeball",
+          "radius": 0.16,
+          "speed": 1.7,
+          "damage": 6,
+          "spinDegreesPerSecond": 120
+        },
+        {
+          "id": "spike-ring",
+          "visual": "spikeball",
+          "radius": 0.18,
+          "speed": 2.2,
+          "damage": 7,
+          "spinDegreesPerSecond": 120,
+          "maxDistance": 2.6
+        },
+        {
+          "id": "spike-large",
+          "visual": "spikeball",
+          "radius": 0.75,
+          "speed": 0.9,
+          "damage": 14,
+          "spinDegreesPerSecond": 45
+        }
+      ],
+      "types": [
+        {
+          "id": "TRAP-001",
+          "name": "Копейный ряд",
+          "tier": 1,
+          "count": 4,
+          "model": "trap-001",
+          "bodyRadius": 0.6,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0,
+            45,
+            90,
+            135,
+            180,
+            225,
+            270,
+            315
+          ],
+          "telegraphSeconds": 0.7,
+          "cooldownSeconds": 4,
+          "shots": [
+            {
+              "projectile": "spear",
+              "count": 4,
+              "lateralStart": -1.05,
+              "lateralStep": 0.7
+            }
+          ]
+        },
+        {
+          "id": "TRAP-002",
+          "name": "Крест",
+          "tier": 1,
+          "count": 3,
+          "model": "trap-002",
+          "bodyRadius": 0.7,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "spinDegreesPerSecond": 40,
+          "telegraphSeconds": 0.8,
+          "cooldownSeconds": 4.5,
+          "shots": [
+            {
+              "projectile": "spear",
+              "count": 4,
+              "angleStart": 0,
+              "angleStep": 90
+            }
+          ]
+        },
+        {
+          "id": "TRAP-003",
+          "name": "Диагональный крест",
+          "tier": 2,
+          "count": 3,
+          "model": "trap-003",
+          "bodyRadius": 0.7,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "headingStepDegrees": 45,
+          "headingCycleVolleys": 2,
+          "telegraphSeconds": 0.8,
+          "cooldownSeconds": 4,
+          "shots": [
+            {
+              "projectile": "spear",
+              "count": 4,
+              "angleStart": 0,
+              "angleStep": 90
+            }
+          ],
+          "aimResumeDelaySeconds": 0.35
+        },
+        {
+          "id": "TRAP-004",
+          "name": "Круг клинков",
+          "tier": 2,
+          "count": 3,
+          "model": "trap-004",
+          "bodyRadius": 0.8,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "telegraphSeconds": 1,
+          "cooldownSeconds": 6,
+          "shots": [
+            {
+              "projectile": "blade",
+              "count": 8,
+              "angleStart": 0,
+              "angleStep": 45
+            }
+          ]
+        },
+        {
+          "id": "TRAP-005",
+          "name": "Арбалетный столб",
+          "tier": 1,
+          "count": 3,
+          "model": "trap-005",
+          "bodyRadius": 0.55,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 1.1,
+          "telegraphLineLength": 12,
+          "cooldownSeconds": 3,
+          "shots": [
+            {
+              "projectile": "bolt-small",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": "TRAP-006",
+          "name": "Трезубец",
+          "tier": 2,
+          "count": 3,
+          "model": "trap-006",
+          "bodyRadius": 0.6,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 0.8,
+          "cooldownSeconds": 3.6,
+          "shots": [
+            {
+              "projectile": "bolt-small",
+              "count": 3,
+              "angleStart": -16,
+              "angleStep": 16
+            }
+          ]
+        },
+        {
+          "id": "TRAP-007",
+          "name": "Спиральная",
+          "tier": 3,
+          "count": 3,
+          "model": "trap-007",
+          "bodyRadius": 0.7,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "telegraphSeconds": 0.9,
+          "cooldownSeconds": 7,
+          "shots": [
+            {
+              "projectile": "spike-small",
+              "count": 14,
+              "angleStart": 0,
+              "angleStep": 25,
+              "delayStep": 0.22
+            }
+          ]
+        },
+        {
+          "id": "TRAP-008",
+          "name": "Кольцо",
+          "tier": 3,
+          "count": 3,
+          "model": "trap-008",
+          "bodyRadius": 0.7,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "telegraphSeconds": 0.9,
+          "cooldownSeconds": 5,
+          "shots": [
+            {
+              "projectile": "spike-ring",
+              "count": 16,
+              "angleStart": 0,
+              "angleStep": 22.5
+            }
+          ]
+        },
+        {
+          "id": "TRAP-009",
+          "name": "Баллиста",
+          "tier": 3,
+          "count": 3,
+          "model": "trap-009",
+          "bodyRadius": 0.9,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 1.6,
+          "telegraphLineLength": 16,
+          "cooldownSeconds": 7,
+          "shots": [
+            {
+              "projectile": "bolt-heavy",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": "TRAP-010",
+          "name": "Маятник",
+          "tier": 3,
+          "count": 3,
+          "model": "trap-010",
+          "bodyRadius": 0.7,
+          "heading": "fixed",
+          "rotationsDegrees": [
+            0
+          ],
+          "headingStepDegrees": 22,
+          "headingCycleVolleys": 0,
+          "telegraphSeconds": 0.5,
+          "cooldownSeconds": 1.8,
+          "shots": [
+            {
+              "projectile": "spear",
+              "count": 2,
+              "angleStart": 0,
+              "angleStep": 180
+            }
+          ],
+          "aimResumeDelaySeconds": 0.35
+        },
+        {
+          "id": "TRAP-011",
+          "name": "Занавес",
+          "tier": 2,
+          "count": 4,
+          "model": "trap-011",
+          "bodyRadius": 0.6,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 1,
+          "cooldownSeconds": 5,
+          "shots": [
+            {
+              "projectile": "spike-small",
+              "count": 4,
+              "lateralStart": -1.65,
+              "lateralStep": 1.1
+            }
+          ]
+        },
+        {
+          "id": "TRAP-012",
+          "name": "Шипастая глыба",
+          "tier": 3,
+          "count": 2,
+          "model": "trap-012",
+          "bodyRadius": 1,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 1.2,
+          "cooldownSeconds": 9,
+          "shots": [
+            {
+              "projectile": "spike-large",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": "TRAP-013",
+          "name": "Рассыпная",
+          "tier": 2,
+          "count": 3,
+          "model": "trap-013",
+          "bodyRadius": 0.6,
+          "heading": "aim",
+          "aimResumeDelaySeconds": 0.35,
+          "telegraphSeconds": 0.9,
+          "cooldownSeconds": 5.5,
+          "shots": [
+            {
+              "projectile": "spike-small",
+              "count": 7,
+              "angleStart": -45,
+              "angleStep": 15,
+              "delayStep": 0.15
+            }
+          ]
+        }
+      ],
+      "barrels": {
+        "id": "TRAP-BARREL",
+        "count": 30,
+        "explosiveShare": 0.333333,
+        "bodyRadius": 0.5,
+        "triggerRadius": 2.4,
+        "fuseSeconds": 1.2,
+        "blastRadius": 2.2,
+        "damage": 18
+      },
+      "sprites": {
+        "spear": "FIELD-004-TRAP-SPEAR-VISUAL-WEAPON",
+        "bolt": "FIELD-004-TRAP-BOLT-VISUAL-WEAPON",
+        "blade": "FIELD-004-TRAP-BLADE-VISUAL-WEAPON",
+        "spikeball": "FIELD-004-TRAP-SPIKEBALL-VISUAL-WEAPON",
+        "barrel": "FIELD-004-TRAP-BARREL-VISUAL-PROP"
+      }
+    },
+    "arenaSideLength": 100,
+    "fenceBaseContact": true
   },
   {
     "id": "FIELD-DEV-ZONES-PRESENTATION",
@@ -12134,6 +12544,565 @@
       "startPlatformColor": "#c9e0b8",
       "smallRadiusMax": 7.5,
       "bookChance": 0.5
+    }
+  },
+  {
+    "id": "FIELD-010-PRESENTATION",
+    "environmentId": "FIELD-010-ENVIRONMENT",
+    "groundVisualId": "FIELD-010-VISUAL-GROUND",
+    "fenceVisualId": "FIELD-001-VISUAL-FENCE",
+    "obstacleVisualId": "FIELD-001-VISUAL-STUMP",
+    "bushVisualId": "FIELD-001-VISUAL-BUSH",
+    "grassVisualId": "FIELD-001-VISUAL-GRASS",
+    "obstacleName": "Obstacle_Fixture",
+    "obstacleScale": 1.05,
+    "decorationSpacing": 6,
+    "decorationJitter": 2.2,
+    "decorationChance": 0,
+    "bushChance": 0.22,
+    "decorationMargin": 4,
+    "safeRadius": 2.5,
+    "grassScaleMin": 0.32,
+    "grassScaleMax": 0.48,
+    "bushScaleMin": 0.5,
+    "bushScaleMax": 0.68,
+    "seed": 11001,
+    "obstacleSeed": 11002,
+    "interiorObstacleCount": 0,
+    "nearObstacleCount": 0,
+    "obstaclePlacementAttempts": 80,
+    "nearObstacleRadius": 22,
+    "fenceChance": 0.35,
+    "obstacleSeparation": 3.4,
+    "fenceColliderWidth": 3,
+    "fenceColliderHeight": 1.25,
+    "stumpColliderRadius": 0.68,
+    "barrelVisualId": "FIELD-001-VISUAL-BARREL",
+    "rockVisualId": "FIELD-002-VISUAL-BOULDER",
+    "arenaSideLength": 160,
+    "screenEvents": {
+      "referenceSeed": 10101,
+      "playerHitRadius": 0.35,
+      "firstDelaySeconds": 25,
+      "rareMinIntervalSeconds": 150,
+      "suspendWhileBossAlive": true,
+      "wavePeriodSeconds": 150,
+      "intensityTolerance": 0.3,
+      "rareMinIntensity": 0.8,
+      "fairnessSpeed": 1.9,
+      "fairnessAttempts": 12,
+      "fairnessCellSize": 0.4,
+      "stages": [
+        {
+          "fromSeconds": 0,
+          "valleyIntensity": 0.05,
+          "peakIntensity": 0.4,
+          "pauseMinSeconds": 20,
+          "pauseMaxSeconds": 34,
+          "pool": [
+            {
+              "event": "SCREEN-EVENT-001",
+              "weight": 3
+            },
+            {
+              "event": "SCREEN-EVENT-002",
+              "weight": 3
+            },
+            {
+              "event": "SCREEN-EVENT-005",
+              "weight": 1.5
+            },
+            {
+              "event": "SCREEN-EVENT-007",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-010",
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "fromSeconds": 180,
+          "valleyIntensity": 0.1,
+          "peakIntensity": 0.6,
+          "pauseMinSeconds": 16,
+          "pauseMaxSeconds": 28,
+          "pool": [
+            {
+              "event": "SCREEN-EVENT-001",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-002",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-003",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-004",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-005",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-007",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-010",
+              "weight": 1.5
+            },
+            {
+              "event": "SCREEN-EVENT-011",
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "fromSeconds": 360,
+          "valleyIntensity": 0.15,
+          "peakIntensity": 0.8,
+          "pauseMinSeconds": 13,
+          "pauseMaxSeconds": 24,
+          "pool": [
+            {
+              "event": "SCREEN-EVENT-001",
+              "weight": 1.5
+            },
+            {
+              "event": "SCREEN-EVENT-002",
+              "weight": 1.5
+            },
+            {
+              "event": "SCREEN-EVENT-003",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-004",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-005",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-006",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-007",
+              "weight": 1.5
+            },
+            {
+              "event": "SCREEN-EVENT-008",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-009",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-010",
+              "weight": 1
+            },
+            {
+              "event": "SCREEN-EVENT-011",
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "fromSeconds": 540,
+          "valleyIntensity": 0.2,
+          "peakIntensity": 1,
+          "pauseMinSeconds": 10,
+          "pauseMaxSeconds": 20,
+          "pool": [
+            {
+              "event": "SCREEN-EVENT-001",
+              "weight": 1
+            },
+            {
+              "event": "SCREEN-EVENT-002",
+              "weight": 1
+            },
+            {
+              "event": "SCREEN-EVENT-003",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-004",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-005",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-006",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-007",
+              "weight": 1
+            },
+            {
+              "event": "SCREEN-EVENT-008",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-009",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-010",
+              "weight": 1
+            },
+            {
+              "event": "SCREEN-EVENT-011",
+              "weight": 2
+            },
+            {
+              "event": "SCREEN-EVENT-012",
+              "weight": 3
+            },
+            {
+              "event": "SCREEN-EVENT-013",
+              "weight": 3
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "id": "SCREEN-EVENT-001",
+          "name": "Копьё",
+          "layout": "strips",
+          "rare": false,
+          "intensity": 0.2,
+          "damagePercent": 18,
+          "telegraphSeconds": 1.3,
+          "motion": "sweep",
+          "directionsDegrees": [
+            270
+          ],
+          "countMin": 1,
+          "countMax": 3,
+          "ordered": true,
+          "staggerSeconds": 0.55,
+          "widthH": 0.22,
+          "minGapH": 0.12,
+          "speedH": 1.8,
+          "bodyLengthH": 0.45
+        },
+        {
+          "id": "SCREEN-EVENT-002",
+          "name": "Клинок",
+          "layout": "strips",
+          "rare": false,
+          "intensity": 0.25,
+          "damagePercent": 18,
+          "telegraphSeconds": 1.2,
+          "motion": "sweep",
+          "directionsDegrees": [
+            0,
+            180
+          ],
+          "countMin": 1,
+          "countMax": 2,
+          "ordered": true,
+          "staggerSeconds": 0.6,
+          "widthH": 0.2,
+          "minGapH": 0.15,
+          "speedH": 1.9,
+          "bodyLengthH": 0.4
+        },
+        {
+          "id": "SCREEN-EVENT-003",
+          "name": "Ряд колонн",
+          "layout": "strips",
+          "rare": false,
+          "intensity": 0.5,
+          "damagePercent": 15,
+          "telegraphSeconds": 1,
+          "strikeSeconds": 0.25,
+          "motion": "burst",
+          "directionsDegrees": [
+            270
+          ],
+          "countMin": 5,
+          "countMax": 5,
+          "ordered": true,
+          "staggerSeconds": 0.3,
+          "widthH": 0.13,
+          "minGapH": 0.14
+        },
+        {
+          "id": "SCREEN-EVENT-004",
+          "name": "Решётка",
+          "layout": "cross",
+          "rare": false,
+          "intensity": 0.45,
+          "damagePercent": 18,
+          "telegraphSeconds": 1.4,
+          "strikeSeconds": 0.3,
+          "widthH": 0.17,
+          "crossJitter": 0.2
+        },
+        {
+          "id": "SCREEN-EVENT-005",
+          "name": "Круги суда",
+          "layout": "circles",
+          "rare": false,
+          "intensity": 0.4,
+          "damagePercent": 20,
+          "telegraphSeconds": 1.2,
+          "strikeSeconds": 0.3,
+          "countMin": 3,
+          "countMax": 5,
+          "radiusMinH": 0.12,
+          "radiusMaxH": 0.2,
+          "placement": "aroundPlayer",
+          "playerDistanceMinH": 0.12,
+          "playerDistanceMaxH": 0.4,
+          "playerClearanceH": 0.08,
+          "gapH": 0.05,
+          "staggerSeconds": 0
+        },
+        {
+          "id": "SCREEN-EVENT-006",
+          "name": "Кольцо света",
+          "layout": "ring",
+          "rare": false,
+          "intensity": 0.55,
+          "damagePercent": 20,
+          "telegraphSeconds": 2,
+          "startRadiusH": 0.1,
+          "thicknessH": 0.06,
+          "gapWidthH": 0.26,
+          "speedH": 0.3
+        },
+        {
+          "id": "SCREEN-EVENT-007",
+          "name": "Половина экрана",
+          "layout": "halfScreen",
+          "rare": false,
+          "intensity": 0.35,
+          "damagePercent": 22,
+          "telegraphSeconds": 2.2,
+          "strikeSeconds": 0.4,
+          "splitJitter": 0.15
+        },
+        {
+          "id": "SCREEN-EVENT-008",
+          "name": "Углы",
+          "layout": "corners",
+          "rare": false,
+          "intensity": 0.5,
+          "damagePercent": 20,
+          "telegraphSeconds": 1.2,
+          "strikeSeconds": 0.3,
+          "cornerWidthFraction": 0.36,
+          "cornerHeightFraction": 0.36,
+          "staggerSeconds": 0.8
+        },
+        {
+          "id": "SCREEN-EVENT-009",
+          "name": "Падающие перья",
+          "layout": "circles",
+          "rare": false,
+          "intensity": 0.6,
+          "damagePercent": 6,
+          "telegraphSeconds": 0.9,
+          "strikeSeconds": 0.2,
+          "countMin": 8,
+          "countMax": 12,
+          "radiusMinH": 0.06,
+          "radiusMaxH": 0.08,
+          "placement": "random",
+          "playerClearanceH": 0.04,
+          "gapH": 0.08,
+          "staggerSeconds": 0.3
+        },
+        {
+          "id": "SCREEN-EVENT-010",
+          "name": "Облачная волна",
+          "layout": "strips",
+          "rare": false,
+          "intensity": 0.3,
+          "damagePercent": 10,
+          "telegraphSeconds": 1.6,
+          "motion": "sweep",
+          "directionsDegrees": [
+            315,
+            225,
+            45,
+            135
+          ],
+          "countMin": 1,
+          "countMax": 1,
+          "ordered": false,
+          "staggerSeconds": 0,
+          "widthH": 0.5,
+          "minGapH": 0.1,
+          "speedH": 0.5,
+          "bodyLengthH": 0.5
+        },
+        {
+          "id": "SCREEN-EVENT-011",
+          "name": "Веер копий",
+          "layout": "fan",
+          "rare": false,
+          "intensity": 0.45,
+          "damagePercent": 14,
+          "telegraphSeconds": 1.3,
+          "anglesDegrees": [
+            -22,
+            0,
+            22
+          ],
+          "widthH": 0.12,
+          "speedH": 1.8,
+          "bodyLengthH": 0.45
+        },
+        {
+          "id": "SCREEN-EVENT-012",
+          "name": "Небесный суд",
+          "layout": "judgment",
+          "rare": true,
+          "intensity": 0.95,
+          "damagePercent": 28,
+          "telegraphSeconds": 2.4,
+          "strikeSeconds": 0.4,
+          "safeRadiusH": 0.2,
+          "playerDistanceMinH": 0.1,
+          "playerDistanceMaxH": 0.3
+        },
+        {
+          "id": "SCREEN-EVENT-013",
+          "name": "Дождь копий",
+          "layout": "strips",
+          "rare": true,
+          "intensity": 0.9,
+          "damagePercent": 12,
+          "telegraphSeconds": 1.3,
+          "motion": "sweep",
+          "directionsDegrees": [
+            270
+          ],
+          "countMin": 5,
+          "countMax": 7,
+          "ordered": false,
+          "staggerSeconds": 0.28,
+          "widthH": 0.1,
+          "minGapH": 0.17,
+          "speedH": 1.8,
+          "bodyLengthH": 0.45
+        }
+      ]
+    },
+    "screenEventPresentation": {
+      "artwork": {
+        "spear": {
+          "visualId": "FIELD-010-SPEAR-VISUAL-WEAPON",
+          "uvRect": [
+            0.015625,
+            0.388672,
+            0.96875,
+            0.224609
+          ]
+        },
+        "blade": {
+          "visualId": "FIELD-010-BLADE-VISUAL-WEAPON",
+          "uvRect": [
+            0.015625,
+            0.375,
+            0.96875,
+            0.25
+          ]
+        },
+        "cloud": {
+          "visualId": "FIELD-010-CLOUD-WAVE-VISUAL-IMPACT",
+          "uvRect": [
+            0.015625,
+            0.082031,
+            0.96875,
+            0.837891
+          ]
+        },
+        "warningStrip": {
+          "visualId": "FIELD-010-STRIP-VISUAL-TELEGRAPH",
+          "uvRect": [
+            0.007812,
+            0.402344,
+            0.983398,
+            0.195312
+          ]
+        },
+        "strikeStrip": {
+          "visualId": "FIELD-010-STRIP-VISUAL-IMPACT",
+          "uvRect": [
+            0.008789,
+            0.438477,
+            0.982422,
+            0.124023
+          ]
+        },
+        "warningCircle": {
+          "visualId": "FIELD-010-CIRCLE-VISUAL-TELEGRAPH",
+          "uvRect": [
+            0.015625,
+            0.023438,
+            0.96875,
+            0.953125
+          ]
+        },
+        "strikeCircle": {
+          "visualId": "FIELD-010-CIRCLE-VISUAL-IMPACT",
+          "uvRect": [
+            0.017578,
+            0.015625,
+            0.966797,
+            0.966797
+          ]
+        },
+        "safeRing": {
+          "visualId": "FIELD-010-SAFE-CIRCLE-VISUAL-TELEGRAPH",
+          "uvRect": [
+            0.017578,
+            0.027344,
+            0.964844,
+            0.947266
+          ]
+        }
+      },
+      "sweepArtwork": {
+        "SCREEN-EVENT-001": "spear",
+        "SCREEN-EVENT-002": "blade",
+        "SCREEN-EVENT-010": "cloud",
+        "SCREEN-EVENT-011": "spear",
+        "SCREEN-EVENT-013": "spear"
+      },
+      "borderWidth": 0.12,
+      "repeatLength": 3,
+      "exteriorRibbonWidth": 0.7,
+      "warningAlphaStart": 0.65,
+      "warningAlphaEnd": 1,
+      "warningFillStart": 0.12,
+      "warningFillEnd": 0.24,
+      "strikeAlpha": 1,
+      "strikeFillAlpha": 0.34,
+      "safeAlpha": 0.95,
+      "corridorAlpha": 0.16,
+      "warningColor": "#D22247",
+      "strikeColor": "#FFF4BD",
+      "safeColor": "#42C3C0",
+      "sortingOrder": -4
     }
   }
 ]

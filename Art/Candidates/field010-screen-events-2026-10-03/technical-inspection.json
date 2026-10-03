@@ -1,0 +1,106 @@
+[
+  {
+    "name": "spear",
+    "sha256": "e4e5e3a6d5ab926b88f09ea3c5e9964abc016436a79c633317d23cd38b2356d4",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "blade",
+    "sha256": "2e1e9bb9c90cf254c5245b25ef07128b5d86e3aa4a00a5cebfb3fff32cfc74b5",
+    "size": [
+      1983,
+      793
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "cloud",
+    "sha256": "32d962075fe5892514d0fbf8d4a53985016cccdaf8cd400599c3fc3f48f7b8b8",
+    "size": [
+      1330,
+      1182
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "warning-strip",
+    "sha256": "d85eef2ad02bcc6b447dbbffa5045c1781c931fb06aff4e85471e3c503d3ca27",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "strike-strip",
+    "sha256": "7c30e60dc9211786e9136a5e039f2f8adb5db4e82b35f1ed84780770e757e469",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "warning-circle",
+    "sha256": "60cb6de7e495b50bde8a24190b07183573df998bada7b01c16ea50644c944978",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "strike-circle",
+    "sha256": "9cecabf6b113dcdcf0a83bf1fe5630903fa8475cc82ecddfedc134c9734c3f5b",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  },
+  {
+    "name": "safe-ring",
+    "sha256": "9701d074f35dd6f07631c6829b145593967c80dd6f9657647e634507ab7355f8",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ]
+  }
+]

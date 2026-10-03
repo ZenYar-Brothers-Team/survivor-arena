@@ -19,6 +19,8 @@ using Game.Progression;
 using Game.Run;
 using Game.UI;
 using Game.Zones;
+using Game.Traps;
+using Game.ScreenEvents;
 using UnityEngine;
 using Game.Telemetry;
 using Game.Audio;
@@ -64,6 +66,11 @@ namespace Game.Bootstrap
         public int LayoutSeed { get; private set; }
         /// <summary>Seed of this run's effect-zone layout (0 when the field has no zones).</summary>
         public int ZoneSeed { get; private set; }
+        public int TrapSeed { get; private set; }
+        /// <summary>Seed of this run's screen events (DECISION-0157); 0 when the field has none.</summary>
+        public int ScreenEventSeed { get; private set; }
+        /// <summary>Scene side of the screen events; null on fields without them. Development tools may start events through its runtime.</summary>
+        public ScreenEventDriver ScreenEvents => _screenEventDriver;
         public int TravelerSeed { get; private set; }
         /// <summary>Potion drop-roll seed of the current run: fresh per run (DECISION-0074) unless reference seeds are pinned.</summary>
         public int PickupSeed { get; private set; }
@@ -145,6 +152,8 @@ namespace Game.Bootstrap
         private FieldEnvironmentArtRuntime _fieldEnvironmentArt;
         private ZoneRuntimeDriver _zoneDriver;
         private FieldVoidDamageDriver _voidDriver;
+        private TrapRuntimeDriver _trapDriver;
+        private ScreenEventDriver _screenEventDriver;
         private NotificationQueue _notifications;
         private RunNotificationBinding _notificationsBinding;
         private readonly HashSet<string> _knownUnlocks = new HashSet<string>();
@@ -489,6 +498,24 @@ namespace Game.Bootstrap
                         altarExclusions.Add(new FieldObstacleExclusion(altar.Center,
                             (foundationRadius ?? altar.Radius) + fieldPresentation.ZoneLayout.ObstacleClearance));
                 }
+                TrapPlacementSet trapPlacements = null;
+                if (fieldPresentation.TrapLayout != null)
+                {
+                    // DECISION-0156: traps are laid out first (a fresh arrangement every run, in their own budget) and the obstacles
+                    // are placed afterwards around their bodies, the same ordering as the FIELD-007 altars.
+                    var trapLayout = fieldPresentation.TrapLayout;
+                    TrapSeed = UseReferenceSeeds ? trapLayout.ReferenceSeed : FreshRunSeed.Next();
+                    trapPlacements = TrapPlacementGenerator.Generate(trapLayout, arenaSideLength, spawn.position, null, TrapSeed);
+                    altarExclusions ??= new List<FieldObstacleExclusion>();
+                    foreach (var trap in trapPlacements.Traps)
+                    {
+                        var modelScale = trap.ModelKey == null ? 1f : trapLayout.Models[trap.ModelKey].Scale;
+                        altarExclusions.Add(new FieldObstacleExclusion(trap.Center,
+                            trap.Type.BodyRadius * modelScale + trapLayout.ObstacleClearance));
+                    }
+                    foreach (var barrel in trapPlacements.Barrels)
+                        altarExclusions.Add(new FieldObstacleExclusion(barrel.Center, trapLayout.Barrels.BodyRadius + trapLayout.ObstacleClearance));
+                }
                 _fieldEnvironmentArt.Initialize(fieldPresentation, Catalog.Registry, configuration.Environment,
                     gameObject.scene, arenaSideLength, referenceSeed == null ? (int?)null : LayoutSeed, altarExclusions);
                 initializedSubsystems.Add(() => { _fieldEnvironmentArt?.Dispose(); _fieldEnvironmentArt = null; });
@@ -702,9 +729,34 @@ namespace Game.Bootstrap
                         fieldPresentation.AltarPresentation, Catalog.Registry);
                     initializedSubsystems.Add(() => { _zoneDriver?.Shutdown(); _zoneDriver = null; });
                 }
-                var mapPreview = new FieldMapPreviewSource(_fieldEnvironmentArt,
+                if (fieldPresentation.TrapLayout != null)
+                {
+                    // The traps were placed before the obstacles; their projectiles end on this run's obstacle outlines.
+                    var trapLayout = fieldPresentation.TrapLayout;
+                    var trapOutlines = new List<IReadOnlyList<Vector2>>();
+                    foreach (var outline in FieldMapPreviewSource.Outlines(_fieldEnvironmentArt.ObstacleColliders)) trapOutlines.Add(outline);
+                    var trapCamera = Camera.main;
+                    _trapDriver = TrapRuntimeDriver.Create(trapLayout, trapPlacements, trapOutlines, arenaSideLength,
+                        new PlayerTrapTarget(player), runController, gameObject.scene, () => ZoneRuntimeDriver.CameraRect(trapCamera), Catalog.Registry);
+                    initializedSubsystems.Add(() => { _trapDriver?.Shutdown(); _trapDriver = null; });
+                }
+                if (fieldPresentation.ScreenEvents != null)
+                {
+                    // DECISION-0157: scheduled screen events with no map object behind them; they hurt only the player.
+                    var screenEvents = fieldPresentation.ScreenEvents;
+                    ScreenEventSeed = UseReferenceSeeds ? screenEvents.ReferenceSeed : FreshRunSeed.Next();
+                    var eventCamera = Camera.main;
+                    var bosses = BossEncounters;
+                    _screenEventDriver = ScreenEventDriver.Create(screenEvents, new PlayerScreenEventTarget(player), runController,
+                        gameObject.scene, () => ZoneRuntimeDriver.CameraRect(eventCamera),
+                        () => screenEvents.SuspendWhileBossAlive && bosses != null && (bosses.FinalBoss != null || bosses.MidBoss != null),
+                        ScreenEventSeed, fieldPresentation.ScreenEventPresentation, Catalog.Registry);
+                    initializedSubsystems.Add(() => { _screenEventDriver?.Shutdown(); _screenEventDriver = null; });
+                }
+                var mapPreview =new FieldMapPreviewSource(_fieldEnvironmentArt,
                     () => FixturePickupPlacement.ArenaBounds(configuration.Environment, gameObject.scene), Camera.main,
-                    fieldPresentation.AltarPresentation == null ? null : _zoneDriver?.Runtime);
+                    fieldPresentation.AltarPresentation == null ? null : _zoneDriver?.Runtime,
+                    _trapDriver?.Runtime);
                 gameplayUiRoot.Initialize(
                     player,
                     experienceRuntime,
@@ -717,7 +769,7 @@ namespace Game.Bootstrap
                     Playtest,
                     BossEncounters, Pickups, Travelers,
                     Catalog.BuildEntries, // development "unlock all" draws from the whole catalog, never the save
-                    SlowStatus, mapPreview);
+                    SlowStatus, mapPreview, _screenEventDriver);
                 initializedSubsystems.Add(gameplayUiRoot.Shutdown);
                 _shellScreen?.AttachPauseActions(gameplayUiRoot.PauseFooter);
                 initializedSubsystems.Add(() => _shellScreen?.AttachPauseActions(null));
@@ -839,6 +891,10 @@ namespace Game.Bootstrap
             _playerGroundShadow?.Shutdown();
             _zoneDriver?.Shutdown();
             _zoneDriver = null;
+            _trapDriver?.Shutdown();
+            _trapDriver = null;
+            _screenEventDriver?.Shutdown();
+            _screenEventDriver = null;
             _voidDriver?.Shutdown();
             _voidDriver = null;
             _fieldEnvironmentArt?.Dispose();

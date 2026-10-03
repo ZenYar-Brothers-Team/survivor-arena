@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-STRIP",
+  "role": "telegraph",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE isolated transparent RGBA texture candidate for hostile celestial screen-event VFX in Survival Arena FIELD-010. Stylized flat 2D storybook cutout, crisp strong readable shapes, thick deep-plum separation, flat matte colors, simple cel shading, very sparse hand-painted texture. NOT a scene or 3D object. Orthographic strict TOP-DOWN planar effect, no perspective ellipse. No floor, cast shadow, UI frame, text, watermark, particles, bloom, blur, high-frequency details or contact sheet. Exactly one asset, generous transparent padding. Shared asset FIELD-010 strip TELEGRAPH. A horizontal rectangular warning ribbon, ratio 4:1, straight top and bottom edges: each edge a thick deep-plum outer stroke with a saturated coral-crimson inner stroke. The interior is mostly FULLY TRANSPARENT, with only four widely separated chunky inward-pointing coral chevrons at top and bottom. Both end edges also clearly closed in plum/coral. No ivory or gold. This is a flat rectangular ground warning, not a scroll, flag, sign or ribbon with folds. It will be nine-sliced for strips, rectangular region outlines and a texture for the gapped ring; border exactly delineates hazard, ornaments stay inside. Must read on peach-pink tiled floor at 100 pixels across.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-strip-telegraph.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "2172x724",
+    "sourceSha256": "d85eef2ad02bcc6b447dbbffa5045c1781c931fb06aff4e85471e3c503d3ca27",
+    "runtimeSha256": "7f6dafb54ac323bcaf5fe815455e6b93abb32d217f6f4bdbf4592473fa37d0ea",
+    "recipe": {
+      "mode": "fit",
+      "size": 1024,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

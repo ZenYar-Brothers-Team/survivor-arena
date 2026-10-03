@@ -2653,5 +2653,70 @@
     "id": "FIELD-006-ZONE-PORTAL-VISUAL-TELEGRAPH",
     "resourcePath": "Art/VFX/field-006-zone-portal-telegraph",
     "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-010-SPEAR-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-010-spear-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-010-BLADE-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-010-blade-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-010-CLOUD-WAVE-VISUAL-IMPACT",
+    "resourcePath": "Art/VFX/field-010-cloud-wave-impact",
+    "role": "Impact"
+  },
+  {
+    "id": "FIELD-010-STRIP-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-010-strip-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-010-STRIP-VISUAL-IMPACT",
+    "resourcePath": "Art/VFX/field-010-strip-impact",
+    "role": "Impact"
+  },
+  {
+    "id": "FIELD-010-CIRCLE-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-010-circle-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-010-CIRCLE-VISUAL-IMPACT",
+    "resourcePath": "Art/VFX/field-010-circle-impact",
+    "role": "Impact"
+  },
+  {
+    "id": "FIELD-010-SAFE-CIRCLE-VISUAL-TELEGRAPH",
+    "resourcePath": "Art/VFX/field-010-safe-circle-telegraph",
+    "role": "Telegraph"
+  },
+  {
+    "id": "FIELD-004-TRAP-SPEAR-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-004-trap-spear-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-004-TRAP-BOLT-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-004-trap-bolt-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-004-TRAP-BLADE-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-004-trap-blade-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-004-TRAP-SPIKEBALL-VISUAL-WEAPON",
+    "resourcePath": "Art/VFX/field-004-trap-spikeball-weapon",
+    "role": "Weapon"
+  },
+  {
+    "id": "FIELD-004-TRAP-BARREL-VISUAL-PROP",
+    "resourcePath": "Art/Sprites/Fields/field-004/field-004-trap-barrel-prop",
+    "role": "Prop"
   }
 ]

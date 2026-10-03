@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-CLOUD-WAVE",
+  "role": "impact",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE production-oriented candidate sprite for Survival Arena FIELD-010 celestial screen hazards. Style: stylized flat 2D storybook paper cutout, bold readable shapes, thick deep-plum contour, matte colors, simple cel shading, sparse hand-painted material texture, crisp edge, NO photorealism, NO 3D, NO pixel art. Orthographic gameplay graphic, top-down effect aligned horizontally; no scene, no floor, no shadow, no text, watermark, border, UI frame, particles, bloom, motion blur. Transparent RGBA background. Large clean silhouette, transparent padding of at least 8 percent all sides. This is a hostile celestial attack: ivory and antique gold masses, plum separation on a pink-orange floor. One isolated image only, no contact sheet, no variants. Asset SCREEN-EVENT-010 cloudy sweep body. Draw ONE wide compact bank of heavy holy clouds advancing toward the RIGHT, roughly square as it covers 5 by 5 world units. RIGHT front edge has large upright rolling ivory lobes with an antique gold scalloped ridge; LEFT trailing edge tapers into just three flat plum-lavender curls. Transparent irregular silhouette, use 4 to 6 large masses, ivory top planes, muted lavender undersides, deep plum contour. Appears menacing and heavy through shape, not a cute face. No face, sparks, lightning, objects, wispy fog or low-opacity haze.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-cloud-wave-impact.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1330x1182",
+    "sourceSha256": "32d962075fe5892514d0fbf8d4a53985016cccdaf8cd400599c3fc3f48f7b8b8",
+    "runtimeSha256": "d0483e5a57687884f94790d2a15737640e1ca94327bfd0e4350aeea07101254c",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

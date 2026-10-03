@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-SAFE-CIRCLE",
+  "role": "telegraph",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE isolated transparent RGBA texture candidate for hostile celestial screen-event VFX in Survival Arena FIELD-010. Stylized flat 2D storybook cutout, crisp strong readable shapes, thick deep-plum separation, flat matte colors, simple cel shading, very sparse hand-painted texture. NOT a scene or 3D object. Orthographic strict TOP-DOWN planar effect, no perspective ellipse. No floor, cast shadow, UI frame, text, watermark, particles, bloom, blur, high-frequency details or contact sheet. Exactly one asset, generous transparent padding. Shared asset FIELD-010 judgment safe-circle TELEGRAPH. One perfectly circular protective boundary from directly ABOVE, with completely transparent empty center. Wide quiet cool TEAL middle rim, slim deep-plum outside outline, slim clean ivory inside line. Four broad rounded simple inward tabs attached to rim at cardinal directions, gentle shapes rather than threatening triangle teeth. No red, coral, amber, gold, letters, runes or glow. Clearly looks calm and safe against a red-danger exterior on peach-pink tile floor, readable around a diameter 4 world-unit circle. No petals or external decoration.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-safe-circle-telegraph.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "9701d074f35dd6f07631c6829b145593967c80dd6f9657647e634507ab7355f8",
+    "runtimeSha256": "debf5db29e10698f1bbfdc47b0c692c50a17a33e7364384cd0218ad2e4355a95",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

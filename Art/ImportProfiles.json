@@ -1638,5 +1638,109 @@
     "pivotY": 0.5,
     "reason": "Separate ground glyph, scaled independently from the gameplay radius.",
     "key": "Assets/Resources/Art/VFX/field-006-zone-portal-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-spear-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-blade-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-cloud-wave-impact.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 1024,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-strip-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 1024,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-strip-impact.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-circle-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-circle-impact.png"
+  },
+  {
+    "pixelsPerUnit": 320,
+    "maxSize": 512,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-010 approved screen-event artwork; normalized UV region and shader scale to authoritative geometry; PPU and transparent canvas never determine hit bounds.",
+    "key": "Assets/Resources/Art/VFX/field-010-safe-circle-telegraph.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 trap sprite; drawn by TrapRuntimeDriver scaled to the data hit radius, centre pivot, no collider from the picture.",
+    "key": "Assets/Resources/Art/VFX/field-004-trap-spear-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 trap sprite; drawn by TrapRuntimeDriver scaled to the data hit radius, centre pivot, no collider from the picture.",
+    "key": "Assets/Resources/Art/VFX/field-004-trap-bolt-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 trap sprite; drawn by TrapRuntimeDriver scaled to the data hit radius, centre pivot, no collider from the picture.",
+    "key": "Assets/Resources/Art/VFX/field-004-trap-blade-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 trap sprite; drawn by TrapRuntimeDriver scaled to the data hit radius, centre pivot, no collider from the picture.",
+    "key": "Assets/Resources/Art/VFX/field-004-trap-spikeball-weapon.png"
+  },
+  {
+    "pixelsPerUnit": 256,
+    "maxSize": 256,
+    "pivotX": 0.5,
+    "pivotY": 0.5,
+    "reason": "FIELD-004 trap sprite; drawn by TrapRuntimeDriver scaled to the data hit radius, centre pivot, no collider from the picture.",
+    "key": "Assets/Resources/Art/Sprites/Fields/field-004/field-004-trap-barrel-prop.png"
   }
 ]

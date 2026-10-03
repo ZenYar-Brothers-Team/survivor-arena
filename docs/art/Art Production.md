@@ -1,5 +1,13 @@
 \# Art Production
 
+FIELD-010 screen-event kit: восемь PNG утверждены пользователем 2026-10-03
+(«хорошо, можешь встраивать в игру»). [Approved packet](../../Art/Packets/field010-screen-events-v1.json)
+хранит hashes, prompts и provenance: копьё/клинок (weapon), облачная волна (impact),
+предупреждение/удар полос и кругов (telegraph/impact), безопасный круг (telegraph).
+Применение — [визуальный бриф](briefs/field010-screen-events-visual-candidates-v1.md),
+контракт — [DECISION-0158](../decisions/0158-field010-screen-event-art.md).
+Исполнение и игровые проверки — только [STATUS](../implementation/STATUS.md).
+
 FIELD-007 type art: все 14 показанных Prop утверждены пользователем 2026-10-02;
 [approved packet](../../Art/Packets/field007-altar-types-v1.json) содержит точные
 hashes и новое evidence. Masters/provenance и runtime derivatives подготовлены

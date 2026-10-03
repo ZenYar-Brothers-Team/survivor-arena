@@ -32,6 +32,7 @@ FIELD003_ROADS_PACKET = ROOT / "docs/balance/field003-roads-v1.json"
 
 
 FIELD004_PACKET = ROOT / "docs/balance/field004-v1.json"
+FIELD004_TRAPS_PACKET = ROOT / "docs/balance/field004-traps-v1.json"
 
 
 LAYOUTS_PACKET = ROOT / "docs/balance/field-layouts-v1.json"
@@ -42,6 +43,7 @@ FIELD_DEV_BLOBS_PACKET = ROOT / "docs/balance/field-dev-blobs-v1.json"
 
 FIELD_DEV_ZONES_PACKET = ROOT / "docs/balance/field-dev-zones-v1.json"
 FIELD009_PACKET = ROOT / "docs/balance/field009-platforms-v1.json"
+FIELD010_PACKET = ROOT / "docs/balance/field010-screen-events-v1.json"
 
 
 FIELD006_PACKET = ROOT / "docs/balance/field006-zones-v1.json"
@@ -97,6 +99,10 @@ def load_baseline():
     if not str(field_four.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-004 packet is not Approved; production content cannot be generated.")
     data["field004"] = field_four
+    field_four_traps = json.loads(FIELD004_TRAPS_PACKET.read_text(encoding="utf-8"))
+    if not str(field_four_traps.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-004 traps packet is not Approved; production content cannot be generated.")
+    data["field004Traps"] = field_four_traps
     shared_cap = data["timeline"]["maxAliveEnemies"]
     if field_two["timeline"]["maxAliveEnemies"] != shared_cap or field_three["timeline"]["maxAliveEnemies"] != shared_cap or field_four["timeline"]["maxAliveEnemies"] != shared_cap:
         raise SystemExit("All production fields must share one ordinary-enemy cap.")
@@ -116,6 +122,10 @@ def load_baseline():
     if not str(sky_gate.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-009 platform packet is not Approved; production content cannot be generated.")
     data["field009"] = sky_gate
+    last_field = json.loads(FIELD010_PACKET.read_text(encoding="utf-8"))
+    if not str(last_field.get("approval", "")).startswith("Approved"):
+        raise SystemExit("FIELD-010 screen events packet is not Approved; production content cannot be generated.")
+    data["field010"] = last_field
     academy = json.loads(FIELD006_PACKET.read_text(encoding="utf-8"))
     if not str(academy.get("approval", "")).startswith("Approved"):
         raise SystemExit("FIELD-006 zone preview packet is not Approved.")
@@ -157,7 +167,7 @@ def card_field(card_id, field):
 # Complete input set for generation and check_project's reusable evidence fingerprint.
 SOURCE_PATHS = tuple(str(path.relative_to(ROOT)).replace("\\", "/") for path in (
     BASELINE, LATE_PACKET, SETS_PACKET, LOW_SETS_PACKET, ENEMIES_PACKET, FIELD002_PACKET,
-    BOSSES_PACKET, FIELD003_PACKET, FIELD003_ROADS_PACKET, FIELD004_PACKET, FIELD006_PACKET, FIELD007_PACKET, LAYOUTS_PACKET, FIELD_DEV_BLOBS_PACKET, FIELD_DEV_ZONES_PACKET, FIELD009_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
+    BOSSES_PACKET, FIELD003_PACKET, FIELD003_ROADS_PACKET, FIELD004_PACKET, FIELD004_TRAPS_PACKET, FIELD006_PACKET, FIELD007_PACKET, LAYOUTS_PACKET, FIELD_DEV_BLOBS_PACKET, FIELD_DEV_ZONES_PACKET, FIELD009_PACKET, FIELD010_PACKET, CHARACTERS_PACKET, TRAVELERS_PACKET, TRAVELERS_V2_PACKET,
     ROOT / "docs/Content_design.md",
     ROOT / "Assets/Resources/Content/Presentation/FixtureFieldEnvironmentPresentation.json",
 ))

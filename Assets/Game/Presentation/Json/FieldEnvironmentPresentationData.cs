@@ -51,5 +51,12 @@ namespace Game.Presentation.Json
         /// <summary>Optional per-run effect zones (magical map study); independent of the obstacle layout.</summary>
         public Game.Zones.Json.ZoneLayoutData ZoneLayout { get; set; }
         public AltarPresentationData AltarPresentation { get; set; }
+        /// <summary>Optional per-run turrets and barrels (DECISION-0156); independent of the obstacle layout.</summary>
+        public Game.Traps.Json.TrapLayoutData TrapLayout { get; set; }
+        /// <summary>Optional: horizontal fences collide only along the base of their sprite (a footprint) instead of a box in its middle.</summary>
+        public bool? FenceBaseContact { get; set; }
+        /// <summary>Optional per-run screen events with no map object behind them (DECISION-0157).</summary>
+        public Game.ScreenEvents.Json.ScreenEventsData ScreenEvents { get; set; }
+        public ScreenEventPresentationData ScreenEventPresentation { get; set; }
     }
 }

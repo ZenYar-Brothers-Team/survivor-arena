@@ -37,6 +37,8 @@ namespace Game.UI
         private SlowStatusPresenter _slowStatusPresenter;
         private RaidPresenter _raidPresenter;
         private UiToolkitRaidView _raidView;
+        private ScreenEventDevelopmentPresenter _screenEventPresenter;
+        private UiToolkitScreenEventDevelopmentView _screenEventView;
         private UiToolkitSlowStatusView _slowStatusView;
         private IBossEncounterRuntime _bosses;
         private OverheadHealthPresenter _overheadPresenter;
@@ -71,7 +73,7 @@ namespace Game.UI
             ContinuousFixtureEnemySpawner enemySpawner = null,
             IPlaytestSession playtest = null, IBossEncounterRuntime bosses = null, IPickupRuntime pickups = null, ITravelerRuntime travelers = null,
             IReadOnlyList<BuildEntryDefinition> allDraftEntries = null, ISlowStatusPreview slowStatus = null,
-            IMapPreviewSource mapPreview = null)
+            IMapPreviewSource mapPreview = null, IScreenEventDevelopmentControl screenEvents = null)
         {
             if (_initialized)
                 throw new InvalidOperationException("Gameplay UI root is already initialized.");
@@ -124,6 +126,8 @@ namespace Game.UI
             _slowStatusPresenter = new SlowStatusPresenter(slowStatus, _slowStatusView, Debug.isDebugBuild || Application.isEditor);
             _raidView = new UiToolkitRaidView(_document.rootVisualElement);
             _raidPresenter = new RaidPresenter(enemySpawner, _raidView, Debug.isDebugBuild || Application.isEditor);
+            _screenEventView = new UiToolkitScreenEventDevelopmentView(_document.rootVisualElement);
+            _screenEventPresenter = new ScreenEventDevelopmentPresenter(screenEvents, _screenEventView, Debug.isDebugBuild || Application.isEditor);
             _travelerView = new UiToolkitTravelerView(_document.rootVisualElement);
             var camera = Camera.main;
             _travelerPresenter = new TravelerPresenter(travelers, _travelerView,
@@ -179,6 +183,7 @@ namespace Game.UI
             _playtestPresenter.Refresh();
             _mapPreviewPresenter.Refresh();
             _raidPresenter.Refresh();
+            _screenEventPresenter.Refresh();
         }
 
         // DECISION-0110: every living mid-boss shows its own HP above its head; the top bar is final-boss only.
@@ -212,6 +217,8 @@ namespace Game.UI
             _pickupView?.Dispose();
             _raidPresenter?.Dispose();
             _raidView?.Dispose();
+            _screenEventPresenter?.Dispose();
+            _screenEventView?.Dispose();
             _slowStatusPresenter?.Dispose();
             _slowStatusView?.Dispose();
             _playtestPresenter?.Dispose();

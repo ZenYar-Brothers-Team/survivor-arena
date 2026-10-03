@@ -58,6 +58,13 @@ namespace Game.Presentation
         /// <summary>Per-run effect zones; null = none.</summary>
         public Game.Zones.ZoneLayoutDefinition ZoneLayout { get; }
         public AltarPresentationProfile AltarPresentation { get; }
+        /// <summary>Per-run projectile turrets and barrels (DECISION-0156); null = none.</summary>
+        public Game.Traps.TrapLayoutDefinition TrapLayout { get; }
+        /// <summary>Horizontal fences collide along the base of their sprite only (neutral default: the box fits the sprite as before).</summary>
+        public bool FenceBaseContact { get; }
+        /// <summary>Scheduled screen events that only ever hurt the player (DECISION-0157); null = none.</summary>
+        public Game.ScreenEvents.ScreenEventsDefinition ScreenEvents { get; }
+        public ScreenEventPresentationProfile ScreenEventPresentation { get; }
 
         public FieldEnvironmentPresentationDefinition(FieldEnvironmentPresentationData data)
         {
@@ -132,6 +139,16 @@ namespace Game.Presentation
                 throw new ArgumentException("interiorObstacleCount must match the blob layout count.");
             ZoneLayout = data.ZoneLayout == null ? null : new Game.Zones.ZoneLayoutDefinition(data.ZoneLayout);
             AltarPresentation = data.AltarPresentation == null ? null : new AltarPresentationProfile(data.AltarPresentation);
+            TrapLayout = data.TrapLayout == null ? null : new Game.Traps.TrapLayoutDefinition(data.TrapLayout);
+            FenceBaseContact = data.FenceBaseContact ?? false;
+            ScreenEvents = data.ScreenEvents == null ? null : new Game.ScreenEvents.ScreenEventsDefinition(data.ScreenEvents);
+            ScreenEventPresentation = data.ScreenEventPresentation == null ? null : new ScreenEventPresentationProfile(data.ScreenEventPresentation);
+            if (ScreenEventPresentation != null)
+            {
+                if (ScreenEvents == null) throw new ArgumentException("Screen-event art requires screen events.");
+                foreach (var id in ScreenEventPresentation.SweepArtwork.Keys)
+                    if (!ScreenEvents.Events.ContainsKey(id.ToString())) throw new ArgumentException("Screen-event art refers to an unknown event.");
+            }
             if (AltarPresentation != null && (ZoneLayout == null || ZoneLayout.Zones.Any(effect =>
                     !effect.IsAltar || effect.Kind == Game.Zones.ZoneEffectKind.Charge ||
                     effect.Polarity == Game.Zones.ZoneAltarPolarity.Neutral ||
@@ -194,6 +211,11 @@ namespace Game.Presentation
             }
             if (AltarPresentation != null)
                 foreach (var reference in AltarPresentation.GetReferencedContent()) yield return reference;
+            if (TrapLayout != null)
+                foreach (var spriteId in TrapLayout.Sprites.Values)
+                    yield return new ContentReference(new ContentId(spriteId), typeof(SpriteDefinition));
+            if (ScreenEventPresentation != null)
+                foreach (var reference in ScreenEventPresentation.GetReferencedContent()) yield return reference;
             yield return Ground.ToReference();
             yield return Fence.ToReference();
             yield return Obstacle.ToReference();

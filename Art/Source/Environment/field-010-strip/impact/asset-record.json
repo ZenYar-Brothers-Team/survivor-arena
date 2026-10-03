@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-STRIP",
+  "role": "impact",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE isolated transparent RGBA texture candidate for hostile celestial screen-event VFX in Survival Arena FIELD-010. Stylized flat 2D storybook cutout, crisp strong readable shapes, thick deep-plum separation, flat matte colors, simple cel shading, very sparse hand-painted texture. NOT a scene or 3D object. Orthographic strict TOP-DOWN planar effect, no perspective ellipse. No floor, cast shadow, UI frame, text, watermark, particles, bloom, blur, high-frequency details or contact sheet. Exactly one asset, generous transparent padding. Shared asset FIELD-010 strip IMPACT. One horizontal rectangular flash band, ratio 4:1, straight top/bottom edges with a narrow deep-plum outer outline and bold antique-gold ridge. An ivory-white broken lightning-like jagged core runs left to right, with large TRANSPARENT gaps among its flat geometric wedges. Stronger and more angular than a warning ribbon. Only 6 to 8 wedges, no detached debris, no glow or particles outside rectangle, no haze. Nine-sliced burst across rectangle and flowing texture for expanding gapped ring. Flat printed magical light, not a physical plaque or weapon.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-strip-impact.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "2172x724",
+    "sourceSha256": "7c30e60dc9211786e9136a5e039f2f8adb5db4e82b35f1ed84780770e757e469",
+    "runtimeSha256": "6f294d9a4161fb14ceb580ba32ac0cef6f72217bfaddfc8553b64c3ef645b07f",
+    "recipe": {
+      "mode": "fit",
+      "size": 1024,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

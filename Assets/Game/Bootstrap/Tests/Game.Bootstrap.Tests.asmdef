@@ -17,6 +17,8 @@
     "Game.Telemetry",
     "Game.Meta",
     "Game.Zones",
+    "Game.Traps",
+    "Game.ScreenEvents",
     "Game.Content.Json",
     "Game.Run",
     "Game.Combat",

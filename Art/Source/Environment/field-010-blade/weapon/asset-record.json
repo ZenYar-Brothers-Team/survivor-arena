@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-010-BLADE",
+  "role": "weapon",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-010 candidates selected 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "built-in image_gen",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03, after review of the eight FIELD-010 candidates: «хорошо, можешь встраивать в игру». Gallery Art/Candidates/field010-screen-events-2026-10-03/index.html; visual brief docs/art/briefs/field010-screen-events-visual-candidates-v1.md.",
+  "prompt": "Generate exactly ONE production-oriented candidate sprite for Survival Arena FIELD-010 celestial screen hazards. Style: stylized flat 2D storybook paper cutout, bold readable shapes, thick deep-plum contour, matte colors, simple cel shading, sparse hand-painted material texture, crisp edge, NO photorealism, NO 3D, NO pixel art. Orthographic gameplay graphic, top-down effect aligned horizontally; no scene, no floor, no shadow, no text, watermark, border, UI frame, particles, bloom, motion blur. Transparent RGBA background. Large clean silhouette, transparent padding of at least 8 percent all sides. This is a hostile celestial attack: ivory and antique gold masses, plum separation on a pink-orange floor. One isolated image only, no contact sheet, no variants. Asset SCREEN-EVENT-002 blade sweep body. Draw one broad horizontal celestial cleaving blade pointing exactly RIGHT: a SINGLE heavy curved ivory cutting wedge, edged in warm gold, a pronounced bevel of deep plum underneath, a short leftward stepped golden hilt, no hand. Overall width 2.5 times height, compact graphic mass. Read as a sweeping cutting blade rather than a spear or arrow. No extra blades, no trail. Sized about 4 by 2 world units under characters.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Geometry and timings from screen-event mechanics",
+    "Artwork below actors; no permanent bloom"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-010-blade-weapon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1983x793",
+    "sourceSha256": "2e1e9bb9c90cf254c5245b25ef07128b5d86e3aa4a00a5cebfb3fff32cfc74b5",
+    "runtimeSha256": "9ee7c56e7eac3fb743f0d0a65150acfa38746b9b4f925d0b6dad8385c887b5f5",
+    "recipe": {
+      "mode": "fit",
+      "size": 512,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

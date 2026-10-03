@@ -9,7 +9,9 @@
         "Game.Movement",
         "Game.Pooling",
         "Game.Diagnostics",
-        "Game.Zones"
+        "Game.Zones",
+        "Game.Traps",
+        "Game.ScreenEvents"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

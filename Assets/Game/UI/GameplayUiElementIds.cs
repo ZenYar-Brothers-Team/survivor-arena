@@ -132,6 +132,11 @@ namespace Game.UI
         public const string RaidSummary = "development-raid-summary";
         public const string RaidTemplateList = "development-raid-templates";
         public static string RaidStart(Game.Enemy.RaidTemplateKind kind) => "development-raid-start-" + kind.ToString().ToLowerInvariant();
+        public const string DevelopmentEventsTab = "development-tab-events";
+        public const string DevelopmentEventsPane = "development-pane-events";
+        public const string ScreenEventSummary = "development-events-summary";
+        public const string ScreenEventList = "development-events-list";
+        public static string ScreenEventStart(string eventId) => "development-events-start-" + eventId.ToLowerInvariant();
         public const string MapToggle = "development-map-toggle";
         public const string MapSummary = "development-map-summary";
         public const string MapOverlay = "development-map-overlay";

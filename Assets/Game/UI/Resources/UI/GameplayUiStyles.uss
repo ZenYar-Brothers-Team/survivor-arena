@@ -277,6 +277,7 @@
 }
 
 .development-tabs {
+    flex-wrap: wrap;
     margin-top: 6px;
     margin-bottom: 8px;
 }

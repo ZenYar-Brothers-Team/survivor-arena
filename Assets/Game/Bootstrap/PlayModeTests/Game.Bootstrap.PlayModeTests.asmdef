@@ -23,7 +23,9 @@
     "Game.Settings",
     "Game.Movement",
     "Game.Automation",
-    "Game.Zones"
+    "Game.Zones",
+    "Game.Traps",
+    "Game.ScreenEvents"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

@@ -78,6 +78,7 @@
                 <ui:Button name="development-tab-playtest" text="Playtest" class="development-tab" />
                 <ui:Button name="development-tab-map" text="Map" class="development-tab" />
                 <ui:Button name="development-tab-raid" text="Raid" class="development-tab" />
+                <ui:Button name="development-tab-events" text="Events" class="development-tab" />
             </ui:VisualElement>
             <ui:ScrollView name="development-pane-run" class="development-pane development-scroll">
                 <ui:Label text="RUN CONTROLS" class="development-section-title" />
@@ -173,6 +174,13 @@
                 <ui:VisualElement name="development-raid-templates" />
                 <ui:Label text="LIVE" class="development-section-title development-section-spaced" />
                 <ui:Label name="development-raid-summary" class="observation-label" />
+            </ui:ScrollView>
+            <ui:ScrollView name="development-pane-events" class="development-pane development-scroll">
+                <ui:Label text="SCREEN EVENTS" class="development-section-title" />
+                <ui:Label text="Экранные события поля: нажмите кнопку, и событие запустится через 2 секунды (красное предупреждение, затем удар только по игроку)." class="development-help" />
+                <ui:VisualElement name="development-events-list" />
+                <ui:Label text="LIVE" class="development-section-title development-section-spaced" />
+                <ui:Label name="development-events-summary" class="observation-label" />
             </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement name="development-map-overlay" class="development-map-overlay" picking-mode="Ignore" />
