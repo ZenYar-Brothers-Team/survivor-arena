@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-004-TRAP-BLADE",
+  "role": "weapon",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-004 trap candidates 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156.",
+  "prompt": "Use case: stylized-concept. Asset type: separate transparent 2D gameplay sprite for Survival Arena FIELD-004 knight camp trap kit. Reference image is an approved camp training dummy; match ONLY its hand-drawn storybook cutout rendering, warm wood, muted blue-grey iron, thick deep-plum outer contour, flat matte colors, simple 2-tone cel shading, slightly irregular dry-brush edges. No straw humanoid, face, heraldry or training dummy in the output. Orthographic 3/4 top-down gameplay view. Compact chunky readable silhouette, sparse large mechanical details, neutral animation-ready resting state. Real game size about 1.1–2.0 world units, readable when reduced to 80–150 pixels. Center attachment/rotation axis at exact center of square canvas; reserve 15% fully transparent padding on all sides. Transparent background with true alpha. No ground plane, no baked cast shadow, no glow, no effects, no particles, no text, letters, numbers, watermark, frames, people, photorealism, 3D render, plastic, pixel art or fine ornament. Only ONE sprite / ONE object, never a sheet. Content ID: FIELD-004-TRAP-PROJECTILE-BLADE. Asset role: projectile. ONLY one circular steel throwing blade/disc with several broad crescent edges around center, radial compact silhouette with central opening, bright pale steel face and dark plum edge. Rotates in screen plane and returns like boomerang; circle diameter0.7wu, no motion blur/trail.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Hit geometry comes from trap data, not from the sprite",
+    "Directional sprites face right (+X)"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/VFX/field-004-trap-blade-weapon.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "bf308d486d008941ee80db05dff1819340e897b2b436bd45e6b46e3ef545acf1",
+    "runtimeSha256": "156271ebf566e18ea4a2df158f1620ea51df043d316f1620d525ecc35f5a1a62",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

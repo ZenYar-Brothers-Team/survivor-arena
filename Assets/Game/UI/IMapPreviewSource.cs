@@ -14,6 +14,8 @@ namespace Game.UI
         IReadOnlyList<MapPreviewRoad> Roads { get; }
         /// <summary>All stationary altars, including resting and off-screen ones; empty for other fields.</summary>
         IReadOnlyList<MapPreviewAltar> Altars { get; }
+        /// <summary>Every trap turret and barrel of the field (FIELD-004), including far-away ones; empty for other fields.</summary>
+        IReadOnlyList<MapPreviewTrap> Traps => System.Array.Empty<MapPreviewTrap>();
         /// <summary>World rectangle the gameplay camera currently shows.</summary>
         Rect View { get; }
     }

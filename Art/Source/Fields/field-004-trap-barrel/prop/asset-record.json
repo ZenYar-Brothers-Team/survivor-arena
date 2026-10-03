@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentId": "FIELD-004-TRAP-BARREL",
+  "role": "prop",
+  "status": "approved",
+  "artDirectionRevision": "Approved storybook cutout; FIELD-004 trap candidates 2026-10-03",
+  "sourceKind": "ai-generated",
+  "generator": "OpenAI built-in image generation",
+  "selectedVersion": "v001/concept-01.png",
+  "approvedAt": "2026-10-03",
+  "approvedBy": "user",
+  "approvalEvidence": "User chat 2026-10-03: \"Дальше посмотри 2D арты, которые были сгенерированы другой лишкой для этой карты. И снаряды все возьми под ключи.\" Candidates Art/Candidates/field004-traps-2026-10-03 (projectile and barrel images); DECISION-0156.",
+  "prompt": "Use case: stylized-concept. Asset type: separate transparent 2D gameplay sprite for Survival Arena FIELD-004 knight camp trap kit. Reference image is an approved camp training dummy; match ONLY its hand-drawn storybook cutout rendering, warm wood, muted blue-grey iron, thick deep-plum outer contour, flat matte colors, simple 2-tone cel shading, slightly irregular dry-brush edges. No straw humanoid, face, heraldry or training dummy in the output. Orthographic 3/4 top-down gameplay view. Compact chunky readable silhouette, sparse large mechanical details, neutral animation-ready resting state. Real game size about 1.1–2.0 world units, readable when reduced to 80–150 pixels. Center attachment/rotation axis at exact center of square canvas; reserve 15% fully transparent padding on all sides. Transparent background with true alpha. No ground plane, no baked cast shadow, no glow, no effects, no particles, no text, letters, numbers, watermark, frames, people, photorealism, 3D render, plastic, pixel art or fine ornament. Only ONE sprite / ONE object, never a sheet. Content ID: TRAP-BARREL. Asset role: prop. ONLY one ordinary stout upright wooden supply barrel, broad light warm wood staves and two thick muted blue-grey iron hoops, readable lid in3/4 top-down view, squat round silhouette footprint1wu. This SAME image represents ordinary and explosive barrels: no skull, danger symbol, red paint, exposed fuse, fire or markings. No stand, no shadow.",
+  "constraints": [
+    "Transparent RGBA",
+    "No baked shadow or floor",
+    "Hit geometry comes from trap data, not from the sprite",
+    "Directional sprites face right (+X)"
+  ],
+  "runtimeOutputs": [
+    "Assets/Resources/Art/Sprites/Fields/field-004/field-004-trap-barrel-prop.png"
+  ],
+  "preparation": {
+    "sourceDimensions": "1254x1254",
+    "sourceSha256": "90e81ff0249dc9624485ed3f238357f15da2d7a11ca37474a0fda1482ef90e50",
+    "runtimeSha256": "a3364dfaca258855efaca62456709f4e696140d8621962194fbeb63f0d7d6460",
+    "recipe": {
+      "mode": "fit",
+      "size": 256,
+      "padding": 8,
+      "cropAlpha": true,
+      "alphaNoiseCutoff": 8
+    }
+  }
+}

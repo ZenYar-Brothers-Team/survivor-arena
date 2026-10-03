@@ -12,6 +12,7 @@ namespace Game.UI.Tests
         };
         public IReadOnlyList<MapPreviewRoad> Roads { get; set; } = new List<MapPreviewRoad>();
         public IReadOnlyList<MapPreviewAltar> Altars { get; set; } = new List<MapPreviewAltar>();
+        public IReadOnlyList<MapPreviewTrap> Traps { get; set; } = new List<MapPreviewTrap>();
         public Rect View { get; set; } = new Rect(-8.9f, -5f, 17.8f, 10f);
     }
 }

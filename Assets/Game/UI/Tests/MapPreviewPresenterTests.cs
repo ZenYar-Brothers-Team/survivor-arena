@@ -47,6 +47,24 @@ namespace Game.UI.Tests
         }
 
         [Test]
+        public void Presenter_WithTraps_PassesThemAndCountsTurretsAndBarrels()
+        {
+            var source = new FakeMapPreviewSource
+            {
+                Traps = new[]
+                {
+                    new MapPreviewTrap(new Vector2(5, 5), .7f, false, false, true),
+                    new MapPreviewTrap(new Vector2(-5, 5), 0f, true, true, true)
+                }
+            };
+            var view = new FakeMapPreviewView();
+            using var presenter = new MapPreviewPresenter(source, view, true);
+            view.Toggle();
+            Assert.AreSame(source.Traps, view.State.Traps);
+            StringAssert.Contains("ловушек: 1, бочек: 1", view.State.Summary);
+        }
+
+        [Test]
         public void Presenter_WithAltars_PassesActualRadiiAndRestingOffscreenMarkers()
         {
             var source = new FakeMapPreviewSource

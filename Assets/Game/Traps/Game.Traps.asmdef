@@ -1,0 +1,18 @@
+{
+    "name": "Game.Traps",
+    "rootNamespace": "Game.Traps",
+    "references": [
+        "Game.Content",
+        "Game.Diagnostics",
+        "Game.Zones"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

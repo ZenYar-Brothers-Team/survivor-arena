@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Presentation;
 using Game.UI;
+using Game.Traps;
 using Game.Zones;
 using Game.Diagnostics;
 using UnityEngine;
@@ -24,15 +25,19 @@ namespace Game.Bootstrap
         private List<MapPreviewRoad> _roads;
         private Rect? _arenaRect;
         private readonly ZoneRuntime _zones;
+        private readonly TrapRuntime _trapRuntime;
+        private List<MapPreviewTrap> _traps;
         private readonly List<ZonePlacement> _altarZones = new List<ZonePlacement>();
         private readonly List<MapPreviewAltar> _altars = new List<MapPreviewAltar>();
 
-        public FieldMapPreviewSource(FieldEnvironmentArtRuntime art, Func<Rect> arena, Camera camera, ZoneRuntime zones = null)
+        public FieldMapPreviewSource(FieldEnvironmentArtRuntime art, Func<Rect> arena, Camera camera, ZoneRuntime zones = null,
+            TrapRuntime traps = null)
         {
             _art = art ?? throw new ArgumentNullException(nameof(art));
             _arena = arena ?? throw new ArgumentNullException(nameof(arena));
             _camera = camera;
             _zones = zones;
+            _trapRuntime = traps;
             if (zones != null)
                 foreach (var zone in zones.Zones)
                     if (zone.Effect.IsAltar)
@@ -54,6 +59,22 @@ namespace Game.Bootstrap
                         zone.Effect.Polarity == ZoneAltarPolarity.Negative, zone.IsActive(_zones.Time));
                 }
                 return _altars;
+            }
+        }
+
+        /// <summary>Turrets and barrels with their current barrel state; the list is rebuilt in place on each read.</summary>
+        public IReadOnlyList<MapPreviewTrap> Traps
+        {
+            get
+            {
+                if (_trapRuntime == null) return Array.Empty<MapPreviewTrap>();
+                _traps ??= new List<MapPreviewTrap>();
+                _traps.Clear();
+                foreach (var trap in _trapRuntime.Traps)
+                    _traps.Add(new MapPreviewTrap(trap.Center, trap.Type.BodyRadius, false, false, true));
+                foreach (var barrel in _trapRuntime.Barrels)
+                    _traps.Add(new MapPreviewTrap(barrel.Center, 0f, true, barrel.Explosive, barrel.State != TrapBarrelState.Exploded));
+                return _traps;
             }
         }
 

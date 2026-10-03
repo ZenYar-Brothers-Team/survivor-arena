@@ -1,0 +1,13 @@
+# TRAP-002 Blender comparison evidence
+
+Revision 3 follows user feedback that the top metal plate is too bright. Only `Hub-Top` received a separate dark blue-grey emission material with broad low-contrast object-space noise. Geometry, prior top-face separation and spear steel are unchanged. Material values are recorded in build-verification.json and reproduced by build_model.py. Native EEVEE preview was rerendered after the adjustment.
+
+Revision 2 follows user feedback on flickering upper faces. Inspection found coincident wooden shaft/crossbar top surfaces at local Z=0.085, plus intersecting equal-height crossbars. Shaft height was increased by 0.018; the second crossbar lowered by 0.012, correcting a mismatched name condition in the authoring script. The resulting top-face separation is recorded in build-verification.json. Native Blender animation was rerendered after this change; the original Unity version remains unchanged.
+
+User requested a Blender analogue and clarified that the Unity version must not be edited. [Model, source and review instructions](../../../Art/Prototypes/field004-trap-cross-blender/README.md) are separate from Unity assets.
+
+Blender MCP confirmed native Blender 5.2.2 LTS, addon protocol 13, and the initial default scene. The authoring script created a separate scene with 40 body meshes, 40 continuous contour shells, a camera and three parent objects (84 total), preserving the existing scene. A native viewport screenshot and scene inventory confirmed the model; native frame 1 was visually inspected.
+
+Native Blender EEVEE animation render completed 144 PNG frames at 1080×1080, 64 samples, without lights. Log: `TestResults/trap-cross-blender-render.log`, ending `Blender quit`; render process exit 0. [Build verification](../../../Art/Prototypes/field004-trap-cross-blender/build-verification.json) covers all 144 angles: stationary base and head attachment drift 0, spear orbit drift below 0.000001. Contours use continuous vertex normals, edges are bevelled, cylinders have 48 sides, material noise is broad and attached to objects; coincident crossbar faces are separated. These address likely shimmer sources without claiming the original cause has been isolated.
+
+[Browser comparison](../../../Art/Prototypes/field004-trap-cross-blender/preview/index.html) uses a shared angle and unchanged original Unity frames alongside Blender frames. Native shaders/render sampling differ, so this compares authoring results and does not establish equivalent Unity runtime rendering. Original Unity meshes, code, configuration and preview were not edited. No production binding or raster master preparation occurred; raster art pipeline and Unity tests are outside this isolated Blender experiment.

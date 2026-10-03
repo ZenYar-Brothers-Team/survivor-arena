@@ -34,10 +34,17 @@ namespace Game.UI
             var obstacles = _source.Obstacles;
             var roads = _source.Roads;
             var altars = _source.Altars;
+            var traps = _source.Traps;
             var summary = $"Арена {arena.width:0}×{arena.height:0}, препятствий: {obstacles.Count}";
             if (roads.Count > 0) summary += $", участков дорог: {roads.Count}";
             if (altars.Count > 0) summary += $", алтарей: {altars.Count}";
-            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, roads, _source.View, summary, altars));
+            if (traps != null && traps.Count > 0)
+            {
+                var barrels = 0;
+                foreach (var trap in traps) if (trap.Barrel) barrels++;
+                summary += $", ловушек: {traps.Count - barrels}, бочек: {barrels}";
+            }
+            _view.Render(new MapPreviewViewState(true, true, arena, obstacles, roads, _source.View, summary, altars, traps));
         }
 
         private void Toggle()

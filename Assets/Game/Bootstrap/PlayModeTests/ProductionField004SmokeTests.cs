@@ -55,18 +55,21 @@ namespace Game.Bootstrap.PlayModeTests
                 Assert.AreEqual("FIELD-004", run.Model.Selection.FieldId.ToString());
                 var art = GameObject.Find("FieldEnvironmentArt");
                 // DECISION-0068: the colliders are exactly this run's generated layout.
-                var layout = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
-                    .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION").ObstacleLayout;
-                var expected = FieldObstacleLayoutGenerator.Generate(layout, 200f, Vector2.zero, root.LayoutSeed, "FIELD-004-ENVIRONMENT");
+                var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
+                    .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION");
+                var layout = presentation.ObstacleLayout;
+                // DECISION-0156: the traps are laid out first and the obstacles avoid their bodies.
+                var traps = Game.Traps.TrapPlacementGenerator.Generate(presentation.TrapLayout, 100f, Vector2.zero, null, root.TrapSeed);
+                var exclusions = new System.Collections.Generic.List<FieldObstacleExclusion>();
+                foreach (var trap in traps.Traps)
+                    exclusions.Add(new FieldObstacleExclusion(trap.Center, trap.Type.BodyRadius *
+                        presentation.TrapLayout.Models[trap.ModelKey].Scale + presentation.TrapLayout.ObstacleClearance));
+                foreach (var barrel in traps.Barrels)
+                    exclusions.Add(new FieldObstacleExclusion(barrel.Center,
+                        presentation.TrapLayout.Barrels.BodyRadius + presentation.TrapLayout.ObstacleClearance));
+                var expected = FieldObstacleLayoutGenerator.Generate(layout, 100f, Vector2.zero, root.LayoutSeed, "FIELD-004-ENVIRONMENT", exclusions);
                 Assert.AreEqual(expected.Count, art.GetComponentsInChildren<Collider2D>().Length);
-                var vertical = expected.First(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width);
-                var wall = art.GetComponentsInChildren<BoxCollider2D>().Single(c => c.gameObject.name == vertical.Id.ToString());
-                Physics2D.SyncTransforms();
-                var wallVisual = wall.GetComponent<SpriteRenderer>().bounds;
-                Assert.Less(wall.bounds.size.x, wallVisual.size.x * .9f,
-                    "A vertical wall must not block the player in its transparent side padding.");
-                Assert.Greater(wall.bounds.size.y, vertical.Height * .85f,
-                    "The wall remains a long obstacle after fitting its visible shape.");
+                Assert.IsFalse(expected.Any(o => o.Kind == FieldObstacleKind.Fence), "No palisade fences among the obstacles.");
                 // The smoke checks layout and spawn pool; an idle player may not survive 12 s of FIELD-004 after the
                 // DECISION-0073 skill nerf, so health is locked as with the development toggle.
                 Object.FindAnyObjectByType<Game.Character.PlayerCharacterRuntime>().Health.IsLocked = true;

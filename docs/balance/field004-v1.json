@@ -80,12 +80,12 @@
     "obstacles": []
   },
   "layout": {
-    "cellSize": 48,
+    "cellSize": 25,
     "patternsPerCell": 1,
     "edgeMargin": 5,
-    "cellMargin": 4,
+    "cellMargin": 3,
     "startClearRadius": 12,
-    "minPatternGap": 6,
+    "minPatternGap": 4,
     "placementAttempts": 40,
     "referenceSeed": 4002,
     "patterns": [
@@ -93,46 +93,15 @@
         "id": "PALISADE-LINE",
         "weight": 42,
         "rotations": [
-          0,
-          90
+          0
         ],
         "pieces": [
-          {
-            "kind": "Fence",
-            "x": -5,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
-          {
-            "kind": "Fence",
-            "x": 0,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
-          {
-            "kind": "Fence",
-            "x": 5,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
           {
             "kind": "Stump",
             "x": -3.2,
             "y": 2.2,
-            "width": 1.5,
-            "height": 1.15,
+            "width": 1.1,
+            "height": 0.85,
             "visualIds": [
               "FIELD-004-VISUAL-SUPPLY-CRATE",
               "FIELD-004-VISUAL-BRAZIER"
@@ -142,8 +111,8 @@
             "kind": "Stump",
             "x": 3.2,
             "y": -2.2,
-            "width": 1.8,
-            "height": 1.2,
+            "width": 1.3,
+            "height": 0.9,
             "visualIds": [
               "FIELD-004-VISUAL-TRAINING-DUMMY",
               "FIELD-004-VISUAL-SUPPLY-CRATE"
@@ -152,51 +121,18 @@
         ]
       },
       {
-        "id": "TENT-POST",
+        "id": "CART-POST",
         "weight": 34,
         "rotations": [
-          0,
-          90,
-          180,
-          270
+          0
         ],
         "pieces": [
           {
-            "kind": "Fence",
-            "x": -4.4,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
-          {
-            "kind": "Fence",
-            "x": 0,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
-          {
             "kind": "Stump",
-            "x": 3.4,
-            "y": 1.9,
-            "width": 2.1,
-            "height": 1.6,
-            "visualIds": [
-              "FIELD-004-VISUAL-TENT"
-            ]
-          },
-          {
-            "kind": "Stump",
-            "x": 3.7,
-            "y": -2.3,
-            "width": 1.9,
-            "height": 1.25,
+            "x": 3.6,
+            "y": -2.4,
+            "width": 2.0,
+            "height": 1.4,
             "visualIds": [
               "FIELD-004-VISUAL-SUPPLY-CART"
             ]
@@ -207,36 +143,15 @@
         "id": "DRILL-ROW",
         "weight": 24,
         "rotations": [
-          0,
-          90
+          0
         ],
         "pieces": [
-          {
-            "kind": "Fence",
-            "x": -3.8,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
-          {
-            "kind": "Fence",
-            "x": 3.8,
-            "y": 0,
-            "width": 3.6,
-            "height": 0.72,
-            "visualIds": [
-              "FIELD-004-VISUAL-PALISADE"
-            ]
-          },
           {
             "kind": "Stump",
             "x": 0,
             "y": 2.7,
-            "width": 1.4,
-            "height": 1.2,
+            "width": 1.0,
+            "height": 0.9,
             "visualIds": [
               "FIELD-004-VISUAL-TRAINING-DUMMY"
             ]
@@ -245,8 +160,8 @@
             "kind": "Stump",
             "x": 0,
             "y": -2.7,
-            "width": 1.5,
-            "height": 1.15,
+            "width": 1.1,
+            "height": 0.85,
             "visualIds": [
               "FIELD-004-VISUAL-BRAZIER"
             ]
@@ -900,5 +815,6 @@
         }
       }
     ]
-  }
+  },
+  "layoutNote": "User requests 2026-10-03 (DECISION-0156): 100 x 100 arena; pieces about a third smaller, cells 25; palisades only horizontal and smaller (1.8 x 0.45, the collider is the footprint at the sprite base); the tent is removed; the supply cart is bigger (2.0 x 1.4)."
 }

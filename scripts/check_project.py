@@ -137,8 +137,9 @@ def static_checks(scope, paths, base="HEAD", root=ROOT):
     # Unity emits empty YAML values with trailing spaces in generated .meta files.
     # Import/GUID checks cover them; do not fail the text whitespace check on those.
     text_paths = [p for p in paths if not p.endswith(".meta")]
-    if text_paths:
-        command(["git", "diff", "--check", "HEAD", "--", *text_paths], root)
+    # Chunked: a large working tree must not overflow the Windows command-line limit (WinError 206).
+    for start in range(0, len(text_paths), 100):
+        command(["git", "diff", "--check", "HEAD", "--", *text_paths[start:start + 100]], root)
     for relative in paths:
         path = inside(root, relative)
         if path.is_file() and path.suffix == ".json":

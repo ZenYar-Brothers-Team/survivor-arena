@@ -70,7 +70,37 @@ namespace Game.UI
             }
             Frame(painter, ToPanel, state.Arena, ArenaColor, 2f);
             if (state.Altars != null) DrawAltars(painter, ToPanel, state.Altars, scale);
+            if (state.Traps != null) DrawTraps(painter, ToPanel, state.Traps);
             Frame(painter, ToPanel, state.View, ViewColor, 2f);
+        }
+
+        // Turrets are red diamonds, barrels small dots (explosive ones orange); a blown barrel is only an outline.
+        private static void DrawTraps(Painter2D painter, Func<Vector2, Vector2> toPanel, IReadOnlyList<MapPreviewTrap> traps)
+        {
+            using var guard = PerfGuard.Measure("UI.MapTraps", 2f);
+            foreach (var trap in traps)
+            {
+                var center = toPanel(trap.Center);
+                painter.BeginPath();
+                if (trap.Barrel)
+                {
+                    painter.Arc(center, 2.5f, Angle.Degrees(0f), Angle.Degrees(360f));
+                    var color = trap.Explosive ? new Color(1f, .55f, .1f, 1f) : new Color(.62f, .45f, .3f, 1f);
+                    if (trap.Intact) { painter.fillColor = color; painter.Fill(); }
+                    else { color.a = .5f; painter.strokeColor = color; painter.lineWidth = 1f; painter.Stroke(); }
+                    continue;
+                }
+                painter.MoveTo(center + new Vector2(0f, -5f));
+                painter.LineTo(center + new Vector2(5f, 0f));
+                painter.LineTo(center + new Vector2(0f, 5f));
+                painter.LineTo(center + new Vector2(-5f, 0f));
+                painter.ClosePath();
+                painter.fillColor = new Color(.95f, .15f, .12f, 1f);
+                painter.Fill();
+                painter.strokeColor = new Color(0f, 0f, 0f, .7f);
+                painter.lineWidth = 1f;
+                painter.Stroke();
+            }
         }
 
         private static void DrawAltars(Painter2D painter, Func<Vector2, Vector2> toPanel,

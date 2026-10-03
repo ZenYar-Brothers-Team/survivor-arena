@@ -354,12 +354,46 @@ namespace Game.Bootstrap
                 var scale = length / Mathf.Max(0.0001f, sprite.bounds.size.x) * (isFence ? 1f : definition.ObstacleScale);
                 var renderer = CreateSprite(obstacle.Id, sprite, position, scale, upright ? 90f : 0f, -2, _root.transform);
                 var box = renderer.gameObject.AddComponent<BoxCollider2D>();
-                FitObstacleBox(box, sprite, length, thickness, scale);
+                if (isFence && !upright && definition.FenceBaseContact) FitFenceBase(box, sprite, thickness, scale);
+                else FitObstacleBox(box, sprite, length, thickness, scale);
                 box.excludeLayers = ~(1 << playerLayer);
                 _obstacleColliders.Add(box);
                 positions.Add(position);
             }
             return positions;
+        }
+
+        // A tall palisade sprite stands on its base: the collider is the footprint there (the full opaque width, the authored
+        // thickness, resting on the lowest opaque row), so the player cannot walk through the stakes yet passes behind the tops.
+        private void FitFenceBase(BoxCollider2D box, Sprite sprite, float thickness, float scale)
+        {
+            var contact = ContactBounds(sprite);
+            var height = Mathf.Min(thickness / scale, contact.height);
+            box.size = new Vector2(contact.width, height);
+            box.offset = new Vector2(contact.center.x, contact.yMin + height * .5f);
+        }
+
+        private Rect ContactBounds(Sprite sprite)
+        {
+            if (_obstacleContactBounds.TryGetValue(sprite, out var cached)) return cached;
+            var points = new List<Vector2>();
+            var minimum = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+            var maximum = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+            for (var shape = 0; shape < sprite.GetPhysicsShapeCount(); shape++)
+            {
+                points.Clear();
+                sprite.GetPhysicsShape(shape, points);
+                foreach (var point in points)
+                {
+                    minimum = Vector2.Min(minimum, point);
+                    maximum = Vector2.Max(maximum, point);
+                }
+            }
+            var contact = float.IsPositiveInfinity(minimum.x)
+                ? new Rect(sprite.bounds.min, sprite.bounds.size)
+                : Rect.MinMaxRect(minimum.x, minimum.y, maximum.x, maximum.y);
+            _obstacleContactBounds.Add(sprite, contact);
+            return contact;
         }
 
         // The authored rectangle sizes the prop. Its transparent sprite padding must not block the player.

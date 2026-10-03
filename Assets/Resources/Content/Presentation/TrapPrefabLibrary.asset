@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5beafb8df37b47f582015c9ec158536a, type: 3}
+  m_Name: TrapPrefabLibrary
+  m_EditorClassIdentifier: 
+  entries:
+  - key: trap-001
+    prefab: {fileID: 4248328875385419648, guid: f429e5105c86d684f9cf68b0331df33c, type: 3}
+  - key: trap-002
+    prefab: {fileID: 567876269092120572, guid: cfe86b5c8cabaf441b1d2bd31561e40a, type: 3}
+  - key: trap-003
+    prefab: {fileID: 5417036393884398661, guid: 7dc461ab0fccdde4fb3ae8f929be1613, type: 3}
+  - key: trap-004
+    prefab: {fileID: 8980643316287588665, guid: 1993d99902cb50c44aca2b686d052e21, type: 3}
+  - key: trap-005
+    prefab: {fileID: 7613121453612937151, guid: 77b01d3db055f2d45a2fdab8d450d880, type: 3}
+  - key: trap-006
+    prefab: {fileID: 8040216655880086426, guid: 1a745d6dea32bfd41853f9db03640668, type: 3}
+  - key: trap-007
+    prefab: {fileID: 6073123458776146783, guid: 02be8a75bf090a147b5a33bb73bfec3e, type: 3}
+  - key: trap-008
+    prefab: {fileID: 3703725655610857972, guid: bc82156646982fe4d9c28101c588d836, type: 3}
+  - key: trap-009
+    prefab: {fileID: 668557896309709459, guid: 58719edf1797e83449c7ff786ee65052, type: 3}
+  - key: trap-010
+    prefab: {fileID: 906074106827340973, guid: 3bce8d6b65e3c6a48839c85684eb3d83, type: 3}
+  - key: trap-011
+    prefab: {fileID: 1386876087850329945, guid: 8c814c4b0ce3dcb48846a2bda71e231b, type: 3}
+  - key: trap-012
+    prefab: {fileID: 4815780307868943160, guid: 90623a924e17c1741b8f8931e9ba14b5, type: 3}
+  - key: trap-013
+    prefab: {fileID: 3183017919397551346, guid: 1936956245a31a746b16ec24732731ac, type: 3}

@@ -1,0 +1,33 @@
+{
+  "blender": "5.2.2 LTS",
+  "meshParts": 40,
+  "frames": 144,
+  "noLights": true,
+  "headAxis": "Z up, physical 3D rotation",
+  "cameraMatchesUnityRevision2": true,
+  "continuousContourTopology": true,
+  "bevelSegments": 3,
+  "cylinderSegments": 48,
+  "previewResolution": 1080,
+  "originalUnityUntouched": true,
+  "verifiedRotationFrames": 144,
+  "maxBaseMatrixDrift": 0.0,
+  "maxHeadAnchorDrift": 0.0,
+  "maxSpearRadiusDrift": 5.44911263888892e-08,
+  "topFaceFix": {
+    "crossbarZOffset": -0.012,
+    "shaftOffset": 0.018,
+    "previousCoincidentTopZ": 0.085,
+    "shaftTopZ": 0.103
+  },
+  "hubTopMaterial": {
+    "srgb": [
+      0.48,
+      0.51,
+      0.55
+    ],
+    "objectSpaceNoiseScale": 6,
+    "scope": "Hub-Top only",
+    "lighting": "emission, no shadows"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Game.ArtPrototypes.Editor",
+  "rootNamespace": "Game.ArtPrototypes.Editor",
+  "references": ["Unity.Newtonsoft.Json", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime"],
+  "includePlatforms": ["Editor"]
+}

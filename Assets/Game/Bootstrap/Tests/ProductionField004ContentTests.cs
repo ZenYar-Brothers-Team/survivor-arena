@@ -56,29 +56,35 @@ namespace Game.Bootstrap.Tests
         {
             var presentation = FixtureFieldEnvironmentPresentationCatalog.Load(RuntimeContentCatalog.ProductionFieldPresentationPath)
                 .Values.Single(p => p.Id.ToString() == "FIELD-004-PRESENTATION");
-            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
+            // User request 2026-10-03: the fourth map is 100 x 100 with smaller obstacles; 25-unit cells give nine camp setups.
+            var side = presentation.ArenaSideLength.Value;
+            Assert.AreEqual(100f, side);
+            var obstacles = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, side, UnityEngine.Vector2.zero,
                 presentation.ObstacleLayout.ReferenceSeed, "FIELD-004-ENVIRONMENT");
-            Assert.That(obstacles.Count, Is.InRange(32, 56), "One sparse camp setup per 48-unit cell.");
-            Assert.That(obstacles.Count(o => o.Kind == FieldObstacleKind.Fence), Is.InRange(16, 30), "Long palisade segments.");
-            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Width > o.Height));
-            Assert.IsTrue(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence && o.Height > o.Width));
+            Assert.That(obstacles.Count, Is.InRange(10, 30), "One sparse camp setup per 25-unit cell (crates, dummies, braziers, carts).");
+            Assert.IsTrue(obstacles.All(o => o.Width <= 2.0f && o.Height <= 1.5f), "The big obstacles were made smaller.");
+            Assert.IsFalse(obstacles.Any(o => o.Kind == FieldObstacleKind.Fence), "The palisade fences were removed from the obstacle generation (user request 2026-10-03).");
             Assert.IsTrue(obstacles.All(o => FieldObstacleLayoutGenerator.Distance(
                 new UnityEngine.Rect(o.X - o.Width / 2, o.Y - o.Height / 2, o.Width, o.Height), UnityEngine.Vector2.zero) >= 12f - 1e-3f),
                 "The 12-unit camp start circle stays free.");
             Assert.AreEqual("FIELD-004-VISUAL-GROUND", presentation.Ground.Id.ToString());
             Assert.AreEqual("FIELD-004-VISUAL-PALISADE", presentation.Fence.Id.ToString());
-            var props = new[] { "FIELD-004-VISUAL-PALISADE", "FIELD-004-VISUAL-TENT", "FIELD-004-VISUAL-SUPPLY-CART",
+            // The tent was removed from the obstacles (user request 2026-10-03).
+            var props = new[] { "FIELD-004-VISUAL-SUPPLY-CART",
                 "FIELD-004-VISUAL-BRAZIER", "FIELD-004-VISUAL-SUPPLY-CRATE", "FIELD-004-VISUAL-TRAINING-DUMMY" };
             var selected = new System.Collections.Generic.HashSet<string>();
             for (var seed = 0; seed < 20; seed++)
             {
-                var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, 200f, UnityEngine.Vector2.zero,
+                var run = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, side, UnityEngine.Vector2.zero,
                     seed, "FIELD-004-ENVIRONMENT");
                 var visuals = run.Where(item => item.VisualId.IsValid).Select(item => item.VisualId.ToString()).Distinct().ToArray();
-                CollectionAssert.IsSubsetOf(props, visuals, $"No unapproved prop is selected (seed {seed}).");
+                CollectionAssert.IsSubsetOf(visuals, props, $"No unapproved prop is selected (seed {seed}).");
                 foreach (var visual in visuals) selected.Add(visual);
             }
             CollectionAssert.AreEquivalent(props, selected.ToArray(), "Every approved camp prop is selected across the reference seeds.");
+            var cart = FieldObstacleLayoutGenerator.Generate(presentation.ObstacleLayout, side, UnityEngine.Vector2.zero, 1, "FIELD-004-ENVIRONMENT")
+                .Where(o => o.VisualId.IsValid && o.VisualId.ToString() == "FIELD-004-VISUAL-SUPPLY-CART").ToArray();
+            Assert.IsTrue(cart.All(o => o.Width >= 2.0f - 1e-3f && o.Height >= 1.4f - 1e-3f), "The supply cart is bigger.");
         }
 
         [Test]
